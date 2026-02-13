@@ -1,6 +1,8 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.tileentity.TilePresentBox;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.tileentity.TilePresentBox;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -25,6 +27,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PresentBox extends Block {
    public static final PropertyInteger TEXTYPE = PropertyInteger.create("type", 0, 5);
@@ -65,11 +69,17 @@ public class PresentBox extends Block {
       } else {
          TileEntity tileentity = worldIn.getTileEntity(pos);
          if (tileentity instanceof TilePresentBox) {
-            playerIn.displayGUIChest((TilePresentBox)tileentity);
+//            playerIn.displayGUIChest((TilePresentBox)tileentity);
+            onBlockActivated_Client_1(playerIn, tileentity);
          }
 
          return true;
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onBlockActivated_Client_1(EntityPlayer playerIn, TileEntity tileentity) {
+      playerIn.displayGUIChest((TilePresentBox)tileentity);
    }
 
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

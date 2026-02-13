@@ -1,17 +1,19 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.PhoenixGhostCapeModel;
-import com.vivern.arpg.elements.models.PhoenixGhostModel;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.proxy.ClientProxy;
-import com.vivern.arpg.renders.GUNParticle;
+import com.Vivern.Arpg.elements.models.PhoenixGhostCapeModel;
+import com.Vivern.Arpg.elements.models.PhoenixGhostModel;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Keys;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.proxy.ClientProxy;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -59,6 +61,7 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (type == RenderType.BODY) {
          float plrotation = MathHelper.wrapDegrees(player.rotationYaw);
@@ -330,6 +333,7 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
    }
 
    @SubscribeEvent
+   @SideOnly(Side.CLIENT)
    public static void onPlayerRender(Pre e) {
       ItemStack stack = BaublesApi.getBaubles(e.getEntityPlayer()).getStackInSlot(5);
       if (stack.getItem() == ItemsRegister.PHOENIXGHOSTCAPE && stack.getItemDamage() != 0 && stack.getItemDamage() != 10) {

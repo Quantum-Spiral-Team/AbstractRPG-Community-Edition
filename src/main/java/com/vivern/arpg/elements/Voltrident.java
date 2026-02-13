@@ -1,24 +1,13 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.entity.EntityStreamLaserP;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.GUNParticle;
 import com.google.common.collect.Multimap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -38,6 +27,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Voltrident extends ItemWeapon {
    public static ShardType shardneed = ShardType.ELECTRIC;
@@ -110,7 +105,8 @@ public class Voltrident extends ItemWeapon {
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
          Item itemIn = itemstack.getItem();
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
          float mana = Mana.getMana(player);
          float power = Mana.getMagicPowerMax(player);
          int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
@@ -292,55 +288,7 @@ public class Voltrident extends ItemWeapon {
                float horizoffset = powerOn ? 0.0F : (shootingSide ? 0.12F : -0.12F);
                NBTHelper.SetNBTboolean(itemstack, !shootingSide, "side");
                if (world.isRemote) {
-                  for (int p = 0; p < 4; p++) {
-                     int livetm = 15 + itemRand.nextInt(10);
-                     float scl = 0.08F + (float)itemRand.nextGaussian() / 20.0F;
-                     GUNParticle bigsmoke2 = new GUNParticle(
-                        this.sparkle,
-                        scl,
-                        0.1F,
-                        livetm,
-                        240,
-                        world,
-                        vec.x,
-                        vec.y,
-                        vec.z,
-                        (float)itemRand.nextGaussian() / 10.0F,
-                        (float)itemRand.nextGaussian() / 10.0F + 0.06F,
-                        (float)itemRand.nextGaussian() / 10.0F,
-                        1.0F - itemRand.nextFloat() / 5.0F,
-                        1.0F - itemRand.nextFloat() / 8.0F,
-                        1.0F,
-                        true,
-                        itemRand.nextInt(360),
-                        true,
-                        1.9F
-                     );
-                     bigsmoke2.scaleTickAdding = -scl / livetm;
-                     bigsmoke2.alphaGlowing = true;
-                     world.spawnEntity(bigsmoke2);
-                  }
-
-                  EntityStreamLaserP laser = new EntityStreamLaserP(
-                     world,
-                     player,
-                     this.start,
-                     0.08F,
-                     240,
-                     0.8F,
-                     0.9F,
-                     1.0F,
-                     0.5F,
-                     player.getDistance(vec.x, vec.y, vec.z),
-                     3,
-                     0.3F,
-                     8.0F
-                  );
-                  laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
-                  laser.horizOffset = horizoffset;
-                  laser.horizontal = false;
-                  laser.distanceStart = 0.6F;
-                  world.spawnEntity(laser);
+                  this.onUpdate_Client_1(world, player, vec, horizoffset);
                }
 
                IWeapon.fireEffectExcl(
@@ -359,7 +307,8 @@ public class Voltrident extends ItemWeapon {
                   player.posY,
                   player.posZ
                );
-            } else if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && level_stop_at == -1) {
+//            } else if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && level_stop_at == -1) {
+            } else if (this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK) && level_stop_at == -1) {
                int levelStopAtNew = CrystalStar.getLevelToStopEmpower(player, itemstack);
                if (levelStopAtNew != -1) {
                   world.playSound(
@@ -372,7 +321,61 @@ public class Voltrident extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   public void onUpdate_Client_1(World world, EntityPlayer player, Vec3d vec, float horizoffset) {
+      for (int p = 0; p < 4; p++) {
+         int livetm = 15 + itemRand.nextInt(10);
+         float scl = 0.08F + (float)itemRand.nextGaussian() / 20.0F;
+         GUNParticle bigsmoke2 = new GUNParticle(
+                 this.sparkle,
+                 scl,
+                 0.1F,
+                 livetm,
+                 240,
+                 world,
+                 vec.x,
+                 vec.y,
+                 vec.z,
+                 (float)itemRand.nextGaussian() / 10.0F,
+                 (float)itemRand.nextGaussian() / 10.0F + 0.06F,
+                 (float)itemRand.nextGaussian() / 10.0F,
+                 1.0F - itemRand.nextFloat() / 5.0F,
+                 1.0F - itemRand.nextFloat() / 8.0F,
+                 1.0F,
+                 true,
+                 itemRand.nextInt(360),
+                 true,
+                 1.9F
+         );
+         bigsmoke2.scaleTickAdding = -scl / livetm;
+         bigsmoke2.alphaGlowing = true;
+         world.spawnEntity(bigsmoke2);
+      }
+
+      EntityStreamLaserP laser = new EntityStreamLaserP(
+              world,
+              player,
+              this.start,
+              0.08F,
+              240,
+              0.8F,
+              0.9F,
+              1.0F,
+              0.5F,
+              player.getDistance(vec.x, vec.y, vec.z),
+              3,
+              0.3F,
+              8.0F
+      );
+      laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
+      laser.horizOffset = horizoffset;
+      laser.horizontal = false;
+      laser.distanceStart = 0.6F;
+      world.spawnEntity(laser);
+   }
+
    @Override
+   @SideOnly(Side.CLIENT) //
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (c == 10.0) {
          Vec3d vec1 = new Vec3d(x, y, z);

@@ -1,9 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import java.util.List;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,6 +16,8 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EnderInstancer extends Instancer {
    public EnderInstancer() {
@@ -21,6 +25,7 @@ public class EnderInstancer extends Instancer {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void spawnPartickles(World world, EntityPlayer player, boolean deploy) {
       if (deploy) {
          if (player.ticksExisted % 4 == 0) {

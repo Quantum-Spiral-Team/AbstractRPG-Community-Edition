@@ -1,14 +1,14 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.container.GUIBookOfElements;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.tileentity.TileBookcase;
-import com.vivern.arpg.tileentity.TileSplitter;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.container.GUIBookOfElements;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.tileentity.TileBookcase;
+import com.Vivern.Arpg.tileentity.TileSplitter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -25,8 +25,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ElementsBook extends Item implements IItemColor {
+//public class ElementsBook extends Item implements IItemColor {
+// server-side crash fix
+public class ElementsBook extends Item {
    public ElementsBook() {
       this.setRegistryName("book_of_elements");
       this.setCreativeTab(CreativeTabs.TOOLS);
@@ -90,65 +94,66 @@ public class ElementsBook extends Item implements IItemColor {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public void openGui(EntityPlayer player, ItemStack book) {
       if (player instanceof EntityPlayerSP) {
          Minecraft.getMinecraft().displayGuiScreen(new GUIBookOfElements(book));
       }
    }
 
-   public int colorMultiplier(ItemStack stack, int tintIndex) {
-      if (tintIndex == 0) {
-         return 16777215;
-      } else {
-         int gem = NBTHelper.GetNBTint(stack, "gem");
-         float red = 0.0F;
-         float green = 0.0F;
-         float blue = 0.0F;
-         switch (gem) {
-            case 0:
-               red = 0.54F;
-               green = 0.95F;
-               blue = 0.88F;
-               break;
-            case 1:
-               red = 0.9F;
-               green = 0.05F;
-               blue = 0.1F;
-               break;
-            case 2:
-               red = 0.05F;
-               green = 0.05F;
-               blue = 0.9F;
-               break;
-            case 3:
-               red = 0.05F;
-               green = 0.9F;
-               blue = 0.2F;
-               break;
-            case 4:
-               red = 0.9F;
-               green = 0.85F;
-               blue = 0.3F;
-               break;
-            case 5:
-               red = 0.4F;
-               green = 0.08F;
-               blue = 0.85F;
-               break;
-            case 6:
-               red = 0.9F;
-               green = 0.5F;
-               blue = 0.65F;
-               break;
-            case 7:
-               red = 0.9F;
-               green = 0.91F;
-               blue = 0.85F;
-         }
-
-         return ColorConverters.RGBtoDecimal(red, green, blue);
-      }
-   }
+//   public int colorMultiplier(ItemStack stack, int tintIndex) {
+//      if (tintIndex == 0) {
+//         return 16777215;
+//      } else {
+//         int gem = NBTHelper.GetNBTint(stack, "gem");
+//         float red = 0.0F;
+//         float green = 0.0F;
+//         float blue = 0.0F;
+//         switch (gem) {
+//            case 0:
+//               red = 0.54F;
+//               green = 0.95F;
+//               blue = 0.88F;
+//               break;
+//            case 1:
+//               red = 0.9F;
+//               green = 0.05F;
+//               blue = 0.1F;
+//               break;
+//            case 2:
+//               red = 0.05F;
+//               green = 0.05F;
+//               blue = 0.9F;
+//               break;
+//            case 3:
+//               red = 0.05F;
+//               green = 0.9F;
+//               blue = 0.2F;
+//               break;
+//            case 4:
+//               red = 0.9F;
+//               green = 0.85F;
+//               blue = 0.3F;
+//               break;
+//            case 5:
+//               red = 0.4F;
+//               green = 0.08F;
+//               blue = 0.85F;
+//               break;
+//            case 6:
+//               red = 0.9F;
+//               green = 0.5F;
+//               blue = 0.65F;
+//               break;
+//            case 7:
+//               red = 0.9F;
+//               green = 0.91F;
+//               blue = 0.85F;
+//         }
+//
+//         return ColorConverters.RGBtoDecimal(red, green, blue);
+//      }
+//   }
 
    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
       if (this.isInCreativeTab(tab)) {

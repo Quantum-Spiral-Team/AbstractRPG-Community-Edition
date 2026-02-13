@@ -1,10 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.AimLensModel;
-import com.vivern.arpg.main.ColorConverters;
+import com.Vivern.Arpg.elements.models.AimLensModel;
+import com.Vivern.Arpg.main.ColorConverters;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.creativetab.CreativeTabs;
@@ -13,6 +15,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class AimLens extends Item implements IBauble, IRenderBauble {
    public static AimLensModel almodel = new AimLensModel();
@@ -26,6 +30,7 @@ public class AimLens extends Item implements IBauble, IRenderBauble {
    }
 
    @Override
+   @SideOnly(Side.CLIENT) //
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (type == RenderType.HEAD) {
          GlStateManager.pushMatrix();

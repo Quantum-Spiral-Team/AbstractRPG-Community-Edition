@@ -1,52 +1,38 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.armor.IItemDamaging;
-import com.vivern.arpg.elements.armor.IItemHurted;
-import com.vivern.arpg.elements.armor.IItemKilling;
-import com.vivern.arpg.elements.models.AntiRadPackModel;
-import com.vivern.arpg.elements.models.EnigmateTwinsModel;
-import com.vivern.arpg.elements.models.GasmaskModel;
-import com.vivern.arpg.entity.EnigmateTwinsShoot;
-import com.vivern.arpg.entity.EntityCoin;
-import com.vivern.arpg.entity.EntityLiveHeart;
-import com.vivern.arpg.entity.ThornkeeperShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.IAttributedBauble;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.ToxicomaniaMobsPack;
-import com.vivern.arpg.network.PacketDoSomethingToClients;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.HandBaubleRender;
-import com.vivern.arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.elements.armor.IItemDamaging;
+import com.Vivern.Arpg.elements.armor.IItemHurted;
+import com.Vivern.Arpg.elements.armor.IItemKilling;
+import com.Vivern.Arpg.elements.models.AntiRadPackModel;
+import com.Vivern.Arpg.elements.models.EnigmateTwinsModel;
+import com.Vivern.Arpg.elements.models.GasmaskModel;
+import com.Vivern.Arpg.entity.EnigmateTwinsShoot;
+import com.Vivern.Arpg.entity.EntityCoin;
+import com.Vivern.Arpg.entity.EntityLiveHeart;
+import com.Vivern.Arpg.entity.ThornkeeperShoot;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.mobs.ToxicomaniaMobsPack;
+import com.Vivern.Arpg.network.PacketDoSomethingToClients;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.HandBaubleRender;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.util.ITooltipFlag;
@@ -70,21 +56,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHandSide;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class BaublesPack {
    public static ResourceLocation voidexplode = new ResourceLocation("arpg:textures/void_explode.png");
@@ -113,6 +97,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -158,6 +143,7 @@ public class BaublesPack {
          this.operation = operation;
       }
 
+//      @SideOnly(Side.CLIENT) //
       public BaubleAttributed setRender(int rendertype) {
          this.rendertype = rendertype;
          this.render = true;
@@ -165,6 +151,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (this.render) {
             if (this.rendertype == 1 && type == RenderType.BODY) {
@@ -302,6 +289,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -355,6 +343,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -432,6 +421,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -804,6 +794,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -879,6 +870,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             float f = GetMOP.interpolateRotation(player.prevRenderYawOffset, player.renderYawOffset, partialTicks);
@@ -948,6 +940,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.HEAD) {
             GlStateManager.pushMatrix();
@@ -981,6 +974,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1027,6 +1021,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1116,6 +1111,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1226,6 +1222,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1334,6 +1331,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             float lbX = OpenGlHelper.lastBrightnessX;
@@ -1400,6 +1398,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1500,6 +1499,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1530,6 +1530,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1605,6 +1606,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1656,6 +1658,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1820,6 +1823,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -1914,6 +1918,7 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT) //
       public static void particle(World world, double x, double y, double z) {
          GUNParticle bigboom = new GUNParticle(textur, 0.7F, 0.0F, 12, 240, world, x, y, z, 0.0F, -0.1F, 0.0F, 0.5F, 0.75F, 1.0F, true, 1);
          bigboom.dropped = true;
@@ -1933,6 +1938,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();
@@ -2014,6 +2020,7 @@ public class BaublesPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
          if (type == RenderType.BODY) {
             GlStateManager.pushMatrix();

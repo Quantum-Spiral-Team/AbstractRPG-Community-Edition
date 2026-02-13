@@ -1,4 +1,6 @@
-package com.vivern.arpg.potions;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.potions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.relauncher.Side;
 
 @EventBusSubscriber(
    modid = "arpg"

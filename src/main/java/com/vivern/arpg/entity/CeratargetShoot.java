@@ -1,18 +1,20 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.MovingSoundEntity;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -45,6 +47,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
    public int ticksImpacted = 0;
    public boolean firstUpdate1 = true;
    public boolean canBlow = true;
+   @SideOnly(Side.CLIENT)
    public MovingSoundEntity movingsound;
 
    public CeratargetShoot(World world) {
@@ -75,9 +78,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
    public void onUpdate() {
       super.onUpdate();
       if (this.world.isRemote && this.firstUpdate1) {
-         this.firstUpdate1 = false;
-         this.movingsound = new MovingSoundEntity(this, Sounds.ceratarget_fly, SoundCategory.PLAYERS, 1.0F, 0.9F + this.rand.nextFloat() / 5.0F, false);
-         Minecraft.getMinecraft().getSoundHandler().playSound(this.movingsound);
+         this.onUpdate_Client_1();
       }
 
       if (this.ticksExisted % 10 == 0) {
@@ -116,10 +117,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
             }
          }
       } else {
-         if (this.movingsound != null) {
-            Minecraft.getMinecraft().getSoundHandler().stopSound(this.movingsound);
-            this.movingsound = null;
-         }
+         this.onUpdate_Client_2();
 
          if (this.impactPos != null) {
             if (this.impactEntity == null) {
@@ -149,6 +147,21 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
          this.lastTickPosX = this.posX;
          this.lastTickPosY = this.posY;
          this.lastTickPosZ = this.posZ;
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      this.firstUpdate1 = false;
+      this.movingsound = new MovingSoundEntity(this, Sounds.ceratarget_fly, SoundCategory.PLAYERS, 1.0F, 0.9F + this.rand.nextFloat() / 5.0F, false);
+      Minecraft.getMinecraft().getSoundHandler().playSound(this.movingsound);
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_2() {
+      if (this.movingsound != null) {
+         Minecraft.getMinecraft().getSoundHandler().stopSound(this.movingsound);
+         this.movingsound = null;
       }
    }
 

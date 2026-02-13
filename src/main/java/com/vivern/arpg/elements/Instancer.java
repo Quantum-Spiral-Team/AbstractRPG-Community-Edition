@@ -1,20 +1,24 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.AbstractMob;
-import com.vivern.arpg.mobs.NPCMobsPack;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketSmallSomethingToClients;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ModelledPartickle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.IFieldInit;
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.main.Booom;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.Keys;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.mobs.AbstractMob;
+import com.Vivern.Arpg.mobs.NPCMobsPack;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.network.PacketSmallSomethingToClients;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ModelledPartickle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -48,10 +52,12 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Instancer extends ItemWeapon {
+//public class Instancer extends ItemWeapon {
+public class Instancer extends ItemWeapon implements IFieldInit {
    public static ResourceLocation star = new ResourceLocation("arpg:textures/star2.png");
    public static ResourceLocation pixel = new ResourceLocation("arpg:textures/pixel.png");
    public static ResourceLocation[] texturesAnimation = new ResourceLocation[]{
@@ -71,7 +77,27 @@ public class Instancer extends ItemWeapon {
    };
    public float carrySlowness = 1.0F;
    public float deploySlowness = 1.0F;
-   public static HashMap<String, MovingSoundInstancer[]> soundsMap = new HashMap<>();
+//   public static HashMap<String, MovingSoundInstancer[]> soundsMap = new HashMap<>();
+   public static Object soundsMap; // HashMap<String, MovingSoundInstancer[]>
+   private static Object soundMapEmpty = new HashMap<String, MovingSoundInstancer[]>();
+
+   @Override
+   public void initFields() {
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         if (soundsMap == null) {
+            soundsMap = new HashMap<String, MovingSoundInstancer[]>();
+         }
+         if (clientMethod_playMovingSound == null) {
+            clientMethod_playMovingSound = new ClientOnlyMethodContainer_playMovingSound();
+         }
+      }
+   }
+
+   public static HashMap<String, MovingSoundInstancer[]> getSoundMap() {
+      if (soundsMap == null)
+         return (HashMap<String, MovingSoundInstancer[]>) soundMapEmpty;
+      return (HashMap<String, MovingSoundInstancer[]>) soundsMap;
+   }
 
    public Instancer(String name, float carrySlowness, float deploySlowness, int maxDamage) {
       this.carrySlowness = carrySlowness;
@@ -81,32 +107,58 @@ public class Instancer extends ItemWeapon {
       this.setTranslationKey(name);
       this.setMaxDamage(maxDamage);
       this.setMaxStackSize(1);
+      this.initFields();
    }
 
-   public static void playMovingSound(EntityPlayer entity) {
-      String name = entity.getName();
-      if (soundsMap.containsKey(name)) {
-         MovingSoundInstancer[] sounds = soundsMap.get(name);
-         if (sounds[0].isDonePlaying() && sounds[1].isDonePlaying()) {
-            soundsMap.remove(name);
+//   public static void playMovingSound(EntityPlayer entity) {
+//      String name = entity.getName();
+//      if (getSoundMap().containsKey(name)) {
+//         MovingSoundInstancer[] sounds = getSoundMap().get(name);
+//         if (sounds[0].isDonePlaying() && sounds[1].isDonePlaying()) {
+//            getSoundMap().remove(name);
+//         }
+//      }
+//
+//      if (!getSoundMap().containsKey(name)) {
+//         MovingSoundInstancer sound1 = new MovingSoundInstancer(entity, true, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
+//         Minecraft.getMinecraft().getSoundHandler().playSound(sound1);
+//         MovingSoundInstancer sound2 = new MovingSoundInstancer(entity, false, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
+//         Minecraft.getMinecraft().getSoundHandler().playSound(sound2);
+//         getSoundMap().put(name, new MovingSoundInstancer[]{sound1, sound2});
+//      }
+//   }
+
+   public static class ClientOnlyMethodContainer_playMovingSound {
+      @SideOnly(Side.CLIENT)
+      public void playMovingSound(EntityPlayer entity) {
+         String name = entity.getName();
+         if (getSoundMap().containsKey(name)) {
+            MovingSoundInstancer[] sounds = getSoundMap().get(name);
+            if (sounds[0].isDonePlaying() && sounds[1].isDonePlaying()) {
+               getSoundMap().remove(name);
+            }
+         }
+
+         if (!getSoundMap().containsKey(name)) {
+            MovingSoundInstancer sound1 = new MovingSoundInstancer(entity, true, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
+            Minecraft.getMinecraft().getSoundHandler().playSound(sound1);
+            MovingSoundInstancer sound2 = new MovingSoundInstancer(entity, false, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
+            Minecraft.getMinecraft().getSoundHandler().playSound(sound2);
+            getSoundMap().put(name, new MovingSoundInstancer[]{sound1, sound2});
          }
       }
-
-      if (!soundsMap.containsKey(name)) {
-         MovingSoundInstancer sound1 = new MovingSoundInstancer(entity, true, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
-         Minecraft.getMinecraft().getSoundHandler().playSound(sound1);
-         MovingSoundInstancer sound2 = new MovingSoundInstancer(entity, false, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
-         Minecraft.getMinecraft().getSoundHandler().playSound(sound2);
-         soundsMap.put(name, new MovingSoundInstancer[]{sound1, sound2});
-      }
    }
 
+   private static ClientOnlyMethodContainer_playMovingSound clientMethod_playMovingSound;
+
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (y == 0.0) {
          Entity entity = world.getEntityByID((int)x);
          if (entity instanceof EntityPlayer) {
-            playMovingSound((EntityPlayer)entity);
+//            playMovingSound((EntityPlayer)entity);
+            clientMethod_playMovingSound.playMovingSound((EntityPlayer)entity);
          }
       } else if (y == 1.0) {
          Entity entity = world.getEntityByID((int)x);
@@ -257,6 +309,7 @@ public class Instancer extends ItemWeapon {
       return gunTipVec.add(GetMOP.PitchYawToVec3d(player.rotationPitch - 90.0F, player.rotationYaw).scale(gunUp));
    }
 
+   @SideOnly(Side.CLIENT)
    public void spawnPartickles(World world, EntityPlayer player, boolean deploy) {
       if (deploy) {
          if (player.ticksExisted % 4 == 0) {
@@ -354,8 +407,10 @@ public class Instancer extends ItemWeapon {
          if (entityIn.ticksExisted % 2 == 0 && entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.getHeldItemMainhand() == itemstack && NBTHelper.GetNBTint(itemstack, "ready") >= 10) {
-               boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-               boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//               boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//               boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+               boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+               boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
                if (click) {
                   this.spawnPartickles(world, player, true);
                } else if (click2) {
@@ -367,8 +422,10 @@ public class Instancer extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             if (!itemstack.hasTagCompound() || !itemstack.getTagCompound().hasKey("mobs")) {
                NBTTagCompound itemCompound = new NBTTagCompound();
                NBTTagList taglistt = new NBTTagList();

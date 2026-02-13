@@ -1,14 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityRestlessSkull;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntityRestlessSkull;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.potions.PotionEffects;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -21,6 +18,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class RestlessSkull extends ItemWeapon {
    public RestlessSkull() {
@@ -66,8 +65,10 @@ public class RestlessSkull extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             float power = Mana.getMagicPowerMax(player);

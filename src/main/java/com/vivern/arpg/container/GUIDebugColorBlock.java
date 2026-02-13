@@ -1,7 +1,9 @@
-package com.vivern.arpg.container;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.ColorConverters;
+package com.Vivern.Arpg.container;
+
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.ColorConverters;
 import java.awt.Color;
 import java.io.IOException;
 import net.minecraft.client.Minecraft;
@@ -14,8 +16,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
+@SideOnly(Side.CLIENT)
 public class GUIDebugColorBlock extends GuiScreen {
    public static final ResourceLocation pixel = new ResourceLocation("arpg:textures/pixel.png");
    public static final ResourceLocation gui_color_debug = new ResourceLocation("arpg:textures/gui_color_debug.png");
@@ -47,7 +52,7 @@ public class GUIDebugColorBlock extends GuiScreen {
       this.mc.getTextureManager().bindTexture(pixel);
       String name = this.getName();
       if (name != null) {
-         Vector4f color = Debugger.getDebugColor(name);
+         Vector4f color = Debugger.fieldsContainer.getDebugColor(name);
          float[] hsb = Color.RGBtoHSB((int)(color.x * 255.0F), (int)(color.y * 255.0F), (int)(color.z * 255.0F), new float[3]);
          int alpha = (int)MathHelper.clamp(color.w * 255.0F, 0.0F, 255.0F);
          int hue = (int)(hsb[0] * 255.0F);
@@ -96,22 +101,22 @@ public class GUIDebugColorBlock extends GuiScreen {
          if (x < 265) {
             int sat = MathHelper.clamp(x, 0, 255);
             int bri = 255 - MathHelper.clamp(y, 0, 255);
-            Vector4f color = Debugger.getDebugColor(name);
+            Vector4f color = Debugger.fieldsContainer.getDebugColor(name);
             float[] hsb = Color.RGBtoHSB((int)(color.x * 255.0F), (int)(color.y * 255.0F), (int)(color.z * 255.0F), new float[3]);
             int rgb = Color.HSBtoRGB(hsb[0], sat / 255.0F, bri / 255.0F);
             Vec3d rgbvec = ColorConverters.DecimaltoRGB(rgb);
-            Debugger.debugColors.put(name, new Vector4f((float)rgbvec.x, (float)rgbvec.y, (float)rgbvec.z, color.w));
+            Debugger.fieldsContainer.getDebugColors().put(name, new Vector4f((float)rgbvec.x, (float)rgbvec.y, (float)rgbvec.z, color.w));
          } else if (x > 265 && x < 295) {
             int hue = 255 - MathHelper.clamp(y, 0, 255);
-            Vector4f color = Debugger.getDebugColor(name);
+            Vector4f color = Debugger.fieldsContainer.getDebugColor(name);
             float[] hsb = Color.RGBtoHSB((int)(color.x * 255.0F), (int)(color.y * 255.0F), (int)(color.z * 255.0F), new float[3]);
             int rgb = Color.HSBtoRGB(hue / 255.0F, hsb[1], hsb[2]);
             Vec3d rgbvec = ColorConverters.DecimaltoRGB(rgb);
-            Debugger.debugColors.put(name, new Vector4f((float)rgbvec.x, (float)rgbvec.y, (float)rgbvec.z, color.w));
+            Debugger.fieldsContainer.getDebugColors().put(name, new Vector4f((float)rgbvec.x, (float)rgbvec.y, (float)rgbvec.z, color.w));
          } else if (x > 295) {
             int alp = 255 - MathHelper.clamp(y, 0, 255);
-            Vector4f color = Debugger.getDebugColor(name);
-            Debugger.debugColors.put(name, new Vector4f(color.x, color.y, color.z, alp / 255.0F));
+            Vector4f color = Debugger.fieldsContainer.getDebugColor(name);
+            Debugger.fieldsContainer.getDebugColors().put(name, new Vector4f(color.x, color.y, color.z, alp / 255.0F));
          }
       }
    }

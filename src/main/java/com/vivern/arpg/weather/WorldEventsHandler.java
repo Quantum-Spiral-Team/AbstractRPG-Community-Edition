@@ -1,8 +1,11 @@
-package com.vivern.arpg.weather;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.main.GetMOP;
+package com.Vivern.Arpg.weather;
+
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.dimensions.generationutils.AbstractWorldProvider;
+import com.Vivern.Arpg.main.AnimationTimer;
+import com.Vivern.Arpg.main.GetMOP;
 import com.google.common.base.Predicate;
 import java.util.Random;
 import javax.annotation.Nullable;
@@ -23,12 +26,15 @@ import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.IRenderHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WorldEventsHandler extends IRenderHandler {
    public static float[] rainXCoords;
    public static float[] rainYCoords;
    public static float timeOverclock = 1.0F;
-   public static int startCheckDelay = (int) (1200.0F * timeOverclock);
+   public static int startCheckDelay = (int)(1200.0F * timeOverclock);
    public AbstractWorldProvider worldProvider;
    public WorldEvent[] events;
 
@@ -47,8 +53,12 @@ public class WorldEventsHandler extends IRenderHandler {
    }
 
    public void readFromNbt(NBTTagCompound compound) {
+      if (compound == null)
+         return;
       for (int i = 0; i < this.events.length; i++) {
          WorldEvent event = this.events[i];
+         if (event == null)
+            continue;
          if (compound.hasKey("" + event.index)) {
             NBTTagCompound eventTag = compound.getCompoundTag("" + event.index);
             event.readFromNbt(eventTag);
@@ -72,6 +82,7 @@ public class WorldEventsHandler extends IRenderHandler {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       for (int i = 0; i < this.events.length; i++) {
          WorldEvent event = this.events[i];
@@ -81,6 +92,7 @@ public class WorldEventsHandler extends IRenderHandler {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public void renderClouds(float partialTicks, WorldClient world, Minecraft mc) {
       for (int i = 0; i < this.events.length; i++) {
          WorldEvent event = this.events[i];
@@ -103,13 +115,15 @@ public class WorldEventsHandler extends IRenderHandler {
       if (this.worldProvider.getWorldTime() % startCheckDelay == 0L) {
          int k = 0;
          if (this.events.length > 0) {
-            for (int ix = this.worldProvider.getWorld().rand
-                  .nextInt(this.events.length); k < this.events.length; ix = GetMOP.next(ix, 1, this.events.length)) {
+            for (int ix = this.worldProvider.getWorld().rand.nextInt(this.events.length);
+               k < this.events.length;
+               ix = GetMOP.next(ix, 1, this.events.length)
+            ) {
                WorldEvent event = this.events[ix];
                if (!event.isStarted
-                     && event.canStart()
-                     && event.currentCooldown <= 0
-                     && this.worldProvider.getWorld().rand.nextFloat() < event.chanceToStart) {
+                  && event.canStart()
+                  && event.currentCooldown <= 0
+                  && this.worldProvider.getWorld().rand.nextFloat() < event.chanceToStart) {
                   boolean can = true;
 
                   for (int j = 0; j < this.events.length; j++) {
@@ -155,26 +169,52 @@ public class WorldEventsHandler extends IRenderHandler {
       }
    }
 
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      public void enableLightmap() {
+         Minecraft.getMinecraft().entityRenderer.enableLightmap();
+      }
+
+      public void disableLightmap() {
+         Minecraft.getMinecraft().entityRenderer.disableLightmap();
+      }
+   }
+
+   public static ClientFieldsContainer fieldsContainer;
+
+   static {
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         fieldsContainer = new ClientFieldsContainer();
+      }
+   }
+
    public static void enableLightmap() {
-      Minecraft.getMinecraft().entityRenderer.enableLightmap();
+//      Minecraft.getMinecraft().entityRenderer.enableLightmap();
+      if (fieldsContainer != null) {
+         fieldsContainer.enableLightmap();
+      }
    }
 
    public static void disableLightmap() {
-      Minecraft.getMinecraft().entityRenderer.disableLightmap();
+//      Minecraft.getMinecraft().entityRenderer.disableLightmap();
+      if (fieldsContainer != null) {
+         fieldsContainer.disableLightmap();
+      }
    }
 
+   @SideOnly(Side.CLIENT)
    public static void renderRainSnow(
-         float partialTicks,
-         Random random,
-         float chance,
-         ResourceLocation rainTexture,
-         float alpha,
-         float rainSpeed,
-         float rainSpeedRandomize,
-         float horizontalSpeed,
-         float horizontalSpeedRandomize,
-         @Nullable Predicate<Biome> biomeFilter,
-         @Nullable WorldEvent worldevent) {
+      float partialTicks,
+      Random random,
+      float chance,
+      ResourceLocation rainTexture,
+      float alpha,
+      float rainSpeed,
+      float rainSpeedRandomize,
+      float horizontalSpeed,
+      float horizontalSpeedRandomize,
+      @Nullable Predicate<Biome> biomeFilter,
+      @Nullable WorldEvent worldevent
+   ) {
       if (rainXCoords == null) {
          initRainCoords();
       }
@@ -192,8 +232,7 @@ public class WorldEventsHandler extends IRenderHandler {
          GlStateManager.disableCull();
          GlStateManager.glNormal3f(0.0F, 1.0F, 0.0F);
          GlStateManager.enableBlend();
-         GlStateManager.tryBlendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE,
-               DestFactor.ZERO);
+         GlStateManager.tryBlendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
          GlStateManager.alphaFunc(516, 0.1F);
          double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
          double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
@@ -210,7 +249,7 @@ public class WorldEventsHandler extends IRenderHandler {
          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
          MutableBlockPos blockpos$mutableblockpos = new MutableBlockPos();
          int heightAdd = 64;
-         int allUsedPosesCount = (int) ((range * 2 + 1) * (range * 2 + 1) * chance);
+         int allUsedPosesCount = (int)((range * 2 + 1) * (range * 2 + 1) * chance);
          boolean nochance = chance >= 1.0F;
 
          for (int k1 = entityPosZ - range; k1 <= entityPosZ + range; k1++) {
@@ -219,8 +258,7 @@ public class WorldEventsHandler extends IRenderHandler {
                double d3 = rainXCoords[i2] * 0.5;
                double d4 = rainYCoords[i2] * 0.5;
                blockpos$mutableblockpos.setPos(l1, 0, k1);
-               if ((nochance || random.nextFloat() < chance)
-                     && (biomeFilter == null || biomeFilter.apply(world.getBiome(blockpos$mutableblockpos)))) {
+               if ((nochance || random.nextFloat() < chance) && (biomeFilter == null || biomeFilter.apply(world.getBiome(blockpos$mutableblockpos)))) {
                   int precipHeight = world.getPrecipitationHeight(blockpos$mutableblockpos).getY();
                   int lowestPosY = entityPosY - range;
                   if (lowestPosY < precipHeight) {
@@ -247,8 +285,7 @@ public class WorldEventsHandler extends IRenderHandler {
                      }
 
                      double d8 = -time * rainSpeed * (1.0 - random.nextDouble() * rainSpeedRandomize);
-                     double texDisplaceX = random.nextDouble()
-                           + time * horizontalSpeed * (1.0 - random.nextDouble() * horizontalSpeedRandomize);
+                     double texDisplaceX = random.nextDouble() + time * horizontalSpeed * (1.0 - random.nextDouble() * horizontalSpeedRandomize);
                      double texDisplaceY = random.nextDouble() + lowestPosY * -0.25;
                      double d11 = l1 + 0.5F - entity.posX;
                      double d12 = k1 + 0.5F - entity.posZ;
@@ -260,25 +297,25 @@ public class WorldEventsHandler extends IRenderHandler {
                      int j4 = i4 >> 16 & 65535;
                      int k4 = i4 & 65535;
                      bufferbuilder.pos(l1 - d3 + 0.5, highstPosY, k1 - d4 + 0.5)
-                           .tex(0.0 + texDisplaceX, d8 + texDisplaceY)
-                           .color(1.0F, 1.0F, 1.0F, f5)
-                           .lightmap(j4, k4)
-                           .endVertex();
+                        .tex(0.0 + texDisplaceX, d8 + texDisplaceY)
+                        .color(1.0F, 1.0F, 1.0F, f5)
+                        .lightmap(j4, k4)
+                        .endVertex();
                      bufferbuilder.pos(l1 + d3 + 0.5, highstPosY, k1 + d4 + 0.5)
-                           .tex(1.0 + texDisplaceX, d8 + texDisplaceY)
-                           .color(1.0F, 1.0F, 1.0F, f5)
-                           .lightmap(j4, k4)
-                           .endVertex();
+                        .tex(1.0 + texDisplaceX, d8 + texDisplaceY)
+                        .color(1.0F, 1.0F, 1.0F, f5)
+                        .lightmap(j4, k4)
+                        .endVertex();
                      bufferbuilder.pos(l1 + d3 + 0.5, lowestPosY, k1 + d4 + 0.5)
-                           .tex(1.0 + texDisplaceX, 16.0 + d8 + texDisplaceY)
-                           .color(1.0F, 1.0F, 1.0F, f5)
-                           .lightmap(j4, k4)
-                           .endVertex();
+                        .tex(1.0 + texDisplaceX, 16.0 + d8 + texDisplaceY)
+                        .color(1.0F, 1.0F, 1.0F, f5)
+                        .lightmap(j4, k4)
+                        .endVertex();
                      bufferbuilder.pos(l1 - d3 + 0.5, lowestPosY, k1 - d4 + 0.5)
-                           .tex(0.0 + texDisplaceX, 16.0 + d8 + texDisplaceY)
-                           .color(1.0F, 1.0F, 1.0F, f5)
-                           .lightmap(j4, k4)
-                           .endVertex();
+                        .tex(0.0 + texDisplaceX, 16.0 + d8 + texDisplaceY)
+                        .color(1.0F, 1.0F, 1.0F, f5)
+                        .lightmap(j4, k4)
+                        .endVertex();
                      if (worldevent != null) {
                         worldevent.spawnSnowRainParticle(blockpos$mutableblockpos, allUsedPosesCount, dist);
                      }

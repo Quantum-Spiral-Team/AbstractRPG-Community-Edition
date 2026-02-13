@@ -1,18 +1,14 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Spell;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
-import com.vivern.arpg.renders.SparkleSubparticle;
-import com.vivern.arpg.tileentity.ISpellcastListener;
-import com.vivern.arpg.tileentity.ManaBuffer;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.renders.SparkleSubparticle;
+import com.Vivern.Arpg.tileentity.ISpellcastListener;
+import com.Vivern.Arpg.tileentity.ManaBuffer;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -27,6 +23,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class ItemSpellRoll extends ItemWeapon {
    public static int useMaxTime = 20;
@@ -70,7 +68,8 @@ public class ItemSpellRoll extends ItemWeapon {
             }
          } else if (entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             if (player.getHeldItemMainhand() == itemstack) {
                int casting = NBTHelper.GetNBTint(itemstack, "casting");
                if (casting <= 0) {
@@ -166,6 +165,7 @@ public class ItemSpellRoll extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT) //
    public void spawnParticles(World world, Entity player, float chanceOrange) {
       float scale = 0.015625F;
       Vec3d spawnPoint = GetMOP.PitchYawToVec3d(player.rotationPitch, player.rotationYaw + (itemRand.nextFloat() - 0.5F) * 30.0F)

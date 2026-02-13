@@ -1,326 +1,239 @@
-package com.vivern.arpg.proxy;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.CryonedBlock;
-import com.vivern.arpg.elements.animation.Flicks;
-import com.vivern.arpg.elements.models.BilebiterHomingModel;
-import com.vivern.arpg.elements.models.CryoGunEntityModel;
-import com.vivern.arpg.elements.models.CrystalStarShootModel;
-import com.vivern.arpg.elements.models.CubikModel;
-import com.vivern.arpg.elements.models.DragonFireworkModel;
-import com.vivern.arpg.elements.models.ElProjectileModel;
-import com.vivern.arpg.elements.models.ElectricSieveModel;
-import com.vivern.arpg.elements.models.EntityThistleThornModel;
-import com.vivern.arpg.elements.models.EtheriteInvocatorModel;
-import com.vivern.arpg.elements.models.FireLordChestModel;
-import com.vivern.arpg.elements.models.FireLordHelmModel;
-import com.vivern.arpg.elements.models.FireMageHatModel;
-import com.vivern.arpg.elements.models.ItemChargerModel;
-import com.vivern.arpg.elements.models.MagicHoodie;
-import com.vivern.arpg.elements.models.MinigunIcicleModel;
-import com.vivern.arpg.elements.models.PhoenixGhostModel;
-import com.vivern.arpg.elements.models.PistolFishStrikeModel;
-import com.vivern.arpg.elements.models.QuadroBeltModel;
-import com.vivern.arpg.elements.models.RocketModel;
-import com.vivern.arpg.elements.models.SharkRocketModel;
-import com.vivern.arpg.elements.models.ShellShardModel;
-import com.vivern.arpg.elements.models.SieveModel;
-import com.vivern.arpg.elements.models.SpikedBurstModel;
-import com.vivern.arpg.elements.models.StingerBoltModel;
-import com.vivern.arpg.elements.models.ThornkeeperShootModel;
-import com.vivern.arpg.elements.models.TileNexusNiveoliteModel;
-import com.vivern.arpg.elements.models.ToxicNukeModel;
-import com.vivern.arpg.elements.models.TritonHearthModel;
-import com.vivern.arpg.elements.models.VampireKnifes;
-import com.vivern.arpg.elements.models.WeatherRocketModel;
-import com.vivern.arpg.elements.models.WizardHatModel;
-import com.vivern.arpg.elements.models.XmassBallModel;
-import com.vivern.arpg.elements.models.XmassRocketModel;
-import com.vivern.arpg.entity.AdvancedFallingBlock;
-import com.vivern.arpg.entity.AppleEffect;
-import com.vivern.arpg.entity.AzureOreShoot;
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.BigLightningStrike;
-import com.vivern.arpg.entity.BilebiterHomingShoot;
-import com.vivern.arpg.entity.BilebiterShoot;
-import com.vivern.arpg.entity.BloodDrop;
-import com.vivern.arpg.entity.BlowholeShoot;
-import com.vivern.arpg.entity.BubbleFishShoot;
-import com.vivern.arpg.entity.CannonSnowball;
-import com.vivern.arpg.entity.CeratargetShoot;
-import com.vivern.arpg.entity.CoralPolyp;
-import com.vivern.arpg.entity.CoralRifleBullet;
-import com.vivern.arpg.entity.CryoDestroyerSpray;
-import com.vivern.arpg.entity.CryoGunEntity;
-import com.vivern.arpg.entity.CrystalFanBonus;
-import com.vivern.arpg.entity.CrystalFanShoot;
-import com.vivern.arpg.entity.CrystalStarPoweredShoot;
-import com.vivern.arpg.entity.CrystalStarShoot;
-import com.vivern.arpg.entity.CustomMobProjectile;
-import com.vivern.arpg.entity.DragonFireworkEntity;
-import com.vivern.arpg.entity.ElementProjectile;
-import com.vivern.arpg.entity.EnderSeerProjectile;
-import com.vivern.arpg.entity.EnigmateTwinsShoot;
-import com.vivern.arpg.entity.EntityAcidBomb;
-import com.vivern.arpg.entity.EntityAcidFire;
-import com.vivern.arpg.entity.EntityArrowBengal;
-import com.vivern.arpg.entity.EntityArrowBouncing;
-import com.vivern.arpg.entity.EntityArrowFirejet;
-import com.vivern.arpg.entity.EntityArrowFish;
-import com.vivern.arpg.entity.EntityArrowFrozen;
-import com.vivern.arpg.entity.EntityArrowMithril;
-import com.vivern.arpg.entity.EntityArrowModern;
-import com.vivern.arpg.entity.EntityArrowShell;
-import com.vivern.arpg.entity.EntityArrowTwin;
-import com.vivern.arpg.entity.EntityArrowVicious;
-import com.vivern.arpg.entity.EntityArrowVoid;
-import com.vivern.arpg.entity.EntityArrowWind;
-import com.vivern.arpg.entity.EntityBogFlower;
-import com.vivern.arpg.entity.EntityBoomerangMagic;
-import com.vivern.arpg.entity.EntityBossLoot;
-import com.vivern.arpg.entity.EntityButterfly;
-import com.vivern.arpg.entity.EntityChainMace;
-import com.vivern.arpg.entity.EntityCoin;
-import com.vivern.arpg.entity.EntityCrystalCutter;
-import com.vivern.arpg.entity.EntityCubicParticle;
-import com.vivern.arpg.entity.EntityElectricAcidRadiationPotion;
-import com.vivern.arpg.entity.EntityElectricBolt;
-import com.vivern.arpg.entity.EntityFiremageSetBonus;
-import com.vivern.arpg.entity.EntityFlyApple;
-import com.vivern.arpg.entity.EntityFrostBolt;
-import com.vivern.arpg.entity.EntityFrostfireExplosive;
-import com.vivern.arpg.entity.EntityGeomanticCrystal;
-import com.vivern.arpg.entity.EntityGrenade;
-import com.vivern.arpg.entity.EntityHangingAllSides;
-import com.vivern.arpg.entity.EntityHeadShooter;
-import com.vivern.arpg.entity.EntityIchor;
-import com.vivern.arpg.entity.EntityLaserDisk;
-import com.vivern.arpg.entity.EntityLaserParticle;
-import com.vivern.arpg.entity.EntityLaunchedRocket;
-import com.vivern.arpg.entity.EntityLiveHeart;
-import com.vivern.arpg.entity.EntityMagicRocket;
-import com.vivern.arpg.entity.EntityMagneticField;
-import com.vivern.arpg.entity.EntityMiniNuke;
-import com.vivern.arpg.entity.EntityMinigunIcicle;
-import com.vivern.arpg.entity.EntityPart;
-import com.vivern.arpg.entity.EntityPlacedItem;
-import com.vivern.arpg.entity.EntityRestlessSkull;
-import com.vivern.arpg.entity.EntitySand;
-import com.vivern.arpg.entity.EntitySeaEffloresce;
-import com.vivern.arpg.entity.EntityShard;
-import com.vivern.arpg.entity.EntitySlimeBullet;
-import com.vivern.arpg.entity.EntitySnapball;
-import com.vivern.arpg.entity.EntitySnowflakeShuriken;
-import com.vivern.arpg.entity.EntitySpellForgeCatalyst;
-import com.vivern.arpg.entity.EntityStingerShard;
-import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.entity.EntitySummon;
-import com.vivern.arpg.entity.EntitySunrise;
-import com.vivern.arpg.entity.EntitySwordGhost;
-import com.vivern.arpg.entity.EntityThistleThorn;
-import com.vivern.arpg.entity.EntityThrowedReaper;
-import com.vivern.arpg.entity.EntityTimelessSword;
-import com.vivern.arpg.entity.EntityVampireKnife;
-import com.vivern.arpg.entity.EntityWeatherRocket;
-import com.vivern.arpg.entity.FireworkEntity;
-import com.vivern.arpg.entity.FishingHook;
-import com.vivern.arpg.entity.FreezingParticle;
-import com.vivern.arpg.entity.GemStaffShoot;
-import com.vivern.arpg.entity.GraplingHookParticle;
-import com.vivern.arpg.entity.GraveLurkerProjectile;
-import com.vivern.arpg.entity.GunPEmitter;
-import com.vivern.arpg.entity.HadronBlasterShoot;
-import com.vivern.arpg.entity.IchorEffect;
-import com.vivern.arpg.entity.LavaDropperShoot;
-import com.vivern.arpg.entity.LordOfPainSpike;
-import com.vivern.arpg.entity.NailGunShoot;
-import com.vivern.arpg.entity.NetherGrinderBullet;
-import com.vivern.arpg.entity.ParticleGore;
-import com.vivern.arpg.entity.PistolFishStrike;
-import com.vivern.arpg.entity.PlasmaAcceleratorShoot;
-import com.vivern.arpg.entity.PlasmaPistolShoot;
-import com.vivern.arpg.entity.PlasmaRailgunShoot;
-import com.vivern.arpg.entity.PlasmaRifleBall;
-import com.vivern.arpg.entity.SharkRocket;
-import com.vivern.arpg.entity.ShellShard;
-import com.vivern.arpg.entity.SnowballRender;
-import com.vivern.arpg.entity.SnowstormEntity;
-import com.vivern.arpg.entity.SpikedBurst;
-import com.vivern.arpg.entity.StaffFireballEntity;
-import com.vivern.arpg.entity.StingerBoltEntity;
-import com.vivern.arpg.entity.StingingCellEntity;
-import com.vivern.arpg.entity.SurvivorLootSpawner;
-import com.vivern.arpg.entity.ThornkeeperShoot;
-import com.vivern.arpg.entity.ToxicNuke;
-import com.vivern.arpg.entity.ToxicNukeShard;
-import com.vivern.arpg.entity.TrailParticle;
-import com.vivern.arpg.entity.VacuumGunShoot;
-import com.vivern.arpg.entity.ViolenceShoot;
-import com.vivern.arpg.entity.WandColdShoot;
-import com.vivern.arpg.entity.WandColdWave;
-import com.vivern.arpg.entity.WhispersShoot;
-import com.vivern.arpg.entity.XmassBall;
-import com.vivern.arpg.entity.XmassRocket;
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.FluidsRegister;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.mobs.AquaticaMobsPack;
-import com.vivern.arpg.mobs.Blubber;
-import com.vivern.arpg.mobs.DungeonMobsPack;
-import com.vivern.arpg.mobs.EverfrostMobsPack;
-import com.vivern.arpg.mobs.Gnater;
-import com.vivern.arpg.mobs.HostileProjectiles;
-import com.vivern.arpg.mobs.Moonshroom;
-import com.vivern.arpg.mobs.NPCMobsPack;
-import com.vivern.arpg.mobs.NexusCap;
-import com.vivern.arpg.mobs.OtherMobsPack;
-import com.vivern.arpg.mobs.StormledgeMobsPack;
-import com.vivern.arpg.mobs.SummonedBlaze;
-import com.vivern.arpg.mobs.ToxicomaniaMobsPack;
-import com.vivern.arpg.mobs.Troglodyte;
-import com.vivern.arpg.mobs.WhiteSlime;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.renders.ARPGChestTESR;
-import com.vivern.arpg.renders.AdvancedBlockDetectorTESR;
-import com.vivern.arpg.renders.AlchemicLabTESR;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.AnimatedGunPRender;
-import com.vivern.arpg.renders.AquaticaPortalTESR;
-import com.vivern.arpg.renders.AssemblyAugmentTESR;
-import com.vivern.arpg.renders.AssemblyTableTESR;
-import com.vivern.arpg.renders.BetweenRenderFactory;
-import com.vivern.arpg.renders.BioCellTESR;
-import com.vivern.arpg.renders.BlockEntityFactory;
-import com.vivern.arpg.renders.BookcaseTESR;
-import com.vivern.arpg.renders.BulletParticle;
-import com.vivern.arpg.renders.CalibrationBundleTESR;
-import com.vivern.arpg.renders.ChestsTESR;
-import com.vivern.arpg.renders.CrystalSphereTESR;
-import com.vivern.arpg.renders.CubikFactory;
-import com.vivern.arpg.renders.CustomArrowFactory;
-import com.vivern.arpg.renders.CustomProjectileRender;
-import com.vivern.arpg.renders.DisenchantmentTableTESR;
-import com.vivern.arpg.renders.DungeonLadderTESR;
-import com.vivern.arpg.renders.DungeonPortalTESR;
-import com.vivern.arpg.renders.FireworkRenderFactory;
-import com.vivern.arpg.renders.FreezingFactory;
-import com.vivern.arpg.renders.FrostPortalTESR;
-import com.vivern.arpg.renders.GHFactory;
-import com.vivern.arpg.renders.GUNPFactory;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.GlossaryTESR;
-import com.vivern.arpg.renders.GlowingVeinTESR;
-import com.vivern.arpg.renders.IndustrialMixerTESR;
-import com.vivern.arpg.renders.InvasionInfo;
-import com.vivern.arpg.renders.ItemChargerTESR;
-import com.vivern.arpg.renders.JSONFactory;
-import com.vivern.arpg.renders.LaserFactory;
-import com.vivern.arpg.renders.MagicGeneratorTESR;
-import com.vivern.arpg.renders.ManaBottleTESR;
-import com.vivern.arpg.renders.ManaPumpTESR;
-import com.vivern.arpg.renders.ModelledPartickle;
-import com.vivern.arpg.renders.ModelledPartickleRender;
-import com.vivern.arpg.renders.ParticleTentacle;
-import com.vivern.arpg.renders.ParticleTentacleRender;
-import com.vivern.arpg.renders.PlacedItemFactory;
-import com.vivern.arpg.renders.PresentBoxTESR;
-import com.vivern.arpg.renders.RenderAdvFallingBlock;
-import com.vivern.arpg.renders.RenderBigLightningStrike;
-import com.vivern.arpg.renders.RenderBoomerangFactory;
-import com.vivern.arpg.renders.RenderBossLoot;
-import com.vivern.arpg.renders.RenderBulletParticle;
-import com.vivern.arpg.renders.RenderCoin;
-import com.vivern.arpg.renders.RenderFluidHelper;
-import com.vivern.arpg.renders.RenderGeomanticCrystal;
-import com.vivern.arpg.renders.RenderHangingAllSides;
-import com.vivern.arpg.renders.RenderLikeArrow;
-import com.vivern.arpg.renders.RenderLiveHeart;
-import com.vivern.arpg.renders.RenderModular;
-import com.vivern.arpg.renders.RenderModule;
-import com.vivern.arpg.renders.RenderParticleGore;
-import com.vivern.arpg.renders.RenderRocketFactory;
-import com.vivern.arpg.renders.RenderSeaEffloresce;
-import com.vivern.arpg.renders.RenderSpecial;
-import com.vivern.arpg.renders.RenderSplash;
-import com.vivern.arpg.renders.RenderStingingCell;
-import com.vivern.arpg.renders.RenderWhip;
-import com.vivern.arpg.renders.ResearchTableTESR;
-import com.vivern.arpg.renders.RetortTESR;
-import com.vivern.arpg.renders.RunicMirrorTESR;
-import com.vivern.arpg.renders.SacrificialAltarTESR;
-import com.vivern.arpg.renders.ShardRenderFactory;
-import com.vivern.arpg.renders.ShimmeringBeastbloomTESR;
-import com.vivern.arpg.renders.SoulCatcherTESR;
-import com.vivern.arpg.renders.SpearRenderFactory;
-import com.vivern.arpg.renders.SpellForgeTESR;
-import com.vivern.arpg.renders.SplitterTESR;
-import com.vivern.arpg.renders.StarLanternTESR;
-import com.vivern.arpg.renders.StormledgePortalTESR;
-import com.vivern.arpg.renders.StreamLaserFactory;
-import com.vivern.arpg.renders.SweepParticle;
-import com.vivern.arpg.renders.SweepParticleFactory;
-import com.vivern.arpg.renders.TESRModel;
-import com.vivern.arpg.renders.TESRSieve;
-import com.vivern.arpg.renders.TeamBannerTESR;
-import com.vivern.arpg.renders.TideBeaconTESR;
-import com.vivern.arpg.renders.ToxicPortalTESR;
-import com.vivern.arpg.renders.VialTESR;
-import com.vivern.arpg.renders.VoidCrystalTESR;
-import com.vivern.arpg.renders.WhipParticle;
-import com.vivern.arpg.renders.mobrender.InitMobRenders;
-import com.vivern.arpg.renders.mobrender.RenderBlubber;
-import com.vivern.arpg.renders.mobrender.RenderGnater;
-import com.vivern.arpg.renders.mobrender.RenderMoonshroom;
-import com.vivern.arpg.renders.mobrender.RenderSummonedBlaze;
-import com.vivern.arpg.renders.mobrender.RenderTroglodyte;
-import com.vivern.arpg.renders.mobrender.RenderWhiteSlime;
-import com.vivern.arpg.shader.ShaderMain;
-import com.vivern.arpg.tileentity.TileARPGChest;
-import com.vivern.arpg.tileentity.TileAdvancedBlockDetector;
-import com.vivern.arpg.tileentity.TileAlchemicLab;
-import com.vivern.arpg.tileentity.TileAquaticaPortal;
-import com.vivern.arpg.tileentity.TileAssemblyAugment;
-import com.vivern.arpg.tileentity.TileAssemblyTable;
-import com.vivern.arpg.tileentity.TileBioCell;
-import com.vivern.arpg.tileentity.TileBookcase;
-import com.vivern.arpg.tileentity.TileCalibrationBundle;
-import com.vivern.arpg.tileentity.TileChest;
-import com.vivern.arpg.tileentity.TileCrystalSphere;
-import com.vivern.arpg.tileentity.TileDisenchantmentTable;
-import com.vivern.arpg.tileentity.TileDungeonLadder;
-import com.vivern.arpg.tileentity.TileDungeonPortal;
-import com.vivern.arpg.tileentity.TileElectricSieve;
-import com.vivern.arpg.tileentity.TileEntityFrostPortal;
-import com.vivern.arpg.tileentity.TileEtheriteInvocator;
-import com.vivern.arpg.tileentity.TileGlossary;
-import com.vivern.arpg.tileentity.TileGlowingVein;
-import com.vivern.arpg.tileentity.TileIndustrialMixer;
-import com.vivern.arpg.tileentity.TileItemCharger;
-import com.vivern.arpg.tileentity.TileMagicGenerator;
-import com.vivern.arpg.tileentity.TileManaBottle;
-import com.vivern.arpg.tileentity.TileManaPump;
-import com.vivern.arpg.tileentity.TileNexusBeacon;
-import com.vivern.arpg.tileentity.TileNexusNiveolite;
-import com.vivern.arpg.tileentity.TilePresentBox;
-import com.vivern.arpg.tileentity.TileResearchTable;
-import com.vivern.arpg.tileentity.TileRetort;
-import com.vivern.arpg.tileentity.TileRunicMirror;
-import com.vivern.arpg.tileentity.TileSacrificialAltar;
-import com.vivern.arpg.tileentity.TileShimmeringBeastbloom;
-import com.vivern.arpg.tileentity.TileSieve;
-import com.vivern.arpg.tileentity.TileSoulCatcher;
-import com.vivern.arpg.tileentity.TileSpellForge;
-import com.vivern.arpg.tileentity.TileSplitter;
-import com.vivern.arpg.tileentity.TileStarLantern;
-import com.vivern.arpg.tileentity.TileStormledgePortal;
-import com.vivern.arpg.tileentity.TileTeamBanner;
-import com.vivern.arpg.tileentity.TileToxicPortal;
-import com.vivern.arpg.tileentity.TileTritonHearth;
-import com.vivern.arpg.tileentity.TileVial;
-import com.vivern.arpg.tileentity.TileVoidCrystal;
-import com.vivern.arpg.weather.Weather;
+package com.Vivern.Arpg.proxy;
+
+import com.Vivern.Arpg.elements.CryonedBlock;
+import com.Vivern.Arpg.elements.ItemBullet;
+import com.Vivern.Arpg.elements.animation.Flicks;
+import com.Vivern.Arpg.elements.models.BilebiterHomingModel;
+import com.Vivern.Arpg.elements.models.CryoGunEntityModel;
+import com.Vivern.Arpg.elements.models.CrystalStarShootModel;
+import com.Vivern.Arpg.elements.models.CubikModel;
+import com.Vivern.Arpg.elements.models.DragonFireworkModel;
+import com.Vivern.Arpg.elements.models.ElProjectileModel;
+import com.Vivern.Arpg.elements.models.ElectricSieveModel;
+import com.Vivern.Arpg.elements.models.EntityThistleThornModel;
+import com.Vivern.Arpg.elements.models.EtheriteInvocatorModel;
+import com.Vivern.Arpg.elements.models.FireLordChestModel;
+import com.Vivern.Arpg.elements.models.FireLordHelmModel;
+import com.Vivern.Arpg.elements.models.FireMageHatModel;
+import com.Vivern.Arpg.elements.models.ItemChargerModel;
+import com.Vivern.Arpg.elements.models.MagicHoodie;
+import com.Vivern.Arpg.elements.models.MinigunIcicleModel;
+import com.Vivern.Arpg.elements.models.PhoenixGhostModel;
+import com.Vivern.Arpg.elements.models.PistolFishStrikeModel;
+import com.Vivern.Arpg.elements.models.QuadroBeltModel;
+import com.Vivern.Arpg.elements.models.RocketModel;
+import com.Vivern.Arpg.elements.models.SharkRocketModel;
+import com.Vivern.Arpg.elements.models.ShellShardModel;
+import com.Vivern.Arpg.elements.models.SieveModel;
+import com.Vivern.Arpg.elements.models.SpikedBurstModel;
+import com.Vivern.Arpg.elements.models.StingerBoltModel;
+import com.Vivern.Arpg.elements.models.ThornkeeperShootModel;
+import com.Vivern.Arpg.elements.models.TileNexusNiveoliteModel;
+import com.Vivern.Arpg.elements.models.ToxicNukeModel;
+import com.Vivern.Arpg.elements.models.TritonHearthModel;
+import com.Vivern.Arpg.elements.models.VampireKnifes;
+import com.Vivern.Arpg.elements.models.WeatherRocketModel;
+import com.Vivern.Arpg.elements.models.WizardHatModel;
+import com.Vivern.Arpg.elements.models.XmassBallModel;
+import com.Vivern.Arpg.elements.models.XmassRocketModel;
+import com.Vivern.Arpg.entity.AdvancedFallingBlock;
+import com.Vivern.Arpg.entity.AppleEffect;
+import com.Vivern.Arpg.entity.AzureOreShoot;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.entity.BigLightningStrike;
+import com.Vivern.Arpg.entity.BilebiterHomingShoot;
+import com.Vivern.Arpg.entity.BilebiterShoot;
+import com.Vivern.Arpg.entity.BloodDrop;
+import com.Vivern.Arpg.entity.BlowholeShoot;
+import com.Vivern.Arpg.entity.BubbleFishShoot;
+import com.Vivern.Arpg.entity.CannonSnowball;
+import com.Vivern.Arpg.entity.CeratargetShoot;
+import com.Vivern.Arpg.entity.CoralPolyp;
+import com.Vivern.Arpg.entity.CoralRifleBullet;
+import com.Vivern.Arpg.entity.CryoDestroyerSpray;
+import com.Vivern.Arpg.entity.CryoGunEntity;
+import com.Vivern.Arpg.entity.CrystalFanBonus;
+import com.Vivern.Arpg.entity.CrystalFanShoot;
+import com.Vivern.Arpg.entity.CrystalStarPoweredShoot;
+import com.Vivern.Arpg.entity.CrystalStarShoot;
+import com.Vivern.Arpg.entity.CustomMobProjectile;
+import com.Vivern.Arpg.entity.DragonFireworkEntity;
+import com.Vivern.Arpg.entity.ElementProjectile;
+import com.Vivern.Arpg.entity.EnderSeerProjectile;
+import com.Vivern.Arpg.entity.EnigmateTwinsShoot;
+import com.Vivern.Arpg.entity.EntityAcidBomb;
+import com.Vivern.Arpg.entity.EntityAcidFire;
+import com.Vivern.Arpg.entity.EntityArrowBengal;
+import com.Vivern.Arpg.entity.EntityArrowBouncing;
+import com.Vivern.Arpg.entity.EntityArrowFirejet;
+import com.Vivern.Arpg.entity.EntityArrowFish;
+import com.Vivern.Arpg.entity.EntityArrowFrozen;
+import com.Vivern.Arpg.entity.EntityArrowMithril;
+import com.Vivern.Arpg.entity.EntityArrowModern;
+import com.Vivern.Arpg.entity.EntityArrowShell;
+import com.Vivern.Arpg.entity.EntityArrowTwin;
+import com.Vivern.Arpg.entity.EntityArrowVicious;
+import com.Vivern.Arpg.entity.EntityArrowVoid;
+import com.Vivern.Arpg.entity.EntityArrowWind;
+import com.Vivern.Arpg.entity.EntityBogFlower;
+import com.Vivern.Arpg.entity.EntityBoomerangMagic;
+import com.Vivern.Arpg.entity.EntityBossLoot;
+import com.Vivern.Arpg.entity.EntityButterfly;
+import com.Vivern.Arpg.entity.EntityChainMace;
+import com.Vivern.Arpg.entity.EntityCoin;
+import com.Vivern.Arpg.entity.EntityCrystalCutter;
+import com.Vivern.Arpg.entity.EntityCubicParticle;
+import com.Vivern.Arpg.entity.EntityElectricAcidRadiationPotion;
+import com.Vivern.Arpg.entity.EntityElectricBolt;
+import com.Vivern.Arpg.entity.EntityFiremageSetBonus;
+import com.Vivern.Arpg.entity.EntityFlyApple;
+import com.Vivern.Arpg.entity.EntityFrostBolt;
+import com.Vivern.Arpg.entity.EntityFrostfireExplosive;
+import com.Vivern.Arpg.entity.EntityGeomanticCrystal;
+import com.Vivern.Arpg.entity.EntityGrenade;
+import com.Vivern.Arpg.entity.EntityHangingAllSides;
+import com.Vivern.Arpg.entity.EntityHeadShooter;
+import com.Vivern.Arpg.entity.EntityIchor;
+import com.Vivern.Arpg.entity.EntityLaserDisk;
+import com.Vivern.Arpg.entity.EntityLaserParticle;
+import com.Vivern.Arpg.entity.EntityLaunchedRocket;
+import com.Vivern.Arpg.entity.EntityLiveHeart;
+import com.Vivern.Arpg.entity.EntityMagicRocket;
+import com.Vivern.Arpg.entity.EntityMagneticField;
+import com.Vivern.Arpg.entity.EntityMiniNuke;
+import com.Vivern.Arpg.entity.EntityMinigunIcicle;
+import com.Vivern.Arpg.entity.EntityPart;
+import com.Vivern.Arpg.entity.EntityPlacedItem;
+import com.Vivern.Arpg.entity.EntityRestlessSkull;
+import com.Vivern.Arpg.entity.EntitySand;
+import com.Vivern.Arpg.entity.EntitySeaEffloresce;
+import com.Vivern.Arpg.entity.EntityShard;
+import com.Vivern.Arpg.entity.EntitySlimeBullet;
+import com.Vivern.Arpg.entity.EntitySnapball;
+import com.Vivern.Arpg.entity.EntitySnowflakeShuriken;
+import com.Vivern.Arpg.entity.EntitySpellForgeCatalyst;
+import com.Vivern.Arpg.entity.EntityStingerShard;
+import com.Vivern.Arpg.entity.EntityStreamLaserP;
+import com.Vivern.Arpg.entity.EntitySummon;
+import com.Vivern.Arpg.entity.EntitySunrise;
+import com.Vivern.Arpg.entity.EntitySwordGhost;
+import com.Vivern.Arpg.entity.EntityThistleThorn;
+import com.Vivern.Arpg.entity.EntityThrowedReaper;
+import com.Vivern.Arpg.entity.EntityTimelessSword;
+import com.Vivern.Arpg.entity.EntityVampireKnife;
+import com.Vivern.Arpg.entity.EntityWeatherRocket;
+import com.Vivern.Arpg.entity.FireworkEntity;
+import com.Vivern.Arpg.entity.FishingHook;
+import com.Vivern.Arpg.entity.FreezingParticle;
+import com.Vivern.Arpg.entity.GemStaffShoot;
+import com.Vivern.Arpg.entity.GraplingHookParticle;
+import com.Vivern.Arpg.entity.GraveLurkerProjectile;
+import com.Vivern.Arpg.entity.GunPEmitter;
+import com.Vivern.Arpg.entity.HadronBlasterShoot;
+import com.Vivern.Arpg.entity.IchorEffect;
+import com.Vivern.Arpg.entity.LavaDropperShoot;
+import com.Vivern.Arpg.entity.LordOfPainSpike;
+import com.Vivern.Arpg.entity.NailGunShoot;
+import com.Vivern.Arpg.entity.NetherGrinderBullet;
+import com.Vivern.Arpg.entity.ParticleGore;
+import com.Vivern.Arpg.entity.PistolFishStrike;
+import com.Vivern.Arpg.entity.PlasmaAcceleratorShoot;
+import com.Vivern.Arpg.entity.PlasmaPistolShoot;
+import com.Vivern.Arpg.entity.PlasmaRailgunShoot;
+import com.Vivern.Arpg.entity.PlasmaRifleBall;
+import com.Vivern.Arpg.entity.SharkRocket;
+import com.Vivern.Arpg.entity.ShellShard;
+import com.Vivern.Arpg.entity.SnowballRender;
+import com.Vivern.Arpg.entity.SnowstormEntity;
+import com.Vivern.Arpg.entity.SpikedBurst;
+import com.Vivern.Arpg.entity.StaffFireballEntity;
+import com.Vivern.Arpg.entity.StingerBoltEntity;
+import com.Vivern.Arpg.entity.StingingCellEntity;
+import com.Vivern.Arpg.entity.SurvivorLootSpawner;
+import com.Vivern.Arpg.entity.ThornkeeperShoot;
+import com.Vivern.Arpg.entity.ToxicNuke;
+import com.Vivern.Arpg.entity.ToxicNukeShard;
+import com.Vivern.Arpg.entity.TrailParticle;
+import com.Vivern.Arpg.entity.VacuumGunShoot;
+import com.Vivern.Arpg.entity.ViolenceShoot;
+import com.Vivern.Arpg.entity.WandColdShoot;
+import com.Vivern.Arpg.entity.WandColdWave;
+import com.Vivern.Arpg.entity.WhispersShoot;
+import com.Vivern.Arpg.entity.XmassBall;
+import com.Vivern.Arpg.entity.XmassRocket;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.mobs.AquaticaMobsPack;
+import com.Vivern.Arpg.mobs.Blubber;
+import com.Vivern.Arpg.mobs.DungeonMobsPack;
+import com.Vivern.Arpg.mobs.EverfrostMobsPack;
+import com.Vivern.Arpg.mobs.Gnater;
+import com.Vivern.Arpg.mobs.HostileProjectiles;
+import com.Vivern.Arpg.mobs.Moonshroom;
+import com.Vivern.Arpg.mobs.NPCMobsPack;
+import com.Vivern.Arpg.mobs.NexusCap;
+import com.Vivern.Arpg.mobs.OtherMobsPack;
+import com.Vivern.Arpg.mobs.StormledgeMobsPack;
+import com.Vivern.Arpg.mobs.SummonedBlaze;
+import com.Vivern.Arpg.mobs.ToxicomaniaMobsPack;
+import com.Vivern.Arpg.mobs.Troglodyte;
+import com.Vivern.Arpg.mobs.WhiteSlime;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.renders.*;
+import com.Vivern.Arpg.renders.mobrender.InitMobRenders;
+import com.Vivern.Arpg.renders.mobrender.RenderBlubber;
+import com.Vivern.Arpg.renders.mobrender.RenderGnater;
+import com.Vivern.Arpg.renders.mobrender.RenderMoonshroom;
+import com.Vivern.Arpg.renders.mobrender.RenderSummonedBlaze;
+import com.Vivern.Arpg.renders.mobrender.RenderTroglodyte;
+import com.Vivern.Arpg.renders.mobrender.RenderWhiteSlime;
+import com.Vivern.Arpg.shader.ShaderMain;
+import com.Vivern.Arpg.tileentity.TileARPGChest;
+import com.Vivern.Arpg.tileentity.TileAdvancedBlockDetector;
+import com.Vivern.Arpg.tileentity.TileAlchemicLab;
+import com.Vivern.Arpg.tileentity.TileAquaticaPortal;
+import com.Vivern.Arpg.tileentity.TileAssemblyAugment;
+import com.Vivern.Arpg.tileentity.TileAssemblyTable;
+import com.Vivern.Arpg.tileentity.TileBioCell;
+import com.Vivern.Arpg.tileentity.TileBookcase;
+import com.Vivern.Arpg.tileentity.TileCalibrationBundle;
+import com.Vivern.Arpg.tileentity.TileChest;
+import com.Vivern.Arpg.tileentity.TileCrystalSphere;
+import com.Vivern.Arpg.tileentity.TileDisenchantmentTable;
+import com.Vivern.Arpg.tileentity.TileDungeonLadder;
+import com.Vivern.Arpg.tileentity.TileDungeonPortal;
+import com.Vivern.Arpg.tileentity.TileElectricSieve;
+import com.Vivern.Arpg.tileentity.TileEntityFrostPortal;
+import com.Vivern.Arpg.tileentity.TileEtheriteInvocator;
+import com.Vivern.Arpg.tileentity.TileGlossary;
+import com.Vivern.Arpg.tileentity.TileGlowingVein;
+import com.Vivern.Arpg.tileentity.TileIndustrialMixer;
+import com.Vivern.Arpg.tileentity.TileItemCharger;
+import com.Vivern.Arpg.tileentity.TileMagicGenerator;
+import com.Vivern.Arpg.tileentity.TileManaBottle;
+import com.Vivern.Arpg.tileentity.TileManaPump;
+import com.Vivern.Arpg.tileentity.TileNexusBeacon;
+import com.Vivern.Arpg.tileentity.TileNexusNiveolite;
+import com.Vivern.Arpg.tileentity.TilePresentBox;
+import com.Vivern.Arpg.tileentity.TileResearchTable;
+import com.Vivern.Arpg.tileentity.TileRetort;
+import com.Vivern.Arpg.tileentity.TileRunicMirror;
+import com.Vivern.Arpg.tileentity.TileSacrificialAltar;
+import com.Vivern.Arpg.tileentity.TileShimmeringBeastbloom;
+import com.Vivern.Arpg.tileentity.TileSieve;
+import com.Vivern.Arpg.tileentity.TileSoulCatcher;
+import com.Vivern.Arpg.tileentity.TileSpellForge;
+import com.Vivern.Arpg.tileentity.TileSplitter;
+import com.Vivern.Arpg.tileentity.TileStarLantern;
+import com.Vivern.Arpg.tileentity.TileStormledgePortal;
+import com.Vivern.Arpg.tileentity.TileTeamBanner;
+import com.Vivern.Arpg.tileentity.TileToxicPortal;
+import com.Vivern.Arpg.tileentity.TileTritonHearth;
+import com.Vivern.Arpg.tileentity.TileVial;
+import com.Vivern.Arpg.tileentity.TileVoidCrystal;
+import com.Vivern.Arpg.weather.Weather;
+import com.Vivern.Arpg.weather.WeatherRenderList;
 import gloomyfolkenvivern.arpghooklib.example.AnnotationHooks;
 import gloomyfolkenvivern.arpghooklib.example.coloredlightning.ColoredLightning;
 import java.lang.reflect.Field;
@@ -328,10 +241,13 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -943,6 +859,7 @@ public class ClientProxy extends CommonProxy {
    public void init(FMLInitializationEvent event) {
       super.init(event);
       ItemsRegister.registerItemsRender();
+      initColorfulItems(); // server-side crash fix
       BlocksRegister.registerBlocksRender();
       ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFrostPortal.class, new FrostPortalTESR());
       ClientRegistry.bindTileEntitySpecialRenderer(TileAdvancedBlockDetector.class, new AdvancedBlockDetectorTESR());
@@ -1082,8 +999,84 @@ public class ClientProxy extends CommonProxy {
          firedetex.add(new ResourceLocation("arpg:textures/de_fire/fire" + f + ".png"));
       }
 
-      Weather.registerWeatherRender(Weather.RENDERNETHERSMOKE);
+      Weather.registerWeatherRender((WeatherRenderList) Weather.RENDERNETHERSMOKE);
       Freezing.initIceLayers();
+   }
+
+   // server-side crash fix
+   private void initColorfulItems() {
+      ItemColors colors = Minecraft.getMinecraft().getItemColors();
+
+      colors.registerItemColorHandler(
+              (stack, tintIndex) ->
+                      tintIndex == 0
+                              ? NBTHelper.GetNBTint(stack, "color")
+                              : NBTHelper.GetNBTint(stack, "colorover"),
+              ItemsRegister.GEOMANTICCRYSTAL
+      );
+
+      // AdamantiumRounds
+      colors.registerItemColorHandler(
+              (stack, tint) -> {
+                 if (tint != 1) return 0xFFFFFF;
+                 ItemBullet bullet = ItemBullet.getItemBulletFromString(
+                         NBTHelper.GetNBTstring(stack, "bullet")
+                 );
+                 return bullet != null
+                         ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB)
+                         : 0xFFFFFF;
+              },
+              ItemsRegister.ADAMANTIUMROUNDS
+      );
+
+      // Buckshot
+      colors.registerItemColorHandler(
+              (stack, tint) -> {
+                 if (tint != 1) return 0xFFFFFF;
+                 ItemBullet bullet = ItemBullet.getItemBulletFromString(
+                         NBTHelper.GetNBTstring(stack, "bullet")
+                 );
+                 return bullet != null
+                         ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB)
+                         : 0xFFFFFF;
+              },
+              ItemsRegister.BUCKSHOT
+      );
+
+      // Buckshot clip
+      colors.registerItemColorHandler(
+              (stack, tint) -> {
+                 if (tint != 1) return 0xFFFFFF;
+                 ItemBullet bullet = ItemBullet.getItemBulletFromString(
+                         NBTHelper.GetNBTstring(stack, "bullet")
+                 );
+                 return bullet != null
+                         ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB)
+                         : 0xFFFFFF;
+              },
+              ItemsRegister.HYDRAULICSHOTGUNCLIP
+      );
+
+      // Elements book
+      colors.registerItemColorHandler(
+              (stack, tint) -> {
+                 if (tint == 0) return 0xFFFFFF;
+
+                 int gem = NBTHelper.GetNBTint(stack, "gem");
+                 switch (gem) {
+                    case 0: return ColorConverters.RGBtoDecimal(0.54F, 0.95F, 0.88F);
+                    case 1: return ColorConverters.RGBtoDecimal(0.9F, 0.05F, 0.1F);
+                    case 2: return ColorConverters.RGBtoDecimal(0.05F, 0.05F, 0.9F);
+                    case 3: return ColorConverters.RGBtoDecimal(0.05F, 0.9F, 0.2F);
+                    case 4: return ColorConverters.RGBtoDecimal(0.9F, 0.85F, 0.3F);
+                    case 5: return ColorConverters.RGBtoDecimal(0.4F, 0.08F, 0.85F);
+                    case 6: return ColorConverters.RGBtoDecimal(0.9F, 0.5F, 0.65F);
+                    case 7: return ColorConverters.RGBtoDecimal(0.9F, 0.91F, 0.85F);
+                    default: return 0xFFFFFF;
+                 }
+              },
+              ItemsRegister.BOOKOFELEMENTS
+      );
    }
 
    @Override
@@ -1098,6 +1091,7 @@ public class ClientProxy extends CommonProxy {
          for (Field field : BlockModelRenderer.class.getDeclaredFields()) {
             if (field.getType() == BlockColors.class) {
                field.setAccessible(true);
+               AnnotationHooks.initFieldsContainer();
                AnnotationHooks.blockColors = (BlockColors)field.get(Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer());
             }
          }
@@ -1106,5 +1100,34 @@ public class ClientProxy extends CommonProxy {
       } catch (IllegalAccessException var7) {
          var7.printStackTrace();
       }
+
+      this.postInit_Client_1(event);
+
+      this.postInit_Client_2(event);
+   }
+
+   // from CommonProxy#postInit()
+   private void postInit_Client_1(FMLPostInitializationEvent event) {
+      System.out.println("arpg | Applying reflection to GlStateManager.activeTextureUnit");
+      Field[] fieldss = GlStateManager.class.getDeclaredFields();
+
+      for (Field fieldx : fieldss) {
+         if (fieldx.getName() == "activeTextureUnit" && !fieldx.isAccessible()) {
+            fieldx.setAccessible(true);
+         }
+      }
+   }
+
+   // from Main#postInit()
+   private void postInit_Client_2(FMLPostInitializationEvent event) {
+      PlayerAnimations.instance = new PlayerAnimations(Minecraft.getMinecraft());
+   }
+
+   public static boolean isPrimaryAttackPressedClient(EntityPlayer player) {
+      return Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+   }
+
+   public static boolean isSecondaryAttackPressedClient(EntityPlayer player) {
+      return Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
    }
 }

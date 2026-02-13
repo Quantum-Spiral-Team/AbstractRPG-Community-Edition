@@ -1,31 +1,25 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.entity.EntityChainMace;
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.HostileProjectiles;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
-import com.vivern.arpg.renders.TEISRGuns;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.models.AbstractMobModel;
+import com.Vivern.Arpg.entity.EntityChainMace;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.mobs.HostileProjectiles;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.renders.TEISRGuns;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.creativetab.CreativeTabs;
@@ -40,12 +34,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -96,8 +85,10 @@ public class ChainMace extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             int damage = itemstack.getItemDamage();
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             boolean shouldStop = true;
@@ -658,6 +649,7 @@ public class ChainMace extends ItemWeapon {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public ResourceLocation getTexture() {
          return TEISRGuns.texChainMaceDiamond;
       }
@@ -689,6 +681,7 @@ public class ChainMace extends ItemWeapon {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public ResourceLocation getTexture() {
          return TEISRGuns.texEchinusModel;
       }
@@ -772,30 +765,7 @@ public class ChainMace extends ItemWeapon {
       public void onTickMace(EntityChainMace entity) {
          super.onTickMace(entity);
          if (entity.world.isRemote) {
-            if (itemRand.nextFloat() < 0.15F) {
-               int lt = 35;
-               float scl = 0.06F + itemRand.nextFloat() / 10.0F;
-               GUNParticle part = new GUNParticle(
-                  this.blob,
-                  scl,
-                  -0.01F,
-                  lt,
-                  -1,
-                  entity.world,
-                  entity.posX,
-                  entity.posY + entity.height / 2.0F,
-                  entity.posZ,
-                  (float)itemRand.nextGaussian() / 8.0F,
-                  (float)itemRand.nextGaussian() / 8.0F,
-                  (float)itemRand.nextGaussian() / 8.0F,
-                  0.8F + itemRand.nextFloat() / 5.0F,
-                  0.8F + itemRand.nextFloat() / 5.0F,
-                  0.8F + itemRand.nextFloat() / 5.0F,
-                  true,
-                  itemRand.nextInt(40) - 20
-               );
-               entity.world.spawnEntity(part);
-            }
+            onTickMace_Client(entity);
          } else if (entity.ticksExisted % 6 == 0) {
             boolean active = NBTHelper.GetNBTboolean(entity.weaponstack, "active");
             if (NBTHelper.GetNBTboolean(entity.weaponstack, "spinned") && (entity.ticksExisted > 80 || active)) {
@@ -833,6 +803,34 @@ public class ChainMace extends ItemWeapon {
                   }
                }
             }
+         }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onTickMace_Client(EntityChainMace entity) {
+         if (itemRand.nextFloat() < 0.15F) {
+            int lt = 35;
+            float scl = 0.06F + itemRand.nextFloat() / 10.0F;
+            GUNParticle part = new GUNParticle(
+                    this.blob,
+                    scl,
+                    -0.01F,
+                    lt,
+                    -1,
+                    entity.world,
+                    entity.posX,
+                    entity.posY + entity.height / 2.0F,
+                    entity.posZ,
+                    (float)itemRand.nextGaussian() / 8.0F,
+                    (float)itemRand.nextGaussian() / 8.0F,
+                    (float)itemRand.nextGaussian() / 8.0F,
+                    0.8F + itemRand.nextFloat() / 5.0F,
+                    0.8F + itemRand.nextFloat() / 5.0F,
+                    0.8F + itemRand.nextFloat() / 5.0F,
+                    true,
+                    itemRand.nextInt(40) - 20
+            );
+            entity.world.spawnEntity(part);
          }
       }
 
@@ -906,6 +904,7 @@ public class ChainMace extends ItemWeapon {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public ResourceLocation getTexture() {
          return TEISRGuns.texIcebreaker;
       }
@@ -940,87 +939,92 @@ public class ChainMace extends ItemWeapon {
       public void onTickMace(EntityChainMace entity) {
          super.onTickMace(entity);
          if (entity.world.isRemote) {
-            if (Math.abs(entity.motionX) + Math.abs(entity.motionY) + Math.abs(entity.motionZ) > 0.1) {
-               int lt = 15;
-               float scl = 0.1F + itemRand.nextFloat() / 3.0F;
-               GUNParticle fire2 = new GUNParticle(
-                  this.largecloud,
-                  scl,
-                  0.009F,
-                  lt,
-                  240,
-                  entity.world,
-                  entity.posX,
-                  entity.posY + entity.height / 2.0F,
-                  entity.posZ,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  0.75F + itemRand.nextFloat() / 10.0F,
-                  1.0F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(100) - 50
-               );
-               fire2.tracker = tssh;
-               fire2.scaleTickAdding = -scl / lt / 1.6F;
-               fire2.alphaGlowing = true;
-               fire2.alpha = 0.1F;
-               entity.world.spawnEntity(fire2);
-               int lt2 = 15;
-               float scl2 = 0.1F + itemRand.nextFloat() / 6.0F;
-               GUNParticle snoww = new GUNParticle(
-                  this.snow,
-                  scl2,
-                  0.03F,
-                  lt2,
-                  200,
-                  entity.world,
-                  entity.posX,
-                  entity.posY + entity.height / 2.0F,
-                  entity.posZ,
-                  (float)itemRand.nextGaussian() / 15.0F,
-                  (float)itemRand.nextGaussian() / 15.0F,
-                  (float)itemRand.nextGaussian() / 15.0F,
-                  0.9F,
-                  0.9F,
-                  1.0F,
-                  false,
-                  itemRand.nextInt(360),
-                  true,
-                  2.3F
-               );
-               snoww.scaleTickAdding = -scl2 / lt2 / 2.2F;
-               snoww.dropMode = true;
-               entity.world.spawnEntity(snoww);
-            } else if (itemRand.nextFloat() < 0.4F) {
-               int lt = 15;
-               float scl = 0.1F + itemRand.nextFloat() / 3.0F;
-               GUNParticle fire2 = new GUNParticle(
-                  this.largecloud,
-                  scl,
-                  0.009F,
-                  lt,
-                  240,
-                  entity.world,
-                  entity.posX,
-                  entity.posY + entity.height / 2.0F,
-                  entity.posZ,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  0.75F + itemRand.nextFloat() / 10.0F,
-                  1.0F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(100) - 50
-               );
-               fire2.tracker = tssh;
-               fire2.scaleTickAdding = -scl / lt / 1.6F;
-               fire2.alphaGlowing = true;
-               fire2.alpha = 0.1F;
-               entity.world.spawnEntity(fire2);
-            }
+            onTickMace_Client(entity);
+         }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onTickMace_Client(EntityChainMace entity) {
+         if (Math.abs(entity.motionX) + Math.abs(entity.motionY) + Math.abs(entity.motionZ) > 0.1) {
+            int lt = 15;
+            float scl = 0.1F + itemRand.nextFloat() / 3.0F;
+            GUNParticle fire2 = new GUNParticle(
+                    this.largecloud,
+                    scl,
+                    0.009F,
+                    lt,
+                    240,
+                    entity.world,
+                    entity.posX,
+                    entity.posY + entity.height / 2.0F,
+                    entity.posZ,
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    0.75F + itemRand.nextFloat() / 10.0F,
+                    1.0F,
+                    1.0F,
+                    true,
+                    itemRand.nextInt(100) - 50
+            );
+            fire2.tracker = tssh;
+            fire2.scaleTickAdding = -scl / lt / 1.6F;
+            fire2.alphaGlowing = true;
+            fire2.alpha = 0.1F;
+            entity.world.spawnEntity(fire2);
+            int lt2 = 15;
+            float scl2 = 0.1F + itemRand.nextFloat() / 6.0F;
+            GUNParticle snoww = new GUNParticle(
+                    this.snow,
+                    scl2,
+                    0.03F,
+                    lt2,
+                    200,
+                    entity.world,
+                    entity.posX,
+                    entity.posY + entity.height / 2.0F,
+                    entity.posZ,
+                    (float)itemRand.nextGaussian() / 15.0F,
+                    (float)itemRand.nextGaussian() / 15.0F,
+                    (float)itemRand.nextGaussian() / 15.0F,
+                    0.9F,
+                    0.9F,
+                    1.0F,
+                    false,
+                    itemRand.nextInt(360),
+                    true,
+                    2.3F
+            );
+            snoww.scaleTickAdding = -scl2 / lt2 / 2.2F;
+            snoww.dropMode = true;
+            entity.world.spawnEntity(snoww);
+         } else if (itemRand.nextFloat() < 0.4F) {
+            int lt = 15;
+            float scl = 0.1F + itemRand.nextFloat() / 3.0F;
+            GUNParticle fire2 = new GUNParticle(
+                    this.largecloud,
+                    scl,
+                    0.009F,
+                    lt,
+                    240,
+                    entity.world,
+                    entity.posX,
+                    entity.posY + entity.height / 2.0F,
+                    entity.posZ,
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    0.75F + itemRand.nextFloat() / 10.0F,
+                    1.0F,
+                    1.0F,
+                    true,
+                    itemRand.nextInt(100) - 50
+            );
+            fire2.tracker = tssh;
+            fire2.scaleTickAdding = -scl / lt / 1.6F;
+            fire2.alphaGlowing = true;
+            fire2.alpha = 0.1F;
+            entity.world.spawnEntity(fire2);
          }
       }
    }
@@ -1051,6 +1055,7 @@ public class ChainMace extends ItemWeapon {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public ResourceLocation getTexture() {
          return TEISRGuns.texChainMaceMolten;
       }
@@ -1059,69 +1064,74 @@ public class ChainMace extends ItemWeapon {
       public void onTickMace(EntityChainMace entity) {
          super.onTickMace(entity);
          if (entity.world.isRemote) {
-            if (entity.spinned) {
+            onTickMace_Client(entity);
+         }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onTickMace_Client(EntityChainMace entity) {
+         if (entity.spinned) {
+            int lt = 10 + itemRand.nextInt(6);
+            float scl = 0.1F + itemRand.nextFloat() / 3.0F;
+            GUNParticle fire2 = new GUNParticle(
+                    this.flame,
+                    scl,
+                    -0.009F,
+                    lt,
+                    240,
+                    entity.world,
+                    entity.posX,
+                    entity.posY + entity.height / 2.0F,
+                    entity.posZ,
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    1.0F,
+                    0.8F + (float)itemRand.nextGaussian() / 5.0F,
+                    1.0F,
+                    true,
+                    itemRand.nextInt(100) - 50
+            );
+            fire2.alphaTickAdding = -1.0F / lt;
+            fire2.scaleTickAdding = -scl / lt / 1.6F;
+            fire2.alphaGlowing = true;
+            entity.world.spawnEntity(fire2);
+            if (itemRand.nextFloat() < 0.2F) {
+               entity.world
+                       .spawnParticle(EnumParticleTypes.LAVA, entity.posX, entity.posY, entity.posZ, 0.0, 0.2F, 0.0, new int[0]);
+            }
+         } else {
+            if (itemRand.nextFloat() < 0.1F) {
+               entity.world
+                       .spawnParticle(EnumParticleTypes.LAVA, entity.posX, entity.posY, entity.posZ, 0.0, 0.2F, 0.0, new int[0]);
+            }
+
+            if (itemRand.nextFloat() < 0.2F) {
                int lt = 10 + itemRand.nextInt(6);
                float scl = 0.1F + itemRand.nextFloat() / 3.0F;
                GUNParticle fire2 = new GUNParticle(
-                  this.flame,
-                  scl,
-                  -0.009F,
-                  lt,
-                  240,
-                  entity.world,
-                  entity.posX,
-                  entity.posY + entity.height / 2.0F,
-                  entity.posZ,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  1.0F,
-                  0.8F + (float)itemRand.nextGaussian() / 5.0F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(100) - 50
+                       this.flame,
+                       scl,
+                       -0.009F,
+                       lt,
+                       240,
+                       entity.world,
+                       entity.posX,
+                       entity.posY + entity.height / 2.0F,
+                       entity.posZ,
+                       0.0F,
+                       0.0F,
+                       0.0F,
+                       1.0F,
+                       0.8F + (float)itemRand.nextGaussian() / 5.0F,
+                       1.0F,
+                       true,
+                       itemRand.nextInt(100) - 50
                );
                fire2.alphaTickAdding = -1.0F / lt;
                fire2.scaleTickAdding = -scl / lt / 1.6F;
                fire2.alphaGlowing = true;
                entity.world.spawnEntity(fire2);
-               if (itemRand.nextFloat() < 0.2F) {
-                  entity.world
-                     .spawnParticle(EnumParticleTypes.LAVA, entity.posX, entity.posY, entity.posZ, 0.0, 0.2F, 0.0, new int[0]);
-               }
-            } else {
-               if (itemRand.nextFloat() < 0.1F) {
-                  entity.world
-                     .spawnParticle(EnumParticleTypes.LAVA, entity.posX, entity.posY, entity.posZ, 0.0, 0.2F, 0.0, new int[0]);
-               }
-
-               if (itemRand.nextFloat() < 0.2F) {
-                  int lt = 10 + itemRand.nextInt(6);
-                  float scl = 0.1F + itemRand.nextFloat() / 3.0F;
-                  GUNParticle fire2 = new GUNParticle(
-                     this.flame,
-                     scl,
-                     -0.009F,
-                     lt,
-                     240,
-                     entity.world,
-                     entity.posX,
-                     entity.posY + entity.height / 2.0F,
-                     entity.posZ,
-                     0.0F,
-                     0.0F,
-                     0.0F,
-                     1.0F,
-                     0.8F + (float)itemRand.nextGaussian() / 5.0F,
-                     1.0F,
-                     true,
-                     itemRand.nextInt(100) - 50
-                  );
-                  fire2.alphaTickAdding = -1.0F / lt;
-                  fire2.scaleTickAdding = -scl / lt / 1.6F;
-                  fire2.alphaGlowing = true;
-                  entity.world.spawnEntity(fire2);
-               }
             }
          }
       }

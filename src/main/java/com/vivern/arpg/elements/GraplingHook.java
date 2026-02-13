@@ -1,13 +1,14 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.GraplingHookParticle;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.network.PacketGrapplingHookToClients;
-import javax.annotation.Nullable;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.GraplingHookParticle;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.network.PacketGrapplingHookToClients;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +24,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class GraplingHook extends Item {
+import javax.annotation.Nullable;
+
+public class GraplingHook extends Item_SideSync {
    public static float resetJumpPower = 0.8F;
    public ResourceLocation texture = new ResourceLocation("arpg:textures/grapling_hook_chain.png");
    public ResourceLocation texture2 = new ResourceLocation("arpg:textures/grapling_hook_pike.png");
@@ -45,12 +48,14 @@ public class GraplingHook extends Item {
       if (!world.isRemote && entityIn.isEntityAlive() && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
-         boolean click = Keys.isKeyPressed(player, Keys.GRAPLINGHOOK);
+//         boolean click = Keys.isKeyPressed(player, Keys.GRAPLINGHOOK);
+         boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.GRAPLINGHOOK);
          Item itemIn = itemstack.getItem();
          double xpos = NBTHelper.GetNBTdouble(itemstack, "pointX");
          double ypos = NBTHelper.GetNBTdouble(itemstack, "pointY");
          double zpos = NBTHelper.GetNBTdouble(itemstack, "pointZ");
-         boolean reset = Keys.isKeyPressed(player, Keys.JUMP);
+//         boolean reset = Keys.isKeyPressed(player, Keys.JUMP);
+         boolean reset = this.isKeyPressed(player, KeyboardConstants_CustomKeys.JUMP);
          if (entityIn.ticksExisted < 2) {
             NBTHelper.SetNBTboolean(itemstack, false, "graped");
          }

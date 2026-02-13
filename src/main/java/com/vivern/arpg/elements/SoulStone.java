@@ -1,14 +1,16 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Ln;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.mobs.AbstractMob;
-import com.vivern.arpg.mobs.NPCMobsPack;
-import com.vivern.arpg.recipes.Soul;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Ln;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.mobs.AbstractMob;
+import com.Vivern.Arpg.mobs.NPCMobsPack;
+import com.Vivern.Arpg.recipes.Soul;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import javax.annotation.Nullable;
 import net.minecraft.client.util.ITooltipFlag;
@@ -150,6 +152,7 @@ public class SoulStone extends ItemWeapon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       for (int i = 0; i < 10; i++) {
          GUNParticle bigsmoke = new GUNParticle(

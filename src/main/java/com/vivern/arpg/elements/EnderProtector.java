@@ -1,16 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityLaunchedRocket;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntityLaunchedRocket;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -86,7 +82,8 @@ public class EnderProtector extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
@@ -196,6 +193,7 @@ public class EnderProtector extends ItemWeapon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT) //
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Vec2f rotation = new Vec2f((float)a, (float)b);
       float displ = 3.0F;

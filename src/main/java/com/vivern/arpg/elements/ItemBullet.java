@@ -1,24 +1,26 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.CoralPolyp;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Ln;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.network.PacketBulletEffectToClients;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.BulletParticle;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.entity.CoralPolyp;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Ln;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.network.PacketBulletEffectToClients;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.BulletParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,8 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBullet extends Item {
    public static List<ItemBullet> bulletsRegister = new ArrayList<>();
@@ -184,6 +188,7 @@ public class ItemBullet extends Item {
    public void onProjectileUpdate(Entity projectile) {
    }
 
+   @SideOnly(Side.CLIENT)
    public static void onEffectPacket(World world, double x, double y, double z, double a, double b, double c, int id) {
       if (id == 1) {
          Vec3d vect = new Vec3d(a, b, c);

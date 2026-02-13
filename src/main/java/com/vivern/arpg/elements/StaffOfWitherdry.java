@@ -1,21 +1,14 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.ShootOfWitherdry;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.ShootOfWitherdry;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import com.google.common.base.Predicate;
-import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -33,6 +26,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class StaffOfWitherdry extends ItemWeapon {
    public static ResourceLocation flame_big = new ResourceLocation("arpg:textures/flame_big2.png");
@@ -108,6 +103,7 @@ public class StaffOfWitherdry extends ItemWeapon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
    }
 
@@ -118,103 +114,7 @@ public class StaffOfWitherdry extends ItemWeapon {
 
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (world.isRemote) {
-         int fire = NBTHelper.GetNBTint(itemstack, "fire");
-         if (fire > 0) {
-            float fireValue = (float)fire / getMaxFiretime(itemstack);
-            float fireBig = GetMOP.softfromto(fireValue, 0.4F, 0.5F);
-            float fireExponent = GetMOP.softfromto(fireValue, 0.0F, 0.15F) * 5.0F
-               + GetMOP.softfromto(fireValue, 0.15F, 0.5F) * 7.0F
-               + GetMOP.softfromto(fireValue, 0.5F, 1.0F) * 20.0F;
-            float fireExtra = fireBig - GetMOP.softfromto(fireValue, 0.5F, 0.6F);
-            Vec3d shootPoint = entityIn.getPositionVector()
-               .add(0.0, 1.2, 0.0)
-               .add(GetMOP.PitchYawToVec3d(entityIn.rotationPitch, entityIn.rotationYaw));
-            int lt = (int)fireExponent;
-            GUNParticle particle = new GUNParticle(
-               flame_big,
-               0.1F + 0.1F * fireExtra,
-               -0.003F,
-               lt,
-               190 + (int)(50.0F * fireBig),
-               world,
-               shootPoint.x,
-               shootPoint.y,
-               shootPoint.z,
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F,
-               1.0F - fireExtra * 0.3F,
-               1.0F - fireExtra * 0.3F,
-               true,
-               itemRand.nextInt(360),
-               true,
-               1.4F
-            );
-            particle.alphaGlowing = true;
-            particle.scaleTickAdding = 0.04347F + 0.015F * fireBig;
-            particle.alphaTickAdding = -1.0F / lt;
-            particle.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 1.0F, 3.0F, 0.3F);
-            world.spawnEntity(particle);
-            lt = (int)fireExponent / 2;
-            float colRG = 0.7F + fireBig * 0.3F;
-            AnimatedGParticle anim = new AnimatedGParticle(
-               flamethrow,
-               0.02F + 0.1F * fireExtra,
-               -0.003F,
-               lt,
-               240,
-               world,
-               shootPoint.x,
-               shootPoint.y,
-               shootPoint.z,
-               0.0F,
-               0.0F,
-               0.0F,
-               colRG,
-               colRG,
-               1.0F,
-               true,
-               itemRand.nextInt(360),
-               true,
-               1.4F
-            );
-            anim.framecount = 16;
-            anim.scaleTickAdding = 0.035F + 0.01F * fireExtra;
-            anim.alphaGlowing = true;
-            anim.randomDeath = false;
-            anim.animDelay = 1;
-            anim.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 1.0F, 1.0F, 0.3F);
-            anim.tracker = tracker2;
-            world.spawnEntity(anim);
-            lt = (int)(fireExponent * 1.1875F);
-            particle = new GUNParticle(
-               largesmoke,
-               0.1F,
-               -0.0045F,
-               lt,
-               -1,
-               world,
-               shootPoint.x,
-               shootPoint.y,
-               shootPoint.z,
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F,
-               1.0F,
-               1.0F,
-               true,
-               itemRand.nextInt(360),
-               true,
-               1.4F
-            );
-            particle.scaleTickAdding = 0.044F;
-            particle.alpha = 0.0F;
-            particle.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 0.95F, 2.0F, 0.3F);
-            particle.tracker = tracker;
-            world.spawnEntity(particle);
-         }
+         this.onUpdate_Client_1(itemstack, world, entityIn, itemSlot, isSelected);
       } else {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
@@ -223,8 +123,10 @@ public class StaffOfWitherdry extends ItemWeapon {
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             int ran = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
             float power = Mana.getMagicPowerMax(player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             int fire = NBTHelper.GetNBTint(itemstack, "fire");
             NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
             int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
@@ -418,6 +320,107 @@ public class StaffOfWitherdry extends ItemWeapon {
             NBTHelper.SetNBTint(itemstack, 0, "fire");
             NBTHelper.SetNBTint(itemstack, 0, "fdelay");
          }
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onUpdate_Client_1(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+      int fire = NBTHelper.GetNBTint(itemstack, "fire");
+      if (fire > 0) {
+         float fireValue = (float)fire / getMaxFiretime(itemstack);
+         float fireBig = GetMOP.softfromto(fireValue, 0.4F, 0.5F);
+         float fireExponent = GetMOP.softfromto(fireValue, 0.0F, 0.15F) * 5.0F
+                 + GetMOP.softfromto(fireValue, 0.15F, 0.5F) * 7.0F
+                 + GetMOP.softfromto(fireValue, 0.5F, 1.0F) * 20.0F;
+         float fireExtra = fireBig - GetMOP.softfromto(fireValue, 0.5F, 0.6F);
+         Vec3d shootPoint = entityIn.getPositionVector()
+                 .add(0.0, 1.2, 0.0)
+                 .add(GetMOP.PitchYawToVec3d(entityIn.rotationPitch, entityIn.rotationYaw));
+         int lt = (int)fireExponent;
+         GUNParticle particle = new GUNParticle(
+                 flame_big,
+                 0.1F + 0.1F * fireExtra,
+                 -0.003F,
+                 lt,
+                 190 + (int)(50.0F * fireBig),
+                 world,
+                 shootPoint.x,
+                 shootPoint.y,
+                 shootPoint.z,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F,
+                 1.0F - fireExtra * 0.3F,
+                 1.0F - fireExtra * 0.3F,
+                 true,
+                 itemRand.nextInt(360),
+                 true,
+                 1.4F
+         );
+         particle.alphaGlowing = true;
+         particle.scaleTickAdding = 0.04347F + 0.015F * fireBig;
+         particle.alphaTickAdding = -1.0F / lt;
+         particle.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 1.0F, 3.0F, 0.3F);
+         world.spawnEntity(particle);
+         lt = (int)fireExponent / 2;
+         float colRG = 0.7F + fireBig * 0.3F;
+         AnimatedGParticle anim = new AnimatedGParticle(
+                 flamethrow,
+                 0.02F + 0.1F * fireExtra,
+                 -0.003F,
+                 lt,
+                 240,
+                 world,
+                 shootPoint.x,
+                 shootPoint.y,
+                 shootPoint.z,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 colRG,
+                 colRG,
+                 1.0F,
+                 true,
+                 itemRand.nextInt(360),
+                 true,
+                 1.4F
+         );
+         anim.framecount = 16;
+         anim.scaleTickAdding = 0.035F + 0.01F * fireExtra;
+         anim.alphaGlowing = true;
+         anim.randomDeath = false;
+         anim.animDelay = 1;
+         anim.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 1.0F, 1.0F, 0.3F);
+         anim.tracker = tracker2;
+         world.spawnEntity(anim);
+         lt = (int)(fireExponent * 1.1875F);
+         particle = new GUNParticle(
+                 largesmoke,
+                 0.1F,
+                 -0.0045F,
+                 lt,
+                 -1,
+                 world,
+                 shootPoint.x,
+                 shootPoint.y,
+                 shootPoint.z,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 itemRand.nextInt(360),
+                 true,
+                 1.4F
+         );
+         particle.scaleTickAdding = 0.044F;
+         particle.alpha = 0.0F;
+         particle.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 0.95F, 2.0F, 0.3F);
+         particle.tracker = tracker;
+         world.spawnEntity(particle);
       }
    }
 

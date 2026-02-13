@@ -1,12 +1,13 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityThrowedReaper;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
-import javax.annotation.Nullable;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntityThrowedReaper;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Weapons;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -27,6 +28,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
 
 public class Reaper extends ItemWeapon {
    ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largecloud.png");
@@ -117,8 +120,10 @@ public class Reaper extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             NBTHelper.GiveNBTboolean(itemstack, false, "throwed");
             if (!player.getCooldownTracker().hasCooldown(this)) {
                NBTHelper.SetNBTboolean(itemstack, false, "throwed");

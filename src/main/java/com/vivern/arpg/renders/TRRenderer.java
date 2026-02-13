@@ -1,9 +1,11 @@
-package com.vivern.arpg.renders;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.recipes.TerraformingResearchSurface;
+package com.Vivern.Arpg.renders;
+
+import com.Vivern.Arpg.main.AnimationTimer;
+import com.Vivern.Arpg.main.ColorConverters;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.recipes.TerraformingResearchSurface;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -15,7 +17,10 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class TRRenderer {
    public static Vec3d DEFAULT_DIFFUSE = new Vec3d(1.0, 1.0, 1.0);
    public float layer;

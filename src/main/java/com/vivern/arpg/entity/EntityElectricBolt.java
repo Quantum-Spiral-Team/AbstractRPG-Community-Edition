@@ -1,16 +1,18 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -116,6 +118,7 @@ public class EntityElectricBolt extends EntityThrowable implements IEntitySynchr
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onClient(double x, double y, double z, double a, double b, double c) {
       GUNParticle sp = new GUNParticle(
          this.texturexpl,

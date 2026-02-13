@@ -1,9 +1,11 @@
-package com.vivern.arpg.potions;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.renders.KillScore;
-import com.vivern.arpg.renders.PotionBurningEffects;
+package com.Vivern.Arpg.potions;
+
+import com.Vivern.Arpg.main.PropertiesRegistry;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.renders.KillScore;
+import com.Vivern.Arpg.renders.PotionBurningEffects;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -50,6 +52,7 @@ public class DemonicBurn extends AdvancedPotion {
       PotionBurningEffects.renderEntityOnFire(entityOnEffect, x, y + 0.15, z, partialTicks, fire0, fire1, 180);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void renderFirstperson(EntityPlayer player, PotionEffect effect, RenderHandEvent event) {
       PotionBurningEffects.renderFireInFirstPerson(fire1, 0.7F, -0.3F + 0.1F * Math.min(effect.getAmplifier(), 2));

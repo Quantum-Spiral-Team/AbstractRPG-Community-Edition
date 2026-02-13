@@ -1,28 +1,23 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.CreateItemFile;
-import com.vivern.arpg.main.ItemsElements;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.OreDicHelper;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Spell;
-import com.vivern.arpg.mobs.AbstractMob;
-import com.vivern.arpg.mobs.SpawnerTuners;
-import com.vivern.arpg.recipes.Ingridient;
-import com.vivern.arpg.renders.LightOnPos;
-import com.vivern.arpg.renders.LoadedRGBChunk;
-import com.vivern.arpg.renders.StaticRGBLight;
-import com.vivern.arpg.tileentity.IManaBuffer;
-import com.vivern.arpg.tileentity.ManaBuffer;
-import com.vivern.arpg.tileentity.SpawnerTuner;
-import com.vivern.arpg.tileentity.TileAlchemicLab;
-import com.vivern.arpg.tileentity.TileAssemblyTable;
-import com.vivern.arpg.tileentity.TileIndustrialMixer;
-import com.vivern.arpg.tileentity.TileMonsterSpawner;
-import com.vivern.arpg.tileentity.TileNetherMelter;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.mobs.AbstractMob;
+import com.Vivern.Arpg.mobs.SpawnerTuners;
+import com.Vivern.Arpg.recipes.Ingridient;
+import com.Vivern.Arpg.renders.LightOnPos;
+import com.Vivern.Arpg.renders.LoadedRGBChunk;
+import com.Vivern.Arpg.renders.StaticRGBLight;
+import com.Vivern.Arpg.tileentity.IManaBuffer;
+import com.Vivern.Arpg.tileentity.ManaBuffer;
+import com.Vivern.Arpg.tileentity.SpawnerTuner;
+import com.Vivern.Arpg.tileentity.TileAlchemicLab;
+import com.Vivern.Arpg.tileentity.TileAssemblyTable;
+import com.Vivern.Arpg.tileentity.TileIndustrialMixer;
+import com.Vivern.Arpg.tileentity.TileMonsterSpawner;
+import com.Vivern.Arpg.tileentity.TileNetherMelter;
 import com.google.common.cache.LoadingCache;
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -548,7 +543,7 @@ public class ExpItem extends Item {
       if (lootTable != null && player.world instanceof WorldServer) {
          WorldServer server = (WorldServer)player.world;
          ResourceLocation resourceLocation = new ResourceLocation("chests", lootTable);
-         LootTableManager ltm = new LootTableManager(new File(CreateItemFile.mainPatch + "loot_tables"));
+         LootTableManager ltm = new LootTableManager(new File(CreateItemFile2.mainPatch + "loot_tables"));
          LootTable loottable = ltm.getLootTableFromLocation(resourceLocation);
          Random random = new Random();
          Builder lootcontext$builder = new Builder(server);

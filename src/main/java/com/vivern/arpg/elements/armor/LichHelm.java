@@ -1,8 +1,10 @@
-package com.vivern.arpg.elements.armor;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.BoneArmorModel;
-import com.vivern.arpg.elements.models.LichArmorModel;
-import com.vivern.arpg.main.PropertiesRegistry;
+package com.Vivern.Arpg.elements.armor;
+
+import com.Vivern.Arpg.elements.models.BoneArmorModel;
+import com.Vivern.Arpg.elements.models.LichArmorModel;
+import com.Vivern.Arpg.main.PropertiesRegistry;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
@@ -11,11 +13,21 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LichHelm extends AbstractArmor {
-   public static LichArmorModel armormodel = new LichArmorModel();
+//   public static LichArmorModel armormodel = new LichArmorModel();
+   public static LichArmorModel armormodel;
+
+   @Override
+   public void initFields() {
+      if (armormodel == null && FMLCommonHandler.instance().getSide().isClient()) {
+         armormodel = new LichArmorModel();
+      }
+   }
+
    public static String armortexture = "arpg:textures/lich_armor_model_tex.png";
 
    public LichHelm() {
@@ -132,7 +144,15 @@ public class LichHelm extends AbstractArmor {
    }
 
    public static class LichChestplate extends AbstractArmor {
-      public static BoneArmorModel model = new BoneArmorModel();
+//      public static BoneArmorModel model = new BoneArmorModel();
+      public static BoneArmorModel model;
+
+      @Override
+      public void initFields() {
+         if (model == null && FMLCommonHandler.instance().getSide().isClient()) {
+            model = new BoneArmorModel();
+         }
+      }
 
       public LichChestplate() {
          super(EntityEquipmentSlot.CHEST, "lich_armor_chestplate", 3500, 6);
@@ -190,7 +210,15 @@ public class LichHelm extends AbstractArmor {
    }
 
    public static class LichLeggins extends AbstractArmor {
-      public static BoneArmorModel model = new BoneArmorModel();
+//      public static BoneArmorModel model = new BoneArmorModel();
+      public static BoneArmorModel model;
+
+      @Override
+      public void initFields() {
+         if (model == null && FMLCommonHandler.instance().getSide().isClient()) {
+            model = new BoneArmorModel();
+         }
+      }
 
       public LichLeggins() {
          super(EntityEquipmentSlot.LEGS, "lich_armor_leggins", 3200, 6);

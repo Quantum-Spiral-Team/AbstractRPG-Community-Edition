@@ -1,24 +1,26 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.LaserModel;
-import com.vivern.arpg.entity.EntityPart;
-import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.entity.IMultipartMob;
-import com.vivern.arpg.entity.LightningStrike;
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.elements.models.LaserModel;
+import com.Vivern.Arpg.entity.EntityPart;
+import com.Vivern.Arpg.entity.EntityStreamLaserP;
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.entity.IMultipartMob;
+import com.Vivern.Arpg.entity.LightningStrike;
+import com.Vivern.Arpg.main.BloodType;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.MovingSoundEntity;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
@@ -390,16 +392,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
    public void onUpdate() {
       super.onUpdate();
       if (this.world.isRemote) {
-         for (int i = 0; i < 4; i++) {
-            if (this.circlesRedRender[i] > 0) {
-               this.circlesRedRender[i]--;
-            }
-         }
-
-         if (this.firstUpdate1) {
-            this.firstUpdate1 = false;
-            Minecraft.getMinecraft().getSoundHandler().playSound(new MovingSoundEntity(this, Sounds.ophanim, SoundCategory.HOSTILE, 0.8F, 1.0F, true));
-         }
+         this.onUpdate_Client_1();
       }
 
       if (this.posY > 256.0) {
@@ -790,6 +783,20 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
                }
             }
          }
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      for (int i = 0; i < 4; i++) {
+         if (this.circlesRedRender[i] > 0) {
+            this.circlesRedRender[i]--;
+         }
+      }
+
+      if (this.firstUpdate1) {
+         this.firstUpdate1 = false;
+         Minecraft.getMinecraft().getSoundHandler().playSound(new MovingSoundEntity(this, Sounds.ophanim, SoundCategory.HOSTILE, 0.8F, 1.0F, true));
       }
    }
 

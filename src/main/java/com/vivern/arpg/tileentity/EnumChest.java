@@ -1,8 +1,10 @@
-package com.vivern.arpg.tileentity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.renders.ARPGChestTESR;
+package com.Vivern.Arpg.tileentity;
+
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.renders.ARPGChestTESR;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.init.Blocks;
@@ -10,79 +12,82 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public enum EnumChest {
    FROZEN(
-      0,
-      new ResourceLocation("arpg:textures/chest_frozen.png"),
-      180,
-      ARPGChestTESR.model,
-      ARPGChestTESR.modelBig,
-      SoundEvents.BLOCK_CHEST_OPEN,
-      SoundEvents.BLOCK_CHEST_CLOSE
+           0,
+           new ResourceLocation("arpg:textures/chest_frozen.png"),
+           180,
+//           ARPGChestTESR.model,
+//           ARPGChestTESR.modelBig,
+           SoundEvents.BLOCK_CHEST_OPEN,
+           SoundEvents.BLOCK_CHEST_CLOSE
    ),
    TOXIC(
-      1,
-      new ResourceLocation("arpg:textures/chest_toxic.png"),
-      200,
-      ARPGChestTESR.model,
-      ARPGChestTESR.modelBig,
-      SoundEvents.BLOCK_CHEST_OPEN,
-      SoundEvents.BLOCK_CHEST_CLOSE
+           1,
+           new ResourceLocation("arpg:textures/chest_toxic.png"),
+           200,
+//           ARPGChestTESR.model,
+//           ARPGChestTESR.modelBig,
+           SoundEvents.BLOCK_CHEST_OPEN,
+           SoundEvents.BLOCK_CHEST_CLOSE
    ),
    RUSTED(
-      2,
-      new ResourceLocation("arpg:textures/chest_rusted.png"),
-      0,
-      ARPGChestTESR.model,
-      ARPGChestTESR.modelBig,
-      Sounds.chest_open_metal,
-      Sounds.chest_close_metal
+           2,
+           new ResourceLocation("arpg:textures/chest_rusted.png"),
+           0,
+//           ARPGChestTESR.model,
+//           ARPGChestTESR.modelBig,
+           Sounds.chest_open_metal,
+           Sounds.chest_close_metal
    ),
    CRYSTAL(
-      3,
-      new ResourceLocation("arpg:textures/chest_crystal.png"),
-      230,
-      ARPGChestTESR.model,
-      ARPGChestTESR.modelBig,
-      Sounds.chest_open_stone,
-      Sounds.chest_close_stone
+           3,
+           new ResourceLocation("arpg:textures/chest_crystal.png"),
+           230,
+//           ARPGChestTESR.model,
+//           ARPGChestTESR.modelBig,
+           Sounds.chest_open_stone,
+           Sounds.chest_close_stone
    ),
    ROTTEN(
-      4,
-      new ResourceLocation("arpg:textures/chest_rotten.png"),
-      0,
-      ARPGChestTESR.model,
-      ARPGChestTESR.modelBig,
-      SoundEvents.BLOCK_CHEST_OPEN,
-      SoundEvents.BLOCK_CHEST_CLOSE
+           4,
+           new ResourceLocation("arpg:textures/chest_rotten.png"),
+           0,
+//           ARPGChestTESR.model,
+//           ARPGChestTESR.modelBig,
+           SoundEvents.BLOCK_CHEST_OPEN,
+           SoundEvents.BLOCK_CHEST_CLOSE
    ),
    SUNKEN(
-      5,
-      new ResourceLocation("arpg:textures/chest_sunken.png"),
-      210,
-      ARPGChestTESR.model,
-      ARPGChestTESR.modelBig,
-      SoundEvents.BLOCK_CHEST_OPEN,
-      SoundEvents.BLOCK_CHEST_CLOSE
+           5,
+           new ResourceLocation("arpg:textures/chest_sunken.png"),
+           210,
+//           ARPGChestTESR.model,
+//           ARPGChestTESR.modelBig,
+           SoundEvents.BLOCK_CHEST_OPEN,
+           SoundEvents.BLOCK_CHEST_CLOSE
    ),
    CORAL(
-      6,
-      new ResourceLocation("arpg:textures/chest_coral.png"),
-      190,
-      ARPGChestTESR.model,
-      ARPGChestTESR.modelBig,
-      Sounds.chest_open_stone,
-      Sounds.chest_close_stone
+           6,
+           new ResourceLocation("arpg:textures/chest_coral.png"),
+           190,
+//           ARPGChestTESR.model,
+//           ARPGChestTESR.modelBig,
+           Sounds.chest_open_stone,
+           Sounds.chest_close_stone
    ),
    STORM(
-      7,
-      new ResourceLocation("arpg:textures/chest_storm.png"),
-      240,
-      ARPGChestTESR.modelStorm,
-      ARPGChestTESR.modelBigStorm,
-      Sounds.chest_open_plasma,
-      Sounds.chest_close_plasma
+           7,
+           new ResourceLocation("arpg:textures/chest_storm.png"),
+           240,
+//           ARPGChestTESR.modelStorm,
+//           ARPGChestTESR.modelBigStorm,
+           Sounds.chest_open_plasma,
+           Sounds.chest_close_plasma
    );
 
    @Deprecated
@@ -92,21 +97,63 @@ public enum EnumChest {
    @Deprecated
    public boolean glow;
    public int id;
-   public ModelBase model;
-   public ModelBase modelLarge;
+//   public ModelBase model;
+//   public ModelBase modelLarge;
+   public Object model;
+   public Object modelLarge;
    public ResourceLocation texture;
    public int light;
    public SoundEvent soundOpen;
    public SoundEvent soundClose;
 
-   private EnumChest(int id, ResourceLocation texture, int light, ModelBase model, ModelBase modelLarge, SoundEvent soundOpen, SoundEvent soundClose) {
+   @SideOnly(Side.CLIENT)
+   public ModelBase getModel() {
+      return (ModelBase) model;
+   }
+
+   @SideOnly(Side.CLIENT)
+   public ModelBase getModelLarge() {
+      return (ModelBase) modelLarge;
+   }
+
+//   private EnumChest(int id, ResourceLocation texture, int light, ModelBase model, ModelBase modelLarge, SoundEvent soundOpen, SoundEvent soundClose) {
+   private EnumChest(int id, ResourceLocation texture, int light, SoundEvent soundOpen, SoundEvent soundClose) {
       this.id = id;
       this.texture = texture;
       this.light = light;
-      this.model = model;
-      this.modelLarge = modelLarge;
+//      this.model = model;
+//      this.modelLarge = modelLarge;
       this.soundOpen = soundOpen;
       this.soundClose = soundClose;
+   }
+
+   @SideOnly(Side.CLIENT)
+   public static void initAllModels() {
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         for (EnumChest chest : EnumChest.values()) {
+            chest.initModel();
+         }
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void initModel() {
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         ModelBase model;
+         ModelBase large;
+         switch (this) {
+            case STORM:
+               model = ARPGChestTESR.modelStorm;
+               large = ARPGChestTESR.modelBigStorm;
+               break;
+            default:
+               model = ARPGChestTESR.model;
+               large = ARPGChestTESR.modelBig;
+               break;
+         }
+         this.model = model;
+         this.modelLarge = large;
+      }
    }
 
    public Block getBlock() {

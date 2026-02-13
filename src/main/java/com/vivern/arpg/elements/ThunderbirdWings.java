@@ -1,10 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.ThunderbirdWingsModel;
-import com.vivern.arpg.main.IAttributedBauble;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
+import com.Vivern.Arpg.elements.models.ThunderbirdWingsModel;
+import com.Vivern.Arpg.main.IAttributedBauble;
+import com.Vivern.Arpg.main.PropertiesRegistry;
+import com.Vivern.Arpg.main.Sounds;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import java.util.UUID;
@@ -17,6 +19,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ThunderbirdWings extends AbstractWings implements IAttributedBauble, IRenderBauble, IEnergyItem {
    public static ThunderbirdWingsModel model = new ThunderbirdWingsModel();
@@ -54,6 +58,7 @@ public class ThunderbirdWings extends AbstractWings implements IAttributedBauble
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       this.renderDefaultWings(texture, model, stack, player, type, partialTicks, null, 0);
    }
@@ -84,6 +89,7 @@ public class ThunderbirdWings extends AbstractWings implements IAttributedBauble
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void startElytraSound(EntityPlayerSP player) {
       Minecraft.getMinecraft().getSoundHandler().playSound(new WingsSound(player, Sounds.toxic_wings_flying));
    }

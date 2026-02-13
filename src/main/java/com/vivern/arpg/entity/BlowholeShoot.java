@@ -1,16 +1,18 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.HostileProjectiles;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.MovingSoundEntity;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.mobs.HostileProjectiles;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -29,6 +31,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize {
    public final ItemStack weaponstack;
@@ -149,6 +153,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
    }
 
    @Override
+   @SideOnly(Side.CLIENT) //
    public void onClient(double x, double y, double z, double a, double b, double c) {
       if (a == 0.0) {
          this.bubbleSize = (float)x;

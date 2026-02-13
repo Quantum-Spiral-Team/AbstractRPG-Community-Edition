@@ -1,10 +1,12 @@
-package com.vivern.arpg.main;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.main;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.elements.IWeapon;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketKeysToServer;
-import com.vivern.arpg.potions.Freezing;
+import com.Vivern.Arpg.elements.IWeapon;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.network.PacketKeysToServer;
+import com.Vivern.Arpg.potions.Freezing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+@SideOnly(Side.CLIENT) //
 public class Keys implements IKeyConflictContext {
    public static int clientLastKeys = 0;
    private static final String catergory = "Arpg keys";

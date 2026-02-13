@@ -1,9 +1,11 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +13,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SmokeDemon extends AbstractMob {
    ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
@@ -39,33 +43,38 @@ public class SmokeDemon extends AbstractMob {
    public void onUpdate() {
       super.onUpdate();
       if (this.world.isRemote && this.getRNG().nextFloat() > 0.4F) {
-         GUNParticle bigsmoke = new GUNParticle(
-            this.largesmoke,
-            0.65F,
-            -2.0E-4F,
-            35,
-            -1,
-            this.world,
-            this.posX,
-            this.posY + this.height / 2.0F,
-            this.posZ,
-            (float)this.rand.nextGaussian() / 35.0F,
-            (float)this.rand.nextGaussian() / 35.0F,
-            (float)this.rand.nextGaussian() / 35.0F,
-            1.0F,
-            1.0F,
-            1.0F,
-            true,
-            this.rand.nextInt(360)
-         );
-         bigsmoke.alphaTickAdding = -0.028571429F;
-         bigsmoke.randomDeath = false;
-         this.world.spawnEntity(bigsmoke);
+         this.onUpdate_Client_1();
       }
 
       Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
       this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
       this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      GUNParticle bigsmoke = new GUNParticle(
+              this.largesmoke,
+              0.65F,
+              -2.0E-4F,
+              35,
+              -1,
+              this.world,
+              this.posX,
+              this.posY + this.height / 2.0F,
+              this.posZ,
+              (float)this.rand.nextGaussian() / 35.0F,
+              (float)this.rand.nextGaussian() / 35.0F,
+              (float)this.rand.nextGaussian() / 35.0F,
+              1.0F,
+              1.0F,
+              1.0F,
+              true,
+              this.rand.nextInt(360)
+      );
+      bigsmoke.alphaTickAdding = -0.028571429F;
+      bigsmoke.randomDeath = false;
+      this.world.spawnEntity(bigsmoke);
    }
 
    protected void initEntityAI() {

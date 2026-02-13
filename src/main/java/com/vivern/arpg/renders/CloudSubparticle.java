@@ -1,8 +1,10 @@
-package com.vivern.arpg.renders;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.ModelsCloud;
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.weather.Weather;
+package com.Vivern.Arpg.renders;
+
+import com.Vivern.Arpg.elements.models.ModelsCloud;
+import com.Vivern.Arpg.main.AnimationTimer;
+import com.Vivern.Arpg.weather.Weather;
 import java.util.ArrayList;
 import java.util.Iterator;
 import net.minecraft.client.Minecraft;
@@ -13,7 +15,10 @@ import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT) //
 public class CloudSubparticle {
    public static ArrayList<CloudSubparticle> particles = new ArrayList<>();
    public static float windX = 0.0F;

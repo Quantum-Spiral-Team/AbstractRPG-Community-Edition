@@ -1,17 +1,22 @@
-package com.vivern.arpg.recipes;
+package com.Vivern.Arpg.recipes;
 
-import com.vivern.arpg.renders.TRRenderer;
+import com.Vivern.Arpg.renders.TRRenderer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import javax.annotation.Nullable;
 
 public class TerraformingResearchSurface {
    public static int[][] neightbours4 = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
    public TRSurfaceType type;
    private int[] elements;
+   @SideOnly(Side.CLIENT)
    public TRRenderer[] renderer;
    public int expansionQuality = 0;
    public boolean canExpandOnNull = false;
    public int id;
    @Nullable
+   @SideOnly(Side.CLIENT) // нужно ли?
    public TerraformingResearchParticle.TFRSParticleSystem particleSystem;
 
    public TerraformingResearchSurface(int id, TRSurfaceType type) {

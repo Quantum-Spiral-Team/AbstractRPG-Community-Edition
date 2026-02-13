@@ -1,16 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.animation.EnumFlick;
-import com.vivern.arpg.elements.animation.Flicks;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Ln;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.animation.EnumFlick;
+import com.Vivern.Arpg.elements.animation.Flicks;
+import com.Vivern.Arpg.main.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -193,7 +188,8 @@ public abstract class AbstractMiningTool extends ItemWeapon {
             if (IWeapon.canShoot(itemstack)
                && player.getHeldItemMainhand() == itemstack
                && !player.getCooldownTracker().hasCooldown(this)
-               && Keys.isKeyPressed(player, Keys.PRIMARYATTACK)
+//               && Keys.isKeyPressed(player, Keys.PRIMARYATTACK)
+               && this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK)
                && this.canMining(itemstack, world, player)) {
                this.onUpdateMining(itemstack, world, player, NBTHelper.GetNBTint(itemstack, "mode"), NBTHelper.GetNBTint(itemstack, "speed"), itemSlot);
             }
@@ -206,8 +202,10 @@ public abstract class AbstractMiningTool extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer playerx = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, playerx);
-            boolean click = Keys.isKeyPressed(playerx, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(playerx, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(playerx, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(playerx, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(playerx, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(playerx, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             if (playerx.getHeldItemMainhand() == itemstack) {
                int mode = NBTHelper.GetNBTint(itemstack, "mode");
                this.inUpdate(itemstack, world, playerx, mode, speed, itemSlot);

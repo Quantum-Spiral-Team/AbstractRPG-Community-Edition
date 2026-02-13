@@ -1,6 +1,8 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.Mana;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.main.Mana;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
@@ -10,6 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GeigerCounter extends Item {
    public GeigerCounter() {
@@ -19,14 +23,20 @@ public class GeigerCounter extends Item {
    }
 
    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+      onUpdate_Client_1(stack, worldIn, entityIn, itemSlot, isSelected);
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (Minecraft.getMinecraft().player == entityIn
-         && (Minecraft.getMinecraft().player.getHeldItemMainhand() == stack || Minecraft.getMinecraft().player.getHeldItemOffhand() == stack)) {
+              && (Minecraft.getMinecraft().player.getHeldItemMainhand() == stack || Minecraft.getMinecraft().player.getHeldItemOffhand() == stack)) {
          Minecraft.getMinecraft()
-            .ingameGUI
-            .setOverlayMessage(TextFormatting.GREEN + "Your radiation: " + Mana.getRad(Minecraft.getMinecraft().player), false);
+                 .ingameGUI
+                 .setOverlayMessage(TextFormatting.GREEN + "Your radiation: " + Mana.getRad(Minecraft.getMinecraft().player), false);
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       if (Minecraft.getMinecraft().player != null) {
          tooltip.add(TextFormatting.GREEN + "Your radiation: " + Mana.getRad(Minecraft.getMinecraft().player));

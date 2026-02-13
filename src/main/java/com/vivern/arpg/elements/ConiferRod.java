@@ -1,19 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.AbstractRPG;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.AbstractMob;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.mobs.AbstractMob;
 import com.google.common.base.Predicate;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -28,6 +20,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConiferRod extends ItemWeapon {
    public ConiferRod() {
@@ -60,8 +56,10 @@ public class ConiferRod extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             float mana = Mana.getMana(player);
             float spee = Mana.getManaSpeed(player);
             float power = Mana.getMagicPowerMax(player);
@@ -71,7 +69,7 @@ public class ConiferRod extends ItemWeapon {
             if (player.getHeldItemMainhand() == itemstack && !player.getCooldownTracker().hasCooldown(this)) {
                if (click2) {
                   player.openGui(
-                     AbstractRPG.instance,
+                     Main.instance,
                      11,
                      world,
                      MathHelper.floor(player.posX),

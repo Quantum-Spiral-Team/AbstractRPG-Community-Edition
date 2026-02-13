@@ -1,17 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.DragonFireworkEntity;
-import com.vivern.arpg.entity.FireworkEntity;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import java.util.ArrayList;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.DragonFireworkEntity;
+import com.Vivern.Arpg.entity.FireworkEntity;
+import com.Vivern.Arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -27,6 +21,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
 
 public class FireworkLauncher extends ItemWeapon {
    public static int maxammo = 41;
@@ -73,7 +69,8 @@ public class FireworkLauncher extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);

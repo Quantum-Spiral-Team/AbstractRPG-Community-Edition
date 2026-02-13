@@ -1,20 +1,13 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.armor.IItemAttacked;
-import com.vivern.arpg.entity.StandardBullet;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.armor.IItemAttacked;
+import com.Vivern.Arpg.entity.StandardBullet;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.GUNParticle;
 import com.google.common.collect.Multimap;
-import java.util.List;
-import java.util.UUID;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -37,6 +30,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
+import java.util.UUID;
 
 public class DragonShell extends ItemWeapon implements IItemAttacked {
    static ResourceLocation explode = new ResourceLocation("arpg:textures/void_explode.png");
@@ -94,8 +92,10 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             float acclvl = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             NBTHelper.GiveNBTint(itemstack, 0, "blocking");
             NBTHelper.GiveNBTint(itemstack, itemRand.nextInt(9000), "eyerand");
@@ -306,6 +306,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       AxisAlignedBB aabb = new AxisAlignedBB(x - a, y - a, z - a, x + a, y + a, z + a);
       List<Entity> list = world.getEntitiesWithinAABB(Entity.class, aabb);

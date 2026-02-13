@@ -1,21 +1,13 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.animation.EnumFlick;
-import com.vivern.arpg.elements.animation.Flicks;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.animation.EnumFlick;
+import com.Vivern.Arpg.elements.animation.Flicks;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -28,22 +20,15 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class Whip extends ItemWeapon {
    public static ResourceLocation forge_hit_a = new ResourceLocation("arpg:textures/forge_hit_a.png");
@@ -105,11 +90,13 @@ public class Whip extends ItemWeapon {
             if (player.getHeldItemMainhand() == itemstack) {
                hand = EnumHand.MAIN_HAND;
                cooldown = player.getCooldownTracker().getCooldown(this, 0.0F);
-               keypressed = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//               keypressed = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+               keypressed = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
             } else if (player.getHeldItemOffhand() == itemstack) {
                hand = EnumHand.OFF_HAND;
                cooldown = player.getCooldownTracker().getCooldown(ItemsRegister.EXP, 0.0F);
-               keypressed = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//               keypressed = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+               keypressed = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             }
 
             NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
@@ -358,6 +345,7 @@ public class Whip extends ItemWeapon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (a != 2.0 && a != 3.0) {
          GUNParticle part1 = new GUNParticle(

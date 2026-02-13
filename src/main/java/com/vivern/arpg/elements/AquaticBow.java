@@ -1,17 +1,10 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.EntityInfluence;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.HostileProjectiles;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.mobs.HostileProjectiles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -29,6 +22,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class AquaticBow extends AbstractBow {
    public static EntityInfluence swimmingArrowInfluence = new EntityInfluence(true) {
@@ -61,6 +56,7 @@ public class AquaticBow extends AbstractBow {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void bom(int param) {
       if (param >= 0) {
          Booom.lastTick = 16;
@@ -100,7 +96,8 @@ public class AquaticBow extends AbstractBow {
    @Override
    public boolean inUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected, boolean[] removePull) {
       EntityPlayer player = (EntityPlayer)entityIn;
-      boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//      boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+      boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
       boolean specialAttack = NBTHelper.GetNBTboolean(itemstack, "specattack");
       if (specialAttack || click2 && player.getHeldItemMainhand() == itemstack) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());

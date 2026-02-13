@@ -1,10 +1,12 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.blocks;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.main.FluidsRegister;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.main.FluidsRegister;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
@@ -59,6 +61,7 @@ public class BlockFluidSulfuricGas extends BlockFluidClassic {
       applySulfuricGasPotions(entityIn);
    }
 
+   @SideOnly(Side.CLIENT) //
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       double d0 = pos.getX();
       double d1 = pos.getY();

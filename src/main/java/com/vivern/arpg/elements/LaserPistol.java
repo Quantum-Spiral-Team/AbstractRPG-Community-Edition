@@ -1,41 +1,28 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntityStreamLaserP;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
-import org.lwjgl.input.Mouse;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class LaserPistol extends ItemWeapon {
    ResourceLocation texture = new ResourceLocation("arpg:textures/laser_sniper_laser.png");
@@ -77,8 +64,10 @@ public class LaserPistol extends ItemWeapon {
          this.decreaseReload(itemstack, player);
          int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+         boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
          EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
          boolean b1 = true;
          if (hand != null && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)) {
@@ -112,54 +101,8 @@ public class LaserPistol extends ItemWeapon {
                   }
 
                   if (world.isRemote) {
-                     if (result.sideHit != null) {
-                        float displaceX = result.sideHit.getXOffset() * 0.0625F;
-                        float displaceY = result.sideHit.getYOffset() * 0.0625F;
-                        float displaceZ = result.sideHit.getZOffset() * 0.0625F;
-                        GUNParticle bigsmoke = new GUNParticle(
-                           this.res,
-                           0.2F + itemRand.nextFloat() * 0.1F,
-                           0.0F,
-                           45,
-                           240,
-                           world,
-                           vec.x + displaceX,
-                           vec.y + displaceY,
-                           vec.z + displaceZ,
-                           0.0F,
-                           0.0F,
-                           0.0F,
-                           1.0F,
-                           1.0F,
-                           1.0F,
-                           true,
-                           itemRand.nextInt(360)
-                        );
-                        bigsmoke.alphaTickAdding = -0.022F;
-                        bigsmoke.alphaGlowing = true;
-                        bigsmoke.scaleTickAdding = -0.0044F;
-                        bigsmoke.snapToFace(result.sideHit);
-                        world.spawnEntity(bigsmoke);
-                     }
+                     this.onUpdate_Client(world, result, vec, player, horizoffset);
 
-                     EntityStreamLaserP laser = new EntityStreamLaserP(
-                        world,
-                        player,
-                        this.texture,
-                        0.07F,
-                        240,
-                        0.5F,
-                        1.0F,
-                        0.5F,
-                        0.5F,
-                        player.getDistance(vec.x, vec.y, vec.z),
-                        1,
-                        0.0F,
-                        1.0F
-                     );
-                     laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
-                     laser.horizOffset = horizoffset;
-                     world.spawnEntity(laser);
                   } else {
                      if (player.ticksExisted % 2 == 0) {
                         world.playSound(
@@ -260,7 +203,60 @@ public class LaserPistol extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   public void onUpdate_Client(World world, RayTraceResult result, Vec3d vec, EntityPlayer player, float horizoffset) {
+      if (result.sideHit != null) {
+         float displaceX = result.sideHit.getXOffset() * 0.0625F;
+         float displaceY = result.sideHit.getYOffset() * 0.0625F;
+         float displaceZ = result.sideHit.getZOffset() * 0.0625F;
+         GUNParticle bigsmoke = new GUNParticle(
+                 this.res,
+                 0.2F + itemRand.nextFloat() * 0.1F,
+                 0.0F,
+                 45,
+                 240,
+                 world,
+                 vec.x + displaceX,
+                 vec.y + displaceY,
+                 vec.z + displaceZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         bigsmoke.alphaTickAdding = -0.022F;
+         bigsmoke.alphaGlowing = true;
+         bigsmoke.scaleTickAdding = -0.0044F;
+         bigsmoke.snapToFace(result.sideHit);
+         world.spawnEntity(bigsmoke);
+      }
+
+      EntityStreamLaserP laser = new EntityStreamLaserP(
+              world,
+              player,
+              this.texture,
+              0.07F,
+              240,
+              0.5F,
+              1.0F,
+              0.5F,
+              0.5F,
+              player.getDistance(vec.x, vec.y, vec.z),
+              1,
+              0.0F,
+              1.0F
+      );
+      laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
+      laser.horizOffset = horizoffset;
+      world.spawnEntity(laser);
+   }
+
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       GUNParticle bigsmoke = new GUNParticle(
          this.res,
@@ -296,99 +292,102 @@ public class LaserPistol extends ItemWeapon {
       world.spawnEntity(laser);
    }
 
-   public void onUpdate2(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (entityIn instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)entityIn;
-         int damage = itemstack.getItemDamage();
-         World world = player.getEntityWorld();
-         Item itemIn = itemstack.getItem();
-         EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
-         if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
-            Vec3d vec = GetMOP.PosRayTrace(15.0, 1.0F, player, 0.05, 0.05);
-            if (!worldIn.isRemote) {
-               if (damage <= itemIn.getMaxDamage() - 1) {
-                  world.playSound(
-                     (EntityPlayer)null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     Sounds.laserpistol,
-                     SoundCategory.AMBIENT,
-                     0.7F,
-                     1.0F
-                  );
-                  player.addStat(StatList.getObjectUseStats(this));
-                  AxisAlignedBB aabb = new AxisAlignedBB(
-                     vec.x - 0.1,
-                     vec.y - 0.1,
-                     vec.z - 0.1,
-                     vec.x + 0.1,
-                     vec.y + 0.1,
-                     vec.z + 0.1
-                  );
-                  List<EntityLivingBase> list = worldIn.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
-                  if (!list.isEmpty()) {
-                     for (EntityLivingBase entitylivingbase : list) {
-                        if (entitylivingbase != (EntityLivingBase)entityIn) {
-                           IAttributeInstance entityAttribute = entitylivingbase.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
-                           double baseValue = entityAttribute.getBaseValue();
-                           entityAttribute.setBaseValue(1.0);
-                           entitylivingbase.attackEntityFrom(DamageSource.causePlayerDamage(player), 1.0F);
-                           entitylivingbase.hurtResistantTime = 0;
-                           entityAttribute.setBaseValue(baseValue);
-                        }
-                     }
-                  }
-
-                  if (!player.capabilities.isCreativeMode) {
-                     itemstack.damageItem(1, player);
-                  }
-               }
-
-               if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.IONBATTERY, 1))) {
-                  player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.IONBATTERY, 1).getItem(), -1, 1, null);
-                  itemstack.setItemDamage(0);
-                  player.getCooldownTracker().setCooldown(this, 40);
-                  world.playSound(
-                     (EntityPlayer)null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     Sounds.laserpistol_rel,
-                     SoundCategory.NEUTRAL,
-                     0.7F,
-                     0.6F / (itemRand.nextFloat() * 0.4F + 0.8F)
-                  );
-               }
-            }
-
-            if (worldIn.isRemote && damage <= itemIn.getMaxDamage() - 1) {
-               Entity spelll = new GUNParticle(
-                  this.res, 0.3F, -0.05F, 7, 240, world, vec.x, vec.y, vec.z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, 0
-               );
-               world.spawnEntity(spelll);
-               EntityStreamLaserP laser = new EntityStreamLaserP(
-                  world,
-                  player,
-                  this.texture,
-                  0.07F,
-                  240,
-                  0.5F,
-                  1.0F,
-                  0.5F,
-                  0.5F,
-                  player.getDistance(vec.x, vec.y, vec.z),
-                  1,
-                  0.0F,
-                  1.0F
-               );
-               laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
-               world.spawnEntity(laser);
-            }
-         }
-      }
-   }
+   /*
+   unused code - commented
+    */
+//   public void onUpdate2(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+//      if (entityIn instanceof EntityPlayer) {
+//         EntityPlayer player = (EntityPlayer)entityIn;
+//         int damage = itemstack.getItemDamage();
+//         World world = player.getEntityWorld();
+//         Item itemIn = itemstack.getItem();
+//         EnumHand hand = player.getActiveHand();
+//         boolean click = Mouse.isButtonDown(1);
+//         if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
+//            Vec3d vec = GetMOP.PosRayTrace(15.0, 1.0F, player, 0.05, 0.05);
+//            if (!worldIn.isRemote) {
+//               if (damage <= itemIn.getMaxDamage() - 1) {
+//                  world.playSound(
+//                     (EntityPlayer)null,
+//                     player.posX,
+//                     player.posY,
+//                     player.posZ,
+//                     Sounds.laserpistol,
+//                     SoundCategory.AMBIENT,
+//                     0.7F,
+//                     1.0F
+//                  );
+//                  player.addStat(StatList.getObjectUseStats(this));
+//                  AxisAlignedBB aabb = new AxisAlignedBB(
+//                     vec.x - 0.1,
+//                     vec.y - 0.1,
+//                     vec.z - 0.1,
+//                     vec.x + 0.1,
+//                     vec.y + 0.1,
+//                     vec.z + 0.1
+//                  );
+//                  List<EntityLivingBase> list = worldIn.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
+//                  if (!list.isEmpty()) {
+//                     for (EntityLivingBase entitylivingbase : list) {
+//                        if (entitylivingbase != (EntityLivingBase)entityIn) {
+//                           IAttributeInstance entityAttribute = entitylivingbase.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
+//                           double baseValue = entityAttribute.getBaseValue();
+//                           entityAttribute.setBaseValue(1.0);
+//                           entitylivingbase.attackEntityFrom(DamageSource.causePlayerDamage(player), 1.0F);
+//                           entitylivingbase.hurtResistantTime = 0;
+//                           entityAttribute.setBaseValue(baseValue);
+//                        }
+//                     }
+//                  }
+//
+//                  if (!player.capabilities.isCreativeMode) {
+//                     itemstack.damageItem(1, player);
+//                  }
+//               }
+//
+//               if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.IONBATTERY, 1))) {
+//                  player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.IONBATTERY, 1).getItem(), -1, 1, null);
+//                  itemstack.setItemDamage(0);
+//                  player.getCooldownTracker().setCooldown(this, 40);
+//                  world.playSound(
+//                     (EntityPlayer)null,
+//                     player.posX,
+//                     player.posY,
+//                     player.posZ,
+//                     Sounds.laserpistol_rel,
+//                     SoundCategory.NEUTRAL,
+//                     0.7F,
+//                     0.6F / (itemRand.nextFloat() * 0.4F + 0.8F)
+//                  );
+//               }
+//            }
+//
+//            if (worldIn.isRemote && damage <= itemIn.getMaxDamage() - 1) {
+//               Entity spelll = new GUNParticle(
+//                  this.res, 0.3F, -0.05F, 7, 240, world, vec.x, vec.y, vec.z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, 0
+//               );
+//               world.spawnEntity(spelll);
+//               EntityStreamLaserP laser = new EntityStreamLaserP(
+//                  world,
+//                  player,
+//                  this.texture,
+//                  0.07F,
+//                  240,
+//                  0.5F,
+//                  1.0F,
+//                  0.5F,
+//                  0.5F,
+//                  player.getDistance(vec.x, vec.y, vec.z),
+//                  1,
+//                  0.0F,
+//                  1.0F
+//               );
+//               laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
+//               world.spawnEntity(laser);
+//            }
+//         }
+//      }
+//   }
 
    public int getMaxAmmo(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(this).getEnchantedi("clipsize", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));

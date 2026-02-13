@@ -1,15 +1,10 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.GraplingHookParticle;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import java.util.List;
-import net.minecraft.client.settings.GameSettings;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.GraplingHookParticle;
+import com.Vivern.Arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -20,20 +15,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Mouse;
 
-public class ChainDagger extends Item {
+import java.util.List;
+
+public class ChainDagger extends Item_SideSync {
    public ResourceLocation texture = new ResourceLocation("arpg:textures/chain_dagger_chain.png");
    public ResourceLocation texture2 = new ResourceLocation("arpg:textures/chain_dagger_pike.png");
    public int maxlength = 10;
@@ -72,8 +63,10 @@ public class ChainDagger extends Item {
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
          World world = player.getEntityWorld();
-         boolean click2 = GameSettings.isKeyDown(Keys.SECONDARYATTACK);
-         boolean click = Mouse.isButtonDown(1);
+//         boolean click2 = GameSettings.isKeyDown(Keys.SECONDARYATTACK);
+//         boolean click = Mouse.isButtonDown(1);
+         boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
+         boolean click = this.getMouseButtonRight(player);
          Item itemIn = itemstack.getItem();
          NBTHelper.GiveNBTboolean(itemstack, false, "throwed");
          NBTHelper.GiveNBTboolean(itemstack, false, "returning");

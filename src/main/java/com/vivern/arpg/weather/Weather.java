@@ -1,6 +1,8 @@
-package com.vivern.arpg.weather;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.renders.CloudSubparticle;
+package com.Vivern.Arpg.weather;
+
+import com.Vivern.Arpg.renders.CloudSubparticle;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -11,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -23,10 +26,17 @@ public class Weather {
    public static List<WeatherPhenomenon> weatherlist = new ArrayList<>();
    public static List<WeatherRenderList> weatherrenderlist = new ArrayList<>();
    public static HailWeather HAILWEATHER = new HailWeather();
-   public static SnowfallWeather SNOWFALLWEATHER = new SnowfallWeather();
+//   public static SnowfallWeather SNOWFALLWEATHER = new SnowfallWeather(); // no usage
    public static NetherWeather NETHERWEATHER = new NetherWeather();
-   public static RenderHail RENDERHAILWEATHER = new RenderHail(HAILWEATHER);
-   public static RenderNetherSmoke RENDERNETHERSMOKE = new RenderNetherSmoke(NETHERWEATHER);
+//   public static RenderHail RENDERHAILWEATHER = new RenderHail(HAILWEATHER);
+   public static Object RENDERHAILWEATHER;
+   static {
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         RENDERHAILWEATHER = new RenderHail(HAILWEATHER);
+         RENDERNETHERSMOKE = new RenderNetherSmoke(NETHERWEATHER);
+      }
+   }
+   public static Object RENDERNETHERSMOKE;
 
    public static boolean isWeatherGoingAt(World world, WeatherPhenomenon weather, BlockPos pos) {
       if (weather.isGoingInDimension(world.provider.getDimension()) && (weather.anyBiome || weather.isGoingInBiome(world.getBiome(pos)))) {
@@ -197,26 +207,32 @@ public class Weather {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static float getWindX(World world) {
       return CloudSubparticle.windX;
    }
 
+   @SideOnly(Side.CLIENT)
    public static float getWindY(World world) {
       return CloudSubparticle.windY;
    }
 
+   @SideOnly(Side.CLIENT)
    public static float getWindZ(World world) {
       return CloudSubparticle.windZ;
    }
 
+   @SideOnly(Side.CLIENT)
    public static float getWindX(double posX, double posZ) {
       return CloudSubparticle.windX;
    }
 
+   @SideOnly(Side.CLIENT)
    public static float getWindY(double posX, double posZ) {
       return CloudSubparticle.windY;
    }
 
+   @SideOnly(Side.CLIENT)
    public static float getWindZ(double posX, double posZ) {
       return CloudSubparticle.windZ;
    }

@@ -1,11 +1,13 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.armor.IItemHurted;
-import com.vivern.arpg.renders.HandBaubleRender;
+import com.Vivern.Arpg.elements.armor.IItemHurted;
+import com.Vivern.Arpg.renders.HandBaubleRender;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -21,6 +23,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
    public BaubleType btype;
@@ -51,6 +55,13 @@ public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
       this.text = new String[]{text};
    }
 
+//   @SideOnly(Side.CLIENT)
+//   public BaubleAntipotion setRender(int rendertype) {
+//      this.rendertype = rendertype;
+//      this.render = true;
+//      return this;
+//   }
+
    public BaubleAntipotion setRender(int rendertype) {
       this.rendertype = rendertype;
       this.render = true;
@@ -58,6 +69,7 @@ public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (this.render) {
          if (this.rendertype == 1 && type == RenderType.BODY) {

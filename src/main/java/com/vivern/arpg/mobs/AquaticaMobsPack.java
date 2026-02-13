@@ -1,38 +1,41 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.mobs;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.elements.models.ModelSphere;
-import com.vivern.arpg.elements.models.ModelsAquaticaMobs;
-import com.vivern.arpg.elements.models.OceanSpiritModel;
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.EntityPart;
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.entity.IMultipartMob;
-import com.vivern.arpg.entity.TrailParticle;
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.potions.SirenSong;
-import com.vivern.arpg.recipes.Seal;
-import com.vivern.arpg.recipes.Soul;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.IRender;
-import com.vivern.arpg.renders.ParticleTracker;
-import com.vivern.arpg.renders.mobrender.RenderTentacles;
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.elements.models.AbstractMobModel;
+import com.Vivern.Arpg.elements.models.ModelSphere;
+import com.Vivern.Arpg.elements.models.ModelsAquaticaMobs;
+import com.Vivern.Arpg.elements.models.OceanSpiritModel;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.entity.EntityPart;
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.entity.IMultipartMob;
+import com.Vivern.Arpg.entity.TrailParticle;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.AnimationTimer;
+import com.Vivern.Arpg.main.BloodType;
+import com.Vivern.Arpg.main.ColorConverters;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.PropertiesRegistry;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.potions.SirenSong;
+import com.Vivern.Arpg.recipes.Seal;
+import com.Vivern.Arpg.recipes.Soul;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.IRender;
+import com.Vivern.Arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.renders.mobrender.RenderTentacles;
 import com.google.common.base.Predicate;
 import java.util.List;
 import java.util.Random;
@@ -80,6 +83,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -113,151 +117,167 @@ public class AquaticaMobsPack {
    }
 
    public static void initRender() {
-      AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsAquaticaMobs.NeedletoothModel(), 0.4F, Needletooth.class));
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.BlisterfishModel(),
-               new ResourceLocation("arpg:textures/blisterfish_model_tex.png"),
-               0.4F,
-               Blisterfish.class
-            )
-            .setLightLayer(new ResourceLocation("arpg:textures/blisterfish_model_tex_overlay.png"))
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.WizardfishModel(),
-               new ResourceLocation("arpg:textures/wizardfish_model_tex.png"),
-               0.4F,
-               Wizardfish.class
-            )
-            .setLightLayer(new ResourceLocation("arpg:textures/wizardfish_model_tex_overlay.png"))
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.DartfishModel(), new ResourceLocation("arpg:textures/dartfish_model_tex.png"), 0.5F, Dartfish.class
-            )
-            .setLightLayer(new ResourceLocation("arpg:textures/dartfish_model_tex_overlay.png"))
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.TrachymonaModel(),
-               new ResourceLocation("arpg:textures/trachymona_model_tex.png"),
-               0.25F,
-               Trachymona.class
-            )
-            .setRenderAsRocket(true)
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.HydromonaModel(), new ResourceLocation("arpg:textures/hydromona_model_tex.png"), 0.35F, Hydromona.class
-            )
-            .setRenderAsRocket(true)
-            .setLightLayer(new ResourceLocation("arpg:textures/hydromona_model_tex_overlay.png"))
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.BreedModel(), new ResourceLocation("arpg:textures/breed_model_tex.png"), 0.15F, Breed.class
-            )
-            .setRenderAsRocket(false)
-            .setLightLayer(new ResourceLocation("arpg:textures/breed_model_tex_overlay.png"))
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.PolipoidModel(), new ResourceLocation("arpg:textures/polipoid_model_tex.png"), 0.3F, Polipoid.class
-            )
-            .setRenderAsRocket(false)
-            .setLightLayer(new ResourceLocation("arpg:textures/polipoid_model_tex_overlay.png"))
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsAquaticaMobs.SeaStrikerModel(), new ResourceLocation("arpg:textures/sea_striker_model_tex.png"), 0.35F, SeaStriker.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new OceanSpiritModel(), new ResourceLocation("arpg:textures/ocean_spirit_model_tex.png"), 0.4F, OceanSpirit.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.ArchelonModel(), new ResourceLocation("arpg:textures/archelon_model_tex.png"), 1.3F, Archelon.class
-            )
-            .setLightLayer(new ResourceLocation("arpg:textures/archelon_model_tex_overlay.png"))
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsAquaticaMobs.ArchelonCreationModel(),
-            new ResourceLocation("arpg:textures/archelon_creation_model_tex.png"),
-            0.5F,
-            ArchelonCreation.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsAquaticaMobs.MermaidModel(), new ResourceLocation("arpg:textures/mermaid_model_tex.png"), 0.35F, Mermaid.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsAquaticaMobs.MermaidModel(), new ResourceLocation("arpg:textures/dark_mermaid_tex.png"), 0.35F, DarkMermaid.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsAquaticaMobs.SirenModel(), new ResourceLocation("arpg:textures/siren_model_tex.png"), 0.4F, Siren.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.BossKrakenModel(), new ResourceLocation("arpg:textures/boss_kraken_model_tex.png"), 1.5F, BossKraken.class
-            )
-            .setRenderAsRocket(true)
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.KrakenTentacleModel(0),
-               new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
-               0.3F,
-               KrakenTentacleBite.class
-            )
-            .setUseIRender()
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.KrakenTentacleModel(1),
-               new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
-               0.3F,
-               KrakenTentacleShock.class
-            )
-            .setUseIRender()
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.KrakenTentacleModel(2),
-               new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
-               0.3F,
-               KrakenTentacleCrash.class
-            )
-            .setUseIRender()
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.KrakenTentacleModel(3),
-               new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
-               0.3F,
-               KrakenTentacleMain.class
-            )
-            .setUseIRender()
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsAquaticaMobs.KrakenTentacleModel(4),
-               new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
-               0.3F,
-               KrakenTentacleGrab.class
-            )
-            .setUseIRender()
-      );
+      fieldsContainer.initFields();
+   }
+
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsAquaticaMobs.NeedletoothModel(), 0.4F, Needletooth.class));
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.BlisterfishModel(),
+                         new ResourceLocation("arpg:textures/blisterfish_model_tex.png"),
+                         0.4F,
+                         Blisterfish.class
+                 )
+                         .setLightLayer(new ResourceLocation("arpg:textures/blisterfish_model_tex_overlay.png"))
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.WizardfishModel(),
+                         new ResourceLocation("arpg:textures/wizardfish_model_tex.png"),
+                         0.4F,
+                         Wizardfish.class
+                 )
+                         .setLightLayer(new ResourceLocation("arpg:textures/wizardfish_model_tex_overlay.png"))
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.DartfishModel(), new ResourceLocation("arpg:textures/dartfish_model_tex.png"), 0.5F, Dartfish.class
+                 )
+                         .setLightLayer(new ResourceLocation("arpg:textures/dartfish_model_tex_overlay.png"))
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.TrachymonaModel(),
+                         new ResourceLocation("arpg:textures/trachymona_model_tex.png"),
+                         0.25F,
+                         Trachymona.class
+                 )
+                         .setRenderAsRocket(true)
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.HydromonaModel(), new ResourceLocation("arpg:textures/hydromona_model_tex.png"), 0.35F, Hydromona.class
+                 )
+                         .setRenderAsRocket(true)
+                         .setLightLayer(new ResourceLocation("arpg:textures/hydromona_model_tex_overlay.png"))
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.BreedModel(), new ResourceLocation("arpg:textures/breed_model_tex.png"), 0.15F, Breed.class
+                 )
+                         .setRenderAsRocket(false)
+                         .setLightLayer(new ResourceLocation("arpg:textures/breed_model_tex_overlay.png"))
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.PolipoidModel(), new ResourceLocation("arpg:textures/polipoid_model_tex.png"), 0.3F, Polipoid.class
+                 )
+                         .setRenderAsRocket(false)
+                         .setLightLayer(new ResourceLocation("arpg:textures/polipoid_model_tex_overlay.png"))
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.SeaStrikerModel(), new ResourceLocation("arpg:textures/sea_striker_model_tex.png"), 0.35F, SeaStriker.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new OceanSpiritModel(), new ResourceLocation("arpg:textures/ocean_spirit_model_tex.png"), 0.4F, OceanSpirit.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.ArchelonModel(), new ResourceLocation("arpg:textures/archelon_model_tex.png"), 1.3F, Archelon.class
+                 )
+                         .setLightLayer(new ResourceLocation("arpg:textures/archelon_model_tex_overlay.png"))
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.ArchelonCreationModel(),
+                         new ResourceLocation("arpg:textures/archelon_creation_model_tex.png"),
+                         0.5F,
+                         ArchelonCreation.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.MermaidModel(), new ResourceLocation("arpg:textures/mermaid_model_tex.png"), 0.35F, Mermaid.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.MermaidModel(), new ResourceLocation("arpg:textures/dark_mermaid_tex.png"), 0.35F, DarkMermaid.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.SirenModel(), new ResourceLocation("arpg:textures/siren_model_tex.png"), 0.4F, Siren.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.BossKrakenModel(), new ResourceLocation("arpg:textures/boss_kraken_model_tex.png"), 1.5F, BossKraken.class
+                 )
+                         .setRenderAsRocket(true)
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.KrakenTentacleModel(0),
+                         new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
+                         0.3F,
+                         KrakenTentacleBite.class
+                 )
+                         .setUseIRender()
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.KrakenTentacleModel(1),
+                         new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
+                         0.3F,
+                         KrakenTentacleShock.class
+                 )
+                         .setUseIRender()
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.KrakenTentacleModel(2),
+                         new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
+                         0.3F,
+                         KrakenTentacleCrash.class
+                 )
+                         .setUseIRender()
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.KrakenTentacleModel(3),
+                         new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
+                         0.3F,
+                         KrakenTentacleMain.class
+                 )
+                         .setUseIRender()
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsAquaticaMobs.KrakenTentacleModel(4),
+                         new ResourceLocation("arpg:textures/kraken_tentacle_model_tex.png"),
+                         0.3F,
+                         KrakenTentacleGrab.class
+                 )
+                         .setUseIRender()
+         );
+      }
+   }
+
+   public static ClientFieldsContainer fieldsContainer;
+
+   static {
+      if (fieldsContainer == null && FMLCommonHandler.instance().getSide().isClient()) {
+         fieldsContainer = new ClientFieldsContainer();
+      }
    }
 
    public static class Archelon extends AbstractMob implements IMultipartMob, IEntitySynchronize {
@@ -375,6 +395,7 @@ public class AquaticaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double... args) {
          this.renderYawOffset = (float)args[0];
          if (this.archelonCreation != null) {
@@ -1731,6 +1752,7 @@ public class AquaticaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double... args) {
          if (args.length == 1) {
             Entity entity = this.world.getEntityByID((int)args[0]);
@@ -2301,47 +2323,52 @@ public class AquaticaMobsPack {
          }
 
          if (this.world.isRemote) {
-            if (this.attacking) {
-               GUNParticle part = new GUNParticle(
-                  textureShock,
-                  3.2F,
-                  0.0F,
-                  3,
-                  240,
-                  this.world,
-                  this.posX,
-                  this.posY + this.height / 2.0F,
-                  this.posZ,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  0.82F - this.rand.nextFloat() * 0.1F,
-                  1.0F,
-                  0.85F + this.rand.nextFloat() * 0.1F,
-                  true,
-                  this.rand.nextInt(360)
-               );
-               part.alphaGlowing = true;
-               if (this.rand.nextFloat() < 0.75F) {
-                  part.rotationPitchYaw = new Vec2f(this.rand.nextInt(360), this.rand.nextInt(360));
-               }
+            this.onUpdate_Client_1();
+         }
+      }
 
-               this.world.spawnEntity(part);
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         if (this.attacking) {
+            GUNParticle part = new GUNParticle(
+                    textureShock,
+                    3.2F,
+                    0.0F,
+                    3,
+                    240,
+                    this.world,
+                    this.posX,
+                    this.posY + this.height / 2.0F,
+                    this.posZ,
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    0.82F - this.rand.nextFloat() * 0.1F,
+                    1.0F,
+                    0.85F + this.rand.nextFloat() * 0.1F,
+                    true,
+                    this.rand.nextInt(360)
+            );
+            part.alphaGlowing = true;
+            if (this.rand.nextFloat() < 0.75F) {
+               part.rotationPitchYaw = new Vec2f(this.rand.nextInt(360), this.rand.nextInt(360));
             }
 
-            if (this.ticksExisted % 12 == 0) {
-               this.world
-                  .playSound(
-                     this.posX,
-                     this.posY,
-                     this.posZ,
-                     Sounds.kraken_shock_loop,
-                     SoundCategory.HOSTILE,
-                     1.0F,
-                     0.95F + this.rand.nextFloat() / 10.0F,
-                     false
-                  );
-            }
+            this.world.spawnEntity(part);
+         }
+
+         if (this.ticksExisted % 12 == 0) {
+            this.world
+                    .playSound(
+                            this.posX,
+                            this.posY,
+                            this.posZ,
+                            Sounds.kraken_shock_loop,
+                            SoundCategory.HOSTILE,
+                            1.0F,
+                            0.95F + this.rand.nextFloat() / 10.0F,
+                            false
+                    );
          }
       }
 
@@ -2596,6 +2623,7 @@ public class AquaticaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double... args) {
          if (args.length == 3) {
             this.spellhitPos = new Vec3d(args[0], args[1], args[2]);
@@ -2643,32 +2671,7 @@ public class AquaticaMobsPack {
          int airr = this.getAir();
          super.onUpdate();
          if (this.world.isRemote) {
-            this.var3 = this.var4;
-            this.var4 = this.var4 + this.var5;
-            if (this.spellhitActive && this.spellhitPos != null) {
-               GUNParticle spell = new GUNParticle(
-                  star2,
-                  0.1F + this.rand.nextFloat() * 0.1F,
-                  0.0F,
-                  20,
-                  200,
-                  this.world,
-                  this.spellhitPos.x + (this.rand.nextDouble() - 0.5) * 6.0,
-                  this.spellhitPos.y,
-                  this.spellhitPos.z + (this.rand.nextDouble() - 0.5) * 6.0,
-                  0.0F,
-                  (float)this.rand.nextGaussian() / 4.0F,
-                  0.0F,
-                  1.0F,
-                  1.0F,
-                  0.4F - this.rand.nextFloat() * 0.2F,
-                  true,
-                  this.rand.nextInt(31) - 30
-               );
-               spell.alphaGlowing = true;
-               spell.scaleTickAdding = -0.0016F;
-               this.world.spawnEntity(spell);
-            }
+            this.onUpdate_Client_1();
          } else {
             if (!this.isAIDisabled() && this.isEntityAlive()) {
                if (this.WEAPON == 0) {
@@ -2788,6 +2791,36 @@ public class AquaticaMobsPack {
             }
          } else {
             this.setAir(300);
+         }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         this.var3 = this.var4;
+         this.var4 = this.var4 + this.var5;
+         if (this.spellhitActive && this.spellhitPos != null) {
+            GUNParticle spell = new GUNParticle(
+                    star2,
+                    0.1F + this.rand.nextFloat() * 0.1F,
+                    0.0F,
+                    20,
+                    200,
+                    this.world,
+                    this.spellhitPos.x + (this.rand.nextDouble() - 0.5) * 6.0,
+                    this.spellhitPos.y,
+                    this.spellhitPos.z + (this.rand.nextDouble() - 0.5) * 6.0,
+                    0.0F,
+                    (float)this.rand.nextGaussian() / 4.0F,
+                    0.0F,
+                    1.0F,
+                    1.0F,
+                    0.4F - this.rand.nextFloat() * 0.2F,
+                    true,
+                    this.rand.nextInt(31) - 30
+            );
+            spell.alphaGlowing = true;
+            spell.scaleTickAdding = -0.0016F;
+            this.world.spawnEntity(spell);
          }
       }
 
@@ -3000,6 +3033,7 @@ public class AquaticaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double x, double y, double z, double a, double b, double c) {
          this.var2 = (float)x;
          this.setSize(this.var2, this.var2);
@@ -3552,6 +3586,7 @@ public class AquaticaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double... args) {
          this.var1 = (int)args[0] + 4;
       }
@@ -4303,6 +4338,7 @@ public class AquaticaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double x, double y, double z, double a, double b, double c) {
          this.particklesTime = 15;
          this.particklesEntity = this.world.getEntityByID((int)x);
@@ -4321,6 +4357,7 @@ public class AquaticaMobsPack {
          this.world.playSound(x, y, z, Sounds.item_misc_c, SoundCategory.HOSTILE, 0.6F, 0.9F + this.rand.nextFloat() / 5.0F, false);
       }
 
+      @SideOnly(Side.CLIENT)
       public void spawnParticles1(Entity target, Vec3d pos, float r, float g, float b, int count) {
          ParticleTracker<TrailParticle> tracker = new ParticleTracker.TrackerFollowDynamicPoint(target, false, 0.4F, 0.002F, 0.025F);
 

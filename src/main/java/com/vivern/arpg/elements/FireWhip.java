@@ -1,16 +1,14 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketWhipToClients;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.WhipParticle;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.network.PacketWhipToClients;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.WhipParticle;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -26,6 +24,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FireWhip extends ItemWeapon {
    static ResourceLocation sweeptex = new ResourceLocation("arpg:textures/sweep2.png");
@@ -53,8 +53,10 @@ public class FireWhip extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             int damage = itemstack.getItemDamage();
             Vec3d vec = GetMOP.RotatedPosRayTrace(1.0, 1.0F, player, 0.2, 0.2, 40.0F, player.rotationYaw + 25.0F);
             double startX = vec.x;
@@ -171,6 +173,7 @@ public class FireWhip extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT) //
    public void effectt(
       EntityPlayer player,
       World world,

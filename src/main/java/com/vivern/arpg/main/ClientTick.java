@@ -1,10 +1,11 @@
-package com.vivern.arpg.main;
+package com.Vivern.Arpg.main;
 
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
+        value = Side.CLIENT,
    modid = "arpg"
 )
 @SideOnly(Side.CLIENT)

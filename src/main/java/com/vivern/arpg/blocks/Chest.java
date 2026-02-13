@@ -1,14 +1,10 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.ChestCapedModel;
-import com.vivern.arpg.elements.models.ChestDoubleLockModel;
-import com.vivern.arpg.elements.models.ChestDoubleLockModelLAR;
-import com.vivern.arpg.elements.models.ChestModel;
-import com.vivern.arpg.elements.models.ChestModelLAR;
-import com.vivern.arpg.elements.models.ChestShaftedModel;
-import com.vivern.arpg.tileentity.EnumChest;
-import com.vivern.arpg.tileentity.TileChest;
-import javax.annotation.Nullable;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.arpgfix.IFieldInit;
+import com.Vivern.Arpg.tileentity.EnumChest;
+import com.Vivern.Arpg.tileentity.TileChest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
@@ -19,7 +15,6 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.model.ModelChest;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -33,11 +28,7 @@ import net.minecraft.inventory.InventoryLargeChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumFacing.Plane;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -49,7 +40,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Chest extends BlockContainer {
+import javax.annotation.Nullable;
+
+public class Chest extends BlockContainer implements IFieldInit {
    public static final PropertyDirection FACING = BlockHorizontal.FACING;
    protected static final AxisAlignedBB NORTH_CHEST_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0, 0.9375, 0.875, 0.9375);
    protected static final AxisAlignedBB SOUTH_CHEST_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 1.0);
@@ -57,13 +50,20 @@ public class Chest extends BlockContainer {
    protected static final AxisAlignedBB EAST_CHEST_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 1.0, 0.875, 0.9375);
    public static final AxisAlignedBB NOT_CONNECTED_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 0.9375);
    public final EnumChest chestType;
-   public static ModelChest simpleChest = new ChestModel();
-   public static ModelChest simpleChestLAR = new ChestModelLAR();
-   public static ChestCapedModel capedChest = new ChestCapedModel();
-   public static ModelChest doubleLockChest = new ChestDoubleLockModel();
-   public static ModelChest doubleLockChestLAR = new ChestDoubleLockModelLAR();
-   public static ChestShaftedModel shaftedChest = new ChestShaftedModel();
-   public static ChestShaftedModel shaftedChestGlow = new ChestShaftedModel().setglow();
+//   @SideOnly(Side.CLIENT)
+//   public static ModelChest simpleChest = new ChestModel();
+//   @SideOnly(Side.CLIENT)
+//   public static ModelChest simpleChestLAR = new ChestModelLAR();
+//   @SideOnly(Side.CLIENT)
+//   public static ChestCapedModel capedChest = new ChestCapedModel();
+//   @SideOnly(Side.CLIENT)
+//   public static ModelChest doubleLockChest = new ChestDoubleLockModel();
+//   @SideOnly(Side.CLIENT)
+//   public static ModelChest doubleLockChestLAR = new ChestDoubleLockModelLAR();
+//   @SideOnly(Side.CLIENT)
+//   public static ChestShaftedModel shaftedChest = new ChestShaftedModel();
+//   @SideOnly(Side.CLIENT)
+//   public static ChestShaftedModel shaftedChestGlow = new ChestShaftedModel().setglow();
 
    public Chest(Material mater, String name, float hard, float resi, SoundType stype, String tool, int harvestlvl, EnumChest chestType) {
       super(mater);
@@ -76,6 +76,12 @@ public class Chest extends BlockContainer {
       this.setSoundType(stype);
       this.setHarvestLevel(tool, harvestlvl);
       this.chestType = chestType;
+   }
+
+   @Override
+   @SideOnly(Side.CLIENT)
+   public void initFields() {
+
    }
 
    public static void trySendPacketUpdate(World world, BlockPos pos, TileChest tile) {
@@ -379,11 +385,17 @@ public class Chest extends BlockContainer {
       } else {
          ILockableContainer ilockablecontainer = this.getLockableContainer(worldIn, pos);
          if (ilockablecontainer != null) {
-            playerIn.displayGUIChest(ilockablecontainer);
+//            playerIn.displayGUIChest(ilockablecontainer);
+            onBlockActivated_Client_1(playerIn, ilockablecontainer);
          }
 
          return ret;
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onBlockActivated_Client_1(EntityPlayer playerIn, ILockableContainer ilockablecontainer) {
+      playerIn.displayGUIChest(ilockablecontainer);
    }
 
    @Nullable

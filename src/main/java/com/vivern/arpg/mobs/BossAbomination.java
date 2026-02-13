@@ -1,18 +1,20 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.main.BloodType;
+import com.Vivern.Arpg.main.Booom;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -301,36 +303,41 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
             IEntitySynchronize.sendSynchronize(this, 50.0, this.heating, 0.0, 0.0, 0.0, 0.0, 0.0);
          }
       } else {
-         if (this.getHealth() <= this.getMaxHealth() * 0.4) {
-            this.var1++;
-         } else if (this.var1 > 0) {
-            this.var1--;
-         }
+         this.onUpdate_Client_1();
+      }
+   }
 
-         if (this.summonning && this.ticksExisted % 2 == 0) {
-            float scalen = this.rand.nextFloat() * 0.5F + 0.36F;
-            GUNParticle part = new GUNParticle(
-               spl,
-               0.1F,
-               -0.007F,
-               30,
-               150,
-               this.world,
-               this.posX + this.rand.nextGaussian(),
-               this.summonY - this.rand.nextFloat() / 2.0F,
-               this.posZ + this.rand.nextGaussian(),
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F - this.rand.nextFloat() * 0.3F,
-               1.0F - this.rand.nextFloat() * 0.3F,
-               1.0F - this.rand.nextFloat() * 0.3F,
-               false,
-               this.rand.nextInt(21) - 20
-            );
-            part.scaleTickAdding = scalen / 50.0F;
-            this.world.spawnEntity(part);
-         }
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      if (this.getHealth() <= this.getMaxHealth() * 0.4) {
+         this.var1++;
+      } else if (this.var1 > 0) {
+         this.var1--;
+      }
+
+      if (this.summonning && this.ticksExisted % 2 == 0) {
+         float scalen = this.rand.nextFloat() * 0.5F + 0.36F;
+         GUNParticle part = new GUNParticle(
+                 spl,
+                 0.1F,
+                 -0.007F,
+                 30,
+                 150,
+                 this.world,
+                 this.posX + this.rand.nextGaussian(),
+                 this.summonY - this.rand.nextFloat() / 2.0F,
+                 this.posZ + this.rand.nextGaussian(),
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F - this.rand.nextFloat() * 0.3F,
+                 1.0F - this.rand.nextFloat() * 0.3F,
+                 1.0F - this.rand.nextFloat() * 0.3F,
+                 false,
+                 this.rand.nextInt(21) - 20
+         );
+         part.scaleTickAdding = scalen / 50.0F;
+         this.world.spawnEntity(part);
       }
    }
 

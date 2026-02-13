@@ -1,12 +1,14 @@
-package com.vivern.arpg.renders;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.BigChestModel;
-import com.vivern.arpg.elements.models.StandartChestModel;
-import com.vivern.arpg.elements.models.StormBigChestModel;
-import com.vivern.arpg.elements.models.StormChestModel;
-import com.vivern.arpg.tileentity.ChestLock;
-import com.vivern.arpg.tileentity.EnumChest;
-import com.vivern.arpg.tileentity.TileARPGChest;
+package com.Vivern.Arpg.renders;
+
+import com.Vivern.Arpg.elements.models.BigChestModel;
+import com.Vivern.Arpg.elements.models.StandartChestModel;
+import com.Vivern.Arpg.elements.models.StormBigChestModel;
+import com.Vivern.Arpg.elements.models.StormChestModel;
+import com.Vivern.Arpg.tileentity.ChestLock;
+import com.Vivern.Arpg.tileentity.EnumChest;
+import com.Vivern.Arpg.tileentity.TileARPGChest;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
@@ -63,7 +65,7 @@ public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
          float rotateX = -(f * (float) (Math.PI / 2));
          TileARPGChest.EnumChestStanding standing = te.getChestStanding();
          if (standing == TileARPGChest.EnumChestStanding.MIDDLE) {
-            chestType.model
+            chestType.getModel()
                .render(
                   null,
                   te.getPos().getX(),
@@ -76,7 +78,7 @@ public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
          }
 
          if (standing == TileARPGChest.EnumChestStanding.LEFT) {
-            chestType.modelLarge
+            chestType.getModelLarge()
                .render(
                   null,
                   te.getPos().getX(),

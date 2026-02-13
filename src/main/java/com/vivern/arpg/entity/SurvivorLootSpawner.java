@@ -1,7 +1,9 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.mobs.NPCMobsPack;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.mobs.NPCMobsPack;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -44,30 +46,35 @@ public class SurvivorLootSpawner extends EntityThrowable {
       }
 
       if (this.world.isRemote) {
-         GUNParticle fire2 = new GUNParticle(
-            this.flame,
-            1.13F + (float)this.rand.nextGaussian() / 15.0F,
-            -0.009F,
-            10 + this.rand.nextInt(5),
-            240,
-            this.world,
-            this.posX,
-            this.posY,
-            this.posZ,
-            0.0F,
-            0.0F,
-            0.0F,
-            1.0F,
-            0.8F + (float)this.rand.nextGaussian() / 5.0F,
-            1.0F,
-            true,
-            this.rand.nextInt(100) - 50
-         );
-         fire2.alphaTickAdding = -0.1F;
-         fire2.alphaGlowing = true;
-         fire2.scaleTickAdding = -0.05F;
-         this.world.spawnEntity(fire2);
+         this.onUpdate_Client_1();
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      GUNParticle fire2 = new GUNParticle(
+              this.flame,
+              1.13F + (float)this.rand.nextGaussian() / 15.0F,
+              -0.009F,
+              10 + this.rand.nextInt(5),
+              240,
+              this.world,
+              this.posX,
+              this.posY,
+              this.posZ,
+              0.0F,
+              0.0F,
+              0.0F,
+              1.0F,
+              0.8F + (float)this.rand.nextGaussian() / 5.0F,
+              1.0F,
+              true,
+              this.rand.nextInt(100) - 50
+      );
+      fire2.alphaTickAdding = -0.1F;
+      fire2.alphaGlowing = true;
+      fire2.scaleTickAdding = -0.05F;
+      this.world.spawnEntity(fire2);
    }
 
    protected float getGravityVelocity() {

@@ -1,23 +1,14 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.blocks.IceSpikes;
-import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.blocks.IceSpikes;
+import com.Vivern.Arpg.entity.EntityStreamLaserP;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
@@ -33,13 +24,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class IceBeam extends ItemWeapon {
    ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largecloud.png");
@@ -83,7 +74,8 @@ public class IceBeam extends ItemWeapon {
          World world = player.getEntityWorld();
          Item itemIn = itemstack.getItem();
          EnumHand hand = player.getActiveHand();
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
          float mana = Mana.getMana(player);
          float spee = Mana.getManaSpeed(player);
          float power = Mana.getMagicPowerMax(player);
@@ -206,68 +198,7 @@ public class IceBeam extends ItemWeapon {
             }
 
             if (world.isRemote) {
-               GUNParticle bigsmoke = new GUNParticle(
-                  this.largesmoke,
-                  0.8F + (float)itemRand.nextGaussian() / 13.0F,
-                  0.0F,
-                  15,
-                  240,
-                  world,
-                  vec.x,
-                  vec.y,
-                  vec.z,
-                  (float)itemRand.nextGaussian() / 20.0F,
-                  (float)itemRand.nextGaussian() / 25.0F,
-                  (float)itemRand.nextGaussian() / 20.0F,
-                  0.6F + (float)itemRand.nextGaussian() / 10.0F,
-                  0.7F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(360)
-               );
-               bigsmoke.alphaTickAdding = -0.05F;
-               bigsmoke.alphaGlowing = true;
-               world.spawnEntity(bigsmoke);
-               GUNParticle bigsmoke2 = new GUNParticle(
-                  this.snow,
-                  0.15F + (float)itemRand.nextGaussian() / 20.0F,
-                  0.01F,
-                  10 + itemRand.nextInt(20),
-                  180,
-                  world,
-                  vec.x,
-                  vec.y,
-                  vec.z,
-                  (float)itemRand.nextGaussian() / 20.0F,
-                  (float)itemRand.nextGaussian() / 20.0F,
-                  (float)itemRand.nextGaussian() / 20.0F,
-                  1.0F,
-                  1.0F,
-                  1.0F,
-                  false,
-                  itemRand.nextInt(360),
-                  true,
-                  1.3F
-               );
-               world.spawnEntity(bigsmoke2);
-               EntityStreamLaserP laser = new EntityStreamLaserP(
-                  world,
-                  player,
-                  this.start,
-                  0.21F,
-                  240,
-                  1.0F,
-                  0.9F,
-                  0.9F,
-                  0.5F,
-                  player.getDistance(vec.x, vec.y, vec.z),
-                  1,
-                  0.3F,
-                  8.0F
-               );
-               laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
-               laser.horizOffset = horizoffset;
-               world.spawnEntity(laser);
+               onUpdate_Client(world, player, vec, horizoffset);
             }
 
             IWeapon.fireEffectExcl(
@@ -294,7 +225,74 @@ public class IceBeam extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   public void onUpdate_Client(World world, EntityPlayer player, Vec3d vec, float horizoffset) {
+      GUNParticle bigsmoke = new GUNParticle(
+              this.largesmoke,
+              0.8F + (float)itemRand.nextGaussian() / 13.0F,
+              0.0F,
+              15,
+              240,
+              world,
+              vec.x,
+              vec.y,
+              vec.z,
+              (float)itemRand.nextGaussian() / 20.0F,
+              (float)itemRand.nextGaussian() / 25.0F,
+              (float)itemRand.nextGaussian() / 20.0F,
+              0.6F + (float)itemRand.nextGaussian() / 10.0F,
+              0.7F,
+              1.0F,
+              true,
+              itemRand.nextInt(360)
+      );
+      bigsmoke.alphaTickAdding = -0.05F;
+      bigsmoke.alphaGlowing = true;
+      world.spawnEntity(bigsmoke);
+      GUNParticle bigsmoke2 = new GUNParticle(
+              this.snow,
+              0.15F + (float)itemRand.nextGaussian() / 20.0F,
+              0.01F,
+              10 + itemRand.nextInt(20),
+              180,
+              world,
+              vec.x,
+              vec.y,
+              vec.z,
+              (float)itemRand.nextGaussian() / 20.0F,
+              (float)itemRand.nextGaussian() / 20.0F,
+              (float)itemRand.nextGaussian() / 20.0F,
+              1.0F,
+              1.0F,
+              1.0F,
+              false,
+              itemRand.nextInt(360),
+              true,
+              1.3F
+      );
+      world.spawnEntity(bigsmoke2);
+      EntityStreamLaserP laser = new EntityStreamLaserP(
+              world,
+              player,
+              this.start,
+              0.21F,
+              240,
+              1.0F,
+              0.9F,
+              0.9F,
+              0.5F,
+              player.getDistance(vec.x, vec.y, vec.z),
+              1,
+              0.3F,
+              8.0F
+      );
+      laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
+      laser.horizOffset = horizoffset;
+      world.spawnEntity(laser);
+   }
+
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       GUNParticle bigsmoke = new GUNParticle(
          this.largesmoke,

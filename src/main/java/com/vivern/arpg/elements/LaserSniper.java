@@ -1,17 +1,19 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityLaserParticle;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntityLaserParticle;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -28,6 +30,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LaserSniper extends ItemWeapon {
    ResourceLocation texture = new ResourceLocation("arpg:textures/laser_sniper_laser.png");
@@ -63,7 +67,8 @@ public class LaserSniper extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
             float acclvl = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
@@ -156,6 +161,7 @@ public class LaserSniper extends ItemWeapon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer clientplayer, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Entity playe = world.getEntityByID((int)x);
       if (playe instanceof EntityPlayer) {

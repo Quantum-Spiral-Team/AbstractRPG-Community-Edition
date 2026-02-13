@@ -1,7 +1,9 @@
-package com.vivern.arpg.weather;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.NoiseGenerator3D;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.weather;
+
+import com.Vivern.Arpg.main.NoiseGenerator3D;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
@@ -10,6 +12,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class NetherWeather extends WeatherPhenomenon {
    static ResourceLocation tex = new ResourceLocation("arpg:textures/nether_rain.png");
@@ -23,8 +27,9 @@ public class NetherWeather extends WeatherPhenomenon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public WeatherRenderList getRenderer() {
-      return Weather.RENDERNETHERSMOKE;
+      return (WeatherRenderList) Weather.RENDERNETHERSMOKE;
    }
 
    @Override
@@ -43,6 +48,7 @@ public class NetherWeather extends WeatherPhenomenon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void clientUpdate(double x, double z, World world, double value, double playerY) {
       if (world.isRemote && !Minecraft.getMinecraft().isGamePaused() && value < 0.4 && this.rand.nextFloat() < value * 0.013) {
          int randx = this.rand.nextInt(3) - 1;

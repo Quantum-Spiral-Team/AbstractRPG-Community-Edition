@@ -1,12 +1,14 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
@@ -14,6 +16,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityArrowFrozen extends AbstractArrow {
    public static ResourceLocation snow = new ResourceLocation("arpg:textures/snowflake5.png");
@@ -63,6 +67,7 @@ public class EntityArrowFrozen extends AbstractArrow {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void spawnArrowParticles(int particleCount) {
       for (int i = 0; i < particleCount; i++) {
          GUNParticle snow2 = new GUNParticle(

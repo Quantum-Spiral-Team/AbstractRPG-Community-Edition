@@ -1,9 +1,11 @@
-package com.vivern.arpg.renders;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Weapons;
+package com.Vivern.Arpg.renders;
+
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Weapons;
 import com.google.common.base.MoreObjects;
 import java.util.Objects;
 import javax.annotation.Nullable;

@@ -1,41 +1,43 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.blocks.BlockFluidPoison;
-import com.vivern.arpg.blocks.FrostfireExplosive;
-import com.vivern.arpg.entity.CannonSnowball;
-import com.vivern.arpg.entity.EnderSeerProjectile;
-import com.vivern.arpg.entity.EntityArcaneExplode;
-import com.vivern.arpg.entity.EntityCubicParticle;
-import com.vivern.arpg.entity.EntityFrostBolt;
-import com.vivern.arpg.entity.EntityFrostfireExplosive;
-import com.vivern.arpg.entity.EntitySlimeBullet;
-import com.vivern.arpg.entity.GemStaffShoot;
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.entity.LavaDropperShoot;
-import com.vivern.arpg.entity.ShellShard;
-import com.vivern.arpg.entity.ViolenceShoot;
-import com.vivern.arpg.entity.WandColdShoot;
-import com.vivern.arpg.entity.XmassBall;
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Ln;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.HostileProjectiles;
-import com.vivern.arpg.network.PacketBulletEffectToClients;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.blocks.BlockFluidPoison;
+import com.Vivern.Arpg.blocks.FrostfireExplosive;
+import com.Vivern.Arpg.entity.CannonSnowball;
+import com.Vivern.Arpg.entity.EnderSeerProjectile;
+import com.Vivern.Arpg.entity.EntityArcaneExplode;
+import com.Vivern.Arpg.entity.EntityCubicParticle;
+import com.Vivern.Arpg.entity.EntityFrostBolt;
+import com.Vivern.Arpg.entity.EntityFrostfireExplosive;
+import com.Vivern.Arpg.entity.EntitySlimeBullet;
+import com.Vivern.Arpg.entity.GemStaffShoot;
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.entity.LavaDropperShoot;
+import com.Vivern.Arpg.entity.ShellShard;
+import com.Vivern.Arpg.entity.ViolenceShoot;
+import com.Vivern.Arpg.entity.WandColdShoot;
+import com.Vivern.Arpg.entity.XmassBall;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Ln;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.mobs.HostileProjectiles;
+import com.Vivern.Arpg.network.PacketBulletEffectToClients;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -71,6 +73,8 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemRocket extends Item {
    public static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
@@ -194,6 +198,7 @@ public class ItemRocket extends Item {
    public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
    }
 
+   @SideOnly(Side.CLIENT)
    public static void onEffectPacket(World world, double x, double y, double z, double a, double b, double c, int id) {
       if (id == -1) {
          world.playSound(x, y, z, Sounds.explode, SoundCategory.PLAYERS, 1.2F, 0.9F + itemRand.nextFloat() / 5.0F, false);
@@ -910,30 +915,35 @@ public class ItemRocket extends Item {
       @Override
       public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
          if (projectile.world.isRemote) {
-            GUNParticle fire2 = new GUNParticle(
-               magic_rocket,
-               0.1F,
-               0.0F,
-               11,
-               240,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               0.15F,
-               0.2F + itemRand.nextFloat() / 5.0F,
-               0.8F + itemRand.nextFloat() / 5.0F,
-               true,
-               itemRand.nextInt(360)
-            );
-            fire2.alphaTickAdding = -0.09F;
-            fire2.alphaGlowing = true;
-            fire2.scaleTickAdding = -0.009F;
-            projectile.world.spawnEntity(fire2);
+            onProjectileUpdate_Client_1(projectile, weaponstack);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         GUNParticle fire2 = new GUNParticle(
+                 magic_rocket,
+                 0.1F,
+                 0.0F,
+                 11,
+                 240,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.15F,
+                 0.2F + itemRand.nextFloat() / 5.0F,
+                 0.8F + itemRand.nextFloat() / 5.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         fire2.alphaTickAdding = -0.09F;
+         fire2.alphaGlowing = true;
+         fire2.scaleTickAdding = -0.009F;
+         projectile.world.spawnEntity(fire2);
       }
 
       @Override
@@ -974,30 +984,35 @@ public class ItemRocket extends Item {
       @Override
       public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
          if (projectile.world.isRemote) {
-            GUNParticle fire2 = new GUNParticle(
-               flame,
-               0.15F,
-               0.0F,
-               14,
-               240,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               0.1F + itemRand.nextFloat() / 5.0F,
-               1.0F,
-               0.3F + itemRand.nextFloat() / 5.0F,
-               true,
-               itemRand.nextInt(360)
-            );
-            fire2.alphaTickAdding = -0.06F;
-            fire2.alphaGlowing = true;
-            fire2.scaleTickAdding = -0.01F;
-            projectile.world.spawnEntity(fire2);
+            onProjectileUpdate_Client_1(projectile, weaponstack);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         GUNParticle fire2 = new GUNParticle(
+                 flame,
+                 0.15F,
+                 0.0F,
+                 14,
+                 240,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.1F + itemRand.nextFloat() / 5.0F,
+                 1.0F,
+                 0.3F + itemRand.nextFloat() / 5.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         fire2.alphaTickAdding = -0.06F;
+         fire2.alphaGlowing = true;
+         fire2.scaleTickAdding = -0.01F;
+         projectile.world.spawnEntity(fire2);
       }
 
       @Override
@@ -1110,30 +1125,35 @@ public class ItemRocket extends Item {
       @Override
       public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
          if (projectile.world.isRemote) {
-            GUNParticle fire2 = new GUNParticle(
-               flame,
-               0.15F,
-               0.0F,
-               14,
-               240,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F,
-               0.8F + itemRand.nextFloat() / 5.0F,
-               0.8F + itemRand.nextFloat() / 5.0F,
-               true,
-               itemRand.nextInt(360)
-            );
-            fire2.alphaTickAdding = -0.06F;
-            fire2.alphaGlowing = true;
-            fire2.scaleTickAdding = -0.01F;
-            projectile.world.spawnEntity(fire2);
+            onProjectileUpdate_Client_1(projectile, weaponstack);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         GUNParticle fire2 = new GUNParticle(
+                 flame,
+                 0.15F,
+                 0.0F,
+                 14,
+                 240,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F,
+                 0.8F + itemRand.nextFloat() / 5.0F,
+                 0.8F + itemRand.nextFloat() / 5.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         fire2.alphaTickAdding = -0.06F;
+         fire2.alphaGlowing = true;
+         fire2.scaleTickAdding = -0.01F;
+         projectile.world.spawnEntity(fire2);
       }
 
       @Override
@@ -1213,18 +1233,23 @@ public class ItemRocket extends Item {
       @Override
       public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
          if (projectile.world.isRemote) {
-            projectile.world
-               .spawnParticle(
-                  EnumParticleTypes.CLOUD,
-                  projectile.posX,
-                  projectile.posY,
-                  projectile.posZ,
-                  itemRand.nextGaussian() / 40.0,
-                  itemRand.nextGaussian() / 40.0,
-                  itemRand.nextGaussian() / 40.0,
-                  new int[0]
-               );
+            onProjectileUpdate_Client_1(projectile, weaponstack);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         projectile.world
+                 .spawnParticle(
+                         EnumParticleTypes.CLOUD,
+                         projectile.posX,
+                         projectile.posY,
+                         projectile.posZ,
+                         itemRand.nextGaussian() / 40.0,
+                         itemRand.nextGaussian() / 40.0,
+                         itemRand.nextGaussian() / 40.0,
+                         new int[0]
+                 );
       }
 
       @Override
@@ -1268,53 +1293,58 @@ public class ItemRocket extends Item {
       @Override
       public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
          if (projectile.world.isRemote) {
-            if (itemRand.nextFloat() < 0.7) {
-               GUNParticle fire2 = new GUNParticle(
-                  largecloud,
-                  0.2F,
-                  0.0F,
-                  14,
-                  240,
-                  projectile.world,
-                  projectile.posX,
-                  projectile.posY,
-                  projectile.posZ,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  0.6F,
-                  0.75F + itemRand.nextFloat() / 9.0F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(360)
-               );
-               fire2.alphaTickAdding = -0.06F;
-               fire2.alphaGlowing = true;
-               fire2.scaleTickAdding = -0.01F;
-               projectile.world.spawnEntity(fire2);
-            } else {
-               GUNParticle fire2 = new GUNParticle(
-                  frostlight,
-                  0.13F,
-                  -0.01F,
-                  30,
-                  200,
-                  projectile.world,
-                  projectile.posX,
-                  projectile.posY,
-                  projectile.posZ,
-                  (float)itemRand.nextGaussian() / 40.0F,
-                  (float)itemRand.nextGaussian() / 40.0F,
-                  (float)itemRand.nextGaussian() / 40.0F,
-                  0.9F + itemRand.nextFloat() / 10.0F,
-                  1.0F,
-                  1.0F,
-                  false,
-                  0
-               );
-               fire2.scaleTickAdding = -0.004F;
-               projectile.world.spawnEntity(fire2);
-            }
+            onProjectileUpdate_Client_1(projectile, weaponstack);
+         }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         if (itemRand.nextFloat() < 0.7) {
+            GUNParticle fire2 = new GUNParticle(
+                    largecloud,
+                    0.2F,
+                    0.0F,
+                    14,
+                    240,
+                    projectile.world,
+                    projectile.posX,
+                    projectile.posY,
+                    projectile.posZ,
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    0.6F,
+                    0.75F + itemRand.nextFloat() / 9.0F,
+                    1.0F,
+                    true,
+                    itemRand.nextInt(360)
+            );
+            fire2.alphaTickAdding = -0.06F;
+            fire2.alphaGlowing = true;
+            fire2.scaleTickAdding = -0.01F;
+            projectile.world.spawnEntity(fire2);
+         } else {
+            GUNParticle fire2 = new GUNParticle(
+                    frostlight,
+                    0.13F,
+                    -0.01F,
+                    30,
+                    200,
+                    projectile.world,
+                    projectile.posX,
+                    projectile.posY,
+                    projectile.posZ,
+                    (float)itemRand.nextGaussian() / 40.0F,
+                    (float)itemRand.nextGaussian() / 40.0F,
+                    (float)itemRand.nextGaussian() / 40.0F,
+                    0.9F + itemRand.nextFloat() / 10.0F,
+                    1.0F,
+                    1.0F,
+                    false,
+                    0
+            );
+            fire2.scaleTickAdding = -0.004F;
+            projectile.world.spawnEntity(fire2);
          }
       }
 
@@ -1424,35 +1454,40 @@ public class ItemRocket extends Item {
       @Override
       public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
          if (projectile.world.isRemote && projectile.ticksExisted % 2 == 0) {
-            GUNParticle fire2 = new GUNParticle(
-               flame,
-               0.15F,
-               0.0F,
-               14,
-               240,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               0.7F,
-               0.8F + itemRand.nextFloat() / 5.0F,
-               0.7F + itemRand.nextFloat() / 5.0F,
-               true,
-               itemRand.nextInt(360)
-            );
-            fire2.alphaTickAdding = -0.06F;
-            fire2.alphaGlowing = true;
-            fire2.scaleTickAdding = -0.01F;
-            projectile.world.spawnEntity(fire2);
+            onProjectileUpdate_Client_1(projectile, weaponstack);
          }
 
          projectile.world
             .spawnParticle(
                EnumParticleTypes.CRIT_MAGIC, projectile.posX, projectile.posY, projectile.posZ, 0.0, 0.0, 0.0, new int[0]
             );
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         GUNParticle fire2 = new GUNParticle(
+                 flame,
+                 0.15F,
+                 0.0F,
+                 14,
+                 240,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.7F,
+                 0.8F + itemRand.nextFloat() / 5.0F,
+                 0.7F + itemRand.nextFloat() / 5.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         fire2.alphaTickAdding = -0.06F;
+         fire2.alphaGlowing = true;
+         fire2.scaleTickAdding = -0.01F;
+         projectile.world.spawnEntity(fire2);
       }
 
       @Override
@@ -1554,41 +1589,46 @@ public class ItemRocket extends Item {
       @Override
       public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
          if (projectile.world.isRemote) {
-            GUNParticle fire2 = new GUNParticle(
-               flame,
-               0.15F,
-               0.0F,
-               14,
-               240,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F,
-               0.8F + itemRand.nextFloat() / 5.0F,
-               0.8F + itemRand.nextFloat() / 5.0F,
-               true,
-               itemRand.nextInt(360)
-            );
-            fire2.alphaTickAdding = -0.06F;
-            fire2.alphaGlowing = true;
-            fire2.scaleTickAdding = -0.01F;
-            projectile.world.spawnEntity(fire2);
-            projectile.world
-               .spawnParticle(
-                  EnumParticleTypes.SMOKE_NORMAL,
-                  projectile.posX,
-                  projectile.posY,
-                  projectile.posZ,
-                  itemRand.nextGaussian() / 40.0,
-                  itemRand.nextGaussian() / 40.0,
-                  itemRand.nextGaussian() / 40.0,
-                  new int[0]
-               );
+            onProjectileUpdate_Client_1(projectile, weaponstack);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         GUNParticle fire2 = new GUNParticle(
+                 flame,
+                 0.15F,
+                 0.0F,
+                 14,
+                 240,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F,
+                 0.8F + itemRand.nextFloat() / 5.0F,
+                 0.8F + itemRand.nextFloat() / 5.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         fire2.alphaTickAdding = -0.06F;
+         fire2.alphaGlowing = true;
+         fire2.scaleTickAdding = -0.01F;
+         projectile.world.spawnEntity(fire2);
+         projectile.world
+                 .spawnParticle(
+                         EnumParticleTypes.SMOKE_NORMAL,
+                         projectile.posX,
+                         projectile.posY,
+                         projectile.posZ,
+                         itemRand.nextGaussian() / 40.0,
+                         itemRand.nextGaussian() / 40.0,
+                         itemRand.nextGaussian() / 40.0,
+                         new int[0]
+                 );
       }
 
       @Override
@@ -1695,30 +1735,35 @@ public class ItemRocket extends Item {
          }
 
          if (projectile.world.isRemote) {
-            GUNParticle fire2 = new GUNParticle(
-               largecloud,
-               0.15F,
-               0.0F,
-               14,
-               240,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               this.colorR + 0.15F + itemRand.nextFloat() / 10.0F,
-               this.colorG + 0.15F + itemRand.nextFloat() / 20.0F,
-               this.colorB + 0.15F + itemRand.nextFloat() / 5.0F,
-               true,
-               itemRand.nextInt(360)
-            );
-            fire2.alphaTickAdding = -0.06F;
-            fire2.alphaGlowing = true;
-            fire2.scaleTickAdding = -0.01F;
-            projectile.world.spawnEntity(fire2);
+            this.onProjectileUpdate_Client_1(projectile, weaponstack);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         GUNParticle fire2 = new GUNParticle(
+                 largecloud,
+                 0.15F,
+                 0.0F,
+                 14,
+                 240,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 this.colorR + 0.15F + itemRand.nextFloat() / 10.0F,
+                 this.colorG + 0.15F + itemRand.nextFloat() / 20.0F,
+                 this.colorB + 0.15F + itemRand.nextFloat() / 5.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         fire2.alphaTickAdding = -0.06F;
+         fire2.alphaGlowing = true;
+         fire2.scaleTickAdding = -0.01F;
+         projectile.world.spawnEntity(fire2);
       }
 
       @Override
@@ -1797,30 +1842,35 @@ public class ItemRocket extends Item {
       @Override
       public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
          if (projectile.world.isRemote) {
-            GUNParticle fire2 = new GUNParticle(
-               magic_rocket,
-               0.1F,
-               0.0F,
-               11,
-               240,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F,
-               0.8F + itemRand.nextFloat() / 5.0F,
-               0.0F,
-               true,
-               itemRand.nextInt(360)
-            );
-            fire2.alphaTickAdding = -0.09F;
-            fire2.alphaGlowing = true;
-            fire2.scaleTickAdding = -0.009F;
-            projectile.world.spawnEntity(fire2);
+            onProjectileUpdate_Client_1(projectile, weaponstack);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         GUNParticle fire2 = new GUNParticle(
+                 magic_rocket,
+                 0.1F,
+                 0.0F,
+                 11,
+                 240,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F,
+                 0.8F + itemRand.nextFloat() / 5.0F,
+                 0.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         fire2.alphaTickAdding = -0.09F;
+         fire2.alphaGlowing = true;
+         fire2.scaleTickAdding = -0.009F;
+         projectile.world.spawnEntity(fire2);
       }
 
       public void setMotionWithSide(Entity entity, int index, RayTraceResult result, boolean hasgravity, double posX, double posY, double posZ) {
@@ -2014,30 +2064,35 @@ public class ItemRocket extends Item {
       @Override
       public void onProjectileUpdate(Entity projectile, ItemStack weaponstack) {
          if (projectile.world.isRemote) {
-            GUNParticle fire2 = new GUNParticle(
-               purple_smoke,
-               0.15F,
-               0.0F,
-               14,
-               240,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               0.8F,
-               0.6F,
-               0.8F + itemRand.nextFloat() * 0.2F,
-               true,
-               itemRand.nextInt(360)
-            );
-            fire2.alphaTickAdding = -0.06F;
-            fire2.alphaGlowing = true;
-            fire2.scaleTickAdding = -0.01F;
-            projectile.world.spawnEntity(fire2);
+            onProjectileUpdate_Client_1(projectile, weaponstack);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         GUNParticle fire2 = new GUNParticle(
+                 purple_smoke,
+                 0.15F,
+                 0.0F,
+                 14,
+                 240,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.8F,
+                 0.6F,
+                 0.8F + itemRand.nextFloat() * 0.2F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         fire2.alphaTickAdding = -0.06F;
+         fire2.alphaGlowing = true;
+         fire2.scaleTickAdding = -0.01F;
+         projectile.world.spawnEntity(fire2);
       }
 
       public void teleportAway(Vec3d from, EntityLivingBase entity) {
@@ -2149,30 +2204,35 @@ public class ItemRocket extends Item {
          }
 
          if (projectile.world.isRemote) {
-            GUNParticle fire2 = new GUNParticle(
-               blob,
-               0.12F,
-               0.0F,
-               14,
-               240,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               0.4F,
-               0.5F + itemRand.nextFloat() / 5.0F,
-               0.9F + itemRand.nextFloat() / 10.0F,
-               true,
-               itemRand.nextInt(360)
-            );
-            fire2.alphaTickAdding = -0.06F;
-            fire2.alphaGlowing = true;
-            fire2.scaleTickAdding = -0.01F;
-            projectile.world.spawnEntity(fire2);
+            onProjectileUpdate_Client_1(projectile, weaponstack);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public void onProjectileUpdate_Client_1(Entity projectile, ItemStack weaponstack) {
+         GUNParticle fire2 = new GUNParticle(
+                 blob,
+                 0.12F,
+                 0.0F,
+                 14,
+                 240,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.4F,
+                 0.5F + itemRand.nextFloat() / 5.0F,
+                 0.9F + itemRand.nextFloat() / 10.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         fire2.alphaTickAdding = -0.06F;
+         fire2.alphaGlowing = true;
+         fire2.scaleTickAdding = -0.01F;
+         projectile.world.spawnEntity(fire2);
       }
 
       @Override

@@ -1,12 +1,14 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.MovingSoundEntity;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,6 +19,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityArrowWind extends AbstractArrow {
    public static ResourceLocation texture = new ResourceLocation("arpg:textures/circle_wind.png");
@@ -24,6 +28,7 @@ public class EntityArrowWind extends AbstractArrow {
       new Vec3d[]{new Vec3d(0.0, 4.0, 0.2), new Vec3d(5.0, 13.0, -0.125)},
       new Vec3d[]{new Vec3d(0.0, 3.0, 0.4), new Vec3d(3.0, 6.0, 0.2), new Vec3d(7.0, 13.0, -0.3)}
    );
+   @SideOnly(Side.CLIENT)
    public MovingSoundEntity soundFly;
 
    public EntityArrowWind(World worldIn) {
@@ -77,48 +82,60 @@ public class EntityArrowWind extends AbstractArrow {
                }
             }
          } else {
-            double speed = GetMOP.getSpeed(this);
-            if (speed >= 1.0) {
-               continuePlaysound = true;
-               float add = (float)Math.min((speed - 1.0) / 2.0, 1.5);
-               Vec3d vec = this.getPositionVector().add(new Vec3d(this.motionX, this.motionY, this.motionZ).scale(0.5));
-               GUNParticle part = new GUNParticle(
-                  texture,
-                  add,
-                  0.0F,
-                  14,
-                  -1,
-                  this.world,
-                  vec.x,
-                  vec.y,
-                  vec.z,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  1.0F,
-                  1.0F,
-                  1.0F,
-                  true,
-                  this.rand.nextInt(360)
-               );
-               part.alpha = 0.0F;
-               part.rotationPitchYaw = new Vec2f(-this.rotationPitch, -this.rotationYaw);
-               part.tracker = ssh;
-               this.world.spawnEntity(part);
-            }
+            continuePlaysound = this.onUpdate_Client_1(continuePlaysound);
          }
       }
 
       if (this.world.isRemote) {
-         if (continuePlaysound) {
-            if (this.soundFly == null) {
-               this.soundFly = new MovingSoundEntity(this, Sounds.arrow_wind_fly, this.getSoundCategory(), 1.2F, 1.0F, true);
-               Minecraft.getMinecraft().getSoundHandler().playSound(this.soundFly);
-            }
-         } else if (this.soundFly != null) {
-            Minecraft.getMinecraft().getSoundHandler().stopSound(this.soundFly);
-            this.soundFly = null;
+         this.onUpdate_Client_2(continuePlaysound);
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private boolean onUpdate_Client_1(boolean continuePlaysound) {
+      double speed = GetMOP.getSpeed(this);
+      if (speed >= 1.0) {
+         continuePlaysound = true;
+         float add = (float)Math.min((speed - 1.0) / 2.0, 1.5);
+         Vec3d vec = this.getPositionVector().add(new Vec3d(this.motionX, this.motionY, this.motionZ).scale(0.5));
+         GUNParticle part = new GUNParticle(
+                 texture,
+                 add,
+                 0.0F,
+                 14,
+                 -1,
+                 this.world,
+                 vec.x,
+                 vec.y,
+                 vec.z,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 this.rand.nextInt(360)
+         );
+         part.alpha = 0.0F;
+         part.rotationPitchYaw = new Vec2f(-this.rotationPitch, -this.rotationYaw);
+         part.tracker = ssh;
+         this.world.spawnEntity(part);
+      }
+
+      return continuePlaysound;
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_2(boolean continuePlaysound) {
+      if (continuePlaysound) {
+         if (this.soundFly == null) {
+            this.soundFly = new MovingSoundEntity(this, Sounds.arrow_wind_fly, this.getSoundCategory(), 1.2F, 1.0F, true);
+            Minecraft.getMinecraft().getSoundHandler().playSound(this.soundFly);
          }
+      } else if (this.soundFly != null) {
+         Minecraft.getMinecraft().getSoundHandler().stopSound(this.soundFly);
+         this.soundFly = null;
       }
    }
 

@@ -1,13 +1,13 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntitySummon;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.mobs.SummonedBlaze;
-import java.util.List;
-import net.minecraft.client.settings.GameSettings;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntitySummon;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.mobs.SummonedBlaze;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -24,6 +24,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import org.lwjgl.input.Mouse;
+
+import java.util.List;
 
 public class WandOfBlazes extends ItemWeapon {
    public WandOfBlazes() {
@@ -66,7 +68,8 @@ public class WandOfBlazes extends ItemWeapon {
          int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
          int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
          float power = Mana.getMagicPowerMax(player);
-         boolean clickcec = GameSettings.isKeyDown(Keys.SECONDARYATTACK);
+//         boolean clickcec = GameSettings.isKeyDown(Keys.SECONDARYATTACK);
+         boolean clickcec = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
          if (player.getActiveItemStack() == itemstack && mana > 15.0F - sor * 2.5F && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             world.playSound(
                (EntityPlayer)null,

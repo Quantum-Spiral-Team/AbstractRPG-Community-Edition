@@ -1,9 +1,9 @@
-package com.vivern.arpg.main;
+package com.Vivern.Arpg.main;
 
-import com.vivern.arpg.renders.CloudSubparticle;
-import com.vivern.arpg.renders.MagicSubparticle;
-import com.vivern.arpg.renders.SparkleSubparticle;
-import com.vivern.arpg.shader.ShaderMain;
+import com.Vivern.Arpg.renders.CloudSubparticle;
+import com.Vivern.Arpg.renders.MagicSubparticle;
+import com.Vivern.Arpg.renders.SparkleSubparticle;
+import com.Vivern.Arpg.shader.ShaderMain;
 import java.util.Random;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
+        value = Side.CLIENT,
    modid = "arpg"
 )
 @SideOnly(Side.CLIENT)

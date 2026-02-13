@@ -1,16 +1,18 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.GemStaff;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.IRenderOptions;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.elements.GemStaff;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.IRenderOptions;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.renderer.GlStateManager;
@@ -93,30 +95,35 @@ public class GemStaffShoot extends EntityThrowable implements IRenderOptions {
             this.world.setEntityState(this, (byte)this.type);
          }
       } else {
-         GUNParticle fire2 = new GUNParticle(
-            cloud,
-            0.21F,
-            0.0F,
-            14,
-            240,
-            this.world,
-            this.posX,
-            this.posY,
-            this.posZ,
-            0.0F,
-            0.0F,
-            0.0F,
-            this.red,
-            this.green,
-            this.blue,
-            true,
-            this.rand.nextInt(360)
-         );
-         fire2.alphaTickAdding = -0.06F;
-         fire2.scaleTickAdding = -0.008F;
-         fire2.alphaGlowing = true;
-         this.world.spawnEntity(fire2);
+         this.onUpdate_Client_1();
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      GUNParticle fire2 = new GUNParticle(
+              cloud,
+              0.21F,
+              0.0F,
+              14,
+              240,
+              this.world,
+              this.posX,
+              this.posY,
+              this.posZ,
+              0.0F,
+              0.0F,
+              0.0F,
+              this.red,
+              this.green,
+              this.blue,
+              true,
+              this.rand.nextInt(360)
+      );
+      fire2.alphaTickAdding = -0.06F;
+      fire2.scaleTickAdding = -0.008F;
+      fire2.alphaGlowing = true;
+      this.world.spawnEntity(fire2);
    }
 
    @SideOnly(Side.CLIENT)
@@ -131,6 +138,7 @@ public class GemStaffShoot extends EntityThrowable implements IRenderOptions {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public void spawnpart(float red, float green, float blue) {
       for (int ss = 0; ss < this.rand.nextInt(8) + 6; ss++) {
          GUNParticle part = new GUNParticle(
@@ -223,11 +231,13 @@ public class GemStaffShoot extends EntityThrowable implements IRenderOptions {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void doOptions() {
       GlStateManager.color(this.red, this.green, this.blue);
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void undoOptions() {
    }
 }

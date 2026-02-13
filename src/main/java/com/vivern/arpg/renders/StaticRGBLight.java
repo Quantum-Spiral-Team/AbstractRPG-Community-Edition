@@ -1,9 +1,11 @@
-package com.vivern.arpg.renders;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.GetMOP;
+package com.Vivern.Arpg.renders;
+
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.ColorConverters;
+import com.Vivern.Arpg.main.GetMOP;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 @EventBusSubscriber(
+        value = Side.CLIENT,
    modid = "arpg"
 )
 public class StaticRGBLight extends Thread {

@@ -1,7 +1,9 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityElectricAcidRadiationPotion;
-import com.vivern.arpg.main.Sounds;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.entity.EntityElectricAcidRadiationPotion;
+import com.Vivern.Arpg.main.Sounds;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,9 +16,8 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import org.lwjgl.input.Mouse;
 
-public class ElectricAcidRadiationPotion extends Item {
+public class ElectricAcidRadiationPotion extends Item_SideSync {
    public ElectricAcidRadiationPotion() {
       this.setRegistryName("electric_acid_radiation_potion");
       this.setCreativeTab(CreativeTabs.COMBAT);
@@ -48,7 +49,8 @@ public class ElectricAcidRadiationPotion extends Item {
          World world = player.getEntityWorld();
          Item itemIn = itemstack.getItem();
          EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
+//         boolean click = Mouse.isButtonDown(1);
+         boolean click = this.getMouseButtonRight(player);
          if (player.getHeldItemMainhand() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             world.playSound(
                (EntityPlayer)null,

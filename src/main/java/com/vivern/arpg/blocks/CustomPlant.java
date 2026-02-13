@@ -1,15 +1,16 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.CustomPlantSeed;
-import com.vivern.arpg.elements.CustomPlantSeedEatable;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.CreateItemFile;
-import com.vivern.arpg.main.ItemsRegister;
-import java.util.Random;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.arpgfix.IFieldInit;
+import com.Vivern.Arpg.elements.CustomPlantSeed;
+import com.Vivern.Arpg.elements.CustomPlantSeedEatable;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.CreateItemFile;
+import com.Vivern.Arpg.main.ItemsRegister;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -33,7 +34,26 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class CustomPlant extends Block implements IGrowable, IShearable {
+import java.util.Random;
+
+//public class CustomPlant extends Block implements IGrowable, IShearable {
+public class CustomPlant extends Block implements IGrowable, IShearable, IFieldInit {
+
+   private static class ClientFieldsInitter {
+      @SideOnly(Side.CLIENT)
+      public void initFields(CustomPlant plant, int modelType) {
+         CreateItemFile.customPlantResLocationCreate(plant, modelType);
+      }
+   }
+
+   private static ClientFieldsInitter initter;
+
+   @Override
+   @SideOnly(Side.CLIENT)
+   public void initFields() {
+      initter = new ClientFieldsInitter();
+   }
+
    public static final PropertyBool GROWED = PropertyBool.create("growed");
    public static AxisAlignedBB CP_AABB = new AxisAlignedBB(0.2, 0.0, 0.2, 0.8, 0.8, 0.8);
    public static AxisAlignedBB CPsmall_AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.3, 0.75);
@@ -117,11 +137,20 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
       );
       Item seed = (Item)(seedEatable > 0 ? new CustomPlantSeedEatable(plant, seedEatable, potion, dur, amp, effectChance) : new CustomPlantSeed(plant));
       plant.seed = seed;
-      CreateItemFile.customPlantResLocationCreate(plant, modelType);
+////      CreateItemFile.customPlantResLocationCreate(plant, modelType);
+//      createCustomPlant_Client_1(plant, modelType);
+      if (initter != null) {
+         initter.initFields(plant, modelType);
+      }
       BlocksRegister.forrender.add(plant);
       ItemsRegister.forrender.add(seed);
       return plant;
    }
+
+//   @SideOnly(Side.CLIENT)
+//   public void createCustomPlant_Client_1(CustomPlant plant, int modelType) {
+//      CreateItemFile.customPlantResLocationCreate(plant, modelType);
+//   }
 
    public CustomPlant setFuelToSeed(int time) {
       if (this.seed instanceof CustomPlantSeed) {

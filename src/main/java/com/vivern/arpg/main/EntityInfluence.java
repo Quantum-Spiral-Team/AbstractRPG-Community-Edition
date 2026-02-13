@@ -1,7 +1,9 @@
-package com.vivern.arpg.main;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketInfluenceToClients;
+package com.Vivern.Arpg.main;
+
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.network.PacketInfluenceToClients;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -12,6 +14,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
    modid = "arpg"
@@ -88,6 +92,7 @@ public abstract class EntityInfluence {
    }
 
    @SubscribeEvent
+   @SideOnly(Side.CLIENT) //
    public static void ClientTick(ClientTickEvent event) {
       if (!toRemoveClient.isEmpty()) {
          for (Entity entity : toRemoveClient) {

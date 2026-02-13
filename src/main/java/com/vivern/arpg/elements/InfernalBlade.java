@@ -1,18 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -29,6 +23,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class InfernalBlade extends ItemWeapon {
    static ResourceLocation fire_circle2 = new ResourceLocation("arpg:textures/fire_circle2.png");
@@ -114,6 +112,7 @@ public class InfernalBlade extends ItemWeapon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       GUNParticle particle = new GUNParticle(
          fire_circle2, 0.1F, 0.0F, 5, 240, world, x, y + 0.1, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, itemRand.nextInt(360)
@@ -209,8 +208,10 @@ public class InfernalBlade extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
             EnumHand hand = null;

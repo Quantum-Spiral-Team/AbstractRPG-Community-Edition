@@ -1,13 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Ln;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.renders.ManaBar;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.Ln;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.renders.ManaBar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.util.ITooltipFlag;
@@ -24,17 +23,32 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
-public abstract class ItemWeapon extends Item implements IWeapon {
-   public static ArrayList<MovingSoundWeapon> loopedSoundsPlayed = new ArrayList<>();
-   public static Predicate<? super MovingSoundWeapon> loopedSoundsRemover = snd -> snd.isDonePlaying();
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
+public abstract class ItemWeapon extends Item_SideSync implements IWeapon {
+//   @SideOnly(Side.CLIENT)
+//   public static ArrayList<MovingSoundWeapon> loopedSoundsPlayed = new ArrayList<>();
+   public static Object loopedSoundsPlayed = new ArrayList<>(); // ArrayList<MovingSoundWeapon>
+//   public static Predicate<? super MovingSoundWeapon> loopedSoundsRemover = snd -> snd.isDonePlaying();
+   public static Object loopedSoundsRemover = null; // Predicate<? super MovingSoundWeapon>
 
    public boolean hasSpecialDescription() {
       return true;
    }
+
+   public ItemWeapon() {
+      if (loopedSoundsRemover == null && FMLCommonHandler.instance().getSide().isClient()) {
+         loopedSoundsRemover = (Predicate<? super MovingSoundWeapon>) (snd -> snd.isDonePlaying());
+      }
+   }
+
 
    @SideOnly(Side.CLIENT)
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
@@ -113,6 +127,7 @@ public abstract class ItemWeapon extends Item implements IWeapon {
       tooltip.add(sb.toString());
    }
 
+   @SideOnly(Side.CLIENT)
    public void playOrContinueLoopSound(
       EntityLivingBase entity,
       SoundEvent soundEvent,
@@ -125,20 +140,24 @@ public abstract class ItemWeapon extends Item implements IWeapon {
       float startPitch,
       float endPitch
    ) {
-      loopedSoundsPlayed.removeIf(loopedSoundsRemover);
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         // fix crash on server side
+         ArrayList<MovingSoundWeapon> arrayList = (ArrayList<MovingSoundWeapon>) loopedSoundsPlayed;
+         arrayList.removeIf((Predicate<? super MovingSoundWeapon>) loopedSoundsRemover);
 
-      for (MovingSoundWeapon soundhas : loopedSoundsPlayed) {
-         if (soundhas.soundEvent == soundEvent && soundhas.entity == entity) {
-            soundhas.endDate = entity.world.getTotalWorldTime() + playtime;
-            return;
+         for (MovingSoundWeapon soundhas : arrayList) {
+            if (soundhas.soundEvent == soundEvent && soundhas.entity == entity) {
+               soundhas.endDate = entity.world.getTotalWorldTime() + playtime;
+               return;
+            }
          }
-      }
 
-      MovingSoundWeapon sound = new MovingSoundWeapon(
-         entity, this, soundEvent, category, volume, pitch, playtime, startTime, endTime, startPitch, endPitch
-      );
-      Minecraft.getMinecraft().getSoundHandler().playSound(sound);
-      loopedSoundsPlayed.add(sound);
+         MovingSoundWeapon sound = new MovingSoundWeapon(
+                 entity, this, soundEvent, category, volume, pitch, playtime, startTime, endTime, startPitch, endPitch
+         );
+         Minecraft.getMinecraft().getSoundHandler().playSound(sound);
+         arrayList.add(sound);
+      }
    }
 
    public int maxFluidForDescription() {

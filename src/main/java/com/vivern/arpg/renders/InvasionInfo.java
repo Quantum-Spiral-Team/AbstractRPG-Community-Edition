@@ -1,8 +1,10 @@
-package com.vivern.arpg.renders;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Sounds;
+package com.Vivern.Arpg.renders;
+
+import com.Vivern.Arpg.main.ColorConverters;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.Sounds;
 import java.util.HashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -17,8 +19,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 @EventBusSubscriber(
+        value = Side.CLIENT,
    modid = "arpg"
 )
 public class InvasionInfo {

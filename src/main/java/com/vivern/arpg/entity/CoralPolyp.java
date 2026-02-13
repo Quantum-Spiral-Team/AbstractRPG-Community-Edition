@@ -1,9 +1,11 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -19,6 +21,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CoralPolyp extends Entity {
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/coral_polyp_body.png");
@@ -80,6 +84,7 @@ public class CoralPolyp extends Entity {
       return super.attackEntityFrom(source, amount);
    }
 
+   @SideOnly(Side.CLIENT) //
    public void handleStatusUpdate(byte id) {
       super.handleStatusUpdate(id);
       if (id == 8 && this.segmentPoses != null) {

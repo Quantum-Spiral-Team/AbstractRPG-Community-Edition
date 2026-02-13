@@ -1,4 +1,6 @@
-package com.vivern.arpg.network;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.network;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -57,6 +59,11 @@ public class PacketHandler {
       register(PacketEntityPositionToClients.class, Side.CLIENT);
       register(PacketDoSomethingToServer.class, Side.SERVER);
       register(PacketGrapplingHookToClients.class, Side.CLIENT);
+
+//      PacketWeaponInput_LeftMouse.init(nextID());
+//      PacketWeaponInput_RightMouse.init(nextID());
+//      PacketKeyState.init(nextID());
+      PacketInputState.init(nextID());
    }
 
    private static int nextID() {

@@ -1,18 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Shards;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.ManaBar;
-import com.vivern.arpg.tileentity.IVialElementsAccepter;
-import com.vivern.arpg.tileentity.TileSplitter;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.ManaBar;
+import com.Vivern.Arpg.tileentity.IVialElementsAccepter;
+import com.Vivern.Arpg.tileentity.TileSplitter;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
@@ -33,6 +27,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class SpellRod extends ItemWeapon {
    public SpellRod() {
@@ -66,6 +62,7 @@ public class SpellRod extends ItemWeapon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Entity entity = world.getEntityByID((int)c);
       if (entity instanceof EntityPlayer) {
@@ -98,8 +95,10 @@ public class SpellRod extends ItemWeapon {
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             float power = Mana.getMagicPowerMax(player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             if (player.getHeldItemMainhand() == itemstack && (click || click2) && !player.getCooldownTracker().hasCooldown(this)) {
                if (player.isSneaking() && click) {
                   NBTHelper.GiveNBTint(itemstack, 0, "vessel");

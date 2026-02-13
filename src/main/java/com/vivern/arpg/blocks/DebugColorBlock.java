@@ -1,7 +1,9 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.container.GUIDebugColorBlock;
-import com.vivern.arpg.container.GuiHandler;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.container.GUIDebugColorBlock;
+import com.Vivern.Arpg.container.GuiHandler;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -12,6 +14,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DebugColorBlock extends Block {
    public DebugColorBlock() {
@@ -31,9 +35,14 @@ public class DebugColorBlock extends Block {
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
       if (worldIn.isRemote) {
-         GuiHandler.displayGui(player, new GUIDebugColorBlock(pos));
+         onBlockActivated_CLient_1(player, pos);
       }
 
       return true;
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onBlockActivated_CLient_1(EntityPlayer player, BlockPos pos) {
+      GuiHandler.displayGui(player, new GUIDebugColorBlock(pos));
    }
 }

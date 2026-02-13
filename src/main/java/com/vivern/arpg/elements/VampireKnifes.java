@@ -1,10 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityVampireKnife;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.entity.EntityVampireKnife;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.FindAmmo;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -18,9 +20,9 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import org.lwjgl.input.Mouse;
 
-public class VampireKnifes extends Item {
+//public class VampireKnifes extends Item {
+public class VampireKnifes extends Item_SideSync {
    public VampireKnifes() {
       this.setRegistryName("vampire_knifes");
       this.setCreativeTab(CreativeTabs.COMBAT);
@@ -54,7 +56,8 @@ public class VampireKnifes extends Item {
          World world = player.getEntityWorld();
          Item itemIn = itemstack.getItem();
          EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
+//         boolean click = Mouse.isButtonDown(1);
+         boolean click = this.getMouseButtonRight(player);
          if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             if (damage <= itemIn.getMaxDamage() - 1) {
                world.playSound(

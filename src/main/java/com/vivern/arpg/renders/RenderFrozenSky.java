@@ -1,8 +1,10 @@
-package com.vivern.arpg.renders;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.elements.models.ModelSphere;
-import com.vivern.arpg.weather.TimeOfDayProvider;
+package com.Vivern.Arpg.renders;
+
+import com.Vivern.Arpg.dimensions.generationutils.AbstractWorldProvider;
+import com.Vivern.Arpg.elements.models.ModelSphere;
+import com.Vivern.Arpg.weather.TimeOfDayProvider;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -17,7 +19,10 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.IRenderHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class RenderFrozenSky extends IRenderHandler {
    public static ResourceLocation mountain = new ResourceLocation("arpg:textures/sky_frozen_mountains.png");
    public static ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("arpg:textures/moon_phases_frozen.png");

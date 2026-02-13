@@ -1,35 +1,37 @@
-package com.vivern.arpg.arpgamemodes;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.arpgamemodes;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.container.GUISurvivorEnchant;
-import com.vivern.arpg.container.GuiHandler;
-import com.vivern.arpg.dimensions.toxicomania.ARPGTeleporter;
-import com.vivern.arpg.elements.Buckshot;
-import com.vivern.arpg.elements.GemStaff;
-import com.vivern.arpg.elements.IEnergyItem;
-import com.vivern.arpg.elements.ItemLootCase;
-import com.vivern.arpg.entity.SurvivorLootSpawner;
-import com.vivern.arpg.loot.Treasure;
-import com.vivern.arpg.main.Coins;
-import com.vivern.arpg.main.DimensionsRegister;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.MobReactor;
-import com.vivern.arpg.main.MobSpawn;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.AbstractMob;
-import com.vivern.arpg.mobs.MobSpawnEnder;
-import com.vivern.arpg.mobs.MobSpawnEverfrost;
-import com.vivern.arpg.mobs.MobSpawnNether;
-import com.vivern.arpg.mobs.MobSpawnOverworld;
-import com.vivern.arpg.mobs.NPCMobsPack;
-import com.vivern.arpg.mobs.OtherMobsPack;
-import com.vivern.arpg.network.PacketDoSomethingToClients;
-import com.vivern.arpg.network.PacketHandler;
+import com.Vivern.Arpg.container.GUISurvivorEnchant;
+import com.Vivern.Arpg.container.GuiHandler;
+import com.Vivern.Arpg.dimensions.toxicomania.ARPGTeleporter;
+import com.Vivern.Arpg.elements.Buckshot;
+import com.Vivern.Arpg.elements.GemStaff;
+import com.Vivern.Arpg.elements.IEnergyItem;
+import com.Vivern.Arpg.elements.ItemLootCase;
+import com.Vivern.Arpg.entity.SurvivorLootSpawner;
+import com.Vivern.Arpg.loot.Treasure;
+import com.Vivern.Arpg.main.Coins;
+import com.Vivern.Arpg.main.DimensionsRegister;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Keys;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.MobReactor;
+import com.Vivern.Arpg.main.MobSpawn;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.mobs.AbstractMob;
+import com.Vivern.Arpg.mobs.MobSpawnEnder;
+import com.Vivern.Arpg.mobs.MobSpawnEverfrost;
+import com.Vivern.Arpg.mobs.MobSpawnNether;
+import com.Vivern.Arpg.mobs.MobSpawnOverworld;
+import com.Vivern.Arpg.mobs.NPCMobsPack;
+import com.Vivern.Arpg.mobs.OtherMobsPack;
+import com.Vivern.Arpg.network.PacketDoSomethingToClients;
+import com.Vivern.Arpg.network.PacketHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -66,6 +68,8 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
    modid = "arpg"
@@ -196,6 +200,16 @@ public class SurvivorGamestyleWatcher {
 
       currentWatcher.enchSeed = rand.nextInt();
       currentWatcher.ticksExisted = 0;
+      //
+//      if (Minecraft.getMinecraft().player != null) {
+//         Minecraft.getMinecraft().player.sendChatMessage("You are now the Survivor!");
+//      }
+      startSurvivor$Client();
+   }
+
+   // PurplePrint's fix for ClassNotFound on server
+   @SideOnly(Side.CLIENT)
+   private static void startSurvivor$Client() {
       if (Minecraft.getMinecraft().player != null) {
          Minecraft.getMinecraft().player.sendChatMessage("You are now the Survivor!");
       }
@@ -309,6 +323,7 @@ public class SurvivorGamestyleWatcher {
       }
    }
 
+   @SideOnly(Side.CLIENT) //
    public static void onClient(double x, double y, double z, double a, double b, double c) {
       if (Minecraft.getMinecraft().player != null) {
          GuiHandler.displayGui(Minecraft.getMinecraft().player, new GUISurvivorEnchant(Minecraft.getMinecraft().player, getEnchantments((int)x)));
@@ -424,7 +439,8 @@ public class SurvivorGamestyleWatcher {
          if (this.POINTS >= 350 + this.LEVEL * 50) {
             this.LEVEL++;
             this.POINTS = 0;
-            Minecraft.getMinecraft().player.sendChatMessage("LEVEL " + this.LEVEL);
+//            Minecraft.getMinecraft().player.sendChatMessage("LEVEL " + this.LEVEL);
+            addPoints$Client(this.LEVEL);
          }
 
          if (this.LEVEL > 4) {
@@ -437,6 +453,12 @@ public class SurvivorGamestyleWatcher {
             this.TREASURE = 0;
          }
       }
+   }
+
+   // PurplePrint's fix for ClassNotFound on server
+   @SideOnly(Side.CLIENT)
+   private void addPoints$Client(int level) {
+      Minecraft.getMinecraft().player.sendChatMessage("LEVEL " + level);
    }
 
    public void newStage(World world) {

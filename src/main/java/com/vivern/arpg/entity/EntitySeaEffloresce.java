@@ -1,15 +1,17 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import java.util.UUID;
 import javax.annotation.Nullable;
@@ -278,28 +280,33 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
    public void onEntityUpdate() {
       super.onEntityUpdate();
       if (this.world.isRemote) {
-         WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
-         AxisAlignedBB aabb = this.getEntityBoundingBox().grow(damageRadius);
+         this.onEntityUpdate_Client_1();
+      }
+   }
 
-         for (Entity entitylivingbase : this.world.getEntitiesWithinAABBExcludingEntity(this, aabb)) {
-            if (entitylivingbase != this.thrower
-               && Weapons.canDealDamageTo(entitylivingbase)
-               && !(entitylivingbase instanceof EntitySeaEffloresce)
-               && !(entitylivingbase instanceof GUNParticle)
-               && !(entitylivingbase instanceof BetweenParticle)) {
-               Vec3d vec1 = new Vec3d(this.posX, this.posY + this.height / 2.0F, this.posZ);
-               Vec3d vec2 = new Vec3d(
-                  entitylivingbase.posX, entitylivingbase.posY + entitylivingbase.height / 2.0F, entitylivingbase.posZ
-               );
-               BetweenParticle laser = new BetweenParticle(
-                  this.world, tex, 0.1F, -1, 0.6F, 0.8F, 1.0F, 0.0F, vec1.distanceTo(vec2), 1, 0.3F, 8.0F, vec1, vec2
-               );
-               laser.setPosition(vec1.x, vec1.y, vec1.z);
-               laser.alphaGlowing = false;
-               laser.ignoreFrustumCheck = true;
-               this.world.spawnEntity(laser);
-            }
+   @SideOnly(Side.CLIENT)
+   private void onEntityUpdate_Client_1() {
+      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
+      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      AxisAlignedBB aabb = this.getEntityBoundingBox().grow(damageRadius);
+
+      for (Entity entitylivingbase : this.world.getEntitiesWithinAABBExcludingEntity(this, aabb)) {
+         if (entitylivingbase != this.thrower
+                 && Weapons.canDealDamageTo(entitylivingbase)
+                 && !(entitylivingbase instanceof EntitySeaEffloresce)
+                 && !(entitylivingbase instanceof GUNParticle)
+                 && !(entitylivingbase instanceof BetweenParticle)) {
+            Vec3d vec1 = new Vec3d(this.posX, this.posY + this.height / 2.0F, this.posZ);
+            Vec3d vec2 = new Vec3d(
+                    entitylivingbase.posX, entitylivingbase.posY + entitylivingbase.height / 2.0F, entitylivingbase.posZ
+            );
+            BetweenParticle laser = new BetweenParticle(
+                    this.world, tex, 0.1F, -1, 0.6F, 0.8F, 1.0F, 0.0F, vec1.distanceTo(vec2), 1, 0.3F, 8.0F, vec1, vec2
+            );
+            laser.setPosition(vec1.x, vec1.y, vec1.z);
+            laser.alphaGlowing = false;
+            laser.ignoreFrustumCheck = true;
+            this.world.spawnEntity(laser);
          }
       }
    }

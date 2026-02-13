@@ -1,27 +1,29 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.entity;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.IMagicUI;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.AbstractRPG;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.network.PacketMUIClickToServer;
-import com.vivern.arpg.network.PacketMUIOpenToServer;
-import com.vivern.arpg.recipes.MUIParameters;
-import com.vivern.arpg.recipes.ManaProvider;
-import com.vivern.arpg.recipes.Seal;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.MagicSubparticle;
-import com.vivern.arpg.renders.ParticleTracker;
-import com.vivern.arpg.renders.RenderEntityMUI;
-import com.vivern.arpg.tileentity.IManaBuffer;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.AnimationTimer;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.IMagicUI;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Keys;
+import com.Vivern.Arpg.main.Main;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.network.PacketMUIClickToServer;
+import com.Vivern.Arpg.network.PacketMUIOpenToServer;
+import com.Vivern.Arpg.recipes.MUIParameters;
+import com.Vivern.Arpg.recipes.ManaProvider;
+import com.Vivern.Arpg.recipes.Seal;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.MagicSubparticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.renders.RenderEntityMUI;
+import com.Vivern.Arpg.tileentity.IManaBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -180,6 +182,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
    }
 
    @SubscribeEvent
+   @SideOnly(Side.CLIENT) //
    public static void clientTick(ClientTickEvent event) {
       EntityPlayer player = Minecraft.getMinecraft().player;
       if (player != null) {
@@ -210,6 +213,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
    }
 
+   @SideOnly(Side.CLIENT) //
    public static void registerRender() {
       RenderEntityMUI.RenderEntityMUIFactory rmuif = new RenderEntityMUI.RenderEntityMUIFactory();
       RenderingRegistry.registerEntityRenderingHandler(EntityMUIMirror.class, rmuif);
@@ -252,7 +256,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
    }
 
    public static void register(String entityName, Class<? extends Entity> entityClass) {
-      EntityRegistry.registerModEntity(new ResourceLocation("arpg", entityName), entityClass, "arpg:" + entityName, regidstart++, AbstractRPG.instance, 48, 1, true);
+      EntityRegistry.registerModEntity(new ResourceLocation("arpg", entityName), entityClass, "arpg:" + entityName, regidstart++, Main.instance, 48, 1, true);
    }
 
    public void onDataSend(double anyVarToSend) {
@@ -888,6 +892,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       GlStateManager.popMatrix();
    }
 
+   @SideOnly(Side.CLIENT)
    public void spawnParticles1(boolean moveToOrigin, float r, float g, float b, int count) {
       ParticleTracker<TrailParticle> tracker = moveToOrigin
          ? new ParticleTracker.TrackerFollowStaticPoint(
@@ -953,6 +958,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public void spawnParticlesUnlink(Vec3d from, Vec3d to, int count) {
       Vec3d fromto = new Vec3d(to.x - from.x, to.y - from.y, to.z - from.z)
          .scale(1.0 / count);

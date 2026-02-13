@@ -1,18 +1,20 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
-import com.vivern.arpg.renders.RenderModule;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.renders.RenderModule;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -194,100 +196,106 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
             }
          }
       } else {
-         Vec3d center = GetMOP.entityCenterPos(this);
-         float ft1 = GetMOP.getfromto((float)Math.max(this.ticksExisted, 3), 0.0F, (float)ticksForMaxWidth);
-         float beamwidth = this.getCutterSize() * ft1;
-         Vec3d look = this.getVectorForRotation(this.rotationPitch, -this.rotationYaw);
-         Vec3d lookScaled = look.scale(beamwidth / 2.0F);
-         Vec3d rightTip = GetMOP.rotateVecAroundAxis(lookScaled, this.bladeNormal, 1.570796F);
-         Vec3d partpos = center.add(rightTip.scale((this.rand.nextFloat() - 0.5) * beamwidth / 2.0));
-         float scl = 0.18F + this.rand.nextFloat() * 0.11F;
-         int lt = this.rand.nextInt(7) + 13;
-         GUNParticle bigsmoke = new GUNParticle(
-            snowflake3,
-            scl,
-            0.0F,
-            lt,
-            200,
-            this.world,
-            partpos.x,
-            partpos.y,
-            partpos.z,
-            0.0F,
-            0.0F,
-            0.0F,
-            0.6F + this.rand.nextFloat() * 0.2F,
-            0.9F + this.rand.nextFloat() / 10.0F,
-            1.0F,
-            true,
-            this.rand.nextInt(360)
-         );
-         bigsmoke.alphaTickAdding = -1.0F / lt;
-         bigsmoke.alphaGlowing = true;
-         bigsmoke.scaleTickAdding = -scl / lt * 0.95F;
-         bigsmoke.rotationPitchYaw = new Vec2f(this.rotationPitch + 90.0F, -this.rotationYaw);
-         bigsmoke.randomDeath = false;
-         this.world.spawnEntity(bigsmoke);
-         partpos = center.add(rightTip.scale((this.rand.nextFloat() - 0.5) * beamwidth / 2.0));
-         scl = 0.08F + this.rand.nextFloat() * 0.08F;
-         lt = this.rand.nextInt(7) + 13;
+         this.onUpdate_Client_1();
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      Vec3d center = GetMOP.entityCenterPos(this);
+      float ft1 = GetMOP.getfromto((float)Math.max(this.ticksExisted, 3), 0.0F, (float)ticksForMaxWidth);
+      float beamwidth = this.getCutterSize() * ft1;
+      Vec3d look = this.getVectorForRotation(this.rotationPitch, -this.rotationYaw);
+      Vec3d lookScaled = look.scale(beamwidth / 2.0F);
+      Vec3d rightTip = GetMOP.rotateVecAroundAxis(lookScaled, this.bladeNormal, 1.570796F);
+      Vec3d partpos = center.add(rightTip.scale((this.rand.nextFloat() - 0.5) * beamwidth / 2.0));
+      float scl = 0.18F + this.rand.nextFloat() * 0.11F;
+      int lt = this.rand.nextInt(7) + 13;
+      GUNParticle bigsmoke = new GUNParticle(
+              snowflake3,
+              scl,
+              0.0F,
+              lt,
+              200,
+              this.world,
+              partpos.x,
+              partpos.y,
+              partpos.z,
+              0.0F,
+              0.0F,
+              0.0F,
+              0.6F + this.rand.nextFloat() * 0.2F,
+              0.9F + this.rand.nextFloat() / 10.0F,
+              1.0F,
+              true,
+              this.rand.nextInt(360)
+      );
+      bigsmoke.alphaTickAdding = -1.0F / lt;
+      bigsmoke.alphaGlowing = true;
+      bigsmoke.scaleTickAdding = -scl / lt * 0.95F;
+      bigsmoke.rotationPitchYaw = new Vec2f(this.rotationPitch + 90.0F, -this.rotationYaw);
+      bigsmoke.randomDeath = false;
+      this.world.spawnEntity(bigsmoke);
+      partpos = center.add(rightTip.scale((this.rand.nextFloat() - 0.5) * beamwidth / 2.0));
+      scl = 0.08F + this.rand.nextFloat() * 0.08F;
+      lt = this.rand.nextInt(7) + 13;
+      bigsmoke = new GUNParticle(
+              mana_flow,
+              scl,
+              0.0F,
+              lt,
+              200,
+              this.world,
+              partpos.x,
+              partpos.y,
+              partpos.z,
+              0.0F,
+              0.0F,
+              0.0F,
+              0.4F + this.rand.nextFloat() * 0.2F,
+              0.8F + this.rand.nextFloat() * 0.2F,
+              1.0F,
+              true,
+              this.rand.nextInt(360)
+      );
+      bigsmoke.alphaTickAdding = -0.5F / lt;
+      bigsmoke.alphaGlowing = true;
+      bigsmoke.scaleTickAdding = -scl / lt * 0.95F;
+      bigsmoke.randomDeath = false;
+      this.world.spawnEntity(bigsmoke);
+      if (this.ticksExisted % 2 == 0) {
+         partpos = center.add(rightTip.scale((this.rand.nextFloat() - 0.5) * beamwidth / 3.5));
+         scl = (0.9F + this.rand.nextFloat() * 0.5F) * ft1;
+         lt = 17;
          bigsmoke = new GUNParticle(
-            mana_flow,
-            scl,
-            0.0F,
-            lt,
-            200,
-            this.world,
-            partpos.x,
-            partpos.y,
-            partpos.z,
-            0.0F,
-            0.0F,
-            0.0F,
-            0.4F + this.rand.nextFloat() * 0.2F,
-            0.8F + this.rand.nextFloat() * 0.2F,
-            1.0F,
-            true,
-            this.rand.nextInt(360)
+                 largecloud,
+                 scl,
+                 0.0F,
+                 lt,
+                 200,
+                 this.world,
+                 partpos.x,
+                 partpos.y,
+                 partpos.z,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.4F + this.rand.nextFloat() * 0.2F,
+                 0.7F + this.rand.nextFloat() / 10.0F,
+                 0.8F,
+                 true,
+                 this.rand.nextInt(360)
          );
-         bigsmoke.alphaTickAdding = -0.5F / lt;
+         bigsmoke.alpha = 0.0F;
          bigsmoke.alphaGlowing = true;
-         bigsmoke.scaleTickAdding = -scl / lt * 0.95F;
          bigsmoke.randomDeath = false;
+         bigsmoke.tracker = tssh;
          this.world.spawnEntity(bigsmoke);
-         if (this.ticksExisted % 2 == 0) {
-            partpos = center.add(rightTip.scale((this.rand.nextFloat() - 0.5) * beamwidth / 3.5));
-            scl = (0.9F + this.rand.nextFloat() * 0.5F) * ft1;
-            lt = 17;
-            bigsmoke = new GUNParticle(
-               largecloud,
-               scl,
-               0.0F,
-               lt,
-               200,
-               this.world,
-               partpos.x,
-               partpos.y,
-               partpos.z,
-               0.0F,
-               0.0F,
-               0.0F,
-               0.4F + this.rand.nextFloat() * 0.2F,
-               0.7F + this.rand.nextFloat() / 10.0F,
-               0.8F,
-               true,
-               this.rand.nextInt(360)
-            );
-            bigsmoke.alpha = 0.0F;
-            bigsmoke.alphaGlowing = true;
-            bigsmoke.randomDeath = false;
-            bigsmoke.tracker = tssh;
-            this.world.spawnEntity(bigsmoke);
-         }
       }
    }
 
    @Override
+   @SideOnly(Side.CLIENT) //
    public void onClient(double... args) {
       if (args.length == 1) {
          this.rotationRoll = (float)args[0];

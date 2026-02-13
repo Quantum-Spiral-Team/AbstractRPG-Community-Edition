@@ -1,25 +1,15 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.LaserModel;
-import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.entity.HadronBlasterShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.TEISRGuns;
-import java.util.List;
-import javax.annotation.Nullable;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.models.LaserModel;
+import com.Vivern.Arpg.entity.EntityStreamLaserP;
+import com.Vivern.Arpg.entity.HadronBlasterShoot;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.TEISRGuns;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -31,14 +21,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class HadronBlaster extends ItemWeapon implements IEnergyItem {
    public static ResourceLocation sparkle4 = new ResourceLocation("arpg:textures/sparkle4.png");
@@ -77,8 +66,10 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+         boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
          int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
          int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
          this.decreaseReload(itemstack, player);
@@ -446,6 +437,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (player.ticksExisted % 3 == 0) {
          world.playSound((EntityPlayer)null, x, y, z, Sounds.hadron_blaster_beam, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
@@ -466,6 +458,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       }
    }
 
+   @SideOnly(Side.CLIENT) //
    public void particlesEffect(
       EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3, boolean b1
    ) {
@@ -578,6 +571,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public void makeLaserParticles(
       World world,
       @Nullable EntityPlayer player,

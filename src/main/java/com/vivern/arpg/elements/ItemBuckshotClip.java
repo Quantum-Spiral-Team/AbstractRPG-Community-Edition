@@ -1,12 +1,10 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import java.util.HashMap;
-import java.util.List;
-import net.minecraft.client.renderer.color.IItemColor;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -20,7 +18,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
-public class ItemBuckshotClip extends Item implements IItemColor {
+import java.util.HashMap;
+import java.util.List;
+
+//public class ItemBuckshotClip extends Item implements IItemColor {
+// server-side crash fix
+public class ItemBuckshotClip extends Item {
    public final int maxAmmoStore;
    public boolean specialAmmo = false;
 
@@ -39,10 +42,10 @@ public class ItemBuckshotClip extends Item implements IItemColor {
       this.specialAmmo = special;
    }
 
-   public int colorMultiplier(ItemStack stack, int tintIndex) {
-      ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
-      return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
-   }
+//   public int colorMultiplier(ItemStack stack, int tintIndex) {
+//      ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
+//      return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
+//   }
 
    public double getDurabilityForDisplay(ItemStack stack) {
       if (this.specialAmmo) {

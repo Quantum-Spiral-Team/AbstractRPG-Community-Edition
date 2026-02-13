@@ -1,6 +1,8 @@
-package com.vivern.arpg.potions;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.PropertiesRegistry;
+package com.Vivern.Arpg.potions;
+
+import com.Vivern.Arpg.main.PropertiesRegistry;
 import gloomyfolkenvivern.arpghooklib.example.AnnotationHooks;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
@@ -13,6 +15,8 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BrokenArmor extends AdvancedPotion {
    public static final ResourceLocation textur1 = new ResourceLocation("arpg:textures/cracks.png");
@@ -35,6 +39,7 @@ public class BrokenArmor extends AdvancedPotion {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
       ResourceLocation tex = textur1;
       if (entityRenderer instanceof RenderLivingBase) {

@@ -1,19 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.animation.EnumFlick;
-import com.vivern.arpg.elements.animation.Flicks;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.animation.EnumFlick;
+import com.Vivern.Arpg.elements.animation.Flicks;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.potions.PotionEffects;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -32,6 +25,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class Buzdygan extends ItemWeapon {
    public static int maxAngle = 3600;
@@ -99,12 +94,16 @@ public class Buzdygan extends ItemWeapon {
             int maxrunes = parameters.geti("max_charges");
             if (player.getHeldItemMainhand() == itemstack) {
                hand = EnumHand.MAIN_HAND;
-               click1 = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-               click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//               click1 = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//               click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+               click1 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+               click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             } else if (player.getHeldItemOffhand() == itemstack) {
                hand = EnumHand.OFF_HAND;
-               click2 = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-               click1 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//               click2 = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//               click1 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+               click1 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+               click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             }
 
             int delay = NBTHelper.GetNBTint(itemstack, "atdelay");

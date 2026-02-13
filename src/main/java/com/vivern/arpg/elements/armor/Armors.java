@@ -1,27 +1,29 @@
-package com.vivern.arpg.elements.armor;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.AdamantiumArmorModel;
-import com.vivern.arpg.elements.models.CoralArmorModel;
-import com.vivern.arpg.elements.models.CrystalMantleModel;
-import com.vivern.arpg.elements.models.HazardSuitModel;
-import com.vivern.arpg.elements.models.IceHelmetModel;
-import com.vivern.arpg.elements.models.NorthernArmorModel;
-import com.vivern.arpg.elements.models.SnowcoatArmorModel;
-import com.vivern.arpg.elements.models.ThundererArmorModel;
-import com.vivern.arpg.elements.models.ToxiniumArmorModel;
-import com.vivern.arpg.entity.EntityFiremageSetBonus;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.proxy.ClientProxy;
+package com.Vivern.Arpg.elements.armor;
+
+import com.Vivern.Arpg.elements.models.AdamantiumArmorModel;
+import com.Vivern.Arpg.elements.models.CoralArmorModel;
+import com.Vivern.Arpg.elements.models.CrystalMantleModel;
+import com.Vivern.Arpg.elements.models.HazardSuitModel;
+import com.Vivern.Arpg.elements.models.IceHelmetModel;
+import com.Vivern.Arpg.elements.models.NorthernArmorModel;
+import com.Vivern.Arpg.elements.models.SnowcoatArmorModel;
+import com.Vivern.Arpg.elements.models.ThundererArmorModel;
+import com.Vivern.Arpg.elements.models.ToxiniumArmorModel;
+import com.Vivern.Arpg.entity.EntityFiremageSetBonus;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.PropertiesRegistry;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.proxy.ClientProxy;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -56,6 +58,7 @@ public class Armors {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
             ModelBiped whm = ClientProxy.firelordhelmmodel;
@@ -86,10 +89,19 @@ public class Armors {
       }
    };
    public static AbstractArmorSet northernSET = new AbstractArmorSet("northern_armor", "helmet") {
-      public NorthernArmorModel armormodel = new NorthernArmorModel();
+      @SideOnly(Side.CLIENT) //
+//      public NorthernArmorModel armormodel = new NorthernArmorModel();
+      public NorthernArmorModel armormodel;
       public String armortexture = "arpg:textures/northern_armor_model_tex.png";
 
       @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         armormodel = new NorthernArmorModel();
+      }
+
+      @Override
+      @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
          this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -109,10 +121,18 @@ public class Armors {
       }
    };
    public static AbstractArmorSet hazardSET = new AbstractArmorSet("hazard_suit", "helmet") {
-      public HazardSuitModel armormodel = new HazardSuitModel();
+      @SideOnly(Side.CLIENT)
+//      public HazardSuitModel armormodel = new HazardSuitModel();
+      public HazardSuitModel armormodel;
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         armormodel = new HazardSuitModel();
+      }
       public String armortexture = "arpg:textures/hazard_suit_model_tex.png";
 
       @Override
+      @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
          this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -182,6 +202,7 @@ public class Armors {
    };
    public static AbstractArmorSet slimeSET = new AbstractArmorSet("slime", "helmet") {
       @Override
+      @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          return null;
       }
@@ -206,6 +227,7 @@ public class Armors {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
             ModelBiped whm = ClientProxy.firehatmodel;
@@ -234,7 +256,14 @@ public class Armors {
       }
    };
    public static AbstractArmorSet iceSET = new AbstractArmorSet("ice_armor", "helmet") {
-      public IceHelmetModel icemodel = new IceHelmetModel();
+      @SideOnly(Side.CLIENT)
+//      public IceHelmetModel icemodel = new IceHelmetModel();
+      public IceHelmetModel icemodel;
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         icemodel = new IceHelmetModel();
+      }
 
       @Override
       public float onHurtWithItem(
@@ -290,6 +319,7 @@ public class Armors {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
             this.icemodel.setModelAttributes(model);
@@ -306,6 +336,7 @@ public class Armors {
    };
    public static AbstractArmorSet wizardSET = new AbstractArmorSet("wizard", "hat") {
       @Override
+      @SideOnly(Side.CLIENT) //
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
             ModelBiped whm = ClientProxy.wizardhatmodel;
@@ -330,10 +361,18 @@ public class Armors {
       }
    };
    public static AbstractArmorSet adamantiumSET = new AbstractArmorSet("adamantium_armor", "helmet") {
-      public AdamantiumArmorModel armormodel = new AdamantiumArmorModel();
+      @SideOnly(Side.CLIENT)
+//      public AdamantiumArmorModel armormodel = new AdamantiumArmorModel();
+      public AdamantiumArmorModel armormodel;
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         armormodel = new AdamantiumArmorModel();
+      }
       public String armortexture = "arpg:textures/adamantium_armor_model_tex.png";
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
          this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -353,10 +392,18 @@ public class Armors {
       }
    };
    public static AbstractArmorSet toxiniumSET = new AbstractArmorSet("toxinium", "helmet") {
-      public ToxiniumArmorModel armormodel = new ToxiniumArmorModel();
+      @SideOnly(Side.CLIENT)
+//      public ToxiniumArmorModel armormodel = new ToxiniumArmorModel();
+      public ToxiniumArmorModel armormodel;
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         armormodel = new ToxiniumArmorModel();
+      }
       public String armortexture = "arpg:textures/toxinium_armor_model_tex.png";
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
          this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -440,10 +487,18 @@ public class Armors {
       }
    };
    public static AbstractArmorSet coralSET = new AbstractArmorSet("coral_armor", "helmet") {
-      public CoralArmorModel armormodel = new CoralArmorModel();
+      @SideOnly(Side.CLIENT) //
+//      public CoralArmorModel armormodel = new CoralArmorModel();
+      public CoralArmorModel armormodel;
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         armormodel = new CoralArmorModel();
+      }
       public String armortexture = "arpg:textures/coral_armor_model_tex.png";
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
          this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -463,10 +518,18 @@ public class Armors {
       }
    };
    public static AbstractArmorSet crystalSET = new AbstractArmorSet("crystal_mantle", "helmet") {
-      public CrystalMantleModel armormodel = new CrystalMantleModel();
+      @SideOnly(Side.CLIENT)
+//      public CrystalMantleModel armormodel = new CrystalMantleModel();
+      public CrystalMantleModel armormodel;
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         armormodel = new CrystalMantleModel();
+      }
       public String armortexture = "arpg:textures/crystal_mantle_model_tex.png";
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
          this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -486,12 +549,20 @@ public class Armors {
       }
    };
    public static AbstractArmorSet snowcoatSET = new AbstractArmorSet("snowcoat_armor", "helmet") {
-      public SnowcoatArmorModel armormodel = new SnowcoatArmorModel();
+      @SideOnly(Side.CLIENT) //
+//      public SnowcoatArmorModel armormodel = new SnowcoatArmorModel();
+      public SnowcoatArmorModel armormodel;
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         armormodel = new SnowcoatArmorModel();
+      }
       public String[] armortextures = new String[]{
          "arpg:textures/snowcoat_armor_model_tex.png", "arpg:textures/snowcoat_armor_model_tex_blue.png", "arpg:textures/snowcoat_armor_model_tex_white.png"
       };
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
          this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -521,10 +592,18 @@ public class Armors {
       }
    };
    public static AbstractArmorSet thundererSET = new AbstractArmorSet("thunderer_armor", "helmet") {
-      public ThundererArmorModel armormodel = new ThundererArmorModel();
+      @SideOnly(Side.CLIENT) //
+//      public ThundererArmorModel armormodel = new ThundererArmorModel();
+      public ThundererArmorModel armormodel;
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         armormodel = new ThundererArmorModel();
+      }
       public String armortexture = "arpg:textures/thunderer_armor_model_tex.png";
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
          this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -544,10 +623,18 @@ public class Armors {
       }
    };
    public static AbstractArmorSet SET = new AbstractArmorSet("northern_armor", "helmet") {
-      public HazardSuitModel armormodel = new HazardSuitModel();
+      @SideOnly(Side.CLIENT) //
+//      public HazardSuitModel armormodel = new HazardSuitModel();
+      public HazardSuitModel armormodel;
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         armormodel = new HazardSuitModel();
+      }
       public String armortexture = "arpg:textures/hazard_suit_model_tex.png";
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
          }

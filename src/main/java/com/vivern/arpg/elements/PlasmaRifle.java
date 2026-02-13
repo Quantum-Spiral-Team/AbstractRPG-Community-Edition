@@ -1,20 +1,13 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.PlasmaRifleBall;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.Stun;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.PlasmaRifleBall;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.potions.Stun;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -28,12 +21,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
    public static ResourceLocation sparkle7 = new ResourceLocation("arpg:textures/sparkle7.png");
@@ -65,6 +60,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Vec3d start = new Vec3d(x, y, z);
       Vec3d look = new Vec3d(a, b, c);
@@ -221,7 +217,8 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
             int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
@@ -230,7 +227,8 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
             int RFtoShoot = parameters.getEnchantedi("rf_to_shoot", reuse);
             if (player.getHeldItemMainhand() == itemstack) {
                int heat = NBTHelper.GetNBTint(itemstack, "heat");
-               if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && heat >= parameters.geti("heat_max") && !hascooldown) {
+//               if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && heat >= parameters.geti("heat_max") && !hascooldown) {
+               if (this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK) && heat >= parameters.geti("heat_max") && !hascooldown) {
                   int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
                   int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);

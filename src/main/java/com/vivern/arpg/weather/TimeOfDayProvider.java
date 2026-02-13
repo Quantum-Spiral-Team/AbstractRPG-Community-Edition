@@ -1,11 +1,16 @@
-package com.vivern.arpg.weather;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.GetMOP;
+package com.Vivern.Arpg.weather;
+
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.GetMOP;
 import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 public class TimeOfDayProvider {
@@ -13,35 +18,45 @@ public class TimeOfDayProvider {
    public int dayLength = 24000;
    boolean firstReset = true;
 
-   public TimeOfDayProvider add(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Vector4f... colors) {
+//   public TimeOfDayProvider add(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Vector4f... colors) {
+   public TimeOfDayProvider add(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Object colors) {
       TimeOfDay timeOfDay = new TimeOfDay(upriseStartTime, upriseEndTime, fallStartTime, fallEndTime, colors, this);
       this.timesOfDay.add(timeOfDay);
       return this;
    }
 
-   public TimeOfDayProvider addV(int upriseStartTime, int upriseEndTime, Vector4f... colors) {
+//   public TimeOfDayProvider addV(int upriseStartTime, int upriseEndTime, Vector4f... colors) {
+   public TimeOfDayProvider addV(int upriseStartTime, int upriseEndTime, Object colors) {
       TimeOfDay timeOfDay = new TimeOfDay(upriseStartTime, upriseEndTime, 0, 0, colors, this);
       this.timesOfDay.add(timeOfDay);
       return this;
    }
 
    public TimeOfDayProvider addO(int upriseStartTime, int upriseEndTime, Object... colors) {
-      Vector4f[] vectors = new Vector4f[colors.length];
+      Object useVectors = null;
 
-      for (int i = 0; i < colors.length; i++) {
-         if (colors[i] instanceof Integer) {
-            int color = (Integer)colors[i];
-            float A = (color >> 24 & 0xFF) / 255.0F;
-            float R = (color >> 16 & 0xFF) / 255.0F;
-            float G = (color >> 8 & 0xFF) / 255.0F;
-            float B = (color & 0xFF) / 255.0F;
-            vectors[i] = new Vector4f(R, G, B, A);
-         } else if (colors[i] instanceof Vector4f) {
-            vectors[i] = (Vector4f)colors[i];
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         Vector4f[] vectors = new Vector4f[colors.length];
+
+         for (int i = 0; i < colors.length; i++) {
+            if (colors[i] instanceof Integer) {
+               int color = (Integer)colors[i];
+               float A = (color >> 24 & 0xFF) / 255.0F;
+               float R = (color >> 16 & 0xFF) / 255.0F;
+               float G = (color >> 8 & 0xFF) / 255.0F;
+               float B = (color & 0xFF) / 255.0F;
+               vectors[i] = new Vector4f(R, G, B, A);
+            } else if (colors[i] instanceof Vector4f) {
+               vectors[i] = (Vector4f)colors[i];
+            }
          }
+
+         useVectors = vectors;
       }
 
-      TimeOfDay timeOfDay = new TimeOfDay(upriseStartTime, upriseEndTime, 0, 0, vectors, this);
+
+//      TimeOfDay timeOfDay = new TimeOfDay(upriseStartTime, upriseEndTime, 0, 0, vectors, this);
+      TimeOfDay timeOfDay = new TimeOfDay(upriseStartTime, upriseEndTime, 0, 0, useVectors, this);
       this.timesOfDay.add(timeOfDay);
       return this;
    }
@@ -62,6 +77,7 @@ public class TimeOfDayProvider {
       return this;
    }
 
+   @SideOnly(Side.CLIENT)
    public Vector4f getColor(int id, long worldTimeLong) {
       int worldTime = (int)(worldTimeLong % this.dayLength);
       float r = 0.0F;
@@ -111,6 +127,7 @@ public class TimeOfDayProvider {
       return vectors;
    }
 
+   @SideOnly(Side.CLIENT)
    public Vector4f[] getColors(int idFirst, int amount, long worldTimeLong) {
       int worldTime = (int)(worldTimeLong % this.dayLength);
       Vector4f[] vectors = new Vector4f[amount];
@@ -152,9 +169,9 @@ public class TimeOfDayProvider {
 
          for (int j = 0; j < timeOfDay.colors.length; j++) {
             if (this.firstReset) {
-               Debugger.debugColors.put(i + " " + j, timeOfDay.colors[j]);
+               Debugger.fieldsContainer.getDebugColors().put(i + " " + j, timeOfDay.colors[j]);
             } else {
-               timeOfDay.colors[j] = Debugger.getDebugColor(i + " " + j);
+               timeOfDay.colors[j] = Debugger.fieldsContainer.getDebugColor(i + " " + j);
             }
          }
       }
@@ -174,19 +191,21 @@ public class TimeOfDayProvider {
          TimeOfDay timeOfDay = this.timesOfDay.get(i);
          System.out.print(".addO(" + timeOfDay.upriseStartTime + ", " + timeOfDay.upriseEndTime);
 
-         for (int j = 0; j < timeOfDay.colors.length; j++) {
-            System.out
-               .print(
-                  ", new Vector4f("
-                     + timeOfDay.colors[j].x
-                     + "F, "
-                     + timeOfDay.colors[j].y
-                     + "F, "
-                     + timeOfDay.colors[j].z
-                     + "F, "
-                     + timeOfDay.colors[j].w
-                     + "F)"
-               );
+         if (FMLCommonHandler.instance().getSide().isClient()) {
+            for (int j = 0; j < timeOfDay.colors.length; j++) {
+               System.out
+                       .print(
+                               ", new Vector4f("
+                                       + timeOfDay.colors[j].x
+                                       + "F, "
+                                       + timeOfDay.colors[j].y
+                                       + "F, "
+                                       + timeOfDay.colors[j].z
+                                       + "F, "
+                                       + timeOfDay.colors[j].w
+                                       + "F)"
+                       );
+            }
          }
 
          System.out.print(")");
@@ -197,6 +216,7 @@ public class TimeOfDayProvider {
       System.out.println();
    }
 
+   @SideOnly(Side.CLIENT)
    public void setLightmapColors(
       int providerColorIndex, long worldTime, float partialTicks, float sunBrightness, float skyLight, float blockLight, float[] colors
    ) {
@@ -215,14 +235,21 @@ public class TimeOfDayProvider {
       public int upriseEndTime;
       public int fallStartTime;
       public int fallEndTime;
+//      public Vector4f[] colors;
+      @SideOnly(Side.CLIENT)
       public Vector4f[] colors;
 
-      public TimeOfDay(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Vector4f[] colors, TimeOfDayProvider timeOfDayProvider) {
+//      public TimeOfDay(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Vector4f[] colors, TimeOfDayProvider timeOfDayProvider) {
+      public TimeOfDay(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Object colors, TimeOfDayProvider timeOfDayProvider) {
          this.upriseStartTime = upriseStartTime;
          this.upriseEndTime = upriseEndTime;
          this.fallStartTime = fallStartTime;
          this.fallEndTime = fallEndTime;
-         this.colors = colors;
+         if (FMLCommonHandler.instance().getSide().isClient()) {
+            if (colors instanceof Vector4f[]) {
+               this.colors = (Vector4f[]) colors;
+            }
+         }
          this.fixtime(timeOfDayProvider.dayLength);
       }
 

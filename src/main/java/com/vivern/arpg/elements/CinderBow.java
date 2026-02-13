@@ -1,13 +1,9 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.EntityInfluence;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.main.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +14,8 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CinderBow extends AbstractBow {
    public static EntityInfluence cinderArrowInfluence = new EntityInfluence(true) {
@@ -28,14 +26,20 @@ public class CinderBow extends AbstractBow {
       @Override
       public void onImpact(Entity entity, RayTraceResult result) {
          if (entity.world.isRemote && result != null && entity.ticksExisted < 20 && GetMOP.getSpeed(entity) > 2.0) {
-            for (int i = 0; i < 8; i++) {
-               entity.world
-                  .spawnParticle(EnumParticleTypes.LAVA, entity.posX, entity.posY, entity.posZ, 0.0, 0.0, 0.0, new int[0]);
-            }
+            onImpact_Client_1(entity, result);
+         }
+      }
+
+      @SideOnly(Side.CLIENT) //
+      public void onImpact_Client_1(Entity entity, RayTraceResult result) {
+         for (int i = 0; i < 8; i++) {
+            entity.world
+                    .spawnParticle(EnumParticleTypes.LAVA, entity.posX, entity.posY, entity.posZ, 0.0, 0.0, 0.0, new int[0]);
          }
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void clientTick(Entity entity) {
          if (entity.world.isRemote && entity.ticksExisted < 20 && GetMOP.getSpeed(entity) > 2.0) {
             entity.world
@@ -84,7 +88,8 @@ public class CinderBow extends AbstractBow {
    public boolean inUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected, boolean[] removePull) {
       if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         if (player.getHeldItemMainhand() == itemstack && Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && Keys.isKeyPressed(player, Keys.SECONDARYATTACK)) {
+//         if (player.getHeldItemMainhand() == itemstack && Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && Keys.isKeyPressed(player, Keys.SECONDARYATTACK)) {
+         if (player.getHeldItemMainhand() == itemstack && this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK) && this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK)) {
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             float manacost = WeaponParameters.getWeaponParameters(this).getEnchanted("manacost", sor);
             if (Mana.getMana(player) > manacost) {

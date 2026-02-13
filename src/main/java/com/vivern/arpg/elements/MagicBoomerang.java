@@ -1,14 +1,10 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityBoomerangMagic;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import javax.annotation.Nullable;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntityBoomerangMagic;
+import com.Vivern.Arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -24,6 +20,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
 
 public class MagicBoomerang extends ItemWeapon {
    public MagicBoomerang() {
@@ -74,9 +72,27 @@ public class MagicBoomerang extends ItemWeapon {
             float manacost = parameters.getEnchanted("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, stack));
             if (Mana.getMana(player) >= manacost) {
                EnumHand hand = null;
-               if (Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
+               // client-side code is forbidden on server-side
+//               if (Keys.isKeyPressed(player, Keys.PRIMARYATTACK)
+//                       && player.getHeldItemMainhand() == stack
+//                       && !player.getCooldownTracker().hasCooldown(this)
+//               ) {
+//                  hand = EnumHand.MAIN_HAND;
+//               } else if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK)
+//                       && player.getHeldItemOffhand() == stack
+//                       && !player.getCooldownTracker().hasCooldown(this)
+//               ) {
+//                  hand = EnumHand.OFF_HAND;
+//               }
+               if (this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK)
+                       && player.getHeldItemMainhand() == stack
+                       && !player.getCooldownTracker().hasCooldown(this)
+               ) {
                   hand = EnumHand.MAIN_HAND;
-               } else if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && player.getHeldItemOffhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
+               } else if (this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK)
+                       && player.getHeldItemOffhand() == stack
+                       && !player.getCooldownTracker().hasCooldown(this)
+               ) {
                   hand = EnumHand.OFF_HAND;
                }
 
@@ -85,30 +101,30 @@ public class MagicBoomerang extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, 400);
                   player.addStat(StatList.getObjectUseStats(this));
                   world.playSound(
-                     (EntityPlayer)null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     Sounds.swosh,
-                     SoundCategory.AMBIENT,
-                     0.8F,
-                     1.0F / (itemRand.nextFloat() * 0.4F + 0.8F)
+                          (EntityPlayer)null,
+                          player.posX,
+                          player.posY,
+                          player.posZ,
+                          Sounds.swosh,
+                          SoundCategory.AMBIENT,
+                          0.8F,
+                          1.0F / (itemRand.nextFloat() * 0.4F + 0.8F)
                   );
                   EntityBoomerangMagic projectile = new EntityBoomerangMagic(world, player, stack, Mana.getMagicPowerMax(player));
                   projectile.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
                   projectile.knockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack));
                   Weapons.shoot(
-                     projectile,
-                     hand,
-                     player,
-                     player.rotationPitch,
-                     player.rotationYaw,
-                     0.0F,
-                     parameters.getEnchanted("velocity", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)),
-                     parameters.get("inaccuracy"),
-                     -0.15F,
-                     0.4F,
-                     0.1F
+                          projectile,
+                          hand,
+                          player,
+                          player.rotationPitch,
+                          player.rotationYaw,
+                          0.0F,
+                          parameters.getEnchanted("velocity", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)),
+                          parameters.get("inaccuracy"),
+                          -0.15F,
+                          0.4F,
+                          0.1F
                   );
                   world.spawnEntity(projectile);
                   if (!player.capabilities.isCreativeMode) {

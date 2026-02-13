@@ -1,10 +1,12 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.mobs.ToxicomaniaMobsPack;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.tileentity.TileBioCell;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.mobs.ToxicomaniaMobsPack;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.tileentity.TileBioCell;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.SoundType;
@@ -77,6 +79,7 @@ public class BioCell extends BlockBlockHard {
       return AABB;
    }
 
+   @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.8F) {
          GUNParticle spelll = new GUNParticle(

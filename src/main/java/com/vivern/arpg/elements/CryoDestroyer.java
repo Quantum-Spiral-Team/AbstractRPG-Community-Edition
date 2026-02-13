@@ -1,23 +1,15 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.animation.EnumFlick;
-import com.vivern.arpg.elements.animation.FlickInertia;
-import com.vivern.arpg.elements.animation.Flicks;
-import com.vivern.arpg.entity.CryoDestroyerSpray;
-import com.vivern.arpg.main.BlockBreaking;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.renders.GUNParticle;
-import java.util.ArrayList;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.animation.EnumFlick;
+import com.Vivern.Arpg.elements.animation.FlickInertia;
+import com.Vivern.Arpg.elements.animation.Flicks;
+import com.Vivern.Arpg.entity.CryoDestroyerSpray;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
@@ -43,6 +35,9 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CryoDestroyer extends ItemWeapon {
    public static ResourceLocation largecloud = new ResourceLocation("arpg:textures/largecloud.png");
@@ -184,8 +179,10 @@ public class CryoDestroyer extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+            boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
             float acclvl = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             if ((click || click2) && player.getHeldItemMainhand() == itemstack) {
@@ -313,40 +310,46 @@ public class CryoDestroyer extends ItemWeapon {
             }
          }
       } else if (IWeapon.canShoot(itemstack) && entityIn instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)entityIn;
-         int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
-         if (click2 && player.getHeldItemMainhand() == itemstack && ammo > 0 && this.isReloaded(itemstack) && !player.getCooldownTracker().hasCooldown(this)) {
-            GUNParticle bigsmoke = new GUNParticle(
-               largecloud,
-               0.07F + itemRand.nextFloat() * 0.05F,
-               0.01F,
-               8,
-               220,
-               world,
-               entityIn.posX,
-               entityIn.posY,
-               entityIn.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               0.75F + itemRand.nextFloat() / 5.0F,
-               1.0F,
-               1.0F,
-               true,
-               itemRand.nextInt(360),
-               true,
-               1.5F
-            );
-            bigsmoke.alphaGlowing = true;
-            bigsmoke.alphaTickAdding = -0.11F;
-            bigsmoke.scaleTickAdding = 0.08F;
-            Weapons.shoot(bigsmoke, EnumHand.MAIN_HAND, player, player.rotationPitch - 2.0F, player.rotationYaw, 0.0F, 1.0F, 1.0F, -0.22F, 0.5F, 0.5F);
-            world.spawnEntity(bigsmoke);
-            if (player.ticksExisted % 4 == 0) {
-               this.bom(1);
-               this.onStateReceived(player, itemstack, (byte)2, itemSlot);
-            }
+         onUpdate_Client_1(itemstack, world, entityIn, itemSlot, isSelected);
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+      EntityPlayer player = (EntityPlayer)entityIn;
+      int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
+//         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+      boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
+      if (click2 && player.getHeldItemMainhand() == itemstack && ammo > 0 && this.isReloaded(itemstack) && !player.getCooldownTracker().hasCooldown(this)) {
+         GUNParticle bigsmoke = new GUNParticle(
+                 largecloud,
+                 0.07F + itemRand.nextFloat() * 0.05F,
+                 0.01F,
+                 8,
+                 220,
+                 world,
+                 entityIn.posX,
+                 entityIn.posY,
+                 entityIn.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.75F + itemRand.nextFloat() / 5.0F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 itemRand.nextInt(360),
+                 true,
+                 1.5F
+         );
+         bigsmoke.alphaGlowing = true;
+         bigsmoke.alphaTickAdding = -0.11F;
+         bigsmoke.scaleTickAdding = 0.08F;
+         Weapons.shoot(bigsmoke, EnumHand.MAIN_HAND, player, player.rotationPitch - 2.0F, player.rotationYaw, 0.0F, 1.0F, 1.0F, -0.22F, 0.5F, 0.5F);
+         world.spawnEntity(bigsmoke);
+         if (player.ticksExisted % 4 == 0) {
+            this.bom(1);
+            this.onStateReceived(player, itemstack, (byte)2, itemSlot);
          }
       }
    }

@@ -1,6 +1,8 @@
-package com.vivern.arpg.dimensions.generationutils;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.GetMOP;
+package com.Vivern.Arpg.dimensions.generationutils;
+
+import com.Vivern.Arpg.main.GetMOP;
 import java.util.Random;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -46,7 +48,7 @@ public class WorldGenNPC implements IWorldGenerator {
                      GetMOP.BlockTraceResult result = GetMOP.blockTrace(world, startpos, EnumFacing.UP, start - end, GetMOP.AIR_BLOCKS);
                      if (result != null && !world.getBlockState(result.pos.down()).getMaterial().isLiquid()) {
                         GenerationHelper.placeStruct(world, result.pos, random, this.structureName, 5, -1, random.nextInt(4), null);
-                        Entity entity = this.NPCentry.newInstance(world);
+                        Entity entity = this.NPCentry.newInstance(world); // TODO entity is null and NPCEntry is null
                         entity.setPosition(result.pos.getX() + 0.5, result.pos.getY(), result.pos.getZ() + 0.5);
                         world.spawnEntity(entity);
                         if (entity instanceof EntityLiving) {

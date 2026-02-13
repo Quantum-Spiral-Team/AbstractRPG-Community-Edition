@@ -1,33 +1,25 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.elements.models.GrenadeModel;
-import com.vivern.arpg.elements.models.ModelSphere;
-import com.vivern.arpg.entity.AdvancedFallingBlock;
-import com.vivern.arpg.entity.ChlorineCloud;
-import com.vivern.arpg.entity.CrystalFanShoot;
-import com.vivern.arpg.entity.EntityGrenade;
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.HostileProjectiles;
-import com.vivern.arpg.mobs.OtherMobsPack;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
-import com.vivern.arpg.tileentity.TileSpellForge;
-import java.util.HashMap;
-import java.util.List;
-import javax.annotation.Nullable;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.models.AbstractMobModel;
+import com.Vivern.Arpg.elements.models.GrenadeModel;
+import com.Vivern.Arpg.elements.models.ModelSphere;
+import com.Vivern.Arpg.entity.AdvancedFallingBlock;
+import com.Vivern.Arpg.entity.ChlorineCloud;
+import com.Vivern.Arpg.entity.CrystalFanShoot;
+import com.Vivern.Arpg.entity.EntityGrenade;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.mobs.HostileProjectiles;
+import com.Vivern.Arpg.mobs.OtherMobsPack;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.tileentity.TileSpellForge;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -43,21 +35,16 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.List;
 
 public class ItemGrenade extends ItemWeapon {
    public static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
@@ -130,9 +117,12 @@ public class ItemGrenade extends ItemWeapon {
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             if (!hascooldown
                && (
-                  Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack
-                     || Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && player.getHeldItemOffhand() == stack
-                     || Keys.isKeyPressed(player, Keys.GRENADE) && this.isFirst(player, stack)
+//                  Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack
+//                     || Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && player.getHeldItemOffhand() == stack
+//                     || Keys.isKeyPressed(player, Keys.GRENADE) && this.isFirst(player, stack)
+                    this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack
+                            || this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK) && player.getHeldItemOffhand() == stack
+                            || this.isKeyPressed(player, KeyboardConstants_CustomKeys.GRENADE) && this.isFirst(player, stack)
                )) {
                Weapons.setPlayerAnimationOnServer(player, 1, player.getHeldItemMainhand() == stack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(stack));
@@ -238,71 +228,78 @@ public class ItemGrenade extends ItemWeapon {
             projectile.setDead();
          }
       } else {
-         world.playSound(x, y, z, Sounds.explode3, SoundCategory.PLAYERS, 1.3F, 0.85F + itemRand.nextFloat() / 5.0F, false);
+         explode_Client_1(world, player, x, y, z, result, projectile);
+      }
+   }
 
-         for (int ss = 0; ss < 7; ss++) {
-            GUNParticle bigsmoke = new GUNParticle(
-               largesmoke,
-               0.8F + itemRand.nextFloat() / 2.0F,
-               -0.001F,
-               40,
-               60,
-               world,
-               x,
-               y,
-               z,
-               (float)itemRand.nextGaussian() / 9.0F,
-               (float)itemRand.nextGaussian() / 10.0F,
-               (float)itemRand.nextGaussian() / 9.0F,
-               1.0F,
-               1.0F,
-               1.0F,
-               true,
-               itemRand.nextInt(360)
-            );
-            bigsmoke.alphaTickAdding = -0.01F;
-            world.spawnEntity(bigsmoke);
-         }
+   @SideOnly(Side.CLIENT)
+   private void explode_Client_1(
+           World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
+   ) {
+      world.playSound(x, y, z, Sounds.explode3, SoundCategory.PLAYERS, 1.3F, 0.85F + itemRand.nextFloat() / 5.0F, false);
 
-         for (int ss = 0; ss < 13; ss++) {
-            int lt = 14 + itemRand.nextInt(8);
-            GUNParticle fire = new GUNParticle(
-               flame,
-               0.4F + itemRand.nextFloat() * 1.6F,
-               -0.003F,
-               lt,
-               240,
-               world,
-               x,
-               y,
-               z,
-               (float)itemRand.nextGaussian() / 7.0F,
-               (float)itemRand.nextGaussian() / 7.0F,
-               (float)itemRand.nextGaussian() / 7.0F,
-               1.0F - itemRand.nextFloat() * 0.2F,
-               1.0F - itemRand.nextFloat() * 0.2F,
-               0.7F,
-               true,
-               itemRand.nextInt(100) - 50
-            );
-            fire.alphaTickAdding = -1.0F / lt;
-            fire.alphaGlowing = true;
-            fire.tracker = ItemRocket.trackerExplode1;
-            world.spawnEntity(fire);
-         }
+      for (int ss = 0; ss < 7; ss++) {
+         GUNParticle bigsmoke = new GUNParticle(
+                 largesmoke,
+                 0.8F + itemRand.nextFloat() / 2.0F,
+                 -0.001F,
+                 40,
+                 60,
+                 world,
+                 x,
+                 y,
+                 z,
+                 (float)itemRand.nextGaussian() / 9.0F,
+                 (float)itemRand.nextGaussian() / 10.0F,
+                 (float)itemRand.nextGaussian() / 9.0F,
+                 1.0F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         bigsmoke.alphaTickAdding = -0.01F;
+         world.spawnEntity(bigsmoke);
+      }
 
-         for (int ss = 0; ss < 25; ss++) {
-            world.spawnParticle(
-               EnumParticleTypes.SMOKE_LARGE,
-               x + itemRand.nextGaussian(),
-               y + itemRand.nextGaussian(),
-               z + itemRand.nextGaussian(),
-               itemRand.nextGaussian() / 13.0,
-               itemRand.nextGaussian() / 13.0,
-               itemRand.nextGaussian() / 13.0,
-               new int[0]
-            );
-         }
+      for (int ss = 0; ss < 13; ss++) {
+         int lt = 14 + itemRand.nextInt(8);
+         GUNParticle fire = new GUNParticle(
+                 flame,
+                 0.4F + itemRand.nextFloat() * 1.6F,
+                 -0.003F,
+                 lt,
+                 240,
+                 world,
+                 x,
+                 y,
+                 z,
+                 (float)itemRand.nextGaussian() / 7.0F,
+                 (float)itemRand.nextGaussian() / 7.0F,
+                 (float)itemRand.nextGaussian() / 7.0F,
+                 1.0F - itemRand.nextFloat() * 0.2F,
+                 1.0F - itemRand.nextFloat() * 0.2F,
+                 0.7F,
+                 true,
+                 itemRand.nextInt(100) - 50
+         );
+         fire.alphaTickAdding = -1.0F / lt;
+         fire.alphaGlowing = true;
+         fire.tracker = ItemRocket.trackerExplode1;
+         world.spawnEntity(fire);
+      }
+
+      for (int ss = 0; ss < 25; ss++) {
+         world.spawnParticle(
+                 EnumParticleTypes.SMOKE_LARGE,
+                 x + itemRand.nextGaussian(),
+                 y + itemRand.nextGaussian(),
+                 z + itemRand.nextGaussian(),
+                 itemRand.nextGaussian() / 13.0,
+                 itemRand.nextGaussian() / 13.0,
+                 itemRand.nextGaussian() / 13.0,
+                 new int[0]
+         );
       }
    }
 
@@ -514,116 +511,123 @@ public class ItemGrenade extends ItemWeapon {
                projectile.setDead();
             }
          } else {
-            world.playSound(x, y, z, Sounds.cryogrenade, SoundCategory.PLAYERS, 1.0F, 0.85F + itemRand.nextFloat() * 0.3F, false);
+            explode_Client_1(world, player, x, y, z, result, projectile);
+         }
+      }
 
-            for (int ss = 0; ss < 20; ss++) {
-               int lt = 30 + itemRand.nextInt(20);
+      @SideOnly(Side.CLIENT)
+      private void explode_Client_1(
+              World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
+      ) {
+         world.playSound(x, y, z, Sounds.cryogrenade, SoundCategory.PLAYERS, 1.0F, 0.85F + itemRand.nextFloat() * 0.3F, false);
+
+         for (int ss = 0; ss < 20; ss++) {
+            int lt = 30 + itemRand.nextInt(20);
+            GUNParticle bigsmoke = new GUNParticle(
+                    largecloud,
+                    0.6F + Math.abs((float)itemRand.nextGaussian()),
+                    -0.005F,
+                    lt,
+                    240,
+                    world,
+                    x,
+                    y,
+                    z,
+                    (float)(itemRand.nextGaussian() / 9.0),
+                    (float)(itemRand.nextGaussian() / 9.0),
+                    (float)(itemRand.nextGaussian() / 9.0),
+                    0.5F + itemRand.nextFloat() / 10.0F,
+                    1.0F,
+                    1.0F,
+                    true,
+                    itemRand.nextInt(360)
+            );
+            bigsmoke.alphaGlowing = true;
+            bigsmoke.alphaTickAdding = -1.0F / lt;
+            world.spawnEntity(bigsmoke);
+         }
+
+         for (int ss = 0; ss < 19; ss++) {
+            double xx = x + itemRand.nextGaussian() * 1.3;
+            double yy = y + itemRand.nextGaussian() * 1.3;
+            double zz = z + itemRand.nextGaussian() * 1.3;
+            BlockPos pos = new BlockPos(xx, yy, zz);
+            if (!world.getBlockState(pos).isOpaqueCube()) {
+               int lt = 60 + itemRand.nextInt(40);
+               float scl = 0.07F + itemRand.nextFloat() * 0.1F;
                GUNParticle bigsmoke = new GUNParticle(
-                  largecloud,
-                  0.6F + Math.abs((float)itemRand.nextGaussian()),
-                  -0.005F,
-                  lt,
-                  240,
-                  world,
-                  x,
-                  y,
-                  z,
-                  (float)(itemRand.nextGaussian() / 9.0),
-                  (float)(itemRand.nextGaussian() / 9.0),
-                  (float)(itemRand.nextGaussian() / 9.0),
-                  0.5F + itemRand.nextFloat() / 10.0F,
-                  1.0F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(360)
+                       star,
+                       scl,
+                       0.0F,
+                       lt,
+                       240,
+                       world,
+                       xx,
+                       yy,
+                       zz,
+                       0.0F,
+                       0.0F,
+                       0.0F,
+                       0.8F + itemRand.nextFloat() * 0.2F,
+                       1.0F,
+                       1.0F,
+                       false,
+                       itemRand.nextInt(360)
                );
-               bigsmoke.alphaGlowing = true;
-               bigsmoke.alphaTickAdding = -1.0F / lt;
+               bigsmoke.scaleTickAdding = -scl / (lt + 20);
                world.spawnEntity(bigsmoke);
             }
+         }
 
-            for (int ss = 0; ss < 19; ss++) {
-               double xx = x + itemRand.nextGaussian() * 1.3;
-               double yy = y + itemRand.nextGaussian() * 1.3;
-               double zz = z + itemRand.nextGaussian() * 1.3;
-               BlockPos pos = new BlockPos(xx, yy, zz);
-               if (!world.getBlockState(pos).isOpaqueCube()) {
-                  int lt = 60 + itemRand.nextInt(40);
-                  float scl = 0.07F + itemRand.nextFloat() * 0.1F;
-                  GUNParticle bigsmoke = new GUNParticle(
-                     star,
-                     scl,
-                     0.0F,
-                     lt,
-                     240,
-                     world,
-                     xx,
-                     yy,
-                     zz,
-                     0.0F,
-                     0.0F,
-                     0.0F,
-                     0.8F + itemRand.nextFloat() * 0.2F,
-                     1.0F,
-                     1.0F,
-                     false,
-                     itemRand.nextInt(360)
-                  );
-                  bigsmoke.scaleTickAdding = -scl / (lt + 20);
-                  world.spawnEntity(bigsmoke);
-               }
+         int countOfParticles = 13;
+         float R = (float)((0.08 + itemRand.nextGaussian() / 50.0) * 3.0);
+
+         for (int i = 0; i < countOfParticles; i++) {
+            float rand1 = itemRand.nextFloat() * 2.0F - 1.0F;
+            float rand2 = itemRand.nextFloat() * 2.0F - 1.0F;
+            float X = rand1 * R;
+            float new_R = (float)Math.sqrt(R * R - X * X);
+            float Y = rand2 * new_R;
+            float Z = (float)Math.sqrt(new_R * new_R - Y * Y);
+            if (itemRand.nextBoolean()) {
+               Z *= -1.0F;
             }
 
-            int countOfParticles = 13;
-            float R = (float)((0.08 + itemRand.nextGaussian() / 50.0) * 3.0);
+            GUNParticle particle = new GUNParticle(
+                    snow,
+                    0.35F + (float)itemRand.nextGaussian() / 30.0F,
+                    0.01F,
+                    22 + itemRand.nextInt(10),
+                    180,
+                    world,
+                    x,
+                    y,
+                    z,
+                    X,
+                    Y,
+                    Z,
+                    0.75F + itemRand.nextFloat() / 10.0F,
+                    0.9F,
+                    1.0F,
+                    false,
+                    itemRand.nextInt(360),
+                    true,
+                    1.0F
+            );
+            world.spawnEntity(particle);
+         }
 
-            for (int i = 0; i < countOfParticles; i++) {
-               float rand1 = itemRand.nextFloat() * 2.0F - 1.0F;
-               float rand2 = itemRand.nextFloat() * 2.0F - 1.0F;
-               float X = rand1 * R;
-               float new_R = (float)Math.sqrt(R * R - X * X);
-               float Y = rand2 * new_R;
-               float Z = (float)Math.sqrt(new_R * new_R - Y * Y);
-               if (itemRand.nextBoolean()) {
-                  Z *= -1.0F;
-               }
-
-               GUNParticle particle = new GUNParticle(
-                  snow,
-                  0.35F + (float)itemRand.nextGaussian() / 30.0F,
-                  0.01F,
-                  22 + itemRand.nextInt(10),
-                  180,
-                  world,
-                  x,
-                  y,
-                  z,
-                  X,
-                  Y,
-                  Z,
-                  0.75F + itemRand.nextFloat() / 10.0F,
-                  0.9F,
-                  1.0F,
-                  false,
-                  itemRand.nextInt(360),
-                  true,
-                  1.0F
-               );
-               world.spawnEntity(particle);
-            }
-
-            for (int ssx = 0; ssx < 25; ssx++) {
-               world.spawnParticle(
-                  EnumParticleTypes.CLOUD,
-                  x + itemRand.nextGaussian(),
-                  y + itemRand.nextGaussian(),
-                  z + itemRand.nextGaussian(),
-                  itemRand.nextGaussian() / 15.0,
-                  itemRand.nextGaussian() / 15.0,
-                  itemRand.nextGaussian() / 15.0,
-                  new int[0]
-               );
-            }
+         for (int ssx = 0; ssx < 25; ssx++) {
+            world.spawnParticle(
+                    EnumParticleTypes.CLOUD,
+                    x + itemRand.nextGaussian(),
+                    y + itemRand.nextGaussian(),
+                    z + itemRand.nextGaussian(),
+                    itemRand.nextGaussian() / 15.0,
+                    itemRand.nextGaussian() / 15.0,
+                    itemRand.nextGaussian() / 15.0,
+                    new int[0]
+            );
          }
       }
 
@@ -676,29 +680,35 @@ public class ItemGrenade extends ItemWeapon {
          }
 
          if (projectile.world.isRemote && projectile.explodes > 0 && projectile.ticksExisted % 4 == 0) {
-            GUNParticle bigsmoke = new GUNParticle(
-               largecloud,
-               1.5F + (float)itemRand.nextGaussian() / 3.0F,
-               3.0E-4F * (itemRand.nextFloat() - 0.5F),
-               65 + (int)Debugger.floats[0],
-               111,
-               projectile.world,
-               projectile.posX,
-               projectile.posY,
-               projectile.posZ,
-               (float)itemRand.nextGaussian() / 16.0F,
-               (float)itemRand.nextGaussian() / 16.0F,
-               (float)itemRand.nextGaussian() / 16.0F,
-               0.8F + itemRand.nextFloat() * 0.2F,
-               0.8F + itemRand.nextFloat() * 0.2F,
-               0.4F,
-               true,
-               itemRand.nextInt(360)
-            );
-            bigsmoke.tracker = ChlorineCloud.trssh;
-            bigsmoke.alpha = 0.0F;
-            projectile.world.spawnEntity(bigsmoke);
+            onProjectileUpdate_Client_1(projectile);
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onProjectileUpdate_Client_1(EntityGrenade projectile) {
+         GUNParticle bigsmoke = new GUNParticle(
+                 largecloud,
+                 1.5F + (float)itemRand.nextGaussian() / 3.0F,
+                 3.0E-4F * (itemRand.nextFloat() - 0.5F),
+                 65 + (int)Debugger.floats[0],
+                 111,
+                 projectile.world,
+                 projectile.posX,
+                 projectile.posY,
+                 projectile.posZ,
+                 (float)itemRand.nextGaussian() / 16.0F,
+                 (float)itemRand.nextGaussian() / 16.0F,
+                 (float)itemRand.nextGaussian() / 16.0F,
+                 0.8F + itemRand.nextFloat() * 0.2F,
+                 0.8F + itemRand.nextFloat() * 0.2F,
+                 0.4F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+//         bigsmoke.tracker = ChlorineCloud.trssh;
+         bigsmoke.tracker = ChlorineCloud.clientFields.getTrash();
+         bigsmoke.alpha = 0.0F;
+         projectile.world.spawnEntity(bigsmoke);
       }
 
       public void gas(World world, @Nullable EntityLivingBase player, double x, double y, double z, EntityGrenade projectile) {
@@ -822,83 +832,91 @@ public class ItemGrenade extends ItemWeapon {
                projectile.setDead();
             }
          } else {
-            world.playSound(x, y, z, Sounds.explode7, SoundCategory.PLAYERS, 1.7F, 0.85F + itemRand.nextFloat() / 5.0F, false);
-            float gausMult = (float)(0.06 * damageRadius);
-            AxisAlignedBB axisalignedbbx = new AxisAlignedBB(
-               x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
-            );
-            List<GUNParticle> listx = world.getEntitiesWithinAABB(GUNParticle.class, axisalignedbbx);
-            if (!listx.isEmpty()) {
-               for (GUNParticle entityx : listx) {
-                  if (entityx.texture == largecloud && entityx.light == 111) {
-                     entityx.setDead();
-                  }
+            explode_Client_1(world, player, x, y, z, result, projectile, damageRadius);
+         }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void explode_Client_1(
+              World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile,
+              double damageRadius
+      ) {
+         world.playSound(x, y, z, Sounds.explode7, SoundCategory.PLAYERS, 1.7F, 0.85F + itemRand.nextFloat() / 5.0F, false);
+         float gausMult = (float)(0.06 * damageRadius);
+         AxisAlignedBB axisalignedbbx = new AxisAlignedBB(
+                 x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
+         );
+         List<GUNParticle> listx = world.getEntitiesWithinAABB(GUNParticle.class, axisalignedbbx);
+         if (!listx.isEmpty()) {
+            for (GUNParticle entityx : listx) {
+               if (entityx.texture == largecloud && entityx.light == 111) {
+                  entityx.setDead();
                }
             }
+         }
 
-            for (int ss = 0; ss < 7; ss++) {
-               GUNParticle bigsmoke = new GUNParticle(
-                  largesmoke,
-                  0.8F + itemRand.nextFloat() / 2.0F,
-                  -0.001F,
-                  40,
-                  60,
-                  world,
-                  x,
-                  y,
-                  z,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  1.0F,
-                  1.0F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(360)
-               );
-               bigsmoke.alphaTickAdding = -0.01F;
-               world.spawnEntity(bigsmoke);
-            }
+         for (int ss = 0; ss < 7; ss++) {
+            GUNParticle bigsmoke = new GUNParticle(
+                    largesmoke,
+                    0.8F + itemRand.nextFloat() / 2.0F,
+                    -0.001F,
+                    40,
+                    60,
+                    world,
+                    x,
+                    y,
+                    z,
+                    (float)itemRand.nextGaussian() * gausMult,
+                    (float)itemRand.nextGaussian() * gausMult,
+                    (float)itemRand.nextGaussian() * gausMult,
+                    1.0F,
+                    1.0F,
+                    1.0F,
+                    true,
+                    itemRand.nextInt(360)
+            );
+            bigsmoke.alphaTickAdding = -0.01F;
+            world.spawnEntity(bigsmoke);
+         }
 
-            for (int ss = 0; ss < 13.0 + damageRadius; ss++) {
-               int lt = 14 + itemRand.nextInt(8);
-               GUNParticle fire = new GUNParticle(
-                  flame,
-                  0.4F + itemRand.nextFloat() * 1.6F,
-                  -0.003F,
-                  lt,
-                  240,
-                  world,
-                  x,
-                  y,
-                  z,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  1.0F - itemRand.nextFloat() * 0.2F,
-                  1.0F - itemRand.nextFloat() * 0.2F,
-                  0.7F,
-                  true,
-                  itemRand.nextInt(100) - 50
-               );
-               fire.alphaTickAdding = -1.0F / lt;
-               fire.alphaGlowing = true;
-               fire.tracker = ItemRocket.trackerExplode1;
-               world.spawnEntity(fire);
-            }
+         for (int ss = 0; ss < 13.0 + damageRadius; ss++) {
+            int lt = 14 + itemRand.nextInt(8);
+            GUNParticle fire = new GUNParticle(
+                    flame,
+                    0.4F + itemRand.nextFloat() * 1.6F,
+                    -0.003F,
+                    lt,
+                    240,
+                    world,
+                    x,
+                    y,
+                    z,
+                    (float)itemRand.nextGaussian() * gausMult,
+                    (float)itemRand.nextGaussian() * gausMult,
+                    (float)itemRand.nextGaussian() * gausMult,
+                    1.0F - itemRand.nextFloat() * 0.2F,
+                    1.0F - itemRand.nextFloat() * 0.2F,
+                    0.7F,
+                    true,
+                    itemRand.nextInt(100) - 50
+            );
+            fire.alphaTickAdding = -1.0F / lt;
+            fire.alphaGlowing = true;
+            fire.tracker = ItemRocket.trackerExplode1;
+            world.spawnEntity(fire);
+         }
 
-            for (int ss = 0; ss < 35; ss++) {
-               world.spawnParticle(
-                  EnumParticleTypes.SMOKE_LARGE,
-                  x + itemRand.nextGaussian(),
-                  y + itemRand.nextGaussian(),
-                  z + itemRand.nextGaussian(),
-                  itemRand.nextGaussian() * gausMult,
-                  itemRand.nextGaussian() * gausMult,
-                  itemRand.nextGaussian() * gausMult,
-                  new int[0]
-               );
-            }
+         for (int ss = 0; ss < 35; ss++) {
+            world.spawnParticle(
+                    EnumParticleTypes.SMOKE_LARGE,
+                    x + itemRand.nextGaussian(),
+                    y + itemRand.nextGaussian(),
+                    z + itemRand.nextGaussian(),
+                    itemRand.nextGaussian() * gausMult,
+                    itemRand.nextGaussian() * gausMult,
+                    itemRand.nextGaussian() * gausMult,
+                    new int[0]
+            );
          }
       }
 
@@ -1016,85 +1034,93 @@ public class ItemGrenade extends ItemWeapon {
                }
             }
          } else if (projectile != null) {
-            if (projectile.explodes == 0) {
-               world.playSound(x, y, z, Sounds.gravity_grenade, SoundCategory.PLAYERS, 1.3F, 1.0F, false);
-            }
+            explode_Client_1(world, player, x, y, z, result, projectile, damageRadius);
+         }
+      }
 
-            projectile.explodes++;
-            ParticleTracker.TrackerFollowDynamicPoint tracker = new ParticleTracker.TrackerFollowDynamicPoint(
-               projectile, false, 1.0F, 0.0F + Debugger.floats[0], 0.08F + Debugger.floats[1]
-            );
-            tracker.frictionMult = 1.0F;
-            tracker.tickfrictionAdd = -0.001F;
-            int yawRand = itemRand.nextInt(360);
-            Vec3d poss = GetMOP.PitchYawToVec3d(15 - itemRand.nextInt(31), yawRand).scale(damageRadius).add(x, y, z);
-            Vec3d direction = GetMOP.YawToVec3d(yawRand - 90).scale(0.5);
-            float scl = 0.05F + itemRand.nextFloat() * 0.05F;
-            int lt = 60 + itemRand.nextInt(10);
-            GUNParticle part = new GUNParticle(
-               star,
-               scl,
-               0.0F,
-               lt,
-               240,
-               world,
-               poss.x,
-               poss.y,
-               poss.z,
-               (float)direction.x,
-               (float)direction.y,
-               (float)direction.z,
-               0.5F + itemRand.nextFloat() * 0.5F,
-               0.5F + itemRand.nextFloat() * 0.3F,
-               1.0F,
-               false,
-               itemRand.nextInt(360)
-            );
-            part.scaleTickAdding = scl / lt / 2.0F;
-            part.tracker = tracker;
-            world.spawnEntity(part);
-            if (projectile.ticksExisted % 20 == 0) {
-               float scale = itemRand.nextFloat() * 1.5F + 4.5F;
-               GUNParticle partx = new GUNParticle(
-                  whirl, scale, 0.0F, 50, 210, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 0.8F, 1.0F, true, itemRand.nextInt(360)
-               );
-               partx.tracker = tms;
-               partx.rotationPitchYaw = new Vec2f(90.0F + (float)itemRand.nextGaussian(), itemRand.nextInt(360));
-               partx.alphaTickAdding = 0.05F;
-               partx.alpha = 0.0F;
-               partx.scaleTickAdding = projectile.explodes > 150 ? -scale / 50.0F : -scale / 70.0F;
-               partx.isPushedByLiquids = false;
-               partx.randomDeath = false;
-               world.spawnEntity(partx);
-            }
+      @SideOnly(Side.CLIENT)
+      private void explode_Client_1(
+              World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile,
+              double damageRadius
+      ) {
+         if (projectile.explodes == 0) {
+            world.playSound(x, y, z, Sounds.gravity_grenade, SoundCategory.PLAYERS, 1.3F, 1.0F, false);
+         }
 
-            if (projectile.ticksExisted % 2 == 0) {
-               AnimatedGParticle anim = new AnimatedGParticle(
-                  TileSpellForge.forge_absorption,
-                  1.4F + itemRand.nextFloat() * 0.8F,
-                  0.0F,
-                  28,
-                  240,
-                  world,
-                  x,
-                  y,
-                  z,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  0.67F,
-                  0.36F,
-                  0.6F + itemRand.nextFloat() * 0.3F,
-                  true,
-                  itemRand.nextInt(360)
-               );
-               anim.framecount = 25;
-               anim.alphaGlowing = true;
-               anim.randomDeath = false;
-               anim.rotationPitchYaw = new Vec2f(itemRand.nextInt(360), itemRand.nextInt(360));
-               anim.isPushedByLiquids = false;
-               world.spawnEntity(anim);
-            }
+         projectile.explodes++;
+         ParticleTracker.TrackerFollowDynamicPoint tracker = new ParticleTracker.TrackerFollowDynamicPoint(
+                 projectile, false, 1.0F, 0.0F + Debugger.floats[0], 0.08F + Debugger.floats[1]
+         );
+         tracker.frictionMult = 1.0F;
+         tracker.tickfrictionAdd = -0.001F;
+         int yawRand = itemRand.nextInt(360);
+         Vec3d poss = GetMOP.PitchYawToVec3d(15 - itemRand.nextInt(31), yawRand).scale(damageRadius).add(x, y, z);
+         Vec3d direction = GetMOP.YawToVec3d(yawRand - 90).scale(0.5);
+         float scl = 0.05F + itemRand.nextFloat() * 0.05F;
+         int lt = 60 + itemRand.nextInt(10);
+         GUNParticle part = new GUNParticle(
+                 star,
+                 scl,
+                 0.0F,
+                 lt,
+                 240,
+                 world,
+                 poss.x,
+                 poss.y,
+                 poss.z,
+                 (float)direction.x,
+                 (float)direction.y,
+                 (float)direction.z,
+                 0.5F + itemRand.nextFloat() * 0.5F,
+                 0.5F + itemRand.nextFloat() * 0.3F,
+                 1.0F,
+                 false,
+                 itemRand.nextInt(360)
+         );
+         part.scaleTickAdding = scl / lt / 2.0F;
+         part.tracker = tracker;
+         world.spawnEntity(part);
+         if (projectile.ticksExisted % 20 == 0) {
+            float scale = itemRand.nextFloat() * 1.5F + 4.5F;
+            GUNParticle partx = new GUNParticle(
+                    whirl, scale, 0.0F, 50, 210, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 0.8F, 1.0F, true, itemRand.nextInt(360)
+            );
+            partx.tracker = tms;
+            partx.rotationPitchYaw = new Vec2f(90.0F + (float)itemRand.nextGaussian(), itemRand.nextInt(360));
+            partx.alphaTickAdding = 0.05F;
+            partx.alpha = 0.0F;
+            partx.scaleTickAdding = projectile.explodes > 150 ? -scale / 50.0F : -scale / 70.0F;
+            partx.isPushedByLiquids = false;
+            partx.randomDeath = false;
+            world.spawnEntity(partx);
+         }
+
+         if (projectile.ticksExisted % 2 == 0) {
+            AnimatedGParticle anim = new AnimatedGParticle(
+                    TileSpellForge.forge_absorption,
+                    1.4F + itemRand.nextFloat() * 0.8F,
+                    0.0F,
+                    28,
+                    240,
+                    world,
+                    x,
+                    y,
+                    z,
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    0.67F,
+                    0.36F,
+                    0.6F + itemRand.nextFloat() * 0.3F,
+                    true,
+                    itemRand.nextInt(360)
+            );
+            anim.framecount = 25;
+            anim.alphaGlowing = true;
+            anim.randomDeath = false;
+            anim.rotationPitchYaw = new Vec2f(itemRand.nextInt(360), itemRand.nextInt(360));
+            anim.isPushedByLiquids = false;
+            world.spawnEntity(anim);
          }
       }
 
@@ -1224,92 +1250,99 @@ public class ItemGrenade extends ItemWeapon {
                }
             }
          } else {
-            world.playSound(x, y, z, Sounds.explode6, SoundCategory.PLAYERS, 1.3F, 0.85F + itemRand.nextFloat() * 0.3F, false);
+            explode_Client_1(world, player, x, y, z, result, projectile);
+         }
+      }
 
-            for (int ss = 0; ss < 10; ss++) {
-               int lt = 8 + itemRand.nextInt(7);
-               GUNParticle fire = new GUNParticle(
-                  flame,
-                  0.1F + (float)itemRand.nextGaussian() / 6.0F,
-                  -0.003F,
-                  lt,
-                  240,
-                  world,
-                  x,
-                  y,
-                  z,
-                  (float)itemRand.nextGaussian() / 7.0F,
-                  (float)itemRand.nextGaussian() / 7.0F,
-                  (float)itemRand.nextGaussian() / 7.0F,
-                  1.0F - itemRand.nextFloat() * 0.2F,
-                  0.5F - itemRand.nextFloat() * 0.4F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(100) - 50
-               );
-               fire.alphaTickAdding = -1.0F / lt;
-               fire.alphaGlowing = true;
-               fire.tracker = ItemRocket.trackerExplode1;
-               world.spawnEntity(fire);
-            }
+      @SideOnly(Side.CLIENT)
+      private void explode_Client_1(
+              World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
+      ) {
+         world.playSound(x, y, z, Sounds.explode6, SoundCategory.PLAYERS, 1.3F, 0.85F + itemRand.nextFloat() * 0.3F, false);
 
-            for (int ss = 0; ss < 3; ss++) {
-               float fsize = (float)(2.0 + itemRand.nextGaussian() / 6.0);
-               int lt = 4 + itemRand.nextInt(3);
-               GUNParticle part = new GUNParticle(
-                  firecircle,
-                  0.4F,
-                  0.0F,
-                  lt,
-                  240,
-                  world,
-                  x,
-                  y,
-                  z,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  1.0F,
-                  0.4F + itemRand.nextFloat() * 0.4F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(360)
-               );
-               part.scaleTickAdding = fsize / lt;
-               part.alphaGlowing = true;
-               part.alphaTickAdding = -0.8F / lt;
-               part.randomDeath = false;
-               part.rotationPitchYaw = new Vec2f(itemRand.nextFloat() * 360.0F, itemRand.nextFloat() * 360.0F);
-               world.spawnEntity(part);
-            }
+         for (int ss = 0; ss < 10; ss++) {
+            int lt = 8 + itemRand.nextInt(7);
+            GUNParticle fire = new GUNParticle(
+                    flame,
+                    0.1F + (float)itemRand.nextGaussian() / 6.0F,
+                    -0.003F,
+                    lt,
+                    240,
+                    world,
+                    x,
+                    y,
+                    z,
+                    (float)itemRand.nextGaussian() / 7.0F,
+                    (float)itemRand.nextGaussian() / 7.0F,
+                    (float)itemRand.nextGaussian() / 7.0F,
+                    1.0F - itemRand.nextFloat() * 0.2F,
+                    0.5F - itemRand.nextFloat() * 0.4F,
+                    1.0F,
+                    true,
+                    itemRand.nextInt(100) - 50
+            );
+            fire.alphaTickAdding = -1.0F / lt;
+            fire.alphaGlowing = true;
+            fire.tracker = ItemRocket.trackerExplode1;
+            world.spawnEntity(fire);
+         }
 
+         for (int ss = 0; ss < 3; ss++) {
             float fsize = (float)(2.0 + itemRand.nextGaussian() / 6.0);
             int lt = 4 + itemRand.nextInt(3);
             GUNParticle part = new GUNParticle(
-               firecircle,
-               0.4F,
-               0.0F,
-               lt,
-               240,
-               world,
-               x,
-               y,
-               z,
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F,
-               0.4F + itemRand.nextFloat() * 0.4F,
-               1.0F,
-               true,
-               itemRand.nextInt(360)
+                    firecircle,
+                    0.4F,
+                    0.0F,
+                    lt,
+                    240,
+                    world,
+                    x,
+                    y,
+                    z,
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    1.0F,
+                    0.4F + itemRand.nextFloat() * 0.4F,
+                    1.0F,
+                    true,
+                    itemRand.nextInt(360)
             );
             part.scaleTickAdding = fsize / lt;
             part.alphaGlowing = true;
             part.alphaTickAdding = -0.8F / lt;
             part.randomDeath = false;
+            part.rotationPitchYaw = new Vec2f(itemRand.nextFloat() * 360.0F, itemRand.nextFloat() * 360.0F);
             world.spawnEntity(part);
          }
+
+         float fsize = (float)(2.0 + itemRand.nextGaussian() / 6.0);
+         int lt = 4 + itemRand.nextInt(3);
+         GUNParticle part = new GUNParticle(
+                 firecircle,
+                 0.4F,
+                 0.0F,
+                 lt,
+                 240,
+                 world,
+                 x,
+                 y,
+                 z,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F,
+                 0.4F + itemRand.nextFloat() * 0.4F,
+                 1.0F,
+                 true,
+                 itemRand.nextInt(360)
+         );
+         part.scaleTickAdding = fsize / lt;
+         part.alphaGlowing = true;
+         part.alphaTickAdding = -0.8F / lt;
+         part.randomDeath = false;
+         world.spawnEntity(part);
       }
 
       @SideOnly(Side.CLIENT)
@@ -1461,67 +1494,74 @@ public class ItemGrenade extends ItemWeapon {
                }
             }
          } else {
-            projectile.explodes++;
-            if (projectile.explodes == 1) {
-               world.playSound(x, y, z, SoundEvents.ENTITY_SPLASH_POTION_BREAK, SoundCategory.PLAYERS, 0.8F, 0.85F + itemRand.nextFloat() * 0.3F, false);
-               world.playSound(x, y, z, Sounds.burn, SoundCategory.PLAYERS, 0.9F, 0.85F + itemRand.nextFloat() * 0.3F, false);
-               world.playSound(x, y, z, Sounds.fire_a, SoundCategory.PLAYERS, 1.1F, 0.8F + itemRand.nextFloat() * 0.3F, false);
+            explode_Client_1(world, player, x, y, z, result, projectile);
+         }
+      }
 
-               for (int ss = 0; ss < 45; ss++) {
-                  world.spawnParticle(
-                     EnumParticleTypes.FLAME,
-                     x,
-                     y,
-                     z,
-                     itemRand.nextGaussian() / 15.0,
-                     itemRand.nextGaussian() / 25.0,
-                     itemRand.nextGaussian() / 15.0,
-                     new int[0]
-                  );
-               }
+      @SideOnly(Side.CLIENT)
+      private void explode_Client_1(
+              World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
+      ) {
+         projectile.explodes++;
+         if (projectile.explodes == 1) {
+            world.playSound(x, y, z, SoundEvents.ENTITY_SPLASH_POTION_BREAK, SoundCategory.PLAYERS, 0.8F, 0.85F + itemRand.nextFloat() * 0.3F, false);
+            world.playSound(x, y, z, Sounds.burn, SoundCategory.PLAYERS, 0.9F, 0.85F + itemRand.nextFloat() * 0.3F, false);
+            world.playSound(x, y, z, Sounds.fire_a, SoundCategory.PLAYERS, 1.1F, 0.8F + itemRand.nextFloat() * 0.3F, false);
 
-               for (int ss = 0; ss < 15; ss++) {
-                  world.spawnParticle(
-                     EnumParticleTypes.SMOKE_LARGE,
-                     x,
-                     y,
-                     z,
-                     itemRand.nextGaussian() / 15.0,
-                     itemRand.nextGaussian() / 25.0,
-                     itemRand.nextGaussian() / 15.0,
-                     new int[0]
-                  );
-               }
+            for (int ss = 0; ss < 45; ss++) {
+               world.spawnParticle(
+                       EnumParticleTypes.FLAME,
+                       x,
+                       y,
+                       z,
+                       itemRand.nextGaussian() / 15.0,
+                       itemRand.nextGaussian() / 25.0,
+                       itemRand.nextGaussian() / 15.0,
+                       new int[0]
+               );
+            }
 
-               for (int ss = 0; ss < 4; ss++) {
-                  GUNParticle part = new GUNParticle(
-                     CrystalFanShoot.shards[itemRand.nextInt(3)],
-                     0.08F + itemRand.nextFloat() / 30.0F,
-                     0.08F,
-                     30 + itemRand.nextInt(10),
-                     -1,
-                     world,
-                     x,
-                     y,
-                     z,
-                     (float)itemRand.nextGaussian() / 13.0F,
-                     (float)itemRand.nextGaussian() / 13.0F + 0.1F,
-                     (float)itemRand.nextGaussian() / 13.0F,
-                     1.0F,
-                     1.0F,
-                     1.0F,
-                     false,
-                     itemRand.nextInt(360),
-                     true,
-                     1.3F
-                  );
-                  part.dropMode = true;
-                  part.rotationPitchYaw = new Vec2f(itemRand.nextInt(360), itemRand.nextInt(360));
-                  part.tracker = new ParticleTracker.TrackerGlassShard(
-                     (float)itemRand.nextGaussian() * 2.0F, (float)itemRand.nextGaussian() * 2.0F, (int)itemRand.nextGaussian() * 2, false
-                  );
-                  world.spawnEntity(part);
-               }
+            for (int ss = 0; ss < 15; ss++) {
+               world.spawnParticle(
+                       EnumParticleTypes.SMOKE_LARGE,
+                       x,
+                       y,
+                       z,
+                       itemRand.nextGaussian() / 15.0,
+                       itemRand.nextGaussian() / 25.0,
+                       itemRand.nextGaussian() / 15.0,
+                       new int[0]
+               );
+            }
+
+            for (int ss = 0; ss < 4; ss++) {
+               GUNParticle part = new GUNParticle(
+                       CrystalFanShoot.shards[itemRand.nextInt(3)],
+                       0.08F + itemRand.nextFloat() / 30.0F,
+                       0.08F,
+                       30 + itemRand.nextInt(10),
+                       -1,
+                       world,
+                       x,
+                       y,
+                       z,
+                       (float)itemRand.nextGaussian() / 13.0F,
+                       (float)itemRand.nextGaussian() / 13.0F + 0.1F,
+                       (float)itemRand.nextGaussian() / 13.0F,
+                       1.0F,
+                       1.0F,
+                       1.0F,
+                       false,
+                       itemRand.nextInt(360),
+                       true,
+                       1.3F
+               );
+               part.dropMode = true;
+               part.rotationPitchYaw = new Vec2f(itemRand.nextInt(360), itemRand.nextInt(360));
+               part.tracker = new ParticleTracker.TrackerGlassShard(
+                       (float)itemRand.nextGaussian() * 2.0F, (float)itemRand.nextGaussian() * 2.0F, (int)itemRand.nextGaussian() * 2, false
+               );
+               world.spawnEntity(part);
             }
          }
       }
@@ -1652,94 +1692,101 @@ public class ItemGrenade extends ItemWeapon {
                projectile.setDead();
             }
          } else {
-            world.playSound(x, y, z, SoundEvents.ENTITY_SPLASH_POTION_BREAK, SoundCategory.PLAYERS, 0.8F, 0.85F + itemRand.nextFloat() * 0.3F, false);
-            world.playSound(x, y, z, Sounds.explode_slime, SoundCategory.PLAYERS, 1.0F, 0.85F + itemRand.nextFloat() * 0.3F, false);
+            explode_Client_1(world, player, x, y, z, result, projectile);
+         }
+      }
 
-            for (int ss = 0; ss < 20; ss++) {
-               int lt = 30 + itemRand.nextInt(20);
-               GUNParticle bigsmoke = new GUNParticle(
-                  oildrop,
-                  0.1F + itemRand.nextFloat() * 0.1F,
-                  0.025F,
-                  lt,
-                  -1,
-                  world,
-                  x,
-                  y,
-                  z,
-                  (float)(itemRand.nextGaussian() / 9.0),
-                  (float)(itemRand.nextGaussian() / 9.0) + 0.1F,
-                  (float)(itemRand.nextGaussian() / 9.0),
-                  0.8F + itemRand.nextFloat() * 0.2F,
-                  1.0F,
-                  1.0F,
-                  false,
-                  itemRand.nextInt(360),
-                  true,
-                  2.0F
-               );
-               bigsmoke.dropMode = true;
-               world.spawnEntity(bigsmoke);
-            }
+      @SideOnly(Side.CLIENT)
+      private void explode_Client_1(
+              World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
+      ) {
+         world.playSound(x, y, z, SoundEvents.ENTITY_SPLASH_POTION_BREAK, SoundCategory.PLAYERS, 0.8F, 0.85F + itemRand.nextFloat() * 0.3F, false);
+         world.playSound(x, y, z, Sounds.explode_slime, SoundCategory.PLAYERS, 1.0F, 0.85F + itemRand.nextFloat() * 0.3F, false);
 
-            for (int ss = 0; ss < 7; ss++) {
-               float fsize = (float)(3.0 + itemRand.nextGaussian() / 5.0);
-               int lt = 10 + itemRand.nextInt(8);
-               GUNParticle part = new GUNParticle(
-                  slimesplash,
-                  0.4F,
-                  0.0F,
-                  lt,
-                  -1,
-                  world,
-                  x + itemRand.nextGaussian() / 2.0,
-                  y,
-                  z + itemRand.nextGaussian() / 2.0,
-                  (float)itemRand.nextGaussian() / 16.0F,
-                  (float)itemRand.nextGaussian() / 16.0F,
-                  (float)itemRand.nextGaussian() / 16.0F,
-                  0.7F,
-                  0.5F + itemRand.nextFloat() * 0.15F,
-                  0.1F + itemRand.nextFloat() * 0.2F,
-                  true,
-                  itemRand.nextInt(360)
-               );
-               part.scaleTickAdding = fsize / lt;
-               part.alphaTickAdding = -0.8F / lt;
-               part.randomDeath = false;
-               part.rotationPitchYaw = new Vec2f(itemRand.nextFloat() * 360.0F, itemRand.nextFloat() * 360.0F);
-               world.spawnEntity(part);
-            }
+         for (int ss = 0; ss < 20; ss++) {
+            int lt = 30 + itemRand.nextInt(20);
+            GUNParticle bigsmoke = new GUNParticle(
+                    oildrop,
+                    0.1F + itemRand.nextFloat() * 0.1F,
+                    0.025F,
+                    lt,
+                    -1,
+                    world,
+                    x,
+                    y,
+                    z,
+                    (float)(itemRand.nextGaussian() / 9.0),
+                    (float)(itemRand.nextGaussian() / 9.0) + 0.1F,
+                    (float)(itemRand.nextGaussian() / 9.0),
+                    0.8F + itemRand.nextFloat() * 0.2F,
+                    1.0F,
+                    1.0F,
+                    false,
+                    itemRand.nextInt(360),
+                    true,
+                    2.0F
+            );
+            bigsmoke.dropMode = true;
+            world.spawnEntity(bigsmoke);
+         }
 
-            for (int ss = 0; ss < 4; ss++) {
-               GUNParticle part = new GUNParticle(
-                  CrystalFanShoot.shards[itemRand.nextInt(3)],
-                  0.08F + itemRand.nextFloat() / 30.0F,
-                  0.05F,
-                  30 + itemRand.nextInt(10),
-                  -1,
-                  world,
-                  x,
-                  y,
-                  z,
-                  (float)itemRand.nextGaussian() / 13.0F,
-                  (float)itemRand.nextGaussian() / 13.0F + 0.1F,
-                  (float)itemRand.nextGaussian() / 13.0F,
-                  1.0F,
-                  1.0F,
-                  1.0F,
-                  false,
-                  itemRand.nextInt(360),
-                  true,
-                  1.3F
-               );
-               part.dropMode = true;
-               part.rotationPitchYaw = new Vec2f(itemRand.nextInt(360), itemRand.nextInt(360));
-               part.tracker = new ParticleTracker.TrackerGlassShard(
-                  (float)itemRand.nextGaussian() * 2.0F, (float)itemRand.nextGaussian() * 2.0F, (int)itemRand.nextGaussian() * 2, false
-               );
-               world.spawnEntity(part);
-            }
+         for (int ss = 0; ss < 7; ss++) {
+            float fsize = (float)(3.0 + itemRand.nextGaussian() / 5.0);
+            int lt = 10 + itemRand.nextInt(8);
+            GUNParticle part = new GUNParticle(
+                    slimesplash,
+                    0.4F,
+                    0.0F,
+                    lt,
+                    -1,
+                    world,
+                    x + itemRand.nextGaussian() / 2.0,
+                    y,
+                    z + itemRand.nextGaussian() / 2.0,
+                    (float)itemRand.nextGaussian() / 16.0F,
+                    (float)itemRand.nextGaussian() / 16.0F,
+                    (float)itemRand.nextGaussian() / 16.0F,
+                    0.7F,
+                    0.5F + itemRand.nextFloat() * 0.15F,
+                    0.1F + itemRand.nextFloat() * 0.2F,
+                    true,
+                    itemRand.nextInt(360)
+            );
+            part.scaleTickAdding = fsize / lt;
+            part.alphaTickAdding = -0.8F / lt;
+            part.randomDeath = false;
+            part.rotationPitchYaw = new Vec2f(itemRand.nextFloat() * 360.0F, itemRand.nextFloat() * 360.0F);
+            world.spawnEntity(part);
+         }
+
+         for (int ss = 0; ss < 4; ss++) {
+            GUNParticle part = new GUNParticle(
+                    CrystalFanShoot.shards[itemRand.nextInt(3)],
+                    0.08F + itemRand.nextFloat() / 30.0F,
+                    0.05F,
+                    30 + itemRand.nextInt(10),
+                    -1,
+                    world,
+                    x,
+                    y,
+                    z,
+                    (float)itemRand.nextGaussian() / 13.0F,
+                    (float)itemRand.nextGaussian() / 13.0F + 0.1F,
+                    (float)itemRand.nextGaussian() / 13.0F,
+                    1.0F,
+                    1.0F,
+                    1.0F,
+                    false,
+                    itemRand.nextInt(360),
+                    true,
+                    1.3F
+            );
+            part.dropMode = true;
+            part.rotationPitchYaw = new Vec2f(itemRand.nextInt(360), itemRand.nextInt(360));
+            part.tracker = new ParticleTracker.TrackerGlassShard(
+                    (float)itemRand.nextGaussian() * 2.0F, (float)itemRand.nextGaussian() * 2.0F, (int)itemRand.nextGaussian() * 2, false
+            );
+            world.spawnEntity(part);
          }
       }
 
@@ -2012,93 +2059,100 @@ public class ItemGrenade extends ItemWeapon {
                projectile.setDead();
             }
          } else {
-            world.playSound(x, y, z, Sounds.glacide_blade, SoundCategory.PLAYERS, 1.0F, 0.7F + itemRand.nextFloat() * 0.3F, false);
+            explode_Client_1(world, player, x, y, z, result, projectile);
+         }
+      }
 
-            for (int ss = 0; ss < 20; ss++) {
-               int lt = 20 + itemRand.nextInt(20);
-               GUNParticle bigsmoke = new GUNParticle(
-                  snow5,
-                  0.1F + itemRand.nextFloat() * 0.05F,
-                  0.01F,
-                  lt,
-                  -1,
-                  world,
-                  x,
-                  y,
-                  z,
-                  (float)(itemRand.nextGaussian() / 9.0),
-                  (float)(itemRand.nextGaussian() / 9.0),
-                  (float)(itemRand.nextGaussian() / 9.0),
-                  0.8F + itemRand.nextFloat() / 10.0F,
-                  1.0F,
-                  1.0F,
-                  true,
-                  itemRand.nextInt(360)
-               );
-               bigsmoke.alphaTickAdding = -1.0F / lt;
-               world.spawnEntity(bigsmoke);
+      @SideOnly(Side.CLIENT)
+      private void explode_Client_1(
+              World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
+      ) {
+         world.playSound(x, y, z, Sounds.glacide_blade, SoundCategory.PLAYERS, 1.0F, 0.7F + itemRand.nextFloat() * 0.3F, false);
+
+         for (int ss = 0; ss < 20; ss++) {
+            int lt = 20 + itemRand.nextInt(20);
+            GUNParticle bigsmoke = new GUNParticle(
+                    snow5,
+                    0.1F + itemRand.nextFloat() * 0.05F,
+                    0.01F,
+                    lt,
+                    -1,
+                    world,
+                    x,
+                    y,
+                    z,
+                    (float)(itemRand.nextGaussian() / 9.0),
+                    (float)(itemRand.nextGaussian() / 9.0),
+                    (float)(itemRand.nextGaussian() / 9.0),
+                    0.8F + itemRand.nextFloat() / 10.0F,
+                    1.0F,
+                    1.0F,
+                    true,
+                    itemRand.nextInt(360)
+            );
+            bigsmoke.alphaTickAdding = -1.0F / lt;
+            world.spawnEntity(bigsmoke);
+         }
+
+         int countOfParticles = 23;
+         float R = (float)((0.1 + itemRand.nextFloat() * 0.03) * 3.0);
+
+         for (int ix = 0; ix < countOfParticles; ix++) {
+            float rand1 = itemRand.nextFloat() * 2.0F - 1.0F;
+            float rand2 = itemRand.nextFloat() * 2.0F - 1.0F;
+            float X = rand1 * R;
+            float new_R = (float)Math.sqrt(R * R - X * X);
+            float Y = rand2 * new_R;
+            float Z = (float)Math.sqrt(new_R * new_R - Y * Y);
+            if (itemRand.nextBoolean()) {
+               Z *= -1.0F;
             }
 
-            int countOfParticles = 23;
-            float R = (float)((0.1 + itemRand.nextFloat() * 0.03) * 3.0);
+            GUNParticle particle = new GUNParticle(
+                    snow,
+                    0.35F + (float)itemRand.nextGaussian() / 30.0F,
+                    0.015F,
+                    35 + itemRand.nextInt(20),
+                    180,
+                    world,
+                    x,
+                    y,
+                    z,
+                    X,
+                    Y,
+                    Z,
+                    0.8F + itemRand.nextFloat() / 10.0F,
+                    0.9F,
+                    1.0F,
+                    false,
+                    itemRand.nextInt(360),
+                    true,
+                    1.0F
+            );
+            world.spawnEntity(particle);
+         }
 
-            for (int ix = 0; ix < countOfParticles; ix++) {
-               float rand1 = itemRand.nextFloat() * 2.0F - 1.0F;
-               float rand2 = itemRand.nextFloat() * 2.0F - 1.0F;
-               float X = rand1 * R;
-               float new_R = (float)Math.sqrt(R * R - X * X);
-               float Y = rand2 * new_R;
-               float Z = (float)Math.sqrt(new_R * new_R - Y * Y);
-               if (itemRand.nextBoolean()) {
-                  Z *= -1.0F;
-               }
-
-               GUNParticle particle = new GUNParticle(
-                  snow,
-                  0.35F + (float)itemRand.nextGaussian() / 30.0F,
-                  0.015F,
-                  35 + itemRand.nextInt(20),
-                  180,
-                  world,
-                  x,
-                  y,
-                  z,
-                  X,
-                  Y,
-                  Z,
-                  0.8F + itemRand.nextFloat() / 10.0F,
-                  0.9F,
-                  1.0F,
-                  false,
-                  itemRand.nextInt(360),
-                  true,
-                  1.0F
-               );
-               world.spawnEntity(particle);
-            }
-
-            for (int ss = 0; ss < 25; ss++) {
-               world.spawnParticle(
-                  EnumParticleTypes.CLOUD,
-                  x,
-                  y,
-                  z,
-                  itemRand.nextGaussian() / 13.0,
-                  itemRand.nextGaussian() / 13.0,
-                  itemRand.nextGaussian() / 13.0,
-                  new int[0]
-               );
-               world.spawnParticle(
-                  EnumParticleTypes.SNOWBALL,
-                  x + itemRand.nextFloat() - 0.5,
-                  y + itemRand.nextFloat() - 0.5,
-                  z + itemRand.nextFloat() - 0.5,
-                  itemRand.nextGaussian() / 7.0,
-                  itemRand.nextGaussian() / 7.0,
-                  itemRand.nextGaussian() / 7.0,
-                  new int[0]
-               );
-            }
+         for (int ss = 0; ss < 25; ss++) {
+            world.spawnParticle(
+                    EnumParticleTypes.CLOUD,
+                    x,
+                    y,
+                    z,
+                    itemRand.nextGaussian() / 13.0,
+                    itemRand.nextGaussian() / 13.0,
+                    itemRand.nextGaussian() / 13.0,
+                    new int[0]
+            );
+            world.spawnParticle(
+                    EnumParticleTypes.SNOWBALL,
+                    x + itemRand.nextFloat() - 0.5,
+                    y + itemRand.nextFloat() - 0.5,
+                    z + itemRand.nextFloat() - 0.5,
+                    itemRand.nextGaussian() / 7.0,
+                    itemRand.nextGaussian() / 7.0,
+                    itemRand.nextGaussian() / 7.0,
+                    new int[0]
+            );
          }
       }
 
@@ -2191,76 +2245,83 @@ public class ItemGrenade extends ItemWeapon {
                projectile.setDead();
             }
          } else {
-            world.playSound(x, y, z, Sounds.watching_grenade, SoundCategory.PLAYERS, 2.0F, 0.95F + itemRand.nextFloat() / 10.0F, false);
+            explode_Client_1(world, player, x, y, z, result, projectile);
+         }
+      }
 
-            for (int i = 0; i < 15; i++) {
-               world.spawnParticle(
-                  EnumParticleTypes.PORTAL,
-                  x + (itemRand.nextDouble() - 0.5) * 2.0,
-                  y + itemRand.nextDouble() - 0.25,
-                  z + (itemRand.nextDouble() - 0.5) * 2.0,
-                  (itemRand.nextDouble() - 0.5) * 2.0,
-                  -itemRand.nextDouble(),
-                  (itemRand.nextDouble() - 0.5) * 2.0,
-                  new int[0]
-               );
+      @SideOnly(Side.CLIENT)
+      private void explode_Client_1(
+              World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
+      ) {
+         world.playSound(x, y, z, Sounds.watching_grenade, SoundCategory.PLAYERS, 2.0F, 0.95F + itemRand.nextFloat() / 10.0F, false);
+
+         for (int i = 0; i < 15; i++) {
+            world.spawnParticle(
+                    EnumParticleTypes.PORTAL,
+                    x + (itemRand.nextDouble() - 0.5) * 2.0,
+                    y + itemRand.nextDouble() - 0.25,
+                    z + (itemRand.nextDouble() - 0.5) * 2.0,
+                    (itemRand.nextDouble() - 0.5) * 2.0,
+                    -itemRand.nextDouble(),
+                    (itemRand.nextDouble() - 0.5) * 2.0,
+                    new int[0]
+            );
+         }
+
+         GUNParticle part = new GUNParticle(
+                 shadow_round64x, 0.01F, 0.0F, 22, 0, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, false, itemRand.nextInt(360)
+         );
+         part.tracker = blackPortal_tssh;
+         part.randomDeath = false;
+         part.isPushedByLiquids = false;
+         world.spawnEntity(part);
+         float fsize = 1.5F + itemRand.nextFloat() * 0.5F;
+         int lt = 4 + itemRand.nextInt(3);
+         GUNParticle partx = new GUNParticle(
+                 void_explode, 0.4F, 0.0F, lt, 240, world, x, y, z, 0.0F, 0.0F, 0.0F, 0.5F, 0.8F, 1.0F, true, itemRand.nextInt(360)
+         );
+         partx.scaleTickAdding = fsize / lt;
+         partx.alphaGlowing = true;
+         partx.alphaTickAdding = -0.9F / lt;
+         partx.randomDeath = false;
+         partx.isPushedByLiquids = false;
+         world.spawnEntity(partx);
+
+         for (int i = 0; i < 10; i++) {
+            Vec3d motionvec = new Vec3d(itemRand.nextGaussian(), itemRand.nextGaussian(), itemRand.nextGaussian());
+            Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(motionvec);
+            int ltx = i < 5 ? 3 + itemRand.nextInt(3) : 10 + itemRand.nextInt(30);
+            float scl = 0.5F + itemRand.nextFloat() * 0.5F;
+            Vec3d posAdd = motionvec.normalize().scale(scl / 2.0F);
+            GUNParticle partxx = new GUNParticle(
+                    lightning1,
+                    scl,
+                    0.0F,
+                    ltx + 4,
+                    240,
+                    world,
+                    x + posAdd.x,
+                    y + posAdd.y,
+                    z + posAdd.z,
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    1.0F,
+                    0.4F + itemRand.nextFloat() * 0.3F,
+                    1.0F,
+                    true,
+                    (int)(-pitchYaw.x + 270.0)
+            );
+            partxx.randomDeath = false;
+            partxx.alphaGlowing = true;
+            partxx.rotationPitchYaw = new Vec2f(0.0F, (float)pitchYaw.y + 90.0F);
+            partxx.isPushedByLiquids = false;
+            if (i >= 5) {
+               partxx.alpha = -ltx / 2.0F;
+               partxx.alphaTickAdding = 0.5F;
             }
 
-            GUNParticle part = new GUNParticle(
-               shadow_round64x, 0.01F, 0.0F, 22, 0, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, false, itemRand.nextInt(360)
-            );
-            part.tracker = blackPortal_tssh;
-            part.randomDeath = false;
-            part.isPushedByLiquids = false;
-            world.spawnEntity(part);
-            float fsize = 1.5F + itemRand.nextFloat() * 0.5F;
-            int lt = 4 + itemRand.nextInt(3);
-            GUNParticle partx = new GUNParticle(
-               void_explode, 0.4F, 0.0F, lt, 240, world, x, y, z, 0.0F, 0.0F, 0.0F, 0.5F, 0.8F, 1.0F, true, itemRand.nextInt(360)
-            );
-            partx.scaleTickAdding = fsize / lt;
-            partx.alphaGlowing = true;
-            partx.alphaTickAdding = -0.9F / lt;
-            partx.randomDeath = false;
-            partx.isPushedByLiquids = false;
-            world.spawnEntity(partx);
-
-            for (int i = 0; i < 10; i++) {
-               Vec3d motionvec = new Vec3d(itemRand.nextGaussian(), itemRand.nextGaussian(), itemRand.nextGaussian());
-               Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(motionvec);
-               int ltx = i < 5 ? 3 + itemRand.nextInt(3) : 10 + itemRand.nextInt(30);
-               float scl = 0.5F + itemRand.nextFloat() * 0.5F;
-               Vec3d posAdd = motionvec.normalize().scale(scl / 2.0F);
-               GUNParticle partxx = new GUNParticle(
-                  lightning1,
-                  scl,
-                  0.0F,
-                  ltx + 4,
-                  240,
-                  world,
-                  x + posAdd.x,
-                  y + posAdd.y,
-                  z + posAdd.z,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  1.0F,
-                  0.4F + itemRand.nextFloat() * 0.3F,
-                  1.0F,
-                  true,
-                  (int)(-pitchYaw.x + 270.0)
-               );
-               partxx.randomDeath = false;
-               partxx.alphaGlowing = true;
-               partxx.rotationPitchYaw = new Vec2f(0.0F, (float)pitchYaw.y + 90.0F);
-               partxx.isPushedByLiquids = false;
-               if (i >= 5) {
-                  partxx.alpha = -ltx / 2.0F;
-                  partxx.alphaTickAdding = 0.5F;
-               }
-
-               world.spawnEntity(partxx);
-            }
+            world.spawnEntity(partxx);
          }
       }
 

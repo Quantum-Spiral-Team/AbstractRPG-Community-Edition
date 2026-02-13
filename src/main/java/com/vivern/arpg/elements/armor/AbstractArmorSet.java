@@ -1,8 +1,11 @@
-package com.vivern.arpg.elements.armor;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.IEnergyItem;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.NamedAttributeModifier;
+package com.Vivern.Arpg.elements.armor;
+
+import com.Vivern.Arpg.arpgfix.IFieldInit;
+import com.Vivern.Arpg.elements.IEnergyItem;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.NamedAttributeModifier;
 import com.google.common.collect.Multimap;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class AbstractArmorSet {
+public abstract class AbstractArmorSet implements IFieldInit {
    public ArrayList<NamedAttributeModifier> modifiers = new ArrayList<>();
    public int averageDurability;
    public int enchantability;
@@ -36,6 +39,7 @@ public abstract class AbstractArmorSet {
    public boolean isElectric = false;
 
    public AbstractArmorSet(String name, String nameHelmet) {
+      this.initFields();
       this.name = name;
       this.nameHelmet = nameHelmet;
    }

@@ -1,20 +1,23 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.ModelsStormledgeMob;
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.recipes.Soul;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.elements.models.ModelsStormledgeMob;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.main.BloodType;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.recipes.Soul;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.lang.reflect.Method;
 import java.util.List;
 import net.minecraft.entity.Entity;
@@ -50,7 +53,10 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class StormledgeMobsPack {
    public static String mobsteam = "stormledge.mob.team";
@@ -70,79 +76,97 @@ public class StormledgeMobsPack {
    }
 
    public static void initRender() {
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.ThunderbirdModel(),
-            new ResourceLocation("arpg:textures/thunderbird_model_tex.png"),
-            1.2F,
-            Thunderbird.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.ZarpionModel(), new ResourceLocation("arpg:textures/zarpion_model_tex.png"), 0.4F, Zarpion.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.GustModel(), new ResourceLocation("arpg:textures/gust_model_tex.png"), 0.3F, Gust.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.WindbreakModel(), new ResourceLocation("arpg:textures/windbreak_model_tex.png"), 0.4F, Windbreak.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.SkyGuardModel(),
-            new ResourceLocation("arpg:textures/sky_screen_guard_model_tex.png"),
-            0.3F,
-            Skyguard.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.ScreenGuardModel(),
-            new ResourceLocation("arpg:textures/sky_screen_guard_model_tex.png"),
-            0.3F,
-            Screenguard.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.CloudbugModel(), new ResourceLocation("arpg:textures/cloudbug_model_tex.png"), 0.25F, Cloudbug.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.HomingbirdModel(),
-            new ResourceLocation("arpg:textures/homingbird_model_tex.png"),
-            0.2F,
-            Homingbird.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.CloudEaterModel(),
-            new ResourceLocation("arpg:textures/cloud_eater_model_tex.png"),
-            0.7F,
-            CloudEater.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.BossOphanimModel(), new ResourceLocation("arpg:textures/boss_ophanim_model_tex.png"), 2.0F, BossOphanim.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.OphanimGuardModel(),
-            new ResourceLocation("arpg:textures/ophanim_guard_model_tex.png"),
-            0.4F,
-            OphanimGuard.class
-         )
-      );
+      if (fieldsContainer != null) {
+         fieldsContainer.initFields();
+      }
+   }
+
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.ThunderbirdModel(),
+                         new ResourceLocation("arpg:textures/thunderbird_model_tex.png"),
+                         1.2F,
+                         Thunderbird.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.ZarpionModel(), new ResourceLocation("arpg:textures/zarpion_model_tex.png"), 0.4F, Zarpion.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.GustModel(), new ResourceLocation("arpg:textures/gust_model_tex.png"), 0.3F, Gust.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.WindbreakModel(), new ResourceLocation("arpg:textures/windbreak_model_tex.png"), 0.4F, Windbreak.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.SkyGuardModel(),
+                         new ResourceLocation("arpg:textures/sky_screen_guard_model_tex.png"),
+                         0.3F,
+                         Skyguard.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.ScreenGuardModel(),
+                         new ResourceLocation("arpg:textures/sky_screen_guard_model_tex.png"),
+                         0.3F,
+                         Screenguard.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.CloudbugModel(), new ResourceLocation("arpg:textures/cloudbug_model_tex.png"), 0.25F, Cloudbug.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.HomingbirdModel(),
+                         new ResourceLocation("arpg:textures/homingbird_model_tex.png"),
+                         0.2F,
+                         Homingbird.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.CloudEaterModel(),
+                         new ResourceLocation("arpg:textures/cloud_eater_model_tex.png"),
+                         0.7F,
+                         CloudEater.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.BossOphanimModel(), new ResourceLocation("arpg:textures/boss_ophanim_model_tex.png"), 2.0F, BossOphanim.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.OphanimGuardModel(),
+                         new ResourceLocation("arpg:textures/ophanim_guard_model_tex.png"),
+                         0.4F,
+                         OphanimGuard.class
+                 )
+         );
+      }
+   }
+
+   public static ClientFieldsContainer fieldsContainer;
+
+   static {
+      if (fieldsContainer == null && FMLCommonHandler.instance().getSide().isClient()) {
+         fieldsContainer = new ClientFieldsContainer();
+      }
    }
 
    public static class CloudEater extends AbstractMob {
@@ -363,6 +387,7 @@ public class StormledgeMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 8) {
@@ -662,6 +687,7 @@ public class StormledgeMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 8) {
@@ -1799,6 +1825,7 @@ public class StormledgeMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double x, double y, double z, double a, double b, double c) {
          Vec3d pos2 = new Vec3d(x, y, z);
          Vec3d pos1 = new Vec3d(a, b, c);

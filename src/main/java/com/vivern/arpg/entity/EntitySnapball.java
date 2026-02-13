@@ -1,18 +1,20 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -581,30 +583,35 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
    public void onEntityUpdate() {
       super.onEntityUpdate();
       if (this.world.isRemote && this.powered && this.ticksExisted % 4 == 0) {
-         WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double damageRadius = parameters.getEnchanted("damage_radius_powered", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
-         AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
-            .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
-            .offset(-damageRadius, -damageRadius, -damageRadius);
-         List<EntityLivingBase> list = this.world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
-         Vec3d pos1 = new Vec3d(
-            this.posX + this.motionX,
-            this.posY + this.height / 2.0F + this.motionY,
-            this.posZ + this.motionZ
-         );
-         if (!list.isEmpty()) {
-            for (EntityLivingBase entity : list) {
-               if (Team.checkIsOpponent(this.thrower, entity)) {
-                  Vec3d pos2 = GetMOP.entityCenterPos(entity);
-                  if (GetMOP.thereIsNoBlockCollidesBetween(this.world, pos1, pos2, 1.0F, null, false)) {
-                     BetweenParticle laser = new BetweenParticle(
-                        this.world, texture, 0.55F, 240, 1.0F, 0.96F, 0.3F, 0.0F, pos1.distanceTo(pos2), 4, 0.16F, 6.0F, pos1, pos2
-                     );
-                     laser.setPosition(pos1.x, pos1.y, pos1.z);
-                     laser.alphaGlowing = true;
-                     laser.softAnimation = true;
-                     this.world.spawnEntity(laser);
-                  }
+         this.onEntityUpdate_Client_1();
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onEntityUpdate_Client_1() {
+      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
+      double damageRadius = parameters.getEnchanted("damage_radius_powered", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
+              .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
+              .offset(-damageRadius, -damageRadius, -damageRadius);
+      List<EntityLivingBase> list = this.world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+      Vec3d pos1 = new Vec3d(
+              this.posX + this.motionX,
+              this.posY + this.height / 2.0F + this.motionY,
+              this.posZ + this.motionZ
+      );
+      if (!list.isEmpty()) {
+         for (EntityLivingBase entity : list) {
+            if (Team.checkIsOpponent(this.thrower, entity)) {
+               Vec3d pos2 = GetMOP.entityCenterPos(entity);
+               if (GetMOP.thereIsNoBlockCollidesBetween(this.world, pos1, pos2, 1.0F, null, false)) {
+                  BetweenParticle laser = new BetweenParticle(
+                          this.world, texture, 0.55F, 240, 1.0F, 0.96F, 0.3F, 0.0F, pos1.distanceTo(pos2), 4, 0.16F, 6.0F, pos1, pos2
+                  );
+                  laser.setPosition(pos1.x, pos1.y, pos1.z);
+                  laser.alphaGlowing = true;
+                  laser.softAnimation = true;
+                  this.world.spawnEntity(laser);
                }
             }
          }

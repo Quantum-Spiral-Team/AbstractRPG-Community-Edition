@@ -1,15 +1,22 @@
-package com.vivern.arpg.recipes;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.renders.RenderTerraformingResearch;
-import com.vivern.arpg.renders.TRRenderer;
+package com.Vivern.Arpg.recipes;
+
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.renders.RenderTerraformingResearch;
+import com.Vivern.Arpg.renders.TRRenderer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import javax.annotation.Nullable;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
 
 public class Phenomenons {
    private static HashMap<Integer, Integer> interflowBitById = new HashMap<>();
@@ -20,333 +27,461 @@ public class Phenomenons {
    public static ResourceLocation tfr_elements = new ResourceLocation("arpg:textures/gui_research_table_elements.png");
    public static int tfr_sprites_sizeX = 2048;
    public static int tfr_sprites_sizeY = 2048;
-   public static TRRenderer.TRRendererSprite phenomenonsRender = new TRRenderer.TRRendererSprite(tfr_elements, 0, 0, 42, 42, 768, 768);
-   public static TerraformingResearchSurface surfaceFire = new TerraformingResearchSurface(
-         1, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 350, 250, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
-         new TRRenderer.TRRendererSpriteGlimmer(tfr_sprites, 350, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 30.0F)
-            .setStyle(TRRenderer.RenderStyle.ADDITIVE),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 2, 8, 400, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 20)
-            .setAnimation(4, 20)
-            .setLayer(1.0F)
-            .setStyle(TRRenderer.RenderStyle.ADDITIVE)
-      );
-   public static TerraformingResearchSurface surfaceRocks = new TerraformingResearchSurface(
-         2, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 0, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 4, 5, 0, 250, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 22).setRandomBrightness(0.1F).setLayer(1.0F)
-      );
-   public static TerraformingResearchSurface surfaceOcean = new TerraformingResearchSurface(
-         3, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 600, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setWoodenFrame()
-            .setAnimation(6, 20)
-            .setDiffuseColor(3104155, false)
-      );
-   public static TerraformingResearchSurface surfaceAir = new TerraformingResearchSurface(
-         4, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 200, 250, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setAtmosphereEffect()
-            .setDiffuseColor(1999615, true)
-            .setLayer(2.0F)
-            .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
-      )
-      .setParticles(
-         new TerraformingResearchParticle.TFRSParticleSystem() {
-            @Override
-            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
-               if (rand.nextFloat() < 0.01F) {
-                  float displaceX = (rand.nextFloat() - 0.5F) * 50.0F;
-                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
-                  boolean small = rand.nextFloat() < 0.5F;
-                  TerraformingResearchParticle part = new TerraformingResearchParticle(
-                     small ? 297 : 314,
-                     small ? 250 + rand.nextInt(6) * 6 : 250 + rand.nextInt(6) * 15,
-                     small ? 17 : 36,
-                     small ? 6 : 15,
-                     Phenomenons.tfr_sprites,
-                     Phenomenons.tfr_sprites_sizeX,
-                     Phenomenons.tfr_sprites_sizeY
-                  );
-                  part.livetimePosMotion(120, x + displaceX, y + displaceY, rand.nextFloat() < 0.5F ? -0.3F : 0.3F, 0.0F, 1.0F);
-                  part.alpha(0.0F, new Vec3d(0.0, 20.0, 0.05), new Vec3d(100.0, 120.0, -0.05));
-                  part.renderStyle(TRRenderer.RenderStyle.TRANSLUCENT);
-                  renderTFR.spawnParticle(part);
-               }
-            }
-         }
-      );
-   public static TerraformingResearchSurface surfacePoison = new TerraformingResearchSurface(
-         5, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(new TRRenderer.TRRendererSprite(tfr_sprites, 700, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setAnimation(6, 20));
-   public static TerraformingResearchSurface surfaceLava = new TerraformingResearchSurface(
-         19, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 650, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setWoodenFrame()
-            .setAnimation(7, 20)
-            .setDiffuseColor(16752800, false),
-         new TRRenderer.TRRendererSprite(tfr_sprites, 0, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setLayer(1.0F)
-            .setStyle(TRRenderer.RenderStyle.TRANSLUCENT),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 4, 3, 0, 300, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 22).setLayer(2.0F)
-      );
-   public static TerraformingResearchSurface surfaceSteam = new TerraformingResearchSurface(
-         20, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 850, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setAtmosphereEffect()
-            .setAnimation(5, 20)
-            .setLayer(2.0F)
-            .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
-      );
-   public static TerraformingResearchSurface surfaceRain = new TerraformingResearchSurface(
-         21, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 1000, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setAnimation(3, 20)
-            .setLayer(2.0F)
-            .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
-      )
-      .setParticles(
-         new TerraformingResearchParticle.TFRSParticleSystem() {
-            @Override
-            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
-               if (rand.nextFloat() < 0.03F) {
-                  float displaceX = (rand.nextFloat() - 0.5F) * 50.0F;
-                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
-                  boolean small = rand.nextFloat() < 0.5F;
-                  TerraformingResearchParticle part = new TerraformingResearchParticle(
-                     small ? 297 : 314,
-                     small ? 250 + rand.nextInt(6) * 6 : 250 + rand.nextInt(6) * 15,
-                     small ? 17 : 36,
-                     small ? 6 : 15,
-                     Phenomenons.tfr_sprites,
-                     Phenomenons.tfr_sprites_sizeX,
-                     Phenomenons.tfr_sprites_sizeY
-                  );
-                  part.livetimePosMotion(120, x + displaceX, y + displaceY, rand.nextFloat() < 0.5F ? -0.3F : 0.3F, 0.0F, 1.0F);
-                  part.alpha(0.0F, new Vec3d(0.0, 20.0, 0.05), new Vec3d(100.0, 120.0, -0.05));
-                  part.renderStyle(TRRenderer.RenderStyle.TRANSLUCENT);
-                  renderTFR.spawnParticle(part);
-               }
-            }
-         }
-      );
-   public static TerraformingResearchSurface surfaceSalts = new TerraformingResearchSurface(
-         22, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 200, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 7, 2, 0, 382, 34, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 18).setLayer(2.0F)
-      );
-   public static TerraformingResearchSurface surfaceBurningFrost = new TerraformingResearchSurface(
-         23, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 0, 0, 50, 50, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 150, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 2, 7, 500, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 20)
-            .setAnimation(5, 20)
-            .setLayer(1.0F)
-            .setStyle(TRRenderer.RenderStyle.ADDITIVE)
-      );
-   public static TerraformingResearchSurface surfaceBlood = new TerraformingResearchSurface(
-         30, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 0, 0, 0, 0, 0, 0, 50, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 750, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setWoodenFrame()
-            .setAnimation(7, 20)
-            .setDiffuseColor(8487297, false)
-      );
-   public static TerraformingResearchSurface surfacePotion = new TerraformingResearchSurface(
-         36, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 800, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setWoodenFrame()
-            .setAnimation(6, 20)
-            .setDiffuseColor(16773240, false)
-      );
-   public static TerraformingResearchSurface surfaceCrystal = new TerraformingResearchSurface(
-         37, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 50, 0, 0, 50, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 50, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setDiffuseColor(16763135, true),
-         new TRRenderer.TRRendererSprite(tfr_sprites, 100, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(10878909, false),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 7, 2, 0, 546, 34, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 18)
-            .setRandomBrightness(0.25F)
-            .setLayer(2.0F)
-      );
-   public static TerraformingResearchSurface surfaceAsh = new TerraformingResearchSurface(
-         40, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 950, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setWoodenFrame()
-            .setAnimation(6, 20)
-            .setDiffuseColor(13092807, false)
-      )
-      .setParticles(
-         new TerraformingResearchParticle.TFRSParticleSystem() {
-            @Override
-            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
-               if (rand.nextFloat() < 0.13F) {
-                  float displaceX = (rand.nextFloat() - 0.5F) * 50.0F;
-                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
-                  TerraformingResearchParticle part = new TerraformingResearchParticle(
-                     350, 300, 1, 1, Phenomenons.tfr_sprites, Phenomenons.tfr_sprites_sizeX, Phenomenons.tfr_sprites_sizeY
-                  );
-                  part.livetimePosMotion(
-                     120 - rand.nextInt(30), x + displaceX, y + displaceY, 0.3F + rand.nextFloat() * 0.15F, -0.3F - rand.nextFloat() * 0.15F, 0.99F
-                  );
-                  part.renderStyle(TRRenderer.RenderStyle.NORMAL);
-                  part.animation(2, 60);
-                  part.tracker = TerraformingResearchParticle.tfrp_tracker_sparkle;
-                  renderTFR.spawnParticle(part);
-               }
-            }
-         }
-      );
-   public static TerraformingResearchSurface surfaceMud = new TerraformingResearchSurface(
-         43, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 150, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(6967097, false),
-         new TRRenderer.TRRendererSprite(tfr_sprites, 100, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setLayer(0.1F)
-            .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
-      );
-   public static TerraformingResearchSurface surfacePoisonGas = new TerraformingResearchSurface(
-         45, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 0, 50, 50, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 900, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setAtmosphereEffect()
-            .setAnimation(4, 20)
-            .setLayer(2.0F)
-            .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
-      );
-   public static TerraformingResearchSurface surfaceIce = new TerraformingResearchSurface(
-         47, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 0, 0, 50, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 250, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(8694783, false),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 3, 1, 200, 314, 32, 36, tfr_sprites_sizeX, tfr_sprites_sizeY, 16).setLayer(2.0F)
-      );
-   public static TerraformingResearchSurface surfaceDust = new TerraformingResearchSurface(
-         60, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 200, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(13487565, false)
-      );
-   public static TerraformingResearchSurface surfaceBones = new TerraformingResearchSurface(
-         32, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 250, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 12, 5, 0, 510, 26, 36, tfr_sprites_sizeX, tfr_sprites_sizeY, 14).setLayer(2.0F)
-      );
-   public static TerraformingResearchSurface surfaceMetal = new TerraformingResearchSurface(
-         34, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 300, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(5197647, false)
-      );
-   public static TerraformingResearchSurface surfaceMoney = new TerraformingResearchSurface(
-         56, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 300, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 8, 4, 0, 350, 28, 32, tfr_sprites_sizeX, tfr_sprites_sizeY, 13).setLayer(2.0F)
-      );
-   public static TerraformingResearchSurface surfaceCorruption = new TerraformingResearchSurface(
-         51, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 0, 0, 50, 0, 0, 0, 0, 50, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 350, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 12, 5, 0, 460, 26, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 10).setLayer(2.0F)
-      )
-      .setExpansion(5, false);
-   public static TerraformingResearchSurface surfaceStorm = new TerraformingResearchSurface(
-         74, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 50, 50, 0, 0, 50, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 1000, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
-            .setAnimation(3, 20)
-            .setLayer(2.0F)
-            .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
-      )
-      .setParticles(
-         new TerraformingResearchParticle.TFRSParticleSystem() {
-            @Override
-            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
-               if (rand.nextFloat() < 0.03F) {
-                  float displaceX = (rand.nextFloat() - 0.5F) * 50.0F;
-                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
-                  boolean small = rand.nextFloat() < 0.5F;
-                  TerraformingResearchParticle part = new TerraformingResearchParticle(
-                     small ? 0 : 17 + rand.nextInt(6) * 36,
-                     small ? 600 + rand.nextInt(6) * 6 : 600,
-                     small ? 17 : 36,
-                     small ? 6 : 15,
-                     Phenomenons.tfr_sprites,
-                     Phenomenons.tfr_sprites_sizeX,
-                     Phenomenons.tfr_sprites_sizeY
-                  );
-                  part.livetimePosMotion(120, x + displaceX, y + displaceY, rand.nextFloat() < 0.5F ? -0.3F : 0.3F, 0.0F, 1.0F);
-                  part.alpha(0.0F, new Vec3d(0.0, 20.0, 0.05), new Vec3d(100.0, 120.0, -0.05));
-                  part.renderStyle(TRRenderer.RenderStyle.TRANSLUCENT);
-                  if (!small) {
-                     part.animation(2, 3);
-                     part.frameController = new TerraformingResearchParticle.FrameControllerStorm();
-                  }
 
-                  renderTFR.spawnParticle(part);
-               }
-            }
+//   public static TRRenderer.TRRendererSprite phenomenonsRender = new TRRenderer.TRRendererSprite(tfr_elements, 0, 0, 42, 42, 768, 768);
+   public static Object phenomenonsRender; // TRRenderer.TRRendererSprite
+
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         if (phenomenonsRender == null) {
+            phenomenonsRender = new TRRenderer.TRRendererSprite(
+                    tfr_elements, 0, 0, 42, 42, 768, 768
+            );
          }
+      }
+      @SideOnly(Side.CLIENT)
+      public TRRenderer.TRRendererSprite getPhenomenonsRender() {
+         return (TRRenderer.TRRendererSprite) phenomenonsRender;
+      }
+   }
+   public static ClientFieldsContainer clientFields;
+
+   public static void initFields() {
+      if (clientFields == null) {
+         clientFields = new ClientFieldsContainer();
+      }
+
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         surfaceFire.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 350, 250, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
+                 new TRRenderer.TRRendererSpriteGlimmer(tfr_sprites, 350, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 30.0F)
+                         .setStyle(TRRenderer.RenderStyle.ADDITIVE),
+                 new TRRenderer.TRRendererScatter(tfr_sprites, 2, 8, 400, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 20)
+                         .setAnimation(4, 20)
+                         .setLayer(1.0F)
+                         .setStyle(TRRenderer.RenderStyle.ADDITIVE)
+         );
+         surfaceRocks.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 0, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
+                 new TRRenderer.TRRendererScatter(tfr_sprites, 4, 5, 0, 250, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 22).setRandomBrightness(0.1F).setLayer(1.0F)
+         );
+         surfaceOcean.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 600, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                         .setWoodenFrame()
+                         .setAnimation(6, 20)
+                         .setDiffuseColor(3104155, false)
+         );
+         surfaceAir.setRenders(
+                         new TRRenderer.TRRendererSprite(tfr_sprites, 200, 250, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                                 .setAtmosphereEffect()
+                                 .setDiffuseColor(1999615, true)
+                                 .setLayer(2.0F)
+                                 .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
+                 )
+                 .setParticles(
+                         new TerraformingResearchParticle.TFRSParticleSystem() {
+                            @Override
+                            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
+                               if (rand.nextFloat() < 0.01F) {
+                                  float displaceX = (rand.nextFloat() - 0.5F) * 50.0F;
+                                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
+                                  boolean small = rand.nextFloat() < 0.5F;
+                                  TerraformingResearchParticle part = new TerraformingResearchParticle(
+                                          small ? 297 : 314,
+                                          small ? 250 + rand.nextInt(6) * 6 : 250 + rand.nextInt(6) * 15,
+                                          small ? 17 : 36,
+                                          small ? 6 : 15,
+                                          Phenomenons.tfr_sprites,
+                                          Phenomenons.tfr_sprites_sizeX,
+                                          Phenomenons.tfr_sprites_sizeY
+                                  );
+                                  part.livetimePosMotion(120, x + displaceX, y + displaceY, rand.nextFloat() < 0.5F ? -0.3F : 0.3F, 0.0F, 1.0F);
+                                  part.alpha(0.0F, new Vec3d(0.0, 20.0, 0.05), new Vec3d(100.0, 120.0, -0.05));
+                                  part.renderStyle(TRRenderer.RenderStyle.TRANSLUCENT);
+                                  renderTFR.spawnParticle(part);
+                               }
+                            }
+                         }
+                 );
+         surfacePoison.setRenders(new TRRenderer.TRRendererSprite(tfr_sprites, 700, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setAnimation(6, 20));
+         surfaceLava.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 650, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                         .setWoodenFrame()
+                         .setAnimation(7, 20)
+                         .setDiffuseColor(16752800, false),
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 0, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                         .setLayer(1.0F)
+                         .setStyle(TRRenderer.RenderStyle.TRANSLUCENT),
+                 new TRRenderer.TRRendererScatter(tfr_sprites, 4, 3, 0, 300, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 22).setLayer(2.0F)
+         );
+         surfaceSteam.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 850, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                         .setAtmosphereEffect()
+                         .setAnimation(5, 20)
+                         .setLayer(2.0F)
+                         .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
+         );
+         surfaceRain.setRenders(
+                         new TRRenderer.TRRendererSprite(tfr_sprites, 1000, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                                 .setAnimation(3, 20)
+                                 .setLayer(2.0F)
+                                 .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
+                 )
+                 .setParticles(
+                         new TerraformingResearchParticle.TFRSParticleSystem() {
+                            @Override
+                            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
+                               if (rand.nextFloat() < 0.03F) {
+                                  float displaceX = (rand.nextFloat() - 0.5F) * 50.0F;
+                                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
+                                  boolean small = rand.nextFloat() < 0.5F;
+                                  TerraformingResearchParticle part = new TerraformingResearchParticle(
+                                          small ? 297 : 314,
+                                          small ? 250 + rand.nextInt(6) * 6 : 250 + rand.nextInt(6) * 15,
+                                          small ? 17 : 36,
+                                          small ? 6 : 15,
+                                          Phenomenons.tfr_sprites,
+                                          Phenomenons.tfr_sprites_sizeX,
+                                          Phenomenons.tfr_sprites_sizeY
+                                  );
+                                  part.livetimePosMotion(120, x + displaceX, y + displaceY, rand.nextFloat() < 0.5F ? -0.3F : 0.3F, 0.0F, 1.0F);
+                                  part.alpha(0.0F, new Vec3d(0.0, 20.0, 0.05), new Vec3d(100.0, 120.0, -0.05));
+                                  part.renderStyle(TRRenderer.RenderStyle.TRANSLUCENT);
+                                  renderTFR.spawnParticle(part);
+                               }
+                            }
+                         }
+                 );
+         surfaceSalts.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 200, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
+                 new TRRenderer.TRRendererScatter(tfr_sprites, 7, 2, 0, 382, 34, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 18).setLayer(2.0F)
+         );
+         surfaceBurningFrost.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 150, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
+                 new TRRenderer.TRRendererScatter(tfr_sprites, 2, 7, 500, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 20)
+                         .setAnimation(5, 20)
+                         .setLayer(1.0F)
+                         .setStyle(TRRenderer.RenderStyle.ADDITIVE)
+         );
+         surfaceBlood.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 750, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                         .setWoodenFrame()
+                         .setAnimation(7, 20)
+                         .setDiffuseColor(8487297, false)
+         );
+         surfacePotion.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 800, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                         .setWoodenFrame()
+                         .setAnimation(6, 20)
+                         .setDiffuseColor(16773240, false)
+         );
+         surfaceCrystal.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 50, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setDiffuseColor(16763135, true),
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 100, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(10878909, false),
+                 new TRRenderer.TRRendererScatter(tfr_sprites, 7, 2, 0, 546, 34, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 18)
+                         .setRandomBrightness(0.25F)
+                         .setLayer(2.0F)
+         );
+         surfaceAsh.setRenders(
+                         new TRRenderer.TRRendererSprite(tfr_sprites, 950, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                                 .setWoodenFrame()
+                                 .setAnimation(6, 20)
+                                 .setDiffuseColor(13092807, false)
+                 )
+                 .setParticles(
+                         new TerraformingResearchParticle.TFRSParticleSystem() {
+                            @Override
+                            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
+                               if (rand.nextFloat() < 0.13F) {
+                                  float displaceX = (rand.nextFloat() - 0.5F) * 50.0F;
+                                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
+                                  TerraformingResearchParticle part = new TerraformingResearchParticle(
+                                          350, 300, 1, 1, Phenomenons.tfr_sprites, Phenomenons.tfr_sprites_sizeX, Phenomenons.tfr_sprites_sizeY
+                                  );
+                                  part.livetimePosMotion(
+                                          120 - rand.nextInt(30), x + displaceX, y + displaceY, 0.3F + rand.nextFloat() * 0.15F, -0.3F - rand.nextFloat() * 0.15F, 0.99F
+                                  );
+                                  part.renderStyle(TRRenderer.RenderStyle.NORMAL);
+                                  part.animation(2, 60);
+                                  part.tracker = TerraformingResearchParticle.tfrp_tracker_sparkle;
+                                  renderTFR.spawnParticle(part);
+                               }
+                            }
+                         }
+                 );
+         surfaceMud.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 150, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(6967097, false),
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 100, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                         .setLayer(0.1F)
+                         .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
+         );
+         surfacePoisonGas.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 900, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                         .setAtmosphereEffect()
+                         .setAnimation(4, 20)
+                         .setLayer(2.0F)
+                         .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
+         );
+         surfaceIce.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 250, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(8694783, false),
+                 new TRRenderer.TRRendererScatter(tfr_sprites, 3, 1, 200, 314, 32, 36, tfr_sprites_sizeX, tfr_sprites_sizeY, 16).setLayer(2.0F)
+         );
+         surfaceDust.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 200, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(13487565, false)
+         );
+         surfaceBones.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 250, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
+                 new TRRenderer.TRRendererScatter(tfr_sprites, 12, 5, 0, 510, 26, 36, tfr_sprites_sizeX, tfr_sprites_sizeY, 14).setLayer(2.0F)
+         );
+         surfaceMetal.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 300, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(5197647, false)
+         );
+         surfaceMoney.setRenders(
+                 new TRRenderer.TRRendererSprite(tfr_sprites, 300, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
+                 new TRRenderer.TRRendererScatter(tfr_sprites, 8, 4, 0, 350, 28, 32, tfr_sprites_sizeX, tfr_sprites_sizeY, 13).setLayer(2.0F)
+         );
+         surfaceCorruption.setRenders(
+                         new TRRenderer.TRRendererSprite(tfr_sprites, 350, 150, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(),
+                         new TRRenderer.TRRendererScatter(tfr_sprites, 12, 5, 0, 460, 26, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 10).setLayer(2.0F)
+                 );
+         surfaceStorm.setRenders(
+                         new TRRenderer.TRRendererSprite(tfr_sprites, 1000, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY)
+                                 .setAnimation(3, 20)
+                                 .setLayer(2.0F)
+                                 .setStyle(TRRenderer.RenderStyle.TRANSLUCENT)
+                 )
+                 .setParticles(
+                         new TerraformingResearchParticle.TFRSParticleSystem() {
+                            @Override
+                            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
+                               if (rand.nextFloat() < 0.03F) {
+                                  float displaceX = (rand.nextFloat() - 0.5F) * 50.0F;
+                                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
+                                  boolean small = rand.nextFloat() < 0.5F;
+                                  TerraformingResearchParticle part = new TerraformingResearchParticle(
+                                          small ? 0 : 17 + rand.nextInt(6) * 36,
+                                          small ? 600 + rand.nextInt(6) * 6 : 600,
+                                          small ? 17 : 36,
+                                          small ? 6 : 15,
+                                          Phenomenons.tfr_sprites,
+                                          Phenomenons.tfr_sprites_sizeX,
+                                          Phenomenons.tfr_sprites_sizeY
+                                  );
+                                  part.livetimePosMotion(120, x + displaceX, y + displaceY, rand.nextFloat() < 0.5F ? -0.3F : 0.3F, 0.0F, 1.0F);
+                                  part.alpha(0.0F, new Vec3d(0.0, 20.0, 0.05), new Vec3d(100.0, 120.0, -0.05));
+                                  part.renderStyle(TRRenderer.RenderStyle.TRANSLUCENT);
+                                  if (!small) {
+                                     part.animation(2, 3);
+                                     part.frameController = new TerraformingResearchParticle.FrameControllerStorm();
+                                  }
+
+                                  renderTFR.spawnParticle(part);
+                               }
+                            }
+                         }
+                 );
+         surfaceSnow.setRenders(
+                         new TRRenderer.TRRendererSprite(tfr_sprites, 0, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(13228262, false),
+                         new TRRenderer.TRRendererScatter(tfr_sprites, 3, 2, 0, 432, 45, 28, tfr_sprites_sizeX, tfr_sprites_sizeY, 24).setLayer(2.0F)
+                 )
+                 .setParticles(
+                         new TerraformingResearchParticle.TFRSParticleSystem() {
+                            @Override
+                            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
+                               if (rand.nextFloat() < 0.1F) {
+                                  float displaceX = (rand.nextFloat() - 0.5F) * 55.0F;
+                                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
+                                  boolean small = rand.nextFloat() < 0.5F;
+                                  TerraformingResearchParticle part = new TerraformingResearchParticle(
+                                          small ? 253 : 250, 250, 3, 3, Phenomenons.tfr_sprites, Phenomenons.tfr_sprites_sizeX, Phenomenons.tfr_sprites_sizeY
+                                  );
+                                  part.livetimePosMotion(150, x + displaceX, y + displaceY - 50.0F, rand.nextFloat() / 2.0F - 0.25F, 0.3F, 1.0F);
+                                  part.alpha(0.0F, new Vec3d(0.0, 20.0, 0.05), new Vec3d(145.0, 150.0, -0.2));
+                                  part.renderStyle(TRRenderer.RenderStyle.TRANSLUCENT);
+                                  part.tracker = TerraformingResearchParticle.tfrp_tracker_snowfall;
+                                  part.utilsValue = rand.nextInt(2);
+                                  renderTFR.spawnParticle(part);
+                               }
+                            }
+                         }
+                 );
+      }
+   }
+   static {
+      surfaceFire = new TerraformingResearchSurface(
+              1, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       );
-   public static TerraformingResearchSurface surfaceSnow = new TerraformingResearchSurface(
-         102, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 50, 0, 50, 0, 0, 0, 0, 0, 0
-      )
-      .setRenders(
-         new TRRenderer.TRRendererSprite(tfr_sprites, 0, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setDiffuseColor(13228262, false),
-         new TRRenderer.TRRendererScatter(tfr_sprites, 3, 2, 0, 432, 45, 28, tfr_sprites_sizeX, tfr_sprites_sizeY, 24).setLayer(2.0F)
-      )
-      .setParticles(
-         new TerraformingResearchParticle.TFRSParticleSystem() {
-            @Override
-            public void update(RenderTerraformingResearch renderTFR, float x, float y, TerraformingResearchSurface surface, Random rand, int arrayX, int arrayY) {
-               if (rand.nextFloat() < 0.1F) {
-                  float displaceX = (rand.nextFloat() - 0.5F) * 55.0F;
-                  float displaceY = (rand.nextFloat() - 0.5F) * 50.0F;
-                  boolean small = rand.nextFloat() < 0.5F;
-                  TerraformingResearchParticle part = new TerraformingResearchParticle(
-                     small ? 253 : 250, 250, 3, 3, Phenomenons.tfr_sprites, Phenomenons.tfr_sprites_sizeX, Phenomenons.tfr_sprites_sizeY
-                  );
-                  part.livetimePosMotion(150, x + displaceX, y + displaceY - 50.0F, rand.nextFloat() / 2.0F - 0.25F, 0.3F, 1.0F);
-                  part.alpha(0.0F, new Vec3d(0.0, 20.0, 0.05), new Vec3d(145.0, 150.0, -0.2));
-                  part.renderStyle(TRRenderer.RenderStyle.TRANSLUCENT);
-                  part.tracker = TerraformingResearchParticle.tfrp_tracker_snowfall;
-                  part.utilsValue = rand.nextInt(2);
-                  renderTFR.spawnParticle(part);
-               }
-            }
-         }
+      surfaceRocks = new TerraformingResearchSurface(
+              2, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       );
+      surfaceOcean = new TerraformingResearchSurface(
+              3, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfaceAir = new TerraformingResearchSurface(
+              4, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfacePoison = new TerraformingResearchSurface(
+              5, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfaceLava = new TerraformingResearchSurface(
+              19, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfaceSteam = new TerraformingResearchSurface(
+              20, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfaceRain = new TerraformingResearchSurface(
+              21, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfaceSalts = new TerraformingResearchSurface(
+              22, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfaceBurningFrost = new TerraformingResearchSurface(
+              23, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 0, 0, 50, 50, 0, 0, 0, 0, 0, 0
+      );
+      surfaceBlood = new TerraformingResearchSurface(
+              30, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 0, 0, 0, 0, 0, 0, 50, 0, 0
+      );
+      surfacePotion = new TerraformingResearchSurface(
+              36, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfaceCrystal = new TerraformingResearchSurface(
+              37, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 50, 0, 0, 50, 0, 0, 0, 0, 0, 0
+      );
+      surfaceAsh = new TerraformingResearchSurface(
+              40, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0
+      );
+      surfaceMud = new TerraformingResearchSurface(
+              43, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfacePoisonGas = new TerraformingResearchSurface(
+              45, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 0, 50, 50, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfaceIce = new TerraformingResearchSurface(
+              47, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 0, 0, 50, 0, 0, 0, 0, 0, 0
+      );
+      surfaceDust = new TerraformingResearchSurface(
+              60, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0
+      );
+      surfaceBones = new TerraformingResearchSurface(
+              32, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0
+      );
+      surfaceMetal = new TerraformingResearchSurface(
+              34, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0
+      );
+      surfaceMoney = new TerraformingResearchSurface(
+              56, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0
+      );
+      surfaceCorruption = new TerraformingResearchSurface(
+              51, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 0, 0, 50, 0, 0, 0, 0, 50, 0, 0
+      ).setExpansion(5, false);
+      surfaceStorm = new TerraformingResearchSurface(
+              74, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 50, 50, 0, 0, 50, 0, 0, 0, 0, 0
+      );
+      surfaceSnow = new TerraformingResearchSurface(
+              102, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 50, 0, 50, 0, 0, 0, 0, 0, 0
+      );
+
+      initFields();
+   }
+
+//   public static TerraformingResearchSurface surfaceFire = new TerraformingResearchSurface(
+//           1, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceRocks = new TerraformingResearchSurface(
+//           2, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceOcean = new TerraformingResearchSurface(
+//           3, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceAir = new TerraformingResearchSurface(
+//           4, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfacePoison = new TerraformingResearchSurface(
+//           5, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceLava = new TerraformingResearchSurface(
+//           19, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceSteam = new TerraformingResearchSurface(
+//           20, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceRain = new TerraformingResearchSurface(
+//           21, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceSalts = new TerraformingResearchSurface(
+//           22, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceBurningFrost = new TerraformingResearchSurface(
+//           23, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 0, 0, 50, 50, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceBlood = new TerraformingResearchSurface(
+//           30, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 0, 0, 0, 0, 0, 0, 50, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfacePotion = new TerraformingResearchSurface(
+//           36, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceCrystal = new TerraformingResearchSurface(
+//           37, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 50, 0, 0, 50, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceAsh = new TerraformingResearchSurface(
+//           40, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0
+//   );
+//   public static TerraformingResearchSurface surfaceMud = new TerraformingResearchSurface(
+//           43, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfacePoisonGas = new TerraformingResearchSurface(
+//           45, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 0, 50, 50, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceIce = new TerraformingResearchSurface(
+//           47, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 0, 0, 50, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceDust = new TerraformingResearchSurface(
+//           60, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceBones = new TerraformingResearchSurface(
+//           32, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0
+//   );
+//   public static TerraformingResearchSurface surfaceMetal = new TerraformingResearchSurface(
+//           34, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceMoney = new TerraformingResearchSurface(
+//           56, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 50, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceCorruption = new TerraformingResearchSurface(
+//           51, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 0, 0, 50, 0, 0, 0, 0, 50, 0, 0
+//   ).setExpansion(5, false);
+//   public static TerraformingResearchSurface surfaceStorm = new TerraformingResearchSurface(
+//           74, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE, 0, 0, 50, 50, 0, 0, 50, 0, 0, 0, 0, 0
+//   );
+//   public static TerraformingResearchSurface surfaceSnow = new TerraformingResearchSurface(
+//           102, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 50, 50, 0, 50, 0, 0, 0, 0, 0, 0
+//   );
+public static TerraformingResearchSurface surfaceFire;
+   public static TerraformingResearchSurface surfaceRocks;
+   public static TerraformingResearchSurface surfaceOcean;
+   public static TerraformingResearchSurface surfaceAir;
+   public static TerraformingResearchSurface surfacePoison;
+   public static TerraformingResearchSurface surfaceLava;
+   public static TerraformingResearchSurface surfaceSteam;
+   public static TerraformingResearchSurface surfaceRain;
+   public static TerraformingResearchSurface surfaceSalts;
+   public static TerraformingResearchSurface surfaceBurningFrost;
+   public static TerraformingResearchSurface surfaceBlood;
+   public static TerraformingResearchSurface surfacePotion;
+   public static TerraformingResearchSurface surfaceCrystal;
+   public static TerraformingResearchSurface surfaceAsh;
+   public static TerraformingResearchSurface surfaceMud;
+   public static TerraformingResearchSurface surfacePoisonGas;
+   public static TerraformingResearchSurface surfaceIce;
+   public static TerraformingResearchSurface surfaceDust;
+   public static TerraformingResearchSurface surfaceBones;
+   public static TerraformingResearchSurface surfaceMetal;
+   public static TerraformingResearchSurface surfaceMoney;
+   public static TerraformingResearchSurface surfaceCorruption;
+   public static TerraformingResearchSurface surfaceStorm;
+   public static TerraformingResearchSurface surfaceSnow;
 
    @Nullable
    public static Phenomenon createById(int id) {

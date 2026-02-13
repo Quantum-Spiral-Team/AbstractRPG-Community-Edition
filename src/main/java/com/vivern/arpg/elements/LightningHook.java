@@ -1,9 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.GraplingHookParticle;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.entity.GraplingHookParticle;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -48,48 +50,56 @@ public class LightningHook extends GraplingHook {
          );
    }
 
-   @Override
+   @Override //
    public void onGrap(EntityPlayer player, ItemStack itemstack) {
       if (!player.capabilities.isCreativeMode) {
          itemstack.damageItem(1, player);
       }
 
-      double xpos = NBTHelper.GetNBTdouble(itemstack, "pointX");
-      double ypos = NBTHelper.GetNBTdouble(itemstack, "pointY");
-      double zpos = NBTHelper.GetNBTdouble(itemstack, "pointZ");
+      //
+      if (player.world != null && player.world.isRemote) {
+         double xpos = NBTHelper.GetNBTdouble(itemstack, "pointX");
+         double ypos = NBTHelper.GetNBTdouble(itemstack, "pointY");
+         double zpos = NBTHelper.GetNBTdouble(itemstack, "pointZ");
+         onGrap_Client(player, xpos, ypos, zpos);
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onGrap_Client(EntityPlayer player, double xpos, double ypos, double zpos) {
       GUNParticle bigsmoke = new GUNParticle(
-         this.largesmoke,
-         0.4F + (float)itemRand.nextGaussian() / 20.0F,
-         0.0F,
-         10,
-         240,
-         player.world,
-         xpos,
-         ypos,
-         zpos,
-         0.0F,
-         0.0F,
-         0.0F,
-         0.95F + (float)itemRand.nextGaussian() / 10.0F,
-         1.0F,
-         1.0F,
-         true,
-         itemRand.nextInt(360)
+              this.largesmoke,
+              0.4F + (float)itemRand.nextGaussian() / 20.0F,
+              0.0F,
+              10,
+              240,
+              player.world,
+              xpos,
+              ypos,
+              zpos,
+              0.0F,
+              0.0F,
+              0.0F,
+              0.95F + (float)itemRand.nextGaussian() / 10.0F,
+              1.0F,
+              1.0F,
+              true,
+              itemRand.nextInt(360)
       );
       bigsmoke.alphaTickAdding = -0.1F;
       bigsmoke.alphaGlowing = true;
       player.world.spawnEntity(bigsmoke);
       player.world
-         .playSound(
-            (EntityPlayer)null,
-            player.posX,
-            player.posY,
-            player.posZ,
-            Sounds.lightning_gh_grap,
-            SoundCategory.PLAYERS,
-            0.5F,
-            0.9F + itemRand.nextFloat() / 5.0F
-         );
+              .playSound(
+                      (EntityPlayer)null,
+                      player.posX,
+                      player.posY,
+                      player.posZ,
+                      Sounds.lightning_gh_grap,
+                      SoundCategory.PLAYERS,
+                      0.5F,
+                      0.9F + itemRand.nextFloat() / 5.0F
+              );
    }
 
    @SideOnly(Side.CLIENT)

@@ -1,30 +1,33 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.IWrenchUser;
-import com.vivern.arpg.elements.ItemBullet;
-import com.vivern.arpg.elements.Wrench;
-import com.vivern.arpg.elements.models.ModelsToxicomaniaMob;
-import com.vivern.arpg.elements.models.SummonedSnowmanModel;
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.recipes.Soul;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.LayerRandomItem;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.elements.IWrenchUser;
+import com.Vivern.Arpg.elements.ItemBullet;
+import com.Vivern.Arpg.elements.Wrench;
+import com.Vivern.Arpg.elements.models.ModelsToxicomaniaMob;
+import com.Vivern.Arpg.elements.models.SummonedSnowmanModel;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.BloodType;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.FindAmmo;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.recipes.Soul;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.LayerRandomItem;
 import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,11 +81,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ToxicomaniaMobsPack {
-   public static ModelBase NULL_MODEL = new SummonedSnowmanModel();
+//   public static ModelBase NULL_MODEL = new SummonedSnowmanModel();
    public static ResourceLocation NULL_TEX = new ResourceLocation("arpg:textures/no_texture.png");
 
    public static void init() {
@@ -108,127 +112,147 @@ public class ToxicomaniaMobsPack {
       AbstractMob.addToRegister(PoisonSpitter.class, "Poison Spitter", 4280136, 11393895);
    }
 
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      @SideOnly(Side.CLIENT)
+      @Override
+      public void initFields() {
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.Experiment9Model(),
+                         new ResourceLocation("arpg:textures/experiment9_model_tex.png"),
+                         0.4F,
+                         Experiment9.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.VineChopsModel(),
+                         new ResourceLocation("arpg:textures/vine_chops_model_tex.png"),
+                         1.0F,
+                         VineChops.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.SpringerModel(), new ResourceLocation("arpg:textures/springer_model_tex.png"), 0.3F, Springer.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.MosquitoModel(), new ResourceLocation("arpg:textures/mosquito_model_tex.png"), 0.1F, Mosquito.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.BossAbominationModel(), new ResourceLocation("arpg:textures/boss_abomination_model_tex.png"), 1.0F, BossAbomination.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.AbominationCannonModel(),
+                         new ResourceLocation("arpg:textures/abomination_cannon_model_tex.png"),
+                         0.4F,
+                         AbominationCannon.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.LumpModel(), new ResourceLocation("arpg:textures/lump_model_tex.png"), 0.8F, Lump.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.MutantBeastModel(),
+                         new ResourceLocation("arpg:textures/mutant_beast_model_tex.png"),
+                         0.6F,
+                         MutantBeast.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.TestTubeSubstanceModel(),
+                         new ResourceLocation("arpg:textures/test_tube_substance_model_tex.png"),
+                         0.7F,
+                         TestTubeSubstance.class
+                 )
+                         .setLayerRandomItem(new LayerRandomItem(0.4F, true))
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.TestTubeCreatureModel(),
+                         new ResourceLocation("arpg:textures/test_tube_creature_model_tex.png"),
+                         1.0F,
+                         TestTubeCreature.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.MutantZombieModel(),
+                         new ResourceLocation("arpg:textures/mutant_zombie_model_tex.png"),
+                         0.3F,
+                         MutantZombie.class
+                 )
+                         .setLayerHeldItem()
+                         .setlayerArmor()
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.RocketBotModel(),
+                         new ResourceLocation("arpg:textures/rocket_bot_model_tex.png"),
+                         0.5F,
+                         RocketBot.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.KillBotModel(), new ResourceLocation("arpg:textures/kill_bot_model_tex.png"), 0.3F, KillBot.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.DronModel(), new ResourceLocation("arpg:textures/dron_model_tex.png"), 0.15F, Dron.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.TurretModel(), new ResourceLocation("arpg:textures/turret_model_tex.png"), 0.25F, Turret.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.PoisonSpitterModel(),
+                         new ResourceLocation("arpg:textures/poison_spitter_model_tex.png"),
+                         0.15F,
+                         PoisonSpitter.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsToxicomaniaMob.GlowingSkeletonModel(),
+                         new ResourceLocation("arpg:textures/glowing_skeleton_model_tex.png"),
+                         0.3F,
+                         GlowingSkeleton.class
+                 )
+                         .setLayerHeldItem()
+                         .setlayerArmor()
+         );
+      }
+   }
+
+   public static ClientFieldsContainer fieldsContainer;
+
+   static {
+      if (fieldsContainer == null && FMLCommonHandler.instance().getSide().isClient()) {
+         fieldsContainer = new ClientFieldsContainer();
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   // TODO
    public static void initRender() {
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.Experiment9Model(),
-            new ResourceLocation("arpg:textures/experiment9_model_tex.png"),
-            0.4F,
-            Experiment9.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.VineChopsModel(),
-            new ResourceLocation("arpg:textures/vine_chops_model_tex.png"),
-            1.0F,
-            VineChops.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.SpringerModel(), new ResourceLocation("arpg:textures/springer_model_tex.png"), 0.3F, Springer.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.MosquitoModel(), new ResourceLocation("arpg:textures/mosquito_model_tex.png"), 0.1F, Mosquito.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.BossAbominationModel(), new ResourceLocation("arpg:textures/boss_abomination_model_tex.png"), 1.0F, BossAbomination.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.AbominationCannonModel(),
-            new ResourceLocation("arpg:textures/abomination_cannon_model_tex.png"),
-            0.4F,
-            AbominationCannon.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.LumpModel(), new ResourceLocation("arpg:textures/lump_model_tex.png"), 0.8F, Lump.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.MutantBeastModel(),
-            new ResourceLocation("arpg:textures/mutant_beast_model_tex.png"),
-            0.6F,
-            MutantBeast.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsToxicomaniaMob.TestTubeSubstanceModel(),
-               new ResourceLocation("arpg:textures/test_tube_substance_model_tex.png"),
-               0.7F,
-               TestTubeSubstance.class
-            )
-            .setLayerRandomItem(new LayerRandomItem(0.4F, true))
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.TestTubeCreatureModel(),
-            new ResourceLocation("arpg:textures/test_tube_creature_model_tex.png"),
-            1.0F,
-            TestTubeCreature.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsToxicomaniaMob.MutantZombieModel(),
-               new ResourceLocation("arpg:textures/mutant_zombie_model_tex.png"),
-               0.3F,
-               MutantZombie.class
-            )
-            .setLayerHeldItem()
-            .setlayerArmor()
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.RocketBotModel(),
-            new ResourceLocation("arpg:textures/rocket_bot_model_tex.png"),
-            0.5F,
-            RocketBot.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.KillBotModel(), new ResourceLocation("arpg:textures/kill_bot_model_tex.png"), 0.3F, KillBot.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.DronModel(), new ResourceLocation("arpg:textures/dron_model_tex.png"), 0.15F, Dron.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.TurretModel(), new ResourceLocation("arpg:textures/turret_model_tex.png"), 0.25F, Turret.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsToxicomaniaMob.PoisonSpitterModel(),
-            new ResourceLocation("arpg:textures/poison_spitter_model_tex.png"),
-            0.15F,
-            PoisonSpitter.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsToxicomaniaMob.GlowingSkeletonModel(),
-               new ResourceLocation("arpg:textures/glowing_skeleton_model_tex.png"),
-               0.3F,
-               GlowingSkeleton.class
-            )
-            .setLayerHeldItem()
-            .setlayerArmor()
-      );
+      if (fieldsContainer != null) {
+         fieldsContainer.initFields();
+      }
    }
 
    public static class AbominationCannon extends AbstractMob {
@@ -450,6 +474,7 @@ public class ToxicomaniaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id >= 10 && id <= 12) {
@@ -565,18 +590,23 @@ public class ToxicomaniaMobsPack {
       public void onEntityUpdate() {
          super.onEntityUpdate();
          if (this.world.isRemote && this.boss != null) {
-            Vec3d vec2 = new Vec3d(this.posX, this.posY + this.height / 2.0F, this.posZ);
-            Vec3d vec1 = new Vec3d(this.boss.posX, this.boss.posY + this.boss.height / 2.0F, this.boss.posZ);
-            BlockPos poss = new BlockPos(this);
-            int light = Math.max(this.world.getLightFor(EnumSkyBlock.BLOCK, poss), this.world.getLightFor(EnumSkyBlock.SKY, poss)) * 15;
-            BetweenParticle laser = new BetweenParticle(
-               this.world, slime, 0.28F, light, 1.0F, 1.0F, 1.0F, 0.0F, vec1.distanceTo(vec2), 1, 0.0F, 9999.0F, vec1, vec2
-            );
-            laser.setPosition(vec1.x, vec1.y, vec1.z);
-            laser.alphaGlowing = false;
-            laser.ignoreFrustumCheck = true;
-            this.world.spawnEntity(laser);
+            this.onEntityUpdate_Client_1();
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onEntityUpdate_Client_1() {
+         Vec3d vec2 = new Vec3d(this.posX, this.posY + this.height / 2.0F, this.posZ);
+         Vec3d vec1 = new Vec3d(this.boss.posX, this.boss.posY + this.boss.height / 2.0F, this.boss.posZ);
+         BlockPos poss = new BlockPos(this);
+         int light = Math.max(this.world.getLightFor(EnumSkyBlock.BLOCK, poss), this.world.getLightFor(EnumSkyBlock.SKY, poss)) * 15;
+         BetweenParticle laser = new BetweenParticle(
+                 this.world, slime, 0.28F, light, 1.0F, 1.0F, 1.0F, 0.0F, vec1.distanceTo(vec2), 1, 0.0F, 9999.0F, vec1, vec2
+         );
+         laser.setPosition(vec1.x, vec1.y, vec1.z);
+         laser.alphaGlowing = false;
+         laser.ignoreFrustumCheck = true;
+         this.world.spawnEntity(laser);
       }
 
       protected void initEntityAI() {
@@ -699,6 +729,7 @@ public class ToxicomaniaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 8) {
@@ -855,6 +886,7 @@ public class ToxicomaniaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
             for (int i = 0; i < 7; i++) {
@@ -1071,6 +1103,7 @@ public class ToxicomaniaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 9) {
             for (int ss = 0; ss < 6; ss++) {
@@ -1720,6 +1753,7 @@ public class ToxicomaniaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
             for (int i = 0; i < 15; i++) {
@@ -2366,6 +2400,7 @@ public class ToxicomaniaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
             for (int i = 0; i < 7; i++) {
@@ -2450,6 +2485,7 @@ public class ToxicomaniaMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 9) {

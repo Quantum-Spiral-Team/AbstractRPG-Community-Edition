@@ -1,15 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityMinigunIcicle;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.HostileProjectiles;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntityMinigunIcicle;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.mobs.HostileProjectiles;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,7 +43,8 @@ public class GothicBow extends AbstractBow {
    @Override
    public boolean inUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected, boolean[] removePull) {
       EntityPlayer player = (EntityPlayer)entityIn;
-      boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//      boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+      boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       if (player.getHeldItemMainhand() == itemstack) {
          int ice = NBTHelper.GetNBTint(itemstack, "ice");

@@ -1,14 +1,16 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.dimensions.generationutils.GenerationHelper;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.tileentity.ChestLock;
-import com.vivern.arpg.tileentity.TileARPGChest;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.dimensions.generationutils.GenerationHelper;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.tileentity.ChestLock;
+import com.Vivern.Arpg.tileentity.TileARPGChest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -27,6 +29,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class IceCompass extends Item {
    public static BlockPos posCastle;
@@ -58,54 +62,7 @@ public class IceCompass extends Item {
             if (chest.isLockedWith(ChestLock.WINTER_CURSE)) {
                world.playSound(null, pos, Sounds.ice_compass_unlock, SoundCategory.BLOCKS, 0.5F, 0.9F + itemRand.nextFloat() / 5.0F);
                if (world.isRemote) {
-                  for (EnumFacing face : EnumFacing.HORIZONTALS) {
-                     double x = pos.getX() + 0.5 + face.getXOffset() * 0.5;
-                     double y = pos.getY() + 0.5;
-                     double z = pos.getZ() + 0.5 + face.getZOffset() * 0.5;
-                     float speed = 0.14F;
-                     GUNParticle bigsmoke = new GUNParticle(
-                        ChestLock.lock_winter,
-                        0.62F,
-                        0.0F,
-                        30,
-                        240,
-                        world,
-                        x,
-                        y,
-                        z,
-                        face.getXOffset() * speed,
-                        0.0F,
-                        face.getZOffset() * speed,
-                        1.0F,
-                        1.0F,
-                        1.0F,
-                        true,
-                        1
-                     );
-                     bigsmoke.alphaGlowing = true;
-                     bigsmoke.alphaTickAdding = -0.03333333F;
-                     bigsmoke.snapToFace(face);
-                     world.spawnEntity(bigsmoke);
-                  }
-
-                  double x = pos.getX() + 0.5;
-                  double y = pos.getY() + 0.5;
-                  double z = pos.getZ() + 0.5;
-
-                  for (int i = 0; i < 8; i++) {
-                     ShardType.COLD
-                        .spawnNativeParticle(
-                           world,
-                           1.35F,
-                           x,
-                           y,
-                           z,
-                           (itemRand.nextFloat() - 0.5F) * 0.25F,
-                           itemRand.nextFloat() * 0.2F,
-                           (itemRand.nextFloat() - 0.5F) * 0.25F,
-                           true
-                        );
-                  }
+                  onItemRightClick_Client_1(world, player, hand, pos);
                }
 
                if (!world.isRemote) {
@@ -118,6 +75,58 @@ public class IceCompass extends Item {
          } else {
             return new ActionResult(EnumActionResult.PASS, itemstack);
          }
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onItemRightClick_Client_1(World world, EntityPlayer player, EnumHand hand, BlockPos pos) {
+      for (EnumFacing face : EnumFacing.HORIZONTALS) {
+         double x = pos.getX() + 0.5 + face.getXOffset() * 0.5;
+         double y = pos.getY() + 0.5;
+         double z = pos.getZ() + 0.5 + face.getZOffset() * 0.5;
+         float speed = 0.14F;
+         GUNParticle bigsmoke = new GUNParticle(
+                 ChestLock.lock_winter,
+                 0.62F,
+                 0.0F,
+                 30,
+                 240,
+                 world,
+                 x,
+                 y,
+                 z,
+                 face.getXOffset() * speed,
+                 0.0F,
+                 face.getZOffset() * speed,
+                 1.0F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 1
+         );
+         bigsmoke.alphaGlowing = true;
+         bigsmoke.alphaTickAdding = -0.03333333F;
+         bigsmoke.snapToFace(face);
+         world.spawnEntity(bigsmoke);
+      }
+
+      double x = pos.getX() + 0.5;
+      double y = pos.getY() + 0.5;
+      double z = pos.getZ() + 0.5;
+
+      for (int i = 0; i < 8; i++) {
+         ShardType.COLD
+                 .spawnNativeParticle(
+                         world,
+                         1.35F,
+                         x,
+                         y,
+                         z,
+                         (itemRand.nextFloat() - 0.5F) * 0.25F,
+                         itemRand.nextFloat() * 0.2F,
+                         (itemRand.nextFloat() - 0.5F) * 0.25F,
+                         true
+                 );
       }
    }
 

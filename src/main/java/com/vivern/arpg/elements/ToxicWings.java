@@ -1,13 +1,15 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.ToxicWingsModel;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.IAttributedBauble;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
+import com.Vivern.Arpg.elements.models.ToxicWingsModel;
+import com.Vivern.Arpg.main.Booom;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.IAttributedBauble;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.PropertiesRegistry;
+import com.Vivern.Arpg.main.Sounds;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import java.util.Random;
@@ -45,6 +47,7 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (type == RenderType.BODY) {
          float flytime = GetMOP.partial((float)NBTHelper.GetNBTint(stack, "cflytime"), (float)NBTHelper.GetNBTint(stack, "prevcflytime"), partialTicks);
@@ -129,6 +132,7 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void startElytraSound(EntityPlayerSP player) {
       Minecraft.getMinecraft().getSoundHandler().playSound(new ToxicWingsSound(player));
    }

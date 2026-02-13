@@ -1,10 +1,12 @@
-package com.vivern.arpg.recipes;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.FluidsRegister;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
-import com.vivern.arpg.tileentity.TileAlchemicVaporizer;
+package com.Vivern.Arpg.recipes;
+
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.FluidsRegister;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.tileentity.TileAlchemicVaporizer;
 import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,6 +22,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class VaporizeAction {
    public static ResourceLocation largecloud = new ResourceLocation("arpg:textures/largecloud.png");
@@ -52,59 +56,64 @@ public abstract class VaporizeAction {
                this.recursiveGenerate(world, vaporizerPos, EnumFacing.random(rand), rand, samples);
             }
          } else {
-            if (rand.nextFloat() < 0.2F) {
-               int absPos = rand.nextInt(2);
-               AxisAlignedBB aabb = world.getBlockState(vaporizerPos).getCollisionBoundingBox(world, vaporizerPos);
-               double x = absPos == 0
-                  ? (rand.nextFloat() < 0.5 ? aabb.minX - 0.05 : aabb.maxX + 0.05)
-                  : aabb.minX + (aabb.maxX - aabb.minX) * rand.nextDouble();
-               double y = aabb.minY + (aabb.maxY - aabb.minY) * rand.nextDouble();
-               double z = absPos == 1
-                  ? (rand.nextFloat() < 0.5 ? aabb.minZ - 0.05 : aabb.maxZ + 0.05)
-                  : aabb.minZ + (aabb.maxZ - aabb.minZ) * rand.nextDouble();
-               int lt = 50 + rand.nextInt(10) + (rand.nextFloat() < 0.2F ? rand.nextInt(70) : 0);
-               GUNParticle bigsmoke = new GUNParticle(
-                  largecloud,
-                  0.1F,
-                  -0.002F,
-                  lt,
-                  240,
-                  world,
-                  vaporizerPos.getX() + x,
-                  vaporizerPos.getY() + y,
-                  vaporizerPos.getZ() + z,
-                  (float)(rand.nextGaussian() / 36.0 + (x - 0.5) * 0.07),
-                  (float)(rand.nextGaussian() / 36.0 + (y - 0.5) * 0.01),
-                  (float)(rand.nextGaussian() / 36.0 + (z - 0.5) * 0.07),
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  true,
-                  rand.nextInt(360),
-                  true,
-                  1.0F
-               );
-               bigsmoke.alphaGlowing = true;
-               bigsmoke.alphaTickAdding = -1.0F / lt;
-               bigsmoke.scaleTickAdding = 0.02F + rand.nextFloat() * 0.03F;
-               bigsmoke.tracker = new ParticleTracker.TrackerGradient(
-                  new Vec3d(0.65F, 0.2F - rand.nextFloat() * 0.2F, 0.45F), new Vec3d(0.0, 0.8F - rand.nextFloat() * 0.55F, 1.0), 0, lt
-               );
-               world.spawnEntity(bigsmoke);
-            }
+            this.vaporizeTick_Client_1(world, vaporizerPos, tile, rand);
+         }
+      }
 
-            if (rand.nextFloat() < 0.15F) {
-               world.spawnParticle(
-                  EnumParticleTypes.SMOKE_NORMAL,
-                  vaporizerPos.getX() + 0.4 + rand.nextFloat() * 0.2F,
-                  vaporizerPos.getY() + 1.0625,
-                  vaporizerPos.getZ() + 0.4 + rand.nextFloat() * 0.2F,
-                  (rand.nextFloat() - 0.5F) * 0.01,
-                  0.02,
-                  (rand.nextFloat() - 0.5F) * 0.01,
-                  new int[0]
-               );
-            }
+      @SideOnly(Side.CLIENT)
+      private void vaporizeTick_Client_1(World world, BlockPos vaporizerPos, TileAlchemicVaporizer tile, Random rand) {
+         if (rand.nextFloat() < 0.2F) {
+            int absPos = rand.nextInt(2);
+            AxisAlignedBB aabb = world.getBlockState(vaporizerPos).getCollisionBoundingBox(world, vaporizerPos);
+            double x = absPos == 0
+                    ? (rand.nextFloat() < 0.5 ? aabb.minX - 0.05 : aabb.maxX + 0.05)
+                    : aabb.minX + (aabb.maxX - aabb.minX) * rand.nextDouble();
+            double y = aabb.minY + (aabb.maxY - aabb.minY) * rand.nextDouble();
+            double z = absPos == 1
+                    ? (rand.nextFloat() < 0.5 ? aabb.minZ - 0.05 : aabb.maxZ + 0.05)
+                    : aabb.minZ + (aabb.maxZ - aabb.minZ) * rand.nextDouble();
+            int lt = 50 + rand.nextInt(10) + (rand.nextFloat() < 0.2F ? rand.nextInt(70) : 0);
+            GUNParticle bigsmoke = new GUNParticle(
+                    largecloud,
+                    0.1F,
+                    -0.002F,
+                    lt,
+                    240,
+                    world,
+                    vaporizerPos.getX() + x,
+                    vaporizerPos.getY() + y,
+                    vaporizerPos.getZ() + z,
+                    (float)(rand.nextGaussian() / 36.0 + (x - 0.5) * 0.07),
+                    (float)(rand.nextGaussian() / 36.0 + (y - 0.5) * 0.01),
+                    (float)(rand.nextGaussian() / 36.0 + (z - 0.5) * 0.07),
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    true,
+                    rand.nextInt(360),
+                    true,
+                    1.0F
+            );
+            bigsmoke.alphaGlowing = true;
+            bigsmoke.alphaTickAdding = -1.0F / lt;
+            bigsmoke.scaleTickAdding = 0.02F + rand.nextFloat() * 0.03F;
+            bigsmoke.tracker = new ParticleTracker.TrackerGradient(
+                    new Vec3d(0.65F, 0.2F - rand.nextFloat() * 0.2F, 0.45F), new Vec3d(0.0, 0.8F - rand.nextFloat() * 0.55F, 1.0), 0, lt
+            );
+            world.spawnEntity(bigsmoke);
+         }
+
+         if (rand.nextFloat() < 0.15F) {
+            world.spawnParticle(
+                    EnumParticleTypes.SMOKE_NORMAL,
+                    vaporizerPos.getX() + 0.4 + rand.nextFloat() * 0.2F,
+                    vaporizerPos.getY() + 1.0625,
+                    vaporizerPos.getZ() + 0.4 + rand.nextFloat() * 0.2F,
+                    (rand.nextFloat() - 0.5F) * 0.01,
+                    0.02,
+                    (rand.nextFloat() - 0.5F) * 0.01,
+                    new int[0]
+            );
          }
       }
 

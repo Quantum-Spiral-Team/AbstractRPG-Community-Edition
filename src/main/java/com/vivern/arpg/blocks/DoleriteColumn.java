@@ -1,8 +1,10 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import java.util.Random;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.SoundType;
@@ -24,6 +26,8 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DoleriteColumn extends BlockRotatedPillar implements IBlockHardBreak {
    public static final PropertyEnum<EnumAxis> LOG_AXIS = PropertyEnum.create("axis", EnumAxis.class);
@@ -50,6 +54,7 @@ public class DoleriteColumn extends BlockRotatedPillar implements IBlockHardBrea
       return BlocksRegister.HR_DOLERITE_BRICKS;
    }
 
+   @SideOnly(Side.CLIENT) //
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.07) {
          EnumFacing face = EnumFacing.VALUES[rand.nextInt(6)];

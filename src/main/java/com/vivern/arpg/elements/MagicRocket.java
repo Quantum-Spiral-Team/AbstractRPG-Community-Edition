@@ -1,17 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityMagicRocket;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntityMagicRocket;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -25,6 +19,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class MagicRocket extends ItemWeapon {
    public static ResourceLocation textur = new ResourceLocation("arpg:textures/circle.png");
@@ -58,8 +56,10 @@ public class MagicRocket extends ItemWeapon {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+         boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
          int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
          int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
          float power = Mana.getMagicPowerMax(player);
@@ -90,29 +90,7 @@ public class MagicRocket extends ItemWeapon {
                         rocket.specialTarget = (Entity)list.get(0);
                         rocket.useTarget = true;
                         if (world.isRemote) {
-                           GUNParticle bigboom = new GUNParticle(
-                              textur,
-                              list.get(0).width,
-                              -0.001F,
-                              12,
-                              240,
-                              world,
-                              list.get(0).posX,
-                              list.get(0).posY + 0.1,
-                              list.get(0).posZ,
-                              0.0F,
-                              0.1F,
-                              0.0F,
-                              0.5F,
-                              0.75F,
-                              1.0F,
-                              true,
-                              1
-                           );
-                           bigboom.dropped = true;
-                           bigboom.scaleTickAdding = -0.05F;
-                           bigboom.alphaGlowing = true;
-                           world.spawnEntity(bigboom);
+                           this.onUpdate_Client_1(world, list);
                         }
                      } else if (!world.isRemote) {
                         Vec3d vec = GetMOP.PosRayTrace(5.0, 1.0F, player, 0.2, 0.2);
@@ -166,6 +144,33 @@ public class MagicRocket extends ItemWeapon {
             }
          }
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onUpdate_Client_1(World world, List<EntityLivingBase> list) {
+      GUNParticle bigboom = new GUNParticle(
+              textur,
+              list.get(0).width,
+              -0.001F,
+              12,
+              240,
+              world,
+              list.get(0).posX,
+              list.get(0).posY + 0.1,
+              list.get(0).posZ,
+              0.0F,
+              0.1F,
+              0.0F,
+              0.5F,
+              0.75F,
+              1.0F,
+              true,
+              1
+      );
+      bigboom.dropped = true;
+      bigboom.scaleTickAdding = -0.05F;
+      bigboom.alphaGlowing = true;
+      world.spawnEntity(bigboom);
    }
 
    @Override

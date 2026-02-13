@@ -1,12 +1,9 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -75,7 +72,8 @@ public class AdamantiumBattleAxe extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
             int delay = NBTHelper.GetNBTint(itemstack, "atdelay");
@@ -91,7 +89,8 @@ public class AdamantiumBattleAxe extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
                } else if (delay <= 0
                   && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0
-                  && Keys.isKeyPressed(player, Keys.SECONDARYATTACK)
+//                  && Keys.isKeyPressed(player, Keys.SECONDARYATTACK)
+                  && this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK)
                   && !hascooldown) {
                   NBTHelper.SetNBTint(itemstack, 11, "atdelay");
                   NBTHelper.GiveNBTboolean(itemstack, true, "specattack");

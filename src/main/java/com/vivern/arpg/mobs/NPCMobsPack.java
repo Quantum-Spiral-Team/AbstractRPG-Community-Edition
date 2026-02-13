@@ -1,24 +1,27 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.Buckshot;
-import com.vivern.arpg.elements.models.MerchantModel;
-import com.vivern.arpg.elements.models.ModelsOtherMob;
-import com.vivern.arpg.elements.models.ModelsStormledgeMob;
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.Coins;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.AbstractRPG;
-import com.vivern.arpg.main.ParticleFastSummon;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTradesToClient;
-import com.vivern.arpg.renders.mobrender.IMultitexture;
-import com.vivern.arpg.tileentity.IManaBuffer;
-import com.vivern.arpg.tileentity.TileBookcase;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.elements.Buckshot;
+import com.Vivern.Arpg.elements.models.MerchantModel;
+import com.Vivern.Arpg.elements.models.ModelsOtherMob;
+import com.Vivern.Arpg.elements.models.ModelsStormledgeMob;
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.Coins;
+import com.Vivern.Arpg.main.FindAmmo;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Main;
+import com.Vivern.Arpg.main.ParticleFastSummon;
+import com.Vivern.Arpg.main.PropertiesRegistry;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.network.PacketTradesToClient;
+import com.Vivern.Arpg.renders.mobrender.IMultitexture;
+import com.Vivern.Arpg.tileentity.IManaBuffer;
+import com.Vivern.Arpg.tileentity.TileBookcase;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -61,6 +64,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -241,27 +245,45 @@ public class NPCMobsPack {
    }
 
    public static void initRender() {
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new MerchantModel(), new ResourceLocation("arpg:textures/merchant_model_tex.png"), 1.0F, NpcMerchant.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsOtherMob.WizardModel(), new ResourceLocation("arpg:textures/wizard_model_tex.png"), 0.3F, NpcWizard.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsOtherMob.MechanicModel(), new ResourceLocation("arpg:textures/mechanic_model_tex.png"), 0.3F, NpcMechanic.class
-         )
-      );
-      AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsOtherMob.BristlingModel(), 0.3F, NpcBristling.class));
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsStormledgeMob.ZarpionModel(), new ResourceLocation("arpg:textures/zarpion_trader_tex.png"), 0.4F, NpcZarpionTrader.class
-         )
-      );
+      if (fieldsContainer != null) {
+         fieldsContainer.initFields();
+      }
+   }
+
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new MerchantModel(), new ResourceLocation("arpg:textures/merchant_model_tex.png"), 1.0F, NpcMerchant.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsOtherMob.WizardModel(), new ResourceLocation("arpg:textures/wizard_model_tex.png"), 0.3F, NpcWizard.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsOtherMob.MechanicModel(), new ResourceLocation("arpg:textures/mechanic_model_tex.png"), 0.3F, NpcMechanic.class
+                 )
+         );
+         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsOtherMob.BristlingModel(), 0.3F, NpcBristling.class));
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsStormledgeMob.ZarpionModel(), new ResourceLocation("arpg:textures/zarpion_trader_tex.png"), 0.4F, NpcZarpionTrader.class
+                 )
+         );
+      }
+   }
+
+   public static ClientFieldsContainer fieldsContainer;
+
+   static {
+      if (fieldsContainer == null && FMLCommonHandler.instance().getSide().isClient()) {
+         fieldsContainer = new ClientFieldsContainer();
+      }
    }
 
    public static class NpcBristling extends NpcTrader {
@@ -544,7 +566,7 @@ public class NPCMobsPack {
       public boolean processInteract(EntityPlayer player, EnumHand hand) {
          if (!this.world.isRemote && !player.isSpectator()) {
             IEntitySynchronize.sendSynchronize(this, 8.0, this.getComfortability());
-            player.openGui(AbstractRPG.instance, 17, this.world, this.getEntityId(), 0, 0);
+            player.openGui(Main.instance, 17, this.world, this.getEntityId(), 0, 0);
          }
 
          return true;
@@ -928,7 +950,7 @@ public class NPCMobsPack {
          if (!this.world.isRemote && !this.trades.isEmpty()) {
             this.synchronizeTrades(player);
             IEntitySynchronize.sendSynchronize(this, 8.0, this.getComfortability());
-            player.openGui(AbstractRPG.instance, 6, this.world, this.getEntityId(), 0, 0);
+            player.openGui(Main.instance, 6, this.world, this.getEntityId(), 0, 0);
          }
 
          return true;

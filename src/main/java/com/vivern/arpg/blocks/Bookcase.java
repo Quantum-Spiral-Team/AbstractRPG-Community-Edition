@@ -1,10 +1,12 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.container.GUIBookOfElements;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.tileentity.IManaBuffer;
-import com.vivern.arpg.tileentity.TileBookcase;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.container.GUIBookOfElements;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.tileentity.IManaBuffer;
+import com.Vivern.Arpg.tileentity.TileBookcase;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -29,6 +31,8 @@ import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Bookcase extends Block {
    public static final PropertyDirection FACING = PropertyDirection.create("facing");
@@ -55,7 +59,7 @@ public class Bookcase extends Block {
             if (inhand.isEmpty()) {
                if (!player.isSneaking()) {
                   if (worldIn.isRemote && player instanceof EntityPlayerSP && tileBookcase.hasBooks()) {
-                     Minecraft.getMinecraft().displayGuiScreen(new GUIBookOfElements(tileBookcase.stacks));
+                     onBlockActivated_Client_01(tileBookcase);
                   }
 
                   return true;
@@ -83,6 +87,11 @@ public class Bookcase extends Block {
       }
 
       return false;
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onBlockActivated_Client_01(TileBookcase tileBookcase) {
+      Minecraft.getMinecraft().displayGuiScreen(new GUIBookOfElements(tileBookcase.stacks));
    }
 
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {

@@ -1,17 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityLaserParticle;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.renders.SweepParticle;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntityLaserParticle;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.SweepParticle;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -24,16 +18,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumHandSide;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class GlowBlade extends ItemWeapon {
    static ResourceLocation texture = new ResourceLocation("arpg:textures/generic_beam3.png");
@@ -55,10 +48,12 @@ public class GlowBlade extends ItemWeapon {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
          int damage = itemstack.getItemDamage();
          boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
          float mana = Mana.getMana(player);
          float spee = Mana.getManaSpeed(player);
          float power = Mana.getMagicPowerMax(player);
@@ -261,6 +256,7 @@ public class GlowBlade extends ItemWeapon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (c == 0.0) {
          SweepParticle particle = new SweepParticle(

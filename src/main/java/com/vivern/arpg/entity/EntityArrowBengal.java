@@ -1,15 +1,17 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.SparkleSubparticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.MovingSoundEntity;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.SparkleSubparticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -65,73 +67,7 @@ public class EntityArrowBengal extends AbstractArrow {
       if (this.isSparkling) {
          this.timeSparkling++;
          if (this.world.isRemote) {
-            Vec3d pointToLights = this.getPositionVector()
-               .subtract(GetMOP.PitchYawToVec3d(-this.rotationPitch, -this.rotationYaw).scale((200 - this.timeSparkling) / 200.0 * 0.7));
-            if (this.rand.nextFloat() < 0.5F) {
-               GUNParticle part = new GUNParticle(
-                  texture,
-                  0.06F + this.rand.nextFloat() * 0.04F,
-                  0.03F,
-                  20 + this.rand.nextInt(10),
-                  240,
-                  this.world,
-                  pointToLights.x,
-                  pointToLights.y,
-                  pointToLights.z,
-                  (float)this.rand.nextGaussian() / 16.0F,
-                  (float)this.rand.nextGaussian() / 16.0F + 0.045F,
-                  (float)this.rand.nextGaussian() / 16.0F,
-                  1.0F,
-                  1.0F - this.rand.nextFloat() * 0.1F,
-                  0.7F - this.rand.nextFloat() * 0.3F,
-                  true,
-                  this.rand.nextInt(360),
-                  true,
-                  1.0F
-               );
-               part.alphaGlowing = true;
-               this.world.spawnEntity(part);
-            } else {
-               GUNParticle part = new GUNParticle(
-                  texture2,
-                  0.01F,
-                  0.0F,
-                  5,
-                  240,
-                  this.world,
-                  pointToLights.x,
-                  pointToLights.y,
-                  pointToLights.z,
-                  0.0F,
-                  0.0F,
-                  0.0F,
-                  1.0F,
-                  1.0F,
-                  1.0F,
-                  true,
-                  this.rand.nextInt(360)
-               );
-               part.alphaGlowing = true;
-               part.scaleTickAdding = 0.1F + this.rand.nextFloat() * 0.03F;
-               if (this.rand.nextFloat() < 0.6F) {
-                  part.rotationPitchYaw = new Vec2f(this.rand.nextInt(360), this.rand.nextInt(360));
-               }
-
-               this.world.spawnEntity(part);
-            }
-
-            SparkleSubparticle sparkl = new SparkleSubparticle(
-               pointToLights.x,
-               pointToLights.y,
-               pointToLights.z,
-               0.01F + this.rand.nextFloat() * 0.01F,
-               20 + this.rand.nextInt(20),
-               (float)(0.01 * this.rand.nextGaussian()),
-               (float)(0.02 * this.rand.nextGaussian() + 0.01),
-               (float)(0.01 * this.rand.nextGaussian()),
-               0.0F
-            );
-            SparkleSubparticle.particles.add(sparkl);
+            this.onUpdate_Client_1();
          } else if (this.ticksExisted % 10 == 0) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(ItemsRegister.ARROWBENGAL);
             float bengal_damage = parameters.get("bengal_damage");
@@ -146,6 +82,77 @@ public class EntityArrowBengal extends AbstractArrow {
             }
          }
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      Vec3d pointToLights = this.getPositionVector()
+              .subtract(GetMOP.PitchYawToVec3d(-this.rotationPitch, -this.rotationYaw).scale((200 - this.timeSparkling) / 200.0 * 0.7));
+      if (this.rand.nextFloat() < 0.5F) {
+         GUNParticle part = new GUNParticle(
+                 texture,
+                 0.06F + this.rand.nextFloat() * 0.04F,
+                 0.03F,
+                 20 + this.rand.nextInt(10),
+                 240,
+                 this.world,
+                 pointToLights.x,
+                 pointToLights.y,
+                 pointToLights.z,
+                 (float)this.rand.nextGaussian() / 16.0F,
+                 (float)this.rand.nextGaussian() / 16.0F + 0.045F,
+                 (float)this.rand.nextGaussian() / 16.0F,
+                 1.0F,
+                 1.0F - this.rand.nextFloat() * 0.1F,
+                 0.7F - this.rand.nextFloat() * 0.3F,
+                 true,
+                 this.rand.nextInt(360),
+                 true,
+                 1.0F
+         );
+         part.alphaGlowing = true;
+         this.world.spawnEntity(part);
+      } else {
+         GUNParticle part = new GUNParticle(
+                 texture2,
+                 0.01F,
+                 0.0F,
+                 5,
+                 240,
+                 this.world,
+                 pointToLights.x,
+                 pointToLights.y,
+                 pointToLights.z,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 this.rand.nextInt(360)
+         );
+         part.alphaGlowing = true;
+         part.scaleTickAdding = 0.1F + this.rand.nextFloat() * 0.03F;
+         if (this.rand.nextFloat() < 0.6F) {
+            part.rotationPitchYaw = new Vec2f(this.rand.nextInt(360), this.rand.nextInt(360));
+         }
+
+         this.world.spawnEntity(part);
+      }
+
+      SparkleSubparticle sparkl = new SparkleSubparticle(
+              pointToLights.x,
+              pointToLights.y,
+              pointToLights.z,
+              0.01F + this.rand.nextFloat() * 0.01F,
+              20 + this.rand.nextInt(20),
+              (float)(0.01 * this.rand.nextGaussian()),
+              (float)(0.02 * this.rand.nextGaussian() + 0.01),
+              (float)(0.01 * this.rand.nextGaussian()),
+              0.0F
+      );
+      SparkleSubparticle.particles.add(sparkl);
    }
 
    @Override

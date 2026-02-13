@@ -1,9 +1,11 @@
-package com.vivern.arpg.shader;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.potions.RespawnPenalty;
+package com.Vivern.Arpg.shader;
+
+import com.Vivern.Arpg.main.AnimationTimer;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.potions.RespawnPenalty;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -22,6 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 @EventBusSubscriber(
+        value = Side.CLIENT,
    modid = "arpg"
 )
 @SideOnly(Side.CLIENT)

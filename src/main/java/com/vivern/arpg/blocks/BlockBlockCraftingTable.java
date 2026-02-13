@@ -1,7 +1,9 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.container.ContainerMyWorkbench;
-import com.vivern.arpg.main.BlocksRegister;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.container.ContainerMyWorkbench;
+import com.Vivern.Arpg.main.BlocksRegister;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,6 +19,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockBlockCraftingTable extends BlockBlockHard {
    public BlockBlockCraftingTable(Material mater, String name, BlocksRegister.Hardres hardnessResistance, String tool, boolean canDropWhithoutTool) {
@@ -30,10 +34,16 @@ public class BlockBlockCraftingTable extends BlockBlockHard {
       if (worldIn.isRemote) {
          return true;
       } else {
-         playerIn.displayGui(new InterfaceCraftingTable(worldIn, pos));
+//         playerIn.displayGui(new InterfaceCraftingTable(worldIn, pos));
+         onBlockActivated_Client_1(playerIn, worldIn, pos);
          playerIn.addStat(StatList.CRAFTING_TABLE_INTERACTION);
          return true;
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onBlockActivated_Client_1(EntityPlayer playerIn, World worldIn, BlockPos pos) {
+      playerIn.displayGui(new InterfaceCraftingTable(worldIn, pos));
    }
 
    public static class InterfaceCraftingTable implements IInteractionObject {

@@ -1,7 +1,9 @@
-package com.vivern.arpg.main;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.main;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.elements.IWeapon;
+import com.Vivern.Arpg.elements.IWeapon;
 import java.lang.reflect.Field;
 import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,6 +21,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
+        value = Side.CLIENT,
    modid = "arpg"
 )
 @SideOnly(Side.CLIENT)

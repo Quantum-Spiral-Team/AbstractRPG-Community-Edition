@@ -1,11 +1,13 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.main.BloodType;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,27 +43,32 @@ public class Blubber extends AbstractMob {
    public void onUpdate() {
       super.onUpdate();
       if (this.world.isRemote && this.getRNG().nextFloat() < 0.4F) {
-         GUNParticle cloud = new GUNParticle(
-            this.texture,
-            0.05F + this.getRNG().nextFloat() / 10.0F,
-            -0.007F,
-            13 + this.getRNG().nextInt(5),
-            80,
-            this.world,
-            this.posX,
-            this.posY + this.height / 2.0F,
-            this.posZ,
-            (float)this.getRNG().nextGaussian() / 30.0F,
-            -0.05F,
-            (float)this.getRNG().nextGaussian() / 30.0F,
-            0.7F + (float)this.getRNG().nextGaussian() / 10.0F,
-            0.5F + (float)this.getRNG().nextGaussian() / 10.0F,
-            1.0F,
-            true,
-            this.getRNG().nextInt(360)
-         );
-         this.world.spawnEntity(cloud);
+         this.onUpdate_Client_1();
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      GUNParticle cloud = new GUNParticle(
+              this.texture,
+              0.05F + this.getRNG().nextFloat() / 10.0F,
+              -0.007F,
+              13 + this.getRNG().nextInt(5),
+              80,
+              this.world,
+              this.posX,
+              this.posY + this.height / 2.0F,
+              this.posZ,
+              (float)this.getRNG().nextGaussian() / 30.0F,
+              -0.05F,
+              (float)this.getRNG().nextGaussian() / 30.0F,
+              0.7F + (float)this.getRNG().nextGaussian() / 10.0F,
+              0.5F + (float)this.getRNG().nextGaussian() / 10.0F,
+              1.0F,
+              true,
+              this.getRNG().nextInt(360)
+      );
+      this.world.spawnEntity(cloud);
    }
 
    @SideOnly(Side.CLIENT)

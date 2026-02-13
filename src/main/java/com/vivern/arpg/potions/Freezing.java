@@ -1,11 +1,13 @@
-package com.vivern.arpg.potions;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.mobs.AbstractMob;
-import com.vivern.arpg.renders.LayerIce;
-import com.vivern.arpg.renders.PotionBurningEffects;
+package com.Vivern.Arpg.potions;
+
+import com.Vivern.Arpg.main.Booom;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.mobs.AbstractMob;
+import com.Vivern.Arpg.renders.LayerIce;
+import com.Vivern.Arpg.renders.PotionBurningEffects;
 import gloomyfolkenvivern.arpghooklib.example.AnnotationHooks;
 import java.util.Map.Entry;
 import javax.annotation.Nullable;
@@ -179,6 +181,7 @@ public class Freezing extends AdvancedPotion {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
       if (canImmobilizeEntity(entityOnEffect, effect)) {
          GlStateManager.pushMatrix();
@@ -195,12 +198,14 @@ public class Freezing extends AdvancedPotion {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void renderFirstperson(EntityPlayer player, PotionEffect effect, RenderHandEvent event) {
       float add = canImmobilizeEntity(player, effect) ? 0.3F : 0.0F;
       Minecraft.getMinecraft().getTextureManager().bindTexture(textur);
       PotionBurningEffects.renderPolygonInFirstPerson(DemonicBurn.fire1, 0.1F + 0.3F * Math.min(effect.getDuration(), 60) / 60.0F + add, -0.4F);
    }
 
+   @SideOnly(Side.CLIENT)
    public static void initIceLayers() {
       for (Entry<Class<? extends Entity>, Render<? extends Entity>> entry : Minecraft.getMinecraft().getRenderManager().entityRenderMap.entrySet()) {
          if (entry.getKey() != null

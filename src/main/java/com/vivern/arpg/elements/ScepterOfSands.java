@@ -1,17 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntitySand;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntitySand;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -26,6 +20,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class ScepterOfSands extends ItemWeapon {
    private static final ResourceLocation minisand1 = new ResourceLocation("arpg:textures/minisand1.png");
@@ -66,7 +64,8 @@ public class ScepterOfSands extends ItemWeapon {
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
          float mana = Mana.getMana(player);
          NBTHelper.GiveNBTint(itemstack, 0, "crystal");
          int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
@@ -126,41 +125,7 @@ public class ScepterOfSands extends ItemWeapon {
             }
 
             if (world.isRemote) {
-               for (int i = 0; i < 3; i++) {
-                  ResourceLocation sandptex = minisand1;
-                  float scale = 0.04F;
-                  if (itemRand.nextFloat() > 0.8) {
-                     sandptex = minisand2;
-                     scale = 0.06F;
-                  } else if (itemRand.nextFloat() > 0.7) {
-                     sandptex = minisand3;
-                     scale = 0.09F;
-                  }
-
-                  GUNParticle sandp = new GUNParticle(
-                     sandptex,
-                     scale,
-                     0.01F,
-                     30 + itemRand.nextInt(15),
-                     -1,
-                     world,
-                     player.posX,
-                     player.posY + player.getEyeHeight() - 0.1F,
-                     player.posZ,
-                     (float)itemRand.nextGaussian() / 30.0F,
-                     (float)itemRand.nextGaussian() / 30.0F,
-                     (float)itemRand.nextGaussian() / 30.0F,
-                     1.0F,
-                     1.0F,
-                     0.9F + (float)itemRand.nextGaussian() / 10.0F,
-                     false,
-                     itemRand.nextInt(360),
-                     true,
-                     1.1F
-                  );
-                  sandp.shoot(player, player.rotationPitch, player.rotationYaw, 0.5F, 1.6F, 9.4F - acc);
-                  world.spawnEntity(sandp);
-               }
+               onUpdate_Client(world, player, acc);
             }
 
             int traceCount = GetMOP.floatToIntWithChance(rapidMult * parameters.get("trace_count"), itemRand);
@@ -197,52 +162,7 @@ public class ScepterOfSands extends ItemWeapon {
                            player.posZ
                         );
                         if (world.isRemote) {
-                           AxisAlignedBB aabb = entitylivingbase.getEntityBoundingBox();
-                           double rY = aabb.minY + (aabb.maxY - aabb.minY) * itemRand.nextDouble();
-                           double rZ = aabb.minZ + (aabb.maxZ - aabb.minZ) * itemRand.nextDouble();
-                           double rX = aabb.minX + (aabb.maxX - aabb.minX) * itemRand.nextDouble();
-                           double fromX = player.posX;
-                           double fromY = player.posY + player.getEyeHeight() / 2.0;
-                           double fromZ = player.posZ;
-                           ResourceLocation sandptex = minisand1;
-                           float scale = 0.04F;
-                           if (itemRand.nextFloat() > 0.8) {
-                              sandptex = minisand2;
-                              scale = 0.06F;
-                           } else if (itemRand.nextFloat() > 0.7) {
-                              sandptex = minisand3;
-                              scale = 0.09F;
-                           }
-
-                           GUNParticle sandp = new GUNParticle(
-                              sandptex,
-                              scale,
-                              0.01F,
-                              30 + itemRand.nextInt(15),
-                              -1,
-                              world,
-                              rX,
-                              rY,
-                              rZ,
-                              (float)itemRand.nextGaussian() / 30.0F,
-                              (float)itemRand.nextGaussian() / 30.0F,
-                              (float)itemRand.nextGaussian() / 30.0F,
-                              1.0F,
-                              1.0F,
-                              0.9F + (float)itemRand.nextGaussian() / 10.0F,
-                              false,
-                              itemRand.nextInt(360),
-                              true,
-                              1.1F
-                           );
-                           world.spawnEntity(sandp);
-                           float dist = (float)sandp.getDistance(fromX, fromY, fromZ);
-                           float kx = (float)((fromX - sandp.posX) / dist / 2.0);
-                           float ky = (float)((fromY - sandp.posY) / dist / 2.0);
-                           float kz = (float)((fromZ - sandp.posZ) / dist / 2.0);
-                           sandp.motionX -= kx;
-                           sandp.motionY -= ky;
-                           sandp.motionZ -= kz;
+                           onUpdate_Client_2(world, entitylivingbase, player);
                         }
                      }
                   }
@@ -258,6 +178,95 @@ public class ScepterOfSands extends ItemWeapon {
             NBTHelper.AddNBTint(itemstack, -1, "crystal");
          }
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onUpdate_Client(World world, EntityPlayer player, int acc) {
+      for (int i = 0; i < 3; i++) {
+         ResourceLocation sandptex = minisand1;
+         float scale = 0.04F;
+         if (itemRand.nextFloat() > 0.8) {
+            sandptex = minisand2;
+            scale = 0.06F;
+         } else if (itemRand.nextFloat() > 0.7) {
+            sandptex = minisand3;
+            scale = 0.09F;
+         }
+
+         GUNParticle sandp = new GUNParticle(
+                 sandptex,
+                 scale,
+                 0.01F,
+                 30 + itemRand.nextInt(15),
+                 -1,
+                 world,
+                 player.posX,
+                 player.posY + player.getEyeHeight() - 0.1F,
+                 player.posZ,
+                 (float)itemRand.nextGaussian() / 30.0F,
+                 (float)itemRand.nextGaussian() / 30.0F,
+                 (float)itemRand.nextGaussian() / 30.0F,
+                 1.0F,
+                 1.0F,
+                 0.9F + (float)itemRand.nextGaussian() / 10.0F,
+                 false,
+                 itemRand.nextInt(360),
+                 true,
+                 1.1F
+         );
+         sandp.shoot(player, player.rotationPitch, player.rotationYaw, 0.5F, 1.6F, 9.4F - acc);
+         world.spawnEntity(sandp);
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onUpdate_Client_2(World world, EntityLivingBase entitylivingbase, EntityPlayer player) {
+      AxisAlignedBB aabb = entitylivingbase.getEntityBoundingBox();
+      double rY = aabb.minY + (aabb.maxY - aabb.minY) * itemRand.nextDouble();
+      double rZ = aabb.minZ + (aabb.maxZ - aabb.minZ) * itemRand.nextDouble();
+      double rX = aabb.minX + (aabb.maxX - aabb.minX) * itemRand.nextDouble();
+      double fromX = player.posX;
+      double fromY = player.posY + player.getEyeHeight() / 2.0;
+      double fromZ = player.posZ;
+      ResourceLocation sandptex = minisand1;
+      float scale = 0.04F;
+      if (itemRand.nextFloat() > 0.8) {
+         sandptex = minisand2;
+         scale = 0.06F;
+      } else if (itemRand.nextFloat() > 0.7) {
+         sandptex = minisand3;
+         scale = 0.09F;
+      }
+
+      GUNParticle sandp = new GUNParticle(
+              sandptex,
+              scale,
+              0.01F,
+              30 + itemRand.nextInt(15),
+              -1,
+              world,
+              rX,
+              rY,
+              rZ,
+              (float)itemRand.nextGaussian() / 30.0F,
+              (float)itemRand.nextGaussian() / 30.0F,
+              (float)itemRand.nextGaussian() / 30.0F,
+              1.0F,
+              1.0F,
+              0.9F + (float)itemRand.nextGaussian() / 10.0F,
+              false,
+              itemRand.nextInt(360),
+              true,
+              1.1F
+      );
+      world.spawnEntity(sandp);
+      float dist = (float)sandp.getDistance(fromX, fromY, fromZ);
+      float kx = (float)((fromX - sandp.posX) / dist / 2.0);
+      float ky = (float)((fromY - sandp.posY) / dist / 2.0);
+      float kz = (float)((fromZ - sandp.posZ) / dist / 2.0);
+      sandp.motionX -= kx;
+      sandp.motionY -= ky;
+      sandp.motionZ -= kz;
    }
 
    @Override

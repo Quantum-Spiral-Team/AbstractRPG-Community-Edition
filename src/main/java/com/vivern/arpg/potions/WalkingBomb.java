@@ -1,10 +1,12 @@
-package com.vivern.arpg.potions;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityCubicParticle;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.potions;
+
+import com.Vivern.Arpg.entity.EntityCubicParticle;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,6 +19,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WalkingBomb extends AdvancedPotion {
    private static final ResourceLocation gore = new ResourceLocation("arpg:textures/gore.png");
@@ -41,81 +45,86 @@ public class WalkingBomb extends AdvancedPotion {
          double z = entityOnEffect.posZ;
          Vec3d color = DeathEffects.getBloodColor(entityOnEffect);
          if (world != null && world.isRemote) {
-            for (int i = 0; i < Math.min(entityOnEffect.getMaxHealth() / 4.0F, 13.0F); i++) {
-               Entity spel = new EntityCubicParticle(
-                  gore,
-                  0.01F + entityOnEffect.height / 100.0F,
-                  0.02F,
-                  20 + rand.nextInt(10),
-                  40 + rand.nextInt(9),
-                  world,
-                  x,
-                  y + 0.5,
-                  z,
-                  (float)rand.nextGaussian() / 8.0F,
-                  (float)rand.nextGaussian() / 20.0F + 0.2F,
-                  (float)rand.nextGaussian() / 8.0F,
-                  (float)color.x,
-                  (float)color.y,
-                  (float)color.z,
-                  false,
-                  rand.nextFloat(),
-                  rand.nextFloat(),
-                  rand.nextFloat(),
-                  0.05F,
-                  true,
-                  -3.0E-4F
-               );
-               world.spawnEntity(spel);
-            }
-
-            for (int i = 0; i < Math.min(entityOnEffect.getMaxHealth() / 2.0F, 18.0F); i++) {
-               GUNParticle sp = new GUNParticle(
-                  drop,
-                  0.07F + rand.nextFloat() / 20.0F,
-                  0.02F,
-                  50,
-                  -1,
-                  world,
-                  x,
-                  y + 0.5,
-                  z,
-                  (float)rand.nextGaussian() / 10.0F,
-                  (float)rand.nextGaussian() / 10.0F + 0.3F,
-                  (float)rand.nextGaussian() / 10.0F,
-                  (float)color.x,
-                  (float)color.y,
-                  (float)color.z,
-                  false,
-                  (int)Math.round(rand.nextGaussian() * 20.0),
-                  true,
-                  5.0F
-               );
-               sp.dropMode = true;
-               world.spawnEntity(sp);
-               GUNParticle bigsmoke = new GUNParticle(
-                  largecloud,
-                  1.1F + (float)rand.nextGaussian() / 8.0F,
-                  0.003F,
-                  20 + rand.nextInt(10),
-                  -1,
-                  world,
-                  x,
-                  y + 0.5,
-                  z,
-                  (float)rand.nextGaussian() / 13.0F,
-                  (float)rand.nextGaussian() / 16.0F,
-                  (float)rand.nextGaussian() / 13.0F + 0.1F,
-                  (float)color.x,
-                  (float)color.y,
-                  (float)color.z,
-                  true,
-                  rand.nextInt(360)
-               );
-               bigsmoke.alphaTickAdding = -0.02F;
-               world.spawnEntity(bigsmoke);
-            }
+            this.onUpdate_Client_1(world, entityOnEffect, x, y, z, color);
          }
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onUpdate_Client_1(World world, EntityLivingBase entityOnEffect, double x, double y, double z, Vec3d color) {
+      for (int i = 0; i < Math.min(entityOnEffect.getMaxHealth() / 4.0F, 13.0F); i++) {
+         Entity spel = new EntityCubicParticle(
+                 gore,
+                 0.01F + entityOnEffect.height / 100.0F,
+                 0.02F,
+                 20 + rand.nextInt(10),
+                 40 + rand.nextInt(9),
+                 world,
+                 x,
+                 y + 0.5,
+                 z,
+                 (float)rand.nextGaussian() / 8.0F,
+                 (float)rand.nextGaussian() / 20.0F + 0.2F,
+                 (float)rand.nextGaussian() / 8.0F,
+                 (float)color.x,
+                 (float)color.y,
+                 (float)color.z,
+                 false,
+                 rand.nextFloat(),
+                 rand.nextFloat(),
+                 rand.nextFloat(),
+                 0.05F,
+                 true,
+                 -3.0E-4F
+         );
+         world.spawnEntity(spel);
+      }
+
+      for (int i = 0; i < Math.min(entityOnEffect.getMaxHealth() / 2.0F, 18.0F); i++) {
+         GUNParticle sp = new GUNParticle(
+                 drop,
+                 0.07F + rand.nextFloat() / 20.0F,
+                 0.02F,
+                 50,
+                 -1,
+                 world,
+                 x,
+                 y + 0.5,
+                 z,
+                 (float)rand.nextGaussian() / 10.0F,
+                 (float)rand.nextGaussian() / 10.0F + 0.3F,
+                 (float)rand.nextGaussian() / 10.0F,
+                 (float)color.x,
+                 (float)color.y,
+                 (float)color.z,
+                 false,
+                 (int)Math.round(rand.nextGaussian() * 20.0),
+                 true,
+                 5.0F
+         );
+         sp.dropMode = true;
+         world.spawnEntity(sp);
+         GUNParticle bigsmoke = new GUNParticle(
+                 largecloud,
+                 1.1F + (float)rand.nextGaussian() / 8.0F,
+                 0.003F,
+                 20 + rand.nextInt(10),
+                 -1,
+                 world,
+                 x,
+                 y + 0.5,
+                 z,
+                 (float)rand.nextGaussian() / 13.0F,
+                 (float)rand.nextGaussian() / 16.0F,
+                 (float)rand.nextGaussian() / 13.0F + 0.1F,
+                 (float)color.x,
+                 (float)color.y,
+                 (float)color.z,
+                 true,
+                 rand.nextInt(360)
+         );
+         bigsmoke.alphaTickAdding = -0.02F;
+         world.spawnEntity(bigsmoke);
       }
    }
 

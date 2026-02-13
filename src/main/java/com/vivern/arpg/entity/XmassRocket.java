@@ -1,17 +1,19 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -31,6 +33,8 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
    public final ItemStack weaponstack;
@@ -83,32 +87,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
       }
 
       if (this.world.isRemote) {
-         if (this.rand.nextFloat() < Math.max(1.0F - this.ticksExisted / 20.0F, 0.1F)) {
-            int lt = 8 + this.rand.nextInt(4);
-            float scl = 0.1F + this.rand.nextFloat() * 0.07F;
-            GUNParticle part = new GUNParticle(
-               star2,
-               scl,
-               0.0F,
-               lt,
-               240,
-               this.world,
-               this.posX,
-               this.posY,
-               this.posZ,
-               (float)this.rand.nextGaussian() / 60.0F,
-               (float)this.rand.nextGaussian() / 60.0F,
-               (float)this.rand.nextGaussian() / 60.0F,
-               0.7F + this.rand.nextFloat() * 0.3F,
-               0.7F + this.rand.nextFloat() * 0.3F,
-               0.25F,
-               true,
-               this.rand.nextInt(360)
-            );
-            part.scaleTickAdding = -scl / lt;
-            part.alphaGlowing = true;
-            this.world.spawnEntity(part);
-         }
+         this.onUpdate_Client_1();
       } else if (this.explodeInstantly && this.ticksExisted > 3) {
          float damage = this.getDamage();
          this.expl(null, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).get("damage_explode_mult"));
@@ -129,7 +108,38 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      if (this.rand.nextFloat() < Math.max(1.0F - this.ticksExisted / 20.0F, 0.1F)) {
+         int lt = 8 + this.rand.nextInt(4);
+         float scl = 0.1F + this.rand.nextFloat() * 0.07F;
+         GUNParticle part = new GUNParticle(
+                 star2,
+                 scl,
+                 0.0F,
+                 lt,
+                 240,
+                 this.world,
+                 this.posX,
+                 this.posY,
+                 this.posZ,
+                 (float)this.rand.nextGaussian() / 60.0F,
+                 (float)this.rand.nextGaussian() / 60.0F,
+                 (float)this.rand.nextGaussian() / 60.0F,
+                 0.7F + this.rand.nextFloat() * 0.3F,
+                 0.7F + this.rand.nextFloat() * 0.3F,
+                 0.25F,
+                 true,
+                 this.rand.nextInt(360)
+         );
+         part.scaleTickAdding = -scl / lt;
+         part.alphaGlowing = true;
+         this.world.spawnEntity(part);
+      }
+   }
+
    @Override
+   @SideOnly(Side.CLIENT)
    public void onClient(double... args) {
       if (args.length == 3 || args.length == 4) {
          double x = args[0];

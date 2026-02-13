@@ -1,9 +1,11 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.container.GUIBank;
-import com.vivern.arpg.container.GuiHandler;
-import com.vivern.arpg.main.Coins;
-import com.vivern.arpg.tileentity.TileBank;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.container.GUIBank;
+import com.Vivern.Arpg.container.GuiHandler;
+import com.Vivern.Arpg.main.Coins;
+import com.Vivern.Arpg.tileentity.TileBank;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -78,12 +80,17 @@ public class BlockMoneyBox extends Block {
       if (worldIn.isRemote) {
          TileBank tile = this.getTileEntity(worldIn, pos);
          if (tile != null) {
-            GuiHandler.displayGui(player, new GUIBank(tile, player));
+            onBlockActivated_Client_1(player, tile);
             return true;
          }
       }
 
       return true;
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onBlockActivated_Client_1(EntityPlayer player, TileBank tile) {
+      GuiHandler.displayGui(player, new GUIBank(tile, player));
    }
 
    public TileBank getTileEntity(IBlockAccess world, BlockPos position) {

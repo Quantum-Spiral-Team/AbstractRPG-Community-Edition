@@ -1,17 +1,19 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.IRenderOptions;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.IRenderOptions;
 import java.util.List;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
@@ -88,6 +90,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onClient(double x, double y, double z, double a, double b, double c) {
       this.world
          .playSound(
@@ -274,34 +277,39 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
    public void onEntityUpdate() {
       super.onEntityUpdate();
       if (this.world.isRemote) {
-         GUNParticle fire2 = new GUNParticle(
-            cloud,
-            0.2F,
-            0.0F,
-            10,
-            240,
-            this.world,
-            this.posX,
-            this.posY,
-            this.posZ,
-            0.0F,
-            0.0F,
-            0.0F,
-            1.0F,
-            this.ticksExisted / 20.0F,
-            0.1F + (float)this.rand.nextGaussian() / 10.0F,
-            true,
-            this.rand.nextInt(360)
-         );
-         fire2.alphaTickAdding = -0.08F;
-         fire2.scaleTickAdding = -0.016F;
-         fire2.alphaGlowing = true;
-         float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-         float rotationYaww = (float)(MathHelper.atan2(this.motionX, -this.motionZ) * (180.0 / Math.PI));
-         float rotationPitchh = (float)(MathHelper.atan2(this.motionY, f) * (180.0 / Math.PI));
-         fire2.rotationPitchYaw = new Vec2f(rotationPitchh, rotationYaww);
-         this.world.spawnEntity(fire2);
+         this.onEntityUpdate_Client_1();
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onEntityUpdate_Client_1() {
+      GUNParticle fire2 = new GUNParticle(
+              cloud,
+              0.2F,
+              0.0F,
+              10,
+              240,
+              this.world,
+              this.posX,
+              this.posY,
+              this.posZ,
+              0.0F,
+              0.0F,
+              0.0F,
+              1.0F,
+              this.ticksExisted / 20.0F,
+              0.1F + (float)this.rand.nextGaussian() / 10.0F,
+              true,
+              this.rand.nextInt(360)
+      );
+      fire2.alphaTickAdding = -0.08F;
+      fire2.scaleTickAdding = -0.016F;
+      fire2.alphaGlowing = true;
+      float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
+      float rotationYaww = (float)(MathHelper.atan2(this.motionX, -this.motionZ) * (180.0 / Math.PI));
+      float rotationPitchh = (float)(MathHelper.atan2(this.motionY, f) * (180.0 / Math.PI));
+      fire2.rotationPitchYaw = new Vec2f(rotationPitchh, rotationYaww);
+      this.world.spawnEntity(fire2);
    }
 
    public static class HadronBlasterBonus extends Entity implements IRenderOptions {

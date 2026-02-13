@@ -1,17 +1,14 @@
-package com.vivern.arpg.main;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.shader.ShaderMain;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+package com.Vivern.Arpg.main;
+
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.shader.ShaderMain;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
@@ -23,7 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.ColorHandlerEvent.Item;
 import net.minecraftforge.client.event.RenderLivingEvent.Post;
 import net.minecraftforge.client.event.RenderLivingEvent.Pre;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -31,9 +27,15 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 @EventBusSubscriber(
-   modid = "arpg"
+//   modid = "arpg"
+   modid = "arpg", value = Side.CLIENT
 )
+@SideOnly(Side.CLIENT)
 public class Color {
    static List<EntityLivingBase> list = new ArrayList<>();
    private static final ResourceLocation textur = new ResourceLocation("arpg:textures/freezing.png");
@@ -54,14 +56,15 @@ public class Color {
 
    @SubscribeEvent
    public static void onItemColor(Item event) {
-      ModelLoader.setCustomModelResourceLocation(
-         ItemsRegister.GEOMANTICCRYSTAL, 0, new ModelResourceLocation(ItemsRegister.GEOMANTICCRYSTAL.getRegistryName(), "inventory")
-      );
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.GEOMANTICCRYSTAL, new net.minecraft.item.Item[]{ItemsRegister.GEOMANTICCRYSTAL});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.ADAMANTIUMROUNDS, new net.minecraft.item.Item[]{ItemsRegister.ADAMANTIUMROUNDS});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.BUCKSHOT, new net.minecraft.item.Item[]{ItemsRegister.BUCKSHOT});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.BOOKOFELEMENTS, new net.minecraft.item.Item[]{ItemsRegister.BOOKOFELEMENTS});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.HYDRAULICSHOTGUNCLIP, new net.minecraft.item.Item[]{ItemsRegister.HYDRAULICSHOTGUNCLIP});
+      // removed by PurplePrint
+//      ModelLoader.setCustomModelResourceLocation(
+//         ItemsRegister.GEOMANTICCRYSTAL, 0, new ModelResourceLocation(ItemsRegister.GEOMANTICCRYSTAL.getRegistryName(), "inventory")
+//      );
+//      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.GEOMANTICCRYSTAL, new net.minecraft.item.Item[]{ItemsRegister.GEOMANTICCRYSTAL});
+//      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.ADAMANTIUMROUNDS, new net.minecraft.item.Item[]{ItemsRegister.ADAMANTIUMROUNDS});
+//      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.BUCKSHOT, new net.minecraft.item.Item[]{ItemsRegister.BUCKSHOT});
+//      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.BOOKOFELEMENTS, new net.minecraft.item.Item[]{ItemsRegister.BOOKOFELEMENTS});
+//      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.HYDRAULICSHOTGUNCLIP, new net.minecraft.item.Item[]{ItemsRegister.HYDRAULICSHOTGUNCLIP});
    }
 
    @SubscribeEvent

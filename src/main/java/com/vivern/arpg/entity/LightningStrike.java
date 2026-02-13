@@ -1,7 +1,9 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Sounds;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.Sounds;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.entity.Entity;
@@ -15,6 +17,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LightningStrike extends Entity implements IEntitySynchronize {
    public static ResourceLocation texture = new ResourceLocation("arpg:textures/lightning1.png");
@@ -52,6 +56,7 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onClient(double x, double y, double z, double a, double b, double c) {
       Vec3d pos2 = new Vec3d(x, y, z);
       Vec3d pos1 = new Vec3d(a, b, c);

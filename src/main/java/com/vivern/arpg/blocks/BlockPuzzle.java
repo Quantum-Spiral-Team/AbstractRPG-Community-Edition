@@ -1,9 +1,11 @@
-package com.vivern.arpg.blocks;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.container.GUIFrozenPuzzle;
-import com.vivern.arpg.container.GuiHandler;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.tileentity.TilePuzzle;
+package com.Vivern.Arpg.blocks;
+
+import com.Vivern.Arpg.container.GUIFrozenPuzzle;
+import com.Vivern.Arpg.container.GuiHandler;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.tileentity.TilePuzzle;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,6 +22,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockPuzzle extends Block implements IBlockHardBreak {
    public BlockPuzzle() {
@@ -81,12 +85,18 @@ public class BlockPuzzle extends Block implements IBlockHardBreak {
       if (worldIn.isRemote) {
          TilePuzzle tile = this.getTileEntity(worldIn, pos);
          if (tile != null) {
-            GuiHandler.displayGui(player, new GUIFrozenPuzzle(tile));
+//            GuiHandler.displayGui(player, new GUIFrozenPuzzle(tile));
+            onBlockActivated_Client_1(player, tile);
             return true;
          }
       }
 
       return true;
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onBlockActivated_Client_1(EntityPlayer player, TilePuzzle tile) {
+      GuiHandler.displayGui(player, new GUIFrozenPuzzle(tile));
    }
 
    public static void trySendPacketUpdate(World world, BlockPos pos, TilePuzzle tile, int range) {

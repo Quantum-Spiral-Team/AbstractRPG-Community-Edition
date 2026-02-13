@@ -1,29 +1,32 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.mobs;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.elements.models.BlubberModel;
-import com.vivern.arpg.elements.models.CinderCrawlerModel;
-import com.vivern.arpg.elements.models.EnderSeerModel;
-import com.vivern.arpg.elements.models.ModelsOtherMob;
-import com.vivern.arpg.elements.models.VoidGuardModel;
-import com.vivern.arpg.entity.AbstractGlyphid;
-import com.vivern.arpg.entity.EntityArrowBouncing;
-import com.vivern.arpg.entity.EntityPart;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.Catalyst;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.recipes.Soul;
-import com.vivern.arpg.renders.GUNParticle;
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.elements.models.BlubberModel;
+import com.Vivern.Arpg.elements.models.CinderCrawlerModel;
+import com.Vivern.Arpg.elements.models.EnderSeerModel;
+import com.Vivern.Arpg.elements.models.ModelsOtherMob;
+import com.Vivern.Arpg.elements.models.VoidGuardModel;
+import com.Vivern.Arpg.entity.AbstractGlyphid;
+import com.Vivern.Arpg.entity.EntityArrowBouncing;
+import com.Vivern.Arpg.entity.EntityPart;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.BloodType;
+import com.Vivern.Arpg.main.Catalyst;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.recipes.Soul;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -73,6 +76,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -97,63 +101,79 @@ public class OtherMobsPack {
    }
 
    public static void initRender() {
-      AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsOtherMob.VarmintModel(), 0.3F, Varmint.class));
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsOtherMob.LavaSprinklerModel(),
-            new ResourceLocation("arpg:textures/lava_sprinkler_model_tex.png"),
-            0.6F,
-            LavaSprinkler.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new CinderCrawlerModel(), new ResourceLocation("arpg:textures/cinder_crawler_model_tex.png"), 0.25F, CinderCrawler.class
-         )
-      );
-      AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new VoidGuardModel(), 0.2F, VoidGuard.class));
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new EnderSeerModel(), new ResourceLocation("arpg:textures/ender_seer_model_tex.png"), 1.0F, EnderSeer.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsOtherMob.HellhoundModel(), new ResourceLocation("arpg:textures/hellhound_model_tex.png"), 0.4F, Hellhound.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsOtherMob.MechanicalWatcherModel(),
-            new ResourceLocation("arpg:textures/mechanical_watcher_model_tex.png"),
-            0.25F,
-            MechanicalWatcher.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsOtherMob.HorribleEvokerModel(),
-            new ResourceLocation("arpg:textures/horrible_evoker_model_tex.png"),
-            0.4F,
-            HorribleEvoker.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsOtherMob.HorribleVindicatorModel(),
-            new ResourceLocation("arpg:textures/horrible_vindicator_model_tex.png"),
-            0.3F,
-            HorribleVindicator.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsOtherMob.EquestrianModel(), new ResourceLocation("arpg:textures/equestrian_model_tex.png"), 0.43F, Equestrian.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(new BlubberModel(), new ResourceLocation("arpg:textures/blubber_model_tex.png"), 0.2F, Blubber.class)
-      );
+      fieldsContainer.initFields();
+   }
+
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsOtherMob.VarmintModel(), 0.3F, Varmint.class));
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsOtherMob.LavaSprinklerModel(),
+                         new ResourceLocation("arpg:textures/lava_sprinkler_model_tex.png"),
+                         0.6F,
+                         LavaSprinkler.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new CinderCrawlerModel(), new ResourceLocation("arpg:textures/cinder_crawler_model_tex.png"), 0.25F, CinderCrawler.class
+                 )
+         );
+         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new VoidGuardModel(), 0.2F, VoidGuard.class));
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new EnderSeerModel(), new ResourceLocation("arpg:textures/ender_seer_model_tex.png"), 1.0F, EnderSeer.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsOtherMob.HellhoundModel(), new ResourceLocation("arpg:textures/hellhound_model_tex.png"), 0.4F, Hellhound.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsOtherMob.MechanicalWatcherModel(),
+                         new ResourceLocation("arpg:textures/mechanical_watcher_model_tex.png"),
+                         0.25F,
+                         MechanicalWatcher.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsOtherMob.HorribleEvokerModel(),
+                         new ResourceLocation("arpg:textures/horrible_evoker_model_tex.png"),
+                         0.4F,
+                         HorribleEvoker.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsOtherMob.HorribleVindicatorModel(),
+                         new ResourceLocation("arpg:textures/horrible_vindicator_model_tex.png"),
+                         0.3F,
+                         HorribleVindicator.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsOtherMob.EquestrianModel(), new ResourceLocation("arpg:textures/equestrian_model_tex.png"), 0.43F, Equestrian.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(new BlubberModel(), new ResourceLocation("arpg:textures/blubber_model_tex.png"), 0.2F, Blubber.class)
+         );
+      }
+   }
+
+   public static ClientFieldsContainer fieldsContainer = new ClientFieldsContainer();
+
+   static {
+      if (fieldsContainer == null && FMLCommonHandler.instance().getSide().isClient()) {
+         fieldsContainer = new ClientFieldsContainer();
+      }
    }
 
    public static class CinderCrawler extends AbstractGlyphid {
@@ -235,6 +255,7 @@ public class OtherMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
             for (int i = 0; i < 5; i++) {
@@ -345,32 +366,37 @@ public class OtherMobsPack {
 
       public void onEntityUpdate() {
          if (this.world.isRemote) {
-            GUNParticle fire2 = new GUNParticle(
-               this.texture,
-               1.9F + (float)this.rand.nextGaussian() / 3.0F,
-               -0.002F,
-               15 + this.rand.nextInt(5),
-               240,
-               this.world,
-               this.posX,
-               this.posY,
-               this.posZ,
-               0.0F,
-               -0.3F,
-               0.0F,
-               0.8F + (float)this.rand.nextGaussian() / 5.0F,
-               0.5F + (float)this.rand.nextGaussian() / 5.0F,
-               1.0F,
-               true,
-               this.rand.nextInt(100) - 50
-            );
-            fire2.alphaTickAdding = -0.02F;
-            fire2.scaleTickAdding = -0.07F;
-            fire2.alphaGlowing = true;
-            this.world.spawnEntity(fire2);
+            this.onEntityUpdate_Client_1();
          }
 
          super.onEntityUpdate();
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onEntityUpdate_Client_1() {
+         GUNParticle fire2 = new GUNParticle(
+                 this.texture,
+                 1.9F + (float)this.rand.nextGaussian() / 3.0F,
+                 -0.002F,
+                 15 + this.rand.nextInt(5),
+                 240,
+                 this.world,
+                 this.posX,
+                 this.posY,
+                 this.posZ,
+                 0.0F,
+                 -0.3F,
+                 0.0F,
+                 0.8F + (float)this.rand.nextGaussian() / 5.0F,
+                 0.5F + (float)this.rand.nextGaussian() / 5.0F,
+                 1.0F,
+                 true,
+                 this.rand.nextInt(100) - 50
+         );
+         fire2.alphaTickAdding = -0.02F;
+         fire2.scaleTickAdding = -0.07F;
+         fire2.alphaGlowing = true;
+         this.world.spawnEntity(fire2);
       }
 
       @SideOnly(Side.CLIENT)
@@ -698,56 +724,7 @@ public class OtherMobsPack {
                      }
                   }
                } else {
-                  GUNParticle part = new GUNParticle(
-                     flame,
-                     0.1F,
-                     -0.004F,
-                     20 + this.rand.nextInt(10),
-                     240,
-                     this.world,
-                     this.posX,
-                     this.posY + this.getEyeHeight(),
-                     this.posZ,
-                     0.0F,
-                     0.0F,
-                     0.0F,
-                     0.15F + this.rand.nextFloat() * 0.2F,
-                     0.0F,
-                     1.0F,
-                     true,
-                     this.rand.nextInt(360),
-                     true,
-                     1.1F
-                  );
-                  part.shoot(this, this.rotationPitch, this.rotationYaw, 0.0F, 0.45F, 4.0F);
-                  part.scaleTickAdding = 0.05F;
-                  part.alphaGlowing = true;
-                  this.world.spawnEntity(part);
-                  part = new GUNParticle(
-                     cloud,
-                     0.05F,
-                     -0.006F,
-                     15 + this.rand.nextInt(10),
-                     200,
-                     this.world,
-                     this.posX,
-                     this.posY + this.getEyeHeight(),
-                     this.posZ,
-                     0.0F,
-                     0.0F,
-                     0.0F,
-                     1.0F - this.rand.nextFloat() * 0.3F,
-                     0.15F + this.rand.nextFloat() * 0.2F,
-                     1.0F,
-                     true,
-                     this.rand.nextInt(360),
-                     true,
-                     1.1F
-                  );
-                  part.shoot(this, this.rotationPitch, this.rotationYaw, 0.0F, 0.45F, 5.0F);
-                  part.scaleTickAdding = 0.03F;
-                  part.alphaGlowing = true;
-                  this.world.spawnEntity(part);
+                  this.onUpdate_Client_1();
                }
             }
          } else if (!this.world.isRemote) {
@@ -764,11 +741,66 @@ public class OtherMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         GUNParticle part = new GUNParticle(
+                 flame,
+                 0.1F,
+                 -0.004F,
+                 20 + this.rand.nextInt(10),
+                 240,
+                 this.world,
+                 this.posX,
+                 this.posY + this.getEyeHeight(),
+                 this.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.15F + this.rand.nextFloat() * 0.2F,
+                 0.0F,
+                 1.0F,
+                 true,
+                 this.rand.nextInt(360),
+                 true,
+                 1.1F
+         );
+         part.shoot(this, this.rotationPitch, this.rotationYaw, 0.0F, 0.45F, 4.0F);
+         part.scaleTickAdding = 0.05F;
+         part.alphaGlowing = true;
+         this.world.spawnEntity(part);
+         part = new GUNParticle(
+                 cloud,
+                 0.05F,
+                 -0.006F,
+                 15 + this.rand.nextInt(10),
+                 200,
+                 this.world,
+                 this.posX,
+                 this.posY + this.getEyeHeight(),
+                 this.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F - this.rand.nextFloat() * 0.3F,
+                 0.15F + this.rand.nextFloat() * 0.2F,
+                 1.0F,
+                 true,
+                 this.rand.nextInt(360),
+                 true,
+                 1.1F
+         );
+         part.shoot(this, this.rotationPitch, this.rotationYaw, 0.0F, 0.45F, 5.0F);
+         part.scaleTickAdding = 0.03F;
+         part.alphaGlowing = true;
+         this.world.spawnEntity(part);
+      }
+
       public float getAIMoveSpeed() {
          return this.fireTime > 0 ? 0.0F : super.getAIMoveSpeed();
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 8) {
@@ -1479,6 +1511,7 @@ public class OtherMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 8) {
@@ -1832,6 +1865,7 @@ public class OtherMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
             for (int i = 0; i < 5; i++) {

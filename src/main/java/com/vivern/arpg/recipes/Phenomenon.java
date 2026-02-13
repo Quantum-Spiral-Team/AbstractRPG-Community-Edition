@@ -1,13 +1,17 @@
-package com.vivern.arpg.recipes;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.renders.RenderTerraformingResearch;
+package com.Vivern.Arpg.recipes;
+
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.renders.RenderTerraformingResearch;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.Vec2f;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class Phenomenon {
    public int posX;
@@ -37,11 +41,15 @@ public abstract class Phenomenon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public void render(RenderTerraformingResearch renderTFR, float posx, float posy, int arrayX, int arrayY, float fullness) {
       int id = this.getId() - 1;
-      Phenomenons.phenomenonsRender.texx = id % 18 * 42;
-      Phenomenons.phenomenonsRender.texy = id / 18 * 42;
-      Phenomenons.phenomenonsRender.render(renderTFR, posx, posy, arrayX, arrayY, 0L, fullness);
+//      Phenomenons.phenomenonsRender.texx = id % 18 * 42;
+//      Phenomenons.phenomenonsRender.texy = id / 18 * 42;
+//      Phenomenons.phenomenonsRender.render(renderTFR, posx, posy, arrayX, arrayY, 0L, fullness);
+      Phenomenons.clientFields.getPhenomenonsRender().texx = id % 18 * 42;
+      Phenomenons.clientFields.getPhenomenonsRender().texy = id / 18 * 42;
+      Phenomenons.clientFields.getPhenomenonsRender().render(renderTFR, posx, posy, arrayX, arrayY, 0L, fullness);
    }
 
    public void updateAnimation(TerraformingResearchPuzzle puzzle, RenderTerraformingResearch renderTFR, float x, float y, int arrayX, int arrayY) {

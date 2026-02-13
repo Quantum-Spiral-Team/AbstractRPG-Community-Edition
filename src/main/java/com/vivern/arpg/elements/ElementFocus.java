@@ -1,12 +1,9 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.ElementProjectile;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import java.util.ArrayList;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.entity.ElementProjectile;
+import com.Vivern.Arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -16,17 +13,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Mouse;
 
-public class ElementFocus extends Item {
+import java.util.ArrayList;
+
+public class ElementFocus extends Item_SideSync {
    public ElementFocus() {
       this.setRegistryName("element_focus");
       this.setCreativeTab(CreativeTabs.COMBAT);
@@ -75,7 +69,8 @@ public class ElementFocus extends Item {
          World world = player.getEntityWorld();
          Item itemIn = itemstack.getItem();
          EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
+//         boolean click = Mouse.isButtonDown(1);
+         boolean click = this.getMouseButtonRight(player);
          float acclvl = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
          float reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
          int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);

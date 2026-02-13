@@ -1,16 +1,18 @@
-package com.vivern.arpg.dimensions.ethernalfrost;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.main.DimensionsRegister;
-import com.vivern.arpg.mobs.SpawnerTuners;
-import com.vivern.arpg.renders.RenderFrozenSky;
-import com.vivern.arpg.tileentity.TileMonsterSpawner;
-import com.vivern.arpg.weather.Aurora;
-import com.vivern.arpg.weather.Hail;
-import com.vivern.arpg.weather.Snowfall;
-import com.vivern.arpg.weather.TimeOfDayProvider;
-import com.vivern.arpg.weather.WorldEvent;
-import com.vivern.arpg.weather.WorldEventsHandler;
+package com.Vivern.Arpg.dimensions.ethernalfrost;
+
+import com.Vivern.Arpg.dimensions.generationutils.AbstractWorldProvider;
+import com.Vivern.Arpg.main.DimensionsRegister;
+import com.Vivern.Arpg.mobs.SpawnerTuners;
+import com.Vivern.Arpg.renders.RenderFrozenSky;
+import com.Vivern.Arpg.tileentity.TileMonsterSpawner;
+import com.Vivern.Arpg.weather.Aurora;
+import com.Vivern.Arpg.weather.Hail;
+import com.Vivern.Arpg.weather.Snowfall;
+import com.Vivern.Arpg.weather.TimeOfDayProvider;
+import com.Vivern.Arpg.weather.WorldEvent;
+import com.Vivern.Arpg.weather.WorldEventsHandler;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
@@ -24,60 +26,162 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.client.IRenderHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 public class DimensionEthernalFrost extends AbstractWorldProvider {
-   public static TimeOfDayProvider timeOfDayProvider = new TimeOfDayProvider()
-      .addO(
-         21700,
-         23000,
-         new Vector4f(0.02745098F, 0.1254902F, 0.4117647F, 0.9882353F),
-         new Vector4f(0.0F, 0.05490196F, 0.07058824F, 0.99215686F),
-         new Vector4f(0.007843138F, 0.84705883F, 1.0F, 0.99607843F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.06666667F, 0.0627451F, 0.19607843F, 0.27058825F),
-         new Vector4f(0.003921569F, 0.49411765F, 1.0F, 0.47843137F)
-      )
-      .addO(
-         23500,
-         25000,
-         new Vector4f(0.011764706F, 0.21176471F, 0.6431373F, 0.0F),
-         new Vector4f(0.7058824F, 1.0F, 1.0F, 0.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.6039216F, 0.6862745F, 0.77254903F, 0.16862746F),
-         new Vector4f(0.8745098F, 0.9372549F, 1.0F, 0.5921569F)
-      )
-      .addO(
-         11500,
-         12500,
-         new Vector4f(0.015686275F, 0.039215688F, 0.3254902F, 0.0F),
-         new Vector4f(0.89411765F, 0.69411767F, 0.80784315F, 0.0F),
-         new Vector4f(0.8235294F, 0.27058825F, 0.16078432F, 0.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.09411765F, 0.12941177F, 0.4117647F, 0.34509805F),
-         new Vector4f(0.7137255F, 0.29411766F, 0.5137255F, 0.6862745F)
-      )
-      .addO(
-         12500,
-         13500,
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.08627451F, 0.14901961F, 0.2627451F, 0.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.0F, 0.05490196F, 0.105882354F, 0.0F),
-         new Vector4f(0.21960784F, 0.28627452F, 0.4F, 0.21176471F),
-         new Vector4f(0.07450981F, 0.105882354F, 0.17254902F, 0.015686275F)
-      )
-      .cycleAll();
-   public static RenderFrozenSky skyRender = new RenderFrozenSky(timeOfDayProvider);
-   public Snowfall snowfall = new Snowfall(this, 0, 6000, 24000, 0.045F);
-   public Hail hail = new Hail(this, 1, 8000, 12000, 0.035F);
-   public Aurora aurora = new Aurora(this, 2, 8000, 12000, 0.025F);
-   public WorldEventsHandler worldEventsHandler = new WorldEventsHandler(this, this.snowfall, this.hail, this.aurora);
+   public static TimeOfDayProvider timeOfDayProvider;
+//   public static TimeOfDayProvider timeOfDayProvider = new TimeOfDayProvider()
+//      .addO(
+//         21700,
+//         23000,
+//         new Vector4f(0.02745098F, 0.1254902F, 0.4117647F, 0.9882353F),
+//         new Vector4f(0.0F, 0.05490196F, 0.07058824F, 0.99215686F),
+//         new Vector4f(0.007843138F, 0.84705883F, 1.0F, 0.99607843F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.06666667F, 0.0627451F, 0.19607843F, 0.27058825F),
+//         new Vector4f(0.003921569F, 0.49411765F, 1.0F, 0.47843137F)
+//      )
+//      .addO(
+//         23500,
+//         25000,
+//         new Vector4f(0.011764706F, 0.21176471F, 0.6431373F, 0.0F),
+//         new Vector4f(0.7058824F, 1.0F, 1.0F, 0.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.6039216F, 0.6862745F, 0.77254903F, 0.16862746F),
+//         new Vector4f(0.8745098F, 0.9372549F, 1.0F, 0.5921569F)
+//      )
+//      .addO(
+//         11500,
+//         12500,
+//         new Vector4f(0.015686275F, 0.039215688F, 0.3254902F, 0.0F),
+//         new Vector4f(0.89411765F, 0.69411767F, 0.80784315F, 0.0F),
+//         new Vector4f(0.8235294F, 0.27058825F, 0.16078432F, 0.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.09411765F, 0.12941177F, 0.4117647F, 0.34509805F),
+//         new Vector4f(0.7137255F, 0.29411766F, 0.5137255F, 0.6862745F)
+//      )
+//      .addO(
+//         12500,
+//         13500,
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.08627451F, 0.14901961F, 0.2627451F, 0.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.0F, 0.05490196F, 0.105882354F, 0.0F),
+//         new Vector4f(0.21960784F, 0.28627452F, 0.4F, 0.21176471F),
+//         new Vector4f(0.07450981F, 0.105882354F, 0.17254902F, 0.015686275F)
+//      )
+//      .cycleAll();
+
+   static {
+      timeOfDayProvider = new TimeOfDayProvider();
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         timeOfDayProvider
+                 .addO(
+                         21700,
+                         23000,
+                         new Vector4f(0.02745098F, 0.1254902F, 0.4117647F, 0.9882353F),
+                         new Vector4f(0.0F, 0.05490196F, 0.07058824F, 0.99215686F),
+                         new Vector4f(0.007843138F, 0.84705883F, 1.0F, 0.99607843F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.06666667F, 0.0627451F, 0.19607843F, 0.27058825F),
+                         new Vector4f(0.003921569F, 0.49411765F, 1.0F, 0.47843137F)
+                 )
+                 .addO(
+                         23500,
+                         25000,
+                         new Vector4f(0.011764706F, 0.21176471F, 0.6431373F, 0.0F),
+                         new Vector4f(0.7058824F, 1.0F, 1.0F, 0.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.6039216F, 0.6862745F, 0.77254903F, 0.16862746F),
+                         new Vector4f(0.8745098F, 0.9372549F, 1.0F, 0.5921569F)
+                 )
+                 .addO(
+                         11500,
+                         12500,
+                         new Vector4f(0.015686275F, 0.039215688F, 0.3254902F, 0.0F),
+                         new Vector4f(0.89411765F, 0.69411767F, 0.80784315F, 0.0F),
+                         new Vector4f(0.8235294F, 0.27058825F, 0.16078432F, 0.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.09411765F, 0.12941177F, 0.4117647F, 0.34509805F),
+                         new Vector4f(0.7137255F, 0.29411766F, 0.5137255F, 0.6862745F)
+                 )
+                 .addO(
+                         12500,
+                         13500,
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.08627451F, 0.14901961F, 0.2627451F, 0.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.0F, 0.05490196F, 0.105882354F, 0.0F),
+                         new Vector4f(0.21960784F, 0.28627452F, 0.4F, 0.21176471F),
+                         new Vector4f(0.07450981F, 0.105882354F, 0.17254902F, 0.015686275F)
+                 )
+                 .cycleAll();
+      } else {
+         timeOfDayProvider
+                 .addO(
+                         21700,
+                         23000,
+                         null
+                 )
+                 .addO(
+                         23500,
+                         25000,
+                         null
+                 )
+                 .addO(
+                         11500,
+                         12500,
+                         null
+                 )
+                 .addO(
+                         12500,
+                         13500,
+                         null
+                 )
+                 .cycleAll();
+      }
+   }
+
+//   public static RenderFrozenSky skyRender = new RenderFrozenSky(timeOfDayProvider);
+   public static Object skyRender;
+   static {
+      if (FMLCommonHandler.instance().getSide().isClient() && skyRender == null) {
+         skyRender = new RenderFrozenSky(timeOfDayProvider);
+      } else {
+         skyRender = null;
+      }
+   }
+
+   public DimensionEthernalFrost() {
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         snowfall = new Snowfall(this, 0, 6000, 24000, 0.045F);
+         hail = new Hail(this, 1, 8000, 12000, 0.035F);
+         aurora = new Aurora(this, 2, 8000, 12000, 0.025F);
+         worldEventsHandler = new WorldEventsHandler(this, (Snowfall) this.snowfall, (Hail) this.hail, (Aurora) this.aurora);
+      }
+   }
+
+   //   public Snowfall snowfall = new Snowfall(this, 0, 6000, 24000, 0.045F);
+//   public Hail hail = new Hail(this, 1, 8000, 12000, 0.035F);
+//   public Aurora aurora = new Aurora(this, 2, 8000, 12000, 0.025F);
+//   public WorldEventsHandler worldEventsHandler = new WorldEventsHandler(this, this.snowfall, this.hail, this.aurora);
+   public Object snowfall;
+   public Object hail;
+   public Object aurora;
+   public Object worldEventsHandler;
 
    public void getLightmapColors(float partialTicks, float sunBrightness, float skyLight, float blockLight, float[] colors) {
       timeOfDayProvider.setLightmapColors(6, this.getWorldTime(), partialTicks, sunBrightness, skyLight, blockLight, colors);
@@ -87,21 +191,29 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
       return null;
    }
 
+   @SideOnly(Side.CLIENT)
    public IRenderHandler getSkyRenderer() {
-      return skyRender;
+      return (IRenderHandler) skyRender;
    }
 
+   @SideOnly(Side.CLIENT)
    public IRenderHandler getWeatherRenderer() {
-      return this.worldEventsHandler;
+      return (IRenderHandler) this.worldEventsHandler;
    }
 
    public void updateWeather() {
-      this.worldEventsHandler.onUpdate();
+      if (this.worldEventsHandler != null) {
+         ((WorldEventsHandler) this.worldEventsHandler).onUpdate();
+      }
    }
 
    @Override
    public WorldEventsHandler getWorldEventsHandler() {
-      return this.worldEventsHandler;
+      if (this.worldEventsHandler == null) {
+         return null;
+      } else {
+         return (WorldEventsHandler) this.worldEventsHandler;
+      }
    }
 
    @Override

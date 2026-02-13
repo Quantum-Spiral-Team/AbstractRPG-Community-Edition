@@ -1,17 +1,19 @@
-package com.vivern.arpg.main;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.main;
 
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
-import com.vivern.arpg.biomes.BiomeControlled;
-import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.elements.IWings;
-import com.vivern.arpg.elements.animation.Flicks;
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.potions.AdvancedMobEffects;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.KillScore;
-import com.vivern.arpg.renders.ManaBar;
-import com.vivern.arpg.weather.Weather;
+import com.Vivern.Arpg.biomes.BiomeControlled;
+import com.Vivern.Arpg.dimensions.generationutils.AbstractWorldProvider;
+import com.Vivern.Arpg.elements.IWings;
+import com.Vivern.Arpg.elements.animation.Flicks;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.potions.AdvancedMobEffects;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.KillScore;
+import com.Vivern.Arpg.renders.ManaBar;
+import com.Vivern.Arpg.weather.Weather;
 import com.google.common.collect.Multimap;
 import java.util.UUID;
 import net.minecraft.client.Minecraft;
@@ -33,6 +35,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Post;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -258,7 +261,9 @@ public class Mana {
             MobSpawn.onPlayerUpdate(world, player);
          }
 
-         Keys.onUpdate(player);
+         if (FMLCommonHandler.instance().getSide().isClient()) {
+            Keys.onUpdate(player);
+         }
          JumpBonusTracker.airbornMovement(player);
          Debugger.checkChest(player);
       }

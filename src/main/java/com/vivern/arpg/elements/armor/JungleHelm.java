@@ -1,11 +1,13 @@
-package com.vivern.arpg.elements.armor;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.JungleHelmetModel;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.PropertiesRegistry;
+package com.Vivern.Arpg.elements.armor;
+
+import com.Vivern.Arpg.arpgfix.IFieldInit;
+import com.Vivern.Arpg.elements.models.JungleHelmetModel;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.PropertiesRegistry;
 import com.google.common.collect.Multimap;
-import java.util.UUID;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,13 +20,14 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class JungleHelm extends ItemArmor {
+import java.util.UUID;
+
+public class JungleHelm extends ItemArmor implements IFieldInit {
    private static final UUID[] ARMOR_MODIFIERSG = new UUID[]{
       UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
       UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
@@ -34,7 +37,15 @@ public class JungleHelm extends ItemArmor {
    public static ArmorMaterial jungle_mt = EnumHelper.addArmorMaterial(
       "arpg:jungle_mt", "arpg:jungle_tx", 9, new int[]{3, 5, 3, 2}, 7, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F
    );
-   public static JungleHelmetModel modelh = new JungleHelmetModel();
+//   public static JungleHelmetModel modelh = new JungleHelmetModel();
+   @SideOnly(Side.CLIENT)
+   public static JungleHelmetModel modelh;
+
+   @Override
+   @SideOnly(Side.CLIENT)
+   public void initFields() {
+      modelh = new JungleHelmetModel();
+   }
 
    public JungleHelm() {
       super(jungle_mt, 0, EntityEquipmentSlot.HEAD);

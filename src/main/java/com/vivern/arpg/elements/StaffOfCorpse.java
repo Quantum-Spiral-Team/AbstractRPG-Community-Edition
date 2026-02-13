@@ -1,16 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.entity.EntityStreamLaserP;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -19,17 +14,16 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.lwjgl.input.Mouse;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class StaffOfCorpse extends Item {
+import java.util.List;
+
+public class StaffOfCorpse extends Item_SideSync {
    ResourceLocation texture = new ResourceLocation("arpg:textures/laser_sniper_laser.png");
    ResourceLocation smoke = new ResourceLocation("arpg:textures/smoke.png");
    ResourceLocation fire = new ResourceLocation("arpg:textures/bluelaser.png");
@@ -69,12 +63,14 @@ public class StaffOfCorpse extends Item {
 
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (entityIn instanceof EntityPlayer) {
+//         this.syncAllData(); // // TODO
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
          World world = player.getEntityWorld();
          Item itemIn = itemstack.getItem();
          EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
+//         boolean click = Mouse.isButtonDown(1);
+         boolean click = this.getMouseButtonRight(player);
          float mana = Mana.getMana(player);
          float spee = Mana.getManaSpeed(player);
          float power = Mana.getMagicPowerMax(player);
@@ -85,7 +81,8 @@ public class StaffOfCorpse extends Item {
          int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
          NBTHelper.GiveNBTint(itemstack, 0, "charge");
          if (player.getActiveItemStack() == itemstack && mana > 0.2F - sor / 30 && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
-            NBTHelper.AddNBTint(itemstack, 1, "charge");
+            if (!worldIn.isRemote) //
+               NBTHelper.AddNBTint(itemstack, 1, "charge");
             Vec3d vec = GetMOP.PosRayTrace(20.0, 1.0F, player, 0.05, 0.05);
             int charge = NBTHelper.GetNBTint(itemstack, "charge");
             if (charge == -27) {
@@ -148,57 +145,63 @@ public class StaffOfCorpse extends Item {
                }
 
                if (worldIn.isRemote && damage <= itemIn.getMaxDamage() - 1) {
-                  for (int ss = 0; ss < 2; ss++) {
-                     GUNParticle bigsmoke = new GUNParticle(
-                        this.largesmoke,
-                        1.5F + (float)itemRand.nextGaussian() / 3.0F,
-                        0.0F,
-                        30,
-                        180,
-                        world,
-                        vec.x,
-                        vec.y,
-                        vec.z,
-                        (float)itemRand.nextGaussian() / 10.0F,
-                        (float)itemRand.nextGaussian() / 19.0F,
-                        (float)itemRand.nextGaussian() / 10.0F,
-                        0.3F,
-                        1.0F,
-                        0.7F + (float)itemRand.nextGaussian() / 5.0F,
-                        true,
-                        itemRand.nextInt(360),
-                        true,
-                        1.0F
-                     );
-                     bigsmoke.alphaTickAdding = -0.025F;
-                     bigsmoke.alphaGlowing = true;
-                     world.spawnEntity(bigsmoke);
-                  }
-
-                  EntityStreamLaserP laser = new EntityStreamLaserP(
-                     world,
-                     player,
-                     this.start,
-                     0.07F + charge / 280,
-                     156 + charge * 3,
-                     1.0F,
-                     1.0F,
-                     1.0F,
-                     0.5F,
-                     player.getDistance(vec.x, vec.y, vec.z),
-                     1,
-                     0.3F,
-                     8.0F
-                  );
-                  laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
-                  world.spawnEntity(laser);
+                  onUpdate_Client_1(world, player, vec, charge);
                }
             }
          } else if (NBTHelper.GetNBTint(itemstack, "charge") > -28) {
-            NBTHelper.SetNBTint(itemstack, -28, "charge");
+            if (!worldIn.isRemote) //
+               NBTHelper.SetNBTint(itemstack, -28, "charge");
             player.getCooldownTracker().setCooldown(this, (40 - rapidity * 5) * (spec > 0 ? 5 : 1));
             player.addStat(StatList.getObjectUseStats(this));
          }
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1(World world, EntityPlayer player, Vec3d vec, int charge) {
+      for (int ss = 0; ss < 2; ss++) {
+         GUNParticle bigsmoke = new GUNParticle(
+                 this.largesmoke,
+                 1.5F + (float)itemRand.nextGaussian() / 3.0F,
+                 0.0F,
+                 30,
+                 180,
+                 world,
+                 vec.x,
+                 vec.y,
+                 vec.z,
+                 (float)itemRand.nextGaussian() / 10.0F,
+                 (float)itemRand.nextGaussian() / 19.0F,
+                 (float)itemRand.nextGaussian() / 10.0F,
+                 0.3F,
+                 1.0F,
+                 0.7F + (float)itemRand.nextGaussian() / 5.0F,
+                 true,
+                 itemRand.nextInt(360),
+                 true,
+                 1.0F
+         );
+         bigsmoke.alphaTickAdding = -0.025F;
+         bigsmoke.alphaGlowing = true;
+         world.spawnEntity(bigsmoke);
+      }
+
+      EntityStreamLaserP laser = new EntityStreamLaserP(
+              world,
+              player,
+              this.start,
+              0.07F + charge / 280,
+              156 + charge * 3,
+              1.0F,
+              1.0F,
+              1.0F,
+              0.5F,
+              player.getDistance(vec.x, vec.y, vec.z),
+              1,
+              0.3F,
+              8.0F
+      );
+      laser.setPosition(player.posX, player.posY + 1.55, player.posZ);
+      world.spawnEntity(laser);
    }
 }

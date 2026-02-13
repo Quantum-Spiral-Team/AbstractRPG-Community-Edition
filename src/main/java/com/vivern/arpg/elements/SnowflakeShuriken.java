@@ -1,11 +1,13 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntitySnowflakeShuriken;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.entity.EntitySnowflakeShuriken;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -49,9 +51,11 @@ public class SnowflakeShuriken extends ItemWeapon {
          if (IWeapon.canShoot(stack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             EnumHand hand = null;
-            if (Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
+//            if (Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
+            if (this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
                hand = EnumHand.MAIN_HAND;
-            } else if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK)
+//            } else if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK)
+            } else if (this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK)
                && player.getHeldItemOffhand() == stack
                && !player.getCooldownTracker().hasCooldown(ItemsRegister.EXP)) {
                hand = EnumHand.OFF_HAND;

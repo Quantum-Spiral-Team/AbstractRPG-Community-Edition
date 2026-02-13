@@ -1,11 +1,13 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import java.util.UUID;
 import javax.annotation.Nullable;
@@ -48,31 +50,7 @@ public class EntityArcaneExplode extends Entity {
 
    public void onUpdate() {
       if (this.spawnparticle && this.world.isRemote) {
-         this.spawnparticle = false;
-         AnimatedGParticle anim = new AnimatedGParticle(
-            magic_explode,
-            1.5F,
-            0.0F,
-            50,
-            240,
-            this.world,
-            this.posX,
-            this.posY + this.height / 2.0F,
-            this.posZ,
-            0.0F,
-            0.0F,
-            0.0F,
-            1.0F,
-            1.0F,
-            1.0F,
-            true,
-            0
-         );
-         anim.framecount = 50;
-         anim.useNormalTime = true;
-         anim.alphaGlowing = true;
-         anim.randomDeath = false;
-         this.world.spawnEntity(anim);
+         this.onUpdate_Client_1();
       }
 
       if (!this.world.isRemote) {
@@ -87,6 +65,35 @@ public class EntityArcaneExplode extends Entity {
       }
 
       super.onUpdate();
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      this.spawnparticle = false;
+      AnimatedGParticle anim = new AnimatedGParticle(
+              magic_explode,
+              1.5F,
+              0.0F,
+              50,
+              240,
+              this.world,
+              this.posX,
+              this.posY + this.height / 2.0F,
+              this.posZ,
+              0.0F,
+              0.0F,
+              0.0F,
+              1.0F,
+              1.0F,
+              1.0F,
+              true,
+              0
+      );
+      anim.framecount = 50;
+      anim.useNormalTime = true;
+      anim.alphaGlowing = true;
+      anim.randomDeath = false;
+      this.world.spawnEntity(anim);
    }
 
    @SideOnly(Side.CLIENT)

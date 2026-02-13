@@ -1,14 +1,16 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -86,32 +88,37 @@ public class WandColdShoot extends StandardBullet {
       }
 
       if (this.world.isRemote) {
-         float scl = 0.04F + 0.08F * this.rand.nextFloat();
-         int lt = this.rand.nextInt(5) + 10;
-         GUNParticle fire2 = new GUNParticle(
-            snowflake6,
-            scl,
-            0.0F,
-            lt,
-            200,
-            this.world,
-            this.lastTickPosX + this.rand.nextGaussian() / 15.0,
-            this.lastTickPosY + this.height / 2.0F + this.rand.nextGaussian() / 15.0,
-            this.lastTickPosZ + this.rand.nextGaussian() / 15.0,
-            0.0F,
-            0.0F,
-            0.0F,
-            1.0F,
-            1.0F,
-            1.0F,
-            true,
-            this.rand.nextInt(360)
-         );
-         fire2.alphaTickAdding = -1.0F / lt;
-         fire2.scaleTickAdding = -scl / lt * 0.8F;
-         fire2.alphaGlowing = true;
-         this.world.spawnEntity(fire2);
+         this.onUpdate_Client_1();
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      float scl = 0.04F + 0.08F * this.rand.nextFloat();
+      int lt = this.rand.nextInt(5) + 10;
+      GUNParticle fire2 = new GUNParticle(
+              snowflake6,
+              scl,
+              0.0F,
+              lt,
+              200,
+              this.world,
+              this.lastTickPosX + this.rand.nextGaussian() / 15.0,
+              this.lastTickPosY + this.height / 2.0F + this.rand.nextGaussian() / 15.0,
+              this.lastTickPosZ + this.rand.nextGaussian() / 15.0,
+              0.0F,
+              0.0F,
+              0.0F,
+              1.0F,
+              1.0F,
+              1.0F,
+              true,
+              this.rand.nextInt(360)
+      );
+      fire2.alphaTickAdding = -1.0F / lt;
+      fire2.scaleTickAdding = -scl / lt * 0.8F;
+      fire2.alphaGlowing = true;
+      this.world.spawnEntity(fire2);
    }
 
    @SideOnly(Side.CLIENT)

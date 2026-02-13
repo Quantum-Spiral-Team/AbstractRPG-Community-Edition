@@ -1,29 +1,32 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.FrostModel;
-import com.vivern.arpg.elements.models.ModelsEverfrostMob;
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.CannonSnowball;
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.ParticleFastSummon;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.recipes.Soul;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
-import com.vivern.arpg.tileentity.TileNexusNiveolite;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.elements.models.FrostModel;
+import com.Vivern.Arpg.elements.models.ModelsEverfrostMob;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.entity.CannonSnowball;
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.BloodType;
+import com.Vivern.Arpg.main.ColorConverters;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.ParticleFastSummon;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.recipes.Soul;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.tileentity.TileNexusNiveolite;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -69,6 +72,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -93,88 +97,106 @@ public class EverfrostMobsPack {
    }
 
    public static void initRender() {
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.FentralModel(), new ResourceLocation("arpg:textures/fentral_model_tex.png"), 0.6F, Fentral.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsEverfrostMob.IceWarriorModel(),
-               new ResourceLocation("arpg:textures/ice_warrior_model_tex.png"),
-               0.6F,
-               IceWarrior.class
-            )
-            .setLayerHeldItem()
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.HailWraithModel(), new ResourceLocation("arpg:textures/hail_wraith_model_tex.png"), 0.8F, HailWraith.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.IceApparitionModel(),
-            new ResourceLocation("arpg:textures/ice_apparition_model_tex.png"),
-            1.0F,
-            IceApparition.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.SlimeModel(), new ResourceLocation("arpg:textures/ice_cube_tex.png"), 0.2F, IceCube.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-               new ModelsEverfrostMob.AtorpidModel(), new ResourceLocation("arpg:textures/atorpid_model_tex.png"), 0.4F, Atorpid.class
-            )
-            .setLayerHeldItem()
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.GargoyleModel(), new ResourceLocation("arpg:textures/gargoyle_model_tex.png"), 0.4F, Gargoyle.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.GelumModel(), new ResourceLocation("arpg:textures/gelum_model_tex.png"), 0.5F, Gelum.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.SnowroverModel(), new ResourceLocation("arpg:textures/snowrover_model_tex.png"), 0.4F, Snowrover.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.HarridanOfIceModel(),
-            new ResourceLocation("arpg:textures/harridan_of_ice_model_tex.png"),
-            0.5F,
-            HarridanOfIce.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new FrostModel(), new ResourceLocation("arpg:textures/frost_model_tex.png"), 0.7F, Frost.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.NiveousSliderModel(),
-            new ResourceLocation("arpg:textures/niveous_slider_model_tex.png"),
-            0.435F,
-            NiveousSlider.class
-         )
-      );
-      AbstractMob.addToRender(
-         new AbstractMob.RenderAbstractMobEntry(
-            new ModelsEverfrostMob.AurorasPhantasmModel(new ResourceLocation("arpg:textures/auroras_phantasm_model_tex_overlay.png")),
-            new ResourceLocation("arpg:textures/auroras_phantasm_model_tex.png"),
-            0.5F,
-            AurorasPhantasm.class
-         )
-      );
+      if (fieldsContainer != null) {
+         fieldsContainer.initFields();
+      }
+   }
+
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.FentralModel(), new ResourceLocation("arpg:textures/fentral_model_tex.png"), 0.6F, Fentral.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.IceWarriorModel(),
+                         new ResourceLocation("arpg:textures/ice_warrior_model_tex.png"),
+                         0.6F,
+                         IceWarrior.class
+                 )
+                         .setLayerHeldItem()
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.HailWraithModel(), new ResourceLocation("arpg:textures/hail_wraith_model_tex.png"), 0.8F, HailWraith.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.IceApparitionModel(),
+                         new ResourceLocation("arpg:textures/ice_apparition_model_tex.png"),
+                         1.0F,
+                         IceApparition.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.SlimeModel(), new ResourceLocation("arpg:textures/ice_cube_tex.png"), 0.2F, IceCube.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.AtorpidModel(), new ResourceLocation("arpg:textures/atorpid_model_tex.png"), 0.4F, Atorpid.class
+                 )
+                         .setLayerHeldItem()
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.GargoyleModel(), new ResourceLocation("arpg:textures/gargoyle_model_tex.png"), 0.4F, Gargoyle.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.GelumModel(), new ResourceLocation("arpg:textures/gelum_model_tex.png"), 0.5F, Gelum.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.SnowroverModel(), new ResourceLocation("arpg:textures/snowrover_model_tex.png"), 0.4F, Snowrover.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.HarridanOfIceModel(),
+                         new ResourceLocation("arpg:textures/harridan_of_ice_model_tex.png"),
+                         0.5F,
+                         HarridanOfIce.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new FrostModel(), new ResourceLocation("arpg:textures/frost_model_tex.png"), 0.7F, Frost.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.NiveousSliderModel(),
+                         new ResourceLocation("arpg:textures/niveous_slider_model_tex.png"),
+                         0.435F,
+                         NiveousSlider.class
+                 )
+         );
+         AbstractMob.addToRender(
+                 new AbstractMob.RenderAbstractMobEntry(
+                         new ModelsEverfrostMob.AurorasPhantasmModel(new ResourceLocation("arpg:textures/auroras_phantasm_model_tex_overlay.png")),
+                         new ResourceLocation("arpg:textures/auroras_phantasm_model_tex.png"),
+                         0.5F,
+                         AurorasPhantasm.class
+                 )
+         );
+      }
+   }
+
+   public static ClientFieldsContainer fieldsContainer;
+
+   static {
+      if (fieldsContainer == null && FMLCommonHandler.instance().getSide().isClient()) {
+         fieldsContainer = new ClientFieldsContainer();
+      }
    }
 
    public static class Atorpid extends AbstractMob {
@@ -431,6 +453,7 @@ public class EverfrostMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double... args) {
          if (args.length == 3) {
             Vec3d vec = new Vec3d(args[0], args[1], args[2]);
@@ -460,33 +483,7 @@ public class EverfrostMobsPack {
       public void onUpdate() {
          super.onUpdate();
          if (this.world.isRemote) {
-            Vec3d rainbow = getPhantasmColor(this);
-            float scl = 0.08F + this.rand.nextFloat() / 10.0F;
-            int lt = 25 + this.rand.nextInt(10);
-            GUNParticle snow = new GUNParticle(
-               texture,
-               scl,
-               0.01F,
-               lt,
-               220,
-               this.world,
-               this.posX + (this.rand.nextDouble() - 0.5) * this.width,
-               this.posY + this.rand.nextDouble() * this.height,
-               this.posZ + (this.rand.nextDouble() - 0.5) * this.width,
-               (this.rand.nextFloat() - 0.5F) * 0.02F,
-               -this.rand.nextFloat() * 0.02F,
-               (this.rand.nextFloat() - 0.5F) * 0.02F,
-               (float)rainbow.x,
-               (float)rainbow.y,
-               (float)rainbow.z,
-               true,
-               this.rand.nextInt(100) - 50,
-               true,
-               3.0F
-            );
-            snow.alphaGlowing = true;
-            snow.scaleTickAdding = -scl / lt * 0.9F;
-            this.world.spawnEntity(snow);
+            this.onUpdate_Client_1();
          } else if (this.isEntityAlive() && !this.isAIDisabled()) {
             if (this.laserAttackCooldown <= 0) {
                if (this.getAttackTarget() != null) {
@@ -531,6 +528,37 @@ public class EverfrostMobsPack {
                this.laserAttackCooldown--;
             }
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         Vec3d rainbow = getPhantasmColor(this);
+         float scl = 0.08F + this.rand.nextFloat() / 10.0F;
+         int lt = 25 + this.rand.nextInt(10);
+         GUNParticle snow = new GUNParticle(
+                 texture,
+                 scl,
+                 0.01F,
+                 lt,
+                 220,
+                 this.world,
+                 this.posX + (this.rand.nextDouble() - 0.5) * this.width,
+                 this.posY + this.rand.nextDouble() * this.height,
+                 this.posZ + (this.rand.nextDouble() - 0.5) * this.width,
+                 (this.rand.nextFloat() - 0.5F) * 0.02F,
+                 -this.rand.nextFloat() * 0.02F,
+                 (this.rand.nextFloat() - 0.5F) * 0.02F,
+                 (float)rainbow.x,
+                 (float)rainbow.y,
+                 (float)rainbow.z,
+                 true,
+                 this.rand.nextInt(100) - 50,
+                 true,
+                 3.0F
+         );
+         snow.alphaGlowing = true;
+         snow.scaleTickAdding = -scl / lt * 0.9F;
+         this.world.spawnEntity(snow);
       }
 
       @Override
@@ -765,30 +793,35 @@ public class EverfrostMobsPack {
       public void onUpdate() {
          super.onUpdate();
          if (this.world.isRemote) {
-            GUNParticle snow = new GUNParticle(
-               texture,
-               0.07F + this.rand.nextFloat() / 10.0F,
-               0.01F,
-               25 + this.rand.nextInt(5),
-               -1,
-               this.world,
-               this.posX + (this.rand.nextDouble() - 0.5) * this.width,
-               this.posY + this.rand.nextDouble() * this.height,
-               this.posZ + (this.rand.nextDouble() - 0.5) * this.width,
-               (this.rand.nextFloat() - 0.5F) * 0.02F,
-               -this.rand.nextFloat() * 0.02F,
-               (this.rand.nextFloat() - 0.5F) * 0.02F,
-               0.9F + (float)this.rand.nextGaussian() / 10.0F,
-               1.0F,
-               1.0F,
-               false,
-               this.rand.nextInt(100) - 50,
-               true,
-               3.0F
-            );
-            snow.scaleTickAdding = -0.004F;
-            this.world.spawnEntity(snow);
+            this.onUpdate_Client_1();
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         GUNParticle snow = new GUNParticle(
+                 texture,
+                 0.07F + this.rand.nextFloat() / 10.0F,
+                 0.01F,
+                 25 + this.rand.nextInt(5),
+                 -1,
+                 this.world,
+                 this.posX + (this.rand.nextDouble() - 0.5) * this.width,
+                 this.posY + this.rand.nextDouble() * this.height,
+                 this.posZ + (this.rand.nextDouble() - 0.5) * this.width,
+                 (this.rand.nextFloat() - 0.5F) * 0.02F,
+                 -this.rand.nextFloat() * 0.02F,
+                 (this.rand.nextFloat() - 0.5F) * 0.02F,
+                 0.9F + (float)this.rand.nextGaussian() / 10.0F,
+                 1.0F,
+                 1.0F,
+                 false,
+                 this.rand.nextInt(100) - 50,
+                 true,
+                 3.0F
+         );
+         snow.scaleTickAdding = -0.004F;
+         this.world.spawnEntity(snow);
       }
 
       @SideOnly(Side.CLIENT)
@@ -1214,6 +1247,7 @@ public class EverfrostMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double x, double y, double z, double a, double b, double c) {
          Vec3d pos2 = new Vec3d(x, y, z);
          Vec3d pos1 = new Vec3d(a, b, c);
@@ -1367,41 +1401,46 @@ public class EverfrostMobsPack {
                }
             }
          } else if (this.ticksExisted % 5 == 0) {
-            ParticleTracker.TrackerFollowDynamicPoint tracker = new ParticleTracker.TrackerFollowDynamicPoint(
-               this, false, 1.0F, 0.0F + Debugger.floats[0], 0.05F + Debugger.floats[1]
-            );
-            tracker.frictionMult = 1.0F;
-            tracker.tickfrictionAdd = -0.001F;
+            this.onUpdate_Client_1();
+         }
+      }
 
-            for (int i = 0; i < 4; i++) {
-               int yawRand = this.rand.nextInt(360);
-               Vec3d poss = GetMOP.YawToVec3d(yawRand).scale(10.0).add(GetMOP.entityCenterPos(this));
-               Vec3d direction = GetMOP.YawToVec3d(yawRand + 90).scale(0.5);
-               float scl = 0.2F + this.rand.nextFloat() * 0.1F;
-               int lt = 60 + this.rand.nextInt(10);
-               GUNParticle part = new GUNParticle(
-                  snow1,
-                  scl,
-                  0.0F,
-                  lt,
-                  190,
-                  this.world,
-                  poss.x,
-                  poss.y,
-                  poss.z,
-                  (float)direction.x,
-                  (float)direction.y,
-                  (float)direction.z,
-                  0.8F + this.rand.nextFloat() * 0.1F,
-                  0.85F + this.rand.nextFloat() * 0.15F,
-                  1.0F,
-                  false,
-                  this.rand.nextInt(360)
-               );
-               part.scaleTickAdding = -scl / lt / 1.5F;
-               part.tracker = tracker;
-               this.world.spawnEntity(part);
-            }
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         ParticleTracker.TrackerFollowDynamicPoint tracker = new ParticleTracker.TrackerFollowDynamicPoint(
+                 this, false, 1.0F, 0.0F + Debugger.floats[0], 0.05F + Debugger.floats[1]
+         );
+         tracker.frictionMult = 1.0F;
+         tracker.tickfrictionAdd = -0.001F;
+
+         for (int i = 0; i < 4; i++) {
+            int yawRand = this.rand.nextInt(360);
+            Vec3d poss = GetMOP.YawToVec3d(yawRand).scale(10.0).add(GetMOP.entityCenterPos(this));
+            Vec3d direction = GetMOP.YawToVec3d(yawRand + 90).scale(0.5);
+            float scl = 0.2F + this.rand.nextFloat() * 0.1F;
+            int lt = 60 + this.rand.nextInt(10);
+            GUNParticle part = new GUNParticle(
+                    snow1,
+                    scl,
+                    0.0F,
+                    lt,
+                    190,
+                    this.world,
+                    poss.x,
+                    poss.y,
+                    poss.z,
+                    (float)direction.x,
+                    (float)direction.y,
+                    (float)direction.z,
+                    0.8F + this.rand.nextFloat() * 0.1F,
+                    0.85F + this.rand.nextFloat() * 0.15F,
+                    1.0F,
+                    false,
+                    this.rand.nextInt(360)
+            );
+            part.scaleTickAdding = -scl / lt / 1.5F;
+            part.tracker = tracker;
+            this.world.spawnEntity(part);
          }
       }
 
@@ -1503,6 +1542,7 @@ public class EverfrostMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 8) {

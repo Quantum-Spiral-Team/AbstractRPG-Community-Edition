@@ -1,26 +1,28 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.ModelsDungeonMob;
-import com.vivern.arpg.entity.AbstractGlyphid;
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.CrystalFanShoot;
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.ParticleFastSummon;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.recipes.Soul;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.elements.models.ModelsDungeonMob;
+import com.Vivern.Arpg.entity.AbstractGlyphid;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.entity.CrystalFanShoot;
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.main.BloodType;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.MovingSoundEntity;
+import com.Vivern.Arpg.main.ParticleFastSummon;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.recipes.Soul;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -375,6 +377,7 @@ public class DungeonMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 12) {
@@ -708,6 +711,7 @@ public class DungeonMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double x, double y, double z, double a, double b, double c) {
          this.world
             .playSound(
@@ -1064,11 +1068,16 @@ public class DungeonMobsPack {
                }
             }
          } else if (this.firstUpdate1) {
-            this.firstUpdate1 = false;
-            Minecraft.getMinecraft()
-               .getSoundHandler()
-               .playSound(new MovingSoundEntity(this, Sounds.larva_flyer_fly, SoundCategory.HOSTILE, 0.8F, 1.0F, true));
+            this.onUpdate_Client_1();
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         this.firstUpdate1 = false;
+         Minecraft.getMinecraft()
+                 .getSoundHandler()
+                 .playSound(new MovingSoundEntity(this, Sounds.larva_flyer_fly, SoundCategory.HOSTILE, 0.8F, 1.0F, true));
       }
 
       public void mode(int mode) {
@@ -1472,6 +1481,7 @@ public class DungeonMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double... args) {
          if (args.length == 3) {
             Vec3d posCenter = new Vec3d(args[0], args[1], args[2]);
@@ -1773,6 +1783,7 @@ public class DungeonMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id <= -6 && id >= -10) {
@@ -2018,6 +2029,7 @@ public class DungeonMobsPack {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
             for (int i = 0; i < 5; i++) {

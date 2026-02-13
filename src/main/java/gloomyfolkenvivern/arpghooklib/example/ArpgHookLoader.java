@@ -11,6 +11,7 @@ public class ArpgHookLoader extends HookLoader {
 
    @Override
    public void registerHooks() {
+//      AnnotationHooks.callSomethingToLoadClass();
       registerHookContainer("gloomyfolkenvivern.arpghooklib.example.AnnotationHooks");
    }
 }

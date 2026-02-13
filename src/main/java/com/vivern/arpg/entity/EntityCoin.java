@@ -1,11 +1,13 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.Coins;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.network.PacketCoinToClient;
-import com.vivern.arpg.network.PacketCoinToServer;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.main.Coins;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.network.PacketCoinToClient;
+import com.Vivern.Arpg.network.PacketCoinToServer;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -91,77 +93,82 @@ public class EntityCoin extends Entity {
 
    public void onEntityUpdate() {
       if (this.world.isRemote) {
-         if (this.t1r > 0) {
-            this.t1r--;
-         }
-
-         if (this.t2g > 0) {
-            this.t2g--;
-         }
-
-         if (this.t3b > 0) {
-            this.t3b--;
-         }
-
-         if (this.rand.nextFloat() < 0.02 && this.t1r == 0) {
-            this.t1r = 30;
-         }
-
-         if (this.rand.nextFloat() < 0.02 && this.t2g == 0) {
-            this.t2g = 30;
-         }
-
-         if (this.rand.nextFloat() < 0.025 && this.t3b == 0) {
-            this.t3b = 30;
-         }
-
-         if (this.rand.nextFloat() < 0.1F && Minecraft.getMinecraft().gameSettings.particleSetting < 2) {
-            double d0 = this.posX;
-            double d1 = this.posY + 0.15;
-            double d2 = this.posZ;
-            double d3 = 0.22;
-            double d4 = 0.27;
-            int livetime = 40 + this.rand.nextInt(40);
-            float scale = 0.057F + this.rand.nextFloat() / 30.0F;
-            float scaleTickAdding = -(scale / livetime);
-            float randispl1 = (this.rand.nextFloat() - 0.5F) / 2.0F;
-            float randispl2 = (this.rand.nextFloat() - 0.5F) / 2.0F;
-            float randispl3 = (this.rand.nextFloat() - 0.5F) / 2.0F;
-            float randsp1 = (this.rand.nextFloat() - 0.5F) / 40.0F;
-            float randsp2 = (this.rand.nextFloat() - 0.5F) / 40.0F;
-            float randsp3 = (this.rand.nextFloat() - 0.5F) / 40.0F;
-            GUNParticle spelll = new GUNParticle(
-               res,
-               scale,
-               4.0E-4F,
-               livetime,
-               160 + this.rand.nextInt(40),
-               this.world,
-               d0 + randispl1,
-               d1 + randispl2,
-               d2 + randispl3,
-               randsp1,
-               randsp2,
-               randsp3,
-               this.getRed(),
-               this.getGreen(),
-               this.getBlue(),
-               false,
-               0,
-               true,
-               5.0F
-            );
-            spelll.dropMode = true;
-            spelll.scaleTickAdding = scaleTickAdding;
-            this.world.spawnEntity(spelll);
-         }
-
-         if (this.ticksExisted % 10 == 0 && this.store == 0) {
-            this.getStoreFromServer();
-         }
+         this.onEntityUpdate_Client_1();
       }
 
       super.onEntityUpdate();
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onEntityUpdate_Client_1() {
+      if (this.t1r > 0) {
+         this.t1r--;
+      }
+
+      if (this.t2g > 0) {
+         this.t2g--;
+      }
+
+      if (this.t3b > 0) {
+         this.t3b--;
+      }
+
+      if (this.rand.nextFloat() < 0.02 && this.t1r == 0) {
+         this.t1r = 30;
+      }
+
+      if (this.rand.nextFloat() < 0.02 && this.t2g == 0) {
+         this.t2g = 30;
+      }
+
+      if (this.rand.nextFloat() < 0.025 && this.t3b == 0) {
+         this.t3b = 30;
+      }
+
+      if (this.rand.nextFloat() < 0.1F && Minecraft.getMinecraft().gameSettings.particleSetting < 2) {
+         double d0 = this.posX;
+         double d1 = this.posY + 0.15;
+         double d2 = this.posZ;
+         double d3 = 0.22;
+         double d4 = 0.27;
+         int livetime = 40 + this.rand.nextInt(40);
+         float scale = 0.057F + this.rand.nextFloat() / 30.0F;
+         float scaleTickAdding = -(scale / livetime);
+         float randispl1 = (this.rand.nextFloat() - 0.5F) / 2.0F;
+         float randispl2 = (this.rand.nextFloat() - 0.5F) / 2.0F;
+         float randispl3 = (this.rand.nextFloat() - 0.5F) / 2.0F;
+         float randsp1 = (this.rand.nextFloat() - 0.5F) / 40.0F;
+         float randsp2 = (this.rand.nextFloat() - 0.5F) / 40.0F;
+         float randsp3 = (this.rand.nextFloat() - 0.5F) / 40.0F;
+         GUNParticle spelll = new GUNParticle(
+                 res,
+                 scale,
+                 4.0E-4F,
+                 livetime,
+                 160 + this.rand.nextInt(40),
+                 this.world,
+                 d0 + randispl1,
+                 d1 + randispl2,
+                 d2 + randispl3,
+                 randsp1,
+                 randsp2,
+                 randsp3,
+                 this.getRed(),
+                 this.getGreen(),
+                 this.getBlue(),
+                 false,
+                 0,
+                 true,
+                 5.0F
+         );
+         spelll.dropMode = true;
+         spelll.scaleTickAdding = scaleTickAdding;
+         this.world.spawnEntity(spelll);
+      }
+
+      if (this.ticksExisted % 10 == 0 && this.store == 0) {
+         this.getStoreFromServer();
+      }
    }
 
    public float getRed() {

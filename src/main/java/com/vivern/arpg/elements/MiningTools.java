@@ -1,30 +1,32 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.animation.AnimationAndFluidCapProvider;
-import com.vivern.arpg.elements.models.ChainsawModel;
-import com.vivern.arpg.elements.models.DrillModel;
-import com.vivern.arpg.elements.models.LaserModel;
-import com.vivern.arpg.elements.models.MiningLaserModel;
-import com.vivern.arpg.entity.BlocksDecayer;
-import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.BlockBreaking;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FluidsRegister;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.elements.animation.AnimationAndFluidCapProvider;
+import com.Vivern.Arpg.elements.models.ChainsawModel;
+import com.Vivern.Arpg.elements.models.DrillModel;
+import com.Vivern.Arpg.elements.models.LaserModel;
+import com.Vivern.Arpg.elements.models.MiningLaserModel;
+import com.Vivern.Arpg.entity.BlocksDecayer;
+import com.Vivern.Arpg.entity.EntityStreamLaserP;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.BlockBreaking;
+import com.Vivern.Arpg.main.Booom;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.FluidsRegister;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.GUNParticle;
 import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -455,6 +457,7 @@ public class MiningTools {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void makeLaserParticles(
          World world,
          @Nullable EntityPlayer player,
@@ -909,6 +912,7 @@ public class MiningTools {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void makeLaserParticles(
          World world,
          @Nullable EntityPlayer player,
@@ -1215,6 +1219,7 @@ public class MiningTools {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void makeLaserParticles(
          World world,
          @Nullable EntityPlayer player,
@@ -1418,6 +1423,7 @@ public class MiningTools {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
          Entity entity = world.getEntityByID((int)d1);
          if (entity != null && entity instanceof EntityPlayer) {
@@ -1447,6 +1453,7 @@ public class MiningTools {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       public void makeLaserParticles(
          World world,
          @Nullable EntityPlayer player,
@@ -1673,6 +1680,7 @@ public class MiningTools {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void makeLaserParticles(
          World world,
          @Nullable EntityPlayer player,
@@ -1844,6 +1852,7 @@ public class MiningTools {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void makeLaserParticles(
          World world,
          @Nullable EntityPlayer player,

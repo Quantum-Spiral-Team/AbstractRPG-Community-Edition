@@ -1,16 +1,18 @@
-package com.vivern.arpg.main;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityCubicParticle;
-import com.vivern.arpg.entity.GunPEmitter;
-import com.vivern.arpg.entity.INailer;
-import com.vivern.arpg.entity.ParticleGore;
-import com.vivern.arpg.mobs.AbstractMob;
-import com.vivern.arpg.network.PacketDEToClients;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.proxy.ClientProxy;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.SparkleSubparticle;
-import com.vivern.arpg.shader.ShaderMain;
+package com.Vivern.Arpg.main;
+
+import com.Vivern.Arpg.entity.EntityCubicParticle;
+import com.Vivern.Arpg.entity.GunPEmitter;
+import com.Vivern.Arpg.entity.INailer;
+import com.Vivern.Arpg.entity.ParticleGore;
+import com.Vivern.Arpg.mobs.AbstractMob;
+import com.Vivern.Arpg.network.PacketDEToClients;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.proxy.ClientProxy;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.SparkleSubparticle;
+import com.Vivern.Arpg.shader.ShaderMain;
 import com.google.common.base.Predicate;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -61,11 +63,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderLivingEvent.Pre;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @EventBusSubscriber(
-   modid = "arpg"
+//   modid = "arpg"
+   modid = "arpg", value = Side.CLIENT
 )
+//@SideOnly(Side.CLIENT) //
 public class DeathEffects {
    public static final ResourceLocation textur = new ResourceLocation("arpg:textures/freezing.png");
    public static final ResourceLocation snowflake2 = new ResourceLocation("arpg:textures/snowflake2.png");
@@ -82,12 +88,15 @@ public class DeathEffects {
    public static final ResourceLocation drop = new ResourceLocation("arpg:textures/normaldrop.png");
    public static ResourceLocation blood = new ResourceLocation("arpg:textures/blood.png");
    public static List<EntityLivingBase> listEFFECTshock = new ArrayList<>();
+   @SideOnly(Side.CLIENT) //
    public static Map<Class, ModelBase> mainModels = new HashMap<>();
    public static Map<Class, ResourceLocation> mainTextures = new HashMap<>();
    public static Random rand = new Random();
+   @SideOnly(Side.CLIENT) //
    public static ModelBase playerModel = new ModelPlayer(0.0F, false);
    public static DeathEffect DE_ICING = new DeathEffect() {
       @Override
+      @SideOnly(Side.CLIENT) //
       public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
          ModelBase model = event.getRenderer().getMainModel();
          GlStateManager.pushMatrix();
@@ -103,6 +112,7 @@ public class DeathEffects {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             world.playSound((EntityPlayer)null, x, y, z, Sounds.de_icing, SoundCategory.HOSTILE, 0.8F + DeathEffects.rand.nextFloat() / 5.0F, 1.1F);
@@ -197,6 +207,7 @@ public class DeathEffects {
    };
    public static DeathEffect DE_SAND = new DeathEffect() {
       @Override
+      @SideOnly(Side.CLIENT)
       public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
          ModelBase model = event.getRenderer().getMainModel();
          GlStateManager.pushMatrix();
@@ -217,6 +228,7 @@ public class DeathEffects {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             world.playSound(
@@ -271,6 +283,7 @@ public class DeathEffects {
    };
    public static DeathEffect DE_COLOREDACID = new DeathEffect() {
       @Override
+      @SideOnly(Side.CLIENT)
       public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
          int mobdeathtime = entity.deathTime;
          ModelBase model = event.getRenderer().getMainModel();
@@ -306,6 +319,7 @@ public class DeathEffects {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             world.playSound(
@@ -349,11 +363,13 @@ public class DeathEffects {
    };
    public static DeathEffect DE_DISMEMBER = new DeathEffect() {
       @Override
+      @SideOnly(Side.CLIENT)
       public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
          event.setCanceled(true);
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             BloodType bloodtype = DeathEffects.getBloodType(base);
@@ -466,6 +482,7 @@ public class DeathEffects {
    };
    public static DeathEffect DE_ELECTRIC = new DeathEffect() {
       @Override
+      @SideOnly(Side.CLIENT)
       public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
          RenderLivingBase rend = event.getRenderer();
          ModelBase model = rend.getMainModel();
@@ -501,6 +518,7 @@ public class DeathEffects {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             world.playSound((EntityPlayer)null, x, y, z, Sounds.de_electric, SoundCategory.NEUTRAL, 0.8F + DeathEffects.rand.nextFloat() / 5.0F, 1.1F);
@@ -610,6 +628,7 @@ public class DeathEffects {
    };
    public static DeathEffect DE_FIRE = new DeathEffect() {
       @Override
+      @SideOnly(Side.CLIENT)
       public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
          ModelBase model = event.getRenderer().getMainModel();
          GlStateManager.pushMatrix();
@@ -636,6 +655,7 @@ public class DeathEffects {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             world.playSound(
@@ -682,6 +702,7 @@ public class DeathEffects {
    };
    public static DeathEffect DE_CUT = new DeathEffect() {
       @Override
+      @SideOnly(Side.CLIENT)
       public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
          RenderLivingBase rend = event.getRenderer();
          int randomId = entity.getUniqueID().hashCode();
@@ -745,6 +766,7 @@ public class DeathEffects {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             int randomId = base.getUniqueID().hashCode();
@@ -883,6 +905,7 @@ public class DeathEffects {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static void spawnGore(EntityLivingBase entity) {
       World world = entity.getEntityWorld();
       if (world.isRemote) {
@@ -979,6 +1002,7 @@ public class DeathEffects {
       }
    }
 
+   @SideOnly(Side.CLIENT) //
    public static List<ModelRenderer> findModelHeads(Entity entity, ModelBase model) {
       Map<ModelRenderer, Float> map = new HashMap<>();
       model.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, entity);
@@ -999,6 +1023,7 @@ public class DeathEffects {
       return list;
    }
 
+   @SideOnly(Side.CLIENT) //
    public static List<ModelRenderer> findModelNoLegs(Entity entity, ModelBase model) {
       float upperHeight = 10000.0F;
       float downHeight = -10000.0F;
@@ -1025,6 +1050,7 @@ public class DeathEffects {
       return list;
    }
 
+   @SideOnly(Side.CLIENT) //
    public static boolean spawnCutParts(EntityLivingBase entity, boolean type) {
       World world = entity.getEntityWorld();
       if (world.isRemote) {
@@ -1167,6 +1193,7 @@ public class DeathEffects {
       return type;
    }
 
+   @SideOnly(Side.CLIENT)
    public static void initMainTextures() {
       for (Class<? extends Entity> entity : Minecraft.getMinecraft().getRenderManager().entityRenderMap.keySet()) {
          Render rend = (Render)Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity);
@@ -1188,12 +1215,14 @@ public class DeathEffects {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static void tryAddtoMainModels(Class entityclass, ModelBase model) {
       if (!mainModels.containsKey(entityclass)) {
          mainModels.put(entityclass, model);
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static void tryAddMainTexture(Class entityclass, ResourceLocation tex) {
       if (!mainTextures.containsKey(entityclass)) {
          mainTextures.put(entityclass, tex);
@@ -1263,6 +1292,7 @@ public class DeathEffects {
       return prevYawOffset + partialTicks * f;
    }
 
+   @SideOnly(Side.CLIENT)
    protected static void renderModel(
       EntityLivingBase entitylivingbaseIn,
       float limbSwing,
@@ -1288,6 +1318,7 @@ public class DeathEffects {
       return livingBase.getSwingProgress(partialTickTime);
    }
 
+   @SideOnly(Side.CLIENT) //
    protected static void applyRotations(EntityLivingBase entityLiving, float ageInTicks, float rotationYaw, float partialTicks) {
       GlStateManager.rotate(180.0F - rotationYaw, 0.0F, 1.0F, 0.0F);
       if (entityLiving.deathTime > 0) {
@@ -1309,6 +1340,7 @@ public class DeathEffects {
       }
    }
 
+   @SideOnly(Side.CLIENT) //
    public static float prepareScale(EntityLivingBase entitylivingbaseIn, float partialTicks) {
       GlStateManager.enableRescaleNormal();
       GlStateManager.scale(-1.0F, -1.0F, 1.0F);

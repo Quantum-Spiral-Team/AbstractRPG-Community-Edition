@@ -1,11 +1,13 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.armor.IItemDamaging;
-import com.vivern.arpg.elements.armor.IItemHurted;
-import com.vivern.arpg.main.IAttributedBauble;
+import com.Vivern.Arpg.elements.armor.IItemDamaging;
+import com.Vivern.Arpg.elements.armor.IItemHurted;
+import com.Vivern.Arpg.main.IAttributedBauble;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
@@ -20,6 +22,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class VialOfPoison extends Item implements IBauble, IAttributedBauble, IItemDamaging, IItemHurted, IRenderBauble {
    public VialOfPoison() {
@@ -61,6 +65,7 @@ public class VialOfPoison extends Item implements IBauble, IAttributedBauble, II
    }
 
    @Override
+   @SideOnly(Side.CLIENT) //
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (type == RenderType.BODY) {
          GlStateManager.pushMatrix();

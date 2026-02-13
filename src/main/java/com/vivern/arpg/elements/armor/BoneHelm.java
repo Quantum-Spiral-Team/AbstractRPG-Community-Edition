@@ -1,7 +1,9 @@
-package com.vivern.arpg.elements.armor;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.BoneArmorModel;
-import com.vivern.arpg.main.PropertiesRegistry;
+package com.Vivern.Arpg.elements.armor;
+
+import com.Vivern.Arpg.elements.models.BoneArmorModel;
+import com.Vivern.Arpg.main.PropertiesRegistry;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
@@ -10,11 +12,21 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BoneHelm extends AbstractArmor {
-   public static BoneArmorModel armormodel = new BoneArmorModel();
+//   public static BoneArmorModel armormodel = new BoneArmorModel();
+   public static BoneArmorModel armormodel;
+
+   @Override
+   public void initFields() {
+      if (armormodel == null && FMLCommonHandler.instance().getSide().isClient()) {
+         armormodel = new BoneArmorModel();
+      }
+   }
+
    public static String armortexture = "arpg:textures/bone_armor_model_tex.png";
 
    public BoneHelm() {
@@ -128,7 +140,15 @@ public class BoneHelm extends AbstractArmor {
    }
 
    public static class BoneChestplate extends AbstractArmor {
-      public static BoneArmorModel model = new BoneArmorModel();
+//      public static BoneArmorModel model = new BoneArmorModel();
+      public static BoneArmorModel model;
+
+      @Override
+      public void initFields() {
+         if (model == null && FMLCommonHandler.instance().getSide().isClient()) {
+            model = new BoneArmorModel();
+         }
+      }
 
       public BoneChestplate() {
          super(EntityEquipmentSlot.CHEST, "bone_armor_chestplate", 6000, 6);
@@ -186,7 +206,15 @@ public class BoneHelm extends AbstractArmor {
    }
 
    public static class BoneLeggins extends AbstractArmor {
-      public static BoneArmorModel model = new BoneArmorModel();
+//      public static BoneArmorModel model = new BoneArmorModel();
+      public static BoneArmorModel model;
+
+      @Override
+      public void initFields() {
+         if (model == null && FMLCommonHandler.instance().getSide().isClient()) {
+            model = new BoneArmorModel();
+         }
+      }
 
       public BoneLeggins() {
          super(EntityEquipmentSlot.LEGS, "bone_armor_leggins", 5500, 6);

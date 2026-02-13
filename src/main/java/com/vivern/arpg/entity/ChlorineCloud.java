@@ -1,10 +1,16 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.arpgfix.IFieldInit;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
+
 import java.util.List;
+
+import com.Vivern.Arpg.renders.ParticleTracker;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -16,20 +22,51 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ChlorineCloud extends EntityThrowable {
+public class ChlorineCloud extends EntityThrowable implements IFieldInit {
    ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largecloud.png");
    public int ticks = 0;
    public double moveX = 0.0;
    public double moveY = 0.0;
    public double moveZ = 0.0;
-   public static ParticleTracker.TrackerSmoothShowHide trssh = new ParticleTracker.TrackerSmoothShowHide(
-      new Vec3d[]{new Vec3d(0.0, 15.0, 0.0666), new Vec3d(20.0, 45.0, -0.04)}, null
-   );
+
+//   public static ParticleTracker.TrackerSmoothShowHide trssh = new ParticleTracker.TrackerSmoothShowHide(
+//      new Vec3d[]{new Vec3d(0.0, 15.0, 0.0666), new Vec3d(20.0, 45.0, -0.04)}, null
+//   );
+   public static Object trssh; // ParticleTracker.TrackerSmoothShowHide
+
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         if (trssh == null) {
+            trssh = new ParticleTracker.TrackerSmoothShowHide(
+                    new Vec3d[]{new Vec3d(0.0, 15.0, 0.0666), new Vec3d(20.0, 45.0, -0.04)}, null
+            );
+         }
+      }
+      @SideOnly(Side.CLIENT)
+      public ParticleTracker.TrackerSmoothShowHide getTrash() {
+         return (ParticleTracker.TrackerSmoothShowHide) trssh;
+      }
+   }
+
+   public static ClientFieldsContainer clientFields;
+
+   @Override
+   @SideOnly(Side.CLIENT)
+   public void initFields() {
+      if (clientFields == null) {
+         clientFields = new ClientFieldsContainer();
+      }
+   }
 
    public ChlorineCloud(World world) {
       super(world);
       this.setSize(0.1F, 0.1F);
+      this.initFields();
    }
 
    public ChlorineCloud(World world, EntityLivingBase thrower) {
@@ -104,31 +141,37 @@ public class ChlorineCloud extends EntityThrowable {
    public void onEntityUpdate() {
       super.onEntityUpdate();
       if (this.world.isRemote && this.rand.nextFloat() < 0.2F) {
-         GUNParticle bigsmoke = new GUNParticle(
-            this.largesmoke,
-            1.5F + (float)this.rand.nextGaussian() / 3.0F,
-            3.0E-4F,
-            45,
-            110,
-            this.world,
-            this.posX,
-            this.posY,
-            this.posZ,
-            (float)this.rand.nextGaussian() / 17.0F,
-            (float)this.rand.nextGaussian() / 17.0F,
-            (float)this.rand.nextGaussian() / 17.0F,
-            0.8F + this.rand.nextFloat() * 0.2F,
-            0.8F + this.rand.nextFloat() * 0.2F,
-            0.4F,
-            true,
-            this.rand.nextInt(360),
-            true,
-            1.0F
-         );
-         bigsmoke.tracker = trssh;
-         bigsmoke.alpha = 0.0F;
-         this.world.spawnEntity(bigsmoke);
+         this.onEntityUpdate_Client_1();
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onEntityUpdate_Client_1() {
+      GUNParticle bigsmoke = new GUNParticle(
+              this.largesmoke,
+              1.5F + (float)this.rand.nextGaussian() / 3.0F,
+              3.0E-4F,
+              45,
+              110,
+              this.world,
+              this.posX,
+              this.posY,
+              this.posZ,
+              (float)this.rand.nextGaussian() / 17.0F,
+              (float)this.rand.nextGaussian() / 17.0F,
+              (float)this.rand.nextGaussian() / 17.0F,
+              0.8F + this.rand.nextFloat() * 0.2F,
+              0.8F + this.rand.nextFloat() * 0.2F,
+              0.4F,
+              true,
+              this.rand.nextInt(360),
+              true,
+              1.0F
+      );
+//      bigsmoke.tracker = trssh;
+      bigsmoke.tracker = clientFields.getTrash();
+      bigsmoke.alpha = 0.0F;
+      this.world.spawnEntity(bigsmoke);
    }
 
    protected void onImpact(RayTraceResult result) {

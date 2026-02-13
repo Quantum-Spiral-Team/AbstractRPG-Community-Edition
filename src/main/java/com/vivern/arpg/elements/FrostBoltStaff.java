@@ -1,10 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityFrostBolt;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import java.util.Random;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.entity.EntityFrostBolt;
+import com.Vivern.Arpg.main.EnchantmentInit;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.Sounds;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -18,9 +19,11 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import org.lwjgl.input.Mouse;
 
-public class FrostBoltStaff extends Item {
+import java.util.Random;
+
+//public class FrostBoltStaff extends Item {
+public class FrostBoltStaff extends Item_SideSync {
    Random rand = new Random();
 
    public FrostBoltStaff() {
@@ -56,7 +59,8 @@ public class FrostBoltStaff extends Item {
          World world = player.getEntityWorld();
          Item itemIn = itemstack.getItem();
          EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
+//         boolean click = Mouse.isButtonDown(1);
+         boolean click = this.getMouseButtonRight(player);
          float mana = Mana.getMana(player);
          float spee = Mana.getManaSpeed(player);
          float power = Mana.getMagicPowerMax(player);

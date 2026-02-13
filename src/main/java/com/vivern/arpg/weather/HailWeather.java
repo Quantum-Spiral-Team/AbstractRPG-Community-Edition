@@ -1,16 +1,20 @@
-package com.vivern.arpg.weather;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.NoiseGenerator3D;
-import com.vivern.arpg.mobs.HostileProjectiles;
-import com.vivern.arpg.renders.CloudSubparticle;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.ParticleTracker;
+package com.Vivern.Arpg.weather;
+
+import com.Vivern.Arpg.main.NoiseGenerator3D;
+import com.Vivern.Arpg.mobs.HostileProjectiles;
+import com.Vivern.Arpg.renders.CloudSubparticle;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.ParticleTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class HailWeather extends WeatherPhenomenon {
    static ResourceLocation snowflake = new ResourceLocation("arpg:textures/snowflake5.png");
@@ -27,8 +31,9 @@ public class HailWeather extends WeatherPhenomenon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public WeatherRenderList getRenderer() {
-      return Weather.RENDERHAILWEATHER;
+      return (WeatherRenderList) Weather.RENDERHAILWEATHER;
    }
 
    @Override
@@ -63,6 +68,7 @@ public class HailWeather extends WeatherPhenomenon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void clientUpdate(double x, double z, World world, double value, double playerY) {
       if (world.isRemote && !Minecraft.getMinecraft().isGamePaused() && this.rand.nextFloat() < value * 0.03) {
          float f = world.getCelestialAngle(1.0F);
@@ -99,6 +105,7 @@ public class HailWeather extends WeatherPhenomenon {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void clientChunkUpdate(double x, double z, World world, double value, double playerY) {
       if (world.isRemote && !Minecraft.getMinecraft().isGamePaused() && this.rand.nextFloat() < value * 5.0E-4) {
          CloudSubparticle part = new CloudSubparticle(

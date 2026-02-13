@@ -1,9 +1,11 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Weapons;
-import java.util.List;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.arpgfix.ItemKeyPressInfo_FluidContainer;
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.Weapons;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
@@ -22,21 +24,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidActionResult;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.IFluidBlock;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fluids.capability.wrappers.BlockLiquidWrapper;
 import net.minecraftforge.fluids.capability.wrappers.BlockWrapper;
 import net.minecraftforge.fluids.capability.wrappers.FluidBlockWrapper;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class Canister extends ItemFluidContainer {
+import java.util.List;
+
+//public class Canister extends ItemFluidContainer {
+public class Canister extends ItemKeyPressInfo_FluidContainer {
    public Canister() {
       super(1000);
       this.setRegistryName("canister");
@@ -75,8 +75,10 @@ public class Canister extends ItemFluidContainer {
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+//         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+//         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click = this.isKeyPressed(player, KeyboardConstants_CustomKeys.PRIMARYATTACK);
+         boolean click2 = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SECONDARYATTACK);
          if (this.tryFillFuelTool(itemstack, world, player, click2)) {
             player.getCooldownTracker().setCooldown(this, 5);
             return;

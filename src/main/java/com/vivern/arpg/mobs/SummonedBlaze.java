@@ -1,13 +1,15 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.main.ColorConverters;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.PropertiesRegistry;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -75,30 +77,35 @@ public class SummonedBlaze extends EntitySummoned {
 
    @Override
    public void expelling() {
+      this.expelling_Client_1();
+
+      this.setDead();
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void expelling_Client_1() {
       for (int ss = 0; ss < 10; ss++) {
          GUNParticle bigsmoke = new GUNParticle(
-            largesmoke,
-            0.4F + (float)this.rand.nextGaussian() / 20.0F,
-            0.0F,
-            12,
-            80,
-            this.world,
-            this.posX,
-            this.posY,
-            this.posZ,
-            (float)this.rand.nextGaussian() / 23.0F,
-            (float)this.rand.nextGaussian() / 27.0F,
-            (float)this.rand.nextGaussian() / 23.0F,
-            1.0F,
-            1.0F,
-            1.0F,
-            true,
-            this.rand.nextInt(360)
+                 largesmoke,
+                 0.4F + (float)this.rand.nextGaussian() / 20.0F,
+                 0.0F,
+                 12,
+                 80,
+                 this.world,
+                 this.posX,
+                 this.posY,
+                 this.posZ,
+                 (float)this.rand.nextGaussian() / 23.0F,
+                 (float)this.rand.nextGaussian() / 27.0F,
+                 (float)this.rand.nextGaussian() / 23.0F,
+                 1.0F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 this.rand.nextInt(360)
          );
          this.world.spawnEntity(bigsmoke);
       }
-
-      this.setDead();
    }
 
    @SideOnly(Side.CLIENT)
@@ -291,24 +298,29 @@ public class SummonedBlaze extends EntitySummoned {
          this.setDead();
       }
 
+      this.onUpdate_Client_1();
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
       GUNParticle fire2 = new GUNParticle(
-         flame,
-         0.2F + (float)this.rand.nextGaussian() / 15.0F,
-         -0.009F,
-         10 + this.rand.nextInt(5),
-         240,
-         this.world,
-         this.posX,
-         this.posY + 1.0,
-         this.posZ,
-         0.0F,
-         -0.15F,
-         0.0F,
-         1.0F,
-         0.8F + (float)this.rand.nextGaussian() / 5.0F,
-         1.0F,
-         true,
-         this.rand.nextInt(100) - 50
+              flame,
+              0.2F + (float)this.rand.nextGaussian() / 15.0F,
+              -0.009F,
+              10 + this.rand.nextInt(5),
+              240,
+              this.world,
+              this.posX,
+              this.posY + 1.0,
+              this.posZ,
+              0.0F,
+              -0.15F,
+              0.0F,
+              1.0F,
+              0.8F + (float)this.rand.nextGaussian() / 5.0F,
+              1.0F,
+              true,
+              this.rand.nextInt(100) - 50
       );
       fire2.alphaTickAdding = -0.1F;
       fire2.alphaGlowing = true;

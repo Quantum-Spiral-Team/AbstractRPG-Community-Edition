@@ -1,16 +1,17 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.elements.models.FinWingsModel;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.IAttributedBauble;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.models.AbstractMobModel;
+import com.Vivern.Arpg.elements.models.FinWingsModel;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.IAttributedBauble;
+import com.Vivern.Arpg.main.PropertiesRegistry;
+import com.Vivern.Arpg.main.Sounds;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import java.util.UUID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.CreativeTabs;
@@ -21,6 +22,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.UUID;
 
 public class FinWings extends AbstractWings implements IAttributedBauble, IRenderBauble {
    public static FinWingsModel model = new FinWingsModel();
@@ -40,7 +45,8 @@ public class FinWings extends AbstractWings implements IAttributedBauble, IRende
    @Override
    public void onFlyingTick(ItemStack itemstack, EntityPlayer player, boolean likeElytra) {
       super.onFlyingTick(itemstack, player, likeElytra);
-      if (player.isInWater() && Keys.isKeyPressed(player, Keys.FORWARD)) {
+//      if (player.isInWater() && Keys.isKeyPressed(player, Keys.FORWARD)) {
+      if (player.isInWater() && this.isKeyPressed(player, KeyboardConstants_CustomKeys.FORWARD)) {
          Vec3d vec = GetMOP.PitchYawToVec3d(player.rotationPitch, player.rotationYaw);
          double sped = 0.1;
          player.motionX = player.motionX + vec.x * sped;
@@ -50,6 +56,7 @@ public class FinWings extends AbstractWings implements IAttributedBauble, IRende
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       AbstractMobModel.light(60, true);
       this.renderDefaultWings(texture, model, stack, player, type, partialTicks, overlay, 220);
@@ -82,6 +89,7 @@ public class FinWings extends AbstractWings implements IAttributedBauble, IRende
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void startElytraSound(EntityPlayerSP player) {
       Minecraft.getMinecraft().getSoundHandler().playSound(new WingsSound(player, Sounds.toxic_wings_flying));
    }

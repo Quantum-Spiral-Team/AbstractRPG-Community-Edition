@@ -1,18 +1,21 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.elements.models.ModelWings;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.network.PacketBaublesNbtToClients;
+import com.Vivern.Arpg.arpgfix.ItemKeyPressInfo;
+import com.Vivern.Arpg.elements.models.AbstractMobModel;
+import com.Vivern.Arpg.elements.models.ModelWings;
+import com.Vivern.Arpg.main.Booom;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.Keys;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.PropertiesRegistry;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.network.PacketBaublesNbtToClients;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.Nullable;
@@ -37,7 +40,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-public abstract class AbstractWings extends Item implements IWings, IBauble {
+//public abstract class AbstractWings extends Item implements IWings, IBauble {
+public abstract class AbstractWings extends Item implements IWings, IBauble, ItemKeyPressInfo {
    public int flapPeriod = 8;
    public float flapPeriodFloat = 1.7F;
 
@@ -45,6 +49,7 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
       IEnergyItem.addRFInformation(stack, worldIn, tooltip, flagIn);
    }
 
+   @SideOnly(Side.CLIENT) //
    public void renderDefaultWings(
       ResourceLocation texture,
       ModelWings model,
@@ -167,7 +172,8 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
                }
 
                if (player instanceof EntityPlayerSP) {
-                  this.startElytraSound((EntityPlayerSP)player);
+//                  this.startElytraSound((EntityPlayerSP)player);
+                  this.onWorldTick_Client_1(player);
                }
             } else {
                NBTHelper.GiveNBTint(itemstack, 0, "flytime");
@@ -274,6 +280,11 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
             this.tryPlayFlapSound(player, itemstack, cflytime);
          }
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onWorldTick_Client_1(EntityPlayer player) {
+      this.startElytraSound((EntityPlayerSP)player);
    }
 
    public void onFlyingTick(ItemStack itemstack, EntityPlayer player, boolean likeElytra) {

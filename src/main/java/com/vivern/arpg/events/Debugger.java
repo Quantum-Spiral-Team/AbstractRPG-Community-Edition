@@ -1,9 +1,12 @@
-package com.vivern.arpg.events;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.SoulStone;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.OreDicHelper;
+package com.Vivern.Arpg.events;
+
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.elements.SoulStone;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.OreDicHelper;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +21,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 public class Debugger {
@@ -119,13 +125,53 @@ public class Debugger {
    public static int boundValue = 1;
    public static String string = "";
    public static boolean itemTransformHookEnabled = false;
-   public static HashMap<String, Vector4f> debugColors = new HashMap<>();
-   static Vector4f zero4f = new Vector4f(0.0F, 0.0F, 0.0F, 0.0F);
+
+//   public static HashMap<String, Vector4f> debugColors = new HashMap<>();
+//   static Vector4f zero4f = new Vector4f(0.0F, 0.0F, 0.0F, 0.0F);
+   public static Object debugColors; // HashMap<String, Vector4f>
+   static Object zero4f; // Vector4f
+
+   public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         debugColors = new HashMap<String, Vector4f>();
+         zero4f = new Vector4f(0.0F, 0.0F, 0.0F, 0.0F);
+      }
+
+      public HashMap<String, Vector4f> getDebugColors() {
+         return (HashMap<String, Vector4f>) debugColors;
+      }
+
+      public Vector4f getZero4f() {
+         return (Vector4f) zero4f;
+      }
+
+      public Vector4f getDebugColor(String name) {
+//      return debugColors.containsKey(name) ? debugColors.get(name) : zero4f;
+         return fieldsContainer.getDebugColors().containsKey(name) ? fieldsContainer.getDebugColors().get(name) : fieldsContainer.getZero4f();
+      }
+   }
+
+   public static ClientFieldsContainer fieldsContainer;
+
+   static {
+      if (fieldsContainer == null && FMLCommonHandler.instance().getSide().isClient()) {
+         fieldsContainer = new ClientFieldsContainer();
+
+         // Original code
+         fieldsContainer.getDebugColors().put("pop", new Vector4f(1.0F, 0.3F, 0.2F, 1.0F));
+         fieldsContainer.getDebugColors().put("t", new Vector4f(0.1F, 0.0F, 1.0F, 1.0F));
+         fieldsContainer.getDebugColors().put("au", new Vector4f(0.1F, 1.0F, 0.9F, 1.0F));
+      }
+   }
+
    public static boolean press = false;
 
-   public static Vector4f getDebugColor(String name) {
-      return debugColors.containsKey(name) ? debugColors.get(name) : zero4f;
-   }
+//   public static Vector4f getDebugColor(String name) {
+////      return debugColors.containsKey(name) ? debugColors.get(name) : zero4f;
+//      return fieldsContainer.getDebugColors().containsKey(name) ? fieldsContainer.getDebugColors().get(name) : fieldsContainer.getZero4f();
+//   }
 
    public static final void startPROFILING(int number) {
       if (profilerBounderMode) {
@@ -272,9 +318,9 @@ public class Debugger {
       );
    }
 
-   static {
-      debugColors.put("pop", new Vector4f(1.0F, 0.3F, 0.2F, 1.0F));
-      debugColors.put("t", new Vector4f(0.1F, 0.0F, 1.0F, 1.0F));
-      debugColors.put("au", new Vector4f(0.1F, 1.0F, 0.9F, 1.0F));
-   }
+//   static {
+//      debugColors.put("pop", new Vector4f(1.0F, 0.3F, 0.2F, 1.0F));
+//      debugColors.put("t", new Vector4f(0.1F, 0.0F, 1.0F, 1.0F));
+//      debugColors.put("au", new Vector4f(0.1F, 1.0F, 0.9F, 1.0F));
+//   }
 }

@@ -1,12 +1,14 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.VortexInABottleModel;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.renders.GUNParticle;
+import com.Vivern.Arpg.elements.models.VortexInABottleModel;
+import com.Vivern.Arpg.main.Keys;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,6 +37,7 @@ public class VortexInABottle extends Item implements IBauble, IRenderBauble {
    }
 
    @Override
+   @SideOnly(Side.CLIENT) //
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (type == RenderType.BODY) {
          GlStateManager.pushMatrix();

@@ -1,11 +1,13 @@
-package com.vivern.arpg.renders;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.potions.AdvancedPotion;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.shader.ShaderMain;
+package com.Vivern.Arpg.renders;
+
+import com.Vivern.Arpg.elements.models.AbstractMobModel;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.main.AnimationTimer;
+import com.Vivern.Arpg.potions.AdvancedPotion;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.shader.ShaderMain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -41,6 +43,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
 @EventBusSubscriber(
+        value = Side.CLIENT,
    modid = "arpg"
 )
 @SideOnly(Side.CLIENT)

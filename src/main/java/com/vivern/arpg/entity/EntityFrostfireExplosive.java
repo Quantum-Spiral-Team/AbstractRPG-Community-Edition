@@ -1,15 +1,17 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.blocks.FrostfireExplosive;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.GUNParticle;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.blocks.FrostfireExplosive;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.Booom;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.GUNParticle;
 import java.util.List;
 import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
@@ -29,6 +31,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityFrostfireExplosive extends Entity implements IEntitySynchronize {
    @Nullable
@@ -106,6 +110,7 @@ public class EntityFrostfireExplosive extends Entity implements IEntitySynchroni
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onClient(double x, double y, double z, double a, double b, double c) {
       if (a != 0.0) {
          this.width = (float)a;

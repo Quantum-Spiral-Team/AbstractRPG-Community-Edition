@@ -1,26 +1,26 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.elements.models.BeltsModel;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import java.util.List;
-import javax.annotation.Nullable;
+import com.Vivern.Arpg.arpgfix.ItemKeyPressInfo_Item;
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.models.AbstractMobModel;
+import com.Vivern.Arpg.elements.models.BeltsModel;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Sounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -29,8 +29,14 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class DashBelt extends Item implements IBauble, IRenderBauble {
+import javax.annotation.Nullable;
+import java.util.List;
+
+//public class DashBelt extends Item implements IBauble, IRenderBauble {
+public class DashBelt extends ItemKeyPressInfo_Item implements IBauble, IRenderBauble {
    public static BeltsModel beltsModel = new BeltsModel();
    public ResourceLocation texture;
    public ResourceLocation textureGlowOverlay;
@@ -78,7 +84,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
             NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
          }
 
-         if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+//         if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+         if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && this.isKeyPressed(player, KeyboardConstants_CustomKeys.SPRINT) && !player.isElytraFlying()) {
             Vec2f dashVec = this.getNormalizedVectorOfDash(player);
             if (dashVec != null) {
                this.doSimpleDash(player, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -189,10 +196,14 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       float velocitythis = 1.0F;
       float velocity = 0.0F;
       int angle = 0;
-      boolean FORWARD = Keys.isKeyPressed(player, Keys.FORWARD);
-      boolean BACK = Keys.isKeyPressed(player, Keys.BACK);
-      boolean LEFT = Keys.isKeyPressed(player, Keys.LEFT);
-      boolean RIGHT = Keys.isKeyPressed(player, Keys.RIGHT);
+//      boolean FORWARD = Keys.isKeyPressed(player, Keys.FORWARD);
+//      boolean BACK = Keys.isKeyPressed(player, Keys.BACK);
+//      boolean LEFT = Keys.isKeyPressed(player, Keys.LEFT);
+//      boolean RIGHT = Keys.isKeyPressed(player, Keys.RIGHT);
+      boolean FORWARD = this.isKeyPressed(player, KeyboardConstants_CustomKeys.FORWARD);
+      boolean BACK = this.isKeyPressed(player, KeyboardConstants_CustomKeys.BACK);
+      boolean LEFT = this.isKeyPressed(player, KeyboardConstants_CustomKeys.LEFT);
+      boolean RIGHT = this.isKeyPressed(player, KeyboardConstants_CustomKeys.RIGHT);
       if (FORWARD) {
          velocity = velocitythis;
       }
@@ -260,12 +271,18 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       float velocitythis = 1.0F;
       float velocity = 0.0F;
       int angle = 0;
-      boolean FORWARD = Keys.isKeyPressed(player, Keys.FORWARD);
-      boolean BACK = Keys.isKeyPressed(player, Keys.BACK);
-      boolean LEFT = Keys.isKeyPressed(player, Keys.LEFT);
-      boolean RIGHT = Keys.isKeyPressed(player, Keys.RIGHT);
+//      boolean FORWARD = Keys.isKeyPressed(player, Keys.FORWARD);
+//      boolean BACK = Keys.isKeyPressed(player, Keys.BACK);
+//      boolean LEFT = Keys.isKeyPressed(player, Keys.LEFT);
+//      boolean RIGHT = Keys.isKeyPressed(player, Keys.RIGHT);
+//      boolean SHIFT = player.isSneaking();
+//      boolean JUMP = Keys.isKeyPressed(player, Keys.JUMP);
+      boolean FORWARD = this.isKeyPressed(player, KeyboardConstants_CustomKeys.FORWARD);
+      boolean BACK = this.isKeyPressed(player, KeyboardConstants_CustomKeys.BACK);
+      boolean LEFT = this.isKeyPressed(player, KeyboardConstants_CustomKeys.LEFT);
+      boolean RIGHT = this.isKeyPressed(player, KeyboardConstants_CustomKeys.RIGHT);
       boolean SHIFT = player.isSneaking();
-      boolean JUMP = Keys.isKeyPressed(player, Keys.JUMP);
+      boolean JUMP = this.isKeyPressed(player, KeyboardConstants_CustomKeys.JUMP);
       if (FORWARD) {
          velocity = velocitythis;
       }
@@ -447,6 +464,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void readyModel(EntityPlayer player, BeltsModel model) {
          super.readyModel(player, model);
          model.beltBig.isHidden = false;
@@ -484,7 +502,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   );
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+//            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && this.isKeyPressed(player, KeyboardConstants_CustomKeys.SPRINT) && !player.isElytraFlying()) {
                Vec2f dashVec = this.getNormalizedVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -525,6 +544,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void readyModel(EntityPlayer player, BeltsModel model) {
          super.readyModel(player, model);
          model.beltBended1.isHidden = false;
@@ -557,6 +577,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void readyModel(EntityPlayer player, BeltsModel model) {
          super.readyModel(player, model);
          model.beltBig.isHidden = false;
@@ -582,7 +603,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+//            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && this.isKeyPressed(player, KeyboardConstants_CustomKeys.SPRINT) && !player.isElytraFlying()) {
                Vec2f dashVec = this.getNormalizedVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -635,6 +657,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void readyModel(EntityPlayer player, BeltsModel model) {
          super.readyModel(player, model);
          model.beltKnotSmall.isHidden = false;
@@ -696,7 +719,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   );
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+//            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && this.isKeyPressed(player, KeyboardConstants_CustomKeys.SPRINT) && !player.isElytraFlying()) {
                Vec2f dashVec = this.getNormalizedVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -752,6 +776,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void readyModel(EntityPlayer player, BeltsModel model) {
          super.readyModel(player, model);
          model.beltKnotSmall.isHidden = false;
@@ -798,7 +823,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   );
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+//            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && this.isKeyPressed(player, KeyboardConstants_CustomKeys.SPRINT) && !player.isElytraFlying()) {
                if (player.isInWater()) {
                   Vec3d dashVec = this.getNormalized3dVectorOfDash(player);
                   if (dashVec != null) {
@@ -880,6 +906,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       }
 
       @Override
+      @SideOnly(Side.CLIENT) //
       public void readyModel(EntityPlayer player, BeltsModel model) {
          super.readyModel(player, model);
          model.beltRibbons.isHidden = false;
@@ -917,7 +944,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+//            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && this.isKeyPressed(player, KeyboardConstants_CustomKeys.SPRINT) && !player.isElytraFlying()) {
                Vec2f dashVec = this.getNormalizedVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -971,6 +999,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void readyModel(EntityPlayer player, BeltsModel model) {
          super.readyModel(player, model);
          model.beltBig.isHidden = false;
@@ -1011,7 +1040,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   );
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+//            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && this.isKeyPressed(player, KeyboardConstants_CustomKeys.SPRINT) && !player.isElytraFlying()) {
                Vec3d dashVec = this.getNormalized3dVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, dashVec, this.dashVelocity);

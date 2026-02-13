@@ -1,6 +1,9 @@
-package com.vivern.arpg.elements.armor;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.main.ItemsRegister;
+package com.Vivern.Arpg.elements.armor;
+
+import com.Vivern.Arpg.arpgfix.IFieldInit;
+import com.Vivern.Arpg.main.ItemsRegister;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import java.util.UUID;
@@ -11,7 +14,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
-public abstract class AbstractArmor extends ItemArmor {
+public abstract class AbstractArmor extends ItemArmor implements IFieldInit {
    public static UUID[] ARMOR_MODIFIERSG = new UUID[]{
       UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
       UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
@@ -29,6 +32,8 @@ public abstract class AbstractArmor extends ItemArmor {
       this.enchantability = enchantability;
       this.setCreativeTab(CreativeTabs.COMBAT);
       BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
+
+      this.initFields();
    }
 
    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {

@@ -1,17 +1,15 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.QuadroBeltModel;
-import com.vivern.arpg.elements.models.QuadroBeltModel2;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.proxy.ClientProxy;
-import com.vivern.arpg.renders.GUNParticle;
+import com.Vivern.Arpg.elements.models.QuadroBeltModel;
+import com.Vivern.Arpg.elements.models.QuadroBeltModel2;
+import com.Vivern.Arpg.main.*;
+import com.Vivern.Arpg.proxy.ClientProxy;
+import com.Vivern.Arpg.renders.GUNParticle;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -27,7 +25,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
@@ -36,9 +33,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
 
-public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBauble {
+public class QuadrocopterBelt extends ItemKeyPressInfo_Armor implements IBauble, IRenderBauble {
    ResourceLocation texturep = new ResourceLocation("arpg:textures/air2.png");
    ResourceLocation texturbelt = new ResourceLocation("arpg:textures/quadro_belt_model_tex.png");
    private final QuadroBeltModel2 model = new QuadroBeltModel2();
@@ -85,7 +81,8 @@ public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBaubl
       Item itemIn = itemstack.getItem();
       if (entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         boolean click = Keyboard.isKeyDown(57);
+//         boolean click = Keyboard.isKeyDown(57);
+         boolean click = this.isKeyPressed(player, 57);
          int damage = itemstack.getItemDamage();
          if (((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.QUADROBELT) {
             ItemStack transpstack = (ItemStack)player.inventory.armorInventory.get(1);
@@ -258,7 +255,8 @@ public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBaubl
       Item itemIn = itemstack.getItem();
       if (entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         boolean click = Keyboard.isKeyDown(57);
+//         boolean click = Keyboard.isKeyDown(57);
+         boolean click = this.isKeyPressed(player, 57);
          int damage = itemstack.getItemDamage();
          if (player.inventory.armorInventory.get(1) == itemstack) {
             if (damage <= 19999) {
@@ -375,6 +373,7 @@ public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBaubl
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return "arpg:textures/quadro_belt_model_tex.png";
    }

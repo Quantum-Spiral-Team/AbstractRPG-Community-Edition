@@ -1,13 +1,15 @@
-package com.vivern.arpg.entity;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.elements.ItemWeatherRocket;
-import com.vivern.arpg.main.ParticleFastSummon;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.RenderModule;
-import com.vivern.arpg.weather.WorldEvent;
-import com.vivern.arpg.weather.WorldEventsHandler;
+package com.Vivern.Arpg.entity;
+
+import com.Vivern.Arpg.dimensions.generationutils.AbstractWorldProvider;
+import com.Vivern.Arpg.elements.ItemWeatherRocket;
+import com.Vivern.Arpg.main.ParticleFastSummon;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.RenderModule;
+import com.Vivern.Arpg.weather.WorldEvent;
+import com.Vivern.Arpg.weather.WorldEventsHandler;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLivingBase;
@@ -110,32 +112,37 @@ public class EntityWeatherRocket extends StandardBullet implements RenderModule.
             this.setDead();
          }
       } else {
-         int lt = 10 + this.rand.nextInt(5);
-         float scl = 0.16F;
-         GUNParticle part = new GUNParticle(
-            star2,
-            scl,
-            0.002F,
-            lt,
-            240,
-            this.world,
-            this.posX,
-            this.posY,
-            this.posZ,
-            0.0F,
-            -0.01F,
-            0.0F,
-            this.getRED(),
-            this.getGREEN(),
-            this.getBLUE(),
-            true,
-            this.rand.nextInt(360)
-         );
-         part.scaleTickAdding = -scl / (lt + 2);
-         part.randomDeath = false;
-         part.alphaGlowing = true;
-         this.world.spawnEntity(part);
+         this.onUpdate_Client_1();
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   private void onUpdate_Client_1() {
+      int lt = 10 + this.rand.nextInt(5);
+      float scl = 0.16F;
+      GUNParticle part = new GUNParticle(
+              star2,
+              scl,
+              0.002F,
+              lt,
+              240,
+              this.world,
+              this.posX,
+              this.posY,
+              this.posZ,
+              0.0F,
+              -0.01F,
+              0.0F,
+              this.getRED(),
+              this.getGREEN(),
+              this.getBLUE(),
+              true,
+              this.rand.nextInt(360)
+      );
+      part.scaleTickAdding = -scl / (lt + 2);
+      part.randomDeath = false;
+      part.alphaGlowing = true;
+      this.world.spawnEntity(part);
    }
 
    @SideOnly(Side.CLIENT)

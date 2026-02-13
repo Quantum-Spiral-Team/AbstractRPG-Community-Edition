@@ -1,45 +1,49 @@
-package com.vivern.arpg.mobs;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.ItemBullet;
-import com.vivern.arpg.elements.models.HailblastModel;
-import com.vivern.arpg.elements.models.PistolFishStrikeModel;
-import com.vivern.arpg.elements.models.RocketModel;
-import com.vivern.arpg.elements.models.ThornkeeperShootModel;
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.CrystalFanShoot;
-import com.vivern.arpg.entity.EntityCubicParticle;
-import com.vivern.arpg.entity.EntityElectricBolt;
-import com.vivern.arpg.entity.IEntitySynchronize;
-import com.vivern.arpg.entity.StandardBullet;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.Catalyst;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.AbstractRPG;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.renders.AnimatedGParticle;
-import com.vivern.arpg.renders.BlockEntityFactory;
-import com.vivern.arpg.renders.CustomArrowFactory;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.IRenderOptions;
-import com.vivern.arpg.renders.ParticleTracker;
-import com.vivern.arpg.renders.RenderLikeArrow;
-import com.vivern.arpg.renders.RenderModular;
-import com.vivern.arpg.renders.RenderModule;
-import com.vivern.arpg.renders.RenderRocketFactory;
-import com.vivern.arpg.renders.RenderSpecial;
-import com.vivern.arpg.renders.RenderSplash;
+package com.Vivern.Arpg.mobs;
+
+import com.Vivern.Arpg.arpgfix.AbstractClientFieldsContainer;
+import com.Vivern.Arpg.arpgfix.IFieldInit;
+import com.Vivern.Arpg.elements.ItemBullet;
+import com.Vivern.Arpg.elements.models.HailblastModel;
+import com.Vivern.Arpg.elements.models.PistolFishStrikeModel;
+import com.Vivern.Arpg.elements.models.RocketModel;
+import com.Vivern.Arpg.elements.models.ThornkeeperShootModel;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.entity.CrystalFanShoot;
+import com.Vivern.Arpg.entity.EntityCubicParticle;
+import com.Vivern.Arpg.entity.EntityElectricBolt;
+import com.Vivern.Arpg.entity.IEntitySynchronize;
+import com.Vivern.Arpg.entity.StandardBullet;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.Booom;
+import com.Vivern.Arpg.main.Catalyst;
+import com.Vivern.Arpg.main.DeathEffects;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ItemsRegister;
+import com.Vivern.Arpg.main.Main;
+import com.Vivern.Arpg.main.Mana;
+import com.Vivern.Arpg.main.MovingSoundEntity;
+import com.Vivern.Arpg.main.Sounds;
+import com.Vivern.Arpg.main.SuperKnockback;
+import com.Vivern.Arpg.main.Team;
+import com.Vivern.Arpg.main.WeaponDamage;
+import com.Vivern.Arpg.main.WeaponParameters;
+import com.Vivern.Arpg.main.Weapons;
+import com.Vivern.Arpg.potions.Freezing;
+import com.Vivern.Arpg.potions.PotionEffects;
+import com.Vivern.Arpg.renders.AnimatedGParticle;
+import com.Vivern.Arpg.renders.BlockEntityFactory;
+import com.Vivern.Arpg.renders.CustomArrowFactory;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.renders.IRenderOptions;
+import com.Vivern.Arpg.renders.ParticleTracker;
+import com.Vivern.Arpg.renders.RenderLikeArrow;
+import com.Vivern.Arpg.renders.RenderModular;
+import com.Vivern.Arpg.renders.RenderModule;
+import com.Vivern.Arpg.renders.RenderRocketFactory;
+import com.Vivern.Arpg.renders.RenderSpecial;
+import com.Vivern.Arpg.renders.RenderSplash;
 import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Random;
@@ -105,148 +109,148 @@ public class HostileProjectiles {
          ArrowRadioactive.class,
          "arpg:arrow_radioactive",
          150,
-         AbstractRPG.instance,
+         Main.instance,
          64,
          20,
          true
       );
-      EntityRegistry.registerModEntity(new ResourceLocation("arpg", "rocket"), Rocket.class, "arpg:rocket", 151, AbstractRPG.instance, 64, 20, true);
-      EntityRegistry.registerModEntity(new ResourceLocation("arpg", "bullet"), Bullet.class, "arpg:bullet", 152, AbstractRPG.instance, 64, 20, true);
+      EntityRegistry.registerModEntity(new ResourceLocation("arpg", "rocket"), Rocket.class, "arpg:rocket", 151, Main.instance, 64, 20, true);
+      EntityRegistry.registerModEntity(new ResourceLocation("arpg", "bullet"), Bullet.class, "arpg:bullet", 152, Main.instance, 64, 20, true);
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "dron_laser"), DronLaser.class, "arpg:dron_laser", 153, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "dron_laser"), DronLaser.class, "arpg:dron_laser", 153, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "flower_acid"), FlowerAcidShoot.class, "arpg:flower_acid", 154, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "flower_acid"), FlowerAcidShoot.class, "arpg:flower_acid", 154, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "skyguard_shoot"), SkyGuardShoot.class, "arpg:skyguard_shoot", 155, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "skyguard_shoot"), SkyGuardShoot.class, "arpg:skyguard_shoot", 155, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "skyguard_shield"), SkyGuardShield.class, "arpg:skyguard_shield", 156, AbstractRPG.instance, 64, 1, true
+         new ResourceLocation("arpg", "skyguard_shield"), SkyGuardShield.class, "arpg:skyguard_shield", 156, Main.instance, 64, 1, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "ice_shard_shoot"), IceShardShoot.class, "arpg:ice_shard_shoot", 157, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "ice_shard_shoot"), IceShardShoot.class, "arpg:ice_shard_shoot", 157, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
          new ResourceLocation("arpg", "thunderbird_shoot"),
          ThunderbirdShoot.class,
          "arpg:thunderbird_shoot",
          158,
-         AbstractRPG.instance,
+         Main.instance,
          64,
          20,
          true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "zarpion_blaster"), ZarpionBlaterShoot.class, "arpg:zarpion_blaster", 159, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "zarpion_blaster"), ZarpionBlaterShoot.class, "arpg:zarpion_blaster", 159, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "mob_grenade"), Grenade.class, "arpg:mob_grenade", 160, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "mob_grenade"), Grenade.class, "arpg:mob_grenade", 160, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "zarpion_beam"), ZarpionBeam.class, "arpg:zarpion_beam", 161, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "zarpion_beam"), ZarpionBeam.class, "arpg:zarpion_beam", 161, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "gust_cloud"), GustCloud.class, "arpg:gust_cloud", 162, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "gust_cloud"), GustCloud.class, "arpg:gust_cloud", 162, Main.instance, 64, 20, true
       );
-      EntityRegistry.registerModEntity(new ResourceLocation("arpg", "whirl"), Whirl.class, "arpg:whirl", 163, AbstractRPG.instance, 64, 2, true);
+      EntityRegistry.registerModEntity(new ResourceLocation("arpg", "whirl"), Whirl.class, "arpg:whirl", 163, Main.instance, 64, 2, true);
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "windbreak_shoot"), WindbreakShoot.class, "arpg:windbreak_shoot", 164, AbstractRPG.instance, 64, 2, true
+         new ResourceLocation("arpg", "windbreak_shoot"), WindbreakShoot.class, "arpg:windbreak_shoot", 164, Main.instance, 64, 2, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "slime_cloud"), SlimeCloud.class, "arpg:slime_cloud", 165, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "slime_cloud"), SlimeCloud.class, "arpg:slime_cloud", 165, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
          new ResourceLocation("arpg", "winter_fury_breath"),
          WinterFuryBreath.class,
          "arpg:winter_fury_breath",
          166,
-         AbstractRPG.instance,
+         Main.instance,
          64,
          20,
          true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "hailblast"), Hailblast.class, "arpg:hailblast", 167, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "hailblast"), Hailblast.class, "arpg:hailblast", 167, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
          new ResourceLocation("arpg", "blisterfish_shoot"),
          BlisterfishShoot.class,
          "arpg:blisterfish_shoot",
          168,
-         AbstractRPG.instance,
+         Main.instance,
          64,
          20,
          true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "wizardfish_shoot"), WizardfishShoot.class, "arpg:wizardfish_shoot", 169, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "wizardfish_shoot"), WizardfishShoot.class, "arpg:wizardfish_shoot", 169, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "arrow_dartfish"), ArrowDartfish.class, "arpg:arrow_dartfish", 170, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "arrow_dartfish"), ArrowDartfish.class, "arpg:arrow_dartfish", 170, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "trachymona_shoot"), TrachymonaShoot.class, "arpg:trachymona_shoot", 171, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "trachymona_shoot"), TrachymonaShoot.class, "arpg:trachymona_shoot", 171, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "lava_shoot"), LavaShoot.class, "arpg:lava_shoot", 172, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "lava_shoot"), LavaShoot.class, "arpg:lava_shoot", 172, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "poison_spit"), PoisonSpit.class, "arpg:poison_spit", 173, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "poison_spit"), PoisonSpit.class, "arpg:poison_spit", 173, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "ocean_shoot"), OceanSpiritShoot.class, "arpg:ocean_shoot", 174, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "ocean_shoot"), OceanSpiritShoot.class, "arpg:ocean_shoot", 174, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "sea_bomb"), SeaBomb.class, "arpg:sea_bomb", 175, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "sea_bomb"), SeaBomb.class, "arpg:sea_bomb", 175, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "circle_blast"), CircleBlast.class, "arpg:circle_blast", 176, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "circle_blast"), CircleBlast.class, "arpg:circle_blast", 176, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "plasma_ring"), PlasmaRing.class, "arpg:plasma_ring", 177, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "plasma_ring"), PlasmaRing.class, "arpg:plasma_ring", 177, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "mermaid_shoot"), MermaidShoot.class, "arpg:mermaid_shoot", 178, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "mermaid_shoot"), MermaidShoot.class, "arpg:mermaid_shoot", 178, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "arrow_mermaid"), ArrowMermaid.class, "arpg:arrow_mermaid", 179, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "arrow_mermaid"), ArrowMermaid.class, "arpg:arrow_mermaid", 179, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "siren_shoot"), SirenShoot.class, "arpg:siren_shoot", 180, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "siren_shoot"), SirenShoot.class, "arpg:siren_shoot", 180, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "kraken_slime"), KrakenSlime.class, "arpg:kraken_slime", 181, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "kraken_slime"), KrakenSlime.class, "arpg:kraken_slime", 181, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "kraken_shockbolt"), KrakenShockbolt.class, "arpg:kraken_shockbolt", 182, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "kraken_shockbolt"), KrakenShockbolt.class, "arpg:kraken_shockbolt", 182, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "bullet_cooled"), BulletCooled.class, "arpg:bullet_cooled", 183, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "bullet_cooled"), BulletCooled.class, "arpg:bullet_cooled", 183, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "watcher_laser"), WatcherLaser.class, "arpg:watcher_laser", 184, AbstractRPG.instance, 64, 20, true
+         new ResourceLocation("arpg", "watcher_laser"), WatcherLaser.class, "arpg:watcher_laser", 184, Main.instance, 64, 20, true
       );
       EntityRegistry.registerModEntity(
          new ResourceLocation("arpg", "horrible_emerald_shoot"),
          HorribleEmeraldShoot.class,
          "arpg:horrible_emerald_shoot",
          185,
-         AbstractRPG.instance,
+         Main.instance,
          64,
          20,
          true
       );
-      EntityRegistry.registerModEntity(new ResourceLocation("arpg", "plasma"), Plasma.class, "arpg:plasma", 186, AbstractRPG.instance, 64, 20, true);
+      EntityRegistry.registerModEntity(new ResourceLocation("arpg", "plasma"), Plasma.class, "arpg:plasma", 186, Main.instance, 64, 20, true);
       EntityRegistry.registerModEntity(
-         new ResourceLocation("arpg", "auroras_tear"), AurorasTear.class, "arpg:auroras_tear", 187, AbstractRPG.instance, 64, 1, true
+         new ResourceLocation("arpg", "auroras_tear"), AurorasTear.class, "arpg:auroras_tear", 187, Main.instance, 64, 1, true
       );
       EntityRegistry.registerModEntity(
          new ResourceLocation("arpg", "larva_flyer_shoot"),
          LarvaFlyerShoot.class,
          "arpg:larva_flyer_shoot",
          188,
-         AbstractRPG.instance,
+         Main.instance,
          64,
          20,
          true
@@ -1234,52 +1238,57 @@ public class HostileProjectiles {
          }
 
          if (this.world.isRemote) {
-            if (this.rand.nextFloat() < 0.5) {
-               GUNParticle part = new GUNParticle(
-                  blob,
-                  0.11F + this.rand.nextFloat() / 30.0F,
-                  0.001F,
-                  15 + this.rand.nextInt(15),
-                  180,
-                  this.world,
-                  this.lastTickPosX,
-                  this.lastTickPosY,
-                  this.lastTickPosZ,
-                  (float)this.rand.nextGaussian() / 28.0F,
-                  (float)this.rand.nextGaussian() / 28.0F,
-                  (float)this.rand.nextGaussian() / 28.0F,
-                  0.35F + this.rand.nextFloat() * 0.25F,
-                  0.8F,
-                  1.0F,
-                  true,
-                  this.rand.nextInt(20) - 10
-               );
-               part.alphaTickAdding = -0.028F;
-               part.scaleTickAdding = -0.004F;
-               this.world.spawnEntity(part);
-            } else {
-               GUNParticle part = new GUNParticle(
-                  bubble,
-                  0.055F + this.rand.nextFloat() / 40.0F,
-                  0.001F,
-                  15 + this.rand.nextInt(15),
-                  180,
-                  this.world,
-                  this.lastTickPosX,
-                  this.lastTickPosY,
-                  this.lastTickPosZ,
-                  (float)this.rand.nextGaussian() / 28.0F,
-                  (float)this.rand.nextGaussian() / 28.0F,
-                  (float)this.rand.nextGaussian() / 28.0F,
-                  0.35F + this.rand.nextFloat() * 0.25F,
-                  0.8F,
-                  0.7F,
-                  false,
-                  this.rand.nextInt(20) - 10
-               );
-               part.scaleTickAdding = -0.001F;
-               this.world.spawnEntity(part);
-            }
+            this.onUpdate_Client_1();
+         }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         if (this.rand.nextFloat() < 0.5) {
+            GUNParticle part = new GUNParticle(
+                    blob,
+                    0.11F + this.rand.nextFloat() / 30.0F,
+                    0.001F,
+                    15 + this.rand.nextInt(15),
+                    180,
+                    this.world,
+                    this.lastTickPosX,
+                    this.lastTickPosY,
+                    this.lastTickPosZ,
+                    (float)this.rand.nextGaussian() / 28.0F,
+                    (float)this.rand.nextGaussian() / 28.0F,
+                    (float)this.rand.nextGaussian() / 28.0F,
+                    0.35F + this.rand.nextFloat() * 0.25F,
+                    0.8F,
+                    1.0F,
+                    true,
+                    this.rand.nextInt(20) - 10
+            );
+            part.alphaTickAdding = -0.028F;
+            part.scaleTickAdding = -0.004F;
+            this.world.spawnEntity(part);
+         } else {
+            GUNParticle part = new GUNParticle(
+                    bubble,
+                    0.055F + this.rand.nextFloat() / 40.0F,
+                    0.001F,
+                    15 + this.rand.nextInt(15),
+                    180,
+                    this.world,
+                    this.lastTickPosX,
+                    this.lastTickPosY,
+                    this.lastTickPosZ,
+                    (float)this.rand.nextGaussian() / 28.0F,
+                    (float)this.rand.nextGaussian() / 28.0F,
+                    (float)this.rand.nextGaussian() / 28.0F,
+                    0.35F + this.rand.nextFloat() * 0.25F,
+                    0.8F,
+                    0.7F,
+                    false,
+                    this.rand.nextInt(20) - 10
+            );
+            part.scaleTickAdding = -0.001F;
+            this.world.spawnEntity(part);
          }
       }
 
@@ -1584,6 +1593,7 @@ public class HostileProjectiles {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double... args) {
          if (args.length == 1) {
             this.bullet = ItemBullet.getItemBulletFromId((int)args[0]);
@@ -2697,30 +2707,35 @@ public class HostileProjectiles {
 
       public void onEntityUpdate() {
          if (this.world.isRemote && this.ticksExisted % 5 == 0) {
-            GUNParticle fire = new GUNParticle(
-               cloud,
-               0.7F + (float)this.rand.nextGaussian() / 3.0F,
-               -0.003F,
-               23 + this.rand.nextInt(15),
-               80,
-               this.world,
-               this.posX,
-               this.posY,
-               this.posZ,
-               (float)this.rand.nextGaussian() / 13.0F,
-               (float)this.rand.nextGaussian() / 17.0F,
-               (float)this.rand.nextGaussian() / 13.0F,
-               0.9F,
-               0.9F,
-               0.9F,
-               true,
-               this.rand.nextInt(100) - 50
-            );
-            fire.alphaTickAdding = -0.026F;
-            fire.alphaGlowing = true;
-            fire.scaleTickAdding = -0.015F;
-            this.world.spawnEntity(fire);
+            this.onEntityUpdate_Client_1();
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onEntityUpdate_Client_1() {
+         GUNParticle fire = new GUNParticle(
+                 cloud,
+                 0.7F + (float)this.rand.nextGaussian() / 3.0F,
+                 -0.003F,
+                 23 + this.rand.nextInt(15),
+                 80,
+                 this.world,
+                 this.posX,
+                 this.posY,
+                 this.posZ,
+                 (float)this.rand.nextGaussian() / 13.0F,
+                 (float)this.rand.nextGaussian() / 17.0F,
+                 (float)this.rand.nextGaussian() / 13.0F,
+                 0.9F,
+                 0.9F,
+                 0.9F,
+                 true,
+                 this.rand.nextInt(100) - 50
+         );
+         fire.alphaTickAdding = -0.026F;
+         fire.alphaGlowing = true;
+         fire.scaleTickAdding = -0.015F;
+         this.world.spawnEntity(fire);
       }
    }
 
@@ -3396,6 +3411,7 @@ public class HostileProjectiles {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double... args) {
          if (args.length == 6) {
             Vec3d point1 = new Vec3d(args[0], args[1], args[2]);
@@ -4168,33 +4184,38 @@ public class HostileProjectiles {
          }
 
          if (this.world.isRemote) {
-            EntityCubicParticle spel = new EntityCubicParticle(
-               tex,
-               0.026F,
-               0.0F,
-               11 + this.rand.nextInt(3),
-               240,
-               this.world,
-               this.posX,
-               this.posY,
-               this.posZ,
-               (float)this.rand.nextGaussian() / 48.0F,
-               (float)this.rand.nextGaussian() / 48.0F,
-               (float)this.rand.nextGaussian() / 48.0F,
-               1.0F,
-               1.0F,
-               1.0F,
-               true,
-               this.rand.nextFloat(),
-               this.rand.nextFloat(),
-               this.rand.nextFloat(),
-               0.08F,
-               true,
-               -0.002F
-            );
-            spel.alphaGlowing = true;
-            this.world.spawnEntity(spel);
+            this.onUpdate_Client_1();
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         EntityCubicParticle spel = new EntityCubicParticle(
+                 tex,
+                 0.026F,
+                 0.0F,
+                 11 + this.rand.nextInt(3),
+                 240,
+                 this.world,
+                 this.posX,
+                 this.posY,
+                 this.posZ,
+                 (float)this.rand.nextGaussian() / 48.0F,
+                 (float)this.rand.nextGaussian() / 48.0F,
+                 (float)this.rand.nextGaussian() / 48.0F,
+                 1.0F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 this.rand.nextFloat(),
+                 this.rand.nextFloat(),
+                 this.rand.nextFloat(),
+                 0.08F,
+                 true,
+                 -0.002F
+         );
+         spel.alphaGlowing = true;
+         this.world.spawnEntity(spel);
       }
 
       public void writeEntityToNBT(NBTTagCompound compound) {
@@ -4664,6 +4685,7 @@ public class HostileProjectiles {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public Vec3d getColor(int index) {
          float ticks = this.ticksExisted;
          if (this.world.isRemote) {
@@ -4770,44 +4792,7 @@ public class HostileProjectiles {
                this.damageCooldown--;
             }
          } else if (this.ticksExisted % 10 == 0) {
-            float scl = 0.1F + this.width * (0.17F + this.rand.nextFloat() * 0.3F);
-            int lt = 40 + this.rand.nextInt(40);
-            double xx = this.posX + this.rand.nextGaussian() * 0.6 * this.width;
-            double yy = this.posY + this.rand.nextGaussian() * 0.6 * this.height + this.height / 2.0F;
-            double zz = this.posZ + this.rand.nextGaussian() * 0.6 * this.width;
-            ParticleTracker.TrackerSmoothShowHide tssh = new ParticleTracker.TrackerSmoothShowHide(
-               new Vec3d[]{new Vec3d(0.0, 10.0, 0.1), new Vec3d(lt - 10, lt, -0.1)}, null
-            );
-            boolean typee = this.rand.nextFloat() < 0.5F;
-            AnimatedGParticle particle = new AnimatedGParticle(
-               typee ? plasma_a : plasma_b,
-               scl,
-               0.0F,
-               lt,
-               240,
-               this.world,
-               xx,
-               yy,
-               zz,
-               0.0F,
-               0.0F,
-               0.0F,
-               this.getRED(),
-               this.getGREEN(),
-               this.getBLUE(),
-               true,
-               0
-            );
-            particle.alphaGlowing = true;
-            particle.tracker = tssh;
-            particle.alpha = 0.0F;
-            particle.framecount = typee ? 14 : 24;
-            particle.animCounter = this.rand.nextInt(10);
-            particle.useNormalTime = true;
-            particle.disableOnEnd = false;
-            particle.noWaterBubble = true;
-            particle.isPushedByLiquids = false;
-            this.world.spawnEntity(particle);
+            this.onUpdate_Client_1();
          }
 
          this.motionX = this.motionX * this.airFrictionMultiplier;
@@ -4816,6 +4801,48 @@ public class HostileProjectiles {
          if (this.width != this.getSCALE()) {
             this.setSize(this.getSCALE(), this.getSCALE());
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         float scl = 0.1F + this.width * (0.17F + this.rand.nextFloat() * 0.3F);
+         int lt = 40 + this.rand.nextInt(40);
+         double xx = this.posX + this.rand.nextGaussian() * 0.6 * this.width;
+         double yy = this.posY + this.rand.nextGaussian() * 0.6 * this.height + this.height / 2.0F;
+         double zz = this.posZ + this.rand.nextGaussian() * 0.6 * this.width;
+         ParticleTracker.TrackerSmoothShowHide tssh = new ParticleTracker.TrackerSmoothShowHide(
+                 new Vec3d[]{new Vec3d(0.0, 10.0, 0.1), new Vec3d(lt - 10, lt, -0.1)}, null
+         );
+         boolean typee = this.rand.nextFloat() < 0.5F;
+         AnimatedGParticle particle = new AnimatedGParticle(
+                 typee ? plasma_a : plasma_b,
+                 scl,
+                 0.0F,
+                 lt,
+                 240,
+                 this.world,
+                 xx,
+                 yy,
+                 zz,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 this.getRED(),
+                 this.getGREEN(),
+                 this.getBLUE(),
+                 true,
+                 0
+         );
+         particle.alphaGlowing = true;
+         particle.tracker = tssh;
+         particle.alpha = 0.0F;
+         particle.framecount = typee ? 14 : 24;
+         particle.animCounter = this.rand.nextInt(10);
+         particle.useNormalTime = true;
+         particle.disableOnEnd = false;
+         particle.noWaterBubble = true;
+         particle.isPushedByLiquids = false;
+         this.world.spawnEntity(particle);
       }
 
       public void writeEntityToNBT(NBTTagCompound compound) {
@@ -4923,12 +4950,7 @@ public class HostileProjectiles {
       public void onUpdate() {
          super.onUpdate();
          if (this.world.isRemote && this.firstUpdate1) {
-            this.firstUpdate1 = false;
-            Minecraft.getMinecraft()
-               .getSoundHandler()
-               .playSound(
-                  new MovingSoundEntity(this, Sounds.plasma_ring, SoundCategory.AMBIENT, 1.0F, 0.95F + this.rand.nextFloat() / 10.0F, true)
-               );
+            this.onUpdate_Client_1();
          }
 
          if (this.ticksExisted > 100) {
@@ -4989,6 +5011,16 @@ public class HostileProjectiles {
                }
             }
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         this.firstUpdate1 = false;
+         Minecraft.getMinecraft()
+                 .getSoundHandler()
+                 .playSound(
+                         new MovingSoundEntity(this, Sounds.plasma_ring, SoundCategory.AMBIENT, 1.0F, 0.95F + this.rand.nextFloat() / 10.0F, true)
+                 );
       }
 
       public void handleStatusUpdate(byte id) {
@@ -5078,29 +5110,34 @@ public class HostileProjectiles {
          }
 
          if (this.world.isRemote) {
-            GUNParticle spell = new GUNParticle(
-               tex,
-               0.12F,
-               0.01F,
-               30,
-               150,
-               this.world,
-               this.posX,
-               this.posY,
-               this.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               0.2F + this.rand.nextFloat() / 10.0F,
-               1.0F,
-               0.35F,
-               true,
-               0
-            );
-            spell.alphaGlowing = true;
-            spell.scaleTickAdding = -0.0026F;
-            this.world.spawnEntity(spell);
+            this.onUpdate_Client_1();
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onUpdate_Client_1() {
+         GUNParticle spell = new GUNParticle(
+                 tex,
+                 0.12F,
+                 0.01F,
+                 30,
+                 150,
+                 this.world,
+                 this.posX,
+                 this.posY,
+                 this.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.2F + this.rand.nextFloat() / 10.0F,
+                 1.0F,
+                 0.35F,
+                 true,
+                 0
+         );
+         spell.alphaGlowing = true;
+         spell.scaleTickAdding = -0.0026F;
+         this.world.spawnEntity(spell);
       }
 
       public void writeEntityToNBT(NBTTagCompound compound) {
@@ -5413,7 +5450,7 @@ public class HostileProjectiles {
       }
    }
 
-   public static class SeaBomb extends EntityThrowable implements IRenderOptions {
+   public static class SeaBomb extends EntityThrowable implements IRenderOptions, IFieldInit {
       public static ResourceLocation sparkle4 = new ResourceLocation("arpg:textures/sparkle4.png");
       public static ResourceLocation blob_explode = new ResourceLocation("arpg:textures/blob_explode.png");
       public float damage = 0.0F;
@@ -5427,14 +5464,17 @@ public class HostileProjectiles {
 
       public SeaBomb(World world) {
          super(world);
+         this.initFields();
       }
 
       public SeaBomb(World world, EntityLivingBase thrower) {
          super(world, thrower);
+         this.initFields();
       }
 
       public SeaBomb(World world, double x, double y, double z) {
          super(world, x, y, z);
+         this.initFields();
       }
 
       public void setThrower(EntityLivingBase thrower) {
@@ -5527,49 +5567,69 @@ public class HostileProjectiles {
          }
       }
 
-      public static void spawnSeabombParticles(World world, Random rand, double x, double y, double z) {
-         for (int ss = 0; ss < 6; ss++) {
-            float fsize = (float)(1.3 + rand.nextGaussian() / 10.0);
-            int lt = 5 + rand.nextInt(5);
-            GUNParticle part = new GUNParticle(
-               sparkle4,
-               0.3F,
-               0.0F,
-               lt,
-               220,
-               world,
-               x + rand.nextGaussian() / 3.0,
-               y + rand.nextGaussian() / 3.0,
-               z + rand.nextGaussian() / 3.0,
-               (float)rand.nextGaussian() / 8.0F,
-               (float)rand.nextGaussian() / 8.0F,
-               (float)rand.nextGaussian() / 8.0F,
-               0.6F,
-               0.08F,
-               0.44F,
-               true,
-               rand.nextInt(360)
-            );
-            part.scaleTickAdding = fsize / lt;
-            part.alphaGlowing = true;
-            part.alphaTickAdding = -0.6F / lt;
-            part.randomDeath = false;
-            world.spawnEntity(part);
-         }
-
-         for (int ss = 0; ss < 3; ss++) {
-            float fsize = (float)(1.8 + rand.nextGaussian() / 8.0);
-            int lt = 4 + rand.nextInt(4);
-            GUNParticle part = new GUNParticle(blob_explode, 0.3F, 0.0F, lt, 220, world, x, y, z, 0.0F, 0.0F, 0.0F, 0.6F, 0.08F, 0.44F, true, rand.nextInt(360));
-            part.scaleTickAdding = fsize / lt;
-            part.alphaGlowing = true;
-            part.alphaTickAdding = -0.6F / lt;
-            part.randomDeath = false;
-            if (ss > 0) {
-               part.rotationPitchYaw = new Vec2f(rand.nextInt(360), rand.nextInt(360));
+      public static class ClientFieldsContainer extends AbstractClientFieldsContainer {
+         @SideOnly(Side.CLIENT)
+         public void spawnSeabombParticles(World world, Random rand, double x, double y, double z) {
+            for (int ss = 0; ss < 6; ss++) {
+               float fsize = (float)(1.3 + rand.nextGaussian() / 10.0);
+               int lt = 5 + rand.nextInt(5);
+               GUNParticle part = new GUNParticle(
+                       sparkle4,
+                       0.3F,
+                       0.0F,
+                       lt,
+                       220,
+                       world,
+                       x + rand.nextGaussian() / 3.0,
+                       y + rand.nextGaussian() / 3.0,
+                       z + rand.nextGaussian() / 3.0,
+                       (float)rand.nextGaussian() / 8.0F,
+                       (float)rand.nextGaussian() / 8.0F,
+                       (float)rand.nextGaussian() / 8.0F,
+                       0.6F,
+                       0.08F,
+                       0.44F,
+                       true,
+                       rand.nextInt(360)
+               );
+               part.scaleTickAdding = fsize / lt;
+               part.alphaGlowing = true;
+               part.alphaTickAdding = -0.6F / lt;
+               part.randomDeath = false;
+               world.spawnEntity(part);
             }
 
-            world.spawnEntity(part);
+            for (int ss = 0; ss < 3; ss++) {
+               float fsize = (float)(1.8 + rand.nextGaussian() / 8.0);
+               int lt = 4 + rand.nextInt(4);
+               GUNParticle part = new GUNParticle(blob_explode, 0.3F, 0.0F, lt, 220, world, x, y, z, 0.0F, 0.0F, 0.0F, 0.6F, 0.08F, 0.44F, true, rand.nextInt(360));
+               part.scaleTickAdding = fsize / lt;
+               part.alphaGlowing = true;
+               part.alphaTickAdding = -0.6F / lt;
+               part.randomDeath = false;
+               if (ss > 0) {
+                  part.rotationPitchYaw = new Vec2f(rand.nextInt(360), rand.nextInt(360));
+               }
+
+               world.spawnEntity(part);
+            }
+         }
+      }
+
+      public static ClientFieldsContainer fieldsContainer;
+
+      @Override
+      @SideOnly(Side.CLIENT)
+      public void initFields() {
+         if (fieldsContainer == null) {
+            fieldsContainer = new ClientFieldsContainer();
+         }
+      }
+
+      @SideOnly(Side.CLIENT)
+      public static void spawnSeabombParticles(World world, Random rand, double x, double y, double z) {
+         if (fieldsContainer != null) {
+            fieldsContainer.spawnSeabombParticles(world, rand, x, y, z);
          }
       }
 
@@ -6247,29 +6307,34 @@ public class HostileProjectiles {
 
       public void onEntityUpdate() {
          if (this.world.isRemote && this.ticksExisted % 2 == 0) {
-            float scalen = this.rand.nextFloat() * 0.5F + 0.36F;
-            GUNParticle part = new GUNParticle(
-               spl,
-               0.1F,
-               -7.0E-4F,
-               30,
-               150,
-               this.world,
-               this.posX + this.rand.nextGaussian(),
-               this.posY + this.rand.nextFloat() / 2.0F,
-               this.posZ + this.rand.nextGaussian(),
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F - this.rand.nextFloat() * 0.3F,
-               1.0F - this.rand.nextFloat() * 0.3F,
-               1.0F - this.rand.nextFloat() * 0.3F,
-               false,
-               this.rand.nextInt(21) - 20
-            );
-            part.scaleTickAdding = scalen / 50.0F;
-            this.world.spawnEntity(part);
+            this.onEntityUpdate_Client_1();
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onEntityUpdate_Client_1() {
+         float scalen = this.rand.nextFloat() * 0.5F + 0.36F;
+         GUNParticle part = new GUNParticle(
+                 spl,
+                 0.1F,
+                 -7.0E-4F,
+                 30,
+                 150,
+                 this.world,
+                 this.posX + this.rand.nextGaussian(),
+                 this.posY + this.rand.nextFloat() / 2.0F,
+                 this.posZ + this.rand.nextGaussian(),
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 1.0F - this.rand.nextFloat() * 0.3F,
+                 1.0F - this.rand.nextFloat() * 0.3F,
+                 1.0F - this.rand.nextFloat() * 0.3F,
+                 false,
+                 this.rand.nextInt(21) - 20
+         );
+         part.scaleTickAdding = scalen / 50.0F;
+         this.world.spawnEntity(part);
       }
    }
 
@@ -6794,6 +6859,7 @@ public class HostileProjectiles {
       }
 
       @Override
+      @SideOnly(Side.CLIENT)
       public void onClient(double x, double y, double z, double a, double b, double c) {
          GUNParticle sp = new GUNParticle(
             texturexpl,
@@ -7010,55 +7076,60 @@ public class HostileProjectiles {
 
       public void onEntityUpdate() {
          if (this.world.isRemote && this.ticksExisted % 5 == 0) {
-            float dR = 3.0F + MathHelper.clamp(this.ticksExisted / 115.0F, 0.0F, 2.0F);
-            GUNParticle fire = new GUNParticle(
-               cloud,
-               0.7F + (float)this.rand.nextGaussian() / 3.0F,
-               -0.003F,
-               27 + this.rand.nextInt(15),
-               150,
-               this.world,
-               this.posX,
-               this.posY,
-               this.posZ,
-               (float)this.rand.nextGaussian() / 11.0F,
-               (float)this.rand.nextGaussian() / 17.0F + 0.2F,
-               (float)this.rand.nextGaussian() / 11.0F,
-               0.9F,
-               1.0F,
-               1.0F,
-               true,
-               this.rand.nextInt(100) - 50
-            );
-            fire.alphaTickAdding = -0.026F;
-            fire.scaleTickAdding = 0.07F;
-            this.world.spawnEntity(fire);
-            float scalen = this.rand.nextFloat() * 1.5F + dR * 2.0F;
-            GUNParticle part = new GUNParticle(
-               round,
-               0.3F * this.rand.nextFloat(),
-               -0.002F - this.rand.nextFloat() * 0.002F,
-               50,
-               150,
-               this.world,
-               this.posX,
-               this.posY + this.rand.nextFloat() / 2.0F,
-               this.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               0.9F,
-               0.86F,
-               0.9F,
-               true,
-               this.rand.nextInt(360)
-            );
-            part.tracker = spins[this.rand.nextInt(3)];
-            part.rotationPitchYaw = new Vec2f(90.0F + (float)this.rand.nextGaussian() * 5.0F, this.rand.nextInt(360));
-            part.alphaTickAdding = -0.02F;
-            part.scaleTickAdding = scalen / 50.0F;
-            this.world.spawnEntity(part);
+            this.onEntityUpdate_Client_1();
          }
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onEntityUpdate_Client_1() {
+         float dR = 3.0F + MathHelper.clamp(this.ticksExisted / 115.0F, 0.0F, 2.0F);
+         GUNParticle fire = new GUNParticle(
+                 cloud,
+                 0.7F + (float)this.rand.nextGaussian() / 3.0F,
+                 -0.003F,
+                 27 + this.rand.nextInt(15),
+                 150,
+                 this.world,
+                 this.posX,
+                 this.posY,
+                 this.posZ,
+                 (float)this.rand.nextGaussian() / 11.0F,
+                 (float)this.rand.nextGaussian() / 17.0F + 0.2F,
+                 (float)this.rand.nextGaussian() / 11.0F,
+                 0.9F,
+                 1.0F,
+                 1.0F,
+                 true,
+                 this.rand.nextInt(100) - 50
+         );
+         fire.alphaTickAdding = -0.026F;
+         fire.scaleTickAdding = 0.07F;
+         this.world.spawnEntity(fire);
+         float scalen = this.rand.nextFloat() * 1.5F + dR * 2.0F;
+         GUNParticle part = new GUNParticle(
+                 round,
+                 0.3F * this.rand.nextFloat(),
+                 -0.002F - this.rand.nextFloat() * 0.002F,
+                 50,
+                 150,
+                 this.world,
+                 this.posX,
+                 this.posY + this.rand.nextFloat() / 2.0F,
+                 this.posZ,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.9F,
+                 0.86F,
+                 0.9F,
+                 true,
+                 this.rand.nextInt(360)
+         );
+         part.tracker = spins[this.rand.nextInt(3)];
+         part.rotationPitchYaw = new Vec2f(90.0F + (float)this.rand.nextGaussian() * 5.0F, this.rand.nextInt(360));
+         part.alphaTickAdding = -0.02F;
+         part.scaleTickAdding = scalen / 50.0F;
+         this.world.spawnEntity(part);
       }
    }
 
@@ -7843,25 +7914,30 @@ public class HostileProjectiles {
 
       public void onEntityUpdate() {
          super.onEntityUpdate();
+         this.onEntityUpdate_Client_1();
+      }
+
+      @SideOnly(Side.CLIENT)
+      private void onEntityUpdate_Client_1() {
          if (this.ticksExisted == 2) {
             GUNParticle bigsmoke1 = new GUNParticle(
-               sphere,
-               0.02F,
-               0.0F,
-               8,
-               240,
-               this.world,
-               this.posX,
-               this.posY,
-               this.posZ,
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F,
-               1.0F,
-               1.0F,
-               true,
-               this.rand.nextInt(360)
+                    sphere,
+                    0.02F,
+                    0.0F,
+                    8,
+                    240,
+                    this.world,
+                    this.posX,
+                    this.posY,
+                    this.posZ,
+                    0.0F,
+                    0.0F,
+                    0.0F,
+                    1.0F,
+                    1.0F,
+                    1.0F,
+                    true,
+                    this.rand.nextInt(360)
             );
             bigsmoke1.alphaTickAdding = -0.13F;
             bigsmoke1.alphaGlowing = true;

@@ -1,13 +1,15 @@
-package com.vivern.arpg.renders;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.CrystalSphereModel;
-import com.vivern.arpg.elements.models.EarthInSphereModel;
-import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.tileentity.TileCrystalSphere;
+package com.Vivern.Arpg.renders;
+
+import com.Vivern.Arpg.elements.models.CrystalSphereModel;
+import com.Vivern.Arpg.elements.models.EarthInSphereModel;
+import com.Vivern.Arpg.events.Debugger;
+import com.Vivern.Arpg.main.AnimationTimer;
+import com.Vivern.Arpg.main.ColorConverters;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.ShardType;
+import com.Vivern.Arpg.tileentity.TileCrystalSphere;
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -21,6 +23,8 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 public class CrystalSphereTESR extends TileEntitySpecialRenderer<TileCrystalSphere> {
@@ -52,6 +56,7 @@ public class CrystalSphereTESR extends TileEntitySpecialRenderer<TileCrystalSphe
    public static ResourceLocation live_vines2 = new ResourceLocation("arpg:textures/live_vines2.png");
    public static ResourceLocation live_sphere_over = new ResourceLocation("arpg:textures/live_sphere_over.png");
 
+   @SideOnly(Side.CLIENT) //
    public void render(TileCrystalSphere te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       double eyeY;
       ShardType shard;

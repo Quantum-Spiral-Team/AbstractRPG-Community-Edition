@@ -1,141 +1,296 @@
-package com.vivern.arpg.dimensions.stormledge;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.main.DimensionsRegister;
-import com.vivern.arpg.renders.RenderStormledgeSky;
-import com.vivern.arpg.weather.Rainstorm;
-import com.vivern.arpg.weather.Storm;
-import com.vivern.arpg.weather.TimeOfDayProvider;
-import com.vivern.arpg.weather.WorldEventsHandler;
+package com.Vivern.Arpg.dimensions.stormledge;
+
+import com.Vivern.Arpg.dimensions.generationutils.AbstractWorldProvider;
+import com.Vivern.Arpg.main.DimensionsRegister;
+import com.Vivern.Arpg.renders.RenderStormledgeSky;
+import com.Vivern.Arpg.weather.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.client.IRenderHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 public class DimensionStormledge extends AbstractWorldProvider {
-   public static TimeOfDayProvider timeOfDayProvider = new TimeOfDayProvider()
-      .addO(
-         22900,
-         23600,
-         new Vector4f(0.21568628F, 0.105882354F, 0.47058824F, 0.99607843F),
-         new Vector4f(0.07450981F, 0.007843138F, 0.12156863F, 1.0F),
-         new Vector4f(1.0F, 1.0F, 1.0F, 1.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
-         new Vector4f(0.03137255F, 0.0F, 0.16470589F, 0.7882353F),
-         new Vector4f(0.8235294F, 0.6039216F, 1.0F, 0.8F),
-         new Vector4f(0.8235294F, 0.6039216F, 1.0F, 0.8F)
-      )
-      .addO(
-         1500,
-         2300,
-         new Vector4f(0.0F, 0.023529412F, 1.0F, 1.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.99607843F),
-         new Vector4f(0.2784314F, 0.2784314F, 0.2784314F, 1.0F),
-         new Vector4f(0.76862746F, 0.9254902F, 0.95686275F, 0.9882353F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
-         new Vector4f(0.40784314F, 0.25882354F, 0.0F, 0.28235295F),
-         new Vector4f(0.99607843F, 1.0F, 0.96862745F, 0.7019608F),
-         new Vector4f(0.43137255F, 0.47058824F, 0.9843137F, 0.7019608F)
-      )
-      .addO(
-         5000,
-         5300,
-         new Vector4f(0.0F, 0.023529412F, 1.0F, 1.0F),
-         new Vector4f(0.0F, 0.007843138F, 0.105882354F, 0.99607843F),
-         new Vector4f(1.0F, 1.0F, 1.0F, 1.0F),
-         new Vector4f(1.0F, 1.0F, 1.0F, 0.9882353F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
-         new Vector4f(0.40784314F, 0.25882354F, 0.0F, 0.28235295F),
-         new Vector4f(0.92156863F, 0.98039216F, 1.0F, 0.7019608F),
-         new Vector4f(1.0F, 1.0F, 1.0F, 0.7019608F)
-      )
-      .addO(
-         6400,
-         7100,
-         new Vector4f(0.03137255F, 0.03137255F, 0.24705882F, 1.0F),
-         new Vector4f(0.03529412F, 0.007843138F, 0.15686275F, 1.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.9882353F),
-         new Vector4f(0.50980395F, 0.9607843F, 1.0F, 1.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
-         new Vector4f(0.3882353F, 0.90588236F, 1.0F, 0.5137255F),
-         new Vector4f(0.0F, 0.043137256F, 0.38039216F, 0.36078432F),
-         new Vector4f(0.14509805F, 0.3529412F, 0.7058824F, 0.36078432F)
-      )
-      .addO(
-         11500,
-         12100,
-         new Vector4f(0.3137255F, 0.92941177F, 1.0F, 0.827451F),
-         new Vector4f(1.0F, 1.0F, 1.0F, 0.91764706F),
-         new Vector4f(0.5921569F, 0.0F, 0.18039216F, 1.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.8666667F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
-         new Vector4f(0.36078432F, 0.078431375F, 0.2509804F, 0.42745098F),
-         new Vector4f(1.0F, 0.92156863F, 0.80784315F, 0.7607843F),
-         new Vector4f(1.0F, 0.81960785F, 0.49019608F, 0.7607843F)
-      )
-      .addO(
-         13100,
-         14000,
-         new Vector4f(0.050980393F, 0.0F, 0.22352941F, 1.0F),
-         new Vector4f(0.4392157F, 0.101960786F, 0.6117647F, 1.0F),
-         new Vector4f(0.6392157F, 0.09019608F, 0.5803922F, 0.9882353F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
-         new Vector4f(0.32941177F, 0.23137255F, 0.47843137F, 0.4117647F),
-         new Vector4f(0.06666667F, 0.07450981F, 0.26666668F, 0.37254903F),
-         new Vector4f(0.23921569F, 0.15686275F, 0.54509807F, 0.37254903F)
-      )
-      .addO(
-         17500,
-         18400,
-         new Vector4f(0.09803922F, 0.07058824F, 0.2F, 1.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 0.9882353F),
-         new Vector4f(0.09411765F, 0.08627451F, 0.20392157F, 1.0F),
-         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
-         new Vector4f(0.02745098F, 0.02745098F, 0.14901961F, 0.39215687F),
-         new Vector4f(0.14509805F, 0.101960786F, 0.2784314F, 0.24313726F),
-         new Vector4f(0.14509805F, 0.101960786F, 0.2784314F, 0.24313726F)
-      )
-      .cycleAll();
-   public static RenderStormledgeSky skyRender = new RenderStormledgeSky(timeOfDayProvider);
-   public WorldEventsHandler worldEventsHandler;
-   public Storm storm = new Storm(this, 0, 6000, 20000, 0.045F);
-   public Rainstorm rainstorm = new Rainstorm(this, 1, 4000, 10000, 0.03F);
+//   public static TimeOfDayProvider timeOfDayProvider = new TimeOfDayProvider()
+//      .addO(
+//         22900,
+//         23600,
+//         new Vector4f(0.21568628F, 0.105882354F, 0.47058824F, 0.99607843F),
+//         new Vector4f(0.07450981F, 0.007843138F, 0.12156863F, 1.0F),
+//         new Vector4f(1.0F, 1.0F, 1.0F, 1.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+//         new Vector4f(0.03137255F, 0.0F, 0.16470589F, 0.7882353F),
+//         new Vector4f(0.8235294F, 0.6039216F, 1.0F, 0.8F),
+//         new Vector4f(0.8235294F, 0.6039216F, 1.0F, 0.8F)
+//      )
+//      .addO(
+//         1500,
+//         2300,
+//         new Vector4f(0.0F, 0.023529412F, 1.0F, 1.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.99607843F),
+//         new Vector4f(0.2784314F, 0.2784314F, 0.2784314F, 1.0F),
+//         new Vector4f(0.76862746F, 0.9254902F, 0.95686275F, 0.9882353F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+//         new Vector4f(0.40784314F, 0.25882354F, 0.0F, 0.28235295F),
+//         new Vector4f(0.99607843F, 1.0F, 0.96862745F, 0.7019608F),
+//         new Vector4f(0.43137255F, 0.47058824F, 0.9843137F, 0.7019608F)
+//      )
+//      .addO(
+//         5000,
+//         5300,
+//         new Vector4f(0.0F, 0.023529412F, 1.0F, 1.0F),
+//         new Vector4f(0.0F, 0.007843138F, 0.105882354F, 0.99607843F),
+//         new Vector4f(1.0F, 1.0F, 1.0F, 1.0F),
+//         new Vector4f(1.0F, 1.0F, 1.0F, 0.9882353F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+//         new Vector4f(0.40784314F, 0.25882354F, 0.0F, 0.28235295F),
+//         new Vector4f(0.92156863F, 0.98039216F, 1.0F, 0.7019608F),
+//         new Vector4f(1.0F, 1.0F, 1.0F, 0.7019608F)
+//      )
+//      .addO(
+//         6400,
+//         7100,
+//         new Vector4f(0.03137255F, 0.03137255F, 0.24705882F, 1.0F),
+//         new Vector4f(0.03529412F, 0.007843138F, 0.15686275F, 1.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.9882353F),
+//         new Vector4f(0.50980395F, 0.9607843F, 1.0F, 1.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+//         new Vector4f(0.3882353F, 0.90588236F, 1.0F, 0.5137255F),
+//         new Vector4f(0.0F, 0.043137256F, 0.38039216F, 0.36078432F),
+//         new Vector4f(0.14509805F, 0.3529412F, 0.7058824F, 0.36078432F)
+//      )
+//      .addO(
+//         11500,
+//         12100,
+//         new Vector4f(0.3137255F, 0.92941177F, 1.0F, 0.827451F),
+//         new Vector4f(1.0F, 1.0F, 1.0F, 0.91764706F),
+//         new Vector4f(0.5921569F, 0.0F, 0.18039216F, 1.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.8666667F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+//         new Vector4f(0.36078432F, 0.078431375F, 0.2509804F, 0.42745098F),
+//         new Vector4f(1.0F, 0.92156863F, 0.80784315F, 0.7607843F),
+//         new Vector4f(1.0F, 0.81960785F, 0.49019608F, 0.7607843F)
+//      )
+//      .addO(
+//         13100,
+//         14000,
+//         new Vector4f(0.050980393F, 0.0F, 0.22352941F, 1.0F),
+//         new Vector4f(0.4392157F, 0.101960786F, 0.6117647F, 1.0F),
+//         new Vector4f(0.6392157F, 0.09019608F, 0.5803922F, 0.9882353F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+//         new Vector4f(0.32941177F, 0.23137255F, 0.47843137F, 0.4117647F),
+//         new Vector4f(0.06666667F, 0.07450981F, 0.26666668F, 0.37254903F),
+//         new Vector4f(0.23921569F, 0.15686275F, 0.54509807F, 0.37254903F)
+//      )
+//      .addO(
+//         17500,
+//         18400,
+//         new Vector4f(0.09803922F, 0.07058824F, 0.2F, 1.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 0.9882353F),
+//         new Vector4f(0.09411765F, 0.08627451F, 0.20392157F, 1.0F),
+//         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+//         new Vector4f(0.02745098F, 0.02745098F, 0.14901961F, 0.39215687F),
+//         new Vector4f(0.14509805F, 0.101960786F, 0.2784314F, 0.24313726F),
+//         new Vector4f(0.14509805F, 0.101960786F, 0.2784314F, 0.24313726F)
+//      )
+//      .cycleAll();
+
+   public static TimeOfDayProvider timeOfDayProvider;
+
+   static {
+      timeOfDayProvider = new TimeOfDayProvider();
+
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         timeOfDayProvider
+                 .addO(
+                         22900,
+                         23600,
+                         new Vector4f(0.21568628F, 0.105882354F, 0.47058824F, 0.99607843F),
+                         new Vector4f(0.07450981F, 0.007843138F, 0.12156863F, 1.0F),
+                         new Vector4f(1.0F, 1.0F, 1.0F, 1.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.0F),
+                         new Vector4f(0.03137255F, 0.0F, 0.16470589F, 0.7882353F),
+                         new Vector4f(0.8235294F, 0.6039216F, 1.0F, 0.8F),
+                         new Vector4f(0.8235294F, 0.6039216F, 1.0F, 0.8F)
+                 )
+                 .addO(
+                         1500,
+                         2300,
+                         new Vector4f(0.0F, 0.023529412F, 1.0F, 1.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.99607843F),
+                         new Vector4f(0.2784314F, 0.2784314F, 0.2784314F, 1.0F),
+                         new Vector4f(0.76862746F, 0.9254902F, 0.95686275F, 0.9882353F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+                         new Vector4f(0.40784314F, 0.25882354F, 0.0F, 0.28235295F),
+                         new Vector4f(0.99607843F, 1.0F, 0.96862745F, 0.7019608F),
+                         new Vector4f(0.43137255F, 0.47058824F, 0.9843137F, 0.7019608F)
+                 )
+                 .addO(
+                         5000,
+                         5300,
+                         new Vector4f(0.0F, 0.023529412F, 1.0F, 1.0F),
+                         new Vector4f(0.0F, 0.007843138F, 0.105882354F, 0.99607843F),
+                         new Vector4f(1.0F, 1.0F, 1.0F, 1.0F),
+                         new Vector4f(1.0F, 1.0F, 1.0F, 0.9882353F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+                         new Vector4f(0.40784314F, 0.25882354F, 0.0F, 0.28235295F),
+                         new Vector4f(0.92156863F, 0.98039216F, 1.0F, 0.7019608F),
+                         new Vector4f(1.0F, 1.0F, 1.0F, 0.7019608F)
+                 )
+                 .addO(
+                         6400,
+                         7100,
+                         new Vector4f(0.03137255F, 0.03137255F, 0.24705882F, 1.0F),
+                         new Vector4f(0.03529412F, 0.007843138F, 0.15686275F, 1.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.9882353F),
+                         new Vector4f(0.50980395F, 0.9607843F, 1.0F, 1.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+                         new Vector4f(0.3882353F, 0.90588236F, 1.0F, 0.5137255F),
+                         new Vector4f(0.0F, 0.043137256F, 0.38039216F, 0.36078432F),
+                         new Vector4f(0.14509805F, 0.3529412F, 0.7058824F, 0.36078432F)
+                 )
+                 .addO(
+                         11500,
+                         12100,
+                         new Vector4f(0.3137255F, 0.92941177F, 1.0F, 0.827451F),
+                         new Vector4f(1.0F, 1.0F, 1.0F, 0.91764706F),
+                         new Vector4f(0.5921569F, 0.0F, 0.18039216F, 1.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.8666667F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+                         new Vector4f(0.36078432F, 0.078431375F, 0.2509804F, 0.42745098F),
+                         new Vector4f(1.0F, 0.92156863F, 0.80784315F, 0.7607843F),
+                         new Vector4f(1.0F, 0.81960785F, 0.49019608F, 0.7607843F)
+                 )
+                 .addO(
+                         13100,
+                         14000,
+                         new Vector4f(0.050980393F, 0.0F, 0.22352941F, 1.0F),
+                         new Vector4f(0.4392157F, 0.101960786F, 0.6117647F, 1.0F),
+                         new Vector4f(0.6392157F, 0.09019608F, 0.5803922F, 0.9882353F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+                         new Vector4f(0.32941177F, 0.23137255F, 0.47843137F, 0.4117647F),
+                         new Vector4f(0.06666667F, 0.07450981F, 0.26666668F, 0.37254903F),
+                         new Vector4f(0.23921569F, 0.15686275F, 0.54509807F, 0.37254903F)
+                 )
+                 .addO(
+                         17500,
+                         18400,
+                         new Vector4f(0.09803922F, 0.07058824F, 0.2F, 1.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 0.9882353F),
+                         new Vector4f(0.09411765F, 0.08627451F, 0.20392157F, 1.0F),
+                         new Vector4f(0.0F, 0.0F, 0.0F, 1.0F),
+                         new Vector4f(0.02745098F, 0.02745098F, 0.14901961F, 0.39215687F),
+                         new Vector4f(0.14509805F, 0.101960786F, 0.2784314F, 0.24313726F),
+                         new Vector4f(0.14509805F, 0.101960786F, 0.2784314F, 0.24313726F)
+                 )
+                 .cycleAll();
+
+         skyRender = new RenderStormledgeSky(timeOfDayProvider);
+
+      } else {
+         timeOfDayProvider
+                 .addO(
+                         22900,
+                         23600,
+                         null
+                 )
+                 .addO(
+                         1500,
+                         2300,
+                         null
+                 )
+                 .addO(
+                         5000,
+                         5300,
+                         null
+                 )
+                 .addO(
+                         6400,
+                         7100,
+                         null
+                 )
+                 .addO(
+                         11500,
+                         12100,
+                         null
+                 )
+                 .addO(
+                         13100,
+                         14000,
+                         null
+                 )
+                 .addO(
+                         17500,
+                         18400,
+                         null
+                 )
+                 .cycleAll();
+      }
+   }
+
+//   public static RenderStormledgeSky skyRender = new RenderStormledgeSky(timeOfDayProvider);
+//   public WorldEventsHandler worldEventsHandler;
+//   public Storm storm = new Storm(this, 0, 6000, 20000, 0.045F);
+//   public Rainstorm rainstorm = new Rainstorm(this, 1, 4000, 10000, 0.03F);
+
+   public static Object skyRender;
+   public Object worldEventsHandler;
+   public Object storm;
+   public Object rainstorm;
 
    public DimensionStormledge() {
-      this.worldEventsHandler = new WorldEventsHandler(this, this.storm, this.rainstorm);
+      if (FMLCommonHandler.instance().getSide().isClient()) {
+         storm = new Storm(this, 0, 6000, 20000, 0.045F);
+         rainstorm = new Rainstorm(this, 1, 4000, 10000, 0.03F);
+         this.worldEventsHandler = new WorldEventsHandler(this, (WorldEvent) this.storm, (WorldEvent) this.rainstorm);
+      }
    }
 
    public void getLightmapColors(float partialTicks, float sunBrightness, float skyLight, float blockLight, float[] colors) {
       timeOfDayProvider.setLightmapColors(7, this.getWorldTime(), partialTicks, sunBrightness, skyLight, blockLight, colors);
    }
 
+   @SideOnly(Side.CLIENT)
    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
       return null;
    }
 
+   @SideOnly(Side.CLIENT)
    public IRenderHandler getSkyRenderer() {
-      return skyRender;
+      return (IRenderHandler) skyRender;
    }
 
+   @SideOnly(Side.CLIENT)
    public IRenderHandler getWeatherRenderer() {
-      return this.worldEventsHandler;
+      return (IRenderHandler) this.worldEventsHandler;
    }
 
    public void updateWeather() {
-      this.worldEventsHandler.onUpdate();
+      if (this.worldEventsHandler != null) {
+         ((WorldEventsHandler) this.worldEventsHandler).onUpdate();
+      }
    }
 
    @Override
    public WorldEventsHandler getWorldEventsHandler() {
-      return this.worldEventsHandler;
+      if (this.worldEventsHandler != null) {
+         return (WorldEventsHandler) this.worldEventsHandler;
+      } else {
+         return null;
+      }
    }
 
    @Override
@@ -143,6 +298,7 @@ public class DimensionStormledge extends AbstractWorldProvider {
       return timeOfDayProvider;
    }
 
+   @SideOnly(Side.CLIENT)
    public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
       float f = MathHelper.cos(p_76562_1_ * (float) (Math.PI * 2)) * 2.0F + 0.5F;
       f = MathHelper.clamp(f, 0.0F, 1.0F);

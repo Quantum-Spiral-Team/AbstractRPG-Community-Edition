@@ -1,25 +1,19 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.FairyWingsModel;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.IAttributedBauble;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PlayerButtonTracker;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
+import com.Vivern.Arpg.arpgfix.KeyboardConstants_CustomKeys;
+import com.Vivern.Arpg.elements.models.FairyWingsModel;
+import com.Vivern.Arpg.main.*;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import java.util.Random;
-import java.util.UUID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,7 +31,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-public class FairyWings extends Item implements IBauble, IAttributedBauble, IWings, IRenderBauble {
+import java.util.Random;
+import java.util.UUID;
+
+public class FairyWings extends Item_SideSync implements IBauble, IAttributedBauble, IWings, IRenderBauble {
    public static FairyWingsModel model = new FairyWingsModel();
    public static ResourceLocation texture = new ResourceLocation("arpg:textures/fairy_wings_model_tex.png");
 
@@ -57,6 +54,7 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (type == RenderType.BODY) {
          float sweep = (-player.rotationPitch + 90.0F) / 180.0F;
@@ -123,16 +121,21 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
          int damage = itemstack.getItemDamage();
          boolean flying = (Boolean)player.getDataManager().get(PropertiesRegistry.FLYING);
          boolean cool = player.getCooldownTracker().hasCooldown(itemIn);
-         boolean clickforw = GameSettings.isKeyDown(Keys.FORWARD);
-         boolean clicksprint = GameSettings.isKeyDown(Keys.SPRINT);
-         boolean clickback = GameSettings.isKeyDown(Keys.BACK);
-         boolean jump = GameSettings.isKeyDown(Keys.JUMP);
+//         boolean clickforw = GameSettings.isKeyDown(Keys.FORWARD);
+//         boolean clicksprint = GameSettings.isKeyDown(Keys.SPRINT);
+//         boolean clickback = GameSettings.isKeyDown(Keys.BACK);
+//         boolean jump = GameSettings.isKeyDown(Keys.JUMP);
+         boolean clickforw = this.isKeyPressed(player, KeyboardConstants_CustomKeys.FORWARD);
+         boolean clicksprint = this.isKeyPressed(player, KeyboardConstants_CustomKeys.SPRINT);
+         boolean clickback = this.isKeyPressed(player, KeyboardConstants_CustomKeys.BACK);
+         boolean jump = this.isKeyPressed(player, KeyboardConstants_CustomKeys.JUMP);
          boolean pressflying = false;
          if (!player.onGround && clicksprint && damage < this.getMaxDamage(itemstack) && !flying && !cool) {
             player.getDataManager().set(PropertiesRegistry.FLYING, true);
             pressflying = true;
             if (player instanceof EntityPlayerSP) {
-               Minecraft.getMinecraft().getSoundHandler().playSound(new FairyWingsSound((EntityPlayerSP)player));
+//               Minecraft.getMinecraft().getSoundHandler().playSound(new FairyWingsSound((EntityPlayerSP)player));
+               this.onWorldTick_Client_1(player);
             }
          }
 
@@ -300,6 +303,11 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
             }
          }
       }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onWorldTick_Client_1(EntityPlayer player) {
+      Minecraft.getMinecraft().getSoundHandler().playSound(new FairyWingsSound((EntityPlayerSP)player));
    }
 
    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {

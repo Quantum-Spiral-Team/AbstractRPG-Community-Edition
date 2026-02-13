@@ -1,18 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
+package com.Vivern.Arpg.elements;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.IAttributedBauble;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
-import java.util.List;
+import com.Vivern.Arpg.entity.BetweenParticle;
+import com.Vivern.Arpg.main.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
@@ -30,6 +24,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class SparklingNecklace extends Item implements IBauble, IAttributedBauble, IRenderBauble {
    ResourceLocation start = new ResourceLocation("arpg:textures/plasma_beam.png");
@@ -43,6 +41,7 @@ public class SparklingNecklace extends Item implements IBauble, IAttributedBaubl
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (type == RenderType.BODY) {
          GlStateManager.pushMatrix();
@@ -135,18 +134,23 @@ public class SparklingNecklace extends Item implements IBauble, IAttributedBaubl
                   1.2F + itemRand.nextFloat() / 5.0F
                );
             if (player.world.isRemote) {
-               Vec3d vect = player.getPositionVector().add(0.0, player.height / 1.4, 0.0);
-               Vec3d newvec = targ.getPositionVector().add(0.0, targ.height / 2.0F, 0.0);
-               if (vect.lengthSquared() > 1.0E-6 && newvec.lengthSquared() > 1.0E-6) {
-                  BetweenParticle laser = new BetweenParticle(
-                     player.world, this.start, 0.1F, 240, 1.0F, 1.0F, 1.0F, 0.1F, vect.distanceTo(newvec), 5, 0.3F, 1.0F, vect, newvec
-                  );
-                  laser.setPosition(vect.x, vect.y, vect.z);
-                  laser.alphaGlowing = true;
-                  player.world.spawnEntity(laser);
-               }
+               onWorldTick_Client(player, targ);
             }
          }
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void onWorldTick_Client(EntityLivingBase player, EntityLivingBase targ) {
+      Vec3d vect = player.getPositionVector().add(0.0, player.height / 1.4, 0.0);
+      Vec3d newvec = targ.getPositionVector().add(0.0, targ.height / 2.0F, 0.0);
+      if (vect.lengthSquared() > 1.0E-6 && newvec.lengthSquared() > 1.0E-6) {
+         BetweenParticle laser = new BetweenParticle(
+                 player.world, this.start, 0.1F, 240, 1.0F, 1.0F, 1.0F, 0.1F, vect.distanceTo(newvec), 5, 0.3F, 1.0F, vect, newvec
+         );
+         laser.setPosition(vect.x, vect.y, vect.z);
+         laser.alphaGlowing = true;
+         player.world.spawnEntity(laser);
       }
    }
 }

@@ -1,7 +1,9 @@
-package com.vivern.arpg.weather;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.events.Debugger;
+package com.Vivern.Arpg.weather;
+
+import com.Vivern.Arpg.dimensions.generationutils.AbstractWorldProvider;
+import com.Vivern.Arpg.events.Debugger;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -12,6 +14,8 @@ import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 public class Snowfall extends WorldEvent implements IVoxelCloudInfo {
@@ -19,6 +23,7 @@ public class Snowfall extends WorldEvent implements IVoxelCloudInfo {
    public Random rand = new Random();
    public VoxelCloudField voxelCloudField;
    public Vec3d sunVector = Vec3d.ZERO;
+   @SideOnly(Side.CLIENT)
    public Vector4f[] colors;
    public float nightpower;
    public float daypower;
@@ -38,12 +43,14 @@ public class Snowfall extends WorldEvent implements IVoxelCloudInfo {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       super.render(partialTicks, world, mc);
       WorldEventsHandler.renderRainSnow(partialTicks, this.rand, 1.0F, tex, this.showness, 0.001F, 0.7F, 0.002F, 2.0F, null, null);
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void renderClouds(float partialTicks, WorldClient world, Minecraft mc) {
       if (this.voxelCloudField == null) {
          this.voxelCloudField = new VoxelCloudField(16, 512, 48, 180.0F);
@@ -54,6 +61,7 @@ public class Snowfall extends WorldEvent implements IVoxelCloudInfo {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void stopRenderClouds() {
       this.voxelCloudField = null;
    }
@@ -89,6 +97,7 @@ public class Snowfall extends WorldEvent implements IVoxelCloudInfo {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void onPreRender() {
       float celestialAngle = this.worldProvider.calculateCelestialAngle(this.worldProvider.getWorldTime(), 0.0F);
       this.sunVector = calcCelestialVector(celestialAngle);
@@ -114,6 +123,7 @@ public class Snowfall extends WorldEvent implements IVoxelCloudInfo {
    }
 
    @Override
+   @SideOnly(Side.CLIENT)
    public void writeColorInPoint(
       VoxelCloudField field,
       VoxelCloud voxelCloud,

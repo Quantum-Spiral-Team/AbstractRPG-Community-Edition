@@ -1,10 +1,12 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityGeomanticCrystal;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.OreDicHelper;
-import com.vivern.arpg.main.Sounds;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.entity.EntityGeomanticCrystal;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.OreDicHelper;
+import com.Vivern.Arpg.main.Sounds;
 import javax.annotation.Nullable;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,7 +21,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemGeomanticCrystal extends Item implements IItemColor {
+//public class ItemGeomanticCrystal extends Item implements IItemColor {
+// server-side crash fix
+public class ItemGeomanticCrystal extends Item {
    public ItemGeomanticCrystal() {
       this.setRegistryName("geomantic_crystal");
       this.setCreativeTab(CreativeTabs.MATERIALS);
@@ -34,9 +38,10 @@ public class ItemGeomanticCrystal extends Item implements IItemColor {
       });
    }
 
-   public int colorMultiplier(ItemStack stack, int tintIndex) {
-      return tintIndex == 0 ? NBTHelper.GetNBTint(stack, "color") : NBTHelper.GetNBTint(stack, "colorover");
-   }
+   // server-side crash fix
+//   public int colorMultiplier(ItemStack stack, int tintIndex) {
+//      return tintIndex == 0 ? NBTHelper.GetNBTint(stack, "color") : NBTHelper.GetNBTint(stack, "colorover");
+//   }
 
    public boolean onEntityItemUpdate(EntityItem entityItem) {
       if (!entityItem.world.isRemote

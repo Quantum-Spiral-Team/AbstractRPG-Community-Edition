@@ -1,6 +1,8 @@
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
+
 package gloomyfolkenvivern.arpghooklib.example.coloredlightning;
 
-import com.vivern.arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.BlocksRegister;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +19,10 @@ import net.minecraft.world.BossInfo.Color;
 import net.minecraftforge.event.world.ChunkEvent.Load;
 import net.minecraftforge.event.world.ChunkEvent.Unload;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.relauncher.Side;
 
 @EventBusSubscriber(
+        value = Side.CLIENT,
    modid = "arpg"
 )
 public class ColoredLightning {

@@ -1,13 +1,15 @@
-package com.vivern.arpg.elements;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.elements.models.CalibrationCrystalModel;
-import com.vivern.arpg.elements.models.MagicCandleModel;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Spell;
-import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.tileentity.TileCalibrationBundle;
+package com.Vivern.Arpg.elements;
+
+import com.Vivern.Arpg.elements.models.CalibrationCrystalModel;
+import com.Vivern.Arpg.elements.models.MagicCandleModel;
+import com.Vivern.Arpg.main.BlocksRegister;
+import com.Vivern.Arpg.main.GetMOP;
+import com.Vivern.Arpg.main.NBTHelper;
+import com.Vivern.Arpg.main.Spell;
+import com.Vivern.Arpg.renders.GUNParticle;
+import com.Vivern.Arpg.tileentity.TileCalibrationBundle;
 import com.google.common.base.Predicate;
 import java.util.List;
 import java.util.Random;
@@ -172,6 +174,7 @@ public class ItemCalibrationThing extends Item {
       }
    }
 
+   @SideOnly(Side.CLIENT) //
    public static void spawnCandleLightParticle(World world, Vec3d pos, @Nullable Vec3d col, boolean voidd) {
       if (col == null) {
          GUNParticle particle = new GUNParticle(

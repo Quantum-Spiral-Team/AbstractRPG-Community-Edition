@@ -1,10 +1,12 @@
-package com.vivern.arpg.main;
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "C:\Users\Admin\Desktop\stuff\asbtractrpg\Minecraft-Deobfuscator3000-master\1.12 stable mappings"!
 
-import com.vivern.arpg.entity.EntityShard;
-import com.vivern.arpg.mobs.AbstractMob;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketSmallSomethingToClients;
-import com.vivern.arpg.renders.ManaBar;
+package com.Vivern.Arpg.main;
+
+import com.Vivern.Arpg.entity.EntityShard;
+import com.Vivern.Arpg.mobs.AbstractMob;
+import com.Vivern.Arpg.network.PacketHandler;
+import com.Vivern.Arpg.network.PacketSmallSomethingToClients;
+import com.Vivern.Arpg.renders.ManaBar;
 import java.util.Random;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.EntityCreature;
@@ -20,6 +22,8 @@ import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
    modid = "arpg"
@@ -68,6 +72,7 @@ public class Shards {
    }
 
    @SubscribeEvent
+   @SideOnly(Side.CLIENT)
    public static void onPlayerOpenInventory(GuiOpenEvent event) {
       if (event.getGui() instanceof GuiInventory) {
          ManaBar.energy_bars_enable = true;
