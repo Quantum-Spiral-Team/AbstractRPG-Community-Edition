@@ -113,14 +113,15 @@ public class ARPGHooks {
    public static int moveSlot = 0;
    private static final Logger LOGGER = LogManager.getLogger(ARPGHooks.class.getSimpleName());
 
-   //FIXME ждать фикс в HookLib, ибо сейчас (16.02.26) PrivateClass не может использоваться в FieldLens
-//   @SideOnly(Side.CLIENT)
-//   @PrivateClass("net.minecraft.client.audio.SoundManager$SoundSystemStarterThread")
-//   public static class SoundSystemStarterThread extends SoundSystem {}
+   @SideOnly(Side.CLIENT)
+   @PrivateClass("net.minecraft.client.audio.SoundManager$SoundSystemStarterThread")
+   public static class SoundSystemStarterThread extends SoundSystem {}
 
-   @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, GameSettings> options;
+   @SideOnly(Side.CLIENT)
+   @FieldLens
+   public static FieldAccessor<SoundManager, GameSettings> options;
    @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, Integer> playTime;
-   @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, SoundManager.SoundSystemStarterThread> sndSystem;
+   @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, SoundSystemStarterThread> sndSystem;
    @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, List<ITickableSound>> tickableSounds;
    @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, Map<ISound, String>> invPlayingSounds;
    @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, Map<String, ISound>> playingSounds;
