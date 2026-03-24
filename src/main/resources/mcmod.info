@@ -1,9 +1,8 @@
-[
-{
-  "modid": "arpg",
-  "name": "Abstract RPG",
+[{
+  "modid": "${mod_id}",
+  "name": "${mod_name}",
+  "version": "${mod_version}",
   "description": "Burn, destroy, tear apart and annihilate hordes of enemies using an impressive arsenal of weapons with your friends or solo. Travel through dimensions, loot, defeat bosses, explore magic and technology in this extensive mod",
-  "version": "1.33",
   "mcversion": "1.12.2",
   "url": "https://discord.gg/ucdCkGRrRa",
   "updateUrl": "https://www.curseforge.com/minecraft/mc-mods/abstract-rpg",
@@ -12,5 +11,4 @@
   "logoFile": "arpg_logo.png",
   "screenshots": [],
   "dependencies": ["Baubles by Azanor"]
-}
-]
+}]
