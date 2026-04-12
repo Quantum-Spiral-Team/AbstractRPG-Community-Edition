@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.TroglodyteModel;
+import com.vivern.arpg.items.models.TroglodyteModel;
 import com.vivern.arpg.mobs.Troglodyte;
 import javax.annotation.Nonnull;
 import net.minecraft.client.renderer.entity.Render;

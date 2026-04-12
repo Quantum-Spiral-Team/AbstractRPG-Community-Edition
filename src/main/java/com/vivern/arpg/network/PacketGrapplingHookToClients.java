@@ -1,6 +1,6 @@
 package com.vivern.arpg.network;
 
-import com.vivern.arpg.elements.GraplingHook;
+import com.vivern.arpg.items.GraplingHook;
 import io.netty.buffer.ByteBuf;
 import java.util.ConcurrentModificationException;
 import net.minecraft.entity.Entity;

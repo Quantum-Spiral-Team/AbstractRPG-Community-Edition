@@ -1,7 +1,7 @@
 package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.blocks.Splitter;
-import com.vivern.arpg.elements.Beaker;
+import com.vivern.arpg.items.Beaker;
 import com.vivern.arpg.main.ItemsElements;
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.network.PacketHandler;

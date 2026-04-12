@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.elements.StaffOfWitherdry;
+import com.vivern.arpg.items.StaffOfWitherdry;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.DeathEffects;
 import com.vivern.arpg.main.EnchantmentInit;

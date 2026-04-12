@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.CubikModel;
+import com.vivern.arpg.items.models.CubikModel;
 import com.vivern.arpg.entity.EntityCubicParticle;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;

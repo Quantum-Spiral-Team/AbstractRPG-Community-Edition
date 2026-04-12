@@ -1,6 +1,6 @@
 package com.vivern.arpg.network;
 
-import com.vivern.arpg.elements.IWeapon;
+import com.vivern.arpg.items.IWeapon;
 import io.netty.buffer.ByteBuf;
 import java.util.ConcurrentModificationException;
 import net.minecraft.entity.EntityLivingBase;

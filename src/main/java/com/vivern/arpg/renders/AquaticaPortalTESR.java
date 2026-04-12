@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.ModelSphere;
+import com.vivern.arpg.items.models.ModelSphere;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.tileentity.TileAquaticaPortal;
 import java.nio.Buffer;

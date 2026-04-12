@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.DungeonLadderModel;
+import com.vivern.arpg.items.models.DungeonLadderModel;
 import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.tileentity.TileDungeonLadder;
 import net.minecraft.client.renderer.BufferBuilder;

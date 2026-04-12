@@ -1,6 +1,6 @@
 package com.vivern.arpg.tileentity;
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.renders.ModelRendererLimited;
 import java.util.ArrayList;

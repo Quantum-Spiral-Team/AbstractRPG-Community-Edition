@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.elements.IRepulsable;
+import com.vivern.arpg.items.IRepulsable;
 import com.vivern.arpg.main.DeathEffects;
 import com.vivern.arpg.main.EnchantmentInit;
 import com.vivern.arpg.main.ItemsRegister;
@@ -19,7 +19,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;

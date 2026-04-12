@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.elements.models.LaserModel;
+import com.vivern.arpg.items.models.LaserModel;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.Weapons;
 import net.minecraft.client.Minecraft;

@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.BioCellModel;
+import com.vivern.arpg.items.models.BioCellModel;
 import com.vivern.arpg.tileentity.TileBioCell;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;

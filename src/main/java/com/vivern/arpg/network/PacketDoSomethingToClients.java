@@ -1,7 +1,7 @@
 package com.vivern.arpg.network;
 
 import com.vivern.arpg.arpgamemodes.SurvivorGamestyleWatcher;
-import com.vivern.arpg.elements.BaublesPack;
+import com.vivern.arpg.items.BaublesPack;
 import com.vivern.arpg.entity.EntityGeomanticCrystal;
 import com.vivern.arpg.mobs.EntityAIArcAttack;
 import com.vivern.arpg.potions.RespawnPenalty;

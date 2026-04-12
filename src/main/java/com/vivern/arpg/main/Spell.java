@@ -1,7 +1,7 @@
 package com.vivern.arpg.main;
 
 import com.vivern.arpg.container.GUIResearchTable;
-import com.vivern.arpg.elements.models.AbstractMobModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.recipes.ExploringField;
 import com.vivern.arpg.recipes.WriteGraph;
 import com.vivern.arpg.tileentity.TileResearchTable;

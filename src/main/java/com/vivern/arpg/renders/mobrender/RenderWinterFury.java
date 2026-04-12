@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.ModelsEverfrostMob;
+import com.vivern.arpg.items.models.ModelsEverfrostMob;
 import com.vivern.arpg.mobs.BossWinterFury;
 import javax.annotation.Nonnull;
 import net.minecraft.client.renderer.entity.Render;

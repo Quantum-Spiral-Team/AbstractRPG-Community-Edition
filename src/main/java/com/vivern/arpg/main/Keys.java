@@ -1,7 +1,7 @@
 package com.vivern.arpg.main;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.elements.IWeapon;
+import com.vivern.arpg.items.IWeapon;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.network.PacketKeysToServer;
 import com.vivern.arpg.potions.Freezing;

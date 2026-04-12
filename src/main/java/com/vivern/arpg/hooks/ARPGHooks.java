@@ -4,7 +4,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Ordering;
 import com.vivern.arpg.ARPGConfig;
 import com.vivern.arpg.blocks.AshBlock;
-import com.vivern.arpg.elements.IWeapon;
+import com.vivern.arpg.items.IWeapon;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.hooks.coloredlightning.ColoredLightning;
 import com.vivern.arpg.main.*;

@@ -1,7 +1,7 @@
 package com.vivern.arpg.main;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.elements.IWeapon;
+import com.vivern.arpg.items.IWeapon;
 import java.lang.reflect.Field;
 import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLivingBase;

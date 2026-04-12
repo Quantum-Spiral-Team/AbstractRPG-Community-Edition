@@ -1,7 +1,7 @@
 package com.vivern.arpg.tileentity;
 
-import com.vivern.arpg.elements.IWeapon;
-import com.vivern.arpg.elements.SoulStone;
+import com.vivern.arpg.items.IWeapon;
+import com.vivern.arpg.items.SoulStone;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ItemsRegister;

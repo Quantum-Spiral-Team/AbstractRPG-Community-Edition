@@ -1,6 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.elements.IWeapon;
+import com.vivern.arpg.items.IWeapon;
 import net.minecraft.item.Item;
 import net.minecraft.util.text.translation.I18n;
 

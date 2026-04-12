@@ -49,7 +49,7 @@ public class EntityLaserParticle extends Entity {
       this.Red = Red;
       this.Green = Green;
       this.Blue = Blue;
-      Vec3d vec = GetMOP.PosRayTrace(100.0, 1.0F, player, 0.01, 0.01);
+      Vec3d vec = GetMOP.posRayTrace(100.0, 1.0F, player, 0.01, 0.01);
       this.distance = player.getDistance(vec.x, vec.y, vec.z);
       this.alphatime = alphatime;
       AxisAlignedBB bb = new AxisAlignedBB(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);

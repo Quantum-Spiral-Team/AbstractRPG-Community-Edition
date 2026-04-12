@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.GnaterModel;
+import com.vivern.arpg.items.models.GnaterModel;
 import com.vivern.arpg.mobs.Gnater;
 import javax.annotation.Nonnull;
 import net.minecraft.client.renderer.entity.Render;

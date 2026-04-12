@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.DisenchantmentTableCubeModel;
+import com.vivern.arpg.items.models.DisenchantmentTableCubeModel;
 import com.vivern.arpg.tileentity.TileDisenchantmentTable;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;

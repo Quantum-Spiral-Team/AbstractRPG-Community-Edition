@@ -229,7 +229,7 @@ public class SummonedBlaze extends EntitySummoned {
          this.firedelay--;
          if (this.firedelay < 1) {
             this.firedelay = 15;
-            Vec3d vec = GetMOP.PosRayTrace(15.5, 0.0F, this, true, 0.01, 0.01);
+            Vec3d vec = GetMOP.posRayTrace(15.5, 0.0F, this, true, 0.01, 0.01);
             Vec3d pos1 = this.getPositionEyes(0.0F);
             double range = 0.5;
             AxisAlignedBB aabb = new AxisAlignedBB(

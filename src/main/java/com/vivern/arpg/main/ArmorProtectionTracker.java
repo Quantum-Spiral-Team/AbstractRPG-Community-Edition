@@ -1,11 +1,11 @@
 package com.vivern.arpg.main;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.elements.IItemDamaged;
-import com.vivern.arpg.elements.armor.IItemAttacked;
-import com.vivern.arpg.elements.armor.IItemDamaging;
-import com.vivern.arpg.elements.armor.IItemHurted;
-import com.vivern.arpg.elements.armor.IItemKilling;
+import com.vivern.arpg.items.IItemDamaged;
+import com.vivern.arpg.items.armor.IItemAttacked;
+import com.vivern.arpg.items.armor.IItemDamaging;
+import com.vivern.arpg.items.armor.IItemHurted;
+import com.vivern.arpg.items.armor.IItemKilling;
 import com.vivern.arpg.potions.AdvancedPotion;
 import com.vivern.arpg.renders.KillScore;
 import net.minecraft.entity.EntityLivingBase;

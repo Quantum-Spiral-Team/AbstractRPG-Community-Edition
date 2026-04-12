@@ -1,6 +1,6 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.elements.models.ModelsDungeonMob;
+import com.vivern.arpg.items.models.ModelsDungeonMob;
 import com.vivern.arpg.entity.AbstractGlyphid;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.CrystalFanShoot;

@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
 import java.util.HashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;

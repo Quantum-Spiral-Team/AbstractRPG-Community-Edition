@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.PresentBoxModel;
+import com.vivern.arpg.items.models.PresentBoxModel;
 import com.vivern.arpg.tileentity.TilePresentBox;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;

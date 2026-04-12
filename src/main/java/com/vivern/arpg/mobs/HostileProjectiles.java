@@ -1,10 +1,10 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.elements.ItemBullet;
-import com.vivern.arpg.elements.models.HailblastModel;
-import com.vivern.arpg.elements.models.PistolFishStrikeModel;
-import com.vivern.arpg.elements.models.RocketModel;
-import com.vivern.arpg.elements.models.ThornkeeperShootModel;
+import com.vivern.arpg.items.ItemBullet;
+import com.vivern.arpg.items.models.HailblastModel;
+import com.vivern.arpg.items.models.PistolFishStrikeModel;
+import com.vivern.arpg.items.models.RocketModel;
+import com.vivern.arpg.items.models.ThornkeeperShootModel;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.CrystalFanShoot;
 import com.vivern.arpg.entity.EntityCubicParticle;

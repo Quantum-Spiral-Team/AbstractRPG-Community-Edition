@@ -1,7 +1,7 @@
 package com.vivern.arpg.recipes;
 
-import com.vivern.arpg.elements.GemStaff;
-import com.vivern.arpg.elements.SoulStone;
+import com.vivern.arpg.items.GemStaff;
+import com.vivern.arpg.items.SoulStone;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.OreDicHelper;

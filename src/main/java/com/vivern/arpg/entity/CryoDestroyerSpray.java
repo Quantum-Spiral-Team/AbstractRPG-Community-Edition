@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.elements.CryonedBlock;
+import com.vivern.arpg.items.CryonedBlock;
 import com.vivern.arpg.main.DeathEffects;
 import com.vivern.arpg.main.EnchantmentInit;
 import com.vivern.arpg.main.GetMOP;

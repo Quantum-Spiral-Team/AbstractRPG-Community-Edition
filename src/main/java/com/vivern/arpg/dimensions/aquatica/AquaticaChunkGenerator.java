@@ -7,7 +7,7 @@ import com.vivern.arpg.dimensions.generationutils.GenerationHelper;
 import com.vivern.arpg.dimensions.generationutils.WorldGenCoral;
 import com.vivern.arpg.dimensions.generationutils.WorldGenMetallicCoral;
 import com.vivern.arpg.dimensions.generationutils.WorldGenMiniCoral;
-import com.vivern.arpg.elements.ItemShell;
+import com.vivern.arpg.items.ItemShell;
 import com.vivern.arpg.entity.EntityHangingAllSides;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.loot.ListLootTable;

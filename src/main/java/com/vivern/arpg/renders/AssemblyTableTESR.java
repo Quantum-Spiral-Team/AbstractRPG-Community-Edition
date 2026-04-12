@@ -1,7 +1,7 @@
 package com.vivern.arpg.renders;
 
 import com.vivern.arpg.blocks.AssemblyTable;
-import com.vivern.arpg.elements.models.AssemblyTableModel;
+import com.vivern.arpg.items.models.AssemblyTableModel;
 import com.vivern.arpg.tileentity.TileAssemblyTable;
 import javax.annotation.Nullable;
 import net.minecraft.client.renderer.GlStateManager;

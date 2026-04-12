@@ -1,6 +1,6 @@
 package com.vivern.arpg.tileentity;
 
-import com.vivern.arpg.elements.ItemCalibrationThing;
+import com.vivern.arpg.items.ItemCalibrationThing;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Spell;

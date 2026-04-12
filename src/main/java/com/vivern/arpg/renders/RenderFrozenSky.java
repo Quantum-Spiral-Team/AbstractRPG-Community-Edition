@@ -1,7 +1,7 @@
 package com.vivern.arpg.renders;
 
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.elements.models.ModelSphere;
+import com.vivern.arpg.items.models.ModelSphere;
 import com.vivern.arpg.weather.TimeOfDayProvider;
 import java.util.Random;
 import net.minecraft.client.Minecraft;

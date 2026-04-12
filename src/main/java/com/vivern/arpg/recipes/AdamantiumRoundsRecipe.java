@@ -1,6 +1,6 @@
 package com.vivern.arpg.recipes;
 
-import com.vivern.arpg.elements.ItemBullet;
+import com.vivern.arpg.items.ItemBullet;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
 import net.minecraft.inventory.InventoryCrafting;

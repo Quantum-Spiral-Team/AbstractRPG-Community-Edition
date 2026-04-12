@@ -1,9 +1,9 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.elements.Buckshot;
-import com.vivern.arpg.elements.models.MerchantModel;
-import com.vivern.arpg.elements.models.ModelsOtherMob;
-import com.vivern.arpg.elements.models.ModelsStormledgeMob;
+import com.vivern.arpg.items.Buckshot;
+import com.vivern.arpg.items.models.MerchantModel;
+import com.vivern.arpg.items.models.ModelsOtherMob;
+import com.vivern.arpg.items.models.ModelsStormledgeMob;
 import com.vivern.arpg.entity.IEntitySynchronize;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.Coins;

@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.elements.CustomPlantSeed;
-import com.vivern.arpg.elements.CustomPlantSeedEatable;
+import com.vivern.arpg.items.CustomPlantSeed;
+import com.vivern.arpg.items.CustomPlantSeedEatable;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.CreateItemFile;
 import com.vivern.arpg.main.ItemsRegister;
@@ -9,7 +9,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;

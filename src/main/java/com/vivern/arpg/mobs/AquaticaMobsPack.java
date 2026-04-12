@@ -1,10 +1,10 @@
 package com.vivern.arpg.mobs;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.elements.models.ModelSphere;
-import com.vivern.arpg.elements.models.ModelsAquaticaMobs;
-import com.vivern.arpg.elements.models.OceanSpiritModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
+import com.vivern.arpg.items.models.ModelSphere;
+import com.vivern.arpg.items.models.ModelsAquaticaMobs;
+import com.vivern.arpg.items.models.OceanSpiritModel;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.EntityPart;
 import com.vivern.arpg.entity.IEntitySynchronize;
@@ -56,7 +56,6 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
-import net.minecraft.entity.ai.EntityMoveHelper.Action;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -3392,7 +3391,7 @@ public class AquaticaMobsPack {
 
          if (this.lazerTimer > 0) {
             this.lazerTimer--;
-            Vec3d vec = GetMOP.PosRayTrace(18.0, 1.0F, this, 0.3, 0.2);
+            Vec3d vec = GetMOP.posRayTrace(18.0, 1.0F, this, 0.3, 0.2);
             if (this.world.isRemote) {
                this.spawnBetwParticle(this.getPositionEyes(1.0F), vec);
             } else {

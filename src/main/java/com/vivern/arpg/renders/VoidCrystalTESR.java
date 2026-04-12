@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.VoidCrystalModel;
+import com.vivern.arpg.items.models.VoidCrystalModel;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.tileentity.TileVoidCrystal;

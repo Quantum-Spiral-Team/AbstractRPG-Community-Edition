@@ -1,8 +1,8 @@
 package com.vivern.arpg.renders;
 
 import com.vivern.arpg.container.GUIBookOfElements;
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.elements.models.GlossaryModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
+import com.vivern.arpg.items.models.GlossaryModel;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.GetMOP;

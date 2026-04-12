@@ -1,7 +1,7 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.elements.ItemWeatherRocket;
+import com.vivern.arpg.items.ItemWeatherRocket;
 import com.vivern.arpg.main.ParticleFastSummon;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;

@@ -1,6 +1,6 @@
 package com.vivern.arpg.events;
 
-import com.vivern.arpg.elements.SoulStone;
+import com.vivern.arpg.items.SoulStone;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.OreDicHelper;

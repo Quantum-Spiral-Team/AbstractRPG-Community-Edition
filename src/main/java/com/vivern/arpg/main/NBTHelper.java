@@ -1,6 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.elements.IWeapon;
+import com.vivern.arpg.items.IWeapon;
 import com.google.common.base.Predicate;
 import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLivingBase;

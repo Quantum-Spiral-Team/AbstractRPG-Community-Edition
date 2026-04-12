@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.TideBeaconModel;
+import com.vivern.arpg.items.models.TideBeaconModel;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.tileentity.TileNexusBeacon;
 import net.minecraft.client.Minecraft;

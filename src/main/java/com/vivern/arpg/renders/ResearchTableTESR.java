@@ -1,8 +1,8 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.ResearchTableExpModel;
-import com.vivern.arpg.elements.models.ResearchTableResModel;
-import com.vivern.arpg.elements.models.ResearchTableWriModel;
+import com.vivern.arpg.items.models.ResearchTableExpModel;
+import com.vivern.arpg.items.models.ResearchTableResModel;
+import com.vivern.arpg.items.models.ResearchTableWriModel;
 import com.vivern.arpg.tileentity.TileResearchTable;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;

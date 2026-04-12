@@ -193,7 +193,7 @@ public class EntityAIAttackSweep extends AbstractMob.AbstractAI {
       World world = this.entity.world;
       Vec3d vec = this.useYawOffset
          ? GetMOP.RotatedPosRayTrace(this.length, 1.0F, this.entity, this.radius, this.radius, this.entity.rotationPitch, this.entity.renderYawOffset)
-         : GetMOP.PosRayTrace(this.length, 1.0F, this.entity, this.radius, this.radius);
+         : GetMOP.posRayTrace(this.length, 1.0F, this.entity, this.radius, this.radius);
       double damageRadius = this.endradius;
       this.actualCooldown = this.actualCooldown + this.maxcooldown;
       AxisAlignedBB aabb = new AxisAlignedBB(

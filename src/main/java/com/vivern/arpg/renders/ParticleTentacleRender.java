@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.renders.mobrender.RenderTentacles;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;

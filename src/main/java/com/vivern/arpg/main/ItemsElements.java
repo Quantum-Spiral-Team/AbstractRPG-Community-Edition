@@ -1,9 +1,9 @@
 package com.vivern.arpg.main;
 
 import com.vivern.arpg.container.GUIElementDistributor;
-import com.vivern.arpg.elements.Buckshot;
-import com.vivern.arpg.elements.IWeapon;
-import com.vivern.arpg.elements.ItemBullet;
+import com.vivern.arpg.items.Buckshot;
+import com.vivern.arpg.items.IWeapon;
+import com.vivern.arpg.items.ItemBullet;
 import com.vivern.arpg.recipes.AlchemicLabRecipe;
 import com.vivern.arpg.recipes.AssemblyTableRecipe;
 import com.vivern.arpg.recipes.IndustrialMixerRecipe;

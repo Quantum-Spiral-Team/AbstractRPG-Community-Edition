@@ -1,7 +1,7 @@
 package com.vivern.arpg.renders;
 
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.elements.models.CubikModel;
+import com.vivern.arpg.items.models.CubikModel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

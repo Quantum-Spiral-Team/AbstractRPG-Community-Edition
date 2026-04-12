@@ -1,7 +1,7 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.elements.models.CubikModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
+import com.vivern.arpg.items.models.CubikModel;
 import com.vivern.arpg.entity.BlowholeShoot;
 import com.vivern.arpg.entity.EntityCubicParticle;
 import com.vivern.arpg.entity.EntityShard;

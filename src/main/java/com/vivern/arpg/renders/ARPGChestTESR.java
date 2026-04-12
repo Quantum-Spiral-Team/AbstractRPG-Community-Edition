@@ -1,9 +1,9 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.BigChestModel;
-import com.vivern.arpg.elements.models.StandartChestModel;
-import com.vivern.arpg.elements.models.StormBigChestModel;
-import com.vivern.arpg.elements.models.StormChestModel;
+import com.vivern.arpg.items.models.BigChestModel;
+import com.vivern.arpg.items.models.StandartChestModel;
+import com.vivern.arpg.items.models.StormBigChestModel;
+import com.vivern.arpg.items.models.StormChestModel;
 import com.vivern.arpg.tileentity.ChestLock;
 import com.vivern.arpg.tileentity.EnumChest;
 import com.vivern.arpg.tileentity.TileARPGChest;

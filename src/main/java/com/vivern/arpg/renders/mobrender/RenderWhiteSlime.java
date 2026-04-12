@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.SlimeModel;
+import com.vivern.arpg.items.models.SlimeModel;
 import com.vivern.arpg.mobs.WhiteSlime;
 import javax.annotation.Nonnull;
 import net.minecraft.client.renderer.entity.Render;

@@ -1,11 +1,11 @@
 package com.vivern.arpg.mobs;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.elements.models.BlubberModel;
-import com.vivern.arpg.elements.models.CinderCrawlerModel;
-import com.vivern.arpg.elements.models.EnderSeerModel;
-import com.vivern.arpg.elements.models.ModelsOtherMob;
-import com.vivern.arpg.elements.models.VoidGuardModel;
+import com.vivern.arpg.items.models.BlubberModel;
+import com.vivern.arpg.items.models.CinderCrawlerModel;
+import com.vivern.arpg.items.models.EnderSeerModel;
+import com.vivern.arpg.items.models.ModelsOtherMob;
+import com.vivern.arpg.items.models.VoidGuardModel;
 import com.vivern.arpg.entity.AbstractGlyphid;
 import com.vivern.arpg.entity.EntityArrowBouncing;
 import com.vivern.arpg.entity.EntityPart;

@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.TeamBannerModel;
+import com.vivern.arpg.items.models.TeamBannerModel;
 import com.vivern.arpg.tileentity.TileTeamBanner;
 import com.mojang.authlib.GameProfile;
 import java.util.UUID;

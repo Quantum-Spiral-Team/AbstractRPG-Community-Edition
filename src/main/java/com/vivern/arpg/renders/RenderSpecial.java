@@ -1,11 +1,11 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
-import com.vivern.arpg.elements.models.EntityCrystalCutterModel;
-import com.vivern.arpg.elements.models.HorribleEmeraldShootModel;
-import com.vivern.arpg.elements.models.LordOfPainSpikeModel;
-import com.vivern.arpg.elements.models.ModelSphere;
-import com.vivern.arpg.elements.models.ModelsStormledgeMob;
+import com.vivern.arpg.items.models.AbstractMobModel;
+import com.vivern.arpg.items.models.EntityCrystalCutterModel;
+import com.vivern.arpg.items.models.HorribleEmeraldShootModel;
+import com.vivern.arpg.items.models.LordOfPainSpikeModel;
+import com.vivern.arpg.items.models.ModelSphere;
+import com.vivern.arpg.items.models.ModelsStormledgeMob;
 import com.vivern.arpg.entity.BlowholeShoot;
 import com.vivern.arpg.entity.CeratargetShoot;
 import com.vivern.arpg.entity.CoralPolyp;

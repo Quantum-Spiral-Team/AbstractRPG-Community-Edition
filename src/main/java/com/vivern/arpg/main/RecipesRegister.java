@@ -1,6 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.elements.armor.SnowcoatHelm;
+import com.vivern.arpg.items.armor.SnowcoatHelm;
 import com.vivern.arpg.recipes.MoltenGreataxeOil;
 import javax.annotation.Nonnull;
 import net.minecraft.item.ItemStack;

@@ -1,7 +1,7 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.ManaBottleModel;
-import com.vivern.arpg.elements.models.ManaBottleModelOverlay;
+import com.vivern.arpg.items.models.ManaBottleModel;
+import com.vivern.arpg.items.models.ManaBottleModelOverlay;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.tileentity.TileManaBottle;
 import net.minecraft.client.renderer.GlStateManager;

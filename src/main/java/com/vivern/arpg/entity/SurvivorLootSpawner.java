@@ -2,7 +2,7 @@ package com.vivern.arpg.entity;
 
 import com.vivern.arpg.mobs.NPCMobsPack;
 import com.vivern.arpg.renders.GUNParticle;
-import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -21,9 +21,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SurvivorLootSpawner extends EntityThrowable {
-   ResourceLocation flame = new ResourceLocation("arpg:textures/flame_big.png");
-   public ArrayList<ItemStack> loot;
-   public ArrayList<NPCMobsPack.Trade> trades;
+   ResourceLocation flame = new ResourceLocation("arpg", "textures/flame_big.png");
+   public List<ItemStack> LOOT;
+   public List<NPCMobsPack.Trade> TRADES;
 
    public SurvivorLootSpawner(World world) {
       super(world);
@@ -124,11 +124,11 @@ public class SurvivorLootSpawner extends EntityThrowable {
                .getBlock()
                .getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos())
             != null) {
-         if (this.trades != null) {
+         if (this.TRADES != null) {
             this.explMerchant();
          }
 
-         if (this.loot != null) {
+         if (this.LOOT != null) {
             this.explChest();
          }
       }
@@ -146,14 +146,14 @@ public class SurvivorLootSpawner extends EntityThrowable {
             }
          }
 
-         BlockPos poschest = center.up(this.trades != null ? 3 : 1);
+         BlockPos poschest = center.up(this.TRADES != null ? 3 : 1);
          this.world.setBlockState(poschest, Blocks.CHEST.getDefaultState());
          TileEntity tile = this.world.getTileEntity(poschest);
          if (tile instanceof TileEntityChest) {
             TileEntityChest chest = (TileEntityChest)tile;
             int indx = 0;
 
-            for (ItemStack stack : this.loot) {
+            for (ItemStack stack : this.LOOT) {
                chest.setInventorySlotContents(indx, stack);
                indx++;
             }
@@ -205,7 +205,7 @@ public class SurvivorLootSpawner extends EntityThrowable {
          NPCMobsPack.NpcMerchant merchant = new NPCMobsPack.NpcMerchant(this.world);
          merchant.setPosition(center.getX() + 0.5, center.getY() + 1.1, center.getZ() + 0.5);
          merchant.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(merchant)), (IEntityLivingData)null);
-         merchant.trades = this.trades;
+         merchant.trades = this.TRADES;
          merchant.setEntityInvulnerable(true);
          this.world.spawnEntity(merchant);
          merchant.enablePersistence();
@@ -217,38 +217,28 @@ public class SurvivorLootSpawner extends EntityThrowable {
    }
 
    public Block getBlockForBuild(int buildFor) {
-      if (this.dimension == 0) {
-         if (buildFor == 0) {
-            return Blocks.PLANKS;
-         }
-
-         if (buildFor == 1) {
-            return Blocks.WOODEN_SLAB;
-         }
-
-         if (buildFor == 2) {
-            return Blocks.GLASS_PANE;
-         }
-      }
-
       if (this.dimension == -1) {
-         if (buildFor == 0) {
-            return Blocks.NETHER_BRICK;
+         switch (buildFor) {
+            case 0:
+               return Blocks.NETHER_BRICK;
+            case 1:
+               return Blocks.GLOWSTONE;
+            case 2:
+               return Blocks.NETHER_BRICK_FENCE;
+            default:
          }
-
-         if (buildFor == 1) {
-            return Blocks.GLOWSTONE;
-         }
-
-         if (buildFor == 2) {
-            return Blocks.NETHER_BRICK_FENCE;
-         }
-      }
-
-      if (buildFor == 0) {
-         return Blocks.PLANKS;
       } else {
-         return (Block)(buildFor == 1 ? Blocks.WOODEN_SLAB : Blocks.GLASS_PANE);
+         switch (buildFor) {
+            case 0:
+               return Blocks.PLANKS;
+            case 1:
+               return Blocks.WOODEN_SLAB;
+            case 2:
+               return Blocks.GLASS_PANE;
+            default:
+         }
       }
+
+      throw new IllegalArgumentException("Invalid block for build. Please report this issue to the developers.");
    }
 }

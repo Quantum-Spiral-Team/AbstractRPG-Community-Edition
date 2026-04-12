@@ -1,6 +1,6 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.elements.models.ModelsStormledgeMob;
+import com.vivern.arpg.items.models.ModelsStormledgeMob;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.IEntitySynchronize;
 import com.vivern.arpg.main.BloodType;
@@ -366,7 +366,7 @@ public class StormledgeMobsPack {
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 8) {
-            Vec3d poss = GetMOP.PosRayTrace(3.0, 1.0F, this, 0.8F, 0.8F);
+            Vec3d poss = GetMOP.posRayTrace(3.0, 1.0F, this, 0.8F, 0.8F);
             int countOfParticles = 16;
             float R = 0.2F + this.rand.nextFloat() / 40.0F;
 

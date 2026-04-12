@@ -1,6 +1,6 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.elements.models.LaserModel;
+import com.vivern.arpg.items.models.LaserModel;
 import com.vivern.arpg.entity.EntityPart;
 import com.vivern.arpg.entity.EntityStreamLaserP;
 import com.vivern.arpg.entity.IEntitySynchronize;

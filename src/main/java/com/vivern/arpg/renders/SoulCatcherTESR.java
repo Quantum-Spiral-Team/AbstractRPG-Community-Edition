@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.SoulCatcherModel;
+import com.vivern.arpg.items.models.SoulCatcherModel;
 import com.vivern.arpg.tileentity.TileSoulCatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;

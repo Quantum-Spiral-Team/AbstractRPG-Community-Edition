@@ -1,6 +1,6 @@
 package com.vivern.arpg.container;
 
-import com.vivern.arpg.elements.ItemAccumulator;
+import com.vivern.arpg.items.ItemAccumulator;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;

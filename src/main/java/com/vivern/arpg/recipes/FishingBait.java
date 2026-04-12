@@ -1,6 +1,6 @@
 package com.vivern.arpg.recipes;
 
-import com.vivern.arpg.elements.ItemFishingRod;
+import com.vivern.arpg.items.ItemFishingRod;
 import com.vivern.arpg.loot.Fishing;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;

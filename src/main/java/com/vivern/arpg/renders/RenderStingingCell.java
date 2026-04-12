@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.StingingCellEntityModel;
+import com.vivern.arpg.items.models.StingingCellEntityModel;
 import com.vivern.arpg.entity.StingingCellEntity;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

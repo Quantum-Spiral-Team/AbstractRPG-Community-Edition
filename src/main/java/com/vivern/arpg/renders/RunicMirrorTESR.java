@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.RunicMirrorModel;
+import com.vivern.arpg.items.models.RunicMirrorModel;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ShardType;

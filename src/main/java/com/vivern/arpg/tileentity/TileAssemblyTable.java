@@ -3,7 +3,7 @@ package com.vivern.arpg.tileentity;
 import com.vivern.arpg.blocks.AssemblyTable;
 import com.vivern.arpg.blocks.BlockAssemblyAugment;
 import com.vivern.arpg.container.ContainerAssemblyTable;
-import com.vivern.arpg.elements.models.AssemblyTableModel;
+import com.vivern.arpg.items.models.AssemblyTableModel;
 import com.vivern.arpg.main.AssemblyTableRecipesRegister;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.GetMOP;

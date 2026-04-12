@@ -1,10 +1,10 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.elements.IWrenchUser;
-import com.vivern.arpg.elements.ItemBullet;
-import com.vivern.arpg.elements.Wrench;
-import com.vivern.arpg.elements.models.ModelsToxicomaniaMob;
-import com.vivern.arpg.elements.models.SummonedSnowmanModel;
+import com.vivern.arpg.items.IWrenchUser;
+import com.vivern.arpg.items.ItemBullet;
+import com.vivern.arpg.items.Wrench;
+import com.vivern.arpg.items.models.ModelsToxicomaniaMob;
+import com.vivern.arpg.items.models.SummonedSnowmanModel;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.IEntitySynchronize;
 import com.vivern.arpg.main.BlocksRegister;

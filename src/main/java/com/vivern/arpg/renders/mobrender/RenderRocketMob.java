@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.mobs.AbstractMob;
 import javax.annotation.Nonnull;
 import net.minecraft.client.model.ModelBase;

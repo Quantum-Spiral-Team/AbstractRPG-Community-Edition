@@ -1,7 +1,7 @@
 package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.blocks.Retort;
-import com.vivern.arpg.elements.Beaker;
+import com.vivern.arpg.items.Beaker;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.ShardType;

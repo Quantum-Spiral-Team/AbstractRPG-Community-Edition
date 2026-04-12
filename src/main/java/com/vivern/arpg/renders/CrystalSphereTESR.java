@@ -1,7 +1,7 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.CrystalSphereModel;
-import com.vivern.arpg.elements.models.EarthInSphereModel;
+import com.vivern.arpg.items.models.CrystalSphereModel;
+import com.vivern.arpg.items.models.EarthInSphereModel;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.ColorConverters;

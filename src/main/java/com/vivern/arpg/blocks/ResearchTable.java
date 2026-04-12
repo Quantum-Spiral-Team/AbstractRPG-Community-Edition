@@ -1,6 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.elements.ItemCalibrationThing;
+import com.vivern.arpg.items.ItemCalibrationThing;
 import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ItemsRegister;

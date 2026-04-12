@@ -1,6 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.elements.SpellHammer;
+import com.vivern.arpg.items.SpellHammer;
 import com.vivern.arpg.main.EnchantmentInit;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Mana;

@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.elements.ItemFishingRod;
+import com.vivern.arpg.items.ItemFishingRod;
 import com.vivern.arpg.loot.Bait;
 import com.vivern.arpg.loot.Fishing;
 import com.vivern.arpg.loot.FishingTreasure;

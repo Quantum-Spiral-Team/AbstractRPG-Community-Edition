@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.EnderSeerModel;
+import com.vivern.arpg.items.models.EnderSeerModel;
 import com.vivern.arpg.mobs.EnderSeer;
 import javax.annotation.Nonnull;
 import net.minecraft.client.renderer.entity.Render;

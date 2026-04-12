@@ -1,7 +1,7 @@
 package com.vivern.arpg.network;
 
-import com.vivern.arpg.elements.ItemBullet;
-import com.vivern.arpg.elements.ItemRocket;
+import com.vivern.arpg.items.ItemBullet;
+import com.vivern.arpg.items.ItemRocket;
 import io.netty.buffer.ByteBuf;
 import java.util.ConcurrentModificationException;
 import net.minecraft.entity.player.EntityPlayer;

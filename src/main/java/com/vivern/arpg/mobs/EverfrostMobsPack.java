@@ -1,7 +1,7 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.elements.models.FrostModel;
-import com.vivern.arpg.elements.models.ModelsEverfrostMob;
+import com.vivern.arpg.items.models.FrostModel;
+import com.vivern.arpg.items.models.ModelsEverfrostMob;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.CannonSnowball;
 import com.vivern.arpg.entity.IEntitySynchronize;
@@ -796,7 +796,7 @@ public class EverfrostMobsPack {
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 9) {
-            Vec3d vec = GetMOP.PosRayTrace(15.0, 1.0F, this, 0.05, 0.05);
+            Vec3d vec = GetMOP.posRayTrace(15.0, 1.0F, this, 0.05, 0.05);
             this.world
                .playSound(
                   this.posX,
@@ -1073,7 +1073,7 @@ public class EverfrostMobsPack {
          }
 
          if (id == 9) {
-            Vec3d vec = GetMOP.PosRayTrace(15.0, 1.0F, this, 0.05, 0.05);
+            Vec3d vec = GetMOP.posRayTrace(15.0, 1.0F, this, 0.05, 0.05);
             this.world
                .playSound(
                   this.posX,

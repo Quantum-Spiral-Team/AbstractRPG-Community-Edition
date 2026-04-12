@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.FireworkModel;
+import com.vivern.arpg.items.models.FireworkModel;
 import com.vivern.arpg.entity.FireworkEntity;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

@@ -1,11 +1,11 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.elements.models.ChestCapedModel;
-import com.vivern.arpg.elements.models.ChestDoubleLockModel;
-import com.vivern.arpg.elements.models.ChestDoubleLockModelLAR;
-import com.vivern.arpg.elements.models.ChestModel;
-import com.vivern.arpg.elements.models.ChestModelLAR;
-import com.vivern.arpg.elements.models.ChestShaftedModel;
+import com.vivern.arpg.items.models.ChestCapedModel;
+import com.vivern.arpg.items.models.ChestDoubleLockModel;
+import com.vivern.arpg.items.models.ChestDoubleLockModelLAR;
+import com.vivern.arpg.items.models.ChestModel;
+import com.vivern.arpg.items.models.ChestModelLAR;
+import com.vivern.arpg.items.models.ChestShaftedModel;
 import com.vivern.arpg.tileentity.EnumChest;
 import com.vivern.arpg.tileentity.TileChest;
 import javax.annotation.Nullable;

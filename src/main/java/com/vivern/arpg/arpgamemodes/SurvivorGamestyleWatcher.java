@@ -4,10 +4,10 @@ import baubles.api.BaublesApi;
 import com.vivern.arpg.container.GUISurvivorEnchant;
 import com.vivern.arpg.container.GuiHandler;
 import com.vivern.arpg.dimensions.toxicomania.ARPGTeleporter;
-import com.vivern.arpg.elements.Buckshot;
-import com.vivern.arpg.elements.GemStaff;
-import com.vivern.arpg.elements.IEnergyItem;
-import com.vivern.arpg.elements.ItemLootCase;
+import com.vivern.arpg.items.Buckshot;
+import com.vivern.arpg.items.GemStaff;
+import com.vivern.arpg.items.IEnergyItem;
+import com.vivern.arpg.items.ItemLootCase;
 import com.vivern.arpg.entity.SurvivorLootSpawner;
 import com.vivern.arpg.loot.Treasure;
 import com.vivern.arpg.main.Coins;
@@ -30,9 +30,9 @@ import com.vivern.arpg.mobs.NPCMobsPack;
 import com.vivern.arpg.mobs.OtherMobsPack;
 import com.vivern.arpg.network.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+
+import java.util.*;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
@@ -61,11 +61,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
    modid = "arpg"
@@ -192,13 +195,13 @@ public class SurvivorGamestyleWatcher {
          player.setHealth(player.getMaxHealth());
          Weapons.setPotionIfEntityLB(player, MobEffects.REGENERATION, 1200, 1);
          Mana.addSwarmPoints(player, 250);
+
+         player.sendMessage(new TextComponentString("You are now the Survivor!"));
       }
 
       currentWatcher.enchSeed = rand.nextInt();
       currentWatcher.ticksExisted = 0;
-      if (Minecraft.getMinecraft().player != null) {
-         Minecraft.getMinecraft().player.sendChatMessage("You are now the Survivor!");
-      }
+
    }
 
    @SubscribeEvent
@@ -263,9 +266,9 @@ public class SurvivorGamestyleWatcher {
                player.world, spawnpos.getX() + 0.5, spawnpos.getY(), spawnpos.getZ() + 0.5
             );
             if (rand.nextFloat() < 0.55F && this.STARTCHESTS <= 0) {
-               lootSpawner.trades = this.getRandomLootTrades();
+               lootSpawner.TRADES = this.getRandomLootTrades();
             } else {
-               lootSpawner.loot = this.getRandomLootChest();
+               lootSpawner.LOOT = this.getRandomLootChest();
             }
 
             this.STARTCHESTS--;
@@ -309,10 +312,9 @@ public class SurvivorGamestyleWatcher {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static void onClient(double x, double y, double z, double a, double b, double c) {
-      if (Minecraft.getMinecraft().player != null) {
-         GuiHandler.displayGui(Minecraft.getMinecraft().player, new GUISurvivorEnchant(Minecraft.getMinecraft().player, getEnchantments((int)x)));
-      }
+      GuiHandler.displayGui(Minecraft.getMinecraft().player, new GUISurvivorEnchant(Minecraft.getMinecraft().player, getEnchantments((int)x)));
    }
 
    public void onServerPacket(EntityLivingBase player, double x, double y, double z, double a, double b, double c) {
@@ -331,8 +333,8 @@ public class SurvivorGamestyleWatcher {
                   ArrayList<ItemStack> list2 = new ArrayList<>();
                   list2.add(new ItemStack(Items.GOLDEN_APPLE, 2));
                   list2.add(new ItemStack(Blocks.DIRT, 32));
-                  lootSpawner.trades = list;
-                  lootSpawner.loot = list2;
+                  lootSpawner.TRADES = list;
+                  lootSpawner.LOOT = list2;
                   player.world.spawnEntity(lootSpawner);
                   ((EntityPlayer)player).addExperienceLevel(-levelneed);
                   player.world
@@ -395,9 +397,9 @@ public class SurvivorGamestyleWatcher {
 
       if (mob instanceof EntitySlime) {
          NBTTagCompound compound = new NBTTagCompound();
-         ((EntitySlime)mob).writeEntityToNBT(compound);
+         mob.writeEntityToNBT(compound);
          compound.setInteger("Size", 5 + rand.nextInt(3));
-         ((EntitySlime)mob).readEntityFromNBT(compound);
+         mob.readEntityFromNBT(compound);
       }
    }
 
@@ -424,6 +426,7 @@ public class SurvivorGamestyleWatcher {
          if (this.POINTS >= 350 + this.LEVEL * 50) {
             this.LEVEL++;
             this.POINTS = 0;
+
             Minecraft.getMinecraft().player.sendChatMessage("LEVEL " + this.LEVEL);
          }
 
@@ -462,7 +465,7 @@ public class SurvivorGamestyleWatcher {
       }
    }
 
-   public ArrayList<NPCMobsPack.Trade> getRandomLootTrades() {
+   public List<NPCMobsPack.Trade> getRandomLootTrades() {
       ArrayList<NPCMobsPack.Trade> list = new ArrayList<>();
       if (rand.nextFloat() < (this.hasAmmoTrader ? 0.92F : 0.5F)) {
          if (rand.nextFloat() < 0.73) {
@@ -473,7 +476,7 @@ public class SurvivorGamestyleWatcher {
             if (item == ItemsRegister.GEMSTAFF) {
                itemStack = GemStaff.getStackWithGem(rand.nextInt(8));
             } else {
-               itemStack = new ItemStack(item, rslc.countmin + rand.nextInt(rslc.countmax - rslc.countmin + 1));
+               itemStack = new ItemStack(item, rslc.minCount + rand.nextInt(rslc.maxCount - rslc.minCount + 1));
             }
 
             NPCMobsPack.Trade trade = new NPCMobsPack.Trade(
@@ -483,7 +486,7 @@ public class SurvivorGamestyleWatcher {
          } else {
             for (int i = 0; i < rand.nextInt(3) + 1; i++) {
                RSLC rslc = this.armor[this.byWeight(rand, this.armor)];
-               ItemStack itemStack = new ItemStack(rslc.item, rslc.countmin + rand.nextInt(rslc.countmax - rslc.countmin + 1));
+               ItemStack itemStack = new ItemStack(rslc.item, rslc.minCount + rand.nextInt(rslc.maxCount - rslc.minCount + 1));
                list.add(
                   new NPCMobsPack.Trade(
                      ItemStack.EMPTY, itemStack, (int)Math.round(this.getShopMoney(true) * rslc.price * (0.85F + rand.nextFloat() * 0.3F)), 0, 0.0F
@@ -499,7 +502,7 @@ public class SurvivorGamestyleWatcher {
       return list;
    }
 
-   public ArrayList<ItemStack> getRandomLootChest() {
+   public List<ItemStack> getRandomLootChest() {
       ArrayList<ItemStack> list = new ArrayList<>();
       if (rand.nextFloat() < 0.35) {
          int id = this.byWeight(rand, this.weapons);
@@ -508,22 +511,22 @@ public class SurvivorGamestyleWatcher {
          if (item == ItemsRegister.GEMSTAFF) {
             list.add(GemStaff.getStackWithGem(rand.nextInt(8)));
          } else {
-            list.add(new ItemStack(item, rslc.countmin + rand.nextInt(rslc.countmax - rslc.countmin + 1)));
+            list.add(new ItemStack(item, rslc.minCount + rand.nextInt(rslc.maxCount - rslc.minCount + 1)));
          }
       } else if (rand.nextFloat() < 0.67) {
          RSLC rslc = this.usables[this.byWeight(rand, this.usables)];
-         list.add(new ItemStack(rslc.item, rslc.countmin + rand.nextInt(rslc.countmax - rslc.countmin + 1)));
+         list.add(new ItemStack(rslc.item, rslc.minCount + rand.nextInt(rslc.maxCount - rslc.minCount + 1)));
       } else {
          for (int i = 0; i < rand.nextInt(2) + 1; i++) {
             RSLC rslc = this.armor[this.byWeight(rand, this.armor)];
-            list.add(new ItemStack(rslc.item, rslc.countmin + rand.nextInt(rslc.countmax - rslc.countmin + 1)));
+            list.add(new ItemStack(rslc.item, rslc.minCount + rand.nextInt(rslc.maxCount - rslc.minCount + 1)));
          }
       }
 
       return list;
    }
 
-   public void addAmmoTradesToList(ArrayList<NPCMobsPack.Trade> list) {
+   public void addAmmoTradesToList(List<NPCMobsPack.Trade> list) {
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, Buckshot.getBuckshotStack("lead", 8), 1, 0, 0.0F));
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, Buckshot.getBuckshotStack("copper", 8), 1, 0, 0.0F));
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, Buckshot.getBuckshotStack("silver", 6), 1, 0, 0.0F));
@@ -537,7 +540,7 @@ public class SurvivorGamestyleWatcher {
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, IEnergyItem.getFullcharged(ItemsRegister.IONBATTERY, 5), 3, 0, 0.0F));
    }
 
-   public void addSupplyTradesToList(ArrayList<NPCMobsPack.Trade> list) {
+   public void addSupplyTradesToList(List<NPCMobsPack.Trade> list) {
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.GRENADECLASSIC, 4), 3, 0, 0.0F));
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.GRENADEBOMB, 2), 3, 0, 0.0F));
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.GRENADEOIL, 6), 3, 0, 0.0F));
@@ -565,7 +568,6 @@ public class SurvivorGamestyleWatcher {
    }
 
    public static Enchantment[] getEnchantments(int seed) {
-      Enchantment[] base = EnchantmentInit.ENCHANTMENTSLIST.toArray(new Enchantment[0]);
       List<Treasure> list = ItemLootCase.entriesWeaponEnch();
       int[] weights = new int[list.size()];
 
@@ -636,11 +638,11 @@ public class SurvivorGamestyleWatcher {
    public int byWeight(Random rand, RSLC... weights) {
       int summ = 0;
 
-      for (int i = 0; i < weights.length; i++) {
-         if (weights[i].stage == this.STAGE && weights[i].level <= this.LEVEL) {
-            summ += weights[i].rarity;
-         }
-      }
+       for (RSLC weight : weights) {
+           if (weight.stage == this.STAGE && weight.level <= this.LEVEL) {
+               summ += weight.rarity;
+           }
+       }
 
       return summ <= 0 ? 0 : this.byWeight(summ, rand, weights);
    }
@@ -651,8 +653,8 @@ public class SurvivorGamestyleWatcher {
 
       for (int i = 0; i < weights.length; i++) {
          if (weights[i].stage == this.STAGE && weights[i].level <= this.LEVEL) {
-            int weight = weights[i].rarity;
-            all += weight;
+            int rarity = weights[i].rarity;
+            all += rarity;
             if (r < all) {
                return i;
             }
@@ -700,18 +702,18 @@ public class SurvivorGamestyleWatcher {
       int rarity;
       int stage;
       int level;
-      int countmin;
-      int countmax;
+      int minCount;
+      int maxCount;
       double price;
       Item item;
 
-      public RSLC(int rarity, int stage, int level, int countmin, int countmax, Item item, double price) {
+      public RSLC(int rarity, int stage, int level, int minCount, int maxCount, Item item, double price) {
          this.item = item;
          this.rarity = rarity;
          this.stage = stage;
          this.level = level;
-         this.countmin = countmin;
-         this.countmax = countmax;
+         this.minCount = minCount;
+         this.maxCount = maxCount;
          this.price = price;
       }
    }

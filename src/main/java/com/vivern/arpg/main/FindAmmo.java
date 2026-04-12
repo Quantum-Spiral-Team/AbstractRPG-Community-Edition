@@ -1,9 +1,9 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.elements.ItemBullet;
-import com.vivern.arpg.elements.ItemRocket;
-import com.vivern.arpg.elements.SoulStone;
-import com.vivern.arpg.elements.Wrench;
+import com.vivern.arpg.items.ItemBullet;
+import com.vivern.arpg.items.ItemRocket;
+import com.vivern.arpg.items.SoulStone;
+import com.vivern.arpg.items.Wrench;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;

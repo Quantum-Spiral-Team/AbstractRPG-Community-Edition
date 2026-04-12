@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.elements.ChainMace;
+import com.vivern.arpg.items.ChainMace;
 import com.vivern.arpg.main.ItemsRegister;
 import java.util.List;
 import java.util.UUID;

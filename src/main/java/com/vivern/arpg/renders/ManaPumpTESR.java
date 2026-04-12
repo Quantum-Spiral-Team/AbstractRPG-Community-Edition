@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.ManaPumpModel;
+import com.vivern.arpg.items.models.ManaPumpModel;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.tileentity.TileManaPump;
 import net.minecraft.client.renderer.GlStateManager;

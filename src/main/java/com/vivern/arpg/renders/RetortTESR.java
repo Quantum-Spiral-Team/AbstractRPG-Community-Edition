@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.Beaker;
+import com.vivern.arpg.items.Beaker;
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.tileentity.TileRetort;
 import net.minecraft.client.renderer.GlStateManager;

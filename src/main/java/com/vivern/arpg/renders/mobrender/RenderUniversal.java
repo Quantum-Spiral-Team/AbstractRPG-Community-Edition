@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.renders.IRender;
 import com.vivern.arpg.renders.LayerRandomItem;

@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.elements.ItemRocket;
+import com.vivern.arpg.items.ItemRocket;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Team;

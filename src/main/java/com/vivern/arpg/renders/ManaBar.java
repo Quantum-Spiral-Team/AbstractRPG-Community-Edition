@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.IWeapon;
+import com.vivern.arpg.items.IWeapon;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.hooks.ARPGHooks;
 import com.vivern.arpg.main.AnimationTimer;

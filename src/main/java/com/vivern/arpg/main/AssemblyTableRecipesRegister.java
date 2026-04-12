@@ -1,6 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.elements.ItemBullet;
+import com.vivern.arpg.items.ItemBullet;
 import com.vivern.arpg.recipes.AssemblyTableRecipe;
 import com.vivern.arpg.recipes.Ingridient;
 import java.util.ArrayList;

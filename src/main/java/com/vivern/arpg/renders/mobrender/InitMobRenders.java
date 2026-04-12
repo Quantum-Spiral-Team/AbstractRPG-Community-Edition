@@ -1,11 +1,11 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.CinderCrawlerModel;
-import com.vivern.arpg.elements.models.SmokeDemonModel;
-import com.vivern.arpg.elements.models.SpineHeadModel;
-import com.vivern.arpg.elements.models.SpineMinionModel;
-import com.vivern.arpg.elements.models.SpineSegmentModel;
-import com.vivern.arpg.elements.models.SummonedSnowmanModel;
+import com.vivern.arpg.items.models.CinderCrawlerModel;
+import com.vivern.arpg.items.models.SmokeDemonModel;
+import com.vivern.arpg.items.models.SpineHeadModel;
+import com.vivern.arpg.items.models.SpineMinionModel;
+import com.vivern.arpg.items.models.SpineSegmentModel;
+import com.vivern.arpg.items.models.SummonedSnowmanModel;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.BossWinterFury;
 import java.util.ArrayList;

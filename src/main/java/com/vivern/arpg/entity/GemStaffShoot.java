@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.elements.GemStaff;
+import com.vivern.arpg.items.GemStaff;
 import com.vivern.arpg.main.EnchantmentInit;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;

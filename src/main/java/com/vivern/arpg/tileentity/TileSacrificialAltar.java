@@ -1,7 +1,7 @@
 package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.blocks.SacrificialAltar;
-import com.vivern.arpg.elements.SoulStone;
+import com.vivern.arpg.items.SoulStone;
 import com.vivern.arpg.main.IMagicUI;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.ShardType;

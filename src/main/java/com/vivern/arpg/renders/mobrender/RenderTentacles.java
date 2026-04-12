@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.GetMOP;
 import net.minecraft.client.Minecraft;

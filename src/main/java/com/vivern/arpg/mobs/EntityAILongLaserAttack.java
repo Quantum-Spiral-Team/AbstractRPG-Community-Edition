@@ -50,7 +50,7 @@ public class EntityAILongLaserAttack extends EntityAIBase {
 
          if (attackTarg != null && this.attackDuration > 0) {
             this.attackDuration--;
-            Vec3d vec = GetMOP.PosRayTrace(this.dist, 1.0F, this.entity, this.sizeANDstep, this.sizeANDstep);
+            Vec3d vec = GetMOP.posRayTrace(this.dist, 1.0F, this.entity, this.sizeANDstep, this.sizeANDstep);
             if (this.entity instanceof ILongLaserAttackMob) {
                ((ILongLaserAttackMob)this.entity).onLaserTick(vec, this.attackDuration);
             }

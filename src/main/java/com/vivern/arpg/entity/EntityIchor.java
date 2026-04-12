@@ -24,39 +24,37 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityIchor extends StandardBullet {
-   public final ItemStack weaponstack;
+   public final ItemStack weaponStack;
    public Vec3d pos1 = this.getPositionVector();
    public Vec3d pos2 = this.getPositionVector();
-   public Vec3d pos3 = this.getPositionVector();
-   public Vec3d pos4 = this.getPositionVector();
-   public Vec3d pos5 = this.getPositionVector();
    ResourceLocation texture = new ResourceLocation("arpg:textures/ichorstream.png");
    static ResourceLocation sparkle = new ResourceLocation("arpg:textures/sparkle.png");
    public float magicPower = 1.0F;
 
    public EntityIchor(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.ICHSHOWER);
+      this.weaponStack = new ItemStack(ItemsRegister.ICHSHOWER);
    }
 
    public EntityIchor(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.ICHSHOWER);
+      this.weaponStack = new ItemStack(ItemsRegister.ICHSHOWER);
    }
 
    public EntityIchor(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.ICHSHOWER);
+      this.weaponStack = new ItemStack(ItemsRegister.ICHSHOWER);
    }
 
    public EntityIchor(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
       super(world, thrower);
-      this.weaponstack = itemstack;
+      this.weaponStack = itemstack;
       this.magicPower = power;
    }
 
    @Override
    protected void entityInit() {
+      // B: скорее всего это сделано, чтобы убрать действие entityInit() из StandardBullet, но это не точно
    }
 
    @SideOnly(Side.CLIENT)
@@ -86,12 +84,12 @@ public class EntityIchor extends StandardBullet {
 
    @Override
    public void onImpact(RayTraceResult result) {
-      if (!this.world.isRemote && result.entityHit != null && Team.checkIsOpponent(this.thrower, result.entityHit)) {
-         WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
-         int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
+      if (!this.world.isRemote && Team.checkIsOpponent(this.thrower, result.entityHit)) {
+         WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponStack.getItem());
+         int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponStack);
+         int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponStack);
          Weapons.dealDamage(
-            new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.acid),
+            new WeaponDamage(this.weaponStack, this.getThrower(), this, false, true, this, WeaponDamage.acid),
             parameters.getEnchanted("damage", might) * this.magicPower,
             this.getThrower(),
             result.entityHit,
@@ -101,7 +99,7 @@ public class EntityIchor extends StandardBullet {
          result.entityHit.hurtResistantTime = 0;
          if (result.entityHit instanceof EntityLivingBase) {
             PotionEffect baff = parameters.getPotion(
-               "ichor", PotionEffects.ICHOR_CURSE, EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack)
+               "ichor", PotionEffects.ICHOR_CURSE, EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponStack)
             );
             ((EntityLivingBase)result.entityHit).addPotionEffect(baff);
             DeathEffects.applyDeathEffect(result.entityHit, DeathEffects.DE_COLOREDACID, 0.4F);
@@ -141,8 +139,10 @@ public class EntityIchor extends StandardBullet {
       part.scaleTickAdding = -0.001F;
       part.alphaGlowing = true;
       this.world.spawnEntity(part);
-      if (!this.world.isRemote) {
-      }
+
+      // B: ????
+//      if (!this.world.isRemote) {
+//      }
 
       if (this.world.isRemote && this.pos1.lengthSquared() > 1.0E-6 && this.pos2.lengthSquared() > 1.0E-6) {
          BetweenParticle laser = new BetweenParticle(

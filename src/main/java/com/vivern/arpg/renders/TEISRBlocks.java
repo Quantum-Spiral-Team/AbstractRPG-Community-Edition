@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.ItemARPGChest;
+import com.vivern.arpg.items.ItemARPGChest;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.ShardType;

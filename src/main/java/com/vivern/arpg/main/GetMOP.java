@@ -39,39 +39,24 @@ public class GetMOP {
    public static Random rand = new Random();
    public static final EnumFacing[] XY_TICALS = new EnumFacing[]{EnumFacing.UP, EnumFacing.EAST, EnumFacing.DOWN, EnumFacing.WEST};
    public static final EnumFacing[] ZY_TICALS = new EnumFacing[]{EnumFacing.UP, EnumFacing.NORTH, EnumFacing.DOWN, EnumFacing.SOUTH};
-   public static Predicate<IBlockState> SOLID_BLOCKS = new Predicate<IBlockState>() {
-      public boolean apply(IBlockState input) {
-         return input.isFullCube() && input.getMaterial().blocksMovement();
-      }
-   };
-   public static Predicate<IBlockState> AIR_BLOCKS = new Predicate<IBlockState>() {
-      public boolean apply(IBlockState input) {
-         return input.getBlock() == Blocks.AIR || input.getMaterial() == Material.AIR;
-      }
-   };
-   public static Predicate<IBlockState> SOLID_NON_PLANTS_BLOCKS = new Predicate<IBlockState>() {
-      public boolean apply(IBlockState input) {
-         return input.isFullCube()
-            && input.getMaterial().blocksMovement()
-            && input.getMaterial() != Material.LEAVES
-            && input.getMaterial() != Material.VINE
-            && input.getMaterial() != Material.CACTUS
-            && input.getMaterial() != Material.PLANTS
-            && input.getMaterial() != Material.WOOD
-            && input.getMaterial() != Material.SNOW;
-      }
-   };
-   public static Predicate<IBlockState> ALL_BLOCKS = state -> true;
-   public static Predicate<IBlockState> WATER_BLOCKS = new Predicate<IBlockState>() {
-      public boolean apply(IBlockState input) {
-         return input.getBlock() == Blocks.WATER || input.getBlock() == Blocks.FLOWING_WATER;
-      }
-   };
-   public static Predicate<IBlockState> IFLUID_BLOCKS = new Predicate<IBlockState>() {
-      public boolean apply(IBlockState input) {
-         return input.getBlock() instanceof IFluidBlock || input.getBlock() instanceof BlockLiquid;
-      }
-   };
+   public static final Predicate<IBlockState> SOLID_BLOCKS = input ->
+           input.isFullCube() && input.getMaterial().blocksMovement();
+   public static final Predicate<IBlockState> AIR_BLOCKS = input ->
+           input.getBlock() == Blocks.AIR || input.getMaterial() == Material.AIR;
+   public static final Predicate<IBlockState> SOLID_NON_PLANTS_BLOCKS = input ->
+           input.isFullCube()
+           && input.getMaterial().blocksMovement()
+           && input.getMaterial() != Material.LEAVES
+           && input.getMaterial() != Material.VINE
+           && input.getMaterial() != Material.CACTUS
+           && input.getMaterial() != Material.PLANTS
+           && input.getMaterial() != Material.WOOD
+           && input.getMaterial() != Material.SNOW;
+   public static final Predicate<IBlockState> ALL_BLOCKS = state -> true;
+   public static final Predicate<IBlockState> WATER_BLOCKS = input ->
+           input.getBlock() == Blocks.WATER || input.getBlock() == Blocks.FLOWING_WATER;
+   public static final Predicate<IBlockState> IFLUID_BLOCKS = input ->
+           input.getBlock() instanceof IFluidBlock || input.getBlock() instanceof BlockLiquid;
 
    public static List<EntityLivingBase> MopRayTrace(double blockReachDistance, float partialTicks, EntityLivingBase entity, double size, double step) {
       Vec3d vec3d = entity.getPositionEyes(partialTicks);
@@ -88,17 +73,17 @@ public class GetMOP {
    }
 
    protected static List<EntityLivingBase> findEntitieslivingOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
+      Vec3d fromStartToEnd = end.subtract(start);
+      Vec3d toVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
       List<EntityLivingBase> moblist = new ArrayList<>();
-      double step = raystep / FromStartToEnd.length();
+      double step = raystep / fromStartToEnd.length();
 
       for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, Cube);
+         Vec3d centerVertex = start.add(fromStartToEnd.scale(k));
+         Vec3d downVertex = centerVertex.subtract(toVertex);
+         Vec3d upVertex = centerVertex.add(toVertex);
+         AxisAlignedBB aabb = new AxisAlignedBB(downVertex, upVertex);
+         List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
          if (!list.isEmpty()) {
             for (EntityLivingBase entityliving : list) {
                if (entityliving != shooter) {
@@ -117,7 +102,7 @@ public class GetMOP {
       return world.getBlockState(pos).getCollisionBoundingBox(world, pos) != null;
    }
 
-   public static Vec3d PosRayTrace(double blockReachDistance, float partialTicks, EntityLivingBase entity, double size, double step) {
+   public static Vec3d posRayTrace(double blockReachDistance, float partialTicks, EntityLivingBase entity, double size, double step) {
       Vec3d vec3d = entity.getPositionEyes(partialTicks);
       Vec3d vec3d1 = entity.getLook(partialTicks);
       Vec3d vec3d2 = vec3d.add(
@@ -131,7 +116,7 @@ public class GetMOP {
       return findEndCoordOnPath(vec3d, vec3d2, entity.world, entity, size, step);
    }
 
-   public static Vec3d PosRayTrace(double blockReachDistance, float partialTicks, EntityLivingBase entity, boolean checkTeam, double size, double step) {
+   public static Vec3d posRayTrace(double blockReachDistance, float partialTicks, EntityLivingBase entity, boolean checkTeam, double size, double step) {
       Vec3d vec3d = entity.getPositionEyes(partialTicks);
       Vec3d vec3d1 = entity.getLook(partialTicks);
       Vec3d vec3d2 = vec3d.add(
@@ -190,26 +175,26 @@ public class GetMOP {
    }
 
    public static EntityLivingBase findEntityOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep, boolean checkTeam) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
+      Vec3d fromStartToEnd = end.subtract(start);
+      Vec3d toVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
       new ArrayList();
-      double step = raystep / FromStartToEnd.length();
+      double step = raystep / fromStartToEnd.length();
 
       for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, Cube);
+         Vec3d centerVertex = start.add(fromStartToEnd.scale(k));
+         Vec3d downVertex = centerVertex.subtract(toVertex);
+         Vec3d upVertex = centerVertex.add(toVertex);
+         AxisAlignedBB aabb = new AxisAlignedBB(downVertex, upVertex);
+         List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
          if (!list.isEmpty()) {
-            for (EntityLivingBase entityliving : list) {
-               if (entityliving != shooter) {
+            for (EntityLivingBase entityLiving : list) {
+               if (entityLiving != shooter) {
                   if (!checkTeam) {
-                     return entityliving;
+                     return entityLiving;
                   }
 
-                  if (Team.checkIsOpponent(shooter, entityliving)) {
-                     return entityliving;
+                  if (Team.checkIsOpponent(shooter, entityLiving)) {
+                     return entityLiving;
                   }
                }
             }

@@ -1,6 +1,6 @@
 package com.vivern.arpg.network;
 
-import com.vivern.arpg.elements.FireWhip;
+import com.vivern.arpg.items.FireWhip;
 import io.netty.buffer.ByteBuf;
 import java.util.ConcurrentModificationException;
 import net.minecraft.entity.player.EntityPlayer;

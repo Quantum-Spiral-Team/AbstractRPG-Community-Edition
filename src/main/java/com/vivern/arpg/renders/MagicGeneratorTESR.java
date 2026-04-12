@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.MagicGeneratorModel;
+import com.vivern.arpg.items.models.MagicGeneratorModel;
 import com.vivern.arpg.tileentity.TileMagicGenerator;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;

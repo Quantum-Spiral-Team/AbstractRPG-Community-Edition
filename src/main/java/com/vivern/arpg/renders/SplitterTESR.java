@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.elements.models.AbstractMobModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.tileentity.TileSplitter;
 import net.minecraft.client.renderer.BufferBuilder;

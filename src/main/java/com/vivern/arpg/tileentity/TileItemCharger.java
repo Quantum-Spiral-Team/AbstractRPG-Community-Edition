@@ -2,8 +2,8 @@ package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.blocks.BlockItemCharger;
 import com.vivern.arpg.container.ContainerCharger;
-import com.vivern.arpg.elements.IEnergyItem;
-import com.vivern.arpg.elements.ItemAccumulator;
+import com.vivern.arpg.items.IEnergyItem;
+import com.vivern.arpg.items.ItemAccumulator;
 import com.vivern.arpg.main.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

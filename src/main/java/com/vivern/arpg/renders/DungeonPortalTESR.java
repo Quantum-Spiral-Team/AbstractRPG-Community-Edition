@@ -1,8 +1,8 @@
 package com.vivern.arpg.renders;
 
 import com.vivern.arpg.dimensions.generationutils.BlockAtPos;
-import com.vivern.arpg.elements.models.DungeonPortalModel;
-import com.vivern.arpg.elements.models.DungeonPortalModel2;
+import com.vivern.arpg.items.models.DungeonPortalModel;
+import com.vivern.arpg.items.models.DungeonPortalModel2;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.DimensionsRegister;
 import com.vivern.arpg.main.GetMOP;

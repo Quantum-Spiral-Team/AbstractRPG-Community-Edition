@@ -1,7 +1,7 @@
 package com.vivern.arpg.renders;
 
 import com.vivern.arpg.blocks.IndustrialMixer;
-import com.vivern.arpg.elements.models.IndustrialMixerModel;
+import com.vivern.arpg.items.models.IndustrialMixerModel;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.tileentity.TileIndustrialMixer;
 import javax.annotation.Nullable;

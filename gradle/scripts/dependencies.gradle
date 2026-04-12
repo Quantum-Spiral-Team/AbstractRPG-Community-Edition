@@ -25,10 +25,10 @@ repositories {
             includeGroup 'maven.modrinth'
         }
     }
-//    maven {
-//        name "JitPack"
-//        url 'https://jitpack.io'
-//    }
+    maven {
+        name "JitPack"
+        url 'https://jitpack.io'
+    }
     maven {
         name 'GTCEu Maven'
         url 'https://maven.gtceu.com'
@@ -86,12 +86,12 @@ dependencies {
     annotationProcessor "org.jetbrains:annotations:26.0.2"
 
     implementation "com.cleanroommc:configanytime:3.0"
-    implementation 'mezz:jei:4.29.15'
+    implementation 'mezz:jei:4.30.2'
     compileOnly rfg.deobf("curse.maven:baubles-227083:2518667")
     runtimeOnly rfg.deobf("curse.maven:baubles-ex-1096600:7609484")
-//    implementation 'com.github.hohserg1:HookLib:3.28'
-//    implementation('com.enderio:endercore:0.5.78') {transitive = false}
-//    implementation('crazypants:enderio:5.3.72') {transitive = false}
+    implementation 'com.github.hohserg1:HookLib:662491e893b4eec0962c37371f87024846b7f407'
+    implementation('com.enderio:endercore:0.5.78') { transitive = false }
+    implementation('crazypants:enderio:5.3.72') { transitive = false }
     implementation rfg.deobf("curse.maven:cofh_core-69162:2920433")
     implementation rfg.deobf("curse.maven:cofh_world-271384:2920434")
     implementation rfg.deobf("curse.maven:thermal_foundation-222880:2926428")
@@ -99,6 +99,6 @@ dependencies {
     implementation rfg.deobf("curse.maven:top-addons-247111:2887479")
     runtimeOnly rfg.deobf("curse.maven:theonesmeagle-977883:7095096")
 
-    implementation fileTree("libs")
+//    implementation fileTree("libs")
 
 }

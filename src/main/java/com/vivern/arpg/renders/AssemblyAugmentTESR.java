@@ -1,10 +1,10 @@
 package com.vivern.arpg.renders;
 
 import com.vivern.arpg.blocks.AssemblyTable;
-import com.vivern.arpg.elements.models.PlasmaAugmentModel;
-import com.vivern.arpg.elements.models.PressAugmentModel;
-import com.vivern.arpg.elements.models.TurningAugmentModel;
-import com.vivern.arpg.elements.models.WeldAugmentModel;
+import com.vivern.arpg.items.models.PlasmaAugmentModel;
+import com.vivern.arpg.items.models.PressAugmentModel;
+import com.vivern.arpg.items.models.TurningAugmentModel;
+import com.vivern.arpg.items.models.WeldAugmentModel;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.tileentity.TileAssemblyAugment;
 import javax.annotation.Nullable;

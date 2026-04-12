@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.SummonedBlazeModel;
+import com.vivern.arpg.items.models.SummonedBlazeModel;
 import com.vivern.arpg.mobs.SummonedBlaze;
 import javax.annotation.Nonnull;
 import net.minecraft.client.renderer.entity.Render;

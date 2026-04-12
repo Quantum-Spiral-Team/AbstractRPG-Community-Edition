@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders.mobrender;
 
-import com.vivern.arpg.elements.models.BlubberModel;
+import com.vivern.arpg.items.models.BlubberModel;
 import com.vivern.arpg.mobs.Blubber;
 import javax.annotation.Nonnull;
 import net.minecraft.client.renderer.entity.Render;

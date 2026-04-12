@@ -1,7 +1,7 @@
 package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.container.GUIResearchTable;
-import com.vivern.arpg.elements.models.AbstractMobModel;
+import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ShardType;
