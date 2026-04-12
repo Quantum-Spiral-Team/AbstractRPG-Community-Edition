@@ -3,7 +3,6 @@ package com.vivern.arpg.hooks;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Ordering;
 import com.vivern.arpg.ARPGConfig;
-import com.vivern.arpg.Tags;
 import com.vivern.arpg.blocks.AshBlock;
 import com.vivern.arpg.elements.IWeapon;
 import com.vivern.arpg.events.Debugger;
@@ -17,8 +16,6 @@ import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.potions.Stun;
 import com.vivern.arpg.renders.*;
-import crazypants.enderio.base.init.ModObject;
-import crazypants.enderio.base.init.ModObjectRegistry;
 import crazypants.enderio.base.item.soulvial.ItemSoulVial;
 import gloomyfolken.hooklib.api.*;
 import net.minecraft.block.Block;
@@ -106,7 +103,6 @@ public class ARPGHooks {
    private static final float BLOCK_COLOR_INTENSITY = 0.75F;
    public static ResourceLocation bindEnotherTexture = null;
 //   private static boolean useTeleportHook = false;
-//   private static Random hooksRand = new Random();
    static ItemCameraTransforms cameraTransforms;
    private static boolean soundManagerUpdatingNow = false;
    static boolean dontRecurse;
@@ -117,9 +113,7 @@ public class ARPGHooks {
    @PrivateClass("net.minecraft.client.audio.SoundManager$SoundSystemStarterThread")
    public static class SoundSystemStarterThread extends SoundSystem {}
 
-   @SideOnly(Side.CLIENT)
-   @FieldLens
-   public static FieldAccessor<SoundManager, GameSettings> options;
+   @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, GameSettings> options;
    @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, Integer> playTime;
    @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, SoundSystemStarterThread> sndSystem;
    @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundManager, List<ITickableSound>> tickableSounds;
@@ -175,11 +169,11 @@ public class ARPGHooks {
          cameraTransforms = CreateItemFile.readJsonItemCameraTransforms(item.getRegistryName().getPath());
       }
 
-      boolean hooksave = Debugger.itemTransformHookEnabled;
+      boolean hookSave = Debugger.itemTransformHookEnabled;
       Debugger.itemTransformHookEnabled = false;
       ItemTransformVec3f tr = cameraTransforms != null ? cameraTransforms.getTransform(type)
               : ItemTransformVec3f.DEFAULT;
-      Debugger.itemTransformHookEnabled = hooksave;
+      Debugger.itemTransformHookEnabled = hookSave;
       return tr;
    }
 
@@ -555,12 +549,8 @@ public class ARPGHooks {
    @OnBegin
    public static ReturnSolve<Double> clampValue(RangedAttribute rang, double value) {
       if (rang == SharedMonsterAttributes.MAX_HEALTH)
-         return ReturnSolve.yes(clampValue(value));
+         return ReturnSolve.yes(MathHelper.clamp(value, Float.MIN_VALUE, 8000.0));
       return ReturnSolve.no();
-   }
-
-   public static double clampValue(double value) {
-      return MathHelper.clamp(value, Float.MIN_VALUE, 8000.0);
    }
 
    @Hook
@@ -818,12 +808,12 @@ public class ARPGHooks {
          }
 
          if (enchantment == null) {
-            throw new NumberInvalidException("commands.enchant.notFound", new Object[] { args[1] });
+            throw new NumberInvalidException("commands.enchant.notFound", args[1]);
          } else {
             int i = 1;
             ItemStack itemstack = entitylivingbase.getHeldItemMainhand();
             if (itemstack.isEmpty()) {
-               throw new CommandException("commands.enchant.noItem", new Object[0]);
+               throw new CommandException("commands.enchant.noItem");
             } else {
                if (args.length >= 3) {
                   i = CommandEnchant.parseInt(args[2], enchantment.getMinLevel(), 255);
@@ -1005,15 +995,22 @@ public class ARPGHooks {
       return ReturnSolve.no();
    }
 
-   @SideOnly(Side.CLIENT)
-   @Hook
-   @OnBegin
-   public static ReturnSolve<Float> getBrightness(Entity entity) {
-      ResourceLocation location = EntityList.getKey(entity);
-      if (location != null && location.getNamespace().equals(Tags.MOD_ID)) {
-         return ReturnSolve.yes(0.0F);
-      } return ReturnSolve.no();
-   }
+   // B: зачем здесь меняется овещённость? Теперь все модели максимально тёмные :/
+   // B: Да, это ломает рендер освещения, к тому же в самом моде не используется
+//   @SideOnly(Side.CLIENT)
+//   @Hook
+//   @OnBegin
+//   public static float getBrightness(Entity entity) {
+//      return 0.0F;
+      /* Old code:
+
+         int oldValue = 0;
+         int j = (oldValue >> 20 & 15) / 2;
+         int k = (oldValue >> 4 & 15) / 2;
+         return j << 20 | k << 4;
+
+       */
+//   }
 
    @Hook
    @OnBegin
@@ -1041,9 +1038,10 @@ public class ARPGHooks {
       }
    }
 
+   // B: изначально выключенный хук (хотя является таковым по структуре). ломает систему освещения майна, переводя её на кастомную (многопоточную?). мне лень это дебажить. если кто-то хочет - вперёд
    @SideOnly(Side.CLIENT)
-   @Hook
-   @OnBegin
+//   @Hook
+//   @OnBegin
    public static boolean renderModel(
            BlockModelRenderer renderer,
            IBlockAccess worldIn,
