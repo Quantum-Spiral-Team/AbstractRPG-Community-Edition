@@ -154,7 +154,7 @@ public class BlockFluidManaOil extends BlockFluidClassic {
                if (full) {
                   world.setBlockState(pos, Blocks.SLIME_BLOCK.getDefaultState());
                } else {
-                  world.setBlockState(pos, BlocksRegister.SUMMONEDHELLSTONE.getDefaultState());
+                  world.setBlockState(pos, BlocksRegister.SUMMONED_HELLSTONE.getDefaultState());
                }
 
                world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
@@ -164,7 +164,7 @@ public class BlockFluidManaOil extends BlockFluidClassic {
                if (full) {
                   world.setBlockState(pos, Blocks.SLIME_BLOCK.getDefaultState());
                } else {
-                  world.setBlockState(pos, BlocksRegister.SLIMEGLOB.getDefaultState());
+                  world.setBlockState(pos, BlocksRegister.SLIME_GLOB.getDefaultState());
                }
 
                world.playSound(null, frompos, Sounds.bubble_fish, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);

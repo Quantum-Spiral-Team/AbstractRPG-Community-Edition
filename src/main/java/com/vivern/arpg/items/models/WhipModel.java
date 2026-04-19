@@ -86,7 +86,7 @@ public class WhipModel extends ModelBase {
       if (f == 0.0F) {
          int frame = MathHelper.clamp(Math.round(f1), 0, 23);
          int frameNext = MathHelper.clamp(Math.round(f1 + 1.0F), 0, 23);
-         float ft1 = GetMOP.getfromto(f1, (float)frame, (float)frameNext);
+         float ft1 = GetMOP.getFromTo(f1, (float)frame, (float)frameNext);
          if (f2 > 0.0F) {
             AbstractMobModel.light((int)f2, true);
          }

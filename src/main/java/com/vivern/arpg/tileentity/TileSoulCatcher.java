@@ -41,7 +41,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
    public static Random rand = new Random();
    public static Predicate<IBlockState> CATCHERS = new Predicate<IBlockState>() {
       public boolean apply(IBlockState input) {
-         return input.getBlock() == BlocksRegister.SOULCATCHER;
+         return input.getBlock() == BlocksRegister.SOUL_CATCHER;
       }
    };
 
@@ -51,7 +51,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
          Vec3d start = new Vec3d(args[0], args[1], args[2]);
          Vec3d end = new Vec3d(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5);
          float size = (float)args[3] / maxdamage;
-         Vec3d vec = GetMOP.PitchYawToVec3d(this.rotationPitch + rand.nextInt(13) - 6.0F, this.rotationYaw + rand.nextInt(13) - 6.0F);
+         Vec3d vec = GetMOP.pitchYawToVec3D(this.rotationPitch + rand.nextInt(13) - 6.0F, this.rotationYaw + rand.nextInt(13) - 6.0F);
          ParticleTentacle.PTPOINTsimple pointstart = new ParticleTentacle.PTPOINTsimple(
             start, new Vec3d(rand.nextFloat() - 0.5F, rand.nextFloat() - 0.5F, rand.nextFloat() - 0.5F).normalize()
          );
@@ -83,10 +83,10 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
 
    public void update() {
       this.ticksExisted++;
-      if (this.ticksExisted % 60 == 0 && this.getStackInSlot(0).getItem() == ItemsRegister.SOULSTONE) {
+      if (this.ticksExisted % 60 == 0 && this.getStackInSlot(0).getItem() == ItemsRegister.SOUL_STONE) {
          int soulid = SoulStone.getSoul(this.getStackInSlot(0));
          if (soulid == 0) {
-            Vec3d vec = GetMOP.PitchYawToVec3d(this.rotationPitch, this.rotationYaw);
+            Vec3d vec = GetMOP.pitchYawToVec3D(this.rotationPitch, this.rotationYaw);
             Vec3d thisvec = new Vec3d(
                this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5
             );
@@ -123,7 +123,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
                               0.9F + rand.nextFloat() / 5.0F
                            );
                         IWeapon.fireEffect(
-                           ItemsRegister.SOULSTONE,
+                           ItemsRegister.SOUL_STONE,
                            entityLivingBase,
                            this.world,
                            32.0,
@@ -252,7 +252,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
    }
 
    public boolean isItemValidForSlot(int index, ItemStack stack) {
-      return stack.getItem() == ItemsRegister.SOULSTONE;
+      return stack.getItem() == ItemsRegister.SOUL_STONE;
    }
 
    public int getField(int id) {

@@ -28,9 +28,9 @@ public class BeamRock extends BlockRotatedPillar implements IBlockHardBreak {
       super(Material.ROCK);
       this.setRegistryName("beamrock");
       this.setTranslationKey("beamrock");
-      this.blockHardness = BlocksRegister.HR_STORMBRASS_ROCKS.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_STORMBRASS_ROCKS.RESISTANCE;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_STORMBRASS_ROCKS.LVL);
+      this.blockHardness = BlocksRegister.HR_STORMBRASS_ROCKS.hardness;
+      this.blockResistance = BlocksRegister.HR_STORMBRASS_ROCKS.resistance;
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_STORMBRASS_ROCKS.lvl);
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
       this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
       this.setSoundType(SoundType.STONE);
@@ -38,7 +38,7 @@ public class BeamRock extends BlockRotatedPillar implements IBlockHardBreak {
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_STORMBRASS_ROCKS;
    }
 

@@ -96,13 +96,13 @@ public class AdamantiumMinigunModel extends ModelBase {
    }
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-      float ft1 = GetMOP.getfromto(f2, 0.0F, 0.1F) - GetMOP.getfromto(f2, 0.9F, 1.0F);
-      float ft2 = GetMOP.getfromto(f2, 0.2F, 0.3F);
-      float ft3 = GetMOP.getfromto(f2, 0.3F, 0.4F);
-      float ft4 = GetMOP.getfromto(f2, 0.6F, 0.8F);
-      float ft5 = GetMOP.getfromto(f2, 0.7F, 0.8F);
-      float ft6 = GetMOP.getfromto(f2, 0.8F, 0.86F);
-      float ft7 = GetMOP.getfromto(f2, 0.86F, 0.9F);
+      float ft1 = GetMOP.getFromTo(f2, 0.0F, 0.1F) - GetMOP.getFromTo(f2, 0.9F, 1.0F);
+      float ft2 = GetMOP.getFromTo(f2, 0.2F, 0.3F);
+      float ft3 = GetMOP.getFromTo(f2, 0.3F, 0.4F);
+      float ft4 = GetMOP.getFromTo(f2, 0.6F, 0.8F);
+      float ft5 = GetMOP.getFromTo(f2, 0.7F, 0.8F);
+      float ft6 = GetMOP.getFromTo(f2, 0.8F, 0.86F);
+      float ft7 = GetMOP.getFromTo(f2, 0.86F, 0.9F);
       this.drum1.rotateAngleX = -0.35F * ft1;
       this.drum1.offsetX = 4.0F * ft2 + 4.0F * ft3 - 4.0F * ft4 - 2.0F * ft5 + 0.3F * ft6 - 2.3F * ft7;
       this.drum1.offsetY = 2.0F * ft2 - 2.0F * ft3 + 2.0F * ft4 - 1.0F * ft5 + 0.6F * ft6 - 1.6F * ft7;

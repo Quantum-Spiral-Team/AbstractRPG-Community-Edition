@@ -23,7 +23,7 @@ import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -112,27 +112,27 @@ public class ItemBullet extends Item {
    }
 
    public static void init() {
-      registerBullet(((ItemBullet)ItemsRegister.BULLETCOPPER).setId(1));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETSILVER).setId(2));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETLEAD).setId(3));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETGOLD).setId(4));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETFROZEN).setId(5));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETFIRE).setId(6));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETTHUNDER).setId(7));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETPOISON).setId(8));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETTOXIC).setId(9));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETCRYSTAL).setId(10));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETEXPLODING).setId(11));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETFESTIVAL).setId(12));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETADAMANTIUM).setId(13));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETNIVEOUS).setId(14));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETERRATIC).setId(15));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETCORAL).setId(16));
-      registerBullet(((ItemBullet)ItemsRegister.BULLETDIVERS).setId(17));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_COPPER).setId(1));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_SILVER).setId(2));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_LEAD).setId(3));
+      registerBullet(((ItemBullet)ItemsRegister.BULLE_TGOLD).setId(4));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_FROZEN).setId(5));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_INCENDIARY).setId(6));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_THUNDER).setId(7));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_POISONOUS).setId(8));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_TOXIC).setId(9));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_CRYSTAL).setId(10));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_EXPLODING).setId(11));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_FESTIVAL).setId(12));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_ADAMANTIUM).setId(13));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_NIVEOUS).setId(14));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_ERRATIC).setId(15));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_CORAL).setId(16));
+      registerBullet(((ItemBullet)ItemsRegister.BULLET_DIVING).setId(17));
 
       for (ItemBullet bullet : bulletsRegister) {
-         bullet.damage = WeaponParameters.getWeaponParameters(bullet).get("damage");
-         bullet.knockback = WeaponParameters.getWeaponParameters(bullet).get("knockback");
+         bullet.damage = WeaponParameters.getWeaponParameters(bullet).getF("damage");
+         bullet.knockback = WeaponParameters.getWeaponParameters(bullet).getF("knockback");
       }
    }
 
@@ -206,10 +206,9 @@ public class ItemBullet extends Item {
          Entity impacted = world.getEntityByID((int)b);
          if (player != null) {
             for (int i = 0; i < 8; i++) {
-               Vec3d vect = GetMOP.RotatedPosRayTrace(
+               Vec3d vect = GetMOP.rotatedPosRayTrace(
                   2.5,
-                  1.0F,
-                  newvec,
+                       newvec,
                   (EntityLivingBase)(impacted != null && impacted instanceof EntityLivingBase ? (EntityLivingBase)impacted : player),
                   0.35,
                   0.3,
@@ -363,8 +362,8 @@ public class ItemBullet extends Item {
 
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-      tooltip.add("пїЅ7" + Ln.translate("damage") + ": " + parameters.get("damage"));
-      tooltip.add("пїЅ7" + Ln.translate("knockback") + ": " + parameters.get("knockback"));
+      tooltip.add("пїЅ7" + Ln.translate("damage") + ": " + parameters.getF("damage"));
+      tooltip.add("пїЅ7" + Ln.translate("knockback") + ": " + parameters.getF("knockback"));
       String name = this.getRegistryName().getPath();
       tooltip.add("пїЅf" + Ln.translate("description." + name));
    }
@@ -385,7 +384,7 @@ public class ItemBullet extends Item {
       @Override
       public boolean onImpact(World world, EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable Entity projectile) {
          if (!world.isRemote) {
-            float damagePolyp = WeaponParameters.getWeaponParameters(this).get("damage_polyp");
+            float damagePolyp = WeaponParameters.getWeaponParameters(this).getF("damage_polyp");
             CoralPolyp polyp = new CoralPolyp(world, player, damagePolyp);
             polyp.setPosition(x, y, z);
             world.spawnEntity(polyp);
@@ -425,16 +424,16 @@ public class ItemBullet extends Item {
          Random rand = new Random(seed);
          Vec3d vec1 = new Vec3d(x, y, z);
          EntityLivingBase impacted = result != null && result.entityHit != null && result.entityHit instanceof EntityLivingBase
-            ? (EntityLivingBase)result.entityHit
-            : GetMOP.findNearestEntityWithinAABB(world, EntityLivingBase.class, new AxisAlignedBB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5), vec1);
+            ? (EntityLivingBase) result.entityHit
+            : (EntityLivingBase) GetMOP.findNearestEntityWithinAABB(world, EntityLivingBase.class, new AxisAlignedBB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5), vec1);
          sendEffectPacket(world, 64.0, x, y, z, x, y, z, seed, impacted == null ? -1.0 : impacted.getEntityId(), 0.0, 2);
          if (!world.isRemote) {
-            float damageCrystals = WeaponParameters.getWeaponParameters(this).get("damage_crystals");
-            int amountCrystals = WeaponParameters.getWeaponParameters(this).geti("amount_crystals");
+            float damageCrystals = WeaponParameters.getWeaponParameters(this).getF("damage_crystals");
+            int amountCrystals = WeaponParameters.getWeaponParameters(this).getI("amount_crystals");
 
             for (int i = 0; i < amountCrystals; i++) {
-               Vec3d vec = GetMOP.RotatedPosRayTrace(
-                  2.5, 1.0F, vec1, impacted == null ? player : impacted, 0.35, 0.3, rand.nextInt(360) - 180, rand.nextInt(360) - 180
+               Vec3d vec = GetMOP.rotatedPosRayTrace(
+                  2.5, vec1, impacted == null ? player : impacted, 0.35, 0.3, rand.nextInt(360) - 180, rand.nextInt(360) - 180
                );
                AxisAlignedBB aabb = new AxisAlignedBB(
                   vec.x - damageRadius,
@@ -515,9 +514,9 @@ public class ItemBullet extends Item {
       @Override
       public boolean onImpact(World world, EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable Entity projectile) {
          float fixRadius = 0.4F;
-         List<EntityLivingBase> listResultFix = GetMOP.getHostilesInAABBto(world, new Vec3d(x, y, z), fixRadius, fixRadius, player, player);
+         List<EntityLivingBase> listResultFix = GetMOP.getHostilesInAABBto(world, new Vec3d(x, y, z), fixRadius, fixRadius, player);
          Entity entityIgnore = (Entity)(listResultFix.isEmpty() ? player : (Entity)listResultFix.get(0));
-         List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(world, new Vec3d(x, y, z), 4.0, 4.0, player, entityIgnore);
+         List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(world, new Vec3d(x, y, z), 4.0, 4.0, player);
          if (!list.isEmpty()) {
             for (int i = 0; i < 3; i++) {
                EntityLivingBase livingBase = list.get(itemRand.nextInt(list.size()));
@@ -807,7 +806,7 @@ public class ItemBullet extends Item {
 
       @Override
       public void onDamageCause(World world, EntityLivingBase damaget, EntityLivingBase player, @Nullable Entity projectile) {
-         float damageBonus = WeaponParameters.getWeaponParameters(this).get("damage_bonus");
+         float damageBonus = WeaponParameters.getWeaponParameters(this).getF("damage_bonus");
          if (damaget.isBurning()) {
             damaget.hurtResistantTime = 0;
             Weapons.dealDamage(new WeaponDamage(null, player, projectile, false, false, projectile, WeaponDamage.fire), damageBonus, player, damaget, true);
@@ -903,20 +902,18 @@ public class ItemBullet extends Item {
                      new Vec3d(
                         entitylivingbase.posX, entitylivingbase.posY + entitylivingbase.height / 2.0F, entitylivingbase.posZ
                      ),
-                     1.0F,
-                     null,
+                       null,
                      false
                   )
                   || GetMOP.thereIsNoBlockCollidesBetween(
                      world,
                      new Vec3d(damaget.posX, damaget.posY + damaget.height, damaget.posZ),
                      new Vec3d(entitylivingbase.posX, entitylivingbase.posY + entitylivingbase.height, entitylivingbase.posZ),
-                     1.0F,
-                     null,
+                       null,
                      false
                   )
             )) {
-            float damageThunder = WeaponParameters.getWeaponParameters(this).get("damage_thunder");
+            float damageThunder = WeaponParameters.getWeaponParameters(this).getF("damage_thunder");
             Weapons.dealDamage(
                new WeaponDamage(null, player, projectile, false, false, from, WeaponDamage.electric), damageThunder, player, entitylivingbase, true
             );

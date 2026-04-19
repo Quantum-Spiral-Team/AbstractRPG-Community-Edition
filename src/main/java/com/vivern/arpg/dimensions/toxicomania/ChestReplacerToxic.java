@@ -35,11 +35,11 @@ public class ChestReplacerToxic implements ITemplateProcessor {
    public static class ReplacerBunker implements ITemplateProcessor {
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            world.setBlockState(pos, BlocksRegister.MOBSPAWNERRUSTED.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.RUSTED_SPAWNER.getDefaultState());
             TileMonsterSpawner spawner = (TileMonsterSpawner)world.getTileEntity(pos);
             SpawnerTuners.BUNKER.setupSpawner(world, spawner, world.rand);
             return null;
-         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.RUSTLAMP) {
+         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.RUST_LAMP) {
             return world.rand.nextFloat() < 0.25
                ? new BlockInfo(blockInfoIn.pos, blockInfoIn.blockState.withProperty(RustLamp.ON, true), blockInfoIn.tileentityData)
                : blockInfoIn;
@@ -66,11 +66,11 @@ public class ChestReplacerToxic implements ITemplateProcessor {
    public static class ReplacerLab implements ITemplateProcessor {
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            world.setBlockState(pos, BlocksRegister.MOBSPAWNERRUSTED.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.RUSTED_SPAWNER.getDefaultState());
             TileMonsterSpawner spawner = (TileMonsterSpawner)world.getTileEntity(pos);
             SpawnerTuners.LABORATORY.setupSpawner(world, spawner, world.rand);
             return null;
-         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.RUSTLAMP) {
+         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.RUST_LAMP) {
             return world.rand.nextFloat() < 0.25
                ? new BlockInfo(blockInfoIn.pos, blockInfoIn.blockState.withProperty(RustLamp.ON, true), blockInfoIn.tileentityData)
                : blockInfoIn;

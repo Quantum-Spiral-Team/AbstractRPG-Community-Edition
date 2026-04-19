@@ -152,7 +152,7 @@ public class AssemblyTableRecipesRegister {
    }
 
    public static void register() {
-      Item it = ItemsRegister.BATTERYLEADACID;
+      Item it = ItemsRegister.LEAD_ACID_BATTERY;
       int bulletCT = 20;
       craftTimeMultiplier = 1.5F;
       addRecipe(
@@ -593,7 +593,7 @@ public class AssemblyTableRecipesRegister {
          EM
       );
       addRecipe(
-         new Ingridient.IngridientItem("arpg:cryogrenade", 8, 0, false),
+         new Ingridient.IngridientItem("arpg:cryo_grenade", 8, 0, false),
          6000,
          EM,
          100,
@@ -1170,7 +1170,7 @@ public class AssemblyTableRecipesRegister {
          new AssemblyTableRecipe.AugmentCost(PRESS, new Ingridient.IngridientItem("materialAdvancedPlastic", 2))
       );
       addRecipe(
-         new Ingridient.IngridientItem("arpg:snapball", 1, 0, false),
+         new Ingridient.IngridientItem("arpg:snap_ball", 1, 0, false),
          150000,
          EM,
          300,

@@ -3,7 +3,7 @@ package com.vivern.arpg.renders;
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
 import com.vivern.arpg.weather.TimeOfDayProvider;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.BufferBuilder;

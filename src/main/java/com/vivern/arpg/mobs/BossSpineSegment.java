@@ -93,13 +93,13 @@ public class BossSpineSegment extends EntityMob {
       if (this.owner != null) {
          if (this.owner.poslist.size() > this.number) {
             if (this.number > 0) {
-               Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(this.getPositionVector().subtract(this.owner.poslist.get(this.number - 1)));
+               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.owner.poslist.get(this.number - 1)));
                this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
                this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
             }
 
             if (this.number == 0) {
-               Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(this.getPositionVector().subtract(this.owner.getPositionVector()));
+               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.owner.getPositionVector()));
                this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
                this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
             }

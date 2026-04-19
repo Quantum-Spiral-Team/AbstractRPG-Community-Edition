@@ -71,8 +71,7 @@ public class EntityArrowFish extends AbstractArrow {
                this.getPositionVector().add(new Vec3d(this.motionX, this.motionY, this.motionZ).normalize().scale(5.0)),
                5.0,
                5.0,
-               (EntityLivingBase)this.shootingEntity,
-               this.shootingEntity
+               (EntityLivingBase)this.shootingEntity
             );
             if (!list.isEmpty()) {
                List<EntityLivingBase> list2 = new ArrayList<>();
@@ -111,7 +110,7 @@ public class EntityArrowFish extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWFISH);
+      return new ItemStack(ItemsRegister.ARROW_FISH);
    }
 
    public boolean handleWaterMovement() {

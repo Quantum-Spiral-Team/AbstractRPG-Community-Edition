@@ -102,7 +102,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
-                     NBTHelper.SetNBTint(itemstack, parameters.geti("max_hits"), "blocking");
+                     NBTHelper.SetNBTint(itemstack, parameters.getI("max_hits"), "blocking");
                      player.addExhaustion(0.6F);
                      if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0
                         && IWeapon.doMeleeSwordAttack(
@@ -136,7 +136,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
    public float onAttackedWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
       if (NBTHelper.GetNBTint(stack, "blocking") > 0) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-         float damageBlocks = parameters.getEnchanted("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+         float damageBlocks = parameters.getEnchantedF("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
          Entity attacker = source.getImmediateSource() == null ? source.getTrueSource() : source.getImmediateSource();
          if (!IWeapon.checkShieldAngle(stack, player, source)) {
             return hurtdamage;
@@ -162,12 +162,12 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
                      SuperKnockback.applyShieldBlock(
                         player,
                         attacker,
-                        parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
-                        parameters.get("self_knockback")
+                        parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
+                        parameters.getF("self_knockback")
                      );
                      DamageSource wDamageSource = new WeaponDamage(stack, player, null, false, false, player, WeaponDamage.pierce).setIsThornsDamage();
-                     float damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack))
-                        + (attacker.isBurning() ? parameters.get("fire_damage_bonus") : 0.0F);
+                     float damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack))
+                        + (attacker.isBurning() ? parameters.getF("fire_damage_bonus") : 0.0F);
                      Weapons.dealDamage(wDamageSource, damage, player, attacker, true);
                      if (attacker.isBurning()) {
                         player.world
@@ -245,7 +245,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
       boolean ret = entity.attackEntityFrom(
          new WeaponDamage(stack, player, null, false, false, player, WeaponDamage.blade),
          (float)player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * artropods * holy
-            + (entity.isBurning() ? WeaponParameters.getWeaponParameters(stack.getItem()).get("fire_damage_bonus") : 0.0F)
+            + (entity.isBurning() ? WeaponParameters.getWeaponParameters(stack.getItem()).getF("fire_damage_bonus") : 0.0F)
       );
       entity.hurtResistantTime = 0;
       if (ret && entity.isBurning()) {
@@ -255,7 +255,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
             entity.posY,
             entity.posZ,
             2,
-            WeaponParameters.getWeaponParameters(stack.getItem()).get("heart_health"),
+            WeaponParameters.getWeaponParameters(stack.getItem()).getF("heart_health"),
             true,
             5.0F,
             player
@@ -263,7 +263,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
       }
 
       int firelvl = WeaponParameters.getWeaponParameters(stack.getItem())
-         .getEnchantedi("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
+         .getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
       if (firelvl > 0) {
          entity.setFire(firelvl);
       }
@@ -274,7 +274,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).geti("max_hits"), 0.0F, 1.0F
+         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getI("max_hits"), 0.0F, 1.0F
       );
    }
 

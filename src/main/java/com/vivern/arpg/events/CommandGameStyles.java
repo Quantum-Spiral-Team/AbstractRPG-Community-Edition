@@ -3,7 +3,7 @@ package com.vivern.arpg.events;
 import com.vivern.arpg.arpgamemodes.SurvivorGamestyleWatcher;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;

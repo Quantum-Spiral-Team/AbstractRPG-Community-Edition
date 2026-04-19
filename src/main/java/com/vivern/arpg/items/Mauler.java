@@ -44,7 +44,7 @@ public class Mauler extends Whip {
             1.8F,
             0.9F + itemRand.nextFloat() / 5.0F
          );
-      int whipMaxCharge = WeaponParameters.getWeaponParameters(this).geti("max_charge");
+      int whipMaxCharge = WeaponParameters.getWeaponParameters(this).getI("max_charge");
       NBTHelper.SetNBTint(itemstack, -whipMaxCharge, "charge");
       Vec3d poseyes = player.getPositionEyes(1.0F);
       Vec3d scaledVec = new Vec3d(
@@ -68,7 +68,7 @@ public class Mauler extends Whip {
          0.0
       );
       if (killSomeone && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && !player.world.isRemote) {
-         float explosionSize = WeaponParameters.getWeaponParameters(this).get("special_explosion_size");
+         float explosionSize = WeaponParameters.getWeaponParameters(this).getF("special_explosion_size");
          Explosion explosion = new Explosion(player.world, player, pos.x, pos.y, pos.z, explosionSize, true, true);
          explosion.doExplosionA();
          explosion.doExplosionB(true);
@@ -78,8 +78,8 @@ public class Mauler extends Whip {
    @Override
    public void onSpecAttackDamage(Entity entity, Vec3d pos, IWeapon iweapon, ItemStack itemstack, EntityPlayer player, EnumHand hand, float damage) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int time = parameters.getEnchantedi("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack));
-      int power = parameters.geti("potion_power");
+      int time = parameters.getEnchantedI("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack));
+      int power = parameters.getI("potion_power");
       Weapons.setPotionIfEntityLB(entity, PotionEffects.BERSERK, time, power);
    }
 

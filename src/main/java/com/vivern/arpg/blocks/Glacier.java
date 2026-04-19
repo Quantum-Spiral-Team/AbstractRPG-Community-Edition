@@ -17,9 +17,9 @@ public class Glacier extends Block implements IBlockHardBreak {
       super(Material.ROCK);
       this.setRegistryName("glacier");
       this.setTranslationKey("glacier");
-      this.blockHardness = BlocksRegister.HR_SNOWICE_GLACIER.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_SNOWICE_GLACIER.RESISTANCE;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_SNOWICE_GLACIER.LVL);
+      this.blockHardness = BlocksRegister.HR_SNOWICE_GLACIER.hardness;
+      this.blockResistance = BlocksRegister.HR_SNOWICE_GLACIER.resistance;
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_SNOWICE_GLACIER.lvl);
       this.setSoundType(SoundType.GLASS);
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
    }

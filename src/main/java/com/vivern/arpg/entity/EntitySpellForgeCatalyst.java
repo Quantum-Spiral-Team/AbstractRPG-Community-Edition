@@ -110,7 +110,7 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
                this.world.spawnEntity(entityItem);
                this.setDead();
             }
-         } else if (this.world.getBlockState(this.getPosition().down()).getBlock() != BlocksRegister.GEMSPARKBLOCK) {
+         } else if (this.world.getBlockState(this.getPosition().down()).getBlock() != BlocksRegister.GEMSPARK_BLOCK) {
             this.heat--;
          }
       } else if (this.world.isRemote && this.spendTick < 8) {

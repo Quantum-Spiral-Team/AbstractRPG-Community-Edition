@@ -110,7 +110,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
       this.defaultteam = StormledgeMobsPack.mobsteam;
       this.setNoGravity(true);
       this.setattributes(6000.0, 86.0, 24.0, 0.05, 4.0, 4.0, 0.85, 0.2, 0.0, 0.0);
-      this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.SOLIDIFIEDLIGHTNING, 1.0F, 0, 8, 10, 2)});
+      this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.SOLIDIFIED_LIGHTNING, 1.0F, 0, 8, 10, 2)});
       this.setDropMoney(400, 600, 1.0F);
       this.experienceValue = 1200;
    }
@@ -444,7 +444,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
          IEntitySynchronize.sendSynchronize(this, 128.0, this.laserRotationPitch, this.laserRotationYaw, this.laserTimer);
          if (this.laserTimer < 60) {
             Vec3d vec3d = this.getPositionEyes(1.0F);
-            Vec3d vec3d1 = GetMOP.PitchYawToVec3d(this.laserRotationPitch, this.laserRotationYaw);
+            Vec3d vec3d1 = GetMOP.pitchYawToVec3D(this.laserRotationPitch, this.laserRotationYaw);
             Vec3d vec3d2 = vec3d.add(vec3d1.x * 70.0, vec3d1.y * 70.0, vec3d1.z * 70.0);
             RayTraceResult raytraceresult = this.world.rayTraceBlocks(vec3d, vec3d2, false, true, false);
             if (raytraceresult != null) {
@@ -461,8 +461,8 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
 
                for (Entity entity : list) {
                   if (Team.checkIsOpponent(this, entity)) {
-                     float size = GetMOP.getfromto((float)(this.maxlazerTime - this.laserTimer), 20.0F, 25.0F)
-                        - GetMOP.getfromto((float)(this.maxlazerTime - this.laserTimer), 85.0F, 100.0F);
+                     float size = GetMOP.getFromTo((float)(this.maxlazerTime - this.laserTimer), 20.0F, 25.0F)
+                        - GetMOP.getFromTo((float)(this.maxlazerTime - this.laserTimer), 85.0F, 100.0F);
                      Weapons.dealDamage(
                         new WeaponDamage(null, this, null, false, false, vec3d, WeaponDamage.laser),
                         strong ? size * 25.0F : size * 20.0F,
@@ -627,7 +627,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
                && !this.isDashing
                && this.getAttackTarget() != null
                && this.getEntitySenses().canSee(this.getAttackTarget())) {
-               Vec3d vec = GetMOP.RotatedPosRayTrace(67.0, 1.0F, this, 3.5, 3.5, this.rotationPitch, this.rotationYaw);
+               Vec3d vec = GetMOP.rotatedPosRayTrace(67.0, 1.0F, this, 3.5, 3.5, this.rotationPitch, this.rotationYaw);
 
                for (Entity entityx : GetMOP.getEntitiesInAABBof(this.world, vec, 2.7, this)) {
                   if (Team.checkIsOpponent(this, entityx)) {
@@ -759,7 +759,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
                      float lazerFromTo = 0.0F;
                      if (this.animations[1] > 0) {
                         float anim2 = 100.0F - this.animations[1];
-                        lazerFromTo = GetMOP.getfromto(anim2, 0.0F, 20.0F) - GetMOP.getfromto(anim2, 85.0F, 100.0F);
+                        lazerFromTo = GetMOP.getFromTo(anim2, 0.0F, 20.0F) - GetMOP.getFromTo(anim2, 85.0F, 100.0F);
                      }
 
                      Vec3d anglesc = anglesOfCircles(cicle, this.circlesRotation, lazerFromTo, this.laserRotationPitch, this.laserRotationYaw);
@@ -881,7 +881,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
       float lazerFromTo = 0.0F;
       if (this.animations[1] > 0) {
          float anim2 = 100.0F - this.animations[1];
-         lazerFromTo = GetMOP.getfromto(anim2, 0.0F, 20.0F) - GetMOP.getfromto(anim2, 85.0F, 100.0F);
+         lazerFromTo = GetMOP.getFromTo(anim2, 0.0F, 20.0F) - GetMOP.getFromTo(anim2, 85.0F, 100.0F);
       }
 
       Vec3d angles = anglesOfCircles(circle, this.circlesRotation, lazerFromTo, this.laserRotationPitch, this.laserRotationYaw);
@@ -929,7 +929,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
    public void spawnBetwParticle(Vec3d from, Vec3d to, float pitch, float yaw, float prevpitch, float prevyaw) {
       if (from.lengthSquared() > 1.0E-6 && to.lengthSquared() > 1.0E-6) {
          if (this.ticksExisted % 2 == 0) {
-            float soundsize = GetMOP.getfromto((float)(this.maxlazerTime - this.laserTimer), 80.0F, 100.0F);
+            float soundsize = GetMOP.getFromTo((float)(this.maxlazerTime - this.laserTimer), 80.0F, 100.0F);
             this.world
                .playSound(
                   (from.x + to.x) / 2.0,
@@ -943,8 +943,8 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
                );
          }
 
-         float size = GetMOP.getfromto((float)(this.maxlazerTime - this.laserTimer), 20.0F, 25.0F)
-            - GetMOP.getfromto((float)(this.maxlazerTime - this.laserTimer), 85.0F, 100.0F);
+         float size = GetMOP.getFromTo((float)(this.maxlazerTime - this.laserTimer), 20.0F, 25.0F)
+            - GetMOP.getFromTo((float)(this.maxlazerTime - this.laserTimer), 85.0F, 100.0F);
          EntityStreamLaserP laser = new EntityStreamLaserP(
             this.world, generic_beam2, size, 240, 1.0F, 1.0F, 1.0F, 0.15F, from.distanceTo(to), 3, 0.5F, 0.0F, pitch, yaw, this.ticksExisted
          );

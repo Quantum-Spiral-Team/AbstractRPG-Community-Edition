@@ -90,8 +90,8 @@ public class GrenadeLauncher extends ItemWeapon {
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                      EntityLaunchedRocket projectile = new EntityLaunchedRocket(world, player, itemstack);
-                     projectile.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                     projectile.knockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                     projectile.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                     projectile.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                      projectile.gravity = 0.07F;
                      projectile.gravityChanged = true;
                      projectile.unstabilize = 1.0F;
@@ -102,8 +102,8 @@ public class GrenadeLauncher extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.13F,
                         0.5F,
                         0.6F

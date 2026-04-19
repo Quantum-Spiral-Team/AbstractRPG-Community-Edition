@@ -36,9 +36,9 @@ public class FrozenChandelier extends Block {
       super(Material.GLASS);
       this.setRegistryName("frozen_chandelier");
       this.setTranslationKey("frozen_chandelier");
-      this.blockHardness = BlocksRegister.HR_FROZEN_FURNITURE.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_FROZEN_FURNITURE.RESISTANCE;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_FROZEN_FURNITURE.LVL);
+      this.blockHardness = BlocksRegister.HR_FROZEN_FURNITURE.hardness;
+      this.blockResistance = BlocksRegister.HR_FROZEN_FURNITURE.resistance;
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_FROZEN_FURNITURE.lvl);
       this.setSoundType(SoundType.METAL);
       this.setCreativeTab(CreativeTabs.DECORATIONS);
       this.setLightLevel(0.7F);

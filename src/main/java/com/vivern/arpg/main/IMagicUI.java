@@ -3,7 +3,7 @@ package com.vivern.arpg.main;
 import com.vivern.arpg.entity.EntityMagicUI;
 import com.vivern.arpg.recipes.Seal;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

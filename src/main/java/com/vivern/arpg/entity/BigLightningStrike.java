@@ -187,10 +187,10 @@ public class BigLightningStrike extends Entity {
       }
 
       public float getBrightness() {
-         return GetMOP.getfromto((float)this.ticksExisted, 0.0F, 2.0F)
-            - GetMOP.getfromto((float)this.ticksExisted, 4.0F, 10.0F)
-            + GetMOP.getfromto((float)this.ticksExisted, 100.0F, 102.0F)
-            - GetMOP.getfromto((float)this.ticksExisted, 109.0F, 120.0F);
+         return GetMOP.getFromTo((float)this.ticksExisted, 0.0F, 2.0F)
+            - GetMOP.getFromTo((float)this.ticksExisted, 4.0F, 10.0F)
+            + GetMOP.getFromTo((float)this.ticksExisted, 100.0F, 102.0F)
+            - GetMOP.getFromTo((float)this.ticksExisted, 109.0F, 120.0F);
       }
 
       public void onUpdate(BigLightningStrike lightningStrike) {
@@ -201,7 +201,7 @@ public class BigLightningStrike extends Entity {
          }
 
          if (!this.generated) {
-            if (!GetMOP.thereIsNoBlockCollidesBetween(lightningStrike.world, this.posStart, this.posEnd, 1.0F, null, true)) {
+            if (!GetMOP.thereIsNoBlockCollidesBetween(lightningStrike.world, this.posStart, this.posEnd, null, true)) {
                for (BigLightningSegment pr = this; pr != null; pr = pr.parent) {
                   pr.ticksExisted = 100;
                }

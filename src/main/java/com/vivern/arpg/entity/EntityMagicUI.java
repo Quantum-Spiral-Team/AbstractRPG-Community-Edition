@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -188,7 +188,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          for (Entity entity : player.world.loadedEntityList) {
             if (player.getDistanceSq(entity) <= 64.0
                && entity instanceof EntityMagicUI
-               && GetMOP.entityUncollidedRayTrace(EntityMagicUI.class, 8.0, 1.0F, player, 0.1, 0.1, player.rotationPitch, player.rotationYaw)
+               && GetMOP.entityUncollidedRayTrace(EntityMagicUI.class, 8.0, 1.0F, player, 0.1, player.rotationPitch, player.rotationYaw)
                   .contains(entity)) {
                ((EntityMagicUI)entity).inSelection = true;
                if (key) {
@@ -201,7 +201,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
 
          if (key && !usemagicPRESS) {
             RayTraceResult res = player.rayTrace(8.0, 1.0F);
-            if (res != null && res.getBlockPos() != null && res.typeOfHit == Type.BLOCK) {
+            if (res != null && res.typeOfHit == Type.BLOCK) {
                PacketMUIOpenToServer.send(res.getBlockPos());
             }
          }
@@ -551,7 +551,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
    }
 
    public void setRunePosition(@Nullable EntityPlayer playerBy, double x, double y, double z, EnumFacing facingOn) {
-      int equip = playerBy == null ? -1 : BaublesApi.isBaubleEquipped(playerBy, ItemsRegister.SAPPHIREEYE);
+      int equip = playerBy == null ? -1 : BaublesApi.isBaubleEquipped(playerBy, ItemsRegister.SAPPHIRE_EYE);
       if (equip < 0) {
          this.posX = x;
          this.posY = y;
@@ -596,7 +596,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
    }
 
    public void setRuneFloorAngle(@Nullable EntityPlayer playerBy, float angle) {
-      if (playerBy != null && BaublesApi.isBaubleEquipped(playerBy, ItemsRegister.SAPPHIREEYE) >= 0) {
+      if (playerBy != null && BaublesApi.isBaubleEquipped(playerBy, ItemsRegister.SAPPHIRE_EYE) >= 0) {
          this.rotationOnFloor = (int)(angle / 5.0F) * 5;
       } else {
          this.rotationOnFloor = angle;

@@ -15,63 +15,65 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 
+@SuppressWarnings({"deprecation", "ConstantConditions"})
 public class ToolWand extends Item {
-   public boolean ench = false;
-   public ItemStack consume;
-   public boolean ignoreMetaConsume = true;
-   public String placename = "";
-   public IBlockState place = null;
-   public String consumename = "";
-   boolean canReplaceOnSneak = false;
-   public IBlockState replace = null;
-   public IBlockState toreplace = null;
-   public String replacename = "";
-   public String toreplacename = "";
-   public int placemeta = -1;
-   public int replacemeta = -1;
-   public int toreplacemeta = -1;
+   // B: если будет нужна какое-то из этих полей, напишите в issues, я создам метод аксессор
+   private boolean enchanted = false;
+   private ItemStack consume;
+   private final boolean ignoreMetaConsume;
+   private final String placeName;
+   private IBlockState place = null;
+   private String consumeName = "";
+   private boolean canReplaceOnSneak = false;
+   private IBlockState replace = null;
+   private IBlockState toReplace = null;
+   private String replaceName;
+   private String toReplaceName;
+   private int placeMeta = -1;
+   private int replaceMeta = -1;
+   private int toReplaceMeta = -1;
 
-   public ToolWand(String name, CreativeTabs tab, int maxdamage, ItemStack consume, boolean ignoreMetaConsume, String placeblock) {
+   public ToolWand(String name, CreativeTabs tab, int maxDamage, ItemStack consume, boolean ignoreMetaConsume, String placeblock) {
       this.setRegistryName(name);
       this.setCreativeTab(tab);
       this.setTranslationKey(name);
-      this.setMaxDamage(maxdamage);
+      this.setMaxDamage(maxDamage);
       this.setMaxStackSize(1);
       this.consume = consume;
-      this.placename = placeblock;
+      this.placeName = placeblock;
       this.ignoreMetaConsume = ignoreMetaConsume;
    }
 
-   public ToolWand(String name, CreativeTabs tab, int maxdamage, String consume, boolean ignoreMetaConsume, String placeblock) {
+   public ToolWand(String name, CreativeTabs tab, int maxDamage, String consume, boolean ignoreMetaConsume, String placeblock) {
       this.setRegistryName(name);
       this.setCreativeTab(tab);
       this.setTranslationKey(name);
-      this.setMaxDamage(maxdamage);
+      this.setMaxDamage(maxDamage);
       this.setMaxStackSize(1);
-      this.consumename = consume;
-      this.placename = placeblock;
+      this.consumeName = consume;
+      this.placeName = placeblock;
       this.ignoreMetaConsume = ignoreMetaConsume;
    }
 
-   public ToolWand setReplaceLogic(String replaceblock, String toblock) {
+   public ToolWand setReplaceLogic(String replaceBlock, String toBlock) {
       this.canReplaceOnSneak = true;
-      this.replacename = replaceblock;
-      this.toreplacename = toblock;
+      this.replaceName = replaceBlock;
+      this.toReplaceName = toBlock;
       return this;
    }
 
    public ToolWand setPlaceMeta(int metadata) {
-      this.placemeta = metadata;
+      this.placeMeta = metadata;
       return this;
    }
 
    public ToolWand setReplaceMeta(int metadata) {
-      this.replacemeta = metadata;
+      this.replaceMeta = metadata;
       return this;
    }
 
    public ToolWand setToReplaceMeta(int metadata) {
-      this.toreplacemeta = metadata;
+      this.toReplaceMeta = metadata;
       return this;
    }
 
@@ -79,11 +81,11 @@ public class ToolWand extends Item {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
       if (this.consume == null) {
-         Item it = Item.getByNameOrId(this.consumename);
+         Item it = Item.getByNameOrId(this.consumeName);
          if (it == null) {
-            Block bl = Block.getBlockFromName(this.consumename);
+            Block bl = Block.getBlockFromName(this.consumeName);
             if (bl == null) {
-               return new ActionResult(EnumActionResult.FAIL, itemstack);
+               return new ActionResult<>(EnumActionResult.FAIL, itemstack);
             }
 
             this.consume = new ItemStack(bl);
@@ -93,87 +95,80 @@ public class ToolWand extends Item {
       }
 
       if (this.place == null) {
-         this.place = this.placemeta < 0
-            ? Block.getBlockFromName(this.placename).getDefaultState()
-            : Block.getBlockFromName(this.placename).getStateFromMeta(this.placemeta);
+         this.place = this.placeMeta < 0
+            ? Block.getBlockFromName(this.placeName).getDefaultState()
+            : Block.getBlockFromName(this.placeName).getStateFromMeta(this.placeMeta);
       }
 
       if (this.canReplaceOnSneak) {
          if (this.replace == null) {
-            this.replace = this.replacemeta < 0
-               ? Block.getBlockFromName(this.replacename).getDefaultState()
-               : Block.getBlockFromName(this.replacename).getStateFromMeta(this.replacemeta);
+            this.replace = this.replaceMeta < 0
+               ? Block.getBlockFromName(this.replaceName).getDefaultState()
+               : Block.getBlockFromName(this.replaceName).getStateFromMeta(this.replaceMeta);
          }
 
-         if (this.toreplace == null) {
-            this.toreplace = this.toreplacemeta < 0
-               ? Block.getBlockFromName(this.toreplacename).getDefaultState()
-               : Block.getBlockFromName(this.toreplacename).getStateFromMeta(this.toreplacemeta);
+         if (this.toReplace == null) {
+            this.toReplace = this.toReplaceMeta < 0
+               ? Block.getBlockFromName(this.toReplaceName).getDefaultState()
+               : Block.getBlockFromName(this.toReplaceName).getStateFromMeta(this.toReplaceMeta);
          }
       }
 
+      RayTraceResult result = this.rayTrace(world, player, false);
       if (player.isSneaking() && this.canReplaceOnSneak) {
-         RayTraceResult raytraceresult = this.rayTrace(world, player, false);
-         if (raytraceresult == null) {
-            return new ActionResult(EnumActionResult.PASS, itemstack);
-         }
 
-         if (raytraceresult.typeOfHit != Type.BLOCK) {
-            return new ActionResult(EnumActionResult.PASS, itemstack);
+          if (result.typeOfHit != Type.BLOCK) {
+            return new ActionResult<>(EnumActionResult.PASS, itemstack);
          }
 
          player.swingArm(hand);
-         BlockPos pos = raytraceresult.getBlockPos();
-         Block blockfrom = world.getBlockState(pos).getBlock();
-         Block blockto = this.toreplace.getBlock();
-         if (blockfrom == this.replace.getBlock()) {
-            world.setBlockState(pos, this.toreplace);
+         BlockPos pos = result.getBlockPos();
+         Block blockFrom = world.getBlockState(pos).getBlock();
+         Block blockTo = this.toReplace.getBlock();
+         if (blockFrom == this.replace.getBlock()) {
+            world.setBlockState(pos, this.toReplace);
             world.playSound(
-               (EntityPlayer)null,
+               null,
                pos,
-               blockto.getSoundType(this.toreplace, world, pos, player).getPlaceSound(),
+               blockTo.getSoundType(this.toReplace, world, pos, player).getPlaceSound(),
                SoundCategory.BLOCKS,
                0.8F,
                0.9F + itemRand.nextFloat() / 5.0F
             );
-            return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+            return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
          }
       } else {
-         RayTraceResult raytraceresultx = this.rayTrace(world, player, false);
-         if (raytraceresultx == null) {
-            return new ActionResult(EnumActionResult.PASS, itemstack);
+
+          if (result.typeOfHit != Type.BLOCK) {
+            return new ActionResult<>(EnumActionResult.PASS, itemstack);
          }
 
-         if (raytraceresultx.typeOfHit != Type.BLOCK) {
-            return new ActionResult(EnumActionResult.PASS, itemstack);
-         }
-
-         if (raytraceresultx.sideHit != null) {
+         if (result.sideHit != null) {
             player.swingArm(hand);
-            BlockPos posr = raytraceresultx.getBlockPos();
-            BlockPos pos = posr.offset(raytraceresultx.sideHit);
-            boolean repl = world.getBlockState(pos).getBlock().isReplaceable(world, pos);
+            BlockPos resultPos = result.getBlockPos();
+            BlockPos offsetPos = resultPos.offset(result.sideHit);
+            boolean replaceable = world.getBlockState(offsetPos).getBlock().isReplaceable(world, offsetPos);
             Block block = this.place.getBlock();
-            if (block.canPlaceBlockOnSide(world, pos, raytraceresultx.sideHit)
-               && block.canPlaceBlockAt(world, pos)
-               && (repl || world.isAirBlock(pos))
+            if (block.canPlaceBlockOnSide(world, offsetPos, result.sideHit)
+               && block.canPlaceBlockAt(world, offsetPos)
+               && (replaceable || world.isAirBlock(offsetPos))
                && player.inventory.hasItemStack(this.consume)) {
                player.inventory
                   .clearMatchingItems(this.consume.getItem(), this.ignoreMetaConsume ? -1 : this.consume.getMetadata(), this.consume.getCount(), null);
-               if (repl) {
-                  world.destroyBlock(pos, true);
+               if (replaceable) {
+                  world.destroyBlock(offsetPos, true);
                }
 
-               world.setBlockState(pos, this.place);
+               world.setBlockState(offsetPos, this.place);
                world.playSound(
-                  (EntityPlayer)null,
-                  pos,
-                  block.getSoundType(this.place, world, pos, player).getPlaceSound(),
+                  null,
+                  offsetPos,
+                  block.getSoundType(this.place, world, offsetPos, player).getPlaceSound(),
                   SoundCategory.BLOCKS,
                   0.8F,
                   0.9F + itemRand.nextFloat() / 5.0F
                );
-               return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+               return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
             }
          }
       }
@@ -182,11 +177,11 @@ public class ToolWand extends Item {
    }
 
    public ToolWand setEnchantGlow() {
-      this.ench = true;
+      this.enchanted = true;
       return this;
    }
 
    public boolean hasEffect(ItemStack stack) {
-      return this.ench ? this.ench : super.hasEffect(stack);
+      return this.enchanted || super.hasEffect(stack);
    }
 }

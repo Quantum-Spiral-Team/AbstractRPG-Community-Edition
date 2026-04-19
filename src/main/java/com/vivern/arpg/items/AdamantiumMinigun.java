@@ -122,7 +122,7 @@ public class AdamantiumMinigun extends ItemWeapon {
             this.decrementHeat(itemstack, heat, 1);
          } else if (heat < 0) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            if (entityIn.ticksExisted % Math.max(reuse * parameters.geti("reuse_cooling_delay"), 1) == 0) {
+            if (entityIn.ticksExisted % Math.max(reuse * parameters.getI("reuse_cooling_delay"), 1) == 0) {
                this.decrementHeat(itemstack, heat, 1);
             }
          } else {
@@ -192,7 +192,7 @@ public class AdamantiumMinigun extends ItemWeapon {
                         player.addStat(StatList.getObjectUseStats(this));
                         IWeapon.fireBomEffect(this, player, world, 0);
                         Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
-                        if (heat < parameters.geti("heat_to_melee")) {
+                        if (heat < parameters.getI("heat_to_melee")) {
                            NBTHelper.GiveNBTint(itemstack, 0, "heat");
                            NBTHelper.AddNBTint(itemstack, 5, "heat");
                         } else {
@@ -215,12 +215,12 @@ public class AdamantiumMinigun extends ItemWeapon {
                            itemstack.damageItem(1, player);
                         }
 
-                        double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                        double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                         double damageRadius = 0.2;
-                        double spread = parameters.getEnchanted("inaccuracy", acc) - parameters.getEnchanted("spread_reduction", acc) * speed;
+                        double spread = parameters.getEnchantedF("inaccuracy", acc) - parameters.getEnchantedF("spread_reduction", acc) * speed;
                         float rotP = player.rotationPitch + (float)(itemRand.nextGaussian() * spread);
                         float rotY = player.rotationYaw + (float)(itemRand.nextGaussian() * spread);
-                        Vec3d vec = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.2, 0.2, rotP, rotY);
+                        Vec3d vec = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.2, 0.2, rotP, rotY);
                         if (nonullbullet) {
                            bullet.onImpact(world, player, vec.x, vec.y, vec.z, null, null);
                         }
@@ -270,11 +270,11 @@ public class AdamantiumMinigun extends ItemWeapon {
 
                                  Weapons.dealDamage(
                                     new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                    parameters.getEnchanted("damage_ranged", might) + damageadd * parameters.get("bullet_damage"),
+                                    parameters.getEnchantedF("damage_ranged", might) + damageadd * parameters.getF("bullet_damage"),
                                     player,
                                     entity,
                                     true,
-                                    parameters.getEnchanted("knockback_ranged", impulse) + knockbackadd * parameters.get("bullet_knockback"),
+                                    parameters.getEnchantedF("knockback_ranged", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
                                     player.posX,
                                     player.posY,
                                     player.posZ
@@ -310,7 +310,7 @@ public class AdamantiumMinigun extends ItemWeapon {
                            collidesWithAny ? 1.0 : 0.0
                         );
                      }
-                  } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.ADAMANTIUMMINIGUNCLIP, maxammo, true)) {
+                  } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.ADAMANTIUM_MINIGUN_CLIP, maxammo, true)) {
                      world.playSound(
                         (EntityPlayer)null,
                         player.posX,
@@ -453,12 +453,12 @@ public class AdamantiumMinigun extends ItemWeapon {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
       if (NBTHelper.GetNBTint(itemstack, "heat") < 0) {
-         return parameters.getEnchantedi("cooldown_melee", rapidity);
+         return parameters.getEnchantedI("cooldown_melee", rapidity);
       } else {
          int speed = NBTHelper.GetNBTint(itemstack, "speed");
          return Math.max(
-            parameters.getEnchantedi("max_shoot_delay", rapidity) + (int)(speed * parameters.getEnchanted("speed_to_cooldown", rapidity)),
-            parameters.getEnchantedi("min_shoot_delay", rapidity)
+            parameters.getEnchantedI("max_shoot_delay", rapidity) + (int)(speed * parameters.getEnchantedF("speed_to_cooldown", rapidity)),
+            parameters.getEnchantedI("min_shoot_delay", rapidity)
          );
       }
    }

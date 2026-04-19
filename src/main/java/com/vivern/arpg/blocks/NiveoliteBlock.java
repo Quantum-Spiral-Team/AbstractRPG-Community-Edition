@@ -21,9 +21,9 @@ public class NiveoliteBlock extends Block implements IBlockHardBreak {
       super(Material.ROCK);
       this.setRegistryName("niveolite_block");
       this.setTranslationKey("niveolite_block");
-      this.blockHardness = BlocksRegister.HR_NIVEOLITE.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_NIVEOLITE.RESISTANCE;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_NIVEOLITE.LVL);
+      this.blockHardness = BlocksRegister.HR_NIVEOLITE.hardness;
+      this.blockResistance = BlocksRegister.HR_NIVEOLITE.resistance;
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_NIVEOLITE.lvl);
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
    }
 

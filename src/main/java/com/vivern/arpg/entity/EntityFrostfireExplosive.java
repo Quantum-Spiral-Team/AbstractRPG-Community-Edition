@@ -11,7 +11,7 @@ import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -310,7 +310,7 @@ public class EntityFrostfireExplosive extends Entity implements IEntitySynchroni
             if (Weapons.easyBreakBlockFor(this.world, this.power * 2.0F, blockpos, state)) {
                if (state.getMaterial().isLiquid()) {
                   Weapons.freezeBlock(this.world, blockpos, state, state.getBlock());
-               } else if (state.getBlock() == BlocksRegister.FROSTEXPLOSIVE) {
+               } else if (state.getBlock() == BlocksRegister.FROSTFIRE_EXPLOSIVE) {
                   this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 3);
                   ((FrostfireExplosive)state.getBlock()).blockexploded(this.world, blockpos, this.tntPlacedBy, this);
                } else if (state.getBlock().hasTileEntity(state) || this.rand.nextFloat() < 0.7F) {

@@ -96,7 +96,7 @@ public class MagicSubparticle {
             double d1 = part.posY - cameraY + part.moveY * pt;
             double d2 = part.posZ - cameraZ + part.moveZ * pt;
             double dist = Math.sqrt(d0 * d0 + d2 * d2);
-            float colorOriginal = GetMOP.getfromto((float)AnimationTimer.normaltick, (float)part.whencreate, (float)part.timebound);
+            float colorOriginal = GetMOP.getFromTo((float)AnimationTimer.normaltick, (float)part.whencreate, (float)part.timebound);
             float colorTarget = 1.0F - colorOriginal;
             int colorR = (int)MathHelper.clamp(part.color[0] * colorOriginal + part.targetcolor[0] * colorTarget, 0.0F, 255.0F);
             int colorG = (int)MathHelper.clamp(part.color[1] * colorOriginal + part.targetcolor[1] * colorTarget, 0.0F, 255.0F);

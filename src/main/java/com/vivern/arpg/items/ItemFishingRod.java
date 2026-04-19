@@ -7,7 +7,7 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -110,7 +110,7 @@ public class ItemFishingRod extends Item {
                   FishingHook bolt = new FishingHook(
                      world,
                      player,
-                     (ItemFishingRod)ItemsRegister.MAINFISHINGROD,
+                     (ItemFishingRod)ItemsRegister.FISHING_ROD,
                      itemstack,
                      allowedLiquids,
                      Fishing.getBait(NBTHelper.GetNBTitemFromString(itemstack, "bait"))

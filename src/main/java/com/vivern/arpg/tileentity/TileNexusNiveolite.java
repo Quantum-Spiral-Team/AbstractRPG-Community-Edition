@@ -83,7 +83,7 @@ public class TileNexusNiveolite extends TileNexus {
       if (!this.world.isRemote && this.invasionStarted && this.invasionTime % 20 == 0) {
          AxisAlignedBB aabb = new AxisAlignedBB(this.pos).grow(this.ZONEradius + 6.0, this.ZONEheight, this.ZONEradius + 6.0);
          List<EverfrostMobsPack.NiveousSlider> sliders = this.world.getEntitiesWithinAABB(EverfrostMobsPack.NiveousSlider.class, aabb);
-         float chanceToNew = 0.3F - GetMOP.getfromto((float)sliders.size(), 0.0F, 4.0F) * 0.3F;
+         float chanceToNew = 0.3F - GetMOP.getFromTo((float)sliders.size(), 0.0F, 4.0F) * 0.3F;
          chanceToNew = chanceToNew * chanceToNew * 15.0F;
          if (this.rand.nextFloat() < chanceToNew) {
             this.summonSlider = true;
@@ -121,7 +121,7 @@ public class TileNexusNiveolite extends TileNexus {
       while (y > minn) {
          IBlockState state = this.world.getBlockState(blockpos$pooledmutableblockpos.setPos(x, y, z));
          if (state.isSideSolid(this.world, blockpos$pooledmutableblockpos, EnumFacing.UP)
-            && state.getBlock() != BlocksRegister.NIVEOUSHOLE
+            && state.getBlock() != BlocksRegister.NIVEOUS_HOLE
             && this.world.isAirBlock(blockpos$pooledmutableblockpos.setPos(x, y + 1.0, z))) {
             blockpos$pooledmutableblockpos.release();
             this.spawnMobGroup(x, y + 1.0, z);
@@ -182,7 +182,7 @@ public class TileNexusNiveolite extends TileNexus {
                      this.getPos().getX() + 0.5,
                      this.getPos().getY() + 1.15,
                      this.getPos().getZ() + 0.5,
-                     new ItemStack(ItemsRegister.ICECIRCLE)
+                     new ItemStack(ItemsRegister.ICE_CIRCLE)
                   )
                );
          }

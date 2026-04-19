@@ -5,7 +5,6 @@ import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.main.WeaponParameters;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -97,7 +96,7 @@ public class ShellShard extends AbstractArrow {
 
    @Override
    public double getItemArrowDamage(World worldIn) {
-      return WeaponParameters.getWeaponParameters(ItemsRegister.ARROWSHELL).get("shard_damage");
+      return WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_SHELL).getF("shard_damage");
    }
 
    @Override

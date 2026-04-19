@@ -32,17 +32,17 @@ public class WandColdShoot extends StandardBullet {
 
    public WandColdShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.WANDOFCOLD);
+      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
    }
 
    public WandColdShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.WANDOFCOLD);
+      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
    }
 
    public WandColdShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.WANDOFCOLD);
+      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
    }
 
    public WandColdShoot(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -155,11 +155,11 @@ public class WandColdShoot extends StandardBullet {
             int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
             if (Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.frost),
-               parameters.getEnchanted("damage", might) * this.magicPower,
+               parameters.getEnchantedF("damage", might) * this.magicPower,
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse)
+               parameters.getEnchantedF("knockback", impulse)
             )) {
                NBTHelper.AddNBTint(this.weaponstack, 1, "charges");
             }
@@ -213,7 +213,7 @@ public class WandColdShoot extends StandardBullet {
          if (!this.world.isRemote
             && this.impacts
                > WeaponParameters.getWeaponParameters(this.weaponstack.getItem())
-                  .getEnchantedi("max_bounces", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack))) {
+                  .getEnchantedI("max_bounces", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack))) {
             this.world.setEntityState(this, (byte)8);
             this.setDead();
          }

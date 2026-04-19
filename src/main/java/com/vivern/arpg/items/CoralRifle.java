@@ -104,8 +104,8 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.1F,
                         0.5F,
                         0.2F
@@ -115,14 +115,14 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
                      }
 
                      projectile.bullet = bullet;
-                     projectile.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      world.spawnEntity(projectile);
                      if (!player.capabilities.isCreativeMode) {
                         this.addAmmo(ammo, itemstack, -1);
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.CORALRIFLECLIP, maxammo, true)) {
+               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.CORAL_RIFLE_CLIP, maxammo, true)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,
@@ -163,7 +163,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return GetMOP.floatToIntWithChance(parameters.getEnchanted("cooldown", rapidity), itemRand);
+      return GetMOP.floatToIntWithChance(parameters.getEnchantedF("cooldown", rapidity), itemRand);
    }
 
    @Override
@@ -182,11 +182,11 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
          EntityLiving entityLiving = (EntityLiving)source.getTrueSource();
          if (entityLiving.getDistance(player) < 5.0F) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-            int maxi = parameters.geti("polyps");
+            int maxi = parameters.getI("polyps");
 
             for (int i = 0; i < maxi; i++) {
                CoralPolyp polyp = new CoralPolyp(
-                  player.world, player, parameters.getEnchanted("polyps_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack))
+                  player.world, player, parameters.getEnchantedF("polyps_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack))
                );
                polyp.setPosition(player.posX, player.posY + player.height / 2.0F, player.posZ);
                polyp.motionX = (itemRand.nextFloat() - 0.5F) * 0.25F;

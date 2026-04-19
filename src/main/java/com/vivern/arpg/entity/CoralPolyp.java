@@ -187,7 +187,7 @@ public class CoralPolyp extends Entity {
 
          if (this.ticksExisted % 30 == 0) {
             this.enemy = this.thrower == null
-               ? GetMOP.findNearestEntityWithinAABB(this.world, EntityLiving.class, GetMOP.newAABB(this, 5.0), this.getPositionVector())
+               ? (EntityLivingBase) GetMOP.findNearestEntityWithinAABB(this.world, EntityLiving.class, GetMOP.newAABB(this, 5.0), this.getPositionVector())
                : GetMOP.findNearestEnemy(this.world, this.thrower, this.posX, this.posY, this.posZ, 6.0, false);
             if (!this.isInWater() && this.enemy != null && this.rand.nextFloat() < 0.5F) {
                this.jump = 8;

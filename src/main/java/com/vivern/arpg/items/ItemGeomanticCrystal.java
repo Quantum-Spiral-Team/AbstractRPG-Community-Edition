@@ -5,7 +5,7 @@ import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.OreDicHelper;
 import com.vivern.arpg.main.Sounds;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -41,7 +41,7 @@ public class ItemGeomanticCrystal extends Item implements IItemColor {
    public boolean onEntityItemUpdate(EntityItem entityItem) {
       if (!entityItem.world.isRemote
          && entityItem.ticksExisted > 40
-         && entityItem.world.getBlockState(entityItem.getPosition()).getBlock() == BlocksRegister.FLUIDHYDROTHERMAL) {
+         && entityItem.world.getBlockState(entityItem.getPosition()).getBlock() == BlocksRegister.FLUID_HYDROTHERMAL) {
          ItemStack stack = entityItem.getItem();
          NBTHelper.GiveNBTfloat(stack, 0.0F, OreDicHelper.DUSTALUMINIUM);
          NBTHelper.GiveNBTfloat(stack, 0.0F, OreDicHelper.DUSTCOPPER);

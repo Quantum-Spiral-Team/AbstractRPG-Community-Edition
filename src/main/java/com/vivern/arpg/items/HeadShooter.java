@@ -85,7 +85,7 @@ public class HeadShooter extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.STINGERBOLTS, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.STINGER_BOLTS, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

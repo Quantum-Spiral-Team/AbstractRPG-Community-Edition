@@ -36,7 +36,7 @@ public class WorldGenFieryBeans implements IWorldGenerator {
             break;
          }
 
-         world.setBlockState(poss, BlocksRegister.FIERYBEANLOG.getDefaultState());
+         world.setBlockState(poss, BlocksRegister.FIERY_BEAN_LOG.getDefaultState());
       }
 
       GenerationHelper.placeStruct(
@@ -48,10 +48,10 @@ public class WorldGenFieryBeans implements IWorldGenerator {
             EnumFacing f = EnumFacing.HORIZONTALS[rand.nextInt(4)];
             BlockPos poss = pos.up(y2).offset(f);
             if (world.getBlockState(poss).getBlock().isReplaceable(world, poss)
-               && world.getBlockState(poss.up()).getBlock() != BlocksRegister.FIERYBEANBLOCK) {
+               && world.getBlockState(poss.up()).getBlock() != BlocksRegister.FIERY_BEAN_BLOCK) {
                world.setBlockState(
                   poss,
-                  BlocksRegister.FIERYBEANBLOCK.getDefaultState().withProperty(FieryBeanBlock.FACING, f).withProperty(FieryBeanBlock.AGE, rand.nextInt(3))
+                  BlocksRegister.FIERY_BEAN_BLOCK.getDefaultState().withProperty(FieryBeanBlock.FACING, f).withProperty(FieryBeanBlock.AGE, rand.nextInt(3))
                );
             }
          }

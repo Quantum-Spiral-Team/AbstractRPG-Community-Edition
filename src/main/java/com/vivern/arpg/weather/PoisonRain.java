@@ -103,9 +103,9 @@ public class PoisonRain extends WorldEvent implements IVoxelCloudInfo {
             world.setBlockToAir(posup);
          }
 
-         world.setBlockState(pos, BlocksRegister.TOXICDIRT.getDefaultState(), 2);
+         world.setBlockState(pos, BlocksRegister.TOXIC_DIRT.getDefaultState(), 2);
          if (this.rand.nextFloat() < 0.08F && world.isAirBlock(posup)) {
-            world.setBlockState(posup, BlocksRegister.TOXICTALLGRASS.getDefaultState(), 2);
+            world.setBlockState(posup, BlocksRegister.TOXIC_TALLGRASS.getDefaultState(), 2);
          }
       }
    }

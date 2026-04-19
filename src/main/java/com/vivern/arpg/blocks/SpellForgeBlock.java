@@ -4,7 +4,7 @@ import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ManaBar;
 import com.vivern.arpg.tileentity.TileSpellForge;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -88,9 +88,9 @@ public class SpellForgeBlock extends Block {
       }
 
       if (tile != null
-         && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELLROLL
-         && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELLPLIERS
-         && playerIn.getHeldItemOffhand().getItem() != ItemsRegister.SPELLPLIERS
+         && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELL_ROLL
+         && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELL_PLIERS
+         && playerIn.getHeldItemOffhand().getItem() != ItemsRegister.SPELL_PLIERS
          && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.VIAL
          && playerIn.getHeldItemOffhand().getItem() != ItemsRegister.VIAL
          && !playerIn.getCooldownTracker().hasCooldown(ItemsRegister.VIAL)) {

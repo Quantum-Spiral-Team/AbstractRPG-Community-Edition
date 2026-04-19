@@ -128,7 +128,7 @@ public class TimelessSword extends ItemWeapon {
       Vec3d vec = GetMOP.posRayTrace(length, 1.0F, player, size, 0.4);
       float effectrotat = itemRand.nextBoolean() ? 180 - itemRand.nextInt(50) : itemRand.nextInt(50);
       IWeapon.fireEffect(
-         ItemsRegister.TIMELESSSWORD,
+         ItemsRegister.TIMELESS_SWORD,
          player,
          world,
          64.0,

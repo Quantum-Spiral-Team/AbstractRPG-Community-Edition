@@ -1,7 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.main.NBTHelper;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.IItemPropertyGetter;

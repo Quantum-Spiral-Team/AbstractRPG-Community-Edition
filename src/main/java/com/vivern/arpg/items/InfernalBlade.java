@@ -53,7 +53,7 @@ public class InfernalBlade extends ItemWeapon {
 
    public void explodeEntity(ItemStack itemstack, World world, Entity entityExploded, EntityPlayer player) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
       AxisAlignedBB axisalignedbb = entityExploded.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -71,11 +71,11 @@ public class InfernalBlade extends ItemWeapon {
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
                Weapons.dealDamage(
                   new WeaponDamage(itemstack, player, entityExploded, true, false, entityExploded, WeaponDamage.explode),
-                  Math.min(parameters.getEnchanted("damage_explode_per_health", might) * health, parameters.get("damage_explode_max")),
+                  Math.min(parameters.getEnchantedF("damage_explode_per_health", might) * health, parameters.getF("damage_explode_max")),
                   player,
                   entity,
                   true,
-                  parameters.getEnchanted("knockback_explode", impulse),
+                  parameters.getEnchantedF("knockback_explode", impulse),
                   entityExploded.posX,
                   entityExploded.posY,
                   entityExploded.posZ

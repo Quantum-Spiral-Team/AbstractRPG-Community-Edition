@@ -27,17 +27,17 @@ public class EntitySnowflakeShuriken extends EntityThrowable {
 
    public EntitySnowflakeShuriken(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALLCANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALL_CANNON);
    }
 
    public EntitySnowflakeShuriken(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALLCANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALL_CANNON);
    }
 
    public EntitySnowflakeShuriken(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALLCANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALL_CANNON);
    }
 
    public EntitySnowflakeShuriken(World world, EntityLivingBase thrower, ItemStack itemstack) {

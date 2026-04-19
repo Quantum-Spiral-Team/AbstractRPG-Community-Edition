@@ -4,7 +4,7 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.tileentity.TileEntityMagicInterflow;
 import com.google.common.base.Predicate;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;

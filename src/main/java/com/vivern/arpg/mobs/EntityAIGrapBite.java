@@ -84,7 +84,7 @@ public class EntityAIGrapBite extends AbstractMob.AbstractAI {
    }
 
    public Vec3d getGrapPosition() {
-      Vec3d lookVec = this.invertedPitchYaw ? GetMOP.PitchYawToVec3d(-this.entity.rotationPitch, -this.entity.rotationYaw) : this.entity.getLook(1.0F);
+      Vec3d lookVec = this.invertedPitchYaw ? GetMOP.pitchYawToVec3D(-this.entity.rotationPitch, -this.entity.rotationYaw) : this.entity.getLook(1.0F);
       return this.grapVectorLength == 1.0F
          ? lookVec.add(this.entity.posX, this.entity.posY, this.entity.posZ)
          : lookVec.scale(this.grapVectorLength).add(this.entity.posX, this.entity.posY, this.entity.posZ);
@@ -144,7 +144,7 @@ public class EntityAIGrapBite extends AbstractMob.AbstractAI {
                this.tryGrab(attackTarg);
             } else if (this.grabAllOpponents) {
                for (EntityLivingBase livingBase : GetMOP.getHostilesInAABBto(
-                  this.entity.world, grabPosition, this.radiusHigher, this.radiusHigher, this.entity, this.entity
+                  this.entity.world, grabPosition, this.radiusHigher, this.radiusHigher, this.entity
                )) {
                   double distSq2 = grabPosition.squareDistanceTo(livingBase.posX, livingBase.posY, livingBase.posZ);
                   if (distSq2 < this.radiusHigherSq && distSq2 > this.radiusLowerSq && this.tryGrab(livingBase)) {

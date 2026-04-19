@@ -116,7 +116,7 @@ public class AnnihilationGun extends ItemWeapon {
          int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
          boolean b1 = true;
-         int chargeneed = parameters.getEnchantedi("charge_need", rapidity);
+         int chargeneed = parameters.getEnchantedI("charge_need", rapidity);
          if (!itemstack.hasTagCompound()) {
             NBTTagCompound itemCompound = new NBTTagCompound();
             itemstack.setTagCompound(itemCompound);
@@ -161,7 +161,7 @@ public class AnnihilationGun extends ItemWeapon {
                horizoffset = player.getPrimaryHand() == EnumHandSide.RIGHT ? -0.2F : 0.2F;
             }
 
-            double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+            double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
             Vec3d vec = GetMOP.posRayTrace(edist, 1.0F, player, 0.05, 0.05);
             if (!world.isRemote) {
                if (ammo > 0 && this.isReloaded(itemstack)) {
@@ -194,7 +194,7 @@ public class AnnihilationGun extends ItemWeapon {
                         player.posY,
                         player.posZ
                      );
-                     double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      AxisAlignedBB aabb = new AxisAlignedBB(
                         vec.x - damageRadius,
                         vec.y - damageRadius,
@@ -203,9 +203,9 @@ public class AnnihilationGun extends ItemWeapon {
                         vec.y + damageRadius,
                         vec.z + damageRadius
                      );
-                     if (itemRand.nextFloat() < parameters.getEnchanted("explode_chance", rapidity)) {
+                     if (itemRand.nextFloat() < parameters.getEnchantedF("explode_chance", rapidity)) {
                         Explosion explosion = new Explosion(
-                           world, null, vec.x, vec.y, vec.z, parameters.getEnchanted("explode_power", might), true, true
+                           world, null, vec.x, vec.y, vec.z, parameters.getEnchantedF("explode_power", might), true, true
                         );
                         explosion.doExplosionA();
                         explosion.doExplosionB(true);
@@ -218,11 +218,11 @@ public class AnnihilationGun extends ItemWeapon {
                               float kmult = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 ? -1.0F : 1.0F;
                               Weapons.dealDamage(
                                  new WeaponDamage(itemstack, player, null, false, false, vec, WeaponDamage.explode),
-                                 parameters.getEnchanted("damage", might),
+                                 parameters.getEnchantedF("damage", might),
                                  player,
                                  entity,
                                  true,
-                                 kmult * parameters.getEnchanted("knockback", impulse),
+                                 kmult * parameters.getEnchantedF("knockback", impulse),
                                  vec.x,
                                  vec.y,
                                  vec.z
@@ -238,7 +238,7 @@ public class AnnihilationGun extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.ANTICHARGE, maxammo, ItemsRegister.STABILIZATIONCELL)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.ANTIMATTER_CHARGE, maxammo, ItemsRegister.STABILIZATION_CELL)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

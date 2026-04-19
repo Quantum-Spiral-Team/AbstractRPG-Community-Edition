@@ -51,13 +51,13 @@ public class BossWinterFury extends AbstractBoss {
       this.setattributes(325.0, 84.0, 10.0, 0.25, 3 + 2 * this.getMobDifficulty(), 3.0, 0.4, 0.5, 0.0, 0.2);
       this.registerLOOT(
          new MobDrop[]{
-            new MobDrop(ItemsRegister.WINTERSCALE, 1.0F, 0, 2, 4, 0),
-            new MobDrop(ItemsRegister.WINTERSCALE, 1.0F, 0, 2, 4, 0),
-            new MobDrop(ItemsRegister.WINTERSCALE, 1.0F, 0, 2, 4, 0),
-            new MobDrop(ItemsRegister.WINTERSCALE, 1.0F, 0, 2, 4, 0),
-            new MobDrop(ItemsRegister.HAILTEAR, 1.0F, 0, 2, 6, 2),
-            new MobDrop(ItemsRegister.HAILTEAR, 1.0F, 0, 2, 6, 2),
-            new MobDrop(ItemsRegister.HAILTEAR, 1.0F, 0, 2, 6, 2)
+            new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0),
+            new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0),
+            new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0),
+            new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0),
+            new MobDrop(ItemsRegister.HAIL_TEAR, 1.0F, 0, 2, 6, 2),
+            new MobDrop(ItemsRegister.HAIL_TEAR, 1.0F, 0, 2, 6, 2),
+            new MobDrop(ItemsRegister.HAIL_TEAR, 1.0F, 0, 2, 6, 2)
          }
       );
       this.var2 = 0.0F;
@@ -198,7 +198,7 @@ public class BossWinterFury extends AbstractBoss {
          }
 
          this.rotationPitch += derection;
-         Vec3d vecpw = GetMOP.Vec3dToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
+         Vec3d vecpw = GetMOP.vec3DToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
          this.rotateDirectPitch = (float)vecpw.x;
          this.rotateDirectYaw = (float)vecpw.y;
       }
@@ -296,7 +296,7 @@ public class BossWinterFury extends AbstractBoss {
          for (EntityLivingBase entitylivingbase : list) {
             if (Team.checkIsOpponent(this, entitylivingbase)
                && GetMOP.entityMopRayTrace(
-                     BossWinterFury.class, 48.0, 1.0F, entitylivingbase, 1.0, 0.8F, entitylivingbase.rotationPitch, entitylivingbase.rotationYaw
+                     BossWinterFury.class, 48.0, 1.0F, entitylivingbase, 1.0, entitylivingbase.rotationPitch, entitylivingbase.rotationYaw
                   )
                   .contains(this)) {
                entitylivingbase.addPotionEffect(new PotionEffect(PotionEffects.WINTER_CURSE, 99000));

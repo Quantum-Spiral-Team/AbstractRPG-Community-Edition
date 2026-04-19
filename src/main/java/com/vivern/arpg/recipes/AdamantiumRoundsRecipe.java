@@ -12,7 +12,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
    public boolean matches(InventoryCrafting inv, World worldIn) {
-      if (inv.getStackInSlot(4).getItem() == ItemsRegister.NUGGETADAMANTIUM) {
+      if (inv.getStackInSlot(4).getItem() == ItemsRegister.ADAMANTIUM_NUGGET) {
          Item item1 = inv.getStackInSlot(1).getItem();
          if (item1 instanceof ItemBullet
             && inv.getStackInSlot(3).getItem() == item1
@@ -28,7 +28,7 @@ public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
    public ItemStack getCraftingResult(InventoryCrafting inv) {
       Item item1 = inv.getStackInSlot(1).getItem();
       if (item1 instanceof ItemBullet) {
-         ItemStack st = new ItemStack(ItemsRegister.ADAMANTIUMROUNDS);
+         ItemStack st = new ItemStack(ItemsRegister.ADAMANTIUM_ROUNDS);
          String name = ((ItemBullet)item1).getNbtName();
          NBTHelper.GiveNBTstring(st, name, "bullet");
          NBTHelper.SetNBTstring(st, name, "bullet");
@@ -43,6 +43,6 @@ public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
    }
 
    public ItemStack getRecipeOutput() {
-      return new ItemStack(ItemsRegister.ADAMANTIUMROUNDS);
+      return new ItemStack(ItemsRegister.ADAMANTIUM_ROUNDS);
    }
 }

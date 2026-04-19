@@ -6,7 +6,7 @@ import com.vivern.arpg.weather.WorldEvent;
 import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;

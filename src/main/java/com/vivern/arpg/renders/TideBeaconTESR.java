@@ -32,23 +32,23 @@ public class TideBeaconTESR extends TileEntitySpecialRenderer<TileNexusBeacon> {
       if (te != null && te.ACTIVATOR > 0 && te.ACTIVATOR < 6) {
          Item activ = null;
          if (te.ACTIVATOR == 1) {
-            activ = ItemsRegister.TIDEACTIVATOR1;
+            activ = ItemsRegister.TIDE_ACTIVATOR_1;
          }
 
          if (te.ACTIVATOR == 2) {
-            activ = ItemsRegister.TIDEACTIVATOR2;
+            activ = ItemsRegister.TIDE_ACTIVATOR_2;
          }
 
          if (te.ACTIVATOR == 3) {
-            activ = ItemsRegister.TIDEACTIVATOR3;
+            activ = ItemsRegister.TIDE_ACTIVATOR_3;
          }
 
          if (te.ACTIVATOR == 4) {
-            activ = ItemsRegister.TIDEACTIVATOR4;
+            activ = ItemsRegister.TIDE_ACTIVATOR_4;
          }
 
          if (te.ACTIVATOR == 5) {
-            activ = ItemsRegister.TIDEACTIVATOR5;
+            activ = ItemsRegister.TIDE_ACTIVATOR_5;
          }
 
          if (activ != null) {

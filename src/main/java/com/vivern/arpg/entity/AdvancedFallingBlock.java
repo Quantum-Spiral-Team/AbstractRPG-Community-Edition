@@ -4,7 +4,7 @@ import com.vivern.arpg.network.PacketFallingBlockToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.google.common.collect.Lists;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.BlockFalling;

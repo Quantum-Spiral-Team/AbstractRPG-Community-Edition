@@ -3,7 +3,7 @@ package com.vivern.arpg.jei;
 import com.vivern.arpg.recipes.AlchemicLabRecipe;
 import com.vivern.arpg.recipes.Ingridient;
 import com.vivern.arpg.renders.ManaBar;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;

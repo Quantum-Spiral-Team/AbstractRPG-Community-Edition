@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 public class Reef extends Biome {
@@ -20,7 +19,7 @@ public class Reef extends Biome {
       super(
          new BiomeProperties("Reef").setBaseHeight(0.05F).setHeightVariation(0.45F).setTemperature(0.95F).setWaterColor(11921407).setRainfall(0.0F).setRainDisabled()
       );
-      this.topBlock = BlocksRegister.SEASTONE.getDefaultState();
+      this.topBlock = BlocksRegister.SEA_STONE.getDefaultState();
       this.fillerBlock = BlocksRegister.SHELLROCK.getDefaultState();
       this.decorator = new ReefDecorator();
    }

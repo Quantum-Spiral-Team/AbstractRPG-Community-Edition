@@ -17,7 +17,7 @@ import com.vivern.arpg.renders.ModelledPartickle;
 import com.vivern.arpg.renders.ParticleTracker;
 import java.util.HashMap;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
@@ -251,10 +251,10 @@ public class Instancer extends ItemWeapon {
       float shoulders = 0.25F;
       float gunLength = 1.15F;
       float gunUp = -0.5F;
-      Vec3d yawOffet = GetMOP.YawToVec3d(player.renderYawOffset + (hand == EnumHandSide.RIGHT ? 90 : -90)).scale(shoulders);
+      Vec3d yawOffet = GetMOP.yawToVec3D(player.renderYawOffset + (hand == EnumHandSide.RIGHT ? 90 : -90)).scale(shoulders);
       Vec3d shoulderVec = yawOffet.add(player.posX, player.posY + height, player.posZ);
-      Vec3d gunTipVec = shoulderVec.add(GetMOP.PitchYawToVec3d(player.rotationPitch, player.rotationYaw).scale(gunLength));
-      return gunTipVec.add(GetMOP.PitchYawToVec3d(player.rotationPitch - 90.0F, player.rotationYaw).scale(gunUp));
+      Vec3d gunTipVec = shoulderVec.add(GetMOP.pitchYawToVec3D(player.rotationPitch, player.rotationYaw).scale(gunLength));
+      return gunTipVec.add(GetMOP.pitchYawToVec3D(player.rotationPitch - 90.0F, player.rotationYaw).scale(gunUp));
    }
 
    public void spawnPartickles(World world, EntityPlayer player, boolean deploy) {
@@ -308,8 +308,7 @@ public class Instancer extends ItemWeapon {
                player,
                6.0,
                0.4,
-               0.4,
-               false,
+                    false,
                false,
                true,
                false,
@@ -600,7 +599,7 @@ public class Instancer extends ItemWeapon {
    }
 
    public List<EntityLivingBase> getTracedCreatures(ItemStack stack, EntityPlayer player) {
-      return GetMOP.MopRayTrace(16.0, 1.0F, player, 2.0, 1.0);
+      return GetMOP.mopRayTrace(16.0, 1.0F, player, 2.0, 1.0);
    }
 
    public int calculateLeadershipForNonAbstractMob(EntityLiving entity) {
@@ -750,7 +749,7 @@ public class Instancer extends ItemWeapon {
                      this.volume = 0.0F;
                   }
                } else {
-                  float ft = GetMOP.getfromto((float)ready, 5.0F, 13.0F);
+                  float ft = GetMOP.getFromTo((float)ready, 5.0F, 13.0F);
                   if (this.volume > ft) {
                      this.volume = ft;
                   }

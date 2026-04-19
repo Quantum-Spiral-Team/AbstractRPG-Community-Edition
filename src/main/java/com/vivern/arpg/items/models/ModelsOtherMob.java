@@ -470,9 +470,9 @@ public class ModelsOtherMob {
          this.silverfishBodyParts7.rotateAngleY = MathHelper.cos(partsAnim * 0.9F + 2.8274336F) * (float) Math.PI * 0.05F * (1 + Math.abs(4));
          float anim1 = 100.0F - an1 + Minecraft.getMinecraft().getRenderPartialTicks();
          float anim3 = 100.0F - an3 + Minecraft.getMinecraft().getRenderPartialTicks();
-         float ft1 = GetMOP.getfromto(anim1, 2.0F, OtherMobsPack.Equestrian.shootCooldown * 0.2F)
-            - GetMOP.getfromto(anim1, OtherMobsPack.Equestrian.shootCooldown * 0.8F, (float)OtherMobsPack.Equestrian.shootCooldown);
-         float ft2 = GetMOP.getfromto(anim3, 0.0F, 10.0F) - GetMOP.getfromto(anim3, 20.0F, 30.0F);
+         float ft1 = GetMOP.getFromTo(anim1, 2.0F, OtherMobsPack.Equestrian.shootCooldown * 0.2F)
+            - GetMOP.getFromTo(anim1, OtherMobsPack.Equestrian.shootCooldown * 0.8F, (float)OtherMobsPack.Equestrian.shootCooldown);
+         float ft2 = GetMOP.getFromTo(anim3, 0.0F, 10.0F) - GetMOP.getFromTo(anim3, 20.0F, 30.0F);
          this.bipedLeftArm.rotateAngleY = 0.13665928F + 0.64F * ft1;
          this.bipedLeftArm.rotateAngleX = -1.5934856F + 0.82F * (1.0F - ft2);
          this.bipedLeftArm.rotateAngleY += f3 * 0.014453292F * ft2;
@@ -614,7 +614,7 @@ public class ModelsOtherMob {
          int animlength = OtherMobsPack.Hellhound.fireTimeMax + 15;
          float anim1 = 100.0F - an2 + pt;
          int delay = OtherMobsPack.Hellhound.fireTimeMax - OtherMobsPack.Hellhound.fireTimeDamageTime;
-         float value = GetMOP.getfromto(anim1, 0.0F, (float)delay) - GetMOP.getfromto(anim1, (float)OtherMobsPack.Hellhound.fireTimeMax, (float)animlength);
+         float value = GetMOP.getFromTo(anim1, 0.0F, (float)delay) - GetMOP.getFromTo(anim1, (float)OtherMobsPack.Hellhound.fireTimeMax, (float)animlength);
          float valueNo = 1.0F - value;
          this.wolfLeg3.rotateAngleX = this.wolfLeg3.rotateAngleX * valueNo + -0.35F * value;
          this.wolfLeg4.rotateAngleX = this.wolfLeg4.rotateAngleX * valueNo + -0.35F * value;
@@ -845,8 +845,8 @@ public class ModelsOtherMob {
          this.rightArm.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1 * 0.7F;
          this.leftArm.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * f1 * 0.7F;
          float an = 100 - an1 + Minecraft.getMinecraft().getRenderPartialTicks();
-         float ft1 = GetMOP.getfromto(an, 0.0F, 4.0F) - GetMOP.getfromto(an, 5.0F, 8.0F);
-         float ft2 = GetMOP.getfromto(an, 3.0F, 5.0F) - GetMOP.getfromto(an, 6.0F, 10.0F);
+         float ft1 = GetMOP.getFromTo(an, 0.0F, 4.0F) - GetMOP.getFromTo(an, 5.0F, 8.0F);
+         float ft2 = GetMOP.getFromTo(an, 3.0F, 5.0F) - GetMOP.getFromTo(an, 6.0F, 10.0F);
          this.rightArm.rotateAngleX += -2.0F * ft1;
          this.leftArm.rotateAngleX += -2.0F * ft1;
          this.rightArm.rotateAngleZ = -0.35F * ft2;

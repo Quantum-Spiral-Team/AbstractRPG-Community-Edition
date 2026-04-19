@@ -29,7 +29,7 @@ public class FlickInteger extends AbstractFlick {
    @Override
    public float get(float partialTicks) {
       float partialValue = GetMOP.partial((float)this.value, (float)this.previousValue, partialTicks);
-      return GetMOP.getfromto(partialValue, (float)this.valueMin, (float)this.valueMax);
+      return GetMOP.getFromTo(partialValue, (float)this.valueMin, (float)this.valueMax);
    }
 
    @Override

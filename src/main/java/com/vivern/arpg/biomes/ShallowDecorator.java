@@ -21,22 +21,22 @@ import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 
 class ShallowDecorator extends BiomeDecorator {
    public WorldGenMiniCoral[] faviaCorals = new WorldGenMiniCoral[]{
-      new WorldGenMiniCoral(BlocksRegister.MINICORALFAVIABLUE, 8, 6, 2),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALFAVIAGREEN, 8, 6, 2),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALFAVIARED, 8, 6, 2),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALFAVIAYELLOW, 8, 6, 2)
+      new WorldGenMiniCoral(BlocksRegister.FAVIA_BLUE, 8, 6, 2),
+      new WorldGenMiniCoral(BlocksRegister.FAVIA_GREEN, 8, 6, 2),
+      new WorldGenMiniCoral(BlocksRegister.FAVIA_RED, 8, 6, 2),
+      new WorldGenMiniCoral(BlocksRegister.FAVIA_YELLOW, 8, 6, 2)
    };
    public WorldGenMiniCoral[] corallimorphaCorals = new WorldGenMiniCoral[]{
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHABLUE, 8, 7, 1).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHABROWN, 9, 7, 1).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHAGREEN, 8, 7, 1).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHALILAC, 8, 7, 1).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHAPINK, 9, 7, 1).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHARED, 11, 7, 1).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHAYELLOW, 9, 7, 1).setcorallimorpha()
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_BLUE, 8, 7, 1).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_BROWN, 9, 7, 1).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_GREEN, 8, 7, 1).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_LILAC, 8, 7, 1).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_PINK, 9, 7, 1).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_RED, 11, 7, 1).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_YELLOW, 9, 7, 1).setcorallimorpha()
    };
-   public WorldGenCoral coralGenerator1 = new WorldGenCoral(0.1F, 0.5F, BlocksRegister.CORALRED);
-   public WorldGenCoral coralGenerator2 = new WorldGenCoral(0.1F, 0.4F, BlocksRegister.CORALORANGE);
+   public WorldGenCoral coralGenerator1 = new WorldGenCoral(0.1F, 0.5F, BlocksRegister.CORAL_RED);
+   public WorldGenCoral coralGenerator2 = new WorldGenCoral(0.1F, 0.4F, BlocksRegister.CORAL_ORANGE);
    public WorldGenSpread seagrass = new WorldGenSpread(BlocksRegister.SEAGRASS, 35, 7, 1, null, true);
 
    public void decorate(World world, Random random, Biome biome, BlockPos decpos) {
@@ -72,7 +72,7 @@ class ShallowDecorator extends BiomeDecorator {
                   world, new BlockPos(decpos.getX() + 8 + random.nextInt(16), 183, decpos.getZ() + 8 + random.nextInt(16))
                );
                int radius = Math.max(6 + random.nextInt(3) - i, 1);
-               AquaticaChunkGenerator.generateBigSponge(world, position.up(radius / 2), random, radius, BlocksRegister.LIVINGSPONGE.getDefaultState());
+               AquaticaChunkGenerator.generateBigSponge(world, position.up(radius / 2), random, radius, BlocksRegister.LIVING_SPONGE.getDefaultState());
             }
          }
 
@@ -85,7 +85,7 @@ class ShallowDecorator extends BiomeDecorator {
                );
                int radius = 1 + random.nextInt(3);
                AquaticaChunkGenerator.generateBigSponge(
-                  world, position.up(radius / 2 + 1), random, radius, BlocksRegister.LIVINGSPONGE.getDefaultState()
+                  world, position.up(radius / 2 + 1), random, radius, BlocksRegister.LIVING_SPONGE.getDefaultState()
                );
             }
          }
@@ -106,8 +106,8 @@ class ShallowDecorator extends BiomeDecorator {
                random,
                count,
                brl,
-               BlocksRegister.LIVINGSPONGE.getDefaultState(),
-               BlocksRegister.LIVINGSPONGE.getStateFromMeta(1),
+               BlocksRegister.LIVING_SPONGE.getDefaultState(),
+               BlocksRegister.LIVING_SPONGE.getStateFromMeta(1),
                193
             );
          }
@@ -199,7 +199,7 @@ class ShallowDecorator extends BiomeDecorator {
             if (position.getY() != AquaticaChunkGenerator.sealvl) {
                boolean w = world.getBlockState(position).getMaterial() == Material.WATER;
                world.setBlockState(
-                  position, BlocksRegister.GIANTSHELL.getDefaultState().withProperty(GiantShell.TYPE, random.nextInt(8)).withProperty(GiantShell.WET, w), 2
+                  position, BlocksRegister.GIANT_SHELL.getDefaultState().withProperty(GiantShell.TYPE, random.nextInt(8)).withProperty(GiantShell.WET, w), 2
                );
             }
          }

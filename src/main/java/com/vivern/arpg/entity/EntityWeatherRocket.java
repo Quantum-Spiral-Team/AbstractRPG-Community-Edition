@@ -9,7 +9,7 @@ import com.vivern.arpg.renders.RenderModule;
 import com.vivern.arpg.weather.WorldEvent;
 import com.vivern.arpg.weather.WorldEventsHandler;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;

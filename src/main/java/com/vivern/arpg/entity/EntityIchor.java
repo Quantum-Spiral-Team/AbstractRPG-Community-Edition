@@ -33,17 +33,17 @@ public class EntityIchor extends StandardBullet {
 
    public EntityIchor(World world) {
       super(world);
-      this.weaponStack = new ItemStack(ItemsRegister.ICHSHOWER);
+      this.weaponStack = new ItemStack(ItemsRegister.ICHOR_SHOWER);
    }
 
    public EntityIchor(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponStack = new ItemStack(ItemsRegister.ICHSHOWER);
+      this.weaponStack = new ItemStack(ItemsRegister.ICHOR_SHOWER);
    }
 
    public EntityIchor(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponStack = new ItemStack(ItemsRegister.ICHSHOWER);
+      this.weaponStack = new ItemStack(ItemsRegister.ICHOR_SHOWER);
    }
 
    public EntityIchor(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -90,11 +90,11 @@ public class EntityIchor extends StandardBullet {
          int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponStack);
          Weapons.dealDamage(
             new WeaponDamage(this.weaponStack, this.getThrower(), this, false, true, this, WeaponDamage.acid),
-            parameters.getEnchanted("damage", might) * this.magicPower,
+            parameters.getEnchantedF("damage", might) * this.magicPower,
             this.getThrower(),
             result.entityHit,
             true,
-            parameters.getEnchanted("knockback", impulse)
+            parameters.getEnchantedF("knockback", impulse)
          );
          result.entityHit.hurtResistantTime = 0;
          if (result.entityHit instanceof EntityLivingBase) {

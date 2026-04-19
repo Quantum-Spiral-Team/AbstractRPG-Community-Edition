@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class WorldGenVoidCrystals implements IWorldGenerator {
    public boolean generate(World worldIn, Random rand, BlockPos pos) {
       if (worldIn.isAirBlock(pos)) {
-         worldIn.setBlockState(pos, BlocksRegister.VOIDCRYSTAL.getDefaultState(), 2);
+         worldIn.setBlockState(pos, BlocksRegister.VOID_CRYSTAL_BLOCK.getDefaultState(), 2);
          TileEntity tile = worldIn.getTileEntity(pos);
          if (tile != null && tile instanceof TileMonsterSpawner) {
             TileMonsterSpawner spawner = (TileMonsterSpawner)tile;

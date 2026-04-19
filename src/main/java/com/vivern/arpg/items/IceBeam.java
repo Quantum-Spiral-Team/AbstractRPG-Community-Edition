@@ -93,11 +93,11 @@ public class IceBeam extends ItemWeapon {
          int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
          int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
          int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
-         float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.get("rapid_multiplier");
-         float manacost = parameters.getEnchanted("manacost", sor) * rapidMult;
+         float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getF("rapid_multiplier");
+         float manacost = parameters.getEnchantedF("manacost", sor) * rapidMult;
          boolean b1 = true;
          if (player.getHeldItemMainhand() == itemstack && mana > manacost && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
-            double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+            double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
             Vec3d vec = GetMOP.posRayTrace(edist, 1.0F, player, 0.3, 0.2);
             world.playSound(
                (EntityPlayer)null,
@@ -110,7 +110,7 @@ public class IceBeam extends ItemWeapon {
                0.9F + itemRand.nextFloat() / 5.0F
             );
             b1 = false;
-            double damageRadius = parameters.get("damage_radius");
+            double damageRadius = parameters.getF("damage_radius");
             AxisAlignedBB aabb = new AxisAlignedBB(
                vec.x - damageRadius,
                vec.y - damageRadius,
@@ -135,11 +135,11 @@ public class IceBeam extends ItemWeapon {
                      if (Team.checkIsOpponent(player, entity)) {
                         Weapons.dealDamage(
                            new WeaponDamage(itemstack, player, null, false, false, player.getPositionEyes(1.0F), WeaponDamage.frost),
-                           parameters.getEnchanted("damage", might) * rapidMult * power,
+                           parameters.getEnchantedF("damage", might) * rapidMult * power,
                            player,
                            entity,
                            true,
-                           parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)) * rapidMult,
+                           parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)) * rapidMult,
                            player.posX,
                            player.posY,
                            player.posZ
@@ -152,14 +152,14 @@ public class IceBeam extends ItemWeapon {
                            PotionEffect lastdebaff = Weapons.mixPotion(
                               entitylivingbase,
                               PotionEffects.FREEZING,
-                              parameters.getEnchantedi("potion_time_add", witchery) * rapidMult,
-                              (float)((int)(dur * parameters.get("potion_power_depends_on_time") + 1.0F)),
+                              parameters.getEnchantedI("potion_time_add", witchery) * rapidMult,
+                              (float)((int)(dur * parameters.getF("potion_power_depends_on_time") + 1.0F)),
                               Weapons.EnumPotionMix.WITH_MAXIMUM,
                               Weapons.EnumPotionMix.WITH_MAXIMUM,
                               Weapons.EnumMathOperation.PLUS,
                               Weapons.EnumMathOperation.PLUS,
-                              parameters.getEnchantedi("potion_time_max", witchery),
-                              parameters.getEnchantedi("potion_power_max", witchery)
+                              parameters.getEnchantedI("potion_time_max", witchery),
+                              parameters.getEnchantedI("potion_power_max", witchery)
                            );
                            Freezing.tryPlaySound(entitylivingbase, lastdebaff);
                            if (entitylivingbase.getHealth() <= 0.0F && itemRand.nextFloat() < 0.1) {
@@ -184,7 +184,7 @@ public class IceBeam extends ItemWeapon {
                         world.setBlockState(posoff, Blocks.FROSTED_ICE.getDefaultState());
                      } else if (IceSpikes.canPlaceAt(worldIn, posoff, result.sideHit)
                         && (blockoff.isReplaceable(world, posoff) || blockoff == Blocks.AIR)) {
-                        world.setBlockState(posoff, BlocksRegister.ICESPIKES.getDefaultState().withProperty(IceSpikes.FACING, result.sideHit));
+                        world.setBlockState(posoff, BlocksRegister.ICE_SPIKES.getDefaultState().withProperty(IceSpikes.FACING, result.sideHit));
                      }
                   }
                }

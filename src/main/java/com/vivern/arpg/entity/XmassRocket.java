@@ -42,17 +42,17 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
 
    public XmassRocket(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.XMASSLAUNCHER);
+      this.weaponstack = new ItemStack(ItemsRegister.XMASS_LAUNCHER);
    }
 
    public XmassRocket(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.XMASSLAUNCHER);
+      this.weaponstack = new ItemStack(ItemsRegister.XMASS_LAUNCHER);
    }
 
    public XmassRocket(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.XMASSLAUNCHER);
+      this.weaponstack = new ItemStack(ItemsRegister.XMASS_LAUNCHER);
    }
 
    public XmassRocket(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -111,7 +111,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
          }
       } else if (this.explodeInstantly && this.ticksExisted > 3) {
          float damage = this.getDamage();
-         this.expl(null, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).get("damage_explode_mult"));
+         this.expl(null, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getF("damage_explode_mult"));
          this.world
             .playSound(
                (EntityPlayer)null,
@@ -252,8 +252,8 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
       int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
       int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack);
-      float balldamage = parameters.getEnchanted("ball_damage", might);
-      int balls = parameters.getEnchantedi("balls", reuse);
+      float balldamage = parameters.getEnchantedF("ball_damage", might);
+      int balls = parameters.getEnchantedI("balls", reuse);
       if (alternative) {
          for (int i = 0; i < balls; i++) {
             XmassBall ball = this.thrower == null
@@ -292,7 +292,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
                   (this.rand.nextDouble() - 0.5) * veclength
                );
                RayTraceResult rayTraceResult = GetMOP.fixedRayTraceBlocks(
-                  this.world, this.thrower, 0.1, 0.1, true, start, end, false, true, false
+                  this.world, this.thrower, 0.1, true, start, end, false, true, false
                );
                boolean hitEntity = rayTraceResult != null
                   && rayTraceResult.entityHit != null
@@ -322,7 +322,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
 
    public void expl(Entity mainTarget, float damage) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -337,7 +337,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
                   this.getThrower(),
                   entity,
                   true,
-                  parameters.getEnchanted("knockback", impulse),
+                  parameters.getEnchantedF("knockback", impulse),
                   this.posX,
                   this.posY,
                   this.posZ
@@ -351,7 +351,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
    public float getDamage() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
       int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
-      return parameters.getEnchanted("damage", might);
+      return parameters.getEnchantedF("damage", might);
    }
 
    protected void onImpact(RayTraceResult result) {
@@ -366,14 +366,14 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse),
+               parameters.getEnchantedF("knockback", impulse),
                this.posX,
                this.posY,
                this.posZ
             );
             result.entityHit.hurtResistantTime = 0;
             DeathEffects.applyDeathEffect(result.entityHit, DeathEffects.DE_DISMEMBER, 0.35F);
-            this.expl(result.entityHit, damage * parameters.get("damage_explode_mult"));
+            this.expl(result.entityHit, damage * parameters.getF("damage_explode_mult"));
             this.world
                .playSound(
                   (EntityPlayer)null,
@@ -407,7 +407,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
             );
          if (!this.world.isRemote) {
             float damage = this.getDamage();
-            this.expl(result.entityHit, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).get("damage_explode_mult"));
+            this.expl(result.entityHit, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getF("damage_explode_mult"));
             if (result.hitVec != null) {
                IEntitySynchronize.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z

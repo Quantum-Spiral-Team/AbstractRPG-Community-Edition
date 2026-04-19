@@ -622,7 +622,7 @@ public class ModelsStormledgeMob {
 
             for (int ix = 0; ix < Math.min(100 - an1, imax); ix++) {
                ModelRendererLimited mr = this.circle4[ix];
-               float ft1 = GetMOP.getfromto(anim, 0.0F, (float)imax) - GetMOP.getfromto(anim, (float)imax, 17.0F);
+               float ft1 = GetMOP.getFromTo(anim, 0.0F, (float)imax) - GetMOP.getFromTo(anim, (float)imax, 17.0F);
                mr.setColor(1.0F, 1.0F - 0.1F * ft1, 1.0F - 0.6F * ft1, 1.0F);
                mr.uselight = ft1 > 0.0F;
                mr.addlight = ft1 > 0.0F;
@@ -640,7 +640,7 @@ public class ModelsStormledgeMob {
 
             for (int ix = 0; ix < Math.min(100 - an1, imax); ix++) {
                ModelRendererLimited mr = this.circle3[ix];
-               float ft1 = GetMOP.getfromto(anim, 0.0F, (float)imax) - GetMOP.getfromto(anim, (float)imax, 17.0F);
+               float ft1 = GetMOP.getFromTo(anim, 0.0F, (float)imax) - GetMOP.getFromTo(anim, (float)imax, 17.0F);
                mr.setColor(1.0F, 1.0F - 0.1F * ft1, 1.0F - 0.6F * ft1, 1.0F);
                mr.uselight = ft1 > 0.0F;
                mr.addlight = ft1 > 0.0F;
@@ -658,7 +658,7 @@ public class ModelsStormledgeMob {
 
             for (int ix = 0; ix < Math.min(100 - an1, imax); ix++) {
                ModelRendererLimited mr = this.circle2[ix];
-               float ft1 = GetMOP.getfromto(anim, 0.0F, (float)imax) - GetMOP.getfromto(anim, (float)imax, 17.0F);
+               float ft1 = GetMOP.getFromTo(anim, 0.0F, (float)imax) - GetMOP.getFromTo(anim, (float)imax, 17.0F);
                mr.setColor(1.0F, 1.0F - 0.1F * ft1, 1.0F - 0.6F * ft1, 1.0F);
                mr.uselight = ft1 > 0.0F;
                mr.addlight = ft1 > 0.0F;
@@ -676,7 +676,7 @@ public class ModelsStormledgeMob {
 
             for (int ix = 0; ix < Math.min(100 - an1, imax); ix++) {
                ModelRendererLimited mr = this.circle1[ix];
-               float ft1 = GetMOP.getfromto(anim, 0.0F, (float)imax) - GetMOP.getfromto(anim, (float)imax, 17.0F);
+               float ft1 = GetMOP.getFromTo(anim, 0.0F, (float)imax) - GetMOP.getFromTo(anim, (float)imax, 17.0F);
                mr.setColor(1.0F, 1.0F - 0.1F * ft1, 1.0F - 0.6F * ft1, 1.0F);
                mr.uselight = ft1 > 0.0F;
                mr.addlight = ft1 > 0.0F;
@@ -694,8 +694,8 @@ public class ModelsStormledgeMob {
          float noLazer = 1.0F;
          if (an2 > 0) {
             float anim2 = 100.0F - an2 + pt;
-            lazerFromTo = GetMOP.getfromto(anim2, 0.0F, 20.0F) - GetMOP.getfromto(anim2, 85.0F, 100.0F);
-            anim += 2.5F * (GetMOP.getfromto(anim2, 0.0F, 20.0F) - GetMOP.getfromto(anim2, 30.0F, 100.0F));
+            lazerFromTo = GetMOP.getFromTo(anim2, 0.0F, 20.0F) - GetMOP.getFromTo(anim2, 85.0F, 100.0F);
+            anim += 2.5F * (GetMOP.getFromTo(anim2, 0.0F, 20.0F) - GetMOP.getFromTo(anim2, 30.0F, 100.0F));
          }
 
          noLazer = 1.0F - lazerFromTo;
@@ -719,9 +719,9 @@ public class ModelsStormledgeMob {
          float wingsTime2 = (AnimationTimer.tick + 20) % 80 / 80.0F;
          this.animateWing(this.wing2b, this.wing2c, this.wing2d, wingsTime2, 0.015453292F);
          this.animateWing(this.wing2bR, this.wing2cR, this.wing2dR, wingsTime2, 0.015453292F);
-         float upForce = GetMOP.softfromto(wingsTime, 0.1F, 0.35F)
-            - GetMOP.softfromto(wingsTime, 0.35F, 0.8F)
-            + (GetMOP.softfromto(wingsTime2, 0.1F, 0.35F) - GetMOP.softfromto(wingsTime2, 0.35F, 0.8F));
+         float upForce = GetMOP.softFromTo(wingsTime, 0.1F, 0.35F)
+            - GetMOP.softFromTo(wingsTime, 0.35F, 0.8F)
+            + (GetMOP.softFromTo(wingsTime2, 0.1F, 0.35F) - GetMOP.softFromTo(wingsTime2, 0.35F, 0.8F));
          int ix = 0;
          Random rand = new Random(entity.getEntityId());
 
@@ -807,8 +807,8 @@ public class ModelsStormledgeMob {
          int dashAnim = 100 - BossOphanim.dashTimeMax;
          if (an3 >= dashAnim) {
             float animx = 100.0F - an3 + pt;
-            float ft1 = GetMOP.getfromto(animx, 0.0F, (float)BossOphanim.dashTimeReady)
-               - GetMOP.getfromto(animx, (float)(BossOphanim.dashTimeMax - 4), (float)BossOphanim.dashTimeMax);
+            float ft1 = GetMOP.getFromTo(animx, 0.0F, (float)BossOphanim.dashTimeReady)
+               - GetMOP.getFromTo(animx, (float)(BossOphanim.dashTimeMax - 4), (float)BossOphanim.dashTimeMax);
             GlStateManager.enableBlend();
             AbstractMobModel.alphaGlow();
             GlStateManager.color(1.0F - 0.5F * ft1, 1.0F - 0.1F * ft1, 1.0F, 1.0F);
@@ -943,14 +943,14 @@ public class ModelsStormledgeMob {
       }
 
       public void animateWing(ModelRenderer wing1, ModelRenderer wing2, ModelRenderer wing3, float progress, float multiplier) {
-         float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F);
-         float ft2 = GetMOP.getfromto(progress, 0.1F, 0.2F);
-         float ft3 = GetMOP.softfromto(progress, 0.1F, 0.35F);
-         float ft4 = GetMOP.getfromto(progress, 0.1F, 0.25F) - GetMOP.getfromto(progress, 0.25F, 0.35F);
-         float ft5 = GetMOP.getfromto(progress, 0.35F, 0.5F);
-         float ft6 = GetMOP.getfromto(progress, 0.5F, 0.7F);
-         float ft7 = GetMOP.softfromto(progress, 0.7F, 1.0F);
-         float ft8 = GetMOP.getfromto(progress, 0.05F, 0.23F) - GetMOP.getfromto(progress, 0.27F, 0.43F);
+         float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F);
+         float ft2 = GetMOP.getFromTo(progress, 0.1F, 0.2F);
+         float ft3 = GetMOP.softFromTo(progress, 0.1F, 0.35F);
+         float ft4 = GetMOP.getFromTo(progress, 0.1F, 0.25F) - GetMOP.getFromTo(progress, 0.25F, 0.35F);
+         float ft5 = GetMOP.getFromTo(progress, 0.35F, 0.5F);
+         float ft6 = GetMOP.getFromTo(progress, 0.5F, 0.7F);
+         float ft7 = GetMOP.softFromTo(progress, 0.7F, 1.0F);
+         float ft8 = GetMOP.getFromTo(progress, 0.05F, 0.23F) - GetMOP.getFromTo(progress, 0.27F, 0.43F);
          wing1.rotateAngleX += (-30.0F * ft1 + 70.0F * ft3 + 30.0F * ft5 - 31.0F * ft6 - 39.0F * ft7 - 15.0F * ft8) * multiplier;
          wing1.rotateAngleY += (-12.0F * ft1 + 45.0F * ft2 - 8.0F * ft6 - 25.0F * ft7) * multiplier;
          wing1.rotateAngleZ += (-13.0F * ft2 + 73.0F * ft3 - 67.0F * ft6 + 7.0F * ft7) * multiplier;
@@ -1207,8 +1207,8 @@ public class ModelsStormledgeMob {
          this.teeth2.rotateAngleX = f4 * 0.007453292F;
          if (an1 > 0) {
             float anim = 100 - an1 + Minecraft.getMinecraft().getRenderPartialTicks();
-            float transl = GetMOP.getfromto(anim, 0.0F, 10.0F) - GetMOP.getfromto(anim, 11.0F, 25.0F);
-            float ang = (GetMOP.getfromto(anim, 4.0F, 8.0F) - GetMOP.getfromto(anim, 9.0F, 11.0F)) * -0.85F;
+            float transl = GetMOP.getFromTo(anim, 0.0F, 10.0F) - GetMOP.getFromTo(anim, 11.0F, 25.0F);
+            float ang = (GetMOP.getFromTo(anim, 4.0F, 8.0F) - GetMOP.getFromTo(anim, 9.0F, 11.0F)) * -0.85F;
             this.teeth1.rotateAngleX += ang;
             this.teeth2.rotateAngleX -= ang;
             this.teeth1.offsetZ = -0.6875F * transl;

@@ -18,14 +18,14 @@ public class RedstonedFrozenBricks extends Block implements IBlockHardBreak {
       super(Material.ROCK);
       this.setRegistryName("crackable_frozen_bricks");
       this.setTranslationKey("crackable_frozen_bricks");
-      this.blockHardness = BlocksRegister.HR_FROZEN_BRICK.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_FROZEN_BRICK.RESISTANCE;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_FROZEN_BRICK.LVL);
+      this.blockHardness = BlocksRegister.HR_FROZEN_BRICK.hardness;
+      this.blockResistance = BlocksRegister.HR_FROZEN_BRICK.resistance;
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_FROZEN_BRICK.lvl);
       this.setCreativeTab(CreativeTabs.REDSTONE);
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_FROZEN_BRICK;
    }
 
@@ -35,7 +35,7 @@ public class RedstonedFrozenBricks extends Block implements IBlockHardBreak {
 
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       Block blockk = worldIn.getBlockState(pos.down()).getBlock();
-      if (worldIn.isBlockPowered(pos.down()) && blockk != BlocksRegister.REDSTONEDFROZENBRICKS && blockk != BlocksRegister.FROZENBRICKS) {
+      if (worldIn.isBlockPowered(pos.down()) && blockk != BlocksRegister.REDSTONED_FROZEN_BRICKS && blockk != BlocksRegister.BLOCK_BLOCK_HARD) {
          this.crackBlock(worldIn, pos, EnumFacing.DOWN);
       }
    }
@@ -64,14 +64,14 @@ public class RedstonedFrozenBricks extends Block implements IBlockHardBreak {
                -0.5,
                -0.5,
                0.08,
-               new int[]{Block.getStateId(BlocksRegister.REDSTONEDFROZENBRICKS.getDefaultState())}
+               new int[]{Block.getStateId(BlocksRegister.REDSTONED_FROZEN_BRICKS.getDefaultState())}
             );
       }
 
       for (EnumFacing f : EnumFacing.VALUES) {
          if (f != from) {
             BlockPos pos2 = pos.offset(f);
-            if (worldIn.getBlockState(pos2).getBlock() == BlocksRegister.REDSTONEDFROZENBRICKS) {
+            if (worldIn.getBlockState(pos2).getBlock() == BlocksRegister.REDSTONED_FROZEN_BRICKS) {
                this.crackBlock(worldIn, pos2, f.getOpposite());
             }
          }

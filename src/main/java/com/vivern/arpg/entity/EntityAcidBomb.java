@@ -10,7 +10,7 @@ import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -321,7 +321,7 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
                && res.getBlockPos() != null
                && Weapons.easyBreakBlockFor(this.world, this.power * 0.5F, res.getBlockPos())) {
                this.world
-                  .setBlockState(res.getBlockPos(), BlocksRegister.FLUIDBIOGENICACID.getDefaultState().withProperty(BlockFluidClassic.LEVEL, 1));
+                  .setBlockState(res.getBlockPos(), BlocksRegister.FLUID_BIOGENIC_ACID.getDefaultState().withProperty(BlockFluidClassic.LEVEL, 1));
             }
          }
 
@@ -456,7 +456,7 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
                BlockPos pos = result.entityHit.getPosition();
                boolean isair = this.world.isAirBlock(pos);
                if ((!isair || isair && !this.world.isAirBlock(pos.down())) && Weapons.easyBreakBlockFor(this.world, 5.0F, pos)) {
-                  this.world.setBlockState(pos, BlocksRegister.FLUIDBIOGENICACID.getDefaultState());
+                  this.world.setBlockState(pos, BlocksRegister.FLUID_BIOGENIC_ACID.getDefaultState());
                }
 
                this.setDead();
@@ -468,12 +468,12 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
                != null
             && !this.world.isRemote) {
             if (Weapons.easyBreakBlockFor(this.world, 5.0F, result.getBlockPos())) {
-               this.world.setBlockState(result.getBlockPos(), BlocksRegister.FLUIDBIOGENICACID.getDefaultState());
+               this.world.setBlockState(result.getBlockPos(), BlocksRegister.FLUID_BIOGENIC_ACID.getDefaultState());
             } else {
                BlockPos pos = new BlockPos(this.prevPosX, this.prevPosY, this.prevPosZ);
                if (GetMOP.collidesWithAnyBlock(this.world, pos)
                   && (this.world.isAirBlock(pos) || Weapons.easyBreakBlockFor(this.world, 5.0F, pos))) {
-                  this.world.setBlockState(pos, BlocksRegister.FLUIDBIOGENICACID.getDefaultState());
+                  this.world.setBlockState(pos, BlocksRegister.FLUID_BIOGENIC_ACID.getDefaultState());
                }
             }
 

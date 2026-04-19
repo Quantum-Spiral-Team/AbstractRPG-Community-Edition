@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -328,16 +328,16 @@ public class ExploringField {
       int time = AnimationTimer.tick;
 
       for (int i = 0; i < 4; i++) {
-         Vec3d vec1 = GetMOP.YawToVec3d(90 * i + time).scale(14.0);
-         Vec3d vec2 = GetMOP.YawToVec3d(90 * (i + 1) + time).scale(14.0);
+         Vec3d vec1 = GetMOP.yawToVec3D(90 * i + time).scale(14.0);
+         Vec3d vec2 = GetMOP.yawToVec3D(90 * (i + 1) + time).scale(14.0);
          gui.drawLine(x + (float)vec1.x, y + (float)vec1.z, x + (float)vec2.x, y + (float)vec2.z, r, g, b);
       }
 
       time = AnimationTimer.tick + 45;
 
       for (int i = 0; i < 4; i++) {
-         Vec3d vec1 = GetMOP.YawToVec3d(90 * i + time).scale(14.0);
-         Vec3d vec2 = GetMOP.YawToVec3d(90 * (i + 1) + time).scale(14.0);
+         Vec3d vec1 = GetMOP.yawToVec3D(90 * i + time).scale(14.0);
+         Vec3d vec2 = GetMOP.yawToVec3D(90 * (i + 1) + time).scale(14.0);
          gui.drawLine(x + (float)vec1.x, y + (float)vec1.z, x + (float)vec2.x, y + (float)vec2.z, r, g, b);
       }
    }

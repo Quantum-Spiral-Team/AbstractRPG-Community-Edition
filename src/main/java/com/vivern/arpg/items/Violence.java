@@ -152,37 +152,37 @@ public class Violence extends ItemWeapon {
                      0.9F + itemRand.nextFloat() / 5.0F
                   );
                   int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
-                  Vec3d castpoint = player.getPositionVector().add(GetMOP.YawToVec3d(player.rotationYaw).scale(0.64));
-                  AxisAlignedBB aabb = GetMOP.newAABB(castpoint, (double)parameters.getEnchanted("hit_radius", ran));
+                  Vec3d castpoint = player.getPositionVector().add(GetMOP.yawToVec3D(player.rotationYaw).scale(0.64));
+                  AxisAlignedBB aabb = GetMOP.newAABB(castpoint, (double)parameters.getEnchantedF("hit_radius", ran));
 
                   for (EntityLivingBase entityLivingBase : world.getEntitiesWithinAABB(EntityLivingBase.class, aabb)) {
                      if (Team.checkIsOpponent(player, entityLivingBase)) {
                         PotionEffect effectlast = Weapons.mixPotion(
                            entityLivingBase,
                            PotionEffects.DEMONIC_BURN,
-                           (float)parameters.getEnchantedi("hit_potion_time_add", witchery),
-                           (float)parameters.geti("hit_potion_power_mult"),
+                           (float)parameters.getEnchantedI("hit_potion_time_add", witchery),
+                           (float)parameters.getI("hit_potion_power_mult"),
                            Weapons.EnumPotionMix.WITH_MAXIMUM,
                            Weapons.EnumPotionMix.WITH_MAXIMUM,
                            Weapons.EnumMathOperation.PLUS,
                            Weapons.EnumMathOperation.MULTIPLY,
-                           parameters.getEnchantedi("hit_potion_time_max", witchery),
-                           parameters.getEnchantedi("hit_potion_power_max", witchery)
+                           parameters.getEnchantedI("hit_potion_time_max", witchery),
+                           parameters.getEnchantedI("hit_potion_power_max", witchery)
                         );
                         if (effectlast != null) {
                            PotionEffect effectnew = entityLivingBase.getActivePotionEffect(PotionEffects.DEMONIC_BURN);
                            if (effectlast.getAmplifier() < effectnew.getAmplifier()) {
-                              Mana.changeMana(player, parameters.getEnchanted("mana_add", sor));
+                              Mana.changeMana(player, parameters.getEnchantedF("mana_add", sor));
                            }
 
                            entityLivingBase.hurtResistantTime = 0;
                            Weapons.dealDamage(
                               new WeaponDamage(itemstack, player, null, false, false, castpoint, WeaponDamage.soul),
-                              parameters.getEnchanted("hit_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack)),
+                              parameters.getEnchantedF("hit_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack)),
                               player,
                               entityLivingBase,
                               false,
-                              parameters.getEnchanted("hit_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)),
+                              parameters.getEnchantedF("hit_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)),
                               player.posX,
                               player.posY - 1.0,
                               player.posZ
@@ -192,7 +192,7 @@ public class Violence extends ItemWeapon {
                      }
                   }
 
-                  NBTHelper.SetNBTint(itemstack, parameters.geti("hit_cooldown"), "hitcooldown");
+                  NBTHelper.SetNBTint(itemstack, parameters.getI("hit_cooldown"), "hitcooldown");
                   IWeapon.fireBomEffect(this, player, world, 0);
                   IWeapon.fireEffect(
                      this, player, world, 64.0, castpoint.x, castpoint.y + 0.1, castpoint.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
@@ -201,7 +201,7 @@ public class Violence extends ItemWeapon {
 
                if (!player.getCooldownTracker().hasCooldown(this)) {
                   if (click) {
-                     float manacost = parameters.getEnchanted("manacost", sor);
+                     float manacost = parameters.getEnchantedF("manacost", sor);
                      if (Mana.getMana(player) > manacost) {
                         Weapons.setPlayerAnimationOnServer(player, 14, EnumHand.MAIN_HAND);
                         world.playSound(
@@ -217,11 +217,11 @@ public class Violence extends ItemWeapon {
                         player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                         player.addStat(StatList.getObjectUseStats(this));
                         int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
-                        int amount = parameters.geti("shots") + itemRand.nextInt(parameters.getEnchantedi("shots_random_bonus", reuse));
-                        Vec3d vec0 = GetMOP.posRayTrace(parameters.getEnchanted("range", ran), 1.0F, player, 0.9F, 0.7F);
+                        int amount = parameters.getI("shots") + itemRand.nextInt(parameters.getEnchantedI("shots_random_bonus", reuse));
+                        Vec3d vec0 = GetMOP.posRayTrace(parameters.getEnchantedF("range", ran), 1.0F, player, 0.9F, 0.7F);
                         if (vec0 != null) {
                            for (int i = 0; i < amount; i++) {
-                              float area = parameters.getEnchanted("area", acc);
+                              float area = parameters.getEnchantedF("area", acc);
                               Vec3d vec1 = vec0.add(
                                  itemRand.nextGaussian() * area, 8.0 + itemRand.nextGaussian(), itemRand.nextGaussian() * area
                               );
@@ -244,7 +244,7 @@ public class Violence extends ItemWeapon {
 
                               ViolenceShoot shoot = new ViolenceShoot(world, player, itemstack, power);
                               shoot.setPosition(vec2.x, vec2.y, vec2.z);
-                              SuperKnockback.applyMove(shoot, -parameters.get("velocity"), vec0.x, vec0.y, vec0.z);
+                              SuperKnockback.applyMove(shoot, -parameters.getF("velocity"), vec0.x, vec0.y, vec0.z);
                               world.spawnEntity(shoot);
                            }
 
@@ -284,7 +284,7 @@ public class Violence extends ItemWeapon {
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         NBTHelper.GetNBTint(itemstack, "hitcooldown") / WeaponParameters.getWeaponParameters(itemstack.getItem()).get("hit_cooldown"), 0.0F, 1.0F
+         NBTHelper.GetNBTint(itemstack, "hitcooldown") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getF("hit_cooldown"), 0.0F, 1.0F
       );
    }
 

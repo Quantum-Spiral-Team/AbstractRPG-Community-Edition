@@ -24,7 +24,7 @@ public class SmokeDemon extends AbstractMob {
       this.setattributes(15.0, 32.0, 5.0, 0.5, 5.0, 2.0, 0.0, 0.0, 0.0, 0.0);
       this.registerLOOT(
          new MobDrop[]{
-            new MobDrop(ItemsRegister.NUGGETBRASS, 0.5F, 0, 1, 2, 3), new MobDrop(ItemsRegister.INGOTBRASS, 0.05F, 0, 1, 1, 1)
+            new MobDrop(ItemsRegister.BRASS_NUGGET, 0.5F, 0, 1, 2, 3), new MobDrop(ItemsRegister.BRASS_INGOT, 0.05F, 0, 1, 1, 1)
          }
       );
       this.leadershipBase = 4;
@@ -63,7 +63,7 @@ public class SmokeDemon extends AbstractMob {
          this.world.spawnEntity(bigsmoke);
       }
 
-      Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
+      Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
       this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
       this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
    }

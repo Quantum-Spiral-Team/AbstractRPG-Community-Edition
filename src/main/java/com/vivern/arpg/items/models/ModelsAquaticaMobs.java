@@ -351,7 +351,7 @@ public class ModelsAquaticaMobs {
          float headProtect = 0.0F;
          if (an4 > 0) {
             float headProtectAn = 100 - an4 + Minecraft.getMinecraft().getRenderPartialTicks();
-            headProtect = GetMOP.getfromto(headProtectAn, 0.0F, 20.0F) - GetMOP.getfromto(headProtectAn, 80.0F, 100.0F);
+            headProtect = GetMOP.getFromTo(headProtectAn, 0.0F, 20.0F) - GetMOP.getFromTo(headProtectAn, 80.0F, 100.0F);
          }
 
          float unheadProtect = 1.0F - headProtect;
@@ -364,8 +364,8 @@ public class ModelsAquaticaMobs {
          this.head2.rotateAngleX += -0.6F * headProtect;
          if (an1 > 0) {
             float anim = 100 - an1 + Minecraft.getMinecraft().getRenderPartialTicks();
-            float amountHead = GetMOP.getfromto(anim, 0.0F, 13.0F) - GetMOP.getfromto(anim, 14.0F, 20.0F);
-            float amountBite = GetMOP.getfromto(anim, 0.0F, 10.0F) * 0.3F + GetMOP.getfromto(anim, 11.0F, 15.0F) * 0.7F - GetMOP.getfromto(anim, 16.0F, 19.0F);
+            float amountHead = GetMOP.getFromTo(anim, 0.0F, 13.0F) - GetMOP.getFromTo(anim, 14.0F, 20.0F);
+            float amountBite = GetMOP.getFromTo(anim, 0.0F, 10.0F) * 0.3F + GetMOP.getFromTo(anim, 11.0F, 15.0F) * 0.7F - GetMOP.getFromTo(anim, 16.0F, 19.0F);
             this.head1.offsetZ += 0.3125F * amountHead;
             this.head1.rotateAngleX += 0.3F * amountHead;
             this.head2.rotateAngleX += -0.3F * amountHead - 0.2F * amountBite;
@@ -516,7 +516,7 @@ public class ModelsAquaticaMobs {
          this.body2.rotateAngleX = -0.4553564F;
          if (an1 > 80) {
             float ptan1 = 100.0F - an1 + pt;
-            this.body2.rotateAngleX = -0.4553564F + (GetMOP.getfromto(ptan1, 0.0F, 10.0F) - GetMOP.getfromto(ptan1, 10.0F, 19.0F)) * 0.53F;
+            this.body2.rotateAngleX = -0.4553564F + (GetMOP.getFromTo(ptan1, 0.0F, 10.0F) - GetMOP.getFromTo(ptan1, 10.0F, 19.0F)) * 0.53F;
          }
 
          this.body.rotateAngleY = f3 * (float) (Math.PI / 180.0);
@@ -1084,9 +1084,9 @@ public class ModelsAquaticaMobs {
          float spOff = 4.0F;
          if (an1 > 75) {
             float ptan1 = 100.0F - an1 + pt;
-            this.body2.rotateAngleX = -0.4553564F + (GetMOP.getfromto(ptan1, 0.0F, 13.0F) - GetMOP.getfromto(ptan1, 16.0F, 24.0F)) * 0.53F;
-            scaleBags += (GetMOP.getfromto(ptan1, 0.0F, 15.0F) - GetMOP.getfromto(ptan1, 15.0F, 18.0F)) * 0.6F;
-            spOff -= (GetMOP.getfromto(ptan1, 0.0F, 12.0F) - GetMOP.getfromto(ptan1, 16.0F, 23.0F)) * 4.0F;
+            this.body2.rotateAngleX = -0.4553564F + (GetMOP.getFromTo(ptan1, 0.0F, 13.0F) - GetMOP.getFromTo(ptan1, 16.0F, 24.0F)) * 0.53F;
+            scaleBags += (GetMOP.getFromTo(ptan1, 0.0F, 15.0F) - GetMOP.getFromTo(ptan1, 15.0F, 18.0F)) * 0.6F;
+            spOff -= (GetMOP.getFromTo(ptan1, 0.0F, 12.0F) - GetMOP.getFromTo(ptan1, 16.0F, 23.0F)) * 4.0F;
          }
 
          this.spike.offsetZ = spOff * 0.1F;
@@ -1245,7 +1245,7 @@ public class ModelsAquaticaMobs {
          this.shape3.render(f5);
          if (an2 > 80) {
             float ptan2 = 100.0F - an2 + pt;
-            light((int)(180.0F * (GetMOP.getfromto(ptan2, 0.0F, 4.0F) - GetMOP.getfromto(ptan2, 4.0F, 19.0F))), true);
+            light((int)(180.0F * (GetMOP.getFromTo(ptan2, 0.0F, 4.0F) - GetMOP.getFromTo(ptan2, 4.0F, 19.0F))), true);
          }
 
          this.pod1.render(f5);
@@ -1786,7 +1786,7 @@ public class ModelsAquaticaMobs {
             this.setRotateAngle(this.arms1, -0.22759093F, -0.3642502F, -0.13665928F);
             this.setRotateAngle(this.arms2, -1.1383038F, 0.0F, 0.0F);
             this.setRotateAngle(this.arms3, -0.22759093F, 1.2747885F, 0.0F);
-            float ft1 = GetMOP.getfromto(animstaff, 0.0F, 0.4F) - GetMOP.getfromto(animstaff, 0.6F, 1.0F);
+            float ft1 = GetMOP.getFromTo(animstaff, 0.0F, 0.4F) - GetMOP.getFromTo(animstaff, 0.6F, 1.0F);
             this.arms1.rotateAngleX += -47.0F * ft1 * (float) (Math.PI / 180.0);
             this.armt1.rotateAngleY = this.armt1.rotateAngleY + this.head0.rotateAngleY;
             this.arms2.rotateAngleX += 19.0F * ft1 * (float) (Math.PI / 180.0);
@@ -1798,9 +1798,9 @@ public class ModelsAquaticaMobs {
             this.setRotateAngle(this.armt1, -0.22759093F, -0.3642502F, -0.13665928F);
             this.setRotateAngle(this.armt2, -1.1383038F, 0.0F, 0.0F);
             this.setRotateAngle(this.armt3, -0.22759093F, 1.2747885F, 0.0F);
-            float ft1 = GetMOP.getfromto(animtrident, 0.0F, 0.2F);
-            float ft2 = GetMOP.getfromto(animtrident, 0.6F, 0.7F);
-            float ft3 = GetMOP.getfromto(animtrident, 0.7F, 1.0F);
+            float ft1 = GetMOP.getFromTo(animtrident, 0.0F, 0.2F);
+            float ft2 = GetMOP.getFromTo(animtrident, 0.6F, 0.7F);
+            float ft3 = GetMOP.getFromTo(animtrident, 0.7F, 1.0F);
             this.armt1.rotateAngleX = this.armt1.rotateAngleX
                + ((96.0F * ft1 - 143.0F * ft2 + 47.0F * ft3) * (float) (Math.PI / 180.0) + this.head0.rotateAngleX);
             this.armt1.rotateAngleY = this.armt1.rotateAngleY + ((22.0F * ft1 - 22.0F * ft3) * (float) (Math.PI / 180.0) + this.head0.rotateAngleY);
@@ -1815,11 +1815,11 @@ public class ModelsAquaticaMobs {
             this.setRotateAngle(this.armb1, -0.22759093F, -0.3642502F, -0.13665928F);
             this.setRotateAngle(this.armb2, -1.1383038F, 0.0F, 0.0F);
             this.setRotateAngle(this.armb3, -0.22759093F, 1.2747885F, 0.0F);
-            float ft1 = GetMOP.getfromto(animbow, 0.0F, 0.3F);
-            float ft2 = GetMOP.getfromto(animbow, 0.2F, 0.5F);
-            float ft3 = GetMOP.getfromto(animbow, 0.5F, 0.7F);
-            float ft4 = GetMOP.getfromto(animbow, 0.7F, 0.8F);
-            float ft5 = GetMOP.getfromto(animbow, 0.8F, 1.0F);
+            float ft1 = GetMOP.getFromTo(animbow, 0.0F, 0.3F);
+            float ft2 = GetMOP.getFromTo(animbow, 0.2F, 0.5F);
+            float ft3 = GetMOP.getFromTo(animbow, 0.5F, 0.7F);
+            float ft4 = GetMOP.getFromTo(animbow, 0.7F, 0.8F);
+            float ft5 = GetMOP.getFromTo(animbow, 0.8F, 1.0F);
             this.armb1.rotateAngleX = this.armb1.rotateAngleX + ((-40.0F * ft1 + 40.0F * ft5) * (float) (Math.PI / 180.0) + this.head0.rotateAngleX);
             this.armb1.rotateAngleY = this.armb1.rotateAngleY + ((21.0F * ft1 - 21.0F * ft5) * (float) (Math.PI / 180.0) + this.head0.rotateAngleY);
             this.armb2.rotateAngleX += (25.0F * ft1 - 25.0F * ft5) * (float) (Math.PI / 180.0);
@@ -1837,9 +1837,9 @@ public class ModelsAquaticaMobs {
          }
 
          float animblade = MathHelper.clamp((100.0F - an1 + pt) / 20.0F, 0.0F, 1.0F);
-         float fta1 = GetMOP.getfromto(animblade, 0.0F, 0.3F);
-         float fta2 = GetMOP.getfromto(animblade, 0.5F, 0.6F);
-         float fta3 = GetMOP.getfromto(animblade, 0.6F, 1.0F);
+         float fta1 = GetMOP.getFromTo(animblade, 0.0F, 0.3F);
+         float fta2 = GetMOP.getFromTo(animblade, 0.5F, 0.6F);
+         float fta3 = GetMOP.getFromTo(animblade, 0.6F, 1.0F);
          this.armr1.rotateAngleX = this.armr1.rotateAngleX + ((-52.0F * fta2 + 52.0F * fta3) * (float) (Math.PI / 180.0) + this.head0.rotateAngleX);
          this.armr1.rotateAngleY += (90.0F * fta1 - 136.0F * fta2 + 46.0F * fta3) * (float) (Math.PI / 180.0);
          this.armr1.rotateAngleZ += (39.0F * fta1 - 39.0F * fta2) * (float) (Math.PI / 180.0);
@@ -1944,7 +1944,7 @@ public class ModelsAquaticaMobs {
          this.body2.rotateAngleX = -0.4553564F;
          if (an1 > 90) {
             float ptan1 = 100.0F - an1 + pt;
-            this.body2.rotateAngleX = -0.4553564F + (GetMOP.getfromto(ptan1, 0.0F, 6.0F) - GetMOP.getfromto(ptan1, 6.0F, 10.0F)) * 0.37F;
+            this.body2.rotateAngleX = -0.4553564F + (GetMOP.getFromTo(ptan1, 0.0F, 6.0F) - GetMOP.getFromTo(ptan1, 6.0F, 10.0F)) * 0.37F;
          }
 
          this.body.rotateAngleY = f3 * (float) (Math.PI / 180.0);
@@ -2254,9 +2254,9 @@ public class ModelsAquaticaMobs {
          this.tail.rotateAngleX = -2.276433F + sinn * 0.3F;
          if (an3 > 89) {
             float anim = MathHelper.clamp((100.0F - an3 + pt) / 10.0F, 0.0F, 1.0F);
-            float ft1 = GetMOP.getfromto(anim, 0.0F, 0.3F);
-            float ft2 = GetMOP.getfromto(anim, 0.3F, 0.7F);
-            float ft3 = GetMOP.getfromto(anim, 0.7F, 1.0F);
+            float ft1 = GetMOP.getFromTo(anim, 0.0F, 0.3F);
+            float ft2 = GetMOP.getFromTo(anim, 0.3F, 0.7F);
+            float ft3 = GetMOP.getFromTo(anim, 0.7F, 1.0F);
             this.wing1.rotateAngleX += ft1 * 0.4F - ft2 * 0.55F + ft3 * 0.15F;
             this.wing1.rotateAngleY += -ft1 * 0.3F + ft2 - ft3 * 0.7F;
             this.leg1a.rotateAngleX += -ft2 * 0.5F + ft3 * 0.5F;
@@ -2376,7 +2376,7 @@ public class ModelsAquaticaMobs {
          this.shape2.render(f5);
          if (an2 > 80) {
             float ptan2 = 100.0F - an2 + pt;
-            light((int)(180.0F * (GetMOP.getfromto(ptan2, 0.0F, 10.0F) - GetMOP.getfromto(ptan2, 10.0F, 19.0F))), true);
+            light((int)(180.0F * (GetMOP.getFromTo(ptan2, 0.0F, 10.0F) - GetMOP.getFromTo(ptan2, 10.0F, 19.0F))), true);
          }
 
          for (int i = 0; i < 9; i++) {
@@ -2501,7 +2501,7 @@ public class ModelsAquaticaMobs {
          this.head2.rotateAngleX = -0.13665928F;
          if (an1 > 80) {
             float ptan1 = 100.0F - an1 + pt;
-            this.head2.rotateAngleX = -0.13665928F + (GetMOP.getfromto(ptan1, 0.0F, 10.0F) - GetMOP.getfromto(ptan1, 10.0F, 19.0F)) * 0.53F;
+            this.head2.rotateAngleX = -0.13665928F + (GetMOP.getFromTo(ptan1, 0.0F, 10.0F) - GetMOP.getFromTo(ptan1, 10.0F, 19.0F)) * 0.53F;
          }
 
          this.body.rotateAngleY = f3 * (float) (Math.PI / 180.0);

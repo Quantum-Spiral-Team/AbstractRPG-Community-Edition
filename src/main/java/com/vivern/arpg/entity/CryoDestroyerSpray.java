@@ -37,17 +37,17 @@ public class CryoDestroyerSpray extends EntityThrowable implements IEntitySynchr
 
    public CryoDestroyerSpray(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYODESTROYER);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYO_DESTROYER);
    }
 
    public CryoDestroyerSpray(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYODESTROYER);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYO_DESTROYER);
    }
 
    public CryoDestroyerSpray(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYODESTROYER);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYO_DESTROYER);
    }
 
    public CryoDestroyerSpray(World world, EntityLivingBase thrower, ItemStack itemstack) {

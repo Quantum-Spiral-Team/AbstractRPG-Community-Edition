@@ -43,17 +43,17 @@ public class EntitySand extends EntityThrowable {
 
    public EntitySand(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.SCEPTEROFSANDS);
+      this.weaponstack = new ItemStack(ItemsRegister.SCEPTER_OF_SANDS);
    }
 
    public EntitySand(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.SCEPTEROFSANDS);
+      this.weaponstack = new ItemStack(ItemsRegister.SCEPTER_OF_SANDS);
    }
 
    public EntitySand(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.SCEPTEROFSANDS);
+      this.weaponstack = new ItemStack(ItemsRegister.SCEPTER_OF_SANDS);
    }
 
    public EntitySand(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -127,11 +127,11 @@ public class EntitySand extends EntityThrowable {
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, false, false, this, WeaponDamage.sand),
-                     parameters.getEnchanted("damage", might) * this.magicPower,
+                     parameters.getEnchantedF("damage", might) * this.magicPower,
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse),
+                     parameters.getEnchantedF("knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ
@@ -174,7 +174,7 @@ public class EntitySand extends EntityThrowable {
          || material == Material.CLOTH
          || material == Material.CARPET) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         float hardnessBreaks = parameters.get("hardness_breaks");
+         float hardnessBreaks = parameters.getF("hardness_breaks");
          if (Weapons.easyBreakBlockFor(this.world, hardnessBreaks, pos, blockState)) {
             if (blockState.isFullBlock()) {
                return 1;
@@ -195,7 +195,7 @@ public class EntitySand extends EntityThrowable {
          EntityFallingBlock block = (EntityFallingBlock)result.entityHit;
          SuperKnockback.applyKnockback(
             block,
-            parameters.getEnchanted("knockback_to_blocks", impulse),
+            parameters.getEnchantedF("knockback_to_blocks", impulse),
             this.getThrower().posX,
             this.getThrower().posY,
             this.getThrower().posZ
@@ -231,7 +231,7 @@ public class EntitySand extends EntityThrowable {
 
          if (!this.world.isRemote && !this.blockcollided) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            float chargeFullness = this.crystalCharge / parameters.get("max_crystal_charge");
+            float chargeFullness = this.crystalCharge / parameters.getF("max_crystal_charge");
             if (this.rand.nextFloat() < 0.5F + chargeFullness * 0.5F) {
                BlockPos blockpos = result.getBlockPos();
                IBlockState blockState = this.world.getBlockState(blockpos);
@@ -248,7 +248,7 @@ public class EntitySand extends EntityThrowable {
                   }
                }
 
-               if (this.rand.nextFloat() < parameters.getEnchanted("fallingblock_chance", impulse)
+               if (this.rand.nextFloat() < parameters.getEnchantedF("fallingblock_chance", impulse)
                   && blockState.getBlock() == Blocks.SAND
                   && blockpos.getY() >= 0) {
                   int i = 32;

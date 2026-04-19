@@ -50,7 +50,7 @@ public class GemStaff extends ItemWeapon {
    }
 
    public static ItemStack getStackWithGem(int gem) {
-      ItemStack stack = new ItemStack(ItemsRegister.GEMSTAFF);
+      ItemStack stack = new ItemStack(ItemsRegister.GEM_STAFF);
       NBTHelper.GiveNBTint(stack, gem, "type");
       NBTHelper.SetNBTint(stack, gem, "type");
       NBTHelper.GiveNBTint(stack, gem, "type");
@@ -78,7 +78,7 @@ public class GemStaff extends ItemWeapon {
             Item cooldownItem = (Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP);
             if (hand != null
                && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)
-               && Mana.getMana(player) > parameters.getEnchanted("manacost", sor)
+               && Mana.getMana(player) > parameters.getEnchantedF("manacost", sor)
                && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
                world.playSound(
                   (EntityPlayer)null,
@@ -95,12 +95,12 @@ public class GemStaff extends ItemWeapon {
                Weapons.setPlayerAnimationOnServer(player, 14, hand);
                GemStaffShoot bolt = new GemStaffShoot(world, player, itemstack, power);
                bolt.type = type;
-               bolt.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-               bolt.knockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
-               bolt.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-               bolt.red = parameters.get("red");
-               bolt.green = parameters.get("green");
-               bolt.blue = parameters.get("blue");
+               bolt.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+               bolt.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+               bolt.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+               bolt.red = parameters.getF("red");
+               bolt.green = parameters.getF("green");
+               bolt.blue = parameters.getF("blue");
                Weapons.shoot(
                   bolt,
                   hand,
@@ -108,15 +108,15 @@ public class GemStaff extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.0F,
-                  parameters.get("velocity"),
-                  parameters.getEnchanted("inaccuracy", acc),
+                  parameters.getF("velocity"),
+                  parameters.getEnchantedF("inaccuracy", acc),
                   -0.1F,
                   0.5F,
                   0.2F
                );
                world.spawnEntity(bolt);
                if (!player.capabilities.isCreativeMode) {
-                  Mana.changeMana(player, -parameters.getEnchanted("manacost", sor));
+                  Mana.changeMana(player, -parameters.getEnchantedF("manacost", sor));
                   Mana.setManaSpeed(player, 0.001F);
                   itemstack.damageItem(1, player);
                }
@@ -135,7 +135,7 @@ public class GemStaff extends ItemWeapon {
       int type = NBTHelper.GetNBTint(itemstack, "type");
       WeaponParameters parameters = getWeaponParameter(type);
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return parameters.getEnchantedi("cooldown", rapidity);
+      return parameters.getEnchantedI("cooldown", rapidity);
    }
 
    @Override
@@ -159,7 +159,7 @@ public class GemStaff extends ItemWeapon {
    }
 
    public String getItemStackDisplayName(ItemStack stack) {
-      if (stack.getItem() == ItemsRegister.GEMSTAFF) {
+      if (stack.getItem() == ItemsRegister.GEM_STAFF) {
          int type = NBTHelper.GetNBTint(stack, "type");
          switch (type) {
             case 0:

@@ -29,9 +29,9 @@ public class WorldGenMetallicCoral extends WorldGenerator {
    }
 
    public boolean generate(World worldIn, Random rand, BlockPos position) {
-      IBlockState mainCoral = BlocksRegister.METALLICCORAL.getDefaultState();
+      IBlockState mainCoral = BlocksRegister.METALLIC_CORAL.getDefaultState();
       boolean minicorals = this.canGrowMinicorals && rand.nextFloat() < 0.8;
-      this.checkAndSetBlockState(worldIn, position, rand.nextFloat() < 0.5 ? BlocksRegister.SEASTONE.getDefaultState() : mainCoral, 2);
+      this.checkAndSetBlockState(worldIn, position, rand.nextFloat() < 0.5 ? BlocksRegister.SEA_STONE.getDefaultState() : mainCoral, 2);
       int finalradius = 0;
       int count = 0;
 
@@ -48,14 +48,14 @@ public class WorldGenMetallicCoral extends WorldGenerator {
                      if (x > i || x < -i || y > i || y < -i || z > i || z < -i) {
                         BlockPos pos = position.add(x, y, z);
                         IBlockState state = worldIn.getBlockState(pos);
-                        if (state.getBlock() == BlocksRegister.METALLICCORAL || state.getBlock() == BlocksRegister.SEASTONE) {
+                        if (state.getBlock() == BlocksRegister.METALLIC_CORAL || state.getBlock() == BlocksRegister.SEA_STONE) {
                            boolean blockgenerated = false;
 
                            for (int f = 0; f < 4; f++) {
                               EnumFacing facing1 = EnumFacing.byIndex(rand.nextInt(6));
                               BlockPos finalpos = pos.offset(facing1);
                               if (worldIn.getBlockState(finalpos).getBlock().isReplaceable(worldIn, finalpos)) {
-                                 this.checkAndSetBlockState(worldIn, finalpos, rand.nextInt(2) > i ? BlocksRegister.SEASTONE.getDefaultState() : mainCoral, 2);
+                                 this.checkAndSetBlockState(worldIn, finalpos, rand.nextInt(2) > i ? BlocksRegister.SEA_STONE.getDefaultState() : mainCoral, 2);
                                  count++;
                                  blockgenerated = true;
                               }
@@ -89,7 +89,7 @@ public class WorldGenMetallicCoral extends WorldGenerator {
                   if (x >= i || x <= -i || y >= i || y <= -i || zx >= i || zx <= -i) {
                      BlockPos pos = position.add(x, y, zx);
                      IBlockState state = worldIn.getBlockState(pos);
-                     if (state.getBlock() == BlocksRegister.METALLICCORAL || state.getBlock() == BlocksRegister.SEASTONE) {
+                     if (state.getBlock() == BlocksRegister.METALLIC_CORAL || state.getBlock() == BlocksRegister.SEA_STONE) {
                         for (EnumFacing facing : EnumFacing.VALUES) {
                            if (rand.nextFloat() < 0.35F) {
                               BlockPos finalposx = pos.offset(facing);
@@ -124,14 +124,14 @@ public class WorldGenMetallicCoral extends WorldGenerator {
       } else if (rand.nextFloat() < 0.14) {
          return AquaticaChunkGenerator.coralsBig[rand.nextInt(5)].getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing);
       } else if (rand.nextFloat() < 0.13) {
-         return BlocksRegister.MINICORALBROWN.getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing);
+         return BlocksRegister.GORGONARIA_BROWN.getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing);
       } else if (rand.nextFloat() < 0.13) {
-         return BlocksRegister.MINICORALPURPLE.getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing);
+         return BlocksRegister.ACROPORA_PURPLE.getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing);
       } else if (rand.nextFloat() < 0.13) {
-         return BlocksRegister.MINICORALWHITE.getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing);
+         return BlocksRegister.ACROPORA_WHITE.getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing);
       } else {
          return rand.nextFloat() < 0.13
-            ? BlocksRegister.MINICORALWHITE2.getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing)
+            ? BlocksRegister.GORGONARIA_WHITE.getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing)
             : AquaticaChunkGenerator.coralsMini[rand.nextInt(7)].getDefaultState().withProperty(MiniCoral.WET, wet).withProperty(MiniCoral.FACING, facing);
       }
    }

@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -132,10 +131,10 @@ public class MagmaBloom extends Block implements IGrowable {
       if ((Integer)state.getValue(AGE) == 2) {
          int count = RANDOM.nextInt(3);
          if (count > 0) {
-            drops.add(new ItemStack(ItemsRegister.LIQUIDFIRE, count));
+            drops.add(new ItemStack(ItemsRegister.LIQUID_FIRE, count));
          }
 
-         drops.add(new ItemStack(ItemsRegister.MAGMABLOOMSEEDS, RANDOM.nextInt(2) + 1 + (fortune > 0 ? RANDOM.nextInt(fortune + 1) : 0)));
+         drops.add(new ItemStack(ItemsRegister.MAGMA_BLOOM_SEED, RANDOM.nextInt(2) + 1 + (fortune > 0 ? RANDOM.nextInt(fortune + 1) : 0)));
       }
    }
 

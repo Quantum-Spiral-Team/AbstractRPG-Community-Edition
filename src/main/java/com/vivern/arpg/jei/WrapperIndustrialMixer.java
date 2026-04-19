@@ -4,7 +4,7 @@ import com.vivern.arpg.recipes.IndustrialMixerRecipe;
 import com.vivern.arpg.recipes.Ingridient;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;

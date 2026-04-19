@@ -84,17 +84,16 @@ public class LaserPistol extends ItemWeapon {
          if (hand != null && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)) {
             if (ammo > 0 && this.isReloaded(itemstack)) {
                if (!player.getCooldownTracker().hasCooldown(this)) {
-                  float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.get("rapid_multiplier");
-                  float size = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                  double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                  float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getF("rapid_multiplier");
+                  float size = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                  double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                   b1 = false;
                   RayTraceResult result = GetMOP.fixedRayTraceBlocks(
                      world,
                      player,
                      edist,
                      size,
-                     size,
-                     true,
+                          true,
                      false,
                      true,
                      false,
@@ -185,7 +184,7 @@ public class LaserPistol extends ItemWeapon {
                         NBTHelper.AddNBTint(itemstack, -1, "animSend");
                      }
 
-                     float siz = size + parameters.get("damage_radius");
+                     float siz = size + parameters.getF("damage_radius");
                      AxisAlignedBB aabb = new AxisAlignedBB(
                         vec.x - siz,
                         vec.y - siz,
@@ -195,8 +194,8 @@ public class LaserPistol extends ItemWeapon {
                         vec.z + siz
                      );
                      List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
-                     float wdamage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                     float wknockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                     float wdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                     float wknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                      if (!list.isEmpty()) {
                         for (Entity entitylivingbase : list) {
                            if (Team.checkIsOpponent(player, entitylivingbase)) {
@@ -238,7 +237,7 @@ public class LaserPistol extends ItemWeapon {
                   }
                }
             } else if (this.initiateMetadataReload(
-               itemstack, player, new ItemStack(ItemsRegister.IONBATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(ItemsRegister.IONBATTERY, 1, 0)
+               itemstack, player, new ItemStack(ItemsRegister.ION_BATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(ItemsRegister.ION_BATTERY, 1, 0)
             )) {
                world.playSound(
                   (EntityPlayer)null,
@@ -346,8 +345,8 @@ public class LaserPistol extends ItemWeapon {
                   }
                }
 
-               if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.IONBATTERY, 1))) {
-                  player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.IONBATTERY, 1).getItem(), -1, 1, null);
+               if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.ION_BATTERY, 1))) {
+                  player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.ION_BATTERY, 1).getItem(), -1, 1, null);
                   itemstack.setItemDamage(0);
                   player.getCooldownTracker().setCooldown(this, 40);
                   world.playSound(
@@ -391,7 +390,7 @@ public class LaserPistol extends ItemWeapon {
    }
 
    public int getMaxAmmo(ItemStack itemstack) {
-      return WeaponParameters.getWeaponParameters(this).getEnchantedi("clipsize", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
+      return WeaponParameters.getWeaponParameters(this).getEnchantedI("clipsize", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
    }
 
    @Override

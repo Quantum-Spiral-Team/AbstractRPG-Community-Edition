@@ -115,7 +115,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
-                     NBTHelper.SetNBTint(itemstack, parameters.geti("max_hits"), "blocking");
+                     NBTHelper.SetNBTint(itemstack, parameters.getI("max_hits"), "blocking");
                      player.addExhaustion(0.6F);
                   } else {
                      if (player.ticksExisted % 7 == 0) {
@@ -123,7 +123,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                      }
 
                      Vec3d vec = GetMOP.entityCenterPos(player);
-                     double damageRadius = parameters.getEnchanted("teleport_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double damageRadius = parameters.getEnchantedF("teleport_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      AxisAlignedBB aabb = new AxisAlignedBB(
                         vec.x - damageRadius,
                         vec.y - damageRadius,
@@ -158,7 +158,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                               double x = en.posX;
                               double y = en.posY;
                               double z = en.posZ;
-                              double teleport_distance = parameters.get("teleport_distance");
+                              double teleport_distance = parameters.getF("teleport_distance");
 
                               for (int i = 0; i < 8; i++) {
                                  en.setPosition(
@@ -168,7 +168,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                                  );
                                  if (en.getEntityBoundingBox() == null || !world.collidesWithAnyBlock(en.getEntityBoundingBox())) {
                                     if (itemRand.nextFloat()
-                                       < parameters.getEnchanted(
+                                       < parameters.getEnchantedF(
                                           "projectile_spend_hit_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack)
                                        )) {
                                        NBTHelper.AddNBTint(itemstack, -1, "blocking");
@@ -215,7 +215,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
    public float onAttackedWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
       if (NBTHelper.GetNBTint(stack, "blocking") > 0) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-         float damageBlocks = parameters.getEnchanted("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+         float damageBlocks = parameters.getEnchantedF("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
          Entity attacker = source.getImmediateSource() == null ? source.getTrueSource() : source.getImmediateSource();
          Vec3d vec1 = player.getLookVec();
          if (!IWeapon.checkShieldAngle(stack, player, source)) {
@@ -249,8 +249,8 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                      SuperKnockback.applyShieldBlock(
                         player,
                         attacker,
-                        parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
-                        parameters.get("self_knockback")
+                        parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
+                        parameters.getF("self_knockback")
                      );
                   }
 
@@ -380,7 +380,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).geti("max_hits"), 0.0F, 1.0F
+         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getI("max_hits"), 0.0F, 1.0F
       );
    }
 
@@ -412,14 +412,14 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
    public void teleportAway(World worldIn, EntityLivingBase entityLiving, EntityPlayer player, WeaponParameters parameters) {
       if (!worldIn.isRemote) {
          double maxTpDistanceSq = 144.0;
-         double mobTeleportDistance = parameters.get("mob_teleport_distance");
+         double mobTeleportDistance = parameters.getF("mob_teleport_distance");
          double mobTeleportDistance2 = mobTeleportDistance * 2.0;
          double d0 = entityLiving.posX;
          double d1 = entityLiving.posY;
          double d2 = entityLiving.posZ;
 
          for (int i = 0; i < 16; i++) {
-            Vec3d look = GetMOP.YawToVec3d(player.rotationYaw).scale(mobTeleportDistance);
+            Vec3d look = GetMOP.yawToVec3D(player.rotationYaw).scale(mobTeleportDistance);
             double d3 = look.x + entityLiving.posX + (entityLiving.getRNG().nextDouble() - 0.5) * mobTeleportDistance2;
             double d4 = MathHelper.clamp(
                entityLiving.posY + (entityLiving.getRNG().nextInt((int)mobTeleportDistance2) - (int)mobTeleportDistance),

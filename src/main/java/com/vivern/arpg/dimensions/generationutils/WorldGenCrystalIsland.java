@@ -280,13 +280,13 @@ public class WorldGenCrystalIsland extends WorldGenAdvanced {
 
    public void decorateIsland(BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.01F) {
-         this.setBlockState(pos, BlocksRegister.FULMINIORTUMBONNY.getDefaultState(), 2);
+         this.setBlockState(pos, BlocksRegister.FULMINIORTUM_BONNY.getDefaultState(), 2);
       } else if (rand.nextFloat() < 0.015F) {
          this.setBlockState(pos, BlocksRegister.GLOWBUSH.getDefaultState(), 2);
       } else if (rand.nextFloat() < 0.28F) {
          this.setBlockState(pos, BlocksRegister.FULMINIHERBA.getDefaultState(), 2);
       } else if (rand.nextFloat() < 0.75F && this.perlin1.getValue(pos.getX() / 13.0, pos.getZ() / 13.0) > 4.5) {
-         this.setBlockState(pos, BlocksRegister.FULMINIORTUMBULB.getDefaultState(), 2);
+         this.setBlockState(pos, BlocksRegister.FULMINIORTUM_BULB.getDefaultState(), 2);
       }
    }
 }

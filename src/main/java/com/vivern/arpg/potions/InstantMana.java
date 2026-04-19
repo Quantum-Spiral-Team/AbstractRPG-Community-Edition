@@ -2,7 +2,7 @@ package com.vivern.arpg.potions;
 
 import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.main.Mana;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

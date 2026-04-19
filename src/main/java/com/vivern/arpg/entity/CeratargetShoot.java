@@ -102,16 +102,16 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
                true
             );
             if (entity != null) {
-               double multMotion = parameters.get("friction");
+               double multMotion = parameters.getF("friction");
                this.motionX *= multMotion;
                this.motionY *= multMotion;
                this.motionZ *= multMotion;
                SuperKnockback.applyMove(
-                  this, -parameters.get("follow_power_entity"), entity.posX, entity.posY + entity.height / 2.0F, entity.posZ
+                  this, -parameters.getF("follow_power_entity"), entity.posX, entity.posY + entity.height / 2.0F, entity.posZ
                );
             } else if (this.followPoint != null) {
                SuperKnockback.applyMove(
-                  this, -parameters.get("follow_power_point"), this.followPoint.x, this.followPoint.y, this.followPoint.z
+                  this, -parameters.getF("follow_power_point"), this.followPoint.x, this.followPoint.y, this.followPoint.z
                );
             }
          }
@@ -247,7 +247,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
                0.9F + this.rand.nextFloat() / 5.0F
             );
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
          AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
             .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
             .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -259,11 +259,11 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),
-                     parameters.getEnchanted("damage", might) * this.magicPower,
+                     parameters.getEnchantedF("damage", might) * this.magicPower,
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse),
+                     parameters.getEnchantedF("knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ
@@ -290,11 +290,11 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.magic),
-                  parameters.getEnchanted("damage", might) * this.magicPower,
+                  parameters.getEnchantedF("damage", might) * this.magicPower,
                   this.getThrower(),
                   result.entityHit,
                   true,
-                  parameters.getEnchanted("knockback", impulse)
+                  parameters.getEnchantedF("knockback", impulse)
                );
                result.entityHit.hurtResistantTime = 0;
                this.impacted = true;

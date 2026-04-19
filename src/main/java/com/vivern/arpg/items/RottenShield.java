@@ -103,15 +103,15 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
-                     NBTHelper.SetNBTint(itemstack, parameters.geti("max_hits"), "blocking");
-                     player.addExhaustion(parameters.getEnchanted("exhaustion_on_use", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack)));
+                     NBTHelper.SetNBTint(itemstack, parameters.getI("max_hits"), "blocking");
+                     player.addExhaustion(parameters.getEnchantedF("exhaustion_on_use", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack)));
                   } else if (player.ticksExisted % 7 == 0) {
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
                   }
                }
             } else if (blocks > 0) {
-               float starvedCooldownMultiplier = parameters.get("starved_cooldown_multiplier");
-               float foodToStarve = parameters.getEnchanted("food_level_to_starve", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
+               float starvedCooldownMultiplier = parameters.getF("starved_cooldown_multiplier");
+               float foodToStarve = parameters.getEnchantedF("food_level_to_starve", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
                NBTHelper.SetNBTint(itemstack, 0, "blocking");
                player.getCooldownTracker()
                   .setCooldown(
@@ -126,9 +126,9 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
    public float onAttackedWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
       if (NBTHelper.GetNBTint(stack, "blocking") > 0) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-         float damageBlocks = parameters.getEnchanted("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
-         float starvedCooldownMultiplier = parameters.get("starved_cooldown_multiplier");
-         float foodToStarve = parameters.getEnchanted("food_level_to_starve", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack));
+         float damageBlocks = parameters.getEnchantedF("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+         float starvedCooldownMultiplier = parameters.getF("starved_cooldown_multiplier");
+         float foodToStarve = parameters.getEnchantedF("food_level_to_starve", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack));
          Entity attacker = source.getImmediateSource() == null ? source.getTrueSource() : source.getImmediateSource();
          if (!IWeapon.checkShieldAngle(stack, player, source)) {
             return hurtdamage;
@@ -154,12 +154,12 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
                      SuperKnockback.applyShieldBlock(
                         player,
                         attacker,
-                        parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
-                        parameters.get("self_knockback")
+                        parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
+                        parameters.getF("self_knockback")
                      );
-                     float eatChance = parameters.getEnchanted("eat_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack));
+                     float eatChance = parameters.getEnchantedF("eat_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack));
                      if (itemRand.nextFloat() < eatChance && player.isPotionActive(MobEffects.HUNGER)) {
-                        float damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+                        float damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
                         DamageSource wDamageSource = new WeaponDamage(stack, player, null, false, false, player, WeaponDamage.bite).setIsThornsDamage();
                         if (Weapons.dealDamage(wDamageSource, damage, player, attacker, true)) {
                            player.world
@@ -179,7 +179,7 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
                               attacker.posY,
                               attacker.posZ,
                               2,
-                              parameters.get("heart_health"),
+                              parameters.getF("heart_health"),
                               true,
                               4.0F,
                               player
@@ -220,7 +220,7 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
                         );
                   }
 
-                  player.addExhaustion(parameters.getEnchanted("exhaustion_on_block", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)));
+                  player.addExhaustion(parameters.getEnchantedF("exhaustion_on_block", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)));
                   if (!player.capabilities.isCreativeMode) {
                      stack.damageItem(1, player);
                   }
@@ -240,7 +240,7 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).geti("max_hits"), 0.0F, 1.0F
+         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getI("max_hits"), 0.0F, 1.0F
       );
    }
 

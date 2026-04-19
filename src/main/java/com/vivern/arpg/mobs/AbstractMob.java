@@ -20,7 +20,7 @@ import com.vivern.arpg.renders.mobrender.InitMobRenders;
 import com.vivern.arpg.tileentity.TileMonsterSpawner;
 import com.vivern.arpg.tileentity.TileNexus;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;

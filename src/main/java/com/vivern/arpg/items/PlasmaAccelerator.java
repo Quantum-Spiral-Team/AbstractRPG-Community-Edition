@@ -60,7 +60,7 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
             int cooldowntime = this.getCooldownTime(itemstack);
             int special = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int RFtoShoot = parameters.getEnchantedi("rf_to_shoot", reuse);
+            int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
             int shoots = this.getEnergyStored(itemstack) / RFtoShoot;
             if (player.getHeldItemMainhand() == itemstack) {
                if (click) {
@@ -98,7 +98,7 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
                   }
                }
 
-               int maxChargedShoots = parameters.getEnchantedi("shots", special);
+               int maxChargedShoots = parameters.getEnchantedI("shots", special);
                if (charge <= 0 && click && charge > -(cooldowntime * Math.min(shoots - 1, maxChargedShoots) + 1)) {
                   if (!hascooldown) {
                      if (charge == 0) {
@@ -168,13 +168,13 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.2F,
                         0.5F,
                         0.3F
                      );
-                     projectile.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      world.spawnEntity(projectile);
                   }
                } else if (charge > 0) {

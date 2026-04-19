@@ -17,7 +17,7 @@ import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 class CrystalCavesDecorator extends BiomeDecorator {
    public void setStalact(World world, BlockPos pos, int prop, Block blockstalact, Random rand) {
       world.setBlockState(
-         pos, (rand.nextFloat() < 0.15 ? BlocksRegister.SELENITESPELEOTHEM : blockstalact).getDefaultState().withProperty(BlockSpeleothem.TYPE, prop), 2
+         pos, (rand.nextFloat() < 0.15 ? BlocksRegister.SELENITE_SPELEOTHEM : blockstalact).getDefaultState().withProperty(BlockSpeleothem.TYPE, prop), 2
       );
    }
 
@@ -44,7 +44,7 @@ class CrystalCavesDecorator extends BiomeDecorator {
          for (int iix = 0; iix < 16; iix++) {
             for (int iiz = 0; iiz < 16; iiz++) {
                if (rand.nextFloat() < 0.43) {
-                  Block blockstalact = rand.nextFloat() < 0.6 ? BlocksRegister.STONESPELEOTHEM : BlocksRegister.SELENITESPELEOTHEM;
+                  Block blockstalact = rand.nextFloat() < 0.6 ? BlocksRegister.STONE_SPELEOTHEM : BlocksRegister.SELENITE_SPELEOTHEM;
                   int px = iix + 8;
                   int pz = iiz + 8;
                   boolean lastblockStone = false;

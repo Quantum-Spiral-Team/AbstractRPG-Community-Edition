@@ -36,17 +36,17 @@ public class ElementProjectile extends EntityThrowable {
 
    public ElementProjectile(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.ELEMENTFOCUS);
+      this.weaponstack = new ItemStack(ItemsRegister.ELEMENT_FOCUS);
    }
 
    public ElementProjectile(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.ELEMENTFOCUS);
+      this.weaponstack = new ItemStack(ItemsRegister.ELEMENT_FOCUS);
    }
 
    public ElementProjectile(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.ELEMENTFOCUS);
+      this.weaponstack = new ItemStack(ItemsRegister.ELEMENT_FOCUS);
    }
 
    public ElementProjectile(World world, EntityLivingBase thrower, int type, ItemStack stack) {

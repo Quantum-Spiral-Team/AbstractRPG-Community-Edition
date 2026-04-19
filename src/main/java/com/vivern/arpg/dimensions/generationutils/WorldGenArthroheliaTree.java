@@ -24,7 +24,7 @@ public class WorldGenArthroheliaTree extends WorldGenerator {
 
    public boolean generate(World world, Random rand, BlockPos position) {
       this.samples = this.maxsamples;
-      world.setBlockState(position, BlocksRegister.ARTHROHELIASTEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, this.growDirection), 2);
+      world.setBlockState(position, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, this.growDirection), 2);
       if (this.genStyle == 0) {
          this.recursiveGenerate(world, position, rand, 0, this.growDirection, this.startChanceToContinue, this.startChanceToSplit);
       }
@@ -55,13 +55,13 @@ public class WorldGenArthroheliaTree extends WorldGenerator {
       if (this.samples > 0) {
          if (rand.nextFloat() < chanceToSplit) {
             offpos = offpos.offset(facing);
-            world.setBlockState(offpos, BlocksRegister.LANTERNAMETHYST.getDefaultState(), 2);
-            this.setTwo(world, offpos, facing, BlocksRegister.ARTHROHELIASTEM);
+            world.setBlockState(offpos, BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
+            this.setTwo(world, offpos, facing, BlocksRegister.ARTHROHELIA_STEM);
             this.samples -= 3;
 
             for (EnumFacing nextFace : EnumFacing.VALUES) {
                if (nextFace != facing.getOpposite() && rand.nextFloat() < this.getChances(nextFace)) {
-                  this.setTwo(world, offpos, nextFace, BlocksRegister.ARTHROHELIASTEM);
+                  this.setTwo(world, offpos, nextFace, BlocksRegister.ARTHROHELIA_STEM);
                   this.recursiveGenerate(
                      world,
                      offpos.offset(nextFace),
@@ -74,14 +74,14 @@ public class WorldGenArthroheliaTree extends WorldGenerator {
                }
             }
          } else if (rand.nextFloat() < chanceToContinue) {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIASTALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
             this.samples--;
             this.recursiveGenerate(world, offpos, rand, currentoffsetFromStart, facing, chanceToContinue, chanceToSplit);
          } else {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIASPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
          }
       } else {
-         world.setBlockState(offpos, BlocksRegister.ARTHROHELIASPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+         world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
       }
    }
 
@@ -98,13 +98,13 @@ public class WorldGenArthroheliaTree extends WorldGenerator {
       if (this.samples > 0) {
          if (rand.nextFloat() < chanceToSplit) {
             offpos = offpos.offset(facing);
-            world.setBlockState(offpos, BlocksRegister.LANTERNAMETHYST.getDefaultState(), 2);
-            this.setTwo(world, offpos, facing, BlocksRegister.ARTHROHELIASTALK);
+            world.setBlockState(offpos, BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
+            this.setTwo(world, offpos, facing, BlocksRegister.ARTHROHELIA_STALK);
             this.samples -= 3;
 
             for (EnumFacing nextFace : EnumFacing.VALUES) {
                if (nextFace != facing.getOpposite() && rand.nextFloat() < this.getChances(nextFace)) {
-                  this.setTwo(world, offpos, nextFace, BlocksRegister.ARTHROHELIASTALK);
+                  this.setTwo(world, offpos, nextFace, BlocksRegister.ARTHROHELIA_STALK);
                   this.recursiveGenerate2(
                      world,
                      offpos.offset(nextFace),
@@ -117,15 +117,15 @@ public class WorldGenArthroheliaTree extends WorldGenerator {
                }
             }
          } else if (rand.nextFloat() < chanceToContinue && rand.nextFloat() < chanceToContinue) {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIASTEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
-            world.setBlockState(offpos.offset(facing), BlocksRegister.ARTHROHELIASTEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
+            world.setBlockState(offpos.offset(facing), BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
             this.samples -= 2;
             this.recursiveGenerate2(world, offpos.offset(facing), rand, currentoffsetFromStart, facing, chanceToContinue, chanceToSplit);
          } else {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIASPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
          }
       } else {
-         world.setBlockState(offpos, BlocksRegister.ARTHROHELIASPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+         world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
       }
    }
 
@@ -135,16 +135,16 @@ public class WorldGenArthroheliaTree extends WorldGenerator {
       BlockPos offpos = position.offset(facing);
       if (this.samples > 0) {
          if (rand.nextFloat() < chanceToSplit) {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIASTALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
             offpos = offpos.offset(facing, 2);
-            world.setBlockState(offpos, BlocksRegister.LANTERNAMETHYST.getDefaultState(), 2);
+            world.setBlockState(offpos, BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
             this.samples -= 3;
 
             for (EnumFacing nextFace : EnumFacing.VALUES) {
                if (nextFace != facing.getOpposite() && rand.nextFloat() < this.getChances(nextFace)) {
                   world.setBlockState(
                      offpos.offset(nextFace, 2),
-                     BlocksRegister.ARTHROHELIASTALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, nextFace.getOpposite()),
+                     BlocksRegister.ARTHROHELIA_STALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, nextFace.getOpposite()),
                      2
                   );
                   this.recursiveGenerate3(
@@ -159,17 +159,17 @@ public class WorldGenArthroheliaTree extends WorldGenerator {
                }
             }
          } else if (rand.nextFloat() < chanceToContinue && rand.nextFloat() < chanceToContinue) {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIASTEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
-            world.setBlockState(offpos.offset(facing), BlocksRegister.ARTHROHELIASTEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
+            world.setBlockState(offpos.offset(facing), BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
             this.samples -= 2;
             this.recursiveGenerate3(world, offpos.offset(facing), rand, currentoffsetFromStart, facing, chanceToContinue, chanceToSplit);
          } else {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIASTEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
-            world.setBlockState(offpos.offset(facing), BlocksRegister.LANTERNAMETHYST.getDefaultState(), 2);
-            this.setSpikes(world, offpos.offset(facing), facing, BlocksRegister.ARTHROHELIASPIKE);
+            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
+            world.setBlockState(offpos.offset(facing), BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
+            this.setSpikes(world, offpos.offset(facing), facing, BlocksRegister.ARTHROHELIA_SPIKE);
          }
       } else {
-         world.setBlockState(offpos, BlocksRegister.ARTHROHELIASPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+         world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
       }
    }
 

@@ -29,10 +29,12 @@ public class Wrench extends ItemWeapon {
       return 1.0F;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return false;
    }
 
+   @Override
    public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
       if (!world.isRemote && entity instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entity;
@@ -40,9 +42,9 @@ public class Wrench extends ItemWeapon {
             Vec3d vec3d = player.getPositionEyes(1.0F);
             Vec3d vec3d1 = player.getLook(1.0F);
             Vec3d vec3d2 = vec3d.add(vec3d1.x * 3.0, vec3d1.y * 3.0, vec3d1.z * 3.0);
-            RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 0.2F, 0.15F, false, vec3d, vec3d2, false, true, false);
+            RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 0.2F, false, vec3d, vec3d2, false, true, false);
             if (res != null) {
-               if (res.typeOfHit == Type.BLOCK && res.getBlockPos() != null) {
+               if (res.typeOfHit == Type.BLOCK) {
                   Block bl = world.getBlockState(res.getBlockPos()).getBlock();
                   if (bl instanceof IWrenchUser) {
                      ((IWrenchUser)bl).onUseWrench(world, entity, stack, this.getPower(), res.getBlockPos());
@@ -50,15 +52,14 @@ public class Wrench extends ItemWeapon {
                   }
 
                   TileEntity tile = world.getTileEntity(res.getBlockPos());
-                  if (tile != null && tile instanceof IWrenchUser) {
+                  if (tile instanceof IWrenchUser) {
                      ((IWrenchUser)tile).onUseWrench(world, entity, stack, this.getPower(), res.getBlockPos());
                      return;
                   }
                }
 
-               if (res.typeOfHit == Type.ENTITY && res.entityHit != null && res.entityHit instanceof IWrenchUser) {
+               if (res.typeOfHit == Type.ENTITY && res.entityHit instanceof IWrenchUser) {
                   ((IWrenchUser)res.entityHit).onUseWrench(world, entity, stack, this.getPower(), null);
-                  return;
                }
             }
          }
@@ -97,22 +98,12 @@ public class Wrench extends ItemWeapon {
       }
    }
 
-   @Override
-   public boolean autoReload(ItemStack itemstack) {
-      return false;
-   }
-
-   @Override
+    @Override
    public boolean autoCooldown(ItemStack itemstack) {
       return false;
    }
 
-   @Override
-   public boolean hasZoom(ItemStack itemstack) {
-      return false;
-   }
-
-   @Override
+    @Override
    public int getCooldownTime(ItemStack itemstack) {
       return 0;
    }
@@ -122,12 +113,7 @@ public class Wrench extends ItemWeapon {
       return 0;
    }
 
-   @Override
-   public float getZoom(ItemStack itemstack, EntityPlayer player) {
-      return 0.0F;
-   }
-
-   @Override
+    @Override
    public WeaponHandleType getWeaponHandleType() {
       return WeaponHandleType.ONE_HANDED;
    }

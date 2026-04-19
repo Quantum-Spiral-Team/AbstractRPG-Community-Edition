@@ -32,17 +32,17 @@ public class PlasmaPistolShoot extends EntityThrowable {
 
    public PlasmaPistolShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMAPISTOL);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_PISTOL);
    }
 
    public PlasmaPistolShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMAPISTOL);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_PISTOL);
    }
 
    public PlasmaPistolShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMAPISTOL);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_PISTOL);
    }
 
    public PlasmaPistolShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -157,7 +157,7 @@ public class PlasmaPistolShoot extends EntityThrowable {
 
    public void expl() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
       int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
@@ -170,11 +170,11 @@ public class PlasmaPistolShoot extends EntityThrowable {
                if (Team.checkIsOpponent(this.thrower, entity)) {
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.plasma),
-                     parameters.getEnchanted("damage", might),
+                     parameters.getEnchantedF("damage", might),
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse),
+                     parameters.getEnchantedF("knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ
@@ -187,8 +187,8 @@ public class PlasmaPistolShoot extends EntityThrowable {
 
       if (!this.world.isRemote) {
          if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
-            float plasmadamage = parameters.getEnchanted("damage_plasma", might);
-            float plasmaknockback = parameters.getEnchanted("knockback_plasma", impulse);
+            float plasmadamage = parameters.getEnchantedF("damage_plasma", might);
+            float plasmaknockback = parameters.getEnchantedF("knockback_plasma", impulse);
             float g;
             float b;
             float r;

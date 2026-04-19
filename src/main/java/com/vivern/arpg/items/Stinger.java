@@ -102,8 +102,8 @@ public class Stinger extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.05F,
                         0.5F,
                         0.5F
@@ -114,7 +114,7 @@ public class Stinger extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.STINGERBOLTS, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.STINGER_BOLTS, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

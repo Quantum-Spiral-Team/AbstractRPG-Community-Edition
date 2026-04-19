@@ -65,7 +65,7 @@ public class MagicRocket extends ItemWeapon {
          float power = Mana.getMagicPowerMax(player);
          int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         float manacost = parameters.getEnchanted("manacost", sor);
+         float manacost = parameters.getEnchantedF("manacost", sor);
          if (player.getHeldItemMainhand() == itemstack) {
             if (click2) {
                Entity captured = world.getEntityByID(NBTHelper.GetNBTint(itemstack, "actualid"));
@@ -84,8 +84,8 @@ public class MagicRocket extends ItemWeapon {
                   } else {
                      EntityMagicRocket rocket = (EntityMagicRocket)captured;
                      rocket.disableMagic = 3;
-                     double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                     List<EntityLivingBase> list = GetMOP.MopRayTrace(edist, 1.0F, player, 0.2, 0.2);
+                     double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     List<EntityLivingBase> list = GetMOP.mopRayTrace(edist, 1.0F, player, 0.2, 0.2);
                      if (!list.isEmpty() && list.get(0) != null) {
                         rocket.specialTarget = (Entity)list.get(0);
                         rocket.useTarget = true;
@@ -149,13 +149,13 @@ public class MagicRocket extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.0F,
-                  parameters.get("velocity"),
-                  parameters.getEnchanted("inaccuracy", acc),
+                  parameters.getF("velocity"),
+                  parameters.getEnchantedF("inaccuracy", acc),
                   -0.1F,
                   0.5F,
                   0.2F
                );
-               projectile.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+               projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                world.spawnEntity(projectile);
                NBTHelper.SetNBTint(itemstack, projectile.getEntityId(), "actualid");
                if (!player.capabilities.isCreativeMode) {

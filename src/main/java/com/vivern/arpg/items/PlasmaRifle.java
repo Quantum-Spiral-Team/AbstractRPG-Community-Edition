@@ -68,8 +68,8 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Vec3d start = new Vec3d(x, y, z);
       Vec3d look = new Vec3d(a, b, c);
-      Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(look);
-      Vec3d lookUp = GetMOP.PitchYawToVec3d((float)pitchYaw.x - 90.0F, (float)pitchYaw.y);
+      Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(look);
+      Vec3d lookUp = GetMOP.pitchYawToVec3D((float)pitchYaw.x - 90.0F, (float)pitchYaw.y);
       float move = 1.3F;
       float speedX = (float)a * move;
       float speedY = (float)b * move;
@@ -227,14 +227,14 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int RFtoShoot = parameters.getEnchantedi("rf_to_shoot", reuse);
+            int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
             if (player.getHeldItemMainhand() == itemstack) {
                int heat = NBTHelper.GetNBTint(itemstack, "heat");
-               if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && heat >= parameters.geti("heat_max") && !hascooldown) {
+               if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && heat >= parameters.getI("heat_max") && !hascooldown) {
                   int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
                   int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);
-                  player.getCooldownTracker().setCooldown(this, parameters.getEnchantedi("wave_cooldown", rapidity));
+                  player.getCooldownTracker().setCooldown(this, parameters.getEnchantedI("wave_cooldown", rapidity));
                   IWeapon.fireBomEffect(this, player, world, 1);
                   Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                   world.playSound(
@@ -247,8 +247,8 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                      1.5F,
                      0.9F + itemRand.nextFloat() / 5.0F
                   );
-                  float length = parameters.getEnchanted("wave_length", range);
-                  float size = parameters.getEnchanted("wave_size", range);
+                  float length = parameters.getEnchantedF("wave_length", range);
+                  float size = parameters.getEnchantedF("wave_size", range);
                   Vec3d vec3d = player.getPositionEyes(1.0F);
                   Vec3d vec3d1 = player.getLook(1.0F);
                   Vec3d vec3d2 = vec3d.add(vec3d1.x * length, vec3d1.y * length, vec3d1.z * length);
@@ -257,14 +257,14 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                      if (Team.checkIsOpponent(player, entity)) {
                         Weapons.dealDamage(
                            new WeaponDamage(itemstack, player, null, false, false, vec3d, WeaponDamage.plasma),
-                           parameters.getEnchanted("wave_damage", might),
+                           parameters.getEnchantedF("wave_damage", might),
                            player,
                            entity,
                            true,
-                           parameters.getEnchanted("wave_knockback", impulse)
+                           parameters.getEnchantedF("wave_knockback", impulse)
                         );
                         entity.hurtResistantTime = 0;
-                        entity.setFire(parameters.geti("fire"));
+                        entity.setFire(parameters.getI("fire"));
                         Stun.stunEntity(entity, 1.0F);
                      }
                   }
@@ -320,8 +320,8 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                         }
                      } else if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
                         NBTHelper.GiveNBTint(itemstack, 0, "heat");
-                        int heatadd = parameters.getEnchantedi("heat_per_shoot", rapidity);
-                        int max = parameters.geti("heat_max");
+                        int heatadd = parameters.getEnchantedI("heat_per_shoot", rapidity);
+                        int max = parameters.getI("heat_max");
                         NBTHelper.SetNBTint(itemstack, Math.min(heat + heatadd, max), "heat");
                         if (heat < max && heat + heatadd >= max) {
                            world.playSound(
@@ -345,8 +345,8 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        powered ? parameters.get("velocity_powered") : parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        powered ? parameters.getF("velocity_powered") : parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.23F,
                         0.5F,
                         0.5F
@@ -410,7 +410,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      return (float)NBTHelper.GetNBTint(itemstack, "heat") / parameters.geti("heat_max");
+      return (float)NBTHelper.GetNBTint(itemstack, "heat") / parameters.getI("heat_max");
    }
 
    @Override

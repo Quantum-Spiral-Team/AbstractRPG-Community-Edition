@@ -81,7 +81,7 @@ public class WandOfCold extends ItemWeapon {
             boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
             boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", sor);
+            float manacost = parameters.getEnchantedF("manacost", sor);
             NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
             int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
             if (player.getHeldItemMainhand() == itemstack) {
@@ -105,7 +105,7 @@ public class WandOfCold extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                   player.addStat(StatList.getObjectUseStats(this));
                   IWeapon.fireBomEffect(this, player, world, 0);
-                  int nn = itemRand.nextInt(parameters.geti("max_shots")) + 1;
+                  int nn = itemRand.nextInt(parameters.getI("max_shots")) + 1;
 
                   for (int i = 0; i < nn; i++) {
                      WandColdShoot projectile = new WandColdShoot(world, player, itemstack, power);
@@ -115,8 +115,8 @@ public class WandOfCold extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw + itemRand.nextInt(9) - 4.0F,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc) + i
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc) + i
                      );
                      world.spawnEntity(projectile);
                   }
@@ -133,7 +133,7 @@ public class WandOfCold extends ItemWeapon {
                   && NBTHelper.GetNBTint(itemstack, "charges") >= maxcharge(itemstack)
                   && !player.getCooldownTracker().hasCooldown(this)) {
                   NBTHelper.SetNBTint(itemstack, 5, "fdelay");
-                  player.getCooldownTracker().setCooldown(this, parameters.geti("wave_cooldown"));
+                  player.getCooldownTracker().setCooldown(this, parameters.getI("wave_cooldown"));
                   Weapons.setPlayerAnimationOnServer(player, 26, EnumHand.MAIN_HAND);
                   player.addStat(StatList.getObjectUseStats(this));
                   IWeapon.fireBomEffect(this, player, world, 1);
@@ -153,8 +153,8 @@ public class WandOfCold extends ItemWeapon {
                   NBTHelper.SetNBTint(itemstack, 0, "charges");
                   WandColdWave projectile = new WandColdWave(world, player, itemstack, power);
                   projectile.setPosition(player.posX, player.posY + player.getEyeHeight() - 0.35, player.posZ);
-                  projectile.damage = parameters.getEnchanted("wave_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                  projectile.knockback = parameters.getEnchanted("wave_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                  projectile.damage = parameters.getEnchantedF("wave_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                  projectile.knockback = parameters.getEnchantedF("wave_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                   Weapons.shoot(
                      projectile,
                      EnumHand.MAIN_HAND,
@@ -162,14 +162,14 @@ public class WandOfCold extends ItemWeapon {
                      player.rotationPitch - 1.0F,
                      player.rotationYaw,
                      0.0F,
-                     parameters.get("wave_velocity"),
-                     parameters.getEnchanted("wave_inaccuracy", acc),
+                     parameters.getF("wave_velocity"),
+                     parameters.getEnchantedF("wave_inaccuracy", acc),
                      -0.45F,
                      0.0F,
                      0.5F,
                      0.0F
                   );
-                  projectile.setCutterSize(parameters.getEnchanted("wave_width", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack)));
+                  projectile.setCutterSize(parameters.getEnchantedF("wave_width", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack)));
                   world.spawnEntity(projectile);
                }
             } else {
@@ -183,7 +183,7 @@ public class WandOfCold extends ItemWeapon {
 
    public static int maxcharge(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(itemstack.getItem())
-         .getEnchantedi("max_charges", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
+         .getEnchantedI("max_charges", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
    }
 
    @Override

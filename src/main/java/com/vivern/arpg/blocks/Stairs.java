@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
@@ -538,14 +538,14 @@ public class Stairs extends Block {
       }
 
       public HardStairs(
-         IBlockState modelState, Material mater, String name, SoundType stype, BlocksRegister.Hardres hardres, String tool, boolean canDropWhithoutTool
+              IBlockState modelState, Material mater, String name, SoundType stype, BlocksRegister.HardRes hardres, String tool, boolean canDropWhithoutTool
       ) {
-         super(modelState, mater, name, hardres.HARDNESS, hardres.RESISTANCE, stype, tool, hardres.LVL);
-         this.slowSpeed = hardres.SLOW;
+         super(modelState, mater, name, hardres.hardness, hardres.resistance, stype, tool, hardres.lvl);
+         this.slowSpeed = hardres.slow;
          this.canDropWhithoutTool = canDropWhithoutTool;
-         this.level = hardres.LVL;
+         this.level = hardres.lvl;
          this.tool = tool;
-         this.fastSpeed = hardres.FAST;
+         this.fastSpeed = hardres.fast;
       }
 
       public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {

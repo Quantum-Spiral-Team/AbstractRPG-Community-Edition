@@ -115,7 +115,7 @@ public class TileBunkerDoor extends TileEntity implements ITickable {
                         break;
                      }
 
-                     if (this.world.getBlockState(findPos).getBlock() == BlocksRegister.BUNKERDOOR) {
+                     if (this.world.getBlockState(findPos).getBlock() == BlocksRegister.BUNKER_DOOR) {
                         TileEntity tileentity = this.world.getTileEntity(findPos);
                         if (tileentity != null && tileentity instanceof TileBunkerDoor) {
                            TileBunkerDoor door = (TileBunkerDoor)tileentity;
@@ -140,13 +140,13 @@ public class TileBunkerDoor extends TileEntity implements ITickable {
    }
 
    public boolean isAccessBlock(IBlockState block, BlockPos pos) {
-      return block.getBlock() != BlocksRegister.RUSTMETALL
-            && block.getBlock() != BlocksRegister.RUSTEDPIPE
-            && block.getBlock() != BlocksRegister.RUSTARMATURE
-            && block.getBlock() != BlocksRegister.RUSTLAMP
-            && block.getBlock() != BlocksRegister.DARKRUSTMETALL
-            && block.getBlock() != BlocksRegister.LABPLATING
-            && block.getBlock() != BlocksRegister.SCRAPELECTRONICS
+      return block.getBlock() != BlocksRegister.RUST_METAL
+            && block.getBlock() != BlocksRegister.RUSTED_PIPE
+            && block.getBlock() != BlocksRegister.RUST_ARMATURE
+            && block.getBlock() != BlocksRegister.RUST_LAMP
+            && block.getBlock() != BlocksRegister.DARK_RUST_METALL
+            && block.getBlock() != BlocksRegister.LAB_PLATING
+            && block.getBlock() != BlocksRegister.SCRAP_ELECTRONICS
             && block.getBlock() != Blocks.IRON_BLOCK
             && block.getBlock() != Blocks.IRON_BARS
          ? Weapons.easyBreakBlockFor(this.world, 12.0F, pos, block)

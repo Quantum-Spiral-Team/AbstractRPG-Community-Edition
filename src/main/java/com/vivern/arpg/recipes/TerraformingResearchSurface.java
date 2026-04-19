@@ -1,7 +1,7 @@
 package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.renders.TRRenderer;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class TerraformingResearchSurface {
    public static int[][] neightbours4 = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};

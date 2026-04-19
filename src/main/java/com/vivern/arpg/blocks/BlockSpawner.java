@@ -8,7 +8,7 @@ import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
 import com.vivern.arpg.tileentity.TileMonsterSpawner;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,22 +35,22 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
    public static final ResourceLocation clouds4 = new ResourceLocation("arpg:textures/clouds4.png");
    public int xpDropMin;
    public int xpDropAdd;
-   public BlocksRegister.Hardres hardres;
+   public BlocksRegister.HardRes hardres;
    public ParticleTracker.TrackerSmoothShowHide ssh = new ParticleTracker.TrackerSmoothShowHide(
       null, new Vec3d[]{new Vec3d(0.0, 5.0, 0.12), new Vec3d(5.0, 10.0, -0.12)}
    );
 
-   public BlockSpawner(Material mater, String name, BlocksRegister.Hardres hardres, int xpDropMin, int xpDropMax) {
-      super(mater, name, hardres.HARDNESS, hardres.RESISTANCE);
+   public BlockSpawner(Material mater, String name, BlocksRegister.HardRes hardres, int xpDropMin, int xpDropMax) {
+      super(mater, name, hardres.hardness, hardres.resistance);
       this.xpDropMin = xpDropMin;
       this.xpDropAdd = xpDropMax - xpDropMin + 1;
       this.setCreativeTab(CreativeTabs.REDSTONE);
       this.hardres = hardres;
-      this.setHarvest("pickaxe", hardres.LVL);
+      this.setHarvest("pickaxe", hardres.lvl);
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return this.hardres;
    }
 
@@ -68,16 +68,16 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
 
    @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-      if (this == BlocksRegister.MOBSPAWNERFROZEN) {
-         return ItemsRegister.FROZENSPAWNERPIECE;
-      } else if (this == BlocksRegister.MOBSPAWNERRUSTED) {
-         return ItemsRegister.RUSTEDSPAWNERPIECE;
-      } else if (this == BlocksRegister.MOBSPAWNERANCIENT) {
-         return ItemsRegister.ANCIENTSPAWNERPIECE;
-      } else if (this == BlocksRegister.MOBSPAWNERAQUATIC) {
-         return ItemsRegister.AQUATICSPAWNERPIECE;
+      if (this == BlocksRegister.FROZEN_SPAWNER) {
+         return ItemsRegister.FROZEN_SPAWNER_PIECE;
+      } else if (this == BlocksRegister.RUSTED_SPAWNER) {
+         return ItemsRegister.RUSTED_SPAWNER_PIECE;
+      } else if (this == BlocksRegister.ANCIENT_SPAWNER) {
+         return ItemsRegister.ANCIENT_SPAWNER_PIECE;
+      } else if (this == BlocksRegister.AQUATIC_SPAWNER) {
+         return ItemsRegister.AQUATIC_SPAWNER_PIECE;
       } else {
-         return this == BlocksRegister.MOBSPAWNERSTORM ? ItemsRegister.STORMSPAWNERPIECE : Items.AIR;
+         return this == BlocksRegister.STORM_SPAWNER ? ItemsRegister.STORM_SPAWNER_PIECE : Items.AIR;
       }
    }
 
@@ -108,7 +108,7 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
 
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-      if (this == BlocksRegister.MOBSPAWNERFROZEN) {
+      if (this == BlocksRegister.FROZEN_SPAWNER) {
          double xx = pos.getX() + rand.nextDouble();
          double yy = pos.getY() + rand.nextDouble();
          double zz = pos.getZ() + rand.nextDouble();
@@ -136,7 +136,7 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
          worldIn.spawnEntity(spelll);
       }
 
-      if (this == BlocksRegister.MOBSPAWNERRUSTED) {
+      if (this == BlocksRegister.RUSTED_SPAWNER) {
          double xx = pos.getX() + 0.2 + rand.nextDouble() * 0.6;
          double yy = pos.getY() + 0.2 + rand.nextDouble() * 0.6;
          double zz = pos.getZ() + 0.2 + rand.nextDouble() * 0.6;
@@ -172,7 +172,7 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
          }
       }
 
-      if (this == BlocksRegister.MOBSPAWNERANCIENT) {
+      if (this == BlocksRegister.ANCIENT_SPAWNER) {
          double xx = pos.getX() + 0.5 + rand.nextGaussian() * 0.05;
          double yy = pos.getY() + 0.5 + rand.nextGaussian() * 0.05;
          double zz = pos.getZ() + 0.5 + rand.nextGaussian() * 0.05;
@@ -203,7 +203,7 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
          worldIn.spawnEntity(spelll);
       }
 
-      if (this == BlocksRegister.MOBSPAWNERAQUATIC) {
+      if (this == BlocksRegister.AQUATIC_SPAWNER) {
          double d0 = pos.getX() + 0.5;
          double d1 = pos.getY() + 0.5;
          double d2 = pos.getZ() + 0.5;
@@ -246,7 +246,7 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
          }
       }
 
-      if (this == BlocksRegister.MOBSPAWNERSTORM) {
+      if (this == BlocksRegister.STORM_SPAWNER) {
          double d0 = pos.getX() + 0.5;
          double d1 = pos.getY() + 0.5;
          double d2 = pos.getZ() + 0.5;

@@ -44,11 +44,11 @@ public class MineshaftGenerator extends FractalGenerator {
                if (world.isChunkGeneratedAt(x >> 4, z + zz >> 4)) {
                   for (int yy = 0; yy < 4; yy++) {
                      BlockPos pos = new BlockPos(x, y + yy, z + zz);
-                     if (world.getBlockState(pos).getBlock() != BlocksRegister.WOODENSHAFT) {
+                     if (world.getBlockState(pos).getBlock() != BlocksRegister.WOODEN_SHAFT) {
                         if (shaft % 5 == 0 && !isAirUpper(world, x, y, z, rot)) {
                            shgenerated = true;
                            if (yy == 3 || zz == -2 || zz == 2) {
-                              world.setBlockState(pos, BlocksRegister.WOODENSHAFT.getDefaultState());
+                              world.setBlockState(pos, BlocksRegister.WOODEN_SHAFT.getDefaultState());
                            } else if (zz == 0 && yy == 0) {
                               world.setBlockState(pos, Blocks.RAIL.getDefaultState());
                            } else {
@@ -65,7 +65,7 @@ public class MineshaftGenerator extends FractalGenerator {
                   if (zz > -2 && zz < 2) {
                      BlockPos posdown = new BlockPos(x, y - 1, z + zz);
                      if (world.isAirBlock(posdown)) {
-                        world.setBlockState(posdown, BlocksRegister.WOODENSHAFT.getDefaultState());
+                        world.setBlockState(posdown, BlocksRegister.WOODEN_SHAFT.getDefaultState());
                         if (zz == 0 && shaft % 5 == 0) {
                            shootSupport(world, x, y, z, rot, rand);
                         }
@@ -90,11 +90,11 @@ public class MineshaftGenerator extends FractalGenerator {
                if (world.isChunkGeneratedAt(x + xx >> 4, z >> 4)) {
                   for (int yyx = 0; yyx < 4; yyx++) {
                      BlockPos pos = new BlockPos(x + xx, y + yyx, z);
-                     if (world.getBlockState(pos).getBlock() != BlocksRegister.WOODENSHAFT) {
+                     if (world.getBlockState(pos).getBlock() != BlocksRegister.WOODEN_SHAFT) {
                         if (shaft % 5 == 0 && !isAirUpper(world, x, y, z, rot)) {
                            shgenerated = true;
                            if (yyx == 3 || xx == -2 || xx == 2) {
-                              world.setBlockState(pos, BlocksRegister.WOODENSHAFT.getDefaultState());
+                              world.setBlockState(pos, BlocksRegister.WOODEN_SHAFT.getDefaultState());
                            } else if (xx == 0 && yyx == 0) {
                               world.setBlockState(pos, Blocks.RAIL.getDefaultState());
                            } else {
@@ -111,7 +111,7 @@ public class MineshaftGenerator extends FractalGenerator {
                   if (xx > -2 && xx < 2) {
                      BlockPos posdown = new BlockPos(x + xx, y - 1, z);
                      if (world.isAirBlock(posdown)) {
-                        world.setBlockState(posdown, BlocksRegister.WOODENSHAFT.getDefaultState());
+                        world.setBlockState(posdown, BlocksRegister.WOODEN_SHAFT.getDefaultState());
                         if (xx == 0 && shaft % 5 == 0) {
                            shootSupport(world, x, y, z, rot, rand);
                         }
@@ -160,7 +160,7 @@ public class MineshaftGenerator extends FractalGenerator {
                                     world.setBlockToAir(pos);
                                  }
                               } else {
-                                 world.setBlockState(pos, BlocksRegister.WOODENSHAFT.getDefaultState());
+                                 world.setBlockState(pos, BlocksRegister.WOODEN_SHAFT.getDefaultState());
                               }
                            }
                         }
@@ -173,7 +173,7 @@ public class MineshaftGenerator extends FractalGenerator {
                      if (world.isChunkGeneratedAt(x + xxxx >> 4, z + zzx >> 4)) {
                         BlockPos pos = new BlockPos(x + xxxx, y - 1, z + zzx);
                         if (world.getBlockState(pos).getBlock() != Blocks.RAIL && world.isAirBlock(pos)) {
-                           world.setBlockState(pos, BlocksRegister.WOODENSHAFT.getDefaultState());
+                           world.setBlockState(pos, BlocksRegister.WOODEN_SHAFT.getDefaultState());
                         }
                      }
                   }
@@ -201,19 +201,19 @@ public class MineshaftGenerator extends FractalGenerator {
 
       if (result < 0) {
          if (rot == 0 || rot == 2) {
-            world.setBlockState(new BlockPos(x, y - 2, z + 1), BlocksRegister.WOODENSHAFT.getDefaultState());
-            world.setBlockState(new BlockPos(x, y - 2, z), BlocksRegister.WOODENSHAFT.getDefaultState());
-            world.setBlockState(new BlockPos(x, y - 2, z - 1), BlocksRegister.WOODENSHAFT.getDefaultState());
+            world.setBlockState(new BlockPos(x, y - 2, z + 1), BlocksRegister.WOODEN_SHAFT.getDefaultState());
+            world.setBlockState(new BlockPos(x, y - 2, z), BlocksRegister.WOODEN_SHAFT.getDefaultState());
+            world.setBlockState(new BlockPos(x, y - 2, z - 1), BlocksRegister.WOODEN_SHAFT.getDefaultState());
          }
 
          if (rot == 1 || rot == 3) {
-            world.setBlockState(new BlockPos(x + 1, y - 2, z), BlocksRegister.WOODENSHAFT.getDefaultState());
-            world.setBlockState(new BlockPos(x, y - 2, z), BlocksRegister.WOODENSHAFT.getDefaultState());
-            world.setBlockState(new BlockPos(x - 1, y - 2, z), BlocksRegister.WOODENSHAFT.getDefaultState());
+            world.setBlockState(new BlockPos(x + 1, y - 2, z), BlocksRegister.WOODEN_SHAFT.getDefaultState());
+            world.setBlockState(new BlockPos(x, y - 2, z), BlocksRegister.WOODEN_SHAFT.getDefaultState());
+            world.setBlockState(new BlockPos(x - 1, y - 2, z), BlocksRegister.WOODEN_SHAFT.getDefaultState());
          }
 
          for (int yy = -2; yy > result - 2; yy--) {
-            world.setBlockState(new BlockPos(x, y + yy, z), BlocksRegister.WOODENSHAFT.getDefaultState());
+            world.setBlockState(new BlockPos(x, y + yy, z), BlocksRegister.WOODEN_SHAFT.getDefaultState());
          }
       }
 
@@ -221,8 +221,8 @@ public class MineshaftGenerator extends FractalGenerator {
          if (rot == 0 || rot == 2) {
             for (int yy = 0; yy < result + 4; yy++) {
                BlockPos osn = new BlockPos(x, y + yy, z);
-               world.setBlockState(osn.east(), BlocksRegister.WOODENSHAFT.getDefaultState());
-               world.setBlockState(osn.west(), BlocksRegister.WOODENSHAFT.getDefaultState());
+               world.setBlockState(osn.east(), BlocksRegister.WOODEN_SHAFT.getDefaultState());
+               world.setBlockState(osn.west(), BlocksRegister.WOODEN_SHAFT.getDefaultState());
             }
          }
 

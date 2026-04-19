@@ -44,17 +44,17 @@ public class EntityCrystalCutter extends EntityThrowable {
 
    public EntityCrystalCutter(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALCUTTER);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_CUTTER);
    }
 
    public EntityCrystalCutter(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALCUTTER);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_CUTTER);
    }
 
    public EntityCrystalCutter(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALCUTTER);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_CUTTER);
    }
 
    public EntityCrystalCutter(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -114,13 +114,13 @@ public class EntityCrystalCutter extends EntityThrowable {
          }
       }
 
-      float cutterSizeTo = this.cutterSize * GetMOP.getfromto((float)(this.ticksExisted + 1), 0.0F, 10.0F) / 2.0F;
+      float cutterSizeTo = this.cutterSize * GetMOP.getFromTo((float)(this.ticksExisted + 1), 0.0F, 10.0F) / 2.0F;
       Vec3d motionVec2d = new Vec3d(this.motionX, 0.0, this.motionZ);
-      Vec3d pichyawVec = GetMOP.Vec3dToPitchYaw(motionVec2d);
-      Vec3d leftVec = GetMOP.PitchYawToVec3d((float)pichyawVec.x, (float)pichyawVec.y + 90.0F)
+      Vec3d pichyawVec = GetMOP.vec3DToPitchYaw(motionVec2d);
+      Vec3d leftVec = GetMOP.pitchYawToVec3D((float)pichyawVec.x, (float)pichyawVec.y + 90.0F)
          .normalize()
          .scale(cutterSizeTo);
-      Vec3d rightVec = GetMOP.PitchYawToVec3d((float)pichyawVec.x, (float)pichyawVec.y - 90.0F)
+      Vec3d rightVec = GetMOP.pitchYawToVec3D((float)pichyawVec.x, (float)pichyawVec.y - 90.0F)
          .normalize()
          .scale(cutterSizeTo);
       Vec3d thisVec = this.getPositionVector();
@@ -133,7 +133,7 @@ public class EntityCrystalCutter extends EntityThrowable {
       this.leftNodeY = absLeftVec.y;
       this.leftNodeZ = absLeftVec.z;
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      float raySize = this.triple ? parameters.get("cutter_thickness_triple") : parameters.get("cutter_thickness");
+      float raySize = this.triple ? parameters.getF("cutter_thickness_triple") : parameters.getF("cutter_thickness");
       List<Entity> list = GetMOP.findEntitiesOnPath(absLeftVec, absRightVec, this.world, this.thrower, raySize, 0.2F);
       int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
       int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
@@ -143,11 +143,11 @@ public class EntityCrystalCutter extends EntityThrowable {
             if (this.thrower != null) {
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, false, false, null, WeaponDamage.plasma),
-                  parameters.getEnchanted("damage", might),
+                  parameters.getEnchantedF("damage", might),
                   this.getThrower(),
                   entity,
                   true,
-                  parameters.getEnchanted("knockback", impulse),
+                  parameters.getEnchantedF("knockback", impulse),
                   this.thrower.posX,
                   this.thrower.posY,
                   this.thrower.posZ
@@ -236,7 +236,7 @@ public class EntityCrystalCutter extends EntityThrowable {
 
       if (id < 0) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         this.cutterSize = parameters.getEnchanted("cutter_size", -id);
+         this.cutterSize = parameters.getEnchantedF("cutter_size", -id);
       }
    }
 

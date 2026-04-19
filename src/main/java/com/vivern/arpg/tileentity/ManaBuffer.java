@@ -8,7 +8,7 @@ import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -199,7 +199,7 @@ public class ManaBuffer {
 
       for (EnumFacing face : EnumFacing.HORIZONTALS) {
          BlockPos finalpos = pos.offset(face);
-         if (world.getBlockState(finalpos).getBlock() == BlocksRegister.BLOCKCALIBRATIONBUNDLE) {
+         if (world.getBlockState(finalpos).getBlock() == BlocksRegister.BLOCK_CALIBRATION_BUNDLE) {
             TileEntity tileEntity = world.getTileEntity(finalpos);
             if (tileEntity instanceof TileCalibrationBundle) {
                TileCalibrationBundle calibrationBundle = (TileCalibrationBundle)tileEntity;

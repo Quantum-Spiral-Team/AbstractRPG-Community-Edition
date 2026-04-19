@@ -19,11 +19,11 @@ public class ReplacersAquatica {
    public static ITemplateProcessor replacerSunkenTown = new ITemplateProcessor() {
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            world.setBlockState(pos, BlocksRegister.MOBSPAWNERAQUATIC.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.AQUATIC_SPAWNER.getDefaultState());
             SpawnerTuners.SUNKENTOWN.setupSpawner(world, pos, world.rand);
             return null;
          } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_PILLAR) {
-            world.setBlockState(pos, BlocksRegister.TIDEBEACON.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.TIDE_BEACON.getDefaultState());
             return null;
          } else if (blockInfoIn.blockState.getBlock() != Blocks.PURPUR_SLAB) {
             if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
@@ -46,19 +46,19 @@ public class ReplacersAquatica {
                   pos, pos.getY() > AquaticaChunkGenerator.sealvl ? Blocks.AIR.getDefaultState() : Blocks.WATER.getDefaultState()
                );
             } else if (world.rand.nextFloat() < 0.27F) {
-               world.setBlockState(pos, BlocksRegister.CORALCHANDELIER.getStateFromMeta(world.rand.nextInt(2)));
+               world.setBlockState(pos, BlocksRegister.CORAL_CHANDELIER.getStateFromMeta(world.rand.nextInt(2)));
             } else if (world.rand.nextFloat() < 0.53F) {
-               world.setBlockState(pos, BlocksRegister.CORALTABLE.getDefaultState().withProperty(Table.FLAT, false));
+               world.setBlockState(pos, BlocksRegister.CORAL_TABLE.getDefaultState().withProperty(Table.FLAT, false));
 
                for (EnumFacing face : EnumFacing.HORIZONTALS) {
                   if (world.rand.nextFloat() < 0.5F && !world.getBlockState(pos.offset(face)).getMaterial().blocksMovement()) {
-                     world.setBlockState(pos.offset(face), BlocksRegister.CORALCHAIR.getDefaultState().withProperty(Chair.FACING, face.getOpposite()));
+                     world.setBlockState(pos.offset(face), BlocksRegister.CORAL_CHAIR.getDefaultState().withProperty(Chair.FACING, face.getOpposite()));
                   }
                }
             } else if (world.rand.nextFloat() < 0.6F) {
-               world.setBlockState(pos, BlocksRegister.CORALVASE.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.CORAL_VASE.getDefaultState());
             } else if (world.rand.nextFloat() < 0.4F) {
-               world.setBlockState(pos, BlocksRegister.CORALTORCH.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.CORAL_TORCH.getDefaultState());
             } else {
                GenerationHelper.setChestWithLoot(
                   world, pos, EnumChest.CORAL, ListLootTable.CHESTS_SUNKEN_TOWN, EnumFacing.HORIZONTALS[world.rand.nextInt(4)]

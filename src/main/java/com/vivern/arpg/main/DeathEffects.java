@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelPlayer;
@@ -294,7 +294,7 @@ public class DeathEffects {
             entity.rotationYaw,
             event.getPartialRenderTick(),
             model,
-            ClientProxy.coloredacidtex.get(mobdeathtime - 1),
+            ClientProxy.coloredAcidTex.get(mobdeathtime - 1),
             0.0F,
             false
          );
@@ -624,7 +624,7 @@ public class DeathEffects {
             entity.rotationYaw,
             event.getPartialRenderTick(),
             model,
-            ClientProxy.firedetex.get(MathHelper.clamp(entity.deathTime - 1, 0, 18)),
+            ClientProxy.fireDetex.get(MathHelper.clamp(entity.deathTime - 1, 0, 18)),
             0.0F,
             false
          );

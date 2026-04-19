@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.tileentity.TileEtheriteInvocator;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -24,14 +24,14 @@ public class BlockEtheriteInvocator extends Block implements IBlockHardBreak {
       super(Material.ROCK);
       this.setRegistryName("block_etherite_invocator");
       this.setTranslationKey("block_etherite_invocator");
-      this.blockHardness = BlocksRegister.HR_ZARPION_ROCKS.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_ZARPION_ROCKS.RESISTANCE;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_ZARPION_ROCKS.LVL);
+      this.blockHardness = BlocksRegister.HR_ZARPION_ROCKS.hardness;
+      this.blockResistance = BlocksRegister.HR_ZARPION_ROCKS.resistance;
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_ZARPION_ROCKS.lvl);
       this.setCreativeTab(CreativeTabs.MISC);
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_ZARPION_ROCKS;
    }
 
@@ -51,7 +51,7 @@ public class BlockEtheriteInvocator extends Block implements IBlockHardBreak {
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
-      if (player.getHeldItemMainhand().getItem() == ItemsRegister.ETHERITEFUELCELL) {
+      if (player.getHeldItemMainhand().getItem() == ItemsRegister.ETHERITE_FUEL_CELL) {
          TileEtheriteInvocator tile = this.getTileEntity(world, pos);
          if (tile.setCell()) {
             player.getHeldItemMainhand().shrink(1);

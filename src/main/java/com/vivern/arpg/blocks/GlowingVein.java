@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.tileentity.TileGlowingVein;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -22,7 +22,7 @@ public class GlowingVein extends Block implements IBlockHardBreak {
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_DUNGEON_STONES;
    }
 

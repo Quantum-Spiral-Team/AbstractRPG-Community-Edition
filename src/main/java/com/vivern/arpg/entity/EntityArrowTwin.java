@@ -14,7 +14,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -205,12 +204,12 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
                   double dist = this.getDistance(this.twin);
                   if (dist > 0.8 && dist < 8.0) {
                      if (!this.active && (this.timeInGround > 14 || this.ticksStucked > 14)) {
-                        Vec3d point1 = this.getPositionVector().subtract(GetMOP.PitchYawToVec3d(-this.rotationPitch, -this.rotationYaw).scale(0.6));
+                        Vec3d point1 = this.getPositionVector().subtract(GetMOP.pitchYawToVec3D(-this.rotationPitch, -this.rotationYaw).scale(0.6));
                         Vec3d point2 = this.twin
                            .getPositionVector()
-                           .subtract(GetMOP.PitchYawToVec3d(-this.twin.rotationPitch, -this.twin.rotationYaw).scale(0.6));
+                           .subtract(GetMOP.pitchYawToVec3D(-this.twin.rotationPitch, -this.twin.rotationYaw).scale(0.6));
                         if (this.pickupStatus == PickupStatus.ALLOWED
-                           && GetMOP.thereIsNoBlockCollidesBetween(this.world, point1, point2, 1.0F, null, false)) {
+                           && GetMOP.thereIsNoBlockCollidesBetween(this.world, point1, point2, null, false)) {
                            this.active = true;
                            this.world.setEntityState(this, (byte)9);
                            this.pickupStatus = PickupStatus.DISALLOWED;
@@ -219,15 +218,15 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
                      }
 
                      if (this.active) {
-                        Vec3d point1 = this.getPositionVector().subtract(GetMOP.PitchYawToVec3d(-this.rotationPitch, -this.rotationYaw).scale(0.6));
+                        Vec3d point1 = this.getPositionVector().subtract(GetMOP.pitchYawToVec3D(-this.rotationPitch, -this.rotationYaw).scale(0.6));
                         Vec3d point2 = this.twin
                            .getPositionVector()
-                           .subtract(GetMOP.PitchYawToVec3d(-this.twin.rotationPitch, -this.twin.rotationYaw).scale(0.6));
-                        if (GetMOP.thereIsNoBlockCollidesBetween(this.world, point1, point2, 1.0F, null, false)) {
+                           .subtract(GetMOP.pitchYawToVec3D(-this.twin.rotationPitch, -this.twin.rotationYaw).scale(0.6));
+                        if (GetMOP.thereIsNoBlockCollidesBetween(this.world, point1, point2, null, false)) {
                            List<Entity> list = GetMOP.findEntitiesOnPath(point1, point2, this.world, this.shootingEntity, 0.3, 0.2);
-                           WeaponParameters parameters = WeaponParameters.getWeaponParameters(ItemsRegister.ARROWTWIN);
-                           float damage_link = parameters.get("damage_link");
-                           float damage_link_length_mult = parameters.get("damage_link_length_mult");
+                           WeaponParameters parameters = WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_TWIN);
+                           float damage_link = parameters.getF("damage_link");
+                           float damage_link_length_mult = parameters.getF("damage_link_length_mult");
 
                            for (Entity entity : list) {
                               if (Team.checkIsOpponent(this.shootingEntity, entity)) {
@@ -241,7 +240,7 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
                                  );
                                  entity.hurtResistantTime = 0;
                                  this.allDamageLinkDealen += damageDealen;
-                                 if (this.allDamageLinkDealen > parameters.get("damage_link_max")) {
+                                 if (this.allDamageLinkDealen > parameters.getF("damage_link_max")) {
                                     this.active = false;
                                  }
                               }
@@ -265,10 +264,10 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
                }
             }
          } else if (this.active && this.twin != null) {
-            Vec3d point1 = this.getPositionVector().subtract(GetMOP.PitchYawToVec3d(-this.rotationPitch, -this.rotationYaw).scale(0.6));
+            Vec3d point1 = this.getPositionVector().subtract(GetMOP.pitchYawToVec3D(-this.rotationPitch, -this.rotationYaw).scale(0.6));
             Vec3d point2 = this.twin
                .getPositionVector()
-               .subtract(GetMOP.PitchYawToVec3d(-this.twin.rotationPitch, -this.twin.rotationYaw).scale(0.6));
+               .subtract(GetMOP.pitchYawToVec3D(-this.twin.rotationPitch, -this.twin.rotationYaw).scale(0.6));
             this.doArcParticle(point1, point2);
          }
       }
@@ -306,7 +305,7 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWTWIN);
+      return new ItemStack(ItemsRegister.ARROW_TWIN);
    }
 
    public void onCollideWithPlayer(EntityPlayer entityIn) {

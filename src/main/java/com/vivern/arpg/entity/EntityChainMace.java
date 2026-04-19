@@ -4,7 +4,7 @@ import com.vivern.arpg.items.ChainMace;
 import com.vivern.arpg.main.ItemsRegister;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
@@ -44,20 +44,20 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
 
    public EntityChainMace(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.CHAINMACEIRON);
+      this.weaponstack = new ItemStack(ItemsRegister.CHAIN_MACE);
       this.ignoreFrustumCheck = true;
    }
 
    public EntityChainMace(World world, EntityPlayer thrower) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.CHAINMACEIRON);
+      this.weaponstack = new ItemStack(ItemsRegister.CHAIN_MACE);
       this.thrower = thrower;
       this.ignoreFrustumCheck = true;
    }
 
    public EntityChainMace(World world, double x, double y, double z) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.CHAINMACEIRON);
+      this.weaponstack = new ItemStack(ItemsRegister.CHAIN_MACE);
       this.setPosition(x, y, z);
       this.ignoreFrustumCheck = true;
    }
@@ -374,17 +374,17 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
       }
 
       if (id == 1) {
-         this.mace = (ChainMace)ItemsRegister.CHAINMACEIRON;
+         this.mace = (ChainMace)ItemsRegister.CHAIN_MACE;
          this.setSize(this.mace.entitySize, this.mace.entitySize);
       }
 
       if (id == 2) {
-         this.mace = (ChainMace)ItemsRegister.CHAINMACEDIAMOND;
+         this.mace = (ChainMace)ItemsRegister.DIAMOND_CHAIN_MACE;
          this.setSize(this.mace.entitySize, this.mace.entitySize);
       }
 
       if (id == 3) {
-         this.mace = (ChainMace)ItemsRegister.CHAINMACEMOLTEN;
+         this.mace = (ChainMace)ItemsRegister.MOLTEN_CHAIN_MACE;
          this.setSize(this.mace.entitySize, this.mace.entitySize);
       }
 

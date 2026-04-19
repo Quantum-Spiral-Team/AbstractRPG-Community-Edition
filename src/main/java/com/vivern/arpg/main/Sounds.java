@@ -311,11 +311,11 @@ public class Sounds {
    public static SoundEvent hadron_blaster_end;
    public static SoundEvent hadron_blaster_beam;
    public static SoundEvent hadron_blaster_sensor;
-   public static SoundEvent snapball_rel;
-   public static SoundEvent snapball;
-   public static SoundEvent snapball_impact;
-   public static SoundEvent snapball_explode;
-   public static SoundEvent snapball_pick;
+   public static SoundEvent snap_ball_rel;
+   public static SoundEvent snap_ball;
+   public static SoundEvent snap_ball_impact;
+   public static SoundEvent snap_ball_explode;
+   public static SoundEvent snap_ball_pick;
    public static SoundEvent alert;
    public static SoundEvent rocket_launcher_mode;
    public static SoundEvent rocket_launcher;
@@ -355,7 +355,7 @@ public class Sounds {
    public static SoundEvent slimeshoot;
    public static SoundEvent magic_o;
    public static SoundEvent grenade_throw;
-   public static SoundEvent cryogrenade;
+   public static SoundEvent cryo_grenade;
    public static SoundEvent explode6;
    public static SoundEvent explode_slime;
    public static SoundEvent live_heart;

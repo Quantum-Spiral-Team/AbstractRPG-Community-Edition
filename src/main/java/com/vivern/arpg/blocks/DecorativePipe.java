@@ -95,12 +95,12 @@ public class DecorativePipe extends Block implements IBlockHardBreak {
    protected AxisAlignedBB E_AABB;
    protected AxisAlignedBB U_AABB;
    protected AxisAlignedBB D_AABB;
-   public BlocksRegister.Hardres hardres;
+   public BlocksRegister.HardRes hardres;
 
    public DecorativePipe(
       Material material,
       String name,
-      BlocksRegister.Hardres hardres,
+      BlocksRegister.HardRes hardres,
       String tool,
       CreativeTabs tab,
       SoundType soundType,
@@ -111,9 +111,9 @@ public class DecorativePipe extends Block implements IBlockHardBreak {
       super(material);
       this.setRegistryName(name);
       this.setTranslationKey(name);
-      this.blockHardness = hardres.HARDNESS;
-      this.blockResistance = hardres.RESISTANCE;
-      this.setHarvestLevel(tool, hardres.LVL);
+      this.blockHardness = hardres.hardness;
+      this.blockResistance = hardres.resistance;
+      this.setHarvestLevel(tool, hardres.lvl);
       this.hardres = hardres;
       this.setCreativeTab(tab);
       this.setSoundType(soundType);
@@ -188,7 +188,7 @@ public class DecorativePipe extends Block implements IBlockHardBreak {
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return this.hardres;
    }
 

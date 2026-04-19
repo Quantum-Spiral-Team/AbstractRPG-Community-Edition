@@ -3,7 +3,7 @@ package com.vivern.arpg.recipes;
 import com.vivern.arpg.tileentity.TileIndustrialMixer;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

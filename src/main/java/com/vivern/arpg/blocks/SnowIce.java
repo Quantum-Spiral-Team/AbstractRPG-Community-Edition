@@ -13,9 +13,9 @@ public class SnowIce extends Block implements IBlockHardBreak {
       super(Material.GOURD);
       this.setRegistryName("snow_ice");
       this.setTranslationKey("snow_ice");
-      this.blockHardness = BlocksRegister.HR_SNOWICE_GLACIER.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_SNOWICE_GLACIER.RESISTANCE;
-      this.setHarvestLevel("shovel", BlocksRegister.HR_SNOWICE_GLACIER.LVL);
+      this.blockHardness = BlocksRegister.HR_SNOWICE_GLACIER.hardness;
+      this.blockResistance = BlocksRegister.HR_SNOWICE_GLACIER.resistance;
+      this.setHarvestLevel("shovel", BlocksRegister.HR_SNOWICE_GLACIER.lvl);
       this.setSoundType(SoundTypeShards.SHARDS);
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
    }

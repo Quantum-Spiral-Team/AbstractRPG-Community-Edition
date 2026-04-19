@@ -78,7 +78,7 @@ public class PyrocrystallineRecipe {
                new OreCost("sand", 2),
                new OreCost("sandstone", 1),
                new OreCost(Blocks.SOUL_SAND, 1),
-               new OreCost(BlocksRegister.TOXICDIRT, 1),
+               new OreCost(BlocksRegister.TOXIC_DIRT, 1),
                new OreCost(BlocksRegister.SCRAP, 1)
             },
             new OreCost[]{

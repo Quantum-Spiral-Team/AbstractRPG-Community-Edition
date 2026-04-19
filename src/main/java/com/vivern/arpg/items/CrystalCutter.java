@@ -107,8 +107,8 @@ public class CrystalCutter extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.4F,
                         0.4F,
                         0.2F
@@ -117,8 +117,8 @@ public class CrystalCutter extends ItemWeapon {
                         shoot.triple = true;
                      }
 
-                     shoot.cutterSize = parameters.getEnchanted("cutter_size", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                     shoot.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     shoot.cutterSize = parameters.getEnchantedF("cutter_size", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     shoot.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      world.spawnEntity(shoot);
                      if (!player.capabilities.isCreativeMode) {
                         this.addAmmo(ammo, itemstack, -1);
@@ -127,7 +127,7 @@ public class CrystalCutter extends ItemWeapon {
                         NBTHelper.GiveNBTint(itemstack, 0, "prevanimation");
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYSTALCUTTERAMMO, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYSTAL_CUTTER_AMMO, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

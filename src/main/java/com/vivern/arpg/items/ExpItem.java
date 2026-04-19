@@ -286,9 +286,9 @@ public class ExpItem extends Item {
                               TileIndustrialMixer mixer = (TileIndustrialMixer)tile;
                               String text = "addRecipe(";
                               text = text
-                                 + (mixer.getStackInSlot(7).isEmpty() ? "null, " : Debugger.itemgetter(mixer.getStackInSlot(7).getItem()) + ", ");
+                                 + (mixer.getStackInSlot(7).isEmpty() ? "null, " : Debugger.itemGetter(mixer.getStackInSlot(7).getItem()) + ", ");
                               text = text
-                                 + (mixer.getStackInSlot(6).isEmpty() ? "null, " : Debugger.itemgetter(mixer.getStackInSlot(6).getItem()) + ", ");
+                                 + (mixer.getStackInSlot(6).isEmpty() ? "null, " : Debugger.itemGetter(mixer.getStackInSlot(6).getItem()) + ", ");
                               text = text + ", ";
                               text = text + Ingridient.getIngridient(mixer.getStackInSlot(3)).toString() + ", ";
                               text = text + Ingridient.getIngridient(mixer.getStackInSlot(4)).toString() + ", ";
@@ -461,7 +461,7 @@ public class ExpItem extends Item {
                      try {
                         Field field = SpawnerTuners.class.getFields()[num];
                         SpawnerTuner tuner = (SpawnerTuner)field.get(null);
-                        world.setBlockState(posup, BlocksRegister.MOBSPAWNERFROZEN.getDefaultState());
+                        world.setBlockState(posup, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
                         TileMonsterSpawner spawner = (TileMonsterSpawner)world.getTileEntity(posup);
                         tuner.setupSpawner(world, spawner, itemRand);
                      } catch (ArrayIndexOutOfBoundsException var23) {

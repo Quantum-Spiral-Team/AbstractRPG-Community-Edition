@@ -137,14 +137,14 @@ public class HydraulicShotgunModel extends ModelBase {
    }
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-      float ft1 = GetMOP.getfromto(f2, 0.085F, 0.185F);
-      float ft2 = GetMOP.getfromto(f2, 0.15F, 0.2F);
-      float ft3 = GetMOP.getfromto(f2, 0.2F, 0.4F);
-      float ft4 = GetMOP.getfromto(f2, 0.4F, 0.5F);
-      float ft5 = GetMOP.getfromto(f2, 0.5F, 0.6F);
-      float ft5_6 = GetMOP.getfromto(f2, 0.5F, 0.7F);
-      float ft6 = GetMOP.getfromto(f2, 0.6F, 0.7F);
-      float ft7 = GetMOP.getfromto(f2, 0.7F, 0.8F);
+      float ft1 = GetMOP.getFromTo(f2, 0.085F, 0.185F);
+      float ft2 = GetMOP.getFromTo(f2, 0.15F, 0.2F);
+      float ft3 = GetMOP.getFromTo(f2, 0.2F, 0.4F);
+      float ft4 = GetMOP.getFromTo(f2, 0.4F, 0.5F);
+      float ft5 = GetMOP.getFromTo(f2, 0.5F, 0.6F);
+      float ft5_6 = GetMOP.getFromTo(f2, 0.5F, 0.7F);
+      float ft6 = GetMOP.getFromTo(f2, 0.6F, 0.7F);
+      float ft7 = GetMOP.getFromTo(f2, 0.7F, 0.8F);
       this.ammo1.offsetX = 10.0F * ft3 - 5.0F * ft4 - 5.0F * ft5_6;
       this.ammo1.offsetY = -2.0F * ft2 + 5.0F * ft3 + 5.0F * ft4 - 9.0F * ft5 + 1.0F * ft6;
       this.ammo1.offsetZ = 2.0F * ft1 + 1.0F * ft4 - 3.0F * ft7;

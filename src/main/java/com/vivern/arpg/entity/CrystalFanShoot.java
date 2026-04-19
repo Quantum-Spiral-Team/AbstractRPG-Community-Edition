@@ -40,19 +40,19 @@ public class CrystalFanShoot extends EntityThrowable {
 
    public CrystalFanShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALFAN);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_FAN);
       this.powerOn = false;
    }
 
    public CrystalFanShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALFAN);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_FAN);
       this.powerOn = false;
    }
 
    public CrystalFanShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALFAN);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_FAN);
       this.powerOn = false;
    }
 

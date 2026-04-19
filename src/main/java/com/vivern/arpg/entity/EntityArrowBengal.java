@@ -13,7 +13,6 @@ import com.vivern.arpg.renders.SparkleSubparticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -66,7 +65,7 @@ public class EntityArrowBengal extends AbstractArrow {
          this.timeSparkling++;
          if (this.world.isRemote) {
             Vec3d pointToLights = this.getPositionVector()
-               .subtract(GetMOP.PitchYawToVec3d(-this.rotationPitch, -this.rotationYaw).scale((200 - this.timeSparkling) / 200.0 * 0.7));
+               .subtract(GetMOP.pitchYawToVec3D(-this.rotationPitch, -this.rotationYaw).scale((200 - this.timeSparkling) / 200.0 * 0.7));
             if (this.rand.nextFloat() < 0.5F) {
                GUNParticle part = new GUNParticle(
                   texture,
@@ -133,8 +132,8 @@ public class EntityArrowBengal extends AbstractArrow {
             );
             SparkleSubparticle.particles.add(sparkl);
          } else if (this.ticksExisted % 10 == 0) {
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(ItemsRegister.ARROWBENGAL);
-            float bengal_damage = parameters.get("bengal_damage");
+            WeaponParameters parameters = WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_BENGAL);
+            float bengal_damage = parameters.getF("bengal_damage");
 
             for (Entity entity : GetMOP.getEntitiesInAABBof(this.world, this, 1.7, this)) {
                if (Team.checkIsOpponent(this.shootingEntity, entity)) {
@@ -154,7 +153,7 @@ public class EntityArrowBengal extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWBENGAL);
+      return new ItemStack(ItemsRegister.ARROW_BENGAL);
    }
 
    @SideOnly(Side.CLIENT)

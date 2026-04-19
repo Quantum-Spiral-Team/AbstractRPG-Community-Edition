@@ -113,9 +113,9 @@ public class HorribleVillage {
    public void generate(BlockPos pos) {
       this.center = this.world.getHeight(pos).add(0, 16, 0);
       int i1 = this.rand.nextInt(360);
-      this.recursiveGenerate(this.center, GetMOP.YawToVec3d(i1), this.maximumRoadLength);
+      this.recursiveGenerate(this.center, GetMOP.yawToVec3D(i1), this.maximumRoadLength);
       if (this.homesSpawned < 10 && this.recursionLast > 0) {
-         Vec3d direction = GetMOP.YawToVec3d(i1 + 180);
+         Vec3d direction = GetMOP.yawToVec3D(i1 + 180);
 
          for (int i = 2; i < 20; i += 2) {
             BlockPos offsetPos = this.center.add(direction.x * i, 0.0, direction.z * i);
@@ -157,9 +157,9 @@ public class HorribleVillage {
 
                   this.recursiveGenerate(pos, direction, last);
                   if (this.rand.nextFloat() < 0.35F + Debugger.floats[4]) {
-                     float angle = GetMOP.Vec2dToYaw(direction.x, direction.z);
+                     float angle = GetMOP.vec2DToYaw(direction.x, direction.z);
                      angle += this.rand.nextFloat() < 0.5F ? 90.0F + (this.rand.nextFloat() - 0.5F) * 90.0F : -90.0F - (this.rand.nextFloat() - 0.5F) * 90.0F;
-                     Vec3d direction2 = GetMOP.YawToVec3d(angle);
+                     Vec3d direction2 = GetMOP.yawToVec3D(angle);
                      if ((this.rand.nextFloat() < 0.8 + Debugger.floats[6] || this.noHomesTime > 0) && this.outpathesLast > 0) {
                         this.outpathesLast--;
                         this.noHomesTime--;
@@ -180,7 +180,7 @@ public class HorribleVillage {
                   }
                }
             } else {
-               EnumFacing face = EnumFacing.fromAngle(GetMOP.Vec2dToYaw(-direction.x, direction.z));
+               EnumFacing face = EnumFacing.fromAngle(GetMOP.vec2DToYaw(-direction.x, direction.z));
                int structId = this.rand.nextInt(structuresHomes.length);
                NamedInt structure = structuresHomes[structId];
                BlockPos finalpos = result.pos.offset(face, structure.value);

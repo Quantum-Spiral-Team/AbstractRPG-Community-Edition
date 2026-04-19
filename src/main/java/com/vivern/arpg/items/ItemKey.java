@@ -17,11 +17,11 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 
-public class Key extends ItemItem {
+public class ItemKey extends ItemItem {
    public ChestLock lockOpens;
    public boolean consumes;
 
-   public Key(String name, int maxstacksize, ChestLock lockOpens, boolean consumes) {
+   public ItemKey(String name, int maxstacksize, ChestLock lockOpens, boolean consumes) {
       super(name, CreativeTabs.TOOLS, 0, maxstacksize);
       this.lockOpens = lockOpens;
       this.consumes = consumes;

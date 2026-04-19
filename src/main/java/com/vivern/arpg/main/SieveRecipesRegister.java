@@ -4,7 +4,7 @@ import com.vivern.arpg.recipes.Ingridient;
 import com.vivern.arpg.recipes.SieveRecipe;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;

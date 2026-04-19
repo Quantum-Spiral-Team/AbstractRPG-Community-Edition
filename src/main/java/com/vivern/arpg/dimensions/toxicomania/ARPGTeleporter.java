@@ -7,7 +7,8 @@ import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.tileentity.TilePortal;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.annotation.Nullable;
+import java.util.List;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -20,10 +21,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
 public class ARPGTeleporter {
-   public ArrayList<BlockPos> membraneConfiguration;
-   public ArrayList<BlockAtPos> frameConfiguration;
-   public ArrayList<BlockPos> groundCheck;
-   public ArrayList<BlockPos> spawnPoints;
+   public List<BlockPos> membraneConfiguration;
+   public List<BlockAtPos> frameConfiguration;
+   public List<BlockPos> groundCheck;
+   public List<BlockPos> spawnPoints;
    public IBlockState portalBlock;
    public IBlockState prototypePortalBlock = null;
    public int dimensionID;
@@ -33,10 +34,10 @@ public class ARPGTeleporter {
    public int undergroundAttempts = 8;
 
    public ARPGTeleporter(
-      ArrayList<BlockPos> membraneConfiguration,
-      ArrayList<BlockAtPos> frameConfiguration,
-      ArrayList<BlockPos> groundCheck,
-      ArrayList<BlockPos> spawnPoints,
+      List<BlockPos> membraneConfiguration,
+      List<BlockAtPos> frameConfiguration,
+      List<BlockPos> groundCheck,
+      List<BlockPos> spawnPoints,
       int dimensionID,
       IBlockState portalBlock,
       int portalHeight,
@@ -111,7 +112,7 @@ public class ARPGTeleporter {
          }
 
          if (this.prototypePortalBlock != null) {
-            Iterator var11 = this.membraneConfiguration.iterator();
+            Iterator<BlockPos> var11 = this.membraneConfiguration.iterator();
 
             IBlockState stateon;
             do {
@@ -119,14 +120,14 @@ public class ARPGTeleporter {
                   return true;
                }
 
-               BlockPos blockpx = (BlockPos)var11.next();
+               BlockPos blockpx = var11.next();
                BlockPos poss = pos.add(blockpx.getZ(), blockpx.getY(), blockpx.getX());
                stateon = world.getBlockState(poss);
             } while (stateon.getBlock() == this.prototypePortalBlock.getBlock());
 
             return false;
          } else {
-            Iterator var12 = this.membraneConfiguration.iterator();
+            Iterator<BlockPos> var12 = this.membraneConfiguration.iterator();
 
             BlockPos poss;
             IBlockState stateon;
@@ -135,7 +136,7 @@ public class ARPGTeleporter {
                   return true;
                }
 
-               BlockPos blockpx = (BlockPos)var12.next();
+               BlockPos blockpx = var12.next();
                poss = pos.add(blockpx.getZ(), blockpx.getY(), blockpx.getX());
                stateon = world.getBlockState(poss);
             } while (stateon.getBlock().isReplaceable(world, poss));

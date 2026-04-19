@@ -118,7 +118,7 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
    public float getSieveOffset(float partialTicks) {
       double spower = GetMOP.partial((float)this.sievePower, (float)this.prevSievePower, partialTicks);
       double time = GetMOP.partial(this.timeExisted, this.prevTimeExisted, (double)partialTicks);
-      double maxoffset = GetMOP.getfromto(spower, 0.0, 60.0) * 2.0 * 0.0625;
+      double maxoffset = GetMOP.getFromTo(spower, 0.0, 60.0) * 2.0 * 0.0625;
       double offset = Math.sin(time * 2.0) * maxoffset;
       return (float)offset;
    }

@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenElectrofern extends WorldGenerator {
-   public Block leaf = BlocksRegister.ELECTROFERNLEAVES;
-   public Block stem = BlocksRegister.ELECTROFERNSTEM;
+   public Block leaf = BlocksRegister.ELECTROFERN_LEAVES;
+   public Block stem = BlocksRegister.ELECTROFERN_STEM;
    public EnumFacing generateDirection = EnumFacing.UP;
    public boolean generateRotated;
    public int maxLength;

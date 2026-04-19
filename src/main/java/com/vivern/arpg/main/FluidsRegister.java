@@ -3,7 +3,7 @@ package com.vivern.arpg.main;
 import com.vivern.arpg.blocks.FluidCryon;
 import com.vivern.arpg.blocks.FluidFluid;
 import java.util.HashMap;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -135,24 +135,24 @@ public class FluidsRegister {
    }
 
    public static void registerRender() {
-      modelLoader(BlocksRegister.FLUIDCRYON, "cryon");
-      modelLoader(BlocksRegister.FLUIDPOISON, "poison");
-      modelLoader(BlocksRegister.FLUIDSLIME, "slime");
-      modelLoader(BlocksRegister.FLUIDDARKNESS, "darkness");
-      modelLoader(BlocksRegister.FLUIDLARVAWATER, "larva_water");
-      modelLoader(BlocksRegister.FLUIDHYDROTHERMAL, "hydrothermal_solution");
-      modelLoader(BlocksRegister.FLUIDBIOGENICACID, "biogenic_acid");
-      modelLoader(BlocksRegister.FLUIDTOXIN, "toxin");
-      modelLoader(BlocksRegister.FLUIDSULFURICACID, "sulfuric_acid");
-      modelLoader(BlocksRegister.FLUIDLUMINESCENT, "luminescent_liquid");
-      modelLoader(BlocksRegister.FLUIDSULFURICGAS, "sulfuric_gas");
-      modelLoader(BlocksRegister.FLUIDMANAOIL, "mana_oil");
-      modelLoader(BlocksRegister.FLUIDPETROLEUM, "petroleum");
-      modelLoader(BlocksRegister.FLUIDGASOLINE, "gasoline");
-      modelLoader(BlocksRegister.FLUIDFUELOIL, "fuel_oil");
-      modelLoader(BlocksRegister.FLUIDNITRICACID, "nitric_acid");
-      modelLoader(BlocksRegister.FLUIDNATURALGAS, "natural_gas");
-      modelLoader(BlocksRegister.FLUIDDISSOLVEDTOXINIUM, "dissolved_toxinium");
+      modelLoader(BlocksRegister.FLUID_CRYON, "cryon");
+      modelLoader(BlocksRegister.FLUID_POISON, "poison");
+      modelLoader(BlocksRegister.FLUID_SLIME, "slime");
+      modelLoader(BlocksRegister.FLUID_DARKNESS, "darkness");
+      modelLoader(BlocksRegister.FLUID_LARVA_WATER, "larva_water");
+      modelLoader(BlocksRegister.FLUID_HYDROTHERMAL, "hydrothermal_solution");
+      modelLoader(BlocksRegister.FLUID_BIOGENIC_ACID, "biogenic_acid");
+      modelLoader(BlocksRegister.FLUID_TOXIN, "toxin");
+      modelLoader(BlocksRegister.FLUID_SULFURIC_ACID, "sulfuric_acid");
+      modelLoader(BlocksRegister.FLUID_LUMINESCENT, "luminescent_liquid");
+      modelLoader(BlocksRegister.FLUID_SULFURIC_GAS, "sulfuric_gas");
+      modelLoader(BlocksRegister.FLUID_MANA_OIL, "mana_oil");
+      modelLoader(BlocksRegister.FLUID_PETROLEUM, "petroleum");
+      modelLoader(BlocksRegister.FLUID_GASOLINE, "gasoline");
+      modelLoader(BlocksRegister.FLUID_FUEL_OIL, "fuel_oil");
+      modelLoader(BlocksRegister.FLUID_NITRIC_ACID, "nitric_acid");
+      modelLoader(BlocksRegister.FLUID_NATURAL_GAS, "natural_gas");
+      modelLoader(BlocksRegister.FLUID_DISSOLVED_TOXINIUM, "dissolved_toxinium");
    }
 
    @SideOnly(Side.CLIENT)

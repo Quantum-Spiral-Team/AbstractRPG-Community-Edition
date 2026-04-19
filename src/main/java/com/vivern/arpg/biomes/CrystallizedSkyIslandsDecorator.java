@@ -32,7 +32,7 @@ class CrystallizedSkyIslandsDecorator extends BiomeDecorator {
             BlockPos toppos = GetMOP.getTopBlock(worldIn, pos.add(random.nextInt(16) + 8, 254, random.nextInt(16) + 8), BlocksRegister.FULMINIFLORA)
                .up();
             if (toppos.getY() > 5 && GenerationHelper.isReplaceable(worldIn, toppos)) {
-               worldIn.setBlockState(toppos, BlocksRegister.SHIMMERINGBEASTBLOOM.getDefaultState(), 2);
+               worldIn.setBlockState(toppos, BlocksRegister.SHIMMERING_BEASTBLOOM.getDefaultState(), 2);
             }
          }
 

@@ -67,7 +67,7 @@ public class IceSword extends ItemWeapon {
 
             if (hand != null) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               if (IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, itemRand.nextFloat() < parameters.get("freeze_chance")).success) {
+               if (IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, itemRand.nextFloat() < parameters.getF("freeze_chance")).success) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,
@@ -98,20 +98,20 @@ public class IceSword extends ItemWeapon {
                   .setCooldown(
                      (Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack))
                   );
-               if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && itemRand.nextFloat() < parameters.get("special_shot_chance")) {
+               if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && itemRand.nextFloat() < parameters.getF("special_shot_chance")) {
                   EntityLivingBase entityLivingBase = GetMOP.findNearestEnemy(
                      world,
                      player,
                      player.posX,
                      player.posY,
                      player.posZ,
-                     parameters.getEnchanted("special_shot_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack)),
+                     parameters.getEnchantedF("special_shot_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack)),
                      true
                   );
                   if (entityLivingBase != null) {
                      EntityFrostBolt projectile = new EntityFrostBolt(world, player, itemstack, Mana.getMagicPowerMax(player));
-                     projectile.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                     projectile.knockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                     projectile.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                     projectile.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                      SuperKnockback.setMove(
                         projectile,
                         -1.0F,
@@ -151,10 +151,10 @@ public class IceSword extends ItemWeapon {
             : 1.0F;
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
          int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack);
-         int potionValue1 = parameters.getEnchantedi("potion_time_add", witchery);
-         int potionValue2 = parameters.getEnchantedi("potion_power_add", witchery);
-         int potionValue3 = parameters.getEnchantedi("potion_time_max", witchery);
-         int potionValue4 = parameters.getEnchantedi("potion_power_max", witchery);
+         int potionValue1 = parameters.getEnchantedI("potion_time_add", witchery);
+         int potionValue2 = parameters.getEnchantedI("potion_power_add", witchery);
+         int potionValue3 = parameters.getEnchantedI("potion_time_max", witchery);
+         int potionValue4 = parameters.getEnchantedI("potion_power_max", witchery);
          if (isCritical) {
             potionValue1 *= 2;
          }

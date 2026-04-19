@@ -12,9 +12,9 @@ public class ColorConverters {
       float f3 = f1 * 3.0F;
       float f4 = f1 * 4.0F;
       float f5 = f1 * 5.0F;
-      float red = 1.0F - GetMOP.getfromto(hue, f1, f2) + GetMOP.getfromto(hue, f4, f5);
-      float green = GetMOP.getfromto(hue, 0.0F, f1) - GetMOP.getfromto(hue, f3, f4);
-      float blue = GetMOP.getfromto(hue, f2, f3) - GetMOP.getfromto(hue, f5, 1.0F);
+      float red = 1.0F - GetMOP.getFromTo(hue, f1, f2) + GetMOP.getFromTo(hue, f4, f5);
+      float green = GetMOP.getFromTo(hue, 0.0F, f1) - GetMOP.getFromTo(hue, f3, f4);
+      float blue = GetMOP.getFromTo(hue, f2, f3) - GetMOP.getFromTo(hue, f5, 1.0F);
       return new Vec3d(red, green, blue);
    }
 

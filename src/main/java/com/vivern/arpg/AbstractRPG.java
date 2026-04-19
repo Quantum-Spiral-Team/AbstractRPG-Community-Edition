@@ -18,6 +18,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(
    modid = Tags.MOD_ID,
@@ -26,6 +28,12 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
    version = Tags.VERSION
 )
 public class AbstractRPG {
+
+   public static final Logger LOGGER = LogManager.getLogger(Tags.MOD_NAME);
+
+   public static Logger getLogger(String name) {
+      return LogManager.getLogger(Tags.MOD_NAME + "/" + name);
+   }
 
    @Instance
    public static AbstractRPG instance;

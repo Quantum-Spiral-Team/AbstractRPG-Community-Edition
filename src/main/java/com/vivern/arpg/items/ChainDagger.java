@@ -94,7 +94,7 @@ public class ChainDagger extends Item {
 
          boolean throwed = NBTHelper.GetNBTboolean(itemstack, "throwed");
          boolean returning = NBTHelper.GetNBTboolean(itemstack, "returning");
-         Vec3d vec = GetMOP.RotatedPosRayTrace(
+         Vec3d vec = GetMOP.rotatedPosRayTrace(
             NBTHelper.GetNBTint(itemstack, "length") * this.lengthMultiplier,
             1.0F,
             player,

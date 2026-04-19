@@ -38,17 +38,17 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
 
    public NetherGrinderBullet(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.NETHERGRINDER);
+      this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
    }
 
    public NetherGrinderBullet(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.NETHERGRINDER);
+      this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
    }
 
    public NetherGrinderBullet(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.NETHERGRINDER);
+      this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
    }
 
    public NetherGrinderBullet(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -216,15 +216,15 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
       if (result.entityHit != null) {
          if (!this.repulse(result.entityHit) && Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            float bdamage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack));
-            float bknockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack));
+            float bdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack));
+            float bknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack));
             if (this.bullet != null) {
-               bdamage += this.bullet.damage * parameters.get("bullet_damage");
-               bknockback += this.bullet.knockback * parameters.get("bullet_knockback");
+               bdamage += this.bullet.damage * parameters.getF("bullet_damage");
+               bknockback += this.bullet.knockback * parameters.getF("bullet_knockback");
             }
 
             if (result.entityHit.isBurning()) {
-               bdamage += parameters.get("fire_bonus");
+               bdamage += parameters.getF("fire_bonus");
             }
 
             Weapons.dealDamage(

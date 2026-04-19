@@ -43,8 +43,8 @@ public class AnimationChannel {
 
       if (key1 != null && key2 != null) {
          float ftKey2 = key1.interpolation != Interpolations.CATMULLROM && key2.interpolation != Interpolations.CATMULLROM
-            ? GetMOP.getfromto(time, key1.keyTime, key2.keyTime)
-            : GetMOP.softfromto(time, key1.keyTime, key2.keyTime);
+            ? GetMOP.getFromTo(time, key1.keyTime, key2.keyTime)
+            : GetMOP.softFromTo(time, key1.keyTime, key2.keyTime);
          float ftKey1 = 1.0F - ftKey2;
          if (this.target == Targets.ROTATION) {
             this.modelRenderer.rotateAngleX = (float)(this.defaultRotation.x + key1.vec.x * ftKey1 + key2.vec.x * ftKey2);

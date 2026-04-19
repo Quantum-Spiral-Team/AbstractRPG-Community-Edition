@@ -7,7 +7,7 @@ import com.vivern.arpg.main.BlocksRegister;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
@@ -26,23 +26,23 @@ public class ModularStructureGenerator extends WorldGenAdvanced {
          int wallThick = 1;
          int roofThick = 2;
          ModulePlaceBlock air = new ModulePlaceBlock(generator, Blocks.AIR.getDefaultState());
-         ModulePlaceBlockFacing column = new ModulePlaceBlockFacing(generator, BlocksRegister.NIVEOUSCOLUMN, false);
-         ModulePlaceBlock bricks = new ModulePlaceBlock(generator, BlocksRegister.NIVEOUSBRICKS.getDefaultState());
-         ModulePlaceBlock polished = new ModulePlaceBlock(generator, BlocksRegister.POLISHEDNIVEOUSBLOCK.getDefaultState());
+         ModulePlaceBlockFacing column = new ModulePlaceBlockFacing(generator, BlocksRegister.NIVEOUS_COLUMN, false);
+         ModulePlaceBlock bricks = new ModulePlaceBlock(generator, BlocksRegister.NIVEOUS_BRICKS.getDefaultState());
+         ModulePlaceBlock polished = new ModulePlaceBlock(generator, BlocksRegister.POLISHED_NIVEOUS_BLOCK.getDefaultState());
          ModulePlaceBlock packetice = new ModulePlaceBlock(generator, Blocks.PACKED_ICE.getDefaultState());
          ModulePlaceBlock ice = new ModulePlaceBlock(generator, Blocks.ICE.getDefaultState());
-         ModulePlaceBlock altar = new ModulePlaceBlock(generator, BlocksRegister.NIVEOLITEGAMEBLOCK.getDefaultState());
-         ModulePlaceBlockFacing pilaster = new ModulePlaceBlockFacing(generator, BlocksRegister.NIVEOUSPILASTER, false);
-         ModulePlaceBlockFacing pilasterpolished = new ModulePlaceBlockFacing(generator, BlocksRegister.POLISHEDNIVEOUSPILASTER, false);
-         ModuleChest chest = new ModuleChest(generator, BlocksRegister.CHESTFROZEN, ListLootTable.CHESTS_NIVEOUS_HALL, 0.04F, true);
-         ModulePlaceBlock spawner = new ModulePlaceBlock(generator, BlocksRegister.MOBSPAWNERFROZEN.getDefaultState());
+         ModulePlaceBlock altar = new ModulePlaceBlock(generator, BlocksRegister.BLOCK_NIVEOLITE_GAME.getDefaultState());
+         ModulePlaceBlockFacing pilaster = new ModulePlaceBlockFacing(generator, BlocksRegister.NIVEOUS_PILASTER, false);
+         ModulePlaceBlockFacing pilasterpolished = new ModulePlaceBlockFacing(generator, BlocksRegister.POLISHED_NIVEOUS_PILASTER, false);
+         ModuleChest chest = new ModuleChest(generator, BlocksRegister.CHEST_FROZEN, ListLootTable.CHESTS_NIVEOUS_HALL, 0.04F, true);
+         ModulePlaceBlock spawner = new ModulePlaceBlock(generator, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
          spawner.interfaceOn = (sourcePos, iblockstate, facing, sourceModule, age) -> DimensionEthernalFrost.setupRandomSpawner(
             null, generator.getAccess().getTileEntity(sourcePos), DimensionEthernalFrost.EnumEverfrostSpawner.NIVEOUS_HALL, generator.rand
          );
          spawner.chance = 0.25F;
-         IBlockState holeSt = BlocksRegister.NIVEOUSHOLE.getDefaultState();
+         IBlockState holeSt = BlocksRegister.NIVEOUS_HOLE.getDefaultState();
          IBlockState iceeSt = Blocks.ICE.getDefaultState();
-         IBlockState pilaSt = BlocksRegister.POLISHEDNIVEOUSPILASTER.getDefaultState().withProperty(Pilaster.FACING, EnumFacing.DOWN);
+         IBlockState pilaSt = BlocksRegister.POLISHED_NIVEOUS_PILASTER.getDefaultState().withProperty(Pilaster.FACING, EnumFacing.DOWN);
          ModulePlaceMultiblock holes = new ModulePlaceMultiblock(generator, true)
             .add(holeSt, 0, -2, 0)
             .add(holeSt, 1, -2, 0)

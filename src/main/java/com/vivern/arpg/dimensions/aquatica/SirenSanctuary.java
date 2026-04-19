@@ -48,7 +48,7 @@ public class SirenSanctuary {
       }
 
       this.mainArray[size / 2][size / 2] = true;
-      this.bricks = BlocksRegister.SANCTUARYBRICKS.getDefaultState();
+      this.bricks = BlocksRegister.SANCTUARY_BRICKS.getDefaultState();
       this.stretch = stretch;
       this.contentGenerationChance = contentGenerationChance;
    }
@@ -181,7 +181,7 @@ public class SirenSanctuary {
                   this.world,
                   posToSet,
                   EnumChest.CORAL,
-                  new ItemStack(ItemsRegister.SACRIFICIALDAGGER),
+                  new ItemStack(ItemsRegister.SACRIFICIAL_DAGGER),
                   EnumFacing.HORIZONTALS[this.rand.nextInt(4)],
                   ChestLock.SIREN
                );
@@ -194,7 +194,7 @@ public class SirenSanctuary {
                float bound = (1.0F - (float)dist / halflongSize) * this.pyramidHeight + this.wallsHeight;
                int boundedbound = (int)MathHelper.clamp(bound, 0.0F, 12.0F);
                BlockPos newpos = posToSet.up(this.rand.nextInt(boundedbound));
-               this.world.setBlockState(newpos, BlocksRegister.MOBSPAWNERAQUATIC.getDefaultState(), 2);
+               this.world.setBlockState(newpos, BlocksRegister.AQUATIC_SPAWNER.getDefaultState(), 2);
                SpawnerTuners.SIRENSANCTUARY.setupSpawner(this.world, newpos, this.world.rand);
                float vmax = Math.min(bound, (float)(this.rand.nextInt(9) + 1));
                if (vmax > 0.99F) {
@@ -219,7 +219,7 @@ public class SirenSanctuary {
 
                   if (hasScaffold) {
                      for (int v = 1; v < (int)vmax; v++) {
-                        this.world.setBlockState(newpos.up(v), BlocksRegister.DECORATIVECHAIN.getDefaultState(), 2);
+                        this.world.setBlockState(newpos.up(v), BlocksRegister.DECORATIVE_CHAIN.getDefaultState(), 2);
                      }
                   }
                }

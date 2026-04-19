@@ -156,7 +156,7 @@ public class ItemMagicScroll extends ItemWeapon {
                   for (int z = -4; z <= 4; z++) {
                      BlockPos pos = new BlockPos(position.x + x, position.y + y, position.z + z);
                      if (world.getBlockState(pos).getBlock() == Blocks.FIRE) {
-                        world.setBlockState(pos, BlocksRegister.DEMONICFIRE.getActualState(BlocksRegister.DEMONICFIRE.getDefaultState(), world, pos));
+                        world.setBlockState(pos, BlocksRegister.DEMONIC_FIRE.getActualState(BlocksRegister.DEMONIC_FIRE.getDefaultState(), world, pos));
                      }
                   }
                }
@@ -183,7 +183,7 @@ public class ItemMagicScroll extends ItemWeapon {
                Weapons.setPotionIfEntityLB(entity, PotionEffects.FROSTBURN, 200 + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack) * 20, 0);
                BlockPos bpos = entity.getPosition();
                if (world.getBlockState(bpos).getBlock().isReplaceable(world, bpos)) {
-                  world.setBlockState(bpos, BlocksRegister.BURNINGFROST.getDefaultState());
+                  world.setBlockState(bpos, BlocksRegister.BURNING_FROST.getDefaultState());
                }
             }
          }
@@ -198,7 +198,7 @@ public class ItemMagicScroll extends ItemWeapon {
                            BlockPos pos = new BlockPos(position.x + x, position.y + y, position.z + z);
                            Block blovc = world.getBlockState(pos).getBlock();
                            if (blovc.isReplaceable(world, pos) && Weapons.isSolidColdBlock(blovc)) {
-                              world.setBlockState(pos, BlocksRegister.BURNINGFROST.getDefaultState());
+                              world.setBlockState(pos, BlocksRegister.BURNING_FROST.getDefaultState());
                            }
                         }
                      }

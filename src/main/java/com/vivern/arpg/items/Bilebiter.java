@@ -144,7 +144,7 @@ public class Bilebiter extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.BILEBITERAMMO, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.BILEBITER_SPHERE, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

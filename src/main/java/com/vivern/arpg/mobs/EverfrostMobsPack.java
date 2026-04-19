@@ -27,7 +27,7 @@ import com.vivern.arpg.tileentity.TileNexusNiveolite;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -223,7 +223,7 @@ public class EverfrostMobsPack {
             } else if (i == 5) {
                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_PICKAXE));
             } else if (i == 6) {
-               this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ItemsRegister.GOTHICAXE));
+               this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ItemsRegister.GOTHIC_AXE));
                this.inventoryHandsDropChances = new float[]{0.0F, 0.0F};
             }
 
@@ -292,7 +292,7 @@ public class EverfrostMobsPack {
          this.setattributes(60.0, 48.0, 6.0, 0.1, 3.0, 1.0, 0.2, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.ICEGEM, 0.3F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)
+               new MobDrop(ItemsRegister.ICE_GEM, 0.3F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)
             }
          );
          this.setNoGravity(true);
@@ -498,8 +498,8 @@ public class EverfrostMobsPack {
                      Vec3d centerThis = GetMOP.entityCenterPos(this);
                      Vec3d centerTarget = GetMOP.entityCenterPos(this.getAttackTarget());
                      Vec3d beam = centerTarget.subtract(centerThis);
-                     Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(beam);
-                     Vec3d perp = GetMOP.PitchYawToVec3d((float)pitchYaw.x - 90.0F, (float)pitchYaw.y).scale(5.0);
+                     Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(beam);
+                     Vec3d perp = GetMOP.pitchYawToVec3D((float)pitchYaw.x - 90.0F, (float)pitchYaw.y).scale(5.0);
                      Vec3d randomPerpVector = GetMOP.rotateVecAroundAxis(perp, beam, this.rand.nextFloat() * 6.283185F);
                      Vec3d normalizedbeam = beam.normalize().scale(2.0);
                      this.laserTarget1 = centerTarget.add(randomPerpVector).add(normalizedbeam);
@@ -511,7 +511,7 @@ public class EverfrostMobsPack {
                this.motionX *= 0.4;
                this.motionY *= 0.4;
                this.motionZ *= 0.4;
-               float ft1 = GetMOP.getfromto((float)this.laserAttackTick, 0.0F, (float)this.laserAttackTickMax);
+               float ft1 = GetMOP.getFromTo((float)this.laserAttackTick, 0.0F, (float)this.laserAttackTickMax);
                Vec3d laserPos = new Vec3d(
                   GetMOP.partial(this.laserTarget2.x, this.laserTarget1.x, (double)ft1),
                   GetMOP.partial(this.laserTarget2.y, this.laserTarget1.y, (double)ft1),
@@ -629,7 +629,7 @@ public class EverfrostMobsPack {
          this.setattributes(25.0, 42.0, 5.0, 0.5, 3.0, 0.5, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.ICEGEM, 0.3F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)
+               new MobDrop(ItemsRegister.ICE_GEM, 0.3F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)
             }
          );
          this.setNoGravity(true);
@@ -884,7 +884,7 @@ public class EverfrostMobsPack {
          this.livingSound = Sounds.frost_living;
          this.defaultteam = EverfrostMobsPack.mobsteam;
          this.setattributes(55.0, 40.0, 6.0, 0.13, 3.0, 1.0, 0.4, 0.0, 0.0, 0.0);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICEGEM, 0.6F, 0, 1, 1, 1)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.6F, 0, 1, 1, 1)});
          this.setNoGravity(true);
          this.setRoleValues(EnumMobRole.STRONG_ENEMY, 2);
          this.soul = Soul.WINTRY;
@@ -1113,7 +1113,7 @@ public class EverfrostMobsPack {
          this.setattributes(45.0, 30.0, 6.0, 0.09, 2.0, 2.0, 0.2, 0.1, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.WEATHERFRAGMENTS, 0.35F, 0, 1, 1, 0), new MobDrop(ItemsRegister.HAILTEAR, 0.1F, 0, 1, 2, 2)
+               new MobDrop(ItemsRegister.WEATHER_FRAGMENTS, 0.35F, 0, 1, 1, 0), new MobDrop(ItemsRegister.HAIL_TEAR, 0.1F, 0, 1, 2, 2)
             }
          );
          this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 2);
@@ -1191,7 +1191,7 @@ public class EverfrostMobsPack {
             this.zapCooldown--;
             if (d0 <= 15.0
                && this.zapCooldown <= 0
-               && GetMOP.thereIsNoBlockCollidesBetween(this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(attarg), 1.0F, null, true)) {
+               && GetMOP.thereIsNoBlockCollidesBetween(this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(attarg), null, true)) {
                this.zapCooldown = 60;
                IEntitySynchronize.sendSynchronize(
                   this,
@@ -1276,7 +1276,7 @@ public class EverfrostMobsPack {
          this.setattributes(60.0, 64.0, 2.0, 0.2, 4.0, 5.0, 0.3, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.ICEGEM, 0.5F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)
+               new MobDrop(ItemsRegister.ICE_GEM, 0.5F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)
             }
          );
          this.stepHeight = 1.1F;
@@ -1375,8 +1375,8 @@ public class EverfrostMobsPack {
 
             for (int i = 0; i < 4; i++) {
                int yawRand = this.rand.nextInt(360);
-               Vec3d poss = GetMOP.YawToVec3d(yawRand).scale(10.0).add(GetMOP.entityCenterPos(this));
-               Vec3d direction = GetMOP.YawToVec3d(yawRand + 90).scale(0.5);
+               Vec3d poss = GetMOP.yawToVec3D(yawRand).scale(10.0).add(GetMOP.entityCenterPos(this));
+               Vec3d direction = GetMOP.yawToVec3D(yawRand + 90).scale(0.5);
                float scl = 0.2F + this.rand.nextFloat() * 0.1F;
                int lt = 60 + this.rand.nextInt(10);
                GUNParticle part = new GUNParticle(
@@ -1435,7 +1435,7 @@ public class EverfrostMobsPack {
          this.setattributes(75.0, 42.0, 5.0, 0.11, 4.0, 4.0, 0.6, 0.15, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.ICEGEM, 0.95F, 0, 0, 3, 2), new MobDrop(ItemsRegister.SNOWCLOTH, 0.35F, 0, 1, 3, 2)
+               new MobDrop(ItemsRegister.ICE_GEM, 0.95F, 0, 0, 3, 2), new MobDrop(ItemsRegister.SNOW_CLOTH, 0.35F, 0, 1, 3, 2)
             }
          );
          this.setRoleValues(EnumMobRole.ELITE_ENEMY, 2);
@@ -1672,7 +1672,7 @@ public class EverfrostMobsPack {
          this.livingSound = Sounds.mob_ice_living;
          this.defaultteam = EverfrostMobsPack.mobsteam;
          this.setattributes(40.0, 64.0, 8.0, 0.25, 3.0, 4.0, 0.5, 0.1, 0.0, 0.0);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICEGEM, 0.12F, 0, 1, 1, 2)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.12F, 0, 1, 1, 2)});
          this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 2);
          this.soul = Soul.WINTRY;
       }
@@ -1703,13 +1703,13 @@ public class EverfrostMobsPack {
          super.onInitialSpawn(difficulty, livingdata);
          ItemStack stack;
          if (this.rand.nextFloat() < 0.8F) {
-            stack = new ItemStack(ItemsRegister.ICESWORD);
+            stack = new ItemStack(ItemsRegister.ICE_SWORD);
          } else if (this.rand.nextFloat() < 0.6F) {
-            stack = new ItemStack(ItemsRegister.GOTHICAXE);
+            stack = new ItemStack(ItemsRegister.GOTHIC_AXE);
          } else if (this.rand.nextFloat() < 0.5F) {
-            stack = new ItemStack(ItemsRegister.GOTHICSHOVEL);
+            stack = new ItemStack(ItemsRegister.GOTHIC_SHOVEL);
          } else {
-            stack = new ItemStack(ItemsRegister.GOTHICPICKAXE);
+            stack = new ItemStack(ItemsRegister.GOTHIC_PICKAXE);
          }
 
          this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
@@ -1720,7 +1720,7 @@ public class EverfrostMobsPack {
       public boolean attackEntityAsMob(Entity entityIn) {
          if (this.rand.nextFloat() < 0.2F + this.getMobDifficulty() * 0.1F
             && entityIn instanceof EntityLivingBase
-            && this.getHeldItemMainhand().getItem() == ItemsRegister.ICESWORD) {
+            && this.getHeldItemMainhand().getItem() == ItemsRegister.ICE_SWORD) {
             PotionEffect lastdebaff = Weapons.mixPotion(
                entityIn,
                PotionEffects.FREEZING,
@@ -1851,12 +1851,12 @@ public class EverfrostMobsPack {
                   BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY - 1.0, this.posZ);
                   IBlockState underState = this.world.getBlockState(blockpos);
                   Block block = underState.getBlock();
-                  if (block == BlocksRegister.SNOWICE
+                  if (block == BlocksRegister.SNOW_ICE
                      || block == BlocksRegister.GLACIER
                      || block == Blocks.PACKED_ICE
-                     || block == BlocksRegister.FROZENSTONE
-                     || block == BlocksRegister.FROZENBRICKS
-                     || block == BlocksRegister.FROZENCOBBLE) {
+                     || block == BlocksRegister.FROZEN_STONE
+                     || block == BlocksRegister.BLOCK_BLOCK_HARD
+                     || block == BlocksRegister.FROZEN_COBBLESTONE) {
                      this.setHealth(this.getHealth() - 10.0F);
                      if (this.getHealth() <= 0.0F) {
                         this.setDead();
@@ -1907,7 +1907,7 @@ public class EverfrostMobsPack {
                for (Entity entity : list) {
                   if (Weapons.dealDamage(
                         new WeaponDamage(null, this.lastAttackEntity, this, false, false, this, WeaponDamage.heavymelee),
-                        GetMOP.getfromto(movspeed, minspeed, maxspeed) * 60.0F,
+                        GetMOP.getFromTo(movspeed, minspeed, maxspeed) * 60.0F,
                         this.lastAttackEntity,
                         entity,
                         true,
@@ -2130,7 +2130,7 @@ public class EverfrostMobsPack {
          this.setattributes(40.0, 64.0, 6.5, 0.26, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.CONIFERSTICK, 0.34F, 0, 1, 2, 2), new MobDrop(Items.SNOWBALL, 0.95F, 0, 1, 4, 4)
+               new MobDrop(ItemsRegister.CONIFER_STICK, 0.34F, 0, 1, 2, 2), new MobDrop(Items.SNOWBALL, 0.95F, 0, 1, 4, 4)
             }
          );
          this.setRoleValues(EnumMobRole.SOLDIER, 2);

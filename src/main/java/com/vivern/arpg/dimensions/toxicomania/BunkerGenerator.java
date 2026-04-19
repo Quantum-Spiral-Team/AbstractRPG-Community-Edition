@@ -506,7 +506,7 @@ public class BunkerGenerator {
       boolean b = direction.getAxis() == Axis.X;
       IBlockState air = Blocks.AIR.getDefaultState();
       IBlockState walls = Blocks.STONE.getStateFromMeta(6);
-      IBlockState column = BlocksRegister.RUSTMETALL.getDefaultState();
+      IBlockState column = BlocksRegister.RUST_METAL.getDefaultState();
 
       for (int i = 0; i < length; i++) {
          for (int x = -2; x <= 2; x++) {
@@ -608,8 +608,8 @@ public class BunkerGenerator {
       int rustMinimal = rand.nextInt(11);
       int rustMaximum = rand.nextInt(3) + rustMinimal;
       IBlockState column = rand.nextFloat() < 0.5F
-         ? BlocksRegister.RUSTMETALL.getDefaultState()
-         : (rand.nextFloat() < 0.5F ? BlocksRegister.DARKRUSTMETALL.getDefaultState() : Blocks.STONE.getStateFromMeta(6));
+         ? BlocksRegister.RUST_METAL.getDefaultState()
+         : (rand.nextFloat() < 0.5F ? BlocksRegister.DARK_RUST_METALL.getDefaultState() : Blocks.STONE.getStateFromMeta(6));
       IBlockState slab = Blocks.DOUBLE_STONE_SLAB.getStateFromMeta(8);
       BlockPos pos2 = pos.add(-16, 0, -16);
 
@@ -621,11 +621,11 @@ public class BunkerGenerator {
                   if (x != 11 && x != 12 && x != 20 && x != 21 && z != 11 && z != 12 && z != 20 && z != 21) {
                      if (y <= 0 || y > 3 || (x < 15 || x > 17) && (z < 15 || z > 17)) {
                         if (rand1 && y < 2) {
-                           state = BlocksRegister.RUSTMETALL.getDefaultState();
+                           state = BlocksRegister.RUST_METAL.getDefaultState();
                         } else if (y >= darkMinimal && y <= darkMaximum) {
-                           state = BlocksRegister.DARKRUSTMETALL.getDefaultState();
+                           state = BlocksRegister.DARK_RUST_METALL.getDefaultState();
                         } else if (y >= rustMinimal && y <= rustMaximum) {
-                           state = BlocksRegister.RUSTMETALL.getDefaultState();
+                           state = BlocksRegister.RUST_METAL.getDefaultState();
                         } else {
                            state = slab;
                         }

@@ -90,7 +90,7 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
             this.length--;
             Vec3d nextMain = this.nextMainStrike(this.mainPoint);
             RayTraceResult result = GetMOP.fixedRayTraceBlocks(
-               this.world, this.thrower, this.raySize, 0.5, false, this.mainPoint, nextMain, false, true, false
+               this.world, this.thrower, this.raySize, false, this.mainPoint, nextMain, false, true, false
             );
             if (result != null && result.hitVec != null) {
                IEntitySynchronize.sendSynchronize(
@@ -137,7 +137,7 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
          for (Vec3d vec : this.points) {
             if (this.rand.nextFloat() > this.endChance) {
                Vec3d next = this.nextStrike(vec);
-               RayTraceResult resultx = GetMOP.fixedRayTraceBlocks(this.world, this.thrower, this.raySize, 0.5, false, vec, next, false, true, false);
+               RayTraceResult resultx = GetMOP.fixedRayTraceBlocks(this.world, this.thrower, this.raySize, false, vec, next, false, true, false);
                if (resultx != null && resultx.typeOfHit != Type.MISS && resultx.typeOfHit != Type.ENTITY) {
                   if (resultx != null && resultx.entityHit != null) {
                      resultx.entityHit

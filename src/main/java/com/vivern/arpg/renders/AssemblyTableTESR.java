@@ -3,7 +3,7 @@ package com.vivern.arpg.renders;
 import com.vivern.arpg.blocks.AssemblyTable;
 import com.vivern.arpg.items.models.AssemblyTableModel;
 import com.vivern.arpg.tileentity.TileAssemblyTable;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;

@@ -88,57 +88,57 @@ public class SurvivorGamestyleWatcher {
    public boolean portalPlaced = true;
    public int enchSeed;
    RSLC[] weapons = new RSLC[]{
-      rslc(0, 0, 1.0, 8, ItemsRegister.CHAINMACEIRON),
-      rslc(0, 0, 1.4, 4, ItemsRegister.CHAINMACEDIAMOND),
-      rslc(0, 0, 1.0, 5, ItemsRegister.PUMPSHOTGUN),
-      rslc(0, 0, 1.0, 5, ItemsRegister.SLIMESHOTGUN),
+      rslc(0, 0, 1.0, 8, ItemsRegister.CHAIN_MACE),
+      rslc(0, 0, 1.4, 4, ItemsRegister.DIAMOND_CHAIN_MACE),
+      rslc(0, 0, 1.0, 5, ItemsRegister.PUMP_SHOTGUN),
+      rslc(0, 0, 1.0, 5, ItemsRegister.SLIME_SHOTGUN),
       rslc(0, 0, 0.9, 10, ItemsRegister.WHIP),
-      rslc(0, 0, 1.6, 5, ItemsRegister.GRENADELAUNCHER),
-      rslc(0, 0, 0.8, 10, ItemsRegister.GEMSTAFF),
+      rslc(0, 0, 1.6, 5, ItemsRegister.GRENADE_LAUNCHER),
+      rslc(0, 0, 0.8, 10, ItemsRegister.GEM_STAFF),
       rslc(0, 0, 0.4, 10, Items.IRON_SWORD),
       rslc(0, 0, 0.6, 8, Items.DIAMOND_SWORD),
       rslc(0, 0, 0.4, 10, Items.BOW),
-      rslc(0, 0, 1.5, 5, ItemsRegister.DASHBELTBLACK),
-      rslc(0, 0, 1.0, 7, ItemsRegister.LASERPISTOL),
-      rslc(0, 0, 1.3, 6, ItemsRegister.LASERRIFLE),
-      rslc(0, 0, 1.6, 5, ItemsRegister.LASERSNIPER),
-      rslc(0, 0, 1.0, 6, ItemsRegister.MAGICBOOMERANG),
-      rslc(1, 0, 0.6, 15, ItemsRegister.INFERNALBLADE),
-      rslc(1, 0, 1.0, 10, ItemsRegister.CHAINMACEMOLTEN),
+      rslc(0, 0, 1.5, 5, ItemsRegister.DASH_BELT_BLACK),
+      rslc(0, 0, 1.0, 7, ItemsRegister.LASER_PISTOL),
+      rslc(0, 0, 1.3, 6, ItemsRegister.LASER_RIFLE),
+      rslc(0, 0, 1.6, 5, ItemsRegister.LASER_SNIPER),
+      rslc(0, 0, 1.0, 6, ItemsRegister.MAGIC_BOOMERANG),
+      rslc(1, 0, 0.6, 15, ItemsRegister.INFERNAL_BLADE),
+      rslc(1, 0, 1.0, 10, ItemsRegister.MOLTEN_CHAIN_MACE),
       rslc(1, 0, 0.9, 8, ItemsRegister.HELLMARK),
-      rslc(1, 0, 0.7, 9, ItemsRegister.ROTTENSHIELD),
-      rslc(1, 0, 1.1, 10, ItemsRegister.MOLTENGREATAXE),
+      rslc(1, 0, 0.7, 9, ItemsRegister.ROTTEN_SHIELD),
+      rslc(1, 0, 1.1, 10, ItemsRegister.MOLTEN_GREAT_AXE),
       rslc(1, 0, 0.8, 10, ItemsRegister.MAULER),
-      rslc(1, 0, 0.7, 14, ItemsRegister.LAVADROPPER),
-      rslc(1, 0, 1.1, 10, ItemsRegister.STAFFOFWITHERDRY),
+      rslc(1, 0, 0.7, 14, ItemsRegister.LAVA_DROPPER),
+      rslc(1, 0, 1.1, 10, ItemsRegister.STAFF_OF_WITHERDRY),
       rslc(1, 0, 1.1, 10, ItemsRegister.VIOLENCE),
-      rslc(1, 0, 1.0, 10, ItemsRegister.NETHERGRINDER),
-      rslc(1, 0, 1.0, 10, ItemsRegister.CINDERBOW)
+      rslc(1, 0, 1.0, 10, ItemsRegister.NETHER_GRINDER),
+      rslc(1, 0, 1.0, 10, ItemsRegister.CINDER_BOW)
    };
    RSLC[] usables = new RSLC[]{
-      rslc(0, 0, 10, ItemsRegister.GRENADECLASSIC, 8, 16),
-      rslc(0, 0, 8, ItemsRegister.GRENADEBOMB, 5, 12),
-      rslc(0, 0, 8, ItemsRegister.GRENADEMOLOTOV, 8, 18),
-      rslc(0, 0, 8, ItemsRegister.GRENADEOIL, 8, 20),
+      rslc(0, 0, 10, ItemsRegister.FRAG_GRENADE, 8, 16),
+      rslc(0, 0, 8, ItemsRegister.BOMB, 5, 12),
+      rslc(0, 0, 8, ItemsRegister.MOLOTOV_COCKTAIL, 8, 18),
+      rslc(0, 0, 8, ItemsRegister.OIL_BOTTLE, 8, 20),
       rslc(0, 0, 6, Items.GOLDEN_APPLE, 1, 2),
       rslc(0, 0, 3, Items.ENDER_PEARL, 1),
-      rslc(0, 0, 6, ItemsRegister.MAGICJAM, 1, 3),
-      rslc(1, 0, 12, ItemsRegister.GRENADEHELL, 4, 14),
-      rslc(1, 0, 10, ItemsRegister.GRENADECLASSIC, 8, 16),
-      rslc(1, 0, 8, ItemsRegister.GRENADEBOMB, 5, 12),
-      rslc(1, 0, 8, ItemsRegister.GRENADEMOLOTOV, 8, 18),
-      rslc(1, 0, 8, ItemsRegister.GRENADEOIL, 8, 20),
-      rslc(1, 1, 8, ItemsRegister.PUDDINGORANGE, 2, 5)
+      rslc(0, 0, 6, ItemsRegister.MAGIC_JAM, 1, 3),
+      rslc(1, 0, 12, ItemsRegister.HELL_GRENADE, 4, 14),
+      rslc(1, 0, 10, ItemsRegister.FRAG_GRENADE, 8, 16),
+      rslc(1, 0, 8, ItemsRegister.BOMB, 5, 12),
+      rslc(1, 0, 8, ItemsRegister.MOLOTOV_COCKTAIL, 8, 18),
+      rslc(1, 0, 8, ItemsRegister.OIL_BOTTLE, 8, 20),
+      rslc(1, 1, 8, ItemsRegister.ORANGE_PUDDING, 2, 5)
    };
    RSLC[] armor = new RSLC[]{
-      rslc(0, 0, 1.0, 10, ItemsRegister.WIZARDHELM),
-      rslc(0, 0, 1.0, 10, ItemsRegister.WIZARDCHEST),
-      rslc(0, 0, 1.0, 10, ItemsRegister.WIZARDLEGS),
-      rslc(0, 0, 1.0, 10, ItemsRegister.WIZARDBOOTS),
-      rslc(0, 0, 1.0, 10, ItemsRegister.SLIMEHELM),
-      rslc(0, 0, 1.0, 10, ItemsRegister.SLIMECHEST),
-      rslc(0, 0, 1.0, 10, ItemsRegister.SLIMELEGS),
-      rslc(0, 0, 1.0, 10, ItemsRegister.SLIMEBOOTS),
+      rslc(0, 0, 1.0, 10, ItemsRegister.WIZARD_HELM),
+      rslc(0, 0, 1.0, 10, ItemsRegister.WIZARD_CHEST),
+      rslc(0, 0, 1.0, 10, ItemsRegister.WIZARD_LEGS),
+      rslc(0, 0, 1.0, 10, ItemsRegister.WIZARD_BOOTS),
+      rslc(0, 0, 1.0, 10, ItemsRegister.SLIME_HELM),
+      rslc(0, 0, 1.0, 10, ItemsRegister.SLIME_CHEST),
+      rslc(0, 0, 1.0, 10, ItemsRegister.SLIME_LEGS),
+      rslc(0, 0, 1.0, 10, ItemsRegister.SLIME_BOOTS),
       rslc(0, 0, 1.0, 10, Items.DIAMOND_HELMET),
       rslc(0, 0, 1.0, 10, Items.DIAMOND_CHESTPLATE),
       rslc(0, 0, 1.0, 10, Items.DIAMOND_LEGGINGS),
@@ -159,14 +159,14 @@ public class SurvivorGamestyleWatcher {
       rslc(0, 0, 0.2, 5, Items.GOLDEN_CHESTPLATE),
       rslc(0, 0, 0.2, 5, Items.GOLDEN_LEGGINGS),
       rslc(0, 0, 0.2, 5, Items.GOLDEN_BOOTS),
-      rslc(1, 2, 1.3, 10, ItemsRegister.FIRELORDHELM),
-      rslc(1, 2, 1.3, 10, ItemsRegister.FIRELORDCHEST),
-      rslc(1, 2, 1.3, 10, ItemsRegister.FIRELORDLEGS),
-      rslc(1, 2, 1.3, 10, ItemsRegister.FIRELORDBOOTS),
-      rslc(1, 2, 1.3, 10, ItemsRegister.FIREMAGEHELM),
-      rslc(1, 2, 1.3, 10, ItemsRegister.FIREMAGECHEST),
-      rslc(1, 2, 1.3, 10, ItemsRegister.FIREMAGELEGS),
-      rslc(1, 2, 1.3, 10, ItemsRegister.FIREMAGEBOOTS)
+      rslc(1, 2, 1.3, 10, ItemsRegister.FIRE_LORD_HELM),
+      rslc(1, 2, 1.3, 10, ItemsRegister.FIRE_LORD_CHEST),
+      rslc(1, 2, 1.3, 10, ItemsRegister.FIRE_LORD_LEGS),
+      rslc(1, 2, 1.3, 10, ItemsRegister.FIRE_LORD_BOOTS),
+      rslc(1, 2, 1.3, 10, ItemsRegister.FIRE_MAGE_HELM),
+      rslc(1, 2, 1.3, 10, ItemsRegister.FIRE_MAGE_CHEST),
+      rslc(1, 2, 1.3, 10, ItemsRegister.FIRE_MAGE_LEGS),
+      rslc(1, 2, 1.3, 10, ItemsRegister.FIRE_MAGE_BOOTS)
    };
 
    public SurvivorGamestyleWatcher() {
@@ -190,8 +190,8 @@ public class SurvivorGamestyleWatcher {
          player.addItemStackToInventory(new ItemStack(Items.STONE_AXE));
          player.addItemStackToInventory(new ItemStack(Items.STONE_SHOVEL));
          player.addItemStackToInventory(new ItemStack(Blocks.TORCH, 64));
-         BaublesApi.getBaublesHandler(player).setStackInSlot(6, new ItemStack(ItemsRegister.CHARMOFUNDYING));
-         BaublesApi.getBaublesHandler(player).setStackInSlot(4, new ItemStack(ItemsRegister.CONTACTLENSES));
+         BaublesApi.getBaublesHandler(player).setStackInSlot(6, new ItemStack(ItemsRegister.CHARM_OF_UNDYING));
+         BaublesApi.getBaublesHandler(player).setStackInSlot(4, new ItemStack(ItemsRegister.MAGIC_CONTACT_LENSES));
          player.setHealth(player.getMaxHealth());
          Weapons.setPotionIfEntityLB(player, MobEffects.REGENERATION, 1200, 1);
          Mana.addSwarmPoints(player, 250);
@@ -473,7 +473,7 @@ public class SurvivorGamestyleWatcher {
             RSLC rslc = this.weapons[id];
             Item item = rslc.item;
             ItemStack itemStack = ItemStack.EMPTY;
-            if (item == ItemsRegister.GEMSTAFF) {
+            if (item == ItemsRegister.GEM_STAFF) {
                itemStack = GemStaff.getStackWithGem(rand.nextInt(8));
             } else {
                itemStack = new ItemStack(item, rslc.minCount + rand.nextInt(rslc.maxCount - rslc.minCount + 1));
@@ -508,7 +508,7 @@ public class SurvivorGamestyleWatcher {
          int id = this.byWeight(rand, this.weapons);
          RSLC rslc = this.weapons[id];
          Item item = rslc.item;
-         if (item == ItemsRegister.GEMSTAFF) {
+         if (item == ItemsRegister.GEM_STAFF) {
             list.add(GemStaff.getStackWithGem(rand.nextInt(8)));
          } else {
             list.add(new ItemStack(item, rslc.minCount + rand.nextInt(rslc.maxCount - rslc.minCount + 1)));
@@ -532,18 +532,18 @@ public class SurvivorGamestyleWatcher {
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, Buckshot.getBuckshotStack("silver", 6), 1, 0, 0.0F));
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, Buckshot.getBuckshotStack("gold", 5), 1, 0, 0.0F));
       list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(Items.ARROW, 20), 1, 0, 0.0F));
-      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.ARROWBOUNCING, 15), 1, 0, 0.0F));
-      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.ROCKETCOMMON, 6), 1, 0, 0.0F));
-      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.ROCKETDEMOLISHING, 2), 1, 0, 0.0F));
-      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.ROCKETMINING, 7), 1, 0, 0.0F));
-      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.SLIMECELL, 3), 1, 0, 0.0F));
-      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, IEnergyItem.getFullcharged(ItemsRegister.IONBATTERY, 5), 3, 0, 0.0F));
+      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.ARROW_BOUNCING, 15), 1, 0, 0.0F));
+      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.COMMON_ROCKET, 6), 1, 0, 0.0F));
+      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.DEMOLISHING_ROCKET, 2), 1, 0, 0.0F));
+      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.MINING_ROCKET, 7), 1, 0, 0.0F));
+      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.SLIME_CELL, 3), 1, 0, 0.0F));
+      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, IEnergyItem.getFullcharged(ItemsRegister.ION_BATTERY, 5), 3, 0, 0.0F));
    }
 
    public void addSupplyTradesToList(List<NPCMobsPack.Trade> list) {
-      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.GRENADECLASSIC, 4), 3, 0, 0.0F));
-      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.GRENADEBOMB, 2), 3, 0, 0.0F));
-      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.GRENADEOIL, 6), 3, 0, 0.0F));
+      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.FRAG_GRENADE, 4), 3, 0, 0.0F));
+      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.BOMB, 2), 3, 0, 0.0F));
+      list.add(new NPCMobsPack.Trade(ItemStack.EMPTY, new ItemStack(ItemsRegister.OIL_BOTTLE, 6), 3, 0, 0.0F));
    }
 
    public void enchantPlayerHand(EntityPlayer player, Enchantment enchantment) {

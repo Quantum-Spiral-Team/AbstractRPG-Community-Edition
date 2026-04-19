@@ -116,11 +116,11 @@ public class BubbleFishShoot extends EntityThrowable {
             int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
             Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.water),
-               parameters.getEnchanted("damage", might) * this.magicPower,
+               parameters.getEnchantedF("damage", might) * this.magicPower,
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse),
+               parameters.getEnchantedF("knockback", impulse),
                this.posX,
                this.posY,
                this.posZ

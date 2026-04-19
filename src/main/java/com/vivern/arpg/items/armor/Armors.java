@@ -24,7 +24,7 @@ import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.proxy.ClientProxy;
 import java.util.Collection;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -58,13 +58,13 @@ public class Armors {
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
-            ModelBiped whm = ClientProxy.firelordhelmmodel;
+            ModelBiped whm = ClientProxy.fireLordHelmModel;
             whm.isSneak = entityLiving.isSneaking();
             whm.isRiding = entityLiving.isRiding();
             whm.isChild = entityLiving.isChild();
             return whm;
          } else if (armorSlot == EntityEquipmentSlot.CHEST) {
-            ModelBiped whm = ClientProxy.firelordchestmodel;
+            ModelBiped whm = ClientProxy.fireLordChestModel;
             whm.isSneak = entityLiving.isSneaking();
             whm.isRiding = entityLiving.isRiding();
             whm.isChild = entityLiving.isChild();
@@ -208,13 +208,13 @@ public class Armors {
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
-            ModelBiped whm = ClientProxy.firehatmodel;
+            ModelBiped whm = ClientProxy.fireMageHatModel;
             whm.isSneak = entityLiving.isSneaking();
             whm.isRiding = entityLiving.isRiding();
             whm.isChild = entityLiving.isChild();
             return whm;
          } else if (armorSlot == EntityEquipmentSlot.CHEST) {
-            ModelBiped whm = ClientProxy.magichoodie;
+            ModelBiped whm = ClientProxy.magicHoodie;
             whm.isSneak = entityLiving.isSneaking();
             whm.isRiding = entityLiving.isRiding();
             whm.isChild = entityLiving.isChild();
@@ -308,7 +308,7 @@ public class Armors {
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
-            ModelBiped whm = ClientProxy.wizardhatmodel;
+            ModelBiped whm = ClientProxy.wizardHatModel;
             whm.isSneak = entityLiving.isSneaking();
             whm.isRiding = entityLiving.isRiding();
             whm.isChild = entityLiving.isChild();
@@ -392,11 +392,11 @@ public class Armors {
                   0,
                   0
                );
-               if (((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.TOXINIUMCHEST
+               if (((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.TOXINIUM_CHEST
                   && isCharged((ItemStack)player.inventory.armorInventory.get(2))
-                  && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.TOXINIUMLEGS
+                  && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.TOXINIUM_LEGS
                   && isCharged((ItemStack)player.inventory.armorInventory.get(1))
-                  && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.TOXINIUMBOOTS
+                  && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.TOXINIUM_BOOTS
                   && isCharged((ItemStack)player.inventory.armorInventory.get(0))) {
                   Weapons.mixPotion(
                      player,
@@ -485,7 +485,7 @@ public class Armors {
          return this.armortexture;
       }
    };
-   public static AbstractArmorSet snowcoatSET = new AbstractArmorSet("snowcoat_armor", "helmet") {
+   public static AbstractArmorSet snowCoatSET = new AbstractArmorSet("snowcoat_armor", "helmet") {
       public SnowcoatArmorModel armormodel = new SnowcoatArmorModel();
       public String[] armortextures = new String[]{
          "arpg:textures/snowcoat_armor_model_tex.png", "arpg:textures/snowcoat_armor_model_tex_blue.png", "arpg:textures/snowcoat_armor_model_tex_white.png"
@@ -613,7 +613,7 @@ public class Armors {
          .modif(0, 0.2, SharedMonsterAttributes.ATTACK_SPEED)
          .modif(2, 0.1, SharedMonsterAttributes.ATTACK_DAMAGE)
          .createArmorItems();
-      snowcoatSET.setParameters(1100, 22, AbstractArmorSet.EnumArmorRepairRatio.NORMAL)
+      snowCoatSET.setParameters(1100, 22, AbstractArmorSet.EnumArmorRepairRatio.NORMAL)
          .modif(0, 10.0, SharedMonsterAttributes.ARMOR)
          .modif(0, 2.0, PropertiesRegistry.ARMOR_PROTECTION)
          .modif(0, 36.0, PropertiesRegistry.MANA_MAX)

@@ -31,17 +31,17 @@ public class EntitySummon extends EntityThrowable {
 
    public EntitySummon(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.WANDOFBLAZES);
+      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
    }
 
    public EntitySummon(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.WANDOFBLAZES);
+      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
    }
 
    public EntitySummon(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.WANDOFBLAZES);
+      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
    }
 
    public EntitySummon(World world, EntityLivingBase thrower, int entityType, int maxCount, ItemStack itemstack) {

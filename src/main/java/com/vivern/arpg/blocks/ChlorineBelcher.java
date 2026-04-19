@@ -6,7 +6,6 @@ import com.vivern.arpg.main.Sounds;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -68,13 +67,13 @@ public class ChlorineBelcher extends BlockBlockHard {
       Block bloc = st.getBlock();
       return this.canPlaceBlockAt(worldIn, pos)
          && (
-            bloc == BlocksRegister.TOXICGRASS
-               || bloc == BlocksRegister.TOXICDIRT
+            bloc == BlocksRegister.TOXIC_GRASS
+               || bloc == BlocksRegister.TOXIC_DIRT
                || bloc == BlocksRegister.SLUDGE
                || bloc == BlocksRegister.JUNK
-               || bloc == BlocksRegister.NUCLEARWASTE
-               || bloc == BlocksRegister.TOXIBERRYLOG
-               || bloc == BlocksRegister.TOXIBERRYLEAVES
+               || bloc == BlocksRegister.NUCLEAR_WASTE
+               || bloc == BlocksRegister.TOXIBERRY_LOG
+               || bloc == BlocksRegister.TOXIBERRY_LEAVES
          );
    }
 

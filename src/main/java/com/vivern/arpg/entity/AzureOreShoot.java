@@ -40,19 +40,19 @@ public class AzureOreShoot extends EntityThrowable {
 
    public AzureOreShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.STAFFOFTHEAZUREORE);
+      this.weaponstack = new ItemStack(ItemsRegister.AZURE_ORE_STAFF);
       this.setHomingPower();
    }
 
    public AzureOreShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.STAFFOFTHEAZUREORE);
+      this.weaponstack = new ItemStack(ItemsRegister.AZURE_ORE_STAFF);
       this.setHomingPower();
    }
 
    public AzureOreShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.STAFFOFTHEAZUREORE);
+      this.weaponstack = new ItemStack(ItemsRegister.AZURE_ORE_STAFF);
       this.setHomingPower();
    }
 
@@ -68,7 +68,7 @@ public class AzureOreShoot extends EntityThrowable {
          this.homingPower = 0.0F;
       } else {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         float homingpower = parameters.get("homing_power") + this.rand.nextFloat() * parameters.get("homing_power_random");
+         float homingpower = parameters.getF("homing_power") + this.rand.nextFloat() * parameters.getF("homing_power_random");
          this.homingPower = -homingpower;
       }
    }
@@ -103,7 +103,7 @@ public class AzureOreShoot extends EntityThrowable {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
             if (!this.powered) {
                double max = Double.MAX_VALUE;
-               double damageRadius = parameters.getEnchanted("find_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+               double damageRadius = parameters.getEnchantedF("find_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
                AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
                   .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
                   .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -116,7 +116,7 @@ public class AzureOreShoot extends EntityThrowable {
                         && EntitySelectors.NOT_SPECTATING.apply(entitylivingbase)
                         && entitylivingbase.getHealth() > 0.0F
                         && GetMOP.thereIsNoBlockCollidesBetween(
-                           this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbase), 1.0F, null, false
+                           this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbase), null, false
                         )) {
                         double dist = entitylivingbase.getDistance(this);
                         if (dist < max) {
@@ -133,7 +133,7 @@ public class AzureOreShoot extends EntityThrowable {
                            && EntitySelectors.NOT_SPECTATING.apply(entitylivingbasex)
                            && entitylivingbasex.getHealth() > 0.0F
                            && GetMOP.thereIsNoBlockCollidesBetween(
-                              this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasex), 1.0F, null, false
+                              this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasex), null, false
                            )) {
                            double dist = entitylivingbasex.getDistance(this);
                            if (dist < max) {
@@ -148,8 +148,8 @@ public class AzureOreShoot extends EntityThrowable {
 
             if (this.targ == null) {
                float randommotion = this.powered
-                  ? parameters.getEnchanted("random_motion_powered", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack))
-                  : parameters.getEnchanted("random_motion", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack));
+                  ? parameters.getEnchantedF("random_motion_powered", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack))
+                  : parameters.getEnchantedF("random_motion", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack));
                this.motionX = this.motionX + this.rand.nextGaussian() * randommotion;
                this.motionY = this.motionY + this.rand.nextGaussian() * randommotion;
                this.motionZ = this.motionZ + this.rand.nextGaussian() * randommotion;
@@ -214,11 +214,11 @@ public class AzureOreShoot extends EntityThrowable {
             int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
             Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.magic),
-               parameters.getEnchanted("damage", might) * this.magicPower,
+               parameters.getEnchantedF("damage", might) * this.magicPower,
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse),
+               parameters.getEnchantedF("knockback", impulse),
                this.prevPosX,
                this.prevPosY,
                this.prevPosZ

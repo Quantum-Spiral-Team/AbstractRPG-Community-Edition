@@ -4,7 +4,7 @@ import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.renders.MyRenderHelper;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -87,8 +87,8 @@ public abstract class LaserModel {
    public abstract void renderLaser(Entity var1, Vec3d var2, float var3, float var4, double var5, double var7, double var9, double var11, float var13);
 
    public void renderLaserModelInWorld(Entity entity, Vec3d start, Vec3d end, float partialTicks) {
-      float rp = GetMOP.Vec3dToPitchYawFixed(end.subtract(start)).x;
-      float rw = GetMOP.Vec3dToPitchYawFixed(end.subtract(start)).y;
+      float rp = GetMOP.vec3DToPitchYawFixed(end.subtract(start)).x;
+      float rw = GetMOP.vec3DToPitchYawFixed(end.subtract(start)).y;
       rp = -rp;
       rw = -rw + 180.0F;
       Vec3d rvePos = MyRenderHelper.getRenderViewEntityPosition(partialTicks);
@@ -335,7 +335,7 @@ public abstract class LaserModel {
          } else {
             MyRenderHelper.renderLaserFacedToCamera(
                laserPos,
-               GetMOP.PitchYawToVec3d(laserPitch, laserYaw),
+               GetMOP.pitchYawToVec3D(laserPitch, laserYaw),
                (float)distance,
                this.scale,
                0.0F,

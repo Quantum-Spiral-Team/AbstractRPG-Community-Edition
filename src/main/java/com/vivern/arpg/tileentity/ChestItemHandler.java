@@ -3,7 +3,7 @@ package com.vivern.arpg.tileentity;
 import com.google.common.base.Objects;
 import java.lang.ref.WeakReference;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

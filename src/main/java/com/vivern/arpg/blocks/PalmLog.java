@@ -25,16 +25,16 @@ public class PalmLog extends BlockRotatedPillar implements IBlockHardBreak {
       super(Material.WOOD);
       this.setRegistryName("palm_log");
       this.setTranslationKey("palm_log");
-      this.blockHardness = BlocksRegister.HR_PALM.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_PALM.RESISTANCE;
+      this.blockHardness = BlocksRegister.HR_PALM.hardness;
+      this.blockResistance = BlocksRegister.HR_PALM.resistance;
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
       this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
       this.setSoundType(SoundType.WOOD);
-      this.setHarvestLevel("axe", BlocksRegister.HR_PALM.LVL);
+      this.setHarvestLevel("axe", BlocksRegister.HR_PALM.lvl);
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_PALM;
    }
 

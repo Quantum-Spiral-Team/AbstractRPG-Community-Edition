@@ -3,7 +3,7 @@ package com.vivern.arpg.main;
 import baubles.api.BaublesApi;
 import com.vivern.arpg.items.IWeapon;
 import java.lang.reflect.Field;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -97,7 +97,7 @@ public class FOVUpdateTracker {
    public static void onZoom(FOVUpdateEvent e) {
       ItemStack current = e.getEntity().getHeldItemMainhand();
       IWeapon iw = current.getItem() instanceof IWeapon ? (IWeapon)current.getItem() : null;
-      boolean aimlens = BaublesApi.isBaubleEquipped(e.getEntity(), ItemsRegister.AIMLENS) > -1;
+      boolean aimlens = BaublesApi.isBaubleEquipped(e.getEntity(), ItemsRegister.AIM_LENS) > -1;
       boolean active = PlayerButtonTracker.getScopeActive(e.getEntity(), iw != null && iw.hasZoom(current) || aimlens);
       float fov = disableSpeedFOV(e.getEntity()) ? getStandartFovModifierWithoutSpeed(e.getEntity()) : e.getFov();
       boolean iweaponhaszoom = false;

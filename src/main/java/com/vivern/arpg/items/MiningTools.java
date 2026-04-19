@@ -29,7 +29,7 @@ import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -145,11 +145,11 @@ public class MiningTools {
             if (mode == 0) {
                Vec3d pos = GetMOP.posRayTrace(this.getLength(itemstack), 1.0F, player, 0.3, 0.3);
                AxisAlignedBB miningBox = GetMOP.newAABB(pos, 0.2);
-               List<BlockPos> listposes = GetMOP.getBlockPosesCollidesAABBwithTheirHitbox(world, miningBox, false);
+               List<BlockPos> listPoses = GetMOP.getBlockPosesCollidesAABB(world, miningBox, false);
                BlockBreaking blockBreaking = BlockBreaking.getBlockBreaking((WorldServer)world);
                int blocksBreak = 0;
 
-               for (BlockPos blockPos : listposes) {
+               for (BlockPos blockPos : listPoses) {
                   IBlockState state = world.getBlockState(blockPos);
                   if (BlockBreaking.isToolEffective("axe", state)) {
                      if (blockBreaking.damageBlock(
@@ -189,7 +189,7 @@ public class MiningTools {
                }
 
                if (player.ticksExisted % (4 - (int)(Math.min(speed, 20) * 0.15F)) == 0) {
-                  if (!listposes.isEmpty()) {
+                  if (!listPoses.isEmpty()) {
                      IWeapon.fireBomEffect(this, player, world, speed);
                   }
 
@@ -220,7 +220,7 @@ public class MiningTools {
                }
 
                if (player.ticksExisted % 4 == 0) {
-                  if (!listposes.isEmpty()) {
+                  if (!listPoses.isEmpty()) {
                      IWeapon.sendIWeaponState(itemstack, player, 2, itemSlot, EnumHand.MAIN_HAND);
                   } else {
                      IWeapon.sendIWeaponState(itemstack, player, 1, itemSlot, EnumHand.MAIN_HAND);
@@ -233,7 +233,7 @@ public class MiningTools {
             }
 
             if (mode == 1 || mode == 2) {
-               RayTraceResult result = GetMOP.fixedRayTraceBlocks(world, player, this.getLength(itemstack), 0.2, 0.2, true, false, true, false);
+               RayTraceResult result = GetMOP.fixedRayTraceBlocks(world, player, this.getLength(itemstack), 0.2, true, false, true, false);
                int blocksBreak = 0;
                boolean hit = false;
                if (result.typeOfHit == Type.BLOCK && result.getBlockPos() != null) {
@@ -684,7 +684,7 @@ public class MiningTools {
          if (!world.isRemote) {
             Vec3d pos = GetMOP.posRayTrace(this.getLength(itemstack), 1.0F, player, 0.4, 0.4);
             AxisAlignedBB miningBox = GetMOP.newAABB(pos, mode == 0 ? 0.25 : 0.6);
-            List<BlockPos> listposes = GetMOP.getBlockPosesCollidesAABBwithTheirHitbox(world, miningBox, false);
+            List<BlockPos> listposes = GetMOP.getBlockPosesCollidesAABB(world, miningBox, false);
             BlockBreaking blockBreaking = BlockBreaking.getBlockBreaking((WorldServer)world);
             int blocksBreak = 0;
             float breakingSpeed = mode == 0 ? this.getBreakingSpeed(itemstack, player) : this.getBreakingSpeed(itemstack, player) / 4.0F;
@@ -904,7 +904,7 @@ public class MiningTools {
 
       public EyelightProspector(String name, int maxDamage, int maxRF, int throughput, int electricNeed) {
          super(name, maxDamage, maxRF, throughput, electricNeed);
-         this.itemNeed = ItemsRegister.EREBRISFRAGMENT;
+         this.itemNeed = ItemsRegister.EREBRIS_FRAGMENT;
          this.chargesPerItem = 1800;
       }
 
@@ -1508,7 +1508,7 @@ public class MiningTools {
                vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
             );
             RayTraceResult result = GetMOP.fixedRayTraceBlocks(
-               world, player, 0.2, 0.2, true, vec3d, vec3d2, false, true, false, this.canImpactGlass ? null : this.filterGlass
+               world, player, 0.2, true, vec3d, vec3d2, false, true, false, this.canImpactGlass ? null : this.filterGlass
             );
             Vec3d vec = vec3d2;
             int blocksBreak = 0;
@@ -1668,7 +1668,7 @@ public class MiningTools {
 
       public NuclearMiningRay(String name, int maxDamage, int maxRF, int throughput, int electricNeed) {
          super(name, maxDamage, maxRF, throughput, electricNeed);
-         this.itemNeed = ItemsRegister.INGOTURANIUM;
+         this.itemNeed = ItemsRegister.URANIUM_INGOT;
          this.chargesPerItem = 2800;
       }
 
@@ -1839,7 +1839,7 @@ public class MiningTools {
 
       public PlasmaCutter(String name, int maxDamage, int maxRF, int throughput, int electricNeed) {
          super(name, maxDamage, maxRF, throughput, electricNeed);
-         this.itemNeed = ItemsRegister.BLUEARTHROSTELECHAROD;
+         this.itemNeed = ItemsRegister.BLUE_ARTHROSTELECHA_ROD;
          this.chargesPerItem = 1000;
       }
 

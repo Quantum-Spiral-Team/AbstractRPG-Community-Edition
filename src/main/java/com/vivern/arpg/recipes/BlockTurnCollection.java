@@ -3,7 +3,7 @@ package com.vivern.arpg.recipes;
 import com.vivern.arpg.main.GetMOP;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;

@@ -40,17 +40,17 @@ public class EntitySwordGhost extends EntityThrowable {
 
    public EntitySwordGhost(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.GHOSTSWORD);
+      this.weaponstack = new ItemStack(ItemsRegister.GHOST_SWORD);
    }
 
    public EntitySwordGhost(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.GHOSTSWORD);
+      this.weaponstack = new ItemStack(ItemsRegister.GHOST_SWORD);
    }
 
    public EntitySwordGhost(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.GHOSTSWORD);
+      this.weaponstack = new ItemStack(ItemsRegister.GHOST_SWORD);
    }
 
    public EntitySwordGhost(World world, EntityLivingBase thrower, ItemStack itemstack) {

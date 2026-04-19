@@ -42,13 +42,13 @@ public class MutatedFlowerRed extends Block implements IGrowable {
 
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       Block block = worldIn.getBlockState(pos.down()).getBlock();
-      return block == BlocksRegister.TOXICGRASS || block == BlocksRegister.TOXICDIRT || block == BlocksRegister.TOXIBERRYLOG;
+      return block == BlocksRegister.TOXIC_GRASS || block == BlocksRegister.TOXIC_DIRT || block == BlocksRegister.TOXIBERRY_LOG;
    }
 
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
       Block block = worldIn.getBlockState(pos.down()).getBlock();
-      if (block != BlocksRegister.TOXICGRASS && block != BlocksRegister.TOXICDIRT && block != BlocksRegister.TOXIBERRYLOG) {
+      if (block != BlocksRegister.TOXIC_GRASS && block != BlocksRegister.TOXIC_DIRT && block != BlocksRegister.TOXIBERRY_LOG) {
          this.dropBlockAsItem(worldIn, pos, state, 0);
          worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
       }
@@ -91,7 +91,7 @@ public class MutatedFlowerRed extends Block implements IGrowable {
    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
       if (rand.nextFloat() < 0.07) {
          Block block = worldIn.getBlockState(pos.down()).getBlock();
-         if (block == BlocksRegister.TOXICGRASS || block == BlocksRegister.TOXICDIRT) {
+         if (block == BlocksRegister.TOXIC_GRASS || block == BlocksRegister.TOXIC_DIRT) {
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             WorldServer worldServer = (WorldServer)worldIn;
             MinecraftServer minecraftServer = worldIn.getMinecraftServer();

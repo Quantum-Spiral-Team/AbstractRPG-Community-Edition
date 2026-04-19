@@ -17,7 +17,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenBase;
 
 public class EthernalFrostCavesMapGen extends MapGenBase {
-   protected static final IBlockState BLK_LAVA = BlocksRegister.FLUIDCRYON.getDefaultState();
+   protected static final IBlockState BLK_LAVA = BlocksRegister.FLUID_CRYON.getDefaultState();
    protected static final IBlockState BLK_AIR = Blocks.AIR.getDefaultState();
    protected static final IBlockState BLK_SANDSTONE = Blocks.SANDSTONE.getDefaultState();
    protected static final IBlockState BLK_RED_SANDSTONE = Blocks.RED_SANDSTONE.getDefaultState();
@@ -230,13 +230,13 @@ public class EthernalFrostCavesMapGen extends MapGenBase {
          return true;
       } else if (p_175793_1_.getBlock() == Blocks.DIRT) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.FROZENCOBBLE) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.FROZEN_COBBLESTONE) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.FROZENSTONE) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.FROZEN_STONE) {
          return true;
       } else if (p_175793_1_.getBlock() == BlocksRegister.GLACIER) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.SNOWICE) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.SNOW_ICE) {
          return true;
       } else if (p_175793_1_.getBlock() == Blocks.GRASS) {
          return true;

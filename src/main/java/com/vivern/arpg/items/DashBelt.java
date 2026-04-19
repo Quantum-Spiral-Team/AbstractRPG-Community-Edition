@@ -10,7 +10,7 @@ import com.vivern.arpg.main.Keys;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -345,7 +345,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
             pitch -= 45;
          }
 
-         return GetMOP.PitchYawToVec3d(pitch, player.rotationYaw + angle);
+         return GetMOP.pitchYawToVec3D(pitch, player.rotationYaw + angle);
       }
    }
 
@@ -539,8 +539,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       }
    }
 
-   public static class HellhoundBelt extends DashBelt {
-      public HellhoundBelt() {
+   public static class DashHellhoundBelt extends DashBelt {
+      public DashHellhoundBelt() {
          super("hellhound_belt", new ResourceLocation("arpg:textures/hellhound_belt_tex.png"));
          this.dashVelocity = 1.1F;
          this.exhaustion = 0.12F;
@@ -617,8 +617,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       }
    }
 
-   public static class ImpulseCorslet extends DashBelt {
-      public ImpulseCorslet() {
+   public static class DashImpulseCorslet extends DashBelt {
+      public DashImpulseCorslet() {
          super("impulse_corslet", new ResourceLocation("arpg:textures/impulse_corslet_tex.png"));
          this.dashVelocity = 1.2F;
          this.exhaustion = 0.11F;

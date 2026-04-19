@@ -10,7 +10,7 @@ import com.vivern.arpg.main.WeaponParameters;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,17 +34,17 @@ public class PistolFishStrike extends EntityThrowable {
 
    public PistolFishStrike(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.PISTOLFISH);
+      this.weaponstack = new ItemStack(ItemsRegister.PISTOL_FISH);
    }
 
    public PistolFishStrike(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.PISTOLFISH);
+      this.weaponstack = new ItemStack(ItemsRegister.PISTOL_FISH);
    }
 
    public PistolFishStrike(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.PISTOLFISH);
+      this.weaponstack = new ItemStack(ItemsRegister.PISTOL_FISH);
    }
 
    public PistolFishStrike(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -147,11 +147,11 @@ public class PistolFishStrike extends EntityThrowable {
             int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
             Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.pierce),
-               parameters.getEnchanted("damage", might),
+               parameters.getEnchantedF("damage", might),
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse),
+               parameters.getEnchantedF("knockback", impulse),
                this.posX,
                this.posY,
                this.posZ
@@ -164,8 +164,8 @@ public class PistolFishStrike extends EntityThrowable {
                if (entitylivingbase.getHealth() <= 0.0F
                   && entitylivingbase.deathTime <= 1
                   && this.rand.nextFloat()
-                     < parameters.getEnchanted("feed_drop_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack))) {
-                  entitylivingbase.entityDropItem(new ItemStack(ItemsRegister.FISHFEED), 0.1F);
+                     < parameters.getEnchantedF("feed_drop_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack))) {
+                  entitylivingbase.entityDropItem(new ItemStack(ItemsRegister.FISH_FEED), 0.1F);
                }
             }
 

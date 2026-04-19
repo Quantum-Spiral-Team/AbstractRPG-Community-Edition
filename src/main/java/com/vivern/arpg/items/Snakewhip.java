@@ -59,7 +59,7 @@ public class Snakewhip extends Whip {
       );
       if (hitSomeone) {
          int whipMaxCharge = WeaponParameters.getWeaponParameters(this)
-            .getEnchantedi("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
+            .getEnchantedI("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
          NBTHelper.SetNBTint(itemstack, -whipMaxCharge, "charge");
          if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && !player.world.isRemote) {
             EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(
@@ -68,7 +68,7 @@ public class Snakewhip extends Whip {
             entityareaeffectcloud.setOwner(player);
             entityareaeffectcloud.setParticle(EnumParticleTypes.SLIME);
             float splashAttackRadius = WeaponParameters.getWeaponParameters(this)
-               .getEnchanted("splash_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+               .getEnchantedF("splash_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
             entityareaeffectcloud.setRadius(splashAttackRadius);
             entityareaeffectcloud.setDuration(500);
             entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / entityareaeffectcloud.getDuration());
@@ -113,8 +113,8 @@ public class Snakewhip extends Whip {
    @Override
    public void onSpecAttackDamage(Entity entity, Vec3d pos, IWeapon iweapon, ItemStack itemstack, EntityPlayer player, EnumHand hand, float damage) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int time = parameters.getEnchantedi("slime_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack));
-      int power = parameters.geti("slime_power");
+      int time = parameters.getEnchantedI("slime_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack));
+      int power = parameters.getI("slime_power");
       Weapons.setPotionIfEntityLB(entity, PotionEffects.SLIME, time, power);
    }
 
@@ -126,9 +126,9 @@ public class Snakewhip extends Whip {
          if (charge < 0) {
             NBTHelper.AddNBTint(stack, 1, "charge");
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int timemin = parameters.getEnchantedi("toxin_time_min", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack));
-            int timemax = parameters.getEnchantedi("toxin_time_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack));
-            int power = parameters.geti("toxin_power");
+            int timemin = parameters.getEnchantedI("toxin_time_min", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack));
+            int timemax = parameters.getEnchantedI("toxin_time_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack));
+            int power = parameters.getI("toxin_power");
             PotionEffect eff = new PotionEffect(PotionEffects.TOXIN, timemin + itemRand.nextInt(timemax - timemin + 1), power);
             livingBase.addPotionEffect(eff);
          }

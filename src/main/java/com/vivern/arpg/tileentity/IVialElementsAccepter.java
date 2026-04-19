@@ -2,7 +2,7 @@ package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.recipes.EnergyCost;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.ItemStack;
 
 public interface IVialElementsAccepter {

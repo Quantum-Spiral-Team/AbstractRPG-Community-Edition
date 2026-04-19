@@ -39,7 +39,7 @@ class ElectrofernGroveDecorator extends BiomeDecorator {
             BlockPos toppos = GetMOP.getTopBlock(worldIn, pos.add(random.nextInt(16) + 8, 254, random.nextInt(16) + 8), BlocksRegister.FULMINIFLORA)
                .up();
             if (toppos.getY() > 5 && GenerationHelper.isReplaceable(worldIn, toppos)) {
-               worldIn.setBlockState(toppos, BlocksRegister.SHIMMERINGBEASTBLOOM.getDefaultState(), 2);
+               worldIn.setBlockState(toppos, BlocksRegister.SHIMMERING_BEASTBLOOM.getDefaultState(), 2);
             }
          }
 
@@ -81,7 +81,7 @@ class ElectrofernGroveDecorator extends BiomeDecorator {
                   13 + random.nextInt(10) + noisePerlin1,
                   5 + random.nextInt(6) + noisePerlin2,
                   BlocksRegister.FULMINIFLORA,
-                  BlocksRegister.ARTHROSTELECHALOGBRASS
+                  BlocksRegister.ARTHROSTELECHA_LOG_BRASS
                );
             }
          }
@@ -91,7 +91,7 @@ class ElectrofernGroveDecorator extends BiomeDecorator {
             if (!worldIn.collidesWithAnyBlock(new AxisAlignedBB(randomPos).grow(6.0))) {
                WorldGenElectrofern gen = new WorldGenElectrofern();
                gen.maxLength = 5 + random.nextInt(30);
-               worldIn.setBlockState(randomPos, BlocksRegister.ELECTROFERNSTEM.getDefaultState(), 2);
+               worldIn.setBlockState(randomPos, BlocksRegister.ELECTROFERN_STEM.getDefaultState(), 2);
                boolean rotate = random.nextFloat() < 0.5F;
 
                for (EnumFacing facing : EnumFacing.VALUES) {
@@ -99,13 +99,13 @@ class ElectrofernGroveDecorator extends BiomeDecorator {
                   if (!rotate) {
                      gen.generateRotated = false;
                      if (facing.getAxis() != Axis.X) {
-                        worldIn.setBlockState(randomPos.offset(facing), BlocksRegister.ELECTROFERNSTEM.getDefaultState(), 2);
+                        worldIn.setBlockState(randomPos.offset(facing), BlocksRegister.ELECTROFERN_STEM.getDefaultState(), 2);
                         gen.generate(worldIn, random, randomPos.offset(facing));
                      }
                   } else {
                      gen.generateRotated = facing.getAxis() == Axis.Y;
                      if (facing.getAxis() != Axis.Z) {
-                        worldIn.setBlockState(randomPos.offset(facing), BlocksRegister.ELECTROFERNSTEM.getDefaultState(), 2);
+                        worldIn.setBlockState(randomPos.offset(facing), BlocksRegister.ELECTROFERN_STEM.getDefaultState(), 2);
                         gen.generate(worldIn, random, randomPos.offset(facing));
                      }
                   }

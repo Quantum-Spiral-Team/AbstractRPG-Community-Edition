@@ -6,7 +6,6 @@ import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -115,7 +114,7 @@ public class EntityArrowFirejet extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWFIREJET);
+      return new ItemStack(ItemsRegister.ARROW_FIREJET);
    }
 
    @SideOnly(Side.CLIENT)

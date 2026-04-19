@@ -61,7 +61,7 @@ public class EtherSign extends Item implements IBauble, IRenderBauble {
          EntityPlayer player = (EntityPlayer)e.getEntityLiving();
          IInventory inventory = BaublesApi.getBaubles(player);
          ItemStack stack = inventory.getStackInSlot(6);
-         if (stack.getItem() == ItemsRegister.ETHERSIGN && stack.getItemDamage() < 2000 && e.getSource() == DamageSource.FALL) {
+         if (stack.getItem() == ItemsRegister.ETHER_SIGN && stack.getItemDamage() < 2000 && e.getSource() == DamageSource.FALL) {
             e.setCanceled(true);
             inventory.getStackInSlot(6).damageItem(1, player);
          }

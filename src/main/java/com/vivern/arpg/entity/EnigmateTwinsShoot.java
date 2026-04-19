@@ -38,19 +38,19 @@ public class EnigmateTwinsShoot extends EntityThrowable {
 
    public EnigmateTwinsShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.ENIGMATETWINS);
+      this.weaponstack = new ItemStack(ItemsRegister.ENIGMATE_TWINS);
       this.randomizeHoming();
    }
 
    public EnigmateTwinsShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.ENIGMATETWINS);
+      this.weaponstack = new ItemStack(ItemsRegister.ENIGMATE_TWINS);
       this.randomizeHoming();
    }
 
    public EnigmateTwinsShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.ENIGMATETWINS);
+      this.weaponstack = new ItemStack(ItemsRegister.ENIGMATE_TWINS);
       this.randomizeHoming();
    }
 

@@ -18,7 +18,7 @@ import com.vivern.arpg.tileentity.TileARPGChest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockLog.EnumAxis;
@@ -52,16 +52,16 @@ import net.minecraftforge.event.terraingen.InitNoiseGensEvent.ContextOverworld;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType;
 
 public class ToxicomaniaChunkGenerator implements IChunkGenerator {
-   public static final IBlockState STONE = BlocksRegister.RADIOSTONE.getDefaultState();
+   public static final IBlockState STONE = BlocksRegister.RADIOACTIVE_STONE.getDefaultState();
    public static final IBlockState SLUDGE = BlocksRegister.SLUDGE.getDefaultState();
    public static final IBlockState JUNK = BlocksRegister.JUNK.getDefaultState();
    public static final IBlockState SCRAP = BlocksRegister.SCRAP.getDefaultState();
-   public static final IBlockState DIRT = BlocksRegister.TOXICDIRT.getDefaultState();
-   public static final IBlockState GRASS = BlocksRegister.TOXICGRASS.getDefaultState();
-   public static final IBlockState WASTE = BlocksRegister.NUCLEARWASTE.getDefaultState();
-   public static final IBlockState COBBLE = BlocksRegister.RADIOCOBBLE.getDefaultState();
-   public static final IBlockState SLIME = BlocksRegister.BROWNSLIME.getDefaultState();
-   public static final IBlockState WATER = BlocksRegister.FLUIDPOISON.getDefaultState();
+   public static final IBlockState DIRT = BlocksRegister.TOXIC_DIRT.getDefaultState();
+   public static final IBlockState GRASS = BlocksRegister.TOXIC_GRASS.getDefaultState();
+   public static final IBlockState WASTE = BlocksRegister.NUCLEAR_WASTE.getDefaultState();
+   public static final IBlockState COBBLE = BlocksRegister.RADIOACTIVE_COBBLESTONE.getDefaultState();
+   public static final IBlockState SLIME = BlocksRegister.BROWN_SLIME.getDefaultState();
+   public static final IBlockState WATER = BlocksRegister.FLUID_POISON.getDefaultState();
    public static final IBlockState AIR = Blocks.AIR.getDefaultState();
    public static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
    private final Random rand;
@@ -78,7 +78,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
    private final double[] heightMap;
    private final float[] biomeWeights;
    private ChunkGenSettingsToxic settings;
-   private IBlockState oceanBlock = BlocksRegister.FLUIDPOISON.getDefaultState();
+   private IBlockState oceanBlock = BlocksRegister.FLUID_POISON.getDefaultState();
    private double[] depthBuffer = new double[256];
    private MapGenBase caveGenerator = new ToxicomaniaCavesMapGen();
    private MapGenMineshaft mineshaftGenerator = new MapGenMineshaft();
@@ -93,13 +93,13 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
    public CustomOreGenerator toxiniumOreGen;
    public CustomOreGenerator wolframOreGen;
    public CustomOreGenerator lepidoliteOreGen;
-   public WorldGenSpread slimeblobs = new WorldGenSpread(BlocksRegister.SLIMEBLOB, 18, 5, 4, null, false);
+   public WorldGenSpread slimeblobs = new WorldGenSpread(BlocksRegister.SLIME_BLOB, 18, 5, 4, null, false);
    public WorldGenToxicBarrels barrels = new WorldGenToxicBarrels(20, 5, 3);
-   public WorldGenSpread bones = new WorldGenSpread(BlocksRegister.BONESPILE, 15, 3, 2, null, false);
+   public WorldGenSpread bones = new WorldGenSpread(BlocksRegister.BONES_PILE, 15, 3, 2, null, false);
    public WorldGenPetroleum petroleumGenerator = new WorldGenPetroleum(
-         BlocksRegister.FLUIDPETROLEUM.getDefaultState(),
-         BlocksRegister.RADIOSTONE.getDefaultState(),
-         BlocksRegister.FLUIDNATURALGAS.getDefaultState(),
+         BlocksRegister.FLUID_PETROLEUM.getDefaultState(),
+         BlocksRegister.RADIOACTIVE_STONE.getDefaultState(),
+         BlocksRegister.FLUID_NATURAL_GAS.getDefaultState(),
          172,
          WorldGenPetroleum.defaultBlocksToReplace,
          16,
@@ -110,8 +110,8 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
       )
       .setOptions(0.08, 0.04, 4.0, 2.0, 0.4, 0.6, 0.8, 1.2, 0.2, 0.8);
    public WorldGenPetroleum naturalGasGenerator = new WorldGenPetroleum(
-         BlocksRegister.FLUIDNATURALGAS.getDefaultState(),
-         BlocksRegister.RADIOSTONE.getDefaultState(),
+         BlocksRegister.FLUID_NATURAL_GAS.getDefaultState(),
+         BlocksRegister.RADIOACTIVE_STONE.getDefaultState(),
          null,
          172,
          WorldGenPetroleum.defaultBlocksToReplace,
@@ -122,9 +122,9 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
          true
       )
       .setOptions(0.08, 0.04, 4.0, 2.0, 0.2, 0.5, 1.0, 1.1, 0.14, 0.45);
-   public static WorldGenSpread blobs = new WorldGenSpread(BlocksRegister.SLIMEBLOB, 50, 4, 2, null);
+   public static WorldGenSpread blobs = new WorldGenSpread(BlocksRegister.SLIME_BLOB, 50, 4, 2, null);
    public static Block[] caveJunkPlants = new Block[]{
-      BlocksRegister.MUCOPHILLUS, BlocksRegister.MUCOPHILLUSBROWN, BlocksRegister.VISCOSA, BlocksRegister.TOXIBERRYARCANO
+      BlocksRegister.MUCOPHILLUS, BlocksRegister.MUCOPHILLUS_BROWN, BlocksRegister.VISCOSA, BlocksRegister.TOXIBERRY_ARCANO
    };
 
    public ToxicomaniaChunkGenerator(World worldIn, long seed) {
@@ -142,16 +142,16 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
       this.heightMap = new double[825];
       this.biomeWeights = new float[25];
       this.arsenicOreGen = new CustomOreGenerator(
-         BlocksRegister.OREARSENIC.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOSTONE), 4, 10, 6, 10, 50
+         BlocksRegister.ARSENIC_ORE.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOACTIVE_STONE), 4, 10, 6, 10, 50
       );
       this.toxiniumOreGen = new CustomOreGenerator(
-         BlocksRegister.ORETOXINIUM.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOSTONE), 2, 8, 2, 6, 25
+         BlocksRegister.TOXINIUM_ORE.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOACTIVE_STONE), 2, 8, 2, 6, 25
       );
       this.wolframOreGen = new CustomOreGenerator(
-         BlocksRegister.OREWOLFRAM.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOSTONE), 2, 6, 8, 5, 55
+         BlocksRegister.WOLFRAM_ORE.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOACTIVE_STONE), 2, 6, 8, 5, 55
       );
       this.lepidoliteOreGen = new CustomOreGenerator(
-         BlocksRegister.ORELEPIDOLITE.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOSTONE), 2, 7, 3, 10, 30
+         BlocksRegister.LEPIDOLITE_ORE.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOACTIVE_STONE), 2, 7, 3, 10, 30
       );
 
       for (int i = -2; i <= 2; i++) {
@@ -480,7 +480,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
          int i1 = this.rand.nextInt(16) + 8;
          int j1 = this.rand.nextInt(256);
          int k1 = this.rand.nextInt(16) + 8;
-         new WorldGenLakes(BlocksRegister.FLUIDPOISON).generate(this.world, this.rand, blockpos.add(i1, j1, k1));
+         new WorldGenLakes(BlocksRegister.FLUID_POISON).generate(this.world, this.rand, blockpos.add(i1, j1, k1));
       }
 
       if (!flag
@@ -552,9 +552,9 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
                BlockPos finalpos = listposes.get(this.rand.nextInt(listposes.size()));
                if (finalpos != null) {
                   if (this.rand.nextFloat() < 0.08F) {
-                     GenerationHelper.genBlocksHeap(this.world, finalpos.up(3), this.rand, 17, BlocksRegister.SCRAPELECTRONICS.getDefaultState());
+                     GenerationHelper.genBlocksHeap(this.world, finalpos.up(3), this.rand, 17, BlocksRegister.SCRAP_ELECTRONICS.getDefaultState());
                   } else if (this.rand.nextFloat() < 0.3F
-                     && this.world.getBlockState(finalpos.down()).getBlock() == BlocksRegister.RADIOSTONE
+                     && this.world.getBlockState(finalpos.down()).getBlock() == BlocksRegister.RADIOACTIVE_STONE
                      && this.world.getBlockState(finalpos.up()).getCollisionBoundingBox(this.world, finalpos.up()) == null) {
                      ToxicomaniaMobsPack.PoisonSpitter mob = new ToxicomaniaMobsPack.PoisonSpitter(this.world);
                      mob.setPosition(
@@ -568,7 +568,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
                      genSlimePuddle(this.world, finalpos.down(), this.rand);
                   } else if (this.rand.nextFloat() < 0.33F) {
                      boolean b = this.rand.nextFloat() < 0.7F;
-                     genPoisonPuddle(this.world, finalpos, this.rand, b ? BlocksRegister.FLUIDPOISON : BlocksRegister.FLUIDTOXIN, b);
+                     genPoisonPuddle(this.world, finalpos, this.rand, b ? BlocksRegister.FLUID_POISON : BlocksRegister.FLUID_TOXIN, b);
                   } else if (this.rand.nextFloat() < 0.45F) {
                      genCaveJunkPlants(this.world, finalpos.up(3), this.rand);
                   } else if (this.rand.nextFloat() < 0.8F) {
@@ -626,7 +626,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
          if (!listposes.isEmpty()) {
             BlockPos finalpos = listposes.get(this.rand.nextInt(listposes.size()));
             if (finalpos != null) {
-               this.world.setBlockState(finalpos, BlocksRegister.CHESTRUSTED.getDefaultState());
+               this.world.setBlockState(finalpos, BlocksRegister.CHEST_RUSTED.getDefaultState());
                TileEntity tile = this.world.getTileEntity(finalpos);
                if (tile != null && tile instanceof TileARPGChest) {
                   ((TileARPGChest)tile).setLootTable(ListLootTable.CHESTS_RUSTED_UNDERGROUND, this.rand.nextLong());
@@ -662,7 +662,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
    }
 
    public void generateSpeleothems(World world, Random rand, BlockPos pos) {
-      Block blockstalact = BlocksRegister.RADIOACTIVESPELEOTHEM;
+      Block blockstalact = BlocksRegister.RADIOACTIVE_SPELEOTHEM;
 
       for (int iix = 0; iix < 16; iix++) {
          for (int iiz = 0; iiz < 16; iiz++) {
@@ -724,7 +724,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
 
                      lastblockStone = false;
                   } else {
-                     if (state.getBlock() == BlocksRegister.RADIOSTONE
+                     if (state.getBlock() == BlocksRegister.RADIOACTIVE_STONE
                         && stateup != null
                         && (stateup.getBlock() == blockstalact || stateup.getBlock() == Blocks.AIR)
                         && fpos.getY() < 62) {
@@ -777,7 +777,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
                         }
                      }
 
-                     if (state.getBlock() == BlocksRegister.RADIOSTONE) {
+                     if (state.getBlock() == BlocksRegister.RADIOACTIVE_STONE) {
                         lastblockStone = true;
                         prevstate = -1;
                      }
@@ -828,7 +828,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
    public static void genLootBlob(World world, BlockPos pos, Random rand) {
       for (EnumFacing f : EnumFacing.HORIZONTALS) {
          for (int i = 0; i < rand.nextInt(5); i++) {
-            world.setBlockState(pos.offset(f).up(i), BlocksRegister.BROWNSLIME.getDefaultState(), 2);
+            world.setBlockState(pos.offset(f).up(i), BlocksRegister.BROWN_SLIME.getDefaultState(), 2);
          }
       }
 
@@ -836,7 +836,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
       int max = rand.nextInt(6) + 4;
 
       for (int i = 0; i <= max; i++) {
-         world.setBlockState(pos.up(i), BlocksRegister.BROWNSLIME.getDefaultState(), 2);
+         world.setBlockState(pos.up(i), BlocksRegister.BROWN_SLIME.getDefaultState(), 2);
          if (rand.nextFloat() < 0.05) {
             pos = pos.offset(EnumFacing.byHorizontalIndex(rand.nextInt(4)));
          }
@@ -844,13 +844,13 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
          if (i == max) {
             for (EnumFacing f : EnumFacing.HORIZONTALS) {
                for (int i2 = 1; i2 < rand.nextInt(3) + 1 + add; i2++) {
-                  world.setBlockState(pos.offset(f).up(i - i2), BlocksRegister.BROWNSLIME.getDefaultState(), 2);
+                  world.setBlockState(pos.offset(f).up(i - i2), BlocksRegister.BROWN_SLIME.getDefaultState(), 2);
                }
             }
 
-            world.setBlockState(pos.up(i - 1), BlocksRegister.LOOTBLOB.getDefaultState(), 2);
+            world.setBlockState(pos.up(i - 1), BlocksRegister.LOOT_BLOB.getDefaultState(), 2);
             if (add > 0 && rand.nextFloat() < 0.2F) {
-               world.setBlockState(pos.up(i - 2), BlocksRegister.LOOTBLOB.getDefaultState(), 2);
+               world.setBlockState(pos.up(i - 2), BlocksRegister.LOOT_BLOB.getDefaultState(), 2);
             }
          }
       }
@@ -861,13 +861,13 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
    public static void genNectarFlowerPlace(World world, BlockPos pos, Random rand) {
       for (int i = 0; i <= 25; i++) {
          BlockPos pos2 = pos.add(rand.nextGaussian() * 2.0, 0.0, rand.nextGaussian() * 2.0);
-         world.setBlockState(pos2, BlocksRegister.TOXIBERRYLOG.getDefaultState().withProperty(ToxiberryTreeLog.LOG_AXIS, EnumAxis.values()[rand.nextInt(3)]), 2);
+         world.setBlockState(pos2, BlocksRegister.TOXIBERRY_LOG.getDefaultState().withProperty(ToxiberryTreeLog.LOG_AXIS, EnumAxis.values()[rand.nextInt(3)]), 2);
       }
 
       for (int i = 0; i <= 95; i++) {
          BlockPos pos2 = pos.add(rand.nextGaussian() * 4.0, -1.0, rand.nextGaussian() * 4.0);
          if (world.getBlockState(pos2).getBlock().isReplaceable(world, pos2)) {
-            world.setBlockState(pos2, BlocksRegister.TOXIBERRYLEAVES.getDefaultState(), 2);
+            world.setBlockState(pos2, BlocksRegister.TOXIBERRY_LEAVES.getDefaultState(), 2);
          }
       }
 
@@ -876,27 +876,27 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
          BlockPos pos3 = GetMOP.getTrueHeight(world, pos2);
          BlockPos pos4 = pos3.up();
          if (world.getBlockState(pos4).getBlock().isReplaceable(world, pos4)
-            && world.getBlockState(pos3).getBlock() != BlocksRegister.CHLORINEBELCHER
-            && world.getBlockState(pos3).getBlock() != BlocksRegister.SWEETNECTARFLOWER) {
-            world.setBlockState(pos4, BlocksRegister.CHLORINEBELCHER.getDefaultState(), 2);
+            && world.getBlockState(pos3).getBlock() != BlocksRegister.CHLORINE_BELCHER
+            && world.getBlockState(pos3).getBlock() != BlocksRegister.SWEET_NECTAR_FLOWER) {
+            world.setBlockState(pos4, BlocksRegister.CHLORINE_BELCHER.getDefaultState(), 2);
          }
       }
 
       for (int ixx = 0; ixx <= 8; ixx++) {
          BlockPos pos2 = pos.add(rand.nextGaussian() * 2.0, 0.0, rand.nextGaussian() * 2.0);
-         if (world.getBlockState(pos2.down()).getBlock() == BlocksRegister.TOXIBERRYLOG) {
-            world.setBlockState(pos2, BlocksRegister.MUTAFLOWERPINK.getDefaultState(), 2);
+         if (world.getBlockState(pos2.down()).getBlock() == BlocksRegister.TOXIBERRY_LOG) {
+            world.setBlockState(pos2, BlocksRegister.MUTATED_FLOWER_PINK.getDefaultState(), 2);
          }
       }
 
       for (int ixxx = 0; ixxx <= 8; ixxx++) {
          BlockPos pos2 = pos.add(rand.nextGaussian() * 2.0, 0.0, rand.nextGaussian() * 2.0);
-         if (world.getBlockState(pos2.down()).getBlock() == BlocksRegister.TOXIBERRYLOG) {
-            world.setBlockState(pos2, BlocksRegister.MUTAFLOWERRED.getDefaultState(), 2);
+         if (world.getBlockState(pos2.down()).getBlock() == BlocksRegister.TOXIBERRY_LOG) {
+            world.setBlockState(pos2, BlocksRegister.MUTATED_FLOWER_RED.getDefaultState(), 2);
          }
       }
 
-      world.setBlockState(pos.up(), BlocksRegister.SWEETNECTARFLOWER.getDefaultState(), 2);
+      world.setBlockState(pos.up(), BlocksRegister.SWEET_NECTAR_FLOWER.getDefaultState(), 2);
    }
 
    public static void genCaveVines(World world, BlockPos pos, Random rand) {
@@ -905,18 +905,18 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
       for (int y = 64; y > 13; y--) {
          BlockPos posf = new BlockPos(pos.getX(), y, pos.getZ());
          Block block = world.getBlockState(posf).getBlock();
-         if (block == BlocksRegister.RADIOSTONE) {
+         if (block == BlocksRegister.RADIOACTIVE_STONE) {
             stone = true;
          } else if (block == Blocks.AIR) {
             if (stone) {
                if (rand.nextFloat() < 0.3F) {
                   stone = false;
                   if (rand.nextFloat() < 0.75F) {
-                     world.setBlockState(posf, BlocksRegister.LOPPYTOXIBERRY.getDefaultState());
+                     world.setBlockState(posf, BlocksRegister.LOPPY_TOXIBERRY.getDefaultState());
                   }
                } else {
                   world.setBlockState(
-                     posf, rand.nextFloat() < 0.76F ? BlocksRegister.LOPPYTOXISTEM.getDefaultState() : BlocksRegister.LOPPYTOXIBERRY.getDefaultState()
+                     posf, rand.nextFloat() < 0.76F ? BlocksRegister.LOPPY_TOXISTEM.getDefaultState() : BlocksRegister.LOPPY_TOXIBERRY.getDefaultState()
                   );
                }
             }
@@ -951,12 +951,12 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
       for (int i = 0; i < maxi; i++) {
          BlockPos fpos = pos.add(rand.nextGaussian() * 1.4, 0.0, rand.nextGaussian() * 1.4);
          Block vlod = world.getBlockState(fpos).getBlock();
-         if (vlod == BlocksRegister.RADIOSTONE && !GetMOP.collidesWithBlockHorizontal(world, fpos, Blocks.AIR)) {
-            world.setBlockState(fpos, BlocksRegister.FLUIDSLIME.getDefaultState());
-         } else if (vlod == BlocksRegister.FLUIDSLIME) {
-            world.setBlockState(fpos, BlocksRegister.BROWNSLIME.getDefaultState());
-         } else if (vlod == BlocksRegister.BROWNSLIME && world.getBlockState(fpos.up()).getBlock() == Blocks.AIR) {
-            world.setBlockState(fpos.up(), BlocksRegister.SLIMEBLOB.getDefaultState());
+         if (vlod == BlocksRegister.RADIOACTIVE_STONE && !GetMOP.collidesWithBlockHorizontal(world, fpos, Blocks.AIR)) {
+            world.setBlockState(fpos, BlocksRegister.FLUID_SLIME.getDefaultState());
+         } else if (vlod == BlocksRegister.FLUID_SLIME) {
+            world.setBlockState(fpos, BlocksRegister.BROWN_SLIME.getDefaultState());
+         } else if (vlod == BlocksRegister.BROWN_SLIME && world.getBlockState(fpos.up()).getBlock() == Blocks.AIR) {
+            world.setBlockState(fpos.up(), BlocksRegister.SLIME_BLOB.getDefaultState());
          }
       }
    }
@@ -968,12 +968,12 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
          BlockPos fpos = pos.add(rand.nextGaussian() * 1.4, 0.0, rand.nextGaussian() * 1.4);
          BlockPos downpos = GetMOP.getTrueHeight(world, fpos);
          Block vlod = world.getBlockState(downpos).getBlock();
-         if (vlod == BlocksRegister.RADIOSTONE
+         if (vlod == BlocksRegister.RADIOACTIVE_STONE
             && world.getBlockState(downpos.down()).isOpaqueCube()
             && !GetMOP.collidesWithBlockHorizontal(world, downpos, Blocks.AIR)) {
             world.setBlockState(downpos, fluid.getDefaultState());
             if (lilypad && downpos.getY() == pos.getY() - 1 && rand.nextFloat() < 0.16F) {
-               world.setBlockState(fpos, BlocksRegister.POISONLILY.getDefaultState());
+               world.setBlockState(fpos, BlocksRegister.POISON_LILY.getDefaultState());
             }
          }
       }

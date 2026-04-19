@@ -5,7 +5,7 @@ import com.vivern.arpg.main.DimensionsRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TileToxicPortal;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.Material;
@@ -67,7 +67,7 @@ public class ToxicomaniaPortal extends Block {
    }
 
    public boolean isBlockSupports(Block block) {
-      return block == this || block == BlocksRegister.TOXICPORTALFRAME;
+      return block == this || block == BlocksRegister.TOXIC_PORTAL_FRAME;
    }
 
    @SideOnly(Side.CLIENT)

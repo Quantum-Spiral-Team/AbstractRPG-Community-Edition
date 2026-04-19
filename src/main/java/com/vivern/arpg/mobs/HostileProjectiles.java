@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -1142,9 +1142,9 @@ public class HostileProjectiles {
       }
 
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
-         if (player.getHeldItem(hand).getItem() == ItemsRegister.ICECIRCLE) {
+         if (player.getHeldItem(hand).getItem() == ItemsRegister.ICE_CIRCLE) {
             player.getHeldItem(hand).shrink(1);
-            ItemStack stack = new ItemStack(ItemsRegister.ICECIRCLEFILLED);
+            ItemStack stack = new ItemStack(ItemsRegister.ICE_CIRCLE_FILLED);
             if (!player.inventory.addItemStackToInventory(stack)) {
                player.dropItem(stack, false);
             }
@@ -1689,8 +1689,8 @@ public class HostileProjectiles {
             if (result.entityHit != null) {
                if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
                   WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-                  float bdamage = this.bullet == null ? this.damage : this.damage + this.bullet.damage * parameters.get("bullet_damage");
-                  float bknockback = this.bullet == null ? this.knockback : this.knockback + this.bullet.knockback * parameters.get("bullet_knockback");
+                  float bdamage = this.bullet == null ? this.damage : this.damage + this.bullet.damage * parameters.getF("bullet_damage");
+                  float bknockback = this.bullet == null ? this.knockback : this.knockback + this.bullet.knockback * parameters.getF("bullet_knockback");
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.bullet),
                      bdamage,
@@ -3020,7 +3020,7 @@ public class HostileProjectiles {
 
                   if (entity instanceof EntityItem) {
                      EntityItem entityItem = (EntityItem)entity;
-                     if (entityItem.getItem().getItem() == ItemsRegister.ICEGEM) {
+                     if (entityItem.getItem().getItem() == ItemsRegister.ICE_GEM) {
                         this.world
                            .spawnEntity(
                               new EntityItem(
@@ -3028,7 +3028,7 @@ public class HostileProjectiles {
                                  entityItem.posX,
                                  entityItem.posY,
                                  entityItem.posZ,
-                                 new ItemStack(ItemsRegister.ICEDUST, entityItem.getItem().getCount())
+                                 new ItemStack(ItemsRegister.ICE_DUST, entityItem.getItem().getCount())
                               )
                            );
                         entityItem.setDead();
@@ -3040,7 +3040,7 @@ public class HostileProjectiles {
             if (this.rand.nextFloat() < this.spawnFragmentChance
                && this.world.isAreaLoaded(this.getPosition().add(-8, -8, -8), this.getPosition().add(8, 8, 8))) {
                EntityItem itm = new EntityItem(
-                  this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.WEATHERFRAGMENTS)
+                  this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.WEATHER_FRAGMENTS)
                );
                itm.lifespan = 1200;
                this.world.spawnEntity(itm);
@@ -4460,7 +4460,7 @@ public class HostileProjectiles {
          for (int ss = 0; ss < 12; ss++) {
             Vec3d rotvec = GetMOP.rotateVecAroundAxis(startpoint, axisVector, 30 * ss);
             Vec3d posvec = rotvec.add(this.posX, this.posY, this.posZ);
-            Vec3d pwvec = GetMOP.Vec3dToPitchYaw(rotvec);
+            Vec3d pwvec = GetMOP.vec3DToPitchYaw(rotvec);
             int lt = 16;
             GUNParticle spell = new GUNParticle(
                this.rand.nextFloat() < 0.5F ? texmagic1 : texmagic2,
@@ -7103,7 +7103,7 @@ public class HostileProjectiles {
                   SuperKnockback.applyMove(this, -0.3F, this.target.posX, this.target.posY, this.target.posZ);
                   if (this.ticksExisted % 10 == 0
                      && this.ticksExisted > 60
-                     && !GetMOP.thereIsNoBlockCollidesBetween(this.world, this.getPositionVector(), this.target.getPositionEyes(1.0F), 1.0F, null, false)) {
+                     && !GetMOP.thereIsNoBlockCollidesBetween(this.world, this.getPositionVector(), this.target.getPositionEyes(1.0F), null, false)) {
                      this.findTarget();
                   }
                }
@@ -7374,18 +7374,18 @@ public class HostileProjectiles {
             IBlockState state = this.world.getBlockState(blockpos);
             if (this.rand.nextFloat() < 0.5
                && state.getBlock().isReplaceable(this.world, blockpos)
-               && BlocksRegister.BURNINGFROST.canPlaceBlockAt(this.world, blockpos)) {
+               && BlocksRegister.BURNING_FROST.canPlaceBlockAt(this.world, blockpos)) {
                this.world
-                  .setBlockState(blockpos, BlocksRegister.BURNINGFROST.getActualState(BlocksRegister.BURNINGFROST.getDefaultState(), this.world, blockpos));
+                  .setBlockState(blockpos, BlocksRegister.BURNING_FROST.getActualState(BlocksRegister.BURNING_FROST.getDefaultState(), this.world, blockpos));
             }
          }
 
          IBlockState state = this.world.getBlockState(tpos);
          if (this.rand.nextFloat() < 0.5
             && state.getBlock().isReplaceable(this.world, tpos)
-            && BlocksRegister.BURNINGFROST.canPlaceBlockAt(this.world, tpos)) {
+            && BlocksRegister.BURNING_FROST.canPlaceBlockAt(this.world, tpos)) {
             this.world
-               .setBlockState(tpos, BlocksRegister.BURNINGFROST.getActualState(BlocksRegister.BURNINGFROST.getDefaultState(), this.world, tpos));
+               .setBlockState(tpos, BlocksRegister.BURNING_FROST.getActualState(BlocksRegister.BURNING_FROST.getDefaultState(), this.world, tpos));
          }
       }
 

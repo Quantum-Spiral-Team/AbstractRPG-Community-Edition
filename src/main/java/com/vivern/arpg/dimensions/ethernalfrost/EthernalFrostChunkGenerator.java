@@ -58,11 +58,11 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType
 
 public class EthernalFrostChunkGenerator implements IChunkGenerator {
    protected static final IBlockState STONE = BlocksRegister.GLACIER.getDefaultState();
-   protected static final IBlockState GRAVEL = BlocksRegister.SNOWICE.getDefaultState();
+   protected static final IBlockState GRAVEL = BlocksRegister.SNOW_ICE.getDefaultState();
    protected static final IBlockState WATER = Blocks.WATER.getDefaultState();
    protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
    protected static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
-   protected static final IBlockState DEEP_STONE = BlocksRegister.FROZENSTONE.getDefaultState();
+   protected static final IBlockState DEEP_STONE = BlocksRegister.FROZEN_STONE.getDefaultState();
    private final Random rand;
    private NoiseGeneratorOctaves minLimitPerlinNoise;
    private NoiseGeneratorOctaves maxLimitPerlinNoise;
@@ -120,27 +120,27 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
       this.caveGenerator = new EthernalFrostCavesMapGen();
       this.perlin = new NoiseGeneratorPerlin(new Random(worldIn.getSeed()), 3);
       this.perlinMountains = new NoiseGeneratorPerlin(new Random(worldIn.getSeed() + 10L), 4);
-      this.oreGen = new CustomOreGenerator(BlocksRegister.OREICEGL.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 2, 6, 7, 10, 40);
-      this.oreGen2 = new CustomOreGenerator(BlocksRegister.OREICESN.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.SNOWICE), 2, 4, 6, 10, 50);
+      this.oreGen = new CustomOreGenerator(BlocksRegister.ICE_ORE_GLACIER.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 2, 6, 7, 10, 40);
+      this.oreGen2 = new CustomOreGenerator(BlocksRegister.ICE_ORE_SNOW_ICE.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.SNOW_ICE), 2, 4, 6, 10, 50);
       this.snowiceOreGen = new CustomOreGenerator(
-         BlocksRegister.SNOWICE.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 10, 33, 2, 20, 100
+         BlocksRegister.SNOW_ICE.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 10, 33, 2, 20, 100
       );
       this.frozenstoneOreGen = new CustomOreGenerator(
-         BlocksRegister.FROZENSTONE.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 10, 20, 2, 20, 80
+         BlocksRegister.FROZEN_STONE.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 10, 20, 2, 20, 80
       );
       this.iceOreGen = new CustomOreGenerator(
          Blocks.ICE.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 8, 22, 5, 22, 250
       );
       this.frozencobbleOreGen = new CustomOreGenerator(
-         BlocksRegister.FROZENCOBBLE.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 4, 15, 6, 2, 50
+         BlocksRegister.FROZEN_COBBLESTONE.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 4, 15, 6, 2, 50
       );
       this.frozenSlimes = new CustomOreGenerator(
-         BlocksRegister.FROZENSLIME.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 6, 22, 4, 14, 100
+         BlocksRegister.FROZEN_SLIME.getDefaultState(), 100, BlockMatcher.forBlock(BlocksRegister.GLACIER), 6, 22, 4, 14, 100
       );
       this.frozenDebrisOreGen = new CustomOreGenerator(
-         BlocksRegister.FROZENDEBRIS.getDefaultState(),
+         BlocksRegister.FROZEN_DEBRIS.getDefaultState(),
          100,
-         state -> state.getBlock() == BlocksRegister.FROZENSTONE || state.getBlock() == BlocksRegister.GLACIER,
+         state -> state.getBlock() == BlocksRegister.FROZEN_STONE || state.getBlock() == BlocksRegister.GLACIER,
          1,
          4,
          8,
@@ -253,7 +253,7 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
             blockpos.add(this.rand.nextInt(16), 254, this.rand.nextInt(16)),
             Blocks.SNOW,
             Blocks.ICE,
-            BlocksRegister.SNOWICE,
+            BlocksRegister.SNOW_ICE,
             BlocksRegister.GLACIER
          );
          if (castlepos.getY() > 1) {
@@ -276,7 +276,7 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
             Blocks.SNOW,
             Blocks.ICE,
             Blocks.WATER,
-            BlocksRegister.SNOWICE,
+            BlocksRegister.SNOW_ICE,
             BlocksRegister.GLACIER
          );
          if (poshall.getY() > 1) {
@@ -339,15 +339,15 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
 
                Biome biomee = this.world.getBiome(blockpos1);
                if (biomee == BiomesRegister.FROZEN_BEACH || biomee == BiomesRegister.EVERFROST_RIVER) {
-                  this.world.setBlockState(blockpos1, BlocksRegister.LOOSESNOW.getDefaultState(), 2);
+                  this.world.setBlockState(blockpos1, BlocksRegister.LOOSE_SNOW.getDefaultState(), 2);
                } else if (biomee != BiomesRegister.FROZEN_LAKE) {
                   IBlockState statDown = this.world.getBlockState(blockpos2);
-                  if (statDown.isFullCube() && statDown.getBlock() != BlocksRegister.LOOSESNOW && statDown.getBlock() != Blocks.SNOW) {
+                  if (statDown.isFullCube() && statDown.getBlock() != BlocksRegister.LOOSE_SNOW && statDown.getBlock() != Blocks.SNOW) {
                      this.world
                         .setBlockState(
                            blockpos1,
                            statDown.getBlock() == Blocks.ICE
-                              ? BlocksRegister.LOOSESNOW.getDefaultState()
+                              ? BlocksRegister.LOOSE_SNOW.getDefaultState()
                               : Blocks.SNOW_LAYER.getDefaultState(),
                            2
                         );
@@ -467,7 +467,7 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
             if (!listposes.isEmpty()) {
                BlockPos finalpos = listposes.get(random.nextInt(listposes.size()));
                if (finalpos != null) {
-                  worldIn.setBlockState(finalpos, BlocksRegister.FROZENBARREL.getDefaultState());
+                  worldIn.setBlockState(finalpos, BlocksRegister.FROZEN_TREASURE_BARREL.getDefaultState());
                }
             }
          }
@@ -490,7 +490,7 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
             if (finalpos != null && (this.world.getBlockState(finalpos.down()).getBlock() != Blocks.SNOW || random.nextFloat() < 0.5F)
                )
              {
-               worldIn.setBlockState(finalpos, BlocksRegister.PRESENTBOX.getDefaultState());
+               worldIn.setBlockState(finalpos, BlocksRegister.PRESENT_BOX.getDefaultState());
                TileEntity tileentity = worldIn.getTileEntity(finalpos);
                if (tileentity instanceof TilePresentBox) {
                   ((TilePresentBox)tileentity).setLootTable(ListLootTable.PRESENT_BOX, this.world.rand.nextLong());
@@ -604,15 +604,15 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
             if (blocks <= 0) {
                if (created && enstalacts) {
                   if (!(worldIn.getBlockState(bpos.up()).getBlock() instanceof BlockStalactiteBase)) {
-                     worldIn.setBlockState(bpos, BlocksRegister.STALACTITEFROZEN.getStateFromMeta(random.nextInt(5)));
+                     worldIn.setBlockState(bpos, BlocksRegister.FROZEN_STALACTITE.getStateFromMeta(random.nextInt(5)));
                      if (random.nextFloat() < 0.3) {
                         enstalacts = false;
                      }
                   } else if (!worldIn.isAirBlock(bpos.down()) && worldIn.isBlockFullCube(bpos.down())) {
-                     worldIn.setBlockState(bpos, BlocksRegister.STALAGMITEFROZEN.getStateFromMeta(random.nextInt(5)));
+                     worldIn.setBlockState(bpos, BlocksRegister.FROZEN_STALAGMITE_BASE.getStateFromMeta(random.nextInt(5)));
                      enstalacts = false;
                   } else {
-                     worldIn.setBlockState(bpos, BlocksRegister.STALACTITEFROZENADD.getStateFromMeta(random.nextInt(5)));
+                     worldIn.setBlockState(bpos, BlocksRegister.FROZEN_STALACTITE_ADDITION.getStateFromMeta(random.nextInt(5)));
                      if (random.nextFloat() < 0.5) {
                         enstalacts = false;
                      }
@@ -672,15 +672,15 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
                if (created && enstalacts) {
                   if (!(worldIn.getBlockState(bposx.down()).getBlock() instanceof BlockStalactiteBase)) {
                      int meta = random.nextInt(5);
-                     worldIn.setBlockState(bposx, BlocksRegister.STALAGMITEFROZEN.getStateFromMeta(meta));
+                     worldIn.setBlockState(bposx, BlocksRegister.FROZEN_STALAGMITE_BASE.getStateFromMeta(meta));
                      if (random.nextFloat() < 0.3 || meta == 2 || meta == 3) {
                         enstalacts = false;
                      }
                   } else if (!worldIn.isAirBlock(bposx.up()) && worldIn.isBlockFullCube(bposx.up())) {
-                     worldIn.setBlockState(bposx, BlocksRegister.STALACTITEFROZEN.getStateFromMeta(random.nextInt(5)));
+                     worldIn.setBlockState(bposx, BlocksRegister.FROZEN_STALACTITE.getStateFromMeta(random.nextInt(5)));
                      enstalacts = false;
                   } else {
-                     worldIn.setBlockState(bposx, BlocksRegister.STALACTITEFROZENADD.getStateFromMeta(random.nextInt(5)));
+                     worldIn.setBlockState(bposx, BlocksRegister.FROZEN_STALACTITE_ADDITION.getStateFromMeta(random.nextInt(5)));
                      if (random.nextFloat() < 0.5) {
                         enstalacts = false;
                      }
@@ -736,12 +736,12 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
 
             if (blocks > 0) {
                if (!(worldIn.getBlockState(bposxx.up()).getBlock() instanceof BlockStalactiteBase)) {
-                  worldIn.setBlockState(bposxx, BlocksRegister.STALACTITEFROZEN.getStateFromMeta(random.nextInt(5)));
+                  worldIn.setBlockState(bposxx, BlocksRegister.FROZEN_STALACTITE.getStateFromMeta(random.nextInt(5)));
                } else if (!worldIn.isAirBlock(bposxx.down()) && worldIn.isBlockFullCube(bposxx.down())) {
-                  worldIn.setBlockState(bposxx, BlocksRegister.STALAGMITEFROZEN.getStateFromMeta(random.nextInt(5)));
+                  worldIn.setBlockState(bposxx, BlocksRegister.FROZEN_STALAGMITE_BASE.getStateFromMeta(random.nextInt(5)));
                   blocks = 1;
                } else {
-                  worldIn.setBlockState(bposxx, BlocksRegister.STALACTITEFROZENADD.getStateFromMeta(random.nextInt(5)));
+                  worldIn.setBlockState(bposxx, BlocksRegister.FROZEN_STALACTITE_ADDITION.getStateFromMeta(random.nextInt(5)));
                }
 
                blocks--;
@@ -771,15 +771,15 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
             if (blocks > 0) {
                if (!(worldIn.getBlockState(bposxxx.down()).getBlock() instanceof BlockStalactiteBase)) {
                   int meta = random.nextInt(5);
-                  worldIn.setBlockState(bposxxx, BlocksRegister.STALAGMITEFROZEN.getStateFromMeta(meta));
+                  worldIn.setBlockState(bposxxx, BlocksRegister.FROZEN_STALAGMITE_BASE.getStateFromMeta(meta));
                   if (meta == 2 || meta == 3) {
                      blocks = 1;
                   }
                } else if (!worldIn.isAirBlock(bposxxx.up()) && worldIn.isBlockFullCube(bposxxx.up())) {
-                  worldIn.setBlockState(bposxxx, BlocksRegister.STALACTITEFROZEN.getStateFromMeta(random.nextInt(5)));
+                  worldIn.setBlockState(bposxxx, BlocksRegister.FROZEN_STALACTITE.getStateFromMeta(random.nextInt(5)));
                   blocks = 1;
                } else {
-                  worldIn.setBlockState(bposxxx, BlocksRegister.STALACTITEFROZENADD.getStateFromMeta(random.nextInt(5)));
+                  worldIn.setBlockState(bposxxx, BlocksRegister.FROZEN_STALACTITE_ADDITION.getStateFromMeta(random.nextInt(5)));
                }
 
                blocks--;
@@ -1386,20 +1386,20 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
    public static void generateChestAndSpawner(World world, BlockPos pos, int size, Random rand) {
       boolean slimes = rand.nextFloat() < 0.3F;
       boolean barrels = rand.nextFloat() < 0.3F;
-      world.setBlockState(pos, BlocksRegister.FROZENBRICKS.getDefaultState(), 2);
+      world.setBlockState(pos, BlocksRegister.BLOCK_BLOCK_HARD.getDefaultState(), 2);
 
       for (int x = -size; x <= size; x++) {
          for (int z = -size; z <= size; z++) {
             if (rand.nextFloat() < 0.6F) {
                BlockPos poss = pos.add(x, 0, z);
                if (world.getBlockState(poss).isFullCube()) {
-                  world.setBlockState(poss, BlocksRegister.FROZENBRICKS.getDefaultState(), 2);
+                  world.setBlockState(poss, BlocksRegister.BLOCK_BLOCK_HARD.getDefaultState(), 2);
                   if (slimes && rand.nextFloat() < 0.4F && world.isAirBlock(poss.up())) {
-                     world.setBlockState(poss.up(), BlocksRegister.FROZENSLIME.getDefaultState(), 2);
+                     world.setBlockState(poss.up(), BlocksRegister.FROZEN_SLIME.getDefaultState(), 2);
                   }
 
                   if (barrels && rand.nextFloat() < 0.08F && world.isAirBlock(poss.up())) {
-                     world.setBlockState(poss.up(), BlocksRegister.FROZENBARREL.getDefaultState(), 2);
+                     world.setBlockState(poss.up(), BlocksRegister.FROZEN_TREASURE_BARREL.getDefaultState(), 2);
                   }
                }
             }
@@ -1409,18 +1409,18 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
       GenerationHelper.setChestWithLoot(
          world, pos.up(), EnumChest.FROZEN, ListLootTable.CHESTS_FROZEN_STRUCTURES, EnumFacing.HORIZONTALS[rand.nextInt(4)]
       );
-      world.setBlockState(pos.up(2), BlocksRegister.MOBSPAWNERFROZEN.getDefaultState(), 2);
+      world.setBlockState(pos.up(2), BlocksRegister.FROZEN_SPAWNER.getDefaultState(), 2);
       DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos.up(2)), DimensionEthernalFrost.EnumEverfrostSpawner.STRUCTURES, rand);
    }
 
    public static void generateWinterAltar(World world, BlockPos pos, Random rand) {
-      world.setBlockState(pos.up(), BlocksRegister.WINTERALTAR.getDefaultState(), 2);
-      world.setBlockState(pos, BlocksRegister.FROZENBRICKS.getDefaultState(), 2);
+      world.setBlockState(pos.up(), BlocksRegister.BLOCK_WINTER_ALTAR.getDefaultState(), 2);
+      world.setBlockState(pos, BlocksRegister.BLOCK_BLOCK_HARD.getDefaultState(), 2);
 
       for (int x = 0; x <= 30; x++) {
          BlockPos poss = pos.add(rand.nextGaussian() * 1.3, 0.0, rand.nextGaussian() * 1.3);
          if (!world.isAirBlock(poss)) {
-            world.setBlockState(poss, BlocksRegister.FROZENBRICKS.getDefaultState(), 2);
+            world.setBlockState(poss, BlocksRegister.BLOCK_BLOCK_HARD.getDefaultState(), 2);
          }
       }
    }

@@ -332,10 +332,10 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
    @SubscribeEvent
    public static void onPlayerRender(Pre e) {
       ItemStack stack = BaublesApi.getBaubles(e.getEntityPlayer()).getStackInSlot(5);
-      if (stack.getItem() == ItemsRegister.PHOENIXGHOSTCAPE && stack.getItemDamage() != 0 && stack.getItemDamage() != 10) {
+      if (stack.getItem() == ItemsRegister.PHOENIX_GHOST_CAPE && stack.getItemDamage() != 0 && stack.getItemDamage() != 10) {
          e.setCanceled(true);
          float partialTicks = e.getPartialRenderTick();
-         PhoenixGhostModel model = ClientProxy.phoenixghostmodel;
+         PhoenixGhostModel model = ClientProxy.phoenixGhostModel;
          ResourceLocation textur = new NetworkPlayerInfo(Minecraft.getMinecraft().player.getGameProfile()).getLocationSkin();
          EntityPlayer entity = e.getEntityPlayer();
          int ticks = entity.ticksExisted;

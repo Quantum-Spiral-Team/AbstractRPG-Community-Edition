@@ -89,22 +89,22 @@ public class RocketLauncherModel extends ModelBase {
    }
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-      this.shape3.offsetZ = -2.0F * GetMOP.getfromto(f2, 0.5F, 0.7F);
+      this.shape3.offsetZ = -2.0F * GetMOP.getFromTo(f2, 0.5F, 0.7F);
       this.shape4.offsetZ = this.shape3.offsetZ;
       this.shape5.offsetZ = this.shape3.offsetZ;
-      this.shape6.offsetZ = -2.0F * GetMOP.getfromto(f1, 0.0F, 0.2F) + 2.0F * GetMOP.getfromto(f1, 0.2F, 0.4F);
+      this.shape6.offsetZ = -2.0F * GetMOP.getFromTo(f1, 0.0F, 0.2F) + 2.0F * GetMOP.getFromTo(f1, 0.2F, 0.4F);
       this.shape7.offsetZ = this.shape6.offsetZ;
       this.shape8.offsetZ = this.shape6.offsetZ;
-      this.shapeammo.offsetZ = -6.5F * GetMOP.getfromto(f1, 0.0F, 0.3F) + 6.5F * GetMOP.getfromto(f1, 0.5F, 0.8F);
-      float ff1 = GetMOP.getfromto(f1, 0.3F, 0.45F);
-      float ff2 = GetMOP.getfromto(f1, 0.8F, 0.85F);
-      float ff3 = GetMOP.getfromto(f1, 0.45F, 0.6F);
-      float ff4 = GetMOP.getfromto(f2, 0.5F, 0.8F);
-      float ff5 = GetMOP.getfromto(f1, 0.5F, 0.7F);
-      float ff6 = GetMOP.getfromto(f1, 0.8F, 1.0F);
-      float ff7 = GetMOP.getfromto(f1, 0.9F, 1.0F);
-      float ff8 = GetMOP.getfromto(f2, 0.0F, 0.5F);
-      float ff9 = GetMOP.getfromto(f2, 0.8F, 1.0F);
+      this.shapeammo.offsetZ = -6.5F * GetMOP.getFromTo(f1, 0.0F, 0.3F) + 6.5F * GetMOP.getFromTo(f1, 0.5F, 0.8F);
+      float ff1 = GetMOP.getFromTo(f1, 0.3F, 0.45F);
+      float ff2 = GetMOP.getFromTo(f1, 0.8F, 0.85F);
+      float ff3 = GetMOP.getFromTo(f1, 0.45F, 0.6F);
+      float ff4 = GetMOP.getFromTo(f2, 0.5F, 0.8F);
+      float ff5 = GetMOP.getFromTo(f1, 0.5F, 0.7F);
+      float ff6 = GetMOP.getFromTo(f1, 0.8F, 1.0F);
+      float ff7 = GetMOP.getFromTo(f1, 0.9F, 1.0F);
+      float ff8 = GetMOP.getFromTo(f2, 0.0F, 0.5F);
+      float ff9 = GetMOP.getFromTo(f2, 0.8F, 1.0F);
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape5.offsetX, this.shape5.offsetY, this.shape5.offsetZ);
       GlStateManager.translate(this.shape5.rotationPointX * f5, this.shape5.rotationPointY * f5, this.shape5.rotationPointZ * f5);

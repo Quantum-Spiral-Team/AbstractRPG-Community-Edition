@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public interface IBlockHardBreak {
    default float getBlockBreakingSpeed(EntityPlayer player, IBlockState state, BlockPos pos, float originalSpeed) {
@@ -26,10 +27,10 @@ public interface IBlockHardBreak {
    }
 
    default float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
-      return this.getHardres() != null ? this.getHardres().getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed) : originalSpeed;
+      return this.getHardRes() != null ? this.getHardRes().getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed) : originalSpeed;
    }
 
-   default BlocksRegister.Hardres getHardres() {
+   default @Nullable BlocksRegister.HardRes getHardRes() {
       return null;
    }
 }

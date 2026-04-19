@@ -3,7 +3,7 @@ package com.vivern.arpg.main;
 import com.vivern.arpg.blocks.IBlockHardBreak;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

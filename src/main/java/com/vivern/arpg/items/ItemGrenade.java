@@ -27,7 +27,7 @@ import com.vivern.arpg.renders.ParticleTracker;
 import com.vivern.arpg.tileentity.TileSpellForge;
 import java.util.HashMap;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -92,19 +92,19 @@ public class ItemGrenade extends ItemWeapon {
    }
 
    public float damage() {
-      return WeaponParameters.getWeaponParameters(this).get("damage");
+      return WeaponParameters.getWeaponParameters(this).getF("damage");
    }
 
    public float knockback() {
-      return WeaponParameters.getWeaponParameters(this).get("knockback");
+      return WeaponParameters.getWeaponParameters(this).getF("knockback");
    }
 
    public int firstExplodeDelay() {
-      return WeaponParameters.getWeaponParameters(this).geti("first_explode_delay");
+      return WeaponParameters.getWeaponParameters(this).getI("first_explode_delay");
    }
 
    public float damageRadius() {
-      return WeaponParameters.getWeaponParameters(this).get("damage_radius");
+      return WeaponParameters.getWeaponParameters(this).getF("damage_radius");
    }
 
    public boolean doWaterMoveHook() {
@@ -358,7 +358,7 @@ public class ItemGrenade extends ItemWeapon {
    @Override
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      return parameters.geti("cooldown");
+      return parameters.getI("cooldown");
    }
 
    @Override
@@ -397,7 +397,7 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          if (!world.isRemote) {
-            world.newExplosion(player, x, y, z, WeaponParameters.getWeaponParameters(this).get("explosion_size"), false, true);
+            world.newExplosion(player, x, y, z, WeaponParameters.getWeaponParameters(this).getF("explosion_size"), false, true);
             if (projectile != null) {
                projectile.setDead();
             }
@@ -470,14 +470,14 @@ public class ItemGrenade extends ItemWeapon {
                      PotionEffect lastdebaff = Weapons.mixPotion(
                         entity,
                         PotionEffects.FREEZING,
-                        (float)parameters.geti("potion_time_add"),
-                        (float)parameters.geti("potion_power_add"),
+                        (float)parameters.getI("potion_time_add"),
+                        (float)parameters.getI("potion_power_add"),
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumMathOperation.PLUS,
                         Weapons.EnumMathOperation.PLUS,
-                        parameters.geti("potion_time_max"),
-                        parameters.geti("potion_power_max")
+                        parameters.getI("potion_time_max"),
+                        parameters.getI("potion_power_max")
                      );
                      if (itemRand.nextFloat() < 0.5 && sounds > 0) {
                         Freezing.tryPlaySound(entity, lastdebaff);
@@ -487,14 +487,14 @@ public class ItemGrenade extends ItemWeapon {
                      PotionEffect lastdebaff = Weapons.mixPotion(
                         entity,
                         PotionEffects.FREEZING,
-                        (float)parameters.geti("friendlyfire_potion_time_add"),
-                        (float)parameters.geti("friendlyfire_potion_power_add"),
+                        (float)parameters.getI("friendlyfire_potion_time_add"),
+                        (float)parameters.getI("friendlyfire_potion_power_add"),
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumMathOperation.PLUS,
                         Weapons.EnumMathOperation.PLUS,
-                        parameters.geti("friendlyfire_potion_time_max"),
-                        parameters.geti("friendlyfire_potion_power_max")
+                        parameters.getI("friendlyfire_potion_time_max"),
+                        parameters.getI("friendlyfire_potion_power_max")
                      );
                      if (itemRand.nextFloat() < 0.5 && sounds > 0) {
                         Freezing.tryPlaySound(entity, lastdebaff);
@@ -514,7 +514,7 @@ public class ItemGrenade extends ItemWeapon {
                projectile.setDead();
             }
          } else {
-            world.playSound(x, y, z, Sounds.cryogrenade, SoundCategory.PLAYERS, 1.0F, 0.85F + itemRand.nextFloat() * 0.3F, false);
+            world.playSound(x, y, z, Sounds.cryo_grenade, SoundCategory.PLAYERS, 1.0F, 0.85F + itemRand.nextFloat() * 0.3F, false);
 
             for (int ss = 0; ss < 20; ss++) {
                int lt = 30 + itemRand.nextInt(20);
@@ -704,7 +704,7 @@ public class ItemGrenade extends ItemWeapon {
       public void gas(World world, @Nullable EntityLivingBase player, double x, double y, double z, EntityGrenade projectile) {
          if (!world.isRemote) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            double damageRadius = this.damageRadius() + (projectile != null ? Math.min(projectile.explodes, parameters.geti("grow_limit")) : 0);
+            double damageRadius = this.damageRadius() + (projectile != null ? Math.min(projectile.explodes, parameters.getI("grow_limit")) : 0);
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
             );
@@ -714,14 +714,14 @@ public class ItemGrenade extends ItemWeapon {
                   Weapons.mixPotion(
                      entity,
                      PotionEffects.CHLORITE,
-                     (float)parameters.geti("potion_time_add"),
-                     (float)parameters.geti("potion_power_add"),
+                     (float)parameters.getI("potion_time_add"),
+                     (float)parameters.getI("potion_power_add"),
                      Weapons.EnumPotionMix.WITH_MAXIMUM,
                      Weapons.EnumPotionMix.WITH_MAXIMUM,
                      Weapons.EnumMathOperation.PLUS,
                      Weapons.EnumMathOperation.PLUS,
-                     parameters.geti("potion_time_max"),
-                     parameters.geti("potion_power_max")
+                     parameters.getI("potion_time_max"),
+                     parameters.getI("potion_power_max")
                   );
                   if (entity.isBurning()) {
                      this.explode(world, projectile.getThrower(), x, y, z, null, projectile);
@@ -741,7 +741,7 @@ public class ItemGrenade extends ItemWeapon {
 
             if (projectile != null) {
                projectile.explodes++;
-               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).geti("max_explosions")) {
+               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).getI("max_explosions")) {
                   projectile.setDead();
                }
             }
@@ -771,7 +771,7 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         double damageRadius = this.damageRadius() + (projectile != null ? Math.min(projectile.explodes, parameters.geti("grow_limit")) : 0);
+         double damageRadius = this.damageRadius() + (projectile != null ? Math.min(projectile.explodes, parameters.getI("grow_limit")) : 0);
          if (!world.isRemote) {
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
@@ -977,10 +977,10 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         float damageRadius = parameters.get("damage_radius");
-         float gravity1 = parameters.get("gravity");
-         float gravity2 = parameters.get("friendlyfire_gravity");
-         int livetime = parameters.geti("livetime");
+         float damageRadius = parameters.getF("damage_radius");
+         float gravity1 = parameters.getF("gravity");
+         float gravity2 = parameters.getF("friendlyfire_gravity");
+         int livetime = parameters.getI("livetime");
          if (!world.isRemote) {
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
@@ -1010,7 +1010,7 @@ public class ItemGrenade extends ItemWeapon {
                   projectile.motionZ /= 2.0;
                   projectile.setNoGravity(true);
                   Vec3d posvec = projectile.getPositionVector();
-                  if (!GetMOP.thereIsNoBlockCollidesBetween(world, posvec, posvec.add(0.0, -0.45, 0.0), 1.0F, null, false)) {
+                  if (!GetMOP.thereIsNoBlockCollidesBetween(world, posvec, posvec.add(0.0, -0.45, 0.0), null, false)) {
                      projectile.motionY += 0.15;
                   }
                }
@@ -1027,8 +1027,8 @@ public class ItemGrenade extends ItemWeapon {
             tracker.frictionMult = 1.0F;
             tracker.tickfrictionAdd = -0.001F;
             int yawRand = itemRand.nextInt(360);
-            Vec3d poss = GetMOP.PitchYawToVec3d(15 - itemRand.nextInt(31), yawRand).scale(damageRadius).add(x, y, z);
-            Vec3d direction = GetMOP.YawToVec3d(yawRand - 90).scale(0.5);
+            Vec3d poss = GetMOP.pitchYawToVec3D(15 - itemRand.nextInt(31), yawRand).scale(damageRadius).add(x, y, z);
+            Vec3d direction = GetMOP.yawToVec3D(yawRand - 90).scale(0.5);
             float scl = 0.05F + itemRand.nextFloat() * 0.05F;
             int lt = 60 + itemRand.nextInt(10);
             GUNParticle part = new GUNParticle(
@@ -1219,7 +1219,7 @@ public class ItemGrenade extends ItemWeapon {
                projectile.explodes++;
                projectile.flyingTime = this.firstExplodeDelay() - 18 + projectile.explodes;
                projectile.impacts = 0;
-               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).geti("max_explosions")) {
+               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).getI("max_explosions")) {
                   projectile.setDead();
                }
             }
@@ -1435,8 +1435,8 @@ public class ItemGrenade extends ItemWeapon {
             );
             List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(projectile, axisalignedbb);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int fire1 = parameters.geti("fire");
-            int fire2 = parameters.geti("friendlyfire_fire");
+            int fire1 = parameters.getI("fire");
+            int fire2 = parameters.getI("friendlyfire_fire");
             if (!list.isEmpty()) {
                for (Entity entity : list) {
                   if (Team.checkIsOpponent(player, entity)) {
@@ -1461,7 +1461,7 @@ public class ItemGrenade extends ItemWeapon {
             if (projectile != null) {
                projectile.explodes++;
                projectile.flyingTime = this.firstExplodeDelay() - 15;
-               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).geti("max_explosions")) {
+               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).getI("max_explosions")) {
                   projectile.setDead();
                }
             }
@@ -1641,14 +1641,14 @@ public class ItemGrenade extends ItemWeapon {
                   Weapons.mixPotion(
                      entity,
                      PotionEffects.FIERYOIL,
-                     (float)parameters.geti("potion_time"),
-                     (float)parameters.geti("potion_power_add"),
+                     (float)parameters.getI("potion_time"),
+                     (float)parameters.getI("potion_power_add"),
                      Weapons.EnumPotionMix.GREATEST,
                      Weapons.EnumPotionMix.WITH_MAXIMUM,
                      Weapons.EnumMathOperation.NONE,
                      Weapons.EnumMathOperation.PLUS,
                      0,
-                     parameters.geti("potion_power_max")
+                     parameters.getI("potion_power_max")
                   );
                }
             }
@@ -1848,12 +1848,12 @@ public class ItemGrenade extends ItemWeapon {
       ) {
          if (!world.isRemote) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float damageRadius = parameters.get("damage_radius");
-            int blockDestroyRadius = parameters.geti("destroy_radius");
-            int bombs = parameters.geti("bombs");
-            int minExplodeDelay = parameters.geti("min_bomb_explode_delay");
-            float bombDamage = parameters.get("bomb_damage");
-            float bombSpeed = parameters.get("bomb_speed");
+            float damageRadius = parameters.getF("damage_radius");
+            int blockDestroyRadius = parameters.getI("destroy_radius");
+            int bombs = parameters.getI("bombs");
+            int minExplodeDelay = parameters.getI("min_bomb_explode_delay");
+            float bombDamage = parameters.getF("bomb_damage");
+            float bombSpeed = parameters.getF("bomb_speed");
             HostileProjectiles.SeaBomb.explodeSeabomb(world, damageRadius, blockDestroyRadius, itemRand, new Vec3d(x, y, z), player, this.damage(), true);
 
             for (int i = 0; i < bombs; i++) {
@@ -1870,7 +1870,7 @@ public class ItemGrenade extends ItemWeapon {
                      (itemRand.nextDouble() - 0.5) * veclength,
                      (itemRand.nextDouble() - 0.5) * veclength
                   );
-                  RayTraceResult rayTraceResult = GetMOP.fixedRayTraceBlocks(world, player, 0.1, 0.1, true, start, end, false, true, false);
+                  RayTraceResult rayTraceResult = GetMOP.fixedRayTraceBlocks(world, player, 0.1, true, start, end, false, true, false);
                   boolean hitEntity = rayTraceResult != null
                      && rayTraceResult.entityHit != null
                      && Team.checkIsOpponent(player, rayTraceResult.entityHit);
@@ -1964,8 +1964,8 @@ public class ItemGrenade extends ItemWeapon {
                }
             }
 
-            int snowcount = WeaponParameters.getWeaponParameters(this).geti("falling_snow_count");
-            float snowspeed = WeaponParameters.getWeaponParameters(this).geti("falling_snow_speed");
+            int snowcount = WeaponParameters.getWeaponParameters(this).getI("falling_snow_count");
+            float snowspeed = WeaponParameters.getWeaponParameters(this).getI("falling_snow_speed");
             int imax = Math.max(snowcount, 80);
             int v = 0;
 
@@ -2005,10 +2005,10 @@ public class ItemGrenade extends ItemWeapon {
                   IBlockState dn = world.getBlockState(pos.down());
                   if (Blocks.SNOW_LAYER.canPlaceBlockAt(world, pos)
                      && dn.getBlock() != Blocks.SNOW_LAYER
-                     && dn.getBlock() != BlocksRegister.LOOSESNOW) {
+                     && dn.getBlock() != BlocksRegister.LOOSE_SNOW) {
                      world.setBlockState(pos, Blocks.SNOW_LAYER.getDefaultState());
                   } else if (dn.getBlock() == Blocks.ICE || dn.getBlock() == Blocks.FROSTED_ICE) {
-                     world.setBlockState(pos, BlocksRegister.LOOSESNOW.getDefaultState());
+                     world.setBlockState(pos, BlocksRegister.LOOSE_SNOW.getDefaultState());
                   }
                }
             }
@@ -2188,10 +2188,10 @@ public class ItemGrenade extends ItemWeapon {
                }
             }
 
-            mob.livetime = WeaponParameters.getWeaponParameters(this).geti("watcher_livetime");
+            mob.livetime = WeaponParameters.getWeaponParameters(this).getI("watcher_livetime");
             mob.rotationYaw = itemRand.nextInt(360) - 180;
             mob.isAgressive = true;
-            mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(WeaponParameters.getWeaponParameters(this).get("damage"));
+            mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(WeaponParameters.getWeaponParameters(this).getF("damage"));
             if (projectile != null) {
                projectile.setDead();
             }
@@ -2232,7 +2232,7 @@ public class ItemGrenade extends ItemWeapon {
 
             for (int i = 0; i < 10; i++) {
                Vec3d motionvec = new Vec3d(itemRand.nextGaussian(), itemRand.nextGaussian(), itemRand.nextGaussian());
-               Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(motionvec);
+               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(motionvec);
                int ltx = i < 5 ? 3 + itemRand.nextInt(3) : 10 + itemRand.nextInt(30);
                float scl = 0.5F + itemRand.nextFloat() * 0.5F;
                Vec3d posAdd = motionvec.normalize().scale(scl / 2.0F);

@@ -112,7 +112,7 @@ public class HydraulicShotgun extends ItemWeapon {
                         }
 
                         NBTHelper.GiveNBTint(itemstack, 3, "currentshot");
-                        NBTHelper.SetNBTint(itemstack, parameters.geti("burst"), "currentshot");
+                        NBTHelper.SetNBTint(itemstack, parameters.getI("burst"), "currentshot");
                         currentShot = 3;
                      }
 
@@ -136,7 +136,7 @@ public class HydraulicShotgun extends ItemWeapon {
                         1.3F,
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
-                     player.getCooldownTracker().setCooldown(this, currentShot == 1 ? this.getCooldownTime(itemstack) : parameters.geti("cooldown_small"));
+                     player.getCooldownTracker().setCooldown(this, currentShot == 1 ? this.getCooldownTime(itemstack) : parameters.getI("cooldown_small"));
                      player.addStat(StatList.getObjectUseStats(this));
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Weapons.setPlayerAnimationOnServer(player, currentShot == 1 ? 3 : 13, EnumHand.MAIN_HAND);
@@ -159,21 +159,21 @@ public class HydraulicShotgun extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
 
-                     double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      double damageRadius = 0.3;
                      int seed = itemRand.nextInt();
                      Random random1 = new Random(seed);
                      int c = nonullbullet ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
                      int impacts = 0;
-                     int amount = Math.min(parameters.getEnchantedi("shots", reuse), 31);
+                     int amount = Math.min(parameters.getEnchantedI("shots", reuse), 31);
 
                      for (int i = 0; i < amount; i++) {
                         boolean collideWithAny = false;
-                        float inaccuracy = parameters.getEnchanted("inaccuracy", acc);
-                        float inaccuracy2 = parameters.getEnchanted("inaccuracy_horizontal", acc);
+                        float inaccuracy = parameters.getEnchantedF("inaccuracy", acc);
+                        float inaccuracy2 = parameters.getEnchantedF("inaccuracy_horizontal", acc);
                         float rotP = player.rotationPitch + (float)random1.nextGaussian() * inaccuracy;
                         float rotY = player.rotationYaw + (float)random1.nextGaussian() * inaccuracy2;
-                        Vec3d vec = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.3, 0.2, rotP, rotY);
+                        Vec3d vec = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.3, 0.2, rotP, rotY);
                         if (nonullbullet && i % 2 == 0) {
                            bullet.onImpact(world, player, vec.x, vec.y, vec.z, null, null);
                         }
@@ -209,11 +209,11 @@ public class HydraulicShotgun extends ItemWeapon {
                               if (Team.checkIsOpponent(player, entity)) {
                                  Weapons.dealDamage(
                                     new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                    parameters.getEnchanted("damage", might) + damageadd * parameters.get("bullet_damage"),
+                                    parameters.getEnchantedF("damage", might) + damageadd * parameters.getF("bullet_damage"),
                                     player,
                                     entity,
                                     true,
-                                    parameters.getEnchanted("knockback", impulse) + knockbackadd * parameters.get("bullet_knockback"),
+                                    parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
                                     player.posX,
                                     player.posY,
                                     player.posZ
@@ -250,7 +250,7 @@ public class HydraulicShotgun extends ItemWeapon {
                         0.0
                      );
                   }
-               } else if (this.initiateBulletReload(itemstack, player, new ItemStack(ItemsRegister.HYDRAULICSHOTGUNCLIP, 1), maxammo, true)) {
+               } else if (this.initiateBulletReload(itemstack, player, new ItemStack(ItemsRegister.HYDRAULIC_SHOTGUN_CLIP, 1), maxammo, true)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,
@@ -282,11 +282,11 @@ public class HydraulicShotgun extends ItemWeapon {
          Vec3d col = ColorConverters.DecimaltoRGB((int)b);
 
          for (int i = 0; i < Math.min(a, 31.0); i++) {
-            float inaccuracy = parameters.getEnchanted("inaccuracy", (int)z);
-            float inaccuracy2 = parameters.getEnchanted("inaccuracy_horizontal", (int)z);
+            float inaccuracy = parameters.getEnchantedF("inaccuracy", (int)z);
+            float inaccuracy2 = parameters.getEnchantedF("inaccuracy_horizontal", (int)z);
             float rotP = player.rotationPitch + (float)random1.nextGaussian() * inaccuracy;
             float rotY = player.rotationYaw + (float)random1.nextGaussian() * inaccuracy2;
-            Vec3d to = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.3, 0.2, rotP, rotY);
+            Vec3d to = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.3, 0.2, rotP, rotY);
             float dist = (float)from.distanceTo(to);
             boolean full = (impacts & 1 << i) > 0;
             BulletParticle part = new BulletParticle(

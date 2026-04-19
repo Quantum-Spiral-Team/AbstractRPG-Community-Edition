@@ -5,7 +5,7 @@ import com.vivern.arpg.recipes.Ingridient;
 import com.vivern.arpg.recipes.SpellForgeRecipe;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -284,7 +284,7 @@ public class SpellForgeRecipesRegister {
             new Ingridient.IngridientItem("arpg:void_crystal", 1, 0, false),
             new Ingridient.IngridientItem("arpg:void_crystal", 1, 0, false)
          )
-         .setCatalyst(ItemsRegister.GLASSHEART);
+         .setCatalyst(ItemsRegister.GLASS_HEART);
       addRecipe(
          4.0F,
          new Ingridient.IngridientItem("arpg:bleeding_root", 1, 0, false),
@@ -677,7 +677,7 @@ public class SpellForgeRecipesRegister {
             new Ingridient.IngridientItem("arpg:liquid_fire", 1, 0, false),
             new Ingridient.IngridientItem("arpg:infernum_ingot", 1, 0, false)
          )
-         .setCatalyst(BlocksRegister.OREMOLTEN);
+         .setCatalyst(BlocksRegister.MOLTEN_ORE);
       addRecipe(
          6.0F,
          new Ingridient.IngridientItem("arpg:alchemic_vaporizer", 1, 0, false),
@@ -784,7 +784,7 @@ public class SpellForgeRecipesRegister {
             new Ingridient.IngridientItem("arpg:magic_wood", 1, 0, false),
             new Ingridient.IngridientItem("plankWood", 1)
          )
-         .setCatalyst(ItemsRegister.BOOKOFELEMENTS);
+         .setCatalyst(ItemsRegister.ELEMENTS_BOOK);
       addRecipe(
          2.0F,
          new Ingridient.IngridientItem("arpg:magic_candle", 2, 0, false),
@@ -841,7 +841,7 @@ public class SpellForgeRecipesRegister {
             Spell.EXPULSIO,
             Spell.MORS
          )
-         .setCatalyst(ItemsRegister.DUSTBASALT);
+         .setCatalyst(ItemsRegister.BASALT_DUST);
       addRecipe(
          4.0F,
          new Ingridient.IngridientItem("arpg:calibration_crystal_detract_big", 1, 0, false),
@@ -1088,7 +1088,7 @@ public class SpellForgeRecipesRegister {
             Spell.ANIMA,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.WIZARDCHEST);
+         .setCatalyst(ItemsRegister.WIZARD_CHEST);
       addRecipe(
             4.0F,
             new Ingridient.IngridientItem("arpg:firemage_hat", 1, 0, false),
@@ -1118,7 +1118,7 @@ public class SpellForgeRecipesRegister {
             Spell.ANIMA,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.WIZARDHELM);
+         .setCatalyst(ItemsRegister.WIZARD_HELM);
       addRecipe(
             4.0F,
             new Ingridient.IngridientItem("arpg:firemage_boots", 1, 0, false),
@@ -1148,7 +1148,7 @@ public class SpellForgeRecipesRegister {
             Spell.ANIMA,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.WIZARDBOOTS);
+         .setCatalyst(ItemsRegister.WIZARD_BOOTS);
       addRecipe(
             4.0F,
             new Ingridient.IngridientItem("arpg:firemage_leggins", 1, 0, false),
@@ -1178,7 +1178,7 @@ public class SpellForgeRecipesRegister {
             Spell.ANIMA,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.WIZARDLEGS);
+         .setCatalyst(ItemsRegister.WIZARD_LEGS);
       addRecipe(
             8.0F,
             new Ingridient.IngridientItem("arpg:staff_of_witherdry", 1, 0, false),
@@ -1240,7 +1240,7 @@ public class SpellForgeRecipesRegister {
             Spell.PECCATUM,
             Spell.DOLOR
          )
-         .setCatalyst(ItemsRegister.HELLHOUNDFUR);
+         .setCatalyst(ItemsRegister.HELLHOUND_FUR);
       addRecipe(
             7.0F,
             new Ingridient.IngridientItem("arpg:fireball_staff", 1, 0, false),
@@ -1811,7 +1811,7 @@ public class SpellForgeRecipesRegister {
             Spell.FRIGIDUS,
             Spell.HIEMS
          )
-         .setCatalyst(ItemsRegister.HAILTEAR);
+         .setCatalyst(ItemsRegister.HAIL_TEAR);
       addRecipe(
             7.0F,
             new Ingridient.IngridientItem("arpg:ice_beam", 1, 0, false),
@@ -2606,7 +2606,7 @@ public class SpellForgeRecipesRegister {
             new Ingridient.IngridientItem("arpg:chemical_glass", 1, 0, false),
             new Ingridient.IngridientItem("arpg:mutagen", 1, 0, false)
          )
-         .setCatalyst(ItemsRegister.SCRAPMETAL);
+         .setCatalyst(ItemsRegister.SCRAP_METAL);
       addRecipe(
          2.0F,
          new Ingridient.IngridientItem("arpg:mithril_arrow", 24, 0, false),
@@ -2744,7 +2744,7 @@ public class SpellForgeRecipesRegister {
             Spell.FRIGIDUS,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.WIZARDBOOTS);
+         .setCatalyst(ItemsRegister.WIZARD_BOOTS);
       addRecipe(
             5.0F,
             new Ingridient.IngridientItem("arpg:crystal_mantle_leggins", 1, 0, false),
@@ -2775,7 +2775,7 @@ public class SpellForgeRecipesRegister {
             Spell.FRIGIDUS,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.WIZARDLEGS);
+         .setCatalyst(ItemsRegister.WIZARD_LEGS);
       addRecipe(
             5.0F,
             new Ingridient.IngridientItem("arpg:crystal_mantle_chestplate", 1, 0, false),
@@ -2806,7 +2806,7 @@ public class SpellForgeRecipesRegister {
             Spell.FRIGIDUS,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.WIZARDCHEST);
+         .setCatalyst(ItemsRegister.WIZARD_CHEST);
       addRecipe(
             5.0F,
             new Ingridient.IngridientItem("arpg:crystal_mantle_helmet", 1, 0, false),
@@ -2837,7 +2837,7 @@ public class SpellForgeRecipesRegister {
             Spell.FRIGIDUS,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.WIZARDHELM);
+         .setCatalyst(ItemsRegister.WIZARD_HELM);
       addRecipe(
          3.0F,
          new Ingridient.IngridientItem("arpg:erebris_chunk", 1, 0, false),
@@ -2922,7 +2922,7 @@ public class SpellForgeRecipesRegister {
             Spell.ANIMA,
             Spell.EGO
          )
-         .setCatalyst(ItemsRegister.AQUATICSPAWNERPIECE);
+         .setCatalyst(ItemsRegister.AQUATIC_SPAWNER_PIECE);
       addRecipe(
             7.0F,
             new Ingridient.IngridientItem("arpg:sea_effloresce", 1, 0, false),
@@ -2955,13 +2955,13 @@ public class SpellForgeRecipesRegister {
             Spell.VOLUPTAS
          )
          .setCatalyst(
-            BlocksRegister.CORALLIMORPHAGREEN,
-            BlocksRegister.CORALLIMORPHABLUE,
-            BlocksRegister.CORALLIMORPHABROWN,
-            BlocksRegister.CORALLIMORPHALILAC,
-            BlocksRegister.CORALLIMORPHAPINK,
-            BlocksRegister.CORALLIMORPHARED,
-            BlocksRegister.CORALLIMORPHAYELLOW
+            BlocksRegister.CORALLIMORPHA_GREEN,
+            BlocksRegister.CORALLIMORPHA_BLUE,
+            BlocksRegister.CORALLIMORPHA_BROWN,
+            BlocksRegister.CORALLIMORPHA_LILAC,
+            BlocksRegister.CORALLIMORPHA_PINK,
+            BlocksRegister.CORALLIMORPHA_RED,
+            BlocksRegister.CORALLIMORPHA_YELLOW
          );
       addRecipe(
             8.0F,
@@ -2994,7 +2994,7 @@ public class SpellForgeRecipesRegister {
             Spell.HAGALAZ,
             Spell.STILLA
          )
-         .setCatalyst(BlocksRegister.ACTINIFORABLUEBIG, BlocksRegister.ACTINIFORAREDBIG);
+         .setCatalyst(BlocksRegister.ACTINIFORA_SEGREGATE, BlocksRegister.ACTINIFORA_GIANT);
       addRecipe(
             9.0F,
             new Ingridient.IngridientItem("arpg:ceratarget", 1, 0, false),
@@ -3026,7 +3026,7 @@ public class SpellForgeRecipesRegister {
             Spell.STATERA,
             Spell.SEQUOR
          )
-         .setCatalyst(BlocksRegister.ACTINIFORAYELLOW, BlocksRegister.ACTINIFORABLUE, BlocksRegister.ACTINIFORARED);
+         .setCatalyst(BlocksRegister.ACTINIFORA_BRIGHT, BlocksRegister.ACTINIFORA_RAMIFORM, BlocksRegister.ACTINIFORA_ARENACEOUS);
       addRecipe(
          12.0F,
          new Ingridient.IngridientItem("arpg:carapace", 1, 0, false),
@@ -3083,7 +3083,7 @@ public class SpellForgeRecipesRegister {
             Spell.URUZ,
             Spell.FLUCTUS
          )
-         .setCatalyst(ItemsRegister.TIDALHEART);
+         .setCatalyst(ItemsRegister.TIDAL_HEART);
       addRecipe(
             9.0F,
             new Ingridient.IngridientItem("arpg:staff_of_the_azure_ore", 1, 0, false),
@@ -3116,7 +3116,7 @@ public class SpellForgeRecipesRegister {
             Spell.AQUA,
             Spell.STILLA
          )
-         .setCatalyst(ItemsRegister.TIDALHEART);
+         .setCatalyst(ItemsRegister.TIDAL_HEART);
       addRecipe(
             5.0F,
             new Ingridient.IngridientItem("arpg:coral_armor_chestplate", 1, 0, false),
@@ -3148,12 +3148,12 @@ public class SpellForgeRecipesRegister {
             Spell.ALGIZ
          )
          .setCatalyst(
-            BlocksRegister.MINICORALBROWN,
-            BlocksRegister.MINICORALWHITE2,
-            BlocksRegister.MINICORALRED,
-            BlocksRegister.MINICORALBROWNBIG,
-            BlocksRegister.MINICORALREDBIG,
-            BlocksRegister.MINICORALWHITE2BIG
+            BlocksRegister.GORGONARIA_BROWN,
+            BlocksRegister.GORGONARIA_WHITE,
+            BlocksRegister.GORGONARIA_RED,
+            BlocksRegister.GORGONARIA_BROWN_BIG,
+            BlocksRegister.GORGONARIA_RED_BIG,
+            BlocksRegister.GORGONARIA_WHITE_BIG
          );
       addRecipe(
             5.0F,
@@ -3185,7 +3185,7 @@ public class SpellForgeRecipesRegister {
             Spell.STILLA,
             Spell.ALGIZ
          )
-         .setCatalyst(BlocksRegister.ACTINIFORABLUEBIG, BlocksRegister.ACTINIFORAREDBIG);
+         .setCatalyst(BlocksRegister.ACTINIFORA_SEGREGATE, BlocksRegister.ACTINIFORA_GIANT);
       addRecipe(
             5.0F,
             new Ingridient.IngridientItem("arpg:coral_armor_boots", 1, 0, false),
@@ -3216,7 +3216,7 @@ public class SpellForgeRecipesRegister {
             Spell.STILLA,
             Spell.ALGIZ
          )
-         .setCatalyst(BlocksRegister.MINICORALWHITE, BlocksRegister.MINICORALPURPLE, BlocksRegister.MINICORALWHITEBIG, BlocksRegister.MINICORALPURPLEBIG);
+         .setCatalyst(BlocksRegister.ACROPORA_WHITE, BlocksRegister.ACROPORA_PURPLE, BlocksRegister.ACROPORA_WHITE_BIG, BlocksRegister.ACROPORA_PURPLE_BIG);
       addRecipe(
             5.0F,
             new Ingridient.IngridientItem("arpg:coral_armor_leggins", 1, 0, false),
@@ -3247,7 +3247,7 @@ public class SpellForgeRecipesRegister {
             Spell.STILLA,
             Spell.ALGIZ
          )
-         .setCatalyst(BlocksRegister.MINICORALBLUE);
+         .setCatalyst(BlocksRegister.HELIOPORACEA);
       addRecipe(
             8.0F,
             new Ingridient.IngridientItem("arpg:shipwreakers_knot", 1, 0, false),
@@ -3276,7 +3276,7 @@ public class SpellForgeRecipesRegister {
             Spell.FLUCTUS,
             Spell.STATERA
          )
-         .setCatalyst(ItemsRegister.INGOTAQUATIC);
+         .setCatalyst(ItemsRegister.AQUATIC_INGOT);
       addRecipe(
          10.0F,
          new Ingridient.IngridientItem("arpg:fin_wings", 1, 0, false),
@@ -3360,7 +3360,7 @@ public class SpellForgeRecipesRegister {
             Spell.RADIUM,
             Spell.SOWILO
          )
-         .setCatalyst(ItemsRegister.PINKARTHROSTELECHAROD);
+         .setCatalyst(ItemsRegister.PINK_ARTHROSTELECHA_ROD);
       addRecipe(
             10.0F,
             new Ingridient.IngridientItem("arpg:electric_staff", 1, 0, false),
@@ -3390,7 +3390,7 @@ public class SpellForgeRecipesRegister {
             Spell.AERA,
             Spell.TONITRUUM
          )
-         .setCatalyst(ItemsRegister.BLUEARTHROSTELECHAROD);
+         .setCatalyst(ItemsRegister.BLUE_ARTHROSTELECHA_ROD);
       addRecipe(
             10.0F,
             new Ingridient.IngridientItem("arpg:voltrident", 1, 0, false),
@@ -3422,7 +3422,7 @@ public class SpellForgeRecipesRegister {
             Spell.RADIUM,
             Spell.TRIDEZ
          )
-         .setCatalyst(ItemsRegister.INGOTSILVER);
+         .setCatalyst(ItemsRegister.SILVER_INGOT);
       addRecipe(
          10.0F,
          new Ingridient.IngridientItem("arpg:static_lance", 1, 0, false),
@@ -3537,7 +3537,7 @@ public class SpellForgeRecipesRegister {
             Spell.SOWILO,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.INGOTSTORMSTEEL);
+         .setCatalyst(ItemsRegister.STORMSTEEL_INGOT);
       addRecipe(
             7.0F,
             new Ingridient.IngridientItem("arpg:thunderer_armor_helmet", 1, 0, false),
@@ -3567,7 +3567,7 @@ public class SpellForgeRecipesRegister {
             Spell.SOWILO,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.INGOTSTORMSTEEL);
+         .setCatalyst(ItemsRegister.STORMSTEEL_INGOT);
       addRecipe(
             7.0F,
             new Ingridient.IngridientItem("arpg:thunderer_armor_boots", 1, 0, false),
@@ -3597,7 +3597,7 @@ public class SpellForgeRecipesRegister {
             Spell.SOWILO,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.INGOTSTORMSTEEL);
+         .setCatalyst(ItemsRegister.STORMSTEEL_INGOT);
       addRecipe(
             7.0F,
             new Ingridient.IngridientItem("arpg:thunderer_armor_leggins", 1, 0, false),
@@ -3627,7 +3627,7 @@ public class SpellForgeRecipesRegister {
             Spell.SOWILO,
             Spell.ALGIZ
          )
-         .setCatalyst(ItemsRegister.INGOTSTORMSTEEL);
+         .setCatalyst(ItemsRegister.STORMSTEEL_INGOT);
       addRecipe(
          8.0F,
          new Ingridient.IngridientItem("arpg:windkeeper", 1, 0, false),
@@ -3755,7 +3755,7 @@ public class SpellForgeRecipesRegister {
          EM,
          EM,
          new Ingridient.IngridientItem("arpg:liveblood_necklace", 1, 0, false),
-         new Ingridient.IngridientItem("arpg:thornkeeper", 1, 0, false),
+         new Ingridient.IngridientItem("arpg:thorn_keeper", 1, 0, false),
          new Ingridient.IngridientItem("arpg:mana_rubble", 1, 0, false),
          EM,
          EM,
@@ -3974,7 +3974,7 @@ public class SpellForgeRecipesRegister {
             Spell.AERA,
             Spell.STATERA
          )
-         .setCatalyst(ItemsRegister.PIRATESEXTANT);
+         .setCatalyst(ItemsRegister.PIRATE_SEXTANT);
       addRecipe(
          3.0F,
          new Ingridient.IngridientItem("arpg:sea_grenade", 8, 0, false),
@@ -4031,7 +4031,7 @@ public class SpellForgeRecipesRegister {
             Spell.VITA,
             Spell.TURISAZ
          )
-         .setCatalyst(BlocksRegister.SEAURCHIN);
+         .setCatalyst(BlocksRegister.SEA_URCHIN);
       addRecipe(
          4.0F,
          new Ingridient.IngridientItem("arpg:dungeon_portal_frame", 4, 0, false),
@@ -4657,7 +4657,7 @@ public class SpellForgeRecipesRegister {
             new Ingridient.IngridientItem("arpg:stormsteel_ingot", 5, 0, false),
             EM
          )
-         .setCatalyst(ItemsRegister.SKYCRYSTAL);
+         .setCatalyst(ItemsRegister.SKY_CRYSTAL);
       addRecipe(
             7.0F,
             new Ingridient.IngridientItem("arpg:storm_pickaxe", 1, 0, false),
@@ -4684,7 +4684,7 @@ public class SpellForgeRecipesRegister {
             new Ingridient.IngridientItem("arpg:stormsteel_ingot", 5, 0, false),
             EM
          )
-         .setCatalyst(ItemsRegister.SKYCRYSTAL);
+         .setCatalyst(ItemsRegister.SKY_CRYSTAL);
       addRecipe(
             7.0F,
             new Ingridient.IngridientItem("arpg:storm_axe", 1, 0, false),
@@ -4711,7 +4711,7 @@ public class SpellForgeRecipesRegister {
             new Ingridient.IngridientItem("arpg:stormsteel_ingot", 5, 0, false),
             EM
          )
-         .setCatalyst(ItemsRegister.SKYCRYSTAL);
+         .setCatalyst(ItemsRegister.SKY_CRYSTAL);
    }
 
    public static void setregister(SpellForgeRecipe rec) {

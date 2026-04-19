@@ -30,6 +30,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+@SuppressWarnings("ConstantConditions")
 public class AquaticBow extends AbstractBow {
    public static EntityInfluence swimmingArrowInfluence = new EntityInfluence(true) {
       @Override
@@ -120,7 +121,7 @@ public class AquaticBow extends AbstractBow {
                   int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
                   int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
                   world.playSound(
-                     (EntityPlayer)null,
+                     null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -135,36 +136,34 @@ public class AquaticBow extends AbstractBow {
                      player.rotationPitch,
                      player.rotationYaw,
                      0.0F,
-                     parameters.get("waterblast_velocity"),
-                     parameters.getEnchanted("waterblast_inaccuracy", acc)
+                     parameters.getF("waterblast_velocity"),
+                     parameters.getEnchantedF("waterblast_inaccuracy", acc)
                   );
-                  projectile.damage = parameters.getEnchanted("waterblast_damage", might);
+                  projectile.damage = parameters.getEnchantedF("waterblast_damage", might);
                   world.spawnEntity(projectile);
                   Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                   ItemArrow itemarrow = (ItemArrow)ammo.getItem();
-                  int amountSpin = Math.min(ammo.getCount(), parameters.geti("arrows_spin"));
+                  int amountSpin = Math.min(ammo.getCount(), parameters.getI("arrows_spin"));
 
                   for (int i = 0; i < amountSpin; i++) {
                      EntityArrow entityarrow = itemarrow.createArrow(world, ammo, player);
-                     if (entityarrow != null) {
-                        entityarrow.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.get("waterblast_velocity"), 0.0F);
-                        this.setDamageToArrow(entityarrow, ammo, world, player, itemstack, pulling, 0.0F, false);
-                        int k = GetMOP.floatToIntWithChance(
-                           parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)), itemRand
-                        );
-                        if (k > 0) {
-                           entityarrow.setKnockbackStrength(k);
-                        }
-
-                        if (player.capabilities.isCreativeMode) {
-                           entityarrow.pickupStatus = PickupStatus.CREATIVE_ONLY;
-                        }
-
-                        world.spawnEntity(entityarrow);
-                        EntityInfluence.addEntityInfluence(
-                           entityarrow, new EntityInfluenceFollowRotate(false, projectile, i, parameters.get("angle_between_arrows")), 64.0
-                        );
+                     entityarrow.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getF("waterblast_velocity"), 0.0F);
+                     this.setDamageToArrow(entityarrow, ammo, world, player, itemstack, pulling, 0.0F, false);
+                     int k = GetMOP.floatToIntWithChance(
+                        parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)), itemRand
+                     );
+                     if (k > 0) {
+                        entityarrow.setKnockbackStrength(k);
                      }
+
+                     if (player.capabilities.isCreativeMode) {
+                        entityarrow.pickupStatus = PickupStatus.CREATIVE_ONLY;
+                     }
+
+                     world.spawnEntity(entityarrow);
+                     EntityInfluence.addEntityInfluence(
+                        entityarrow, new EntityInfluenceFollowRotate(false, projectile, i, parameters.getF("angle_between_arrows")), 64.0
+                     );
                   }
 
                   itemstack.damageItem(amountSpin, player);
@@ -208,11 +207,11 @@ public class AquaticBow extends AbstractBow {
    @Override
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      int maxPullTime = parameters.geti("max_pull_time");
+      int maxPullTime = parameters.getI("max_pull_time");
       boolean specialAttack = NBTHelper.GetNBTboolean(itemstack, "specattack");
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
       if (specialAttack) {
-         return parameters.getEnchantedi("waterblast_cooldown", rapidity);
+         return parameters.getEnchantedI("waterblast_cooldown", rapidity);
       } else {
          float mult = 1.0F - 0.2F * rapidity;
          return Math.round(maxPullTime * mult);
@@ -233,9 +232,9 @@ public class AquaticBow extends AbstractBow {
       }
    }
 
-   public static class EntityInfluenceFollowRotate extends EntityInfluence {
-      public Entity toFollow;
-      public int num;
+   private static class EntityInfluenceFollowRotate extends EntityInfluence {
+      private final Entity toFollow;
+      private final int num;
       public float angleBetween = 120.0F;
 
       public EntityInfluenceFollowRotate(boolean synchronizeToClients, Entity toFollow, int num, float angleBetween) {
@@ -252,11 +251,11 @@ public class AquaticBow extends AbstractBow {
             entity.motionX *= friction;
             entity.motionY *= friction;
             entity.motionZ *= friction;
-            Vec3d motionvec = new Vec3d(-this.toFollow.motionX, -this.toFollow.motionY, -this.toFollow.motionZ);
-            Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(motionvec);
-            Vec3d angledVec = GetMOP.PitchYawToVec3d((float)pitchYaw.x + 30.0F, (float)pitchYaw.y);
+            Vec3d motionVec = new Vec3d(-this.toFollow.motionX, -this.toFollow.motionY, -this.toFollow.motionZ);
+            Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(motionVec);
+            Vec3d angledVec = GetMOP.pitchYawToVec3D((float)pitchYaw.x + 30.0F, (float)pitchYaw.y);
             Vec3d rotatedVec = GetMOP.rotateVecAroundAxis(
-               angledVec, motionvec, (this.angleBetween * this.num + this.toFollow.ticksExisted * 9.6F) * 0.017453F
+               angledVec, motionVec, (this.angleBetween * this.num + this.toFollow.ticksExisted * 9.6F) * 0.017453F
             );
             Vec3d posTo = rotatedVec.add(this.toFollow.getPositionVector());
             SuperKnockback.applyMove(entity, -0.2F, posTo.x, posTo.y, posTo.z);

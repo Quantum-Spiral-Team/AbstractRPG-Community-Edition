@@ -28,9 +28,9 @@ public class ConiferLog extends BlockRotatedPillar implements IBlockHardBreak {
       super(Material.WOOD);
       this.setRegistryName("conifer_log");
       this.setTranslationKey("conifer_log");
-      this.blockHardness = BlocksRegister.HR_CONIFER_LOG.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_CONIFER_LOG.RESISTANCE;
-      this.setHarvestLevel("axe", BlocksRegister.HR_CONIFER_LOG.LVL);
+      this.blockHardness = BlocksRegister.HR_CONIFER_LOG.hardness;
+      this.blockResistance = BlocksRegister.HR_CONIFER_LOG.resistance;
+      this.setHarvestLevel("axe", BlocksRegister.HR_CONIFER_LOG.lvl);
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
       this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
       this.setSoundType(SoundType.WOOD);

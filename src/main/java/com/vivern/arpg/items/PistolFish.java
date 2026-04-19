@@ -95,7 +95,7 @@ public class PistolFish extends ItemWeapon {
                      Weapons.setPlayerAnimationOnServer(player, 5, hand);
                      if (!player.capabilities.isCreativeMode) {
                         if (itemRand.nextFloat()
-                           < parameters.getEnchanted("ammo_consume_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))) {
+                           < parameters.getEnchantedF("ammo_consume_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))) {
                            this.addAmmo(ammo, itemstack, -1);
                         }
 
@@ -110,27 +110,27 @@ public class PistolFish extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.1F,
                         0.4F,
                         0.2F
                      );
-                     projectile.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      world.spawnEntity(projectile);
                      if (itemRand.nextFloat()
-                        < parameters.getEnchanted("special_shoot_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack))) {
+                        < parameters.getEnchantedF("special_shoot_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack))) {
                         Entity htarget = projectile.getHypotheticalTarget();
                         if (htarget != null) {
                            double radius = player.getDistance(htarget) * 0.3;
                            List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(
-                              world, GetMOP.entityCenterPos(htarget), radius, radius / 2.0, player, htarget
+                              world, GetMOP.entityCenterPos(htarget), radius, radius / 2.0, player
                            );
                            if (list.size() >= 1) {
                               for (int i = 0; i < 6; i++) {
                                  EntityLivingBase newtarget = list.get(itemRand.nextInt(list.size()));
                                  if (GetMOP.thereIsNoBlockCollidesBetween(
-                                    world, player.getPositionEyes(1.0F), GetMOP.entityCenterPos(newtarget), 1.0F, null, false
+                                    world, player.getPositionEyes(1.0F), GetMOP.entityCenterPos(newtarget), null, false
                                  )) {
                                     PistolFishStrike projectile2 = new PistolFishStrike(world, player, itemstack);
                                     Weapons.shoot(projectile2, hand, player, player.rotationPitch, player.rotationYaw, 0.0F, 0.0F, 0.0F, -0.1F, 0.4F, 0.2F);
@@ -139,9 +139,9 @@ public class PistolFish extends ItemWeapon {
                                     Vec3d pos3 = pos2.subtract(pos1);
                                     double dist = Math.sqrt(pos3.x * pos3.x + pos3.z * pos3.z);
                                     SuperKnockback.setMove(
-                                       projectile2, -parameters.get("velocity"), pos2.x, pos2.y + dist * 0.1, pos2.z
+                                       projectile2, -parameters.getF("velocity"), pos2.x, pos2.y + dist * 0.1, pos2.z
                                     );
-                                    projectile2.livetime = parameters.getEnchantedi(
+                                    projectile2.livetime = parameters.getEnchantedI(
                                        "livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack)
                                     );
                                     world.spawnEntity(projectile2);
@@ -162,7 +162,7 @@ public class PistolFish extends ItemWeapon {
                         }
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.FISHFEED, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.FISH_FEED, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

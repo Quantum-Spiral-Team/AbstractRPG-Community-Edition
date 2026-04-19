@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -204,7 +204,7 @@ public class PalmLeaves extends Block implements IShearable {
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       Random rand = world instanceof World ? ((World)world).rand : new Random();
       if (rand.nextInt(17) == 0) {
-         drops.add(new ItemStack(BlocksRegister.PALMSAPLING));
+         drops.add(new ItemStack(BlocksRegister.PALM_SAPLING));
       }
    }
 

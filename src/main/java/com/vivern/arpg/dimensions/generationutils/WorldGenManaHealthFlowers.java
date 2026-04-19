@@ -14,10 +14,10 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class WorldGenManaHealthFlowers implements IWorldGenerator {
    public boolean ishealth;
    public static WorldGenGroundFoliage.WorldGenManaAndHealthFoliage healthFlowers = new WorldGenGroundFoliage.WorldGenManaAndHealthFoliage(
-      BlocksRegister.HEALTHFLOWERLEAVES, 8, 2, 1
+      BlocksRegister.HEALTH_FLOWER_LEAVES, 8, 2, 1
    );
    public static WorldGenGroundFoliage.WorldGenManaAndHealthFoliage manaFlowers = new WorldGenGroundFoliage.WorldGenManaAndHealthFoliage(
-      BlocksRegister.MANAFLOWERLEAVES, 16, 3, 2
+      BlocksRegister.MANA_FLOWER_LEAVES, 16, 3, 2
    );
 
    public WorldGenManaHealthFlowers(boolean ishealth) {

@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.GetMOP;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -60,7 +60,7 @@ public class LarvaBlock extends Block {
    public boolean tryFall(IBlockState state, World world, BlockPos pos) {
       int l = (Integer)state.getValue(LAYERS);
       IBlockState statef = world.getBlockState(pos.down());
-      if (statef.getBlock() == BlocksRegister.LARVABLOCK) {
+      if (statef.getBlock() == BlocksRegister.LARVA_BLOCK) {
          int l2 = (Integer)statef.getValue(LAYERS);
          int resultl1 = l - (3 - l2);
          if (resultl1 < 1) {

@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
@@ -25,8 +24,8 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 public class ToxicPlains extends BiomeControlled {
    public ToxicPlains() {
       super(new BiomeProperties("Toxic plains").setBaseHeight(0.25F).setTemperature(1.0F).setWaterColor(5931421));
-      this.topBlock = BlocksRegister.TOXICGRASS.getDefaultState();
-      this.fillerBlock = BlocksRegister.TOXICDIRT.getDefaultState();
+      this.topBlock = BlocksRegister.TOXIC_GRASS.getDefaultState();
+      this.fillerBlock = BlocksRegister.TOXIC_DIRT.getDefaultState();
       this.decorator = new ToxicPlainsDecorator();
    }
 
@@ -49,13 +48,13 @@ public class ToxicPlains extends BiomeControlled {
    class ToxicPlainsDecorator extends BiomeDecorator {
       public WorldGenGroundFoliage foliage1 = new WorldGenGroundFoliage(BlocksRegister.ARELIA, 64, 6, 4);
       public WorldGenGroundFoliage foliage2 = new WorldGenGroundFoliage(BlocksRegister.TOXEDGE, 64, 9, 4);
-      public WorldGenGroundFoliage foliage3 = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRYARCANO, 64, 8, 4);
+      public WorldGenGroundFoliage foliage3 = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRY_ARCANO, 64, 8, 4);
       public WorldGenGroundFoliage foliage4 = new WorldGenGroundFoliage(BlocksRegister.DECEIDUS, 40, 12, 5);
-      public WorldGenGroundFoliage foliage5 = new WorldGenGroundFoliage(BlocksRegister.MUCOPHILLUSBROWN, 10, 8, 4);
+      public WorldGenGroundFoliage foliage5 = new WorldGenGroundFoliage(BlocksRegister.MUCOPHILLUS_BROWN, 10, 8, 4);
       public WorldGenGroundFoliage foliage6 = new WorldGenGroundFoliage(BlocksRegister.MUCOPHILLUS, 5, 8, 4);
-      public WorldGenGroundFoliage foliage7 = new WorldGenGroundFoliage(BlocksRegister.CONTEMPLANT, 50, 8, 4);
+      public WorldGenGroundFoliage foliage7 = new WorldGenGroundFoliage(BlocksRegister.CONTEM_PLANT, 50, 8, 4);
       public WorldGenGroundFoliage toxiBULB = new WorldGenGroundFoliage(BlocksRegister.TOXIBULB, 4, 8, 3);
-      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXICTALLGRASS, 48, 9, 4);
+      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXIC_TALLGRASS, 48, 9, 4);
 
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
@@ -106,8 +105,8 @@ public class ToxicPlains extends BiomeControlled {
                   new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
-               if (blockd == BlocksRegister.TOXICGRASS
-                  || blockd == BlocksRegister.TOXICDIRT
+               if (blockd == BlocksRegister.TOXIC_GRASS
+                  || blockd == BlocksRegister.TOXIC_DIRT
                   || blockd == BlocksRegister.SLUDGE
                   || blockd == BlocksRegister.JUNK) {
                   WorldServer worldServerx = (WorldServer)worldIn;
@@ -154,7 +153,7 @@ public class ToxicPlains extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDTOXIN, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 
@@ -168,7 +167,7 @@ public class ToxicPlains extends BiomeControlled {
                int j = random.nextInt(16) + 8;
                int k = random.nextInt(16) + 8;
                BlockPos postop = worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k));
-               if (worldIn.getBlockState(postop.down()).getBlock() == BlocksRegister.TOXICGRASS || random.nextFloat() < 0.3) {
+               if (worldIn.getBlockState(postop.down()).getBlock() == BlocksRegister.TOXIC_GRASS || random.nextFloat() < 0.3) {
                   this.foliage2.generate(worldIn, random, postop);
                }
             }
@@ -177,7 +176,7 @@ public class ToxicPlains extends BiomeControlled {
                int j = random.nextInt(16) + 8;
                int k = random.nextInt(16) + 8;
                BlockPos postop = worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k));
-               if (worldIn.getBlockState(postop.down()).getBlock() == BlocksRegister.TOXICGRASS || random.nextFloat() < 0.2) {
+               if (worldIn.getBlockState(postop.down()).getBlock() == BlocksRegister.TOXIC_GRASS || random.nextFloat() < 0.2) {
                   this.foliage3.generate(worldIn, random, postop);
                }
             }
@@ -210,7 +209,7 @@ public class ToxicPlains extends BiomeControlled {
                int j = random.nextInt(16) + 8;
                int k = random.nextInt(16) + 8;
                BlockPos postop = worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k));
-               if (worldIn.getBlockState(postop.down()).getBlock() == BlocksRegister.TOXICGRASS || random.nextFloat() < 0.1) {
+               if (worldIn.getBlockState(postop.down()).getBlock() == BlocksRegister.TOXIC_GRASS || random.nextFloat() < 0.1) {
                   this.foliage7.generate(worldIn, random, postop);
                }
             }

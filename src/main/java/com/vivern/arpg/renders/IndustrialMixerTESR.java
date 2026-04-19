@@ -4,7 +4,7 @@ import com.vivern.arpg.blocks.IndustrialMixer;
 import com.vivern.arpg.items.models.IndustrialMixerModel;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.tileentity.TileIndustrialMixer;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;

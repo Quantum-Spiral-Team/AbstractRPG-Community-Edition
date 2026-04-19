@@ -10,7 +10,6 @@ import com.vivern.arpg.renders.ParticleTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -128,6 +127,6 @@ public class EntityArrowWind extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWWIND);
+      return new ItemStack(ItemsRegister.ARROW_WIND);
    }
 }

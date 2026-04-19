@@ -8,6 +8,6 @@
         }
     },
   "textures": {
-    "layer0": "arpg:lightband"
+    "layer0": "arpg:light_band"
   }
 }

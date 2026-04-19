@@ -25,8 +25,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class MoltenGreataxe extends ItemWeapon {
-   public MoltenGreataxe() {
+public class MoltenGreatAxe extends ItemWeapon {
+   public MoltenGreatAxe() {
       this.setRegistryName("molten_greataxe");
       this.setCreativeTab(CreativeTabs.COMBAT);
       this.setTranslationKey("molten_greataxe");
@@ -119,10 +119,10 @@ public class MoltenGreataxe extends ItemWeapon {
             if (potione != null) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
                PotionEffect baff = new PotionEffect(
-                  potione, parameters.getEnchantedi("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack)), amplifier
+                  potione, parameters.getEnchantedI("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack)), amplifier
                );
                ((EntityLivingBase)entity).addPotionEffect(baff);
-               NBTHelper.AddNBTint(stack, -parameters.getEnchantedi("potion_consume", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack)), "duration");
+               NBTHelper.AddNBTint(stack, -parameters.getEnchantedI("potion_consume", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack)), "duration");
             }
          }
       }
@@ -133,7 +133,7 @@ public class MoltenGreataxe extends ItemWeapon {
       );
       entity.hurtResistantTime = 0;
       int firelvl = WeaponParameters.getWeaponParameters(stack.getItem())
-         .getEnchantedi("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
+         .getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
       if (firelvl > 0) {
          entity.setFire(firelvl);
       }

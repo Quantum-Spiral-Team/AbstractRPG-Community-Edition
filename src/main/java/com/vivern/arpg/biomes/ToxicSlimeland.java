@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
@@ -31,8 +30,8 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 public class ToxicSlimeland extends BiomeControlled {
    public ToxicSlimeland() {
       super(new BiomeProperties("Slime lands").setBaseHeight(1.0F).setHeightVariation(0.2F).setTemperature(1.35F).setRainfall(0.9F).setWaterColor(5931421));
-      this.topBlock = BlocksRegister.BROWNSLIME.getDefaultState();
-      this.fillerBlock = BlocksRegister.BROWNSLIME.getDefaultState();
+      this.topBlock = BlocksRegister.BROWN_SLIME.getDefaultState();
+      this.fillerBlock = BlocksRegister.BROWN_SLIME.getDefaultState();
       this.decorator = new ToxicSlimelandDecorator();
    }
 
@@ -51,14 +50,14 @@ public class ToxicSlimeland extends BiomeControlled {
 
    @Override
    public void onPlayer60ticksInBiome(BiomeControlled biome, EntityPlayer player) {
-      Mana.addRad(player, BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTIRADPACK) > -1 ? 10 : 40, true);
+      Mana.addRad(player, BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTI_RAD_PACK) > -1 ? 10 : 40, true);
    }
 
    class ToxicSlimelandDecorator extends BiomeDecorator {
       public WorldGenToxicBarrels barrels = new WorldGenToxicBarrels(13, 4, 3);
-      public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISONLILY, 8, 4, 0);
-      public WorldGenSpread slimeblob = new WorldGenSpread(BlocksRegister.SLIMEBLOB, 16, 8, 4, BlocksRegister.BROWNSLIME);
-      public WorldGenFluidLake lakeslime = new WorldGenFluidLake(BlocksRegister.FLUIDSLIME, null, null, BlocksRegister.BROWNSLIME, false, false);
+      public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISON_LILY, 8, 4, 0);
+      public WorldGenSpread slimeblob = new WorldGenSpread(BlocksRegister.SLIME_BLOB, 16, 8, 4, BlocksRegister.BROWN_SLIME);
+      public WorldGenFluidLake lakeslime = new WorldGenFluidLake(BlocksRegister.FLUID_SLIME, null, null, BlocksRegister.BROWN_SLIME, false, false);
 
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
@@ -69,7 +68,7 @@ public class ToxicSlimeland extends BiomeControlled {
                   new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
-               if ((!worldIn.getBlockState(position).getMaterial().isLiquid() || random.nextFloat() < 0.3F) && blockd == BlocksRegister.BROWNSLIME) {
+               if ((!worldIn.getBlockState(position).getMaterial().isLiquid() || random.nextFloat() < 0.3F) && blockd == BlocksRegister.BROWN_SLIME) {
                   WorldServer worldServer = (WorldServer)worldIn;
                   MinecraftServer minecraftServer = worldIn.getMinecraftServer();
                   TemplateManager templateManager = worldServer.getStructureTemplateManager();
@@ -124,7 +123,7 @@ public class ToxicSlimeland extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDTOXIN, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 
@@ -135,7 +134,7 @@ public class ToxicSlimeland extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDSLIME, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_SLIME, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 
@@ -163,7 +162,7 @@ public class ToxicSlimeland extends BiomeControlled {
                int k = random.nextInt(16) + 8;
                BlockPos posup = worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k));
                Block block = worldIn.getBlockState(posup.down()).getBlock();
-               if (block == BlocksRegister.BROWNSLIME || block == BlocksRegister.SLUDGE) {
+               if (block == BlocksRegister.BROWN_SLIME || block == BlocksRegister.SLUDGE) {
                   this.slimeblob.generate(worldIn, random, posup);
                }
             }

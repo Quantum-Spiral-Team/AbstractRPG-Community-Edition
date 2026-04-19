@@ -6,7 +6,7 @@ import com.vivern.arpg.mobs.ToxicomaniaMobsPack;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.tileentity.TileBioCell;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -124,9 +124,9 @@ public class BioCell extends BlockBlockHard {
             spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.EMBRYO));
          }
 
-         worldIn.setBlockState(pos, BlocksRegister.FLUIDBIOGENICACID.getDefaultState());
+         worldIn.setBlockState(pos, BlocksRegister.FLUID_BIOGENIC_ACID.getDefaultState());
          if (worldIn.isAirBlock(pos.up())) {
-            worldIn.setBlockState(pos.up(), BlocksRegister.FLUIDBIOGENICACID.getDefaultState());
+            worldIn.setBlockState(pos.up(), BlocksRegister.FLUID_BIOGENIC_ACID.getDefaultState());
          }
       }
    }

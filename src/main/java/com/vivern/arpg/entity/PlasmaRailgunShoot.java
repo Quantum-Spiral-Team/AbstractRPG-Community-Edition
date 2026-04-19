@@ -45,17 +45,17 @@ public class PlasmaRailgunShoot extends StandardBullet implements IEntitySynchro
 
    public PlasmaRailgunShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMARAILGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RAILGUN);
    }
 
    public PlasmaRailgunShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMARAILGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RAILGUN);
    }
 
    public PlasmaRailgunShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMARAILGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RAILGUN);
    }
 
    public PlasmaRailgunShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -163,11 +163,11 @@ public class PlasmaRailgunShoot extends StandardBullet implements IEntitySynchro
             int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
             boolean deal = Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.plasma),
-               parameters.getEnchanted("damage", might) + this.pierces * parameters.getEnchanted("damage_per_pierces", might),
+               parameters.getEnchantedF("damage", might) + this.pierces * parameters.getEnchantedF("damage_per_pierces", might),
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse)
+               parameters.getEnchantedF("knockback", impulse)
             );
             result.entityHit.hurtResistantTime = 0;
             if (result.entityHit instanceof EntityLivingBase) {
@@ -184,7 +184,7 @@ public class PlasmaRailgunShoot extends StandardBullet implements IEntitySynchro
             if (deal) {
                this.attacked.add(result.entityHit);
                this.pierces++;
-               if (this.pierces > parameters.getEnchanted("max_pierces", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack))) {
+               if (this.pierces > parameters.getEnchantedF("max_pierces", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack))) {
                   this.setDead();
                }
             }

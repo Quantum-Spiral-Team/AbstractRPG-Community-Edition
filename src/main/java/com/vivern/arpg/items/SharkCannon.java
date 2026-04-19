@@ -68,8 +68,8 @@ public class SharkCannon extends Item {
                player.addStat(StatList.getObjectUseStats(this));
             }
 
-            if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.SHARKAMMO, 1))) {
-               player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.SHARKAMMO, 1).getItem(), -1, 1, null);
+            if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.SHARK_AMMO, 1))) {
+               player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.SHARK_AMMO, 1).getItem(), -1, 1, null);
                itemstack.setItemDamage(0);
                player.getCooldownTracker().setCooldown(this, 80);
                world.playSound(

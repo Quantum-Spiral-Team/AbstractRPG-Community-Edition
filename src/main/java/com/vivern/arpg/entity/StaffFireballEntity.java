@@ -33,17 +33,17 @@ public class StaffFireballEntity extends EntityThrowable {
 
    public StaffFireballEntity(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.FIREBALLSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
    }
 
    public StaffFireballEntity(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.FIREBALLSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
    }
 
    public StaffFireballEntity(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.FIREBALLSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
    }
 
    public StaffFireballEntity(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -186,7 +186,7 @@ public class StaffFireballEntity extends EntityThrowable {
 
    public void expl() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -194,23 +194,23 @@ public class StaffFireballEntity extends EntityThrowable {
          List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this.thrower, axisalignedbb);
          if (!list.isEmpty()) {
             for (Entity entity : list) {
-               float friendlyfire = Team.checkIsOpponent(this.thrower, entity) ? 1.0F : parameters.get("friendlyfire");
+               float friendlyfire = Team.checkIsOpponent(this.thrower, entity) ? 1.0F : parameters.getF("friendlyfire");
                int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),
-                  parameters.getEnchanted("damage", might) * this.magicPower * friendlyfire,
+                  parameters.getEnchantedF("damage", might) * this.magicPower * friendlyfire,
                   this.getThrower(),
                   entity,
                   true,
-                  parameters.getEnchanted("knockback", impulse) * friendlyfire,
+                  parameters.getEnchantedF("knockback", impulse) * friendlyfire,
                   this.posX,
                   this.posY,
                   this.posZ
                );
                entity.hurtResistantTime = 0;
-               entity.setFire(Math.round(parameters.getEnchanted("fire", witchery) * friendlyfire));
+               entity.setFire(Math.round(parameters.getEnchantedF("fire", witchery) * friendlyfire));
                if (entity instanceof EntityLivingBase) {
                   EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
                   if (entitylivingbase.getHealth() <= 0.0F && this.rand.nextFloat() < 0.6 && entitylivingbase.deathTime < 1) {
@@ -222,7 +222,7 @@ public class StaffFireballEntity extends EntityThrowable {
 
          if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
             Explosion explosion = new Explosion(
-               this.world, null, this.posX, this.posY, this.posZ, parameters.get("special_explosion_size"), false, true
+               this.world, null, this.posX, this.posY, this.posZ, parameters.getF("special_explosion_size"), false, true
             );
             explosion.doExplosionA();
             explosion.doExplosionB(false);

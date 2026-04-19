@@ -51,7 +51,7 @@ public class LogicRay {
       World world, Entity target, Predicate<? super Entity> successEntity, Predicate<? super Entity> filterEntityToIgnore, boolean stopOnLiquid
    ) {
       Vec3d to = new Vec3d(target.posX, target.posY + target.height / 2.0F, target.posZ);
-      Vec3d impact = GetMOP.logicRayTrace(world, this.posVector(), to, 1.0F, filterEntityToIgnore, this.raySize, this.raySize, stopOnLiquid);
+      Vec3d impact = GetMOP.logicRayTrace(world, this.posVector(), to, filterEntityToIgnore, this.raySize, this.raySize, stopOnLiquid);
       AxisAlignedBB cube = new AxisAlignedBB(
          impact.x - this.raySize,
          impact.y - this.raySize,
@@ -146,7 +146,7 @@ public class LogicRay {
    }
 
    public boolean checkOffPos(World world, Vec3d offpos, boolean stopOnLiquid, Predicate<? super Entity> filterEntityToIgnore) {
-      Vec3d impactBACK = GetMOP.logicRayTrace(world, offpos, this.posVector(), 1.0F, filterEntityToIgnore, this.raySize, this.raySize, stopOnLiquid);
+      Vec3d impactBACK = GetMOP.logicRayTrace(world, offpos, this.posVector(), filterEntityToIgnore, this.raySize, this.raySize, stopOnLiquid);
       Vec3d target;
       if (this.targetEntity != null) {
          target = new Vec3d(
@@ -160,7 +160,7 @@ public class LogicRay {
          target = new Vec3d(this.nextRay.posX, this.nextRay.posY, this.nextRay.posZ);
       }
 
-      Vec3d impactFORWARD = GetMOP.logicRayTrace(world, offpos, target, 1.0F, filterEntityToIgnore, this.raySize, this.raySize, stopOnLiquid);
+      Vec3d impactFORWARD = GetMOP.logicRayTrace(world, offpos, target, filterEntityToIgnore, this.raySize, this.raySize, stopOnLiquid);
       return this.noBlockImpact(world, impactBACK) && this.noBlockImpact(world, impactFORWARD) && this.noBlockImpact(world, offpos);
    }
 
@@ -191,7 +191,7 @@ public class LogicRay {
          target = new Vec3d(this.nextRay.posX, this.nextRay.posY, this.nextRay.posZ);
       }
 
-      return GetMOP.logicRayTrace(world, thispos, target, 1.0F, filterEntityToIgnore, this.raySize, this.raySize, stopOnLiquid);
+      return GetMOP.logicRayTrace(world, thispos, target, filterEntityToIgnore, this.raySize, this.raySize, stopOnLiquid);
    }
 
    public void debug(World world) {

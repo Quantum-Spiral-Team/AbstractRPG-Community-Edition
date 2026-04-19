@@ -1,25 +1,20 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-	"model": "arpg:corallimorpha",
-    "textures": {
-	  "all": "arpg:corallimorpha_brown"
-    }
-  },
-  "variants": {
-		"normal": [{}], 
-		"inventory": [{}],
-		"facing=up,level=0,wet=true": { "model": "arpg:corallimorpha" },
-		"facing=east,level=0,wet=true": { "model": "arpg:corallimorpha", "x": 90, "y": 90 },
-		"facing=south,level=0,wet=true": { "model": "arpg:corallimorpha", "x": 90, "y": 180 },
-		"facing=west,level=0,wet=true": { "model": "arpg:corallimorpha", "x": 90, "y": 270 },
-		"facing=north,level=0,wet=true": { "model": "arpg:corallimorpha", "x": 90 },
-		"facing=down,level=0,wet=true": { "model": "arpg:corallimorpha", "x": 180 },
-		"facing=up,level=0,wet=false": { "model": "arpg:corallimorpha" },
-		"facing=east,level=0,wet=false": { "model": "arpg:corallimorpha", "x": 90, "y": 90 },
-		"facing=south,level=0,wet=false": { "model": "arpg:corallimorpha", "x": 90, "y": 180 },
-		"facing=west,level=0,wet=false": { "model": "arpg:corallimorpha", "x": 90, "y": 270 },
-		"facing=north,level=0,wet=false": { "model": "arpg:corallimorpha", "x": 90 },
-		"facing=down,level=0,wet=false": { "model": "arpg:corallimorpha", "x": 180 }
-  }
+	"forge_marker": 1,
+	"defaults": {
+		"model": "arpg:corallimorpha",
+		"textures": {
+			"all": "arpg:corallimorpha_brown"
+		}
+	},
+	"variants": {
+		"facing": {
+			"up": { "model": "arpg:corallimorpha" },
+			"down": { "model": "arpg:corallimorpha", "x": 180 },
+			"north": { "model": "arpg:corallimorpha", "x": 90 },
+			"south": { "model": "arpg:corallimorpha", "x": 90, "y": 180 },
+			"west": { "model": "arpg:corallimorpha", "x": 90, "y": 270 },
+			"east": { "model": "arpg:corallimorpha", "x": 90, "y": 90 }
+		},
+		"inventory": [{}]
+	}
 }

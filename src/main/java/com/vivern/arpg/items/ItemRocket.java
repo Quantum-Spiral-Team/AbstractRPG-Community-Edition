@@ -39,7 +39,7 @@ import com.vivern.arpg.renders.ParticleTracker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -119,17 +119,17 @@ public class ItemRocket extends Item {
    }
 
    public static void init() {
-      registerRocket((ItemRocket)ItemsRegister.ROCKETCOMMON);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETFROSTFIRE);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETCHEMICAL);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETNAPALM);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETDEMOLISHING);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETMINING);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETVOID);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETWATERBLAST);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETARCANE);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETSURPRISE);
-      registerRocket((ItemRocket)ItemsRegister.ROCKETSHELL);
+      registerRocket((ItemRocket)ItemsRegister.COMMON_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.FROSTFIRE_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.CHEMICAL_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.NAPALM_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.DEMOLISHING_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.MINING_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.VOID_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.WATERBLAST_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.ARCANE_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.SURPRISE_ROCKET);
+      registerRocket((ItemRocket)ItemsRegister.SHELL_ROCKET);
    }
 
    public static void registerRocket(ItemRocket item) {
@@ -161,15 +161,15 @@ public class ItemRocket extends Item {
    }
 
    public float damage() {
-      return WeaponParameters.getWeaponParameters(this).get("damage");
+      return WeaponParameters.getWeaponParameters(this).getF("damage");
    }
 
    public float knockback() {
-      return WeaponParameters.getWeaponParameters(this).get("knockback");
+      return WeaponParameters.getWeaponParameters(this).getF("knockback");
    }
 
    public float damageRadius(ItemStack weaponstack) {
-      return WeaponParameters.getWeaponParameters(this).getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
+      return WeaponParameters.getWeaponParameters(this).getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
    }
 
    public String getNbtName() {
@@ -897,7 +897,7 @@ public class ItemRocket extends Item {
 
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-      tooltip.add("пїЅ7" + Ln.translate("damage") + ": " + parameters.get("damage"));
+      tooltip.add("пїЅ7" + Ln.translate("damage") + ": " + parameters.getF("damage"));
       String name = this.getRegistryName().getPath();
       tooltip.add("пїЅf" + Ln.translate("description." + name));
    }
@@ -1024,15 +1024,15 @@ public class ItemRocket extends Item {
             if (!list.isEmpty()) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, weaponstack);
-               int toxtime = parameters.getEnchantedi("toxin_time", witchery);
-               int FRtoxtime = parameters.getEnchantedi("friendlyfire_toxin_time", witchery);
-               int toxpower = parameters.getEnchantedi("toxin_power", witchery);
-               int poistime = parameters.getEnchantedi("poison_time", witchery);
-               int FRpoistime = parameters.getEnchantedi("friendlyfire_poison_time", witchery);
-               int poispower = parameters.getEnchantedi("poison_power", witchery);
-               int slimtime = parameters.getEnchantedi("slime_time", witchery);
-               int FRslimtime = parameters.getEnchantedi("friendlyfire_slime_time", witchery);
-               int slimpower = parameters.getEnchantedi("slime_power", witchery);
+               int toxtime = parameters.getEnchantedI("toxin_time", witchery);
+               int FRtoxtime = parameters.getEnchantedI("friendlyfire_toxin_time", witchery);
+               int toxpower = parameters.getEnchantedI("toxin_power", witchery);
+               int poistime = parameters.getEnchantedI("poison_time", witchery);
+               int FRpoistime = parameters.getEnchantedI("friendlyfire_poison_time", witchery);
+               int poispower = parameters.getEnchantedI("poison_power", witchery);
+               int slimtime = parameters.getEnchantedI("slime_time", witchery);
+               int FRslimtime = parameters.getEnchantedI("friendlyfire_slime_time", witchery);
+               int slimpower = parameters.getEnchantedI("slime_power", witchery);
 
                for (Entity entity : list) {
                   boolean opponent = Team.checkIsOpponent(player, entity);
@@ -1080,8 +1080,8 @@ public class ItemRocket extends Item {
 
             if (world.isAreaLoaded(new BlockPos(x - 16.0, y - 16.0, z - 16.0), new BlockPos(x + 16.0, y + 16.0, z + 16.0))) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               int radiusBlocks = parameters.getEnchantedi("radius_turn_water", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
-               float chance = parameters.getEnchanted("turn_water_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, weaponstack));
+               int radiusBlocks = parameters.getEnchantedI("radius_turn_water", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
+               float chance = parameters.getEnchantedF("turn_water_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, weaponstack));
 
                for (BlockPos blockpos : GetMOP.getPosesInsideSphere((int)x, (int)y, (int)z, radiusBlocks)) {
                   if (itemRand.nextFloat() < chance) {
@@ -1089,7 +1089,7 @@ public class ItemRocket extends Item {
                      if (state.getBlock() == Blocks.WATER || state.getBlock() == Blocks.FLOWING_WATER) {
                         world.setBlockState(
                            blockpos,
-                           BlocksRegister.FLUIDPOISON.getDefaultState().withProperty(BlockFluidPoison.LEVEL, state.getValue(BlockLiquid.LEVEL))
+                           BlocksRegister.FLUID_POISON.getDefaultState().withProperty(BlockFluidPoison.LEVEL, state.getValue(BlockLiquid.LEVEL))
                         );
                      }
                   }
@@ -1241,14 +1241,14 @@ public class ItemRocket extends Item {
          float weaponKnockback
       ) {
          if (!world.isRemote) {
-            float weapondamageMultiplier = WeaponParameters.getWeaponParameters(this).get("rooted_weapondamage_explode_multiplier");
+            float weapondamageMultiplier = WeaponParameters.getWeaponParameters(this).getF("rooted_weapondamage_explode_multiplier");
             world.newExplosion(
                player,
                x,
                y,
                z,
                WeaponParameters.getWeaponParameters(this)
-                     .getEnchanted("base_explosion_size", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, weaponstack))
+                     .getEnchantedF("base_explosion_size", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, weaponstack))
                   + (float)(Math.sqrt(weaponDamage) * weapondamageMultiplier),
                EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, weaponstack) > 0,
                true
@@ -1342,9 +1342,9 @@ public class ItemRocket extends Item {
             if (!list.isEmpty()) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, weaponstack);
-               int ptime = parameters.getEnchantedi("potion_time", witchery);
-               int ftime = parameters.getEnchantedi("friendlyfire_potion_time", witchery);
-               int ppower = parameters.getEnchantedi("potion_power", witchery);
+               int ptime = parameters.getEnchantedI("potion_time", witchery);
+               int ftime = parameters.getEnchantedI("friendlyfire_potion_time", witchery);
+               int ppower = parameters.getEnchantedI("potion_power", witchery);
 
                for (Entity entity : list) {
                   entity.extinguish();
@@ -1399,11 +1399,11 @@ public class ItemRocket extends Item {
 
             if (world.isAreaLoaded(new BlockPos(x - 16.0, y - 16.0, z - 16.0), new BlockPos(x + 16.0, y + 16.0, z + 16.0))) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               int radiusBlocks = parameters.getEnchantedi("radius_freeze", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
+               int radiusBlocks = parameters.getEnchantedI("radius_freeze", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
 
                for (BlockPos blockpos : GetMOP.getPosesInsideSphere((int)x, (int)y, (int)z, radiusBlocks)) {
                   IBlockState state = world.getBlockState(blockpos);
-                  if (!Weapons.freezeBlock(world, blockpos, state, state.getBlock()) && state.getBlock() == BlocksRegister.FROSTEXPLOSIVE) {
+                  if (!Weapons.freezeBlock(world, blockpos, state, state.getBlock()) && state.getBlock() == BlocksRegister.FROSTFIRE_EXPLOSIVE) {
                      world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 3);
                      ((FrostfireExplosive)state.getBlock()).blockexploded(world, blockpos, player, projectile);
                   }
@@ -1516,8 +1516,8 @@ public class ItemRocket extends Item {
 
             if (world.isAreaLoaded(new BlockPos(x - 16.0, y - 16.0, z - 16.0), new BlockPos(x + 16.0, y + 16.0, z + 16.0))) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               int radiusBlocks = parameters.getEnchantedi("radius_block_destroy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
-               float mult = parameters.get("damage_to_hardness_breaks");
+               int radiusBlocks = parameters.getEnchantedI("radius_block_destroy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
+               float mult = parameters.getF("damage_to_hardness_breaks");
                List<BlockPos> blocks = GetMOP.getPosesInsideSphere((int)x, (int)y, (int)z, radiusBlocks);
                Collections.shuffle(blocks);
                int lastSounds = 4;
@@ -1630,7 +1630,7 @@ public class ItemRocket extends Item {
                         z
                      );
                      entity.hurtResistantTime = 0;
-                     entity.setFire(parameters.getEnchantedi("fire", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, weaponstack)));
+                     entity.setFire(parameters.getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, weaponstack)));
                   } else {
                      if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, weaponstack) == 0) {
                         Weapons.dealDamage(
@@ -1643,7 +1643,7 @@ public class ItemRocket extends Item {
                      }
 
                      SuperKnockback.applyKnockback(entity, weaponKnockback + this.knockback(), x, y - entity.height / 2.0F, z);
-                     entity.setFire(parameters.geti("fire"));
+                     entity.setFire(parameters.getI("fire"));
                   }
 
                   if (entity instanceof EntityLivingBase) {
@@ -1661,8 +1661,8 @@ public class ItemRocket extends Item {
 
             if (world.isAreaLoaded(new BlockPos(x - 16.0, y - 16.0, z - 16.0), new BlockPos(x + 16.0, y + 16.0, z + 16.0))) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               float chanceIgnite = parameters.get("chance_ignite");
-               int radiusBlocks = parameters.getEnchantedi("radius_ignite", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
+               float chanceIgnite = parameters.getF("chance_ignite");
+               int radiusBlocks = parameters.getEnchantedI("radius_ignite", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
 
                for (BlockPos blockpos : GetMOP.getPosesInsideSphere((int)x, (int)y, (int)z, radiusBlocks)) {
                   IBlockState state = world.getBlockState(blockpos);
@@ -1743,8 +1743,8 @@ public class ItemRocket extends Item {
                world, damageRadius, itemRand.nextInt(2) + 1, itemRand, poss, player, this.damage() + weaponDamage, true
             );
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float shellsDamage = parameters.get("shells_damage") + weaponDamage;
-            int max = parameters.geti("shells_min") + itemRand.nextInt(parameters.geti("shells_max") - parameters.geti("shells_min") + 1);
+            float shellsDamage = parameters.getF("shells_damage") + weaponDamage;
+            int max = parameters.getI("shells_min") + itemRand.nextInt(parameters.getI("shells_max") - parameters.getI("shells_min") + 1);
             boolean block = result != null && result.typeOfHit == Type.BLOCK && result.sideHit != null;
             float power = 0.5F + Debugger.floats[0];
             float blockoffset = 0.1F;
@@ -1830,11 +1830,11 @@ public class ItemRocket extends Item {
             EnumFacing facing = result.sideHit;
             Vec3d mainVec;
             if (facing.getAxis() == Axis.X) {
-               mainVec = GetMOP.PitchYawToVec3d(45 * index, 0.0F);
+               mainVec = GetMOP.pitchYawToVec3D(45 * index, 0.0F);
             } else if (facing.getAxis() == Axis.Z) {
-               mainVec = GetMOP.PitchYawToVec3d(45 * index, 90.0F);
+               mainVec = GetMOP.pitchYawToVec3D(45 * index, 90.0F);
             } else {
-               mainVec = GetMOP.PitchYawToVec3d(0.0F, 45 * index);
+               mainVec = GetMOP.pitchYawToVec3D(0.0F, 45 * index);
             }
 
             posX += facing.getXOffset() * 0.3;
@@ -1860,7 +1860,7 @@ public class ItemRocket extends Item {
                posZ -= entity.motionZ * posfix;
             }
          } else {
-            Vec3d mainVecx = GetMOP.PitchYawToVec3d(itemRand.nextInt(13) - 6, 45 * index);
+            Vec3d mainVecx = GetMOP.pitchYawToVec3D(itemRand.nextInt(13) - 6, 45 * index);
             entity.motionX = mainVecx.x * mult;
             entity.motionY = mainVecx.y * mult;
             entity.motionZ = mainVecx.z * mult;
@@ -1900,7 +1900,7 @@ public class ItemRocket extends Item {
             }
 
             int amount = WeaponParameters.getWeaponParameters(this)
-               .getEnchantedi("surprises", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, weaponstack));
+               .getEnchantedI("surprises", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, weaponstack));
 
             for (int i = 0; i < amount; i++) {
                if (randProjectile == 0) {
@@ -1991,7 +1991,7 @@ public class ItemRocket extends Item {
             }
 
             if (randProjectile == 9) {
-               List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(world, new Vec3d(x, y, z), 9.0, 7.0, player, player);
+               List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(world, new Vec3d(x, y, z), 9.0, 7.0, player);
 
                for (int i = 0; i < 5; i++) {
                   EnderSeerProjectile shoot = new EnderSeerProjectile(world, player, list.isEmpty() ? null : list.get(itemRand.nextInt(list.size())));
@@ -2233,7 +2233,7 @@ public class ItemRocket extends Item {
 
             if (world.isAreaLoaded(new BlockPos(x - 16.0, y - 16.0, z - 16.0), new BlockPos(x + 16.0, y + 16.0, z + 16.0))) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               int radiusBlocks = parameters.getEnchantedi("wet_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
+               int radiusBlocks = parameters.getEnchantedI("wet_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, weaponstack));
 
                for (BlockPos blockpos : GetMOP.getPosesInsideSphere((int)x, (int)y, (int)z, radiusBlocks)) {
                   Weapons.doWetBlock(world, blockpos);

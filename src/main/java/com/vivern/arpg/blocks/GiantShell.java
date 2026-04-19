@@ -5,7 +5,6 @@ import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.NBTHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStaticLiquid;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -199,7 +198,7 @@ public class GiantShell extends Block implements IHasSubtypes {
    public IBlockState getStateForPlacement(
       World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand
    ) {
-      return placer.getHeldItem(hand).getItem() == Item.getItemFromBlock(BlocksRegister.GIANTSHELL)
+      return placer.getHeldItem(hand).getItem() == Item.getItemFromBlock(BlocksRegister.GIANT_SHELL)
          ? this.getDefaultState()
             .withProperty(TYPE, NBTHelper.GetNBTint(placer.getHeldItem(hand), "type"))
             .withProperty(LEVEL, 0)

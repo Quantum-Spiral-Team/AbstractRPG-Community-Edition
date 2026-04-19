@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
@@ -22,7 +21,7 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 public class PoisonOcean extends Biome {
    public PoisonOcean() {
       super(new BiomeProperties("Poison ocean").setBaseHeight(-1.2F).setHeightVariation(0.1F).setTemperature(0.8F).setWaterColor(5931421));
-      this.topBlock = BlocksRegister.TOXICDIRT.getDefaultState();
+      this.topBlock = BlocksRegister.TOXIC_DIRT.getDefaultState();
       this.fillerBlock = BlocksRegister.SLUDGE.getDefaultState();
       this.decorator = new PoisonOceanDecorator();
    }
@@ -30,7 +29,7 @@ public class PoisonOcean extends Biome {
    class PoisonOceanDecorator extends BiomeDecorator {
       public WorldGenSpread junk = new WorldGenSpread(BlocksRegister.JUNK, 30, 6, 2, BlocksRegister.SLUDGE, true);
       public WorldGenSpread scrap = new WorldGenSpread(BlocksRegister.SCRAP, 15, 5, 2, BlocksRegister.SLUDGE, true);
-      public WorldGenSpread slimeglobs = new WorldGenSpread(BlocksRegister.SLIMEGLOB, 15, 6, 3, BlocksRegister.SLUDGE, true);
+      public WorldGenSpread slimeglobs = new WorldGenSpread(BlocksRegister.SLIME_GLOB, 15, 6, 3, BlocksRegister.SLUDGE, true);
 
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
@@ -42,8 +41,8 @@ public class PoisonOcean extends Biome {
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
                if (worldIn.getBlockState(position.down()).isOpaqueCube()
-                  && worldIn.getBlockState(position).getBlock() == BlocksRegister.FLUIDPOISON
-                  && worldIn.getBlockState(position.up(3)).getBlock() == BlocksRegister.FLUIDPOISON) {
+                  && worldIn.getBlockState(position).getBlock() == BlocksRegister.FLUID_POISON
+                  && worldIn.getBlockState(position.up(3)).getBlock() == BlocksRegister.FLUID_POISON) {
                   WorldServer worldServer = (WorldServer)worldIn;
                   MinecraftServer minecraftServer = worldIn.getMinecraftServer();
                   TemplateManager templateManager = worldServer.getStructureTemplateManager();
@@ -84,8 +83,8 @@ public class PoisonOcean extends Biome {
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
                if (worldIn.getBlockState(position.down()).isOpaqueCube()
-                  && worldIn.getBlockState(position).getBlock() == BlocksRegister.FLUIDPOISON
-                  && worldIn.getBlockState(position.up(5)).getBlock() == BlocksRegister.FLUIDPOISON) {
+                  && worldIn.getBlockState(position).getBlock() == BlocksRegister.FLUID_POISON
+                  && worldIn.getBlockState(position.up(5)).getBlock() == BlocksRegister.FLUID_POISON) {
                   WorldServer worldServerx = (WorldServer)worldIn;
                   MinecraftServer minecraftServerx = worldIn.getMinecraftServer();
                   TemplateManager templateManagerx = worldServerx.getStructureTemplateManager();
@@ -130,7 +129,7 @@ public class PoisonOcean extends Biome {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDTOXIN, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 

@@ -5,7 +5,7 @@ import com.vivern.arpg.renders.RenderTerraformingResearch;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.Vec2f;
 
@@ -240,16 +240,16 @@ public abstract class Phenomenon {
    public static Vec2f getParticlePosInQuad(float progress, float radius) {
       float diameter = radius * 2.0F;
       if (progress >= 0.0F && progress < 0.25F) {
-         progress = GetMOP.getfromto(progress, 0.0F, 0.25F);
+         progress = GetMOP.getFromTo(progress, 0.0F, 0.25F);
          return new Vec2f(-radius + progress * diameter, radius);
       } else if (progress >= 0.25F && progress < 0.5F) {
-         progress = GetMOP.getfromto(progress, 0.25F, 0.5F);
+         progress = GetMOP.getFromTo(progress, 0.25F, 0.5F);
          return new Vec2f(radius, radius - progress * diameter);
       } else if (progress >= 0.5F && progress < 0.75F) {
-         progress = GetMOP.getfromto(progress, 0.5F, 0.75F);
+         progress = GetMOP.getFromTo(progress, 0.5F, 0.75F);
          return new Vec2f(radius - progress * diameter, -radius);
       } else {
-         progress = GetMOP.getfromto(progress, 0.75F, 1.0F);
+         progress = GetMOP.getFromTo(progress, 0.75F, 1.0F);
          return new Vec2f(-radius, -radius + progress * diameter);
       }
    }

@@ -4,7 +4,7 @@ import com.vivern.arpg.recipes.AlchemicLabRecipe;
 import com.vivern.arpg.recipes.Ingridient;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.ItemStack;
 
 public class AlchemicLabRecipesRegister {

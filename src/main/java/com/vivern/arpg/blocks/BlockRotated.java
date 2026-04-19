@@ -5,7 +5,7 @@ import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -229,17 +229,17 @@ public class BlockRotated extends Block {
       }
 
       public HardBlockRotated(
-         Material mater, String name, BlocksRegister.Hardres hardres, String tool, boolean canDropWhithoutTool, boolean fullFacing, AxisAlignedBB aabb
+              Material mater, String name, BlocksRegister.HardRes hardres, String tool, boolean canDropWhithoutTool, boolean fullFacing, AxisAlignedBB aabb
       ) {
-         super(mater, name, hardres.HARDNESS, hardres.RESISTANCE, fullFacing);
-         this.slowSpeed = hardres.SLOW;
+         super(mater, name, hardres.hardness, hardres.resistance, fullFacing);
+         this.slowSpeed = hardres.slow;
          this.canDropWhithoutTool = canDropWhithoutTool;
-         this.level = hardres.LVL;
+         this.level = hardres.lvl;
          this.tool = tool;
-         this.fastSpeed = hardres.FAST;
+         this.fastSpeed = hardres.fast;
          this.AABB = new AxisAlignedBB[]{aabb};
          this.useBBOne = true;
-         this.setHarvest(tool, hardres.LVL);
+         this.setHarvest(tool, hardres.lvl);
       }
 
       public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {

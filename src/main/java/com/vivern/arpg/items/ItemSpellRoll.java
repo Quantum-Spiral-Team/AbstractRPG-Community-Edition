@@ -168,7 +168,7 @@ public class ItemSpellRoll extends ItemWeapon {
 
    public void spawnParticles(World world, Entity player, float chanceOrange) {
       float scale = 0.015625F;
-      Vec3d spawnPoint = GetMOP.PitchYawToVec3d(player.rotationPitch, player.rotationYaw + (itemRand.nextFloat() - 0.5F) * 30.0F)
+      Vec3d spawnPoint = GetMOP.pitchYawToVec3D(player.rotationPitch, player.rotationYaw + (itemRand.nextFloat() - 0.5F) * 30.0F)
          .add(player.posX, player.posY + player.getEyeHeight() - 0.2F, player.posZ);
 
       for (BlockPos pos : GetMOP.getPosesInsideSphere((int)player.posX, (int)player.posY, (int)player.posZ, spellcastRadius)) {

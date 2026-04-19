@@ -4,7 +4,7 @@ import com.vivern.arpg.dimensions.aquatica.DimensionAquatica;
 import com.vivern.arpg.renders.GUNParticle;
 import com.google.common.base.Predicate;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -35,11 +35,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CoralTorch extends BlockUnderwater {
    public static ResourceLocation res = new ResourceLocation("arpg:textures/mana_flow.png");
-   public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
-      public boolean apply(@Nullable EnumFacing p_apply_1_) {
-         return p_apply_1_ != EnumFacing.DOWN;
-      }
-   });
+   public static final PropertyDirection FACING = PropertyDirection.create("facing", facing -> facing != EnumFacing.DOWN);
    protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.4F, 0.0, 0.4F, 0.6F, 0.6F, 0.6F);
    protected static final AxisAlignedBB TORCH_NORTH_AABB = new AxisAlignedBB(0.35F, 0.2F, 0.7F, 0.65F, 0.8F, 1.0);
    protected static final AxisAlignedBB TORCH_SOUTH_AABB = new AxisAlignedBB(0.35F, 0.2F, 0.0, 0.65F, 0.8F, 0.3F);
@@ -58,12 +54,7 @@ public class CoralTorch extends BlockUnderwater {
       this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
    }
 
-   @Override
-   public Material getMaterial(IBlockState state) {
-      return state.getValue(WET) ? Material.WATER : Material.ROCK;
-   }
-
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       for (EnumFacing enumfacing : FACING.getAllowedValues()) {
          if (this.canPlaceAt(worldIn, pos, enumfacing)) {
             return true;
@@ -81,7 +72,7 @@ public class CoralTorch extends BlockUnderwater {
       if (facing.equals(EnumFacing.UP) && this.canPlaceOn(worldIn, blockpos)) {
          return true;
       } else {
-         return facing != EnumFacing.UP && facing != EnumFacing.DOWN ? !isExceptBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID : false;
+         return facing != EnumFacing.UP && facing != EnumFacing.DOWN && !isExceptBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID;
       }
    }
 
@@ -103,15 +94,15 @@ public class CoralTorch extends BlockUnderwater {
       if (!this.checkForDrop(worldIn, pos, state)) {
          return true;
       } else {
-         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
-         Axis enumfacing$axis = enumfacing.getAxis();
+         EnumFacing enumfacing = state.getValue(FACING);
+         Axis axis = enumfacing.getAxis();
          EnumFacing enumfacing1 = enumfacing.getOpposite();
          BlockPos blockpos = pos.offset(enumfacing1);
          boolean flag = false;
-         if (enumfacing$axis.isHorizontal() && worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, enumfacing) != BlockFaceShape.SOLID) {
+         if (axis.isHorizontal() && worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, enumfacing) != BlockFaceShape.SOLID) {
             flag = true;
-         } else if (enumfacing$axis.isVertical() && !this.canPlaceOn(worldIn, blockpos)) {
-            flag = true;
+         } else if (axis.isVertical() && !this.canPlaceOn(worldIn, blockpos)) {
+            flag = true; // B: ?????? а зачем повторять то?
          }
 
          if (flag) {
@@ -125,7 +116,7 @@ public class CoralTorch extends BlockUnderwater {
    }
 
    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-      if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING))) {
+      if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, state.getValue(FACING))) {
          return true;
       } else {
          if (worldIn.getBlockState(pos).getBlock() == this) {
@@ -138,7 +129,7 @@ public class CoralTorch extends BlockUnderwater {
    }
 
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             return TORCH_EAST_AABB;
          case WEST:

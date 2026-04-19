@@ -4,7 +4,6 @@ import com.vivern.arpg.main.BlocksRegister;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -66,10 +65,10 @@ public class FrostedWeed extends Block {
    public static boolean canStayAtPos(World worldIn, BlockPos pos) {
       Block blockd = worldIn.getBlockState(pos.down()).getBlock();
       return blockd == Blocks.SNOW
-         || blockd == BlocksRegister.FROZENCOBBLE
+         || blockd == BlocksRegister.FROZEN_COBBLESTONE
          || blockd == BlocksRegister.GLACIER
-         || blockd == BlocksRegister.SNOWICE
-         || blockd == BlocksRegister.FROZENSTONE;
+         || blockd == BlocksRegister.SNOW_ICE
+         || blockd == BlocksRegister.FROZEN_STONE;
    }
 
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {

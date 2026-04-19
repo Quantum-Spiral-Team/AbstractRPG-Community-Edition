@@ -7,12 +7,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class WhipParticle extends BetweenParticle {
-   public float startmotionX = 0.0F;
-   public float startmotionY = 0.0F;
-   public float startmotionZ = 0.0F;
-   public float targetmotionX = 0.0F;
-   public float targetmotionY = 0.0F;
-   public float targetmotionZ = 0.0F;
+   public float startMotionX = 0.0F;
+   public float startMotionY = 0.0F;
+   public float startMotionZ = 0.0F;
+   public float targetMotionX = 0.0F;
+   public float targetMotionY = 0.0F;
+   public float targetMotionZ = 0.0F;
    public Vec3d from;
    public Vec3d to;
 

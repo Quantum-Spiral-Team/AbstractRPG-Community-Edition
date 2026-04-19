@@ -113,7 +113,7 @@ public class StaffOfWitherdry extends ItemWeapon {
 
    public static int getMaxFiretime(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(itemstack.getItem())
-         .getEnchantedi("maxfire_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
+         .getEnchantedI("maxfire_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
    }
 
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
@@ -121,14 +121,14 @@ public class StaffOfWitherdry extends ItemWeapon {
          int fire = NBTHelper.GetNBTint(itemstack, "fire");
          if (fire > 0) {
             float fireValue = (float)fire / getMaxFiretime(itemstack);
-            float fireBig = GetMOP.softfromto(fireValue, 0.4F, 0.5F);
-            float fireExponent = GetMOP.softfromto(fireValue, 0.0F, 0.15F) * 5.0F
-               + GetMOP.softfromto(fireValue, 0.15F, 0.5F) * 7.0F
-               + GetMOP.softfromto(fireValue, 0.5F, 1.0F) * 20.0F;
-            float fireExtra = fireBig - GetMOP.softfromto(fireValue, 0.5F, 0.6F);
+            float fireBig = GetMOP.softFromTo(fireValue, 0.4F, 0.5F);
+            float fireExponent = GetMOP.softFromTo(fireValue, 0.0F, 0.15F) * 5.0F
+               + GetMOP.softFromTo(fireValue, 0.15F, 0.5F) * 7.0F
+               + GetMOP.softFromTo(fireValue, 0.5F, 1.0F) * 20.0F;
+            float fireExtra = fireBig - GetMOP.softFromTo(fireValue, 0.5F, 0.6F);
             Vec3d shootPoint = entityIn.getPositionVector()
                .add(0.0, 1.2, 0.0)
-               .add(GetMOP.PitchYawToVec3d(entityIn.rotationPitch, entityIn.rotationYaw));
+               .add(GetMOP.pitchYawToVec3D(entityIn.rotationPitch, entityIn.rotationYaw));
             int lt = (int)fireExponent;
             GUNParticle particle = new GUNParticle(
                flame_big,
@@ -236,7 +236,7 @@ public class StaffOfWitherdry extends ItemWeapon {
 
                if (firedelay == 1) {
                   double raduis = 10.0;
-                  Vec3d vec1 = GetMOP.PitchYawToVec3d(player.rotationPitch, player.rotationYaw);
+                  Vec3d vec1 = GetMOP.pitchYawToVec3D(player.rotationPitch, player.rotationYaw);
                   Vec3d vec2 = entityIn.getPositionVector().add(0.0, 1.2, 0.0);
                   Vec3d shootPoint = vec2.add(vec1);
                   Vec3d aabbPoint = vec2.add(vec1.scale(raduis));
@@ -265,7 +265,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                         yy = targets[i].posY + targets[i].height / 2.0F;
                         zz = targets[i].posZ;
                      } else {
-                        Vec3d vec3 = GetMOP.PitchYawToVec3d(
+                        Vec3d vec3 = GetMOP.pitchYawToVec3D(
                            player.rotationPitch + (float)itemRand.nextGaussian() * 2.0F, player.rotationYaw + (float)itemRand.nextGaussian() * 4.0F
                         );
                         Vec3d vec4 = vec2.add(vec3.scale(8.0));
@@ -290,7 +290,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                if (!player.getCooldownTracker().hasCooldown(this)) {
                   if (click) {
                      if (player.ticksExisted % 2 == 0) {
-                        if (!(Mana.getMana(player) > parameters.getEnchanted("manacost", sor))) {
+                        if (!(Mana.getMana(player) > parameters.getEnchantedF("manacost", sor))) {
                            NBTHelper.SetNBTint(itemstack, 0, "fire");
                         } else {
                            NBTHelper.GiveNBTint(itemstack, 0, "fire");
@@ -301,9 +301,9 @@ public class StaffOfWitherdry extends ItemWeapon {
                            }
 
                            float fireValue = (float)fire / maxFire;
-                           float fireExponent = GetMOP.softfromto(fireValue, 0.0F, 0.15F) * 5.0F
-                              + GetMOP.softfromto(fireValue, 0.15F, 0.5F) * 7.0F
-                              + GetMOP.softfromto(fireValue, 0.5F, 1.0F) * parameters.getEnchanted("livetime", ran);
+                           float fireExponent = GetMOP.softFromTo(fireValue, 0.0F, 0.15F) * 5.0F
+                              + GetMOP.softFromTo(fireValue, 0.15F, 0.5F) * 7.0F
+                              + GetMOP.softFromTo(fireValue, 0.5F, 1.0F) * parameters.getEnchantedF("livetime", ran);
                            if (fire == maxFire / 2) {
                               IWeapon.fireBomEffect(this, player, world, -1);
                               world.playSound(
@@ -364,16 +364,16 @@ public class StaffOfWitherdry extends ItemWeapon {
                            player.addStat(StatList.getObjectUseStats(this));
                            Vec3d shootPoint = entityIn.getPositionVector()
                               .add(0.0, 1.2, 0.0)
-                              .add(GetMOP.PitchYawToVec3d(entityIn.rotationPitch, entityIn.rotationYaw));
+                              .add(GetMOP.pitchYawToVec3D(entityIn.rotationPitch, entityIn.rotationYaw));
                            ShootOfWitherdry shoot = new ShootOfWitherdry(world, player, itemstack, power);
                            shoot.setPosition(shootPoint.x, shootPoint.y, shootPoint.z);
                            shoot.shoot(
-                              player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.get("velocity"), parameters.getEnchanted("inaccuracy", acc)
+                              player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getF("velocity"), parameters.getEnchantedF("inaccuracy", acc)
                            );
                            shoot.livetime = (int)fireExponent;
                            world.spawnEntity(shoot);
                            if (!player.capabilities.isCreativeMode) {
-                              Mana.changeMana(player, -parameters.getEnchanted("manacost", sor));
+                              Mana.changeMana(player, -parameters.getEnchantedF("manacost", sor));
                               Mana.setManaSpeed(player, 0.001F);
                               itemstack.damageItem(1, player);
                            }
@@ -399,7 +399,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                         if (!player.capabilities.isCreativeMode) {
                            itemstack.damageItem(1, player);
                            if (itemRand.nextFloat()
-                              < parameters.getEnchanted("charge_consume_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))) {
+                              < parameters.getEnchantedF("charge_consume_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))) {
                               NBTHelper.AddNBTint(itemstack, -1, "charge");
                            }
                         }
@@ -437,7 +437,7 @@ public class StaffOfWitherdry extends ItemWeapon {
 
    public static int maxcharge(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(itemstack.getItem())
-         .getEnchantedi("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+         .getEnchantedI("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
    }
 
    @Override

@@ -46,7 +46,7 @@ public class DoleriteColumn extends BlockRotatedPillar implements IBlockHardBrea
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_DOLERITE_BRICKS;
    }
 

@@ -11,7 +11,7 @@ import com.vivern.arpg.tileentity.TileCalibrationBundle;
 import com.google.common.base.Predicate;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -82,7 +82,7 @@ public class ItemCalibrationThing extends Item {
    public int randomDisplayType;
    public static Predicate<IBlockState> BUNDLES = new Predicate<IBlockState>() {
       public boolean apply(IBlockState input) {
-         return input.getBlock() == BlocksRegister.BLOCKCALIBRATIONBUNDLE;
+         return input.getBlock() == BlocksRegister.BLOCK_CALIBRATION_BUNDLE;
       }
    };
 
@@ -282,17 +282,17 @@ public class ItemCalibrationThing extends Item {
                }
 
                BlockPos posoff = blockpos.offset(raytraceresult.sideHit);
-               if (BlocksRegister.BLOCKCALIBRATIONBUNDLE.canPlaceBlockAt(worldIn, posoff)) {
+               if (BlocksRegister.BLOCK_CALIBRATION_BUNDLE.canPlaceBlockAt(worldIn, posoff)) {
                   if (!worldIn.isBlockModifiable(playerIn, posoff)) {
                      return new ActionResult(EnumActionResult.FAIL, itemstack);
                   }
 
-                  IBlockState iblockstate1 = BlocksRegister.BLOCKCALIBRATIONBUNDLE.getDefaultState();
+                  IBlockState iblockstate1 = BlocksRegister.BLOCK_CALIBRATION_BUNDLE.getDefaultState();
                   if (!worldIn.setBlockState(posoff, iblockstate1, 11)) {
                      return new ActionResult(EnumActionResult.FAIL, itemstack);
                   }
 
-                  BlocksRegister.BLOCKCALIBRATIONBUNDLE.onBlockPlacedBy(worldIn, posoff, iblockstate1, playerIn, itemstack);
+                  BlocksRegister.BLOCK_CALIBRATION_BUNDLE.onBlockPlacedBy(worldIn, posoff, iblockstate1, playerIn, itemstack);
                   if (playerIn instanceof EntityPlayerMP) {
                      CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)playerIn, posoff, itemstack);
                   }

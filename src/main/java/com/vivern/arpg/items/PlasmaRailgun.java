@@ -64,7 +64,7 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int RFtoShoot = parameters.getEnchantedi("rf_to_shoot", reuse);
+            int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
             if (click && player.getHeldItemMainhand() == itemstack) {
                if (ammo > 0 && this.isReloaded(itemstack)) {
                   if (!hascooldown && this.getEnergyStored(itemstack) >= RFtoShoot) {
@@ -96,17 +96,17 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.15F,
                         0.25F,
                         0.7F,
                         0.15F
                      );
-                     projectile.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      world.spawnEntity(projectile);
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.PLASMARAILGUNBOLTS, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.PLASMA_RAILGUN_BOLTS, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

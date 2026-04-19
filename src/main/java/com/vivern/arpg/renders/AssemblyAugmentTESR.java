@@ -7,7 +7,7 @@ import com.vivern.arpg.items.models.TurningAugmentModel;
 import com.vivern.arpg.items.models.WeldAugmentModel;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.tileentity.TileAssemblyAugment;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
@@ -36,25 +36,25 @@ public class AssemblyAugmentTESR extends TileEntitySpecialRenderer<TileAssemblyA
       if (te != null) {
          IBlockState blockState = te.getWorld().getBlockState(te.getPos());
          Block block = blockState.getBlock();
-         if (block == BlocksRegister.AUGMENTCUT) {
+         if (block == BlocksRegister.TURNING_AUGMENT) {
             tex = tex_turning;
             model = model_turning;
             te.setAnimationTurning(model_turning, partialTicks);
          }
 
-         if (block == BlocksRegister.AUGMENTPRESS) {
+         if (block == BlocksRegister.PRESS_AUGMENT) {
             tex = tex_press;
             model = model_press;
             te.setAnimationPress(model_press, partialTicks);
          }
 
-         if (block == BlocksRegister.AUGMENTWELD) {
+         if (block == BlocksRegister.WELD_AUGMENT) {
             tex = tex_weld;
             model = model_weld;
             te.setAnimationWeld(model_weld, partialTicks);
          }
 
-         if (block == BlocksRegister.AUGMENTPLASMA) {
+         if (block == BlocksRegister.PLASMA_SPRAY_AUGMENT) {
             tex = tex_plasma;
             model = model_plasma;
             te.setAnimationPlasmaSpray(model_plasma, partialTicks);

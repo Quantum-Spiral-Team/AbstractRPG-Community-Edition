@@ -66,7 +66,7 @@ public class FrozenWings extends AbstractWings implements IAttributedBauble, IRe
 
          expand /= 1.0F + nofly * 1.5F;
          int maxflytime = this.getMaxFlyTime(stack);
-         float upward = GetMOP.getfromto(flytime, 0.0F, 5.0F) * GetMOP.getfromto(flyupStarted, 0.0F, (float)(this.flapPeriod / 2));
+         float upward = GetMOP.getFromTo(flytime, 0.0F, 5.0F) * GetMOP.getFromTo(flyupStarted, 0.0F, (float)(this.flapPeriod / 2));
          float upwardProgress = flytime / this.flapPeriodFloat;
          float gliding = glidingRaw / 8.0F * nofly;
          GlStateManager.pushMatrix();

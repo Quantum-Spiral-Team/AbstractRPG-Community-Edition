@@ -37,7 +37,7 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
       if (this.ticksExisted % 10 == 0) {
          if (this.charge < 1.0F) {
             ItemStack soulstone = (ItemStack)this.stack.get(0);
-            if (!soulstone.isEmpty() && soulstone.getItem() == ItemsRegister.SOULSTONE) {
+            if (!soulstone.isEmpty() && soulstone.getItem() == ItemsRegister.SOUL_STONE) {
                int soulid = SoulStone.getSoul(soulstone);
                if (soulid > 0) {
                   Soul soul = Soul.byId(soulid);
@@ -54,7 +54,7 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
 
             if (this.charge <= 1.0F) {
                this.charge = 0.0F;
-               this.setInventorySlotContents(0, new ItemStack(ItemsRegister.SOULSTONE));
+               this.setInventorySlotContents(0, new ItemStack(ItemsRegister.SOUL_STONE));
             }
          }
       }
@@ -154,7 +154,7 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
    }
 
    public boolean isItemValidForSlot(int index, ItemStack stack) {
-      return stack.getItem() == ItemsRegister.SOULSTONE;
+      return stack.getItem() == ItemsRegister.SOUL_STONE;
    }
 
    public int getField(int id) {

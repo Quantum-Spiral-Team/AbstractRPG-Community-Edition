@@ -89,7 +89,7 @@ public class Blowhole extends ItemWeapon {
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
             boolean click3 = hand == EnumHand.MAIN_HAND ? click : click2;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int maxcharge = parameters.geti("max_charge");
+            int maxcharge = parameters.getI("max_charge");
             if (hand != null) {
                boolean anotherHandEmpty = player.getHeldItem(hand == EnumHand.MAIN_HAND ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND).isEmpty();
                if (click3) {
@@ -107,7 +107,7 @@ public class Blowhole extends ItemWeapon {
                         );
                      }
 
-                     NBTHelper.AddNBTint(itemstack, parameters.geti("charge_add"), "charge");
+                     NBTHelper.AddNBTint(itemstack, parameters.getI("charge_add"), "charge");
                      if (charge > 7 && charge % 9 == 0) {
                         Weapons.setPlayerAnimationOnServer(player, anotherHandEmpty ? 11 : 10, hand);
                         world.playSound(
@@ -121,7 +121,7 @@ public class Blowhole extends ItemWeapon {
                            0.9F + itemRand.nextFloat() / 5.0F
                         );
                      }
-                  } else if (this.initiateReload(itemstack, player, ItemsRegister.BLOWHOLEPELLETS, maxammo)) {
+                  } else if (this.initiateReload(itemstack, player, ItemsRegister.BLOWHOLE_PELLETS, maxammo)) {
                      world.playSound(
                         (EntityPlayer)null,
                         player.posX,
@@ -156,7 +156,7 @@ public class Blowhole extends ItemWeapon {
                         world,
                         player,
                         itemstack,
-                        charge * parameters.getEnchanted("bubble_size_multiplier", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack))
+                        charge * parameters.getEnchantedF("bubble_size_multiplier", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack))
                      );
                      Weapons.shoot(
                         shoot,
@@ -165,8 +165,8 @@ public class Blowhole extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getEnchanted("velocity", special) + charge * parameters.getEnchanted("velocity_charge_multiplier", special),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getEnchantedF("velocity", special) + charge * parameters.getEnchantedF("velocity_charge_multiplier", special),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.2F,
                         0.5F,
                         0.15F
@@ -176,9 +176,9 @@ public class Blowhole extends ItemWeapon {
                      if (!player.capabilities.isCreativeMode) {
                         int ammoadd = 0;
                         if (charge < 8) {
-                           ammoadd = parameters.getEnchantedi("ammo_add", reuse);
+                           ammoadd = parameters.getEnchantedI("ammo_add", reuse);
                         } else {
-                           ammoadd = (int)(-charge * parameters.getEnchanted("ammo_add_charged_multiplier", reuse));
+                           ammoadd = (int)(-charge * parameters.getEnchantedF("ammo_add_charged_multiplier", reuse));
                         }
 
                         this.addAmmo(ammo, itemstack, ammoadd);

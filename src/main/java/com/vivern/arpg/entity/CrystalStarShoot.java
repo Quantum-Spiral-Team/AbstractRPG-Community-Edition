@@ -43,19 +43,19 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
 
    public CrystalStarShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALSTAR);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
       this.pickupStatus = PickupStatus.DISALLOWED;
    }
 
    public CrystalStarShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALSTAR);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
       this.pickupStatus = PickupStatus.DISALLOWED;
    }
 
    public CrystalStarShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALSTAR);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
       this.pickupStatus = PickupStatus.DISALLOWED;
    }
 
@@ -124,11 +124,11 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.shootingEntity, this, false, true, this, WeaponDamage.pierce),
-                  parameters.getEnchanted("damage", might) * this.magicPower,
+                  parameters.getEnchantedF("damage", might) * this.magicPower,
                   this.shootingEntity,
                   entity,
                   true,
-                  parameters.getEnchanted("knockback", impulse),
+                  parameters.getEnchantedF("knockback", impulse),
                   this.posX,
                   this.posY,
                   this.posZ
@@ -151,7 +151,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
             if (entity instanceof EntityLivingBase) {
                EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
                boolean apricked = NailGunShoot.isEntityPricked(this.world, entitylivingbase);
-               boolean healthmin = entitylivingbase.getHealth() <= parameters.get("health_to_prick");
+               boolean healthmin = entitylivingbase.getHealth() <= parameters.getF("health_to_prick");
                if (!this.damageDealed) {
                   this.damageDealed = true;
                   if (healthmin && !apricked) {

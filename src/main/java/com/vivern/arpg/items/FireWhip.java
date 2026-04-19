@@ -28,7 +28,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class FireWhip extends ItemWeapon {
-   static ResourceLocation sweeptex = new ResourceLocation("arpg:textures/sweep2.png");
+   static ResourceLocation sweepTexture = new ResourceLocation("arpg:textures/sweep2.png");
    static ResourceLocation texture = new ResourceLocation("arpg:textures/fire_beam.png");
    static ResourceLocation texture2 = new ResourceLocation("arpg:textures/fishing_round2.png");
    public int segmentCount = 8;
@@ -43,6 +43,7 @@ public class FireWhip extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -51,12 +52,12 @@ public class FireWhip extends ItemWeapon {
             float friction = Debugger.floats[1] + 0.49F;
             float del = Debugger.floats[2] + 12.0F;
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-            boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean hasCooldown = player.getCooldownTracker().hasCooldown(this);
+            boolean hasExpCooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+            boolean primaryClick = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean secondaryClick = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
             int damage = itemstack.getItemDamage();
-            Vec3d vec = GetMOP.RotatedPosRayTrace(1.0, 1.0F, player, 0.2, 0.2, 40.0F, player.rotationYaw + 25.0F);
+            Vec3d vec = GetMOP.rotatedPosRayTrace(1.0, 1.0F, player, 0.2, 0.2, 40.0F, player.rotationYaw + 25.0F);
             double startX = vec.x;
             double startY = vec.y;
             double startZ = vec.z;
@@ -96,10 +97,10 @@ public class FireWhip extends ItemWeapon {
                      double d1 = possY - poss2Y;
                      double d2 = possZ - poss2Z;
                      float dist = MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-                     float finalpower = (power - s / del) * dist;
-                     float prunex = (float)((poss2X - possX) / dist / 2.0 * finalpower);
-                     float pruney = (float)((poss2Y - possY) / dist / 2.0 * finalpower);
-                     float prunez = (float)((poss2Z - possZ) / dist / 2.0 * finalpower);
+                     float finalPower = (power - s / del) * dist;
+                     float prunex = (float)((poss2X - possX) / dist / 2.0 * finalPower);
+                     float pruney = (float)((poss2Y - possY) / dist / 2.0 * finalPower);
+                     float prunez = (float)((poss2Z - possZ) / dist / 2.0 * finalPower);
                      NBTHelper.AddNBTdouble(itemstack, -prunex, "motionX" + s);
                      NBTHelper.AddNBTdouble(itemstack, -pruney, "motionY" + s);
                      NBTHelper.AddNBTdouble(itemstack, -prunez, "motionZ" + s);
@@ -117,26 +118,26 @@ public class FireWhip extends ItemWeapon {
                   double posaX = NBTHelper.GetNBTdouble(itemstack, "posX" + sx);
                   double posaY = NBTHelper.GetNBTdouble(itemstack, "posY" + sx);
                   double posaZ = NBTHelper.GetNBTdouble(itemstack, "posZ" + sx);
-                  double mX = NBTHelper.GetNBTdouble(itemstack, "motionX" + sx);
-                  double mY = NBTHelper.GetNBTdouble(itemstack, "motionY" + sx);
-                  double mZ = NBTHelper.GetNBTdouble(itemstack, "motionZ" + sx);
+                  double motionX = NBTHelper.GetNBTdouble(itemstack, "motionX" + sx);
+                  double motionY = NBTHelper.GetNBTdouble(itemstack, "motionY" + sx);
+                  double motionZ = NBTHelper.GetNBTdouble(itemstack, "motionZ" + sx);
                   double posbX = NBTHelper.GetNBTdouble(itemstack, "posX" + (sx + 1));
                   double posbY = NBTHelper.GetNBTdouble(itemstack, "posY" + (sx + 1));
                   double posbZ = NBTHelper.GetNBTdouble(itemstack, "posZ" + (sx + 1));
-                  double mbX = NBTHelper.GetNBTdouble(itemstack, "motionX" + (sx + 1));
-                  double mbY = NBTHelper.GetNBTdouble(itemstack, "motionY" + (sx + 1));
-                  double mbZ = NBTHelper.GetNBTdouble(itemstack, "motionZ" + (sx + 1));
+                  double motionbX = NBTHelper.GetNBTdouble(itemstack, "motionX" + (sx + 1));
+                  double motionbY = NBTHelper.GetNBTdouble(itemstack, "motionY" + (sx + 1));
+                  double motionbZ = NBTHelper.GetNBTdouble(itemstack, "motionZ" + (sx + 1));
                   PacketWhipToClients packet = new PacketWhipToClients();
-                  packet.writeargs(posaX, posaY, posaZ, mX, mY, mZ, posbX, posbY, posbZ, mbX, mbY, mbZ, Item.getIdFromItem(this));
+                  packet.writeArgs(posaX, posaY, posaZ, motionX, motionY, motionZ, posbX, posbY, posbZ, motionbX, motionbY, motionbZ, Item.getIdFromItem(this));
                   PacketHandler.sendToAllAround(packet, world, player.posX, player.posY, player.posZ, 64.0);
-                  if (mX + mY + mZ > 0.6) {
+                  if (motionX + motionY + motionZ > 0.6) {
                      Vec3d start = new Vec3d(posaX, posaY, posaZ);
                      Vec3d end = new Vec3d(posbX, posbY, posbZ);
                      EntityLivingBase entitylivingbase = GetMOP.findEntityOnPath(start, end, world, player, 0.2, 0.2, true);
                      if (entitylivingbase != null) {
                         SuperKnockback.applyKnockback(
                            entitylivingbase,
-                           0.4F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack) / 5,
+                           0.4F + (float) EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack) / 5,
                            player.posX,
                            player.posY,
                            player.posZ
@@ -153,7 +154,7 @@ public class FireWhip extends ItemWeapon {
                   }
                }
 
-               if (damage < this.getMaxDamage() && click && !hascooldown) {
+               if (damage < this.getMaxDamage() && primaryClick && !hasCooldown) {
                   player.getCooldownTracker().setCooldown(this, 7);
                   shoot(itemstack, 1, player.rotationPitch, player.rotationYaw, 0.0F, 0.9F);
                   shoot(itemstack, 2, player.rotationPitch, player.rotationYaw, 0.0F, 1.6F);
@@ -165,59 +166,48 @@ public class FireWhip extends ItemWeapon {
                }
             }
 
-            if (click2 && player.getHeldItemOffhand() == itemstack && damage < this.getMaxDamage() && !hascooldown2) {
+            if (secondaryClick && player.getHeldItemOffhand() == itemstack && damage < this.getMaxDamage(itemstack) && !hasExpCooldown) {
             }
          }
       }
    }
 
-   public void effectt(
-      EntityPlayer player,
+   public void effect(
       World world,
-      double x,
-      double y,
+      double fromX,
+      double fromY,
       double z,
-      double a,
-      double b,
-      double c,
+      float startMotionX,
+      float startMotionY,
+      float startMotionZ,
       double d1,
       double d2,
       double d3,
-      double v1,
-      double v2,
-      double v3
+      float targetMotionX,
+      float targetMotionY,
+      float targetMotionZ
    ) {
-      GUNParticle bigsmoke = new GUNParticle(texture2, 0.05F, 0.0F, 1, 230, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, false, 0);
-      world.spawnEntity(bigsmoke);
-      Vec3d fr = new Vec3d(x, y, z);
+      GUNParticle bigSmoke = new GUNParticle(texture2, 0.05F, 0.0F, 1, 230, world, fromX, fromY, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, false, 0);
+      world.spawnEntity(bigSmoke);
+      Vec3d from = new Vec3d(fromX, fromY, z);
       Vec3d to = new Vec3d(d1, d2, d3);
-      WhipParticle part = new WhipParticle(world, texture, 0.1F, 220, 1.0F, 1.0F, 1.0F, 0.0F, fr.distanceTo(to), 1, 0.0F, 8.0F, fr, to);
-      part.setPosition(fr.x, fr.y, fr.z);
-      part.startmotionX = (float)a;
-      part.startmotionY = (float)b;
-      part.startmotionZ = (float)c;
-      part.targetmotionX = (float)v1;
-      part.targetmotionY = (float)v2;
-      part.targetmotionZ = (float)v3;
+      WhipParticle part = new WhipParticle(world, texture, 0.1F, 220, 1.0F, 1.0F, 1.0F, 0.0F, from.distanceTo(to), 1, 0.0F, 8.0F, from, to);
+      part.setPosition(from.x, from.y, from.z);
+      part.startMotionX = startMotionX;
+      part.startMotionY = startMotionY;
+      part.startMotionZ = startMotionZ;
+      part.targetMotionX = targetMotionX;
+      part.targetMotionY = targetMotionY;
+      part.targetMotionZ = targetMotionZ;
       world.spawnEntity(part);
    }
 
-   @Override
-   public boolean autoReload(ItemStack itemstack) {
-      return false;
-   }
-
-   @Override
+    @Override
    public boolean autoCooldown(ItemStack itemstack) {
       return false;
    }
 
-   @Override
-   public boolean hasZoom(ItemStack itemstack) {
-      return false;
-   }
-
-   @Override
+    @Override
    public int getCooldownTime(ItemStack itemstack) {
       return 0;
    }
@@ -227,12 +217,7 @@ public class FireWhip extends ItemWeapon {
       return 0;
    }
 
-   @Override
-   public float getZoom(ItemStack itemstack, EntityPlayer player) {
-      return 0.0F;
-   }
-
-   @Override
+    @Override
    public WeaponHandleType getWeaponHandleType() {
       return WeaponHandleType.ONE_HANDED;
    }
@@ -246,7 +231,7 @@ public class FireWhip extends ItemWeapon {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
       float f2 = MathHelper.cos(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
-      shoot(stack, segment, (double)f, (double)f1, (double)f2, velocity);
+      shoot(stack, segment, f, f1, (double)f2, velocity);
    }
 
    public static void shoot(ItemStack stack, int segment, double x, double y, double z, float velocity) {

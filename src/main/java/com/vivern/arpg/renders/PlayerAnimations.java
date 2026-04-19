@@ -6,7 +6,7 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Weapons;
 import com.google.common.base.MoreObjects;
 import java.util.Objects;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -614,11 +614,11 @@ public class PlayerAnimations {
             float contin = 0.4F;
             float ft1 = 1.0F;
             float ft2 = 1.0F;
-            float ft3 = GetMOP.getfromto(progress, 0.35F * contin, 0.6F * contin);
-            float ft4 = GetMOP.getfromto(progress, 0.6F * contin, contin);
-            float ft5 = GetMOP.getfromto(progress, contin, 1.0F);
-            float ft6 = GetMOP.getfromto(progress, contin, 1.2F * contin);
-            float ft7 = GetMOP.getfromto(progress, 1.65F * contin, 1.0F);
+            float ft3 = GetMOP.getFromTo(progress, 0.35F * contin, 0.6F * contin);
+            float ft4 = GetMOP.getFromTo(progress, 0.6F * contin, contin);
+            float ft5 = GetMOP.getFromTo(progress, contin, 1.0F);
+            float ft6 = GetMOP.getFromTo(progress, contin, 1.2F * contin);
+            float ft7 = GetMOP.getFromTo(progress, 1.65F * contin, 1.0F);
             float decr = 1.0F - ft5;
             float translateX = 1.3F * ft1 - 1.5F * ft3 - 1.9F * ft4 + 2.1F * ft5;
             float translateY = 0.4F * ft2 - 0.1F * ft4 - 0.85F * ft6 + 0.55F * ft7;
@@ -653,19 +653,19 @@ public class PlayerAnimations {
          float handMult = hand == EnumHandSide.LEFT ? -1.0F : 1.0F;
          float contin = 0.35F;
          float pause = contin + 0.375F;
-         float ft1 = GetMOP.getfromto(progress, 0.0F, 0.35F * contin);
-         float ft2 = GetMOP.getfromto(progress, 0.0F, 0.25F * contin);
-         float ft3 = GetMOP.getfromto(progress, 0.35F * contin, 0.6F * contin);
-         float ft4 = GetMOP.getfromto(progress, 0.6F * contin, contin);
-         float ft4_5 = GetMOP.getfromto(progress, contin, 1.0F);
-         float ft5 = GetMOP.getfromto(progress, pause, 1.0F);
-         float ft6 = GetMOP.getfromto(progress, contin, pause);
+         float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.35F * contin);
+         float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.25F * contin);
+         float ft3 = GetMOP.getFromTo(progress, 0.35F * contin, 0.6F * contin);
+         float ft4 = GetMOP.getFromTo(progress, 0.6F * contin, contin);
+         float ft4_5 = GetMOP.getFromTo(progress, contin, 1.0F);
+         float ft5 = GetMOP.getFromTo(progress, pause, 1.0F);
+         float ft6 = GetMOP.getFromTo(progress, contin, pause);
          if (model != null) {
             if (hand != EnumHandSide.RIGHT) {
                ;
             }
 
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.08F) - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.08F) - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft0_1 = 1.0F - ft0 * 0.7F;
             float ft0_2 = ft0 * 0.5F;
             handrenderer.rotateAngleX *= ft0_1;
@@ -714,8 +714,8 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.75F, 1.0F);
-            float ft2 = GetMOP.getfromto(progress, 0.05F, 0.15F) - GetMOP.getfromto(progress, 0.85F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.75F, 1.0F);
+            float ft2 = GetMOP.getFromTo(progress, 0.05F, 0.15F) - GetMOP.getFromTo(progress, 0.85F, 1.0F);
             float translateX = -1.09F * ft1;
             float translateY = 0.0F;
             float translateZ = 0.0F;
@@ -744,10 +744,10 @@ public class PlayerAnimations {
          EntityPlayer player,
          float partialTicks
       ) {
-         float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.75F, 1.0F);
-         float ft2 = GetMOP.getfromto(progress, 0.05F, 0.15F) - GetMOP.getfromto(progress, 0.85F, 1.0F);
+         float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.75F, 1.0F);
+         float ft2 = GetMOP.getFromTo(progress, 0.05F, 0.15F) - GetMOP.getFromTo(progress, 0.85F, 1.0F);
          if (model != null) {
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.15F) - GetMOP.getfromto(progress, 0.85F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.15F) - GetMOP.getFromTo(progress, 0.85F, 1.0F);
             ModelRenderer handrenderer2 = hand == EnumHandSide.RIGHT ? model.bipedLeftArm : model.bipedRightArm;
             handrenderer2.rotateAngleX *= 1.0F - 0.85F * ft0;
             handrenderer.rotateAngleX *= 1.0F - 0.95F * ft0;
@@ -790,7 +790,7 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             float handMult = enumhandside == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.4F) - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.4F) - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float translateX = -0.6F * ft1 * handMult;
             float translateY = -0.2F * ft1;
             float translateZ = 0.2F * ft1;
@@ -820,7 +820,7 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
@@ -838,7 +838,7 @@ public class PlayerAnimations {
                   + model.bipedLeftArm.rotateAngleX * ft2;
             }
          } else {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float rotateX = -10.0F * ft1;
             float rotateY = 10.0F * ft1;
             float rotateZ = -10.0F * ft1;
@@ -873,7 +873,7 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             float handMult = enumhandside == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float translateX = -0.1F * ft1 * handMult;
             float translateY = -0.05F * ft1;
             float translateZ = -0.1F * ft1;
@@ -903,7 +903,7 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
@@ -949,7 +949,7 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             float handMult = enumhandside == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float translateX = -0.6F * ft1 * handMult;
             float translateY = -0.2F * ft1;
             float translateZ = 0.2F * ft1;
@@ -979,7 +979,7 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
@@ -997,7 +997,7 @@ public class PlayerAnimations {
                   + model.bipedLeftArm.rotateAngleX * ft2;
             }
          } else {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float rotateX = -10.0F * ft1;
             float rotateY = 10.0F * ft1;
             float rotateZ = -10.0F * ft1;
@@ -1040,7 +1040,7 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             float handMult = enumhandside == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float translateX = -0.1F * ft1 * handMult;
             float translateY = -0.05F * ft1;
             float translateZ = -0.1F * ft1;
@@ -1070,7 +1070,7 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
@@ -1109,9 +1109,9 @@ public class PlayerAnimations {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             if (progress < 1.0F) {
                float mult = NBTHelper.GetNBTboolean(stack, "spindirection") ? 1.0F : -1.0F;
-               float ft1 = GetMOP.getfromto(-player.rotationPitch, 20.0F, 90.0F);
-               float ft2 = GetMOP.getfromto(player.rotationPitch, 0.0F, 90.0F);
-               float ft3 = Math.min(1.25F - GetMOP.getfromto(-player.rotationPitch, 20.0F, 50.0F), 1.0F);
+               float ft1 = GetMOP.getFromTo(-player.rotationPitch, 20.0F, 90.0F);
+               float ft2 = GetMOP.getFromTo(player.rotationPitch, 0.0F, 90.0F);
+               float ft3 = Math.min(1.25F - GetMOP.getFromTo(-player.rotationPitch, 20.0F, 50.0F), 1.0F);
                float translateX = 0.75F - 0.9F * ft1;
                float translateY = 1.2F + 0.3F * ft2 + 0.2F * ft1;
                float translateZ = 0.3F * ft1;
@@ -1184,8 +1184,8 @@ public class PlayerAnimations {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             if (progress < 1.0F) {
                float mult = flag1 ? 1.0F : -1.0F;
-               float ft1 = GetMOP.getfromto(-player.rotationPitch, 0.0F, 90.0F);
-               float ft2 = GetMOP.getfromto(player.rotationPitch, 0.0F, 90.0F);
+               float ft1 = GetMOP.getFromTo(-player.rotationPitch, 0.0F, 90.0F);
+               float ft2 = GetMOP.getFromTo(player.rotationPitch, 0.0F, 90.0F);
                float translateX = -0.45F * ft2 * mult;
                float translateY = 0.9F * ft2 - 0.4F * ft1;
                float translateZ = -0.6F + 0.3F * ft2;
@@ -1216,16 +1216,16 @@ public class PlayerAnimations {
       ) {
          if (progress < 1.0F) {
             if (model != null) {
-               float ft1 = GetMOP.getfromto(-model.bipedHead.rotateAngleX, 0.0F, 1.57F);
-               float ft2 = GetMOP.getfromto(model.bipedHead.rotateAngleX, 0.0F, 1.57F);
-               float ft3 = GetMOP.getfromto(model.bipedHead.rotateAngleY, 0.0F, 0.785398F);
-               float ft4 = GetMOP.getfromto(-model.bipedHead.rotateAngleY, 0.0F, 0.785398F);
+               float ft1 = GetMOP.getFromTo(-model.bipedHead.rotateAngleX, 0.0F, 1.57F);
+               float ft2 = GetMOP.getFromTo(model.bipedHead.rotateAngleX, 0.0F, 1.57F);
+               float ft3 = GetMOP.getFromTo(model.bipedHead.rotateAngleY, 0.0F, 0.785398F);
+               float ft4 = GetMOP.getFromTo(-model.bipedHead.rotateAngleY, 0.0F, 0.785398F);
                handrenderer.rotateAngleX = (float)(handrenderer.rotateAngleX * 0.1);
                handrenderer.rotateAngleX = handrenderer.rotateAngleX + ((float) (-Math.PI / 4) + model.bipedHead.rotateAngleX);
                handrenderer.rotateAngleY = handrenderer.rotateAngleY + model.bipedHead.rotateAngleY;
             } else {
-               float ft1 = GetMOP.getfromto(-player.rotationPitch, 0.0F, 90.0F);
-               float ft2 = GetMOP.getfromto(player.rotationPitch, 0.0F, 90.0F);
+               float ft1 = GetMOP.getFromTo(-player.rotationPitch, 0.0F, 90.0F);
+               float ft2 = GetMOP.getFromTo(player.rotationPitch, 0.0F, 90.0F);
                float rotateX = 0.0F;
                float rotateY = 0.0F;
                float rotateZ = 0.0F;
@@ -1324,10 +1324,10 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             int i = flag1 ? 1 : -1;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.45F, 1.0F);
-            float ft2 = GetMOP.getfromto(progress, 0.15F, 0.3F) - GetMOP.getfromto(progress, 0.3F, 0.8F);
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.22F) - GetMOP.getfromto(progress, 0.3F, 0.7F);
-            float ft4 = GetMOP.getfromto(progress, 0.1F, 0.25F) - GetMOP.getfromto(progress, 0.5F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.45F, 1.0F);
+            float ft2 = GetMOP.getFromTo(progress, 0.15F, 0.3F) - GetMOP.getFromTo(progress, 0.3F, 0.8F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.22F) - GetMOP.getFromTo(progress, 0.3F, 0.7F);
+            float ft4 = GetMOP.getFromTo(progress, 0.1F, 0.25F) - GetMOP.getFromTo(progress, 0.5F, 1.0F);
             float translateX = -0.25F * ft3;
             float translateY = 0.05F * ft4;
             float translateZ = -0.3F * ft2;
@@ -1358,9 +1358,9 @@ public class PlayerAnimations {
       ) {
          if (model != null) {
             float handMult = hand == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.17F) - GetMOP.getfromto(progress, 0.45F, 1.0F);
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.22F) - GetMOP.getfromto(progress, 0.3F, 0.7F);
-            float ft6 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.6F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.17F) - GetMOP.getFromTo(progress, 0.45F, 1.0F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.22F) - GetMOP.getFromTo(progress, 0.3F, 0.7F);
+            float ft6 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.6F, 1.0F);
             float ft7 = Math.min(1.4F - ft6, 1.0F);
             handrenderer.rotateAngleX *= ft7;
             handrenderer.rotateAngleX = handrenderer.rotateAngleX
@@ -1368,8 +1368,8 @@ public class PlayerAnimations {
             handrenderer.rotateAngleY += -15.0F * ft3 * handMult * (float) (Math.PI / 180.0);
             handrenderer.rotateAngleY = handrenderer.rotateAngleY + model.bipedHead.rotateAngleY * 0.8F * ft6;
          } else {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.17F) - GetMOP.getfromto(progress, 0.45F, 1.0F);
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.22F) - GetMOP.getfromto(progress, 0.3F, 0.7F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.17F) - GetMOP.getFromTo(progress, 0.45F, 1.0F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.22F) - GetMOP.getFromTo(progress, 0.3F, 0.7F);
             float rotateX = -40.0F * ft1;
             float rotateY = 0.0F;
             float rotateZ = 5.0F * ft3;
@@ -1398,11 +1398,11 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F);
-            float ft2 = GetMOP.getfromto(progress, 0.15F, 0.2F);
-            float ft5 = GetMOP.getfromto(progress, 0.2F, 0.24F) - GetMOP.getfromto(progress, 0.24F, 0.28F);
-            float ft3 = GetMOP.getfromto(progress, 0.3F, 0.7F);
-            float ft4 = GetMOP.getfromto(progress, 0.3F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F);
+            float ft2 = GetMOP.getFromTo(progress, 0.15F, 0.2F);
+            float ft5 = GetMOP.getFromTo(progress, 0.2F, 0.24F) - GetMOP.getFromTo(progress, 0.24F, 0.28F);
+            float ft3 = GetMOP.getFromTo(progress, 0.3F, 0.7F);
+            float ft4 = GetMOP.getFromTo(progress, 0.3F, 1.0F);
             float translateX = 0.2F * ft1 - ft3 * 0.2F;
             float translateY = 0.4F * ft1 - ft3 * 0.4F;
             float translateZ = -1.0F * ft2 + ft4 * 1.0F;
@@ -1432,12 +1432,12 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F);
-            float ft2 = GetMOP.getfromto(progress, 0.15F, 0.2F);
-            float ft5 = GetMOP.getfromto(progress, 0.2F, 0.24F) - GetMOP.getfromto(progress, 0.24F, 0.28F);
-            float ft3 = GetMOP.getfromto(progress, 0.3F, 0.7F);
-            float ft4 = GetMOP.getfromto(progress, 0.3F, 1.0F);
-            float ft6 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.4F, 0.7F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F);
+            float ft2 = GetMOP.getFromTo(progress, 0.15F, 0.2F);
+            float ft5 = GetMOP.getFromTo(progress, 0.2F, 0.24F) - GetMOP.getFromTo(progress, 0.24F, 0.28F);
+            float ft3 = GetMOP.getFromTo(progress, 0.3F, 0.7F);
+            float ft4 = GetMOP.getFromTo(progress, 0.3F, 1.0F);
+            float ft6 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.4F, 0.7F);
             float ft7 = Math.min(1.2F - ft6, 1.0F);
             ModelRenderer handrenderer2 = hand == EnumHandSide.RIGHT ? model.bipedLeftArm : model.bipedRightArm;
             handrenderer.rotateAngleX *= ft7;
@@ -1453,11 +1453,11 @@ public class PlayerAnimations {
             handrenderer.rotateAngleY = handrenderer.rotateAngleY + model.bipedHead.rotateAngleY * 0.9F * ft6;
             handrenderer2.rotateAngleY = handrenderer2.rotateAngleY + model.bipedHead.rotateAngleY * 0.9F * ft6;
          } else {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F);
-            float ft2 = GetMOP.getfromto(progress, 0.15F, 0.2F);
-            float ft5 = GetMOP.getfromto(progress, 0.2F, 0.24F) - GetMOP.getfromto(progress, 0.24F, 0.28F);
-            float ft3 = GetMOP.getfromto(progress, 0.3F, 0.7F);
-            float ft4 = GetMOP.getfromto(progress, 0.3F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F);
+            float ft2 = GetMOP.getFromTo(progress, 0.15F, 0.2F);
+            float ft5 = GetMOP.getFromTo(progress, 0.2F, 0.24F) - GetMOP.getFromTo(progress, 0.24F, 0.28F);
+            float ft3 = GetMOP.getFromTo(progress, 0.3F, 0.7F);
+            float ft4 = GetMOP.getFromTo(progress, 0.3F, 1.0F);
             float rotateX = -40.0F * ft2 + 10.0F * ft5 + 40.0F * ft4;
             float rotateY = 85.0F * ft1 - 85.0F * ft3;
             float rotateZ = 0.0F;
@@ -1496,11 +1496,11 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.12F);
-            float ft2 = GetMOP.getfromto(progress, 0.08F, 0.3F);
-            float ft3 = GetMOP.getfromto(progress, 0.33F, 0.39F);
-            float ft4 = GetMOP.getfromto(progress, 0.43F, 0.7F);
-            float ft5 = GetMOP.getfromto(progress, 0.58F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.12F);
+            float ft2 = GetMOP.getFromTo(progress, 0.08F, 0.3F);
+            float ft3 = GetMOP.getFromTo(progress, 0.33F, 0.39F);
+            float ft4 = GetMOP.getFromTo(progress, 0.43F, 0.7F);
+            float ft5 = GetMOP.getFromTo(progress, 0.58F, 1.0F);
             float translateX = 0.1F * ft1 + 0.4F * ft2 - 1.1F * ft3 + 0.1F * ft4 + 0.5F * ft5;
             float translateY = 0.1F * ft1 + 0.6F * ft2 - 0.2F * ft3 - 0.5F * ft5;
             float translateZ = this.modifierTZ * ft1 - 0.2F * ft3 + 0.2F * ft5 - this.modifierTZ * ft5;
@@ -1533,11 +1533,11 @@ public class PlayerAnimations {
          if (model != null) {
             float handMult = hand == EnumHandSide.LEFT ? -1.0F : 1.0F;
             float modRY = this.modifierRY * 0.6F + 0.4F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.12F);
-            float ft2 = GetMOP.getfromto(progress, 0.08F, 0.3F);
-            float ft3 = GetMOP.getfromto(progress, 0.33F, 0.39F);
-            float ft4 = GetMOP.getfromto(progress, 0.43F, 0.7F);
-            float ft5 = GetMOP.getfromto(progress, 0.58F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.12F);
+            float ft2 = GetMOP.getFromTo(progress, 0.08F, 0.3F);
+            float ft3 = GetMOP.getFromTo(progress, 0.33F, 0.39F);
+            float ft4 = GetMOP.getFromTo(progress, 0.43F, 0.7F);
+            float ft5 = GetMOP.getFromTo(progress, 0.58F, 1.0F);
             float ft6 = ft1 - ft5;
             float translateX = 0.1F * ft1 + 0.4F * ft2 - 1.1F * ft3 + 0.1F * ft4 + 0.5F * ft5;
             float translateY = 0.1F * ft1 + 0.6F * ft2 - 0.2F * ft3 - 0.5F * ft5;
@@ -1557,11 +1557,11 @@ public class PlayerAnimations {
             handrenderer.rotateAngleZ = handrenderer.rotateAngleZ + (Debugger.floats[8] - rotateZ) * (float) (Math.PI / 180.0);
             model.bipedBody.rotateAngleY += (ft1 * 20.0F - ft2 * 20.0F - ft3 * 20.0F + ft4 * 20.0F) * (float) (Math.PI / 180.0) * handMult;
          } else {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.12F);
-            float ft2 = GetMOP.getfromto(progress, 0.08F, 0.3F);
-            float ft3 = GetMOP.getfromto(progress, 0.33F, 0.39F);
-            float ft4 = GetMOP.getfromto(progress, 0.43F, 0.7F);
-            float ft5 = GetMOP.getfromto(progress, 0.58F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.12F);
+            float ft2 = GetMOP.getFromTo(progress, 0.08F, 0.3F);
+            float ft3 = GetMOP.getFromTo(progress, 0.33F, 0.39F);
+            float ft4 = GetMOP.getFromTo(progress, 0.43F, 0.7F);
+            float ft5 = GetMOP.getFromTo(progress, 0.58F, 1.0F);
             float rotateX = 10.0F * ft1 + 30.0F * ft2 - 78.0F * ft3 + 10.0F * ft4 + 28.0F * ft5;
             float rotateY = 0.0F;
             float rotateZ = 0.0F;
@@ -1590,14 +1590,14 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             float translateX = 0.0F;
-            float translateY = -0.12F * GetMOP.getfromto(progress, 0.5F, 0.55F) + 0.12F * GetMOP.getfromto(progress, 0.55F, 0.6F);
-            float translateZ = -0.15F * GetMOP.getfromto(progress, 0.0F, 0.2F) + 0.15F * GetMOP.getfromto(progress, 0.8F, 1.0F);
-            float rotateX = 10.0F * GetMOP.getfromto(progress, 0.0F, 0.085F)
-               - 33.0F * GetMOP.getfromto(progress, 0.085F, 0.185F)
-               - 13.0F * GetMOP.getfromto(progress, 0.65F, 0.75F)
-               + 46.0F * GetMOP.getfromto(progress, 0.75F, 0.9F)
-               - 10.0F * GetMOP.getfromto(progress, 0.9F, 1.0F);
-            float rotateY = 6.0F * (GetMOP.getfromto(progress, 0.125F, 0.6F) - GetMOP.getfromto(progress, 0.64F, 0.8F));
+            float translateY = -0.12F * GetMOP.getFromTo(progress, 0.5F, 0.55F) + 0.12F * GetMOP.getFromTo(progress, 0.55F, 0.6F);
+            float translateZ = -0.15F * GetMOP.getFromTo(progress, 0.0F, 0.2F) + 0.15F * GetMOP.getFromTo(progress, 0.8F, 1.0F);
+            float rotateX = 10.0F * GetMOP.getFromTo(progress, 0.0F, 0.085F)
+               - 33.0F * GetMOP.getFromTo(progress, 0.085F, 0.185F)
+               - 13.0F * GetMOP.getFromTo(progress, 0.65F, 0.75F)
+               + 46.0F * GetMOP.getFromTo(progress, 0.75F, 0.9F)
+               - 10.0F * GetMOP.getFromTo(progress, 0.9F, 1.0F);
+            float rotateY = 6.0F * (GetMOP.getFromTo(progress, 0.125F, 0.6F) - GetMOP.getFromTo(progress, 0.64F, 0.8F));
             float rotateZ = 0.0F;
             GlStateManager.translate(Debugger.floats[0] + translateX, Debugger.floats[1] + translateY, Debugger.floats[2] + translateZ);
             PlayerAnimations.instance.transformSideFirstPerson(enumhandside, p_187457_7_);
@@ -1622,43 +1622,43 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
             model.bipedLeftArm.rotateAngleX *= 1.0F - 0.7F * ft0;
             model.bipedRightArm.rotateAngleX *= 1.0F - 0.7F * ft0;
             ModelRenderer handrenderer2 = hand == EnumHandSide.RIGHT ? model.bipedLeftArm : model.bipedRightArm;
-            float ft1 = 10.0F * GetMOP.getfromto(progress, 0.5F, 0.55F) - 10.0F * GetMOP.getfromto(progress, 0.55F, 0.6F);
-            float ft2 = GetMOP.getfromto(progress, 0.1F, 0.4F) - GetMOP.getfromto(progress, 0.6F, 1.0F);
+            float ft1 = 10.0F * GetMOP.getFromTo(progress, 0.5F, 0.55F) - 10.0F * GetMOP.getFromTo(progress, 0.55F, 0.6F);
+            float ft2 = GetMOP.getFromTo(progress, 0.1F, 0.4F) - GetMOP.getFromTo(progress, 0.6F, 1.0F);
             handrenderer.rotateAngleX = handrenderer.rotateAngleX
                + (
                   (
-                           -46.0F * GetMOP.getfromto(progress, 0.0F, 0.085F)
+                           -46.0F * GetMOP.getFromTo(progress, 0.0F, 0.085F)
                               + ft1
-                              + 14.0F * GetMOP.getfromto(progress, 0.085F, 0.185F)
-                              + 10.0F * GetMOP.getfromto(progress, 0.65F, 0.75F)
-                              - 26.0F * GetMOP.getfromto(progress, 0.75F, 0.9F)
-                              + 6.0F * GetMOP.getfromto(progress, 0.9F, 1.0F)
+                              + 14.0F * GetMOP.getFromTo(progress, 0.085F, 0.185F)
+                              + 10.0F * GetMOP.getFromTo(progress, 0.65F, 0.75F)
+                              - 26.0F * GetMOP.getFromTo(progress, 0.75F, 0.9F)
+                              + 6.0F * GetMOP.getFromTo(progress, 0.9F, 1.0F)
                         )
                         * (float) (Math.PI / 180.0)
                      + model.bipedHead.rotateAngleX * 0.4F
                );
             handrenderer.rotateAngleY += -10.0F * ft2 * (float) (Math.PI / 180.0);
             handrenderer.rotateAngleZ += -20.0F * ft2 * (float) (Math.PI / 180.0);
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.1F, 0.2F);
-            float ft4 = GetMOP.getfromto(progress, 0.2F, 0.38F);
-            float ft5 = GetMOP.getfromto(progress, 0.38F, 0.5F);
-            float ft6 = GetMOP.getfromto(progress, 0.55F, 1.0F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.1F, 0.2F);
+            float ft4 = GetMOP.getFromTo(progress, 0.2F, 0.38F);
+            float ft5 = GetMOP.getFromTo(progress, 0.38F, 0.5F);
+            float ft6 = GetMOP.getFromTo(progress, 0.55F, 1.0F);
             handrenderer2.rotateAngleX = handrenderer2.rotateAngleX
                + (Debugger.floats[6] + 10.0F * ft3 - 80.0F * ft4 + 40.0F * ft5 + 40.0F * ft6) * (float) (Math.PI / 180.0);
             handrenderer2.rotateAngleY = handrenderer2.rotateAngleY + (Debugger.floats[7] + 25.0F * ft5 - 25.0F * ft6) * (float) (Math.PI / 180.0);
             handrenderer2.rotateAngleZ = handrenderer2.rotateAngleZ
                + (Debugger.floats[8] + 15.0F * ft3 + 25.0F * ft4 + 10.0F * ft5 - 35.0F * ft6) * (float) (Math.PI / 180.0);
          } else {
-            float ft1 = GetMOP.getfromto(progress, 0.34F, 0.44F) - GetMOP.getfromto(progress, 0.55F, 0.68F);
-            float rotateX = 10.0F * GetMOP.getfromto(progress, 0.0F, 0.085F)
-               - 33.0F * GetMOP.getfromto(progress, 0.085F, 0.185F)
-               - 13.0F * GetMOP.getfromto(progress, 0.65F, 0.75F)
-               + 46.0F * GetMOP.getfromto(progress, 0.75F, 0.9F)
-               - 10.0F * GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.34F, 0.44F) - GetMOP.getFromTo(progress, 0.55F, 0.68F);
+            float rotateX = 10.0F * GetMOP.getFromTo(progress, 0.0F, 0.085F)
+               - 33.0F * GetMOP.getFromTo(progress, 0.085F, 0.185F)
+               - 13.0F * GetMOP.getFromTo(progress, 0.65F, 0.75F)
+               + 46.0F * GetMOP.getFromTo(progress, 0.75F, 0.9F)
+               - 10.0F * GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float rotateY = -10.0F * ft1;
             float rotateZ = 0.0F;
             float translateZ = 0.0F;
@@ -1688,7 +1688,7 @@ public class PlayerAnimations {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             float translateX = 0.0F;
             float translateY = 0.0F;
-            float translateZ = (GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.1F, 0.25F)) * 0.2F;
+            float translateZ = (GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.1F, 0.25F)) * 0.2F;
             float rotateX = 0.0F;
             float rotateY = 0.0F;
             float rotateZ = 0.0F;
@@ -1715,9 +1715,9 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.1F, 0.2F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.1F, 0.2F);
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
                model.bipedLeftArm.rotateAngleY = (0.1F + model.bipedHead.rotateAngleY + 0.4F) * ft1 + model.bipedLeftArm.rotateAngleY * ft2;
@@ -1743,7 +1743,7 @@ public class PlayerAnimations {
             float rotateX = 0.0F;
             float rotateY = 0.0F;
             float rotateZ = 0.0F;
-            float translateZ = (GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.1F, 0.25F)) * 0.15F;
+            float translateZ = (GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.1F, 0.25F)) * 0.15F;
             GlStateManager.rotate(Debugger.floats[3] + rotateX, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(Debugger.floats[4] + rotateY, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(Debugger.floats[5] + rotateZ, 0.0F, 0.0F, 1.0F);
@@ -1770,8 +1770,8 @@ public class PlayerAnimations {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             float translateX = 0.0F;
             float translateY = 0.0F;
-            float translateZ = (GetMOP.getfromto(progress, 0.0F, 0.05F) - GetMOP.getfromto(progress, 0.05F, 0.15F)) * 0.1F;
-            float rotateX = (GetMOP.getfromto(progress, 0.0F, 0.06F) - GetMOP.getfromto(progress, 0.06F, 0.16F)) * 10.0F;
+            float translateZ = (GetMOP.getFromTo(progress, 0.0F, 0.05F) - GetMOP.getFromTo(progress, 0.05F, 0.15F)) * 0.1F;
+            float rotateX = (GetMOP.getFromTo(progress, 0.0F, 0.06F) - GetMOP.getFromTo(progress, 0.06F, 0.16F)) * 10.0F;
             float rotateY = 0.0F;
             float rotateZ = 0.0F;
             GlStateManager.translate(Debugger.floats[0] + translateX, Debugger.floats[1] + translateY, Debugger.floats[2] + translateZ);
@@ -1797,9 +1797,9 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.07F) - GetMOP.getfromto(progress, 0.07F, 0.17F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.07F) - GetMOP.getFromTo(progress, 0.07F, 0.17F);
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
                model.bipedLeftArm.rotateAngleY = (0.1F + model.bipedHead.rotateAngleY + 0.4F) * ft1 + model.bipedLeftArm.rotateAngleY * ft2;
@@ -1822,7 +1822,7 @@ public class PlayerAnimations {
                model.bipedBody.rotateAngleY += ft3 * -10.0F * (float) (Math.PI / 180.0);
             }
          } else {
-            float rotateX = (GetMOP.getfromto(progress, 0.0F, 0.06F) - GetMOP.getfromto(progress, 0.06F, 0.16F)) * 10.0F;
+            float rotateX = (GetMOP.getFromTo(progress, 0.0F, 0.06F) - GetMOP.getFromTo(progress, 0.06F, 0.16F)) * 10.0F;
             float rotateY = 0.0F;
             float rotateZ = 0.0F;
             float translateZ = 0.0F;
@@ -1860,7 +1860,7 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
@@ -1897,11 +1897,11 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float rotateX = GetMOP.getfromto(progress, 0.05F, 0.15F) * 8.0F
-               - GetMOP.getfromto(progress, 0.15F, 0.3F) * 11.0F
-               + GetMOP.getfromto(progress, 0.3F, 0.5F) * 1.5F
-               + GetMOP.getfromto(progress, 0.5F, 1.0F) * 1.5F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.15F, 0.5F);
+            float rotateX = GetMOP.getFromTo(progress, 0.05F, 0.15F) * 8.0F
+               - GetMOP.getFromTo(progress, 0.15F, 0.3F) * 11.0F
+               + GetMOP.getFromTo(progress, 0.3F, 0.5F) * 1.5F
+               + GetMOP.getFromTo(progress, 0.5F, 1.0F) * 1.5F;
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.15F, 0.5F);
             float translateX = 0.1F * ft1 * (flag1 ? 1 : -1);
             float translateY = -0.1F * ft1;
             float translateZ = 0.2F * ft1;
@@ -1928,9 +1928,9 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.15F, 0.5F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.15F, 0.5F);
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
                model.bipedLeftArm.rotateAngleY = (0.1F + model.bipedHead.rotateAngleY + 0.4F) * ft1 + model.bipedLeftArm.rotateAngleY * ft2;
@@ -1953,11 +1953,11 @@ public class PlayerAnimations {
                model.bipedBody.rotateAngleY += ft3 * -10.0F * (float) (Math.PI / 180.0);
             }
          } else {
-            float rotateX = GetMOP.getfromto(progress, 0.05F, 0.15F) * 8.0F
-               - GetMOP.getfromto(progress, 0.15F, 0.3F) * 11.0F
-               + GetMOP.getfromto(progress, 0.3F, 0.5F) * 1.5F
-               + GetMOP.getfromto(progress, 0.5F, 1.0F) * 1.5F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.15F, 0.5F);
+            float rotateX = GetMOP.getFromTo(progress, 0.05F, 0.15F) * 8.0F
+               - GetMOP.getFromTo(progress, 0.15F, 0.3F) * 11.0F
+               + GetMOP.getFromTo(progress, 0.3F, 0.5F) * 1.5F
+               + GetMOP.getFromTo(progress, 0.5F, 1.0F) * 1.5F;
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.15F, 0.5F);
             float translateZ = 0.2F * ft1;
             GlStateManager.rotate(rotateX, 1.0F, 0.0F, 0.0F);
             GlStateManager.translate(0.0F, 0.0F, translateZ);
@@ -1981,12 +1981,12 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F);
-            float ft2 = GetMOP.getfromto(progress, 0.15F, 0.2F);
-            float ft5 = GetMOP.getfromto(progress, 0.2F, 0.24F) - GetMOP.getfromto(progress, 0.24F, 0.28F);
-            float ft3 = GetMOP.getfromto(progress, 0.3F, 0.7F);
-            float ft4 = GetMOP.getfromto(progress, 0.4F, 1.0F);
-            float ft6 = GetMOP.getfromto(progress, 0.2F, 0.4F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F);
+            float ft2 = GetMOP.getFromTo(progress, 0.15F, 0.2F);
+            float ft5 = GetMOP.getFromTo(progress, 0.2F, 0.24F) - GetMOP.getFromTo(progress, 0.24F, 0.28F);
+            float ft3 = GetMOP.getFromTo(progress, 0.3F, 0.7F);
+            float ft4 = GetMOP.getFromTo(progress, 0.4F, 1.0F);
+            float ft6 = GetMOP.getFromTo(progress, 0.2F, 0.4F);
             float translateX = 0.2F * ft1 - ft3 * 0.2F - 0.5F * ft2 + 0.5F * ft3 - 0.35F * ft1 + 0.35F * ft4;
             float translateY = 0.4F * ft1 - ft3 * 0.4F;
             float translateZ = -1.3F * ft2 + ft6 * 0.5F + ft4 * 0.8F;
@@ -2017,12 +2017,12 @@ public class PlayerAnimations {
       ) {
          if (model != null) {
             float handMult = hand == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F);
-            float ft2 = GetMOP.getfromto(progress, 0.15F, 0.2F);
-            float ft5 = GetMOP.getfromto(progress, 0.2F, 0.24F) - GetMOP.getfromto(progress, 0.24F, 0.28F);
-            float ft3 = GetMOP.getfromto(progress, 0.3F, 0.7F);
-            float ft4 = GetMOP.getfromto(progress, 0.4F, 1.0F);
-            float ft6 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.4F, 0.7F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F);
+            float ft2 = GetMOP.getFromTo(progress, 0.15F, 0.2F);
+            float ft5 = GetMOP.getFromTo(progress, 0.2F, 0.24F) - GetMOP.getFromTo(progress, 0.24F, 0.28F);
+            float ft3 = GetMOP.getFromTo(progress, 0.3F, 0.7F);
+            float ft4 = GetMOP.getFromTo(progress, 0.4F, 1.0F);
+            float ft6 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.4F, 0.7F);
             float ft7 = Math.min(1.2F - ft6, 1.0F);
             ModelRenderer handrenderer2 = hand == EnumHandSide.RIGHT ? model.bipedLeftArm : model.bipedRightArm;
             handrenderer.rotateAngleX *= ft7;
@@ -2039,11 +2039,11 @@ public class PlayerAnimations {
             handrenderer2.rotateAngleY = handrenderer2.rotateAngleY + model.bipedHead.rotateAngleY * 0.9F * ft6;
             model.bipedBody.rotateAngleY += (ft1 * -10.0F + ft2 * 10.0F) * (float) (Math.PI / 180.0) * handMult;
          } else {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F);
-            float ft2 = GetMOP.getfromto(progress, 0.15F, 0.2F);
-            float ft5 = GetMOP.getfromto(progress, 0.2F, 0.24F) - GetMOP.getfromto(progress, 0.24F, 0.28F);
-            float ft3 = GetMOP.getfromto(progress, 0.3F, 0.7F);
-            float ft4 = GetMOP.getfromto(progress, 0.4F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F);
+            float ft2 = GetMOP.getFromTo(progress, 0.15F, 0.2F);
+            float ft5 = GetMOP.getFromTo(progress, 0.2F, 0.24F) - GetMOP.getFromTo(progress, 0.24F, 0.28F);
+            float ft3 = GetMOP.getFromTo(progress, 0.3F, 0.7F);
+            float ft4 = GetMOP.getFromTo(progress, 0.4F, 1.0F);
             float rotateX = 10.0F * ft1 + -60.0F * ft2 + 10.0F * ft5 + 50.0F * ft4;
             float rotateY = 0.0F;
             float rotateZ = 0.0F;
@@ -2083,13 +2083,13 @@ public class PlayerAnimations {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             float contin = 0.25F;
             float pause = contin + 0.375F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.35F * contin);
-            float ft2 = GetMOP.getfromto(progress, 0.0F, 0.25F * contin);
-            float ft3 = GetMOP.getfromto(progress, 0.35F * contin, 0.6F * contin);
-            float ft4 = GetMOP.getfromto(progress, 0.6F * contin, contin);
-            float ft5 = GetMOP.getfromto(progress, pause, 1.0F);
-            float ft6 = GetMOP.getfromto(progress, pause, 1.15F * pause);
-            float ft7 = GetMOP.getfromto(progress, 1.4F * pause, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.35F * contin);
+            float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.25F * contin);
+            float ft3 = GetMOP.getFromTo(progress, 0.35F * contin, 0.6F * contin);
+            float ft4 = GetMOP.getFromTo(progress, 0.6F * contin, contin);
+            float ft5 = GetMOP.getFromTo(progress, pause, 1.0F);
+            float ft6 = GetMOP.getFromTo(progress, pause, 1.15F * pause);
+            float ft7 = GetMOP.getFromTo(progress, 1.4F * pause, 1.0F);
             float translateX = 1.3F * ft1 - 1.5F * ft3 - 1.9F * ft4 + 2.1F * ft5;
             float translateY = 0.4F * ft2 - 0.1F * ft4 - 0.85F * ft6 + 0.55F * ft7;
             float translateZ = 0.3F * ft1 - 0.5F * ft3 + 0.6F * ft4 - 0.4F * ft5;
@@ -2121,18 +2121,18 @@ public class PlayerAnimations {
          float handMult = hand == EnumHandSide.LEFT ? -1.0F : 1.0F;
          float contin = 0.25F;
          float pause = contin + 0.375F;
-         float ft1 = GetMOP.getfromto(progress, 0.0F, 0.35F * contin);
-         float ft2 = GetMOP.getfromto(progress, 0.0F, 0.25F * contin);
-         float ft3 = GetMOP.getfromto(progress, 0.35F * contin, 0.6F * contin);
-         float ft4 = GetMOP.getfromto(progress, 0.6F * contin, contin);
-         float ft4_5 = GetMOP.getfromto(progress, contin, 1.0F);
-         float ft5 = GetMOP.getfromto(progress, pause, 1.0F);
+         float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.35F * contin);
+         float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.25F * contin);
+         float ft3 = GetMOP.getFromTo(progress, 0.35F * contin, 0.6F * contin);
+         float ft4 = GetMOP.getFromTo(progress, 0.6F * contin, contin);
+         float ft4_5 = GetMOP.getFromTo(progress, contin, 1.0F);
+         float ft5 = GetMOP.getFromTo(progress, pause, 1.0F);
          if (model != null) {
             if (hand != EnumHandSide.RIGHT) {
                ;
             }
 
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.08F) - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.08F) - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft0_1 = 1.0F - ft0 * 0.7F;
             float ft0_2 = ft0 * 0.5F;
             handrenderer.rotateAngleX *= ft0_1;
@@ -2173,12 +2173,12 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.6875F);
-            float ft1 = GetMOP.getfromto(ft0, 0.15F, 0.2F);
-            float ft2 = GetMOP.getfromto(ft0, 0.0F, 0.12F) - GetMOP.getfromto(ft0, 0.12F, 1.0F);
-            float ft3 = GetMOP.getfromto(ft0, 0.2F, 0.26F) - GetMOP.getfromto(ft0, 0.26F, 0.32F);
-            float ft4 = GetMOP.getfromto(ft0, 0.36F, 0.7F);
-            float ft5 = GetMOP.softfromto(ft0, 0.5F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.6875F);
+            float ft1 = GetMOP.getFromTo(ft0, 0.15F, 0.2F);
+            float ft2 = GetMOP.getFromTo(ft0, 0.0F, 0.12F) - GetMOP.getFromTo(ft0, 0.12F, 1.0F);
+            float ft3 = GetMOP.getFromTo(ft0, 0.2F, 0.26F) - GetMOP.getFromTo(ft0, 0.26F, 0.32F);
+            float ft4 = GetMOP.getFromTo(ft0, 0.36F, 0.7F);
+            float ft5 = GetMOP.softFromTo(ft0, 0.5F, 1.0F);
             float translateX = -0.1F * ft1 + 0.04F * ft3 + 0.1F * ft5;
             float translateY = 0.05F * ft1 + 0.05F * ft2 - 0.15F * ft4 + 0.1F * ft5;
             float translateZ = -0.1F * ft1 + 0.1F * ft2 + 0.04F * ft3 + 0.1F * ft4;
@@ -2208,12 +2208,12 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft6 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft6 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft7 = 1.0F - ft6;
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.6875F);
-            float ft1 = GetMOP.getfromto(ft0, 0.15F, 0.2F);
-            float ft4 = GetMOP.getfromto(ft0, 0.36F, 0.7F);
-            float ft5 = GetMOP.softfromto(ft0, 0.5F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.6875F);
+            float ft1 = GetMOP.getFromTo(ft0, 0.15F, 0.2F);
+            float ft4 = GetMOP.getFromTo(ft0, 0.36F, 0.7F);
+            float ft5 = GetMOP.softFromTo(ft0, 0.5F, 1.0F);
             float rotateX = 2.0F * ft1 - 17.0F * ft4 + 15.0F * ft5;
             float rotateY = 2.0F * ft1 + 3.0F * ft4 - 5.0F * ft5;
             float rotateZ = 5.0F * ft1 - 5.0F * ft4;
@@ -2241,12 +2241,12 @@ public class PlayerAnimations {
             handrenderer2.rotationPointZ = -handrenderer.rotationPointZ;
             model.bipedBody.rotateAngleY += (ft1 - ft4) * -10.0F * (float) (Math.PI / 180.0);
          } else {
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.6875F);
-            float ft1 = GetMOP.getfromto(ft0, 0.15F, 0.2F);
-            float ft2 = GetMOP.getfromto(ft0, 0.0F, 0.12F) - GetMOP.getfromto(ft0, 0.12F, 1.0F);
-            float ft3 = GetMOP.getfromto(ft0, 0.2F, 0.26F) - GetMOP.getfromto(ft0, 0.26F, 0.32F);
-            float ft4 = GetMOP.getfromto(ft0, 0.36F, 0.7F);
-            float ft5 = GetMOP.softfromto(ft0, 0.5F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.6875F);
+            float ft1 = GetMOP.getFromTo(ft0, 0.15F, 0.2F);
+            float ft2 = GetMOP.getFromTo(ft0, 0.0F, 0.12F) - GetMOP.getFromTo(ft0, 0.12F, 1.0F);
+            float ft3 = GetMOP.getFromTo(ft0, 0.2F, 0.26F) - GetMOP.getFromTo(ft0, 0.26F, 0.32F);
+            float ft4 = GetMOP.getFromTo(ft0, 0.36F, 0.7F);
+            float ft5 = GetMOP.softFromTo(ft0, 0.5F, 1.0F);
             float translateZ = -0.1F * ft1 + 0.1F * ft2 + 0.04F * ft3 + 0.1F * ft4;
             float rotateX = 1.0F * ft1 - 4.0F * ft4 + 3.0F * ft5;
             float rotateY = 0.0F;
@@ -2279,9 +2279,9 @@ public class PlayerAnimations {
             - Weapons.getPlayerAnimationValue(player, handWithItem == EnumHand.MAIN_HAND ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, partialTicks);
          boolean hasAnimationOtherHand = progressOtherhand > 0.0F;
          if (model != null) {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.15F, 0.5F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.15F, 0.5F);
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
                model.bipedRightArm.rotateAngleX = ((float) (-Math.PI / 2) + model.bipedHead.rotateAngleX) * ft1
@@ -2310,11 +2310,11 @@ public class PlayerAnimations {
                model.bipedBody.rotateAngleY += ft3 * -10.0F * (float) (Math.PI / 180.0);
             }
          } else {
-            float rotateX = GetMOP.getfromto(progress, 0.05F, 0.15F) * 8.0F
-               - GetMOP.getfromto(progress, 0.15F, 0.3F) * 11.0F
-               + GetMOP.getfromto(progress, 0.3F, 0.5F) * 1.5F
-               + GetMOP.getfromto(progress, 0.5F, 1.0F) * 1.5F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.15F, 0.5F);
+            float rotateX = GetMOP.getFromTo(progress, 0.05F, 0.15F) * 8.0F
+               - GetMOP.getFromTo(progress, 0.15F, 0.3F) * 11.0F
+               + GetMOP.getFromTo(progress, 0.3F, 0.5F) * 1.5F
+               + GetMOP.getFromTo(progress, 0.5F, 1.0F) * 1.5F;
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.15F, 0.5F);
             float translateZ = 0.1F * ft1;
             GlStateManager.rotate(rotateX, 1.0F, 0.0F, 0.0F);
             GlStateManager.translate(0.0F, 0.0F, translateZ);
@@ -2352,7 +2352,7 @@ public class PlayerAnimations {
             - Weapons.getPlayerAnimationValue(player, handWithItem == EnumHand.MAIN_HAND ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, partialTicks);
          boolean hasAnimationOtherHand = progressOtherhand > 0.0F;
          if (model != null) {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft2 = 1.0F - ft1;
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
@@ -2393,16 +2393,16 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float rotateX = GetMOP.getfromto(progress, 0.0F, 0.2F) * -45.0F
-               + GetMOP.getfromto(progress, 0.5F, 0.75F) * 160.0F
-               + GetMOP.getfromto(progress, 0.75F, 1.0F) * 245.0F;
-            float rotateY = (GetMOP.getfromto(progress, 0.0F, 0.15F) - GetMOP.getfromto(progress, 0.3F, 0.4F)) * 8.0F;
-            float translateY = -0.2F * GetMOP.getfromto(progress, 0.4F, 0.75F)
-               + GetMOP.getfromto(progress, 0.75F, 0.9F) * 0.3F
-               + GetMOP.getfromto(progress, 0.9F, 1.0F) * -0.1F;
-            float translateZ = GetMOP.getfromto(progress, 0.55F, 0.7F) * 0.4F
-               + GetMOP.getfromto(progress, 0.7F, 0.9F) * -0.8F
-               + GetMOP.getfromto(progress, 0.9F, 1.0F) * 0.4F;
+            float rotateX = GetMOP.getFromTo(progress, 0.0F, 0.2F) * -45.0F
+               + GetMOP.getFromTo(progress, 0.5F, 0.75F) * 160.0F
+               + GetMOP.getFromTo(progress, 0.75F, 1.0F) * 245.0F;
+            float rotateY = (GetMOP.getFromTo(progress, 0.0F, 0.15F) - GetMOP.getFromTo(progress, 0.3F, 0.4F)) * 8.0F;
+            float translateY = -0.2F * GetMOP.getFromTo(progress, 0.4F, 0.75F)
+               + GetMOP.getFromTo(progress, 0.75F, 0.9F) * 0.3F
+               + GetMOP.getFromTo(progress, 0.9F, 1.0F) * -0.1F;
+            float translateZ = GetMOP.getFromTo(progress, 0.55F, 0.7F) * 0.4F
+               + GetMOP.getFromTo(progress, 0.7F, 0.9F) * -0.8F
+               + GetMOP.getFromTo(progress, 0.9F, 1.0F) * 0.4F;
             GlStateManager.translate(0.0F, translateY, translateZ);
             PlayerAnimations.instance.transformSideFirstPerson(enumhandside, p_187457_7_);
             GlStateManager.rotate(rotateX, 1.0F, 0.0F, 0.0F);
@@ -2425,7 +2425,7 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.0F, 0.2F) + GetMOP.getfromto(progress, 0.4F, 0.8F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.0F, 0.2F) + GetMOP.getFromTo(progress, 0.4F, 0.8F);
             float ft2 = 1.0F - ft1;
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft1 + model.bipedRightArm.rotateAngleY * ft2;
@@ -2437,17 +2437,17 @@ public class PlayerAnimations {
                   + model.bipedLeftArm.rotateAngleX * ft2;
             }
 
-            float ft3 = -20.0F * GetMOP.getfromto(progress, 0.4F, 0.75F)
-               + GetMOP.getfromto(progress, 0.75F, 0.9F) * 30.0F
-               + GetMOP.getfromto(progress, 0.9F, 1.0F) * -10.0F;
+            float ft3 = -20.0F * GetMOP.getFromTo(progress, 0.4F, 0.75F)
+               + GetMOP.getFromTo(progress, 0.75F, 0.9F) * 30.0F
+               + GetMOP.getFromTo(progress, 0.9F, 1.0F) * -10.0F;
             handrenderer.rotateAngleX -= ft3 * (float) (Math.PI / 180.0);
          } else {
-            float rotateX = GetMOP.getfromto(progress, 0.0F, 0.2F) * -25.0F
-               + GetMOP.getfromto(progress, 0.5F, 0.75F) * 160.0F
-               + GetMOP.getfromto(progress, 0.75F, 1.0F) * 225.0F;
-            float translateZ = GetMOP.getfromto(progress, 0.55F, 0.7F) * 0.1F
-               + GetMOP.getfromto(progress, 0.7F, 0.9F) * -0.2F
-               + GetMOP.getfromto(progress, 0.9F, 1.0F) * 0.1F;
+            float rotateX = GetMOP.getFromTo(progress, 0.0F, 0.2F) * -25.0F
+               + GetMOP.getFromTo(progress, 0.5F, 0.75F) * 160.0F
+               + GetMOP.getFromTo(progress, 0.75F, 1.0F) * 225.0F;
+            float translateZ = GetMOP.getFromTo(progress, 0.55F, 0.7F) * 0.1F
+               + GetMOP.getFromTo(progress, 0.7F, 0.9F) * -0.2F
+               + GetMOP.getFromTo(progress, 0.9F, 1.0F) * 0.1F;
             GlStateManager.rotate(rotateX, 1.0F, 0.0F, 0.0F);
             GlStateManager.translate(0.0F, 0.0F, translateZ);
          }
@@ -2476,15 +2476,15 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             float handMult = enumhandside == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.2F);
-            float ft1 = ft0 - GetMOP.getfromto(progress, 0.85F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.2F);
+            float ft1 = ft0 - GetMOP.getFromTo(progress, 0.85F, 1.0F);
             float rotateX = -30.0F * ft1;
-            float rotateY = 50.0F * (ft0 - GetMOP.getfromto(progress, 0.8F, 0.95F));
-            float rotateZ = 30.0F * ft1 + 10.0F * (GetMOP.getfromto(progress, 0.15F, 0.4F) - GetMOP.getfromto(progress, 0.65F, 0.9F));
-            float ft2 = GetMOP.getfromto(progress, 0.1F, 0.5F) - GetMOP.getfromto(progress, 0.5F, 0.7F);
+            float rotateY = 50.0F * (ft0 - GetMOP.getFromTo(progress, 0.8F, 0.95F));
+            float rotateZ = 30.0F * ft1 + 10.0F * (GetMOP.getFromTo(progress, 0.15F, 0.4F) - GetMOP.getFromTo(progress, 0.65F, 0.9F));
+            float ft2 = GetMOP.getFromTo(progress, 0.1F, 0.5F) - GetMOP.getFromTo(progress, 0.5F, 0.7F);
             float translateY = (
-                     GetMOP.getfromto(progress, 0.4F + this.fallupTimeOffset, 0.45F + this.fallupTimeOffset)
-                        - GetMOP.getfromto(progress, 0.45F + this.fallupTimeOffset, 0.5F + this.fallupTimeOffset)
+                     GetMOP.getFromTo(progress, 0.4F + this.fallupTimeOffset, 0.45F + this.fallupTimeOffset)
+                        - GetMOP.getFromTo(progress, 0.45F + this.fallupTimeOffset, 0.5F + this.fallupTimeOffset)
                   )
                   * 0.05F
                - 0.1F * ft2;
@@ -2512,15 +2512,15 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
-            float ft2 = GetMOP.getfromto(progress, 0.2F, 0.35F) - GetMOP.getfromto(progress, 0.35F, 0.5F);
-            float ft3 = GetMOP.getfromto(progress, 0.1F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
-            float ft4 = GetMOP.getfromto(progress, 0.55F, 0.65F) - GetMOP.getfromto(progress, 0.65F, 0.75F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
+            float ft2 = GetMOP.getFromTo(progress, 0.2F, 0.35F) - GetMOP.getFromTo(progress, 0.35F, 0.5F);
+            float ft3 = GetMOP.getFromTo(progress, 0.1F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
+            float ft4 = GetMOP.getFromTo(progress, 0.55F, 0.65F) - GetMOP.getFromTo(progress, 0.65F, 0.75F);
             model.bipedLeftArm.rotateAngleX *= 1.0F - 0.7F * ft1;
             model.bipedRightArm.rotateAngleX *= 1.0F - 0.7F * ft1;
             handrenderer.rotateAngleX = handrenderer.rotateAngleX
                + (
-                  (-30.0F * ft1 - 20.0F * ft2 + GetMOP.getfromto(progress, 0.8F, 1.0F) * -30.0F) * (float) (Math.PI / 180.0)
+                  (-30.0F * ft1 - 20.0F * ft2 + GetMOP.getFromTo(progress, 0.8F, 1.0F) * -30.0F) * (float) (Math.PI / 180.0)
                      + model.bipedHead.rotateAngleX * 0.7F
                );
             handrenderer.rotateAngleY += 5.0F * ft1 * (float) (Math.PI / 180.0);
@@ -2528,7 +2528,7 @@ public class PlayerAnimations {
             if (hand == EnumHandSide.RIGHT) {
                model.bipedLeftArm.rotateAngleX = model.bipedLeftArm.rotateAngleX
                   + (
-                     (-40.0F * ft3 + ft2 * 25.0F + (GetMOP.getfromto(progress, 0.5F, 0.55F) - GetMOP.getfromto(progress, 0.75F, 0.85F)) * -20.0F)
+                     (-40.0F * ft3 + ft2 * 25.0F + (GetMOP.getFromTo(progress, 0.5F, 0.55F) - GetMOP.getFromTo(progress, 0.75F, 0.85F)) * -20.0F)
                            * (float) (Math.PI / 180.0)
                         + model.bipedHead.rotateAngleX * 0.7F
                   );
@@ -2537,7 +2537,7 @@ public class PlayerAnimations {
             } else {
                model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX
                   + (
-                     (-40.0F * ft3 + ft2 * 25.0F + (GetMOP.getfromto(progress, 0.5F, 0.55F) - GetMOP.getfromto(progress, 0.75F, 0.85F)) * -20.0F)
+                     (-40.0F * ft3 + ft2 * 25.0F + (GetMOP.getFromTo(progress, 0.5F, 0.55F) - GetMOP.getFromTo(progress, 0.75F, 0.85F)) * -20.0F)
                            * (float) (Math.PI / 180.0)
                         + model.bipedHead.rotateAngleX * 0.7F
                   );
@@ -2546,7 +2546,7 @@ public class PlayerAnimations {
             }
          } else {
             float handMult = hand == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
             float rotateX = 7.0F * ft1;
             float rotateY = 75.0F * ft1;
             float rotateZ = 0.0F;
@@ -2580,17 +2580,17 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.2F);
-            float ft1 = ft0 - GetMOP.getfromto(progress, 0.85F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.2F);
+            float ft1 = ft0 - GetMOP.getFromTo(progress, 0.85F, 1.0F);
             float rotateX = 20.0F * ft1;
-            float rotateY = 30.0F * (ft0 - GetMOP.getfromto(progress, 0.8F, 0.95F));
-            float rotateZ = -10.0F * ft1 - 5.0F * (GetMOP.getfromto(progress, 0.15F, 0.4F) - GetMOP.getfromto(progress, 0.65F, 0.9F));
-            float ft2 = GetMOP.getfromto(progress, 0.1F, 0.5F) - GetMOP.getfromto(progress, 0.5F, 0.7F);
+            float rotateY = 30.0F * (ft0 - GetMOP.getFromTo(progress, 0.8F, 0.95F));
+            float rotateZ = -10.0F * ft1 - 5.0F * (GetMOP.getFromTo(progress, 0.15F, 0.4F) - GetMOP.getFromTo(progress, 0.65F, 0.9F));
+            float ft2 = GetMOP.getFromTo(progress, 0.1F, 0.5F) - GetMOP.getFromTo(progress, 0.5F, 0.7F);
             float translateX = 0.0F;
             float translateY = 0.5F * ft1
                + (
-                     GetMOP.getfromto(progress, 0.45F + this.fallupTimeOffset, 0.475F + this.fallupTimeOffset)
-                        - GetMOP.getfromto(progress, 0.475F + this.fallupTimeOffset, 0.5F + this.fallupTimeOffset)
+                     GetMOP.getFromTo(progress, 0.45F + this.fallupTimeOffset, 0.475F + this.fallupTimeOffset)
+                        - GetMOP.getFromTo(progress, 0.475F + this.fallupTimeOffset, 0.5F + this.fallupTimeOffset)
                   )
                   * 0.1F
                - 0.1F * ft2;
@@ -2621,15 +2621,15 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
-            float ft2 = GetMOP.getfromto(progress, 0.2F, 0.35F) - GetMOP.getfromto(progress, 0.35F, 0.5F);
-            float ft3 = GetMOP.getfromto(progress, 0.1F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
-            float ft4 = GetMOP.getfromto(progress, 0.55F, 0.65F) - GetMOP.getfromto(progress, 0.65F, 0.75F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
+            float ft2 = GetMOP.getFromTo(progress, 0.2F, 0.35F) - GetMOP.getFromTo(progress, 0.35F, 0.5F);
+            float ft3 = GetMOP.getFromTo(progress, 0.1F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
+            float ft4 = GetMOP.getFromTo(progress, 0.55F, 0.65F) - GetMOP.getFromTo(progress, 0.65F, 0.75F);
             model.bipedLeftArm.rotateAngleX *= 1.0F - 0.7F * ft1;
             model.bipedRightArm.rotateAngleX *= 1.0F - 0.7F * ft1;
             handrenderer.rotateAngleX = handrenderer.rotateAngleX
                + (
-                  (-30.0F * ft1 - 20.0F * ft2 + GetMOP.getfromto(progress, 0.8F, 1.0F) * -30.0F) * (float) (Math.PI / 180.0)
+                  (-30.0F * ft1 - 20.0F * ft2 + GetMOP.getFromTo(progress, 0.8F, 1.0F) * -30.0F) * (float) (Math.PI / 180.0)
                      + model.bipedHead.rotateAngleX * 0.7F
                );
             handrenderer.rotateAngleY += 5.0F * ft1 * (float) (Math.PI / 180.0);
@@ -2637,7 +2637,7 @@ public class PlayerAnimations {
             if (hand == EnumHandSide.RIGHT) {
                model.bipedLeftArm.rotateAngleX = model.bipedLeftArm.rotateAngleX
                   + (
-                     (-40.0F * ft3 + ft2 * 25.0F + (GetMOP.getfromto(progress, 0.5F, 0.55F) - GetMOP.getfromto(progress, 0.75F, 0.85F)) * -20.0F)
+                     (-40.0F * ft3 + ft2 * 25.0F + (GetMOP.getFromTo(progress, 0.5F, 0.55F) - GetMOP.getFromTo(progress, 0.75F, 0.85F)) * -20.0F)
                            * (float) (Math.PI / 180.0)
                         + model.bipedHead.rotateAngleX * 0.7F
                   );
@@ -2646,7 +2646,7 @@ public class PlayerAnimations {
             } else {
                model.bipedRightArm.rotateAngleX = model.bipedRightArm.rotateAngleX
                   + (
-                     (-40.0F * ft3 + ft2 * 25.0F + (GetMOP.getfromto(progress, 0.5F, 0.55F) - GetMOP.getfromto(progress, 0.75F, 0.85F)) * -20.0F)
+                     (-40.0F * ft3 + ft2 * 25.0F + (GetMOP.getFromTo(progress, 0.5F, 0.55F) - GetMOP.getFromTo(progress, 0.75F, 0.85F)) * -20.0F)
                            * (float) (Math.PI / 180.0)
                         + model.bipedHead.rotateAngleX * 0.7F
                   );
@@ -2654,7 +2654,7 @@ public class PlayerAnimations {
                model.bipedRightArm.rotateAngleZ -= (15.0F * ft3 + ft4 * 20.0F) * (float) (Math.PI / 180.0);
             }
          } else {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
             float rotateX = 67.0F * ft1;
             float rotateY = 45.0F * ft1;
             float rotateZ = -25.0F * ft1;
@@ -2683,11 +2683,11 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.15F);
-            float ft1 = GetMOP.getfromto(progress, 0.15F, 0.3F);
-            float ft2 = GetMOP.getfromto(progress, 0.28F, 0.48F) - GetMOP.getfromto(progress, 0.5F, 0.95F);
-            float ft3 = GetMOP.getfromto(progress, 0.6F, 0.77F);
-            float ft4 = GetMOP.getfromto(progress, 0.77F, 0.94F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.15F);
+            float ft1 = GetMOP.getFromTo(progress, 0.15F, 0.3F);
+            float ft2 = GetMOP.getFromTo(progress, 0.28F, 0.48F) - GetMOP.getFromTo(progress, 0.5F, 0.95F);
+            float ft3 = GetMOP.getFromTo(progress, 0.6F, 0.77F);
+            float ft4 = GetMOP.getFromTo(progress, 0.77F, 0.94F);
             float translateX = 0.0F;
             float translateY = -0.2F * ft2;
             float translateZ = 0.15F * ft2;
@@ -2716,13 +2716,13 @@ public class PlayerAnimations {
          EntityPlayer player,
          float partialTicks
       ) {
-         float ft2 = (GetMOP.getfromto(progress, 0.28F, 0.48F) - GetMOP.getfromto(progress, 0.5F, 0.95F)) * 0.6F;
-         float ft3 = GetMOP.getfromto(progress, 0.6F, 0.77F);
+         float ft2 = (GetMOP.getFromTo(progress, 0.28F, 0.48F) - GetMOP.getFromTo(progress, 0.5F, 0.95F)) * 0.6F;
+         float ft3 = GetMOP.getFromTo(progress, 0.6F, 0.77F);
          if (model != null) {
-            float ft5 = 1.0F - GetMOP.getfromto(progress, 0.9F, 1.0F);
+            float ft5 = 1.0F - GetMOP.getFromTo(progress, 0.9F, 1.0F);
             float ft6 = 1.0F - ft5;
-            float ft7 = GetMOP.getfromto(progress, 0.0F, 0.3F);
-            float ft8 = (GetMOP.getfromto(progress, 0.0F, 0.5F) - GetMOP.getfromto(progress, 0.5F, 1.0F)) * 0.35F;
+            float ft7 = GetMOP.getFromTo(progress, 0.0F, 0.3F);
+            float ft8 = (GetMOP.getFromTo(progress, 0.0F, 0.5F) - GetMOP.getFromTo(progress, 0.5F, 1.0F)) * 0.35F;
             if (hand == EnumHandSide.RIGHT) {
                model.bipedRightArm.rotateAngleY = (-0.1F + model.bipedHead.rotateAngleY) * ft5 + model.bipedRightArm.rotateAngleY * ft6;
                model.bipedLeftArm.rotateAngleY = (0.1F + model.bipedHead.rotateAngleY + 0.4F) * ft5 + model.bipedLeftArm.rotateAngleY * ft6;
@@ -2753,9 +2753,9 @@ public class PlayerAnimations {
                model.bipedRightArm.rotateAngleZ = model.bipedRightArm.rotateAngleZ + (Debugger.floats[8] - 5.0F * ft2) * (float) (Math.PI / 180.0);
             }
          } else {
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.15F);
-            float ft1 = GetMOP.getfromto(progress, 0.15F, 0.3F);
-            float ft4 = GetMOP.getfromto(progress, 0.77F, 0.94F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.15F);
+            float ft1 = GetMOP.getFromTo(progress, 0.15F, 0.3F);
+            float ft4 = GetMOP.getFromTo(progress, 0.77F, 0.94F);
             float rotateX = ft0 * 18.0F + ft1 * 8.0F - 18.0F * ft3 - 8.0F * ft4;
             float rotateY = 15.0F * ft1 - 15.0F * ft4;
             float rotateZ = -15.0F * ft1 + 15.0F * ft4;
@@ -2784,12 +2784,12 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.15F);
-            float ft2 = GetMOP.getfromto(progress, 0.15F, 0.373F);
-            float ft3 = GetMOP.getfromto(progress, 0.373F, 0.673F);
-            float ft4 = GetMOP.getfromto(progress, 0.673F, 0.71F);
-            float ft5 = GetMOP.getfromto(progress, 0.71F, 0.725F);
-            float ft6 = GetMOP.getfromto(progress, 0.725F, 0.74F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.15F);
+            float ft2 = GetMOP.getFromTo(progress, 0.15F, 0.373F);
+            float ft3 = GetMOP.getFromTo(progress, 0.373F, 0.673F);
+            float ft4 = GetMOP.getFromTo(progress, 0.673F, 0.71F);
+            float ft5 = GetMOP.getFromTo(progress, 0.71F, 0.725F);
+            float ft6 = GetMOP.getFromTo(progress, 0.725F, 0.74F);
             float translateX = 0.0F;
             float translateY = 0.01F * ft1 + 0.04F * ft2 + 0.1F * ft3 - 0.15F * ft4 + 0.03F * ft5 - 0.03F * ft6;
             float translateZ = 0.0F;
@@ -2819,13 +2819,13 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.15F);
-            float ft2 = GetMOP.getfromto(progress, 0.15F, 0.373F);
-            float ft3 = GetMOP.getfromto(progress, 0.373F, 0.673F);
-            float ft4 = GetMOP.getfromto(progress, 0.673F, 0.71F);
-            float ft5 = GetMOP.getfromto(progress, 0.71F, 0.725F);
-            float ft6 = GetMOP.getfromto(progress, 0.725F, 0.74F);
-            float ft7 = GetMOP.getfromto(progress, 0.74F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.15F);
+            float ft2 = GetMOP.getFromTo(progress, 0.15F, 0.373F);
+            float ft3 = GetMOP.getFromTo(progress, 0.373F, 0.673F);
+            float ft4 = GetMOP.getFromTo(progress, 0.673F, 0.71F);
+            float ft5 = GetMOP.getFromTo(progress, 0.71F, 0.725F);
+            float ft6 = GetMOP.getFromTo(progress, 0.725F, 0.74F);
+            float ft7 = GetMOP.getFromTo(progress, 0.74F, 1.0F);
             ModelRenderer handrenderer2 = hand == EnumHandSide.RIGHT ? model.bipedLeftArm : model.bipedRightArm;
             float add = -24.0F * ft1 - 8.0F * ft2 - 16.0F * ft3 + 28.0F * ft4 - 4.0F * ft5 + 4.0F * ft6 + 20.0F * ft7;
             handrenderer.rotateAngleX = handrenderer.rotateAngleX + (Debugger.floats[6] + add) * (float) (Math.PI / 180.0);
@@ -2861,11 +2861,11 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F);
-            float ft2 = GetMOP.getfromto(progress, 0.0F, 0.2F);
-            float ft3 = GetMOP.getfromto(progress, 0.2F, 0.3F);
-            float ft4 = GetMOP.getfromto(progress, 0.3F, 0.4F);
-            float ft5 = GetMOP.getfromto(progress, 0.45F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F);
+            float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.2F);
+            float ft3 = GetMOP.getFromTo(progress, 0.2F, 0.3F);
+            float ft4 = GetMOP.getFromTo(progress, 0.3F, 0.4F);
+            float ft5 = GetMOP.getFromTo(progress, 0.45F, 1.0F);
             float translateX = 0.3F * ft2 - 0.5F * ft3 + 0.1F * ft4 + 0.1F * ft5;
             float translateY = 0.15F * ft1 - 0.15F * ft5;
             float translateZ = 0.0F;
@@ -2895,11 +2895,11 @@ public class PlayerAnimations {
          float partialTicks
       ) {
          if (model != null) {
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.1F);
-            float ft2 = GetMOP.getfromto(progress, 0.0F, 0.2F);
-            float ft3 = GetMOP.getfromto(progress, 0.2F, 0.3F);
-            float ft4 = GetMOP.getfromto(progress, 0.3F, 0.4F);
-            float ft5 = GetMOP.getfromto(progress, 0.45F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.1F);
+            float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.2F);
+            float ft3 = GetMOP.getFromTo(progress, 0.2F, 0.3F);
+            float ft4 = GetMOP.getFromTo(progress, 0.3F, 0.4F);
+            float ft5 = GetMOP.getFromTo(progress, 0.45F, 1.0F);
             if (hand != EnumHandSide.RIGHT) {
                ;
             }
@@ -2910,8 +2910,8 @@ public class PlayerAnimations {
             handrenderer.rotateAngleZ = handrenderer.rotateAngleZ + Debugger.floats[8] * (float) (Math.PI / 180.0);
             model.bipedBody.rotateAngleY += (ft2 * 20.0F - ft3 * 20.0F) * (float) (Math.PI / 180.0);
          } else {
-            float ft5 = GetMOP.getfromto(progress, 0.45F, 1.0F);
-            float ft2 = GetMOP.getfromto(progress, 0.0F, 0.2F);
+            float ft5 = GetMOP.getFromTo(progress, 0.45F, 1.0F);
+            float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.2F);
             float rotateX = 0.0F;
             float rotateY = -15.0F * ft2 + 15.0F * ft5;
             float rotateZ = 0.0F;
@@ -3007,12 +3007,12 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float rotateX = GetMOP.getfromto(progress, 0.0F, 0.2F) * -70.0F
-               + GetMOP.getfromto(progress, 0.2F, 0.4F) * -10.0F
-               + GetMOP.getfromto(progress, 0.6F, 1.0F) * 80.0F;
-            float translateX = GetMOP.getfromto(progress, 0.1F, 0.4F) * -0.3F - GetMOP.getfromto(progress, 0.6F, 1.0F) * -0.3F;
-            float translateY = GetMOP.getfromto(progress, 0.0F, 0.5F) * 0.3F - GetMOP.getfromto(progress, 0.5F, 1.0F) * 0.3F;
-            float translateZ = GetMOP.getfromto(progress, 0.3F, 0.5F) * -2.0F + GetMOP.getfromto(progress, 0.5F, 0.8F) * 2.0F;
+            float rotateX = GetMOP.getFromTo(progress, 0.0F, 0.2F) * -70.0F
+               + GetMOP.getFromTo(progress, 0.2F, 0.4F) * -10.0F
+               + GetMOP.getFromTo(progress, 0.6F, 1.0F) * 80.0F;
+            float translateX = GetMOP.getFromTo(progress, 0.1F, 0.4F) * -0.3F - GetMOP.getFromTo(progress, 0.6F, 1.0F) * -0.3F;
+            float translateY = GetMOP.getFromTo(progress, 0.0F, 0.5F) * 0.3F - GetMOP.getFromTo(progress, 0.5F, 1.0F) * 0.3F;
+            float translateZ = GetMOP.getFromTo(progress, 0.3F, 0.5F) * -2.0F + GetMOP.getFromTo(progress, 0.5F, 0.8F) * 2.0F;
             GlStateManager.translate(translateX, translateY, translateZ);
             PlayerAnimations.instance.transformSideFirstPerson(enumhandside, p_187457_7_);
             GlStateManager.rotate(rotateX, 1.0F, 0.0F, 0.0F);
@@ -3035,14 +3035,14 @@ public class PlayerAnimations {
       ) {
          if (model != null) {
             float handMult = hand == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft1 = GetMOP.getfromto(progress, 0.2F, 0.4F) - GetMOP.getfromto(progress, 0.4F, 0.7F);
-            float ft2 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.2F, 0.4F) - GetMOP.getFromTo(progress, 0.4F, 0.7F);
+            float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
             handrenderer.rotateAngleX *= 1.0F - ft2;
             handrenderer.rotateAngleX = handrenderer.rotateAngleX
                + (
-                     GetMOP.getfromto(progress, 0.0F, 0.3F) * 15.0F
-                        + GetMOP.getfromto(progress, 0.3F, 0.5F) * -98.0F
-                        + GetMOP.getfromto(progress, 0.5F, 0.8F) * 83.0F
+                     GetMOP.getFromTo(progress, 0.0F, 0.3F) * 15.0F
+                        + GetMOP.getFromTo(progress, 0.3F, 0.5F) * -98.0F
+                        + GetMOP.getFromTo(progress, 0.5F, 0.8F) * 83.0F
                   )
                   * (float) (Math.PI / 180.0);
             handrenderer.rotateAngleY = handrenderer.rotateAngleY
@@ -3051,21 +3051,21 @@ public class PlayerAnimations {
             handrenderer.rotateAngleX = handrenderer.rotateAngleX + model.bipedHead.rotateAngleX * ft2 * 0.85F;
             model.bipedBody.rotateAngleY = model.bipedBody.rotateAngleY
                + (
-                     GetMOP.getfromto(progress, 0.0F, 0.3F) * 10.0F
-                        + GetMOP.getfromto(progress, 0.3F, 0.5F) * -15.0F
-                        + GetMOP.getfromto(progress, 0.5F, 0.8F) * 5.0F
+                     GetMOP.getFromTo(progress, 0.0F, 0.3F) * 10.0F
+                        + GetMOP.getFromTo(progress, 0.3F, 0.5F) * -15.0F
+                        + GetMOP.getFromTo(progress, 0.5F, 0.8F) * 5.0F
                   )
                   * (float) (Math.PI / 180.0)
                   * handMult;
          } else {
-            float rotateX = GetMOP.getfromto(progress, 0.0F, 0.3F) * -20.0F
-               + GetMOP.getfromto(progress, 0.3F, 0.5F) * -60.0F
-               + GetMOP.getfromto(progress, 0.5F, 0.8F) * 80.0F;
-            float translateX = -0.05F * (GetMOP.getfromto(progress, 0.0F, 0.15F) - GetMOP.getfromto(progress, 0.8F, 1.0F));
-            float translateY = GetMOP.getfromto(progress, 0.0F, 0.3F) * -0.5F
-               + GetMOP.getfromto(progress, 0.3F, 0.5F) * 1.0F
-               - GetMOP.getfromto(progress, 0.5F, 0.8F) * 0.5F;
-            float translateZ = GetMOP.getfromto(progress, 0.1F, 0.4F) * -0.2F - GetMOP.getfromto(progress, 0.6F, 1.0F) * -0.2F;
+            float rotateX = GetMOP.getFromTo(progress, 0.0F, 0.3F) * -20.0F
+               + GetMOP.getFromTo(progress, 0.3F, 0.5F) * -60.0F
+               + GetMOP.getFromTo(progress, 0.5F, 0.8F) * 80.0F;
+            float translateX = -0.05F * (GetMOP.getFromTo(progress, 0.0F, 0.15F) - GetMOP.getFromTo(progress, 0.8F, 1.0F));
+            float translateY = GetMOP.getFromTo(progress, 0.0F, 0.3F) * -0.5F
+               + GetMOP.getFromTo(progress, 0.3F, 0.5F) * 1.0F
+               - GetMOP.getFromTo(progress, 0.5F, 0.8F) * 0.5F;
+            float translateZ = GetMOP.getFromTo(progress, 0.1F, 0.4F) * -0.2F - GetMOP.getFromTo(progress, 0.6F, 1.0F) * -0.2F;
             GlStateManager.rotate(rotateX, 1.0F, 0.0F, 0.0F);
             GlStateManager.translate(0.0F, translateY, translateZ);
          }
@@ -3088,12 +3088,12 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.37F);
-            float ft1_1 = GetMOP.getfromto(progress, 0.16F, 0.37F);
-            float ft2 = GetMOP.getfromto(progress, 0.43F, 0.5F);
-            float ft3 = GetMOP.getfromto(progress, 0.5F, 0.54F) - GetMOP.getfromto(progress, 0.54F, 0.58F);
-            float ft4 = GetMOP.getfromto(progress, 0.65F, 1.0F);
-            float ft5 = GetMOP.getfromto(progress, 0.62F, 0.85F) - GetMOP.getfromto(progress, 0.85F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.37F);
+            float ft1_1 = GetMOP.getFromTo(progress, 0.16F, 0.37F);
+            float ft2 = GetMOP.getFromTo(progress, 0.43F, 0.5F);
+            float ft3 = GetMOP.getFromTo(progress, 0.5F, 0.54F) - GetMOP.getFromTo(progress, 0.54F, 0.58F);
+            float ft4 = GetMOP.getFromTo(progress, 0.65F, 1.0F);
+            float ft5 = GetMOP.getFromTo(progress, 0.62F, 0.85F) - GetMOP.getFromTo(progress, 0.85F, 1.0F);
             float translateX = -1.0F * ft1_1 + 1.0F * ft4;
             float translateY = 2.0F * ft1 - 2.0F * ft2 + 0.07F * ft3;
             float translateZ = 0.1F * ft5;
@@ -3124,28 +3124,28 @@ public class PlayerAnimations {
       ) {
          if (model != null) {
             ModelRenderer handrenderer2 = hand == EnumHandSide.RIGHT ? model.bipedLeftArm : model.bipedRightArm;
-            float ft0 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
+            float ft0 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
             model.bipedLeftArm.rotateAngleX *= 1.0F - 0.85F * ft0;
             model.bipedRightArm.rotateAngleX *= 1.0F - 0.85F * ft0;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.37F) * -140.0F
-               + GetMOP.getfromto(progress, 0.43F, 0.5F) * 60.0F
-               + GetMOP.getfromto(progress, 0.5F, 0.54F) * -5.0F
-               + GetMOP.getfromto(progress, 0.54F, 0.58F) * 5.0F;
-            float ft2 = GetMOP.getfromto(progress, 0.0F, 0.28F) * -20.0F;
-            float ft3 = GetMOP.getfromto(progress, 0.7F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.37F) * -140.0F
+               + GetMOP.getFromTo(progress, 0.43F, 0.5F) * 60.0F
+               + GetMOP.getFromTo(progress, 0.5F, 0.54F) * -5.0F
+               + GetMOP.getFromTo(progress, 0.54F, 0.58F) * 5.0F;
+            float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.28F) * -20.0F;
+            float ft3 = GetMOP.getFromTo(progress, 0.7F, 1.0F);
             handrenderer.rotateAngleX += (ft1 + ft3 * 80.0F) * (float) (Math.PI / 180.0);
             handrenderer.rotateAngleY += (ft2 + ft3 * 20.0F) * (float) (Math.PI / 180.0);
-            float ft4 = GetMOP.getfromto(progress, 0.08F, 0.37F) * -120.0F
-               + GetMOP.getfromto(progress, 0.43F, 0.5F) * 45.0F
-               + GetMOP.getfromto(progress, 0.5F, 0.54F) * -5.0F
-               + GetMOP.getfromto(progress, 0.54F, 0.58F) * 5.0F;
-            float ft5 = GetMOP.getfromto(progress, 0.43F, 0.5F);
+            float ft4 = GetMOP.getFromTo(progress, 0.08F, 0.37F) * -120.0F
+               + GetMOP.getFromTo(progress, 0.43F, 0.5F) * 45.0F
+               + GetMOP.getFromTo(progress, 0.5F, 0.54F) * -5.0F
+               + GetMOP.getFromTo(progress, 0.54F, 0.58F) * 5.0F;
+            float ft5 = GetMOP.getFromTo(progress, 0.43F, 0.5F);
             handrenderer2.rotateAngleX = handrenderer2.rotateAngleX + (Debugger.floats[6] + ft4 + ft3 * 75.0F) * (float) (Math.PI / 180.0);
             handrenderer2.rotateAngleY = handrenderer2.rotateAngleY + (Debugger.floats[7] - ft2 + ft3 * -20.0F) * (float) (Math.PI / 180.0);
             handrenderer2.rotateAngleZ = handrenderer2.rotateAngleZ + (Debugger.floats[8] + ft2 + ft5 * 20.0F) * (float) (Math.PI / 180.0);
          } else {
-            float ft1 = GetMOP.getfromto(progress, 0.43F, 0.5F) * 10.0F;
-            float ft3 = GetMOP.getfromto(progress, 0.7F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.43F, 0.5F) * 10.0F;
+            float ft3 = GetMOP.getFromTo(progress, 0.7F, 1.0F);
             float rotateX = ft1 - ft3 * 10.0F;
             float rotateY = 0.0F;
             float rotateZ = 0.0F;
@@ -3182,8 +3182,8 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.75F, 1.0F);
-            float ft2 = 1.0F - GetMOP.getfromto(progress, 0.85F, 1.0F);
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.75F, 1.0F);
+            float ft2 = 1.0F - GetMOP.getFromTo(progress, 0.85F, 1.0F);
             float translateX = -1.09F * ft1;
             float translateY = 0.0F;
             float translateZ = 0.0F;
@@ -3212,10 +3212,10 @@ public class PlayerAnimations {
          EntityPlayer player,
          float partialTicks
       ) {
-         float ft1 = 1.0F - GetMOP.getfromto(progress, 0.75F, 1.0F);
-         float ft2 = 1.0F - GetMOP.getfromto(progress, 0.85F, 1.0F);
+         float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.75F, 1.0F);
+         float ft2 = 1.0F - GetMOP.getFromTo(progress, 0.85F, 1.0F);
          if (model != null) {
-            float ft0 = 1.0F - GetMOP.getfromto(progress, 0.85F, 1.0F);
+            float ft0 = 1.0F - GetMOP.getFromTo(progress, 0.85F, 1.0F);
             ModelRenderer handrenderer2 = hand == EnumHandSide.RIGHT ? model.bipedLeftArm : model.bipedRightArm;
             handrenderer2.rotateAngleX *= 1.0F - 0.85F * ft0;
             handrenderer.rotateAngleX *= 1.0F - 0.95F * ft0;
@@ -3266,9 +3266,9 @@ public class PlayerAnimations {
             }
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-            float ft1 = 1.0F - GetMOP.getfromto(progress, 0.75F, 1.0F);
-            float ft2 = 1.0F - GetMOP.getfromto(progress, 0.85F, 1.0F);
-            float ft3 = (GetMOP.getfromto(progress, 0.0F, 0.085F) - GetMOP.getfromto(progress, 0.085F, 0.25F)) * this.punchAmount;
+            float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.75F, 1.0F);
+            float ft2 = 1.0F - GetMOP.getFromTo(progress, 0.85F, 1.0F);
+            float ft3 = (GetMOP.getFromTo(progress, 0.0F, 0.085F) - GetMOP.getFromTo(progress, 0.085F, 0.25F)) * this.punchAmount;
             float translateX = -1.09F * ft1;
             float translateY = -0.12F * ft3;
             float translateZ = 0.2F * ft3;
@@ -3297,11 +3297,11 @@ public class PlayerAnimations {
          EntityPlayer player,
          float partialTicks
       ) {
-         float ft1 = 1.0F - GetMOP.getfromto(progress, 0.75F, 1.0F);
-         float ft2 = 1.0F - GetMOP.getfromto(progress, 0.85F, 1.0F);
-         float ft3 = (GetMOP.getfromto(progress, 0.0F, 0.085F) - GetMOP.getfromto(progress, 0.085F, 0.25F)) * this.punchAmount;
+         float ft1 = 1.0F - GetMOP.getFromTo(progress, 0.75F, 1.0F);
+         float ft2 = 1.0F - GetMOP.getFromTo(progress, 0.85F, 1.0F);
+         float ft3 = (GetMOP.getFromTo(progress, 0.0F, 0.085F) - GetMOP.getFromTo(progress, 0.085F, 0.25F)) * this.punchAmount;
          if (model != null) {
-            float ft0 = 1.0F - GetMOP.getfromto(progress, 0.85F, 1.0F);
+            float ft0 = 1.0F - GetMOP.getFromTo(progress, 0.85F, 1.0F);
             ModelRenderer handrenderer2 = hand == EnumHandSide.RIGHT ? model.bipedLeftArm : model.bipedRightArm;
             handrenderer2.rotateAngleX *= 1.0F - 0.85F * ft0;
             handrenderer.rotateAngleX *= 1.0F - 0.95F * ft0;
@@ -3344,11 +3344,11 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             int i = flag1 ? 1 : -1;
-            float translateX = GetMOP.getfromto(progress, 0.0F, 0.1F) * -0.3F + GetMOP.getfromto(progress, 0.2F, 0.4F) * 0.3F;
-            float translateY = GetMOP.getfromto(progress, 0.05F, 0.15F) * 0.25F + GetMOP.getfromto(progress, 0.2F, 0.45F) * -0.25F;
-            float translateZ = GetMOP.getfromto(progress, 0.0F, 0.1F) * -0.5F + GetMOP.getfromto(progress, 0.15F, 0.5F) * 0.5F;
-            float rotateX = GetMOP.getfromto(progress, 0.0F, 0.1F) * -60.0F + GetMOP.getfromto(progress, 0.15F, 0.8F) * 60.0F;
-            float rotateY = GetMOP.getfromto(progress, 0.2F, 0.4F) * 5.0F + GetMOP.getfromto(progress, 0.4F, 0.6F) * -5.0F;
+            float translateX = GetMOP.getFromTo(progress, 0.0F, 0.1F) * -0.3F + GetMOP.getFromTo(progress, 0.2F, 0.4F) * 0.3F;
+            float translateY = GetMOP.getFromTo(progress, 0.05F, 0.15F) * 0.25F + GetMOP.getFromTo(progress, 0.2F, 0.45F) * -0.25F;
+            float translateZ = GetMOP.getFromTo(progress, 0.0F, 0.1F) * -0.5F + GetMOP.getFromTo(progress, 0.15F, 0.5F) * 0.5F;
+            float rotateX = GetMOP.getFromTo(progress, 0.0F, 0.1F) * -60.0F + GetMOP.getFromTo(progress, 0.15F, 0.8F) * 60.0F;
+            float rotateY = GetMOP.getFromTo(progress, 0.2F, 0.4F) * 5.0F + GetMOP.getFromTo(progress, 0.4F, 0.6F) * -5.0F;
             float rotateZ = 0.0F;
             GlStateManager.translate(Debugger.floats[0] + translateX * i, Debugger.floats[1] + translateY, Debugger.floats[2] + translateZ);
             PlayerAnimations.instance.transformSideFirstPerson(enumhandside, p_187457_7_);
@@ -3374,21 +3374,21 @@ public class PlayerAnimations {
       ) {
          if (model != null) {
             float handMult = hand == EnumHandSide.LEFT ? -1.0F : 1.0F;
-            float ft2 = GetMOP.getfromto(progress, 0.0F, 0.2F) - GetMOP.getfromto(progress, 0.8F, 1.0F);
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.15F, 0.8F);
+            float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.2F) - GetMOP.getFromTo(progress, 0.8F, 1.0F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.15F, 0.8F);
             handrenderer.rotateAngleX *= 1.0F - ft2;
             handrenderer.rotateAngleY = handrenderer.rotateAngleY + model.bipedHead.rotateAngleY * ft2 * 0.7F;
             handrenderer.rotateAngleX = handrenderer.rotateAngleX + model.bipedHead.rotateAngleX * ft2 * 0.85F;
             model.bipedBody.rotateAngleY = model.bipedBody.rotateAngleY
-               + (GetMOP.getfromto(progress, 0.0F, 0.1F) * -10.0F + GetMOP.getfromto(progress, 0.15F, 0.4F) * 10.0F) * (float) (Math.PI / 180.0) * handMult;
+               + (GetMOP.getFromTo(progress, 0.0F, 0.1F) * -10.0F + GetMOP.getFromTo(progress, 0.15F, 0.4F) * 10.0F) * (float) (Math.PI / 180.0) * handMult;
             handrenderer.rotateAngleX += ft3 * -70.0F * (float) (Math.PI / 180.0) * ft2;
          } else {
-            float ft3 = GetMOP.getfromto(progress, 0.0F, 0.1F) - GetMOP.getfromto(progress, 0.15F, 0.8F);
+            float ft3 = GetMOP.getFromTo(progress, 0.0F, 0.1F) - GetMOP.getFromTo(progress, 0.15F, 0.8F);
             float rotateX = ft3 * -60.0F;
-            float rotateY = GetMOP.getfromto(progress, 0.0F, 0.4F) * 15.0F + GetMOP.getfromto(progress, 0.4F, 1.0F) * -15.0F;
+            float rotateY = GetMOP.getFromTo(progress, 0.0F, 0.4F) * 15.0F + GetMOP.getFromTo(progress, 0.4F, 1.0F) * -15.0F;
             float rotateZ = 0.0F;
-            float translateY = GetMOP.getfromto(progress, 0.05F, 0.15F) * 0.1F + GetMOP.getfromto(progress, 0.2F, 0.45F) * -0.1F;
-            float translateZ = GetMOP.getfromto(progress, 0.0F, 0.1F) * -0.15F + GetMOP.getfromto(progress, 0.15F, 0.5F) * 0.15F;
+            float translateY = GetMOP.getFromTo(progress, 0.05F, 0.15F) * 0.1F + GetMOP.getFromTo(progress, 0.2F, 0.45F) * -0.1F;
+            float translateZ = GetMOP.getFromTo(progress, 0.0F, 0.1F) * -0.15F + GetMOP.getFromTo(progress, 0.15F, 0.5F) * 0.15F;
             GlStateManager.rotate(Debugger.floats[3] + rotateX, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(Debugger.floats[4] + rotateY, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(Debugger.floats[5] + rotateZ, 0.0F, 0.0F, 1.0F);
@@ -3414,12 +3414,12 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             int i = flag1 ? 1 : -1;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.18F);
-            float ft2 = GetMOP.softfromto(progress, 0.12F, 0.35F);
-            float ft3 = GetMOP.getfromto(progress, 0.42F, 0.48F);
-            float ft3_4 = GetMOP.softfromto(progress, 0.52F, 0.85F);
-            float ft4 = GetMOP.softfromto(progress, 0.62F, 1.0F);
-            float ft5 = GetMOP.softfromto(progress, 0.32F, 0.42F) - GetMOP.getfromto(progress, 0.48F, 0.54F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.18F);
+            float ft2 = GetMOP.softFromTo(progress, 0.12F, 0.35F);
+            float ft3 = GetMOP.getFromTo(progress, 0.42F, 0.48F);
+            float ft3_4 = GetMOP.softFromTo(progress, 0.52F, 0.85F);
+            float ft4 = GetMOP.softFromTo(progress, 0.62F, 1.0F);
+            float ft5 = GetMOP.softFromTo(progress, 0.32F, 0.42F) - GetMOP.getFromTo(progress, 0.48F, 0.54F);
             float translateX = -0.1F * ft2 - 0.4F * ft3 + 0.5F * ft3_4;
             float translateY = 0.5F * ft2 - 0.1F * ft3 - 0.4F * ft3_4 - 0.3F * ft5;
             float translateZ = 0.2F * ft1 - 0.2F * ft2 - 0.1F * ft3 + 0.1F * ft3_4 - 0.5F * ft5;
@@ -3450,10 +3450,10 @@ public class PlayerAnimations {
       ) {
          if (model != null) {
             int handMult = hand == EnumHandSide.RIGHT ? 1 : -1;
-            float ft1 = GetMOP.getfromto(progress, 0.0F, 0.18F);
-            float ft2 = GetMOP.softfromto(progress, 0.12F, 0.35F);
-            float ft3 = GetMOP.getfromto(progress, 0.42F, 0.48F);
-            float ft4 = GetMOP.softfromto(progress, 0.62F, 1.0F);
+            float ft1 = GetMOP.getFromTo(progress, 0.0F, 0.18F);
+            float ft2 = GetMOP.softFromTo(progress, 0.12F, 0.35F);
+            float ft3 = GetMOP.getFromTo(progress, 0.42F, 0.48F);
+            float ft4 = GetMOP.softFromTo(progress, 0.62F, 1.0F);
             handrenderer.rotateAngleX = handrenderer.rotateAngleX
                + (
                   (Debugger.floats[6] + 10.0F * ft1 - 150.0F * ft2 + 125.0F * ft3 - 65.0F * ft4) * (float) (Math.PI / 180.0)
@@ -3464,10 +3464,10 @@ public class PlayerAnimations {
             handrenderer.rotateAngleZ = handrenderer.rotateAngleZ
                + (Debugger.floats[8] + 10.0F * ft1 - 20.0F * ft2 + 10.0F * ft4) * (float) (Math.PI / 180.0) * handMult;
          } else {
-            float ft2 = GetMOP.softfromto(progress, 0.12F, 0.35F);
-            float ft3 = GetMOP.getfromto(progress, 0.42F, 0.48F);
-            float ft3_4 = GetMOP.softfromto(progress, 0.52F, 0.85F);
-            float ft4 = GetMOP.softfromto(progress, 0.62F, 1.0F);
+            float ft2 = GetMOP.softFromTo(progress, 0.12F, 0.35F);
+            float ft3 = GetMOP.getFromTo(progress, 0.42F, 0.48F);
+            float ft3_4 = GetMOP.softFromTo(progress, 0.52F, 0.85F);
+            float ft4 = GetMOP.softFromTo(progress, 0.62F, 1.0F);
             float rotateX = -18.0F * ft3 + 18.0F * ft4;
             float rotateY = 0.0F;
             float rotateZ = 0.0F;
@@ -3499,11 +3499,11 @@ public class PlayerAnimations {
          } else {
             boolean flag1 = enumhandside == EnumHandSide.RIGHT;
             int i = flag1 ? 1 : -1;
-            float ft2 = GetMOP.getfromto(progress, 0.0F, 0.175F);
-            float ft2_3 = GetMOP.getfromto(progress, 0.175F, 0.245F);
-            float ft3 = GetMOP.getfromto(progress, 0.245F, 0.52F);
-            float ft4 = GetMOP.getfromto(progress, 0.52F, 0.65F);
-            float ft5 = GetMOP.getfromto(progress, 0.65F, 1.0F);
+            float ft2 = GetMOP.getFromTo(progress, 0.0F, 0.175F);
+            float ft2_3 = GetMOP.getFromTo(progress, 0.175F, 0.245F);
+            float ft3 = GetMOP.getFromTo(progress, 0.245F, 0.52F);
+            float ft4 = GetMOP.getFromTo(progress, 0.52F, 0.65F);
+            float ft5 = GetMOP.getFromTo(progress, 0.65F, 1.0F);
             float translateX = 0.7F - 0.7F * ft2 + 0.3F * ft3 + 0.3F * ft4 - 0.6F * ft5;
             float translateY = 0.3F + 0.2F * ft2 - 0.2F * ft3 + 0.1F * ft4 - 0.4F * ft5;
             float translateZ = -0.1F - 0.5F * ft2 + 0.9F * ft3 - 0.4F * ft4 + 0.1F * ft5;

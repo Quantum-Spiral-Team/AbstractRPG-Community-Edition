@@ -38,7 +38,7 @@ public class Arrows {
    public abstract static class AbstractItemArrow extends ItemArrow {
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-         tooltip.add(TextFormatting.GRAY + Ln.translate("damage") + ": " + parameters.get("damage"));
+         tooltip.add(TextFormatting.GRAY + Ln.translate("damage") + ": " + parameters.getF("damage"));
          String name = this.getRegistryName().getPath();
          tooltip.add(TextFormatting.WHITE + Ln.translate("description." + name));
       }
@@ -143,7 +143,7 @@ public class Arrows {
       @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-         tooltip.add("пїЅ7" + Ln.translate("damage") + ": " + parameters.get("damage"));
+         tooltip.add("пїЅ7" + Ln.translate("damage") + ": " + parameters.getF("damage"));
          String name = this.getRegistryName().getPath();
          tooltip.add("пїЅf" + Ln.translate("description." + name));
       }

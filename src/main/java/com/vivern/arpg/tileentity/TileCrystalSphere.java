@@ -137,8 +137,8 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
             ParticleTracker.TrackerFollowStaticPoint tracker = new ParticleTracker.TrackerFollowStaticPoint(vec, false, 0.0F, 0.0F, 0.05F);
             tracker.frictionMult = 1.0F;
             int yawRand = rand.nextInt(360);
-            Vec3d poss = GetMOP.YawToVec3d(yawRand).scale(0.1675 - 0.1 * Math.abs(rangeY)).add(vec);
-            Vec3d direction = GetMOP.YawToVec3d(yawRand - 90).scale(0.06);
+            Vec3d poss = GetMOP.yawToVec3D(yawRand).scale(0.1675 - 0.1 * Math.abs(rangeY)).add(vec);
+            Vec3d direction = GetMOP.yawToVec3D(yawRand - 90).scale(0.06);
             float scl = 0.019625F + rand.nextFloat() * 0.01F;
             int lt = 50 + rand.nextInt(10);
             GUNParticle part = new GUNParticle(

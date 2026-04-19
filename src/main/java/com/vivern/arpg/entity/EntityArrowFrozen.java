@@ -8,7 +8,6 @@ import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
@@ -59,7 +58,7 @@ public class EntityArrowFrozen extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWFROZEN);
+      return new ItemStack(ItemsRegister.ARROW_FROZEN);
    }
 
    @Override

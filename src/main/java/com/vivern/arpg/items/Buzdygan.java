@@ -96,7 +96,7 @@ public class Buzdygan extends ItemWeapon {
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             EnumHand hand = null;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int maxrunes = parameters.geti("max_charges");
+            int maxrunes = parameters.getI("max_charges");
             if (player.getHeldItemMainhand() == itemstack) {
                hand = EnumHand.MAIN_HAND;
                click1 = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
@@ -177,9 +177,9 @@ public class Buzdygan extends ItemWeapon {
                   }
                } else if (runes > 0.0F) {
                   if (!hascooldown) {
-                     NBTHelper.AddNBTfloat(itemstack, parameters.get("charge_decrement"), "runes");
+                     NBTHelper.AddNBTfloat(itemstack, parameters.getF("charge_decrement"), "runes");
                      player.addExhaustion(0.02F);
-                     player.getCooldownTracker().setCooldown(this, parameters.geti("charged_hit_delay"));
+                     player.getCooldownTracker().setCooldown(this, parameters.getI("charged_hit_delay"));
                      world.playSound(
                         (EntityPlayer)null,
                         player.posX,
@@ -196,11 +196,11 @@ public class Buzdygan extends ItemWeapon {
 
                      int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
                      int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
-                     double length = parameters.getEnchanted("charged_length", range);
-                     double size = parameters.getEnchanted("charged_size", range);
-                     double slowdown = parameters.get("charged_slowdown");
-                     float cdamage = parameters.getEnchanted("charged_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                     float cknockback = parameters.getEnchanted("charged_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                     double length = parameters.getEnchantedF("charged_length", range);
+                     double size = parameters.getEnchantedF("charged_size", range);
+                     double slowdown = parameters.getF("charged_slowdown");
+                     float cdamage = parameters.getEnchantedF("charged_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                     float cknockback = parameters.getEnchantedF("charged_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                      Vec3d vec3d = player.getPositionEyes(1.0F);
                      Vec3d vec3d1 = player.getLook(1.0F);
                      Vec3d vec3d2 = vec3d.add(vec3d1.x * length, vec3d1.y * length, vec3d1.z * length);
@@ -231,7 +231,7 @@ public class Buzdygan extends ItemWeapon {
                               entity.motionY *= slowdown;
                               entity.motionZ *= slowdown;
                               Weapons.setPotionIfEntityLB(
-                                 entity, MobEffects.SLOWNESS, parameters.getEnchantedi("slowness_time", witchery), parameters.geti("slowness_power")
+                                 entity, MobEffects.SLOWNESS, parameters.getEnchantedI("slowness_time", witchery), parameters.getI("slowness_power")
                               );
                            }
                         }
@@ -253,14 +253,14 @@ public class Buzdygan extends ItemWeapon {
       Weapons.mixPotion(
          entity,
          PotionEffects.BROKEN_ARMOR,
-         (float)parameters.getEnchantedi("brokenarmor_time", witchery),
-         (float)parameters.geti("brokenarmor_power_add"),
+         (float)parameters.getEnchantedI("brokenarmor_time", witchery),
+         (float)parameters.getI("brokenarmor_power_add"),
          Weapons.EnumPotionMix.GREATEST,
          Weapons.EnumPotionMix.WITH_MAXIMUM,
          Weapons.EnumMathOperation.NONE,
          Weapons.EnumMathOperation.PLUS,
-         parameters.getEnchantedi("brokenarmor_time", witchery),
-         parameters.geti("brokenarmor_power_max")
+         parameters.getEnchantedI("brokenarmor_time", witchery),
+         parameters.getI("brokenarmor_power_max")
       );
       return super.attackEntityMelee(entity, stack, player, hand, isCritical);
    }

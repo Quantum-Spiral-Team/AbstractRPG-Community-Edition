@@ -817,7 +817,7 @@ public class GUIResearchTable extends GuiContainer {
          int amount = amounts[i];
          int finall = mightBe[i];
          if (amount > 0 || finall > 0) {
-            float percentIdeal = GetMOP.getfromto((float)finall, (float)lowestFinall, (float)highestFinall) * 0.875F + 0.0625F;
+            float percentIdeal = GetMOP.getFromTo((float)finall, (float)lowestFinall, (float)highestFinall) * 0.875F + 0.0625F;
             this.drawEnergyBar(i, MathHelper.clamp(amount / (finall / percentIdeal), 0.0F, 1.0F), startX, mainGuiYPosition + 10, percentIdeal);
             startX -= distanceBetween;
          }

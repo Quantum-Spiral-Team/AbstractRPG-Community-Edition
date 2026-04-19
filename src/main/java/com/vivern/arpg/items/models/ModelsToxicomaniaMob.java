@@ -1329,10 +1329,10 @@ public class ModelsToxicomaniaMob {
             an += pt;
          }
 
-         float anim1 = GetMOP.getfromto(an, 0.0F, 8.0F) * 1.6F;
-         float anim2 = (1.0F - GetMOP.getfromto(an, 0.0F, 10.0F)) * 0.41F;
-         float anim3 = GetMOP.getfromto(an, 8.0F, 13.0F) * 1.6F;
-         float anim4 = (1.0F - GetMOP.getfromto(an, 16.0F, 30.0F)) * 0.41F;
+         float anim1 = GetMOP.getFromTo(an, 0.0F, 8.0F) * 1.6F;
+         float anim2 = (1.0F - GetMOP.getFromTo(an, 0.0F, 10.0F)) * 0.41F;
+         float anim3 = GetMOP.getFromTo(an, 8.0F, 13.0F) * 1.6F;
+         float anim4 = (1.0F - GetMOP.getFromTo(an, 16.0F, 30.0F)) * 0.41F;
          this.rightarm.rotateAngleX = -anim1 + anim3;
          this.cannon2.offsetZ = 0.41F + anim2 - anim4;
          this.cannon3.offsetZ = 0.41F + anim2 - anim4;
@@ -1757,14 +1757,14 @@ public class ModelsToxicomaniaMob {
          }
 
          float unbuilding = 1.0F - building;
-         this.gun4.offsetZ = GetMOP.getfromto(unbuilding, 0.0F, 0.2F) * 6.0F * offMultipl;
-         this.gun5.offsetZ = GetMOP.getfromto(unbuilding, 0.1F, 0.3F) * 4.0F * offMultipl;
-         this.gun4.offsetZ = GetMOP.getfromto(unbuilding, 0.0F, 0.1F) * 5.0F * offMultipl;
-         this.gun3.rotateAngleX = -1.570796F * GetMOP.getfromto(unbuilding, 0.3F, 0.5F);
-         this.gun1.rotateAngleX = 1.570796F * GetMOP.getfromto(unbuilding, 0.5F, 0.8F);
-         this.shapes2.rotateAngleX = -1.570796F * GetMOP.getfromto(unbuilding, 0.8F, 1.0F);
+         this.gun4.offsetZ = GetMOP.getFromTo(unbuilding, 0.0F, 0.2F) * 6.0F * offMultipl;
+         this.gun5.offsetZ = GetMOP.getFromTo(unbuilding, 0.1F, 0.3F) * 4.0F * offMultipl;
+         this.gun4.offsetZ = GetMOP.getFromTo(unbuilding, 0.0F, 0.1F) * 5.0F * offMultipl;
+         this.gun3.rotateAngleX = -1.570796F * GetMOP.getFromTo(unbuilding, 0.3F, 0.5F);
+         this.gun1.rotateAngleX = 1.570796F * GetMOP.getFromTo(unbuilding, 0.5F, 0.8F);
+         this.shapes2.rotateAngleX = -1.570796F * GetMOP.getFromTo(unbuilding, 0.8F, 1.0F);
          this.shapes1.rotateAngleX = this.shapes2.rotateAngleX;
-         this.shape1.offsetX = -(GetMOP.getfromto(unbuilding, 0.7F, 0.9F) * 3.0F) * offMultipl;
+         this.shape1.offsetX = -(GetMOP.getFromTo(unbuilding, 0.7F, 0.9F) * 3.0F) * offMultipl;
          this.shape2.offsetX = -this.shape1.offsetX;
          this.shape3.offsetX = -this.shape1.offsetX;
          this.shape4.offsetX = this.shape1.offsetX;

@@ -34,7 +34,7 @@ public class ChestReplacersFrozen {
 
             return null;
          } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            world.setBlockState(pos, BlocksRegister.MOBSPAWNERFROZEN.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
             DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.MOUND, world.rand);
             return null;
          } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.PUZZLE) {
@@ -118,9 +118,9 @@ public class ChestReplacersFrozen {
             if (world.rand.nextFloat() < 0.35) {
                world.setBlockToAir(pos);
             } else if (world.rand.nextFloat() < 0.3) {
-               world.setBlockState(pos, BlocksRegister.FROZENBARREL.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.FROZEN_TREASURE_BARREL.getDefaultState());
             } else if (world.rand.nextFloat() < 0.5) {
-               world.setBlockState(pos, BlocksRegister.ICESPIKES.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.ICE_SPIKES.getDefaultState());
             } else {
                world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState());
             }
@@ -137,9 +137,9 @@ public class ChestReplacersFrozen {
             if (world.rand.nextFloat() < 0.35) {
                world.setBlockToAir(pos);
             } else if (world.rand.nextFloat() < 0.3) {
-               world.setBlockState(pos, BlocksRegister.FROZENBARREL.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.FROZEN_TREASURE_BARREL.getDefaultState());
             } else if (world.rand.nextFloat() < 0.5) {
-               world.setBlockState(pos, BlocksRegister.ICESPIKES.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.ICE_SPIKES.getDefaultState());
             } else {
                world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState());
             }
@@ -159,7 +159,7 @@ public class ChestReplacersFrozen {
 
             return null;
          } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            world.setBlockState(pos, BlocksRegister.MOBSPAWNERFROZEN.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
             DimensionEthernalFrost.setupRandomSpawner(
                world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.STRUCTURES, world.rand
             );
@@ -182,7 +182,7 @@ public class ChestReplacersFrozen {
             );
             return null;
          } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            world.setBlockState(pos, BlocksRegister.MOBSPAWNERFROZEN.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
             DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.GRAVE, world.rand);
             return null;
          } else {
@@ -191,20 +191,20 @@ public class ChestReplacersFrozen {
       }
    };
    public static PresentBoxReplacer replacerPresentBox = new PresentBoxReplacer();
-   public static IBlockState replacerPresentBoxLampState = BlocksRegister.LAMPRUBY.getDefaultState();
-   public static IBlockState replacerPresentBoxLanternState = BlocksRegister.LANTERNRUBY.getDefaultState();
+   public static IBlockState replacerPresentBoxLampState = BlocksRegister.RUBY_LAMP.getDefaultState();
+   public static IBlockState replacerPresentBoxLanternState = BlocksRegister.RUBY_LANTERN.getDefaultState();
 
    public static class PresentBoxReplacer implements ITemplateProcessor {
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
-         if (blockInfoIn.blockState.getBlock() == BlocksRegister.LANTERNCITRINE) {
+         if (blockInfoIn.blockState.getBlock() == BlocksRegister.CITRINE_LANTERN) {
             world.setBlockState(pos, ChestReplacersFrozen.replacerPresentBoxLanternState);
             return null;
-         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.LAMPCITRINE) {
+         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.CITRINE_LAMP) {
             world.setBlockState(pos, ChestReplacersFrozen.replacerPresentBoxLampState);
             return null;
          } else if (blockInfoIn.blockState.getBlock() == Blocks.MOSSY_COBBLESTONE) {
             if (world.rand.nextFloat() < 0.7) {
-               IBlockState state = BlocksRegister.PRESENTBOX.getDefaultState().withProperty(PresentBox.TEXTYPE, world.rand.nextInt(6));
+               IBlockState state = BlocksRegister.PRESENT_BOX.getDefaultState().withProperty(PresentBox.TEXTYPE, world.rand.nextInt(6));
                world.setBlockState(pos, state);
                TileEntity tileentity = world.getTileEntity(pos);
                if (tileentity instanceof TilePresentBox) {
@@ -215,10 +215,10 @@ public class ChestReplacersFrozen {
             }
 
             return null;
-         } else if (blockInfoIn.blockState.getBlock() != BlocksRegister.STARLANTERN) {
+         } else if (blockInfoIn.blockState.getBlock() != BlocksRegister.STAR_LANTERN) {
             return blockInfoIn;
          } else {
-            IBlockState state = BlocksRegister.STARLANTERN.getDefaultState();
+            IBlockState state = BlocksRegister.STAR_LANTERN.getDefaultState();
             world.setBlockState(pos, state);
             TileEntity tileentity = world.getTileEntity(pos);
             if (tileentity instanceof TileStarLantern) {

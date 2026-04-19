@@ -20,9 +20,9 @@ public class FrozenVase extends Block {
       super(Material.GLASS);
       this.setRegistryName("frozen_vase");
       this.setTranslationKey("frozen_vase");
-      this.blockHardness = BlocksRegister.HR_FROZEN_FURNITURE.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_FROZEN_FURNITURE.RESISTANCE;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_FROZEN_FURNITURE.LVL);
+      this.blockHardness = BlocksRegister.HR_FROZEN_FURNITURE.hardness;
+      this.blockResistance = BlocksRegister.HR_FROZEN_FURNITURE.resistance;
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_FROZEN_FURNITURE.lvl);
       this.setSoundType(SoundTypeShards.SHARDS);
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }

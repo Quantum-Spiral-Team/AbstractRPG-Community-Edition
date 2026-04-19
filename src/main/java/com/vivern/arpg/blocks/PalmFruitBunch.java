@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import com.google.common.base.Predicate;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -100,13 +100,13 @@ public class PalmFruitBunch extends Block {
 
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       Random rand = world instanceof World ? ((World)world).rand : new Random();
-      drops.add(new ItemStack(BlocksRegister.PALMSAPLING));
+      drops.add(new ItemStack(BlocksRegister.PALM_SAPLING));
       if (rand.nextInt(3) == 0) {
-         drops.add(new ItemStack(BlocksRegister.PALMSAPLING));
+         drops.add(new ItemStack(BlocksRegister.PALM_SAPLING));
       }
 
       if (rand.nextInt(3) == 0) {
-         drops.add(new ItemStack(BlocksRegister.PALMSAPLING));
+         drops.add(new ItemStack(BlocksRegister.PALM_SAPLING));
       }
    }
 

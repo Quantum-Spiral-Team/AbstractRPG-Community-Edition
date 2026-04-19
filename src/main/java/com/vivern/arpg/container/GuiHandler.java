@@ -13,7 +13,7 @@ import com.vivern.arpg.tileentity.TileItemCharger;
 import com.vivern.arpg.tileentity.TileNetherMelter;
 import com.vivern.arpg.tileentity.TilePyrocrystallineConverter;
 import com.vivern.arpg.tileentity.TileResearchTable;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiScreen;

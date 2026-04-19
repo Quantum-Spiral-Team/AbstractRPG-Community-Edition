@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraftforge.fml.relauncher.FMLInjectionData;
 
 public class FileHelper {

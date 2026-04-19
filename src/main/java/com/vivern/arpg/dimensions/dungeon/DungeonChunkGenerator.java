@@ -59,9 +59,9 @@ public class DungeonChunkGenerator implements IChunkGenerator {
    protected static final IBlockState WATER_BORDER = Blocks.CLAY.getDefaultState();
    protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
    protected static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
-   protected static final IBlockState DEEP_STONE = BlocksRegister.DEEPROCK.getDefaultState();
-   protected static final IBlockState CAVE_ONYX = BlocksRegister.CAVEONYX.getDefaultState();
-   protected static final IBlockState GREEN_ONYX = BlocksRegister.GREENONYX.getDefaultState();
+   protected static final IBlockState DEEP_STONE = BlocksRegister.DEEP_ROCK.getDefaultState();
+   protected static final IBlockState CAVE_ONYX = BlocksRegister.CAVE_ONYX.getDefaultState();
+   protected static final IBlockState GREEN_ONYX = BlocksRegister.GREEN_ONYX.getDefaultState();
    protected static final IBlockState CALCITE = BlocksRegister.CALCITE.getDefaultState();
    protected static final IBlockState DOLERITE = BlocksRegister.DOLERITE.getDefaultState();
    protected static final IBlockState[] ONYX_CAVES_MATERIALS = new IBlockState[]{STONE, CALCITE, CAVE_ONYX, DEEP_STONE, CAVE_ONYX, CALCITE, GREEN_ONYX};
@@ -140,10 +140,10 @@ public class DungeonChunkGenerator implements IChunkGenerator {
       6
    );
    public WorldGenAncientRuins wgAncientRuinsDolerite = new WorldGenAncientRuins(
-      new IBlockState[]{BlocksRegister.DOLERITEBRICKS.getDefaultState()},
-      BlocksRegister.DOLERITECOLUMN.getDefaultState(),
-      BlocksRegister.DOLERITECOLUMN.getDefaultState(),
-      BlocksRegister.DOLERITEPILASTER.getDefaultState(),
+      new IBlockState[]{BlocksRegister.DOLERITE_BRICKS.getDefaultState()},
+      BlocksRegister.DOLERITE_COLUMN.getDefaultState(),
+      BlocksRegister.DOLERITE_COLUMN.getDefaultState(),
+      BlocksRegister.DOLERITE_PILASTER.getDefaultState(),
       BlocksRegister.DOLERITE.getDefaultState(),
       10,
       45,
@@ -184,10 +184,10 @@ public class DungeonChunkGenerator implements IChunkGenerator {
       this.noisegenerator3d = new NoiseGenerator3D(worldIn.getSeed());
       this.noisegenerator3dbiomes = new NoiseGenerator3D(worldIn.getSeed() + 5L);
       this.adamantiumOreGen = new CustomOreGenerator(
-         BlocksRegister.OREADAMANTIUM.getDefaultState(), 102, BlockMatcher.forBlock(Blocks.STONE), 3, 8, 1, 6, 250
+         BlocksRegister.ADAMANTIUM_ORE.getDefaultState(), 102, BlockMatcher.forBlock(Blocks.STONE), 3, 8, 1, 6, 250
       );
       this.mithrilOreGen = new CustomOreGenerator(
-         BlocksRegister.OREMITHRIL.getDefaultState(), 102, BlockMatcher.forBlock(Blocks.STONE), 2, 9, 1, 6, 250
+         BlocksRegister.MITHRIL_ORE.getDefaultState(), 102, BlockMatcher.forBlock(Blocks.STONE), 2, 9, 1, 6, 250
       );
       Random onyxrandom = new Random(this.world.getSeed());
 
@@ -346,7 +346,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
          EnumFacing fl = EnumFacing.HORIZONTALS[this.rand.nextInt(4)];
          EnumFacing flo = fl.getOpposite();
          IBlockState laddr = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, fl);
-         this.world.setBlockState(ladderDown, BlocksRegister.DUNGEONTRAVELFLOOR.getDefaultState(), 2);
+         this.world.setBlockState(ladderDown, BlocksRegister.DUNGEON_FLOOR_LADDER.getDefaultState(), 2);
          this.world.setBlockToAir(ladderDown.up());
          this.world.setBlockToAir(ladderDown.up(2));
          setupLadderTileEntity(this.world, ladderDown, fl, this.rand, false);
@@ -360,7 +360,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
 
             BlockPos uppoffs = upp.offset(flo);
             if (this.world.isAirBlock(uppoffs)) {
-               this.world.setBlockState(uppoffs, BlocksRegister.ROTTENPLANKS.getDefaultState(), 2);
+               this.world.setBlockState(uppoffs, BlocksRegister.ROTTEN_PLANKS.getDefaultState(), 2);
             }
 
             this.world.setBlockState(upp, laddr, 2);
@@ -374,7 +374,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             EnumFacing fl = EnumFacing.HORIZONTALS[this.rand.nextInt(4)];
             EnumFacing flo = fl.getOpposite();
             genUpLadderCave(this.world, lpos, this.rand);
-            this.world.setBlockState(lpos, BlocksRegister.DUNGEONTRAVELTOP.getDefaultState(), 2);
+            this.world.setBlockState(lpos, BlocksRegister.DUNGEON_TOP_LADDER.getDefaultState(), 2);
             this.world.setBlockToAir(lpos.down());
             this.world.setBlockToAir(lpos.down(2));
             setupLadderTileEntity(this.world, lpos, fl, this.rand, true);
@@ -392,7 +392,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                               continue label276;
                            }
 
-                           this.world.setBlockState(dnn.offset(flo), BlocksRegister.ROTTENPLANKS.getDefaultState(), 2);
+                           this.world.setBlockState(dnn.offset(flo), BlocksRegister.ROTTEN_PLANKS.getDefaultState(), 2);
                            this.world.setBlockState(dnn, laddr, 2);
                         }
                         continue label276;
@@ -401,7 +401,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                   break;
                }
 
-               this.world.setBlockState(dnn.offset(flo), BlocksRegister.ROTTENPLANKS.getDefaultState(), 2);
+               this.world.setBlockState(dnn.offset(flo), BlocksRegister.ROTTEN_PLANKS.getDefaultState(), 2);
                this.world.setBlockState(dnn, laddr, 2);
             }
          }
@@ -452,13 +452,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                      if ((this.noisegenerator3dbiomes.getValue(xx / 25.1, rrxx / 25.1, zz / 25.1) + 1.0) * 2.0
                         > (this.rand.nextFloat() + this.rand.nextFloat()) * 8.0F) {
                         BlockPos finalpos = new BlockPos(xx, rrxx, zz);
-                        if (this.world.isAirBlock(finalpos) && BlocksRegister.CAVECRYSTALS.canPlaceBlockAt(this.world, finalpos)) {
+                        if (this.world.isAirBlock(finalpos) && BlocksRegister.CAVE_CRYSTAL.canPlaceBlockAt(this.world, finalpos)) {
                            this.world
                               .setBlockState(
                                  finalpos,
-                                 BlocksRegister.CAVECRYSTALS
+                                 BlocksRegister.CAVE_CRYSTAL
                                     .getActualState(
-                                       BlocksRegister.CAVECRYSTALS.getDefaultState().withProperty(CaveCrystal.TYPE, this.rand.nextInt(4)), this.world, finalpos
+                                       BlocksRegister.CAVE_CRYSTAL.getDefaultState().withProperty(CaveCrystal.TYPE, this.rand.nextInt(4)), this.world, finalpos
                                     )
                               );
                         }
@@ -476,20 +476,20 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                         && GetMOP.collidesWithBlock(this.world, finalpos, Blocks.AIR)) {
                         double value = this.noisegenerator3dbiomes.getValue(xx / 55.1, rrxxx / 55.1, zz / 55.1);
                         if (-0.01 < value && value < 0.01) {
-                           this.world.setBlockState(finalpos, BlocksRegister.GLOWINGVEIN.getDefaultState());
+                           this.world.setBlockState(finalpos, BlocksRegister.GLOWING_VEIN.getDefaultState());
                         }
                      }
 
                      if ((this.noisegenerator3dbiomes.getValue(xx / 25.1, rrxxx / 25.1, zz / 25.1) + 1.0) * 2.0
                            > (this.rand.nextFloat() + this.rand.nextFloat()) * 9.0F
                         && this.world.isAirBlock(finalpos)
-                        && BlocksRegister.GLOWINGCAVECRYSTALS.canPlaceBlockAt(this.world, finalpos)) {
+                        && BlocksRegister.GLOWING_CAVE_CRYSTAL.canPlaceBlockAt(this.world, finalpos)) {
                         this.world
                            .setBlockState(
                               finalpos,
-                              BlocksRegister.GLOWINGCAVECRYSTALS
+                              BlocksRegister.GLOWING_CAVE_CRYSTAL
                                  .getActualState(
-                                    BlocksRegister.GLOWINGCAVECRYSTALS.getDefaultState().withProperty(GlowingCaveCrystal.TYPE, this.rand.nextInt(4)),
+                                    BlocksRegister.GLOWING_CAVE_CRYSTAL.getDefaultState().withProperty(GlowingCaveCrystal.TYPE, this.rand.nextInt(4)),
                                     this.world,
                                     finalpos
                                  )
@@ -499,7 +499,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                      if ((this.noisegenerator3d.getValue(xx / 20.1, rrxxx / 20.1, zz / 20.1) + 0.8) * 3.0
                            > (this.rand.nextFloat() + this.rand.nextFloat()) * 15.0F
                         && this.world.isAirBlock(finalpos)
-                        && BlocksRegister.BLUEGLOWINGMUSH.canPlaceBlockAt(this.world, finalpos)) {
+                        && BlocksRegister.BLUE_GLOWING_MUSHROOM.canPlaceBlockAt(this.world, finalpos)) {
                         this.world.setBlockState(finalpos, BlueGlowingMushroom.getRandomStateWorldgen(this.world, finalpos));
                      }
                   }
@@ -513,13 +513,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                      if ((this.noisegenerator3dbiomes.getValue(xx / 25.1, rrxxx / 25.1, zz / 25.1) + 1.0) * 3.0
                         > (this.rand.nextFloat() + this.rand.nextFloat()) * 11.0F) {
                         BlockPos finalposx = new BlockPos(xx, rrxxx, zz);
-                        if (this.world.isAirBlock(finalposx) && BlocksRegister.SELENITECRYSTALS.canPlaceBlockAt(this.world, finalposx)) {
+                        if (this.world.isAirBlock(finalposx) && BlocksRegister.SELENITE_CRYSTAL.canPlaceBlockAt(this.world, finalposx)) {
                            this.world
                               .setBlockState(
                                  finalposx,
-                                 BlocksRegister.SELENITECRYSTALS
+                                 BlocksRegister.SELENITE_CRYSTAL
                                     .getActualState(
-                                       BlocksRegister.SELENITECRYSTALS.getDefaultState().withProperty(SeleniteCrystal.TYPE, this.rand.nextInt(4)),
+                                       BlocksRegister.SELENITE_CRYSTAL.getDefaultState().withProperty(SeleniteCrystal.TYPE, this.rand.nextInt(4)),
                                        this.world,
                                        finalposx
                                     )
@@ -822,12 +822,12 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                if (this.noisegenerator3dbiomes.getValue(uppos.getX() / 60.1, uppos.getY() / 60.1, uppos.getZ() / 60.1)
                      > this.rand.nextFloat()
                   && this.world.isAirBlock(uppos)
-                  && BlocksRegister.CAVECRYSTALS.canPlaceBlockAt(this.world, uppos)) {
+                  && BlocksRegister.CAVE_CRYSTAL.canPlaceBlockAt(this.world, uppos)) {
                   this.world
                      .setBlockState(
                         uppos,
-                        BlocksRegister.CAVECRYSTALS
-                           .getActualState(BlocksRegister.CAVECRYSTALS.getDefaultState().withProperty(CaveCrystal.TYPE, this.rand.nextInt(4)), this.world, uppos)
+                        BlocksRegister.CAVE_CRYSTAL
+                           .getActualState(BlocksRegister.CAVE_CRYSTAL.getDefaultState().withProperty(CaveCrystal.TYPE, this.rand.nextInt(4)), this.world, uppos)
                      );
                }
             }
@@ -1194,15 +1194,15 @@ public class DungeonChunkGenerator implements IChunkGenerator {
          return true;
       } else if (p_175793_1_.getBlock() == BlocksRegister.CALCITE) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.DEEPROCK) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.DEEP_ROCK) {
          return true;
       } else if (p_175793_1_.getBlock() == BlocksRegister.DOLERITE) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.GLOWINGVEIN) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.GLOWING_VEIN) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.CAVEONYX) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.CAVE_ONYX) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.GREENONYX) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.GREEN_ONYX) {
          return true;
       } else if (p_175793_1_.getBlock() == Blocks.CLAY) {
          return true;
@@ -1231,7 +1231,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             } else if (rand.nextFloat() < 0.8 && rand.nextInt(Math.abs(cavenumber - DimensionDungeon.darkMinesLVL) + 1) == 0) {
                style = 2;
                if (rand.nextFloat() < 0.7 && rand.nextInt(cavenumber) == 0) {
-                  ladder.laddermaterial = BlocksRegister.ROTTENPLANKS;
+                  ladder.laddermaterial = BlocksRegister.ROTTEN_PLANKS;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.STONE;
                } else if (rand.nextFloat() < 0.1) {
@@ -1243,15 +1243,15 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = BlocksRegister.DOLERITE;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.DEEPROCK;
+                  ladder.laddermaterial = BlocksRegister.DEEP_ROCK;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.CAVEONYX;
+                  ladder.laddermaterial = BlocksRegister.CAVE_ONYX;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.GREENONYX;
+                  ladder.laddermaterial = BlocksRegister.GREEN_ONYX;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.HARDENED_CLAY;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.MAGICSTONE;
+                  ladder.laddermaterial = BlocksRegister.MAGIC_STONE;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = BlocksRegister.SELENITE;
                } else {
@@ -1270,13 +1270,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = BlocksRegister.DOLERITE;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.DEEPROCK;
+                  ladder.laddermaterial = BlocksRegister.DEEP_ROCK;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.CAVEONYX;
+                  ladder.laddermaterial = BlocksRegister.CAVE_ONYX;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.GREENONYX;
+                  ladder.laddermaterial = BlocksRegister.GREEN_ONYX;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.MAGICSTONE;
+                  ladder.laddermaterial = BlocksRegister.MAGIC_STONE;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = BlocksRegister.SELENITE;
                } else {
@@ -1289,7 +1289,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             } else if (!(rand.nextFloat() < 0.8) || rand.nextInt(cavenumber) != 0 && rand.nextInt(cavenumber) != 0) {
                ladder.blockmaterial = BlocksRegister.CALCITE;
             } else {
-               ladder.blockmaterial = BlocksRegister.ROTTENPLANKS;
+               ladder.blockmaterial = BlocksRegister.ROTTEN_PLANKS;
             }
          }
 
@@ -1304,7 +1304,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             } else if (rand.nextFloat() < 0.8 && rand.nextInt(Math.abs(cavenumber - DimensionDungeon.darkMinesLVL) + 1) == 0) {
                style = 2;
                if (rand.nextFloat() < 0.7 && rand.nextInt(cavenumber) == 0) {
-                  ladder.laddermaterial = BlocksRegister.ROTTENPLANKS;
+                  ladder.laddermaterial = BlocksRegister.ROTTEN_PLANKS;
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = Blocks.OBSIDIAN;
                } else if (rand.nextFloat() < 0.2) {
@@ -1312,13 +1312,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                } else if (rand.nextFloat() < 0.3) {
                   ladder.laddermaterial = BlocksRegister.DOLERITE;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.DEEPROCK;
+                  ladder.laddermaterial = BlocksRegister.DEEP_ROCK;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.CAVEONYX;
+                  ladder.laddermaterial = BlocksRegister.CAVE_ONYX;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.GREENONYX;
+                  ladder.laddermaterial = BlocksRegister.GREEN_ONYX;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.MAGICSTONE;
+                  ladder.laddermaterial = BlocksRegister.MAGIC_STONE;
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = BlocksRegister.SELENITE;
                } else {
@@ -1337,13 +1337,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                } else if (rand.nextFloat() < 0.3) {
                   ladder.laddermaterial = BlocksRegister.DOLERITE;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.DEEPROCK;
+                  ladder.laddermaterial = BlocksRegister.DEEP_ROCK;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.CAVEONYX;
+                  ladder.laddermaterial = BlocksRegister.CAVE_ONYX;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.GREENONYX;
+                  ladder.laddermaterial = BlocksRegister.GREEN_ONYX;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.MAGICSTONE;
+                  ladder.laddermaterial = BlocksRegister.MAGIC_STONE;
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = BlocksRegister.SELENITE;
                } else {
@@ -1354,13 +1354,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             if (rand.nextFloat() < 0.1) {
                ladder.blockmaterial = Blocks.BEDROCK;
             } else if (rand.nextFloat() < 0.8 && rand.nextInt(cavenumber) < 4) {
-               ladder.blockmaterial = BlocksRegister.ROTTENPLANKS;
+               ladder.blockmaterial = BlocksRegister.ROTTEN_PLANKS;
             } else if (rand.nextFloat() < 0.3) {
-               ladder.blockmaterial = BlocksRegister.CAVEONYX;
+               ladder.blockmaterial = BlocksRegister.CAVE_ONYX;
             } else if (rand.nextFloat() < 0.3) {
-               ladder.blockmaterial = BlocksRegister.GREENONYX;
+               ladder.blockmaterial = BlocksRegister.GREEN_ONYX;
             } else if (rand.nextFloat() < 0.3) {
-               ladder.blockmaterial = BlocksRegister.DEEPROCK;
+               ladder.blockmaterial = BlocksRegister.DEEP_ROCK;
             } else {
                ladder.blockmaterial = BlocksRegister.CALCITE;
             }
@@ -1377,7 +1377,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             } else if (rand.nextFloat() < 0.8 && rand.nextInt(Math.abs(cavenumber - DimensionDungeon.darkMinesLVL) + 1) == 0) {
                style = 2;
                if (rand.nextFloat() < 0.7 && rand.nextInt(cavenumber) == 0) {
-                  ladder.laddermaterial = BlocksRegister.ROTTENPLANKS;
+                  ladder.laddermaterial = BlocksRegister.ROTTEN_PLANKS;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.OBSIDIAN;
                } else if (rand.nextFloat() < 0.1) {
@@ -1385,7 +1385,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = Blocks.STONE;
                } else if (rand.nextFloat() < 0.4) {
-                  ladder.laddermaterial = BlocksRegister.SELENITECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.SELENITE_CRYSTAL;
                } else {
                   ladder.laddermaterial = BlocksRegister.SELENITE;
                }
@@ -1394,13 +1394,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                if (rand.nextFloat() < 0.16) {
                   ladder.laddermaterial = Blocks.STONE;
                } else if (rand.nextFloat() < 0.5) {
-                  ladder.laddermaterial = BlocksRegister.SELENITECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.SELENITE_CRYSTAL;
                } else if (rand.nextFloat() < 0.16) {
                   ladder.laddermaterial = Blocks.COBBLESTONE;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.OBSIDIAN;
                } else if (rand.nextFloat() < 0.35) {
-                  ladder.laddermaterial = BlocksRegister.MAGICSTONE;
+                  ladder.laddermaterial = BlocksRegister.MAGIC_STONE;
                } else if (rand.nextFloat() < 0.6) {
                   ladder.laddermaterial = BlocksRegister.SELENITE;
                } else {
@@ -1411,13 +1411,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             if (rand.nextFloat() < 0.1) {
                ladder.blockmaterial = Blocks.BEDROCK;
             } else if (rand.nextFloat() < 0.7 && rand.nextInt(cavenumber) < 4) {
-               ladder.blockmaterial = BlocksRegister.ROTTENPLANKS;
+               ladder.blockmaterial = BlocksRegister.ROTTEN_PLANKS;
             } else if (rand.nextFloat() < 0.3) {
                ladder.blockmaterial = BlocksRegister.SELENITE;
             } else if (rand.nextFloat() < 0.65) {
                ladder.blockmaterial = Blocks.STONE;
             } else {
-               ladder.blockmaterial = BlocksRegister.DEEPROCK;
+               ladder.blockmaterial = BlocksRegister.DEEP_ROCK;
             }
          }
 
@@ -1432,17 +1432,17 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             } else if (rand.nextFloat() < 0.85 && rand.nextInt(Math.abs(cavenumber - DimensionDungeon.darkMinesLVL) + 1) == 0) {
                style = 2;
                if (rand.nextFloat() < 0.6 && rand.nextInt(cavenumber) == 0) {
-                  ladder.laddermaterial = BlocksRegister.ROTTENPLANKS;
+                  ladder.laddermaterial = BlocksRegister.ROTTEN_PLANKS;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.OBSIDIAN;
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = BlocksRegister.SELENITE;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.DEEPROCK;
+                  ladder.laddermaterial = BlocksRegister.DEEP_ROCK;
                } else if (rand.nextFloat() < 0.5) {
                   ladder.laddermaterial = BlocksRegister.DOLERITE;
                } else if (rand.nextFloat() < 0.35) {
-                  ladder.laddermaterial = BlocksRegister.GLOWINGCAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.GLOWING_CAVE_CRYSTAL;
                } else {
                   ladder.laddermaterial = Blocks.BEDROCK;
                }
@@ -1451,13 +1451,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.STONE;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.SELENITECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.SELENITE_CRYSTAL;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = BlocksRegister.DOLERITE;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.OBSIDIAN;
                } else if (rand.nextFloat() < 0.75) {
-                  ladder.laddermaterial = BlocksRegister.GLOWINGCAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.GLOWING_CAVE_CRYSTAL;
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = BlocksRegister.SELENITE;
                } else {
@@ -1468,13 +1468,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             if (rand.nextFloat() < 0.1) {
                ladder.blockmaterial = Blocks.BEDROCK;
             } else if (rand.nextFloat() < 0.65 && rand.nextInt(cavenumber) < 4) {
-               ladder.blockmaterial = BlocksRegister.ROTTENPLANKS;
+               ladder.blockmaterial = BlocksRegister.ROTTEN_PLANKS;
             } else if (rand.nextFloat() < 0.8) {
                ladder.blockmaterial = BlocksRegister.DOLERITE;
             } else if (rand.nextFloat() < 0.15) {
                ladder.blockmaterial = Blocks.STONE;
             } else {
-               ladder.blockmaterial = BlocksRegister.DEEPROCK;
+               ladder.blockmaterial = BlocksRegister.DEEP_ROCK;
             }
          }
 
@@ -1489,7 +1489,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             } else if (rand.nextFloat() < 0.7 && rand.nextInt(Math.abs(cavenumber - DimensionDungeon.darkMinesLVL) + 1) == 0) {
                style = 2;
                if (rand.nextFloat() < 0.8 && rand.nextInt(cavenumber) == 0) {
-                  ladder.laddermaterial = BlocksRegister.ROTTENPLANKS;
+                  ladder.laddermaterial = BlocksRegister.ROTTEN_PLANKS;
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = Blocks.OBSIDIAN;
                } else if (rand.nextFloat() < 0.4) {
@@ -1497,15 +1497,15 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = BlocksRegister.SELENITE;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.DEEPROCK;
+                  ladder.laddermaterial = BlocksRegister.DEEP_ROCK;
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = BlocksRegister.DOLERITE;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.SELENITECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.SELENITE_CRYSTAL;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.CAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.CAVE_CRYSTAL;
                } else if (rand.nextFloat() < 0.05) {
-                  ladder.laddermaterial = BlocksRegister.GLOWINGCAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.GLOWING_CAVE_CRYSTAL;
                } else {
                   ladder.laddermaterial = Blocks.BEDROCK;
                }
@@ -1516,17 +1516,17 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = BlocksRegister.DOLERITE;
                } else if (rand.nextFloat() < 0.3) {
-                  ladder.laddermaterial = BlocksRegister.MAGICSTONE;
+                  ladder.laddermaterial = BlocksRegister.MAGIC_STONE;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.OBSIDIAN;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.HARDENED_CLAY;
                } else if (rand.nextFloat() < 0.3) {
-                  ladder.laddermaterial = BlocksRegister.SELENITECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.SELENITE_CRYSTAL;
                } else if (rand.nextFloat() < 0.2) {
-                  ladder.laddermaterial = BlocksRegister.CAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.CAVE_CRYSTAL;
                } else if (rand.nextFloat() < 0.05) {
-                  ladder.laddermaterial = BlocksRegister.GLOWINGCAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.GLOWING_CAVE_CRYSTAL;
                } else {
                   ladder.laddermaterial = Blocks.BEDROCK;
                }
@@ -1535,13 +1535,13 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             if (rand.nextFloat() < 0.25) {
                ladder.blockmaterial = Blocks.BEDROCK;
             } else if (rand.nextFloat() < 0.85 && rand.nextInt(cavenumber) < 4) {
-               ladder.blockmaterial = BlocksRegister.ROTTENPLANKS;
+               ladder.blockmaterial = BlocksRegister.ROTTEN_PLANKS;
             } else if (rand.nextFloat() < 0.8) {
                ladder.blockmaterial = Blocks.STONE;
             } else if (rand.nextFloat() < 0.35) {
                ladder.blockmaterial = cavenumber < 40 ? Blocks.STONEBRICK : Blocks.COBBLESTONE;
             } else {
-               ladder.blockmaterial = BlocksRegister.DEEPROCK;
+               ladder.blockmaterial = BlocksRegister.DEEP_ROCK;
             }
          }
 
@@ -1556,21 +1556,21 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             } else if (rand.nextFloat() < 0.6 && rand.nextInt(Math.abs(cavenumber - DimensionDungeon.darkMinesLVL) + 1) == 0) {
                style = 2;
                if (rand.nextFloat() < 0.8 && rand.nextInt(cavenumber) == 0) {
-                  ladder.laddermaterial = BlocksRegister.ROTTENPLANKS;
+                  ladder.laddermaterial = BlocksRegister.ROTTEN_PLANKS;
                } else if (rand.nextFloat() < 0.2) {
                   ladder.laddermaterial = Blocks.OBSIDIAN;
                } else if (rand.nextFloat() < 0.3) {
                   ladder.laddermaterial = Blocks.STONEBRICK;
                } else if (rand.nextFloat() < 0.4) {
-                  ladder.laddermaterial = BlocksRegister.MAGICSTONE;
+                  ladder.laddermaterial = BlocksRegister.MAGIC_STONE;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = BlocksRegister.DOLERITE;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.SELENITECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.SELENITE_CRYSTAL;
                } else if (rand.nextFloat() < 0.6) {
-                  ladder.laddermaterial = BlocksRegister.CAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.CAVE_CRYSTAL;
                } else if (rand.nextFloat() < 0.05) {
-                  ladder.laddermaterial = BlocksRegister.GLOWINGCAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.GLOWING_CAVE_CRYSTAL;
                } else {
                   ladder.laddermaterial = Blocks.BEDROCK;
                }
@@ -1579,15 +1579,15 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                if (rand.nextFloat() < 0.05) {
                   ladder.laddermaterial = Blocks.STONE;
                } else if (rand.nextFloat() < 0.5) {
-                  ladder.laddermaterial = BlocksRegister.MAGICSTONE;
+                  ladder.laddermaterial = BlocksRegister.MAGIC_STONE;
                } else if (rand.nextFloat() < 0.1) {
                   ladder.laddermaterial = Blocks.OBSIDIAN;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.SELENITECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.SELENITE_CRYSTAL;
                } else if (rand.nextFloat() < 0.5) {
-                  ladder.laddermaterial = BlocksRegister.CAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.CAVE_CRYSTAL;
                } else if (rand.nextFloat() < 0.1) {
-                  ladder.laddermaterial = BlocksRegister.GLOWINGCAVECRYSTALS;
+                  ladder.laddermaterial = BlocksRegister.GLOWING_CAVE_CRYSTAL;
                } else {
                   ladder.laddermaterial = Blocks.BEDROCK;
                }
@@ -1596,15 +1596,15 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             if (rand.nextFloat() < 0.1) {
                ladder.blockmaterial = Blocks.BEDROCK;
             } else if (rand.nextFloat() < 0.85 && rand.nextInt(cavenumber) < 4) {
-               ladder.blockmaterial = BlocksRegister.ROTTENPLANKS;
+               ladder.blockmaterial = BlocksRegister.ROTTEN_PLANKS;
             } else if (rand.nextFloat() < 0.8) {
                ladder.blockmaterial = Blocks.STONE;
             } else if (rand.nextFloat() < 0.35) {
                ladder.blockmaterial = cavenumber < 40 ? Blocks.STONEBRICK : Blocks.COBBLESTONE;
             } else if (rand.nextFloat() < 0.1) {
-               ladder.blockmaterial = BlocksRegister.MAGICSTONE;
+               ladder.blockmaterial = BlocksRegister.MAGIC_STONE;
             } else {
-               ladder.blockmaterial = BlocksRegister.DEEPROCK;
+               ladder.blockmaterial = BlocksRegister.DEEP_ROCK;
             }
          }
 
@@ -1615,20 +1615,20 @@ public class DungeonChunkGenerator implements IChunkGenerator {
    public static void generateChestAndSpawner(World world, BlockPos pos, int size, Random rand) {
       boolean slimes = rand.nextFloat() < 0.36F;
       boolean barrels = rand.nextFloat() < 0.36F;
-      world.setBlockState(pos, BlocksRegister.DOLERITEBRICKS.getDefaultState(), 2);
+      world.setBlockState(pos, BlocksRegister.DOLERITE_BRICKS.getDefaultState(), 2);
 
       for (int x = -size; x <= size; x++) {
          for (int z = -size; z <= size; z++) {
             if (rand.nextFloat() < 0.6F) {
                BlockPos poss = pos.add(x, 0, z);
                if (world.getBlockState(poss).isFullCube()) {
-                  world.setBlockState(poss, (rand.nextFloat() < 0.1F ? BlocksRegister.DOLERITEPILASTER : BlocksRegister.DOLERITEBRICKS).getDefaultState(), 2);
+                  world.setBlockState(poss, (rand.nextFloat() < 0.1F ? BlocksRegister.DOLERITE_PILASTER : BlocksRegister.DOLERITE_BRICKS).getDefaultState(), 2);
                   if (slimes && rand.nextFloat() < 0.4F && world.isAirBlock(poss.up())) {
-                     world.setBlockState(poss.up(), BlocksRegister.DOLERITECOLUMN.getDefaultState(), 2);
+                     world.setBlockState(poss.up(), BlocksRegister.DOLERITE_COLUMN.getDefaultState(), 2);
                   }
 
                   if (barrels && rand.nextFloat() < 0.08F && world.isAirBlock(poss.up())) {
-                     world.setBlockState(poss.up(), BlocksRegister.CRYSTALVASE.getDefaultState(), 2);
+                     world.setBlockState(poss.up(), BlocksRegister.CRYSTAL_VASE.getDefaultState(), 2);
                   }
                }
             }
@@ -1643,7 +1643,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
          EnumFacing.HORIZONTALS[rand.nextInt(4)],
          ChestLock.DOLERITE
       );
-      world.setBlockState(pos.up(2), BlocksRegister.MOBSPAWNERANCIENT.getDefaultState(), 2);
+      world.setBlockState(pos.up(2), BlocksRegister.ANCIENT_SPAWNER.getDefaultState(), 2);
       SpawnerTuners.DUNGEON_STRUCTURES.setupSpawner(world, pos.up(2), rand);
    }
 }

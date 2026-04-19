@@ -4,7 +4,7 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.tileentity.IManaBuffer;
 import com.vivern.arpg.tileentity.TileManaBottle;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;

@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -201,13 +201,13 @@ public class Pilaster extends Block {
          this.fastSpeed = fastSpeed;
       }
 
-      public HardPilaster(Material mater, String name, SoundType stype, BlocksRegister.Hardres hardres, String tool, boolean canDropWhithoutTool) {
-         super(mater, name, hardres.HARDNESS, hardres.RESISTANCE, stype, tool, hardres.LVL);
-         this.slowSpeed = hardres.SLOW;
+      public HardPilaster(Material mater, String name, SoundType stype, BlocksRegister.HardRes hardres, String tool, boolean canDropWhithoutTool) {
+         super(mater, name, hardres.hardness, hardres.resistance, stype, tool, hardres.lvl);
+         this.slowSpeed = hardres.slow;
          this.canDropWhithoutTool = canDropWhithoutTool;
-         this.level = hardres.LVL;
+         this.level = hardres.lvl;
          this.tool = tool;
-         this.fastSpeed = hardres.FAST;
+         this.fastSpeed = hardres.fast;
       }
 
       public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {

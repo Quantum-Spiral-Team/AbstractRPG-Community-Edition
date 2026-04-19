@@ -3,7 +3,7 @@ package com.vivern.arpg.entity;
 import com.vivern.arpg.main.BlocksRegister;
 import com.google.common.collect.Lists;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.BlockFalling;
@@ -119,7 +119,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
             if (iblockstate.getBlock() != Blocks.PISTON_EXTENSION) {
                this.setDead();
                if (!this.dontSetBlock) {
-                  if (this.world.getBlockState(blockpos1.down()).getBlock() != BlocksRegister.LOOSESNOW) {
+                  if (this.world.getBlockState(blockpos1.down()).getBlock() != BlocksRegister.LOOSE_SNOW) {
                      if (this.world.mayPlace(block, blockpos1, true, EnumFacing.UP, (Entity)null)
                         && !BlockFalling.canFallThrough(this.world.getBlockState(blockpos1.down()))
                         && this.world.setBlockState(blockpos1, this.fallTile, 3)) {

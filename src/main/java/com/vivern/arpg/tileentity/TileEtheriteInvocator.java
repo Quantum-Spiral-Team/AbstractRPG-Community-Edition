@@ -6,7 +6,7 @@ import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.mobs.BossOphanim;
 import com.vivern.arpg.network.PacketHandler;
 import java.util.ArrayList;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -65,19 +65,19 @@ public class TileEtheriteInvocator extends TileEntity implements ITickable {
    @Nullable
    public ArrayList<BlockPos> getAltarAt(BlockPos pos) {
       ArrayList<BlockPos> list = new ArrayList<>();
-      if (this.world.getBlockState(pos.add(2, 0, 0)).getBlock() == BlocksRegister.ETHERITEINVOCATOR) {
+      if (this.world.getBlockState(pos.add(2, 0, 0)).getBlock() == BlocksRegister.BLOCK_ETHERITE_INVOCATOR) {
          list.add(pos.add(2, 0, 0));
       }
 
-      if (this.world.getBlockState(pos.add(-2, 0, 0)).getBlock() == BlocksRegister.ETHERITEINVOCATOR) {
+      if (this.world.getBlockState(pos.add(-2, 0, 0)).getBlock() == BlocksRegister.BLOCK_ETHERITE_INVOCATOR) {
          list.add(pos.add(-2, 0, 0));
       }
 
-      if (this.world.getBlockState(pos.add(0, 0, 2)).getBlock() == BlocksRegister.ETHERITEINVOCATOR) {
+      if (this.world.getBlockState(pos.add(0, 0, 2)).getBlock() == BlocksRegister.BLOCK_ETHERITE_INVOCATOR) {
          list.add(pos.add(0, 0, 2));
       }
 
-      if (this.world.getBlockState(pos.add(0, 0, -2)).getBlock() == BlocksRegister.ETHERITEINVOCATOR) {
+      if (this.world.getBlockState(pos.add(0, 0, -2)).getBlock() == BlocksRegister.BLOCK_ETHERITE_INVOCATOR) {
          list.add(pos.add(0, 0, -2));
       }
 

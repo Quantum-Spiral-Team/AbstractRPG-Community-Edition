@@ -43,7 +43,7 @@ public class StingingCellEntity extends EntityThrowable {
    public StingingCellEntity(World world) {
       super(world);
       this.setSize(0.35F, 0.35F);
-      this.weaponstack = new ItemStack(ItemsRegister.STINGINGCELL);
+      this.weaponstack = new ItemStack(ItemsRegister.STINGING_CELL);
       this.moveX = (this.rand.nextFloat() - 0.5F) / 100.0F;
       this.moveY = (this.rand.nextFloat() - 0.5F) / 100.0F;
       this.moveZ = (this.rand.nextFloat() - 0.5F) / 100.0F;
@@ -52,7 +52,7 @@ public class StingingCellEntity extends EntityThrowable {
    public StingingCellEntity(World world, EntityLivingBase thrower) {
       super(world, thrower);
       this.setSize(0.35F, 0.35F);
-      this.weaponstack = new ItemStack(ItemsRegister.STINGINGCELL);
+      this.weaponstack = new ItemStack(ItemsRegister.STINGING_CELL);
       this.moveX = (this.rand.nextFloat() - 0.5F) / 100.0F;
       this.moveY = (this.rand.nextFloat() - 0.5F) / 100.0F;
       this.moveZ = (this.rand.nextFloat() - 0.5F) / 100.0F;
@@ -61,7 +61,7 @@ public class StingingCellEntity extends EntityThrowable {
    public StingingCellEntity(World world, double x, double y, double z) {
       super(world, x, y, z);
       this.setSize(0.35F, 0.35F);
-      this.weaponstack = new ItemStack(ItemsRegister.STINGINGCELL);
+      this.weaponstack = new ItemStack(ItemsRegister.STINGING_CELL);
       this.moveX = (this.rand.nextFloat() - 0.5F) / 100.0F;
       this.moveY = (this.rand.nextFloat() - 0.5F) / 100.0F;
       this.moveZ = (this.rand.nextFloat() - 0.5F) / 100.0F;
@@ -76,7 +76,7 @@ public class StingingCellEntity extends EntityThrowable {
 
    public void setupMove() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      float movespeed = parameters.get("move_speed");
+      float movespeed = parameters.getF("move_speed");
       this.moveX = (this.rand.nextFloat() - 0.5F) * movespeed;
       this.moveY = (this.rand.nextFloat() - 0.5F) * movespeed;
       this.moveZ = (this.rand.nextFloat() - 0.5F) * movespeed;
@@ -200,7 +200,7 @@ public class StingingCellEntity extends EntityThrowable {
          }
 
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         if (this.ticksExisted == parameters.geti("special_grow_time") && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
+         if (this.ticksExisted == parameters.getI("special_grow_time") && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
             this.world.setEntityState(this, (byte)8);
          }
 
@@ -234,10 +234,10 @@ public class StingingCellEntity extends EntityThrowable {
       int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
       int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
       float damage = 0.0F;
-      if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0 && this.ticksExisted > parameters.geti("special_grow_time")) {
-         damage = parameters.getEnchanted("damage_growed", might);
+      if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0 && this.ticksExisted > parameters.getI("special_grow_time")) {
+         damage = parameters.getEnchantedF("damage_growed", might);
       } else {
-         damage = parameters.getEnchanted("damage", might);
+         damage = parameters.getEnchantedF("damage", might);
       }
 
       Weapons.dealDamage(
@@ -246,7 +246,7 @@ public class StingingCellEntity extends EntityThrowable {
          this.getThrower(),
          entity,
          true,
-         parameters.getEnchanted("knockback", impulse),
+         parameters.getEnchantedF("knockback", impulse),
          this.posX,
          this.posY,
          this.posZ

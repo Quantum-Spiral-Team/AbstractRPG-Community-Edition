@@ -3,7 +3,7 @@ package com.vivern.arpg.entity;
 import com.vivern.arpg.network.IFixedTrackerEntity;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;

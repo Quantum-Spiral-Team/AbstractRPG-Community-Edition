@@ -39,17 +39,17 @@ public class VacuumGunShoot extends StandardBullet {
 
    public VacuumGunShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.VACUUMGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.VACUUM_GUN);
    }
 
    public VacuumGunShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.VACUUMGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.VACUUM_GUN);
    }
 
    public VacuumGunShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.VACUUMGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.VACUUM_GUN);
    }
 
    public VacuumGunShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -250,7 +250,7 @@ public class VacuumGunShoot extends StandardBullet {
       this.velocityChanged = true;
       this.setNoGravity(true);
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("attract_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("attract_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -259,7 +259,7 @@ public class VacuumGunShoot extends StandardBullet {
             if (Team.checkIsOpponent(this.getThrower(), entity)) {
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                SuperKnockback.applyKnockback(
-                  entity, parameters.getEnchanted("attract_knockback", impulse), this.posX, this.posY, this.posZ
+                  entity, parameters.getEnchantedF("attract_knockback", impulse), this.posX, this.posY, this.posZ
                );
             }
          }
@@ -270,7 +270,7 @@ public class VacuumGunShoot extends StandardBullet {
 
             for (EntityLivingBase entitylivingbase : list) {
                SuperKnockback.applyKnockback(
-                  entitylivingbase, parameters.getEnchanted("attract_knockback", impulse), this.posX, this.posY, this.posZ
+                  entitylivingbase, parameters.getEnchantedF("attract_knockback", impulse), this.posX, this.posY, this.posZ
                );
             }
          }
@@ -286,7 +286,7 @@ public class VacuumGunShoot extends StandardBullet {
       this.velocityChanged = true;
       this.setNoGravity(true);
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -298,11 +298,11 @@ public class VacuumGunShoot extends StandardBullet {
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, false, false, this, WeaponDamage.portal),
-                  parameters.getEnchanted("damage", might),
+                  parameters.getEnchantedF("damage", might),
                   this.getThrower(),
                   entity,
                   true,
-                  parameters.getEnchanted("knockback", impulse),
+                  parameters.getEnchantedF("knockback", impulse),
                   this.posX,
                   this.posY,
                   this.posZ

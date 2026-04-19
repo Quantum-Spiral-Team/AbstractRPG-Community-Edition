@@ -17,12 +17,12 @@ class WaterCavesDecorator extends BiomeDecorator {
       } else {
          this.chunkProviderSettings = Factory.jsonToFactory(worldIn.getWorldInfo().getGeneratorOptions()).build();
          this.chunkPos = pos;
-         this.dirtGen = new WorldGenMinable(BlocksRegister.SNOWICE.getDefaultState(), this.chunkProviderSettings.dirtSize);
-         this.gravelOreGen = new WorldGenMinable(BlocksRegister.FROZENSTONE.getDefaultState(), this.chunkProviderSettings.gravelSize);
+         this.dirtGen = new WorldGenMinable(BlocksRegister.SNOW_ICE.getDefaultState(), this.chunkProviderSettings.dirtSize);
+         this.gravelOreGen = new WorldGenMinable(BlocksRegister.FROZEN_STONE.getDefaultState(), this.chunkProviderSettings.gravelSize);
          this.graniteGen = new WorldGenMinable(BlocksRegister.GLACIER.getDefaultState(), this.chunkProviderSettings.graniteSize);
          this.dioriteGen = new WorldGenMinable(Blocks.ICE.getDefaultState(), this.chunkProviderSettings.dioriteSize);
-         this.andesiteGen = new WorldGenMinable(BlocksRegister.FROZENCOBBLE.getDefaultState(), this.chunkProviderSettings.andesiteSize);
-         this.coalGen = new WorldGenMinable(BlocksRegister.SNOWICE.getDefaultState(), this.chunkProviderSettings.coalSize);
+         this.andesiteGen = new WorldGenMinable(BlocksRegister.FROZEN_COBBLESTONE.getDefaultState(), this.chunkProviderSettings.andesiteSize);
+         this.coalGen = new WorldGenMinable(BlocksRegister.SNOW_ICE.getDefaultState(), this.chunkProviderSettings.coalSize);
          this.ironGen = new WorldGenMinable(Blocks.ICE.getDefaultState(), this.chunkProviderSettings.ironSize);
          this.goldGen = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), this.chunkProviderSettings.goldSize);
          this.redstoneGen = new WorldGenMinable(BlocksRegister.GLACIER.getDefaultState(), this.chunkProviderSettings.redstoneSize);

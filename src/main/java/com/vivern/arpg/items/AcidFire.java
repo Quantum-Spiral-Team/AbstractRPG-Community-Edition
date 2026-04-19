@@ -70,7 +70,7 @@ public class AcidFire extends ItemWeapon {
             float power = Mana.getMagicPowerMax(player);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", sor);
+            float manacost = parameters.getEnchantedF("manacost", sor);
             if (player.getHeldItemMainhand() == itemstack && !player.getCooldownTracker().hasCooldown(itemIn)) {
                if (Mana.getMana(player) > manacost && click) {
                   Weapons.setPlayerAnimationOnServer(player, 13, EnumHand.MAIN_HAND);
@@ -95,8 +95,8 @@ public class AcidFire extends ItemWeapon {
                      player.rotationPitch,
                      player.rotationYaw,
                      0.0F,
-                     parameters.get("velocity"),
-                     parameters.getEnchanted("inaccuracy", acc),
+                     parameters.getF("velocity"),
+                     parameters.getEnchantedF("inaccuracy", acc),
                      -0.1F,
                      0.5F,
                      0.5F

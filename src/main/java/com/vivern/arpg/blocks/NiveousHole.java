@@ -15,11 +15,11 @@ public class NiveousHole extends Block implements IBlockHardBreak {
       super(Material.ROCK);
       this.setRegistryName("niveous_hole");
       this.setTranslationKey("niveous_hole");
-      this.blockHardness = BlocksRegister.HR_NIVEOUS_HALL.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_NIVEOUS_HALL.RESISTANCE;
+      this.blockHardness = BlocksRegister.HR_NIVEOUS_HALL.hardness;
+      this.blockResistance = BlocksRegister.HR_NIVEOUS_HALL.resistance;
       this.setCreativeTab(CreativeTabs.REDSTONE);
       this.slipperiness = 0.999F;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_NIVEOUS_HALL.LVL);
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_NIVEOUS_HALL.lvl);
    }
 
    public void onLanded(World worldIn, Entity entityIn) {

@@ -8,7 +8,7 @@ import com.vivern.arpg.main.NoiseGenerator3D;
 import com.vivern.arpg.main.SuperKnockback;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -313,8 +313,8 @@ public class ParticleTracker<T extends Entity> {
          float time = entity.ticksExisted + partialTicks;
 
          for (int i = 0; i < this.count; i++) {
-            float alpha = GetMOP.getfromto(time, (float)i, (float)(i + this.showTime))
-               - GetMOP.getfromto(time, (float)(i + this.showedTime), (float)(i + this.showedTime + this.hideTime));
+            float alpha = GetMOP.getFromTo(time, (float)i, (float)(i + this.showTime))
+               - GetMOP.getFromTo(time, (float)(i + this.showedTime), (float)(i + this.showedTime + this.hideTime));
             GlStateManager.color(entity.Red, entity.Green, entity.Blue, alpha * entity.alpha);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -334,8 +334,8 @@ public class ParticleTracker<T extends Entity> {
             }
          }
 
-         float alpha1 = GetMOP.getfromto(time, 0.0F, (float)this.showTime)
-            - GetMOP.getfromto(time, (float)this.showedTime, (float)(this.showedTime + this.hideTime));
+         float alpha1 = GetMOP.getFromTo(time, 0.0F, (float)this.showTime)
+            - GetMOP.getFromTo(time, (float)this.showedTime, (float)(this.showedTime + this.hideTime));
          GlStateManager.color(entity.Red, entity.Green, entity.Blue, alpha1 * entity.alpha);
          GlStateManager.popMatrix();
       }
@@ -385,7 +385,7 @@ public class ParticleTracker<T extends Entity> {
       }
 
       public void update(GUNParticle entity) {
-         float ft1 = GetMOP.getfromto((float)entity.ticksExisted, (float)this.colorChangeStartTime, (float)this.colorChangeEndTime);
+         float ft1 = GetMOP.getFromTo((float)entity.ticksExisted, (float)this.colorChangeStartTime, (float)this.colorChangeEndTime);
          float ft2 = 1.0F - ft1;
          entity.Red = (float)(ft1 * this.newColor.x + ft2 * this.startColor.x);
          entity.Green = (float)(ft1 * this.newColor.y + ft2 * this.startColor.y);
@@ -737,7 +737,7 @@ public class ParticleTracker<T extends Entity> {
       }
 
       public void update(TrailParticle entity) {
-         float ft1 = GetMOP.getfromto((float)entity.ticksExisted, (float)this.colorChangeStartTime, (float)this.colorChangeEndTime);
+         float ft1 = GetMOP.getFromTo((float)entity.ticksExisted, (float)this.colorChangeStartTime, (float)this.colorChangeEndTime);
          float ft2 = 1.0F - ft1;
          entity.Red = (float)(ft1 * this.newColor.x + ft2 * this.startColor.x);
          entity.Green = (float)(ft1 * this.newColor.y + ft2 * this.startColor.y);
@@ -762,7 +762,7 @@ public class ParticleTracker<T extends Entity> {
             int time = this.times[i];
             int prevtime = this.times[i - 1];
             if (entity.ticksExisted < time && entity.ticksExisted >= prevtime) {
-               float ft1 = GetMOP.getfromto((float)entity.ticksExisted, (float)prevtime, (float)time);
+               float ft1 = GetMOP.getFromTo((float)entity.ticksExisted, (float)prevtime, (float)time);
                Vec3d point = this.positions[i];
                Vec3d prevpoint = this.positions[i - 1];
                if (Debugger.floats[0] == 0.0F) {
@@ -818,7 +818,7 @@ public class ParticleTracker<T extends Entity> {
       }
 
       public void render(GUNParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
-         float ft = GetMOP.getfromto(entity.ticksExisted + partialTicks, this.from, this.to) * this.amountTranslate;
+         float ft = GetMOP.getFromTo(entity.ticksExisted + partialTicks, this.from, this.to) * this.amountTranslate;
          double xx = x * ft;
          double yy = y * ft;
          double zz = z * ft;

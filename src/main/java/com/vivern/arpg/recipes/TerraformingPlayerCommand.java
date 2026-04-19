@@ -1,6 +1,6 @@
 package com.vivern.arpg.recipes;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class TerraformingPlayerCommand {

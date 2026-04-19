@@ -68,7 +68,7 @@ public class SacrificialDagger extends ItemWeapon {
                      if (attacked instanceof EntityLivingBase) {
                         EntityLivingBase attackedLivingBase = (EntityLivingBase)attacked;
                         if (attackedLivingBase.getHealth() <= 0.0F) {
-                           int slot = FindAmmo.getSlotForEmptySoulstone(player.inventory);
+                           int slot = FindAmmo.getSlotForEmptySoulStone(player.inventory);
                            if (slot >= 0 && slot < player.inventory.getSizeInventory()) {
                               SoulStone.catchSoul(player.inventory.getStackInSlot(slot), attackedLivingBase, player, 1);
                            }

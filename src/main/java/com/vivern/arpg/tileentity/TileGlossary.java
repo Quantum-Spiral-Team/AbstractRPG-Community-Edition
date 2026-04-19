@@ -5,7 +5,7 @@ import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ItemsElements;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -41,7 +41,7 @@ public class TileGlossary extends TileEntity implements ITickable {
                BlockPos watchPos = new BlockPos(
                   this.pos.getX() + x, this.pos.getY() + y, this.pos.getZ() + z
                );
-               if (this.world.getBlockState(watchPos).getBlock() == BlocksRegister.BOOKCASEWOODEN) {
+               if (this.world.getBlockState(watchPos).getBlock() == BlocksRegister.WOODEN_BOOKCASE) {
                   this.allWatchPositions.add(watchPos);
                }
             }

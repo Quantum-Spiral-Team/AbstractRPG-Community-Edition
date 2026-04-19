@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockConcretePowder;
@@ -359,15 +359,15 @@ public class Weapons {
          if (block == Blocks.MAGMA) {
             world.setBlockState(pos, Blocks.NETHERRACK.getDefaultState());
             return true;
-         } else if (block == BlocksRegister.FLUIDSLIME) {
+         } else if (block == BlocksRegister.FLUID_SLIME) {
             if ((Integer)state.getValue(BlockLiquid.LEVEL) == 0) {
-               world.setBlockState(pos, BlocksRegister.BROWNSLIME.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.BROWN_SLIME.getDefaultState());
             } else {
-               world.setBlockState(pos, BlocksRegister.SLIMEGLOB.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.SLIME_GLOB.getDefaultState());
             }
 
             return true;
-         } else if (block == BlocksRegister.ICESPIKES && (Boolean)state.getValue(IceSpikes.NOTPERMANENT)) {
+         } else if (block == BlocksRegister.ICE_SPIKES && (Boolean)state.getValue(IceSpikes.NOTPERMANENT)) {
             world.setBlockState(pos, state.withProperty(IceSpikes.NOTPERMANENT, false));
             return true;
          } else {
@@ -659,7 +659,7 @@ public class Weapons {
       World world, BlockPos pos, @Nullable EntityPlayer player, String tool, int toolLevel, int fortune, boolean withSilkTouch
    ) {
       IBlockState state = world.getBlockState(pos);
-      if (!(state.getBlockHardness(world, pos) < 0.0F) && !GetMOP.IFLUID_BLOCKS.apply(state) && state.getMaterial() != Material.AIR) {
+      if (!(state.getBlockHardness(world, pos) < 0.0F) && !GetMOP.FLUID_BLOCKS.apply(state) && state.getMaterial() != Material.AIR) {
          if (player == null) {
             player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), Double.MAX_VALUE, false);
          }
@@ -744,9 +744,9 @@ public class Weapons {
    public static boolean isBlockConsideredWater(World world, Block block) {
       return block == Blocks.WATER
          || block == Blocks.FLOWING_WATER
-         || block == BlocksRegister.FLUIDLARVAWATER
-         || block == BlocksRegister.FLUIDPOISON
-         || block == BlocksRegister.FLUIDHYDROTHERMAL;
+         || block == BlocksRegister.FLUID_LARVA_WATER
+         || block == BlocksRegister.FLUID_POISON
+         || block == BlocksRegister.FLUID_HYDROTHERMAL;
    }
 
    public static boolean isBlockFiery(World world, Block block) {
@@ -754,9 +754,9 @@ public class Weapons {
          || block == Blocks.LAVA
          || block == Blocks.FLOWING_LAVA
          || block == Blocks.TORCH
-         || block == BlocksRegister.PALMTORCH
-         || block == BlocksRegister.OREMOLTEN
-         || block == BlocksRegister.MAGMABLOOM) {
+         || block == BlocksRegister.PALM_TORCH
+         || block == BlocksRegister.MOLTEN_ORE
+         || block == BlocksRegister.MAGMA_BLOOM) {
          return true;
       } else {
          return block instanceof IFluidBlock ? ((IFluidBlock)block).getFluid().getTemperature() >= 1000 : false;
@@ -793,14 +793,14 @@ public class Weapons {
          || block == Blocks.ICE
          || block == Blocks.FROSTED_ICE
          || block == Blocks.PACKED_ICE
-         || block == BlocksRegister.SNOWICE
-         || block == BlocksRegister.LOOSESNOW
-         || block == BlocksRegister.OREICEGL
-         || block == BlocksRegister.OREICESN
-         || block == BlocksRegister.CLEANICE
-         || block == BlocksRegister.ICESPIKES
-         || block == BlocksRegister.ICEPANE
-         || block == BlocksRegister.SNOWICE;
+         || block == BlocksRegister.SNOW_ICE
+         || block == BlocksRegister.LOOSE_SNOW
+         || block == BlocksRegister.ICE_ORE_GLACIER
+         || block == BlocksRegister.ICE_ORE_SNOW_ICE
+         || block == BlocksRegister.CLEAN_ICE
+         || block == BlocksRegister.ICE_SPIKES
+         || block == BlocksRegister.ICE_PANE
+         || block == BlocksRegister.SNOW_ICE;
    }
 
    public static float resistance(Block block) {
@@ -878,7 +878,7 @@ public class Weapons {
          GetMOP.partial(player.posZ, player.prevPosZ, (double)partialTicks)
       );
       float pitchUp = GetMOP.partial(player.rotationPitch, player.prevRotationPitch, partialTicks) - 90.0F;
-      Vec3d lookUp = GetMOP.PitchYawToVec3d(pitchUp, yaw).scale(yoffset);
+      Vec3d lookUp = GetMOP.pitchYawToVec3D(pitchUp, yaw).scale(yoffset);
       float eyeHeight = useArmPivotHeight ? getPlayerArmPivotHeight(player) : player.getEyeHeight();
       if (barrelLength != 0.0F) {
          Vec3d look = player.getLook(partialTicks).scale(barrelLength);
@@ -927,7 +927,7 @@ public class Weapons {
          yaw = 1.0F;
       }
 
-      Vec3d yawVec = GetMOP.YawToVec3d(player.rotationYawHead + yaw * 90.0F);
+      Vec3d yawVec = GetMOP.yawToVec3D(player.rotationYawHead + yaw * 90.0F);
       vec3dEyes = vec3dEyes.add(yawVec.x * shoulders, yawVec.y * shoulders, yawVec.z * shoulders);
       if (barrelLength != 0.0F) {
          Vec3d look = player.getLookVec();

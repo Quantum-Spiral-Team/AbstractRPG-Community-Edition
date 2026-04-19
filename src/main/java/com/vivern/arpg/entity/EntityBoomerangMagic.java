@@ -31,17 +31,17 @@ public class EntityBoomerangMagic extends StandardBullet {
 
    public EntityBoomerangMagic(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.MAGICBOOMERANG);
+      this.weaponstack = new ItemStack(ItemsRegister.MAGIC_BOOMERANG);
    }
 
    public EntityBoomerangMagic(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.MAGICBOOMERANG);
+      this.weaponstack = new ItemStack(ItemsRegister.MAGIC_BOOMERANG);
    }
 
    public EntityBoomerangMagic(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.MAGICBOOMERANG);
+      this.weaponstack = new ItemStack(ItemsRegister.MAGIC_BOOMERANG);
    }
 
    public EntityBoomerangMagic(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -79,10 +79,10 @@ public class EntityBoomerangMagic extends StandardBullet {
       }
 
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      float flyspeed = parameters.getEnchanted("return_speed", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
+      float flyspeed = parameters.getEnchantedF("return_speed", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
       if (target != null
          && (
-            this.ticksExisted > parameters.getEnchantedi("ticks_flying", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack)) / flyspeed
+            this.ticksExisted > parameters.getEnchantedI("ticks_flying", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack)) / flyspeed
                || this.shouldReturn
          )) {
          float dist = target.getDistance(this);
@@ -90,8 +90,8 @@ public class EntityBoomerangMagic extends StandardBullet {
          float pruney = (float)((target.posY + 1.0 - this.posY) / dist / 2.0);
          float prunez = (float)((target.posZ - this.posZ) / dist / 2.0);
          this.setVelocity(prunex * flyspeed, pruney * flyspeed, prunez * flyspeed);
-         double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
-         int cooldownToSet = parameters.getEnchantedi("cooldown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, this.weaponstack));
+         double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         int cooldownToSet = parameters.getEnchantedI("cooldown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, this.weaponstack));
          AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
             .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
             .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -100,7 +100,7 @@ public class EntityBoomerangMagic extends StandardBullet {
             for (EntityLivingBase entitylivingbase : list) {
                if (entitylivingbase == this.getThrower() && this.getThrower() instanceof EntityPlayer) {
                   EntityPlayer player = (EntityPlayer)this.getThrower();
-                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGICBOOMERANG, cooldownToSet);
+                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_BOOMERANG, cooldownToSet);
                   this.setDead();
                   break;
                }

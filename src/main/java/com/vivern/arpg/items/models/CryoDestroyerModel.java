@@ -121,10 +121,10 @@ public class CryoDestroyerModel extends ModelBase {
    }
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-      float ft1 = GetMOP.getfromto(f1, 0.05F, 0.1F) - GetMOP.softfromto(f1, 0.2F, 1.0F);
+      float ft1 = GetMOP.getFromTo(f1, 0.05F, 0.1F) - GetMOP.softFromTo(f1, 0.2F, 1.0F);
       this.shaft.offsetZ = -6.0F * ft1;
       GlStateManager.disableCull();
-      float ft2 = GetMOP.getfromto(f2, 0.0F, 0.4F) - GetMOP.softfromto(f2, 0.6F, 1.0F);
+      float ft2 = GetMOP.getFromTo(f2, 0.0F, 0.4F) - GetMOP.softFromTo(f2, 0.6F, 1.0F);
       this.ammo.rotateAngleX = 1.954736F * ft2;
       this.ammo.rotateAngleY = -0.715573F * ft2;
       this.ammo.rotateAngleZ = -0.855197F * ft2;

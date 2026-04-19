@@ -71,9 +71,9 @@ public class FieryBeanLog extends BlockRotatedPillar {
          if (rand.nextFloat() < chance) {
             EnumFacing face = EnumFacing.HORIZONTALS[rand.nextInt(4)];
             BlockPos posf = pos.offset(face);
-            if (world.getBlockState(posf.up()).getBlock() != BlocksRegister.FIERYBEANBLOCK
+            if (world.getBlockState(posf.up()).getBlock() != BlocksRegister.FIERY_BEAN_BLOCK
                && world.getBlockState(posf).getBlock().isReplaceable(world, posf)) {
-               world.setBlockState(posf, BlocksRegister.FIERYBEANBLOCK.getDefaultState().withProperty(FieryBeanBlock.FACING, face));
+               world.setBlockState(posf, BlocksRegister.FIERY_BEAN_BLOCK.getDefaultState().withProperty(FieryBeanBlock.FACING, face));
             }
          }
       }
@@ -108,7 +108,7 @@ public class FieryBeanLog extends BlockRotatedPillar {
 
    public boolean isnaturalLeaf(World world, BlockPos pos) {
       IBlockState s = world.getBlockState(pos);
-      return s.getBlock() == BlocksRegister.FIERYBEANLEAVES;
+      return s.getBlock() == BlocksRegister.FIERY_BEAN_LEAVES;
    }
 
    public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {

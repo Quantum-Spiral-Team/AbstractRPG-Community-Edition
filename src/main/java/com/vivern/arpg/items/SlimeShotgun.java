@@ -90,8 +90,8 @@ public class SlimeShotgun extends ItemWeapon {
                      player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                      player.addStat(StatList.getObjectUseStats(this));
                      Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
-                     int shots = parameters.geti("shots");
-                     shots += (int)(NBTHelper.GetNBTint(itemstack, "charge") * parameters.get("charge_to_shots"));
+                     int shots = parameters.getI("shots");
+                     shots += (int)(NBTHelper.GetNBTint(itemstack, "charge") * parameters.getF("charge_to_shots"));
                      IWeapon.fireBomEffect(this, player, world, shots);
 
                      for (int ss = 0; ss < shots; ss++) {
@@ -103,8 +103,8 @@ public class SlimeShotgun extends ItemWeapon {
                            player.rotationPitch,
                            player.rotationYaw,
                            0.2F,
-                           parameters.get("velocity"),
-                           parameters.getEnchanted("inaccuracy", acc),
+                           parameters.getF("velocity"),
+                           parameters.getEnchantedF("inaccuracy", acc),
                            -0.13F,
                            0.5F,
                            0.5F
@@ -113,7 +113,7 @@ public class SlimeShotgun extends ItemWeapon {
                      }
 
                      if (!player.capabilities.isCreativeMode) {
-                        if (itemRand.nextFloat() > reuse * parameters.get("reus_ammo_save_chance")) {
+                        if (itemRand.nextFloat() > reuse * parameters.getF("reus_ammo_save_chance")) {
                            this.addAmmo(ammo, itemstack, -1);
                         }
 
@@ -122,7 +122,7 @@ public class SlimeShotgun extends ItemWeapon {
 
                      NBTHelper.SetNBTint(itemstack, 0, "charge");
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.SLIMECELL, maxammo, ItemsRegister.EMPTYCELL)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.SLIME_CELL, maxammo, ItemsRegister.EMPTY_CELL)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,
@@ -137,7 +137,7 @@ public class SlimeShotgun extends ItemWeapon {
                }
             } else if (!click && player.getHeldItemMainhand() == itemstack && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
                NBTHelper.GiveNBTint(itemstack, 0, "charge");
-               if (NBTHelper.GetNBTint(itemstack, "charge") < parameters.get("max_charge")) {
+               if (NBTHelper.GetNBTint(itemstack, "charge") < parameters.getF("max_charge")) {
                   NBTHelper.AddNBTint(itemstack, 1, "charge");
                }
             }

@@ -5,7 +5,7 @@ import com.vivern.arpg.items.models.CubikModel;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.GetMOP;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -519,7 +519,7 @@ public abstract class RenderModule {
          GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
          GlStateManager.rotate(this.rotationRoll, 1.0F, 0.0F, 0.0F);
          float tick = entity.ticksExisted + partialTicks;
-         float fromto = GetMOP.getfromto(tick, 0.0F, (float)this.ticksForMaxWidth);
+         float fromto = GetMOP.getFromTo(tick, 0.0F, (float)this.ticksForMaxWidth);
          float beamwidth = this.cutterSize / 2.0F * fromto;
          GlStateManager.pushMatrix();
          GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);

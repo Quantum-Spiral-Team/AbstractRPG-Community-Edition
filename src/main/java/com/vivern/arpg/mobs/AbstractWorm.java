@@ -4,7 +4,7 @@ import com.vivern.arpg.main.GetMOP;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -131,7 +131,7 @@ public abstract class AbstractWorm extends AbstractMob {
       }
 
       if (!this.isSubMob) {
-         Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
+         Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
          this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
          this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
          if (this.poslist != null) {
@@ -201,13 +201,13 @@ public abstract class AbstractWorm extends AbstractMob {
          if (this.headEntity != null) {
             if (this.headEntity.poslist.size() > this.number) {
                if (this.number > 0) {
-                  Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(this.getPositionVector().subtract(this.headEntity.poslist.get(this.number - 1)));
+                  Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.headEntity.poslist.get(this.number - 1)));
                   this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
                   this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
                }
 
                if (this.number == 0) {
-                  Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(this.getPositionVector().subtract(this.headEntity.getPositionVector()));
+                  Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.headEntity.getPositionVector()));
                   this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
                   this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
                }

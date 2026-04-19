@@ -60,7 +60,7 @@ public class WhispersBlade extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.experienceLevel > level_stop_at) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               Weapons.addOrRemoveExperience(player, -parameters.geti("xp_decrease"));
+               Weapons.addOrRemoveExperience(player, -parameters.getI("xp_decrease"));
             } else {
                NBTHelper.SetNBTint(itemstack, -1, "level_stop_at");
                world.playSound(
@@ -82,7 +82,7 @@ public class WhispersBlade extends ItemWeapon {
             NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
             int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", sor);
+            float manacost = parameters.getEnchantedF("manacost", sor);
             if (powered) {
                manacost *= 2.0F;
             }
@@ -144,15 +144,15 @@ public class WhispersBlade extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.0F,
-                  powered ? parameters.get("velocity_powered") : parameters.get("velocity"),
-                  parameters.getEnchanted("inaccuracy", acc)
+                  powered ? parameters.getF("velocity_powered") : parameters.getF("velocity"),
+                  parameters.getEnchantedF("inaccuracy", acc)
                );
                projectile.setPosition(player.posX, player.posY + player.getEyeHeight() - 0.2, player.posZ);
                projectile.rotationRoll = itemRand.nextInt(23) - 11;
-               projectile.cutterSize = powered ? parameters.getEnchanted("cutter_size_powered", range) : parameters.getEnchanted("cutter_size", range);
+               projectile.cutterSize = powered ? parameters.getEnchantedF("cutter_size_powered", range) : parameters.getEnchantedF("cutter_size", range);
                projectile.powered = powered;
                if (powered) {
-                  projectile.lastBounces = parameters.getEnchantedi("bounces", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
+                  projectile.lastBounces = parameters.getEnchantedI("bounces", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
                }
 
                world.spawnEntity(projectile);
@@ -184,7 +184,7 @@ public class WhispersBlade extends ItemWeapon {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       boolean powered = NBTHelper.GetNBTint(itemstack, "level_stop_at") != -1;
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return powered ? parameters.getEnchantedi("cooldown_powered", rapidity) : parameters.getEnchantedi("cooldown", rapidity);
+      return powered ? parameters.getEnchantedI("cooldown_powered", rapidity) : parameters.getEnchantedI("cooldown", rapidity);
    }
 
    @Override

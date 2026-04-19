@@ -252,9 +252,9 @@ public class DungeonCleftsMapGen extends MapGenBase {
          return true;
       } else if (p_175793_1_.getBlock() == Blocks.DIRT) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.FROZENCOBBLE) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.FROZEN_COBBLESTONE) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.FROZENSTONE) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.FROZEN_STONE) {
          return true;
       } else if (p_175793_1_.getBlock() == BlocksRegister.GLACIER) {
          return true;

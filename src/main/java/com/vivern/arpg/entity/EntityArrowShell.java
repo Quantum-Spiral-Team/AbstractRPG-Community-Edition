@@ -4,7 +4,6 @@ import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundEvent;
@@ -100,6 +99,6 @@ public class EntityArrowShell extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWSHELL);
+      return new ItemStack(ItemsRegister.ARROW_SHELL);
    }
 }

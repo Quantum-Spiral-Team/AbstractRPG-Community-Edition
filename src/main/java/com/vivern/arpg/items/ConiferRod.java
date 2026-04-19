@@ -13,7 +13,7 @@ import com.vivern.arpg.mobs.AbstractMob;
 import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -104,7 +104,7 @@ public class ConiferRod extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
                   } else if (mode >= 1 && mode <= 4) {
-                     RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 64.0, 1.0, 1.0, false, false, true, false);
+                     RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 64.0, 1.0, false, false, true, false);
                      if (res != null && res.entityHit != null && res.entityHit instanceof AbstractMob) {
                         AbstractMob mob = (AbstractMob)res.entityHit;
                         if ((filterMinion == null || filterMinion.apply(mob)) && player == mob.owner) {
@@ -119,7 +119,7 @@ public class ConiferRod extends ItemWeapon {
                         }
                      }
                   } else if (mode == 6) {
-                     RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 64.0, 1.0, 1.0, false, false, true, false);
+                     RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 64.0, 1.0, false, false, true, false);
                      if (res != null && res.entityHit != null && res.entityHit instanceof EntityLivingBase) {
                         EntityLivingBase mob = (EntityLivingBase)res.entityHit;
                         if (filterHostile == null || filterHostile.apply(mob)) {
@@ -131,7 +131,7 @@ public class ConiferRod extends ItemWeapon {
                         }
                      }
                   } else if (mode == 5) {
-                     RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 32.0, 1.0, 1.0, false, false, true, false);
+                     RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 32.0, 1.0, false, false, true, false);
                      if (res != null && res.hitVec != null) {
                         double damageRadius = 6.0;
                         AxisAlignedBB aabb = new AxisAlignedBB(

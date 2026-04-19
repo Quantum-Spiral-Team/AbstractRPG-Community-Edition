@@ -257,11 +257,11 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
          int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
          Weapons.dealDamage(
             new WeaponDamage(this.weaponstack, this.getThrower(), this, false, this.bubbleSize < 0.8, this, WeaponDamage.water),
-            parameters.getEnchanted("damage", might),
+            parameters.getEnchantedF("damage", might),
             this.getThrower(),
             entity,
             true,
-            parameters.getEnchanted("knockback", impulse),
+            parameters.getEnchantedF("knockback", impulse),
             this.posX,
             this.posY,
             this.posZ
@@ -340,8 +340,8 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
          int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
          int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
-         float plasmadamage = parameters.getEnchanted("damage_plasma", might);
-         float plasmaknockback = parameters.getEnchanted("knockback_plasma", impulse);
+         float plasmadamage = parameters.getEnchantedF("damage_plasma", might);
+         float plasmaknockback = parameters.getEnchantedF("knockback_plasma", impulse);
          float R = this.bubbleSize * 0.6F;
 
          for (int i = 0; i < this.bubbleSize * 4.0F; i++) {
@@ -400,8 +400,8 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
             float radiusSq = siz * siz;
             int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, this.weaponstack);
             boolean silktouch = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, this.weaponstack) > 0;
-            int harvestlvl = parameters.geti("harvest_lvl");
-            float hardnessBreaks = parameters.get("hardness_breaks");
+            int harvestlvl = parameters.getI("harvest_lvl");
+            float hardnessBreaks = parameters.getF("hardness_breaks");
 
             for (BlockPos blockpos : GetMOP.getBlockPosesCollidesAABB(this.world, aabb.grow(2.0), false)) {
                if (blockpos.distanceSqToCenter(this.posX, hposY, this.posZ) < radiusSq

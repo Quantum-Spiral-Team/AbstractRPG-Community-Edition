@@ -5,7 +5,6 @@ import com.vivern.arpg.main.ItemsRegister;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -64,7 +63,7 @@ public class ToxicTallgrass extends Block implements IShearable {
    }
 
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-      return ItemsRegister.PLANTFIBER;
+      return ItemsRegister.PLANT_FIBER;
    }
 
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
@@ -73,11 +72,11 @@ public class ToxicTallgrass extends Block implements IShearable {
 
    public static boolean canStayAtPos(World worldIn, BlockPos pos) {
       Block blockd = worldIn.getBlockState(pos.down()).getBlock();
-      return blockd == BlocksRegister.TOXICDIRT
-         || blockd == BlocksRegister.TOXICGRASS
+      return blockd == BlocksRegister.TOXIC_DIRT
+         || blockd == BlocksRegister.TOXIC_GRASS
          || blockd == BlocksRegister.SLUDGE
          || blockd == BlocksRegister.JUNK
-         || blockd == BlocksRegister.NUCLEARWASTE;
+         || blockd == BlocksRegister.NUCLEAR_WASTE;
    }
 
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {

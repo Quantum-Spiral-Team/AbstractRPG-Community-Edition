@@ -34,17 +34,17 @@ public class ToxicNuke extends EntityThrowable {
 
    public ToxicNuke(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.TOXICNUKECANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
    }
 
    public ToxicNuke(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.TOXICNUKECANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
    }
 
    public ToxicNuke(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.TOXICNUKECANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
    }
 
    public ToxicNuke(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -228,7 +228,7 @@ public class ToxicNuke extends EntityThrowable {
 
    public void expl() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -239,10 +239,10 @@ public class ToxicNuke extends EntityThrowable {
                int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
-               float wdamage = parameters.getEnchanted("damage", might);
-               float wknockback = parameters.getEnchanted("knockback", impulse);
+               float wdamage = parameters.getEnchantedF("damage", might);
+               float wknockback = parameters.getEnchantedF("knockback", impulse);
                if (!Team.checkIsOpponent(this.thrower, entity)) {
-                  float friendlyfire = parameters.get("friendlyfire");
+                  float friendlyfire = parameters.getF("friendlyfire");
                   wdamage *= friendlyfire;
                   wknockback *= friendlyfire;
                }
@@ -265,11 +265,11 @@ public class ToxicNuke extends EntityThrowable {
 
       if (!this.world.isRemote) {
          Explosion explosion = new Explosion(
-            this.world, null, this.posX, this.posY, this.posZ, parameters.get("explosion_power"), false, true
+            this.world, null, this.posX, this.posY, this.posZ, parameters.getF("explosion_power"), false, true
          );
          explosion.doExplosionA();
          explosion.doExplosionB(false);
-         int count = parameters.getEnchantedi("shards_count", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
+         int count = parameters.getEnchantedI("shards_count", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
 
          for (int ss = 0; ss < count; ss++) {
             ToxicNukeShard projectile = new ToxicNukeShard(

@@ -40,21 +40,21 @@ public class DragonFireworkEntity extends EntityThrowable {
       super(world);
       this.fRotationPitch = 0.0F;
       this.fRotationYaw = 0.0F;
-      this.weaponstack = new ItemStack(ItemsRegister.FIREWORKSLAUN);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
    }
 
    public DragonFireworkEntity(World world, EntityLivingBase thrower) {
       super(world, thrower);
       this.fRotationPitch = thrower.rotationPitch;
       this.fRotationYaw = thrower.rotationYaw;
-      this.weaponstack = new ItemStack(ItemsRegister.FIREWORKSLAUN);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
    }
 
    public DragonFireworkEntity(World world, double x, double y, double z) {
       super(world, x, y, z);
       this.fRotationPitch = 0.0F;
       this.fRotationYaw = 0.0F;
-      this.weaponstack = new ItemStack(ItemsRegister.FIREWORKSLAUN);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
    }
 
    public DragonFireworkEntity(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -277,7 +277,7 @@ public class DragonFireworkEntity extends EntityThrowable {
 
    public void expl() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("dragon_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("dragon_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -288,7 +288,7 @@ public class DragonFireworkEntity extends EntityThrowable {
          this.posX,
          this.posY,
          this.posZ,
-         parameters.getEnchanted("explode_size", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack)),
+         parameters.getEnchantedF("explode_size", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack)),
          true,
          true
       );
@@ -301,11 +301,11 @@ public class DragonFireworkEntity extends EntityThrowable {
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),
-                  parameters.getEnchanted("damage_dragon", might),
+                  parameters.getEnchantedF("damage_dragon", might),
                   this.getThrower(),
                   entity,
                   true,
-                  parameters.getEnchanted("knockback_dragon", impulse),
+                  parameters.getEnchantedF("knockback_dragon", impulse),
                   this.posX,
                   this.posY - 1.0,
                   this.posZ
@@ -314,7 +314,7 @@ public class DragonFireworkEntity extends EntityThrowable {
             } else {
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                SuperKnockback.applyKnockback(
-                  entity, parameters.getEnchanted("knockback_dragon", impulse), this.posX, this.posY - 1.0, this.posZ
+                  entity, parameters.getEnchantedF("knockback_dragon", impulse), this.posX, this.posY - 1.0, this.posZ
                );
             }
          }

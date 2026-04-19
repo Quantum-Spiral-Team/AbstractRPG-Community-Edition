@@ -4,7 +4,7 @@ import com.vivern.arpg.weather.TimeOfDayProvider;
 import com.vivern.arpg.weather.WorldEvent;
 import com.vivern.arpg.weather.WorldEventsHandler;
 import java.lang.reflect.Field;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.EntityRenderer;

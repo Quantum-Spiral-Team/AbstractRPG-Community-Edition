@@ -38,7 +38,7 @@ public class ItemVial extends Item {
    public ShardType shardType;
    public static Predicate<IBlockState> VIALS = new Predicate<IBlockState>() {
       public boolean apply(IBlockState input) {
-         return input.getBlock() == BlocksRegister.BLOCKVIAL;
+         return input.getBlock() == BlocksRegister.BLOCK_VIAL;
       }
    };
 
@@ -69,7 +69,7 @@ public class ItemVial extends Item {
          }
       }
 
-      if (this == ItemsRegister.VIALEMPTY) {
+      if (this == ItemsRegister.VIAL_EMPTY) {
          super.getSubItems(tab, items);
       }
    }
@@ -96,7 +96,7 @@ public class ItemVial extends Item {
             TileEntity tentity = worldIn.getTileEntity(blockpos);
             if (tentity != null && tentity instanceof IVialElementsAccepter) {
                IVialElementsAccepter accepter = (IVialElementsAccepter)tentity;
-               if (this == ItemsRegister.VIALEMPTY) {
+               if (this == ItemsRegister.VIAL_EMPTY) {
                   EnergyCost getted = accepter.provideVialElements(itemstack, 4.0F, true);
                   if (getted != null && getted.amount == 4.0F) {
                      if (!worldIn.isRemote) {
@@ -126,7 +126,7 @@ public class ItemVial extends Item {
                   }
                } else if (accepter.acceptVialElements(itemstack, ShardType.byId(itemstack.getMetadata()), 4.0F) < 4.0F) {
                   if (!worldIn.isRemote) {
-                     Weapons.addItemStackToInventory(playerIn, new ItemStack(ItemsRegister.VIALEMPTY));
+                     Weapons.addItemStackToInventory(playerIn, new ItemStack(ItemsRegister.VIAL_EMPTY));
                      itemstack.shrink(1);
                      Weapons.setPlayerAnimationOnServer(playerIn, 14, handIn);
                      worldIn.playSound(
@@ -143,8 +143,8 @@ public class ItemVial extends Item {
                   } else {
                      ShardType shardType = ShardType.byId(itemstack.getMetadata());
                      if (shardType != null) {
-                        Vec3d yawTov3d = GetMOP.YawToVec3d(playerIn.rotationYaw + 90.0F);
-                        Vec3d look = GetMOP.PitchYawToVec3d(playerIn.rotationPitch - 7.0F, playerIn.rotationYaw).scale(0.3);
+                        Vec3d yawTov3d = GetMOP.yawToVec3D(playerIn.rotationYaw + 90.0F);
+                        Vec3d look = GetMOP.pitchYawToVec3D(playerIn.rotationPitch - 7.0F, playerIn.rotationYaw).scale(0.3);
                         Vec3d partpos = new Vec3d(playerIn.posX, playerIn.posY + playerIn.getEyeHeight() - 0.2, playerIn.posZ)
                            .add(yawTov3d.scale(0.2))
                            .add(look);
@@ -183,17 +183,17 @@ public class ItemVial extends Item {
                }
 
                BlockPos posoff = blockpos.offset(raytraceresult.sideHit);
-               if (BlocksRegister.BLOCKVIAL.canPlaceBlockAt(worldIn, posoff)) {
+               if (BlocksRegister.BLOCK_VIAL.canPlaceBlockAt(worldIn, posoff)) {
                   if (!worldIn.isBlockModifiable(playerIn, posoff)) {
                      return new ActionResult(EnumActionResult.FAIL, itemstack);
                   }
 
-                  IBlockState iblockstate1 = BlocksRegister.BLOCKVIAL.getDefaultState();
+                  IBlockState iblockstate1 = BlocksRegister.BLOCK_VIAL.getDefaultState();
                   if (!worldIn.setBlockState(posoff, iblockstate1, 11)) {
                      return new ActionResult(EnumActionResult.FAIL, itemstack);
                   }
 
-                  BlocksRegister.BLOCKVIAL.onBlockPlacedBy(worldIn, posoff, iblockstate1, playerIn, itemstack);
+                  BlocksRegister.BLOCK_VIAL.onBlockPlacedBy(worldIn, posoff, iblockstate1, playerIn, itemstack);
                   if (playerIn instanceof EntityPlayerMP) {
                      CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)playerIn, posoff, itemstack);
                   }

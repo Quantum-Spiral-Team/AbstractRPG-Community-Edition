@@ -12,7 +12,7 @@ import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -43,20 +43,20 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
 
    public EntitySeaEffloresce(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.SEAEFFLORESCE);
+      this.weaponstack = new ItemStack(ItemsRegister.SEA_EFFLORESCE);
       this.setSize(0.5F, 0.5F);
    }
 
    public EntitySeaEffloresce(World world, EntityLivingBase thrower) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.SEAEFFLORESCE);
+      this.weaponstack = new ItemStack(ItemsRegister.SEA_EFFLORESCE);
       this.setSize(0.5F, 0.5F);
       this.thrower = thrower;
    }
 
    public EntitySeaEffloresce(World world, double x, double y, double z) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.SEAEFFLORESCE);
+      this.weaponstack = new ItemStack(ItemsRegister.SEA_EFFLORESCE);
       this.setSize(0.5F, 0.5F);
       this.setPosition(x, y, z);
    }
@@ -149,7 +149,7 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
 
          if (this.thrower != null && this.ticksExisted % 3 == 0) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            float attraction = parameters.get("attraction");
+            float attraction = parameters.getF("attraction");
             double distsq = this.getDistanceSq(this.thrower);
             if (this.ticksExisted < 60 && distsq < 49.0) {
                SuperKnockback.applyMove(
@@ -193,7 +193,7 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
             }
 
             if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) == 0
-               && this.thrower.getHeldItemMainhand().getItem() != ItemsRegister.SEAEFFLORESCE) {
+               && this.thrower.getHeldItemMainhand().getItem() != ItemsRegister.SEA_EFFLORESCE) {
                SuperKnockback.applyMove(
                   this,
                   -0.2F * attraction,
@@ -210,7 +210,7 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
 
          if (this.ticksExisted % 10 == 0) {
             WeaponParameters parametersx = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            double damageRadius = parametersx.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+            double damageRadius = parametersx.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
             AxisAlignedBB aabb = this.getEntityBoundingBox().grow(damageRadius);
             List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, aabb);
             boolean hasattack = false;
@@ -223,19 +223,18 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
                         this.world,
                         new Vec3d(this.posX, this.posY + this.height / 2.0F, this.posZ),
                         new Vec3d(entity.posX, entity.posY + entity.height / 2.0F, entity.posZ),
-                        1.0F,
-                        null,
+                          null,
                         false
                      )) {
                      int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
                      int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                      Weapons.dealDamage(
                         new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.vines),
-                        parametersx.getEnchanted("damage", might) * this.magicPower,
+                        parametersx.getEnchantedF("damage", might) * this.magicPower,
                         this.getThrower(),
                         entity,
                         true,
-                        parametersx.getEnchanted("knockback", impulse),
+                        parametersx.getEnchantedF("knockback", impulse),
                         this.posX,
                         this.posY,
                         this.posZ
@@ -279,7 +278,7 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
       super.onEntityUpdate();
       if (this.world.isRemote) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
          AxisAlignedBB aabb = this.getEntityBoundingBox().grow(damageRadius);
 
          for (Entity entitylivingbase : this.world.getEntitiesWithinAABBExcludingEntity(this, aabb)) {

@@ -41,7 +41,7 @@ public class CleanIce extends BlockBreakable {
 
    public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos) {
       Block bl = world.getBlockState(pos.up()).getBlock();
-      return bl != BlocksRegister.LOOSESNOW && bl != Blocks.SNOW_LAYER ? super.getLightOpacity(state, world, pos) : 255;
+      return bl != BlocksRegister.LOOSE_SNOW && bl != Blocks.SNOW_LAYER ? super.getLightOpacity(state, world, pos) : 255;
    }
 
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
@@ -87,7 +87,7 @@ public class CleanIce extends BlockBreakable {
    }
 
    public void breakIce(World worldIn, BlockPos pos) {
-      if (worldIn.getBlockState(pos).getBlock() == BlocksRegister.CLEANICE) {
+      if (worldIn.getBlockState(pos).getBlock() == BlocksRegister.CLEAN_ICE) {
          worldIn.setBlockToAir(pos);
          worldIn.playSound(
             null,
@@ -111,7 +111,7 @@ public class CleanIce extends BlockBreakable {
                   -0.5,
                   -0.5,
                   0.08,
-                  new int[]{Block.getStateId(BlocksRegister.CLEANICE.getDefaultState())}
+                  new int[]{Block.getStateId(BlocksRegister.CLEAN_ICE.getDefaultState())}
                );
          }
       }

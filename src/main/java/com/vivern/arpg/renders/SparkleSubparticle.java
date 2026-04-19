@@ -79,9 +79,9 @@ public class SparkleSubparticle {
                double d1 = part.posY - cameraY + part.moveY * pt;
                double d2 = part.posZ - cameraZ + part.moveZ * pt;
                double dist = Math.sqrt(d0 * d0 + d2 * d2);
-               float colorR = 1.0F - GetMOP.getfromto(part.color, 0.7F, 1.0F);
-               float colorG = 1.0F - GetMOP.getfromto(part.color, 0.45F, 0.8F);
-               float colorB = 0.95F - GetMOP.getfromto(part.color, 0.0F, 0.55F) * 0.95F;
+               float colorR = 1.0F - GetMOP.getFromTo(part.color, 0.7F, 1.0F);
+               float colorG = 1.0F - GetMOP.getFromTo(part.color, 0.45F, 0.8F);
+               float colorB = 0.95F - GetMOP.getFromTo(part.color, 0.0F, 0.55F) * 0.95F;
                float unit = part.size;
                float unit1X = (float)(-(d2 / dist)) * part.size;
                float unit1Z = (float)(d0 / dist) * part.size;

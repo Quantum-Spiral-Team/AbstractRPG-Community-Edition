@@ -5,7 +5,7 @@ import com.vivern.arpg.main.DimensionsRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TileDungeonPortal;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -49,7 +49,7 @@ public class DungeonPortal extends Block {
    }
 
    public boolean isBlockSupports(Block block) {
-      return block == this || block == BlocksRegister.DUNGEONPORTALFRAME;
+      return block == this || block == BlocksRegister.DUNGEON_PORTAL_FRAME;
    }
 
    @SideOnly(Side.CLIENT)

@@ -22,9 +22,9 @@ public class RenderWhip<T extends WhipParticle> extends Render<WhipParticle> {
    }
 
    public void doRender(WhipParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
-      float mx = (float)(entity.from.x + entity.startmotionX * partialTicks - (entity.to.x + entity.targetmotionX * partialTicks));
-      float mz = (float)(entity.from.z + entity.startmotionZ * partialTicks - (entity.to.z + entity.targetmotionZ * partialTicks));
-      float my = (float)(entity.to.y + entity.targetmotionY * partialTicks - (entity.from.y + entity.startmotionY * partialTicks));
+      float mx = (float)(entity.from.x + entity.startMotionX * partialTicks - (entity.to.x + entity.targetMotionX * partialTicks));
+      float mz = (float)(entity.from.z + entity.startMotionZ * partialTicks - (entity.to.z + entity.targetMotionZ * partialTicks));
+      float my = (float)(entity.to.y + entity.targetMotionY * partialTicks - (entity.from.y + entity.startMotionY * partialTicks));
       float moti_zx = (float)Math.sqrt(mx * mx + mz * mz);
       float moti_zy = (float)Math.sqrt(my * my + mz * mz);
       float cosangle_Yaw = mz / moti_zx;
@@ -47,7 +47,7 @@ public class RenderWhip<T extends WhipParticle> extends Render<WhipParticle> {
       GlStateManager.pushMatrix();
       GlStateManager.depthMask(false);
       GlStateManager.translate(
-         (float)x + entity.startmotionX * partialTicks, (float)y + entity.startmotionY * partialTicks, (float)z + entity.startmotionZ * partialTicks
+         (float)x + entity.startMotionX * partialTicks, (float)y + entity.startMotionY * partialTicks, (float)z + entity.startMotionZ * partialTicks
       );
       GlStateManager.enableRescaleNormal();
       GlStateManager.rotate(-entity.rotatYaw, 0.0F, 1.0F, 0.0F);
@@ -95,7 +95,7 @@ public class RenderWhip<T extends WhipParticle> extends Render<WhipParticle> {
          GlStateManager.pushMatrix();
          GlStateManager.depthMask(false);
          GlStateManager.translate(
-            (float)x + entity.startmotionX * partialTicks, (float)y + entity.startmotionY * partialTicks, (float)z + entity.startmotionZ * partialTicks
+            (float)x + entity.startMotionX * partialTicks, (float)y + entity.startMotionY * partialTicks, (float)z + entity.startMotionZ * partialTicks
          );
          GlStateManager.enableRescaleNormal();
          GlStateManager.rotate(-entity.rotatYaw, 0.0F, 1.0F, 0.0F);

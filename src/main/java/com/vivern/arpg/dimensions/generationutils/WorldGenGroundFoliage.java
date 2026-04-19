@@ -75,11 +75,11 @@ public class WorldGenGroundFoliage extends WorldGenerator {
             );
             if (worldIn.isAirBlock(blockpos) && blockpos.getY() < 255 && this.flower.canPlaceBlockAt(worldIn, blockpos)) {
                worldIn.setBlockState(blockpos, this.state);
-               if (this.state.getBlock() == BlocksRegister.MANAFLOWERLEAVES) {
+               if (this.state.getBlock() == BlocksRegister.MANA_FLOWER_LEAVES) {
                   ManaFlowerLeaves.growForGeneration(worldIn, blockpos, rand);
                }
 
-               if (this.state.getBlock() == BlocksRegister.HEALTHFLOWERLEAVES) {
+               if (this.state.getBlock() == BlocksRegister.HEALTH_FLOWER_LEAVES) {
                   HealthFlowerLeaves.growForGeneration(worldIn, blockpos, rand);
                }
             }

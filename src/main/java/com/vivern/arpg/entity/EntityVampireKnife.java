@@ -23,17 +23,17 @@ public class EntityVampireKnife extends EntityThrowable {
 
    public EntityVampireKnife(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.VAMPIREKNIFESLAUN);
+      this.weaponstack = new ItemStack(ItemsRegister.VAMPIRE_KNIFES);
    }
 
    public EntityVampireKnife(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.VAMPIREKNIFESLAUN);
+      this.weaponstack = new ItemStack(ItemsRegister.VAMPIRE_KNIFES);
    }
 
    public EntityVampireKnife(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.VAMPIREKNIFESLAUN);
+      this.weaponstack = new ItemStack(ItemsRegister.VAMPIRE_KNIFES);
    }
 
    public EntityVampireKnife(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -99,7 +99,7 @@ public class EntityVampireKnife extends EntityThrowable {
                   this.world
                      .spawnEntity(
                         new EntityItem(
-                           this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.VAMPIREKNIFE, 1)
+                           this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.VAMPIRE_KNIFE, 1)
                         )
                      );
                }
@@ -117,7 +117,7 @@ public class EntityVampireKnife extends EntityThrowable {
                this.world
                   .spawnEntity(
                      new EntityItem(
-                        this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.VAMPIREKNIFE, 1)
+                        this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.VAMPIRE_KNIFE, 1)
                      )
                   );
             }

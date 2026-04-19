@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
@@ -25,16 +24,16 @@ public class PoisonRiver extends Biome {
    public PoisonRiver() {
       super(new BiomeProperties("Poison river").setBaseHeight(-0.5F).setHeightVariation(0.0F).setTemperature(1.0F).setWaterColor(5931421));
       this.topBlock = BlocksRegister.SLUDGE.getDefaultState();
-      this.fillerBlock = BlocksRegister.TOXICDIRT.getDefaultState();
+      this.fillerBlock = BlocksRegister.TOXIC_DIRT.getDefaultState();
       this.decorator = new PoisonRiverDecorator();
    }
 
    class PoisonRiverDecorator extends BiomeDecorator {
-      public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISONLILY, 8, 4, 0);
-      public WorldGenSpread junk = new WorldGenSpread(BlocksRegister.JUNK, 30, 6, 2, BlocksRegister.TOXICDIRT, true);
-      public WorldGenSpread scrap = new WorldGenSpread(BlocksRegister.SCRAP, 15, 5, 2, BlocksRegister.TOXICDIRT, true);
-      public WorldGenSpread logs = new WorldGenSpread(BlocksRegister.TOXIBERRYLOG, 7, 5, 1, BlocksRegister.TOXICDIRT, true);
-      public WorldGenSpread slimeglobs = new WorldGenSpread(BlocksRegister.SLIMEGLOB, 15, 6, 3, BlocksRegister.TOXICDIRT, true);
+      public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISON_LILY, 8, 4, 0);
+      public WorldGenSpread junk = new WorldGenSpread(BlocksRegister.JUNK, 30, 6, 2, BlocksRegister.TOXIC_DIRT, true);
+      public WorldGenSpread scrap = new WorldGenSpread(BlocksRegister.SCRAP, 15, 5, 2, BlocksRegister.TOXIC_DIRT, true);
+      public WorldGenSpread logs = new WorldGenSpread(BlocksRegister.TOXIBERRY_LOG, 7, 5, 1, BlocksRegister.TOXIC_DIRT, true);
+      public WorldGenSpread slimeglobs = new WorldGenSpread(BlocksRegister.SLIME_GLOB, 15, 6, 3, BlocksRegister.TOXIC_DIRT, true);
 
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
@@ -46,8 +45,8 @@ public class PoisonRiver extends Biome {
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
                if (worldIn.getBlockState(position.down()).isOpaqueCube()
-                  && worldIn.getBlockState(position).getBlock() == BlocksRegister.FLUIDPOISON
-                  && worldIn.getBlockState(position.up(3)).getBlock() == BlocksRegister.FLUIDPOISON) {
+                  && worldIn.getBlockState(position).getBlock() == BlocksRegister.FLUID_POISON
+                  && worldIn.getBlockState(position.up(3)).getBlock() == BlocksRegister.FLUID_POISON) {
                   WorldServer worldServer = (WorldServer)worldIn;
                   MinecraftServer minecraftServer = worldIn.getMinecraftServer();
                   TemplateManager templateManager = worldServer.getStructureTemplateManager();
@@ -92,7 +91,7 @@ public class PoisonRiver extends Biome {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDTOXIN, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 

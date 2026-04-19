@@ -38,7 +38,7 @@ public class SpellPliers extends Item {
             boolean click = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
             if ((player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack) && click && !player.getCooldownTracker().hasCooldown(this)) {
                RayTraceResult result = GetMOP.fixedRayTraceBlocks(
-                  world, player, player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue(), 0.2F, 0.2F, false, false, true, true
+                  world, player, player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue(), 0.2F, false, false, true, true
                );
                if (NBTHelper.GetNBTboolean(stack, "picked")) {
                   if (result.hitVec != null) {

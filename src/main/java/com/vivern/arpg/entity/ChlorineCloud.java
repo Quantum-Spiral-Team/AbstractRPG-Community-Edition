@@ -137,7 +137,7 @@ public class ChlorineCloud extends EntityThrowable {
          if (result != null
             && result.getBlockPos() != null
             && block.getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos()) != null
-            && block != BlocksRegister.CHLORINEBELCHER) {
+            && block != BlocksRegister.CHLORINE_BELCHER) {
             if (result.sideHit == EnumFacing.UP || result.sideHit == EnumFacing.DOWN) {
                this.motionY = -this.motionY;
                this.moveY = -this.moveY;

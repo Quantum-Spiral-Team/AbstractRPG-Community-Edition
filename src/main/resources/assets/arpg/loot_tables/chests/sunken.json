@@ -186,7 +186,7 @@
                 },
 				{
                     "type": "item",
-                    "name": "arpg:thornkeeper",
+                    "name": "arpg:thorn_keeper",
                     "weight": 1,
                     "functions": [
                         {

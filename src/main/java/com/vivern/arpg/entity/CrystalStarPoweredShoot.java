@@ -46,19 +46,19 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
 
    public CrystalStarPoweredShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALSTAR);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
       this.setHomingPower();
    }
 
    public CrystalStarPoweredShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALSTAR);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
       this.setHomingPower();
    }
 
    public CrystalStarPoweredShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.CRYSTALSTAR);
+      this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
       this.setHomingPower();
    }
 
@@ -75,9 +75,9 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
 
    public void setHomingPower() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      float homingpower = parameters.get("homing_power") + this.rand.nextFloat() * parameters.get("homing_power_random");
+      float homingpower = parameters.getF("homing_power") + this.rand.nextFloat() * parameters.getF("homing_power_random");
       this.homingPower = -homingpower;
-      this.homingPowerMax = -parameters.get("homing_power_max");
+      this.homingPowerMax = -parameters.getF("homing_power_max");
    }
 
    @Override
@@ -104,7 +104,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
          if (this.ticksExisted % 5 == 0) {
             double max = Double.MAX_VALUE;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            double damageRadius = parameters.getEnchanted("find_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+            double damageRadius = parameters.getEnchantedF("find_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
             AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
                .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
                .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -117,7 +117,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
                      && EntitySelectors.NOT_SPECTATING.apply(entitylivingbase)
                      && entitylivingbase.getHealth() > 0.0F
                      && GetMOP.thereIsNoBlockCollidesBetween(
-                        this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbase), 1.0F, null, false
+                        this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbase), null, false
                      )) {
                      double dist = entitylivingbase.getDistance(this);
                      if (dist < max) {
@@ -134,7 +134,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
                         && EntitySelectors.NOT_SPECTATING.apply(entitylivingbasex)
                         && entitylivingbasex.getHealth() > 0.0F
                         && GetMOP.thereIsNoBlockCollidesBetween(
-                           this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasex), 1.0F, null, false
+                           this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasex), null, false
                         )) {
                         double dist = entitylivingbasex.getDistance(this);
                         if (dist < max) {
@@ -186,11 +186,11 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.pierce),
-                  parameters.getEnchanted("damage_powered", might) * this.magicPower,
+                  parameters.getEnchantedF("damage_powered", might) * this.magicPower,
                   this.getThrower(),
                   result.entityHit,
                   true,
-                  parameters.getEnchanted("knockback", impulse),
+                  parameters.getEnchantedF("knockback", impulse),
                   this.prevPosX,
                   this.prevPosY,
                   this.prevPosZ
@@ -217,7 +217,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
                   }
                } else {
                   boolean apricked = NailGunShoot.isEntityPricked(this.world, entitylivingbase);
-                  boolean healthmin = entitylivingbase.getHealth() <= parameters.get("health_to_prick_powered");
+                  boolean healthmin = entitylivingbase.getHealth() <= parameters.getF("health_to_prick_powered");
                   if (!this.damageDealed) {
                      this.damageDealed = true;
                      if (healthmin && !apricked) {
@@ -251,10 +251,10 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
 
    public void expl(Vec3d pos) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      int nn = parameters.geti("shots");
+      int nn = parameters.getI("shots");
       if (this.getThrower() != null) {
-         float radius = parameters.get("explode_find_radius");
-         List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(this.world, pos, radius, radius, this.getThrower(), this.prickedEntity);
+         float radius = parameters.getF("explode_find_radius");
+         List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(this.world, pos, radius, radius, this.getThrower());
          float randchance = list.isEmpty() ? 2.0F : 0.5F - list.size() * 0.08F;
          boolean hasspecial = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0;
          if (!list.isEmpty() && hasspecial) {
@@ -273,7 +273,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
                if (hasspecial) {
                   for (int j = 0; j < 4; j++) {
                      target = list.get(this.rand.nextInt(list.size()));
-                     if (GetMOP.thereIsNoBlockCollidesBetween(this.world, pos, GetMOP.entityCenterPos(target), 1.0F, null, false)) {
+                     if (GetMOP.thereIsNoBlockCollidesBetween(this.world, pos, GetMOP.entityCenterPos(target), null, false)) {
                         break;
                      }
                   }
@@ -283,7 +283,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
 
                SuperKnockback.setMove(
                   projectile,
-                  -parameters.get("velocity"),
+                  -parameters.getF("velocity"),
                   target.posX + (this.rand.nextFloat() - 0.5F) * 0.18F,
                   target.posY + target.height / 2.0F + (this.rand.nextFloat() - 0.5F) * 0.18F,
                   target.posZ + (this.rand.nextFloat() - 0.5F) * 0.18F
@@ -302,7 +302,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
          int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
          Weapons.dealDamage(
             new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.dismember),
-            parameters.getEnchanted("damage_powered", might) * this.magicPower,
+            parameters.getEnchantedF("damage_powered", might) * this.magicPower,
             this.getThrower(),
             this.prickedEntity,
             true

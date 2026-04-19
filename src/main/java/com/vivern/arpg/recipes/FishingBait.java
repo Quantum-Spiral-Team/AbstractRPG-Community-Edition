@@ -72,6 +72,6 @@ public class FishingBait implements IRecipe {
    }
 
    public ItemStack getRecipeOutput() {
-      return new ItemStack(ItemsRegister.MAINFISHINGROD);
+      return new ItemStack(ItemsRegister.FISHING_ROD);
    }
 }

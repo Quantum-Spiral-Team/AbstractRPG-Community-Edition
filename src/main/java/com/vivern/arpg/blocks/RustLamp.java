@@ -36,8 +36,8 @@ public class RustLamp extends Block {
       super(Material.IRON);
       this.setRegistryName("rust_lamp");
       this.setTranslationKey("rust_lamp");
-      this.blockHardness = BlocksRegister.HR_BUNKER.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_BUNKER.RESISTANCE;
+      this.blockHardness = BlocksRegister.HR_BUNKER.hardness;
+      this.blockResistance = BlocksRegister.HR_BUNKER.resistance;
       this.setCreativeTab(CreativeTabs.DECORATIONS);
       this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
       this.setSoundType(SoundType.METAL);

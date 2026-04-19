@@ -118,7 +118,7 @@ public class Submachine extends ItemWeapon {
                      player.addStat(StatList.getObjectUseStats(this));
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Weapons.setPlayerAnimationOnServer(player, 5, hand);
-                     int addheat = parameters.geti("heat_per_shoot");
+                     int addheat = parameters.getI("heat_per_shoot");
                      NBTHelper.AddNBTint(itemstack, addheat, "heat");
                      if (addheat + heat >= 2000) {
                         world.playSound(
@@ -139,12 +139,12 @@ public class Submachine extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
 
-                     double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      double damageRadius = 0.25;
-                     float inaccuracy = parameters.getEnchanted("inaccuracy", acc);
+                     float inaccuracy = parameters.getEnchantedF("inaccuracy", acc);
                      float rotP = player.rotationPitch + (float)itemRand.nextGaussian() * inaccuracy;
                      float rotY = player.rotationYaw + (float)itemRand.nextGaussian() * inaccuracy;
-                     Vec3d vec = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.25, 0.2, rotP, rotY);
+                     Vec3d vec = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.25, 0.2, rotP, rotY);
                      if (nonullbullet) {
                         bullet.onImpact(world, player, vec.x, vec.y, vec.z, null, null);
                      }
@@ -173,11 +173,11 @@ public class Submachine extends ItemWeapon {
                         );
                      }
 
-                     float wdamage = parameters.getEnchanted("damage", might)
-                        + damageadd * parameters.get("bullet_damage")
-                        + heat * parameters.get("per_heat_damage");
-                     float wknockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack))
-                        + knockbackadd * parameters.get("bullet_knockback");
+                     float wdamage = parameters.getEnchantedF("damage", might)
+                        + damageadd * parameters.getF("bullet_damage")
+                        + heat * parameters.getF("per_heat_damage");
+                     float wknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack))
+                        + knockbackadd * parameters.getF("bullet_knockback");
                      if (!list.isEmpty()) {
                         for (Entity entity : list) {
                            if (Team.checkIsOpponent(player, entity)) {
@@ -228,7 +228,7 @@ public class Submachine extends ItemWeapon {
                         collidesWithAny ? (isFired ? 3 : 2) : (isFired ? 1 : 0)
                      );
                   }
-               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.SUBMACHINECLIP, maxammo, true)) {
+               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.SUBMACHINE_CLIP, maxammo, true)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,
@@ -347,10 +347,10 @@ public class Submachine extends ItemWeapon {
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return parameters.getEnchantedi("cooldown", rapidity)
+      return parameters.getEnchantedI("cooldown", rapidity)
          - (
             EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0
-               ? Math.round(Math.max(NBTHelper.GetNBTint(itemstack, "heat") * parameters.get("special_heat_overclock") - 1.0F, 0.0F))
+               ? Math.round(Math.max(NBTHelper.GetNBTint(itemstack, "heat") * parameters.getF("special_heat_overclock") - 1.0F, 0.0F))
                : 0
          );
    }

@@ -56,7 +56,7 @@ public class ARPGPlugin implements IModPlugin {
       }
 
       registry.addRecipes(listNM, "arpg:nether_melter");
-      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.NETHERMELTER), new String[]{"arpg:nether_melter"});
+      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.NETHER_MELTER), new String[]{"arpg:nether_melter"});
       ArrayList<WrapperAssemblyTable> listAT = new ArrayList<>();
 
       for (AssemblyTableRecipe recipe : AssemblyTableRecipesRegister.allRecipes) {
@@ -65,7 +65,7 @@ public class ARPGPlugin implements IModPlugin {
       }
 
       registry.addRecipes(listAT, "arpg:assembly_table");
-      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.ASSEMBLYTABLE), new String[]{"arpg:assembly_table"});
+      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.ASSEMBLY_TABLE), new String[]{"arpg:assembly_table"});
       ArrayList<WrapperSpellForge> listSF = new ArrayList<>();
 
       for (SpellForgeRecipe recipe : SpellForgeRecipesRegister.allRecipes) {
@@ -74,7 +74,7 @@ public class ARPGPlugin implements IModPlugin {
       }
 
       registry.addRecipes(listSF, "arpg:spell_forge");
-      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.SPELLFORGE), new String[]{"arpg:spell_forge"});
+      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.SPELL_FORGE), new String[]{"arpg:spell_forge"});
       ArrayList<WrapperIndustrialMixer> listIM = new ArrayList<>();
 
       for (IndustrialMixerRecipe recipe : IndustrialMixerRecipesRegister.allRecipes) {
@@ -85,7 +85,7 @@ public class ARPGPlugin implements IModPlugin {
       }
 
       registry.addRecipes(listIM, "arpg:industrial_mixer");
-      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.INDUSTRIALMIXER), new String[]{"arpg:industrial_mixer"});
+      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.INDUSTRIAL_MIXER), new String[]{"arpg:industrial_mixer"});
       ArrayList<WrapperAlchemicLab> listAL = new ArrayList<>();
 
       for (AlchemicLabRecipe recipex : AlchemicLabRecipesRegister.allRecipes) {
@@ -96,7 +96,7 @@ public class ARPGPlugin implements IModPlugin {
       }
 
       registry.addRecipes(listAL, "arpg:alchemic_lab");
-      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.ALCHEMICLAB), new String[]{"arpg:alchemic_lab"});
+      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.ALCHEMIC_LAB), new String[]{"arpg:alchemic_lab"});
       ArrayList<WrapperSieve> listSI = new ArrayList<>();
 
       for (SieveRecipe recipexx : SieveRecipesRegister.allRecipes) {
@@ -106,7 +106,7 @@ public class ARPGPlugin implements IModPlugin {
 
       registry.addRecipes(listSI, "arpg:sieve");
       registry.addRecipeCatalyst(new ItemStack(BlocksRegister.SIEVE), new String[]{"arpg:sieve"});
-      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.ELECTRICSIEVE), new String[]{"arpg:sieve"});
+      registry.addRecipeCatalyst(new ItemStack(BlocksRegister.ELECTRIC_SIEVE), new String[]{"arpg:sieve"});
    }
 
    public static void tryFixOredicShow(Minecraft minecraft) {

@@ -81,7 +81,7 @@ public class BubbleFish extends ItemWeapon {
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (world.isRemote) {
          if (itemRand.nextFloat() < 0.15F && !this.isReloaded(itemstack) && Weapons.getPlayerAnimationId(entityIn, EnumHand.MAIN_HAND) == 4) {
-            this.spawnEatParticles(world, entityIn, ItemsRegister.FISHFEED, 4);
+            this.spawnEatParticles(world, entityIn, ItemsRegister.FISH_FEED, 4);
          }
       } else {
          this.setCanShoot(itemstack, entityIn);
@@ -99,7 +99,7 @@ public class BubbleFish extends ItemWeapon {
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             boolean b1 = true;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", sor);
+            float manacost = parameters.getEnchantedF("manacost", sor);
             if (click && player.getHeldItemMainhand() == itemstack) {
                if (ammo > 0 && this.isReloaded(itemstack)) {
                   if (!hascooldown && mana > manacost) {
@@ -113,7 +113,7 @@ public class BubbleFish extends ItemWeapon {
                         NBTHelper.AddNBTint(itemstack, -1, "animSend");
                      }
 
-                     int shots = GetMOP.floatToIntWithChance(parameters.getEnchanted("shots", rapidity), itemRand);
+                     int shots = GetMOP.floatToIntWithChance(parameters.getEnchantedF("shots", rapidity), itemRand);
                      world.playSound(
                         (EntityPlayer)null,
                         player.posX,
@@ -143,18 +143,18 @@ public class BubbleFish extends ItemWeapon {
                            player.rotationPitch,
                            player.rotationYaw,
                            0.0F,
-                           parameters.get("velocity"),
-                           parameters.getEnchanted("inaccuracy", acc),
+                           parameters.getF("velocity"),
+                           parameters.getEnchantedF("inaccuracy", acc),
                            -0.05F,
                            0.5F,
                            0.5F
                         );
-                        projectile.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack))
-                           + itemRand.nextInt(parameters.geti("livetime_random_add"));
+                        projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack))
+                           + itemRand.nextInt(parameters.getI("livetime_random_add"));
                         world.spawnEntity(projectile);
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.FISHFEED, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.FISH_FEED, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

@@ -60,9 +60,9 @@ public class CinderBow extends AbstractBow {
       int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, bow);
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       if (pulling >= 55) {
-         entityarrow.setDamage(entityarrow.getDamage() + parameters.getEnchanted("fullcharged_damage", might));
+         entityarrow.setDamage(entityarrow.getDamage() + parameters.getEnchantedF("fullcharged_damage", might));
       } else {
-         entityarrow.setDamage(entityarrow.getDamage() + parameters.getEnchanted("damage", might));
+         entityarrow.setDamage(entityarrow.getDamage() + parameters.getEnchantedF("damage", might));
       }
    }
 
@@ -86,7 +86,7 @@ public class CinderBow extends AbstractBow {
          EntityPlayer player = (EntityPlayer)entityIn;
          if (player.getHeldItemMainhand() == itemstack && Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && Keys.isKeyPressed(player, Keys.SECONDARYATTACK)) {
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
-            float manacost = WeaponParameters.getWeaponParameters(this).getEnchanted("manacost", sor);
+            float manacost = WeaponParameters.getWeaponParameters(this).getEnchantedF("manacost", sor);
             if (Mana.getMana(player) > manacost) {
                int pulling = NBTHelper.GetNBTint(itemstack, "pulling");
                int coolTime = this.getCooldownTime(itemstack);
@@ -115,7 +115,7 @@ public class CinderBow extends AbstractBow {
          }
 
          int k = GetMOP.floatToIntWithChance(
-            WeaponParameters.getWeaponParameters(this).getEnchanted("fullcharged_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, bow)),
+            WeaponParameters.getWeaponParameters(this).getEnchantedF("fullcharged_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, bow)),
             itemRand
          );
          arrow.setKnockbackStrength(k);

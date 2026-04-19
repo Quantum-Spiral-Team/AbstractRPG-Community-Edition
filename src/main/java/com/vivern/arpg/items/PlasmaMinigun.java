@@ -82,13 +82,13 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int RFtoShoot = parameters.getEnchantedi("rf_to_shoot", reuse);
+            int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
             float deploy = NBTHelper.GetNBTfloat(itemstack, "deploy");
             float rotate = NBTHelper.GetNBTfloat(itemstack, "rotate");
             float speed = NBTHelper.GetNBTfloat(itemstack, "speed");
             int heat = NBTHelper.GetNBTint(itemstack, "heat");
-            float maxSpeed = parameters.get("max_speed");
-            float deployPart = parameters.getEnchanted("deploy_speed", rapidity);
+            float maxSpeed = parameters.getF("max_speed");
+            float deployPart = parameters.getEnchantedF("deploy_speed", rapidity);
             NBTHelper.GiveNBTfloat(itemstack, deploy, "prevdeploy");
             NBTHelper.GiveNBTfloat(itemstack, rotate, "prevrotate");
             NBTHelper.GiveNBTfloat(itemstack, 0.0F, "rotate");
@@ -217,7 +217,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                            NBTHelper.GiveNBTint(itemstack, 0, "heat");
                            NBTHelper.AddNBTint(itemstack, 1, "heat");
                            heated = true;
-                           if (heat > parameters.geti("max_heat")) {
+                           if (heat > parameters.getI("max_heat")) {
                               NBTHelper.SetNBTint(itemstack, -heat, "heat");
                            }
                         }
@@ -240,12 +240,12 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                         }
 
                         for (int i = 0; i < turretMult; i++) {
-                           double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                           double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                            double damageRadius = 0.235;
-                           float inaccuracy = parameters.getEnchanted("inaccuracy", acc);
+                           float inaccuracy = parameters.getEnchantedF("inaccuracy", acc);
                            float rotP = player.rotationPitch + (float)itemRand.nextGaussian() * inaccuracy;
                            float rotY = player.rotationYaw + (float)itemRand.nextGaussian() * inaccuracy;
-                           Vec3d vec = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.23, 0.2, rotP, rotY);
+                           Vec3d vec = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.23, 0.2, rotP, rotY);
                            if (nonullbullet) {
                               bullet.onImpact(world, player, vec.x, vec.y, vec.z, null, null);
                            }
@@ -279,11 +279,11 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                                  if (Team.checkIsOpponent(player, entity)) {
                                     Weapons.dealDamage(
                                        new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                       parameters.getEnchanted("damage", might) + damageadd * parameters.get("bullet_damage"),
+                                       parameters.getEnchantedF("damage", might) + damageadd * parameters.getF("bullet_damage"),
                                        player,
                                        entity,
                                        true,
-                                       parameters.getEnchanted("knockback", impulse) + knockbackadd * parameters.get("bullet_knockback"),
+                                       parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
                                        player.posX,
                                        player.posY,
                                        player.posZ
@@ -324,7 +324,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                            );
                         }
                      }
-                  } else if (deploy <= 0.0F && this.initiateBulletReload(itemstack, player, ItemsRegister.PLASMAMINIGUNCLIP, maxammo, true)) {
+                  } else if (deploy <= 0.0F && this.initiateBulletReload(itemstack, player, ItemsRegister.PLASMA_MINIGUN_CLIP, maxammo, true)) {
                      world.playSound(
                         (EntityPlayer)null,
                         player.posX,
@@ -341,7 +341,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
             }
 
             if (!heated) {
-               int coolrate = parameters.getEnchantedi("cool_rate", rapidity);
+               int coolrate = parameters.getEnchantedI("cool_rate", rapidity);
                if (heat > 0) {
                   NBTHelper.SetNBTint(itemstack, Math.max(heat - coolrate, 0), "heat");
                } else if (heat < 0) {

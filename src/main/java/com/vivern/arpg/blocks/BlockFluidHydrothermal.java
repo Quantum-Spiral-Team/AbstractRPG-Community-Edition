@@ -48,7 +48,7 @@ public class BlockFluidHydrothermal extends BlockFluidClassic {
                world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
             }
 
-            if (block == BlocksRegister.FLUIDCRYON) {
+            if (block == BlocksRegister.FLUID_CRYON) {
                world.setBlockState(frompos, Blocks.ICE.getDefaultState());
                world.playSound(null, frompos, Sounds.fluid_freezing, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
             }

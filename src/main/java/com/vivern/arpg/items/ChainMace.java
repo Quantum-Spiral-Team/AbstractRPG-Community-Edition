@@ -124,7 +124,7 @@ public class ChainMace extends ItemWeapon {
                         if (entity != null && entity instanceof EntityChainMace && !entity.isDead) {
                            EntityChainMace mace = (EntityChainMace)entity;
                            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-                           mace.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.get("velocity"), 3.0F - acc);
+                           mace.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getF("velocity"), 3.0F - acc);
                            this.sendEntitySpin(world, mace, false, NBTHelper.GetNBTboolean(itemstack, "spindirection"));
                         } else {
                            NBTHelper.SetNBTboolean(itemstack, false, "throwed");
@@ -234,7 +234,7 @@ public class ChainMace extends ItemWeapon {
       entity.setPosition(player.posX, player.posY + player.height / 2.0F, player.posZ);
       entity.gravity = this.gravity;
       if (!spin) {
-         entity.shoot(player, player.rotationPitch - 10.0F, player.rotationYaw, 0.0F, parameters.get("velocity"), 3.0F - acc);
+         entity.shoot(player, player.rotationPitch - 10.0F, player.rotationYaw, 0.0F, parameters.getF("velocity"), 3.0F - acc);
       } else {
          entity.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.1F, 3.0F);
       }
@@ -275,8 +275,8 @@ public class ChainMace extends ItemWeapon {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(entity.thrower, result.entityHit) && !entity.world.isRemote) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float maceDamage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, entity.weaponstack));
-            float maceKnockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, entity.weaponstack));
+            float maceDamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, entity.weaponstack));
+            float maceKnockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, entity.weaponstack));
             if (this.doMeleeMaceAttack(entity, result.entityHit, entity.weaponstack, entity.thrower, maceDamage, maceKnockback, EnumHand.MAIN_HAND, false)
                && entity.soundCooldown <= 0) {
                entity.world
@@ -440,9 +440,9 @@ public class ChainMace extends ItemWeapon {
       EntityChainMace maceEntity, Entity entity, ItemStack stack, EntityPlayer player, float damage, float knockback, EnumHand hand, boolean isCritical
    ) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int firelvl = parameters.getEnchantedi("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
+      int firelvl = parameters.getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
       if (maceEntity.isBurning()) {
-         firelvl += parameters.geti("burning_mace_fire");
+         firelvl += parameters.getI("burning_mace_fire");
       }
 
       if (firelvl > 0) {
@@ -702,7 +702,7 @@ public class ChainMace extends ItemWeapon {
       public float getAdditionalDurabilityBar(ItemStack itemstack) {
          return MathHelper.clamp(
             (float)NBTHelper.GetNBTint(itemstack, "kills")
-               / WeaponParameters.getWeaponParameters(this).getEnchantedi("charges_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack)),
+               / WeaponParameters.getWeaponParameters(this).getEnchantedI("charges_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack)),
             0.0F,
             1.0F
          );
@@ -744,7 +744,7 @@ public class ChainMace extends ItemWeapon {
          for (int i = 0; i < count; i++) {
             HostileProjectiles.SeaBomb entityshoot = new HostileProjectiles.SeaBomb(entity.world, entity.thrower);
             entityshoot.setPosition(entity.posX, entity.posY, entity.posZ);
-            entityshoot.damage = parameters.getEnchanted("bomb_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, entity.weaponstack));
+            entityshoot.damage = parameters.getEnchantedF("bomb_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, entity.weaponstack));
             entity.world.spawnEntity(entityshoot);
             entityshoot.motionX = itemRand.nextGaussian() / 5.0;
             entityshoot.motionY = itemRand.nextGaussian() / 5.0;
@@ -813,7 +813,7 @@ public class ChainMace extends ItemWeapon {
                      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                      HostileProjectiles.SeaBomb entityshoot = new HostileProjectiles.SeaBomb(entity.world, entity.thrower);
                      entityshoot.setPosition(entity.posX, entity.posY, entity.posZ);
-                     entityshoot.damage = parameters.getEnchanted("bomb_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, entity.weaponstack));
+                     entityshoot.damage = parameters.getEnchantedF("bomb_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, entity.weaponstack));
                      entity.world.spawnEntity(entityshoot);
                      SuperKnockback.applyMove(entityshoot, 1.0F, entity.thrower.posX, entity.thrower.posY, entity.thrower.posZ);
                      entityshoot.velocityChanged = true;
@@ -841,9 +841,9 @@ public class ChainMace extends ItemWeapon {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
          boolean dead = false;
          boolean checkdead = false;
-         int addkills = parameters.getEnchantedi("charges_per_kill", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack));
+         int addkills = parameters.getEnchantedI("charges_per_kill", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack));
          int kills = NBTHelper.GetNBTint(stack, "kills");
-         if (kills < parameters.getEnchantedi("charges_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack))
+         if (kills < parameters.getEnchantedI("charges_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack))
             && !NBTHelper.GetNBTboolean(stack, "active")
             && entity instanceof EntityLivingBase
             && ((EntityLivingBase)entity).getHealth() > 0.0F) {
@@ -856,7 +856,7 @@ public class ChainMace extends ItemWeapon {
             if (elb.getHealth() <= 0.0F) {
                dead = true;
                if (elb.isPotionActive(MobEffects.POISON) || elb.isPotionActive(PotionEffects.TOXIN) || elb.isPotionActive(PotionEffects.BROKEN_ARMOR)) {
-                  addkills += parameters.geti("charges_effects_bonus");
+                  addkills += parameters.getI("charges_effects_bonus");
                }
             }
          }
@@ -924,7 +924,7 @@ public class ChainMace extends ItemWeapon {
                : 1.0F;
             if (Freezing.canImmobilizeEntity((EntityLivingBase)entity, ((EntityLivingBase)entity).getActivePotionEffect(PotionEffects.FREEZING))) {
                freezebreak += WeaponParameters.getWeaponParameters(this)
-                  .getEnchanted("icebreak_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+                  .getEnchantedF("icebreak_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
             }
          }
 

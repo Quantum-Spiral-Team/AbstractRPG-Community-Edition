@@ -55,21 +55,21 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
 
    public EntitySnapball(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.SNAPBALL);
+      this.weaponstack = new ItemStack(ItemsRegister.SNAP_BALL);
       this.setSize(0.4F, 0.4F);
       this.setRenderYawOffset(0.0F);
    }
 
    public EntitySnapball(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.SNAPBALL);
+      this.weaponstack = new ItemStack(ItemsRegister.SNAP_BALL);
       this.setSize(0.4F, 0.4F);
       this.setRenderYawOffset(0.0F);
    }
 
    public EntitySnapball(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.SNAPBALL);
+      this.weaponstack = new ItemStack(ItemsRegister.SNAP_BALL);
       this.setSize(0.4F, 0.4F);
       this.setRenderYawOffset(0.0F);
    }
@@ -140,18 +140,18 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
          && this.pickable
          && this.getDistanceSq(this.thrower) < 2.0) {
          this.picked = true;
-         if (this.thrower.getHeldItemMainhand().getItem() == ItemsRegister.SNAPBALL) {
+         if (this.thrower.getHeldItemMainhand().getItem() == ItemsRegister.SNAP_BALL) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
             NBTHelper.AddNBTint(this.thrower.getHeldItemMainhand(), 3 - this.lastBounces, "charge");
             if (this.rand.nextFloat()
-               < parameters.getEnchanted("reuse_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack))) {
+               < parameters.getEnchantedF("reuse_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack))) {
                this.world
                   .spawnEntity(
-                     new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.SNAPBALLAMMO))
+                     new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.SNAP_BALL_AMMO))
                   );
             }
 
-            boolean isPowered = NBTHelper.GetNBTint(this.thrower.getHeldItemMainhand(), "charge") > parameters.geti("charge_to_powered");
+            boolean isPowered = NBTHelper.GetNBTint(this.thrower.getHeldItemMainhand(), "charge") > parameters.getI("charge_to_powered");
             if (isPowered) {
                this.world.setEntityState(this, (byte)11);
             }
@@ -163,7 +163,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                this.posX,
                this.posY,
                this.posZ,
-               Sounds.snapball_pick,
+               Sounds.snap_ball_pick,
                SoundCategory.AMBIENT,
                0.8F,
                0.9F + this.rand.nextFloat() / 5.0F
@@ -191,7 +191,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
             this.expl(false);
          } else if (this.ticksExisted % 4 == 0) {
             WeaponParameters parametersx = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            double damageRadius = parametersx.getEnchanted("damage_radius_powered", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+            double damageRadius = parametersx.getEnchantedF("damage_radius_powered", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
             AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
                .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
                .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -203,11 +203,11 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                for (Entity entity : list) {
                   if (Team.checkIsOpponent(this.thrower, entity)
                      && GetMOP.thereIsNoBlockCollidesBetween(
-                        this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entity), 1.0F, null, false
+                        this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entity), null, false
                      )) {
                      Weapons.dealDamage(
                         new WeaponDamage(this.weaponstack, this.getThrower(), this, false, false, this, WeaponDamage.plasma),
-                        parametersx.getEnchanted("damage_powered", might),
+                        parametersx.getEnchantedF("damage_powered", might),
                         this.getThrower(),
                         entity,
                         true
@@ -265,7 +265,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
 
          if (this.exploding && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
             WeaponParameters parametersx = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            double damageRadius = parametersx.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+            double damageRadius = parametersx.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
 
             for (Entity entityx : GetMOP.getEntitiesInAABBof(this.world, this, damageRadius * 0.6F, this)) {
                if (Team.checkIsOpponent(this.getThrower(), entityx) && (entityx instanceof EntityLivingBase || entityx instanceof EntitySnapball)) {
@@ -374,11 +374,11 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.bullet),
-                  parameters.getEnchanted("damage", might),
+                  parameters.getEnchantedF("damage", might),
                   this.getThrower(),
                   result.entityHit,
                   true,
-                  parameters.getEnchanted("knockback", impulse),
+                  parameters.getEnchantedF("knockback", impulse),
                   this.thrower.posX,
                   this.thrower.posY,
                   this.thrower.posZ
@@ -390,7 +390,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                      this.posX,
                      this.posY,
                      this.posZ,
-                     Sounds.snapball_impact,
+                     Sounds.snap_ball_impact,
                      SoundCategory.AMBIENT,
                      0.8F,
                      0.9F + this.rand.nextFloat() / 5.0F
@@ -417,7 +417,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                   this.posX,
                   this.posY,
                   this.posZ,
-                  Sounds.snapball_impact,
+                  Sounds.snap_ball_impact,
                   SoundCategory.AMBIENT,
                   0.8F,
                   0.9F + this.rand.nextFloat() / 5.0F
@@ -444,7 +444,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
          double max = Double.MAX_VALUE;
          EntityLivingBase targ = null;
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double damageRadius = parameters.getEnchanted("bounce_find_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         double damageRadius = parameters.getEnchantedF("bounce_find_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
          AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
             .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
             .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -458,7 +458,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                   && EntitySelectors.NOT_SPECTATING.apply(entitylivingbase)
                   && entitylivingbase.getHealth() > 0.0F
                   && GetMOP.thereIsNoBlockCollidesBetween(
-                     this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbase), 1.0F, null, false
+                     this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbase), null, false
                   )) {
                   double dist = entitylivingbase.getDistanceSq(this);
                   if (dist < max) {
@@ -476,7 +476,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                      && EntitySelectors.NOT_SPECTATING.apply(entitylivingbasex)
                      && entitylivingbasex.getHealth() > 0.0F
                      && GetMOP.thereIsNoBlockCollidesBetween(
-                        this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasex), 1.0F, null, false
+                        this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasex), null, false
                      )) {
                      double dist = entitylivingbasex.getDistanceSq(this);
                      if (dist < max) {
@@ -518,14 +518,14 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
       if (this.powered
          && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0
-         && this.ticksExisted < parameters.geti("minimal_special_livetime")) {
+         && this.ticksExisted < parameters.getI("minimal_special_livetime")) {
          if (inChangeDerection) {
             this.motionX = -this.motionX;
             this.motionY = -this.motionY;
             this.motionZ = -this.motionZ;
          }
       } else {
-         double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
          AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
             .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
             .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -539,11 +539,11 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                   if (Team.checkIsOpponent(this.thrower, entity)) {
                      Weapons.dealDamage(
                         new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),
-                        parameters.getEnchanted("damage_explode", might),
+                        parameters.getEnchantedF("damage_explode", might),
                         this.thrower,
                         entity,
                         true,
-                        parameters.getEnchanted("knockback_explode", impulse),
+                        parameters.getEnchantedF("knockback_explode", impulse),
                         this.posX,
                         this.posY - 0.3,
                         this.posZ
@@ -568,7 +568,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                   this.posX,
                   this.posY,
                   this.posZ,
-                  Sounds.snapball_explode,
+                  Sounds.snap_ball_explode,
                   SoundCategory.AMBIENT,
                   1.75F,
                   0.9F + this.rand.nextFloat() / 5.0F
@@ -582,7 +582,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       super.onEntityUpdate();
       if (this.world.isRemote && this.powered && this.ticksExisted % 4 == 0) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double damageRadius = parameters.getEnchanted("damage_radius_powered", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         double damageRadius = parameters.getEnchantedF("damage_radius_powered", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
          AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
             .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
             .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -596,7 +596,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
             for (EntityLivingBase entity : list) {
                if (Team.checkIsOpponent(this.thrower, entity)) {
                   Vec3d pos2 = GetMOP.entityCenterPos(entity);
-                  if (GetMOP.thereIsNoBlockCollidesBetween(this.world, pos1, pos2, 1.0F, null, false)) {
+                  if (GetMOP.thereIsNoBlockCollidesBetween(this.world, pos1, pos2, null, false)) {
                      BetweenParticle laser = new BetweenParticle(
                         this.world, texture, 0.55F, 240, 1.0F, 0.96F, 0.3F, 0.0F, pos1.distanceTo(pos2), 4, 0.16F, 6.0F, pos1, pos2
                      );

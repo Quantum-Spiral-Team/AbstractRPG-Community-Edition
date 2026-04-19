@@ -111,8 +111,8 @@ public class ManaBar {
                energy_bars_enable = false;
             }
 
-            float shown = GetMOP.getfromto((float)energy_bars_time, 0.0F, (float)(fps / 2));
-            float shown2 = GetMOP.getfromto((float)energy_bars_time, (float)(fps / 4), fps / 1.5F);
+            float shown = GetMOP.getFromTo((float)energy_bars_time, 0.0F, (float)(fps / 2));
+            float shown2 = GetMOP.getFromTo((float)energy_bars_time, (float)(fps / 4), fps / 1.5F);
             int screenOffset = 5;
             this.mc.getTextureManager().bindTexture(BarsEmpty);
             drawCustomSizedTexturedRect(i - 10 - screenOffset, f - 224 - screenOffset, 64, 256, 54, 32, 10, 224);
@@ -460,7 +460,7 @@ public class ManaBar {
 
    public void renderDarknessScreen() {
       int anim = dungeonLadderAnimMax - dungeonLadderAnim;
-      float alpha = GetMOP.getfromto((float)anim, 0.0F, 5.0F) - GetMOP.getfromto((float)anim, 40.0F, 60.0F);
+      float alpha = GetMOP.getFromTo((float)anim, 0.0F, 5.0F) - GetMOP.getFromTo((float)anim, 40.0F, 60.0F);
       if (alpha > 0.0F) {
          GlStateManager.disableLighting();
          GlStateManager.disableDepth();

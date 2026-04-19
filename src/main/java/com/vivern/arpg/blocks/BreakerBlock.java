@@ -7,7 +7,7 @@ import com.vivern.arpg.main.Mana;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.tileentity.TileSpellForge;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -74,11 +74,11 @@ public class BreakerBlock extends Block {
    ) {
       TileSpellForge tile = this.getTileEntity(worldIn, pos);
       ItemStack helditem = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-      boolean nocool = !playerIn.getCooldownTracker().hasCooldown(ItemsRegister.SPELLHAMMER);
+      boolean nocool = !playerIn.getCooldownTracker().hasCooldown(ItemsRegister.SPELL_HAMMER);
       float mana = Mana.getMana(playerIn);
       int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, helditem);
       if (worldIn.isRemote) {
-         if (helditem.getItem() == ItemsRegister.SPELLHAMMER && nocool && mana >= 5.0F - sor * 1.1F) {
+         if (helditem.getItem() == ItemsRegister.SPELL_HAMMER && nocool && mana >= 5.0F - sor * 1.1F) {
             this.effect(worldIn, pos);
          }
 
@@ -91,7 +91,7 @@ public class BreakerBlock extends Block {
                return true;
             }
 
-            if (helditem.getItem() == ItemsRegister.SPELLHAMMER && helditem.getItem() instanceof SpellHammer && nocool && mana >= 5.0F - sor * 1.1F) {
+            if (helditem.getItem() == ItemsRegister.SPELL_HAMMER && helditem.getItem() instanceof SpellHammer && nocool && mana >= 5.0F - sor * 1.1F) {
                helditem.damageItem(1, playerIn);
                worldIn.playSound(null, pos, Sounds.spell_forge, SoundCategory.BLOCKS, 1.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
             }

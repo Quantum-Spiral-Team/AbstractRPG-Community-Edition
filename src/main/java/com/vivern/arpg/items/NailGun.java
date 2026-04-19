@@ -98,8 +98,8 @@ public class NailGun extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.15F,
                         0.5F,
                         0.6F
@@ -112,7 +112,7 @@ public class NailGun extends ItemWeapon {
                      }
                   }
                } else if (this.initiateMetadataReload(
-                  itemstack, player, new ItemStack(ItemsRegister.NAILGUNCLIP, 1, 1), maxammo, new ItemStack(ItemsRegister.NAILGUNCLIP, 1, 0)
+                  itemstack, player, new ItemStack(ItemsRegister.NAIL_GUN_CLIP, 1, 1), maxammo, new ItemStack(ItemsRegister.NAIL_GUN_CLIP, 1, 0)
                )) {
                   world.playSound(
                      (EntityPlayer)null,

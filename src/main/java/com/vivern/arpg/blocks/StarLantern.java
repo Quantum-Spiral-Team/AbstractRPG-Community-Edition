@@ -4,7 +4,7 @@ import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.OreDicHelper;
 import com.vivern.arpg.tileentity.TileStarLantern;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -30,9 +30,9 @@ public class StarLantern extends Block {
       super(Material.WOOD);
       this.setRegistryName("star_lantern");
       this.setTranslationKey("star_lantern");
-      this.blockHardness = BlocksRegister.HR_CONIFER_PLANKS.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_CONIFER_PLANKS.RESISTANCE;
-      this.setHarvestLevel("axe", BlocksRegister.HR_CONIFER_PLANKS.LVL);
+      this.blockHardness = BlocksRegister.HR_CONIFER_PLANKS.hardness;
+      this.blockResistance = BlocksRegister.HR_CONIFER_PLANKS.resistance;
+      this.setHarvestLevel("axe", BlocksRegister.HR_CONIFER_PLANKS.lvl);
       this.setCreativeTab(CreativeTabs.DECORATIONS);
       this.setLightLevel(1.0F);
    }

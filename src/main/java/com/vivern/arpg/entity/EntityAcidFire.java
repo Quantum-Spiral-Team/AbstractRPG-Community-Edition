@@ -47,17 +47,17 @@ public class EntityAcidFire extends StandardBullet {
 
    public EntityAcidFire(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.ACIDFIRE);
+      this.weaponstack = new ItemStack(ItemsRegister.ACID_FIRE);
    }
 
    public EntityAcidFire(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.ACIDFIRE);
+      this.weaponstack = new ItemStack(ItemsRegister.ACID_FIRE);
    }
 
    public EntityAcidFire(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.ACIDFIRE);
+      this.weaponstack = new ItemStack(ItemsRegister.ACID_FIRE);
    }
 
    public EntityAcidFire(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -192,11 +192,11 @@ public class EntityAcidFire extends StandardBullet {
             int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
             Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.acid),
-               parameters.getEnchanted("damage", might) * this.magicPower,
+               parameters.getEnchantedF("damage", might) * this.magicPower,
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse),
+               parameters.getEnchantedF("knockback", impulse),
                this.posX,
                this.posY,
                this.posZ
@@ -206,15 +206,15 @@ public class EntityAcidFire extends StandardBullet {
                EntityLivingBase entitylivingbase = (EntityLivingBase)result.entityHit;
                PotionEffect lasteff = entitylivingbase.getActivePotionEffect(this.potion);
                int mode = NBTHelper.GetNBTint(this.weaponstack, "mode") + 1;
-               int duration = parameters.getEnchantedi("potion" + mode + "_time_add", witchery);
+               int duration = parameters.getEnchantedI("potion" + mode + "_time_add", witchery);
                if (lasteff != null) {
                   duration += lasteff.getDuration();
                }
 
                PotionEffect baff = new PotionEffect(
                   this.potion,
-                  Math.min(duration, parameters.getEnchantedi("potion" + mode + "_time_max", witchery)),
-                  parameters.getEnchantedi("potion" + mode + "_power", witchery)
+                  Math.min(duration, parameters.getEnchantedI("potion" + mode + "_time_max", witchery)),
+                  parameters.getEnchantedI("potion" + mode + "_power", witchery)
                );
                entitylivingbase.addPotionEffect(baff);
                if (entitylivingbase.getHealth() <= 0.0F && this.rand.nextFloat() < 0.25 && entitylivingbase.deathTime < 1) {

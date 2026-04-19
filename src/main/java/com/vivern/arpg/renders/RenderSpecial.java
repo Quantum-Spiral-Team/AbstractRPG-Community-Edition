@@ -226,7 +226,7 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
          this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
          GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
          GlStateManager.translate(-0.5F, -0.5F, 0.5F);
-         blockrendererdispatcher.renderBlockBrightness(BlocksRegister.FROSTEXPLOSIVE.getDefaultState(), entity.getBrightness());
+         blockrendererdispatcher.renderBlockBrightness(BlocksRegister.FROSTFIRE_EXPLOSIVE.getDefaultState(), entity.getBrightness());
          GlStateManager.translate(0.0F, 0.0F, 1.0F);
          if (entity.fuse / 5 % 2 == 0) {
             GlStateManager.disableTexture2D();
@@ -236,7 +236,7 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
             GlStateManager.color(1.0F, 1.0F, 1.0F, f2);
             GlStateManager.doPolygonOffset(-3.0F, -3.0F);
             GlStateManager.enablePolygonOffset();
-            blockrendererdispatcher.renderBlockBrightness(BlocksRegister.FROSTEXPLOSIVE.getDefaultState(), 1.0F);
+            blockrendererdispatcher.renderBlockBrightness(BlocksRegister.FROSTFIRE_EXPLOSIVE.getDefaultState(), 1.0F);
             GlStateManager.doPolygonOffset(0.0F, 0.0F);
             GlStateManager.disablePolygonOffset();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -266,7 +266,7 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
          this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
          GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
          GlStateManager.translate(-0.5F, -0.5F, 0.5F);
-         blockrendererdispatcherx.renderBlockBrightness(BlocksRegister.ACIDBOMB.getDefaultState(), entityx.getBrightness());
+         blockrendererdispatcherx.renderBlockBrightness(BlocksRegister.ACID_BOMB.getDefaultState(), entityx.getBrightness());
          GlStateManager.translate(0.0F, 0.0F, 1.0F);
          if (entityx.fuse / 5 % 2 == 0) {
             GlStateManager.disableTexture2D();
@@ -276,7 +276,7 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
             GlStateManager.color(1.0F, 1.0F, 1.0F, f2);
             GlStateManager.doPolygonOffset(-3.0F, -3.0F);
             GlStateManager.enablePolygonOffset();
-            blockrendererdispatcherx.renderBlockBrightness(BlocksRegister.ACIDBOMB.getDefaultState(), 1.0F);
+            blockrendererdispatcherx.renderBlockBrightness(BlocksRegister.ACID_BOMB.getDefaultState(), 1.0F);
             GlStateManager.doPolygonOffset(0.0F, 0.0F);
             GlStateManager.disablePolygonOffset();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -395,7 +395,7 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
          this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
          GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
          GlStateManager.translate(-0.5F, -0.5F, 0.5F);
-         blockrendererdispatcherxx.renderBlockBrightness(BlocksRegister.MININUKE.getDefaultState(), entityxxx.getBrightness());
+         blockrendererdispatcherxx.renderBlockBrightness(BlocksRegister.MINI_NUKE.getDefaultState(), entityxxx.getBrightness());
          GlStateManager.translate(0.0F, 0.0F, 1.0F);
          if (entityxxx.fuse / 5 % 2 == 0) {
             GlStateManager.disableTexture2D();
@@ -405,7 +405,7 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
             GlStateManager.color(1.0F, 1.0F, 1.0F, f2);
             GlStateManager.doPolygonOffset(-3.0F, -3.0F);
             GlStateManager.enablePolygonOffset();
-            blockrendererdispatcherxx.renderBlockBrightness(BlocksRegister.MININUKE.getDefaultState(), 1.0F);
+            blockrendererdispatcherxx.renderBlockBrightness(BlocksRegister.MINI_NUKE.getDefaultState(), 1.0F);
             GlStateManager.doPolygonOffset(0.0F, 0.0F);
             GlStateManager.disablePolygonOffset();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -491,10 +491,10 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
          GlStateManager.rotate(entityxxxxx.prevRotationPitch + (entityxxxxx.rotationPitch - entityxxxxx.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
          this.bindTexture(crystalCutterTex);
          float tick = entityxxxxx.ticksExisted - 1.0F + partialTicks;
-         float fromto = GetMOP.getfromto(tick, 0.0F, 10.0F);
+         float fromto = GetMOP.getFromTo(tick, 0.0F, 10.0F);
          float beamwidth = entityxxxxx.cutterSize
             / 2.0F
-            * (fromto - (entityxxxxx.destroying ? GetMOP.getfromto(entityxxxxx.destroyTick + partialTicks, 0.0F, 4.0F) : 0.0F));
+            * (fromto - (entityxxxxx.destroying ? GetMOP.getFromTo(entityxxxxx.destroyTick + partialTicks, 0.0F, 4.0F) : 0.0F));
          float angleAdd = (1.0F - fromto) * 30.0F;
          GlStateManager.pushMatrix();
          GlStateManager.translate(-0.1F, 0.0F, -beamwidth);

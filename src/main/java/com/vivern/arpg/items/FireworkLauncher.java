@@ -99,13 +99,13 @@ public class FireworkLauncher extends ItemWeapon {
                               player.rotationPitch,
                               player.rotationYaw,
                               -2.0F,
-                              parameters.getEnchanted("velocity", range),
-                              parameters.getEnchanted("inaccuracy", acc),
+                              parameters.getEnchantedF("velocity", range),
+                              parameters.getEnchantedF("inaccuracy", acc),
                               -0.1F,
                               0.5F,
                               0.5F
                            );
-                           projectile.setFireworkSize(itemRand.nextInt(parameters.getEnchantedi("max_firework_size", range)));
+                           projectile.setFireworkSize(itemRand.nextInt(parameters.getEnchantedI("max_firework_size", range)));
                            world.spawnEntity(projectile);
                            IWeapon.fireBomEffect(this, player, world, 20);
                            Weapons.setPlayerAnimationOnServer(player, 12, EnumHand.MAIN_HAND);
@@ -140,8 +140,8 @@ public class FireworkLauncher extends ItemWeapon {
                               player.rotationPitch - 7.5F,
                               player.rotationYaw,
                               0.0F,
-                              parameters.get("velocity_dragon"),
-                              parameters.getEnchanted("inaccuracy_dragon", acc),
+                              parameters.getF("velocity_dragon"),
+                              parameters.getEnchantedF("inaccuracy_dragon", acc),
                               -0.1F,
                               0.5F,
                               0.5F
@@ -163,13 +163,13 @@ public class FireworkLauncher extends ItemWeapon {
                      }
                   } else {
                      ArrayList<Item> ammolist = new ArrayList<>();
-                     ammolist.add(ItemsRegister.FIREWORKPACK);
-                     ammolist.add(ItemsRegister.FIREWORKDRAGON);
-                     Item ammotype = FindAmmo.FindModulate(player.inventory, ammolist);
+                     ammolist.add(ItemsRegister.FIREWORK_PACK);
+                     ammolist.add(ItemsRegister.FIREWORK_DRAGON_ROCKET);
+                     Item ammotype = FindAmmo.findModulate(player.inventory, ammolist);
                      boolean isrelneed = this.isReloadNeed(itemstack);
                      if (ammotype != null || isrelneed) {
                         if (!isrelneed && ammo <= 0) {
-                           NBTHelper.SetNBTboolean(itemstack, ammotype == ItemsRegister.FIREWORKDRAGON, "dragon");
+                           NBTHelper.SetNBTboolean(itemstack, ammotype == ItemsRegister.FIREWORK_DRAGON_ROCKET, "dragon");
                         }
 
                         if (this.initiateReload(itemstack, player, ammotype, maxammo)) {
@@ -213,8 +213,8 @@ public class FireworkLauncher extends ItemWeapon {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int reloading = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack);
       return NBTHelper.GetNBTboolean(itemstack, "dragon")
-         ? parameters.getEnchantedi("reload_dragon", reloading)
-         : parameters.getEnchantedi("reload", reloading);
+         ? parameters.getEnchantedI("reload_dragon", reloading)
+         : parameters.getEnchantedI("reload", reloading);
    }
 
    @Override
@@ -222,8 +222,8 @@ public class FireworkLauncher extends ItemWeapon {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int reloading = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
       return NBTHelper.GetNBTboolean(itemstack, "dragon")
-         ? parameters.getEnchantedi("cooldown_dragon", reloading)
-         : parameters.getEnchantedi("cooldown", reloading);
+         ? parameters.getEnchantedI("cooldown_dragon", reloading)
+         : parameters.getEnchantedI("cooldown", reloading);
    }
 
    @Override

@@ -20,23 +20,23 @@ public class DecorReplacerDungeon implements ITemplateProcessor {
    public void randomizeOre(Random rand) {
       int i = rand.nextInt(21);
       if (i <= 2) {
-         this.ore = BlocksRegister.ORERHINESTONE.getDefaultState();
+         this.ore = BlocksRegister.RHINESTONE_ORE.getDefaultState();
       } else if (i <= 4) {
-         this.ore = BlocksRegister.OREAMETHYST.getDefaultState();
+         this.ore = BlocksRegister.AMETHYST_ORE.getDefaultState();
       } else if (i <= 6) {
-         this.ore = BlocksRegister.ORETOPAZ.getDefaultState();
+         this.ore = BlocksRegister.TOPAZ_ORE.getDefaultState();
       } else if (i <= 7) {
-         this.ore = BlocksRegister.ORESAPPHIRE.getDefaultState();
+         this.ore = BlocksRegister.SAPPHIRE_ORE.getDefaultState();
       } else if (i <= 8) {
-         this.ore = BlocksRegister.ORERUBY.getDefaultState();
+         this.ore = BlocksRegister.RUBY_ORE.getDefaultState();
       } else if (i <= 9) {
-         this.ore = BlocksRegister.ORECITRINE.getDefaultState();
+         this.ore = BlocksRegister.CITRINE_ORE.getDefaultState();
       } else if (i <= 10) {
          this.ore = Blocks.EMERALD_ORE.getDefaultState();
       } else if (i <= 11) {
          this.ore = Blocks.DIAMOND_ORE.getDefaultState();
       } else if (i <= 12) {
-         this.ore = BlocksRegister.OREADAMANTIUM.getDefaultState();
+         this.ore = BlocksRegister.ADAMANTIUM_ORE.getDefaultState();
       } else if (i <= 15) {
          this.ore = Blocks.COAL_ORE.getDefaultState();
       } else if (i <= 17) {
@@ -46,19 +46,19 @@ public class DecorReplacerDungeon implements ITemplateProcessor {
       } else if (i <= 19) {
          this.ore = Blocks.REDSTONE_ORE.getDefaultState();
       } else if (i <= 20) {
-         this.ore = BlocksRegister.ORECHROMIUM.getDefaultState();
+         this.ore = BlocksRegister.CHROMIUM_ORE.getDefaultState();
       }
    }
 
    public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
       if (this.mode == DimensionDungeon.EnumCaveDecorType.MAGIC) {
          if (blockInfoIn.blockState.getBlock() == BlocksRegister.SELENITE) {
-            world.setBlockState(pos, BlocksRegister.MAGICSTONE.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.MAGIC_STONE.getDefaultState());
             return null;
          }
 
-         if (blockInfoIn.blockState.getBlock() == BlocksRegister.SELENITECRYSTALS) {
-            world.setBlockState(pos, BlocksRegister.CAVECRYSTALS.getDefaultState());
+         if (blockInfoIn.blockState.getBlock() == BlocksRegister.SELENITE_CRYSTAL) {
+            world.setBlockState(pos, BlocksRegister.CAVE_CRYSTAL.getDefaultState());
             return null;
          }
       } else if (this.mode == DimensionDungeon.EnumCaveDecorType.GLOWING) {
@@ -68,15 +68,15 @@ public class DecorReplacerDungeon implements ITemplateProcessor {
          }
 
          if (blockInfoIn.blockState.getBlock() == Blocks.COBBLESTONE) {
-            world.setBlockState(pos, BlocksRegister.DEEPROCK.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.DEEP_ROCK.getDefaultState());
             return null;
          }
 
          if (blockInfoIn.blockState.getBlock() == Blocks.STONEBRICK) {
             if (Blocks.STONEBRICK.getMetaFromState(blockInfoIn.blockState) == 3) {
-               world.setBlockState(pos, BlocksRegister.DOLERITECOLUMN.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.DOLERITE_COLUMN.getDefaultState());
             } else {
-               world.setBlockState(pos, BlocksRegister.DOLERITEBRICKS.getDefaultState());
+               world.setBlockState(pos, BlocksRegister.DOLERITE_BRICKS.getDefaultState());
             }
 
             return null;
@@ -84,36 +84,36 @@ public class DecorReplacerDungeon implements ITemplateProcessor {
 
          if (blockInfoIn.blockState.getBlock() == Blocks.STONE_SLAB) {
             if (blockInfoIn.blockState.getValue(BlockSlab.HALF) == EnumBlockHalf.TOP) {
-               world.setBlockState(pos, BlocksRegister.DOLERITEPILASTER.getDefaultState().withProperty(Pilaster.FACING, EnumFacing.DOWN));
+               world.setBlockState(pos, BlocksRegister.DOLERITE_PILASTER.getDefaultState().withProperty(Pilaster.FACING, EnumFacing.DOWN));
             }
 
             if (blockInfoIn.blockState.getValue(BlockSlab.HALF) == EnumBlockHalf.BOTTOM) {
-               world.setBlockState(pos, BlocksRegister.DOLERITEPILASTER.getDefaultState().withProperty(Pilaster.FACING, EnumFacing.UP));
+               world.setBlockState(pos, BlocksRegister.DOLERITE_PILASTER.getDefaultState().withProperty(Pilaster.FACING, EnumFacing.UP));
             }
 
             return null;
          }
 
          if (blockInfoIn.blockState.getBlock() == BlocksRegister.SELENITE) {
-            world.setBlockState(pos, BlocksRegister.GLOWINGVEIN.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.GLOWING_VEIN.getDefaultState());
             return null;
          }
 
-         if (blockInfoIn.blockState.getBlock() == BlocksRegister.SELENITECRYSTALS) {
-            world.setBlockState(pos, BlocksRegister.GLOWINGCAVECRYSTALS.getDefaultState());
+         if (blockInfoIn.blockState.getBlock() == BlocksRegister.SELENITE_CRYSTAL) {
+            world.setBlockState(pos, BlocksRegister.GLOWING_CAVE_CRYSTAL.getDefaultState());
             return null;
          }
 
          if (blockInfoIn.blockState.getBlock() == Blocks.COBBLESTONE_WALL) {
-            world.setBlockState(pos, BlocksRegister.DOLERITECOLUMN.getDefaultState());
+            world.setBlockState(pos, BlocksRegister.DOLERITE_COLUMN.getDefaultState());
             return null;
          }
 
-         if (blockInfoIn.blockState.getBlock() == BlocksRegister.GREENGLOWINGMUSH) {
+         if (blockInfoIn.blockState.getBlock() == BlocksRegister.GREEN_GLOWING_MUSHROOM) {
             if (world.rand.nextFloat() < 0.95) {
                return new BlockInfo(
                   blockInfoIn.pos,
-                  BlocksRegister.BLUEGLOWINGMUSH.getStateFromMeta(BlocksRegister.GREENGLOWINGMUSH.getMetaFromState(blockInfoIn.blockState)),
+                  BlocksRegister.BLUE_GLOWING_MUSHROOM.getStateFromMeta(BlocksRegister.GREEN_GLOWING_MUSHROOM.getMetaFromState(blockInfoIn.blockState)),
                   blockInfoIn.tileentityData
                );
             }
@@ -124,7 +124,7 @@ public class DecorReplacerDungeon implements ITemplateProcessor {
          if (blockInfoIn.blockState.getBlock() == Blocks.STONE_BRICK_STAIRS) {
             return new BlockInfo(
                blockInfoIn.pos,
-               BlocksRegister.DOLERITESTAIRS.getStateFromMeta(Blocks.STONE_BRICK_STAIRS.getMetaFromState(blockInfoIn.blockState)),
+               BlocksRegister.DOLERITE_STAIRS.getStateFromMeta(Blocks.STONE_BRICK_STAIRS.getMetaFromState(blockInfoIn.blockState)),
                blockInfoIn.tileentityData
             );
          }
@@ -132,7 +132,7 @@ public class DecorReplacerDungeon implements ITemplateProcessor {
          if (blockInfoIn.blockState.getBlock() == Blocks.STONE_STAIRS) {
             return new BlockInfo(
                blockInfoIn.pos,
-               BlocksRegister.DOLERITESTAIRS.getStateFromMeta(Blocks.STONE_STAIRS.getMetaFromState(blockInfoIn.blockState)),
+               BlocksRegister.DOLERITE_STAIRS.getStateFromMeta(Blocks.STONE_STAIRS.getMetaFromState(blockInfoIn.blockState)),
                blockInfoIn.tileentityData
             );
          }
@@ -142,7 +142,7 @@ public class DecorReplacerDungeon implements ITemplateProcessor {
          return null;
       }
 
-      if (blockInfoIn.blockState.getBlock() == BlocksRegister.ORERUBY) {
+      if (blockInfoIn.blockState.getBlock() == BlocksRegister.RUBY_ORE) {
          world.setBlockState(pos, this.ore);
          return null;
       } else {

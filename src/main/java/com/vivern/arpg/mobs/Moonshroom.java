@@ -21,9 +21,9 @@ public class Moonshroom extends AbstractMob {
       this.setattributes(28.0, 20.0, 1.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       this.registerLOOT(
          new MobDrop[]{
-            new MobDrop(ItemsRegister.MOONSHROOMMEAT, 1.0F, 0, 1, 2, 3),
+            new MobDrop(ItemsRegister.MOONSHROOM_MEAT, 1.0F, 0, 1, 2, 3),
             new MobDrop(ItemsRegister.YEAST, 0.05F, 0, 1, 3, 5),
-            new MobDrop(ItemsRegister.WHEYSTARTER, 0.05F, 0, 1, 3, 5)
+            new MobDrop(ItemsRegister.WHEY_STARTER, 0.05F, 0, 1, 3, 5)
          }
       );
       this.setNoGravity(true);

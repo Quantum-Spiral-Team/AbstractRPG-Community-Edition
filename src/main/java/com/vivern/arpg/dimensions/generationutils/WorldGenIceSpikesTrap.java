@@ -15,7 +15,7 @@ public class WorldGenIceSpikesTrap extends WorldGenerator {
    public int depth;
    public boolean snowy;
    public boolean snapToHeight;
-   public IBlockState snow = BlocksRegister.LOOSESNOW.getStateFromMeta(1);
+   public IBlockState snow = BlocksRegister.LOOSE_SNOW.getStateFromMeta(1);
 
    public WorldGenIceSpikesTrap(boolean snowy, int size, int depth, boolean snapToHeight) {
       this.size = size;
@@ -28,8 +28,8 @@ public class WorldGenIceSpikesTrap extends WorldGenerator {
       for (int i = 0; i < count; i++) {
          for (int w = -width; w <= width; w++) {
             BlockPos pos = this.snapToHeight ? GetMOP.getTrueHeight(world, center.offset(offsetSide, w)) : center.offset(offsetSide, w);
-            if (world.getBlockState(pos).getBlock() != BlocksRegister.CLEANICE) {
-               world.setBlockState(pos, BlocksRegister.CLEANICE.getDefaultState());
+            if (world.getBlockState(pos).getBlock() != BlocksRegister.CLEAN_ICE) {
+               world.setBlockState(pos, BlocksRegister.CLEAN_ICE.getDefaultState());
                if (this.snowy) {
                   BlockPos posup = pos.up();
                   if (world.isAirBlock(posup)) {
@@ -42,7 +42,7 @@ public class WorldGenIceSpikesTrap extends WorldGenerator {
                for (int h = 1; h <= deep; h++) {
                   BlockPos posdeep = pos.down(h);
                   if (h == deep && !world.isAirBlock(posdeep.down())) {
-                     world.setBlockState(posdeep, BlocksRegister.ICESPIKES.getDefaultState().withProperty(IceSpikes.NOTPERMANENT, false));
+                     world.setBlockState(posdeep, BlocksRegister.ICE_SPIKES.getDefaultState().withProperty(IceSpikes.NOTPERMANENT, false));
                   } else {
                      world.setBlockToAir(posdeep);
                   }

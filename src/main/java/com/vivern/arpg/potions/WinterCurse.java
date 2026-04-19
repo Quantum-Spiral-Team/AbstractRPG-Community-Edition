@@ -65,7 +65,7 @@ public class WinterCurse extends AdvancedPotion {
    public List<ItemStack> getCurativeItems() {
       ArrayList<ItemStack> ret = new ArrayList<>();
       ret.add(new ItemStack(Items.MILK_BUCKET));
-      ret.add(new ItemStack(ItemsRegister.CRIMBERRYWINE));
+      ret.add(new ItemStack(ItemsRegister.CRIMBERRY_WINE));
       return ret;
    }
 

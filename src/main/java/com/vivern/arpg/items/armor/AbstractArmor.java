@@ -21,7 +21,7 @@ public abstract class AbstractArmor extends ItemArmor {
    public int enchantability;
 
    public AbstractArmor(EntityEquipmentSlot slot, String name, int maxdamage, int enchantability) {
-      super(ItemsRegister.null_material, 0, slot);
+      super(ItemsRegister.NULL_MATERIAL, 0, slot);
       this.setRegistryName(name);
       this.setTranslationKey(name);
       this.setMaxDamage(maxdamage);

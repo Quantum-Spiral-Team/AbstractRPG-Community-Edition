@@ -5,7 +5,7 @@ import com.vivern.arpg.recipes.NetherMelterRecipe;
 import com.vivern.arpg.tileentity.TileManaBottle;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

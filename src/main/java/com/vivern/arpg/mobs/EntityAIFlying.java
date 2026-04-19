@@ -47,7 +47,7 @@ public class EntityAIFlying extends EntityAIBase {
 
       this.entity.getLookHelper().setLookPosition(this.vec.x, this.vec.y, this.vec.z, 20.0F, 20.0F);
       Vec3d motion = new Vec3d(-this.entity.motionX, -this.entity.motionY, -this.entity.motionZ);
-      Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(motion);
+      Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(motion);
       this.entity.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
       if (this.pitch) {
          this.entity.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);

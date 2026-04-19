@@ -8,7 +8,7 @@ import com.vivern.arpg.main.NoiseGenerator3D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -39,7 +39,7 @@ public class MortuorusChunkGenerator implements IChunkGenerator {
    public static final IBlockState STONE = Blocks.STONE.getDefaultState();
    public static final IBlockState DIRT = Blocks.GRAVEL.getDefaultState();
    public static final IBlockState GRASS = Blocks.GRAVEL.getDefaultState();
-   public static final IBlockState WATER = BlocksRegister.FLUIDDARKNESS.getDefaultState();
+   public static final IBlockState WATER = BlocksRegister.FLUID_DARKNESS.getDefaultState();
    public static final IBlockState AIR = Blocks.AIR.getDefaultState();
    public static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
    private final Random rand;
@@ -83,10 +83,10 @@ public class MortuorusChunkGenerator implements IChunkGenerator {
       this.heightMap = new double[825];
       this.biomeWeights = new float[25];
       this.arsenicOreGen = new CustomOreGenerator(
-         BlocksRegister.OREARSENIC.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOSTONE), 4, 10, 6, 10, 50
+         BlocksRegister.ARSENIC_ORE.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOACTIVE_STONE), 4, 10, 6, 10, 50
       );
       this.toxiniumOreGen = new CustomOreGenerator(
-         BlocksRegister.ORETOXINIUM.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOSTONE), 2, 8, 2, 6, 25
+         BlocksRegister.TOXINIUM_ORE.getDefaultState(), 101, BlockMatcher.forBlock(BlocksRegister.RADIOACTIVE_STONE), 2, 8, 2, 6, 25
       );
 
       for (int i = -2; i <= 2; i++) {
@@ -409,7 +409,7 @@ public class MortuorusChunkGenerator implements IChunkGenerator {
          int i1 = this.rand.nextInt(16) + 8;
          int j1 = this.rand.nextInt(256);
          int k1 = this.rand.nextInt(16) + 8;
-         new WorldGenLakes(BlocksRegister.FLUIDDARKNESS).generate(this.world, this.rand, blockpos.add(i1, j1, k1));
+         new WorldGenLakes(BlocksRegister.FLUID_DARKNESS).generate(this.world, this.rand, blockpos.add(i1, j1, k1));
       }
 
       if (!flag

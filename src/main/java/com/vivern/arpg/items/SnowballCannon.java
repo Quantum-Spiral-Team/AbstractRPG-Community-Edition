@@ -85,7 +85,7 @@ public class SnowballCannon extends ItemWeapon {
                ammolist.add(Item.getItemFromBlock(Blocks.SNOW));
             }
 
-            Item ammotype = FindAmmo.FindModulate(player.inventory, ammolist);
+            Item ammotype = FindAmmo.findModulate(player.inventory, ammolist);
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
             Item cooldownItem = (Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP);
             if (ammotype != null && hand != null && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)) {
@@ -115,16 +115,16 @@ public class SnowballCannon extends ItemWeapon {
                            player.rotationPitch - 3.5F,
                            player.rotationYaw,
                            0.2F,
-                           parameters.get("velocity"),
-                           parameters.getEnchanted("inaccuracy", acc),
+                           parameters.getF("velocity"),
+                           parameters.getEnchantedF("inaccuracy", acc),
                            -0.25F,
                            0.5F,
                            0.3F
                         );
-                        bullet.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                        bullet.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
                         world.spawnEntity(bullet);
                         if (!player.capabilities.isCreativeMode) {
-                           if (itemRand.nextFloat() < parameters.getEnchanted("ammo_consume_chance", reuse)) {
+                           if (itemRand.nextFloat() < parameters.getEnchantedF("ammo_consume_chance", reuse)) {
                               this.addAmmo(ammo, itemstack, -1);
                               player.inventory.clearMatchingItems(Items.SNOWBALL, -1, 1, null);
                            }
@@ -142,12 +142,12 @@ public class SnowballCannon extends ItemWeapon {
                            0.8F,
                            0.9F + itemRand.nextFloat() / 5.0F
                         );
-                        int cooldown2 = parameters.getEnchantedi("cooldown_special", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
+                        int cooldown2 = parameters.getEnchantedI("cooldown_special", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
                         player.getCooldownTracker().setCooldown(cooldownItem, cooldown2);
                         player.addStat(StatList.getObjectUseStats(this));
                         IWeapon.fireBomEffect(this, player, world, 1);
                         Weapons.setPlayerAnimationOnServer(player, 5, hand);
-                        int shots = parameters.geti("shots_special");
+                        int shots = parameters.getI("shots_special");
 
                         for (int ss = 0; ss < shots; ss++) {
                            CannonSnowball bullet = new CannonSnowball(world, player, itemstack);
@@ -158,18 +158,18 @@ public class SnowballCannon extends ItemWeapon {
                               player.rotationPitch - 3.5F,
                               player.rotationYaw,
                               0.2F,
-                              parameters.get("velocity"),
-                              parameters.getEnchanted("inaccuracy_special", acc),
+                              parameters.getF("velocity"),
+                              parameters.getEnchantedF("inaccuracy_special", acc),
                               -0.25F,
                               0.5F,
                               0.3F
                            );
-                           bullet.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                           bullet.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
                            world.spawnEntity(bullet);
                         }
 
                         if (!player.capabilities.isCreativeMode) {
-                           if (itemRand.nextFloat() < parameters.getEnchanted("ammo_consume_chance", reuse)) {
+                           if (itemRand.nextFloat() < parameters.getEnchantedF("ammo_consume_chance", reuse)) {
                               this.addAmmo(ammo, itemstack, -1);
                               player.inventory.clearMatchingItems(Item.getItemFromBlock(Blocks.SNOW), -1, 1, null);
                            }

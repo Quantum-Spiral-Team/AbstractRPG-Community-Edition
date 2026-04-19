@@ -211,7 +211,7 @@
                 },
 				{
                     "type": "item",
-                    "name": "arpg:cryogrenade",
+                    "name": "arpg:cryo_grenade",
                     "weight": 2,
                     "functions": [
                         {

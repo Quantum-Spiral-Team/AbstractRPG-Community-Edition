@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -110,7 +110,7 @@ public class LooseSnow extends BlockFalling {
    }
 
    public void onEndFalling(World worldIn, BlockPos pos, IBlockState placed, IBlockState replaced) {
-      if (replaced.getBlock() == BlocksRegister.LOOSESNOW) {
+      if (replaced.getBlock() == BlocksRegister.LOOSE_SNOW) {
          worldIn.setBlockState(
             pos,
             placed.withProperty(LAYERS, Math.min(8, (Integer)replaced.getValue(LAYERS) + (Integer)placed.getValue(LAYERS)))
@@ -128,7 +128,7 @@ public class LooseSnow extends BlockFalling {
    }
 
    private void checkFallable(World worldIn, BlockPos pos) {
-      if (worldIn.getBlockState(pos.down()).getBlock() == BlocksRegister.LOOSESNOW
+      if (worldIn.getBlockState(pos.down()).getBlock() == BlocksRegister.LOOSE_SNOW
             && (Integer)worldIn.getBlockState(pos.down()).getValue(LAYERS) < 8
          || (worldIn.isAirBlock(pos.down()) || canFallThrough(worldIn.getBlockState(pos.down()))) && pos.getY() >= 0) {
          int i = 32;
@@ -144,7 +144,7 @@ public class LooseSnow extends BlockFalling {
             if (blockpos.getY() > 0) {
                worldIn.setBlockState(blockpos.up(), state);
             }
-         } else if (!worldIn.isRemote && worldIn.getBlockState(pos).getBlock() == BlocksRegister.LOOSESNOW) {
+         } else if (!worldIn.isRemote && worldIn.getBlockState(pos).getBlock() == BlocksRegister.LOOSE_SNOW) {
             EntityFallingBlock entityfallingblock = new EntityFallingBlock(
                worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, worldIn.getBlockState(pos).withProperty(ISFALLING, true)
             );

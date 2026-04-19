@@ -23,9 +23,9 @@ public class SeaUrchin extends Block implements IBlockHardBreak {
       super(Material.ROCK);
       this.setRegistryName("sea_urchin");
       this.setTranslationKey("sea_urchin");
-      this.blockHardness = BlocksRegister.HR_CORALS.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_CORALS.RESISTANCE;
-      this.setHarvestLevel("axe", BlocksRegister.HR_CORALS.LVL);
+      this.blockHardness = BlocksRegister.HR_CORALS.hardness;
+      this.blockResistance = BlocksRegister.HR_CORALS.resistance;
+      this.setHarvestLevel("axe", BlocksRegister.HR_CORALS.lvl);
       this.setSoundType(SoundTypeCrunchy.CRUNCHY);
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }

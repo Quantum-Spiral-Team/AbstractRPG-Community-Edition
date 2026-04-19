@@ -2,7 +2,7 @@ package com.vivern.arpg.events;
 
 import com.vivern.arpg.main.Mana;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;

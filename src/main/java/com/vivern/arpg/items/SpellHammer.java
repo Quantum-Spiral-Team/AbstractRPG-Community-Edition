@@ -131,7 +131,7 @@ public class SpellHammer extends ItemWeapon {
                   int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
                   WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                   boolean doMobAttack = true;
-                  RayTraceResult result = GetMOP.rayTrace(world, parameters.getEnchanted("length", range), player, false);
+                  RayTraceResult result = GetMOP.rayTrace(world, parameters.getEnchantedF("length", range), player, false);
                   if (result != null && result.sideHit == EnumFacing.UP && result.getBlockPos() != null) {
                      TileEntity tileEntity = world.getTileEntity(result.getBlockPos());
                      if (tileEntity instanceof TileSpellForge) {

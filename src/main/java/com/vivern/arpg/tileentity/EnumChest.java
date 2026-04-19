@@ -111,21 +111,21 @@ public enum EnumChest {
 
    public Block getBlock() {
       if (this == FROZEN) {
-         return BlocksRegister.CHESTFROZEN;
+         return BlocksRegister.CHEST_FROZEN;
       } else if (this == TOXIC) {
-         return BlocksRegister.CHESTTOXIC;
+         return BlocksRegister.CHEST_TOXIC;
       } else if (this == RUSTED) {
-         return BlocksRegister.CHESTRUSTED;
+         return BlocksRegister.CHEST_RUSTED;
       } else if (this == CRYSTAL) {
-         return BlocksRegister.CHESTCRYSTAL;
+         return BlocksRegister.CHEST_CRYSTAL;
       } else if (this == ROTTEN) {
-         return BlocksRegister.CHESTROTTEN;
+         return BlocksRegister.CHEST_ROTTEN;
       } else if (this == SUNKEN) {
-         return BlocksRegister.CHESTSUNKEN;
+         return BlocksRegister.CHEST_SUNKEN;
       } else if (this == CORAL) {
-         return BlocksRegister.CHESTCORAL;
+         return BlocksRegister.CHEST_CORAL;
       } else {
-         return (Block)(this == STORM ? BlocksRegister.CHESTSTORM : Blocks.CHEST);
+         return (Block)(this == STORM ? BlocksRegister.CHEST_STORM : Blocks.CHEST);
       }
    }
 

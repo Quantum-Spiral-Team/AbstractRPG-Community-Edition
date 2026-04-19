@@ -148,9 +148,9 @@ public class SnapballModel extends ModelBase {
    }
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-      this.shapea1.offsetZ = -4.0F * GetMOP.getfromto(f, 0.0F, 0.2F) + 4.0F * GetMOP.getfromto(f, 0.8F, 1.0F);
-      this.circlea.offsetZ = 2.5F * GetMOP.getfromto(f, 0.1F, 0.3F) - 2.5F * GetMOP.getfromto(f, 0.7F, 0.9F);
-      this.circlea.rotateAngleZ = (float)(Math.PI - (Math.PI * 2) * GetMOP.getfromto(f, 0.3F, 0.8F));
+      this.shapea1.offsetZ = -4.0F * GetMOP.getFromTo(f, 0.0F, 0.2F) + 4.0F * GetMOP.getFromTo(f, 0.8F, 1.0F);
+      this.circlea.offsetZ = 2.5F * GetMOP.getFromTo(f, 0.1F, 0.3F) - 2.5F * GetMOP.getFromTo(f, 0.7F, 0.9F);
+      this.circlea.rotateAngleZ = (float)(Math.PI - (Math.PI * 2) * GetMOP.getFromTo(f, 0.3F, 0.8F));
       this.shapeb1.offsetZ = this.shapea1.offsetZ;
       this.shape8.render(f5);
       this.shapess1.render(f5);

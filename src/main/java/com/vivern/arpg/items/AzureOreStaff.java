@@ -72,7 +72,7 @@ public class AzureOreStaff extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.experienceLevel > level_stop_at) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               Weapons.addOrRemoveExperience(player, -parameters.geti("xp_decrease"));
+               Weapons.addOrRemoveExperience(player, -parameters.getI("xp_decrease"));
             } else {
                NBTHelper.SetNBTint(itemstack, -1, "level_stop_at");
                world.playSound(
@@ -90,7 +90,7 @@ public class AzureOreStaff extends ItemWeapon {
             boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
             boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", sor);
+            float manacost = parameters.getEnchantedF("manacost", sor);
             if (player.getHeldItemMainhand() == itemstack) {
                if (click && Mana.getMana(player) > manacost && !player.getCooldownTracker().hasCooldown(this)) {
                   Weapons.setPlayerAnimationOnServer(player, 26, EnumHand.MAIN_HAND);
@@ -107,7 +107,7 @@ public class AzureOreStaff extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                   player.addStat(StatList.getObjectUseStats(this));
                   IWeapon.fireBomEffect(this, player, world, 0);
-                  int shots = level_stop_at != -1 ? parameters.geti("shots_powered") : parameters.geti("shots");
+                  int shots = level_stop_at != -1 ? parameters.getI("shots_powered") : parameters.getI("shots");
 
                   for (int i = 0; i < shots; i++) {
                      AzureOreShoot shoot = new AzureOreShoot(world, player, itemstack, power);
@@ -118,8 +118,8 @@ public class AzureOreStaff extends ItemWeapon {
                         player.rotationPitch - 1.0F,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity") * velocityMult,
-                        parameters.getEnchanted("inaccuracy", acc)
+                        parameters.getF("velocity") * velocityMult,
+                        parameters.getEnchantedF("inaccuracy", acc)
                      );
                      shoot.powered = level_stop_at != -1;
                      world.spawnEntity(shoot);
@@ -158,7 +158,7 @@ public class AzureOreStaff extends ItemWeapon {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int level_stop_at = NBTHelper.GetNBTint(itemstack, "level_stop_at");
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return parameters.getEnchantedi(level_stop_at == -1 ? "cooldown" : "cooldown_powered", rapidity);
+      return parameters.getEnchantedI(level_stop_at == -1 ? "cooldown" : "cooldown_powered", rapidity);
    }
 
    @Override

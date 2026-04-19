@@ -73,10 +73,10 @@ public class FireMageHelm extends ItemArmor {
          EntityPlayer player = (EntityPlayer)entityIn;
          World world = player.getEntityWorld();
          float power = Mana.getMagicPowerMax(player);
-         if (((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.FIREMAGEHELM
-            && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.FIREMAGECHEST
-            && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.FIREMAGELEGS
-            && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.FIREMAGEBOOTS) {
+         if (((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.FIRE_MAGE_HELM
+            && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.FIRE_MAGE_CHEST
+            && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.FIRE_MAGE_LEGS
+            && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.FIRE_MAGE_BOOTS) {
             player.extinguish();
             if (!worldIn.isRemote && entityIn.ticksExisted % 100 == 0) {
                EntityFiremageSetBonus entit = new EntityFiremageSetBonus(player.world, player);
@@ -93,7 +93,7 @@ public class FireMageHelm extends ItemArmor {
       if (armorSlot != EntityEquipmentSlot.HEAD) {
          return null;
       } else if (itemStack != ItemStack.EMPTY) {
-         ModelBiped whm = ClientProxy.firehatmodel;
+         ModelBiped whm = ClientProxy.fireMageHatModel;
          whm.isSneak = entityLiving.isSneaking();
          whm.isRiding = entityLiving.isRiding();
          whm.isChild = entityLiving.isChild();

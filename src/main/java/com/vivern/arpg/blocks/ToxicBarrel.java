@@ -7,7 +7,6 @@ import com.vivern.arpg.main.NBTHelper;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -86,7 +85,7 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
    public IBlockState getStateForPlacement(
       World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand
    ) {
-      return placer.getHeldItem(hand).getItem() == Item.getItemFromBlock(BlocksRegister.TOXICBARREL)
+      return placer.getHeldItem(hand).getItem() == Item.getItemFromBlock(BlocksRegister.TOXIC_BARREL)
          ? this.getDefaultState().withProperty(VARIANT, MathHelper.clamp(NBTHelper.GetNBTint(placer.getHeldItem(hand), "type"), 0, 12))
          : this.getDefaultState();
    }
@@ -120,11 +119,11 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
 
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       if (RANDOM.nextFloat() < 0.75F) {
-         drops.add(new ItemStack(ItemsRegister.RICHSCRAP));
+         drops.add(new ItemStack(ItemsRegister.RICH_SCRAP));
       }
 
       if (RANDOM.nextFloat() < 0.75F) {
-         drops.add(new ItemStack(ItemsRegister.SCRAPMETAL));
+         drops.add(new ItemStack(ItemsRegister.SCRAP_METAL));
       }
    }
 

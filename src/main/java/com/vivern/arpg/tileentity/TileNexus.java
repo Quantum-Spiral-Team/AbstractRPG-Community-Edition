@@ -8,7 +8,7 @@ import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.network.PacketNexusInfoToClients;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

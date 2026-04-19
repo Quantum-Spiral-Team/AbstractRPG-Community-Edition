@@ -1550,7 +1550,7 @@ public class ModelsEverfrostMob {
          this.cannon2.offsetZ = 0.0F;
          if (an2 > 0) {
             float anim = 100.0F - an2 + Minecraft.getMinecraft().getRenderPartialTicks();
-            float ft1 = GetMOP.getfromto(anim, 0.0F, 5.0F) - GetMOP.getfromto(anim, 6.0F, 10.0F);
+            float ft1 = GetMOP.getFromTo(anim, 0.0F, 5.0F) - GetMOP.getFromTo(anim, 6.0F, 10.0F);
             this.armR2.rotateAngleY += -0.38F * ft1;
             this.armL2.rotateAngleX += 0.77F * ft1;
             this.cannon2.offsetZ += 4.0F * ft1 * 0.0625F;

@@ -83,7 +83,7 @@ public class LaserRifle extends ItemWeapon {
                   if (ammo > 0 && this.isReloaded(itemstack)) {
                      int charge = NBTHelper.GetNBTint(itemstack, "charge");
                      if (charge == 0) {
-                        int shoots = parameters.getEnchantedi("shoots", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
+                        int shoots = parameters.getEnchantedI("shoots", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
                         player.addStat(StatList.getObjectUseStats(this));
                         Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
                         NBTHelper.GiveNBTint(itemstack, shoots, "charge");
@@ -104,12 +104,12 @@ public class LaserRifle extends ItemWeapon {
                         0.9F,
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
-                     float siz = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                     double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                     float inaccuracy = parameters.getEnchanted("inaccuracy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack));
+                     float siz = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     float inaccuracy = parameters.getEnchantedF("inaccuracy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack));
                      float pit = player.rotationPitch + (itemRand.nextFloat() - 0.5F) * inaccuracy;
                      float yaw = player.rotationYaw + (itemRand.nextFloat() - 0.5F) * inaccuracy;
-                     Vec3d vec = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, siz, 0.03, pit, yaw);
+                     Vec3d vec = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, siz, 0.03, pit, yaw);
                      float s = Math.max(siz, 0.3F);
                      AxisAlignedBB aabb = new AxisAlignedBB(
                         vec.x - s,
@@ -120,8 +120,8 @@ public class LaserRifle extends ItemWeapon {
                         vec.z + s
                      );
                      List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
-                     float wdamage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                     float wknockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                     float wdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                     float wknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                      if (!list.isEmpty()) {
                         for (Entity entitylivingbase : list) {
                            if (Team.checkIsOpponent(player, entitylivingbase)) {
@@ -159,9 +159,9 @@ public class LaserRifle extends ItemWeapon {
                   } else if (this.initiateMetadataReload(
                      itemstack,
                      player,
-                     new ItemStack(ItemsRegister.IONBATTERY, 1, 1),
+                     new ItemStack(ItemsRegister.ION_BATTERY, 1, 1),
                      this.getMaxAmmo(itemstack),
-                     new ItemStack(ItemsRegister.IONBATTERY, 1, 0)
+                     new ItemStack(ItemsRegister.ION_BATTERY, 1, 0)
                   )) {
                      world.playSound(
                         (EntityPlayer)null,
@@ -228,11 +228,11 @@ public class LaserRifle extends ItemWeapon {
       int charge = NBTHelper.GetNBTint(itemstack, "charge");
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return charge == 1 ? parameters.getEnchantedi("cooldown", rapidity) : Math.round(parameters.getEnchanted("cooldown_small", rapidity));
+      return charge == 1 ? parameters.getEnchantedI("cooldown", rapidity) : Math.round(parameters.getEnchantedF("cooldown_small", rapidity));
    }
 
    public int getMaxAmmo(ItemStack itemstack) {
-      return WeaponParameters.getWeaponParameters(this).getEnchantedi("clipsize", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
+      return WeaponParameters.getWeaponParameters(this).getEnchantedI("clipsize", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
    }
 
    @Override

@@ -18,9 +18,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+//TODO довести до ума настройки клавиш
 public class Keys implements IKeyConflictContext {
-   public static int clientLastKeys = 0;
-   private static final String catergory = "Arpg keys";
+   private static int clientLastKeys = 0;
+   //private static final String catergory = "Arpg keys"; TODO UNUSED
    public static final KeyBinding FORWARD = new KeyBinding("keys.forward", 17, "Arpg keys");
    public static final KeyBinding RIGHT = new KeyBinding("keys.right", 32, "Arpg keys");
    public static final KeyBinding LEFT = new KeyBinding("keys.left", 30, "Arpg keys");
@@ -34,7 +35,7 @@ public class Keys implements IKeyConflictContext {
    public static final KeyBinding GRAPLINGHOOK = new KeyBinding("keys.hook", 19, "Arpg keys");
    public static final KeyBinding USE = new KeyBinding("keys.use", 1, "Arpg keys");
    public static final KeyBinding GRENADE = new KeyBinding("keys.grenade", 34, "Arpg keys");
-   public static Keys keyconflictcontext = new Keys();
+   public static final Keys keyConflictContext = new Keys();
 
    public static void register() {
       setRegister(FORWARD);
@@ -50,19 +51,19 @@ public class Keys implements IKeyConflictContext {
       setRegister(GRAPLINGHOOK);
       setRegister(USE);
       setRegister(GRENADE);
-      PRIMARYATTACK.setKeyConflictContext(keyconflictcontext);
-      SECONDARYATTACK.setKeyConflictContext(keyconflictcontext);
-      FORWARD.setKeyConflictContext(keyconflictcontext);
-      RIGHT.setKeyConflictContext(keyconflictcontext);
-      LEFT.setKeyConflictContext(keyconflictcontext);
-      BACK.setKeyConflictContext(keyconflictcontext);
-      JUMP.setKeyConflictContext(keyconflictcontext);
-      SPRINT.setKeyConflictContext(keyconflictcontext);
-      HEADABILITY.setKeyConflictContext(keyconflictcontext);
-      SCOPE.setKeyConflictContext(keyconflictcontext);
-      GRAPLINGHOOK.setKeyConflictContext(keyconflictcontext);
-      USE.setKeyConflictContext(keyconflictcontext);
-      GRENADE.setKeyConflictContext(keyconflictcontext);
+      PRIMARYATTACK.setKeyConflictContext(keyConflictContext);
+      SECONDARYATTACK.setKeyConflictContext(keyConflictContext);
+      FORWARD.setKeyConflictContext(keyConflictContext);
+      RIGHT.setKeyConflictContext(keyConflictContext);
+      LEFT.setKeyConflictContext(keyConflictContext);
+      BACK.setKeyConflictContext(keyConflictContext);
+      JUMP.setKeyConflictContext(keyConflictContext);
+      SPRINT.setKeyConflictContext(keyConflictContext);
+      HEADABILITY.setKeyConflictContext(keyConflictContext);
+      SCOPE.setKeyConflictContext(keyConflictContext);
+      GRAPLINGHOOK.setKeyConflictContext(keyConflictContext);
+      USE.setKeyConflictContext(keyConflictContext);
+      GRENADE.setKeyConflictContext(keyConflictContext);
    }
 
    private static void setRegister(KeyBinding binding) {
@@ -81,15 +82,15 @@ public class Keys implements IKeyConflictContext {
    @SideOnly(Side.CLIENT)
    public static void onUpdate(EntityPlayer player) {
       if (player != null) {
-         int newkeys = getKeysPacked();
-         if (newkeys != clientLastKeys) {
+         int newKeys = getKeysPacked();
+         if (newKeys != clientLastKeys) {
             PacketKeysToServer packet = new PacketKeysToServer();
-            packet.writeint(newkeys);
+            packet.writeint(newKeys);
             PacketHandler.NETWORK.sendToServer(packet);
-            Freezing.onKeysChange(player, newkeys);
+            Freezing.onKeysChange(player, newKeys);
          }
 
-         clientLastKeys = newkeys;
+         clientLastKeys = newKeys;
       }
    }
 
@@ -157,8 +158,8 @@ public class Keys implements IKeyConflictContext {
 
             ItemStack current = Minecraft.getMinecraft().player.getHeldItemMainhand();
             IWeapon iw = current.getItem() instanceof IWeapon ? (IWeapon)current.getItem() : null;
-            boolean aimlens = BaublesApi.isBaubleEquipped(Minecraft.getMinecraft().player, ItemsRegister.AIMLENS) > -1;
-            if (PlayerButtonTracker.getScopeActive(Minecraft.getMinecraft().player, iw != null && iw.hasZoom(current) || aimlens)) {
+            boolean aimLens = BaublesApi.isBaubleEquipped(Minecraft.getMinecraft().player, ItemsRegister.AIM_LENS) > -1;
+            if (PlayerButtonTracker.getScopeActive(Minecraft.getMinecraft().player, iw != null && iw.hasZoom(current) || aimLens)) {
                keys |= 4096;
             }
          }
@@ -193,7 +194,7 @@ public class Keys implements IKeyConflictContext {
       } else if (key == USE) {
          return (allKeysPacked & 8192) != 0;
       } else {
-         return key == GRENADE ? (allKeysPacked & 16384) != 0 : false;
+         return key == GRENADE && (allKeysPacked & 16384) != 0;
       }
    }
 
@@ -214,21 +215,21 @@ public class Keys implements IKeyConflictContext {
          }
       }
 
-      int keys = (Integer)player.getDataManager().get(PropertiesRegistry.KEYS_PRESSED);
+      int keys = player.getDataManager().get(PropertiesRegistry.KEYS_PRESSED);
       return unpackCheckKey(keys, key);
    }
 
    public static boolean isKeyBlockedByItem(ItemStack itemstack, EntityPlayer player, KeyBinding key) {
-      return itemstack.getItem() instanceof ItemFood ? true : itemstack.getItem() instanceof ItemBlock;
+      return itemstack.getItem() instanceof ItemFood || itemstack.getItem() instanceof ItemBlock;
    }
 
    public static boolean isPressedDoubleJump(EntityPlayer player) {
-      int keys = (Integer)player.getDataManager().get(PropertiesRegistry.KEYS_PRESSED);
+      int keys = player.getDataManager().get(PropertiesRegistry.KEYS_PRESSED);
       return (keys & 2048) != 0;
    }
 
    public static boolean isScopeActived(EntityPlayer player) {
-      int keys = (Integer)player.getDataManager().get(PropertiesRegistry.KEYS_PRESSED);
+      int keys = player.getDataManager().get(PropertiesRegistry.KEYS_PRESSED);
       return (keys & 4096) != 0;
    }
 

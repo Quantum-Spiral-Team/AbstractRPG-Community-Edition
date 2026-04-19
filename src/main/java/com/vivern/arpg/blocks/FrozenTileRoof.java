@@ -13,10 +13,10 @@ public class FrozenTileRoof extends Block implements IBlockHardBreak {
       super(Material.ROCK);
       this.setRegistryName("frozen_tile_roof");
       this.setTranslationKey("frozen_tile_roof");
-      this.blockHardness = BlocksRegister.HR_FROZEN_ROOF.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_FROZEN_ROOF.RESISTANCE;
+      this.blockHardness = BlocksRegister.HR_FROZEN_ROOF.hardness;
+      this.blockResistance = BlocksRegister.HR_FROZEN_ROOF.resistance;
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_FROZEN_ROOF.LVL);
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_FROZEN_ROOF.lvl);
    }
 
    public boolean isFullCube(IBlockState state) {

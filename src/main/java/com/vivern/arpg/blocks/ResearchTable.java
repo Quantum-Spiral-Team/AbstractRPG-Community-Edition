@@ -9,7 +9,7 @@ import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.recipes.ExploringField;
 import com.vivern.arpg.tileentity.TileResearchTable;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -37,15 +37,15 @@ public class ResearchTable extends Table {
       if (tileentity instanceof TileResearchTable) {
          TileResearchTable tile = (TileResearchTable)tileentity;
          if (tile.specialization == 1) {
-            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGICEXPLORINGKIT));
+            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_EXPLORING_KIT));
          }
 
          if (tile.specialization == 2) {
-            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGICRESEARCHKIT));
+            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_RESEARCH_KIT));
          }
 
          if (tile.specialization == 3) {
-            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGICWRITINGKIT));
+            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_WRITING_KIT));
          }
       }
 
@@ -60,26 +60,26 @@ public class ResearchTable extends Table {
          if (tile != null) {
             if (tile.specialization == 0) {
                Item item = player.getHeldItemMainhand().getItem();
-               if (item == ItemsRegister.MAGICEXPLORINGKIT) {
+               if (item == ItemsRegister.MAGIC_EXPLORING_KIT) {
                   tile.specialization = 1;
                   tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
                   player.getHeldItemMainhand().shrink(1);
                   PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
-                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGICEXPLORINGKIT, 20);
-               } else if (item == ItemsRegister.MAGICRESEARCHKIT) {
+                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
+               } else if (item == ItemsRegister.MAGIC_RESEARCH_KIT) {
                   tile.specialization = 2;
                   tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
                   player.getHeldItemMainhand().shrink(1);
                   PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
-                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGICEXPLORINGKIT, 20);
-               } else if (item == ItemsRegister.MAGICWRITINGKIT) {
+                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
+               } else if (item == ItemsRegister.MAGIC_WRITING_KIT) {
                   tile.specialization = 3;
                   tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
                   player.getHeldItemMainhand().shrink(1);
                   PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
-                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGICEXPLORINGKIT, 20);
+                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
                }
-            } else if (!player.getCooldownTracker().hasCooldown(ItemsRegister.MAGICEXPLORINGKIT)) {
+            } else if (!player.getCooldownTracker().hasCooldown(ItemsRegister.MAGIC_EXPLORING_KIT)) {
                if (player instanceof EntityPlayerMP) {
                   ExploringField.SendExploringInfoToClient((EntityPlayerMP)player);
                }
@@ -115,7 +115,7 @@ public class ResearchTable extends Table {
       TileResearchTable tile = this.getTileEntity(world, pos);
       if (tile.specialization == 1) {
          for (int i = -3; i <= 3; i++) {
-            Vec3d addd = GetMOP.YawToVec3d(tile.rotation * 90.0F + i * 45).scale(0.375);
+            Vec3d addd = GetMOP.yawToVec3D(tile.rotation * 90.0F + i * 45).scale(0.375);
             Vec3d finalpos = new Vec3d(pos.getX() + 0.5, pos.getY() + 1 + 0.4375 - Math.abs(i) * 0.0625, pos.getZ() + 0.5)
                .add(addd);
             ItemCalibrationThing.spawnCandleLightParticle(world, finalpos, col, false);

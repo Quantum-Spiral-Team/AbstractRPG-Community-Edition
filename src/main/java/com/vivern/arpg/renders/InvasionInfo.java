@@ -90,7 +90,7 @@ public class InvasionInfo {
          fontRenderer.drawStringWithShadow(unlocalizedwave + wave, i / 2 + 55, 16.0F, currentInfo.colorFont);
          if (finalwaveAnim > 0) {
             GlStateManager.pushMatrix();
-            float fromto = GetMOP.getfromto((float)finalwaveAnim, 120.0F, 161.0F);
+            float fromto = GetMOP.getFromTo((float)finalwaveAnim, 120.0F, 161.0F);
             float scale = fromto * 10.0F + 2.0F;
             GlStateManager.scale(scale, scale, 1.0F);
             Minecraft.getMinecraft()
@@ -99,7 +99,7 @@ public class InvasionInfo {
                   unlocalizedFinal,
                   (i / 2 - fontRenderer.getStringWidth(unlocalizedFinal) / 2 * scale) / scale,
                   30.0F / scale,
-                  ColorConverters.RGBAtoDecimal255(227, 30, 30, (int)(GetMOP.getfromto((float)finalwaveAnim, 0.0F, 40.0F) * 255.0F - fromto * 255.0F))
+                  ColorConverters.RGBAtoDecimal255(227, 30, 30, (int)(GetMOP.getFromTo((float)finalwaveAnim, 0.0F, 40.0F) * 255.0F - fromto * 255.0F))
                );
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.popMatrix();
@@ -108,7 +108,7 @@ public class InvasionInfo {
 
          if (nextwaveAnim > 0) {
             GlStateManager.pushMatrix();
-            float fromto = GetMOP.getfromto((float)nextwaveAnim, 100.0F, 131.0F);
+            float fromto = GetMOP.getFromTo((float)nextwaveAnim, 100.0F, 131.0F);
             float scale = fromto * 10.0F + 2.0F;
             GlStateManager.scale(scale, scale, 1.0F);
             String ubw = unlocalizedBigwave + wave;
@@ -118,7 +118,7 @@ public class InvasionInfo {
                   ubw,
                   (i / 2 - fontRenderer.getStringWidth(ubw) / 2 * scale) / scale,
                   30.0F / scale,
-                  ColorConverters.RGBAtoDecimal255(90, 55, 227, (int)(GetMOP.getfromto((float)nextwaveAnim, 0.0F, 40.0F) * 255.0F - fromto * 255.0F))
+                  ColorConverters.RGBAtoDecimal255(90, 55, 227, (int)(GetMOP.getFromTo((float)nextwaveAnim, 0.0F, 40.0F) * 255.0F - fromto * 255.0F))
                );
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.popMatrix();
@@ -127,7 +127,7 @@ public class InvasionInfo {
 
          if (winAnim > 0) {
             GlStateManager.pushMatrix();
-            float fromto = GetMOP.getfromto((float)winAnim, 160.0F, 201.0F);
+            float fromto = GetMOP.getFromTo((float)winAnim, 160.0F, 201.0F);
             float scale = fromto * 10.0F + 2.0F;
             GlStateManager.scale(scale, scale, 1.0F);
             String ubw = currentInfo.unlocalizedInvasionName;
@@ -137,12 +137,12 @@ public class InvasionInfo {
                   ubw,
                   (i / 2 - fontRenderer.getStringWidth(ubw) / 2 * scale) / scale,
                   40.0F / scale,
-                  ColorConverters.RGBAtoDecimal255(245, 223, 77, (int)(GetMOP.getfromto((float)winAnim, 0.0F, 40.0F) * 255.0F - fromto * 255.0F))
+                  ColorConverters.RGBAtoDecimal255(245, 223, 77, (int)(GetMOP.getFromTo((float)winAnim, 0.0F, 40.0F) * 255.0F - fromto * 255.0F))
                );
             GlStateManager.popMatrix();
             if (winAnim < 161 && winAnim > 10) {
                GlStateManager.pushMatrix();
-               float fromto2 = GetMOP.getfromto((float)winAnim, 120.0F, 161.0F);
+               float fromto2 = GetMOP.getFromTo((float)winAnim, 120.0F, 161.0F);
                float scale2 = fromto2 * 10.0F + 2.0F;
                GlStateManager.scale(scale2, scale2, 1.0F);
                String ubw2 = unlocalizedWin;
@@ -152,7 +152,7 @@ public class InvasionInfo {
                      ubw2,
                      (i / 2 - fontRenderer.getStringWidth(ubw2) / 2 * scale2) / scale2,
                      65.0F / scale2,
-                     ColorConverters.RGBAtoDecimal255(245, 223, 77, (int)(GetMOP.getfromto((float)winAnim, 10.0F, 50.0F) * 255.0F - fromto2 * 255.0F))
+                     ColorConverters.RGBAtoDecimal255(245, 223, 77, (int)(GetMOP.getFromTo((float)winAnim, 10.0F, 50.0F) * 255.0F - fromto2 * 255.0F))
                   );
                GlStateManager.popMatrix();
             }
@@ -168,7 +168,7 @@ public class InvasionInfo {
 
          if (loseAnim > 0) {
             GlStateManager.pushMatrix();
-            float fromtox = GetMOP.getfromto((float)loseAnim, 100.0F, 161.0F);
+            float fromtox = GetMOP.getFromTo((float)loseAnim, 100.0F, 161.0F);
             float scalex = 2.0F;
             GlStateManager.scale(scalex, scalex, 1.0F);
             String ubwx = unlocalizedLose1 + currentInfo.unlocalizedNexusName + unlocalizedLose2;
@@ -178,7 +178,7 @@ public class InvasionInfo {
                   ubwx,
                   (i / 2 - fontRenderer.getStringWidth(ubwx) / 2 * scalex) / scalex,
                   30.0F / scalex,
-                  ColorConverters.RGBAtoDecimal255(190, 30, 36, (int)(GetMOP.getfromto((float)loseAnim, 0.0F, 60.0F) * 255.0F - fromtox * 255.0F))
+                  ColorConverters.RGBAtoDecimal255(190, 30, 36, (int)(GetMOP.getFromTo((float)loseAnim, 0.0F, 60.0F) * 255.0F - fromtox * 255.0F))
                );
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.popMatrix();

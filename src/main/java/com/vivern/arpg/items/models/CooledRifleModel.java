@@ -85,10 +85,10 @@ public class CooledRifleModel extends ModelBase {
       }
 
       this.ammo2.isHidden = f1 == 0.0F;
-      float ft1 = 1.0F - GetMOP.getfromto(f1, 0.0F, 0.35F);
-      float ft2 = GetMOP.getfromto(f1, 0.4F, 0.6F);
-      float ft3 = GetMOP.getfromto(f1, 0.5F, 0.6F);
-      float ft4 = GetMOP.getfromto(f1, 0.5F, 1.0F);
+      float ft1 = 1.0F - GetMOP.getFromTo(f1, 0.0F, 0.35F);
+      float ft2 = GetMOP.getFromTo(f1, 0.4F, 0.6F);
+      float ft3 = GetMOP.getFromTo(f1, 0.5F, 0.6F);
+      float ft4 = GetMOP.getFromTo(f1, 0.5F, 1.0F);
       this.ammo2.rotateAngleY = -1.04F * ft1;
       this.ammo2.rotateAngleZ = 0.54F * ft1;
       this.ammo2.offsetZ = -4.0F * ft2;

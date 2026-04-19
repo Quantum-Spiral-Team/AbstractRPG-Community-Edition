@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -61,7 +61,7 @@ public class GreenGlowingMushroom extends Block {
       for (int rr = 0; rr < 6; rr++) {
          EnumFacing facing = facingval[i];
          if (canPlaceAt(worldIn, pos, facing)) {
-            return BlocksRegister.BLUEGLOWINGMUSH.getDefaultState().withProperty(FACING, facing).withProperty(MTYPE, worldIn.rand.nextInt(3));
+            return BlocksRegister.BLUE_GLOWING_MUSHROOM.getDefaultState().withProperty(FACING, facing).withProperty(MTYPE, worldIn.rand.nextInt(3));
          }
 
          if (i < 5) {
@@ -72,7 +72,7 @@ public class GreenGlowingMushroom extends Block {
       }
 
       System.out.println("DEFAULT STATE ERROR IN GreenGlowingMushroom.getRandomStateWorldgen   ");
-      return BlocksRegister.BLUEGLOWINGMUSH.getDefaultState();
+      return BlocksRegister.BLUE_GLOWING_MUSHROOM.getDefaultState();
    }
 
    @SideOnly(Side.CLIENT)

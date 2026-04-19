@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
@@ -30,7 +29,7 @@ public class ToxicSwamp extends BiomeControlled {
    public ToxicSwamp() {
       super(new BiomeProperties("Toxic swamp").setBaseHeight(-0.2F).setHeightVariation(0.1F).setTemperature(0.8F).setRainfall(0.9F).setWaterColor(5931421));
       this.topBlock = BlocksRegister.JUNK.getDefaultState();
-      this.fillerBlock = BlocksRegister.TOXICDIRT.getDefaultState();
+      this.fillerBlock = BlocksRegister.TOXIC_DIRT.getDefaultState();
       this.decorator = new ToxicSwampDecorator();
    }
 
@@ -64,7 +63,7 @@ public class ToxicSwamp extends BiomeControlled {
 
    @Override
    public void onPlayer60ticksInBiome(BiomeControlled biome, EntityPlayer player) {
-      if (BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTIRADPACK) > -1) {
+      if (BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTI_RAD_PACK) > -1) {
          if (player.getRNG().nextFloat() < 0.25) {
             Mana.addRad(player, 2, true);
          }
@@ -77,14 +76,14 @@ public class ToxicSwamp extends BiomeControlled {
       public WorldGenGroundFoliage arelia = new WorldGenGroundFoliage(BlocksRegister.ARELIA, 50, 5, 4);
       public WorldGenGroundFoliage toxedge = new WorldGenGroundFoliage(BlocksRegister.TOXEDGE, 64, 10, 4);
       public WorldGenGroundFoliage deceidus = new WorldGenGroundFoliage(BlocksRegister.DECEIDUS, 20, 8, 5);
-      public WorldGenGroundFoliage brownmuc = new WorldGenGroundFoliage(BlocksRegister.MUCOPHILLUSBROWN, 10, 8, 4);
+      public WorldGenGroundFoliage brownmuc = new WorldGenGroundFoliage(BlocksRegister.MUCOPHILLUS_BROWN, 10, 8, 4);
       public WorldGenGroundFoliage mucoph = new WorldGenGroundFoliage(BlocksRegister.MUCOPHILLUS, 5, 8, 4);
       public WorldGenGroundFoliage viscosa = new WorldGenGroundFoliage(BlocksRegister.VISCOSA, 5, 8, 4);
       public WorldGenGroundFoliage junkweed = new WorldGenGroundFoliage(BlocksRegister.JUNKWEED, 64, 7, 4);
-      public WorldGenGroundFoliage weep = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRYWEEPING, 20, 8, 4);
+      public WorldGenGroundFoliage weep = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRY_WEEPING, 20, 8, 4);
       public WorldGenGroundFoliage toxinia = new WorldGenGroundFoliage(BlocksRegister.TOXINIA, 32, 8, 4);
       public WorldGenToxicBarrels barrels = new WorldGenToxicBarrels(22, 8, 4);
-      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXICTALLGRASS, 48, 9, 4);
+      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXIC_TALLGRASS, 48, 9, 4);
       public WorldGenGroundFoliage toxiBULB = new WorldGenGroundFoliage(BlocksRegister.TOXIBULB, 6, 7, 3);
 
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
@@ -178,8 +177,8 @@ public class ToxicSwamp extends BiomeControlled {
                   new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
-               if (blockd == BlocksRegister.TOXICGRASS
-                  || blockd == BlocksRegister.TOXICDIRT
+               if (blockd == BlocksRegister.TOXIC_GRASS
+                  || blockd == BlocksRegister.TOXIC_DIRT
                   || blockd == BlocksRegister.SLUDGE
                   || blockd == BlocksRegister.JUNK) {
                   WorldServer worldServerxx = (WorldServer)worldIn;
@@ -222,10 +221,10 @@ public class ToxicSwamp extends BiomeControlled {
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
                if (blockd == BlocksRegister.JUNK
-                  || blockd == BlocksRegister.TOXICDIRT
+                  || blockd == BlocksRegister.TOXIC_DIRT
                   || blockd == BlocksRegister.SLUDGE
-                  || blockd == BlocksRegister.TOXICGRASS
-                  || blockd == BlocksRegister.NUCLEARWASTE) {
+                  || blockd == BlocksRegister.TOXIC_GRASS
+                  || blockd == BlocksRegister.NUCLEAR_WASTE) {
                   WorldServer worldServerxxx = (WorldServer)worldIn;
                   MinecraftServer minecraftServerxxx = worldIn.getMinecraftServer();
                   TemplateManager templateManagerxxx = worldServerxxx.getStructureTemplateManager();
@@ -272,7 +271,7 @@ public class ToxicSwamp extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDTOXIN, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 
@@ -283,7 +282,7 @@ public class ToxicSwamp extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDSLIME, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_SLIME, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 

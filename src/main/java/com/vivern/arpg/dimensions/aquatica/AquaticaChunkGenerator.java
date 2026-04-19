@@ -20,7 +20,7 @@ import com.vivern.arpg.tileentity.EnumChest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockSand;
@@ -98,7 +98,7 @@ public class AquaticaChunkGenerator implements IChunkGenerator {
    public MapGenBase waterCaveGenerator = new AquaticaCavesMapGen(true);
    public MapGenBase ravineGenerator = new MapGenRavineAquatica();
    public static WorldGenMinable cavegeneratorSeastone = new WorldGenMinable(
-      BlocksRegister.SEASTONE.getDefaultState(), 24, BlockMatcher.forBlock(BlocksRegister.SHELLROCK)
+      BlocksRegister.SEA_STONE.getDefaultState(), 24, BlockMatcher.forBlock(BlocksRegister.SHELLROCK)
    );
    public static WorldGenMinable cavegeneratorChalkrock = new WorldGenMinable(
       BlocksRegister.CHALKROCK.getDefaultState(), 24, BlockMatcher.forBlock(BlocksRegister.SHELLROCK)
@@ -110,46 +110,46 @@ public class AquaticaChunkGenerator implements IChunkGenerator {
    double[] maxLimitRegion;
    double[] depthRegion;
    public static Block[] corals = new Block[]{
-      BlocksRegister.CORALYELLOW, BlocksRegister.CORALPINK, BlocksRegister.CORALWHITE, BlocksRegister.CORALORANGE, BlocksRegister.CORALRED
+      BlocksRegister.CORAL_YELLOW, BlocksRegister.CORAL_PINK, BlocksRegister.CORAL_WHITE, BlocksRegister.CORAL_ORANGE, BlocksRegister.CORAL_RED
    };
    public static Block[] coralsMini = new Block[]{
-      BlocksRegister.MINICORALBLUE,
-      BlocksRegister.MINICORALBROWN,
-      BlocksRegister.MINICORALPURPLE,
-      BlocksRegister.MINICORALRED,
-      BlocksRegister.MINICORALWHITE,
-      BlocksRegister.MINICORALWHITE2,
-      BlocksRegister.MINICORALWHITE2
+      BlocksRegister.HELIOPORACEA,
+      BlocksRegister.GORGONARIA_BROWN,
+      BlocksRegister.ACROPORA_PURPLE,
+      BlocksRegister.GORGONARIA_RED,
+      BlocksRegister.ACROPORA_WHITE,
+      BlocksRegister.GORGONARIA_WHITE,
+      BlocksRegister.GORGONARIA_WHITE
    };
    public static Block[] coralsFavia = new Block[]{
-      BlocksRegister.MINICORALFAVIABLUE,
-      BlocksRegister.MINICORALFAVIAGREEN,
-      BlocksRegister.MINICORALFAVIARED,
-      BlocksRegister.MINICORALFAVIAYELLOW,
-      BlocksRegister.MINICORALBRAIN
+      BlocksRegister.FAVIA_BLUE,
+      BlocksRegister.FAVIA_GREEN,
+      BlocksRegister.FAVIA_RED,
+      BlocksRegister.FAVIA_YELLOW,
+      BlocksRegister.FAVIA_BRAIN
    };
    public static Block[] corallimorphas = new Block[]{
-      BlocksRegister.CORALLIMORPHABLUE,
-      BlocksRegister.CORALLIMORPHABROWN,
-      BlocksRegister.CORALLIMORPHAGREEN,
-      BlocksRegister.CORALLIMORPHALILAC,
-      BlocksRegister.CORALLIMORPHAPINK,
-      BlocksRegister.CORALLIMORPHARED,
-      BlocksRegister.CORALLIMORPHAYELLOW
+      BlocksRegister.CORALLIMORPHA_BLUE,
+      BlocksRegister.CORALLIMORPHA_BROWN,
+      BlocksRegister.CORALLIMORPHA_GREEN,
+      BlocksRegister.CORALLIMORPHA_LILAC,
+      BlocksRegister.CORALLIMORPHA_PINK,
+      BlocksRegister.CORALLIMORPHA_RED,
+      BlocksRegister.CORALLIMORPHA_YELLOW
    };
    public static Block[] coralsBig = new Block[]{
-      BlocksRegister.MINICORALBROWNBIG,
-      BlocksRegister.MINICORALPURPLEBIG,
-      BlocksRegister.MINICORALREDBIG,
-      BlocksRegister.MINICORALWHITE2BIG,
-      BlocksRegister.MINICORALWHITEBIG
+      BlocksRegister.GORGONARIA_BROWN_BIG,
+      BlocksRegister.ACROPORA_PURPLE_BIG,
+      BlocksRegister.GORGONARIA_RED_BIG,
+      BlocksRegister.GORGONARIA_WHITE_BIG,
+      BlocksRegister.ACROPORA_WHITE_BIG
    };
    public static Block[] coralsGlow = new Block[]{
-      BlocksRegister.ACTINIFORABLUE,
-      BlocksRegister.ACTINIFORABLUEBIG,
-      BlocksRegister.ACTINIFORARED,
-      BlocksRegister.ACTINIFORAREDBIG,
-      BlocksRegister.ACTINIFORAYELLOW
+      BlocksRegister.ACTINIFORA_RAMIFORM,
+      BlocksRegister.ACTINIFORA_SEGREGATE,
+      BlocksRegister.ACTINIFORA_ARENACEOUS,
+      BlocksRegister.ACTINIFORA_GIANT,
+      BlocksRegister.ACTINIFORA_BRIGHT
    };
    public static int sealvl = 194;
    public WorldGenMetallicCoral coralOreGenerator = new WorldGenMetallicCoral(16, true);
@@ -664,7 +664,7 @@ public class AquaticaChunkGenerator implements IChunkGenerator {
 
       biome.decorate(this.world, this.rand, new BlockPos(i, 0, j));
       if (biome != BiomesRegister.AQUATICABEACH && biome != BiomesRegister.ISLANDS) {
-         GenerationHelper.generateSpeleothemsAtChunk(this.world, new BlockPos(i, 0, j), BlocksRegister.SHELLROCKSPELEOTHEM, this.rand, -1, 0.4F, 0.65F, 0.2F);
+         GenerationHelper.generateSpeleothemsAtChunk(this.world, new BlockPos(i, 0, j), BlocksRegister.SHELLROCK_SPELEOTHEM, this.rand, -1, 0.4F, 0.65F, 0.2F);
       }
 
       if (TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ANIMALS)) {
@@ -738,7 +738,7 @@ public class AquaticaChunkGenerator implements IChunkGenerator {
                               this.world
                                  .setBlockState(
                                     finalpos,
-                                    BlocksRegister.GIANTSHELL
+                                    BlocksRegister.GIANT_SHELL
                                        .getDefaultState()
                                        .withProperty(GiantShell.TYPE, this.rand.nextInt(8))
                                        .withProperty(GiantShell.WET, wetfinalpos == 1),
@@ -746,7 +746,7 @@ public class AquaticaChunkGenerator implements IChunkGenerator {
                                  );
                            }
                         } else if (wetfinalpos == 2 && this.rand.nextFloat() < 0.2 && finalpos.getY() != sealvl) {
-                           this.world.setBlockState(finalpos, BlocksRegister.BONESPILE.getDefaultState(), 2);
+                           this.world.setBlockState(finalpos, BlocksRegister.BONES_PILE.getDefaultState(), 2);
                         }
                      }
 
@@ -1224,11 +1224,11 @@ public class AquaticaChunkGenerator implements IChunkGenerator {
 
    public static boolean isCoral(IBlockState state) {
       Block block = state.getBlock();
-      return block == BlocksRegister.CORALORANGE
-         || block == BlocksRegister.CORALRED
-         || block == BlocksRegister.CORALPINK
-         || block == BlocksRegister.CORALWHITE
-         || block == BlocksRegister.CORALYELLOW;
+      return block == BlocksRegister.CORAL_ORANGE
+         || block == BlocksRegister.CORAL_RED
+         || block == BlocksRegister.CORAL_PINK
+         || block == BlocksRegister.CORAL_WHITE
+         || block == BlocksRegister.CORAL_YELLOW;
    }
 
    public static void generateBiomeTerrain(Biome biome, World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
@@ -1451,7 +1451,7 @@ public class AquaticaChunkGenerator implements IChunkGenerator {
                   break;
                }
 
-               world.setBlockState(brickPos, BlocksRegister.CORALBRICKS.getDefaultState(), 2);
+               world.setBlockState(brickPos, BlocksRegister.CORAL_BRICKS.getDefaultState(), 2);
             }
          } else if (rand.nextFloat() < 0.25F) {
             GenerationHelper.setChestWithLoot(
@@ -1464,10 +1464,10 @@ public class AquaticaChunkGenerator implements IChunkGenerator {
                   break;
                }
 
-               world.setBlockState(brickPos, BlocksRegister.CORALBRICKS.getDefaultState(), 2);
+               world.setBlockState(brickPos, BlocksRegister.CORAL_BRICKS.getDefaultState(), 2);
             }
          } else {
-            world.setBlockState(centerpos, BlocksRegister.MOBSPAWNERAQUATIC.getDefaultState(), 2);
+            world.setBlockState(centerpos, BlocksRegister.AQUATIC_SPAWNER.getDefaultState(), 2);
             SpawnerTuners.JELLYFISHCAVE.setupSpawner(world, centerpos, rand);
 
             for (int j = 1; j < 26; j++) {

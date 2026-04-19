@@ -49,11 +49,11 @@ public class HazardSuitHelm extends AbstractArmor {
                0,
                0
             );
-            if (((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.TOXINIUMCHEST
+            if (((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.TOXINIUM_CHEST
                && isCharged((ItemStack)player.inventory.armorInventory.get(2))
-               && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.TOXINIUMLEGS
+               && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.TOXINIUM_LEGS
                && isCharged((ItemStack)player.inventory.armorInventory.get(1))
-               && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.TOXINIUMBOOTS
+               && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.TOXINIUM_BOOTS
                && isCharged((ItemStack)player.inventory.armorInventory.get(0))) {
                Weapons.mixPotion(
                   player,

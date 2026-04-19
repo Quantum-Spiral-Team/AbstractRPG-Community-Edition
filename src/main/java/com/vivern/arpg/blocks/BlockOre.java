@@ -94,19 +94,19 @@ public class BlockOre extends Block {
    }
 
    public static class BlockOreHard extends BlockOre implements IBlockHardBreak {
-      public BlocksRegister.Hardres hardres;
+      public BlocksRegister.HardRes hardres;
       public String tool;
 
-      public BlockOreHard(Material mater, String name, BlocksRegister.Hardres hardres, String tool, int minXP, int maxXP) {
-         super(mater, name, hardres.HARDNESS, hardres.RESISTANCE, minXP, maxXP);
-         this.setHarvestLevel(tool, hardres.LVL);
+      public BlockOreHard(Material mater, String name, BlocksRegister.HardRes hardres, String tool, int minXP, int maxXP) {
+         super(mater, name, hardres.hardness, hardres.resistance, minXP, maxXP);
+         this.setHarvestLevel(tool, hardres.lvl);
          this.hardres = hardres;
          this.tool = tool;
       }
 
       @Override
       public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
-         return toolLevel >= this.hardres.LVL && tool.equals(this.tool) ? originalSpeed * this.hardres.FAST : originalSpeed * this.hardres.SLOW;
+         return toolLevel >= this.hardres.lvl && tool.equals(this.tool) ? originalSpeed * this.hardres.fast : originalSpeed * this.hardres.slow;
       }
    }
 }

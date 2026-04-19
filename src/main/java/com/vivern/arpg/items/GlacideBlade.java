@@ -87,10 +87,10 @@ public class GlacideBlade extends ItemWeapon {
                         IBlockState dn = world.getBlockState(pos.down());
                         if (Blocks.SNOW_LAYER.canPlaceBlockAt(world, pos)
                            && dn.getBlock() != Blocks.SNOW_LAYER
-                           && dn.getBlock() != BlocksRegister.LOOSESNOW) {
+                           && dn.getBlock() != BlocksRegister.LOOSE_SNOW) {
                            world.setBlockState(pos, Blocks.SNOW_LAYER.getDefaultState());
                         } else if (dn.getBlock() == Blocks.ICE || dn.getBlock() == Blocks.FROSTED_ICE) {
-                           world.setBlockState(pos, BlocksRegister.LOOSESNOW.getDefaultState());
+                           world.setBlockState(pos, BlocksRegister.LOOSE_SNOW.getDefaultState());
                         }
                      }
                   }

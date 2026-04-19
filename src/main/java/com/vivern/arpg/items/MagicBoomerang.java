@@ -8,7 +8,7 @@ import com.vivern.arpg.main.Mana;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.WeaponParameters;
 import com.vivern.arpg.main.Weapons;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -40,7 +40,7 @@ public class MagicBoomerang extends ItemWeapon {
                return 0.0F;
             } else if (entityIn instanceof EntityPlayer) {
                EntityPlayer pl = (EntityPlayer)entityIn;
-               return pl.getCooldownTracker().hasCooldown(ItemsRegister.MAGICBOOMERANG) ? 1.0F : 0.0F;
+               return pl.getCooldownTracker().hasCooldown(ItemsRegister.MAGIC_BOOMERANG) ? 1.0F : 0.0F;
             } else {
                return 0.0F;
             }
@@ -71,7 +71,7 @@ public class MagicBoomerang extends ItemWeapon {
          if (IWeapon.canShoot(stack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, stack));
+            float manacost = parameters.getEnchantedF("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, stack));
             if (Mana.getMana(player) >= manacost) {
                EnumHand hand = null;
                if (Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
@@ -95,8 +95,8 @@ public class MagicBoomerang extends ItemWeapon {
                      1.0F / (itemRand.nextFloat() * 0.4F + 0.8F)
                   );
                   EntityBoomerangMagic projectile = new EntityBoomerangMagic(world, player, stack, Mana.getMagicPowerMax(player));
-                  projectile.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
-                  projectile.knockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack));
+                  projectile.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+                  projectile.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack));
                   Weapons.shoot(
                      projectile,
                      hand,
@@ -104,8 +104,8 @@ public class MagicBoomerang extends ItemWeapon {
                      player.rotationPitch,
                      player.rotationYaw,
                      0.0F,
-                     parameters.getEnchanted("velocity", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)),
-                     parameters.get("inaccuracy"),
+                     parameters.getEnchantedF("velocity", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)),
+                     parameters.getF("inaccuracy"),
                      -0.15F,
                      0.4F,
                      0.1F

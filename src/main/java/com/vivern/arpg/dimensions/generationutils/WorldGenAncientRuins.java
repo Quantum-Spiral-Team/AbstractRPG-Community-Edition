@@ -2,7 +2,7 @@ package com.vivern.arpg.dimensions.generationutils;
 
 import com.vivern.arpg.main.GetMOP;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;

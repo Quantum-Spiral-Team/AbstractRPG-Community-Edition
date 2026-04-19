@@ -8,7 +8,7 @@ import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.renders.LayerIce;
 import com.vivern.arpg.renders.PotionBurningEffects;
 import java.util.Map.Entry;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

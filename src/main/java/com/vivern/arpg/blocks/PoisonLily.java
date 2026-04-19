@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
@@ -80,7 +80,7 @@ public class PoisonLily extends Block {
       if (pos.getY() >= 0 && pos.getY() < 256) {
          IBlockState iblockstate = worldIn.getBlockState(pos.down());
          Material material = iblockstate.getMaterial();
-         return iblockstate.getBlock() == BlocksRegister.FLUIDPOISON && (Integer)iblockstate.getValue(BlockLiquid.LEVEL) == 0;
+         return iblockstate.getBlock() == BlocksRegister.FLUID_POISON && (Integer)iblockstate.getValue(BlockLiquid.LEVEL) == 0;
       } else {
          return false;
       }

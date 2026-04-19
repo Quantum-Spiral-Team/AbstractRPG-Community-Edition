@@ -8,7 +8,7 @@ import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.tileentity.TileCrystalSphere;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -379,7 +379,7 @@ public class CrystalSphereTESR extends TileEntitySpecialRenderer<TileCrystalSphe
             float downfromCenter = 0.0F;
             float width = 0.18F + Debugger.floats[4];
             float time2 = tick / 4;
-            Vec3d vec = GetMOP.Vec3dToPitchYaw(new Vec3d(x, y, z));
+            Vec3d vec = GetMOP.vec3DToPitchYaw(new Vec3d(x, y, z));
 
             for (int i = 0; i < 1; i++) {
                GlStateManager.pushMatrix();
@@ -421,7 +421,7 @@ public class CrystalSphereTESR extends TileEntitySpecialRenderer<TileCrystalSphe
             float downfromCenter = 0.0F;
             float width = 0.18F + Debugger.floats[4];
             float time2 = tick / 6;
-            Vec3d vec = GetMOP.Vec3dToPitchYaw(new Vec3d(x, y, z));
+            Vec3d vec = GetMOP.vec3DToPitchYaw(new Vec3d(x, y, z));
 
             for (int i = 0; i < 1; i++) {
                GlStateManager.pushMatrix();

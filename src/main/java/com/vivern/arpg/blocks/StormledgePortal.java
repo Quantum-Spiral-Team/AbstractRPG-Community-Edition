@@ -5,7 +5,7 @@ import com.vivern.arpg.main.DimensionsRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TileStormledgePortal;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -58,7 +58,7 @@ public class StormledgePortal extends Block {
    }
 
    public boolean isBlockSupports(Block block) {
-      return block == BlocksRegister.STORMLEDGEPORTAL || block == BlocksRegister.STORMLEDGEPORTALFRAME;
+      return block == BlocksRegister.STORMLEDGE_PORTAL || block == BlocksRegister.STORMLEDGE_PORTAL_FRAME;
    }
 
    @SideOnly(Side.CLIENT)

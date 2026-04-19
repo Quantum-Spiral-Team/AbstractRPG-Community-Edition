@@ -5,7 +5,7 @@ import com.vivern.arpg.main.SuperKnockback;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;

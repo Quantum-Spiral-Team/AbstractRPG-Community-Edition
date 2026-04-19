@@ -13,7 +13,7 @@ import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 
 class IceHillsDecorator extends BiomeDecorator {
-   public WorldGenGroundFoliage magicflower = new WorldGenGroundFoliage(BlocksRegister.ICEFLOWER, 38, 5, 4);
+   public WorldGenGroundFoliage magicflower = new WorldGenGroundFoliage(BlocksRegister.ICE_FLOWER, 38, 5, 4);
 
    public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
       if (this.decorating) {

@@ -25,7 +25,7 @@ public class Blubber extends AbstractMob {
       this.defaultteam = OtherMobsPack.mobsteamender;
       this.setNoGravity(true);
       this.setattributes(20.0, 20.0, 4.0, 0.08F, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-      this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.QUANTUMSLIMEBALL, 0.6F, 0, 1, 2, 1)});
+      this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.QUANTUM_SLIMEBALL, 0.6F, 0, 1, 2, 1)});
       this.setRoleValues(EnumMobRole.WEAK_SOLDIER, 1);
    }
 

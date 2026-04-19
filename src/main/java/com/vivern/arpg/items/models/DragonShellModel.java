@@ -66,12 +66,12 @@ public class DragonShellModel extends ModelBase {
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       int tick = (AnimationTimer.tick + (int)f1) % 1000;
-      float rotAdd = GetMOP.getfromto((float)tick, 10.0F, 20.0F)
-         - GetMOP.getfromto((float)tick, 20.0F, 30.0F)
-         + GetMOP.getfromto((float)tick, 400.0F, 410.0F)
-         - GetMOP.getfromto((float)tick, 410.0F, 425.0F)
-         + GetMOP.getfromto((float)tick, 670.0F, 678.0F)
-         - GetMOP.getfromto((float)tick, 680.0F, 689.0F);
+      float rotAdd = GetMOP.getFromTo((float)tick, 10.0F, 20.0F)
+         - GetMOP.getFromTo((float)tick, 20.0F, 30.0F)
+         + GetMOP.getFromTo((float)tick, 400.0F, 410.0F)
+         - GetMOP.getFromTo((float)tick, 410.0F, 425.0F)
+         + GetMOP.getFromTo((float)tick, 670.0F, 678.0F)
+         - GetMOP.getFromTo((float)tick, 680.0F, 689.0F);
       if (f <= 0.0F) {
          this.eye1.rotateAngleZ = (67.0F - rotAdd * 52.0F) * 0.017453F;
          this.eye2.rotateAngleZ = (23.0F + rotAdd * 52.0F) * 0.017453F;

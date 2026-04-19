@@ -805,7 +805,7 @@ arpg:vortex_in_a_bottle 0 0.5 false 0.0 0.5 0.5 20.0 0.0 0.0 0.0 20.0 0.0 0.0 0.
 arpg:airborne_circlet 0 0.5 false 0.0 1.0 0.0 20.0 0.0 0.0 20.0 0.0 0.0 0.0 0.0 0.0
 arpg:body_warmer 0 0.5 false 10.0 4.0 0.0 0.0 0.0 0.0 0.0 0.0 2.0 0.0 0.0 2.0
 arpg:devourers_teeth 0 0.5 false 0.0 2.0 0.0 0.0 0.0 0.0 0.0 10.0 0.0 10.0 0.0 0.0
-arpg:thornkeeper 0 0.5 false 0.0 2.0 10.0 0.0 0.0 0.0 0.0 0.0 0.0 5.0 0.0 10.0
+arpg:thorn_keeper 0 0.5 false 0.0 2.0 10.0 0.0 0.0 0.0 0.0 0.0 0.0 5.0 0.0 10.0
 arpg:ender_leech 0 0.5 false 0.0 0.2 0.0 0.0 0.0 0.0 0.0 10.0 0.0 2.0 0.0 5.0
 arpg:runners_socks 0 0.5 false 0.0 0.2 0.0 8.0 0.0 0.0 8.0 0.0 0.0 0.0 0.0 0.0
 arpg:ether_sign 0 0.6 false 0.0 1.0 0.0 20.0 0.0 0.0 1.0 0.0 20.0 0.0 0.0 0.0

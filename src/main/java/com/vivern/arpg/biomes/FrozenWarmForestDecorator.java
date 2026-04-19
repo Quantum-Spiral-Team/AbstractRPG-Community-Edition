@@ -23,8 +23,8 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 
 class FrozenWarmForestDecorator extends BiomeDecorator {
    public WorldGenGroundFoliage redberry = new WorldGenGroundFoliage(BlocksRegister.CRIMBERRY, 32, 8, 2);
-   public WorldGenGroundFoliage willow = new WorldGenGroundFoliage(BlocksRegister.WINTERWILLOW, 22, 6, 2);
-   public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.FROSTEDWEED, 32, 6, 2);
+   public WorldGenGroundFoliage willow = new WorldGenGroundFoliage(BlocksRegister.WINTER_WILLOW, 22, 6, 2);
+   public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.FROSTED_WEED, 32, 6, 2);
 
    public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
       if (this.decorating) {
@@ -35,7 +35,7 @@ class FrozenWarmForestDecorator extends BiomeDecorator {
                new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
             );
             Block blockd = worldIn.getBlockState(position.down()).getBlock();
-            if (blockd == BlocksRegister.SNOWICE || blockd == BlocksRegister.LOOSESNOW || blockd == Blocks.SNOW) {
+            if (blockd == BlocksRegister.SNOW_ICE || blockd == BlocksRegister.LOOSE_SNOW || blockd == Blocks.SNOW) {
                WorldServer worldServer = (WorldServer)worldIn;
                MinecraftServer minecraftServer = worldIn.getMinecraftServer();
                TemplateManager templateManager = worldServer.getStructureTemplateManager();
@@ -75,7 +75,7 @@ class FrozenWarmForestDecorator extends BiomeDecorator {
                new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
             );
             Block block = worldIn.getBlockState(position.down()).getBlock();
-            if (block == BlocksRegister.SNOWICE || block == Blocks.SNOW || block == BlocksRegister.GLACIER) {
+            if (block == BlocksRegister.SNOW_ICE || block == Blocks.SNOW || block == BlocksRegister.GLACIER) {
                GenerationHelper.placeStruct(
                   worldIn,
                   position,
@@ -94,7 +94,7 @@ class FrozenWarmForestDecorator extends BiomeDecorator {
                new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
             );
             Block block = worldIn.getBlockState(position.down()).getBlock();
-            if (block == BlocksRegister.SNOWICE || block == Blocks.SNOW || block == BlocksRegister.GLACIER) {
+            if (block == BlocksRegister.SNOW_ICE || block == Blocks.SNOW || block == BlocksRegister.GLACIER) {
                GenerationHelper.placeStruct(
                   worldIn, position, random, ":frozen_decor_" + (random.nextInt(5) + 1), 4, -1, random.nextInt(4), ChestReplacersFrozen.replacerStructures
                );
@@ -104,7 +104,7 @@ class FrozenWarmForestDecorator extends BiomeDecorator {
          for (int iix = 0; iix < random.nextInt(38); iix++) {
             BlockPos uppos = worldIn.getHeight(pos.add(random.nextInt(16), 0, random.nextInt(16)));
             if (FrostedWeed.canStayAtPos(worldIn, uppos)) {
-               worldIn.setBlockState(uppos, BlocksRegister.FROSTEDWEED.getDefaultState());
+               worldIn.setBlockState(uppos, BlocksRegister.FROSTED_WEED.getDefaultState());
             }
          }
 

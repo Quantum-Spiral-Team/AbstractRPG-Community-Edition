@@ -9,7 +9,8 @@ import com.vivern.arpg.dimensions.stormledge.DimensionStormledge;
 import com.vivern.arpg.dimensions.toxicomania.ARPGTeleporter;
 import com.vivern.arpg.dimensions.toxicomania.DimensionToxicomania;
 import java.util.ArrayList;
-import javax.annotation.Nullable;
+import java.util.List;
+
 import net.minecraft.block.BlockStainedGlassPane;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -17,20 +18,22 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
+import org.jetbrains.annotations.Nullable;
 
+//TODO упростить логику, добавить конфигурируемый id измерений
 public class DimensionsRegister {
-   public static final int ethernal_frost_id = 100;
-   public static final int toxicomania_id = 101;
-   public static final int dungeon_id = 102;
-   public static final int aquatica_id = 103;
-   public static final int stormledge_id = 104;
-   public static final int mortuorus_id = 106;
-   public static final DimensionType ETHERNAL_FROST = DimensionType.register("Ethernal_Frost", "_ethernal_frost", 100, DimensionEthernalFrost.class, false);
-   public static final DimensionType DUNGEON = DimensionType.register("Dungeon", "_dungeon", 102, DimensionDungeon.class, false);
-   public static final DimensionType TOXICOMANIA = DimensionType.register("Toxicomania", "_toxicomania", 101, DimensionToxicomania.class, false);
-   public static final DimensionType AQUATICA = DimensionType.register("Aquatica", "_aquatica", 103, DimensionAquatica.class, false);
-   public static final DimensionType STORMLEDGE = DimensionType.register("Stormledge", "_stormledge", 104, DimensionStormledge.class, false);
-   public static final DimensionType MORTUORUS = DimensionType.register("Mortuorus", "_mortuorus", 106, DimensionMortuorus.class, false);
+   public static final int ETHERNAL_FROST_ID = 100; //TODO config
+   public static final int TOXICOMANIA_ID = 101; //TODO config
+   public static final int DUNGEON_ID = 102; //TODO config
+   public static final int AQUATICA_ID = 103; //TODO config
+   public static final int STORMLEDGE_ID = 104; //TODO config
+   public static final int MORTUORUS_ID = 106; //TODO config
+   public static final DimensionType ETHERNAL_FROST = DimensionType.register("Ethernal_Frost", "_ethernal_frost", ETHERNAL_FROST_ID, DimensionEthernalFrost.class, false);
+   public static final DimensionType DUNGEON = DimensionType.register("Dungeon", "_dungeon", DUNGEON_ID, DimensionDungeon.class, false);
+   public static final DimensionType TOXICOMANIA = DimensionType.register("Toxicomania", "_toxicomania", TOXICOMANIA_ID, DimensionToxicomania.class, false);
+   public static final DimensionType AQUATICA = DimensionType.register("Aquatica", "_aquatica", AQUATICA_ID, DimensionAquatica.class, false);
+   public static final DimensionType STORMLEDGE = DimensionType.register("Stormledge", "_stormledge", STORMLEDGE_ID, DimensionStormledge.class, false);
+   public static final DimensionType MORTUORUS = DimensionType.register("Mortuorus", "_mortuorus", MORTUORUS_ID, DimensionMortuorus.class, false);
    public static boolean canPortalsBreak = true;
    public static ARPGTeleporter teleporterTOXICOMANIA;
    public static ARPGTeleporter teleporterEVERFROST;
@@ -39,23 +42,23 @@ public class DimensionsRegister {
    public static ARPGTeleporter teleporterSTORMLEDGE;
 
    public static void registerDimensions() {
-      DimensionManager.registerDimension(100, ETHERNAL_FROST);
-      DimensionManager.registerDimension(102, DUNGEON);
-      DimensionManager.registerDimension(101, TOXICOMANIA);
-      DimensionManager.registerDimension(103, AQUATICA);
-      DimensionManager.registerDimension(104, STORMLEDGE);
-      DimensionManager.registerDimension(106, MORTUORUS);
+      DimensionManager.registerDimension(ETHERNAL_FROST_ID, ETHERNAL_FROST);
+      DimensionManager.registerDimension(DUNGEON_ID, DUNGEON);
+      DimensionManager.registerDimension(TOXICOMANIA_ID, TOXICOMANIA);
+      DimensionManager.registerDimension(AQUATICA_ID, AQUATICA);
+      DimensionManager.registerDimension(STORMLEDGE_ID, STORMLEDGE);
+      DimensionManager.registerDimension(MORTUORUS_ID, MORTUORUS);
    }
 
    public static boolean isAbstractRPGDimension(int dimension) {
-      return dimension == 100 || dimension == 101 || dimension == 102 || dimension == 103 || dimension == 104 || dimension == 106;
+      return dimension == ETHERNAL_FROST_ID || dimension == DUNGEON_ID || dimension == TOXICOMANIA_ID || dimension == AQUATICA_ID || dimension == STORMLEDGE_ID || dimension == MORTUORUS_ID;
    }
 
    public static void registerTeleporters() {
-      ArrayList<BlockPos> membraneConfiguration = new ArrayList<>();
-      ArrayList<BlockAtPos> frameConfiguration = new ArrayList<>();
-      ArrayList<BlockPos> groundCheck = new ArrayList<>();
-      ArrayList<BlockPos> spawnPoints = new ArrayList<>();
+      List<BlockPos> membraneConfiguration = new ArrayList<>();
+      List<BlockAtPos> frameConfiguration = new ArrayList<>();
+      List<BlockPos> groundCheck = new ArrayList<>();
+      List<BlockPos> spawnPoints = new ArrayList<>();
       IBlockState framestate = Blocks.SNOW.getDefaultState();
       membraneConfiguration.add(new BlockPos(0, 0, 0));
       membraneConfiguration.add(new BlockPos(1, 0, 0));
@@ -92,13 +95,13 @@ public class DimensionsRegister {
       add8Poses(spawnPoints, new BlockPos(0, -1, 0));
       add8Poses(spawnPoints, new BlockPos(0, -2, 0));
       teleporterEVERFROST = new ARPGTeleporter(
-         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, 100, BlocksRegister.PORTALFROST.getDefaultState(), 5, false
+         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, ETHERNAL_FROST_ID, BlocksRegister.ETHERNAL_FROST_PORTAL.getDefaultState(), 5, false
       );
       membraneConfiguration = new ArrayList<>();
       frameConfiguration = new ArrayList<>();
       groundCheck = new ArrayList<>();
       spawnPoints = new ArrayList<>();
-      framestate = BlocksRegister.TOXICPORTALFRAME.getDefaultState();
+      framestate = BlocksRegister.TOXIC_PORTAL_FRAME.getDefaultState();
       membraneConfiguration.add(new BlockPos(0, 0, 0));
       membraneConfiguration.add(new BlockPos(1, 0, 0));
       membraneConfiguration.add(new BlockPos(-1, 0, 0));
@@ -147,7 +150,7 @@ public class DimensionsRegister {
       add8Poses(spawnPoints, new BlockPos(0, 0, 0));
       add8Poses(spawnPoints, new BlockPos(0, 1, 0));
       teleporterTOXICOMANIA = new ARPGTeleporter(
-         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, 101, BlocksRegister.TOXICPORTAL.getDefaultState(), 4, true
+         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, TOXICOMANIA_ID, BlocksRegister.TOXICOMANIA_PORTAL.getDefaultState(), 4, true
       );
       teleporterTOXICOMANIA.prototypePortalBlock = Blocks.STAINED_GLASS_PANE
          .getDefaultState()
@@ -156,7 +159,7 @@ public class DimensionsRegister {
       frameConfiguration = new ArrayList<>();
       groundCheck = new ArrayList<>();
       spawnPoints = new ArrayList<>();
-      framestate = BlocksRegister.DUNGEONPORTALFRAME.getDefaultState();
+      framestate = BlocksRegister.DUNGEON_PORTAL_FRAME.getDefaultState();
       membraneConfiguration.add(new BlockPos(0, 0, 0));
       membraneConfiguration.add(new BlockPos(-1, 0, 0));
       membraneConfiguration.add(new BlockPos(1, 0, 0));
@@ -216,14 +219,14 @@ public class DimensionsRegister {
       spawnPoints.add(new BlockPos(2, 1, -2));
       spawnPoints.add(new BlockPos(-2, 1, -2));
       teleporterDUNGEON = new ARPGTeleporter(
-         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, 102, BlocksRegister.DUNGEONPORTAL.getDefaultState(), 1, false
+         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, DUNGEON_ID, BlocksRegister.DUNGEON_PORTAL.getDefaultState(), 1, false
       );
       teleporterDUNGEON.canPlaceUnderground = true;
       membraneConfiguration = new ArrayList<>();
       frameConfiguration = new ArrayList<>();
       groundCheck = new ArrayList<>();
       spawnPoints = new ArrayList<>();
-      framestate = BlocksRegister.AQUATICAPORTALFRAME.getDefaultState();
+      framestate = BlocksRegister.AQUATICA_PORTAL_FRAME.getDefaultState();
       membraneConfiguration.add(new BlockPos(0, 0, 0));
       membraneConfiguration.add(new BlockPos(1, 0, 0));
       membraneConfiguration.add(new BlockPos(-1, 0, 0));
@@ -263,13 +266,13 @@ public class DimensionsRegister {
       add8Poses(spawnPoints, new BlockPos(0, -3, 0));
       add8Poses(spawnPoints, new BlockPos(0, -4, 0));
       teleporterAQUATICA = new ARPGTeleporter(
-         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, 103, BlocksRegister.AQUATICAPORTAL.getDefaultState(), 7, false
+         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, AQUATICA_ID, BlocksRegister.AQUATICA_PORTAL.getDefaultState(), 7, false
       );
       membraneConfiguration = new ArrayList<>();
       frameConfiguration = new ArrayList<>();
       groundCheck = new ArrayList<>();
       spawnPoints = new ArrayList<>();
-      framestate = BlocksRegister.STORMLEDGEPORTALFRAME.getDefaultState();
+      framestate = BlocksRegister.STORMLEDGE_PORTAL_FRAME.getDefaultState();
       membraneConfiguration.add(new BlockPos(0, 0, 0));
       membraneConfiguration.add(new BlockPos(1, 0, 0));
       membraneConfiguration.add(new BlockPos(-1, 0, 0));
@@ -333,31 +336,30 @@ public class DimensionsRegister {
       add8Poses(spawnPoints, new BlockPos(0, 1, 0));
       add8Poses(spawnPoints, new BlockPos(0, 0, 0));
       teleporterSTORMLEDGE = new ARPGTeleporter(
-         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, 104, BlocksRegister.STORMLEDGEPORTAL.getDefaultState(), 9, false
+         membraneConfiguration, frameConfiguration, groundCheck, spawnPoints, STORMLEDGE_ID, BlocksRegister.STORMLEDGE_PORTAL.getDefaultState(), 9, false
       );
    }
 
-   @Nullable
-   public static ARPGTeleporter getTeleporterToDimension(int dimensionId) {
-      if (dimensionId == 100) {
+   public static @Nullable ARPGTeleporter getTeleporterToDimension(int dimensionId) {
+      if (dimensionId == ETHERNAL_FROST_ID) {
          return teleporterEVERFROST;
-      } else if (dimensionId == 101) {
+      } else if (dimensionId == TOXICOMANIA_ID) {
          return teleporterTOXICOMANIA;
-      } else if (dimensionId == 102) {
+      } else if (dimensionId == DUNGEON_ID) {
          return teleporterDUNGEON;
       } else {
-         return dimensionId == 103 ? teleporterAQUATICA : null;
+         return dimensionId == AQUATICA_ID ? teleporterAQUATICA : null;
       }
    }
 
-   private static void add8Poses(ArrayList<BlockPos> list, BlockPos mainpos) {
-      list.add(mainpos.add(1, 0, 1));
-      list.add(mainpos.add(-1, 0, 1));
-      list.add(mainpos.add(1, 0, -1));
-      list.add(mainpos.add(-1, 0, -1));
-      list.add(mainpos.add(-1, 0, 0));
-      list.add(mainpos.add(1, 0, 0));
-      list.add(mainpos.add(0, 0, 1));
-      list.add(mainpos.add(0, 0, -1));
+   private static void add8Poses(List<BlockPos> list, BlockPos mainPos) {
+      list.add(mainPos.add(1, 0, 1));
+      list.add(mainPos.add(-1, 0, 1));
+      list.add(mainPos.add(1, 0, -1));
+      list.add(mainPos.add(-1, 0, -1));
+      list.add(mainPos.add(-1, 0, 0));
+      list.add(mainPos.add(1, 0, 0));
+      list.add(mainPos.add(0, 0, 1));
+      list.add(mainPos.add(0, 0, -1));
    }
 }

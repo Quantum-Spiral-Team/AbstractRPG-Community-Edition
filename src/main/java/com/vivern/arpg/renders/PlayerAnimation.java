@@ -1,7 +1,7 @@
 package com.vivern.arpg.renders;
 
 import com.vivern.arpg.events.Debugger;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;

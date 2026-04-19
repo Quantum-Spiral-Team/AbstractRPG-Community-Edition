@@ -58,8 +58,8 @@ public class GothicBow extends AbstractBow {
 
             if (click2) {
                if (!player.getCooldownTracker().hasCooldown(this)) {
-                  int smin = parameters.geti("shards_min");
-                  int smax = parameters.geti("shards_max");
+                  int smin = parameters.getI("shards_min");
+                  int smax = parameters.getI("shards_max");
                   int nn = itemRand.nextInt(smax - smin + 1) + smin;
                   int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
 
@@ -72,13 +72,13 @@ public class GothicBow extends AbstractBow {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("shard_velocity"),
-                        parameters.getEnchanted("shard_inaccuracy", acc) + i * 2,
+                        parameters.getF("shard_velocity"),
+                        parameters.getEnchantedF("shard_inaccuracy", acc) + i * 2,
                         -0.1F,
                         0.4F,
                         0.1F
                      );
-                     projectile.damage = parameters.getEnchanted("shard_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                     projectile.damage = parameters.getEnchantedF("shard_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
                      world.spawnEntity(projectile);
                   }
 
@@ -86,7 +86,7 @@ public class GothicBow extends AbstractBow {
                      for (int i = -20; i <= 20; i += 40) {
                         EntityMinigunIcicle projectile = new EntityMinigunIcicle(world, player);
                         Vec3d look = GetMOP.posRayTrace(48.0, 1.0F, player, true, 0.6, 0.5);
-                        Vec3d randlook = GetMOP.PitchYawToVec3d(
+                        Vec3d randlook = GetMOP.pitchYawToVec3D(
                               player.rotationPitch + (itemRand.nextFloat() - 0.5F) * 22.0F,
                               player.rotationYaw + i + (itemRand.nextFloat() - 0.5F) * 12.0F
                            )
@@ -104,7 +104,7 @@ public class GothicBow extends AbstractBow {
                   IWeapon.fireEffect(this, player, world, 64.0, player.posX, player.posY, player.posZ, 10.0, 1.0, 0.0, 0.0, 0.0, 0.0);
                   NBTHelper.AddNBTint(itemstack, 1, "ice");
                   int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-                  int cd = (int)(GetMOP.softfromto(-ice, 0.0F, 11.0F) * 6.0F + 2.0F);
+                  int cd = (int)(GetMOP.softFromTo(-ice, 0.0F, 11.0F) * 6.0F + 2.0F);
                   player.getCooldownTracker().setCooldown(this, cd - rapidity);
                } else {
                   int add = 2;
@@ -117,7 +117,7 @@ public class GothicBow extends AbstractBow {
                   NBTHelper.AddNBTint(itemstack, add, "pulling");
                   removePull[0] = false;
                }
-            } else if (player.ticksExisted % parameters.getEnchantedi("charges_decay_rate", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))
+            } else if (player.ticksExisted % parameters.getEnchantedI("charges_decay_rate", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))
                == 0) {
                NBTHelper.AddNBTint(itemstack, 1, "ice");
             }
@@ -133,11 +133,11 @@ public class GothicBow extends AbstractBow {
    }
 
    public int getMaxIceCharges(ItemStack itemstack) {
-      return WeaponParameters.getWeaponParameters(this).getEnchantedi("max_charges", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
+      return WeaponParameters.getWeaponParameters(this).getEnchantedI("max_charges", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
    }
 
    public int getChargesToShoot() {
-      return WeaponParameters.getWeaponParameters(this).geti("charges_to_shoot");
+      return WeaponParameters.getWeaponParameters(this).getI("charges_to_shoot");
    }
 
    @Override

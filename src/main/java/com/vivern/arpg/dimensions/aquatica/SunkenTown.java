@@ -318,9 +318,9 @@ public class SunkenTown {
 
    public void buildColumn(BlockPos pos, float radius) {
       GetMOP.BlockTraceResult result = GetMOP.blockTrace(this.world, pos, EnumFacing.DOWN, 250, GetMOP.SOLID_BLOCKS);
-      int ybound = result.impactState.getBlock() != BlocksRegister.PEARLESCENTBRICKS
-            && result.impactState.getBlock() != BlocksRegister.PEARLESCENTPILASTER
-            && result.impactState.getBlock() != BlocksRegister.PEARLESCENTSTAIRS
+      int ybound = result.impactState.getBlock() != BlocksRegister.PEARLESCENT_BRICKS
+            && result.impactState.getBlock() != BlocksRegister.PEARLESCENT_PILASTER
+            && result.impactState.getBlock() != BlocksRegister.PEARLESCENT_STAIRS
          ? 1
          : result.pos.getY();
       float radiusSq = radius * radius;
@@ -345,19 +345,19 @@ public class SunkenTown {
 
    public IBlockState getRandomBrick(boolean usecoralBrick) {
       if (this.rand.nextFloat() < 0.9) {
-         return BlocksRegister.PEARLESCENTBRICKS.getDefaultState();
+         return BlocksRegister.PEARLESCENT_BRICKS.getDefaultState();
       } else if (this.rand.nextFloat() < 0.3) {
-         return BlocksRegister.CORALWHITE.getDefaultState();
+         return BlocksRegister.CORAL_WHITE.getDefaultState();
       } else if (usecoralBrick && this.rand.nextFloat() < 0.4) {
-         return BlocksRegister.CORALBRICKS.getDefaultState();
+         return BlocksRegister.CORAL_BRICKS.getDefaultState();
       } else if (this.rand.nextFloat() < 0.4) {
          return BlocksRegister.CHALKROCK.getDefaultState();
       } else if (this.rand.nextFloat() < 0.4) {
-         return BlocksRegister.SEASTONE.getDefaultState();
+         return BlocksRegister.SEA_STONE.getDefaultState();
       } else {
          return this.rand.nextFloat() < 0.6
             ? BlocksRegister.SHELLROCK.getDefaultState()
-            : BlocksRegister.PEARLESCENTPILASTER.getDefaultState().withProperty(Pilaster.FACING, EnumFacing.byIndex(this.rand.nextInt(6)));
+            : BlocksRegister.PEARLESCENT_PILASTER.getDefaultState().withProperty(Pilaster.FACING, EnumFacing.byIndex(this.rand.nextInt(6)));
       }
    }
 
@@ -377,9 +377,9 @@ public class SunkenTown {
                         } else if (this.rand.nextFloat() < 0.5) {
                            this.world.setBlockState(poss, Blocks.WATER.getDefaultState());
                         } else if (this.rand.nextFloat() < 0.65) {
-                           this.world.setBlockState(poss, BlocksRegister.SEASTONE.getDefaultState());
+                           this.world.setBlockState(poss, BlocksRegister.SEA_STONE.getDefaultState());
                         } else if (this.rand.nextFloat() < 0.6) {
-                           this.world.setBlockState(poss, BlocksRegister.CORALPINK.getDefaultState());
+                           this.world.setBlockState(poss, BlocksRegister.CORAL_PINK.getDefaultState());
                         } else {
                            this.world
                               .setBlockState(

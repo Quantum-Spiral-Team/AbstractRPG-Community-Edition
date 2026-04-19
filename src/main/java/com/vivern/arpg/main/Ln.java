@@ -4,6 +4,9 @@ import com.vivern.arpg.items.IWeapon;
 import net.minecraft.item.Item;
 import net.minecraft.util.text.translation.I18n;
 
+import static com.vivern.arpg.AbstractRPG.LOGGER;
+
+@SuppressWarnings("deprecation")
 public class Ln {
    public static String translate(String input) {
       return I18n.translateToLocal(input);
@@ -14,19 +17,19 @@ public class Ln {
    }
 
    public static void printDescriptionsSample() {
-      System.out.print("\n");
+      LOGGER.info("\n");
 
       for (Item item : Item.REGISTRY) {
          if (item instanceof IWeapon) {
             String name = item.getRegistryName().getPath();
-            System.out.print("description." + name + "=");
-            System.out.print("\n");
-            System.out.print("descspecial." + name + "=");
-            System.out.print("\n");
+            LOGGER.info("description.{}=", name);
+            LOGGER.info("\n");
+            LOGGER.info("descspecial.{}=", name);
+            LOGGER.info("\n");
          }
       }
 
-      System.out.print("\n");
+      LOGGER.info("\n");
    }
 
    public static boolean canTranslate(String input) {

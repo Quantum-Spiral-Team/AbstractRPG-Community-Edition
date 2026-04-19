@@ -57,27 +57,27 @@ public class FrozenTreasureBarrel extends Block {
       for (int r = 0; r < maxr; r++) {
          if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
             if (RANDOM.nextFloat() < 0.4 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.SNOWFLAKESHUR, 2 + RANDOM.nextInt(15)));
+               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.SNOWFLAKE_SHURIKEN, 2 + RANDOM.nextInt(15)));
             } else if (RANDOM.nextFloat() < 0.15 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(BlocksRegister.FROZENTORCH, 6 + RANDOM.nextInt(10)));
+               spawnAsEntity(worldIn, pos, new ItemStack(BlocksRegister.FROZEN_TORCH, 6 + RANDOM.nextInt(10)));
             } else if (RANDOM.nextFloat() < 0.15 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CONIFERROSIN, 2 + RANDOM.nextInt(5)));
+               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CONIFER_ROSIN, 2 + RANDOM.nextInt(5)));
             } else if (RANDOM.nextFloat() < 0.15 * chance) {
                spawnAsEntity(worldIn, pos, new ItemStack(Items.COAL, 1 + RANDOM.nextInt(2)));
             } else if (RANDOM.nextFloat() < 0.1 * chance) {
                spawnAsEntity(worldIn, pos, new ItemStack(Items.ARROW, 4 + RANDOM.nextInt(5)));
             } else if (RANDOM.nextFloat() < 0.25 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CONIFERSTICK, 2 + RANDOM.nextInt(4)));
+               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CONIFER_STICK, 2 + RANDOM.nextInt(4)));
             } else if (RANDOM.nextFloat() < 0.15 * chance) {
                spawnAsEntity(worldIn, pos, new ItemStack(Items.STICK, 2 + RANDOM.nextInt(4)));
             } else if (RANDOM.nextFloat() < 0.15 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.ICEFLOWERSEEDS, 1 + RANDOM.nextInt(3)));
+               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.ICE_FLOWER_SEEDS, 1 + RANDOM.nextInt(3)));
             } else if (RANDOM.nextFloat() < 0.25 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(BlocksRegister.CONIFERSAPLING, 2 + RANDOM.nextInt(4)));
+               spawnAsEntity(worldIn, pos, new ItemStack(BlocksRegister.CONIFER_SAPLING, 2 + RANDOM.nextInt(4)));
             } else if (RANDOM.nextFloat() < 0.16 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.ARROWFROZEN, 4 + RANDOM.nextInt(8)));
+               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.ARROW_FROZEN, 4 + RANDOM.nextInt(8)));
             } else if (RANDOM.nextFloat() < 0.2 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.HAILTEAR, 1 + RANDOM.nextInt(3)));
+               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.HAIL_TEAR, 1 + RANDOM.nextInt(3)));
             }
 
             if (RANDOM.nextFloat() < 0.2 * chance) {

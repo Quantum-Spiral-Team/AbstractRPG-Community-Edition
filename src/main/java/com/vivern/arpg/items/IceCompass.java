@@ -21,10 +21,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 
@@ -46,79 +43,77 @@ public class IceCompass extends Item {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
       RayTraceResult raytraceresult = this.rayTrace(world, player, false);
-      if (raytraceresult == null) {
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      } else if (raytraceresult.typeOfHit != Type.BLOCK) {
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      } else {
-         BlockPos pos = raytraceresult.getBlockPos();
-         TileEntity tile = world.getTileEntity(pos);
-         if (tile != null && tile instanceof TileARPGChest) {
-            TileARPGChest chest = (TileARPGChest)tile;
-            if (chest.isLockedWith(ChestLock.WINTER_CURSE)) {
-               world.playSound(null, pos, Sounds.ice_compass_unlock, SoundCategory.BLOCKS, 0.5F, 0.9F + itemRand.nextFloat() / 5.0F);
-               if (world.isRemote) {
-                  for (EnumFacing face : EnumFacing.HORIZONTALS) {
-                     double x = pos.getX() + 0.5 + face.getXOffset() * 0.5;
-                     double y = pos.getY() + 0.5;
-                     double z = pos.getZ() + 0.5 + face.getZOffset() * 0.5;
-                     float speed = 0.14F;
-                     GUNParticle bigsmoke = new GUNParticle(
-                        ChestLock.lock_winter,
-                        0.62F,
-                        0.0F,
-                        30,
-                        240,
-                        world,
-                        x,
-                        y,
-                        z,
-                        face.getXOffset() * speed,
-                        0.0F,
-                        face.getZOffset() * speed,
-                        1.0F,
-                        1.0F,
-                        1.0F,
-                        true,
-                        1
-                     );
-                     bigsmoke.alphaGlowing = true;
-                     bigsmoke.alphaTickAdding = -0.03333333F;
-                     bigsmoke.snapToFace(face);
-                     world.spawnEntity(bigsmoke);
-                  }
+       if (raytraceresult.typeOfHit != Type.BLOCK) {
+          return new ActionResult<>(EnumActionResult.PASS, itemstack);
+       } else {
+          BlockPos pos = raytraceresult.getBlockPos();
+          TileEntity tile = world.getTileEntity(pos);
+          if (tile instanceof TileARPGChest) {
+             TileARPGChest chest = (TileARPGChest)tile;
+             if (chest.isLockedWith(ChestLock.WINTER_CURSE)) {
+                world.playSound(null, pos, Sounds.ice_compass_unlock, SoundCategory.BLOCKS, 0.5F, 0.9F + itemRand.nextFloat() / 5.0F);
+                if (world.isRemote) {
+                   for (EnumFacing face : EnumFacing.HORIZONTALS) {
+                      double x = pos.getX() + 0.5 + face.getXOffset() * 0.5;
+                      double y = pos.getY() + 0.5;
+                      double z = pos.getZ() + 0.5 + face.getZOffset() * 0.5;
+                      float speed = 0.14F;
+                      GUNParticle bigSmoke = new GUNParticle(
+                         ChestLock.lock_winter,
+                         0.62F,
+                         0.0F,
+                         30,
+                         240,
+                         world,
+                         x,
+                         y,
+                         z,
+                         face.getXOffset() * speed,
+                         0.0F,
+                         face.getZOffset() * speed,
+                         1.0F,
+                         1.0F,
+                         1.0F,
+                         true,
+                         1
+                      );
+                      bigSmoke.alphaGlowing = true;
+                      bigSmoke.alphaTickAdding = -0.03333333F;
+                      bigSmoke.snapToFace(face);
+                      world.spawnEntity(bigSmoke);
+                   }
 
-                  double x = pos.getX() + 0.5;
-                  double y = pos.getY() + 0.5;
-                  double z = pos.getZ() + 0.5;
+                   double x = pos.getX() + 0.5;
+                   double y = pos.getY() + 0.5;
+                   double z = pos.getZ() + 0.5;
 
-                  for (int i = 0; i < 8; i++) {
-                     ShardType.COLD
-                        .spawnNativeParticle(
-                           world,
-                           1.35F,
-                           x,
-                           y,
-                           z,
-                           (itemRand.nextFloat() - 0.5F) * 0.25F,
-                           itemRand.nextFloat() * 0.2F,
-                           (itemRand.nextFloat() - 0.5F) * 0.25F,
-                           true
-                        );
-                  }
-               }
+                   for (int i = 0; i < 8; i++) {
+                      ShardType.COLD
+                         .spawnNativeParticle(
+                            world,
+                            1.35F,
+                            x,
+                            y,
+                            z,
+                            (itemRand.nextFloat() - 0.5F) * 0.25F,
+                            itemRand.nextFloat() * 0.2F,
+                            (itemRand.nextFloat() - 0.5F) * 0.25F,
+                            true
+                         );
+                   }
+                }
 
-               if (!world.isRemote) {
-                  chest.lockOrUnlockWith(ChestLock.WINTER_CURSE, false);
-                  PacketHandler.trySendPacketUpdate(world, pos, chest, 64.0);
-               }
-            }
+                if (!world.isRemote) {
+                   chest.lockOrUnlockWith(ChestLock.WINTER_CURSE, false);
+                   PacketHandler.trySendPacketUpdate(world, pos, chest, 64.0);
+                }
+             }
 
-            return new ActionResult(EnumActionResult.SUCCESS, itemstack);
-         } else {
-            return new ActionResult(EnumActionResult.PASS, itemstack);
-         }
-      }
+             return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+          } else {
+             return new ActionResult<>(EnumActionResult.PASS, itemstack);
+          }
+       }
    }
 
    public void onUpdate(ItemStack stack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
@@ -132,11 +127,11 @@ public class IceCompass extends Item {
             if (entityIn.world.provider.getDimension() == 100) {
                long seed = NBTHelper.GetNBTlong(stack, "worldseed");
                int scanRange = 60;
-               int halfscanRange = scanRange / 2;
-               int xx = entityIn.ticksExisted % scanRange - halfscanRange;
+               int halfScanRange = scanRange / 2;
+               int xx = entityIn.ticksExisted % scanRange - halfScanRange;
                new ChunkPos(entityIn.getPosition());
 
-               for (int zz = -halfscanRange; zz <= halfscanRange; zz++) {
+               for (int zz = -halfScanRange; zz <= halfScanRange; zz++) {
                   int x = xx + ((int)entityIn.posX >> 4);
                   int z = zz + ((int)entityIn.posZ >> 4);
                   float dungeonValue = GenerationHelper.getDungeonValue(x, z, seed, 7);
@@ -154,14 +149,14 @@ public class IceCompass extends Item {
 
          if (posCastle != null) {
             Vec3d direction = new Vec3d(posCastle.getX() - entityIn.posX, 0.0, posCastle.getZ() - entityIn.posZ);
-            Vec3d pw = GetMOP.Vec3dToPitchYaw(direction);
+            Vec3d pw = GetMOP.vec3DToPitchYaw(direction);
             rotationTarget = (float)pw.y - entityIn.rotationYaw + 180.0F;
          } else if (entityIn.ticksExisted % 30 == 0) {
             rotationTarget = itemRand.nextInt(360);
          }
 
          prevArrowRotation = arrowRotation;
-         float between = GetMOP.getDirectionBetweenAngles(arrowRotation, rotationTarget);
+         float between = MathHelper.wrapDegrees(rotationTarget - arrowRotation);
          rotationSpeed *= 0.92F;
          rotationSpeed += between * 0.013F;
          arrowRotation = arrowRotation + rotationSpeed;

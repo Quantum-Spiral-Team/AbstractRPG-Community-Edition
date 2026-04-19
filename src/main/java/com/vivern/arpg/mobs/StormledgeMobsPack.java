@@ -162,8 +162,8 @@ public class StormledgeMobsPack {
          this.setattributes(380.0, 48.0, 21.0, 0.07, 0.0, 9.0, 0.45, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.NUGGETSTORMSTEEL, 1.0F, 0, 1, 3, 0),
-               new MobDrop(ItemsRegister.THUNDERSTONE, 0.55F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.STORMSTEEL_NUGGET, 1.0F, 0, 1, 3, 0),
+               new MobDrop(ItemsRegister.THUNDER_STONE, 0.55F, 0, 1, 1, 0)
             }
          );
          this.setRoleValues(EnumMobRole.TANK, 6);
@@ -474,8 +474,8 @@ public class StormledgeMobsPack {
          this.setattributes(65.0, 48.0, 13.0, 0.16, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.NUGGETSTORMSTEEL, 0.38F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.THUNDERSTONE, 0.07F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.STORMSTEEL_NUGGET, 0.38F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.THUNDER_STONE, 0.07F, 0, 1, 1, 0)
             }
          );
          this.var2 = 0.0F;
@@ -596,9 +596,9 @@ public class StormledgeMobsPack {
          this.setattributes(170.0, 32.0, 14.0, 0.065, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.NUGGETSTORMBRASS, 0.75F, 0, 1, 4, 0),
-               new MobDrop(ItemsRegister.SKYCRYSTALPIECE, 0.75F, 0, 1, 2, 0),
-               new MobDrop(ItemsRegister.WINDNATURE, 0.37F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.STORMBRASS_NUGGET, 0.75F, 0, 1, 4, 0),
+               new MobDrop(ItemsRegister.SKY_CRYSTAL_PIECE, 0.75F, 0, 1, 2, 0),
+               new MobDrop(ItemsRegister.WIND_NATURE, 0.37F, 0, 1, 1, 0)
             }
          );
          this.setRoleValues(EnumMobRole.STRONG_ENEMY, 6);
@@ -1045,8 +1045,8 @@ public class StormledgeMobsPack {
          this.setattributes(135.0, 48.0, 15.0, 0.1, 0.0, 5.0, 0.5, 0.2, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.NUGGETSTORMSTEEL, 0.45F, 0, 1, 4, 0),
-               new MobDrop(ItemsRegister.THUNDERSTONE, 0.25F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.STORMSTEEL_NUGGET, 0.45F, 0, 1, 4, 0),
+               new MobDrop(ItemsRegister.THUNDER_STONE, 0.25F, 0, 1, 1, 0)
             }
          );
          this.var2 = 0.0F;
@@ -1071,7 +1071,7 @@ public class StormledgeMobsPack {
          if (!this.world.isRemote) {
             for (int i = 0; i < 3; i++) {
                float ang = MathHelper.wrapDegrees(this.var2 + this.rotationYaw + 120 * i);
-               Vec3d vec = GetMOP.RotatedPosRayTrace(15.0, 1.0F, this, 0.7, 0.6, this.rotationPitch, ang);
+               Vec3d vec = GetMOP.rotatedPosRayTrace(15.0, 1.0F, this, 0.7, 0.6, this.rotationPitch, ang);
                double damageRadius = 1.0;
                AxisAlignedBB aabb = new AxisAlignedBB(
                   vec.x - damageRadius,
@@ -1261,8 +1261,8 @@ public class StormledgeMobsPack {
          this.setattributes(125.0, 48.0, 15.0, 0.1, 0.0, 5.0, 0.75, 0.2, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.NUGGETSTORMSTEEL, 0.45F, 0, 1, 4, 0),
-               new MobDrop(ItemsRegister.THUNDERSTONE, 0.2F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.STORMSTEEL_NUGGET, 0.45F, 0, 1, 4, 0),
+               new MobDrop(ItemsRegister.THUNDER_STONE, 0.2F, 0, 1, 1, 0)
             }
          );
          this.setRoleValues(EnumMobRole.STRONG_SOLDIER, 6);
@@ -1366,9 +1366,9 @@ public class StormledgeMobsPack {
          this.setattributes(2000.0, 84.0, 15.0, 0.25, 4.0, 6.0, 0.85, 0.4, 0.0, 0.2);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.NUGGETSTORMSTEEL, 1.0F, 0, 2, 8, 0),
-               new MobDrop(ItemsRegister.THUNDERSTONE, 1.0F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.THUNDERBIRDFEATHER, 1.0F, 0, 4, 7, 0)
+               new MobDrop(ItemsRegister.STORMSTEEL_NUGGET, 1.0F, 0, 2, 8, 0),
+               new MobDrop(ItemsRegister.THUNDER_STONE, 1.0F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.THUNDERBIRD_FEATHER, 1.0F, 0, 4, 7, 0)
             }
          );
          this.var2 = 0.0F;
@@ -1460,7 +1460,7 @@ public class StormledgeMobsPack {
             }
 
             this.rotationPitch += derection;
-            Vec3d vecpw = GetMOP.Vec3dToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
+            Vec3d vecpw = GetMOP.vec3DToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
             this.rotateDirectPitch = (float)vecpw.x;
             this.rotateDirectYaw = (float)vecpw.y;
          }
@@ -1604,9 +1604,9 @@ public class StormledgeMobsPack {
          this.setattributes(500.0, 48.0, 8.0, 0.05, 12.0, 1.0, 0.2, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.NUGGETSTORMBRASS, 0.75F, 0, 2, 5, 0),
-               new MobDrop(ItemsRegister.SKYCRYSTALPIECE, 0.75F, 0, 1, 3, 0),
-               new MobDrop(ItemsRegister.WINDNATURE, 0.8F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.STORMBRASS_NUGGET, 0.75F, 0, 2, 5, 0),
+               new MobDrop(ItemsRegister.SKY_CRYSTAL_PIECE, 0.75F, 0, 1, 3, 0),
+               new MobDrop(ItemsRegister.WIND_NATURE, 0.8F, 0, 1, 1, 0)
             }
          );
          this.var2 = 0.0F;
@@ -1687,8 +1687,8 @@ public class StormledgeMobsPack {
          } else {
             Vec3d motionVec = new Vec3d(this.motionX, 0.0, this.motionZ);
             motionVec = motionVec.normalize();
-            Vec3d rotationVecR = GetMOP.PitchYawToVec3d(0.0F, this.rotationYaw + 90.0F).normalize();
-            Vec3d rotationVecL = GetMOP.PitchYawToVec3d(0.0F, this.rotationYaw - 90.0F).normalize();
+            Vec3d rotationVecR = GetMOP.pitchYawToVec3D(0.0F, this.rotationYaw + 90.0F).normalize();
+            Vec3d rotationVecL = GetMOP.pitchYawToVec3D(0.0F, this.rotationYaw - 90.0F).normalize();
             double distR = motionVec.distanceTo(rotationVecR);
             if (distR < 1.0 && this.var3 < 0.5) {
                this.var3 = (float)(this.var3 + (1.0 - distR) * 0.07);
@@ -1761,7 +1761,7 @@ public class StormledgeMobsPack {
          this.setattributes(300.0, 48.0, 12.0, 0.1, 2.0, 6.0, 0.0, 0.1, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.NUGGETSTORMSTEEL, 0.5F, 0, 2, 4, 0), new MobDrop(ItemsRegister.THUNDERSTONE, 0.4F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.STORMSTEEL_NUGGET, 0.5F, 0, 2, 4, 0), new MobDrop(ItemsRegister.THUNDER_STONE, 0.4F, 0, 1, 1, 0)
             }
          );
          this.var2 = 0.0F;

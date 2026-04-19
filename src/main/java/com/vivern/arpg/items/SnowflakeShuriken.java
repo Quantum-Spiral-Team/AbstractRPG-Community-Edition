@@ -73,8 +73,8 @@ public class SnowflakeShuriken extends ItemWeapon {
                   0.9F + itemRand.nextFloat() / 5.0F
                );
                EntitySnowflakeShuriken projectile = new EntitySnowflakeShuriken(world, player, stack);
-               projectile.damage = parameters.get("damage");
-               projectile.knockback = parameters.get("knockback");
+               projectile.damage = parameters.getF("damage");
+               projectile.knockback = parameters.getF("knockback");
                Weapons.shoot(
                   projectile,
                   hand,
@@ -82,8 +82,8 @@ public class SnowflakeShuriken extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.3F,
-                  parameters.get("velocity"),
-                  parameters.get("inaccuracy"),
+                  parameters.getF("velocity"),
+                  parameters.getF("inaccuracy"),
                   -0.15F,
                   0.5F,
                   0.1F

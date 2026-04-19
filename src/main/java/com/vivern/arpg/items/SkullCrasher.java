@@ -121,12 +121,12 @@ public class SkullCrasher extends ItemWeapon {
          BlockPos bpos = entitylivingbase.getPosition().down();
          IBlockState state = world.getBlockState(bpos);
          float hard = state.getBlockHardness(world, bpos);
-         float hardnessBreaks = parameters.getEnchanted("hardness_breaks", might);
-         float hardnessPenetrate = parameters.getEnchanted("hardness_penetrate", might);
+         float hardnessBreaks = parameters.getEnchantedF("hardness_breaks", might);
+         float hardnessPenetrate = parameters.getEnchantedF("hardness_penetrate", might);
          if (entitylivingbase.width < 3.0F
             && entitylivingbase.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()
                < Math.min(impulse / 5.0F + itemRand.nextFloat(), 1.0F) * itemRand.nextFloat()) {
-            int digBlocks = parameters.getEnchantedi("blocks_dig", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack));
+            int digBlocks = parameters.getEnchantedI("blocks_dig", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack));
             boolean canDig = true;
             float down = 0.0F;
 
@@ -148,7 +148,7 @@ public class SkullCrasher extends ItemWeapon {
 
             if (down != 0.0F) {
                entitylivingbase.setPositionAndUpdate(bpos.getX(), bpos.getY() - down, bpos.getZ());
-               int potionpower = GetMOP.floatToIntWithChance(parameters.getEnchanted("potion_power", witchery), itemRand);
+               int potionpower = GetMOP.floatToIntWithChance(parameters.getEnchantedF("potion_power", witchery), itemRand);
                entitylivingbase.addPotionEffect(new PotionEffect(PotionEffects.SQUASHED, 200, potionpower, false, false));
             }
          }

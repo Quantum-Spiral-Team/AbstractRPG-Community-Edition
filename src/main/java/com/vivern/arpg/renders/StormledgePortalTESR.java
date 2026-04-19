@@ -167,7 +167,7 @@ public class StormledgePortalTESR extends TileEntitySpecialRenderer<TileStormled
    }
 
    public float lightningFunc(float x) {
-      return GetMOP.getfromto(MathHelper.sin(x + MathHelper.sin(x * 0.87F)) + MathHelper.sin(x * 13.08F), 1.6F, 2.0F);
+      return GetMOP.getFromTo(MathHelper.sin(x + MathHelper.sin(x * 0.87F)) + MathHelper.sin(x * 13.08F), 1.6F, 2.0F);
    }
 
    protected float getOffset() {

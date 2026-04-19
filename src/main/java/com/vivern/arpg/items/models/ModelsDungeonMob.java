@@ -280,20 +280,20 @@ public class ModelsDungeonMob {
          float addshoot = 0.0F;
          if (an3 > 0) {
             float pt = Minecraft.getMinecraft().getRenderPartialTicks();
-            addshoot = GetMOP.getfromto(100 - an3 + pt, 0.0F, 20.0F) - GetMOP.getfromto(100 - an3 + pt, 50.0F, 70.0F);
+            addshoot = GetMOP.getFromTo(100 - an3 + pt, 0.0F, 20.0F) - GetMOP.getFromTo(100 - an3 + pt, 50.0F, 70.0F);
          }
 
          float noshoot = 1.0F - addshoot;
          if (an2 > 0) {
             float pt = Minecraft.getMinecraft().getRenderPartialTicks();
-            float add = (GetMOP.getfromto(100 - an2 + pt, 0.0F, 8.0F) - GetMOP.getfromto(100 - an2 + pt, 12.0F, 20.0F)) * noshoot;
+            float add = (GetMOP.getFromTo(100 - an2 + pt, 0.0F, 8.0F) - GetMOP.getFromTo(100 - an2 + pt, 12.0F, 20.0F)) * noshoot;
             this.eye2.rotateAngleX = MathHelper.clamp(this.eye2.rotateAngleX + 1.012291F * add, -max2, max1);
             this.eye3.rotateAngleX = MathHelper.clamp(this.eye3.rotateAngleX + -0.9773844F * add, -max1, max2);
          }
 
          if (an4 > 0) {
             float pt = Minecraft.getMinecraft().getRenderPartialTicks();
-            float add = (GetMOP.getfromto(100 - an4 + pt, 0.0F, 14.0F) - GetMOP.getfromto(100 - an4 + pt, 74.0F, 88.0F)) * noshoot;
+            float add = (GetMOP.getFromTo(100 - an4 + pt, 0.0F, 14.0F) - GetMOP.getFromTo(100 - an4 + pt, 74.0F, 88.0F)) * noshoot;
             this.eye2.rotateAngleX = MathHelper.clamp(this.eye2.rotateAngleX + 0.8552113F * add, -max2, max1);
             this.eye3.rotateAngleX = MathHelper.clamp(this.eye3.rotateAngleX + -0.4886922F * add, -max1, max2);
          }
@@ -302,7 +302,7 @@ public class ModelsDungeonMob {
          float addattack = 0.0F;
          if (an1 > 0) {
             float pt = Minecraft.getMinecraft().getRenderPartialTicks();
-            addattack = GetMOP.getfromto(100 - an1 + pt, 0.0F, 8.0F) - GetMOP.getfromto(100 - an1 + pt, 20.0F, 34.0F);
+            addattack = GetMOP.getFromTo(100 - an1 + pt, 0.0F, 8.0F) - GetMOP.getFromTo(100 - an1 + pt, 20.0F, 34.0F);
          }
 
          this.setRotateAngle(this.tentE3, -0.27314404F, -2.6406832F, -0.091106184F);
@@ -766,7 +766,7 @@ public class ModelsDungeonMob {
          this.tail3.rotateAngleZ = rot;
          if (an2 > 0) {
             float an = 100 - an2 + Minecraft.getMinecraft().getRenderPartialTicks();
-            float add = GetMOP.getfromto(an, 0.0F, 12.0F) * 0.3F - GetMOP.getfromto(an, 13.0F, 17.0F) * 0.55F + GetMOP.getfromto(an, 18.0F, 35.0F) * 0.25F;
+            float add = GetMOP.getFromTo(an, 0.0F, 12.0F) * 0.3F - GetMOP.getFromTo(an, 13.0F, 17.0F) * 0.55F + GetMOP.getFromTo(an, 18.0F, 35.0F) * 0.25F;
             this.body0.rotateAngleX += add;
             this.tail1.rotateAngleX += add;
             this.tail2.rotateAngleX += add;
@@ -776,13 +776,13 @@ public class ModelsDungeonMob {
          float attackmeleeAdd = 0.0F;
          if (an1 > 0) {
             float an = 100 - an1 + Minecraft.getMinecraft().getRenderPartialTicks();
-            attackmeleeAdd = GetMOP.getfromto(an, 0.0F, 15.0F) - GetMOP.getfromto(an, 23.0F, 26.0F);
+            attackmeleeAdd = GetMOP.getFromTo(an, 0.0F, 15.0F) - GetMOP.getFromTo(an, 23.0F, 26.0F);
             this.leg1.rotateAngleX *= 1.0F - attackmeleeAdd;
             this.leg2.rotateAngleX *= 1.0F - attackmeleeAdd;
             this.leg1.rotateAngleX += (float) (Math.PI * 2.0 / 9.0) * attackmeleeAdd;
             this.leg2.rotateAngleX += (float) (Math.PI * 2.0 / 9.0) * attackmeleeAdd;
-            this.head1.rotateAngleX = this.head1.rotateAngleX + 0.87266463F * (GetMOP.getfromto(an, 0.0F, 10.0F) - GetMOP.getfromto(an, 26.0F, 36.0F));
-            float add2 = 0.61086524F * (GetMOP.getfromto(an, 8.0F, 15.0F) - GetMOP.getfromto(an, 23.0F, 26.0F));
+            this.head1.rotateAngleX = this.head1.rotateAngleX + 0.87266463F * (GetMOP.getFromTo(an, 0.0F, 10.0F) - GetMOP.getFromTo(an, 26.0F, 36.0F));
+            float add2 = 0.61086524F * (GetMOP.getFromTo(an, 8.0F, 15.0F) - GetMOP.getFromTo(an, 23.0F, 26.0F));
             this.leg3.rotateAngleX += add2;
             this.leg4.rotateAngleX += add2;
          }
@@ -807,8 +807,8 @@ public class ModelsDungeonMob {
          if (an4 > 85) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             float an = 100 - an4 + Minecraft.getMinecraft().getRenderPartialTicks();
-            float col = GetMOP.getfromto(an, 0.0F, 10.0F) - GetMOP.getfromto(an, 11.0F, 14.0F);
-            float siz = 1.15F - GetMOP.getfromto(an, 0.0F, 10.0F) * 0.145F;
+            float col = GetMOP.getFromTo(an, 0.0F, 10.0F) - GetMOP.getFromTo(an, 11.0F, 14.0F);
+            float siz = 1.15F - GetMOP.getFromTo(an, 0.0F, 10.0F) * 0.145F;
             GlStateManager.pushMatrix();
             GlStateManager.scale(siz, siz, siz);
             GL11.glDisable(2896);

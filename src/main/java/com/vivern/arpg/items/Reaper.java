@@ -6,7 +6,7 @@ import com.vivern.arpg.main.Keys;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Weapons;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;

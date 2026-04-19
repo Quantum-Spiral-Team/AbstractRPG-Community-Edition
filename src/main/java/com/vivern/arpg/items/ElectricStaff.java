@@ -54,7 +54,7 @@ public class ElectricStaff extends ItemWeapon {
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             float power = Mana.getMagicPowerMax(player);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", sor);
+            float manacost = parameters.getEnchantedF("manacost", sor);
             boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
             boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
@@ -83,13 +83,13 @@ public class ElectricStaff extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.0F,
-                  parameters.get("velocity"),
-                  parameters.getEnchanted("inaccuracy", acc),
+                  parameters.getF("velocity"),
+                  parameters.getEnchantedF("inaccuracy", acc),
                   -0.15F,
                   0.5F,
                   0.2F
                );
-               bolt.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+               bolt.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                world.spawnEntity(bolt);
                if (!player.capabilities.isCreativeMode) {
                   Mana.changeMana(player, -manacost);

@@ -1428,29 +1428,29 @@
 		"arpg:hadron_blaster_impact"
 		]
     },
-	"snapball": {
+	"snap_ball": {
         "sounds": [
-		"arpg:snapball"
+		"arpg:snap_ball"
 		]
     },
-	"snapball_impact": {
+	"snap_ball_impact": {
         "sounds": [
-		"arpg:snapball_impact"
+		"arpg:snap_ball_impact"
 		]
     },
-	"snapball_rel": {
+	"snap_ball_rel": {
         "sounds": [
-		"arpg:snapball_rel"
+		"arpg:snap_ball_rel"
 		]
     },
-	"snapball_pick": {
+	"snap_ball_pick": {
         "sounds": [
-		"arpg:snapball_pick"
+		"arpg:snap_ball_pick"
 		]
     },
-	"snapball_explode": {
+	"snap_ball_explode": {
         "sounds": [
-		"arpg:snapball_explode"
+		"arpg:snap_ball_explode"
 		]
     },
 	"alert": {
@@ -1673,8 +1673,8 @@
 		"arpg:grenade_throw3"
 		]
     },
-	"cryogrenade": {
-        "sounds": [{ "name": "arpg:cryogrenade"}]
+	"cryo_grenade": {
+        "sounds": [{ "name": "arpg:cryo_grenade"}]
     },
 	"explode6": {
         "sounds": [{ "name": "arpg:explode6"}]

@@ -284,8 +284,8 @@ public class StormBigChestModel extends ModelBase {
          this.chestBelowLightFront.render(f5);
          this.chestBelowLightBack.render(f5);
          float progress = f4 / (float) (-Math.PI / 2);
-         float circleSizeX = GetMOP.getfromto(progress, 0.2F, 0.7F);
-         float circleSizeZ = GetMOP.getfromto(progress, 0.0F, 0.1F) * 0.1F + GetMOP.getfromto(progress, 0.7F, 1.0F) * 0.9F;
+         float circleSizeX = GetMOP.getFromTo(progress, 0.2F, 0.7F);
+         float circleSizeZ = GetMOP.getFromTo(progress, 0.0F, 0.1F) * 0.1F + GetMOP.getFromTo(progress, 0.7F, 1.0F) * 0.9F;
          AbstractMobModel.alphaGlow();
          GlStateManager.pushMatrix();
          GlStateManager.translate(this.shapeCircle.offsetX, this.shapeCircle.offsetY, this.shapeCircle.offsetZ);

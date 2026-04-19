@@ -8,7 +8,7 @@ import com.vivern.arpg.renders.ParticleTracker;
 import com.vivern.arpg.tileentity.TileRunicMirror;
 import java.util.HashMap;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;

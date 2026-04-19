@@ -152,7 +152,7 @@ public class StingerBoltEntity extends EntityThrowable {
    public void expl(RayTraceResult result) {
       if (!this.world.isRemote) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
          AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
             .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
             .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -164,18 +164,18 @@ public class StingerBoltEntity extends EntityThrowable {
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),
-                     parameters.getEnchanted("damage", might),
+                     parameters.getEnchantedF("damage", might),
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse)
+                     parameters.getEnchantedF("knockback", impulse)
                   );
                   entity.hurtResistantTime = 0;
                }
             }
          }
 
-         for (int ss = 0; ss < parameters.getEnchanted("shards", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack)); ss++) {
+         for (int ss = 0; ss < parameters.getEnchantedF("shards", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack)); ss++) {
             EntityStingerShard entit = new EntityStingerShard(
                this.world,
                this.getThrower(),

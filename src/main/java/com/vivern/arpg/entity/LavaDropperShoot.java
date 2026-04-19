@@ -34,19 +34,19 @@ public class LavaDropperShoot extends EntityThrowable {
 
    public LavaDropperShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.LAVADROPPER);
+      this.weaponstack = new ItemStack(ItemsRegister.LAVA_DROPPER);
       this.setSize(0.5F, 0.5F);
    }
 
    public LavaDropperShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.LAVADROPPER);
+      this.weaponstack = new ItemStack(ItemsRegister.LAVA_DROPPER);
       this.setSize(0.5F, 0.5F);
    }
 
    public LavaDropperShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.LAVADROPPER);
+      this.weaponstack = new ItemStack(ItemsRegister.LAVA_DROPPER);
       this.setSize(0.5F, 0.5F);
    }
 
@@ -158,14 +158,14 @@ public class LavaDropperShoot extends EntityThrowable {
             int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
             Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.fire),
-               parameters.getEnchanted("damage", might),
+               parameters.getEnchantedF("damage", might),
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse)
+               parameters.getEnchantedF("knockback", impulse)
             );
             result.entityHit.hurtResistantTime = 0;
-            result.entityHit.setFire(parameters.getEnchantedi("fire", witchery));
+            result.entityHit.setFire(parameters.getEnchantedI("fire", witchery));
             this.tryPlaceLava(result);
             this.world
                .playSound(

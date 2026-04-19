@@ -3,7 +3,7 @@ package com.vivern.arpg.mobs;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.SuperKnockback;
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -32,7 +32,7 @@ public class EntityAIRayLogicJump extends EntityAIBase {
          Vec3d vec3d1 = this.entity.getLook(1.0F);
          Vec3d lookPos = fromPos.add(vec3d1.x * 1.3, vec3d1.y * 1.3, vec3d1.z * 1.3);
          Vec3d lookPosforjump = fromPos.add(vec3d1.x * 10.0, vec3d1.y * 10.0, vec3d1.z * 10.0);
-         Vec3d impact = GetMOP.logicRayTraceIgnoreMobs(this.entity.world, fromPos, lookPos, 1.0F, this.ignoreblocks, false);
+         Vec3d impact = GetMOP.logicRayTraceIgnoreMobs(this.entity.world, fromPos, lookPos, this.ignoreblocks, false);
          BlockPos pos = new BlockPos(impact);
          BlockPos posd1 = pos.down();
          if (this.entity.world.getBlockState(posd1).getCollisionBoundingBox(this.entity.world, posd1) == null) {

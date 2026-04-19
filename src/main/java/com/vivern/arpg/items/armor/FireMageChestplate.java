@@ -65,7 +65,7 @@ public class FireMageChestplate extends ItemArmor {
       if (armorSlot != EntityEquipmentSlot.CHEST) {
          return null;
       } else if (itemStack != ItemStack.EMPTY) {
-         ModelBiped whm = ClientProxy.magichoodie;
+         ModelBiped whm = ClientProxy.magicHoodie;
          whm.isSneak = entityLiving.isSneaking();
          whm.isRiding = entityLiving.isRiding();
          whm.isChild = entityLiving.isChild();

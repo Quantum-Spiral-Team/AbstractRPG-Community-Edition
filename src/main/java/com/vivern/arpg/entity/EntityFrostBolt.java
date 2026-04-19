@@ -36,17 +36,17 @@ public class EntityFrostBolt extends EntityThrowable {
 
    public EntityFrostBolt(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.FROSTBOLT);
+      this.weaponstack = new ItemStack(ItemsRegister.FROST_BOLT_STAFF);
    }
 
    public EntityFrostBolt(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.FROSTBOLT);
+      this.weaponstack = new ItemStack(ItemsRegister.FROST_BOLT_STAFF);
    }
 
    public EntityFrostBolt(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.FROSTBOLT);
+      this.weaponstack = new ItemStack(ItemsRegister.FROST_BOLT_STAFF);
    }
 
    public EntityFrostBolt(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -177,8 +177,8 @@ public class EntityFrostBolt extends EntityThrowable {
             result.entityHit.hurtResistantTime = 0;
             if (result.entityHit instanceof EntityLivingBase) {
                EntityLivingBase entitylivingbase = (EntityLivingBase)result.entityHit;
-               int potionValue1 = parameters.getEnchantedi("potion_time_add", witchery);
-               int potionValue2 = parameters.getEnchantedi("potion_power_add", witchery);
+               int potionValue1 = parameters.getEnchantedI("potion_time_add", witchery);
+               int potionValue2 = parameters.getEnchantedI("potion_power_add", witchery);
                PotionEffect lastdebaff = Weapons.mixPotion(
                   entitylivingbase,
                   PotionEffects.FREEZING,

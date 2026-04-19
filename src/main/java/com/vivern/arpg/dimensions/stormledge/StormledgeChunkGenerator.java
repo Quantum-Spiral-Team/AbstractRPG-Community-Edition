@@ -11,7 +11,7 @@ import com.vivern.arpg.main.GetMOP;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
@@ -96,7 +96,7 @@ public class StormledgeChunkGenerator implements IChunkGenerator {
       this.decorNoise1 = new NoiseGeneratorPerlin(new Random(seed + 5L), 4);
       this.decorNoise2 = new NoiseGeneratorPerlin(new Random(seed + 6L), 4);
       this.stormsteelOreGen = new CustomOreGenerator(
-         BlocksRegister.ORESTORMSTEEL.getDefaultState(),
+         BlocksRegister.ORESTORM_STEEL.getDefaultState(),
          104,
          state -> state.getBlock() == Blocks.STONE || state.getBlock() == BlocksRegister.DOLERITE,
          4,
@@ -185,7 +185,7 @@ public class StormledgeChunkGenerator implements IChunkGenerator {
       if (this.rand.nextFloat() < 0.01F) {
          BlockPos pos = new BlockPos(x, y, z);
          if (chunkBuilder.isAirBlock(pos) && chunkBuilder.getBlockState(pos.down()).isOpaqueCube()) {
-            chunkBuilder.setBlockState(pos, BlocksRegister.FULMINIORTUMBONNY.getDefaultState(), 2);
+            chunkBuilder.setBlockState(pos, BlocksRegister.FULMINIORTUM_BONNY.getDefaultState(), 2);
          }
       } else if (this.rand.nextFloat() < 0.015F) {
          BlockPos pos = new BlockPos(x, y, z);
@@ -200,7 +200,7 @@ public class StormledgeChunkGenerator implements IChunkGenerator {
       } else if (this.rand.nextFloat() < 0.75F && this.decorNoise2.getValue(x / 13.0, z / 13.0) > 4.5) {
          BlockPos pos = new BlockPos(x, y, z);
          if (chunkBuilder.isAirBlock(pos) && chunkBuilder.getBlockState(pos.down()).isOpaqueCube()) {
-            chunkBuilder.setBlockState(pos, BlocksRegister.FULMINIORTUMBULB.getDefaultState(), 2);
+            chunkBuilder.setBlockState(pos, BlocksRegister.FULMINIORTUM_BULB.getDefaultState(), 2);
          }
       }
    }
@@ -211,7 +211,7 @@ public class StormledgeChunkGenerator implements IChunkGenerator {
       } else if (this.rand.nextFloat() < 0.28F) {
          chunkPrimer.setBlockState(x, y, z, BlocksRegister.FULMINIHERBA.getDefaultState());
       } else if (this.rand.nextFloat() < 0.75F && this.decorNoise2.getValue(x / 13.0, z / 13.0) > 5.0) {
-         chunkPrimer.setBlockState(x, y, z, BlocksRegister.FULMINIORTUMBULB.getDefaultState());
+         chunkPrimer.setBlockState(x, y, z, BlocksRegister.FULMINIORTUM_BULB.getDefaultState());
       }
    }
 
@@ -279,7 +279,7 @@ public class StormledgeChunkGenerator implements IChunkGenerator {
                if (biome2 == BiomesRegister.CRYSTALLIZED_SKY_ISLANDS || biome2 == BiomesRegister.ELECTROFERN_GROVE) {
                   this.worldGenCrystalIsland.setChunkBuilder(chunkBuilder);
                   this.worldGenCrystalIsland.generateCrystalIsland(islandRand, vecpos, 1, 0.6F + islandRand.nextFloat() * 0.25F);
-                  chunkBuilder.setBlockState(new BlockPos(vecpos), BlocksRegister.OREADAMANTIUM.getDefaultState());
+                  chunkBuilder.setBlockState(new BlockPos(vecpos), BlocksRegister.ADAMANTIUM_ORE.getDefaultState());
                }
             }
          }

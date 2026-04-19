@@ -15,7 +15,7 @@ import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.network.PacketBaublesNbtToClients;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -76,7 +76,7 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
 
          expand /= 1.0F + nofly * 1.5F;
          int maxflytime = this.getMaxFlyTime(stack);
-         float upward = GetMOP.getfromto(flytime, 0.0F, 5.0F) * GetMOP.getfromto(flyupStarted, 0.0F, (float)(this.flapPeriod / 2));
+         float upward = GetMOP.getFromTo(flytime, 0.0F, 5.0F) * GetMOP.getFromTo(flyupStarted, 0.0F, (float)(this.flapPeriod / 2));
          float upwardProgress = flytime / this.flapPeriodFloat;
          float gliding = glidingRaw / 8.0F * nofly;
          GlStateManager.pushMatrix();

@@ -6,7 +6,7 @@ import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -98,7 +98,7 @@ public class BlockFluidSulfuricGas extends BlockFluidClassic {
    public static void applySulfuricGasPotions(Entity entityIn) {
       if (!entityIn.world.isRemote && entityIn instanceof EntityLivingBase && entityIn.ticksExisted % 25 == 0) {
          EntityLivingBase base = (EntityLivingBase)entityIn;
-         if (base instanceof EntityPlayer && BaublesApi.isBaubleEquipped((EntityPlayer)base, ItemsRegister.GASMASK) >= 0) {
+         if (base instanceof EntityPlayer && BaublesApi.isBaubleEquipped((EntityPlayer)base, ItemsRegister.GAS_MASK) >= 0) {
             return;
          }
 

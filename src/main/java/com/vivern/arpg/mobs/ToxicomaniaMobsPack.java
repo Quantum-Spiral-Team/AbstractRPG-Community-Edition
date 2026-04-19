@@ -29,7 +29,7 @@ import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
@@ -248,7 +248,7 @@ public class ToxicomaniaMobsPack {
          this.setattributes(100.0, 64.0, 7.0, 0.12, 4.0, 7.0, 0.75, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.SCRAPMETAL, 1.0F, 0, 1, 1, 1), new MobDrop(ItemsRegister.IMPULSETHRUSTER, 0.5F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.SCRAP_METAL, 1.0F, 0, 1, 1, 1), new MobDrop(ItemsRegister.IMPULSE_THRUSTER, 0.5F, 0, 1, 1, 0)
             }
          );
          this.setRoleValues(EnumMobRole.SPECIAL_MOB, 3);
@@ -599,9 +599,9 @@ public class ToxicomaniaMobsPack {
          this.registerLOOT(
             new MobDrop[]{
                new MobDrop(ItemsRegister.CIRCUIT, 0.2F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.SCRAPMETAL, 1.0F, 0, 1, 1, 1),
-               new MobDrop(BlocksRegister.SCRAPELECTRONICS, 0.2F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.IMPULSETHRUSTER, 0.33F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.SCRAP_METAL, 1.0F, 0, 1, 1, 1),
+               new MobDrop(BlocksRegister.SCRAP_ELECTRONICS, 0.2F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.IMPULSE_THRUSTER, 0.33F, 0, 1, 1, 0)
             }
          );
          this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 3);
@@ -829,7 +829,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public void onUpdate() {
          super.onUpdate();
-         if (this.ticksExisted % 20 == 0 && GetMOP.containsBlock(this.world, this.getEntityBoundingBox(), BlocksRegister.FLUIDPOISON)) {
+         if (this.ticksExisted % 20 == 0 && GetMOP.containsBlock(this.world, this.getEntityBoundingBox(), BlocksRegister.FLUID_POISON)) {
             this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 350));
          }
       }
@@ -897,7 +897,7 @@ public class ToxicomaniaMobsPack {
    public static class FlowerSpider extends AbstractMob {
       public static Predicate<Block> blocks = new Predicate<Block>() {
          public boolean apply(Block input) {
-            return input == BlocksRegister.MUTAFLOWERPINK;
+            return input == BlocksRegister.MUTATED_FLOWER_PINK;
          }
       };
 
@@ -908,7 +908,7 @@ public class ToxicomaniaMobsPack {
          this.stepSound = SoundEvents.ENTITY_SPIDER_STEP;
          this.defaultteam = "toxic";
          this.setattributes(50.0, 32.0, 6.0, 0.35, 5.0, 8.0, 0.2, 0.0, 0.0, 0.1);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VISCOSASEEDS, 0.8F, 0, 1, 1, 2)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VISCOSA_SEEDS, 0.8F, 0, 1, 1, 2)});
       }
 
       public EnumCreatureAttribute getCreatureAttribute() {
@@ -974,10 +974,10 @@ public class ToxicomaniaMobsPack {
             new MobDrop[]{
                new MobDrop(Items.BONE, 1.0F, 0, 0, 2, 3),
                new MobDrop(Items.ARROW, 0.33F, 0, 0, 8, 6),
-               new MobDrop(ItemsRegister.ARROWVICIOUS, 0.33F, 0, 0, 8, 6),
-               new MobDrop(BlocksRegister.BOMBRUSTED, 0.03F, 0, 1, 1, 0),
-               new MobDrop(BlocksRegister.BOMBSMALL, 0.03F, 0, 1, 1, 0),
-               new MobDrop(BlocksRegister.BOMBTOXIC, 0.03F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.ARROW_VICIOUS, 0.33F, 0, 0, 8, 6),
+               new MobDrop(BlocksRegister.BOMB_RUSTED, 0.03F, 0, 1, 1, 0),
+               new MobDrop(BlocksRegister.BOMB_SMALL, 0.03F, 0, 1, 1, 0),
+               new MobDrop(BlocksRegister.BOMB_TOXIC, 0.03F, 0, 1, 1, 0)
             }
          );
          this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 3);
@@ -1218,7 +1218,7 @@ public class ToxicomaniaMobsPack {
          this.owner = owner;
          this.defaultteam = "toxic";
          this.setattributes(270.0, 64.0, 9.0, 0.17, 1.0, 0.0, 0.95, 0.5, 0.0, 0.0);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VILESUBSTANCE, 0.85F, 0, 1, 3, 1)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VILE_SUBSTANCE, 0.85F, 0, 1, 3, 1)});
       }
 
       public Hose(World world) {
@@ -1267,7 +1267,7 @@ public class ToxicomaniaMobsPack {
       public void onUpdate() {
          super.onUpdate();
          if (!this.isSubMob) {
-            Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
+            Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
             this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
             this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
             if (this.ticksExisted == 1) {
@@ -1323,13 +1323,13 @@ public class ToxicomaniaMobsPack {
             if (this.owner != null) {
                if (this.owner.poslist.size() > this.number) {
                   if (this.number > 0) {
-                     Vec3d pitchYawx = GetMOP.Vec3dToPitchYaw(this.getPositionVector().subtract(this.owner.poslist.get(this.number - 1)));
+                     Vec3d pitchYawx = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.owner.poslist.get(this.number - 1)));
                      this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYawx.x);
                      this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYawx.y);
                   }
 
                   if (this.number == 0) {
-                     Vec3d pitchYawx = GetMOP.Vec3dToPitchYaw(this.getPositionVector().subtract(this.owner.getPositionVector()));
+                     Vec3d pitchYawx = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.owner.getPositionVector()));
                      this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYawx.x);
                      this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYawx.y);
                   }
@@ -1366,12 +1366,12 @@ public class ToxicomaniaMobsPack {
          this.setattributes(80.0, 32.0, 10.0, 0.45, 6.0, 3.0, 0.1, 0.0, 0.0, 0.2);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.CIRCUITADVANCED, 0.25F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.WIRECOPPER, 0.5F, 0, 0, 2, 1),
-               new MobDrop(ItemsRegister.SCRAPMETAL, 0.75F, 0, 0, 2, 1),
-               new MobDrop(BlocksRegister.SCRAPELECTRONICS, 0.35F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.BEARINGLEAD, 0.25F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.BULLETLEAD, 0.45F, 0, 10, 20, 25)
+               new MobDrop(ItemsRegister.ADVANCED_CIRCUIT, 0.25F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.COPPER_WIRE, 0.5F, 0, 0, 2, 1),
+               new MobDrop(ItemsRegister.SCRAP_METAL, 0.75F, 0, 0, 2, 1),
+               new MobDrop(BlocksRegister.SCRAP_ELECTRONICS, 0.35F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.LEAD_BEARING, 0.25F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.BULLET_LEAD, 0.45F, 0, 10, 20, 25)
             }
          );
          this.stepHeight = 1.0F;
@@ -1671,10 +1671,10 @@ public class ToxicomaniaMobsPack {
             new MobDrop[]{
                new MobDrop(Items.ROTTEN_FLESH, 1.0F, 0, 0, 4, 4),
                new MobDrop(ItemsRegister.ANTIDOTE, 0.1F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.WASTEBURGER, 0.1F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.TOXEDGEBREAD, 0.1F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.TOXICOLA, 0.1F, 0, 1, 1, 0),
-               new MobDrop(BlocksRegister.TOXICTORCH, 0.1F, 0, 2, 4, 4)
+               new MobDrop(ItemsRegister.WASTE_BURGER, 0.1F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.TOXEDGE_BREAD, 0.1F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.TOXI_COLA, 0.1F, 0, 1, 1, 0),
+               new MobDrop(BlocksRegister.TOXIC_TORCH, 0.1F, 0, 2, 4, 4)
             }
          );
          this.leadershipBase = 35;
@@ -1699,7 +1699,7 @@ public class ToxicomaniaMobsPack {
       }
 
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
-         if (!player.getCooldownTracker().hasCooldown(ItemsRegister.WASTEBURGER) && player.getHeldItemMainhand().getItem() == ItemsRegister.WASTEBURGER) {
+         if (!player.getCooldownTracker().hasCooldown(ItemsRegister.WASTE_BURGER) && player.getHeldItemMainhand().getItem() == ItemsRegister.WASTE_BURGER) {
             if (!player.capabilities.isCreativeMode) {
                player.getHeldItemMainhand().shrink(1);
             }
@@ -1708,11 +1708,11 @@ public class ToxicomaniaMobsPack {
                if (this.rand.nextFloat() < 0.3) {
                   this.tame(player);
                   this.world.setEntityState(this, (byte)7);
-                  player.getCooldownTracker().setCooldown(ItemsRegister.WASTEBURGER, 100);
+                  player.getCooldownTracker().setCooldown(ItemsRegister.WASTE_BURGER, 100);
                }
             } else {
                this.heal(13.0F);
-               player.getCooldownTracker().setCooldown(ItemsRegister.WASTEBURGER, 100);
+               player.getCooldownTracker().setCooldown(ItemsRegister.WASTE_BURGER, 100);
             }
          }
 
@@ -1889,10 +1889,10 @@ public class ToxicomaniaMobsPack {
             new MobDrop[]{
                new MobDrop(Items.ROTTEN_FLESH, 1.0F, 0, 0, 2, 3),
                new MobDrop(ItemsRegister.ANTIDOTE, 0.1F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.WASTEBURGER, 0.1F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.TOXEDGEBREAD, 0.1F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.TOXICOLA, 0.1F, 0, 1, 1, 0),
-               new MobDrop(BlocksRegister.TOXICTORCH, 0.1F, 0, 2, 4, 4)
+               new MobDrop(ItemsRegister.WASTE_BURGER, 0.1F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.TOXEDGE_BREAD, 0.1F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.TOXI_COLA, 0.1F, 0, 1, 1, 0),
+               new MobDrop(BlocksRegister.TOXIC_TORCH, 0.1F, 0, 2, 4, 4)
             }
          );
          this.leadershipBase = 5;
@@ -2049,7 +2049,7 @@ public class ToxicomaniaMobsPack {
          if (this.rand.nextFloat() < 0.27F) {
             ItemStack stack;
             if (this.rand.nextFloat() < 0.1F) {
-               stack = new ItemStack(ItemsRegister.TOXICOLA);
+               stack = new ItemStack(ItemsRegister.TOXI_COLA);
             } else if (this.rand.nextFloat() < 0.1F) {
                stack = new ItemStack(Items.BONE);
             } else if (this.rand.nextFloat() < 0.1F) {
@@ -2059,13 +2059,13 @@ public class ToxicomaniaMobsPack {
             } else if (this.rand.nextFloat() < 0.1F) {
                stack = new ItemStack(Items.STONE_AXE);
             } else if (this.rand.nextFloat() < 0.1F) {
-               stack = new ItemStack(ItemsRegister.DECEIDUSJUICE);
+               stack = new ItemStack(ItemsRegister.DECEIDUS_JUICE);
             } else if (this.rand.nextFloat() < 0.07F) {
-               stack = new ItemStack(ItemsRegister.WASTEBURGER);
+               stack = new ItemStack(ItemsRegister.WASTE_BURGER);
             } else if (this.rand.nextFloat() < 0.05F) {
-               stack = new ItemStack(ItemsRegister.ANTIRADPILLS);
+               stack = new ItemStack(ItemsRegister.ANTI_RAD_PILLS);
             } else {
-               stack = new ItemStack(ItemsRegister.TOXIBERRYSTICK);
+               stack = new ItemStack(ItemsRegister.TOXIBERRY_STICK);
             }
 
             this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
@@ -2176,11 +2176,11 @@ public class ToxicomaniaMobsPack {
          this.registerLOOT(
             new MobDrop[]{
                new MobDrop(ItemsRegister.CIRCUIT, 0.5F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.WIRECOPPER, 0.5F, 0, 0, 2, 2),
-               new MobDrop(ItemsRegister.SCRAPMETAL, 1.0F, 0, 0, 2, 2),
-               new MobDrop(BlocksRegister.SCRAPELECTRONICS, 0.6F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.BEARINGLEAD, 0.4F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.ROCKETCOMMON, 1.0F, 0, 0, 6, 3)
+               new MobDrop(ItemsRegister.COPPER_WIRE, 0.5F, 0, 0, 2, 2),
+               new MobDrop(ItemsRegister.SCRAP_METAL, 1.0F, 0, 0, 2, 2),
+               new MobDrop(BlocksRegister.SCRAP_ELECTRONICS, 0.6F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.LEAD_BEARING, 0.4F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.COMMON_ROCKET, 1.0F, 0, 0, 6, 3)
             }
          );
          this.stepHeight = 1.0F;
@@ -2346,10 +2346,10 @@ public class ToxicomaniaMobsPack {
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          Item itemm = player.getHeldItemMainhand().getItem();
          if ((
-               itemm == ItemsRegister.TOXIBERRYWEEPINGSEEDS
-                  || itemm == ItemsRegister.TOXIBERRYVIBRANTSEEDS
-                  || itemm == ItemsRegister.SMALLTOXIBERRY
-                  || itemm == ItemsRegister.DECEIDUSSEEDS
+               itemm == ItemsRegister.TOXIBERRY_WEEPING_SEEDS
+                  || itemm == ItemsRegister.TOXIBERRY_VIBRANT_SEEDS
+                  || itemm == ItemsRegister.SMALL_TOXIBERRY
+                  || itemm == ItemsRegister.DECEIDUS_SEEDS
             )
             && this.owner == null) {
             if (!player.capabilities.isCreativeMode) {
@@ -2420,7 +2420,7 @@ public class ToxicomaniaMobsPack {
          this.stepSound = SoundEvents.BLOCK_SLIME_STEP;
          this.defaultteam = "toxic";
          this.setattributes(50.0, 64.0, 8.0, 0.32, 0.0, 0.0, 0.3, 0.3, 0.0, 0.35);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VILESUBSTANCE, 1.0F, 0, 1, 3, 1)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VILE_SUBSTANCE, 1.0F, 0, 1, 3, 1)});
          this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 3);
       }
 
@@ -2521,7 +2521,7 @@ public class ToxicomaniaMobsPack {
          this.stepSound = SoundEvents.BLOCK_SLIME_STEP;
          this.defaultteam = "toxic";
          this.setattributes(30.0, 40.0, 5.0, 0.4, 0.0, 0.0, 0.0, 0.2, 0.0, 0.35);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VILESUBSTANCE, 0.8F, 0, 1, 1, 2)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VILE_SUBSTANCE, 0.8F, 0, 1, 1, 2)});
          this.setRoleValues(EnumMobRole.SOLDIER, 3);
          this.soul = Soul.MUTATED;
       }
@@ -2566,7 +2566,7 @@ public class ToxicomaniaMobsPack {
             if (this.rand.nextFloat() < 0.25F) {
                ItemStack stack;
                if (this.rand.nextFloat() < 0.1F) {
-                  stack = new ItemStack(ItemsRegister.TOXICOLA);
+                  stack = new ItemStack(ItemsRegister.TOXI_COLA);
                } else if (this.rand.nextFloat() < 0.1F) {
                   stack = new ItemStack(Items.IRON_PICKAXE, 1, this.rand.nextInt(245));
                } else if (this.rand.nextFloat() < 0.1F) {
@@ -2578,27 +2578,27 @@ public class ToxicomaniaMobsPack {
                } else if (this.rand.nextFloat() < 0.1F) {
                   stack = new ItemStack(ItemsRegister.ANTIDOTE);
                } else if (this.rand.nextFloat() < 0.08F) {
-                  stack = new ItemStack(ItemsRegister.ANTIPOTION);
+                  stack = new ItemStack(ItemsRegister.ANTI_POTION);
                } else if (this.rand.nextFloat() < 0.08F) {
-                  stack = new ItemStack(ItemsRegister.ANTIRADINJECTOR);
+                  stack = new ItemStack(ItemsRegister.ANTI_RAD_INJECTOR);
                } else if (this.rand.nextFloat() < 0.1F) {
-                  stack = new ItemStack(ItemsRegister.ANTIRADPILLS);
+                  stack = new ItemStack(ItemsRegister.ANTI_RAD_PILLS);
                } else if (this.rand.nextFloat() < 0.05F) {
-                  stack = new ItemStack(ItemsRegister.WASTEBURGER);
+                  stack = new ItemStack(ItemsRegister.WASTE_BURGER);
                } else if (this.rand.nextFloat() < 0.05F) {
                   stack = new ItemStack(Items.ARROW);
                } else if (this.rand.nextFloat() < 0.1F) {
-                  stack = new ItemStack(ItemsRegister.GRENADECLASSIC);
+                  stack = new ItemStack(ItemsRegister.FRAG_GRENADE);
                } else if (this.rand.nextFloat() < 0.05F) {
                   stack = new ItemStack(Item.getItemFromBlock(Blocks.TNT));
                } else if (this.rand.nextFloat() < 0.06F) {
                   stack = new ItemStack(Item.getItemFromBlock(BlocksRegister.TOXIBULB));
                } else if (this.rand.nextFloat() < 0.05F) {
-                  stack = new ItemStack(ItemsRegister.ROCKETCHEMICAL);
+                  stack = new ItemStack(ItemsRegister.CHEMICAL_ROCKET);
                } else if (this.rand.nextFloat() < 0.05F) {
-                  stack = new ItemStack(ItemsRegister.ROCKETMINING);
+                  stack = new ItemStack(ItemsRegister.MINING_ROCKET);
                } else if (this.rand.nextFloat() < 0.05F) {
-                  stack = new ItemStack(ItemsRegister.ROCKETDEMOLISHING);
+                  stack = new ItemStack(ItemsRegister.DEMOLISHING_ROCKET);
                } else {
                   Item it = Item.getByNameOrId("thermalfoundation:fertilizer");
                   if (it != null) {
@@ -2622,7 +2622,7 @@ public class ToxicomaniaMobsPack {
 
       public EntityItem entityDropItem(ItemStack stack, float offsetY) {
          EntityItem entityItem = super.entityDropItem(stack, offsetY);
-         if (entityItem != null && entityItem.getItem().getItem() == ItemsRegister.BUNKERKEYCARD) {
+         if (entityItem != null && entityItem.getItem().getItem() == ItemsRegister.BUNKER_KEYCARD) {
             entityItem.setEntityInvulnerable(true);
             entityItem.lifespan = 2000000;
             entityItem.setGlowing(true);
@@ -2653,10 +2653,10 @@ public class ToxicomaniaMobsPack {
          this.registerLOOT(
             new MobDrop[]{
                new MobDrop(ItemsRegister.CIRCUIT, 0.2F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.SCRAPMETAL, 1.0F, 0, 1, 1, 2),
-               new MobDrop(BlocksRegister.SCRAPELECTRONICS, 0.2F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.BEARINGLEAD, 0.2F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.BULLETLEAD, 0.4F, 0, 10, 15, 15)
+               new MobDrop(ItemsRegister.SCRAP_METAL, 1.0F, 0, 1, 1, 2),
+               new MobDrop(BlocksRegister.SCRAP_ELECTRONICS, 0.2F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.LEAD_BEARING, 0.2F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.BULLET_LEAD, 0.4F, 0, 10, 15, 15)
             }
          );
          this.emptyDespawn = false;
@@ -2847,7 +2847,7 @@ public class ToxicomaniaMobsPack {
       }
 
       public void dropAsItem(World world, Entity entityUser) {
-         ItemStack stack = new ItemStack(ItemsRegister.ITEMTURRET);
+         ItemStack stack = new ItemStack(ItemsRegister.ITEM_TURRET);
          NBTTagCompound itemCompound = new NBTTagCompound();
          stack.setTagCompound(itemCompound);
          NBTHelper.GiveNBTfloat(stack, this.getHealth(), "health");
@@ -3055,7 +3055,7 @@ public class ToxicomaniaMobsPack {
          this.setattributes(90.0, 64.0, 8.0, 0.26, 2.0, 1.0, 0.3, 0.2, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.PLANTFIBER, 1.0F, 0, 0, 4, 4), new MobDrop(ItemsRegister.JUNGLEGH, 0.04F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.PLANT_FIBER, 1.0F, 0, 0, 4, 4), new MobDrop(ItemsRegister.JUNGLE_GRAPLING_HOOK, 0.04F, 0, 1, 1, 0)
             }
          );
          this.setRoleValues(EnumMobRole.STRONG_SOLDIER, 3);

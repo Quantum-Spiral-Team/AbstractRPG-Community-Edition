@@ -167,7 +167,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
          GlStateManager.popMatrix();
       }
 
-      if (item == ItemsRegister.SPELLPLIERS) {
+      if (item == ItemsRegister.SPELL_PLIERS) {
          boolean picked = NBTHelper.GetNBTboolean(itemstack, "picked");
          float pickedAngle = picked ? 0.0F : -0.43F;
          GlStateManager.pushMatrix();
@@ -272,14 +272,14 @@ public class TEISROther extends TileEntityItemStackRenderer {
             renderColoredGlowingCuboid(0.0, -0.2F, 0.0, colorx, color2, 0.025F, 0.11F, thickness, partialTicks, false, true, (byte)0);
          }
 
-         ItemStack vialStack = new ItemStack(ItemsRegister.vials[shardTypex.id - 1]);
+         ItemStack vialStack = new ItemStack(ItemsRegister.VIALS[shardTypex.id - 1]);
          Minecraft.getMinecraft().getRenderItem().renderItem(vialStack, TransformType.NONE);
          this.renderEffect(vialStack, colorx, TransformType.NONE, shardTypex == ShardType.VOID);
          GlStateManager.popMatrix();
       }
 
-      if (item == ItemsRegister.SPELLROLL) {
-         float openness = GetMOP.getfromto((float)NBTHelper.GetNBTint(itemstack, "using") / ItemSpellRoll.useMaxTime, 0.2F, 0.8F);
+      if (item == ItemsRegister.SPELL_ROLL) {
+         float openness = GetMOP.getFromTo((float)NBTHelper.GetNBTint(itemstack, "using") / ItemSpellRoll.useMaxTime, 0.2F, 0.8F);
          int burning = NBTHelper.GetNBTint(itemstack, "burning");
          int casting = NBTHelper.GetNBTint(itemstack, "casting");
          GlStateManager.pushMatrix();
@@ -318,7 +318,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
             float zpos = -12.1F;
             Minecraft.getMinecraft().renderEngine.bindTexture(GUIResearchTable.ADDITIONAL_RUNES);
             maxSpells = Math.min(spells.length, 1 + (int)(6.0F * openness));
-            float spellsFullness = GetMOP.getfromto((float)spells.length, 1.0F, 7.0F);
+            float spellsFullness = GetMOP.getFromTo((float)spells.length, 1.0F, 7.0F);
             float margin = GetMOP.partial(5.53F, 8.0F, spellsFullness);
             float offsetToCenter = (38.0F - maxSpells * margin) / 2.0F;
             float posLeft = -6.0F - 32.0F * openness + offsetToCenter * openness;
@@ -348,7 +348,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glDisable(2896);
             GlStateManager.depthMask(false);
-            Minecraft.getMinecraft().renderEngine.bindTexture(ClientProxy.firedetex.get(castTex));
+            Minecraft.getMinecraft().renderEngine.bindTexture(ClientProxy.fireDetex.get(castTex));
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
             AbstractMobModel.light(240, false);

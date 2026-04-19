@@ -1,5 +1,6 @@
 package com.vivern.arpg.proxy;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.items.CryonedBlock;
 import com.vivern.arpg.items.animation.Flicks;
 import com.vivern.arpg.items.models.BilebiterHomingModel;
@@ -162,7 +163,6 @@ import com.vivern.arpg.entity.XmassBall;
 import com.vivern.arpg.entity.XmassRocket;
 import com.vivern.arpg.hooks.ARPGHooks;
 import com.vivern.arpg.hooks.coloredlightning.ColoredLightning;
-import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.DeathEffects;
 import com.vivern.arpg.main.FluidsRegister;
@@ -334,24 +334,33 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings({"deprecation", "ConstantConditions", "unchecked"})
+@EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
-   public static AnimationTimer animationtimer = new AnimationTimer();
+//   public static AnimationTimer animationTimer = new AnimationTimer(); UNUSED
    public static List<ResourceLocation> sand = new ArrayList<>();
-   public static List<ResourceLocation> coloredacidtex = new ArrayList<>();
-   public static List<ResourceLocation> firedetex = new ArrayList<>();
-   public static QuadroBeltModel qmodel;
-   public static PhoenixGhostModel phoenixghostmodel;
-   public static WizardHatModel wizardhatmodel;
-   public static FireMageHatModel firehatmodel;
-   public static MagicHoodie magichoodie;
-   public static FireLordChestModel firelordchestmodel;
-   public static FireLordHelmModel firelordhelmmodel;
+   public static List<ResourceLocation> coloredAcidTex = new ArrayList<>();
+   public static List<ResourceLocation> fireDetex = new ArrayList<>();
+   public static QuadroBeltModel quadroBeltModel;
+   public static PhoenixGhostModel phoenixGhostModel;
+   public static WizardHatModel wizardHatModel;
+   public static FireMageHatModel fireMageHatModel;
+   public static MagicHoodie magicHoodie;
+   public static FireLordChestModel fireLordChestModel;
+   public static FireLordHelmModel fireLordHelmModel;
+   
+   private static final Logger LOGGER = AbstractRPG.getLogger(ClientProxy.class.getSimpleName());
 
    @Override
    public void preInit(FMLPreInitializationEvent event) throws IllegalArgumentException, IllegalAccessException {
@@ -370,7 +379,7 @@ public class ClientProxy extends CommonProxy {
       RenderingRegistry.registerEntityRenderingHandler(
          SharkRocket.class, new RenderRocketFactory("arpg:textures/shark_rocket.png", SharkRocketModel.class, 1.0F, false)
       );
-      RenderingRegistry.registerEntityRenderingHandler(EntityBoomerangMagic.class, new RenderBoomerangFactory(ItemsRegister.MAGICBOOMERANG));
+      RenderingRegistry.registerEntityRenderingHandler(EntityBoomerangMagic.class, new RenderBoomerangFactory(ItemsRegister.MAGIC_BOOMERANG));
       RenderingRegistry.registerEntityRenderingHandler(GUNParticle.class, new GUNPFactory());
       RenderingRegistry.registerEntityRenderingHandler(
          EntityButterfly.class, new RenderSplash("arpg:textures/butterflyswing.png", 0.7F, 3, 0.7F, 0.7F, 0.0F, 0.0F, false, -1, DestFactor.ONE)
@@ -459,7 +468,7 @@ public class ClientProxy extends CommonProxy {
             )
       );
       RenderingRegistry.registerEntityRenderingHandler(CannonSnowball.class, new SnowballRender(Items.SNOWBALL));
-      RenderingRegistry.registerEntityRenderingHandler(EntitySnowflakeShuriken.class, new RenderBoomerangFactory(ItemsRegister.SNOWFLAKESHUR));
+      RenderingRegistry.registerEntityRenderingHandler(EntitySnowflakeShuriken.class, new RenderBoomerangFactory(ItemsRegister.SNOWFLAKE_SHURIKEN));
       RenderingRegistry.registerEntityRenderingHandler(
          GraveLurkerProjectile.class, new RenderSplash("arpg:textures/fireball2.png", 0.2F, 1, 0.2F, 0.0F, 0.0F, 0.0F, true, 240, DestFactor.ONE)
       );
@@ -590,7 +599,7 @@ public class ClientProxy extends CommonProxy {
       RenderingRegistry.registerEntityRenderingHandler(EntityCoin.class, new RenderCoin.RenderCoinFactory());
       RenderingRegistry.registerEntityRenderingHandler(EntityGeomanticCrystal.class, new RenderGeomanticCrystal.GeomanticCrystalFactory());
       RenderingRegistry.registerEntityRenderingHandler(
-         ThornkeeperShoot.class, new RenderRocketFactory("arpg:textures/thornkeeper_shoot.png", ThornkeeperShootModel.class, 0.7F, false)
+         ThornkeeperShoot.class, new RenderRocketFactory("arpg:textures/thorn_keeper_shoot.png", ThornkeeperShootModel.class, 0.7F, false)
       );
       RenderingRegistry.registerEntityRenderingHandler(
          EntityThistleThorn.class, new RenderRocketFactory("arpg:textures/entity_thistle_thorn_model_tex.png", EntityThistleThornModel.class, 1.1F, false)
@@ -635,7 +644,7 @@ public class ClientProxy extends CommonProxy {
       );
       RenderingRegistry.registerEntityRenderingHandler(AnimatedGParticle.class, new AnimatedGunPRender.AnimGUNPFactory());
       RenderingRegistry.registerEntityRenderingHandler(
-         EntitySnapball.class, new RenderSpecial.RenderSpecialFactory(8, new ResourceLocation("arpg:textures/snapball.png"))
+         EntitySnapball.class, new RenderSpecial.RenderSpecialFactory(8, new ResourceLocation("arpg:textures/snap_ball.png"))
       );
       RenderingRegistry.registerEntityRenderingHandler(
          EntityLaunchedRocket.class, new RenderRocketFactory("arpg:textures/rocket.png", RocketModel.class, 1.3F, false, 0.0F, true)
@@ -943,7 +952,6 @@ public class ClientProxy extends CommonProxy {
    public void init(FMLInitializationEvent event) {
       super.init(event);
       ItemsRegister.registerItemsRender();
-      BlocksRegister.registerBlocksRender();
       ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFrostPortal.class, new FrostPortalTESR());
       ClientRegistry.bindTileEntitySpecialRenderer(TileAdvancedBlockDetector.class, new AdvancedBlockDetectorTESR());
       ClientRegistry.bindTileEntitySpecialRenderer(TileGlowingVein.class, new GlowingVeinTESR());
@@ -1002,41 +1010,41 @@ public class ClientProxy extends CommonProxy {
          )
       );
       ClientRegistry.bindTileEntitySpecialRenderer(TileTeamBanner.class, new TeamBannerTESR());
-      qmodel = new QuadroBeltModel();
-      qmodel.bipedBody.showModel = false;
-      qmodel.bipedHead.showModel = false;
-      qmodel.bipedHeadwear.showModel = false;
-      qmodel.bipedLeftArm.showModel = false;
-      qmodel.bipedRightArm.showModel = false;
-      qmodel.bipedLeftLeg.showModel = false;
-      qmodel.bipedRightLeg.showModel = false;
-      phoenixghostmodel = new PhoenixGhostModel();
-      wizardhatmodel = new WizardHatModel();
-      wizardhatmodel.bipedBody.showModel = false;
-      wizardhatmodel.bipedHead.showModel = false;
-      wizardhatmodel.bipedHeadwear.showModel = false;
-      wizardhatmodel.bipedLeftArm.showModel = false;
-      wizardhatmodel.bipedRightArm.showModel = false;
-      wizardhatmodel.bipedLeftLeg.showModel = false;
-      wizardhatmodel.bipedRightLeg.showModel = false;
-      firehatmodel = new FireMageHatModel();
-      firehatmodel.bipedBody.showModel = false;
-      firehatmodel.bipedHead.showModel = false;
-      firehatmodel.bipedHeadwear.showModel = false;
-      firehatmodel.bipedLeftArm.showModel = false;
-      firehatmodel.bipedRightArm.showModel = false;
-      firehatmodel.bipedLeftLeg.showModel = false;
-      firehatmodel.bipedRightLeg.showModel = false;
-      magichoodie = new MagicHoodie();
-      magichoodie.bipedBody.showModel = false;
-      magichoodie.bipedHead.showModel = false;
-      magichoodie.bipedHeadwear.showModel = false;
-      magichoodie.bipedLeftArm.showModel = false;
-      magichoodie.bipedRightArm.showModel = false;
-      magichoodie.bipedLeftLeg.showModel = false;
-      magichoodie.bipedRightLeg.showModel = false;
-      firelordchestmodel = new FireLordChestModel();
-      firelordhelmmodel = new FireLordHelmModel();
+      quadroBeltModel = new QuadroBeltModel();
+      quadroBeltModel.bipedBody.showModel = false;
+      quadroBeltModel.bipedHead.showModel = false;
+      quadroBeltModel.bipedHeadwear.showModel = false;
+      quadroBeltModel.bipedLeftArm.showModel = false;
+      quadroBeltModel.bipedRightArm.showModel = false;
+      quadroBeltModel.bipedLeftLeg.showModel = false;
+      quadroBeltModel.bipedRightLeg.showModel = false;
+      phoenixGhostModel = new PhoenixGhostModel();
+      wizardHatModel = new WizardHatModel();
+      wizardHatModel.bipedBody.showModel = false;
+      wizardHatModel.bipedHead.showModel = false;
+      wizardHatModel.bipedHeadwear.showModel = false;
+      wizardHatModel.bipedLeftArm.showModel = false;
+      wizardHatModel.bipedRightArm.showModel = false;
+      wizardHatModel.bipedLeftLeg.showModel = false;
+      wizardHatModel.bipedRightLeg.showModel = false;
+      fireMageHatModel = new FireMageHatModel();
+      fireMageHatModel.bipedBody.showModel = false;
+      fireMageHatModel.bipedHead.showModel = false;
+      fireMageHatModel.bipedHeadwear.showModel = false;
+      fireMageHatModel.bipedLeftArm.showModel = false;
+      fireMageHatModel.bipedRightArm.showModel = false;
+      fireMageHatModel.bipedLeftLeg.showModel = false;
+      fireMageHatModel.bipedRightLeg.showModel = false;
+      magicHoodie = new MagicHoodie();
+      magicHoodie.bipedBody.showModel = false;
+      magicHoodie.bipedHead.showModel = false;
+      magicHoodie.bipedHeadwear.showModel = false;
+      magicHoodie.bipedLeftArm.showModel = false;
+      magicHoodie.bipedRightArm.showModel = false;
+      magicHoodie.bipedLeftLeg.showModel = false;
+      magicHoodie.bipedRightLeg.showModel = false;
+      fireLordChestModel = new FireLordChestModel();
+      fireLordHelmModel = new FireLordHelmModel();
       sand.add(new ResourceLocation("arpg:textures/de_sand/sand1.png"));
       sand.add(new ResourceLocation("arpg:textures/de_sand/sand2.png"));
       sand.add(new ResourceLocation("arpg:textures/de_sand/sand3.png"));
@@ -1057,29 +1065,29 @@ public class ClientProxy extends CommonProxy {
       sand.add(new ResourceLocation("arpg:textures/de_sand/sand18.png"));
       sand.add(new ResourceLocation("arpg:textures/de_sand/sand19.png"));
       sand.add(new ResourceLocation("arpg:textures/de_sand/sand19.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid1.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid2.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid3.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid4.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid5.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid6.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid7.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid8.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid9.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid10.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid11.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid12.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid13.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid14.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid15.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid16.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid17.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid18.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid19.png"));
-      coloredacidtex.add(new ResourceLocation("arpg:textures/de_acid/acid19.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid1.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid2.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid3.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid4.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid5.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid6.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid7.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid8.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid9.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid10.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid11.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid12.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid13.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid14.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid15.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid16.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid17.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid18.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid19.png"));
+      coloredAcidTex.add(new ResourceLocation("arpg:textures/de_acid/acid19.png"));
 
       for (int f = 1; f < 20; f++) {
-         firedetex.add(new ResourceLocation("arpg:textures/de_fire/fire" + f + ".png"));
+         fireDetex.add(new ResourceLocation("arpg:textures/de_fire/fire" + f + ".png"));
       }
 
       Weather.registerWeatherRender(Weather.RENDERNETHERSMOKE);
@@ -1101,10 +1109,14 @@ public class ClientProxy extends CommonProxy {
                ARPGHooks.blockColors = (BlockColors)field.get(Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer());
             }
          }
-      } catch (IllegalArgumentException var6) {
-         var6.printStackTrace();
-      } catch (IllegalAccessException var7) {
-         var7.printStackTrace();
+      } catch (IllegalArgumentException | IllegalAccessException var6) {
+         LOGGER.fatal(var6);
       }
+   }
+
+   @SubscribeEvent
+   public static void registerModels(ModelRegistryEvent event) {
+      BlocksRegister.registerStateMappers();
+      BlocksRegister.registerBlocksRender();
    }
 }

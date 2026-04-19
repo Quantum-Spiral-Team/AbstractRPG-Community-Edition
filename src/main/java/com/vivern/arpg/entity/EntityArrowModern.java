@@ -30,6 +30,6 @@ public class EntityArrowModern extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWMODERN);
+      return new ItemStack(ItemsRegister.ARROW_MODERN);
    }
 }

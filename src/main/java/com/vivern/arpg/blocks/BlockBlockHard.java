@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -35,13 +35,13 @@ public class BlockBlockHard extends BlockBlock implements IBlockHardBreak {
       this.setHarvest(tool, level);
    }
 
-   public BlockBlockHard(Material mater, String name, BlocksRegister.Hardres hardnessResistance, String tool, boolean canDropWhithoutTool) {
-      super(mater, name, hardnessResistance.HARDNESS, hardnessResistance.RESISTANCE);
-      this.slowSpeed = hardnessResistance.SLOW;
+   public BlockBlockHard(Material mater, String name, BlocksRegister.HardRes hardnessResistance, String tool, boolean canDropWhithoutTool) {
+      super(mater, name, hardnessResistance.hardness, hardnessResistance.resistance);
+      this.slowSpeed = hardnessResistance.slow;
       this.canDropWhithoutTool = canDropWhithoutTool;
-      this.level = hardnessResistance.LVL;
+      this.level = hardnessResistance.lvl;
       this.tool = tool;
-      this.fastSpeed = hardnessResistance.FAST;
+      this.fastSpeed = hardnessResistance.fast;
       this.setHarvest(tool, this.level);
    }
 

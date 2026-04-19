@@ -100,7 +100,7 @@ public class ToxiniumShield extends ItemWeapon implements IItemAttacked {
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
-                     NBTHelper.SetNBTint(itemstack, parameters.geti("max_hits"), "blocking");
+                     NBTHelper.SetNBTint(itemstack, parameters.getI("max_hits"), "blocking");
                      player.addExhaustion(0.7F);
                   } else if (player.ticksExisted % 7 == 0) {
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
@@ -118,7 +118,7 @@ public class ToxiniumShield extends ItemWeapon implements IItemAttacked {
    public float onAttackedWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
       if (NBTHelper.GetNBTint(stack, "blocking") > 0) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-         float damageBlocks = parameters.getEnchanted("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+         float damageBlocks = parameters.getEnchantedF("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
          int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack);
          Entity attacker = source.getImmediateSource() == null ? source.getTrueSource() : source.getImmediateSource();
          if (!IWeapon.checkShieldAngle(stack, player, source)) {
@@ -155,8 +155,8 @@ public class ToxiniumShield extends ItemWeapon implements IItemAttacked {
                      SuperKnockback.applyShieldBlock(
                         player,
                         attacker,
-                        parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
-                        parameters.get("self_knockback")
+                        parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
+                        parameters.getF("self_knockback")
                      );
                   }
 
@@ -208,7 +208,7 @@ public class ToxiniumShield extends ItemWeapon implements IItemAttacked {
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).geti("max_hits"), 0.0F, 1.0F
+         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getI("max_hits"), 0.0F, 1.0F
       );
    }
 

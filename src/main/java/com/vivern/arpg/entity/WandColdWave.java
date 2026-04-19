@@ -53,19 +53,19 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
 
    public WandColdWave(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.WANDOFCOLD);
+      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
       this.setSize(0.1F, 0.1F);
    }
 
    public WandColdWave(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.WANDOFCOLD);
+      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
       this.setSize(0.1F, 0.1F);
    }
 
    public WandColdWave(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.WANDOFCOLD);
+      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
       this.setSize(0.1F, 0.1F);
    }
 
@@ -129,7 +129,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
       if (this.ticksExisted < 2 || this.ticksExisted % 10 == 0) {
          Vec3d look = this.getVectorForRotation(this.rotationPitch, -this.rotationYaw);
          this.bladeNormal = GetMOP.rotateVecAroundAxis(
-            GetMOP.PitchYawToVec3d(this.rotationPitch - 90.0F, -this.rotationYaw), look, (float)Math.toRadians(this.rotationRoll)
+            GetMOP.pitchYawToVec3D(this.rotationPitch - 90.0F, -this.rotationYaw), look, (float)Math.toRadians(this.rotationRoll)
          );
          IEntitySynchronize.sendSynchronize(this, 64.0, this.rotationRoll);
       }
@@ -143,7 +143,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
             Vec3d center = GetMOP.entityCenterPos(this);
             Vec3d centerPrev = new Vec3d(this.prevPosX, this.prevPosY, this.prevPosZ);
             Vec3d look = this.getVectorForRotation(this.rotationPitch, -this.rotationYaw);
-            float beamwidth = this.getCutterSize() * GetMOP.getfromto((float)Math.max(this.ticksExisted, 4), 0.0F, (float)ticksForMaxWidth);
+            float beamwidth = this.getCutterSize() * GetMOP.getFromTo((float)Math.max(this.ticksExisted, 4), 0.0F, (float)ticksForMaxWidth);
             Vec3d lookScaled = look.scale(beamwidth / 2.0F);
             Vec3d rightTip = GetMOP.rotateVecAroundAxis(lookScaled, this.bladeNormal, 1.570796F);
             Vec3d leftTip = GetMOP.rotateVecAroundAxis(lookScaled, this.bladeNormal, -1.570796F);
@@ -187,7 +187,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
 
                   DeathEffects.applyDeathEffect(entity, DeathEffects.DE_ICING, 0.3F);
                   Weapons.setPotionIfEntityLB(
-                     entity, PotionEffects.COLD_SOUL, parameters.getEnchantedi("potion_time", witchery), parameters.getEnchantedi("potion_power", witchery)
+                     entity, PotionEffects.COLD_SOUL, parameters.getEnchantedI("potion_time", witchery), parameters.getEnchantedI("potion_power", witchery)
                   );
                   this.impacted.add(entity);
                }
@@ -195,7 +195,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
          }
       } else {
          Vec3d center = GetMOP.entityCenterPos(this);
-         float ft1 = GetMOP.getfromto((float)Math.max(this.ticksExisted, 3), 0.0F, (float)ticksForMaxWidth);
+         float ft1 = GetMOP.getFromTo((float)Math.max(this.ticksExisted, 3), 0.0F, (float)ticksForMaxWidth);
          float beamwidth = this.getCutterSize() * ft1;
          Vec3d look = this.getVectorForRotation(this.rotationPitch, -this.rotationYaw);
          Vec3d lookScaled = look.scale(beamwidth / 2.0F);
@@ -296,7 +296,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
          Vec3d look = this.getVectorForRotation(this.rotationPitch, -this.rotationYaw);
          Vec3d lookScaled = look.scale(1.3);
          Vec3d rightTip = GetMOP.rotateVecAroundAxis(lookScaled, this.bladeNormal, 1.570796F);
-         float beamwidth = this.getCutterSize() * GetMOP.getfromto((float)this.ticksExisted, 0.0F, (float)ticksForMaxWidth);
+         float beamwidth = this.getCutterSize() * GetMOP.getFromTo((float)this.ticksExisted, 0.0F, (float)ticksForMaxWidth);
 
          for (int ss = 0; ss < 21; ss++) {
             Vec3d partpos = center.add(rightTip.scale((this.rand.nextFloat() - 0.5) * beamwidth));

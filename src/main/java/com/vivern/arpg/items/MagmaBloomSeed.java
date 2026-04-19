@@ -37,7 +37,7 @@ public class MagmaBloomSeed extends Item implements ISeed {
          BlockPos pos = raytraceresult.getBlockPos();
          if (this.canGrowAt(world, pos.up())) {
             player.getHeldItem(hand).shrink(1);
-            world.setBlockState(pos.up(), BlocksRegister.MAGMABLOOM.getDefaultState());
+            world.setBlockState(pos.up(), BlocksRegister.MAGMA_BLOOM.getDefaultState());
             return new ActionResult(EnumActionResult.SUCCESS, itemstack);
          } else {
             return new ActionResult(EnumActionResult.FAIL, itemstack);
@@ -47,7 +47,7 @@ public class MagmaBloomSeed extends Item implements ISeed {
 
    @Override
    public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
-      return BlocksRegister.MAGMABLOOM.getDefaultState();
+      return BlocksRegister.MAGMA_BLOOM.getDefaultState();
    }
 
    @Override

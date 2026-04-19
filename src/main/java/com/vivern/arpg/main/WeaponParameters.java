@@ -1,6 +1,8 @@
 package com.vivern.arpg.main;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
@@ -8,8 +10,8 @@ import net.minecraft.potion.PotionEffect;
 
 public class WeaponParameters {
    public static WeaponParameters EMPTY = new WeaponParameters("empty");
-   public static HashMap<String, WeaponParameters> registry = new HashMap<>();
-   HashMap<String, Float> parameters = new HashMap<>();
+   public static Map<String, WeaponParameters> registry = new HashMap<>();
+   private final Map<String, Float> parameters = new HashMap<>();
    public String name;
    public static final float AUTO = -8.792019E7F;
    private static float levelRate = 1.0F;
@@ -98,27 +100,27 @@ public class WeaponParameters {
       return this.parameters.containsKey(key);
    }
 
-   public float get(String key) {
+   public float getF(String key) {
       return this.parameters.getOrDefault(key, 0.0F);
    }
 
-   public int geti(String key) {
+   public int getI(String key) {
       return (int)this.parameters.getOrDefault(key, 0.0F).floatValue();
    }
 
-   public float getEnchanted(String key, int enchantLevel) {
+   public float getEnchantedF(String key, int enchantLevel) {
       return this.parameters.getOrDefault(key, 0.0F) + this.parameters.getOrDefault(key + "_ench", 0.0F) * enchantLevel;
    }
 
-   public int getEnchantedi(String key, int enchantLevel) {
-      return (int)this.getEnchanted(key, enchantLevel);
+   public int getEnchantedI(String key, int enchantLevel) {
+      return (int)this.getEnchantedF(key, enchantLevel);
    }
 
    public PotionEffect getPotion(String potionName, Potion potion, int enchantLevel) {
       return new PotionEffect(
          potion,
-         this.getEnchantedi(potionName + "_time", enchantLevel),
-         GetMOP.floatToIntWithChance(this.getEnchanted(potionName + "_power", enchantLevel), GetMOP.rand)
+         this.getEnchantedI(potionName + "_time", enchantLevel),
+         GetMOP.floatToIntWithChance(this.getEnchantedF(potionName + "_power", enchantLevel), GetMOP.rand)
       );
    }
 
@@ -132,10 +134,10 @@ public class WeaponParameters {
       Weapons.EnumMathOperation operationTime,
       Weapons.EnumMathOperation operationPower
    ) {
-      int time = this.getEnchantedi(potionName + "_time", enchantLevel);
-      int power = GetMOP.floatToIntWithChance(this.getEnchanted(potionName + "_power", enchantLevel), GetMOP.rand);
-      int timeBound = this.getEnchantedi(potionName + "_time_max", enchantLevel);
-      int powerBound = this.getEnchantedi(potionName + "_power_max", enchantLevel);
+      int time = this.getEnchantedI(potionName + "_time", enchantLevel);
+      int power = GetMOP.floatToIntWithChance(this.getEnchantedF(potionName + "_power", enchantLevel), GetMOP.rand);
+      int timeBound = this.getEnchantedI(potionName + "_time_max", enchantLevel);
+      int powerBound = this.getEnchantedI(potionName + "_power_max", enchantLevel);
       return Weapons.mixPotion(entity, potion, (float)time, (float)power, mixTypeTime, mixTypePower, operationTime, operationPower, timeBound, powerBound);
    }
 
@@ -160,7 +162,7 @@ public class WeaponParameters {
    public static void registerAll() {
       float raise = 1.2F;
       levelRate = 1.0F;
-      newparam(ItemsRegister.PUMPSHOTGUN)
+      newparam(ItemsRegister.PUMP_SHOTGUN)
          .lvl("damage", 3.0F, -8.792019E7F)
          .add("knockback", 0.26F, 0.21F)
          .add("bullet_damage", 0.5F)
@@ -170,14 +172,14 @@ public class WeaponParameters {
          .add("shots", 6.0F, 1.0F)
          .add("distance", 12.0F, 1.5F)
          .add("inaccuracy", 3.0F, -0.25F);
-      newparam(ItemsRegister.GRENADELAUNCHER)
+      newparam(ItemsRegister.GRENADE_LAUNCHER)
          .lvl("damage", 6.25F, -8.792019E7F)
          .add("knockback", 1.2F, 0.35F)
          .add("cooldown", 10.0F, -4.0F)
          .add("reload", 40.0F, -8.0F)
          .add("velocity", 1.3F)
          .add("inaccuracy", 6.0F, -1.6F);
-      newparam(ItemsRegister.SLIMESHOTGUN)
+      newparam(ItemsRegister.SLIME_SHOTGUN)
          .lvl("damage", 1.6F, -8.792019E7F)
          .lvl("impact_damage", 0.8F, -8.792019E7F)
          .add("damage_radius", 2.5F, 0.2F)
@@ -193,14 +195,14 @@ public class WeaponParameters {
          .add("charge_to_shots", 0.1F)
          .add("velocity", 2.0F)
          .add("inaccuracy", 10.0F, -2.0F);
-      newparam(ItemsRegister.CHAINMACEIRON)
+      newparam(ItemsRegister.CHAIN_MACE)
          .lvl("damage", 5.0F, -8.792019E7F)
          .add("knockback", 0.2F, 0.06F)
          .add("cooldown", 13.0F, -2.0F)
          .add("velocity", 0.8F)
          .add("fire", 0.0F, 3.0F)
          .add("burning_mace_fire", 4.0F);
-      newparam(ItemsRegister.CHAINMACEDIAMOND)
+      newparam(ItemsRegister.DIAMOND_CHAIN_MACE)
          .lvl("damage", 6.0F, -8.792019E7F)
          .add("knockback", 0.22F, 0.06F)
          .add("cooldown", 13.0F, -2.0F)
@@ -223,7 +225,7 @@ public class WeaponParameters {
          .add("potion_power", 4.0F)
          .add("sound_pitch_swosh", 0.9F)
          .add("sound_pitch_clap", 0.9F);
-      newparam(ItemsRegister.SPELLHAMMER)
+      newparam(ItemsRegister.SPELL_HAMMER)
          .lvl("damage", 8.0F, -8.792019E7F)
          .add("knockback", 0.4F, 0.3F)
          .add("length", 5.0F, 0.4F)
@@ -364,7 +366,7 @@ public class WeaponParameters {
       }
 
       levelRate += 0.2F * raise;
-      newparam(ItemsRegister.MAGICBOOMERANG)
+      newparam(ItemsRegister.MAGIC_BOOMERANG)
          .lvl("damage", 10.08F, -8.792019E7F)
          .add("knockback", 0.0F, 0.4F)
          .add("damage_radius", 1.2F, 0.35F)
@@ -374,7 +376,7 @@ public class WeaponParameters {
          .add("inaccuracy", 2.5F, -0.8F)
          .add("ticks_flying", 15.0F, 2.0F)
          .add("return_speed", 1.0F, 0.5F);
-      newparam(ItemsRegister.LASERSNIPER)
+      newparam(ItemsRegister.LASER_SNIPER)
          .lvl("damage", 30.0F, -8.792019E7F)
          .add("knockback", 0.0F, 0.3F)
          .add("damage_radius", 0.01F, 0.15F)
@@ -382,7 +384,7 @@ public class WeaponParameters {
          .add("reload", 70.0F, -11.0F)
          .add("distance", 100.0F, 8.0F)
          .add("clipsize", 5.0F, 1.0F);
-      newparam(ItemsRegister.LASERRIFLE)
+      newparam(ItemsRegister.LASER_RIFLE)
          .lvl("damage", 5.5F, -8.792019E7F)
          .add("knockback", 0.0F, 0.3F)
          .add("damage_radius", 0.05F, 0.15F)
@@ -393,7 +395,7 @@ public class WeaponParameters {
          .add("distance", 25.0F, 3.0F)
          .add("inaccuracy", 3.0F, -1.0F)
          .add("clipsize", 35.0F, 4.0F);
-      newparam(ItemsRegister.LASERPISTOL)
+      newparam(ItemsRegister.LASER_PISTOL)
          .lvl("damage", 0.86F, -8.792019E7F)
          .add("knockback", 0.0F, 0.1F)
          .add("damage_radius", 0.05F, 0.15F)
@@ -403,7 +405,7 @@ public class WeaponParameters {
          .add("distance", 15.0F, 3.0F)
          .add("clipsize", 500.0F, 60.0F);
       levelRate += 0.35F * raise;
-      newparam(ItemsRegister.NETHERGRINDER)
+      newparam(ItemsRegister.NETHER_GRINDER)
          .lvl("damage", 3.36F, -8.792019E7F)
          .add("knockback", 0.7F, 0.2F)
          .lvl("fire_bonus", 2.0F)
@@ -414,7 +416,7 @@ public class WeaponParameters {
          .add("velocity", 3.1F)
          .add("inaccuracy", 2.0F, -0.6F)
          .add("livetime", 20.0F, 4.0F);
-      newparam(ItemsRegister.CINDERBOW)
+      newparam(ItemsRegister.CINDER_BOW)
          .lvl("damage", 1.64F, -8.792019E7F)
          .add("knockback", 0.0F, 0.5F)
          .lvl("fullcharged_damage", 3.28F, -8.792019E7F)
@@ -424,7 +426,7 @@ public class WeaponParameters {
          .add("inaccuracy", 1.4F, -0.4F)
          .add("max_pull_time", 55.0F)
          .add("min_pull_time", 3.0F);
-      newparam(ItemsRegister.STAFFOFWITHERDRY)
+      newparam(ItemsRegister.STAFF_OF_WITHERDRY)
          .lvl("damage", 0.88F, -8.792019E7F)
          .add("knockback", 0.25F, 0.1F)
          .add("tick_damage_reduction", 0.02173F)
@@ -461,7 +463,7 @@ public class WeaponParameters {
          .add("velocity", 1.0F)
          .add("range", 16.0F, 1.5F)
          .add("area", 2.0F, -0.35F);
-      newparam(ItemsRegister.LAVADROPPER)
+      newparam(ItemsRegister.LAVA_DROPPER)
          .lvl("damage", 12.150001F, -8.792019E7F)
          .add("knockback", 1.5F, 0.5F)
          .add("fire", 9.0F, 2.0F)
@@ -469,7 +471,7 @@ public class WeaponParameters {
          .add("cooldown", 35.0F, -8.0F)
          .add("velocity", 1.1F)
          .add("inaccuracy", 3.5F, -1.0F);
-      newparam(ItemsRegister.FIREBALLSTAFF)
+      newparam(ItemsRegister.FIREBALL_STAFF)
          .lvl("damage", 19.0F, -8.792019E7F)
          .add("knockback", 1.5F, 0.43F)
          .add("friendlyfire", 0.5F)
@@ -480,7 +482,7 @@ public class WeaponParameters {
          .add("cooldown", 220.0F, -20.0F)
          .add("velocity", 1.0F)
          .add("inaccuracy", 2.8F, -0.8F);
-      newparam(ItemsRegister.INFERNALBLADE)
+      newparam(ItemsRegister.INFERNAL_BLADE)
          .lvl("damage", 5.46F, -8.792019E7F)
          .add("knockback", 0.0F, 0.5F)
          .add("fire", 4.0F, 4.0F)
@@ -492,7 +494,7 @@ public class WeaponParameters {
          .add("size", 0.55F, 0.15F)
          .add("end_size", 0.7F, 0.15F)
          .add("cooldown", 14.0F, -2.0F);
-      newparam(ItemsRegister.MOLTENGREATAXE)
+      newparam(ItemsRegister.MOLTEN_GREAT_AXE)
          .lvl("damage", 9.75F, -8.792019E7F)
          .add("knockback", 0.4F, 0.5F)
          .add("fire", 0.0F, 4.0F)
@@ -533,7 +535,7 @@ public class WeaponParameters {
          .add("potion_power", 0.0F)
          .add("sound_pitch_swosh", 0.9F)
          .add("sound_pitch_clap", 0.77F);
-      newparam(ItemsRegister.ROTTENSHIELD)
+      newparam(ItemsRegister.ROTTEN_SHIELD)
          .lvl("damage", 4.0F, -8.792019E7F)
          .add("knockback", 0.45F, 0.1F)
          .add("self_knockback", 0.5F)
@@ -547,7 +549,7 @@ public class WeaponParameters {
          .add("food_level_to_starve", 1.0F, 2.0F)
          .add("cooldown", 43.0F, -6.0F)
          .add("eat_chance", 0.55F, 0.22F);
-      newparam(ItemsRegister.CHAINMACEMOLTEN)
+      newparam(ItemsRegister.MOLTEN_CHAIN_MACE)
          .lvl("damage", 6.44F, -8.792019E7F)
          .add("knockback", 0.22F, 0.06F)
          .add("cooldown", 13.0F, -2.0F)
@@ -555,7 +557,7 @@ public class WeaponParameters {
          .add("fire", 7.0F, 3.0F)
          .add("burning_mace_fire", 7.0F);
       levelRate += 0.35F * raise;
-      newparam(ItemsRegister.ENDERPROTECTOR)
+      newparam(ItemsRegister.ENDER_PROTECTOR)
          .lvl("damage", 5.3999996F, -8.792019E7F)
          .add("knockback", 1.0F, 0.35F)
          .add("cooldown", 15.0F, -4.0F)
@@ -564,7 +566,7 @@ public class WeaponParameters {
          .add("inaccuracy", 4.0F, -1.3F)
          .add("distance", 32.0F, 4.0F)
          .add("raytrace_size", 0.8F, 1.4F);
-      newparam(ItemsRegister.DRAGONSHELL)
+      newparam(ItemsRegister.DRAGON_SHELL)
          .add("knockback", 0.5F, 0.1F)
          .add("self_knockback", 0.5F)
          .add("teleport_radius", 3.0F, 0.4F)
@@ -575,7 +577,7 @@ public class WeaponParameters {
          .add("max_hits", 7.0F)
          .add("cooldown", 45.0F, -7.0F)
          .add("projectile_spend_hit_chance", 1.0F, -0.3F);
-      newparam(ItemsRegister.DRAGONTAIL)
+      newparam(ItemsRegister.DRAGON_TAIL)
          .lvl("damage", 6.96F, -8.792019E7F)
          .add("knockback", 0.1F, 0.5F)
          .add("fire", 0.0F, 3.0F)
@@ -587,7 +589,7 @@ public class WeaponParameters {
          .add("cloud_duration", 600.0F)
          .add("cloud_radius", 2.5F, 0.325F)
          .add("max_charge", 50.0F);
-      newparam(ItemsRegister.VACUUMGUN)
+      newparam(ItemsRegister.VACUUM_GUN)
          .lvl("damage", 8.8F, -8.792019E7F)
          .add("knockback", 0.5F, 0.33F)
          .add("damage_radius", 1.0F, 0.3F)
@@ -599,7 +601,7 @@ public class WeaponParameters {
          .add("inaccuracy", 3.3F, -1.0F)
          .add("livetime", 35.0F);
       levelRate += 0.25F * raise;
-      newparam(ItemsRegister.ICESWORD)
+      newparam(ItemsRegister.ICE_SWORD)
          .lvl("damage", 4.76F, -8.792019E7F)
          .add("knockback", 0.0F, 0.7F)
          .add("freeze_chance", 0.2F)
@@ -613,13 +615,13 @@ public class WeaponParameters {
          .add("potion_power_add", 2.0F, 0.35F)
          .add("potion_time_max", 100.0F, 25.0F)
          .add("potion_power_max", 7.0F, 0.0F);
-      newparam(ItemsRegister.SNOWFLAKESHUR)
+      newparam(ItemsRegister.SNOWFLAKE_SHURIKEN)
          .lvl("damage", 5.3900003F)
          .add("knockback", 1.5F)
          .add("velocity", 1.8F)
          .add("inaccuracy", 2.2F)
          .add("cooldown", 10.0F);
-      newparam(ItemsRegister.SNOWBALLCANNON)
+      newparam(ItemsRegister.SNOWBALL_CANNON)
          .lvl("damage", 2.96F, -8.792019E7F)
          .add("knockback", 1.0F, 0.33F)
          .add("cooldown", 3.0F, -1.0F)
@@ -632,14 +634,14 @@ public class WeaponParameters {
          .add("ammo_consume_chance", 1.0F, -0.1F)
          .add("snow_set_chance", 0.0F, 0.25F);
       levelRate += 0.2F * raise;
-      newparam(ItemsRegister.GLACIDEBLADE)
+      newparam(ItemsRegister.GLACIDE_BLADE)
          .lvl("damage", 6.1000004F, -8.792019E7F)
          .add("knockback", 0.3F, 0.5F)
          .add("length", 2.5F, 0.3F)
          .add("size", 0.4F, 0.25F)
          .add("end_size", 2.0F, 0.33F)
          .add("cooldown", 15.0F, -2.0F);
-      newparam(ItemsRegister.GOTHICSWORD)
+      newparam(ItemsRegister.GOTHIC_SWORD)
          .lvl("damage", 6.84F, -8.792019E7F)
          .add("knockback", 0.0F, 0.5F)
          .add("length", 3.5F, 0.3F)
@@ -661,7 +663,7 @@ public class WeaponParameters {
          .add("inaccuracy", 4.0F, -1.0F)
          .add("livetime", 30.0F, 5.0F)
          .add("ammo_consume_chance", 1.01F, -0.2F);
-      newparam(ItemsRegister.COOLEDRIFLE)
+      newparam(ItemsRegister.COOLED_RIFLE)
          .lvl("damage", 2.67F, -8.792019E7F)
          .add("knockback", 1.1F, 0.3F)
          .lvl("damage_shotgun", 2.225F, 0.33F)
@@ -675,7 +677,7 @@ public class WeaponParameters {
          .add("inaccuracy", 1.3F, -0.4F)
          .add("velocity", 3.9F)
          .add("inaccuracy_shotgun", 7.0F, -0.8F);
-      newparam(ItemsRegister.FIREWORKSLAUN)
+      newparam(ItemsRegister.FIREWORK_LAUNCHER)
          .lvl("damage", 1.96F, -8.792019E7F)
          .add("knockback", 0.5F, 0.15F)
          .add("min_damage_radius", 0.5F, 0.1F)
@@ -693,7 +695,7 @@ public class WeaponParameters {
          .add("inaccuracy", 7.0F, -2.0F)
          .add("velocity_dragon", 1.1F)
          .add("inaccuracy_dragon", 0.3F, -0.1F);
-      newparam(ItemsRegister.GOTHICBOW)
+      newparam(ItemsRegister.GOTHIC_BOW)
          .lvl("damage", 1.85F, -8.792019E7F)
          .add("knockback", 0.0F, 0.5F)
          .lvl("shard_damage", 3.7F, -8.792019E7F)
@@ -708,7 +710,7 @@ public class WeaponParameters {
          .add("shards_max", 3.0F)
          .add("max_pull_time", 18.0F)
          .add("min_pull_time", 12.0F);
-      newparam(ItemsRegister.ICEBEAM)
+      newparam(ItemsRegister.ICE_BEAM)
          .lvl("damage", 0.366F, -8.792019E7F)
          .add("knockback", 0.2F, 0.1F)
          .add("damage_radius", 0.4F)
@@ -720,7 +722,7 @@ public class WeaponParameters {
          .add("cooldown", 0.0F, 0.0F)
          .add("rapid_multiplier", 0.2F)
          .add("distance", 25.0F, 5.0F);
-      newparam(ItemsRegister.WANDOFCOLD)
+      newparam(ItemsRegister.WAND_OF_COLD)
          .lvl("damage", 3.4F, -8.792019E7F)
          .add("knockback", 1.5F, 0.5F)
          .lvl("wave_damage", 9.35F, -8.792019E7F)
@@ -746,7 +748,7 @@ public class WeaponParameters {
          .lvl("icebreak_damage", 3.5F, -8.792019E7F)
          .add("fire", 0.0F, 1.0F)
          .add("burning_mace_fire", 2.0F);
-      newparam(ItemsRegister.WINTERBREATH)
+      newparam(ItemsRegister.WINTER_BREATH)
          .lvl("damage", 4.0F, -8.792019E7F)
          .add("knockback", 0.5F, 0.1F)
          .add("self_knockback", 0.4F)
@@ -772,7 +774,7 @@ public class WeaponParameters {
          .add("winterbreak_snow_need", 8.0F, -2.0F);
       EXlevelFROZEN = levelRate;
       levelRate += 0.15F * raise;
-      newparam(ItemsRegister.ICICLEMINIGUN)
+      newparam(ItemsRegister.ICICLE_MINIGUN)
          .lvl("damage", 2.1375F, -8.792019E7F)
          .lvl("icebreak_damage", 1.71F, -8.792019E7F)
          .add("knockback", 0.8F, 0.4F)
@@ -784,7 +786,7 @@ public class WeaponParameters {
          .add("velocity", 2.8F)
          .add("inaccuracy", 4.0F, -1.0F)
          .add("livetime", 10.0F, 2.0F);
-      newparam(ItemsRegister.XMASSLAUNCHER)
+      newparam(ItemsRegister.XMASS_LAUNCHER)
          .lvl("damage", 8.4F, -8.792019E7F)
          .add("knockback", 2.0F, 0.3F)
          .add("damage_radius", 1.2F, 0.16F)
@@ -832,7 +834,7 @@ public class WeaponParameters {
          .add("inaccuracy", 1.0F, -0.3F)
          .add("heat_per_shoot", 40.0F)
          .add("special_heat_overclock", 0.002F);
-      newparam(ItemsRegister.NAILGUN)
+      newparam(ItemsRegister.NAIL_GUN)
          .lvl("damage", 3.8500001F, -8.792019E7F)
          .add("knockback", 1.5F, 0.5F)
          .add("cooldown", 4.0F, -1.0F)
@@ -840,7 +842,7 @@ public class WeaponParameters {
          .add("velocity", 3.0F)
          .add("inaccuracy", 2.0F, -0.6F)
          .add("health_to_prick", 15.0F, 13.0F);
-      newparam(ItemsRegister.COMPOUNDBOW)
+      newparam(ItemsRegister.COMPOUND_BOW)
          .lvl("damage", 2.24F, -8.792019E7F)
          .add("knockback", 0.0F, 0.5F)
          .add("velocity", 4.2F)
@@ -866,7 +868,7 @@ public class WeaponParameters {
          .add("toxin_power", 1.0F)
          .add("sound_pitch_swosh", 0.94F)
          .add("sound_pitch_clap", 0.96F);
-      newparam(ItemsRegister.SKULLCRASHER)
+      newparam(ItemsRegister.SKULL_CRASHER)
          .lvl("damage", 7.63F, -8.792019E7F)
          .add("knockback", 0.5F, 0.35F)
          .add("fire", 0.0F, 4.0F)
@@ -878,7 +880,7 @@ public class WeaponParameters {
          .add("hardness_breaks", 8.0F, 1.0F)
          .add("hardness_penetrate", 20.0F, 2.0F)
          .add("blocks_dig", 2.0F, 1.0F);
-      newparam(ItemsRegister.ROCKETLAUNCHER)
+      newparam(ItemsRegister.ROCKET_LAUNCHER)
          .lvl("damage", 3.66F, -8.792019E7F)
          .add("knockback", 1.0F, 0.33F)
          .add("cooldown", 17.0F, -4.0F)
@@ -909,7 +911,7 @@ public class WeaponParameters {
          .add("inaccuracy", 4.0F, -0.5F)
          .add("potion_time", 40.0F, 10.0F)
          .add("potion_power", 0.0F, 0.0F);
-      newparam(ItemsRegister.TOXICNUKECANNON)
+      newparam(ItemsRegister.TOXIC_NUCLEAR_CANNON)
          .lvl("damage", 16.33F, -8.792019E7F)
          .add("knockback", 2.2F, 0.43F)
          .add("damage_radius", 5.5F, 0.6F)
@@ -925,7 +927,7 @@ public class WeaponParameters {
          .add("dig_chance", 0.5F)
          .add("velocity", 1.2F)
          .add("inaccuracy", 3.0F, -0.8F);
-      newparam(ItemsRegister.ACIDFIRE)
+      newparam(ItemsRegister.ACID_FIRE)
          .lvl("damage", 4.16F, -8.792019E7F)
          .add("knockback", 0.5F, 0.3F)
          .add("manacost", 0.6F, -0.117F)
@@ -941,7 +943,7 @@ public class WeaponParameters {
          .add("potion3_time_add", 25.0F, 5.0F)
          .add("potion3_time_max", 100.0F, 20.0F)
          .add("potion3_power", 0.0F, 0.0F);
-      newparam(ItemsRegister.TOXINIUMSHIELD)
+      newparam(ItemsRegister.TOXINIUM_SHIELD)
          .add("knockback", 0.5F, 0.1F)
          .add("self_knockback", 0.3F)
          .add("shield_angle", 110.0F, 6.0F)
@@ -949,7 +951,7 @@ public class WeaponParameters {
          .add("max_hits", 6.0F)
          .add("cooldown", 50.0F, -8.0F)
          .potion("toxin", 70, 17, 100, 20, 2, 0.4F, 0, 0, false);
-      newparam(ItemsRegister.HADRONBLASTER)
+      newparam(ItemsRegister.HADRON_BLASTER)
          .lvl("damage", 2.75F, -8.792019E7F)
          .add("knockback", 2.0F, 0.45F)
          .add("damage_radius", 1.4F, 0.2F)
@@ -968,7 +970,7 @@ public class WeaponParameters {
          .add("hadrons_to_laser", 200.0F)
          .add("rf_to_shoot", 800.0F, -100.0F)
          .add("rf_to_lazer", 40.0F, -5.0F);
-      newparam(ItemsRegister.SNAPBALL)
+      newparam(ItemsRegister.SNAP_BALL)
          .lvl("damage", 8.33F, -8.792019E7F)
          .add("knockback", 3.0F, 0.66F)
          .lvl("damage_explode", 8.33F, -8.792019E7F)
@@ -988,7 +990,7 @@ public class WeaponParameters {
          .add("inaccuracy", 2.0F, -0.66F)
          .add("bounce_find_radius", 8.0F, 1.0F);
       levelRate += 0.55F * raise;
-      newparam(ItemsRegister.MAGICROCKET)
+      newparam(ItemsRegister.MAGIC_ROCKET)
          .lvl("damage", 6.2999997F, -8.792019E7F)
          .add("knockback", 1.5F, 0.5F)
          .add("find_radius", 4.0F)
@@ -1000,7 +1002,7 @@ public class WeaponParameters {
          .add("livetime", 50.0F, 10.0F)
          .add("velocity", 0.95F)
          .add("inaccuracy", 2.0F, -0.6F);
-      newparam(ItemsRegister.CRYSTALSTAR)
+      newparam(ItemsRegister.CRYSTAL_STAR)
          .lvl("damage", 2.075F, -8.792019E7F)
          .add("knockback", 0.4F, 0.2F)
          .lvl("damage_powered", 8.3F, -8.792019E7F)
@@ -1018,7 +1020,7 @@ public class WeaponParameters {
          .add("inaccuracy", 2.0F, -0.666F)
          .add("health_to_prick", 20.0F)
          .add("health_to_prick_powered", 26.0F);
-      newparam(ItemsRegister.ICHSHOWER)
+      newparam(ItemsRegister.ICHOR_SHOWER)
          .lvl("damage", 1.84F, -8.792019E7F)
          .add("knockback", 0.5F, 0.2F)
          .add("manacost", 0.7F, -0.105F)
@@ -1038,7 +1040,7 @@ public class WeaponParameters {
          .add("shards", 3.0F, 3.0F)
          .add("velocity", 1.5F)
          .add("inaccuracy", 2.0F, -0.6F);
-      newparam(ItemsRegister.WHISPERSBLADE)
+      newparam(ItemsRegister.WHISPERS_BLADE)
          .lvl("damage", 6.16F, -8.792019E7F)
          .add("knockback", 1.5F, 0.4F)
          .lvl("damage_edge", 4.62F, -8.792019E7F)
@@ -1055,7 +1057,7 @@ public class WeaponParameters {
          .add("velocity", 1.3F)
          .add("inaccuracy", 3.0F, -1.0F)
          .add("velocity_powered", 1.5F);
-      newparam(ItemsRegister.SCEPTEROFSANDS)
+      newparam(ItemsRegister.SCEPTER_OF_SANDS)
          .lvl("damage", 0.984F, -8.792019E7F)
          .add("knockback", 0.25F, 0.12F)
          .add("knockback_trace", 0.15F, 0.05F)
@@ -1083,20 +1085,20 @@ public class WeaponParameters {
          .add("length", 4.0F, 0.33F)
          .add("length_laser", 18.0F, 1.5F)
          .add("reload", 40.0F, -7.0F);
-      newparam(ItemsRegister.ADAMANTIUMLONGSWORD)
+      newparam(ItemsRegister.ADAMANTIUM_LONGSWORD)
          .lvl("damage", 10.5F, -8.792019E7F)
          .add("knockback", 0.4F, 0.45F)
          .add("length", 3.8F, 0.4F)
          .add("size", 0.4F, 0.1F)
          .add("end_size", 0.6F, 0.15F)
          .add("cooldown", 20.0F, -4.0F);
-      newparam(ItemsRegister.ADAMANTIUMKNIFE)
+      newparam(ItemsRegister.ADAMANTIUM_KNIFE)
          .lvl("damage", 7.0F, -8.792019E7F)
          .add("knockback", -0.15F, 0.2F)
          .lvl("critical_damage", 5.0F)
          .add("length", 2.7F, 0.4F)
          .add("cooldown", 9.0F, -1.0F);
-      newparam(ItemsRegister.ADAMANTIUMBATTLEAXE)
+      newparam(ItemsRegister.ADAMANTIUM_BATTLE_AXE)
          .lvl("damage", 15.0F, -8.792019E7F)
          .add("knockback", 0.6F, 0.6F)
          .lvl("damage_special", 30.0F, -8.792019E7F)
@@ -1105,7 +1107,7 @@ public class WeaponParameters {
          .add("end_size", 1.8F, 0.4F)
          .add("cooldown", 40.0F, -5.0F)
          .add("cooldown_special", 80.0F, -10.0F);
-      newparam(ItemsRegister.CRYSTALCUTTER)
+      newparam(ItemsRegister.CRYSTAL_CUTTER)
          .lvl("damage", 3.2400002F, -8.792019E7F)
          .add("knockback", 0.0F, 0.2F)
          .add("cutter_size", 2.5F, 0.6F)
@@ -1116,14 +1118,14 @@ public class WeaponParameters {
          .add("reload", 70.0F, -10.0F)
          .add("velocity", 0.4F)
          .add("inaccuracy", 2.0F, -0.6F);
-      newparam(ItemsRegister.MITHRILBOW)
+      newparam(ItemsRegister.MITHRIL_BOW)
          .lvl("damage", 2.94F, -8.792019E7F)
          .add("knockback", 0.0F, 0.5F)
          .add("velocity", 3.4F)
          .add("inaccuracy", 0.8F, -0.24F)
          .add("max_pull_time", 20.0F)
          .add("min_pull_time", 4.0F);
-      newparam(ItemsRegister.ADAMANTIUMREVOLVER)
+      newparam(ItemsRegister.ADAMANTIUM_REVOLVER)
          .lvl("damage", 8.4F, -8.792019E7F)
          .add("knockback", 1.3F, 0.4F)
          .add("bullet_damage", 2.0F)
@@ -1136,7 +1138,7 @@ public class WeaponParameters {
          .lvl("hearts_health", 2.0F)
          .potion("stun", 80, 5, 10, 0.35F, false)
          .potion("stun_players", 40, 5, 0, 0.0F, false);
-      newparam(ItemsRegister.ADAMANTIUMMINIGUN)
+      newparam(ItemsRegister.ADAMANTIUM_MINIGUN)
          .lvl("damage_ranged", 2.816F, -8.792019E7F)
          .add("knockback_ranged", 0.2F, 0.15F)
          .add("bullet_damage", 0.85F)
@@ -1156,7 +1158,7 @@ public class WeaponParameters {
          .add("spread_reduction", 0.03F, -0.0065F)
          .add("heat_to_melee", 140.0F)
          .add("reuse_cooling_delay", 2.0F);
-      newparam(ItemsRegister.HOLYSHOTGUN)
+      newparam(ItemsRegister.HOLY_SHOTGUN)
          .lvl("damage", 3.48F, -8.792019E7F)
          .add("knockback", 0.3F, 0.22F)
          .add("bullet_damage", 0.5F)
@@ -1181,7 +1183,7 @@ public class WeaponParameters {
          .add("livetime_random_add", 40.0F)
          .add("shots", 2.0F, 0.4F)
          .potion("slime", 80, 1, 20, 0.25F, false);
-      newparam(ItemsRegister.PISTOLFISH)
+      newparam(ItemsRegister.PISTOL_FISH)
          .lvl("damage", 6.0F, -8.792019E7F)
          .add("knockback", 1.0F, 0.4F)
          .add("cooldown", 20.0F, -4.0F)
@@ -1237,7 +1239,7 @@ public class WeaponParameters {
          .add("velocity_charge_multiplier", -0.0125F, -0.0225F)
          .add("harvest_lvl", 5.0F)
          .add("hardness_breaks", 20.0F);
-      newparam(ItemsRegister.CORALRIFLE)
+      newparam(ItemsRegister.CORAL_RIFLE)
          .lvl("damage", 2.22F, -8.792019E7F)
          .add("knockback", 1.1F, 0.4F)
          .add("bullet_damage", 1.0F)
@@ -1249,7 +1251,7 @@ public class WeaponParameters {
          .lvl("polyps_damage", 3.7F, -8.792019E7F)
          .add("velocity", 3.5F)
          .add("inaccuracy", 3.2F, -1.0F);
-      newparam(ItemsRegister.SEAEFFLORESCE)
+      newparam(ItemsRegister.SEA_EFFLORESCE)
          .lvl("damage", 1.72F, -8.792019E7F)
          .add("knockback", -0.6F, -0.25F)
          .add("damage_radius", 2.5F, 0.33F)
@@ -1259,7 +1261,7 @@ public class WeaponParameters {
          .add("inaccuracy", 4.0F, -1.2F)
          .add("attraction", 1.0F)
          .add("livetime", 400.0F);
-      newparam(ItemsRegister.STINGINGCELL)
+      newparam(ItemsRegister.STINGING_CELL)
          .lvl("damage", 7.0699997F, -8.792019E7F)
          .lvl("damage_growed", 14.139999F, -8.792019E7F)
          .add("knockback", 2.0F, 0.5F)
@@ -1272,7 +1274,7 @@ public class WeaponParameters {
          .add("livetime", 400.0F)
          .add("special_grow_time", 60.0F)
          .add("move_speed", 0.01F);
-      newparam(ItemsRegister.HYDRAULICSHOTGUN)
+      newparam(ItemsRegister.HYDRAULIC_SHOTGUN)
          .lvl("damage", 2.25F, -8.792019E7F)
          .add("knockback", 0.22F, 0.185F)
          .add("bullet_damage", 0.5F)
@@ -1308,7 +1310,7 @@ public class WeaponParameters {
          .add("charges_max", 40.0F, 30.0F);
       EXlevelSEA_MIDDLE = levelRate;
       levelRate += 0.2F * raise;
-      newparam(ItemsRegister.STAFFOFTHEAZUREORE)
+      newparam(ItemsRegister.AZURE_ORE_STAFF)
          .lvl("damage", 1.84F, -8.792019E7F)
          .add("knockback", 0.35F, 0.25F)
          .add("manacost", 1.0F, -0.18F)
@@ -1325,7 +1327,7 @@ public class WeaponParameters {
          .add("homing_power_max", 0.55F)
          .add("shots", 2.0F)
          .add("shots_powered", 5.0F);
-      newparam(ItemsRegister.AQUATICBOW)
+      newparam(ItemsRegister.AQUATIC_BOW)
          .lvl("damage", 1.4F, -8.792019E7F)
          .add("knockback", 0.0F, 0.5F)
          .add("velocity", 4.5F)
@@ -1338,14 +1340,14 @@ public class WeaponParameters {
          .add("angle_between_arrows", 120.0F)
          .add("waterblast_velocity", 1.0F)
          .add("waterblast_inaccuracy", 2.0F, -0.65F);
-      newparam(ItemsRegister.SACRIFICIALDAGGER)
+      newparam(ItemsRegister.SACRIFICIAL_DAGGER)
          .lvl("damage", 3.0F, -8.792019E7F)
          .add("knockback", -0.15F, 0.2F)
          .lvl("critical_damage", 2.0F)
          .add("length", 2.9F, 0.4F)
          .add("cooldown", 13.0F, -1.0F);
       levelRate += 0.55F * raise;
-      newparam(ItemsRegister.PLASMAPISTOL)
+      newparam(ItemsRegister.PLASMA_PISTOL)
          .lvl("damage", 3.84F, -8.792019E7F)
          .add("knockback", 0.7F, 0.35F)
          .add("damage_radius", 1.5F, 0.25F)
@@ -1356,7 +1358,7 @@ public class WeaponParameters {
          .add("velocity", 1.6F)
          .add("inaccuracy", 4.5F, -1.0F)
          .add("rf_to_shoot", 1000.0F, -100.0F);
-      newparam(ItemsRegister.PLASMARIFLE)
+      newparam(ItemsRegister.PLASMA_RIFLE)
          .lvl("damage", 2.56F, -8.792019E7F)
          .add("knockback", 0.67F, 0.27F)
          .lvl("damage_powered", 3.84F, -8.792019E7F)
@@ -1374,7 +1376,7 @@ public class WeaponParameters {
          .add("wave_cooldown", 10.0F, -3.0F)
          .add("wave_length", 7.5F, 0.6F)
          .add("wave_size", 4.0F, 0.5F);
-      newparam(ItemsRegister.PLASMARAILGUN)
+      newparam(ItemsRegister.PLASMA_RAILGUN)
          .lvl("damage", 13.75F, -8.792019E7F)
          .add("knockback", 2.0F, 0.83F)
          .lvl("damage_per_pierces", -1.6500001F, 0.11000001F)
@@ -1386,7 +1388,7 @@ public class WeaponParameters {
          .add("rf_to_shoot", 5000.0F, -250.0F)
          .add("max_pierces", 1.0F, 2.0F)
          .potion("shock", 50, 1, 15, 0.2F, true);
-      newparam(ItemsRegister.ELECTRICSTAFF)
+      newparam(ItemsRegister.ELECTROSTATIC)
          .lvl("damage", 6.18F, -8.792019E7F)
          .add("knockback", 0.3F, 0.25F)
          .add("manacost", 2.8F, -0.45F)
@@ -1404,7 +1406,7 @@ public class WeaponParameters {
          .add("rapid_multiplier", 0.2F)
          .add("distance", 10.0F, 2.0F)
          .add("targets", 3.0F, 2.0F);
-      newparam(ItemsRegister.STATICLANCE)
+      newparam(ItemsRegister.STATIC_LANCE)
          .lvl("damage", 7.7999997F, -8.792019E7F)
          .add("knockback", 0.0F, 0.6F)
          .add("length", 5.0F, 0.5F)
@@ -1443,7 +1445,7 @@ public class WeaponParameters {
          .add("length", 4.0F, 0.33F)
          .add("length_laser", 20.0F, 1.75F)
          .add("reload", 40.0F, -7.0F);
-      newparam(ItemsRegister.PLASMAMINIGUN)
+      newparam(ItemsRegister.PLASMA_MINIGUN)
          .lvl("damage", 1.5899999F, -8.792019E7F)
          .add("knockback", 0.4F, 0.15F)
          .add("bullet_damage", 0.85F)
@@ -1457,7 +1459,7 @@ public class WeaponParameters {
          .add("inaccuracy", 1.1F, -0.3F)
          .add("rf_to_shoot", 50.0F, -10.0F)
          .add("max_heat", 80.0F);
-      newparam(ItemsRegister.PLASMAACCELERATOR)
+      newparam(ItemsRegister.PLASMA_ACCELERATOR)
          .lvl("damage", 7.8F, -8.792019E7F)
          .add("knockback", 1.8F, 0.666F)
          .add("damage_radius", 2.0F, 0.3F)
@@ -1473,7 +1475,7 @@ public class WeaponParameters {
          .add("inaccuracy", 2.0F, -0.65F)
          .add("rf_to_shoot", 15000.0F, -1000.0F)
          .add("shots", 2.0F, 1.0F);
-      newparam(ItemsRegister.ANIHGUN)
+      newparam(ItemsRegister.ANNIHILATION_GUN)
          .lvl("damage", 3.0F, -8.792019E7F)
          .add("knockback", 1.5F, 0.33F)
          .add("damage_radius", 6.0F, 0.4F)
@@ -1483,14 +1485,14 @@ public class WeaponParameters {
          .add("explode_chance", 0.3F, 0.08F)
          .add("explode_power", 2.0F, 0.33F);
       levelRate = 1.0F;
-      newparam(ItemsRegister.GRENADECLASSIC)
+      newparam(ItemsRegister.FRAG_GRENADE)
          .add("cooldown", 100.0F)
          .add("first_explode_delay", 30.0F)
          .lvl("damage", 18.0F)
          .add("knockback", 2.0F)
          .add("damage_radius", 4.0F);
-      newparam(ItemsRegister.GRENADEBOMB).add("cooldown", 120.0F).add("first_explode_delay", 40.0F).add("explosion_size", 3.0F);
-      newparam(ItemsRegister.GRENADECRYO)
+      newparam(ItemsRegister.BOMB).add("cooldown", 120.0F).add("first_explode_delay", 40.0F).add("explosion_size", 3.0F);
+      newparam(ItemsRegister.CRYO_GRENADE)
          .add("cooldown", 200.0F)
          .add("first_explode_delay", 30.0F)
          .lvl("damage", 5.0F)
@@ -1504,21 +1506,21 @@ public class WeaponParameters {
          .add("friendlyfire_potion_power_add", 6.0F)
          .add("friendlyfire_potion_time_max", 160.0F)
          .add("friendlyfire_potion_power_max", 16.0F);
-      newparam(ItemsRegister.GRENADEHELL)
+      newparam(ItemsRegister.HELL_GRENADE)
          .add("cooldown", 230.0F)
          .add("first_explode_delay", 30.0F)
          .lvl("damage", 15.0F)
          .add("knockback", 0.8F)
          .add("damage_radius", 3.0F)
          .add("max_explosions", 5.0F);
-      newparam(ItemsRegister.GRENADEMOLOTOV)
+      newparam(ItemsRegister.MOLOTOV_COCKTAIL)
          .add("cooldown", 180.0F)
          .add("first_explode_delay", 100.0F)
          .add("damage_radius", 2.0F)
          .add("fire", 10.0F)
          .add("friendlyfire_fire", 5.0F)
          .add("max_explosions", 3.0F);
-      newparam(ItemsRegister.GRENADEOIL)
+      newparam(ItemsRegister.OIL_BOTTLE)
          .add("cooldown", 80.0F)
          .add("first_explode_delay", 100.0F)
          .lvl("damage", 0.0F)
@@ -1527,13 +1529,13 @@ public class WeaponParameters {
          .add("potion_time", 800.0F)
          .add("potion_power_add", 1.0F)
          .add("potion_power_max", 6.0F);
-      newparam(ItemsRegister.GRENADESNOW)
+      newparam(ItemsRegister.SNOW_GRENADE)
          .add("cooldown", 180.0F)
          .add("first_explode_delay", 30.0F)
          .add("damage_radius", 5.0F)
          .add("falling_snow_count", 30.0F)
          .add("falling_snow_speed", 1.0F);
-      newparam(ItemsRegister.GRENADEGAS)
+      newparam(ItemsRegister.GAS_GRENADE)
          .add("cooldown", 120.0F)
          .add("first_explode_delay", 80.0F)
          .lvl("damage", 30.0F)
@@ -1545,7 +1547,7 @@ public class WeaponParameters {
          .add("potion_power_add", 1.0F)
          .add("potion_time_max", 300.0F)
          .add("potion_power_max", 25.0F);
-      newparam(ItemsRegister.GRENADESEA)
+      newparam(ItemsRegister.SEA_GRENADE)
          .add("cooldown", 220.0F)
          .add("first_explode_delay", 30.0F)
          .lvl("damage", 15.0F * EXlevelSEA_MIDDLE)
@@ -1555,16 +1557,16 @@ public class WeaponParameters {
          .add("bombs", 8.0F)
          .add("min_bomb_explode_delay", 30.0F)
          .add("bomb_speed", 0.8F);
-      newparam(ItemsRegister.GRENADEWATCHING).add("cooldown", 300.0F).add("first_explode_delay", 35.0F).lvl("damage", 8.0F).add("watcher_livetime", 400.0F);
-      newparam(ItemsRegister.GRENADEGRAVITY)
+      newparam(ItemsRegister.WATCHING_GRENADE).add("cooldown", 300.0F).add("first_explode_delay", 35.0F).lvl("damage", 8.0F).add("watcher_livetime", 400.0F);
+      newparam(ItemsRegister.GRAVITY_GRENADE)
          .add("cooldown", 400.0F)
          .add("first_explode_delay", 40.0F)
          .add("damage_radius", 7.0F)
          .add("livetime", 200.0F)
          .add("gravity", 0.65F)
          .add("friendlyfire_gravity", 0.3F);
-      newparam(ItemsRegister.ROCKETCOMMON).lvl("damage", 5.0F).add("knockback", 1.0F).add("damage_radius", 2.5F, 0.18F);
-      newparam(ItemsRegister.ROCKETFROSTFIRE)
+      newparam(ItemsRegister.COMMON_ROCKET).lvl("damage", 5.0F).add("knockback", 1.0F).add("damage_radius", 2.5F, 0.18F);
+      newparam(ItemsRegister.FROSTFIRE_ROCKET)
          .lvl("damage", 6.0F)
          .add("knockback", 0.4F)
          .add("damage_radius", 2.0F, 0.16F)
@@ -1572,7 +1574,7 @@ public class WeaponParameters {
          .add("potion_time", 180.0F, 20.0F)
          .add("friendlyfire_potion_time", 150.0F)
          .add("potion_power", 1.0F, 0.3F);
-      newparam(ItemsRegister.ROCKETCHEMICAL)
+      newparam(ItemsRegister.CHEMICAL_ROCKET)
          .lvl("damage", 7.0F)
          .add("knockback", 0.7F)
          .add("damage_radius", 2.6F, 0.15F)
@@ -1587,67 +1589,67 @@ public class WeaponParameters {
          .add("slime_time", 45.0F, 14.0F)
          .add("friendlyfire_slime_time", 45.0F)
          .add("slime_power", 1.0F, 0.2F);
-      newparam(ItemsRegister.ROCKETNAPALM)
+      newparam(ItemsRegister.NAPALM_ROCKET)
          .lvl("damage", 5.0F)
          .add("knockback", 0.8F)
          .add("damage_radius", 3.0F, 0.2F)
          .add("fire", 4.0F, 1.0F)
          .add("chance_ignite", 0.5F)
          .add("radius_ignite", 1.0F, 0.5F);
-      newparam(ItemsRegister.ROCKETDEMOLISHING).add("base_explosion_size", 2.0F, 0.2F).add("rooted_weapondamage_explode_multiplier", 0.35F);
-      newparam(ItemsRegister.ROCKETMINING)
+      newparam(ItemsRegister.DEMOLISHING_ROCKET).add("base_explosion_size", 2.0F, 0.2F).add("rooted_weapondamage_explode_multiplier", 0.35F);
+      newparam(ItemsRegister.MINING_ROCKET)
          .lvl("damage", 4.0F)
          .add("knockback", 1.2F)
          .add("damage_radius", 1.8F, 0.3F)
          .add("radius_block_destroy", 2.0F, 0.5F)
          .add("damage_to_hardness_breaks", 0.3F);
-      newparam(ItemsRegister.ROCKETVOID).lvl("damage", 6.0F).add("knockback", 1.0F).add("damage_radius", 2.8F, 0.25F);
-      newparam(ItemsRegister.ROCKETWATERBLAST).lvl("damage", 7.0F).add("knockback", 0.5F).add("damage_radius", 3.5F, 0.28F).add("wet_radius", 3.0F, 0.5F);
-      newparam(ItemsRegister.ROCKETARCANE).lvl("damage", 8.0F).add("knockback", 0.7F).add("damage_radius", 3.0F, 0.19F);
-      newparam(ItemsRegister.ROCKETSURPRISE).lvl("damage", 3.0F).add("knockback", 0.0F).add("surprises", 8.0F, 1.0F);
-      newparam(ItemsRegister.ROCKETSHELL)
+      newparam(ItemsRegister.VOID_ROCKET).lvl("damage", 6.0F).add("knockback", 1.0F).add("damage_radius", 2.8F, 0.25F);
+      newparam(ItemsRegister.WATERBLAST_ROCKET).lvl("damage", 7.0F).add("knockback", 0.5F).add("damage_radius", 3.5F, 0.28F).add("wet_radius", 3.0F, 0.5F);
+      newparam(ItemsRegister.ARCANE_ROCKET).lvl("damage", 8.0F).add("knockback", 0.7F).add("damage_radius", 3.0F, 0.19F);
+      newparam(ItemsRegister.SURPRISE_ROCKET).lvl("damage", 3.0F).add("knockback", 0.0F).add("surprises", 8.0F, 1.0F);
+      newparam(ItemsRegister.SHELL_ROCKET)
          .lvl("damage", 8.0F)
          .lvl("shells_damage", 2.0F * EXlevelSEA_MIDDLE)
          .add("knockback", 0.6F)
          .add("damage_radius", 2.0F, 0.17F)
          .add("shells_min", 6.0F)
          .add("shells_max", 12.0F);
-      newparam(ItemsRegister.ARROWBOUNCING).lvl("damage", 2.0F);
-      newparam(ItemsRegister.ARROWFIREJET).lvl("damage", 2.5F);
-      newparam(ItemsRegister.ARROWVOID).lvl("damage", 3.0F);
-      newparam(ItemsRegister.ARROWBENGAL).lvl("damage", 3.0F).lvl("bengal_damage", 3.0F * EXlevelFROZEN);
-      newparam(ItemsRegister.ARROWFROZEN).lvl("damage", 3.0F);
-      newparam(ItemsRegister.ARROWVICIOUS).lvl("damage", 3.5F);
-      newparam(ItemsRegister.ARROWMODERN).lvl("damage", 4.0F);
-      newparam(ItemsRegister.ARROWMITHRIL).lvl("damage", 5.0F);
-      newparam(ItemsRegister.ARROWFISH).lvl("damage", 4.5F);
-      newparam(ItemsRegister.ARROWSHELL).lvl("damage", 4.5F).lvl("shard_damage", 2.0F * EXlevelSEA_MIDDLE);
-      newparam(ItemsRegister.ARROWTWIN)
+      newparam(ItemsRegister.ARROW_BOUNCING).lvl("damage", 2.0F);
+      newparam(ItemsRegister.ARROW_FIREJET).lvl("damage", 2.5F);
+      newparam(ItemsRegister.ARROW_VOID).lvl("damage", 3.0F);
+      newparam(ItemsRegister.ARROW_BENGAL).lvl("damage", 3.0F).lvl("bengal_damage", 3.0F * EXlevelFROZEN);
+      newparam(ItemsRegister.ARROW_FROZEN).lvl("damage", 3.0F);
+      newparam(ItemsRegister.ARROW_VICIOUS).lvl("damage", 3.5F);
+      newparam(ItemsRegister.ARROW_MODERN).lvl("damage", 4.0F);
+      newparam(ItemsRegister.ARROW_MITHRIL).lvl("damage", 5.0F);
+      newparam(ItemsRegister.ARROW_FISH).lvl("damage", 4.5F);
+      newparam(ItemsRegister.ARROW_SHELL).lvl("damage", 4.5F).lvl("shard_damage", 2.0F * EXlevelSEA_MIDDLE);
+      newparam(ItemsRegister.ARROW_TWIN)
          .lvl("damage", 5.0F)
          .lvl("damage_link", 5.0F * EXlevelPLASMA)
          .lvl("damage_link_length_mult", -0.5F)
          .lvl("damage_link_max", 50.0F * EXlevelPLASMA);
-      newparam(ItemsRegister.ARROWWIND).lvl("damage", 7.0F);
-      newparam(ItemsRegister.BULLETCOPPER).lvl("damage", 0.0F).lvl("knockback", 0.0F);
-      newparam(ItemsRegister.BULLETLEAD).lvl("damage", 0.5F).lvl("knockback", 0.2F);
-      newparam(ItemsRegister.BULLETSILVER).lvl("damage", 1.0F).lvl("knockback", 0.0F);
-      newparam(ItemsRegister.BULLETGOLD).lvl("damage", 1.5F).lvl("knockback", 0.4F);
-      newparam(ItemsRegister.BULLETEXPLODING).lvl("damage", 1.0F).lvl("knockback", 0.5F);
-      newparam(ItemsRegister.BULLETFIRE).lvl("damage", 2.5F).lvl("knockback", 0.0F);
-      newparam(ItemsRegister.BULLETERRATIC).lvl("damage", 2.0F).lvl("knockback", 0.3F);
-      newparam(ItemsRegister.BULLETFROZEN).lvl("damage", 2.5F).lvl("knockback", 0.0F);
-      newparam(ItemsRegister.BULLETFESTIVAL).lvl("damage", 0.5F).lvl("knockback", 0.0F);
-      newparam(ItemsRegister.BULLETNIVEOUS).lvl("damage", 1.5F).lvl("knockback", 0.1F).lvl("damage_bonus", 2.3F);
-      newparam(ItemsRegister.BULLETPOISON).lvl("damage", 3.0F).lvl("knockback", 0.0F);
-      newparam(ItemsRegister.BULLETTOXIC).lvl("damage", 3.5F).lvl("knockback", 0.0F);
-      newparam(ItemsRegister.BULLETADAMANTIUM).lvl("damage", 5.0F).lvl("knockback", 0.3F);
-      newparam(ItemsRegister.BULLETCRYSTAL)
+      newparam(ItemsRegister.ARROW_WIND).lvl("damage", 7.0F);
+      newparam(ItemsRegister.BULLET_COPPER).lvl("damage", 0.0F).lvl("knockback", 0.0F);
+      newparam(ItemsRegister.BULLET_LEAD).lvl("damage", 0.5F).lvl("knockback", 0.2F);
+      newparam(ItemsRegister.BULLET_SILVER).lvl("damage", 1.0F).lvl("knockback", 0.0F);
+      newparam(ItemsRegister.BULLE_TGOLD).lvl("damage", 1.5F).lvl("knockback", 0.4F);
+      newparam(ItemsRegister.BULLET_EXPLODING).lvl("damage", 1.0F).lvl("knockback", 0.5F);
+      newparam(ItemsRegister.BULLET_INCENDIARY).lvl("damage", 2.5F).lvl("knockback", 0.0F);
+      newparam(ItemsRegister.BULLET_ERRATIC).lvl("damage", 2.0F).lvl("knockback", 0.3F);
+      newparam(ItemsRegister.BULLET_FROZEN).lvl("damage", 2.5F).lvl("knockback", 0.0F);
+      newparam(ItemsRegister.BULLET_FESTIVAL).lvl("damage", 0.5F).lvl("knockback", 0.0F);
+      newparam(ItemsRegister.BULLET_NIVEOUS).lvl("damage", 1.5F).lvl("knockback", 0.1F).lvl("damage_bonus", 2.3F);
+      newparam(ItemsRegister.BULLET_POISONOUS).lvl("damage", 3.0F).lvl("knockback", 0.0F);
+      newparam(ItemsRegister.BULLET_TOXIC).lvl("damage", 3.5F).lvl("knockback", 0.0F);
+      newparam(ItemsRegister.BULLET_ADAMANTIUM).lvl("damage", 5.0F).lvl("knockback", 0.3F);
+      newparam(ItemsRegister.BULLET_CRYSTAL)
          .lvl("damage", 3.0F)
          .lvl("knockback", 0.0F)
          .lvl("damage_crystals", 5.0F * EXlevelDUNGEON_CHEST)
          .add("amount_crystals", 8.0F);
-      newparam(ItemsRegister.BULLETCORAL).lvl("damage", 3.5F).lvl("knockback", 0.0F).lvl("damage_polyp", 3.0F * EXlevelSEA_MIDDLE);
-      newparam(ItemsRegister.BULLETDIVERS).lvl("damage", 4.5F).lvl("knockback", 0.2F);
-      newparam(ItemsRegister.BULLETTHUNDER).lvl("damage", 5.0F).lvl("knockback", 0.0F).lvl("damage_thunder", 5.5F * EXlevelPLASMA);
+      newparam(ItemsRegister.BULLET_CORAL).lvl("damage", 3.5F).lvl("knockback", 0.0F).lvl("damage_polyp", 3.0F * EXlevelSEA_MIDDLE);
+      newparam(ItemsRegister.BULLET_DIVING).lvl("damage", 4.5F).lvl("knockback", 0.2F);
+      newparam(ItemsRegister.BULLET_THUNDER).lvl("damage", 5.0F).lvl("knockback", 0.0F).lvl("damage_thunder", 5.5F * EXlevelPLASMA);
    }
 }

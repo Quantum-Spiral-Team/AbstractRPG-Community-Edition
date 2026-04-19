@@ -32,7 +32,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Ceratarget extends ItemWeapon {
-   public static int maxammo = 18;
+   public static final int maxAmmo = 18;
 
    public Ceratarget() {
       this.setRegistryName("ceratarget");
@@ -78,7 +78,7 @@ public class Ceratarget extends ItemWeapon {
                   if (ammo > 0 && this.isReloaded(itemstack)) {
                      if (!player.getCooldownTracker().hasCooldown(this)) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -96,7 +96,7 @@ public class Ceratarget extends ItemWeapon {
                         Vec3d vec3d2 = vec3d.add(vec3d1.x * 16.0, vec3d1.y * 16.0, vec3d1.z * 16.0);
                         RayTraceResult resul = world.rayTraceBlocks(vec3d, vec3d2, false);
                         CeratargetShoot projectile = new CeratargetShoot(world, player, itemstack, power);
-                        float displAngle = parameters.getEnchanted("displace_angle", acc);
+                        float displAngle = parameters.getEnchantedF("displace_angle", acc);
                         float yawAdd = (itemRand.nextFloat() + 2.0F) * (itemRand.nextFloat() < 0.5F ? -displAngle : displAngle);
                         projectile.followPoint = resul != null && resul.hitVec != null && resul.typeOfHit != Type.MISS
                            ? resul.hitVec
@@ -108,8 +108,8 @@ public class Ceratarget extends ItemWeapon {
                            player.rotationPitch,
                            player.rotationYaw + yawAdd,
                            0.0F,
-                           parameters.get("velocity"),
-                           parameters.getEnchanted("inaccuracy", acc),
+                           parameters.getF("velocity"),
+                           parameters.getEnchantedF("inaccuracy", acc),
                            -0.2F,
                            0.0F,
                            0.6F,
@@ -119,15 +119,15 @@ public class Ceratarget extends ItemWeapon {
                         world.spawnEntity(projectile);
                         if (!player.capabilities.isCreativeMode) {
                            if (itemRand.nextFloat()
-                              < parameters.getEnchanted("ammo_consume_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))) {
+                              < parameters.getEnchantedF("ammo_consume_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))) {
                               this.addAmmo(ammo, itemstack, -1);
                            }
 
                            itemstack.damageItem(1, player);
                         }
                      }
-                  } else if (this.initiateReload(itemstack, player, null, maxammo)) {
-                     IWeapon.fireEffect(this, player, world, 64.0, (double)player.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+                  } else if (this.initiateReload(itemstack, player, null, maxAmmo)) {
+                     IWeapon.fireEffect(this, player, world, 64.0, player.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
                   }
                }
 
@@ -154,11 +154,11 @@ public class Ceratarget extends ItemWeapon {
          if (rel > 0 && rel < reltime) {
             if (rel > reltime / 2) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               float mananeed1 = parameters.getEnchanted("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack)) / reltime * 2.0F;
-               if (Mana.getMana(player) > mananeed1) {
+               float manaNeed = parameters.getEnchantedF("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack)) / reltime * 2.0F;
+               if (Mana.getMana(player) > manaNeed) {
                   NBTHelper.AddNBTint(itemstack, -1, "reload_time");
                   if (!player.capabilities.isCreativeMode) {
-                     Mana.changeMana(player, -mananeed1);
+                     Mana.changeMana(player, -manaNeed);
                      Mana.setManaSpeed(player, 0.001F);
                   }
                }
@@ -175,8 +175,8 @@ public class Ceratarget extends ItemWeapon {
          NBTHelper.GiveNBTint(itemstack, 0, "ammo");
          if (NBTHelper.GetNBTint(itemstack, "ammo") == 0) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float mananeed1 = parameters.getEnchanted("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack));
-            if (Mana.getMana(player) > mananeed1) {
+            float manaNeed = parameters.getEnchantedF("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack));
+            if (Mana.getMana(player) > manaNeed) {
                this.startReload(itemstack);
                NBTHelper.SetNBTint(itemstack, maxAmmo, "ammo");
                return true;
@@ -205,16 +205,16 @@ public class Ceratarget extends ItemWeapon {
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Entity en = world.getEntityByID((int)x);
       if (en != null) {
-         MovingSoundEntity movingsound = new MovingSoundEntity(
+         MovingSoundEntity movingSound = new MovingSoundEntity(
             en, Sounds.ceratarget_rel, SoundCategory.PLAYERS, 0.7F, 0.975F + itemRand.nextFloat() / 20.0F, false
          );
-         Minecraft.getMinecraft().getSoundHandler().playSound(movingsound);
+         Minecraft.getMinecraft().getSoundHandler().playSound(movingSound);
       }
    }
 
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
+      return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxAmmo, 0.0F, 1.0F);
    }
 
    @Override
@@ -237,8 +237,4 @@ public class Ceratarget extends ItemWeapon {
       return WeaponHandleType.TWO_HANDED;
    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
 }

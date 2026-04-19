@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
@@ -26,8 +25,8 @@ public class ToxicFlowerIslands extends BiomeControlled {
       super(
          new BiomeProperties("Toxic flower island").setBaseHeight(-0.35F).setHeightVariation(0.2F).setTemperature(1.25F).setRainfall(0.9F).setWaterColor(5931421)
       );
-      this.topBlock = BlocksRegister.TOXICGRASS.getDefaultState();
-      this.fillerBlock = BlocksRegister.TOXICDIRT.getDefaultState();
+      this.topBlock = BlocksRegister.TOXIC_GRASS.getDefaultState();
+      this.fillerBlock = BlocksRegister.TOXIC_DIRT.getDefaultState();
       this.decorator = new ToxicFlowerIslandsDecorator();
    }
 
@@ -42,9 +41,9 @@ public class ToxicFlowerIslands extends BiomeControlled {
       public WorldGenGroundFoliage arelia = new WorldGenGroundFoliage(BlocksRegister.ARELIA, 64, 8, 3);
       public WorldGenGroundFoliage deceidus = new WorldGenGroundFoliage(BlocksRegister.DECEIDUS, 25, 8, 5);
       public WorldGenGroundFoliage toxinia = new WorldGenGroundFoliage(BlocksRegister.TOXINIA, 22, 8, 4);
-      public WorldGenGroundFoliage mosspl = new WorldGenGroundFoliage(BlocksRegister.MOSSPLANT, 12, 8, 5);
-      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXICTALLGRASS, 22, 8, 4);
-      public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISONLILY, 10, 8, 0);
+      public WorldGenGroundFoliage mosspl = new WorldGenGroundFoliage(BlocksRegister.MOSS_PLANT, 12, 8, 5);
+      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXIC_TALLGRASS, 22, 8, 4);
+      public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISON_LILY, 10, 8, 0);
 
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
@@ -56,7 +55,7 @@ public class ToxicFlowerIslands extends BiomeControlled {
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
                if ((!worldIn.getBlockState(position).getMaterial().isLiquid() || random.nextFloat() < 0.3F)
-                  && (blockd == BlocksRegister.TOXICGRASS || blockd == BlocksRegister.TOXICDIRT || blockd == BlocksRegister.TOXIBERRYLOG)) {
+                  && (blockd == BlocksRegister.TOXIC_GRASS || blockd == BlocksRegister.TOXIC_DIRT || blockd == BlocksRegister.TOXIBERRY_LOG)) {
                   WorldServer worldServer = (WorldServer)worldIn;
                   MinecraftServer minecraftServer = worldIn.getMinecraftServer();
                   TemplateManager templateManager = worldServer.getStructureTemplateManager();
@@ -106,11 +105,11 @@ public class ToxicFlowerIslands extends BiomeControlled {
                   new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
-               if (blockd == BlocksRegister.TOXICGRASS
-                  || blockd == BlocksRegister.TOXICDIRT
-                  || blockd == BlocksRegister.TOXIBERRYLOG
+               if (blockd == BlocksRegister.TOXIC_GRASS
+                  || blockd == BlocksRegister.TOXIC_DIRT
+                  || blockd == BlocksRegister.TOXIBERRY_LOG
                   || blockd == BlocksRegister.SLUDGE
-                  || blockd == BlocksRegister.RADIOSTONE) {
+                  || blockd == BlocksRegister.RADIOACTIVE_STONE) {
                   WorldServer worldServerx = (WorldServer)worldIn;
                   MinecraftServer minecraftServerx = worldIn.getMinecraftServer();
                   TemplateManager templateManagerx = worldServerx.getStructureTemplateManager();
@@ -155,7 +154,7 @@ public class ToxicFlowerIslands extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDTOXIN, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 
@@ -166,7 +165,7 @@ public class ToxicFlowerIslands extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDSLIME, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_SLIME, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 

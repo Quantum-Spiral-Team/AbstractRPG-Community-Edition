@@ -39,17 +39,17 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
 
    public PlasmaAcceleratorShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMAPISTOL);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_PISTOL);
    }
 
    public PlasmaAcceleratorShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMAPISTOL);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_PISTOL);
    }
 
    public PlasmaAcceleratorShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMAPISTOL);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_PISTOL);
    }
 
    public PlasmaAcceleratorShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -229,7 +229,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
 
    public void expl(RayTraceResult result) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
       int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
@@ -240,9 +240,9 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
          if (!list.isEmpty()) {
             for (Entity entity : list) {
                if (Team.checkIsOpponent(this.thrower, entity)) {
-                  float damage = parameters.getEnchanted("damage", might)
+                  float damage = parameters.getEnchantedF("damage", might)
                      * Math.max(
-                        parameters.get("damage_multiplier")
+                        parameters.getF("damage_multiplier")
                            - (float)Weapons.getDistanceToMobHitbox(
                               entity.width,
                               entity.height,
@@ -262,7 +262,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse),
+                     parameters.getEnchantedF("knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ
@@ -270,9 +270,9 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
                   entity.hurtResistantTime = 0;
                   DeathEffects.applyDeathEffect(entity, DeathEffects.DE_DISMEMBER, 0.55F);
                } else {
-                  float damage = parameters.getEnchanted("friendlyfire_damage", might)
+                  float damage = parameters.getEnchantedF("friendlyfire_damage", might)
                      * Math.max(
-                        parameters.get("damage_multiplier")
+                        parameters.getF("damage_multiplier")
                            - (float)Weapons.getDistanceToMobHitbox(
                               entity.width,
                               entity.height,
@@ -285,7 +285,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
                            ),
                         0.1F
                      )
-                     * parameters.get("friendlyfire");
+                     * parameters.getF("friendlyfire");
                   entity.hurtResistantTime = 0;
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),
@@ -293,7 +293,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse),
+                     parameters.getEnchantedF("knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ
@@ -308,10 +308,10 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
                (int)this.posX,
                (int)this.posY,
                (int)this.posZ,
-               parameters.getEnchantedi("radius_blocks", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack))
+               parameters.getEnchantedI("radius_blocks", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack))
             )) {
                IBlockState state = this.world.getBlockState(blockpos);
-               if (Weapons.easyBreakBlockFor(this.world, parameters.getEnchanted("hardness_breaks", might), blockpos, state)) {
+               if (Weapons.easyBreakBlockFor(this.world, parameters.getEnchantedF("hardness_breaks", might), blockpos, state)) {
                   if (!state.getBlock().hasTileEntity(state) && !(this.rand.nextFloat() < 0.3F)) {
                      EntityFallingBlock entityfallingblock = new EntityFallingBlock(
                         this.world, blockpos.getX() + 0.5, blockpos.getY() + 0.2, blockpos.getZ() + 0.5, state
@@ -319,7 +319,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
                      this.world.spawnEntity(entityfallingblock);
                      SuperKnockback.applyKnockback(
                         entityfallingblock,
-                        parameters.getEnchanted("knockback_to_blocks", impulse),
+                        parameters.getEnchantedF("knockback_to_blocks", impulse),
                         this.posX,
                         this.posY - 0.2,
                         this.posZ

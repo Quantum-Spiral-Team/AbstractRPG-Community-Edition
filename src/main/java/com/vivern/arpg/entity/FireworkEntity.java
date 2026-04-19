@@ -46,17 +46,17 @@ public class FireworkEntity extends EntityThrowable {
 
    public FireworkEntity(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.FIREWORKSLAUN);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
    }
 
    public FireworkEntity(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.FIREWORKSLAUN);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
    }
 
    public FireworkEntity(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.FIREWORKSLAUN);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
    }
 
    public FireworkEntity(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -179,7 +179,7 @@ public class FireworkEntity extends EntityThrowable {
       this.motionZ = this.motionZ + this.motiZ;
       if (this.ticksExisted > 14 + this.lt && !this.world.isRemote) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double minRadius = parameters.getEnchanted("min_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         double minRadius = parameters.getEnchantedF("min_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
          double damageRadius = minRadius + this.getFireworkSize() / 7.5;
          AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
             .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
@@ -192,16 +192,16 @@ public class FireworkEntity extends EntityThrowable {
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                   float flyBonus = 0.0F;
                   if (!entity.onGround) {
-                     flyBonus = parameters.getEnchanted("flying_damage_bonus", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
+                     flyBonus = parameters.getEnchantedF("flying_damage_bonus", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
                   }
 
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),
-                     parameters.getEnchanted("damage", might) + flyBonus,
+                     parameters.getEnchantedF("damage", might) + flyBonus,
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse),
+                     parameters.getEnchantedF("knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ
@@ -221,7 +221,7 @@ public class FireworkEntity extends EntityThrowable {
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != this.thrower && !this.world.isRemote) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double minRadius = parameters.getEnchanted("min_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         double minRadius = parameters.getEnchantedF("min_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
          double damageRadius = minRadius + this.getFireworkSize() / 7.5;
          AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
             .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
@@ -234,16 +234,16 @@ public class FireworkEntity extends EntityThrowable {
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                   float flyBonus = 0.0F;
                   if (!entity.onGround) {
-                     flyBonus = parameters.getEnchanted("flying_damage_bonus", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
+                     flyBonus = parameters.getEnchantedF("flying_damage_bonus", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
                   }
 
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),
-                     parameters.getEnchanted("damage", might) + flyBonus,
+                     parameters.getEnchantedF("damage", might) + flyBonus,
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse),
+                     parameters.getEnchantedF("knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ

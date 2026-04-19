@@ -151,7 +151,7 @@ public class Impetus extends ItemWeapon {
                }
             } else if (charge < 60) {
                double edist = 4.0 + charge / (9.0 - acc);
-               List<Entity> list = GetMOP.entityMopRayTrace(Entity.class, edist, 1.0F, player, 1.5, 1.0, player.rotationPitch, player.rotationYaw);
+               List<Entity> list = GetMOP.entityMopRayTrace(Entity.class, edist, 1.0F, player, 1.5, player.rotationPitch, player.rotationYaw);
                world.playSound(
                   (EntityPlayer)null,
                   player.posX,
@@ -198,7 +198,7 @@ public class Impetus extends ItemWeapon {
                   float rotP = player.rotationPitch + (float)itemRand.nextGaussian() * (7.0F - acc / 2.0F);
                   float rotY = player.rotationYaw + (float)itemRand.nextGaussian() * (7.0F - acc / 2.0F);
                   double edist = 4.0 + charge / (8.0 - acc);
-                  List<Entity> list = GetMOP.entityMopRayTrace(Entity.class, edist, 1.0F, player, 2.5, 1.0, rotP, rotY);
+                  List<Entity> list = GetMOP.entityMopRayTrace(Entity.class, edist, 1.0F, player, 2.5, rotP, rotY);
                   if (!list.isEmpty()) {
                      for (Entity entityl : list) {
                         if (!alllist.contains(entityl)) {

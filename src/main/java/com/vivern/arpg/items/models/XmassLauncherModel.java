@@ -181,10 +181,10 @@ public class XmassLauncherModel extends ModelBase {
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
-      float ft0 = GetMOP.getfromto(f, 0.0F, 0.1F);
-      float ft1 = ft0 - GetMOP.getfromto(f, 0.5F, 1.0F);
-      float ft2 = ft0 - GetMOP.getfromto(f, 0.6F, 0.8F);
-      float ft3 = GetMOP.getfromto(f, 0.1F, 0.2F) - GetMOP.getfromto(f, 0.8F, 1.0F);
+      float ft0 = GetMOP.getFromTo(f, 0.0F, 0.1F);
+      float ft1 = ft0 - GetMOP.getFromTo(f, 0.5F, 1.0F);
+      float ft2 = ft0 - GetMOP.getFromTo(f, 0.6F, 0.8F);
+      float ft3 = GetMOP.getFromTo(f, 0.1F, 0.2F) - GetMOP.getFromTo(f, 0.8F, 1.0F);
       this.shape5.rotateAngleX = -0.35F * ft1;
       this.shape6.rotateAngleX = -0.35F * ft1;
       this.shape7.offsetZ = 1.0F * ft2;
@@ -192,12 +192,12 @@ public class XmassLauncherModel extends ModelBase {
       this.shape8.offsetZ = 1.0F * ft2;
       this.shape8.offsetX = -1.0F * ft3;
       if (f2 > 0.0F && f2 < 1.0F) {
-         ft0 = GetMOP.getfromto(f2, 0.0F, 0.2F);
-         ft1 = GetMOP.getfromto(f2, 0.2F, 0.35F);
-         ft2 = GetMOP.getfromto(f2, 0.3F, 0.45F);
-         ft3 = GetMOP.getfromto(f2, 0.45F, 0.52F) - GetMOP.getfromto(f2, 0.52F, 0.59F);
-         float ft7 = GetMOP.getfromto(f2, 0.45F, 0.55F);
-         float ft8 = GetMOP.getfromto(f2, 0.65F, 0.9F);
+         ft0 = GetMOP.getFromTo(f2, 0.0F, 0.2F);
+         ft1 = GetMOP.getFromTo(f2, 0.2F, 0.35F);
+         ft2 = GetMOP.getFromTo(f2, 0.3F, 0.45F);
+         ft3 = GetMOP.getFromTo(f2, 0.45F, 0.52F) - GetMOP.getFromTo(f2, 0.52F, 0.59F);
+         float ft7 = GetMOP.getFromTo(f2, 0.45F, 0.55F);
+         float ft8 = GetMOP.getFromTo(f2, 0.65F, 0.9F);
          float moffset = 8.0F * ft0 - 8.0F * ft8;
          this.shape3.offsetZ = moffset;
          this.shapeR1.offsetZ = moffset;

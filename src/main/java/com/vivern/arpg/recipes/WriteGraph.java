@@ -219,7 +219,7 @@ public class WriteGraph {
       float angle = 360.0F / points;
 
       for (int i = 0; i < points; i++) {
-         Vec3d vec = GetMOP.YawToVec3d(angle * i);
+         Vec3d vec = GetMOP.yawToVec3D(angle * i);
          vec = vec.scale(radius).add(x, 0.0, y);
          System.out.print("new Vec2i(" + (int)Math.round(vec.x) + ", " + (int)Math.round(vec.z));
          if (i == points - 1) {

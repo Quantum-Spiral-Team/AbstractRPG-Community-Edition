@@ -85,8 +85,7 @@ public class EnderInstancer extends Instancer {
                player,
                6.0,
                0.4,
-               0.4,
-               false,
+                    false,
                false,
                true,
                false,
@@ -140,7 +139,7 @@ public class EnderInstancer extends Instancer {
 
    @Override
    public List<EntityLivingBase> getTracedCreatures(ItemStack stack, EntityPlayer player) {
-      List<EntityLivingBase> list = GetMOP.MopRayTrace(16.0, 1.0F, player, 2.0, 1.0);
+      List<EntityLivingBase> list = GetMOP.mopRayTrace(16.0, 1.0F, player, 2.0, 1.0);
       if (list.isEmpty()) {
          Vec3d vec3d = player.getPositionEyes(1.0F);
          Vec3d vec3d1 = player.getLook(1.0F);

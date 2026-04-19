@@ -4,7 +4,7 @@ import com.vivern.arpg.recipes.IndustrialMixerRecipe;
 import com.vivern.arpg.recipes.Ingridient;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
@@ -14,8 +14,8 @@ public class IndustrialMixerRecipesRegister {
 
    public static void register() {
       addRecipe(
-         ItemsRegister.MODULEPOLYMERIZATION,
-         ItemsRegister.MODULEBIOFILTERING,
+         ItemsRegister.POLYMERIZATION_MODULE,
+         ItemsRegister.BIOFILTERING_MODULE,
          2000,
          new Ingridient.IngridientItem("arpg:slime_plastic", 2, 0, false),
          EM,
@@ -26,8 +26,8 @@ public class IndustrialMixerRecipesRegister {
          EM
       );
       addRecipe(
-            ItemsRegister.MODULEPOLYMERIZATION,
-            ItemsRegister.MODULEBIOFILTERING,
+            ItemsRegister.POLYMERIZATION_MODULE,
+            ItemsRegister.BIOFILTERING_MODULE,
             8000,
             new Ingridient.IngridientItem("materialAdvancedPolymer", 2),
             EM,
@@ -39,10 +39,10 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("natural_gas", 500)
          .setFluidCost2("toxin", 250);
-      addRecipe(ItemsRegister.MODULEBIOFILTERING, null, 4000, EM, EM, EM, 100, new Ingridient.IngridientItem("arpg:vile_substance", 2, 0, false), EM, EM)
+      addRecipe(ItemsRegister.BIOFILTERING_MODULE, null, 4000, EM, EM, EM, 100, new Ingridient.IngridientItem("arpg:vile_substance", 2, 0, false), EM, EM)
          .setFluidOutput1("biogenic_acid", 250);
       addRecipe(
-         ItemsRegister.MODULEBIOFILTERING,
+         ItemsRegister.BIOFILTERING_MODULE,
          null,
          4000,
          new Ingridient.IngridientItem("arpg:sludge", 2, 0, false),
@@ -54,7 +54,7 @@ public class IndustrialMixerRecipesRegister {
          EM
       );
       addRecipe(
-         ItemsRegister.MODULEELECTROLYZER,
+         ItemsRegister.ELECTROLYZER_MODULE,
          null,
          20000,
          new Ingridient.IngridientItem("dustAluminum", 1),
@@ -66,8 +66,8 @@ public class IndustrialMixerRecipesRegister {
          EM
       );
       addRecipe(
-         ItemsRegister.MODULEELECTROLYZER,
-         ItemsRegister.MODULEPYROLYSIS,
+         ItemsRegister.ELECTROLYZER_MODULE,
+         ItemsRegister.PYROLYSIS_MODULE,
          10000,
          new Ingridient.IngridientItem("dustAluminum", 1),
          EM,
@@ -78,8 +78,8 @@ public class IndustrialMixerRecipesRegister {
          EM
       );
       addRecipe(
-            ItemsRegister.MODULEELECTROLYZER,
-            ItemsRegister.MODULEPYROLYSIS,
+            ItemsRegister.ELECTROLYZER_MODULE,
+            ItemsRegister.PYROLYSIS_MODULE,
             50000,
             new Ingridient.IngridientItem("dustAluminum", 5),
             new Ingridient.IngridientItem("nuggetAluminum", 6),
@@ -91,7 +91,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("pyrotheum", 500);
       addRecipe(
-            ItemsRegister.MODULECENTRIFUGE,
+            ItemsRegister.CENTRIFUGE_MODULE,
             null,
             1000,
             new Ingridient.IngridientItem("arpg:limestone_dust", 1, 0, false),
@@ -104,7 +104,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("tile.water", 200);
       addRecipe(
-            ItemsRegister.MODULECENTRIFUGE,
+            ItemsRegister.CENTRIFUGE_MODULE,
             null,
             1000,
             new Ingridient.IngridientItem("arpg:limestone_dust", 2, 0, false),
@@ -130,7 +130,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("poison", 250);
       addRecipe(
-            ItemsRegister.MODULECENTRIFUGE,
+            ItemsRegister.CENTRIFUGE_MODULE,
             null,
             4000,
             new Ingridient.IngridientItem("dustQuartz", 3),
@@ -142,19 +142,19 @@ public class IndustrialMixerRecipesRegister {
             EM
          )
          .setFluidCost1("tile.water", 200);
-      addRecipe(ItemsRegister.MODULEPYROLYSIS, null, 2500, EM, EM, EM, 40, new Ingridient.IngridientItem("dustSulfur", 1), EM, EM)
+      addRecipe(ItemsRegister.PYROLYSIS_MODULE, null, 2500, EM, EM, EM, 40, new Ingridient.IngridientItem("dustSulfur", 1), EM, EM)
          .setFluidOutput1("sulfuric_gas", 500);
       addRecipe(null, null, 500, EM, EM, EM, 70, EM, EM, EM)
          .setFluidCost1("sulfuric_gas", 2000)
          .setFluidCost2("tile.water", 1000)
          .setFluidOutput1("sulfuric_acid", 1000);
-      addRecipe(ItemsRegister.MODULEDISTILLATION, null, 6000, new Ingridient.IngridientItem("arpg:stone_dust", 1, 0, false), EM, EM, 180, EM, EM, EM)
+      addRecipe(ItemsRegister.DISTILLATION_MODULE, null, 6000, new Ingridient.IngridientItem("arpg:stone_dust", 1, 0, false), EM, EM, 180, EM, EM, EM)
          .setFluidCost1("petroleum", 1000)
          .setFluidOutput1("gasoline", 500)
          .setFluidOutput2("fuel_oil", 500);
       addRecipe(
-            ItemsRegister.MODULEPOLYMERIZATION,
-            ItemsRegister.MODULEPYROLYSIS,
+            ItemsRegister.POLYMERIZATION_MODULE,
+            ItemsRegister.PYROLYSIS_MODULE,
             5000,
             new Ingridient.IngridientItem("materialAdvancedPlastic", 2),
             new Ingridient.IngridientItem("arpg:paraffin", 1, 0, false),
@@ -168,7 +168,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost2("tile.water", 250)
          .setFluidOutput1("natural_gas", 600);
       addRecipe(
-            ItemsRegister.MODULEDISTILLATION,
+            ItemsRegister.DISTILLATION_MODULE,
             null,
             6000,
             new Ingridient.IngridientItem("arpg:nylon", 1, 0, false),
@@ -183,7 +183,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost2("sulfuric_acid", 500)
          .setFluidOutput1("sulfuric_gas", 1000);
       addRecipe(
-            ItemsRegister.MODULEPOLYMERIZATION,
+            ItemsRegister.POLYMERIZATION_MODULE,
             null,
             8000,
             new Ingridient.IngridientItem("materialAdvancedPolymer", 1),
@@ -197,7 +197,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("natural_gas", 500)
          .setFluidCost2("toxin", 250);
       addRecipe(
-         ItemsRegister.MODULEDISTILLATION,
+         ItemsRegister.DISTILLATION_MODULE,
          null,
          2000,
          new Ingridient.IngridientItem("arpg:paraffin", 2, 0, false),
@@ -209,7 +209,7 @@ public class IndustrialMixerRecipesRegister {
          EM
       );
       addRecipe(
-            ItemsRegister.MODULEPYROLYSIS,
+            ItemsRegister.PYROLYSIS_MODULE,
             null,
             3400,
             new Ingridient.IngridientItem("arpg:toxinium_nugget", 1, 0, false),
@@ -223,7 +223,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("biogenic_acid", 600)
          .setFluidOutput1("dissolved_toxinium", 800);
       addRecipe(
-            ItemsRegister.MODULEDISTILLATION,
+            ItemsRegister.DISTILLATION_MODULE,
             null,
             6400,
             new Ingridient.IngridientItem("arpg:toxinium_dust", 1, 0, false),
@@ -238,7 +238,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidOutput1("biogenic_acid", 300)
          .setFluidOutput2("toxin", 500);
       addRecipe(
-            ItemsRegister.MODULEPYROLYSIS,
+            ItemsRegister.PYROLYSIS_MODULE,
             null,
             1400,
             new Ingridient.IngridientItem("arpg:radioactive_dust", 1, 0, false),
@@ -278,7 +278,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("sulfuric_acid", 250);
       addRecipe(
-            ItemsRegister.MODULEPYROLYSIS,
+            ItemsRegister.PYROLYSIS_MODULE,
             null,
             10000,
             new Ingridient.IngridientItem("nuggetCopper", 1),
@@ -305,8 +305,8 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("sulfuric_acid", 250)
          .setFluidOutput1("sulfuric_gas", 500);
       addRecipe(
-         ItemsRegister.MODULEELECTROLYZER,
-         ItemsRegister.MODULEPYROLYSIS,
+         ItemsRegister.ELECTROLYZER_MODULE,
+         ItemsRegister.PYROLYSIS_MODULE,
          12000,
          new Ingridient.IngridientItem("dustAluminum", 1),
          new Ingridient.IngridientItem("dustBeryllium", 1),
@@ -317,8 +317,8 @@ public class IndustrialMixerRecipesRegister {
          EM
       );
       addRecipe(
-         ItemsRegister.MODULEELECTROLYZER,
-         ItemsRegister.MODULEPYROLYSIS,
+         ItemsRegister.ELECTROLYZER_MODULE,
+         ItemsRegister.PYROLYSIS_MODULE,
          11000,
          new Ingridient.IngridientItem("arpg:beryllium_grains", 2, 0, false),
          EM,
@@ -328,7 +328,7 @@ public class IndustrialMixerRecipesRegister {
          EM,
          EM
       );
-      addRecipe(ItemsRegister.MODULEELECTROLYZER, null, 3400, new Ingridient.IngridientItem("arpg:beryllium_grains", 3, 0, false), EM, EM, 70, EM, EM, EM)
+      addRecipe(ItemsRegister.ELECTROLYZER_MODULE, null, 3400, new Ingridient.IngridientItem("arpg:beryllium_grains", 3, 0, false), EM, EM, 70, EM, EM, EM)
          .setFluidCost1("ender", 250);
       addRecipe(
             null,
@@ -369,7 +369,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("luminescent_liquid", 100);
       addRecipe(
-            ItemsRegister.MODULEDISTILLATION,
+            ItemsRegister.DISTILLATION_MODULE,
             null,
             15000,
             new Ingridient.IngridientItem("arpg:white_slimeball", 1, 0, false),
@@ -382,8 +382,8 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidOutput1("slime", 200);
       addRecipe(
-         ItemsRegister.MODULEFERMENTER,
-         ItemsRegister.MODULECENTRIFUGE,
+         ItemsRegister.FERMENTER_MODULE,
+         ItemsRegister.CENTRIFUGE_MODULE,
          1500,
          new Ingridient.IngridientItem("arpg:cocoa_butter", 1, 0, false),
          new Ingridient.IngridientItem("arpg:cocoa_powder", 2, 0, false),
@@ -394,7 +394,7 @@ public class IndustrialMixerRecipesRegister {
          EM
       );
       addRecipe(
-            ItemsRegister.MODULECENTRIFUGE,
+            ItemsRegister.CENTRIFUGE_MODULE,
             null,
             1500,
             new Ingridient.IngridientItem("arpg:butter", 1, 0, false),
@@ -407,7 +407,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidOutput1("tile.water", 750);
       addRecipe(
-         ItemsRegister.MODULEFERMENTER,
+         ItemsRegister.FERMENTER_MODULE,
          null,
          2500,
          new Ingridient.IngridientItem("arpg:whey_starter", 8, 0, false),
@@ -419,7 +419,7 @@ public class IndustrialMixerRecipesRegister {
          new Ingridient.IngridientItem("minecraft:sugar", 1, 0, false)
       );
       addRecipe(
-            ItemsRegister.MODULEFERMENTER,
+            ItemsRegister.FERMENTER_MODULE,
             null,
             2000,
             new Ingridient.IngridientItem("yeast", 8),
@@ -432,10 +432,10 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("tile.water", 1000);
       addRecipe(
-            ItemsRegister.MODULEPOLYMERIZATION,
+            ItemsRegister.POLYMERIZATION_MODULE,
             null,
             4000,
-            new Ingridient.IngridientItem("arpg:snapball_ammo", 16, 0, false),
+            new Ingridient.IngridientItem("arpg:snap_ball_ammo", 16, 0, false),
             EM,
             EM,
             40,
@@ -458,7 +458,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("luminescent_liquid", 250);
       addRecipe(
-            ItemsRegister.MODULECENTRIFUGE,
+            ItemsRegister.CENTRIFUGE_MODULE,
             null,
             2000,
             new Ingridient.IngridientItem("arpg:copper_sulfate", 1, 0, false),
@@ -472,7 +472,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("tile.water", 250)
          .setFluidOutput1("toxin", 500);
       addRecipe(
-            ItemsRegister.MODULECENTRIFUGE,
+            ItemsRegister.CENTRIFUGE_MODULE,
             null,
             4000,
             new Ingridient.IngridientItem("arpg:crystallized_poison", 1, 0, false),
@@ -499,7 +499,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("pyrotheum", 50);
       addRecipe(
-            ItemsRegister.MODULEPOLYMERIZATION,
+            ItemsRegister.POLYMERIZATION_MODULE,
             null,
             1000,
             new Ingridient.IngridientItem("arpg:slime_plastic", 1, 0, false),
@@ -512,7 +512,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("slime", 100);
       addRecipe(
-            ItemsRegister.MODULEPOLYMERIZATION,
+            ItemsRegister.POLYMERIZATION_MODULE,
             null,
             2000,
             new Ingridient.IngridientItem("arpg:slime_plastic", 1, 0, false),
@@ -539,7 +539,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("nitric_acid", 250)
          .setFluidCost2("tile.water", 250);
       addRecipe(
-            ItemsRegister.MODULEFERMENTER,
+            ItemsRegister.FERMENTER_MODULE,
             null,
             2000,
             EM,
@@ -553,7 +553,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("tile.water", 500)
          .setFluidOutput1("nitric_acid", 500);
       addRecipe(
-            ItemsRegister.MODULEFERMENTER,
+            ItemsRegister.FERMENTER_MODULE,
             null,
             2000,
             EM,
@@ -567,7 +567,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("tile.water", 500)
          .setFluidOutput1("nitric_acid", 500);
       addRecipe(
-            ItemsRegister.MODULEFERMENTER,
+            ItemsRegister.FERMENTER_MODULE,
             null,
             2000,
             EM,
@@ -581,7 +581,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("tile.water", 500)
          .setFluidOutput1("nitric_acid", 500);
       addRecipe(
-            ItemsRegister.MODULEFERMENTER,
+            ItemsRegister.FERMENTER_MODULE,
             null,
             2000,
             EM,
@@ -595,7 +595,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("tile.water", 500)
          .setFluidOutput1("nitric_acid", 500);
       addRecipe(
-            ItemsRegister.MODULEFERMENTER,
+            ItemsRegister.FERMENTER_MODULE,
             null,
             2000,
             EM,
@@ -609,7 +609,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("tile.water", 500)
          .setFluidOutput1("nitric_acid", 500);
       addRecipe(
-            ItemsRegister.MODULEFERMENTER,
+            ItemsRegister.FERMENTER_MODULE,
             null,
             2000,
             EM,
@@ -623,7 +623,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("tile.water", 500)
          .setFluidOutput1("nitric_acid", 500);
       addRecipe(
-            ItemsRegister.MODULEFERMENTER,
+            ItemsRegister.FERMENTER_MODULE,
             null,
             2000,
             EM,
@@ -637,7 +637,7 @@ public class IndustrialMixerRecipesRegister {
          .setFluidCost1("tile.water", 500)
          .setFluidOutput1("nitric_acid", 500);
       addRecipe(
-            ItemsRegister.MODULEFERMENTER,
+            ItemsRegister.FERMENTER_MODULE,
             null,
             2000,
             EM,
@@ -665,7 +665,7 @@ public class IndustrialMixerRecipesRegister {
       addRecipe(Items.BOWL, null, 24000, new Ingridient.IngridientItem("arpg:salt_grains", 1, 0, false), EM, EM, 200, EM, EM, EM)
          .setFluidCost1("tile.water", 2000);
       addRecipe(
-         ItemsRegister.MODULEFERMENTER,
+         ItemsRegister.FERMENTER_MODULE,
          null,
          1000,
          new Ingridient.IngridientItem("arpg:mozzarella", 1, 0, false),
@@ -677,8 +677,8 @@ public class IndustrialMixerRecipesRegister {
          new Ingridient.IngridientItem("arpg:whey_starter", 1, 0, false)
       );
       addRecipe(
-         ItemsRegister.MODULEELECTROLYZER,
-         ItemsRegister.MODULEPYROLYSIS,
+         ItemsRegister.ELECTROLYZER_MODULE,
+         ItemsRegister.PYROLYSIS_MODULE,
          3500,
          new Ingridient.IngridientItem("nuggetLithium", 1),
          new Ingridient.IngridientItem("nuggetAluminum", 1),
@@ -689,7 +689,7 @@ public class IndustrialMixerRecipesRegister {
          EM
       );
       addRecipe(
-            ItemsRegister.MODULEELECTROLYZER,
+            ItemsRegister.ELECTROLYZER_MODULE,
             null,
             8000,
             new Ingridient.IngridientItem("arpg:galvanized_plate", 1, 0, false),
@@ -730,7 +730,7 @@ public class IndustrialMixerRecipesRegister {
          )
          .setFluidCost1("biogenic_acid", 250);
       addRecipe(
-         ItemsRegister.MODULEFERMENTER,
+         ItemsRegister.FERMENTER_MODULE,
          null,
          2000,
          new Ingridient.IngridientItem("arpg:healthful_capsule", 1, 0, false),

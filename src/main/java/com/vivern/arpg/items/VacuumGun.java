@@ -90,13 +90,13 @@ public class VacuumGun extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.15F,
                         0.5F,
                         0.3F
                      );
-                     projectile.livetime = parameters.geti("livetime");
+                     projectile.livetime = parameters.getI("livetime");
                      projectile.special = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0;
                      world.spawnEntity(projectile);
                      if (!player.capabilities.isCreativeMode) {
@@ -104,7 +104,7 @@ public class VacuumGun extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.VACUUMGUNPELLETS, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.VACUUM_GUN_PELLETS, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

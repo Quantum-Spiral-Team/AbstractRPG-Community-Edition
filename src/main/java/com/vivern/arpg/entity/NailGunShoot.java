@@ -44,17 +44,17 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
 
    public NailGunShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.NAILGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.NAIL_GUN);
    }
 
    public NailGunShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.NAILGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.NAIL_GUN);
    }
 
    public NailGunShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.NAILGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.NAIL_GUN);
    }
 
    public NailGunShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -144,7 +144,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
                EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
                boolean apricked = isEntityPricked(this.world, entitylivingbase);
                boolean healthmin = entitylivingbase.getHealth()
-                  <= parameters.getEnchanted("health_to_prick", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
+                  <= parameters.getEnchantedF("health_to_prick", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack));
                if (!this.damageDealed && healthmin && !apricked) {
                   this.prickedEntity = entitylivingbase;
                }
@@ -175,11 +175,11 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
             if (!this.damageDealed) {
                this.damageDealed = Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.shootingEntity, this, false, true, this, WeaponDamage.pierce),
-                  parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack)),
+                  parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack)),
                   this.shootingEntity,
                   entity,
                   true,
-                  parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack))
+                  parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack))
                );
                entity.hurtResistantTime = 0;
             }

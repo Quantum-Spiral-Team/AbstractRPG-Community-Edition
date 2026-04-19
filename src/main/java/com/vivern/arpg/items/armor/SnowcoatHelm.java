@@ -7,7 +7,7 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.OreDicHelper;
 import com.vivern.arpg.main.PropertiesRegistry;
 import com.google.common.collect.Multimap;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -221,10 +221,10 @@ public class SnowcoatHelm extends AbstractArmor {
 
          for (int i = 0; i < inv.getSizeInventory(); i++) {
             Item iitem = inv.getStackInSlot(i).getItem();
-            if (iitem == ItemsRegister.SNOWCOATARMORBOOTS
-               || iitem == ItemsRegister.SNOWCOATARMORLEGS
-               || iitem == ItemsRegister.SNOWCOATARMORCHEST
-               || iitem == ItemsRegister.SNOWCOATARMORHELM) {
+            if (iitem == ItemsRegister.SNOW_COAT_BOOTS
+               || iitem == ItemsRegister.SNOW_COAT_LEGS
+               || iitem == ItemsRegister.SNOW_COAT_CHEST
+               || iitem == ItemsRegister.SNOW_COAT_HELM) {
                if (coat != null) {
                   return false;
                }
@@ -253,10 +253,10 @@ public class SnowcoatHelm extends AbstractArmor {
 
          for (int i = 0; i < inv.getSizeInventory(); i++) {
             Item iitem = inv.getStackInSlot(i).getItem();
-            if (iitem == ItemsRegister.SNOWCOATARMORBOOTS
-               || iitem == ItemsRegister.SNOWCOATARMORLEGS
-               || iitem == ItemsRegister.SNOWCOATARMORCHEST
-               || iitem == ItemsRegister.SNOWCOATARMORHELM) {
+            if (iitem == ItemsRegister.SNOW_COAT_BOOTS
+               || iitem == ItemsRegister.SNOW_COAT_LEGS
+               || iitem == ItemsRegister.SNOW_COAT_CHEST
+               || iitem == ItemsRegister.SNOW_COAT_HELM) {
                coat = inv.getStackInSlot(i);
             }
 

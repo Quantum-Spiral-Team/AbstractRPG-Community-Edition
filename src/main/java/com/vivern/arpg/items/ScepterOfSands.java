@@ -72,16 +72,16 @@ public class ScepterOfSands extends ItemWeapon {
          int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
          int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         float manacost = parameters.getEnchanted("manacost", sor);
+         float manacost = parameters.getEnchantedF("manacost", sor);
          float power = Mana.getMagicPowerMax(player);
          EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-         float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.get("rapid_multiplier");
+         float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getF("rapid_multiplier");
          manacost *= rapidMult;
          int rapidOne = GetMOP.floatToIntWithChance(rapidMult, itemRand);
          if (hand != null && mana > manacost && click) {
             if (!world.isRemote) {
                int crystal = NBTHelper.GetNBTint(itemstack, "crystal");
-               if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && crystal < parameters.geti("max_crystal_charge")) {
+               if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && crystal < parameters.getI("max_crystal_charge")) {
                   NBTHelper.AddNBTint(itemstack, rapidOne, "crystal");
                   if (crystal < 64 && crystal + rapidOne >= 64) {
                      world.playSound(
@@ -112,14 +112,14 @@ public class ScepterOfSands extends ItemWeapon {
                      player.rotationPitch - 3.0F,
                      player.rotationYaw,
                      0.0F,
-                     parameters.get("velocity"),
-                     parameters.getEnchanted("inaccuracy", acc),
+                     parameters.getF("velocity"),
+                     parameters.getEnchantedF("inaccuracy", acc),
                      -0.4F,
                      0.0F,
                      0.2F,
                      0.0F
                   );
-                  sand.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                  sand.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                   sand.crystalCharge = crystal;
                   world.spawnEntity(sand);
                }
@@ -163,12 +163,12 @@ public class ScepterOfSands extends ItemWeapon {
                }
             }
 
-            int traceCount = GetMOP.floatToIntWithChance(rapidMult * parameters.get("trace_count"), itemRand);
+            int traceCount = GetMOP.floatToIntWithChance(rapidMult * parameters.getF("trace_count"), itemRand);
 
             for (int i = 0; i < traceCount; i++) {
-               double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-               float spread = parameters.getEnchanted("inaccuracy_trace", acc);
-               Vec3d end = GetMOP.RotatedPosRayTrace(
+               double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+               float spread = parameters.getEnchantedF("inaccuracy_trace", acc);
+               Vec3d end = GetMOP.rotatedPosRayTrace(
                   edist,
                   1.0F,
                   player,
@@ -191,7 +191,7 @@ public class ScepterOfSands extends ItemWeapon {
                      if (entitylivingbase != player) {
                         SuperKnockback.applyKnockback(
                            entitylivingbase,
-                           parameters.getEnchanted("knockback_trace", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)),
+                           parameters.getEnchantedF("knockback_trace", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)),
                            player.posX,
                            player.posY,
                            player.posZ

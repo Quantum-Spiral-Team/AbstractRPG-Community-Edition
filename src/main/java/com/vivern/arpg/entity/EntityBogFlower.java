@@ -31,17 +31,17 @@ public class EntityBogFlower extends EntityThrowable {
 
    public EntityBogFlower(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.BOGFLOWER);
+      this.weaponstack = new ItemStack(ItemsRegister.BOG_FLOWER);
    }
 
    public EntityBogFlower(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.BOGFLOWER);
+      this.weaponstack = new ItemStack(ItemsRegister.BOG_FLOWER);
    }
 
    public EntityBogFlower(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.BOGFLOWER);
+      this.weaponstack = new ItemStack(ItemsRegister.BOG_FLOWER);
    }
 
    public EntityBogFlower(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

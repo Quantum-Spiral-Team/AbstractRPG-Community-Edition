@@ -118,11 +118,11 @@ public class AdamantiumRevolver extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
 
-                     double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      double damageRadius = 0.32;
                      float rotP = player.rotationPitch + (float)itemRand.nextGaussian() / (acc + 1);
                      float rotY = player.rotationYaw + (float)itemRand.nextGaussian() / (acc + 1);
-                     Vec3d vec = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.25, 0.2, rotP, rotY);
+                     Vec3d vec = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.25, 0.2, rotP, rotY);
                      if (nonullbullet) {
                         bullet.onImpact(world, player, vec.x, vec.y, vec.z, null, null);
                      }
@@ -157,11 +157,11 @@ public class AdamantiumRevolver extends ItemWeapon {
                            if (Team.checkIsOpponent(player, entity)) {
                               if (Weapons.dealDamage(
                                  new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                 parameters.getEnchanted("damage", might) + damageadd * parameters.get("bullet_damage"),
+                                 parameters.getEnchantedF("damage", might) + damageadd * parameters.getF("bullet_damage"),
                                  player,
                                  entity,
                                  true,
-                                 parameters.getEnchanted("knockback", impulse) + knockbackadd * parameters.get("bullet_knockback"),
+                                 parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
                                  player.posX,
                                  player.posY,
                                  player.posZ
@@ -180,8 +180,8 @@ public class AdamantiumRevolver extends ItemWeapon {
                                        vec.x,
                                        vec.y,
                                        vec.z,
-                                       parameters.geti("hearts"),
-                                       parameters.get("hearts_health"),
+                                       parameters.getI("hearts"),
+                                       parameters.getF("hearts_health"),
                                        true,
                                        4.0F,
                                        player
@@ -228,7 +228,7 @@ public class AdamantiumRevolver extends ItemWeapon {
                         collidesWithAny ? 1.0 : 0.0
                      );
                   }
-               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.ADAMANTIUMROUNDS, maxammo, false)) {
+               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.ADAMANTIUM_ROUNDS, maxammo, false)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

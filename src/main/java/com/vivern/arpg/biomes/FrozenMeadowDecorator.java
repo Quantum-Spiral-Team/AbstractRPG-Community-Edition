@@ -23,9 +23,9 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 
 class FrozenMeadowDecorator extends BiomeDecorator {
    public WorldGenGroundFoliage redberry = new WorldGenGroundFoliage(BlocksRegister.CRIMBERRY, 36, 8, 2);
-   public WorldGenGroundFoliage willow = new WorldGenGroundFoliage(BlocksRegister.WINTERWILLOW, 16, 6, 2);
-   public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.FROSTEDWEED, 40, 7, 2);
-   public WorldGenGroundFoliage magicflower = new WorldGenGroundFoliage(BlocksRegister.ICEFLOWER, 12, 7, 2);
+   public WorldGenGroundFoliage willow = new WorldGenGroundFoliage(BlocksRegister.WINTER_WILLOW, 16, 6, 2);
+   public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.FROSTED_WEED, 40, 7, 2);
+   public WorldGenGroundFoliage magicflower = new WorldGenGroundFoliage(BlocksRegister.ICE_FLOWER, 12, 7, 2);
 
    public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
       if (this.decorating) {
@@ -36,7 +36,7 @@ class FrozenMeadowDecorator extends BiomeDecorator {
                new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
             );
             Block blockd = worldIn.getBlockState(position.down()).getBlock();
-            if (blockd == BlocksRegister.SNOWICE || blockd == BlocksRegister.LOOSESNOW || blockd == Blocks.SNOW) {
+            if (blockd == BlocksRegister.SNOW_ICE || blockd == BlocksRegister.LOOSE_SNOW || blockd == Blocks.SNOW) {
                WorldServer worldServer = (WorldServer)worldIn;
                MinecraftServer minecraftServer = worldIn.getMinecraftServer();
                TemplateManager templateManager = worldServer.getStructureTemplateManager();
@@ -76,7 +76,7 @@ class FrozenMeadowDecorator extends BiomeDecorator {
                new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
             );
             Block blockd = worldIn.getBlockState(position.down()).getBlock();
-            if (blockd == BlocksRegister.SNOWICE || blockd == BlocksRegister.LOOSESNOW || blockd == Blocks.SNOW) {
+            if (blockd == BlocksRegister.SNOW_ICE || blockd == BlocksRegister.LOOSE_SNOW || blockd == Blocks.SNOW) {
                WorldServer worldServerx = (WorldServer)worldIn;
                MinecraftServer minecraftServerx = worldIn.getMinecraftServer();
                TemplateManager templateManagerx = worldServerx.getStructureTemplateManager();
@@ -116,44 +116,44 @@ class FrozenMeadowDecorator extends BiomeDecorator {
                for (int rt = -4; rt < 14; rt++) {
                   BlockPos fpos = transfpos.up(rt);
                   if (!worldIn.isAirBlock(fpos) && worldIn.getBlockState(fpos).getBlock() != Blocks.SNOW) {
-                     if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFERLOG) {
+                     if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFER_LOG) {
                         break;
                      }
                   } else {
-                     worldIn.setBlockState(fpos, BlocksRegister.CONIFERLOG.getDefaultState());
+                     worldIn.setBlockState(fpos, BlocksRegister.CONIFER_LOG.getDefaultState());
                   }
                }
 
                for (int rtx = -2; rtx < 14; rtx++) {
                   BlockPos fpos = transfpos.add(1, 0, 1).up(rtx);
                   if (!worldIn.isAirBlock(fpos) && worldIn.getBlockState(fpos).getBlock() != Blocks.SNOW) {
-                     if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFERLOG) {
+                     if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFER_LOG) {
                         break;
                      }
                   } else {
-                     worldIn.setBlockState(fpos, BlocksRegister.CONIFERLOG.getDefaultState());
+                     worldIn.setBlockState(fpos, BlocksRegister.CONIFER_LOG.getDefaultState());
                   }
                }
 
                for (int rtxx = -2; rtxx < 14; rtxx++) {
                   BlockPos fpos = transfpos.add(0, 0, 1).up(rtxx);
                   if (!worldIn.isAirBlock(fpos) && worldIn.getBlockState(fpos).getBlock() != Blocks.SNOW) {
-                     if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFERLOG) {
+                     if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFER_LOG) {
                         break;
                      }
                   } else {
-                     worldIn.setBlockState(fpos, BlocksRegister.CONIFERLOG.getDefaultState());
+                     worldIn.setBlockState(fpos, BlocksRegister.CONIFER_LOG.getDefaultState());
                   }
                }
 
                for (int rtxxx = -2; rtxxx < 14; rtxxx++) {
                   BlockPos fpos = transfpos.add(1, 0, 0).up(rtxxx);
                   if (!worldIn.isAirBlock(fpos) && worldIn.getBlockState(fpos).getBlock() != Blocks.SNOW) {
-                     if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFERLOG) {
+                     if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFER_LOG) {
                         break;
                      }
                   } else {
-                     worldIn.setBlockState(fpos, BlocksRegister.CONIFERLOG.getDefaultState());
+                     worldIn.setBlockState(fpos, BlocksRegister.CONIFER_LOG.getDefaultState());
                   }
                }
             }
@@ -164,7 +164,7 @@ class FrozenMeadowDecorator extends BiomeDecorator {
                new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
             );
             Block block = worldIn.getBlockState(position.down()).getBlock();
-            if (block == BlocksRegister.SNOWICE || block == Blocks.SNOW || block == BlocksRegister.GLACIER) {
+            if (block == BlocksRegister.SNOW_ICE || block == Blocks.SNOW || block == BlocksRegister.GLACIER) {
                GenerationHelper.placeStruct(
                   worldIn,
                   position,
@@ -183,7 +183,7 @@ class FrozenMeadowDecorator extends BiomeDecorator {
                new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
             );
             Block block = worldIn.getBlockState(position.down()).getBlock();
-            if (block == BlocksRegister.SNOWICE || block == Blocks.SNOW || block == BlocksRegister.GLACIER) {
+            if (block == BlocksRegister.SNOW_ICE || block == Blocks.SNOW || block == BlocksRegister.GLACIER) {
                GenerationHelper.placeStruct(
                   worldIn, position, random, ":frozen_decor_" + (random.nextInt(5) + 1), 4, -1, random.nextInt(4), ChestReplacersFrozen.replacerStructures
                );
@@ -193,7 +193,7 @@ class FrozenMeadowDecorator extends BiomeDecorator {
          for (int iix = 0; iix < random.nextInt(38); iix++) {
             BlockPos uppos = worldIn.getHeight(pos.add(random.nextInt(16), 0, random.nextInt(16)));
             if (FrostedWeed.canStayAtPos(worldIn, uppos)) {
-               worldIn.setBlockState(uppos, BlocksRegister.FROSTEDWEED.getDefaultState());
+               worldIn.setBlockState(uppos, BlocksRegister.FROSTED_WEED.getDefaultState());
             }
          }
 

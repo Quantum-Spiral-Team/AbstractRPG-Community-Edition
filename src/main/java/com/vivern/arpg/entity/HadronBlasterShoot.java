@@ -42,17 +42,17 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
 
    public HadronBlasterShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.HADRONBLASTER);
+      this.weaponstack = new ItemStack(ItemsRegister.HADRON_BLASTER);
    }
 
    public HadronBlasterShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.HADRONBLASTER);
+      this.weaponstack = new ItemStack(ItemsRegister.HADRON_BLASTER);
    }
 
    public HadronBlasterShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.HADRONBLASTER);
+      this.weaponstack = new ItemStack(ItemsRegister.HADRON_BLASTER);
    }
 
    public HadronBlasterShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -169,8 +169,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
                this.world,
                this.thrower,
                0.3,
-               0.2,
-               true,
+                    true,
                new Vec3d(this.lastTickPosX, this.lastTickPosY, this.lastTickPosZ),
                start.add(this.motionX, this.motionY, this.motionZ),
                false,
@@ -198,7 +197,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
 
    public void expl(Vec3d vect) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = new AxisAlignedBB(
          vect.x - damageRadius,
          vect.y - damageRadius,
@@ -217,11 +216,11 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                   boolean ab = Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.laser),
-                     parameters.getEnchanted("damage", might),
+                     parameters.getEnchantedF("damage", might),
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse),
+                     parameters.getEnchantedF("knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ
@@ -230,7 +229,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
                   if (entity instanceof EntityLivingBase) {
                      EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
                      boolean checkKill = entitylivingbase.getHealth() > 0.0F;
-                     float reus = parameters.getEnchanted("hadron_chance_mob", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack));
+                     float reus = parameters.getEnchantedF("hadron_chance_mob", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack));
                      bonusCreated = ab;
                      if (ab && this.rand.nextFloat() < reus) {
                         HadronBlasterBonus bonus = new HadronBlasterBonus(
@@ -257,7 +256,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
          }
 
          if (!bonusCreated) {
-            float reusx = parameters.getEnchanted("hadron_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack));
+            float reusx = parameters.getEnchantedF("hadron_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack));
             if (this.rand.nextFloat() < reusx) {
                HadronBlasterBonus bonus = new HadronBlasterBonus(this.world, this, this.thrower);
                this.world.spawnEntity(bonus);

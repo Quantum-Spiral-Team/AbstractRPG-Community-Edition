@@ -78,8 +78,7 @@ public class EntityAIForceAttack extends EntityAIBase {
                   1.0F,
                   this.entity,
                   this.sizestep,
-                  this.sizestep,
-                  this.entity.rotationPitch * -5.0F,
+                       this.entity.rotationPitch * -5.0F,
                   -this.entity.rotationYaw
                )) {
                   if (!this.isWaterhammer || base.isInWater()) {
@@ -97,7 +96,7 @@ public class EntityAIForceAttack extends EntityAIBase {
                   }
                }
             } else {
-               for (EntityLivingBase basex : GetMOP.MopRayTrace(this.forcedistance, 1.0F, this.entity, this.sizestep, this.sizestep)) {
+               for (EntityLivingBase basex : GetMOP.mopRayTrace(this.forcedistance, 1.0F, this.entity, this.sizestep, this.sizestep)) {
                   if (!this.isWaterhammer || basex.isInWater()) {
                      SuperKnockback.applyKnockback(basex, this.power, this.entity.posX, this.entity.posY, this.entity.posZ);
                      basex.motionY = basex.motionY + this.upMovement;

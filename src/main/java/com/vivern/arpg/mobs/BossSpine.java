@@ -75,7 +75,7 @@ public class BossSpine extends EntityMob {
 
    public void onUpdate() {
       super.onUpdate();
-      Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
+      Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
       this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
       this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
       if (this.ticksExisted < 20) {

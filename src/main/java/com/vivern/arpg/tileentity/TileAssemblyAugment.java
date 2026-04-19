@@ -58,23 +58,23 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
       if (this.augment == 0) {
          IBlockState blockState = this.getWorld().getBlockState(this.getPos());
          Block block = blockState.getBlock();
-         if (block == BlocksRegister.AUGMENTCUT) {
+         if (block == BlocksRegister.TURNING_AUGMENT) {
             this.augment = 1;
          }
 
-         if (block == BlocksRegister.AUGMENTPRESS) {
+         if (block == BlocksRegister.PRESS_AUGMENT) {
             this.augment = 2;
          }
 
-         if (block == BlocksRegister.AUGMENTWELD) {
+         if (block == BlocksRegister.WELD_AUGMENT) {
             this.augment = 3;
          }
 
-         if (block == BlocksRegister.AUGMENTPLASMA) {
+         if (block == BlocksRegister.PLASMA_SPRAY_AUGMENT) {
             this.augment = 4;
          }
 
-         if (block == BlocksRegister.AUGMENTMOLECULAR) {
+         if (block == BlocksRegister.MOLECULAR_PRINTER_AUGMENT) {
             this.augment = 5;
          }
       }
@@ -90,7 +90,7 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
             }
 
             if (this.augment == 3) {
-               float ft1 = GetMOP.getfromto((float)this.workTime, 0.0F, (float)this.maxworkTime);
+               float ft1 = GetMOP.getFromTo((float)this.workTime, 0.0F, (float)this.maxworkTime);
                if (ft1 > 0.25F && ft1 < 0.8F) {
                   IBlockState blockStatex = this.getWorld().getBlockState(this.getPos());
                   EnumFacing facing = (EnumFacing)blockStatex.getValue(AssemblyTable.FACING);
@@ -168,7 +168,7 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
                   this.plasmaToolOpening += 0.05F;
                }
 
-               float ft1 = GetMOP.getfromto((float)this.workTime, 0.0F, (float)this.maxworkTime);
+               float ft1 = GetMOP.getFromTo((float)this.workTime, 0.0F, (float)this.maxworkTime);
                float one = 1.0F / plasmaToolAnglesB.length;
                if (Minecraft.getMinecraft().gameSettings.particleSetting < 2 && this.plasmaToolOpening >= 1.0F && ft1 > one) {
                   IBlockState blockStatex = this.getWorld().getBlockState(this.getPos());
@@ -241,16 +241,16 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
    }
 
    public void setAnimationPress(PressAugmentModel model, float partialTicks) {
-      float ft1 = GetMOP.getfromto(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
-      float ft2 = GetMOP.getfromto(ft1, 0.0F, 0.4F) - GetMOP.getfromto(ft1, 0.6F, 0.8F);
+      float ft1 = GetMOP.getFromTo(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
+      float ft2 = GetMOP.getFromTo(ft1, 0.0F, 0.4F) - GetMOP.getFromTo(ft1, 0.6F, 0.8F);
       model.shape2.offsetY = 0.25F * ft2;
       model.shapeRotate1.rotateAngleZ = -6.283185F * ft2;
       model.shapeRotate2.rotateAngleZ = 6.283185F * ft2;
    }
 
    public void setAnimationTurning(TurningAugmentModel model, float partialTicks) {
-      float ft1 = GetMOP.getfromto(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
-      float ft2 = GetMOP.getfromto(ft1, 0.0F, 0.15F) - GetMOP.getfromto(ft1, 0.85F, 1.0F);
+      float ft1 = GetMOP.getFromTo(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
+      float ft2 = GetMOP.getFromTo(ft1, 0.0F, 0.15F) - GetMOP.getFromTo(ft1, 0.85F, 1.0F);
       model.engine1.offsetX = this.turningX * 0.0625F;
       model.engine1.offsetZ = this.turningZ * 0.0625F;
       model.shapeMove1.offsetX = this.turningX * 0.0625F;
@@ -260,17 +260,17 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
    }
 
    public void setAnimationWeld(WeldAugmentModel model, float partialTicks) {
-      float ft1 = GetMOP.getfromto(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
-      float ft2 = GetMOP.getfromto(ft1, 0.0F, 0.05F) - GetMOP.getfromto(ft1, 0.95F, 1.0F);
-      float ft3 = GetMOP.getfromto(ft1, 0.1F, 0.25F) - GetMOP.getfromto(ft1, 0.85F, 1.0F);
-      float ft4 = GetMOP.getfromto(ft1, 0.3F, 0.8F);
+      float ft1 = GetMOP.getFromTo(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
+      float ft2 = GetMOP.getFromTo(ft1, 0.0F, 0.05F) - GetMOP.getFromTo(ft1, 0.95F, 1.0F);
+      float ft3 = GetMOP.getFromTo(ft1, 0.1F, 0.25F) - GetMOP.getFromTo(ft1, 0.85F, 1.0F);
+      float ft4 = GetMOP.getFromTo(ft1, 0.3F, 0.8F);
       model.manB.rotateAngleY = (this.weldTargetangleY1 + this.weldTargetangleY2 * ft4) * ft2;
       this.manBrotateAngleY = model.manB.rotateAngleY;
       model.setManipulatorAngle(ft3, this.weldToolAngle);
    }
 
    public void setAnimationPlasmaSpray(PlasmaAugmentModel model, float partialTicks) {
-      float ft1 = GetMOP.getfromto(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
+      float ft1 = GetMOP.getFromTo(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
       float one = 1.0F / plasmaToolAnglesB.length;
       int pos = Math.min((int)(ft1 / one), plasmaToolAnglesB.length - 1);
       int pos2 = pos + 1;
@@ -278,7 +278,7 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
          pos2 = 0;
       }
 
-      float ft2 = GetMOP.getfromto(ft1, pos * one, (pos + 1) * one);
+      float ft2 = GetMOP.getFromTo(ft1, pos * one, (pos + 1) * one);
       float open = Math.min(this.plasmaToolOpening, 1.0F);
       float unopen = 1.0F - open;
       model.manB.rotateAngleY = unopen * (float) (Math.PI / 2) + open * GetMOP.partial(plasmaToolAnglesB[pos2], plasmaToolAnglesB[pos], ft2) * 0.017453F;
@@ -336,7 +336,7 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
 
    public Vec3d calculateWeldParticlePos(EnumFacing blockfacing) {
       EnumFacing facing = blockfacing.getOpposite();
-      Vec3d v = GetMOP.YawToVec3d(blockfacing.getHorizontalAngle() + this.manBrotateAngleY * (float) (180.0 / Math.PI))
+      Vec3d v = GetMOP.yawToVec3D(blockfacing.getHorizontalAngle() + this.manBrotateAngleY * (float) (180.0 / Math.PI))
          .scale(1.2 - this.weldToolAngle * 0.4);
       Vec3d rotationPoint = new Vec3d(
          this.pos.getX() + 0.5 + facing.getXOffset() * 0.4375,
@@ -349,14 +349,14 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
    public Vec3d calculatePlasmaParticlePos(EnumFacing blockfacing) {
       EnumFacing facing = blockfacing.getOpposite();
       float angl1 = blockfacing.getHorizontalAngle() + this.manBrotateAngleY * (float) (180.0 / Math.PI);
-      Vec3d v = GetMOP.YawToVec3d(angl1).scale(0.25);
+      Vec3d v = GetMOP.yawToVec3D(angl1).scale(0.25);
       Vec3d rotationPoint = new Vec3d(
          this.pos.getX() + 0.5 + facing.getXOffset() * 0.4375,
          this.pos.getY() + 1.0F,
          this.pos.getZ() + 0.5 + facing.getZOffset() * 0.4375
       );
       Vec3d pos1 = rotationPoint.add(v);
-      Vec3d v2 = GetMOP.YawToVec3d(angl1 + this.manCrotateAngleY * (float) (180.0 / Math.PI)).scale(0.4375);
+      Vec3d v2 = GetMOP.yawToVec3D(angl1 + this.manCrotateAngleY * (float) (180.0 / Math.PI)).scale(0.4375);
       return pos1.add(v2);
    }
 

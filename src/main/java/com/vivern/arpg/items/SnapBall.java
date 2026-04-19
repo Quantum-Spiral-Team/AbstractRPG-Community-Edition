@@ -24,13 +24,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Snapball extends ItemWeapon implements IEnergyItem {
+public class SnapBall extends ItemWeapon implements IEnergyItem {
    public static int maxammo = 1;
 
-   public Snapball() {
-      this.setRegistryName("snapball");
+   public SnapBall() {
+      this.setRegistryName("snap_ball");
       this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("snapball");
+      this.setTranslationKey("snap_ball");
       this.setMaxDamage(3500);
       this.setMaxStackSize(1);
    }
@@ -71,7 +71,7 @@ public class Snapball extends ItemWeapon implements IEnergyItem {
                         player.posX,
                         player.posY,
                         player.posZ,
-                        Sounds.snapball,
+                        Sounds.snap_ball,
                         SoundCategory.AMBIENT,
                         0.9F,
                         0.9F + itemRand.nextFloat() / 5.0F
@@ -87,7 +87,7 @@ public class Snapball extends ItemWeapon implements IEnergyItem {
 
                      NBTHelper.GiveNBTint(itemstack, 0, "charge");
                      int charge = NBTHelper.GetNBTint(itemstack, "charge");
-                     boolean isPowered = charge > parameters.geti("charge_to_powered");
+                     boolean isPowered = charge > parameters.getI("charge_to_powered");
                      if (click) {
                         EntitySnapball projectile = new EntitySnapball(world, player, itemstack);
                         Weapons.shoot(
@@ -97,8 +97,8 @@ public class Snapball extends ItemWeapon implements IEnergyItem {
                            player.rotationPitch,
                            player.rotationYaw,
                            0.0F,
-                           isPowered ? parameters.get("velocity_charged") : parameters.get("velocity"),
-                           parameters.getEnchanted("inaccuracy", acc),
+                           isPowered ? parameters.getF("velocity_charged") : parameters.getF("velocity"),
+                           parameters.getEnchantedF("inaccuracy", acc),
                            -0.15F,
                            0.5F,
                            0.4F
@@ -110,7 +110,7 @@ public class Snapball extends ItemWeapon implements IEnergyItem {
                               player.posX,
                               player.posY,
                               player.posZ,
-                              Sounds.snapball_explode,
+                              Sounds.snap_ball_explode,
                               SoundCategory.AMBIENT,
                               0.7F,
                               1.2F + itemRand.nextFloat() / 5.0F
@@ -129,8 +129,8 @@ public class Snapball extends ItemWeapon implements IEnergyItem {
                            player.rotationPitch,
                            player.rotationYaw,
                            0.0F,
-                           parameters.get("velocity_grenade"),
-                           parameters.getEnchanted("inaccuracy", acc),
+                           parameters.getF("velocity_grenade"),
+                           parameters.getEnchantedF("inaccuracy", acc),
                            -0.15F,
                            0.5F,
                            0.4F
@@ -142,7 +142,7 @@ public class Snapball extends ItemWeapon implements IEnergyItem {
                               player.posX,
                               player.posY,
                               player.posZ,
-                              Sounds.snapball_explode,
+                              Sounds.snap_ball_explode,
                               SoundCategory.AMBIENT,
                               0.7F,
                               1.2F + itemRand.nextFloat() / 5.0F
@@ -154,15 +154,15 @@ public class Snapball extends ItemWeapon implements IEnergyItem {
                   }
                } else {
                   int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
-                  int RFtoReload = parameters.getEnchantedi("rf_to_reload", reuse);
+                  int RFtoReload = parameters.getEnchantedI("rf_to_reload", reuse);
                   int RF = this.getEnergyStored(itemstack);
-                  if (RF >= RFtoReload && this.initiateReload(itemstack, player, ItemsRegister.SNAPBALLAMMO, maxammo)) {
+                  if (RF >= RFtoReload && this.initiateReload(itemstack, player, ItemsRegister.SNAP_BALL_AMMO, maxammo)) {
                      world.playSound(
                         (EntityPlayer)null,
                         player.posX,
                         player.posY,
                         player.posZ,
-                        Sounds.snapball_rel,
+                        Sounds.snap_ball_rel,
                         SoundCategory.AMBIENT,
                         0.7F,
                         0.95F + (itemRand.nextFloat() + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack)) / 10.0F
@@ -184,7 +184,7 @@ public class Snapball extends ItemWeapon implements IEnergyItem {
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int charge = NBTHelper.GetNBTint(itemstack, "charge");
-      int chtp = parameters.geti("charge_to_powered") + 1;
+      int chtp = parameters.getI("charge_to_powered") + 1;
       return MathHelper.clamp((float)charge / chtp, 0.0F, 1.0F);
    }
 

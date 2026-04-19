@@ -119,7 +119,7 @@ public class TileNexusWinterAltar extends TileNexus implements IVialElementsAcce
                         this.pos.getX() + 0.5,
                         this.pos.getY() + 1.5,
                         this.pos.getZ() + 0.5,
-                        new ItemStack(this.resourceItem == 1 ? ItemsRegister.INGOTNORTHERN : ItemsRegister.NORTHERNSPHERE)
+                        new ItemStack(this.resourceItem == 1 ? ItemsRegister.NORTHERN_INGOT : ItemsRegister.NORTHERN_SPHERE)
                      )
                   );
                this.resourceComplete = 0;
@@ -140,11 +140,11 @@ public class TileNexusWinterAltar extends TileNexus implements IVialElementsAcce
                if (entity instanceof EntityItem) {
                   EntityItem entityItem = (EntityItem)entity;
                   Item item = entityItem.getItem().getItem();
-                  if (item == ItemsRegister.WEATHERFRAGMENTS) {
+                  if (item == ItemsRegister.WEATHER_FRAGMENTS) {
                      fragments += entityItem.getItem().getCount();
                   }
 
-                  if (item == ItemsRegister.ICECIRCLEFILLED) {
+                  if (item == ItemsRegister.ICE_CIRCLE_FILLED) {
                      circles += entityItem.getItem().getCount();
                   }
 
@@ -173,13 +173,13 @@ public class TileNexusWinterAltar extends TileNexus implements IVialElementsAcce
                   if (entity instanceof EntityItem) {
                      EntityItem entityItemx = (EntityItem)entity;
                      Item itemx = entityItemx.getItem().getItem();
-                     if (itemx == ItemsRegister.WEATHERFRAGMENTS && shouldRemoveFragments > 0) {
+                     if (itemx == ItemsRegister.WEATHER_FRAGMENTS && shouldRemoveFragments > 0) {
                         int canRemove = Math.min(entityItemx.getItem().getCount(), shouldRemoveFragments);
                         entityItemx.getItem().shrink(canRemove);
                         shouldRemoveFragments -= canRemove;
                      }
 
-                     if (itemx == ItemsRegister.ICECIRCLEFILLED && shouldRemoveCircles > 0) {
+                     if (itemx == ItemsRegister.ICE_CIRCLE_FILLED && shouldRemoveCircles > 0) {
                         int canRemove = Math.min(entityItemx.getItem().getCount(), shouldRemoveCircles);
                         entityItemx.getItem().shrink(canRemove);
                         shouldRemoveCircles -= canRemove;
@@ -207,8 +207,8 @@ public class TileNexusWinterAltar extends TileNexus implements IVialElementsAcce
                if (entityx instanceof EntityItem) {
                   EntityItem entityItemxx = (EntityItem)entityx;
                   Item itemxx = entityItemxx.getItem().getItem();
-                  if (itemxx == ItemsRegister.WEATHERFRAGMENTS
-                     || itemxx == ItemsRegister.ICECIRCLEFILLED
+                  if (itemxx == ItemsRegister.WEATHER_FRAGMENTS
+                     || itemxx == ItemsRegister.ICE_CIRCLE_FILLED
                      || OreDicHelper.itemStringOredigMatches(entityItemxx.getItem(), OreDicHelper.SILVER)) {
                      SuperKnockback.applyMove(
                         entityItemxx,

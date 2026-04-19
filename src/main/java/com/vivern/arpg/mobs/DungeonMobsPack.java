@@ -23,7 +23,7 @@ import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -169,9 +169,9 @@ public class DungeonMobsPack {
          this.setattributes(200.0, 48.0, 3.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.EREBRISSHARD, 0.65F, 0, 1, 4, 0),
-               new MobDrop(ItemsRegister.EYEOFBEHOLDER, 0.1F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.PALEMEATRAW, 0.9F, 0, 0, 2, 3)
+               new MobDrop(ItemsRegister.EREBRIS_SHARD, 0.65F, 0, 1, 4, 0),
+               new MobDrop(ItemsRegister.EYE_OF_BEHOLDER, 0.1F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.PALE_MEAT_RAW, 0.9F, 0, 0, 2, 3)
             }
          );
          this.setRoleValues(EnumMobRole.STRONG_ENEMY, 4);
@@ -280,7 +280,7 @@ public class DungeonMobsPack {
 
          if (this.isEntityAlive() && this.lazerTimer > 0) {
             this.lazerTimer--;
-            Vec3d vec = GetMOP.RotatedPosRayTrace(40.0, 1.0F, this, 0.08, 0.1, this.prevRotationPitch, this.prevRotationYaw);
+            Vec3d vec = GetMOP.rotatedPosRayTrace(40.0, 1.0F, this, 0.08, 0.1, this.prevRotationPitch, this.prevRotationYaw);
             if (this.world.isRemote) {
                this.spawnBetwParticle(
                   this.getPositionEyes(1.0F).add(this.getVectorForRotation(0.0F, this.rotationYaw).scale(this.width / 2.2F)), vec
@@ -467,7 +467,7 @@ public class DungeonMobsPack {
          this.setattributes(60.0, 64.0, 11.0, 0.6, 0.0, 0.0, 0.0, 0.0, 1.0, 0.1);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.EREBRISSHARD, 0.25F, 0, 1, 1, 0), new MobDrop(ItemsRegister.PALEMEATRAW, 0.8F, 0, 0, 2, 3)
+               new MobDrop(ItemsRegister.EREBRIS_SHARD, 0.25F, 0, 1, 1, 0), new MobDrop(ItemsRegister.PALE_MEAT_RAW, 0.8F, 0, 0, 2, 3)
             }
          );
          this.setRoleValues(EnumMobRole.SOLDIER, 4);
@@ -528,9 +528,9 @@ public class DungeonMobsPack {
          this.setattributes(400.0, 64.0, 10.0, 0.4, 5.0, 4.0, 0.4, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.EREBRISSHARD, 0.65F, 0, 1, 4, 0),
-               new MobDrop(ItemsRegister.DEVOURERSTEETH, 0.05F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.PALEMEATRAW, 1.0F, 0, 1, 3, 4)
+               new MobDrop(ItemsRegister.EREBRIS_SHARD, 0.65F, 0, 1, 4, 0),
+               new MobDrop(ItemsRegister.DEVOURERS_TEETH, 0.05F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.PALE_MEAT_RAW, 1.0F, 0, 1, 3, 4)
             }
          );
          this.stepHeight = 1.0F;
@@ -804,7 +804,7 @@ public class DungeonMobsPack {
          this.setattributes(240.0, 64.0, 13.0, 0.085, 10.0, 5.0, 0.9, 0.3, 0.0, 0.0);
          this.segmentDistance = 0.85F;
          if (!this.isSubMob) {
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.DUSTGLOWINGCRYSTAL, 0.5F, 0, 1, 3, 2)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.GLOWING_CRYSTAL_DUST, 0.5F, 0, 1, 3, 2)});
             this.deathSound = Sounds.mob_ice_death;
          }
 
@@ -954,7 +954,7 @@ public class DungeonMobsPack {
          this.deathSound = Sounds.mob_squish_death;
          this.defaultteam = DungeonMobsPack.mobsteam;
          this.setattributes(180.0, 64.0, 13.0, 0.1, 10.0, 2.0, 0.0, 0.0, 0.0, 0.0);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.EREBRISSHARD, 0.75F, 0, 0, 5, 0)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.EREBRIS_SHARD, 0.75F, 0, 0, 5, 0)});
          this.setNoGravity(true);
          this.setRoleValues(EnumMobRole.STRONG_ENEMY, 4);
          this.soul = Soul.SHADOW;
@@ -1179,7 +1179,7 @@ public class DungeonMobsPack {
          this.deathSound = Sounds.mob_squish_death;
          this.defaultteam = DungeonMobsPack.mobsteam;
          this.setattributes(110.0, 84.0, 13.0, 0.36, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VITREOUSHEART, 0.75F, 0, 1, 1, 0)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VITREOUS_HEART, 0.75F, 0, 1, 1, 0)});
          this.setRoleValues(EnumMobRole.STRONG_ENEMY, 4);
          this.soul = Soul.MYSTIC;
       }
@@ -1581,7 +1581,7 @@ public class DungeonMobsPack {
          this.setattributes(100.0, 64.0, 9.0, 0.1, 1.0, 1.0, 0.5, 0.0, 0.0, 0.0);
          this.segmentDistance = 0.65F;
          if (!this.isSubMob) {
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.DUSTSTONE, 1.0F, 0, 0, 1, 10)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.STONE_DUST, 1.0F, 0, 0, 1, 10)});
             this.deathSound = Sounds.mob_plant_death;
          }
 
@@ -1655,8 +1655,8 @@ public class DungeonMobsPack {
          if (!this.isSubMob) {
             this.registerLOOT(
                new MobDrop[]{
-                  new MobDrop(ItemsRegister.EREBRISSHARD, 1.0F, 0, 1, 5, 0),
-                  new MobDrop(ItemsRegister.EREBRISFRAGMENT, 0.75F, 0, 1, 2, 0)
+                  new MobDrop(ItemsRegister.EREBRIS_SHARD, 1.0F, 0, 1, 5, 0),
+                  new MobDrop(ItemsRegister.EREBRIS_FRAGMENT, 0.75F, 0, 1, 2, 0)
                }
             );
             this.livingSound = Sounds.mob_monster_living;
@@ -1862,7 +1862,7 @@ public class DungeonMobsPack {
          this.livingSound = Sounds.mob_squish_living;
          this.defaultteam = DungeonMobsPack.mobsteam;
          this.setattributes(30.0, 64.0, 4.0, 0.08, 0.0, 0.0, 0.0, 0.0, 0.3, 0.0);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.EREBRISSHARD, 0.065F, 0, 1, 1, 0)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.EREBRIS_SHARD, 0.065F, 0, 1, 1, 0)});
          this.setNoGravity(true);
          this.setRoleValues(EnumMobRole.SWARMER, 4);
          this.soul = Soul.COMMON;
@@ -1924,8 +1924,8 @@ public class DungeonMobsPack {
             new MobDrop[]{
                new MobDrop(Items.STRING, 0.8F, 0, 1, 2, 2),
                new MobDrop(Items.SPIDER_EYE, 0.5F, 0, 1, 2, 2),
-               new MobDrop(ItemsRegister.EREBRISSHARD, 0.45F, 0, 0, 2, 0),
-               new MobDrop(ItemsRegister.WEBGH, 0.03F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.EREBRIS_SHARD, 0.45F, 0, 0, 2, 0),
+               new MobDrop(ItemsRegister.WEB_GRAPLING_HOOK, 0.03F, 0, 1, 1, 0)
             }
          );
          this.setRoleValues(EnumMobRole.SOLDIER, 4);

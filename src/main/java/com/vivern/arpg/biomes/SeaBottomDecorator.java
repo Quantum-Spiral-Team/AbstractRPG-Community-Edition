@@ -15,7 +15,7 @@ import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 
 class SeaBottomDecorator extends BiomeDecorator {
    public WorldGenSpread seagrass = new WorldGenSpread(BlocksRegister.SEAGRASS, 25, 7, 1, null, true);
-   public WorldGenSpread urchins = new WorldGenSpread(BlocksRegister.SEAURCHIN, 8, 5, 2, Blocks.GRAVEL, true);
+   public WorldGenSpread urchins = new WorldGenSpread(BlocksRegister.SEA_URCHIN, 8, 5, 2, Blocks.GRAVEL, true);
 
    public void decorate(World world, Random random, Biome biome, BlockPos decpos) {
       if (this.decorating) {
@@ -27,7 +27,7 @@ class SeaBottomDecorator extends BiomeDecorator {
             BlockPos fpos = world.getTopSolidOrLiquidBlock(decpos.add(ix, 0, lz));
 
             for (BlockPos poss : GetMOP.getPosesInsideSphere(fpos.getX(), fpos.getY(), fpos.getZ(), 1 + random.nextInt(3))) {
-               world.setBlockState(poss, BlocksRegister.SEASTONE.getDefaultState(), 2);
+               world.setBlockState(poss, BlocksRegister.SEA_STONE.getDefaultState(), 2);
             }
          }
 
@@ -38,8 +38,8 @@ class SeaBottomDecorator extends BiomeDecorator {
                int ix = random.nextInt(16) + 8;
                int lz = random.nextInt(16) + 8;
                BlockPos fpos = world.getTopSolidOrLiquidBlock(decpos.add(ix, 0, lz));
-               IBlockState state1 = BlocksRegister.LIVINGSPONGE.getDefaultState();
-               IBlockState state2 = BlocksRegister.LIVINGSPONGE.getStateFromMeta(1);
+               IBlockState state1 = BlocksRegister.LIVING_SPONGE.getDefaultState();
+               IBlockState state2 = BlocksRegister.LIVING_SPONGE.getStateFromMeta(1);
                if (random.nextFloat() < 0.5) {
                   world.setBlockState(fpos, state1, 2);
                   if (random.nextFloat() < 0.5) {

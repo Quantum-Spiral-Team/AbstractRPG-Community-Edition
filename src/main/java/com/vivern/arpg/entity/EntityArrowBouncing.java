@@ -2,7 +2,7 @@ package com.vivern.arpg.entity;
 
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Sounds;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -122,6 +122,6 @@ public class EntityArrowBouncing extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWBOUNCING);
+      return new ItemStack(ItemsRegister.ARROW_BOUNCING);
    }
 }

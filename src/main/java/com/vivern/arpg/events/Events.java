@@ -19,9 +19,9 @@ public class Events {
    public static void blockDrop(HarvestDropsEvent event) {
       Block block = event.getState().getBlock();
       if (block == Blocks.MOB_SPAWNER && rand.nextFloat() < 0.75F) {
-         event.getDrops().add(new ItemStack(ItemsRegister.SPAWNERPIECE));
+         event.getDrops().add(new ItemStack(ItemsRegister.SPAWNER_PIECE));
          if (rand.nextFloat() < 0.2F) {
-            event.getDrops().add(new ItemStack(ItemsRegister.SPAWNERPIECE));
+            event.getDrops().add(new ItemStack(ItemsRegister.SPAWNER_PIECE));
          }
       }
    }

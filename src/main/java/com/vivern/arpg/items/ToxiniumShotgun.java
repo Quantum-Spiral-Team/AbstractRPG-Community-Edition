@@ -115,20 +115,20 @@ public class ToxiniumShotgun extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
 
-                     double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      double damageRadius = 0.25;
                      int seed = itemRand.nextInt();
                      Random random1 = new Random(seed);
                      int c = nonullbullet ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
                      int impacts = 0;
-                     int amount = Math.min(parameters.getEnchantedi("shots", reuse), 31);
-                     float inaccuracy = parameters.getEnchanted("inaccuracy", acc);
+                     int amount = Math.min(parameters.getEnchantedI("shots", reuse), 31);
+                     float inaccuracy = parameters.getEnchantedF("inaccuracy", acc);
 
                      for (int i = 0; i < amount; i++) {
                         boolean collideWithAny = false;
                         float rotP = player.rotationPitch + (float)random1.nextGaussian() * inaccuracy;
                         float rotY = player.rotationYaw + (float)random1.nextGaussian() * inaccuracy;
-                        Vec3d vec = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.25, 0.2, rotP, rotY);
+                        Vec3d vec = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.25, 0.2, rotP, rotY);
                         if (nonullbullet) {
                            bullet.onImpact(world, player, vec.x, vec.y, vec.z, null, null);
                         }
@@ -161,11 +161,11 @@ public class ToxiniumShotgun extends ItemWeapon {
                               if (Team.checkIsOpponent(player, entity)) {
                                  Weapons.dealDamage(
                                     new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                    parameters.getEnchanted("damage", might) + damageadd * parameters.get("bullet_damage"),
+                                    parameters.getEnchantedF("damage", might) + damageadd * parameters.getF("bullet_damage"),
                                     player,
                                     entity,
                                     true,
-                                    parameters.getEnchanted("knockback", impulse) + knockbackadd * parameters.get("bullet_knockback"),
+                                    parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
                                     player.posX,
                                     player.posY,
                                     player.posZ
@@ -186,18 +186,18 @@ public class ToxiniumShotgun extends ItemWeapon {
 
                                           DeathEffects.applyDeathEffect(entitylivingbase, DeathEffects.DE_DISMEMBER);
                                        }
-                                    } else if (bullet == ItemsRegister.BULLETTOXIC) {
+                                    } else if (bullet == ItemsRegister.BULLET_TOXIC) {
                                        PotionEffect baff = new PotionEffect(
                                           PotionEffects.TOXIN,
-                                          parameters.getEnchantedi("potion_time", witchery),
-                                          parameters.getEnchantedi("potion_power", witchery)
+                                          parameters.getEnchantedI("potion_time", witchery),
+                                          parameters.getEnchantedI("potion_power", witchery)
                                        );
                                        entitylivingbase.addPotionEffect(baff);
                                     } else {
                                        PotionEffect baff = new PotionEffect(
                                           PotionEffects.TOXIN,
-                                          parameters.getEnchantedi("potion_time", witchery) + ItemBullet.BulletToxic.duration,
-                                          parameters.getEnchantedi("potion_power", witchery)
+                                          parameters.getEnchantedI("potion_time", witchery) + ItemBullet.BulletToxic.duration,
+                                          parameters.getEnchantedI("potion_power", witchery)
                                        );
                                        entitylivingbase.addPotionEffect(baff);
                                     }
@@ -227,7 +227,7 @@ public class ToxiniumShotgun extends ItemWeapon {
                         0.0
                      );
                   }
-               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.TOXINIUMSHOTGUNCLIP, maxammo, true)) {
+               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.TOXINIUM_SHOTGUN_CLIP, maxammo, true)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,
@@ -259,7 +259,7 @@ public class ToxiniumShotgun extends ItemWeapon {
          for (int i = 0; i < Math.min(a, 31.0); i++) {
             float rotP = player.rotationPitch + (float)random1.nextGaussian() * (float)d1;
             float rotY = player.rotationYaw + (float)random1.nextGaussian() * (float)d1;
-            Vec3d to = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.25, 0.2, rotP, rotY);
+            Vec3d to = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.25, 0.2, rotP, rotY);
             float dist = (float)from.distanceTo(to);
             boolean full = (impacts & 1 << i) > 0;
             BulletParticle part = new BulletParticle(

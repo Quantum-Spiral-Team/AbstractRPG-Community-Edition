@@ -118,8 +118,8 @@ public class Charger extends ItemWeapon {
          int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);
          int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-         float rapidMult = 1.0F + rapidity * parameters.get("rapid_multiplier");
-         float manacost = parameters.getEnchanted("manacost", sor) * rapidMult;
+         float rapidMult = 1.0F + rapidity * parameters.getF("rapid_multiplier");
+         float manacost = parameters.getEnchantedF("manacost", sor) * rapidMult;
          boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
          boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
          EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
@@ -129,7 +129,7 @@ public class Charger extends ItemWeapon {
             && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)
             && mana > manacost
             && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
-            Vec3d vec = GetMOP.posRayTrace(parameters.getEnchanted("distance", range), 1.0F, player, 0.08, 0.08);
+            Vec3d vec = GetMOP.posRayTrace(parameters.getEnchantedF("distance", range), 1.0F, player, 0.08, 0.08);
             world.playSound(
                (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.charger, SoundCategory.AMBIENT, 0.8F, 1.0F
             );
@@ -155,7 +155,7 @@ public class Charger extends ItemWeapon {
                }
 
                if (!list.isEmpty()) {
-                  double nextTargetRadius = parameters.getEnchanted("damage_radius", range);
+                  double nextTargetRadius = parameters.getEnchantedF("damage_radius", range);
 
                   for (EntityLivingBase entitylivingbase : list) {
                      if (Team.checkIsOpponent(player, entitylivingbase)) {
@@ -163,7 +163,7 @@ public class Charger extends ItemWeapon {
                         targs.add(entitylivingbase);
                         Vec3d vect = vec;
 
-                        for (int ss = 0; ss < parameters.getEnchanted("targets", spec); ss++) {
+                        for (int ss = 0; ss < parameters.getEnchantedF("targets", spec); ss++) {
                            EntityLivingBase livb = this.nextTarget(vect, world, player, targs, nextTargetRadius);
                            if (livb == null) {
                               break;
@@ -194,11 +194,11 @@ public class Charger extends ItemWeapon {
                            if (Team.checkIsOpponent(player, entity)) {
                               Weapons.dealDamage(
                                  new WeaponDamage(itemstack, player, null, false, false, i == 0 ? vec : targs.get(i - 1), WeaponDamage.plasma),
-                                 parameters.getEnchanted("damage", might) * power * rapidMult,
+                                 parameters.getEnchantedF("damage", might) * power * rapidMult,
                                  player,
                                  entity,
                                  true,
-                                 parameters.getEnchanted("knockback", impulse) * rapidMult,
+                                 parameters.getEnchantedF("knockback", impulse) * rapidMult,
                                  vec.x,
                                  vec.y,
                                  vec.z

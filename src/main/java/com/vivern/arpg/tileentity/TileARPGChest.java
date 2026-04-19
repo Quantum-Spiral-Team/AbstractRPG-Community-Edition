@@ -2,7 +2,7 @@ package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.network.PacketHandler;
 import java.util.ArrayList;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

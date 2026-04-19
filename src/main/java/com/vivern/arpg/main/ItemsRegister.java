@@ -1,237 +1,8 @@
 package com.vivern.arpg.main;
 
 import baubles.api.BaubleType;
-import com.vivern.arpg.items.AbstractMiningTool;
-import com.vivern.arpg.items.AcidFire;
-import com.vivern.arpg.items.AdamantiumBattleAxe;
-import com.vivern.arpg.items.AdamantiumKnife;
-import com.vivern.arpg.items.AdamantiumLongsword;
-import com.vivern.arpg.items.AdamantiumMinigun;
-import com.vivern.arpg.items.AdamantiumRevolver;
-import com.vivern.arpg.items.AdamantiumRounds;
-import com.vivern.arpg.items.AimLens;
-import com.vivern.arpg.items.AirborneCirclet;
-import com.vivern.arpg.items.AnnihilationGun;
-import com.vivern.arpg.items.AntiRadInjector;
-import com.vivern.arpg.items.Antidote;
-import com.vivern.arpg.items.AntimatterCharge;
-import com.vivern.arpg.items.Antipotion;
-import com.vivern.arpg.items.AquaticBow;
-import com.vivern.arpg.items.AquaticInstancer;
-import com.vivern.arpg.items.Arrows;
-import com.vivern.arpg.items.AzureOreStaff;
-import com.vivern.arpg.items.BaubleAntipotion;
-import com.vivern.arpg.items.BaublesPack;
-import com.vivern.arpg.items.Beaker;
-import com.vivern.arpg.items.Bilebiter;
-import com.vivern.arpg.items.Blowhole;
-import com.vivern.arpg.items.BogFlower;
-import com.vivern.arpg.items.BouncingRing;
-import com.vivern.arpg.items.BubbleFish;
-import com.vivern.arpg.items.Buckshot;
-import com.vivern.arpg.items.BurningFrostIgniter;
-import com.vivern.arpg.items.Butterfly;
-import com.vivern.arpg.items.Buzdygan;
-import com.vivern.arpg.items.Canister;
-import com.vivern.arpg.items.Carapace;
-import com.vivern.arpg.items.Ceratarget;
-import com.vivern.arpg.items.ChainDagger;
-import com.vivern.arpg.items.ChainMace;
-import com.vivern.arpg.items.Charger;
-import com.vivern.arpg.items.CinderBow;
-import com.vivern.arpg.items.Coin;
-import com.vivern.arpg.items.CompoundBow;
-import com.vivern.arpg.items.ConiferRod;
-import com.vivern.arpg.items.CooledRifle;
-import com.vivern.arpg.items.CoralRifle;
-import com.vivern.arpg.items.CreativeTeamSelector;
-import com.vivern.arpg.items.CryoDestroyer;
-import com.vivern.arpg.items.CryoGun;
-import com.vivern.arpg.items.CrystalCutter;
-import com.vivern.arpg.items.CrystalFan;
-import com.vivern.arpg.items.CrystalStar;
-import com.vivern.arpg.items.CursedBlade;
-import com.vivern.arpg.items.DashBelt;
-import com.vivern.arpg.items.DeadRampart;
-import com.vivern.arpg.items.DemonicIgniter;
-import com.vivern.arpg.items.DragonShell;
-import com.vivern.arpg.items.DragonTail;
-import com.vivern.arpg.items.ElAmmoAir;
-import com.vivern.arpg.items.ElAmmoEarth;
-import com.vivern.arpg.items.ElAmmoFire;
-import com.vivern.arpg.items.ElAmmoWater;
-import com.vivern.arpg.items.ElectricAcidRadiationPotion;
-import com.vivern.arpg.items.ElectricStaff;
-import com.vivern.arpg.items.ElementFocus;
-import com.vivern.arpg.items.ElementsBook;
-import com.vivern.arpg.items.EmeraldEye;
-import com.vivern.arpg.items.EnderGraplingHook;
-import com.vivern.arpg.items.EnderInstancer;
-import com.vivern.arpg.items.EnderProtector;
-import com.vivern.arpg.items.EtherSign;
-import com.vivern.arpg.items.ExpItem;
-import com.vivern.arpg.items.FairyWings;
-import com.vivern.arpg.items.FiberBandage;
-import com.vivern.arpg.items.FinWings;
-import com.vivern.arpg.items.FireWhip;
-import com.vivern.arpg.items.FireballStaff;
-import com.vivern.arpg.items.FireworkDragonRocket;
-import com.vivern.arpg.items.FireworkLauncher;
-import com.vivern.arpg.items.FireworkPack;
-import com.vivern.arpg.items.FrostBoltStaff;
-import com.vivern.arpg.items.FrozenWings;
-import com.vivern.arpg.items.GeigerCounter;
-import com.vivern.arpg.items.GemStaff;
-import com.vivern.arpg.items.GhostSword;
-import com.vivern.arpg.items.GlacideBlade;
-import com.vivern.arpg.items.GlowBlade;
-import com.vivern.arpg.items.GothicBow;
-import com.vivern.arpg.items.GothicSword;
-import com.vivern.arpg.items.GraplingHook;
-import com.vivern.arpg.items.GraveLurker;
-import com.vivern.arpg.items.GrenadeLauncher;
-import com.vivern.arpg.items.HadronBlaster;
-import com.vivern.arpg.items.HailTear;
-import com.vivern.arpg.items.HeadShooter;
-import com.vivern.arpg.items.HealthFruit;
-import com.vivern.arpg.items.HealthfulCapsule;
-import com.vivern.arpg.items.Hellmark;
-import com.vivern.arpg.items.HolographicShield;
-import com.vivern.arpg.items.HolyShotgun;
-import com.vivern.arpg.items.HydraulicShotgun;
-import com.vivern.arpg.items.IceBeam;
-import com.vivern.arpg.items.IceCompass;
-import com.vivern.arpg.items.IceSword;
-import com.vivern.arpg.items.IchorShower;
-import com.vivern.arpg.items.IcicleMinigun;
-import com.vivern.arpg.items.Impetus;
-import com.vivern.arpg.items.InfernalBlade;
-import com.vivern.arpg.items.InkBottle;
-import com.vivern.arpg.items.Instancer;
-import com.vivern.arpg.items.InstantEnchantmentBook;
-import com.vivern.arpg.items.ItemAccumulator;
-import com.vivern.arpg.items.ItemAmmo;
-import com.vivern.arpg.items.ItemAmmoClip;
-import com.vivern.arpg.items.ItemBasicTool;
-import com.vivern.arpg.items.ItemBuckshotClip;
-import com.vivern.arpg.items.ItemBullet;
-import com.vivern.arpg.items.ItemCalibrationThing;
-import com.vivern.arpg.items.ItemEatable;
-import com.vivern.arpg.items.ItemFirst;
-import com.vivern.arpg.items.ItemFishingRod;
-import com.vivern.arpg.items.ItemGeomanticCrystal;
-import com.vivern.arpg.items.ItemGrenade;
-import com.vivern.arpg.items.ItemItem;
-import com.vivern.arpg.items.ItemLootCase;
-import com.vivern.arpg.items.ItemMagicScroll;
-import com.vivern.arpg.items.ItemMobEgg;
-import com.vivern.arpg.items.ItemNoGravivy;
-import com.vivern.arpg.items.ItemRocket;
-import com.vivern.arpg.items.ItemShell;
-import com.vivern.arpg.items.ItemSpellRoll;
-import com.vivern.arpg.items.ItemTurret;
-import com.vivern.arpg.items.ItemVial;
-import com.vivern.arpg.items.ItemWeatherRocket;
-import com.vivern.arpg.items.JungleGraplingHook;
-import com.vivern.arpg.items.Key;
-import com.vivern.arpg.items.LaserPistol;
-import com.vivern.arpg.items.LaserRifle;
-import com.vivern.arpg.items.LaserSniper;
-import com.vivern.arpg.items.LavaDropper;
-import com.vivern.arpg.items.LightningHook;
-import com.vivern.arpg.items.Locker;
-import com.vivern.arpg.items.MagicBoomerang;
-import com.vivern.arpg.items.MagicRocket;
-import com.vivern.arpg.items.MagmaBloomSeed;
-import com.vivern.arpg.items.ManaExpansionPotion;
-import com.vivern.arpg.items.Mauler;
-import com.vivern.arpg.items.MilitaryInstancer;
-import com.vivern.arpg.items.MiningTools;
-import com.vivern.arpg.items.MithrilBow;
-import com.vivern.arpg.items.MoltenGreataxe;
-import com.vivern.arpg.items.NailGun;
-import com.vivern.arpg.items.NetherGrinder;
-import com.vivern.arpg.items.OrbOfDestroy;
-import com.vivern.arpg.items.PhoenixGhostCape;
-import com.vivern.arpg.items.PistolFish;
-import com.vivern.arpg.items.PlasmaAccelerator;
-import com.vivern.arpg.items.PlasmaMinigun;
-import com.vivern.arpg.items.PlasmaPistol;
-import com.vivern.arpg.items.PlasmaRailgun;
-import com.vivern.arpg.items.PlasmaRifle;
-import com.vivern.arpg.items.PumpShotgun;
-import com.vivern.arpg.items.QuadrocopterBelt;
-import com.vivern.arpg.items.Reaper;
-import com.vivern.arpg.items.RestlessSkull;
-import com.vivern.arpg.items.RingOfProtection;
-import com.vivern.arpg.items.RocketLauncher;
-import com.vivern.arpg.items.RopeGraplingHook;
-import com.vivern.arpg.items.RottenShield;
-import com.vivern.arpg.items.SacrificialDagger;
-import com.vivern.arpg.items.SapphireEye;
-import com.vivern.arpg.items.ScepterOfSands;
-import com.vivern.arpg.items.SeaEffloresce;
-import com.vivern.arpg.items.ShadowWings;
-import com.vivern.arpg.items.SharkAmmo;
-import com.vivern.arpg.items.SharkCannon;
-import com.vivern.arpg.items.SkullCrasher;
-import com.vivern.arpg.items.SlimeGraplingHook;
-import com.vivern.arpg.items.SlimeLocator;
-import com.vivern.arpg.items.SlimeShotgun;
-import com.vivern.arpg.items.Snakewhip;
-import com.vivern.arpg.items.Snapball;
-import com.vivern.arpg.items.SnowballCannon;
-import com.vivern.arpg.items.SnowflakeShuriken;
-import com.vivern.arpg.items.SnowstormStaff;
-import com.vivern.arpg.items.SoulCharm;
-import com.vivern.arpg.items.SoulStone;
-import com.vivern.arpg.items.SparklingNecklace;
-import com.vivern.arpg.items.SpellHammer;
-import com.vivern.arpg.items.SpellPliers;
-import com.vivern.arpg.items.SpellRod;
-import com.vivern.arpg.items.SpikeRing;
-import com.vivern.arpg.items.StaffOfCorpse;
-import com.vivern.arpg.items.StaffOfWitherdry;
-import com.vivern.arpg.items.StaticLance;
-import com.vivern.arpg.items.Stinger;
-import com.vivern.arpg.items.StingerBolts;
-import com.vivern.arpg.items.StingingCell;
-import com.vivern.arpg.items.StormSpanner;
-import com.vivern.arpg.items.Submachine;
-import com.vivern.arpg.items.Sunrise;
-import com.vivern.arpg.items.Swarmeter;
-import com.vivern.arpg.items.TheLordOfPain;
-import com.vivern.arpg.items.ThistleThorn;
-import com.vivern.arpg.items.ThunderbirdWings;
-import com.vivern.arpg.items.TimelessSword;
-import com.vivern.arpg.items.ToolWand;
-import com.vivern.arpg.items.ToxiCola;
-import com.vivern.arpg.items.ToxicNuclearCannon;
-import com.vivern.arpg.items.ToxicWings;
-import com.vivern.arpg.items.ToxiniumShield;
-import com.vivern.arpg.items.ToxiniumShotgun;
-import com.vivern.arpg.items.VacuumGun;
-import com.vivern.arpg.items.VampireKnife;
-import com.vivern.arpg.items.VampireKnifes;
-import com.vivern.arpg.items.VampiricHeart;
-import com.vivern.arpg.items.VialOfPoison;
-import com.vivern.arpg.items.ViciousEmblem;
-import com.vivern.arpg.items.Violence;
-import com.vivern.arpg.items.VirulentRod;
-import com.vivern.arpg.items.Voltrident;
-import com.vivern.arpg.items.VortexInABottle;
-import com.vivern.arpg.items.WandOfBlazes;
-import com.vivern.arpg.items.WandOfCold;
-import com.vivern.arpg.items.WebGraplingHook;
-import com.vivern.arpg.items.Whip;
-import com.vivern.arpg.items.WhispersBlade;
-import com.vivern.arpg.items.WinterBreath;
-import com.vivern.arpg.items.WinterInstancer;
-import com.vivern.arpg.items.WinterSacrifice;
-import com.vivern.arpg.items.WoodenSkiing;
-import com.vivern.arpg.items.WorshippersBait;
-import com.vivern.arpg.items.Wrench;
-import com.vivern.arpg.items.XmassLauncher;
+import com.vivern.arpg.AbstractRPG;
+import com.vivern.arpg.items.*;
 import com.vivern.arpg.items.armor.Armors;
 import com.vivern.arpg.items.armor.BoneHelm;
 import com.vivern.arpg.items.armor.JungleBoots;
@@ -244,9 +15,12 @@ import com.vivern.arpg.renders.TEISRGuns;
 import com.vivern.arpg.renders.TEISROther;
 import com.vivern.arpg.tileentity.ChestLock;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -263,194 +37,205 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings("ConstantConditions")
+@EventBusSubscriber
 public class ItemsRegister {
-   public static HashSet<Item> forrender = new HashSet<>();
-   public static ArmorMaterial null_material = EnumHelper.addArmorMaterial(
+
+   private static final Logger LOGGER = AbstractRPG.getLogger("ItemsRegister");
+
+   public static final Set<Item> FOR_RENDER = new HashSet<>();
+   public static final ArmorMaterial NULL_MATERIAL = EnumHelper.addArmorMaterial(
       "arpg:null_mt", "arpg:null_tx", 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F
    );
-   public static Item FIRST = new ItemFirst();
-   public static Item ICHSHOWER = new IchorShower();
-   public static Item SHARKCANN = new SharkCannon();
-   public static Item SHARKAMMO = new SharkAmmo();
-   public static Item MAGICBOOMERANG = new MagicBoomerang();
-   public static Item BUTTERFLY = new Butterfly();
-   public static Item SUNRISE = new Sunrise();
-   public static Item LASERSNIPER = new LaserSniper();
-   public static Item IONBATTERY = new ItemAccumulator("ion_battery", ItemAccumulator.REDSTONE_ION_CAPACITY, ItemAccumulator.REDSTONE_ION_THROUGHPUT);
-   public static Item LASERPISTOL = new LaserPistol();
-   public static Item LASERRIFLE = new LaserRifle();
-   public static Item VAMPIREKNIFE = new VampireKnife();
-   public static Item VAMPIREKNIFESLAUN = new VampireKnifes();
-   public static Item FROSTBOLT = new FrostBoltStaff();
-   public static Item ANIHGUN = new AnnihilationGun();
-   public static Item ANTICHARGE = new AntimatterCharge();
-   public static Item ELAMMOFIRE = new ElAmmoFire();
-   public static Item ELAMMOWATER = new ElAmmoWater();
-   public static Item ELAMMOAIR = new ElAmmoAir();
-   public static Item ELAMMOEARTH = new ElAmmoEarth();
-   public static Item ELEMENTFOCUS = new ElementFocus();
-   public static Item STINGER = new Stinger();
-   public static Item STINGERBOLTS = new StingerBolts();
-   public static Item FIREWORKSLAUN = new FireworkLauncher();
-   public static Item FIREWORKPACK = new FireworkPack();
-   public static Item FIREWORKDRAGON = new FireworkDragonRocket();
-   public static Item QUADROBELT = new QuadrocopterBelt();
-   public static Item VORTEXBOTTLE = new VortexInABottle();
-   public static Item ETHERSIGN = new EtherSign();
-   public static Item PHOENIXGHOSTCAPE = new PhoenixGhostCape();
-   public static Item SCEPTEROFSANDS = new ScepterOfSands();
-   public static Item BILEBITER = new Bilebiter();
-   public static Item BILEBITERAMMO = new ItemAmmo(CreativeTabs.COMBAT, "bilebiter_sphere", 64, 1);
-   public static Item EARPOTION = new ElectricAcidRadiationPotion();
-   public static Item FIREBALLSTAFF = new FireballStaff();
-   public static Item SNOWSTORMSTAFF = new SnowstormStaff();
-   public static Item ELECTRICSTAFF = new ElectricStaff();
-   public static Item SLIMESHOTGUN = new SlimeShotgun();
-   public static Item WIZARDHELM = Armors.wizardSET.HELMET;
-   public static Item WIZARDCHEST = Armors.wizardSET.CHESTPLATE;
-   public static Item WIZARDLEGS = Armors.wizardSET.LEGGINS;
-   public static Item WIZARDBOOTS = Armors.wizardSET.BOOTS;
-   public static Item FIREMAGEHELM = Armors.firemageSET.HELMET;
-   public static Item FIREMAGECHEST = Armors.firemageSET.CHESTPLATE;
-   public static Item FIREMAGELEGS = Armors.firemageSET.LEGGINS;
-   public static Item FIREMAGEBOOTS = Armors.firemageSET.BOOTS;
-   public static Item FIRELORDHELM = Armors.firelordSET.HELMET;
-   public static Item FIRELORDCHEST = Armors.firelordSET.CHESTPLATE;
-   public static Item FIRELORDLEGS = Armors.firelordSET.LEGGINS;
-   public static Item FIRELORDBOOTS = Armors.firelordSET.BOOTS;
-   public static Item WANDOFBLAZES = new WandOfBlazes();
-   public static Item GRAPLINGHOOK = ((Item)new GraplingHook().setRegistryName("grapling_hook")).setTranslationKey("grapling_hook");
-   public static Item JUNGLEGH = new JungleGraplingHook();
-   public static Item SEASHELL = new ItemShell();
-   public static Item SLIMEGH = new SlimeGraplingHook();
-   public static Item ENDERGH = new EnderGraplingHook();
-   public static Item MAINFISHINGROD = ((Item)new ItemFishingRod().setRegistryName("fishing_rod")).setTranslationKey("fishing_rod");
-   public static Item MOLTENGREATAXE = new MoltenGreataxe();
-   public static Item ICESWORD = new IceSword();
-   public static Item NETHERGRINDER = new NetherGrinder();
-   public static Item NETHERGRINDERAMMO = new ItemAmmoClip("nether_grinder_ammo", CreativeTabs.COMBAT, 64, 35);
-   public static Item SNOWBALLCANNON = new SnowballCannon();
-   public static Item SNOWFLAKESHUR = new SnowflakeShuriken();
-   public static Item CURSEDBLADE = new CursedBlade();
-   public static Item GRAVELURKER = new GraveLurker();
-   public static Item REAPER = new Reaper();
-   public static Item GHOSTSWORD = new GhostSword();
-   public static Item CORPSESTAFF = new StaffOfCorpse();
-   public static Item CHAINDAGGER = new ChainDagger();
-   public static Item DEADRAMPART = new DeadRampart();
-   public static Item TOXICNUKECANNON = new ToxicNuclearCannon();
-   public static Item TOXICNUCLEARWARHEAD = new ItemAmmo(CreativeTabs.COMBAT, "toxic_nuclear_warhead", 64, 1);
-   public static Item CRYOGUN = new CryoGun();
-   public static Item CRYOGENCELL = new ItemAmmo(CreativeTabs.COMBAT, "cryogen_cell", 64, 1);
-   public static Item EMPTYCELL = new ItemAmmo(CreativeTabs.MATERIALS, "empty_cell", 64, 1);
-   public static Item CHARGER = new Charger();
-   public static Item LIGHTNINGGH = new LightningHook();
-   public static Item ICICLEMINIGUN = new IcicleMinigun();
-   public static Item STATICLANCE = new StaticLance();
-   public static Item RINGOFPROTECTION = new RingOfProtection();
-   public static Item SPIKERING = new SpikeRing();
-   public static Item SPARKLINGNECKLACE = new SparklingNecklace();
-   public static Item EXP = new ExpItem();
-   public static Item DEMONICIGNITER = new DemonicIgniter();
-   public static Item BOUNCINGRING = new BouncingRing();
-   public static Item SLIMEHELM = Armors.slimeSET.HELMET;
-   public static Item SLIMECHEST = Armors.slimeSET.CHESTPLATE;
-   public static Item SLIMELEGS = Armors.slimeSET.LEGGINS;
-   public static Item SLIMEBOOTS = Armors.slimeSET.BOOTS;
-   public static Item ICEHELM = Armors.iceSET.HELMET;
-   public static Item ICECHEST = Armors.iceSET.CHESTPLATE;
-   public static Item ICELEGS = Armors.iceSET.LEGGINS;
-   public static Item ICEBOOTS = Armors.iceSET.BOOTS;
-   public static Item SOULCHARM = new SoulCharm();
-   public static Item CONIFERROD = new ConiferRod();
-   public static Item JUNGLEHELM = new JungleHelm();
-   public static Item JUNGLECHEST = new JungleChestplate();
-   public static Item JUNGLELEGS = new JungleLeggins();
-   public static Item JUNGLEBOOTS = new JungleBoots();
-   public static Item WEBGH = new WebGraplingHook();
-   public static Item ROPEGH = new RopeGraplingHook();
-   public static Item PLASMARAILGUN = new PlasmaRailgun();
-   public static Item PLASMARAILGUNBOLTS = new ItemAmmo(CreativeTabs.COMBAT, "plasma_railgun_bolts", 64, 1);
-   public static Item PLASMARIFLE = new PlasmaRifle();
-   public static Item HOLOSHIELD = new HolographicShield();
-   public static Item HEADSHOOTER = new HeadShooter();
-   public static Item PLASMAPISTOL = new PlasmaPistol();
-   public static Item AIMLENS = new AimLens();
-   public static Item BOGFLOWER = new BogFlower();
-   public static Item FISHFEED = new ItemAmmo(CreativeTabs.COMBAT, "fish_feed", 64, 1);
-   public static Item PISTOLFISH = new PistolFish();
-   public static Item BUBBLEFISH = new BubbleFish();
-   public static Item VICIOUSEMBLEM = new ViciousEmblem();
-   public static Item ORBOFDESTROY = new OrbOfDestroy();
-   public static Item WOODENSKIING = new WoodenSkiing();
-   public static Item VIALOFPOISON = new VialOfPoison();
-   public static Item VAMPIRICHEART = new VampiricHeart();
-   public static Item LAVADROPPER = new LavaDropper();
-   public static Item PLASMAACCELERATOR = new PlasmaAccelerator();
-   public static Item VACUUMGUN = new VacuumGun();
-   public static Item GEMSTAFF = new GemStaff();
-   public static Item WANDOFCOLD = new WandOfCold();
-   public static Item ICEBEAM = new IceBeam();
-   public static Item FROZENWINGS = new FrozenWings();
-   public static Item TOXICWINGS = new ToxicWings();
-   public static Item FAIRYWINGS = new FairyWings();
-   public static Item ICEFLOWERSEEDS = BlocksRegister.ICEFLOWER.seed;
-   public static Item CRIMBERRYSEEDS = BlocksRegister.CRIMBERRY.seed;
-   public static Item WINTERWILLOWSEEDS = BlocksRegister.WINTERWILLOW.seed;
-   public static Item GLACIDEBLADE = new GlacideBlade();
-   public static Item INFERNALBLADE = new InfernalBlade();
-   public static Item CINDERBOW = new CinderBow();
-   public static Item SKULLCRASHER = new SkullCrasher();
-   public static Item SPELLHAMMER = new SpellHammer();
-   public static Item INGOTMOLTEN = new ItemItem("molten_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTINFERNUM = new ItemItem("infernum_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETMOLTEN = new ItemItem("molten_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETINFERNUM = new ItemItem("infernum_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item MOLTENSTRING = new ItemItem("molten_string", CreativeTabs.MATERIALS, 0, 64);
-   public static Item LIQUIDFIRE = new ItemItem("liquid_fire", CreativeTabs.MATERIALS, 0, 64).setFuel(200);
-   public static Item DEMONITE = new ItemItem("demonite", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DEMONITESHARD = new ItemItem("demonite_shard", CreativeTabs.MATERIALS, 0, 64);
-   public static Item RUBY = new ItemItem("ruby", CreativeTabs.MATERIALS, 0, 64).setBeacon();
-   public static Item SAPPHIRE = new ItemItem("sapphire", CreativeTabs.MATERIALS, 0, 64).setBeacon();
-   public static Item CITRINE = new ItemItem("citrine", CreativeTabs.MATERIALS, 0, 64).setBeacon();
-   public static Item AMETHYST = new ItemItem("amethyst", CreativeTabs.MATERIALS, 0, 64).setBeacon();
-   public static Item TOPAZ = new ItemItem("topaz", CreativeTabs.MATERIALS, 0, 64).setBeacon();
-   public static Item RHINESTONE = new ItemItem("rhinestone", CreativeTabs.MATERIALS, 0, 64).setBeacon();
-   public static Item MAGIC_POWDER = new ItemItem("magic_powder", CreativeTabs.MATERIALS, 0, 64).setEnchantGlow();
-   public static Item ICEGEM = new ItemItem("ice_gem", CreativeTabs.MATERIALS, 0, 64);
-   public static Item WEATHERFRAGMENTS = new ItemItem("weather_fragments", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SNOWCLOTH = new ItemItem("snow_cloth", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CONIFERSTICK = new ItemItem("conifer_stick", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SOULSTONE = new SoulStone();
-   public static Item SAPPHIREEYE = new SapphireEye();
-   public static Item ENCHANTMENTBOOKINS = new InstantEnchantmentBook();
-   public static Item ACIDFIRE = new AcidFire();
-   public static Item GLOWBLADE = new GlowBlade();
-   public static Item NAILGUN = new NailGun();
-   public static Item CRYSTALSTAR = new CrystalStar();
-   public static Item THELORDOFPAIN = new TheLordOfPain();
-   public static Item VOLTRIDENT = new Voltrident();
-   public static Item CRYSTALFAN = new CrystalFan();
-   public static Item TOXIBERRYARCANOSEEDS = BlocksRegister.TOXIBERRYARCANO.seed;
-   public static Item TOXIBERRYVIBRANTSEEDS = BlocksRegister.TOXIBERRYVIBRANT.seed;
-   public static Item MOSSPLANTSEEDS = BlocksRegister.MOSSPLANT.seed;
-   public static Item CONTEMPLANTSEEDS = BlocksRegister.CONTEMPLANT.seed;
-   public static Item MUCOPHILLUSSEEDS = BlocksRegister.MUCOPHILLUS.seed;
-   public static Item MUCOPHILLUSBROWNSEEDS = BlocksRegister.MUCOPHILLUSBROWN.seed;
-   public static Item VISCOSASEEDS = BlocksRegister.VISCOSA.seed;
-   public static Item TOXIBERRYWEEPINGSEEDS = BlocksRegister.TOXIBERRYWEEPING.seed;
-   public static Item TOXINIASEEDS = BlocksRegister.TOXINIA.seed;
-   public static Item ARELIASEEDS = BlocksRegister.ARELIA.seed;
-   public static Item DECEIDUSSEEDS = BlocksRegister.DECEIDUS.seed;
-   public static Item JUNKWEEDSEEDS = BlocksRegister.JUNKWEED.seed;
-   public static Item TOXEDGESEEDS = BlocksRegister.TOXEDGE.seed;
-   public static Item TOXIBULBSEEDS = BlocksRegister.TOXIBULB.seed;
-   public static Item ANTIDOTE = new Antidote();
-   public static Item TOXICOLA = new ToxiCola();
-   public static Item ANTIPOTION = new Antipotion();
-   public static Item WASTEBURGER = new ItemEatable(
+
+   public static final Item FIRST = new ItemFirst();
+   public static final Item ICHOR_SHOWER = new IchorShower();
+   public static final Item SHARK_CANNON = new SharkCannon();
+   public static final Item SHARK_AMMO = new SharkAmmo();
+   public static final Item MAGIC_BOOMERANG = new MagicBoomerang();
+   public static final Item BUTTERFLY = new Butterfly();
+   public static final Item SUNRISE = new Sunrise();
+   public static final Item LASER_SNIPER = new LaserSniper();
+   public static final Item ION_BATTERY = new ItemAccumulator("ion_battery", ItemAccumulator.REDSTONE_ION_CAPACITY, ItemAccumulator.REDSTONE_ION_THROUGHPUT);
+   public static final Item LASER_PISTOL = new LaserPistol();
+   public static final Item LASER_RIFLE = new LaserRifle();
+   public static final Item VAMPIRE_KNIFE = new VampireKnife();
+   public static final Item VAMPIRE_KNIFES = new VampireKnifes();
+   public static final Item FROST_BOLT_STAFF = new FrostBoltStaff();
+   public static final Item ANNIHILATION_GUN = new AnnihilationGun();
+   public static final Item ANTIMATTER_CHARGE = new AntimatterCharge();
+   public static final Item ELEMENTAL_AMMO_FIRE = new ElementalAmmoFire();
+   public static final Item ELEMENTAL_AMMO_WATER = new ElementalAmmoWater();
+   public static final Item ELEMENTAL_AMMO_AIR = new ElementalAmmoAir();
+   public static final Item ELEMENTAL_AMMO_EARTH = new ElementalAmmoEarth();
+   public static final Item ELEMENT_FOCUS = new ElementFocus();
+   public static final Item STINGER = new Stinger();
+   public static final Item STINGER_BOLTS = new StingerBolts();
+   public static final Item FIREWORK_LAUNCHER = new FireworkLauncher();
+   public static final Item FIREWORK_PACK = new FireworkPack();
+   public static final Item FIREWORK_DRAGON_ROCKET = new FireworkDragonRocket();
+   public static final Item QUADROCOPTER_BELT = new QuadrocopterBelt();
+   public static final Item VORTEX_IN_A_BOTTLE = new VortexInABottle();
+   public static final Item ETHER_SIGN = new EtherSign();
+   public static final Item PHOENIX_GHOST_CAPE = new PhoenixGhostCape();
+   public static final Item SCEPTER_OF_SANDS = new ScepterOfSands();
+   public static final Item BILEBITER = new Bilebiter();
+   public static final Item BILEBITER_SPHERE = new ItemAmmo(CreativeTabs.COMBAT, "bilebiter_sphere", 64, 1);
+   public static final Item ELECTRIC_ACID_RADIATION_POTION = new ElectricAcidRadiationPotion();
+   public static final Item FIREBALL_STAFF = new FireballStaff();
+   public static final Item SNOWSTORM_STAFF = new SnowstormStaff();
+   public static final Item ELECTROSTATIC = new ElectricStaff();
+   public static final Item SLIME_SHOTGUN = new SlimeShotgun();
+   public static final Item WIZARD_HELM = Armors.wizardSET.HELMET;
+   public static final Item WIZARD_CHEST = Armors.wizardSET.CHESTPLATE;
+   public static final Item WIZARD_LEGS = Armors.wizardSET.LEGGINS;
+   public static final Item WIZARD_BOOTS = Armors.wizardSET.BOOTS;
+   public static final Item FIRE_MAGE_HELM = Armors.firemageSET.HELMET;
+   public static final Item FIRE_MAGE_CHEST = Armors.firemageSET.CHESTPLATE;
+   public static final Item FIRE_MAGE_LEGS = Armors.firemageSET.LEGGINS;
+   public static final Item FIRE_MAGE_BOOTS = Armors.firemageSET.BOOTS;
+   public static final Item FIRE_LORD_HELM = Armors.firelordSET.HELMET;
+   public static final Item FIRE_LORD_CHEST = Armors.firelordSET.CHESTPLATE;
+   public static final Item FIRE_LORD_LEGS = Armors.firelordSET.LEGGINS;
+   public static final Item FIRE_LORD_BOOTS = Armors.firelordSET.BOOTS;
+   public static final Item WAND_OF_BLAZES = new WandOfBlazes();
+   public static final Item GRAPLING_HOOK = new GraplingHook().setRegistryName("grapling_hook").setTranslationKey("grapling_hook");
+   public static final Item JUNGLE_GRAPLING_HOOK = new JungleGraplingHook();
+   public static final Item SEASHELL = new ItemShell();
+   public static final Item SLIME_GRAPLING_HOOK = new SlimeGraplingHook();
+   public static final Item ENDER_GRAPLING_HOOK = new EnderGraplingHook();
+   public static final Item FISHING_ROD = new ItemFishingRod().setRegistryName("fishing_rod").setTranslationKey("fishing_rod");
+   public static final Item MOLTEN_GREAT_AXE = new MoltenGreatAxe();
+   public static final Item ICE_SWORD = new IceSword();
+   public static final Item NETHER_GRINDER = new NetherGrinder();
+   public static final Item NETHER_GRINDER_AMMO = new ItemAmmoClip("nether_grinder_ammo", CreativeTabs.COMBAT, 64, 35);
+   public static final Item SNOWBALL_CANNON = new SnowballCannon();
+   public static final Item SNOWFLAKE_SHURIKEN = new SnowflakeShuriken();
+   public static final Item CURSED_BLADE = new CursedBlade();
+   public static final Item GRAVE_LURKER = new GraveLurker();
+   public static final Item REAPER = new Reaper();
+   public static final Item GHOST_SWORD = new GhostSword();
+   public static final Item STAFF_OF_CORPSE = new StaffOfCorpse();
+   public static final Item CHAIN_DAGGER = new ChainDagger();
+   public static final Item DEAD_RAMPART = new DeadRampart();
+   public static final Item TOXIC_NUCLEAR_CANNON = new ToxicNuclearCannon();
+   public static final Item TOXIC_NUCLEAR_WARHEAD = new ItemAmmo(CreativeTabs.COMBAT, "toxic_nuclear_warhead", 64, 1);
+   public static final Item CRYOGUN = new CryoGun();
+   public static final Item CRYOGEN_CELL = new ItemAmmo(CreativeTabs.COMBAT, "cryogen_cell", 64, 1);
+   public static final Item EMPTY_CELL = new ItemAmmo(CreativeTabs.MATERIALS, "empty_cell", 64, 1);
+   public static final Item CHARGER = new Charger();
+   public static final Item LIGHTNING_HOOK = new LightningHook();
+   public static final Item ICICLE_MINIGUN = new IcicleMinigun();
+   public static final Item STATIC_LANCE = new StaticLance();
+   public static final Item RING_OF_PROTECTION = new RingOfProtection();
+   public static final Item SPIKE_RING = new SpikeRing();
+   public static final Item SPARKLING_NECKLACE = new SparklingNecklace();
+   public static final Item EXP = new ExpItem();
+   public static final Item DEMONIC_IGNITER = new DemonicIgniter();
+   public static final Item BOUNCING_RING = new BouncingRing();
+   public static final Item SLIME_HELM = Armors.slimeSET.HELMET;
+   public static final Item SLIME_CHEST = Armors.slimeSET.CHESTPLATE;
+   public static final Item SLIME_LEGS = Armors.slimeSET.LEGGINS;
+   public static final Item SLIME_BOOTS = Armors.slimeSET.BOOTS;
+   public static final Item ICE_HELM = Armors.iceSET.HELMET;
+   public static final Item ICE_CHEST = Armors.iceSET.CHESTPLATE;
+   public static final Item ICE_LEGS = Armors.iceSET.LEGGINS;
+   public static final Item ICE_BOOTS = Armors.iceSET.BOOTS;
+   public static final Item SOUL_CHARM = new SoulCharm();
+   public static final Item CONIFER_ROD = new ConiferRod();
+   public static final Item JUNGLE_HELM = new JungleHelm(); // TODO: перенести в Armors
+   public static final Item JUNGLE_CHESTPLATE = new JungleChestplate(); // TODO: перенести в Armors
+   public static final Item JUNGLE_LEGGINS = new JungleLeggins(); // TODO: перенести в Armors
+   public static final Item JUNGLE_BOOTS = new JungleBoots(); // TODO: перенести в Armors
+   public static final Item WEB_GRAPLING_HOOK = new WebGraplingHook();
+   public static final Item ROPE_GRAPLING_HOOK = new RopeGraplingHook();
+   public static final Item PLASMA_RAILGUN = new PlasmaRailgun();
+   public static final Item PLASMA_RAILGUN_BOLTS = new ItemAmmo(CreativeTabs.COMBAT, "plasma_railgun_bolts", 64, 1);
+   public static final Item PLASMA_RIFLE = new PlasmaRifle();
+   public static final Item HOLOGRAPHIC_SHIELD = new HolographicShield();
+   public static final Item HEAD_SHOOTER = new HeadShooter();
+   public static final Item PLASMA_PISTOL = new PlasmaPistol();
+   public static final Item AIM_LENS = new AimLens();
+   public static final Item BOG_FLOWER = new BogFlower();
+   public static final Item FISH_FEED = new ItemAmmo(CreativeTabs.COMBAT, "fish_feed", 64, 1);
+   public static final Item PISTOL_FISH = new PistolFish();
+   public static final Item BUBBLEFISH = new BubbleFish();
+   public static final Item VICIOUS_EMBLEM = new ViciousEmblem();
+   public static final Item ORB_OF_DESTROY = new OrbOfDestroy();
+   public static final Item WOODEN_SKIING = new WoodenSkiing();
+   public static final Item VIAL_OF_POISON = new VialOfPoison();
+   public static final Item VAMPIRIC_HEART = new VampiricHeart();
+   public static final Item LAVA_DROPPER = new LavaDropper();
+   public static final Item PLASMA_ACCELERATOR = new PlasmaAccelerator();
+   public static final Item VACUUM_GUN = new VacuumGun();
+   public static final Item GEM_STAFF = new GemStaff();
+   public static final Item WAND_OF_COLD = new WandOfCold();
+   public static final Item ICE_BEAM = new IceBeam();
+   public static final Item FROZEN_WINGS = new FrozenWings();
+   public static final Item TOXIC_WINGS = new ToxicWings();
+   public static final Item FAIRY_WINGS = new FairyWings();
+   public static final Item ICE_FLOWER_SEEDS = BlocksRegister.ICE_FLOWER.seed;
+   public static final Item CRIMBERRY_SEEDS = BlocksRegister.CRIMBERRY.seed;
+   public static final Item WINTER_WILLOW_SEEDS = BlocksRegister.WINTER_WILLOW.seed;
+   public static final Item GLACIDE_BLADE = new GlacideBlade();
+   public static final Item INFERNAL_BLADE = new InfernalBlade();
+   public static final Item CINDER_BOW = new CinderBow();
+   public static final Item SKULL_CRASHER = new SkullCrasher();
+   public static final Item SPELL_HAMMER = new SpellHammer();
+   public static final Item MOLTEN_INGOT = new ItemItem("molten_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item INFERNUM_INGOT = new ItemItem("infernum_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MOLTEN_NUGGET = new ItemItem("molten_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item INFERNUM_NUGGET = new ItemItem("infernum_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MOLTEN_STRING = new ItemItem("molten_string", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item LIQUID_FIRE = new ItemItem("liquid_fire", CreativeTabs.MATERIALS, 0, 64).setFuel(200);
+   public static final Item DEMONITE = new ItemItem("demonite", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item DEMONITE_SHARD = new ItemItem("demonite_shard", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item RUBY = new ItemItem("ruby", CreativeTabs.MATERIALS, 0, 64).setBeacon();
+   public static final Item SAPPHIRE = new ItemItem("sapphire", CreativeTabs.MATERIALS, 0, 64).setBeacon();
+   public static final Item CITRINE = new ItemItem("citrine", CreativeTabs.MATERIALS, 0, 64).setBeacon();
+   public static final Item AMETHYST = new ItemItem("amethyst", CreativeTabs.MATERIALS, 0, 64).setBeacon();
+   public static final Item TOPAZ = new ItemItem("topaz", CreativeTabs.MATERIALS, 0, 64).setBeacon();
+   public static final Item RHINESTONE = new ItemItem("rhinestone", CreativeTabs.MATERIALS, 0, 64).setBeacon();
+   public static final Item MAGIC_POWDER = new ItemItem("magic_powder", CreativeTabs.MATERIALS, 0, 64).setEnchantGlow();
+   public static final Item ICE_GEM = new ItemItem("ice_gem", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item WEATHER_FRAGMENTS = new ItemItem("weather_fragments", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SNOW_CLOTH = new ItemItem("snow_cloth", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CONIFER_STICK = new ItemItem("conifer_stick", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SOUL_STONE = new SoulStone();
+   public static final Item SAPPHIRE_EYE = new SapphireEye();
+   public static final Item INSTANT_ENCHANTMENT_BOOK = new InstantEnchantmentBook();
+   public static final Item ACID_FIRE = new AcidFire();
+   public static final Item GLOW_BLADE = new GlowBlade();
+   public static final Item NAIL_GUN = new NailGun();
+   public static final Item CRYSTAL_STAR = new CrystalStar();
+   public static final Item THE_LORD_OF_PAIN = new TheLordOfPain();
+   public static final Item VOLTRIDENT = new Voltrident();
+   public static final Item CRYSTAL_FAN = new CrystalFan();
+   public static final Item TOXIBERRY_ARCANO_SEEDS = BlocksRegister.TOXIBERRY_ARCANO.seed;
+   public static final Item TOXIBERRY_VIBRANT_SEEDS = BlocksRegister.TOXIBERRY_VIBRANT.seed;
+   public static final Item MOSS_PLANT_SEEDS = BlocksRegister.MOSS_PLANT.seed;
+   public static final Item CONTEM_PLANT_SEEDS = BlocksRegister.CONTEM_PLANT.seed;
+   public static final Item MUCOPHILLUS_SEEDS = BlocksRegister.MUCOPHILLUS.seed;
+   public static final Item MUCOPHILLUS_BROWN_SEEDS = BlocksRegister.MUCOPHILLUS_BROWN.seed;
+   public static final Item VISCOSA_SEEDS = BlocksRegister.VISCOSA.seed;
+   public static final Item TOXIBERRY_WEEPING_SEEDS = BlocksRegister.TOXIBERRY_WEEPING.seed;
+   public static final Item TOXINIA_SEEDS = BlocksRegister.TOXINIA.seed;
+   public static final Item ARELIA_SEEDS = BlocksRegister.ARELIA.seed;
+   public static final Item DECEIDUS_SEEDS = BlocksRegister.DECEIDUS.seed;
+   public static final Item JUNKWEED_SEEDS = BlocksRegister.JUNKWEED.seed;
+   public static final Item TOXEDGE_SEEDS = BlocksRegister.TOXEDGE.seed;
+   public static final Item TOXIBULB_SEEDS = BlocksRegister.TOXIBULB.seed;
+   public static final Item ANTIDOTE = new Antidote();
+   public static final Item TOXI_COLA = new ToxiCola();
+   public static final Item ANTI_POTION = new Antipotion();
+   public static final Item WASTE_BURGER = new ItemEatable(
       "wasteburger",
       0,
       64,
@@ -463,7 +248,7 @@ public class ItemsRegister {
       false,
       50
    );
-   public static Item TOXIBERRYMOJITO = new ItemEatable(
+   public static final Item TOXIBERRY_MOJITO = new ItemEatable(
          "toxiberry_mojito",
          0,
          64,
@@ -478,10 +263,10 @@ public class ItemsRegister {
       )
       .setStackToReturn(new ItemStack(Items.GLASS_BOTTLE))
       .setAlwaysEdible();
-   public static Item TOXEDGEBREAD = new ItemEatable(
+   public static final Item TOXEDGE_BREAD = new ItemEatable(
       "toxedge_bread", 0, 64, 3, 0.5F, false, 32, new PotionEffect[]{new PotionEffect(MobEffects.POISON, 50)}, new float[]{0.1F}, false, 20
    );
-   public static Item DECEIDUSJUICE = new ItemEatable(
+   public static final Item DECEIDUS_JUICE = new ItemEatable(
          "deceidus_juice",
          0,
          64,
@@ -497,15 +282,15 @@ public class ItemsRegister {
          30
       )
       .setAlwaysEdible();
-   public static Item BROWNSLIMEWAND = new ToolWand(
+   public static final Item BROWN_SLIME_WAND = new ToolWand(
          "brown_slime_wand", CreativeTabs.TOOLS, 1000, new ItemStack(Blocks.SLIME_BLOCK), true, "arpg:brown_slime"
       )
       .setReplaceLogic("minecraft:slime", "arpg:brown_slime");
-   public static Item SLIMEBLOBWAND = new ToolWand(
+   public static final Item SLIME_BLOB_WAND = new ToolWand(
       "slime_blob_wand", CreativeTabs.TOOLS, 1000, new ItemStack(Items.SLIME_BALL), true, "arpg:slime_blob"
    );
-   public static Item BONESWAND = new ToolWand("bones_wand", CreativeTabs.TOOLS, 500, new ItemStack(Items.BONE, 2), true, "arpg:bones_pile");
-   public static Item GLOWINGTOXIBERRY = new ItemEatable(
+   public static final Item BONES_WAND = new ToolWand("bones_wand", CreativeTabs.TOOLS, 500, new ItemStack(Items.BONE, 2), true, "arpg:bones_pile");
+   public static final Item GLOWING_TOXIBERRY = new ItemEatable(
          "glowing_toxiberry",
          0,
          64,
@@ -519,7 +304,7 @@ public class ItemsRegister {
          15
       )
       .setAlwaysEdible();
-   public static Item SMALLTOXIBERRY = new ItemEatable(
+   public static final Item SMALL_TOXIBERRY = new ItemEatable(
          "small_toxiberry",
          0,
          64,
@@ -533,83 +318,83 @@ public class ItemsRegister {
          25
       )
       .setAlwaysEdible();
-   public static Item TOXINIUMHELM = Armors.toxiniumSET.HELMET;
-   public static Item TOXINIUMCHEST = Armors.toxiniumSET.CHESTPLATE;
-   public static Item TOXINIUMLEGS = Armors.toxiniumSET.LEGGINS;
-   public static Item TOXINIUMBOOTS = Armors.toxiniumSET.BOOTS;
-   public static Item COIN = new Coin();
-   public static Item TOXINIUMSHOTGUN = new ToxiniumShotgun();
-   public static Item LOCKER = new Locker();
-   public static Item SUBMACHINE = new Submachine();
-   public static Item SUBMACHINECLIP = new ItemAmmoClip("submachine_clip", CreativeTabs.COMBAT, 64, 40);
-   public static Item BULLETFROZEN = new ItemBullet.BulletFrozen();
-   public static Item BULLETCOPPER = new ItemBullet("bullet_copper", "copper", 64, 0.0F, 0.0F, 0.9F, 0.5F, 0.3F);
-   public static Item BULLETLEAD = new ItemBullet("bullet_lead", "lead", 64, 1.0F, 0.2F, 0.7F, 0.7F, 0.8F);
-   public static Item BULLETSILVER = new ItemBullet.BulletSilver();
-   public static Item BULLETGOLD = new ItemBullet("bullet_gold", "gold", 64, 2.5F, 0.4F, 0.9F, 0.7F, 0.2F);
-   public static Item BULLETFIRE = new ItemBullet.BulletIncendiary();
-   public static Item TOXINIUMSHOTGUNCLIP = new ItemAmmoClip("toxinium_shotgun_clip", CreativeTabs.COMBAT, 64, 32);
-   public static Item BULLETTHUNDER = new ItemBullet.BulletThunder();
-   public static Item BULLETPOISON = new ItemBullet.BulletPoisonous();
-   public static Item BULLETTOXIC = new ItemBullet.BulletToxic();
-   public static Item BULLETCRYSTAL = new ItemBullet.BulletCrystal();
-   public static Item BULLETEXPLODING = new ItemBullet.BulletExploding();
-   public static Item BULLETFESTIVAL = new ItemBullet.BulletFestival();
-   public static Item BULLETNIVEOUS = new ItemBullet.BulletNiveous();
-   public static Item BULLETERRATIC = new ItemBullet.BulletErratic();
-   public static Item BULLETCORAL = new ItemBullet.BulletCoral();
-   public static Item BULLETDIVERS = new ItemBullet.BulletDiving();
-   public static Item EMERALDEYE = new EmeraldEye();
-   public static Item LOOTBOXENCHANTWEAPON = new ItemLootCase("weapon_enchantments_box", CreativeTabs.MISC, 16, ItemLootCase.EMPTY_LIST);
-   public static Item LOOTBOXENCHANTSIMPLE = new ItemLootCase("simple_enchantments_box", CreativeTabs.MISC, 16, ItemLootCase.EMPTY_LIST);
-   public static Item LOOTBOXENCHANTALL = new ItemLootCase("all_enchantments_box", CreativeTabs.MISC, 16, ItemLootCase.EMPTY_LIST);
-   public static Item GEOMANTICCRYSTAL = new ItemGeomanticCrystal();
-   public static Item INGOTMANGANESE = new ItemItem("manganese_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTMANGANESE = new ItemItem("manganese_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTBERYLLIUM = new ItemItem("beryllium_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTBERYLLIUM = new ItemItem("beryllium_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTCHROMIUM = new ItemItem("chromium_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTCHROMIUM = new ItemItem("chromium_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item AIRBORNECIRCLET = new AirborneCirclet();
-   public static Item IMPETUS = new Impetus();
-   public static Item GIFT = new ItemItem("gift", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CANDYAPPLE = new ItemEatable("candy_apple", 0, 64, 5, 0.3F, false, 32, null, null, false, 0);
-   public static Item CANDYCANE = new ItemEatable("candy_cane", 0, 64, 3, 0.1F, false, 13, null, null, false, 0);
-   public static Item CRIMBERRYWINE = new ItemEatable(
+   public static final Item TOXINIUM_HELM = Armors.toxiniumSET.HELMET;
+   public static final Item TOXINIUM_CHEST = Armors.toxiniumSET.CHESTPLATE;
+   public static final Item TOXINIUM_LEGS = Armors.toxiniumSET.LEGGINS;
+   public static final Item TOXINIUM_BOOTS = Armors.toxiniumSET.BOOTS;
+   public static final Item COIN = new Coin();
+   public static final Item TOXINIUMSHOTGUN = new ToxiniumShotgun();
+   public static final Item LOCKER = new Locker();
+   public static final Item SUBMACHINE = new Submachine();
+   public static final Item SUBMACHINE_CLIP = new ItemAmmoClip("submachine_clip", CreativeTabs.COMBAT, 64, 40);
+   public static final Item BULLET_FROZEN = new ItemBullet.BulletFrozen();
+   public static final Item BULLET_COPPER = new ItemBullet("bullet_copper", "copper", 64, 0.0F, 0.0F, 0.9F, 0.5F, 0.3F);
+   public static final Item BULLET_LEAD = new ItemBullet("bullet_lead", "lead", 64, 1.0F, 0.2F, 0.7F, 0.7F, 0.8F);
+   public static final Item BULLET_SILVER = new ItemBullet.BulletSilver();
+   public static final Item BULLE_TGOLD = new ItemBullet("bullet_gold", "gold", 64, 2.5F, 0.4F, 0.9F, 0.7F, 0.2F);
+   public static final Item BULLET_INCENDIARY = new ItemBullet.BulletIncendiary();
+   public static final Item TOXINIUM_SHOTGUN_CLIP = new ItemAmmoClip("toxinium_shotgun_clip", CreativeTabs.COMBAT, 64, 32);
+   public static final Item BULLET_THUNDER = new ItemBullet.BulletThunder();
+   public static final Item BULLET_POISONOUS = new ItemBullet.BulletPoisonous();
+   public static final Item BULLET_TOXIC = new ItemBullet.BulletToxic();
+   public static final Item BULLET_CRYSTAL = new ItemBullet.BulletCrystal();
+   public static final Item BULLET_EXPLODING = new ItemBullet.BulletExploding();
+   public static final Item BULLET_FESTIVAL = new ItemBullet.BulletFestival();
+   public static final Item BULLET_NIVEOUS = new ItemBullet.BulletNiveous();
+   public static final Item BULLET_ERRATIC = new ItemBullet.BulletErratic();
+   public static final Item BULLET_CORAL = new ItemBullet.BulletCoral();
+   public static final Item BULLET_DIVING = new ItemBullet.BulletDiving();
+   public static final Item EMERALD_EYE = new EmeraldEye();
+   public static final Item WEAPON_ENCHANTMENTS_BOX = new ItemLootCase("weapon_enchantments_box", CreativeTabs.MISC, 16, ItemLootCase.EMPTY_LIST);
+   public static final Item SIMPLE_ENCHANTMENTS_BOX = new ItemLootCase("simple_enchantments_box", CreativeTabs.MISC, 16, ItemLootCase.EMPTY_LIST);
+   public static final Item ALL_ENCHANTMENTS_BOX = new ItemLootCase("all_enchantments_box", CreativeTabs.MISC, 16, ItemLootCase.EMPTY_LIST);
+   public static final Item GEOMANTIC_CRYSTAL = new ItemGeomanticCrystal();
+   public static final Item MANGANESE_INGOT = new ItemItem("manganese_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MANGANESE_DUST = new ItemItem("manganese_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BERYLLIUM_INGOT = new ItemItem("beryllium_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BERYLLIUM_DUST = new ItemItem("beryllium_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CHROMIUM_INGOT = new ItemItem("chromium_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CHROMIUM_DUST = new ItemItem("chromium_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item AIRBORNE_CIRCLET = new AirborneCirclet();
+   public static final Item IMPETUS = new Impetus();
+   public static final Item GIFT = new ItemItem("gift", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CANDY_APPLE = new ItemEatable("candy_apple", 0, 64, 5, 0.3F, false, 32, null, null, false, 0);
+   public static final Item CANDY_CANE = new ItemEatable("candy_cane", 0, 64, 3, 0.1F, false, 13, null, null, false, 0);
+   public static final Item CRIMBERRY_WINE = new ItemEatable(
          "crimberry_wine", 0, 64, 2, 0.2F, false, 32, new PotionEffect[]{new PotionEffect(MobEffects.RESISTANCE, 400)}, new float[]{1.0F}, true, 0
       )
       .setStackToReturn(new ItemStack(Items.GLASS_BOTTLE))
       .setAlwaysEdible();
-   public static Item BODYWARMER = new BaubleAntipotion(
+   public static final Item BODY_WARMER = new BaubleAntipotion(
       "body_warmer", CreativeTabs.COMBAT, PotionEffects.FREEZING, BaubleType.TRINKET, "Immunity to Freezing"
    );
-   public static Item DEVOURERSTEETH = new BaubleAntipotion(
+   public static final Item DEVOURERS_TEETH = new BaubleAntipotion(
       "devourers_teeth", CreativeTabs.COMBAT, MobEffects.HUNGER, BaubleType.HEAD, "Immunity to Hunger potion effect"
    );
-   public static Item ENDERLEECH = new BaubleAntipotion(
+   public static final Item ENDER_LEECH = new BaubleAntipotion(
       "ender_leech", CreativeTabs.COMBAT, PotionEffects.ENDER_POISON, BaubleType.TRINKET, "Immunity to Ender Poison"
    );
-   public static Item ENERGYDRINK = new BaubleAntipotion(
+   public static final Item GASEOUS_ENERGY_DRINK = new BaubleAntipotion(
       "gaseous_energy_drink", CreativeTabs.COMBAT, MobEffects.WEAKNESS, BaubleType.TRINKET, "Immunity to Weakness"
    );
-   public static Item CONTACTLENSES = new BaubleAntipotion(
+   public static final Item MAGIC_CONTACT_LENSES = new BaubleAntipotion(
       "magic_contact_lenses", CreativeTabs.COMBAT, MobEffects.BLINDNESS, BaubleType.HEAD, "Immunity to Blidness"
    );
-   public static Item MINERSGLOVE = new BaubleAntipotion(
+   public static final Item MINERS_GLOVE = new BaubleAntipotion(
       "miners_glove", CreativeTabs.COMBAT, MobEffects.MINING_FATIGUE, BaubleType.RING, "Immunity to Mining Fatigue"
    );
-   public static Item RUNNERSOCKS = new BaubleAntipotion(
+   public static final Item RUNNERS_SOCKS = new BaubleAntipotion(
       "runners_socks", CreativeTabs.COMBAT, MobEffects.SLOWNESS, BaubleType.TRINKET, "Immunity to Slowness"
    );
-   public static Item SLIMEEATER = new BaubleAntipotion(
+   public static final Item SLIME_EATER = new BaubleAntipotion(
          "slime_eater", CreativeTabs.COMBAT, PotionEffects.SLIME, BaubleType.TRINKET, "Immunity to Slime potion effect"
       )
       .setRender(1);
-   public static Item FIREEATER = new BaubleAntipotion(
+   public static final Item FIRE_EATER = new BaubleAntipotion(
          "fire_eater", CreativeTabs.COMBAT, PotionEffects.FIERYOIL, BaubleType.TRINKET, "Immunity to Fiery Oil"
       )
       .setRender(1);
-   public static Item SLIMEDEVOURER = new BaubleAntipotion(
+   public static final Item SLIME_DEVOURER = new BaubleAntipotion(
       "slime_devourer",
       CreativeTabs.COMBAT,
       new Potion[]{PotionEffects.SLIME, MobEffects.HUNGER},
@@ -617,7 +402,7 @@ public class ItemsRegister {
       false,
       new String[]{"Immunity to Slime and Hunger potions"}
    );
-   public static Item LAVAEATER = new BaubleAntipotion(
+   public static final Item LAVA_EATER = new BaubleAntipotion(
       "lava_eater",
       CreativeTabs.COMBAT,
       new Potion[]{PotionEffects.FREEZING, PotionEffects.FIERYOIL},
@@ -625,11 +410,11 @@ public class ItemsRegister {
       false,
       new String[]{"Immunity to Freezing and Fiery Oil"}
    );
-   public static Item PERSONALEXTINGUISHER = new BaubleAntipotion(
+   public static final Item PERSONAL_EXTINGUISHER = new BaubleAntipotion(
          "personal_extinguisher", CreativeTabs.COMBAT, null, BaubleType.TRINKET, true, new String[]{"Automatically removes fire from you"}
       )
       .setRender(1);
-   public static Item ETHERWORM = new BaubleAntipotion.BaubleAntipotionFallless(
+   public static final Item ETHER_WORM = new BaubleAntipotion.BaubleAntipotionFallless(
       "ether_worm",
       CreativeTabs.COMBAT,
       new Potion[]{PotionEffects.ENDER_POISON},
@@ -637,8 +422,8 @@ public class ItemsRegister {
       false,
       new String[]{"Immunity to Ender Poison and fall damage"}
    );
-   public static Item ANGELWORM = new BaubleAntipotion.BaubleAntipotionFallless(
-         "angelworm",
+   public static final Item ANGEL_WORM = new BaubleAntipotion.BaubleAntipotionFallless(
+         "angel_worm",
          CreativeTabs.COMBAT,
          new Potion[]{PotionEffects.ENDER_POISON, PotionEffects.SLIME, MobEffects.HUNGER, PotionEffects.FREEZING, PotionEffects.FIERYOIL},
          BaubleType.TRINKET,
@@ -646,15 +431,15 @@ public class ItemsRegister {
          new String[]{"Immunity to Slime, Hunger, Freezing, Fiery Oil,", "Ender Poison and fall damage"}
       )
       .setRender(1);
-   public static Item CROSSCHAINLET = new BaubleAntipotion(
+   public static final Item CROSS_CHAINLET = new BaubleAntipotion(
          "cross_chainlet", CreativeTabs.COMBAT, PotionEffects.DEMONIC_BURN, BaubleType.AMULET, "Immunity to Demonic Burn"
       )
       .setRender(1);
-   public static Item DETOXICATOR = new BaubleAntipotion(
+   public static final Item DETOXICATOR = new BaubleAntipotion(
          "detoxicator", CreativeTabs.COMBAT, MobEffects.POISON, BaubleType.RING, "Immunity to Poison"
       )
       .setRender(3);
-   public static Item HAZARDGLOVE = new BaubleAntipotion(
+   public static final Item HAZARD_GLOVE = new BaubleAntipotion(
       "hazard_glove",
       CreativeTabs.COMBAT,
       new Potion[]{MobEffects.MINING_FATIGUE, MobEffects.POISON},
@@ -662,11 +447,11 @@ public class ItemsRegister {
       false,
       new String[]{"Immunity to Poison and Mining Fatigue"}
    );
-   public static Item AMMONIAFLASK = new BaubleAntipotion(
+   public static final Item AMMONIA_FLASK = new BaubleAntipotion(
          "ammonia_flask", CreativeTabs.COMBAT, MobEffects.NAUSEA, BaubleType.TRINKET, "Immunity to Nausea"
       )
       .setRender(1);
-   public static Item CORROSIVEFLASK = new BaubleAntipotion(
+   public static final Item CORROSIVE_FLASK = new BaubleAntipotion(
          "corrosive_flask",
          CreativeTabs.COMBAT,
          new Potion[]{MobEffects.NAUSEA, MobEffects.WEAKNESS},
@@ -675,10 +460,10 @@ public class ItemsRegister {
          new String[]{"Immunity to Weakness and Nausea"}
       )
       .setRender(1);
-   public static Item CONDUCTIVEBELT = new BaubleAntipotion(
+   public static final Item CONDUCTIVE_BELT = new BaubleAntipotion(
       "conductive_belt", CreativeTabs.COMBAT, PotionEffects.SHOCK, BaubleType.BELT, "Immunity to Shock"
    );
-   public static Item LIGHTNINGSOCKS = new BaubleAntipotion(
+   public static final Item LIGHTNING_SOCKS = new BaubleAntipotion(
       "lightning_socks",
       CreativeTabs.COMBAT,
       new Potion[]{PotionEffects.SHOCK, MobEffects.SLOWNESS},
@@ -686,12 +471,16 @@ public class ItemsRegister {
       false,
       new String[]{"Immunity to Shock and Slowness"}
    );
-   public static Item FROSTINGUISHER = new BaubleAntipotion(
-         "personal_frostinguisher", CreativeTabs.COMBAT, PotionEffects.FROSTBURN, BaubleType.TRINKET, "Immunity to Burning Frost"
-      )
+   public static final Item FROST_INGUISHER = new BaubleAntipotion( // B: ну и что это за сухофрукт? Как я это понимать должен? И как мне это нормально записать?
+         "personal_frostinguisher",
+         CreativeTabs.COMBAT,
+         PotionEffects.FROSTBURN,
+         BaubleType.TRINKET,
+         "Immunity to Burning Frost"
+      ) //TODO переименовать по-человечески
       .setRender(1);
-   public static Item HOLYEXTINGUISHER = new BaubleAntipotion(
-         "holy_extinguisher",
+   public static final Item HOLY_EXTINGUISHER = new BaubleAntipotion( // B: обожаю Виверна за такие названия <3
+         "holy_extinguisher", //TODO переименовать
          CreativeTabs.COMBAT,
          new Potion[]{PotionEffects.DEMONIC_BURN},
          BaubleType.TRINKET,
@@ -699,11 +488,15 @@ public class ItemsRegister {
          new String[]{"Immunity to Demonic Burn"}
       )
       .setRender(1);
-   public static Item GHOSTFLAMETRAP = new BaubleAntipotion(
-         "ghostflame_trap", CreativeTabs.COMBAT, MobEffects.MINING_FATIGUE, BaubleType.TRINKET, "Immunity to Ghostflame"
+   public static final Item GHOSTFLAME_TRAP = new BaubleAntipotion(
+           "ghostflame_trap",
+           CreativeTabs.COMBAT,
+           MobEffects.MINING_FATIGUE,
+           BaubleType.TRINKET,
+           "Immunity to Ghostflame"
       )
       .setRender(1);
-   public static Item FLAMESUPPRESSOR = new BaubleAntipotion(
+   public static final Item FLAME_SUPPRESSOR = new BaubleAntipotion(
          "flame_suppressor",
          CreativeTabs.COMBAT,
          new Potion[]{PotionEffects.DEMONIC_BURN, PotionEffects.FROSTBURN},
@@ -712,219 +505,221 @@ public class ItemsRegister {
          new String[]{"Immunity to Fire, Burning Frost and Demonic Burn"}
       )
       .setRender(1);
-   public static Item ANCIENTICESHARD = new BaublesPack.BaubleAttributed(
+   public static final Item ANCIENT_ICE_SHARD = new BaublesPack.BaubleAttributed(
          "ancient_ice_shard", CreativeTabs.COMBAT, PropertiesRegistry.MANASPEED_MAX, 0.2, 0, BaubleType.AMULET, "+0.2 Mana Regeneration"
       )
       .setRender(1);
-   public static Item MANARUBBLE = new BaublesPack.BaubleAttributed(
+   public static final Item MANA_RUBBLE = new BaublesPack.BaubleAttributed(
       "mana_rubble", CreativeTabs.COMBAT, PropertiesRegistry.MANA_MAX, 5.0, 0, BaubleType.TRINKET, "+5 Maximum Mana"
    );
-   public static Item ICEHEART = new BaublesPack.IceHeart();
-   public static Item LIVEBLOODNECKLACE = new BaublesPack.LivebloodNecklace();
-   public static Item BRASSKNUCKLES = new BaublesPack.BaubleAttributed(
+   public static final Item ICE_HEART = new BaublesPack.IceHeart();
+   public static final Item LIVE_BLOOD_NECKLACE = new BaublesPack.LiveBloodNecklace();
+   public static final Item BRASS_KNUCKLES = new BaublesPack.BaubleAttributed(
          "brass_knuckles", CreativeTabs.COMBAT, SharedMonsterAttributes.ATTACK_DAMAGE, 2.0, 0, BaubleType.RING, "+2 Melee Attack Damage"
       )
       .setRender(5);
-   public static Item HELLHOUNDCOLLAR = new BaublesPack.HellhoundCollar();
-   public static Item GOLDENKNUCKLES = new BaublesPack.GoldenKnuckles();
-   public static Item PERSISTENCEPENDENT = new BaublesPack.PersistencePendent();
-   public static Item CYBERAMULET = new BaublesPack.CyberAmulet();
-   public static Item PAINFULROOT = new BaublesPack.PainfulRoot();
-   public static Item BLEEDINGROOT = new BaublesPack.BleedingRoot();
-   public static Item VENOMEDDAGGER = new BaublesPack.VenomedDagger();
-   public static Item SPIRITTHORN = new BaublesPack.SpiritThorn();
-   public static Item SPRINGERWAISTBAND = new BaublesPack.SpringerWaistband();
-   public static Item LIGHTBAND = new BaublesPack.Lightband();
-   public static Item THORNKEEPER = new BaublesPack.Thornkeeper();
-   public static Item MANAKEEPER = new BaublesPack.ManaKeeper();
-   public static Item THISTLETHORN = new ThistleThorn();
-   public static Item RESTLESSSKULL = new RestlessSkull();
-   public static Item MAGICROCKET = new MagicRocket();
-   public static Item STINGINGCELL = new StingingCell();
-   public static Item SEAEFFLORESCE = new SeaEffloresce();
-   public static Item CORALRIFLECLIP = new ItemAmmoClip("coral_rifle_clip", CreativeTabs.COMBAT, 64, CoralRifle.maxammo);
-   public static Item CORALRIFLE = new CoralRifle();
-   public static Item PALMLOGWAND = new ToolWand("palm_log_wand", CreativeTabs.TOOLS, 1000, "arpg:palm_log", true, "arpg:palm_log")
+   public static final Item HELLHOUND_COLLAR = new BaublesPack.HellhoundCollar();
+   public static final Item GOLDEN_KNUCKLES = new BaublesPack.GoldenKnuckles();
+   public static final Item PERSISTENCE_PENDENT = new BaublesPack.PersistencePendent();
+   public static final Item CYBER_AMULET = new BaublesPack.CyberAmulet();
+   public static final Item PAINFUL_ROOT = new BaublesPack.PainfulRoot();
+   public static final Item BLEEDING_ROOT = new BaublesPack.BleedingRoot();
+   public static final Item VENOMED_DAGGER = new BaublesPack.VenomedDagger();
+   public static final Item SPIRIT_THORN = new BaublesPack.SpiritThorn();
+   public static final Item SPRINGER_WAISTBAND = new BaublesPack.SpringerWaistband();
+   public static final Item LIGHT_BAND = new BaublesPack.LightBand();
+   public static final Item THORN_KEEPER = new BaublesPack.ThornKeeper();
+   public static final Item MANA_KEEPER = new BaublesPack.ManaKeeper();
+   public static final Item THISTLE_THORN = new ThistleThorn();
+   public static final Item RESTLESS_SKULL = new RestlessSkull();
+   public static final Item MAGIC_ROCKET = new MagicRocket();
+   public static final Item STINGING_CELL = new StingingCell();
+   public static final Item SEA_EFFLORESCE = new SeaEffloresce();
+   public static final Item CORAL_RIFLE_CLIP = new ItemAmmoClip("coral_rifle_clip", CreativeTabs.COMBAT, 64, CoralRifle.maxammo);
+   public static final Item CORAL_RIFLE = new CoralRifle();
+   public static final Item PALM_LOG_WAND = new ToolWand("palm_log_wand", CreativeTabs.TOOLS, 1000, "arpg:palm_log", true, "arpg:palm_log")
       .setReplaceLogic("arpg:palm_log", "arpg:palm_log")
       .setPlaceMeta(2)
       .setToReplaceMeta(2);
-   public static Item TIMELESSSWORD = new TimelessSword();
-   public static Item FIREWHIP = new FireWhip();
-   public static Item TEAMSELECTOR = new CreativeTeamSelector();
-   public static Item HADRONBLASTER = new HadronBlaster();
-   public static Item SNAPBALL = new Snapball();
-   public static Item SNAPBALLAMMO = new ItemItem("snapball_ammo", CreativeTabs.COMBAT, 0, 64);
-   public static Item ROCKETLAUNCHER = new RocketLauncher();
-   public static Item ROCKETCOMMON = new ItemRocket.CommonRocket();
-   public static Item GLASSHEART = new BaublesPack.GlassHeart();
-   public static Item ROCKETFROSTFIRE = new ItemRocket.FrostfireRocket();
-   public static Item ROCKETCHEMICAL = new ItemRocket.ChemicalRocket();
-   public static Item ROCKETNAPALM = new ItemRocket.NapalmRocket();
-   public static Item ROCKETDEMOLISHING = new ItemRocket.DemolishingRocket();
-   public static Item ROCKETMINING = new ItemRocket.MiningRocket();
-   public static Item ROCKETVOID = new ItemRocket.VoidRocket();
-   public static Item ROCKETWATERBLAST = new ItemRocket.WaterblastRocket();
-   public static Item ROCKETARCANE = new ItemRocket.ArcaneRocket();
-   public static Item ROCKETSURPRISE = new ItemRocket.SurpriseRocket();
-   public static Item ROCKETSHELL = new ItemRocket.ShellRocket();
-   public static Item BONEARMORHELM = new BoneHelm();
-   public static Item BONEARMORCHEST = new BoneHelm.BoneChestplate();
-   public static Item BONEARMORLEGS = new BoneHelm.BoneLeggins();
-   public static Item BONEARMORBOOTS = new BoneHelm.BoneBoots();
-   public static Item LICHARMORHELM = new LichHelm();
-   public static Item LICHARMORCHEST = new LichHelm.LichChestplate();
-   public static Item LICHARMORLEGS = new LichHelm.LichLeggins();
-   public static Item LICHARMORBOOTS = new LichHelm.LichBoots();
-   public static Item CORALARMORHELM = Armors.coralSET.HELMET;
-   public static Item CORALARMORCHEST = Armors.coralSET.CHESTPLATE;
-   public static Item CORALARMORLEGS = Armors.coralSET.LEGGINS;
-   public static Item CORALARMORBOOTS = Armors.coralSET.BOOTS;
-   public static Item SNOWCOATARMORHELM = Armors.snowcoatSET.HELMET;
-   public static Item SNOWCOATARMORCHEST = Armors.snowcoatSET.CHESTPLATE;
-   public static Item SNOWCOATARMORLEGS = Armors.snowcoatSET.LEGGINS;
-   public static Item SNOWCOATARMORBOOTS = Armors.snowcoatSET.BOOTS;
-   public static Item RUSTEDKEY = new Key("rusted_key", 64, ChestLock.RUSTED_KEY, true);
-   public static Item GASMASK = new BaublesPack.Gasmask();
-   public static Item ANTIRADPILLS = new ItemEatable("anti_rad_pills", 0, 64, 0, 0.0F, false, 14, null, null, false, -250).setAlwaysEdible();
-   public static Item ANTIRADINJECTOR = new AntiRadInjector();
-   public static Item ANTIRADPACK = new BaublesPack.AntiRadPack();
-   public static Item BUNKERKEYCARD = new ItemItem("bunker_keycard", CreativeTabs.TOOLS, 0, 1);
-   public static Item VIRULENTROD = new VirulentRod();
-   public static Item WRENCH = new Wrench();
-   public static Item ITEMTURRET = new ItemTurret();
-   public static Item CHAINMACEIRON = new ChainMace("chain_mace");
-   public static Item CHAINMACEDIAMOND = new ChainMace.DiamondChainMace();
-   public static Item CHAINMACEMOLTEN = new ChainMace.MoltenChainMace();
-   public static Item ICEBREAKER = new ChainMace.Icebreaker();
-   public static Item GRENADECLASSIC = new ItemGrenade("frag_grenade", 32, (byte)1, 30, 18.0F, 2.0F, new ResourceLocation("arpg:textures/frag_grenade.png"));
-   public static Item GRENADEBOMB = new ItemGrenade.Bomb("bomb", 24, (byte)2, 40, 0.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_bomb.png"));
-   public static Item GRENADECRYO = new ItemGrenade.Cryogrenade(
-      "cryogrenade", 16, (byte)3, 30, 5.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_cryo.png")
+   public static final Item TIMELESS_SWORD = new TimelessSword();
+   public static final Item FIRE_WHIP = new FireWhip();
+   public static final Item CREATIVE_TEAM_SELECTOR = new CreativeTeamSelector();
+   public static final Item HADRON_BLASTER = new HadronBlaster();
+   public static final Item SNAP_BALL = new SnapBall();
+   public static final Item SNAP_BALL_AMMO = new ItemItem("snap_ball_ammo", CreativeTabs.COMBAT, 0, 64);
+   public static final Item ROCKET_LAUNCHER = new RocketLauncher();
+   public static final Item COMMON_ROCKET = new ItemRocket.CommonRocket();
+   public static final Item GLASS_HEART = new BaublesPack.GlassHeart();
+   public static final Item FROSTFIRE_ROCKET = new ItemRocket.FrostfireRocket();
+   public static final Item CHEMICAL_ROCKET = new ItemRocket.ChemicalRocket();
+   public static final Item NAPALM_ROCKET = new ItemRocket.NapalmRocket();
+   public static final Item DEMOLISHING_ROCKET = new ItemRocket.DemolishingRocket();
+   public static final Item MINING_ROCKET = new ItemRocket.MiningRocket();
+   public static final Item VOID_ROCKET = new ItemRocket.VoidRocket();
+   public static final Item WATERBLAST_ROCKET = new ItemRocket.WaterblastRocket();
+   public static final Item ARCANE_ROCKET = new ItemRocket.ArcaneRocket();
+   public static final Item SURPRISE_ROCKET = new ItemRocket.SurpriseRocket();
+   public static final Item SHELL_ROCKET = new ItemRocket.ShellRocket();
+   public static final Item BONE_HELM = new BoneHelm();
+   public static final Item BONE_CHEST = new BoneHelm.BoneChestplate();
+   public static final Item BONE_LEGS = new BoneHelm.BoneLeggins();
+   public static final Item BONE_BOOTS = new BoneHelm.BoneBoots();
+   public static final Item LICH_HELM = new LichHelm();
+   public static final Item LICH_CHEST = new LichHelm.LichChestplate();
+   public static final Item LICH_LEGS = new LichHelm.LichLeggins();
+   public static final Item LICH_BOOTS = new LichHelm.LichBoots();
+   public static final Item CORAL_HELM = Armors.coralSET.HELMET;
+   public static final Item CORAL_CHEST = Armors.coralSET.CHESTPLATE;
+   public static final Item CORAL_LEGS = Armors.coralSET.LEGGINS;
+   public static final Item CORAL_BOOTS = Armors.coralSET.BOOTS;
+   public static final Item SNOW_COAT_HELM = Armors.snowCoatSET.HELMET;
+   public static final Item SNOW_COAT_CHEST = Armors.snowCoatSET.CHESTPLATE;
+   public static final Item SNOW_COAT_LEGS = Armors.snowCoatSET.LEGGINS;
+   public static final Item SNOW_COAT_BOOTS = Armors.snowCoatSET.BOOTS;
+   public static final Item RUSTED_KEY = new ItemKey("rusted_key", 64, ChestLock.RUSTED_KEY, true);
+   public static final Item GAS_MASK = new BaublesPack.GasMask();
+   public static final Item ANTI_RAD_PILLS = new ItemEatable("anti_rad_pills", 0, 64, 0, 0.0F, false, 14, null, null, false, -250).setAlwaysEdible();
+   public static final Item ANTI_RAD_INJECTOR = new AntiRadInjector();
+   public static final Item ANTI_RAD_PACK = new BaublesPack.AntiRadPack();
+   public static final Item BUNKER_KEYCARD = new ItemItem("bunker_keycard", CreativeTabs.TOOLS, 0, 1);
+   public static final Item VIRULENT_ROD = new VirulentRod();
+   public static final Item WRENCH = new Wrench();
+   public static final Item ITEM_TURRET = new ItemTurret();
+   public static final Item CHAIN_MACE = new ChainMace("chain_mace");
+   public static final Item DIAMOND_CHAIN_MACE = new ChainMace.DiamondChainMace();
+   public static final Item MOLTEN_CHAIN_MACE = new ChainMace.MoltenChainMace();
+   public static final Item ICEBREAKER = new ChainMace.Icebreaker();
+   public static final Item FRAG_GRENADE = new ItemGrenade("frag_grenade", 32, (byte)1, 30, 18.0F, 2.0F, new ResourceLocation("arpg:textures/frag_grenade.png"));
+   public static final Item BOMB = new ItemGrenade.Bomb("bomb", 24, (byte)2, 40, 0.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_bomb.png"));
+   public static final Item CRYO_GRENADE = new ItemGrenade.Cryogrenade(
+      "cryo_grenade", 16, (byte)3, 30, 5.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_cryo.png")
    );
-   public static Item GRENADEHELL = new ItemGrenade.HellGrenade(
+   public static final Item HELL_GRENADE = new ItemGrenade.HellGrenade(
       "hell_grenade", 20, (byte)4, 30, 11.0F, 0.8F, new ResourceLocation("arpg:textures/grenade_hell.png")
    );
-   public static Item GRENADEMOLOTOV = new ItemGrenade.MolotovCocktail(
+   public static final Item MOLOTOV_COCKTAIL = new ItemGrenade.MolotovCocktail(
       "molotov_cocktail", 32, (byte)5, 100, 0.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_molotov.png")
    );
-   public static Item GRENADEOIL = new ItemGrenade.OilBottle("oil_bottle", 48, (byte)6, 100, 0.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_oil.png"));
-   public static Item GRENADESNOW = new ItemGrenade.SnowGrenade(
+   public static final Item OIL_BOTTLE = new ItemGrenade.OilBottle(
+           "oil_bottle", 48, (byte)6, 100, 0.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_oil.png")
+   );
+   public static final Item SNOW_GRENADE = new ItemGrenade.SnowGrenade(
       "snow_grenade", 24, (byte)7, 30, 0.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_snow.png")
    );
-   public static Item GRENADEGAS = new ItemGrenade.GasGrenade(
+   public static final Item GAS_GRENADE = new ItemGrenade.GasGrenade(
       "gas_grenade", 20, (byte)8, 80, 30.0F, 1.0F, new ResourceLocation("arpg:textures/grenade_gas.png")
    );
-   public static Item GRENADESEA = new ItemGrenade.SeaGrenade(
+   public static final Item SEA_GRENADE = new ItemGrenade.SeaGrenade(
       "sea_grenade", 18, (byte)9, 30, 15.0F, 1.5F, new ResourceLocation("arpg:textures/grenade_sea.png")
    );
-   public static Item GRENADEWATCHING = new ItemGrenade.WatchingGrenade(
+   public static final Item WATCHING_GRENADE = new ItemGrenade.WatchingGrenade(
       "watching_grenade", 14, (byte)10, 35, 0.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_watching.png")
    );
-   public static Item GRENADEGRAVITY = new ItemGrenade.GravityGrenade(
+   public static final Item GRAVITY_GRENADE = new ItemGrenade.GravityGrenade(
       "gravity_grenade", 16, (byte)11, 40, 0.0F, 0.0F, new ResourceLocation("arpg:textures/grenade_gravity.png")
    );
-   public static Item LIVEHEART = new ItemItem("live_heart", CreativeTabs.FOOD, 0, 64);
-   public static Item ENDERCROWN = new BaublesPack.EnderCrown();
-   public static Item STORMLEDGELOGWANDBRASS = new ToolWand(
+   public static final Item LIVE_HEART = new ItemItem("live_heart", CreativeTabs.FOOD, 0, 64);
+   public static final Item ENDER_CROWN = new BaublesPack.EnderCrown();
+   public static final Item ARTHROSLELECHA_BRASS_LOG_WAND = new ToolWand(
          "arthroslelecha_brass_log_wand", CreativeTabs.TOOLS, 1000, "arpg:arthrostelecha_log_brass", true, "arpg:arthrostelecha_log_brass"
       )
       .setReplaceLogic("arpg:arthrostelecha_log_brass", "arpg:arthrostelecha_log_brass")
       .setPlaceMeta(2)
       .setToReplaceMeta(2);
-   public static Item STORMLEDGELOGWANDPINK = new ToolWand(
+   public static final Item ARTHROSLELECHA_PINK_LOG_WAND = new ToolWand(
          "arthroslelecha_pink_log_wand", CreativeTabs.TOOLS, 1000, "arpg:arthrostelecha_log_pink", true, "arpg:arthrostelecha_log_pink"
       )
       .setReplaceLogic("arpg:arthrostelecha_log_pink", "arpg:arthrostelecha_log_pink")
       .setPlaceMeta(2)
       .setToReplaceMeta(2);
-   public static Item PROCESSORPATTERN = new ItemItem("processor_pattern", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CMO = new ItemItem("cmo", CreativeTabs.MATERIALS, 0, 64);
-   public static Item MUTAGEN = new ItemItem("mutagen", CreativeTabs.MATERIALS, 0, 64);
-   public static Item EMBRYO = new ItemItem("embryo", CreativeTabs.MATERIALS, 0, 64);
-   public static Item VILESUBSTANCE = new ItemItem("vile_substance", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTNORTHERN = new ItemItem("northern_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NORTHERNSPHERE = new ItemItem("northern_sphere", CreativeTabs.MATERIALS, 0, 64);
-   public static Item ADAMANTIUMROUNDS = new AdamantiumRounds();
-   public static Item ADAMANTIUMREVOLVER = new AdamantiumRevolver();
-   public static Item ADAMANTIUMBATTLEAXE = new AdamantiumBattleAxe();
-   public static Item ADAMANTIUMARMORHELM = Armors.adamantiumSET.HELMET;
-   public static Item ADAMANTIUMARMORCHEST = Armors.adamantiumSET.CHESTPLATE;
-   public static Item ADAMANTIUMARMORLEGS = Armors.adamantiumSET.LEGGINS;
-   public static Item ADAMANTIUMARMORBOOTS = Armors.adamantiumSET.BOOTS;
-   public static Item ADAMANTIUMLONGSWORD = new AdamantiumLongsword();
-   public static Item ADAMANTIUMKNIFE = new AdamantiumKnife();
-   public static Item BULLETADAMANTIUM = new ItemBullet("bullet_adamantium", "adamantium", 64, 3.0F, 0.3F, 0.662F, 0.192F, 0.274F);
-   public static Item HAZARDHELM = Armors.hazardSET.HELMET;
-   public static Item HAZARDCHEST = Armors.hazardSET.CHESTPLATE;
-   public static Item HAZARDLEGS = Armors.hazardSET.LEGGINS;
-   public static Item HAZARDBOOTS = Armors.hazardSET.BOOTS;
-   public static Item STORMSPANNER = new StormSpanner();
-   public static Item INGOTADAMANTIUM = new ItemItem("adamantium_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTADAMANTIUM = new ItemItem("adamantium_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item HEROBRINECURSE = new BaublesPack.HerobrineCurse();
-   public static Item VOIDCRYSTAL = new ItemNoGravivy("void_crystal", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTTOXINIUM = new ItemItem("toxinium_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTTOXINIUM = new ItemItem("toxinium_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETTOXINIUM = new ItemItem("toxinium_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTSTORMSTEEL = new ItemItem("stormsteel_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTSTORMSTEEL = new ItemItem("stormsteel_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETSTORMSTEEL = new ItemItem("stormsteel_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTSTORMBRASS = new ItemItem("stormbrass_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTSTORMBRASS = new ItemItem("stormbrass_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETSTORMBRASS = new ItemItem("stormbrass_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTARSENIC = new ItemItem("arsenic_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTARSENIC = new ItemItem("arsenic_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETARSENIC = new ItemItem("arsenic_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTWOLFRAM = new ItemItem("wolfram_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTWOLFRAM = new ItemItem("wolfram_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETWOLFRAM = new ItemItem("wolfram_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SKYCRYSTAL = new ItemItem("sky_crystal", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SKYCRYSTALPIECE = new ItemItem("sky_crystal_piece", CreativeTabs.MATERIALS, 0, 64);
-   public static Item WINDNATURE = new ItemNoGravivy("wind_nature", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SKYSPHERE = new ItemItem("sky_sphere", CreativeTabs.MATERIALS, 0, 64);
-   public static Item ENDERPROTECTOR = new EnderProtector();
-   public static Item DRAGONTAIL = new DragonTail();
-   public static Item DRAGONSHELL = new DragonShell();
-   public static Item WINTERBREATH = new WinterBreath();
-   public static Item TOXINIUMSHIELD = new ToxiniumShield();
-   public static Item CARAPACE = new Carapace();
-   public static Item ROTTENSHIELD = new RottenShield();
-   public static Item HELLMARK = new Hellmark();
-   public static Item TOXIBERRYJUICEDRIP = new ItemItem("toxiberry_juice_drip", CreativeTabs.MATERIALS, 0, 64);
-   public static Item THUNDERSTONE = new ItemItem("thunder_stone", CreativeTabs.MATERIALS, 0, 64);
-   public static Item THUNDERCAPACITOR = new ItemItem("thunder_capacitor", CreativeTabs.MATERIALS, 0, 64);
-   public static Item ADVANCED_POLYMER = new ItemItem("advanced_polymer", CreativeTabs.MATERIALS, 0, 64).setFuel(20);
-   public static Item DUSTGLOWINGCRYSTAL = new ItemItem("glowing_crystal_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTMAGICCRYSTAL = new ItemItem("magic_crystal_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item COPPERSULFATE = new ItemItem("copper_sulfate", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PLANTFIBER = new ItemItem("plant_fiber", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DRIEDPLANTFIBER = new ItemItem("dried_plant_fiber", CreativeTabs.MATERIALS, 0, 64).setFuel(10);
-   public static Item CRYSTALPOISON = new ItemItem("crystallized_poison", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SALT = new ItemItem("salt", CreativeTabs.MATERIALS, 0, 64);
-   public static Item GRAINSSALT = new ItemItem("salt_grains", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CONIFERROSIN = new ItemItem("conifer_rosin", CreativeTabs.MATERIALS, 0, 64);
-   public static Item FIERYOIL = new ItemItem("fiery_oil", CreativeTabs.MATERIALS, 0, 64).setFuel(70);
-   public static Item ICEDUST = new ItemItem("ice_dust", CreativeTabs.MATERIALS, 0, 64).setEnchantGlow();
-   public static Item CHEMICALGLASS = new ItemItem("chemical_glass", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTBRASS = new ItemItem("brass_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTBRASS = new ItemItem("brass_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETBRASS = new ItemItem("brass_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTZINC = new ItemItem("zinc_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTZINC = new ItemItem("zinc_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETZINC = new ItemItem("zinc_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTTITANIUM = new ItemItem("titanium_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTTITANIUM = new ItemItem("titanium_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETTITANIUM = new ItemItem("titanium_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BAUXITE = new ItemItem("bauxite", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PIZZACHICKEN = new ItemEatable("pizza_chicken", 0, 64, 8, 1.0F, false, 38, null, null, false, 0);
-   public static Item PIZZADIAVOLA = new ItemEatable(
+   public static final Item PROCESSOR_PATTERN = new ItemItem("processor_pattern", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CMO = new ItemItem("cmo", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MUTAGEN = new ItemItem("mutagen", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item EMBRYO = new ItemItem("embryo", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item VILE_SUBSTANCE = new ItemItem("vile_substance", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item NORTHERN_INGOT = new ItemItem("northern_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item NORTHERN_SPHERE = new ItemItem("northern_sphere", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ADAMANTIUM_ROUNDS = new AdamantiumRounds();
+   public static final Item ADAMANTIUM_REVOLVER = new AdamantiumRevolver();
+   public static final Item ADAMANTIUM_BATTLE_AXE = new AdamantiumBattleAxe();
+   public static final Item ADAMANTIUM_HELM = Armors.adamantiumSET.HELMET;
+   public static final Item ADAMANTIUM_CHEST = Armors.adamantiumSET.CHESTPLATE;
+   public static final Item ADAMANTIUM_LEGS = Armors.adamantiumSET.LEGGINS;
+   public static final Item ADAMANTIUM_BOOTS = Armors.adamantiumSET.BOOTS;
+   public static final Item ADAMANTIUM_LONGSWORD = new AdamantiumLongsword();
+   public static final Item ADAMANTIUM_KNIFE = new AdamantiumKnife();
+   public static final Item BULLET_ADAMANTIUM = new ItemBullet("bullet_adamantium", "adamantium", 64, 3.0F, 0.3F, 0.662F, 0.192F, 0.274F);
+   public static final Item HAZARD_HELM = Armors.hazardSET.HELMET;
+   public static final Item HAZARD_CHEST = Armors.hazardSET.CHESTPLATE;
+   public static final Item HAZARD_LEGS = Armors.hazardSET.LEGGINS;
+   public static final Item HAZARD_BOOTS = Armors.hazardSET.BOOTS;
+   public static final Item STORM_SPANNER = new StormSpanner();
+   public static final Item ADAMANTIUM_INGOT = new ItemItem("adamantium_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ADAMANTIUM_DUST = new ItemItem("adamantium_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item HEROBRINE_CURSE = new BaublesPack.HerobrineCurse();
+   public static final Item VOID_CRYSTAL = new ItemNoGravivy("void_crystal", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TOXINIUM_INGOT = new ItemItem("toxinium_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TOXINIUM_DUST = new ItemItem("toxinium_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TOXINIUM_NUGGET = new ItemItem("toxinium_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STORMSTEEL_INGOT = new ItemItem("stormsteel_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STORMSTEEL_DUST = new ItemItem("stormsteel_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STORMSTEEL_NUGGET = new ItemItem("stormsteel_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STORMBRASS_INGOT = new ItemItem("stormbrass_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STORMBRASS_DUST = new ItemItem("stormbrass_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STORMBRASS_NUGGET = new ItemItem("stormbrass_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ARSENIC_INGOT = new ItemItem("arsenic_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ARSENIC_DUST = new ItemItem("arsenic_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ARSENIC_NUGGET = new ItemItem("arsenic_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item WOLFRAM_INGOT = new ItemItem("wolfram_ingot", CreativeTabs.MATERIALS, 0, 64); //TODO wolfram -> tungsten
+   public static final Item WOLFRAM_DUST = new ItemItem("wolfram_dust", CreativeTabs.MATERIALS, 0, 64); //TODO wolfram -> tungsten
+   public static final Item WOLFRAM_NUGGET = new ItemItem("wolfram_nugget", CreativeTabs.MATERIALS, 0, 64); //TODO wolfram -> tungsten
+   public static final Item SKY_CRYSTAL = new ItemItem("sky_crystal", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SKY_CRYSTAL_PIECE = new ItemItem("sky_crystal_piece", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item WIND_NATURE = new ItemNoGravivy("wind_nature", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SKY_SPHERE = new ItemItem("sky_sphere", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ENDER_PROTECTOR = new EnderProtector();
+   public static final Item DRAGON_TAIL = new DragonTail();
+   public static final Item DRAGON_SHELL = new DragonShell();
+   public static final Item WINTER_BREATH = new WinterBreath();
+   public static final Item TOXINIUM_SHIELD = new ToxiniumShield();
+   public static final Item CARAPACE = new Carapace();
+   public static final Item ROTTEN_SHIELD = new RottenShield();
+   public static final Item HELLMARK = new Hellmark();
+   public static final Item TOXIBERRY_JUICE_DRIP = new ItemItem("toxiberry_juice_drip", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item THUNDER_STONE = new ItemItem("thunder_stone", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item THUNDER_CAPACITOR = new ItemItem("thunder_capacitor", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ADVANCED_POLYMER = new ItemItem("advanced_polymer", CreativeTabs.MATERIALS, 0, 64).setFuel(20);
+   public static final Item GLOWING_CRYSTAL_DUST = new ItemItem("glowing_crystal_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MAGIC_CRYSTAL_DUST = new ItemItem("magic_crystal_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item COPPER_SULFATE = new ItemItem("copper_sulfate", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PLANT_FIBER = new ItemItem("plant_fiber", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item DRIED_PLANT_FIBER = new ItemItem("dried_plant_fiber", CreativeTabs.MATERIALS, 0, 64).setFuel(10);
+   public static final Item CRYSTALLIZED_POISON = new ItemItem("crystallized_poison", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SALT = new ItemItem("salt", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SALT_GRAINS = new ItemItem("salt_grains", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CONIFER_ROSIN = new ItemItem("conifer_rosin", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item FIERY_OIL = new ItemItem("fiery_oil", CreativeTabs.MATERIALS, 0, 64).setFuel(70);
+   public static final Item ICE_DUST = new ItemItem("ice_dust", CreativeTabs.MATERIALS, 0, 64).setEnchantGlow();
+   public static final Item CHEMICAL_GLASS = new ItemItem("chemical_glass", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BRASS_INGOT = new ItemItem("brass_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BRASS_DUST = new ItemItem("brass_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BRASS_NUGGET = new ItemItem("brass_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ZINC_INGOT = new ItemItem("zinc_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ZINC_DUST = new ItemItem("zinc_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ZINC_NUGGET = new ItemItem("zinc_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TITANIUM_INGOT = new ItemItem("titanium_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TITANIUM_DUST = new ItemItem("titanium_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TITANIUM_NUGGET = new ItemItem("titanium_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BAUXITE = new ItemItem("bauxite", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PIZZA_CHICKEN = new ItemEatable("pizza_chicken", 0, 64, 8, 1.0F, false, 38, null, null, false, 0);
+   public static final Item PIZZA_DIAVOLA = new ItemEatable( //ай к чёрту, оставим как есть, будет пасхалкой (читается как пицца дьявола)
       "pizza_diavola", 0, 64, 9, 1.0F, false, 38, new PotionEffect[]{new PotionEffect(PotionEffects.BERSERK, 666)}, new float[]{1.0F}, false, 0
    );
-   public static Item PIZZACHEEZE = new ItemEatable("pizza_cheeze", 0, 64, 7, 1.0F, false, 36, null, null, false, 0);
-   public static Item PIZZATOXIC = new ItemEatable(
-      "pizza_toxedge", 0, 64, 10, 1.0F, false, 38, new PotionEffect[]{new PotionEffect(MobEffects.POISON, 50)}, new float[]{0.5F}, false, 60
+   public static final Item PIZZA_CHEESE = new ItemEatable("pizza_cheeze",/*TODO cheeze->cheese*/ 0, 64, 7, 1.0F, false, 36, null, null, false, 0);
+   public static final Item PIZZA_TOXIC = new ItemEatable(
+      "pizza_toxedge" /*TODO toxedge -> toxic*/, 0, 64, 10, 1.0F, false, 38, new PotionEffect[]{new PotionEffect(MobEffects.POISON, 50)}, new float[]{0.5F}, false, 60
    );
-   public static Item PIZZAGLOWING = new ItemEatable(
+   public static final Item PIZZA_GLOWING = new ItemEatable(
       "pizza_glowing",
       0,
       64,
@@ -939,165 +734,165 @@ public class ItemsRegister {
       false,
       60
    );
-   public static Item PIZZASEAFOOD = new ItemEatable("pizza_seafood", 0, 64, 12, 1.0F, false, 32, null, null, false, 0);
-   public static Item SMOKEDSAUSAGE = new ItemEatable("smoked_sausage", 0, 64, 7, 0.8F, true, 26, null, null, false, 0);
-   public static Item RAWRIBS = new ItemEatable("raw_ribs", 0, 64, 3, 0.3F, true, 32, null, null, false, 0);
-   public static Item HOTSPICYRIBS = new ItemEatable(
+   public static final Item PIZZA_SEAFOOD = new ItemEatable("pizza_seafood", 0, 64, 12, 1.0F, false, 32, null, null, false, 0);
+   public static final Item SMOKED_SAUSAGE = new ItemEatable("smoked_sausage", 0, 64, 7, 0.8F, true, 26, null, null, false, 0);
+   public static final Item RAW_RIBS = new ItemEatable("raw_ribs", 0, 64, 3, 0.3F, true, 32, null, null, false, 0);
+   public static final Item HOT_SPICY_RIBS = new ItemEatable(
       "hot_spicy_ribs", 0, 64, 8, 0.8F, true, 32, new PotionEffect[]{new PotionEffect(PotionEffects.BERSERK, 400)}, new float[]{1.0F}, false, 0
    );
-   public static Item MAGMABLOOMSEEDS = new MagmaBloomSeed();
-   public static Item SULFUR = new ItemItem("sulfur_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item TOXIBERRYSTICK = new ItemItem("toxiberry_stick", CreativeTabs.MATERIALS, 0, 64).setFuel(10);
-   public static Item SCRAPMETAL = new ItemItem("scrap_metal", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SLIMECELL = new ItemItem("slime_cell", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SLIMEPLASTIC = new ItemItem("slime_plastic", CreativeTabs.MATERIALS, 0, 64);
-   public static Item WHITESLIMEBALL = new ItemItem("white_slimeball", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PLASTIC = new ItemItem("plastic", CreativeTabs.MATERIALS, 0, 64);
-   public static Item ICICLEMINIGUNCLIP = new ItemAmmoClip("icicle_minigun_clip", CreativeTabs.COMBAT, 64, IcicleMinigun.maxammo, true);
-   public static Item CIRCUIT = new ItemItem("circuit", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CIRCUITADVANCED = new ItemItem("advanced_circuit", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CIRCUITDIMENSION = new ItemItem("dimension_circuit", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CIRCUITTOXIC = new ItemItem("toxic_circuit", CreativeTabs.MATERIALS, 0, 64);
-   public static Item WIRECOPPER = new ItemItem("copper_wire", CreativeTabs.MATERIALS, 0, 64);
-   public static Item WIREGOLD = new ItemItem("gold_wire", CreativeTabs.MATERIALS, 0, 64);
-   public static Item WIRESILVER = new ItemItem("silver_wire", CreativeTabs.MATERIALS, 0, 64);
-   public static Item RUBBER = new ItemItem("rubber", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PROCESSOR = new ItemItem("processor", CreativeTabs.MATERIALS, 0, 64);
-   public static Item EYEOFSEER = new ItemItem("eye_of_seer", CreativeTabs.MATERIALS, 0, 64);
-   public static Item ELECTRICMOTOR = new ItemItem("electric_motor", CreativeTabs.MATERIALS, 0, 64);
-   public static Item LINEARMOTOR = new ItemItem("linear_motor", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BEARINGLEAD = new ItemItem("lead_bearing", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BEARINGARSENIC = new ItemItem("arsenic_bearing", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BATTERYLEADACID = new ItemAccumulator("lead_acid_battery", ItemAccumulator.LEAD_ACID_CAPACITY, ItemAccumulator.LEAD_ACID_THROUGHPUT);
-   public static Item BATTERYLIION = new ItemAccumulator("li_ion_battery", ItemAccumulator.LI_ION_CAPACITY, ItemAccumulator.LI_ION_THROUGHPUT);
-   public static Item GASFILTER = new ItemItem("gas_filter", CreativeTabs.MATERIALS, 0, 64);
-   public static Item WIREWOLFRAM = new ItemItem("wolfram_wire", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NAIL = new ItemItem("nail", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NAILGUNCLIP = new ItemAmmoClip("nail_gun_clip", CreativeTabs.COMBAT, 64, NailGun.maxammo, true);
-   public static Item NUGGETADAMANTIUM = new ItemItem("adamantium_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BLOWHOLE = new Blowhole();
-   public static Item BLOWHOLEPELLETS = new ItemItem("blowhole_pellets", CreativeTabs.COMBAT, 0, 64);
-   public static Item CRYSTALCUTTER = new CrystalCutter();
-   public static Item CRYSTALCUTTERAMMO = new ItemItem("crystal_cutter_ammo", CreativeTabs.COMBAT, 0, 64);
-   public static Item PLASMAMINIGUN = new PlasmaMinigun();
-   public static Item PLASMAMINIGUNCLIP = new ItemAmmoClip("plasma_minigun_clip", CreativeTabs.COMBAT, 64, PlasmaMinigun.maxammo);
-   public static Item CERATARGET = new Ceratarget();
-   public static Item HAILTEAR = new HailTear();
-   public static Item WINTERSACRIFICE = new WinterSacrifice();
-   public static Item WINTERSCALE = new ItemItem("winter_scale", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BURNINGFROSTIGNITER = new BurningFrostIgniter();
-   public static Item GOTHICSWORD = new GothicSword();
-   public static Item CRYSTALHELM = Armors.crystalSET.HELMET;
-   public static Item CRYSTALCHEST = Armors.crystalSET.CHESTPLATE;
-   public static Item CRYSTALLEGS = Armors.crystalSET.LEGGINS;
-   public static Item CRYSTALBOOTS = Armors.crystalSET.BOOTS;
-   public static Item THUNDERERHELM = Armors.thundererSET.HELMET;
-   public static Item THUNDERERCHEST = Armors.thundererSET.CHESTPLATE;
-   public static Item THUNDERERLEGS = Armors.thundererSET.LEGGINS;
-   public static Item THUNDERERBOOTS = Armors.thundererSET.BOOTS;
-   public static Item NORTHERNHELM = Armors.northernSET.HELMET;
-   public static Item NORTHERNCHEST = Armors.northernSET.CHESTPLATE;
-   public static Item NORTHERNLEGS = Armors.northernSET.LEGGINS;
-   public static Item NORTHERNBOOTS = Armors.northernSET.BOOTS;
-   public static Item GRENADELAUNCHER = new GrenadeLauncher();
-   public static Item HOLYSHOTGUN = new HolyShotgun();
-   public static Item BUCKSHOT = new Buckshot();
-   public static Item ECHINUS = new ChainMace.Echinus();
-   public static Item TIDEACTIVATOR1 = new ItemItem("tide_activator_1", CreativeTabs.TOOLS, 0, 1);
-   public static Item TIDEACTIVATOR2 = new ItemItem("tide_activator_2", CreativeTabs.TOOLS, 0, 1);
-   public static Item TIDEACTIVATOR3 = new ItemItem("tide_activator_3", CreativeTabs.TOOLS, 0, 1);
-   public static Item TIDEACTIVATOR4 = new ItemItem("tide_activator_4", CreativeTabs.TOOLS, 0, 1);
-   public static Item TIDEACTIVATOR5 = new ItemItem("tide_activator_5", CreativeTabs.TOOLS, 0, 1);
-   public static Item ARROWFROZEN = new Arrows.ArrowFrozen();
-   public static Item ARROWFIREJET = new Arrows.ArrowFirejet();
-   public static Item ARROWVICIOUS = new Arrows.ArrowVicious();
-   public static Item ARROWMODERN = new Arrows.ArrowModern();
-   public static Item ARROWBENGAL = new Arrows.ArrowBengal();
-   public static Item ARROWFISH = new Arrows.ArrowFish();
-   public static Item ARROWVOID = new Arrows.ArrowVoid();
-   public static Item ARROWSHELL = new Arrows.ArrowShell();
-   public static Item ARROWBOUNCING = new Arrows.ArrowBouncing();
-   public static Item ARROWMITHRIL = new Arrows.ArrowMithril();
-   public static Item ARROWTWIN = new Arrows.ArrowTwin();
-   public static Item ARROWWIND = new Arrows.ArrowWind();
-   public static Item MITHRILBOW = new MithrilBow();
-   public static Item COMPOUNDBOW = new CompoundBow();
-   public static Item STAFFOFTHEAZUREORE = new AzureOreStaff();
-   public static Item INGOTSILVER = new ItemItem("silver_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTSILVER = new ItemItem("silver_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETSILVER = new ItemItem("silver_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item COPPERTRANSFORMER = new ItemItem("copper_transformer", CreativeTabs.MATERIALS, 0, 64);
-   public static Item STAMPMOLD = new ItemItem("stamp_mold", CreativeTabs.MATERIALS, 0, 64);
-   public static Item STEELSTAMP = new ItemItem("steel_stamp", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BEARINGALLOYDUST = new ItemItem("bearing_alloy_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTALUMINIUM = new ItemItem("aluminium_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTALUMINIUM = new ItemItem("aluminium_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETALUMINIUM = new ItemItem("aluminium_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item MODULEELECTROLYZER = new ItemItem("electrolyzer_module", CreativeTabs.MATERIALS, 256, 64);
-   public static Item MODULEBIOFILTERING = new ItemItem("biofiltering_module", CreativeTabs.MATERIALS, 512, 64);
-   public static Item GRAINSBERYLLIUM = new ItemItem("beryllium_grains", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INSTANCER = new Instancer("instancer", 1.5F, 1.3F, 2000);
-   public static Item SLIMYEGGS = new ItemMobEgg("slimy_eggs", 64, new ResourceLocation("arpg:white_slime"));
-   public static Item SPAWNERPIECE = new ItemItem("spawner_piece", CreativeTabs.MATERIALS, 0, 64);
-   public static Item FROZENSPAWNERPIECE = new ItemItem("frozen_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
-   public static Item RUSTEDSPAWNERPIECE = new ItemItem("rusted_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
-   public static Item ENDERINSTANCER = new EnderInstancer();
-   public static Item WINTERINSTANCER = new WinterInstancer();
-   public static Item MILITARYINSTANCER = new MilitaryInstancer();
-   public static Item AQUATICINSTANCER = new AquaticInstancer();
-   public static Item VIOLENCE = new Violence();
-   public static Item STAFFOFWITHERDRY = new StaffOfWitherdry();
-   public static Item HELLHOUNDFUR = new ItemItem("hellhound_fur", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NIVEOLITE = new ItemItem("niveolite", CreativeTabs.MATERIALS, 0, 64);
-   public static Item WHISPERSBLADE = new WhispersBlade();
-   public static Item PUMPSHOTGUN = new PumpShotgun();
-   public static Item GOTHICBOW = new GothicBow();
-   public static Item COOLEDRIFLECLIP = new ItemAmmoClip("cooled_rifle_clip", CreativeTabs.COMBAT, 64, 28);
-   public static Item COOLEDRIFLE = new CooledRifle();
-   public static Item AQUATICBOW = new AquaticBow();
-   public static Item MAGICEXPLORINGKIT = new ItemItem("magic_exploring_kit", CreativeTabs.TOOLS, 0, 1);
-   public static Item MAGICRESEARCHKIT = new ItemItem("magic_research_kit", CreativeTabs.TOOLS, 0, 1);
-   public static Item MAGICWRITINGKIT = new ItemItem("magic_writing_kit", CreativeTabs.TOOLS, 0, 1);
-   public static Item BEAKER = new Beaker();
-   public static Item SPELLPLIERS = new SpellPliers();
-   public static Item VIALFIRE = new ItemVial(1);
-   public static Item VIALEARTH = new ItemVial(2);
-   public static Item VIALWATER = new ItemVial(3);
-   public static Item VIALAIR = new ItemVial(4);
-   public static Item VIALPOISON = new ItemVial(5);
-   public static Item VIALCOLD = new ItemVial(6);
-   public static Item VIALELECTRIC = new ItemVial(7);
-   public static Item VIALVOID = new ItemVial(8);
-   public static Item VIALPLEASURE = new ItemVial(9);
-   public static Item VIALPAIN = new ItemVial(10);
-   public static Item VIALDEATH = new ItemVial(11);
-   public static Item VIALLIVE = new ItemVial(12);
-   public static Item[] vials = new Item[]{
-      VIALFIRE, VIALEARTH, VIALWATER, VIALAIR, VIALPOISON, VIALCOLD, VIALELECTRIC, VIALVOID, VIALPLEASURE, VIALPAIN, VIALDEATH, VIALLIVE
+   public static final Item MAGMA_BLOOM_SEED = new MagmaBloomSeed();
+   public static final Item SULFUR_DUST = new ItemItem("sulfur_dust", CreativeTabs.MATERIALS, 0, 64); //TODO sulfur_dust -> just sulfur
+   public static final Item TOXIBERRY_STICK = new ItemItem("toxiberry_stick", CreativeTabs.MATERIALS, 0, 64).setFuel(10);
+   public static final Item SCRAP_METAL = new ItemItem("scrap_metal", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SLIME_CELL = new ItemItem("slime_cell", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SLIME_PLASTIC = new ItemItem("slime_plastic", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item WHITE_SLIMEBALL = new ItemItem("white_slimeball", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PLASTIC = new ItemItem("plastic", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ICICLE_MINIGUN_CLIP = new ItemAmmoClip("icicle_minigun_clip", CreativeTabs.COMBAT, 64, IcicleMinigun.maxammo, true);
+   public static final Item CIRCUIT = new ItemItem("circuit", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ADVANCED_CIRCUIT = new ItemItem("advanced_circuit", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item DIMENSION_CIRCUIT = new ItemItem("dimension_circuit", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TOXIC_CIRCUIT = new ItemItem("toxic_circuit", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item COPPER_WIRE = new ItemItem("copper_wire", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item GOLD_WIRE = new ItemItem("gold_wire", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SILVER_WIRE = new ItemItem("silver_wire", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item RUBBER = new ItemItem("rubber", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PROCESSOR = new ItemItem("processor", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item EYE_OF_SEER = new ItemItem("eye_of_seer", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ELECTRIC_MOTOR = new ItemItem("electric_motor", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item LINEAR_MOTOR = new ItemItem("linear_motor", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item LEAD_BEARING = new ItemItem("lead_bearing", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ARSENIC_BEARING = new ItemItem("arsenic_bearing", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item LEAD_ACID_BATTERY = new ItemAccumulator("lead_acid_battery", ItemAccumulator.LEAD_ACID_CAPACITY, ItemAccumulator.LEAD_ACID_THROUGHPUT);
+   public static final Item LI_ION_BATTERY = new ItemAccumulator("li_ion_battery", ItemAccumulator.LI_ION_CAPACITY, ItemAccumulator.LI_ION_THROUGHPUT);
+   public static final Item GAS_FILTER = new ItemItem("gas_filter", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item WOLFRAM_WIRE = new ItemItem("wolfram_wire", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item NAIL = new ItemItem("nail", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item NAIL_GUN_CLIP = new ItemAmmoClip("nail_gun_clip", CreativeTabs.COMBAT, 64, NailGun.maxammo, true);
+   public static final Item ADAMANTIUM_NUGGET = new ItemItem("adamantium_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BLOWHOLE = new Blowhole();
+   public static final Item BLOWHOLE_PELLETS = new ItemItem("blowhole_pellets", CreativeTabs.COMBAT, 0, 64);
+   public static final Item CRYSTAL_CUTTER = new CrystalCutter();
+   public static final Item CRYSTAL_CUTTER_AMMO = new ItemItem("crystal_cutter_ammo", CreativeTabs.COMBAT, 0, 64);
+   public static final Item PLASMA_MINIGUN = new PlasmaMinigun();
+   public static final Item PLASMA_MINIGUN_CLIP = new ItemAmmoClip("plasma_minigun_clip", CreativeTabs.COMBAT, 64, PlasmaMinigun.maxammo);
+   public static final Item CERATARGET = new Ceratarget();
+   public static final Item HAIL_TEAR = new HailTear();
+   public static final Item WINTER_SACRIFICE = new WinterSacrifice();
+   public static final Item WINTER_SCALE = new ItemItem("winter_scale", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BURNING_FROST_IGNITER = new BurningFrostIgniter();
+   public static final Item GOTHIC_SWORD = new GothicSword();
+   public static final Item CRYSTAL_HELM = Armors.crystalSET.HELMET;
+   public static final Item CRYSTAL_CHEST = Armors.crystalSET.CHESTPLATE;
+   public static final Item CRYSTAL_LEGS = Armors.crystalSET.LEGGINS;
+   public static final Item CRYSTAL_BOOTS = Armors.crystalSET.BOOTS;
+   public static final Item THUNDERER_HELM = Armors.thundererSET.HELMET;
+   public static final Item THUNDERER_CHEST = Armors.thundererSET.CHESTPLATE;
+   public static final Item THUNDERER_LEGS = Armors.thundererSET.LEGGINS;
+   public static final Item THUNDERER_BOOTS = Armors.thundererSET.BOOTS;
+   public static final Item NORTHERN_HELM = Armors.northernSET.HELMET;
+   public static final Item NORTHERN_CHEST = Armors.northernSET.CHESTPLATE;
+   public static final Item NORTHERN_LEGS = Armors.northernSET.LEGGINS;
+   public static final Item NORTHERN_BOOTS = Armors.northernSET.BOOTS;
+   public static final Item GRENADE_LAUNCHER = new GrenadeLauncher();
+   public static final Item HOLY_SHOTGUN = new HolyShotgun();
+   public static final Item BUCKSHOT = new Buckshot();
+   public static final Item ECHINUS = new ChainMace.Echinus();
+   public static final Item TIDE_ACTIVATOR_1 = new ItemItem("tide_activator_1", CreativeTabs.TOOLS, 0, 1);
+   public static final Item TIDE_ACTIVATOR_2 = new ItemItem("tide_activator_2", CreativeTabs.TOOLS, 0, 1);
+   public static final Item TIDE_ACTIVATOR_3 = new ItemItem("tide_activator_3", CreativeTabs.TOOLS, 0, 1);
+   public static final Item TIDE_ACTIVATOR_4 = new ItemItem("tide_activator_4", CreativeTabs.TOOLS, 0, 1);
+   public static final Item TIDE_ACTIVATOR_5 = new ItemItem("tide_activator_5", CreativeTabs.TOOLS, 0, 1);
+   public static final Item ARROW_FROZEN = new Arrows.ArrowFrozen();
+   public static final Item ARROW_FIREJET = new Arrows.ArrowFirejet();
+   public static final Item ARROW_VICIOUS = new Arrows.ArrowVicious();
+   public static final Item ARROW_MODERN = new Arrows.ArrowModern();
+   public static final Item ARROW_BENGAL = new Arrows.ArrowBengal();
+   public static final Item ARROW_FISH = new Arrows.ArrowFish();
+   public static final Item ARROW_VOID = new Arrows.ArrowVoid();
+   public static final Item ARROW_SHELL = new Arrows.ArrowShell();
+   public static final Item ARROW_BOUNCING = new Arrows.ArrowBouncing();
+   public static final Item ARROW_MITHRIL = new Arrows.ArrowMithril();
+   public static final Item ARROW_TWIN = new Arrows.ArrowTwin();
+   public static final Item ARROW_WIND = new Arrows.ArrowWind();
+   public static final Item MITHRIL_BOW = new MithrilBow();
+   public static final Item COMPOUND_BOW = new CompoundBow();
+   public static final Item AZURE_ORE_STAFF = new AzureOreStaff();
+   public static final Item SILVER_INGOT = new ItemItem("silver_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SILVER_DUST = new ItemItem("silver_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SILVER_NUGGET = new ItemItem("silver_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item COPPER_TRANSFORMER = new ItemItem("copper_transformer", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STAMP_MOLD = new ItemItem("stamp_mold", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STEEL_STAMP = new ItemItem("steel_stamp", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BEARING_ALLOY_DUST = new ItemItem("bearing_alloy_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ALUMINIUM_INGOT = new ItemItem("aluminium_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ALUMINIUM_DUST = new ItemItem("aluminium_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ALUMINIUM_NUGGET = new ItemItem("aluminium_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ELECTROLYZER_MODULE = new ItemItem("electrolyzer_module", CreativeTabs.MATERIALS, 256, 64);
+   public static final Item BIOFILTERING_MODULE = new ItemItem("biofiltering_module", CreativeTabs.MATERIALS, 512, 64);
+   public static final Item BERYLLIUM_GRAINS = new ItemItem("beryllium_grains", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item INSTANCER = new Instancer("instancer", 1.5F, 1.3F, 2000);
+   public static final Item SLIMY_EGGS = new ItemMobEgg("slimy_eggs", 64, new ResourceLocation("arpg:white_slime"));
+   public static final Item SPAWNER_PIECE = new ItemItem("spawner_piece", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item FROZEN_SPAWNER_PIECE = new ItemItem("frozen_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item RUSTED_SPAWNER_PIECE = new ItemItem("rusted_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ENDER_INSTANCER = new EnderInstancer();
+   public static final Item WINTER_INSTANCER = new WinterInstancer();
+   public static final Item MILITARY_INSTANCER = new MilitaryInstancer();
+   public static final Item AQUATIC_INSTANCER = new AquaticInstancer();
+   public static final Item VIOLENCE = new Violence();
+   public static final Item STAFF_OF_WITHERDRY = new StaffOfWitherdry();
+   public static final Item HELLHOUND_FUR = new ItemItem("hellhound_fur", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item NIVEOLITE = new ItemItem("niveolite", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item WHISPERS_BLADE = new WhispersBlade();
+   public static final Item PUMP_SHOTGUN = new PumpShotgun();
+   public static final Item GOTHIC_BOW = new GothicBow();
+   public static final Item COOLED_RIFLE_CLIP = new ItemAmmoClip("cooled_rifle_clip", CreativeTabs.COMBAT, 64, 28);
+   public static final Item COOLED_RIFLE = new CooledRifle();
+   public static final Item AQUATIC_BOW = new AquaticBow();
+   public static final Item MAGIC_EXPLORING_KIT = new ItemItem("magic_exploring_kit", CreativeTabs.TOOLS, 0, 1);
+   public static final Item MAGIC_RESEARCH_KIT = new ItemItem("magic_research_kit", CreativeTabs.TOOLS, 0, 1);
+   public static final Item MAGIC_WRITING_KIT = new ItemItem("magic_writing_kit", CreativeTabs.TOOLS, 0, 1);
+   public static final Item BEAKER = new Beaker();
+   public static final Item SPELL_PLIERS = new SpellPliers();
+   public static final Item VIAL_FIRE = new ItemVial(1);
+   public static final Item VIAL_EARTH = new ItemVial(2);
+   public static final Item VIAL_WATER = new ItemVial(3);
+   public static final Item VIAL_AIR = new ItemVial(4);
+   public static final Item VIAL_POISON = new ItemVial(5);
+   public static final Item VIAL_COLD = new ItemVial(6);
+   public static final Item VIAL_ELECTRIC = new ItemVial(7);
+   public static final Item VIAL_VOID = new ItemVial(8);
+   public static final Item VIAL_PLEASURE = new ItemVial(9);
+   public static final Item VIAL_PAIN = new ItemVial(10);
+   public static final Item VIAL_DEATH = new ItemVial(11);
+   public static final Item VIAL_LIVE = new ItemVial(12);
+   public static final Item[] VIALS = new Item[]{
+           VIAL_FIRE, VIAL_EARTH, VIAL_WATER, VIAL_AIR, VIAL_POISON, VIAL_COLD, VIAL_ELECTRIC, VIAL_VOID, VIAL_PLEASURE, VIAL_PAIN, VIAL_DEATH, VIAL_LIVE
    };
-   public static Item VIAL = new ItemVial(0);
-   public static Item VIALEMPTY = new ItemVial(-1);
-   public static Item SPELLROLL = new ItemSpellRoll();
-   public static Item SHADOWWINGS = new ShadowWings();
-   public static Item DASHBELTBLACK = new DashBelt.DashBeltBlack();
-   public static Item DASHBELTHELLHOUND = new DashBelt.HellhoundBelt();
-   public static Item DASHBELTIMPULSECORSLET = new DashBelt.ImpulseCorslet();
-   public static Item BOOKOFELEMENTS = new ElementsBook();
-   public static Item XMASSLAUNCHER = new XmassLauncher();
-   public static Item XMASSBUNDLE = new ItemItem("xmass_bundle", CreativeTabs.COMBAT, 0, 64);
-   public static Item ADAMANTIUMMINIGUN = new AdamantiumMinigun();
-   public static Item ADAMANTIUMMINIGUNCLIP = new ItemAmmoClip("adamantium_minigun_clip", CreativeTabs.COMBAT, 64, AdamantiumMinigun.maxammo);
-   public static Item BUZDYGAN = new Buzdygan();
-   public static Item WHIP = new Whip("whip", 450);
-   public static Item MAULER = new Mauler();
-   public static Item SNAKEWHIP = new Snakewhip();
-   public static Item ENIGMATETWINS = new BaublesPack.EnigmateTwins();
-   public static Item ALCHEMICALWAX = new ItemItem("alchemical_wax", CreativeTabs.MATERIALS, 0, 64).setFuel(40);
-   public static Item MANABERRY = new ItemEatable(
+   public static final Item VIAL = new ItemVial(0);
+   public static final Item VIAL_EMPTY = new ItemVial(-1);
+   public static final Item SPELL_ROLL = new ItemSpellRoll();
+   public static final Item SHADOW_WINGS = new ShadowWings();
+   public static final Item DASH_BELT_BLACK = new DashBelt.DashBeltBlack();
+   public static final Item DASH_HELLHOUND_BELT = new DashBelt.DashHellhoundBelt();
+   public static final Item DASH_IMPULSE_CORSLET = new DashBelt.DashImpulseCorslet();
+   public static final Item ELEMENTS_BOOK = new ElementsBook();
+   public static final Item XMASS_LAUNCHER = new XmassLauncher();
+   public static final Item XMASS_BUNDLE = new ItemItem("xmass_bundle", CreativeTabs.COMBAT, 0, 64);
+   public static final Item ADAMANTIUM_MINIGUN = new AdamantiumMinigun();
+   public static final Item ADAMANTIUM_MINIGUN_CLIP = new ItemAmmoClip("adamantium_minigun_clip", CreativeTabs.COMBAT, 64, AdamantiumMinigun.maxammo);
+   public static final Item BUZDYGAN = new Buzdygan();
+   public static final Item WHIP = new Whip("whip", 450);
+   public static final Item MAULER = new Mauler();
+   public static final Item SNAKEWHIP = new Snakewhip();
+   public static final Item ENIGMATE_TWINS = new BaublesPack.EnigmateTwins();
+   public static final Item ALCHEMICAL_WAX = new ItemItem("alchemical_wax", CreativeTabs.MATERIALS, 0, 64).setFuel(40);
+   public static final Item MANA_BERRY = new ItemEatable(
          "mana_berry", 0, 64, 0, 0.0F, false, 32, new PotionEffect[]{new PotionEffect(MobEffects.NAUSEA, 150)}, new float[]{1.0F}, false, 0
       )
       .setMana(3.0F);
-   public static Item HEALTHBERRY = new ItemEatable(
+   public static final Item HEALTH_BERRY = new ItemEatable(
       "health_berry",
       0,
       64,
@@ -1114,413 +909,413 @@ public class ItemsRegister {
       false,
       0
    );
-   public static Item QUANTUMSLIMEBALL = new ItemItem("quantum_slimeball", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CANISTER = new Canister();
-   public static Item REDPEPPER = new ItemEatable("red_pepper", 0, 64, 4, 0.2F, false, 28, null, null, false, 0).setBurn(3);
-   public static Item MOONSHROOMMEAT = new ItemEatable("moonshroom_meat", 0, 64, 2, 0.1F, false, 38, null, null, false, 0);
-   public static Item YEAST = new ItemItem("yeast", CreativeTabs.FOOD, 0, 64);
-   public static Item WHEYSTARTER = new ItemItem("whey_starter", CreativeTabs.FOOD, 0, 64);
-   public static Item MUSHROOMSINSAUCE = new ItemEatable("mushrooms_in_sauce", 0, 64, 12, 0.9F, false, 34, null, null, false, 0)
+   public static final Item QUANTUM_SLIMEBALL = new ItemItem("quantum_slimeball", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CANISTER = new Canister();
+   public static final Item REDPEPPER = new ItemEatable("red_pepper", 0, 64, 4, 0.2F, false, 28, null, null, false, 0).setBurn(3);
+   public static final Item MOONSHROOM_MEAT = new ItemEatable("moonshroom_meat", 0, 64, 2, 0.1F, false, 38, null, null, false, 0);
+   public static final Item YEAST = new ItemItem("yeast", CreativeTabs.FOOD, 0, 64);
+   public static final Item WHEY_STARTER = new ItemItem("whey_starter", CreativeTabs.FOOD, 0, 64);
+   public static final Item MUSHROOMS_IN_SAUCE = new ItemEatable("mushrooms_in_sauce", 0, 64, 12, 0.9F, false, 34, null, null, false, 0)
       .setStackToReturn(new ItemStack(Items.BOWL));
-   public static Item MOZZARELLA = new ItemEatable("mozzarella", 0, 64, 2, 0.2F, false, 32, null, null, false, 0);
-   public static Item DOUGH = new ItemItem("dough", CreativeTabs.FOOD, 0, 64);
-   public static Item SWEETDOUGH = new ItemItem("sweet_dough", CreativeTabs.FOOD, 0, 64);
-   public static Item TOXEDGEDOUGH = new ItemItem("toxedge_dough", CreativeTabs.FOOD, 0, 64);
-   public static Item MAGICJAM = new ItemEatable(
+   public static final Item MOZZARELLA = new ItemEatable("mozzarella", 0, 64, 2, 0.2F, false, 32, null, null, false, 0);
+   public static final Item DOUGH = new ItemItem("dough", CreativeTabs.FOOD, 0, 64);
+   public static final Item SWEET_DOUGH = new ItemItem("sweet_dough", CreativeTabs.FOOD, 0, 64);
+   public static final Item TOXEDGE_DOUGH = new ItemItem("toxedge_dough", CreativeTabs.FOOD, 0, 64);
+   public static final Item MAGIC_JAM = new ItemEatable(
          "magic_jam", 0, 64, 6, 0.7F, false, 28, new PotionEffect[]{new PotionEffect(PotionEffects.MANA_REGENERATION, 400)}, new float[]{1.0F}, false, 4
       )
       .setMana(6.0F)
       .setAlwaysEdible();
-   public static Item TOMATOCHERRY = new ItemEatable("cherry_tomato", 0, 64, 2, 0.4F, false, 32, null, null, false, 0);
-   public static Item MODULEFERMENTER = new ItemItem("fermenter_module", CreativeTabs.MATERIALS, 256, 64);
-   public static Item MODULECENTRIFUGE = new ItemItem("centrifuge_module", CreativeTabs.MATERIALS, 256, 64);
-   public static Item BORSCH = new ItemEatable("borsch", 0, 64, 9, 0.75F, false, 36, null, null, true, 0).setStackToReturn(new ItemStack(Items.BOWL));
-   public static Item STUFFEDFIERYBEAN = new ItemEatable("stuffed_fiery_bean", 0, 64, 9, 0.6F, true, 32, null, null, false, 0);
-   public static Item MEATBROTH = new ItemEatable("meat_broth", 0, 64, 3, 0.2F, true, 12, null, null, true, 0)
+   public static final Item CHERRY_TOMATO = new ItemEatable("cherry_tomato", 0, 64, 2, 0.4F, false, 32, null, null, false, 0);
+   public static final Item FERMENTER_MODULE = new ItemItem("fermenter_module", CreativeTabs.MATERIALS, 256, 64);
+   public static final Item CENTRIFUGE_MODULE = new ItemItem("centrifuge_module", CreativeTabs.MATERIALS, 256, 64);
+   public static final Item BORSCH = new ItemEatable("borsch", 0, 64, 9, 0.75F, false, 36, null, null, true, 0).setStackToReturn(new ItemStack(Items.BOWL));
+   public static final Item STUFFED_FIERY_BEAN = new ItemEatable("stuffed_fiery_bean", 0, 64, 9, 0.6F, true, 32, null, null, false, 0);
+   public static final Item MEAT_BROTH = new ItemEatable("meat_broth", 0, 64, 3, 0.2F, true, 12, null, null, true, 0)
       .setStackToReturn(new ItemStack(Items.BOWL));
-   public static Item FLOUR = new ItemItem("flour", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PUDDINGVIOLET = new ItemEatable(
+   public static final Item FLOUR = new ItemItem("flour", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item VIOLET_PUDDING = new ItemEatable(
          "violet_pudding", 0, 64, 6, 0.6F, false, 28, new PotionEffect[]{new PotionEffect(PotionEffects.ENDER_POISON, 25)}, new float[]{1.0F}, false, 0
       )
       .setMana(5.0F)
       .setAlwaysEdible();
-   public static Item PUDDINGGREEN = new ItemEatable(
+   public static final Item GREEN_PUDDING = new ItemEatable(
          "green_pudding", 0, 64, 6, 0.6F, false, 28, new PotionEffect[]{new PotionEffect(MobEffects.POISON, 60)}, new float[]{1.0F}, false, 15
       )
       .setAlwaysEdible();
-   public static Item PUDDINGBROWN = new ItemEatable(
+   public static final Item BROWN_PUDDING = new ItemEatable(
          "brown_pudding", 0, 64, 5, 0.6F, false, 28, new PotionEffect[]{new PotionEffect(MobEffects.SPEED, 100, 1)}, new float[]{1.0F}, false, 0
       )
       .setAlwaysEdible();
-   public static Item PUDDINGORANGE = new ItemEatable(
+   public static final Item ORANGE_PUDDING = new ItemEatable(
          "orange_pudding", 0, 64, 5, 0.6F, false, 28, new PotionEffect[]{new PotionEffect(MobEffects.FIRE_RESISTANCE, 200)}, new float[]{1.0F}, false, 0
       )
       .setAlwaysEdible();
-   public static Item COCOABUTTER = new ItemItem("cocoa_butter", CreativeTabs.MATERIALS, 0, 64);
-   public static Item COCOAPOWDER = new ItemItem("cocoa_powder", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BUTTER = new ItemItem("butter", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CHOCOLATE = new ItemEatable("chocolate", 0, 64, 4, 0.2F, false, 26, null, null, false, 0);
-   public static Item CARAMEL = new ItemEatable("caramel", 0, 64, 2, 0.0F, false, 24, null, null, false, 0);
-   public static Item BISCUIT = new ItemEatable("biscuit", 0, 64, 2, 0.3F, false, 14, null, null, false, 0);
-   public static Item PEARL = new ItemItem("pearl", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PEARLBLACK = new ItemItem("black_pearl", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PEARLGLOWING = new ItemItem("glowing_pearl", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PEARLAQUATIC = new ItemItem("aquatic_pearl", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTAQUATIC = new ItemItem("aquatic_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTAQUATIC = new ItemItem("aquatic_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETAQUATIC = new ItemItem("aquatic_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CORAL = new ItemItem("coral", CreativeTabs.MATERIALS, 0, 64);
-   public static Item ARCHELONSHELL = new ItemItem("archelon_shell", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PLACODERMSCALES = new ItemItem("placoderm_scales", CreativeTabs.MATERIALS, 0, 64);
-   public static Item MESOGLEA = new ItemItem("mesoglea", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTMITHRIL = new ItemItem("mithril_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTMITHRIL = new ItemItem("mithril_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETMITHRIL = new ItemItem("mithril_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item IMPULSETHRUSTER = new ItemItem("impulse_thruster", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CIRCUITSTORM = new ItemItem("storm_circuit", CreativeTabs.MATERIALS, 0, 64);
-   public static Item STORMBRASSPLASMATRON = new ItemItem("stormbrass_plasmatron", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BEARINGELECTROMAGNETIC = new ItemItem("electromagnetic_bearing", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BLUEARTHROSTELECHAROD = new ItemItem("blue_arthrostelecha_rod", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PINKARTHROSTELECHAROD = new ItemItem("pink_arthrostelecha_rod", CreativeTabs.MATERIALS, 0, 64);
-   public static Item TOPAZITRONCRYSTAL = new ItemItem("topazitron_crystal", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BATTERYTOPAZITRONCRYSTAL = new ItemAccumulator(
+   public static final Item COCOA_BUTTER = new ItemItem("cocoa_butter", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item COCOA_POWDER = new ItemItem("cocoa_powder", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BUTTER = new ItemItem("butter", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CHOCOLATE = new ItemEatable("chocolate", 0, 64, 4, 0.2F, false, 26, null, null, false, 0);
+   public static final Item CARAMEL = new ItemEatable("caramel", 0, 64, 2, 0.0F, false, 24, null, null, false, 0);
+   public static final Item BISCUIT = new ItemEatable("biscuit", 0, 64, 2, 0.3F, false, 14, null, null, false, 0);
+   public static final Item PEARL = new ItemItem("pearl", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BLACK_PEARL = new ItemItem("black_pearl", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item GLOWING_PEARL = new ItemItem("glowing_pearl", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item AQUATIC_PEARL = new ItemItem("aquatic_pearl", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item AQUATIC_INGOT = new ItemItem("aquatic_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item AQUATIC_DUST = new ItemItem("aquatic_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item AQUATIC_NUGGET = new ItemItem("aquatic_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CORAL = new ItemItem("coral", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ARCHELON_SHELL = new ItemItem("archelon_shell", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PLACODERM_SCALES = new ItemItem("placoderm_scales", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MESOGLEA = new ItemItem("mesoglea", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MITHRIL_INGOT = new ItemItem("mithril_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MITHRIL = new ItemItem("mithril_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MITHRIL_NUGGET = new ItemItem("mithril_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item IMPULSE_THRUSTER = new ItemItem("impulse_thruster", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STORM_CIRCUIT = new ItemItem("storm_circuit", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STORMBRASS_PLASMATRON = new ItemItem("stormbrass_plasmatron", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ELECTROMAGNETIC_BEARING = new ItemItem("electromagnetic_bearing", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BLUE_ARTHROSTELECHA_ROD = new ItemItem("blue_arthrostelecha_rod", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PINK_ARTHROSTELECHA_ROD = new ItemItem("pink_arthrostelecha_rod", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TOPAZITRON_CRYSTAL = new ItemItem("topazitron_crystal", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BATTERY_TOPAZITRON_CRYSTAL = new ItemAccumulator(
       "battery_topazitron_crystal", ItemAccumulator.TOPAZITRON_CAPACITY, ItemAccumulator.TOPAZITRON_THROUGHPUT
    );
-   public static Item GOLDTRANSFORMER = new ItemItem("gold_transformer", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SILVERTRANSFORMER = new ItemItem("silver_transformer", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CIRCUITRESISTANT = new ItemItem("resistant_circuit", CreativeTabs.MATERIALS, 0, 64);
-   public static Item MODULEPOLYMERIZATION = new ItemItem("polymerization_module", CreativeTabs.MATERIALS, 1000, 64);
-   public static Item MODULEDISTILLATION = new ItemItem("distillation_module", CreativeTabs.MATERIALS, 1000, 64);
-   public static Item MODULEPYROLYSIS = new ItemItem("pyrolysis_module", CreativeTabs.MATERIALS, 500, 64);
-   public static Item PARAFFIN = new ItemItem("paraffin", CreativeTabs.MATERIALS, 0, 64).setFuel(40);
-   public static Item TAR = new ItemItem("tar", CreativeTabs.MATERIALS, 0, 64).setFuel(100);
-   public static Item NYLON = new ItemItem("nylon", CreativeTabs.MATERIALS, 0, 64).setFuel(30);
-   public static Item DUSTRADIOACTIVESTONE = new ItemItem("radioactive_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTTOXINIUMORE = new ItemItem("toxinium_ore_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTURANIUM = new ItemItem("uranium_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTURANIUM = new ItemItem("uranium_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETURANIUM = new ItemItem("uranium_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTSTONE = new ItemItem("stone_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTLIMESTONE = new ItemItem("limestone_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTBASALT = new ItemItem("basalt_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTADAMANTIUMORE = new ItemItem("adamantium_ore_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTMITHRILORE = new ItemItem("mithril_ore_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item AQUATICSPAWNERPIECE = new ItemItem("aquatic_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
-   public static Item TITANIUMSLAG = new ItemItem("titanium_slag", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BLACKSTRAP = new ItemItem("black_strap", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INGOTPURPURALLOY = new ItemItem("purpur_alloy", CreativeTabs.MATERIALS, 0, 64);
-   public static Item EMPTYSYRINGE = new ItemItem("empty_syringe", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTQUARTZ = new ItemItem("quartz_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PHASEOLITE = new ItemItem("phaseolite", CreativeTabs.MATERIALS, 0, 64);
-   public static Item INK = new InkBottle("ink_bottle", 256);
-   public static Item MISSINGDUST = new ItemItem("missing_dust", null, 0, 64);
-   public static Item MISSINGINGOT = new ItemItem("missing_ingot", null, 0, 64);
-   public static Item MISSINGNUGGET = new ItemItem("missing_nugget", null, 0, 64);
-   public static Item MISSINGMATERIAL = new ItemItem("missing_material", null, 0, 64);
-   public static Item SLIMELOCATOR = new SlimeLocator();
-   public static Item ASH = new ItemItem("ash", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SALTPETER = new ItemItem("saltpeter", CreativeTabs.MATERIALS, 0, 64);
-   public static Item RUBBLESTONE = new ItemItem("stone_rubble", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SPELLROD = new SpellRod();
-   public static Item HEALTHFRUIT = new HealthFruit();
-   public static Item MANAEXPANSIONPOTION = new ManaExpansionPotion();
-   public static Item ICECIRCLE = new ItemItem("ice_circle", CreativeTabs.MATERIALS, 0, 64);
-   public static Item ICECIRCLEFILLED = new ItemItem("ice_circle_filled", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CRYODESTROYER = new CryoDestroyer();
-   public static Item GOTHICGEAR = new ItemItem("gothic_gear", CreativeTabs.MATERIALS, 0, 64);
-   public static Item GOTHICGEM = new ItemItem("gothic_gem", CreativeTabs.MATERIALS, 0, 64);
-   public static Item HYDRAULICSHOTGUN = new HydraulicShotgun();
-   public static Item HYDRAULICSHOTGUNCLIP = new ItemBuckshotClip("hydraulic_shotgun_clip", CreativeTabs.COMBAT, 64, 10);
-   public static Item ICECOMPASS = new IceCompass();
-   public static Item CHARMOFUNDYING = new BaublesPack.CharmOfUndying();
-   public static Item BEARINGLOWFRICTION = new ItemItem("low_friction_bearing", CreativeTabs.MATERIALS, 0, 64);
-   public static Item VACUUMGUNPELLETS = new ItemItem("vacuum_gun_pellets", CreativeTabs.COMBAT, 0, 64);
-   public static Item INGOTLITHIUM = new ItemItem("lithium_ingot", CreativeTabs.MATERIALS, 0, 64);
-   public static Item DUSTLITHIUM = new ItemItem("lithium_dust", CreativeTabs.MATERIALS, 0, 64);
-   public static Item NUGGETLITHIUM = new ItemItem("lithium_nugget", CreativeTabs.MATERIALS, 0, 64);
-   public static Item LEPIDOLITE = new ItemItem("lepidolite", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SILICIUM = new ItemItem("silicium", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SILICIUMWAFER = new ItemItem("silicium_wafer", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PHOTORESISTEDPLATE = new ItemItem("photoresisted_plate", CreativeTabs.MATERIALS, 0, 1);
-   public static Item LITOGRAPHEDPLATE = new ItemItem("litographed_plate", CreativeTabs.MATERIALS, 0, 64);
-   public static Item GALVANIZEDPLATE = new ItemItem("galvanized_plate", CreativeTabs.MATERIALS, 0, 64);
-   public static Item EREBRISSHARD = new ItemItem("erebris_shard", CreativeTabs.MATERIALS, 0, 64);
-   public static Item EREBRISFRAGMENT = new ItemItem("erebris_fragment", CreativeTabs.MATERIALS, 0, 64);
-   public static Item EREBRISCHUNK = new ItemItem("erebris_chunk", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BELTOFSHADOWS = new DashBelt.BeltOfShadows();
-   public static Item WHITEWINDBELT = new DashBelt.WhitewindBelt();
-   public static Item SHIPWREAKERSKNOT = new DashBelt.ShipwreakersKnot();
-   public static Item WINDKEEPER = new DashBelt.Windkeeper();
-   public static Item BATTERYANCIENT = new ItemAccumulator("ancient_battery", ItemAccumulator.ANCIENT_CAPACITY, ItemAccumulator.ANCIENT_THROUGHPUT);
-   public static Item BATTERYAQUATRONIC = new ItemAccumulator("aquatronic_battery", ItemAccumulator.AQUATRONIC_CAPACITY, ItemAccumulator.AQUATRONIC_THROUGHPUT);
-   public static Item ANCIENTSPAWNERPIECE = new ItemItem("ancient_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
-   public static Item EYEOFBEHOLDER = new ItemItem("eye_of_beholder", CreativeTabs.MATERIALS, 0, 64);
-   public static Item THUNDERBIRDWINGS = new ThunderbirdWings();
-   public static Item FINWINGS = new FinWings();
-   public static Item WORSHIPPERSBAIT = new WorshippersBait();
-   public static Item KRAKENSKIN = new ItemItem("kraken_skin", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SOLIDIFIEDLIGHTNING = new ItemNoGravivy("solidified_lightning", CreativeTabs.MATERIALS, 0, 64);
-   public static Item ETHERITEFUELCELL = new ItemItem("etherite_fuel_cell", CreativeTabs.MATERIALS, 0, 16);
-   public static Item VITREOUSHEART = new ItemItem("vitreous_heart", CreativeTabs.MATERIALS, 0, 64);
-   public static Item FIBERCLOTH = new ItemItem("fiber_cloth", CreativeTabs.MATERIALS, 0, 64).setFuel(90);
-   public static Item ANTIRADPLATING = new ItemItem("anti_rad_plating", CreativeTabs.MATERIALS, 0, 64);
-   public static Item BLACKGOO = new ItemItem("black_goo", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PALEMEATRAW = new ItemEatable(
+   public static final Item GOLD_TRANSFORMER = new ItemItem("gold_transformer", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SILVER_TRANSFORMER = new ItemItem("silver_transformer", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item RESISTANT_CIRCUIT = new ItemItem("resistant_circuit", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item POLYMERIZATION_MODULE = new ItemItem("polymerization_module", CreativeTabs.MATERIALS, 1000, 64);
+   public static final Item DISTILLATION_MODULE = new ItemItem("distillation_module", CreativeTabs.MATERIALS, 1000, 64);
+   public static final Item PYROLYSIS_MODULE = new ItemItem("pyrolysis_module", CreativeTabs.MATERIALS, 500, 64);
+   public static final Item PARAFFIN = new ItemItem("paraffin", CreativeTabs.MATERIALS, 0, 64).setFuel(40);
+   public static final Item TAR = new ItemItem("tar", CreativeTabs.MATERIALS, 0, 64).setFuel(100);
+   public static final Item NYLON = new ItemItem("nylon", CreativeTabs.MATERIALS, 0, 64).setFuel(30);
+   public static final Item RADIOACTIVE_DUST = new ItemItem("radioactive_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TOXINIUM_ORE_DUST = new ItemItem("toxinium_ore_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item URANIUM_INGOT = new ItemItem("uranium_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item URANIUM_DUST = new ItemItem("uranium_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item URANIUM_NUGGET = new ItemItem("uranium_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STONE_DUST = new ItemItem("stone_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item LIMESTONE_DUST = new ItemItem("limestone_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BASALT_DUST = new ItemItem("basalt_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ADAMANTIUM_ORE_DUST = new ItemItem("adamantium_ore_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MITHRIL_ORE_DUST = new ItemItem("mithril_ore_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item AQUATIC_SPAWNER_PIECE = new ItemItem("aquatic_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TITANIUM_SLAG = new ItemItem("titanium_slag", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BLACK_STRAP = new ItemItem("black_strap", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PURPUR_ALLOY = new ItemItem("purpur_alloy", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item EMPTY_SYRINGE = new ItemItem("empty_syringe", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item QUARTZ_DUST = new ItemItem("quartz_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PHASEOLITE = new ItemItem("phaseolite", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item INK = new InkBottle("ink_bottle", 256);
+   public static final Item MISSING_DUST = new ItemItem("missing_dust", null, 0, 64); // Удалить
+   public static final Item MISSING_INGOT = new ItemItem("missing_ingot", null, 0, 64); // Удалить
+   public static final Item MISSING_NUGGET = new ItemItem("missing_nugget", null, 0, 64); // Удалить
+   public static final Item MISSING_MATERIAL = new ItemItem("missing_material", null, 0, 64); // Удалить
+   public static final Item SLIME_LOCATOR = new SlimeLocator();
+   public static final Item ASH = new ItemItem("ash", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SALTPETER = new ItemItem("saltpeter", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item RUBBLESTONE = new ItemItem("stone_rubble", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SPELL_ROD = new SpellRod();
+   public static final Item HEALTH_FRUIT = new HealthFruit();
+   public static final Item MANA_EXPANSION_POTION = new ManaExpansionPotion();
+   public static final Item ICE_CIRCLE = new ItemItem("ice_circle", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ICE_CIRCLE_FILLED = new ItemItem("ice_circle_filled", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item CRYO_DESTROYER = new CryoDestroyer();
+   public static final Item GOTHIC_GEAR = new ItemItem("gothic_gear", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item GOTHIC_GEM = new ItemItem("gothic_gem", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item HYDRAULIC_SHOTGUN = new HydraulicShotgun();
+   public static final Item HYDRAULIC_SHOTGUN_CLIP = new ItemBuckshotClip("hydraulic_shotgun_clip", CreativeTabs.COMBAT, 64, 10);
+   public static final Item ICE_COMPASS = new IceCompass();
+   public static final Item CHARM_OF_UNDYING = new BaublesPack.CharmOfUndying();
+   public static final Item LOW_FRICTION_BEARING = new ItemItem("low_friction_bearing", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item VACUUM_GUN_PELLETS = new ItemItem("vacuum_gun_pellets", CreativeTabs.COMBAT, 0, 64);
+   public static final Item LITHIUM_INGOT = new ItemItem("lithium_ingot", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item LITHIUM_DUST = new ItemItem("lithium_dust", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item LITHIUM_NUGGET = new ItemItem("lithium_nugget", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item LEPIDOLITE = new ItemItem("lepidolite", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SILICIUM = new ItemItem("silicium", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SILICIUM_WAFER = new ItemItem("silicium_wafer", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PHOTORESISTED_PLATE = new ItemItem("photoresisted_plate", CreativeTabs.MATERIALS, 0, 1);
+   public static final Item LITOGRAPHED_PLATE = new ItemItem("litographed_plate", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item GALVANIZED_PLATE = new ItemItem("galvanized_plate", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item EREBRIS_SHARD = new ItemItem("erebris_shard", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item EREBRIS_FRAGMENT = new ItemItem("erebris_fragment", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item EREBRIS_CHUNK = new ItemItem("erebris_chunk", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BELT_OF_SHADOWS = new DashBelt.BeltOfShadows();
+   public static final Item WHITEWIND_BELT = new DashBelt.WhitewindBelt();
+   public static final Item SHIPWREAKERS_KNOT = new DashBelt.ShipwreakersKnot();
+   public static final Item WINDKEEPER = new DashBelt.Windkeeper();
+   public static final Item ANCIENT_BATTERY = new ItemAccumulator("ancient_battery", ItemAccumulator.ANCIENT_CAPACITY, ItemAccumulator.ANCIENT_THROUGHPUT);
+   public static final Item AQUATRONIC_BATTERY = new ItemAccumulator("aquatronic_battery", ItemAccumulator.AQUATRONIC_CAPACITY, ItemAccumulator.AQUATRONIC_THROUGHPUT);
+   public static final Item ANCIENT_SPAWNER_PIECE = new ItemItem("ancient_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item EYE_OF_BEHOLDER = new ItemItem("eye_of_beholder", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item THUNDERBIRD_WINGS = new ThunderbirdWings();
+   public static final Item FIN_WINGS = new FinWings();
+   public static final Item WORSHIPPERS_BAIT = new WorshippersBait();
+   public static final Item KRAKEN_SKIN = new ItemItem("kraken_skin", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SOLIDIFIED_LIGHTNING = new ItemNoGravivy("solidified_lightning", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item ETHERITE_FUEL_CELL = new ItemItem("etherite_fuel_cell", CreativeTabs.MATERIALS, 0, 16);
+   public static final Item VITREOUS_HEART = new ItemItem("vitreous_heart", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item FIBER_CLOTH = new ItemItem("fiber_cloth", CreativeTabs.MATERIALS, 0, 64).setFuel(90);
+   public static final Item ANTI_RAD_PLATING = new ItemItem("anti_rad_plating", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item BLACK_GOO = new ItemItem("black_goo", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PALE_MEAT_RAW = new ItemEatable(
       "pale_meat_raw", 0, 64, 2, 0.0F, true, 32, new PotionEffect[]{new PotionEffect(PotionEffects.WAVING, 220)}, new float[]{0.5F}, false, 0
    );
-   public static Item PALEMEATSMOKED = new ItemEatable("pale_meat_smoked", 0, 64, 6, 0.5F, true, 32, null, null, false, 0);
-   public static Item FISHSTEAKRAW = new ItemEatable("fish_steak_raw", 0, 64, 7, 0.9F, true, 32, null, null, false, 0);
-   public static Item FISHSTEAKROASTED = new ItemEatable("fish_steak_roasted", 0, 64, 10, 1.0F, true, 32, null, null, false, 0);
-   public static Item THUNDERBIRDFEATHER = new ItemItem("thunderbird_feather", CreativeTabs.MATERIALS, 0, 64);
-   public static Item GEIGERCOUNTER = new GeigerCounter();
-   public static Item HEALTHFULCAPSULE = new HealthfulCapsule();
-   public static Item SCRAPBOMB = new ItemItem("scrap_bomb", CreativeTabs.MATERIALS, 0, 64);
-   public static Item STABILIZATIONCELL = new ItemItem("stabilization_cell", CreativeTabs.MATERIALS, 0, 64);
-   public static Item CIRCUITAQUATIC = new ItemItem("aquatic_circuit", CreativeTabs.MATERIALS, 0, 64);
-   public static Item TIDALHEART = new ItemItem("tidal_heart", CreativeTabs.MATERIALS, 0, 64);
-   public static Item PIRATESEXTANT = new ItemItem("pirate_sextant", CreativeTabs.MATERIALS, 0, 64);
-   public static Item MERMAIDMEDALLION = new BaublesPack.MermaidMedallion();
-   public static Item SIRENKEY = new Key("siren_key", 1, ChestLock.SIREN, false);
-   public static Item SACRIFICIALDAGGER = new SacrificialDagger();
-   public static Item STORMSPAWNERPIECE = new ItemItem("storm_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SELECTIVELEVITATOR = new BaublesPack.SelectiveLevitator();
-   public static Item FIBERBANDAGE = new FiberBandage();
-   public static Item DOLERITEKEY = new Key("dolerite_key", 64, ChestLock.DOLERITE, true);
-   public static Item WIZARDCLOTH = new ItemItem("wizard_cloth", CreativeTabs.MATERIALS, 0, 64);
-   public static Item SWARMETER = new Swarmeter();
-   public static Item RICHSCRAP = new ItemItem("rich_scrap", CreativeTabs.MATERIALS, 0, 64);
-   public static Item WEATHERROCKETCLEAR = new ItemWeatherRocket("weather_rocket_clear", null, true, 0.8F, 0.8F, 0.5F);
-   public static Item WEATHERROCKETSNOWFALL = new ItemWeatherRocket("weather_rocket_snowfall", "Snowfall", true, 0.95F, 0.95F, 1.0F);
-   public static Item WEATHERROCKETHAIL = new ItemWeatherRocket("weather_rocket_hail", "Hail", true, 0.5F, 0.75F, 1.0F);
-   public static Item WEATHERROCKETAURORA = new ItemWeatherRocket("weather_rocket_aurora", "Aurora", true, 0.1F, 1.0F, 0.57F);
-   public static Item WEATHERROCKETPOISONRAIN = new ItemWeatherRocket("weather_rocket_poison_rain", "PoisonRain", true, 0.1F, 1.0F, 0.1F);
-   public static Item WEATHERROCKETRAINFALL = new ItemWeatherRocket("weather_rocket_rainfall", "Rainfall", true, 0.3F, 0.8F, 1.0F);
-   public static Item WEATHERROCKETSTORM = new ItemWeatherRocket("weather_rocket_storm", "Storm", true, 0.92F, 0.4F, 1.0F);
-   public static Item WEATHERROCKETRAINSTORM = new ItemWeatherRocket("weather_rocket_rainstorm", "Rainstorm", true, 0.45F, 0.75F, 1.0F);
-   public static Item CALIBRATIONCRYSTAL_ATTRACT_BIG = new ItemCalibrationThing("calibration_crystal_attract_big", 1.0F, 0.0F, 0.0F, false, 3.0F, 9.0F)
+   public static final Item PALE_MEAT_SMOKED = new ItemEatable("pale_meat_smoked", 0, 64, 6, 0.5F, true, 32, null, null, false, 0);
+   public static final Item FISH_STEAK_RAW = new ItemEatable("fish_steak_raw", 0, 64, 7, 0.9F, true, 32, null, null, false, 0);
+   public static final Item FISH_STEAK_ROASTED = new ItemEatable("fish_steak_roasted", 0, 64, 10, 1.0F, true, 32, null, null, false, 0);
+   public static final Item THUNDERBIRD_FEATHER = new ItemItem("thunderbird_feather", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item GEIGER_COUNTER = new GeigerCounter();
+   public static final Item HEALTHFUL_CAPSULE = new HealthfulCapsule();
+   public static final Item SCRAP_BOMB = new ItemItem("scrap_bomb", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item STABILIZATION_CELL = new ItemItem("stabilization_cell", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item AQUATIC_CIRCUIT = new ItemItem("aquatic_circuit", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item TIDAL_HEART = new ItemItem("tidal_heart", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item PIRATE_SEXTANT = new ItemItem("pirate_sextant", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item MERMAID_MEDALLION = new BaublesPack.MermaidMedallion();
+   public static final Item SIREN_KEY = new ItemKey("siren_key", 1, ChestLock.SIREN, false);
+   public static final Item SACRIFICIAL_DAGGER = new SacrificialDagger();
+   public static final Item STORM_SPAWNER_PIECE = new ItemItem("storm_spawner_piece", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SELECTIVE_LEVITATOR = new BaublesPack.SelectiveLevitator();
+   public static final Item FIBER_BANDAGE = new FiberBandage();
+   public static final Item DOLERITE_KEY = new ItemKey("dolerite_key", 64, ChestLock.DOLERITE, true);
+   public static final Item WIZARD_CLOTH = new ItemItem("wizard_cloth", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item SWARMETER = new Swarmeter();
+   public static final Item RICH_SCRAP = new ItemItem("rich_scrap", CreativeTabs.MATERIALS, 0, 64);
+   public static final Item WEATHER_ROCKET_CLEAR = new ItemWeatherRocket("weather_rocket_clear", null, true, 0.8F, 0.8F, 0.5F);
+   public static final Item WEATHER_ROCKET_SNOWFALL = new ItemWeatherRocket("weather_rocket_snowfall", "Snowfall", true, 0.95F, 0.95F, 1.0F);
+   public static final Item WEATHER_ROCKET = new ItemWeatherRocket("weather_rocket_hail", "Hail", true, 0.5F, 0.75F, 1.0F);
+   public static final Item WEATHER_ROCKET_AURORA = new ItemWeatherRocket("weather_rocket_aurora", "Aurora", true, 0.1F, 1.0F, 0.57F);
+   public static final Item WEATHER_ROCKET_POISON_RAIN = new ItemWeatherRocket("weather_rocket_poison_rain", "PoisonRain", true, 0.1F, 1.0F, 0.1F);
+   public static final Item WEATHER_ROCKET_RAIN_FALL = new ItemWeatherRocket("weather_rocket_rainfall", "Rainfall", true, 0.3F, 0.8F, 1.0F);
+   public static final Item WEATHER_ROCKET_STORM = new ItemWeatherRocket("weather_rocket_storm", "Storm", true, 0.92F, 0.4F, 1.0F);
+   public static final Item WEATHER_ROCKET_RAINS_TORM = new ItemWeatherRocket("weather_rocket_rainstorm", "Rainstorm", true, 0.45F, 0.75F, 1.0F);
+   public static final Item CALIBRATION_CRYSTAL_ATTRACT_BIG = new ItemCalibrationThing("calibration_crystal_attract_big", 1.0F, 0.0F, 0.0F, false, 3.0F, 9.0F)
       .setRenders(3, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.attracttex);
-   public static Item CALIBRATIONCRYSTAL_ATTRACT_MEDIUM = new ItemCalibrationThing("calibration_crystal_attract_medium", 0.5F, 0.0F, 0.0F, false, 2.0F, 7.0F)
+   public static final Item CALIBRATION_CRYSTAL_ATTRACT_MEDIUM = new ItemCalibrationThing("calibration_crystal_attract_medium", 0.5F, 0.0F, 0.0F, false, 2.0F, 7.0F)
       .setRenders(2, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.attracttex);
-   public static Item CALIBRATIONCRYSTAL_ATTRACT_SMALL = new ItemCalibrationThing("calibration_crystal_attract_small", 0.1F, 0.0F, 0.0F, false, 2.0F, 5.0F)
+   public static final Item CALIBRATION_CRYSTAL_ATTRACT_SMALL = new ItemCalibrationThing("calibration_crystal_attract_small", 0.1F, 0.0F, 0.0F, false, 2.0F, 5.0F)
       .setRenders(1, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.attracttex);
-   public static Item CALIBRATIONCRYSTAL_DETRACT_BIG = new ItemCalibrationThing("calibration_crystal_detract_big", -1.0F, 0.0F, 0.0F, false, 3.0F, 9.0F)
+   public static final Item CALIBRATION_CRYSTAL_DETRACT_BIG = new ItemCalibrationThing("calibration_crystal_detract_big", -1.0F, 0.0F, 0.0F, false, 3.0F, 9.0F)
       .setRenders(3, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.detracttex);
-   public static Item CALIBRATIONCRYSTAL_DETRACT_MEDIUM = new ItemCalibrationThing("calibration_crystal_detract_medium", -0.5F, 0.0F, 0.0F, false, 2.0F, 7.0F)
+   public static final Item CALIBRATION_CRYSTAL_DETRACT_MEDIUM = new ItemCalibrationThing("calibration_crystal_detract_medium", -0.5F, 0.0F, 0.0F, false, 2.0F, 7.0F)
       .setRenders(2, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.detracttex);
-   public static Item CALIBRATIONCRYSTAL_DETRACT_SMALL = new ItemCalibrationThing("calibration_crystal_detract_small", -0.1F, 0.0F, 0.0F, false, 2.0F, 5.0F)
+   public static final Item CALIBRATION_CRYSTAL_DETRACT_SMALL = new ItemCalibrationThing("calibration_crystal_detract_small", -0.1F, 0.0F, 0.0F, false, 2.0F, 5.0F)
       .setRenders(1, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.detracttex);
-   public static Item CALIBRATIONCRYSTAL_FOCUS_BIG = new ItemCalibrationThing("calibration_crystal_focus_big", 0.0F, -1.0F, 0.0F, false, 3.0F, 9.0F)
+   public static final Item CALIBRATION_CRYSTAL_FOCUS_BIG = new ItemCalibrationThing("calibration_crystal_focus_big", 0.0F, -1.0F, 0.0F, false, 3.0F, 9.0F)
       .setRenders(3, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.focustex);
-   public static Item CALIBRATIONCRYSTAL_FOCUS_MEDIUM = new ItemCalibrationThing("calibration_crystal_focus_medium", 0.0F, -0.5F, 0.0F, false, 2.0F, 7.0F)
+   public static final Item CALIBRATION_CRYSTAL_FOCUS_MEDIUM = new ItemCalibrationThing("calibration_crystal_focus_medium", 0.0F, -0.5F, 0.0F, false, 2.0F, 7.0F)
       .setRenders(2, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.focustex);
-   public static Item CALIBRATIONCRYSTAL_FOCUS_SMALL = new ItemCalibrationThing("calibration_crystal_focus_small", 0.0F, -0.1F, 0.0F, false, 2.0F, 5.0F)
+   public static final Item CALIBRATION_CRYSTAL_FOCUS_SMALL = new ItemCalibrationThing("calibration_crystal_focus_small", 0.0F, -0.1F, 0.0F, false, 2.0F, 5.0F)
       .setRenders(1, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.focustex);
-   public static Item CALIBRATIONCRYSTAL_RANGE_BIG = new ItemCalibrationThing("calibration_crystal_range_big", 0.0F, 1.0F, 0.0F, false, 3.0F, 9.0F)
+   public static final Item CALIBRATION_CRYSTAL_RANGE_BIG = new ItemCalibrationThing("calibration_crystal_range_big", 0.0F, 1.0F, 0.0F, false, 3.0F, 9.0F)
       .setRenders(3, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.rangetex);
-   public static Item CALIBRATIONCRYSTAL_RANGE_MEDIUM = new ItemCalibrationThing("calibration_crystal_range_medium", 0.0F, 0.5F, 0.0F, false, 2.0F, 7.0F)
+   public static final Item CALIBRATION_CRYSTAL_RANGE_MEDIUM = new ItemCalibrationThing("calibration_crystal_range_medium", 0.0F, 0.5F, 0.0F, false, 2.0F, 7.0F)
       .setRenders(2, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.rangetex);
-   public static Item CALIBRATIONCRYSTAL_RANGE_SMALL = new ItemCalibrationThing("calibration_crystal_range_small", 0.0F, 0.1F, 0.0F, false, 2.0F, 5.0F)
+   public static final Item CALIBRATION_CRYSTAL_RANGE_SMALL = new ItemCalibrationThing("calibration_crystal_range_small", 0.0F, 0.1F, 0.0F, false, 2.0F, 5.0F)
       .setRenders(1, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.rangetex);
-   public static Item CALIBRATIONCRYSTAL_SPEED_BIG = new ItemCalibrationThing("calibration_crystal_speed_big", 0.0F, 0.0F, 1.0F, false, 3.0F, 9.0F)
+   public static final Item CALIBRATION_CRYSTAL_SPEED_BIG = new ItemCalibrationThing("calibration_crystal_speed_big", 0.0F, 0.0F, 1.0F, false, 3.0F, 9.0F)
       .setRenders(3, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.speedtex);
-   public static Item CALIBRATIONCRYSTAL_SPEED_MEDIUM = new ItemCalibrationThing("calibration_crystal_speed_medium", 0.0F, 0.0F, 0.5F, false, 2.0F, 7.0F)
+   public static final Item CALIBRATION_CRYSTAL_SPEED_MEDIUM = new ItemCalibrationThing("calibration_crystal_speed_medium", 0.0F, 0.0F, 0.5F, false, 2.0F, 7.0F)
       .setRenders(2, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.speedtex);
-   public static Item CALIBRATIONCRYSTAL_SPEED_SMALL = new ItemCalibrationThing("calibration_crystal_speed_small", 0.0F, 0.0F, 0.1F, false, 2.0F, 5.0F)
+   public static final Item CALIBRATION_CRYSTAL_SPEED_SMALL = new ItemCalibrationThing("calibration_crystal_speed_small", 0.0F, 0.0F, 0.1F, false, 2.0F, 5.0F)
       .setRenders(1, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.speedtex);
-   public static Item CALIBRATIONCRYSTAL_SLOW_BIG = new ItemCalibrationThing("calibration_crystal_slow_big", 0.0F, 0.0F, -1.0F, false, 3.0F, 9.0F)
+   public static final Item CALIBRATION_CRYSTAL_SLOW_BIG = new ItemCalibrationThing("calibration_crystal_slow_big", 0.0F, 0.0F, -1.0F, false, 3.0F, 9.0F)
       .setRenders(3, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.slowtex);
-   public static Item CALIBRATIONCRYSTAL_SLOW_MEDIUM = new ItemCalibrationThing("calibration_crystal_slow_medium", 0.0F, 0.0F, -0.5F, false, 2.0F, 7.0F)
+   public static final Item CALIBRATION_CRYSTAL_SLOW_MEDIUM = new ItemCalibrationThing("calibration_crystal_slow_medium", 0.0F, 0.0F, -0.5F, false, 2.0F, 7.0F)
       .setRenders(2, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.slowtex);
-   public static Item CALIBRATIONCRYSTAL_SLOW_SMALL = new ItemCalibrationThing("calibration_crystal_slow_small", 0.0F, 0.0F, -0.1F, false, 2.0F, 5.0F)
+   public static final Item CALIBRATION_CRYSTAL_SLOW_SMALL = new ItemCalibrationThing("calibration_crystal_slow_small", 0.0F, 0.0F, -0.1F, false, 2.0F, 5.0F)
       .setRenders(1, ItemCalibrationThing.calibrationCrystalModel, ItemCalibrationThing.slowtex);
-   public static Item CANDLE = new ItemCalibrationThing("magic_candle", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item CANDLE = new ItemCalibrationThing("magic_candle", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candletex, 19, 1);
-   public static Item CANDLEBLACK = new ItemCalibrationThing("magic_candle_black", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_BLACK = new ItemCalibrationThing("magic_candle_black", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_black, 19, 1);
-   public static Item CANDLERED = new ItemCalibrationThing("magic_candle_red", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_RED = new ItemCalibrationThing("magic_candle_red", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_red, 19, 1);
-   public static Item CANDLEGREEN = new ItemCalibrationThing("magic_candle_green", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_GREEN = new ItemCalibrationThing("magic_candle_green", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_green, 19, 1);
-   public static Item CANDLEBROWN = new ItemCalibrationThing("magic_candle_brown", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_BROWN = new ItemCalibrationThing("magic_candle_brown", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_brown, 19, 1);
-   public static Item CANDLEBLUE = new ItemCalibrationThing("magic_candle_blue", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_BLUE = new ItemCalibrationThing("magic_candle_blue", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_blue, 19, 1);
-   public static Item CANDLEPURPLE = new ItemCalibrationThing("magic_candle_purple", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_PURPLE = new ItemCalibrationThing("magic_candle_purple", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_purple, 19, 1);
-   public static Item CANDLECYAN = new ItemCalibrationThing("magic_candle_cyan", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_CYAN = new ItemCalibrationThing("magic_candle_cyan", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_cyan, 19, 1);
-   public static Item CANDLELIGHTGRAY = new ItemCalibrationThing("magic_candle_lightgray", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_LIGHTGRAY = new ItemCalibrationThing("magic_candle_lightgray", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_lightgray, 19, 1);
-   public static Item CANDLEGRAY = new ItemCalibrationThing("magic_candle_gray", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_GRAY = new ItemCalibrationThing("magic_candle_gray", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_gray, 19, 1);
-   public static Item CANDLEPINK = new ItemCalibrationThing("magic_candle_pink", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_PINK = new ItemCalibrationThing("magic_candle_pink", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_pink, 19, 1);
-   public static Item CANDLELIME = new ItemCalibrationThing("magic_candle_lime", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_LIME = new ItemCalibrationThing("magic_candle_lime", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_lime, 19, 1);
-   public static Item CANDLEYELLOW = new ItemCalibrationThing("magic_candle_yellow", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_YELLOW = new ItemCalibrationThing("magic_candle_yellow", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_yellow, 19, 1);
-   public static Item CANDLELIGHTBLUE = new ItemCalibrationThing("magic_candle_lightblue", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_LIGHTBLUE = new ItemCalibrationThing("magic_candle_lightblue", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_lightblue, 19, 1);
-   public static Item CANDLEMAGENTA = new ItemCalibrationThing("magic_candle_magenta", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_MAGENTA = new ItemCalibrationThing("magic_candle_magenta", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_magenta, 19, 1);
-   public static Item CANDLEORANGE = new ItemCalibrationThing("magic_candle_orange", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_ORANGE = new ItemCalibrationThing("magic_candle_orange", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_orange, 19, 1);
-   public static Item CANDLEWHITE = new ItemCalibrationThing("magic_candle_white", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
+   public static final Item MAGIC_CANDLE_WHITE = new ItemCalibrationThing("magic_candle_white", 0.0F, 0.0F, 0.0F, true, 2.0F, 10.0F)
       .setRenders(0, ItemCalibrationThing.magicCandleModel, ItemCalibrationThing.candle_white, 19, 1);
-   public static Item RUBYPICKAXE = new ItemBasicTool("ruby_pickaxe", CreativeTabs.TOOLS, 260, 1, true)
+   public static final Item RUBY_PICKAXE = new ItemBasicTool("ruby_pickaxe", CreativeTabs.TOOLS, 260, 1, true)
       .setHarvestLvl("pickaxe", 2, 7.5F)
       .setItemToRepair(RUBY)
       .setToolEnchantability(23);
-   public static Item RUBYAXE = new ItemBasicTool("ruby_axe", CreativeTabs.TOOLS, 260, 1, true)
+   public static final Item RUBY_AXE = new ItemBasicTool("ruby_axe", CreativeTabs.TOOLS, 260, 1, true)
       .setHarvestLvl("axe", 2, 7.5F)
       .setItemToRepair(RUBY)
       .setToolEnchantability(23);
-   public static Item RUBYSHOVEL = new ItemBasicTool("ruby_shovel", CreativeTabs.TOOLS, 260, 1, true)
+   public static final Item RUBY_SHOVEL = new ItemBasicTool("ruby_shovel", CreativeTabs.TOOLS, 260, 1, true)
       .setHarvestLvl("shovel", 2, 7.5F)
       .setItemToRepair(RUBY)
       .setToolEnchantability(23);
-   public static Item SAPPHIREPICKAXE = new ItemBasicTool("sapphire_pickaxe", CreativeTabs.TOOLS, 260, 1, true)
+   public static final Item SAPPHIRE_PICKAXE = new ItemBasicTool("sapphire_pickaxe", CreativeTabs.TOOLS, 260, 1, true)
       .setHarvestLvl("pickaxe", 2, 7.5F)
       .setItemToRepair(SAPPHIRE)
       .setToolEnchantability(23);
-   public static Item SAPPHIREAXE = new ItemBasicTool("sapphire_axe", CreativeTabs.TOOLS, 260, 1, true)
+   public static final Item SAPPHIRE_AXE = new ItemBasicTool("sapphire_axe", CreativeTabs.TOOLS, 260, 1, true)
       .setHarvestLvl("axe", 2, 7.5F)
       .setItemToRepair(SAPPHIRE)
       .setToolEnchantability(23);
-   public static Item SAPPHIRESHOVEL = new ItemBasicTool("sapphire_shovel", CreativeTabs.TOOLS, 260, 1, true)
+   public static final Item SAPPHIRE_SHOVEL = new ItemBasicTool("sapphire_shovel", CreativeTabs.TOOLS, 260, 1, true)
       .setHarvestLvl("shovel", 2, 7.5F)
       .setItemToRepair(SAPPHIRE)
       .setToolEnchantability(23);
-   public static Item CITRINEPICKAXE = new ItemBasicTool("citrine_pickaxe", CreativeTabs.TOOLS, 260, 1, true)
+   public static final Item CITRINE_PICKAXE = new ItemBasicTool("citrine_pickaxe", CreativeTabs.TOOLS, 260, 1, true)
       .setHarvestLvl("pickaxe", 2, 7.5F)
       .setItemToRepair(CITRINE)
       .setToolEnchantability(23);
-   public static Item CITRINEAXE = new ItemBasicTool("citrine_axe", CreativeTabs.TOOLS, 260, 1, true)
+   public static final Item CITRINE_AXE = new ItemBasicTool("citrine_axe", CreativeTabs.TOOLS, 260, 1, true)
       .setHarvestLvl("axe", 2, 7.5F)
       .setItemToRepair(CITRINE)
       .setToolEnchantability(23);
-   public static Item CITRINESHOVEL = new ItemBasicTool("citrine_shovel", CreativeTabs.TOOLS, 260, 1, true)
+   public static final Item CITRINE_SHOVEL = new ItemBasicTool("citrine_shovel", CreativeTabs.TOOLS, 260, 1, true)
       .setHarvestLvl("shovel", 2, 7.5F)
       .setItemToRepair(CITRINE)
       .setToolEnchantability(23);
-   public static Item AMETHYSTPICKAXE = new ItemBasicTool("amethyst_pickaxe", CreativeTabs.TOOLS, 200, 1, true)
+   public static final Item AMETHYST_PICKAXE = new ItemBasicTool("amethyst_pickaxe", CreativeTabs.TOOLS, 200, 1, true)
       .setHarvestLvl("pickaxe", 1, 7.0F)
       .setItemToRepair(AMETHYST)
       .setToolEnchantability(23);
-   public static Item AMETHYSTAXE = new ItemBasicTool("amethyst_axe", CreativeTabs.TOOLS, 200, 1, true)
+   public static final Item AMETHYST_AXE = new ItemBasicTool("amethyst_axe", CreativeTabs.TOOLS, 200, 1, true)
       .setHarvestLvl("axe", 1, 7.0F)
       .setItemToRepair(AMETHYST)
       .setToolEnchantability(23);
-   public static Item AMETHYSTSHOVEL = new ItemBasicTool("amethyst_shovel", CreativeTabs.TOOLS, 200, 1, true)
+   public static final Item AMETHYST_SHOVEL = new ItemBasicTool("amethyst_shovel", CreativeTabs.TOOLS, 200, 1, true)
       .setHarvestLvl("shovel", 1, 7.0F)
       .setItemToRepair(AMETHYST)
       .setToolEnchantability(23);
-   public static Item TOPAZPICKAXE = new ItemBasicTool("topaz_pickaxe", CreativeTabs.TOOLS, 200, 1, true)
+   public static final Item TOPAZ_PICKAXE = new ItemBasicTool("topaz_pickaxe", CreativeTabs.TOOLS, 200, 1, true)
       .setHarvestLvl("pickaxe", 1, 7.0F)
       .setItemToRepair(TOPAZ)
       .setToolEnchantability(23);
-   public static Item TOPAZAXE = new ItemBasicTool("topaz_axe", CreativeTabs.TOOLS, 200, 1, true)
+   public static final Item TOPAZ_AXE = new ItemBasicTool("topaz_axe", CreativeTabs.TOOLS, 200, 1, true)
       .setHarvestLvl("axe", 1, 7.0F)
       .setItemToRepair(TOPAZ)
       .setToolEnchantability(23);
-   public static Item TOPAZSHOVEL = new ItemBasicTool("topaz_shovel", CreativeTabs.TOOLS, 200, 1, true)
+   public static final Item TOPAZ_SHOVEL = new ItemBasicTool("topaz_shovel", CreativeTabs.TOOLS, 200, 1, true)
       .setHarvestLvl("shovel", 1, 7.0F)
       .setItemToRepair(TOPAZ)
       .setToolEnchantability(23);
-   public static Item RHINESTONEPICKAXE = new ItemBasicTool("rhinestone_pickaxe", CreativeTabs.TOOLS, 140, 1, true)
+   public static final Item RHINESTONE_PICKAXE = new ItemBasicTool("rhinestone_pickaxe", CreativeTabs.TOOLS, 140, 1, true)
       .setHarvestLvl("pickaxe", 1, 6.5F)
       .setItemToRepair(RHINESTONE)
       .setToolEnchantability(23);
-   public static Item RHINESTONEAXE = new ItemBasicTool("rhinestone_axe", CreativeTabs.TOOLS, 140, 1, true)
+   public static final Item RHINESTONE_AXE = new ItemBasicTool("rhinestone_axe", CreativeTabs.TOOLS, 140, 1, true)
       .setHarvestLvl("axe", 1, 6.5F)
       .setItemToRepair(RHINESTONE)
       .setToolEnchantability(23);
-   public static Item RHINESTONESHOVEL = new ItemBasicTool("rhinestone_shovel", CreativeTabs.TOOLS, 140, 1, true)
+   public static final Item RHINESTONE_SHOVEL = new ItemBasicTool("rhinestone_shovel", CreativeTabs.TOOLS, 140, 1, true)
       .setHarvestLvl("shovel", 1, 6.5F)
       .setItemToRepair(RHINESTONE)
       .setToolEnchantability(23);
-   public static Item FORGETPICKAXE = new ItemBasicTool("forget_pickaxe", CreativeTabs.TOOLS, 1800, 1, true)
+   public static final Item FORGETPICK_AXE = new ItemBasicTool("forget_pickaxe", CreativeTabs.TOOLS, 1800, 1, true)
       .setHarvestLvl("pickaxe", 4, 20.0F)
-      .setItemToRepair(INGOTINFERNUM)
+      .setItemToRepair(INFERNUM_INGOT)
       .setToolEnchantability(15);
-   public static Item FORGETAXE = new ItemBasicTool("forget_axe", CreativeTabs.TOOLS, 1300, 1, true)
+   public static final Item FORGET_AXE = new ItemBasicTool("forget_axe", CreativeTabs.TOOLS, 1300, 1, true)
       .setHarvestLvl("axe", 4, 20.0F)
-      .setItemToRepair(INGOTINFERNUM)
+      .setItemToRepair(INFERNUM_INGOT)
       .setToolEnchantability(15);
-   public static Item FORGETSHOVEL = new ItemBasicTool("forget_shovel", CreativeTabs.TOOLS, 1200, 1, true)
+   public static final Item FORGET_SHOVEL = new ItemBasicTool("forget_shovel", CreativeTabs.TOOLS, 1200, 1, true)
       .setHarvestLvl("shovel", 4, 20.0F)
-      .setItemToRepair(INGOTINFERNUM)
+      .setItemToRepair(INFERNUM_INGOT)
       .setToolEnchantability(15);
-   public static Item GOTHICPICKAXE = new ItemBasicTool("gothic_pickaxe", CreativeTabs.TOOLS, 1500, 1, true)
+   public static final Item GOTHIC_PICKAXE = new ItemBasicTool("gothic_pickaxe", CreativeTabs.TOOLS, 1500, 1, true)
       .setHarvestLvl("pickaxe", 5, 30.0F)
       .setToolEnchantability(17);
-   public static Item GOTHICAXE = new ItemBasicTool("gothic_axe", CreativeTabs.TOOLS, 1500, 1, true)
+   public static final Item GOTHIC_AXE = new ItemBasicTool("gothic_axe", CreativeTabs.TOOLS, 1500, 1, true)
       .setHarvestLvl("axe", 5, 30.0F)
       .setToolEnchantability(17);
-   public static Item GOTHICSHOVEL = new ItemBasicTool("gothic_shovel", CreativeTabs.TOOLS, 1500, 1, true)
+   public static final Item GOTHIC_SHOVEL = new ItemBasicTool("gothic_shovel", CreativeTabs.TOOLS, 1500, 1, true)
       .setHarvestLvl("shovel", 5, 30.0F)
       .setToolEnchantability(17);
-   public static Item ARSENICPICKAXE = new ItemBasicTool("arsenic_pickaxe", CreativeTabs.TOOLS, 2050, 1, true)
+   public static final Item ARSENIC_PICKAXE = new ItemBasicTool("arsenic_pickaxe", CreativeTabs.TOOLS, 2050, 1, true)
       .setHarvestLvl("pickaxe", 8, 40.0F)
-      .setItemToRepair(INGOTARSENIC)
+      .setItemToRepair(ARSENIC_INGOT)
       .setToolEnchantability(8);
-   public static Item ARSENICAXE = new ItemBasicTool("arsenic_axe", CreativeTabs.TOOLS, 2100, 1, true)
+   public static final Item ARSENIC_AXE = new ItemBasicTool("arsenic_axe", CreativeTabs.TOOLS, 2100, 1, true)
       .setHarvestLvl("axe", 8, 40.0F)
-      .setItemToRepair(INGOTARSENIC)
+      .setItemToRepair(ARSENIC_INGOT)
       .setToolEnchantability(8);
-   public static Item ARSENICSHOVEL = new ItemBasicTool("arsenic_shovel", CreativeTabs.TOOLS, 2000, 1, true)
+   public static final Item ARSENIC_SHOVEL = new ItemBasicTool("arsenic_shovel", CreativeTabs.TOOLS, 2000, 1, true)
       .setHarvestLvl("shovel", 8, 40.0F)
-      .setItemToRepair(INGOTARSENIC)
+      .setItemToRepair(ARSENIC_INGOT)
       .setToolEnchantability(8);
-   public static Item TOXINIUMPICKAXE = new ItemBasicTool("toxinium_pickaxe", CreativeTabs.TOOLS, 4000, 1, true)
+   public static final Item TOXINIUM_PICKAXE = new ItemBasicTool("toxinium_pickaxe", CreativeTabs.TOOLS, 4000, 1, true)
       .setHarvestLvl("pickaxe", 9, 47.0F)
-      .setItemToRepair(INGOTTOXINIUM)
+      .setItemToRepair(TOXINIUM_INGOT)
       .setToolEnchantability(10);
-   public static Item TOXINIUMAXE = new ItemBasicTool("toxinium_axe", CreativeTabs.TOOLS, 4000, 1, true)
+   public static final Item TOXINIUM_AXE = new ItemBasicTool("toxinium_axe", CreativeTabs.TOOLS, 4000, 1, true)
       .setHarvestLvl("axe", 9, 47.0F)
-      .setItemToRepair(INGOTTOXINIUM)
+      .setItemToRepair(TOXINIUM_INGOT)
       .setToolEnchantability(10);
-   public static Item TOXINIUMSHOVEL = new ItemBasicTool("toxinium_shovel", CreativeTabs.TOOLS, 4000, 1, true)
+   public static final Item TOXINIUM_SHOVEL = new ItemBasicTool("toxinium_shovel", CreativeTabs.TOOLS, 4000, 1, true)
       .setHarvestLvl("shovel", 9, 47.0F)
-      .setItemToRepair(INGOTTOXINIUM)
+      .setItemToRepair(TOXINIUM_INGOT)
       .setToolEnchantability(10);
-   public static Item ADAMANTIUMPICKAXE = new ItemBasicTool("adamantium_pickaxe", CreativeTabs.TOOLS, 5000, 1, true)
+   public static final Item ADAMANTIUM_PICKAXE = new ItemBasicTool("adamantium_pickaxe", CreativeTabs.TOOLS, 5000, 1, true)
       .setHarvestLvl("pickaxe", 10, 55.0F)
-      .setItemToRepair(INGOTADAMANTIUM)
+      .setItemToRepair(ADAMANTIUM_INGOT)
       .setToolEnchantability(12);
-   public static Item ADAMANTIUMAXE = new ItemBasicTool("adamantium_axe", CreativeTabs.TOOLS, 5000, 1, true)
+   public static final Item ADAMANTIUM_AXE = new ItemBasicTool("adamantium_axe", CreativeTabs.TOOLS, 5000, 1, true)
       .setHarvestLvl("axe", 10, 55.0F)
-      .setItemToRepair(INGOTADAMANTIUM)
+      .setItemToRepair(ADAMANTIUM_INGOT)
       .setToolEnchantability(12);
-   public static Item ADAMANTIUMSHOVEL = new ItemBasicTool("adamantium_shovel", CreativeTabs.TOOLS, 5000, 1, true)
+   public static final Item ADAMANTIUM_SHOVEL = new ItemBasicTool("adamantium_shovel", CreativeTabs.TOOLS, 5000, 1, true)
       .setHarvestLvl("shovel", 10, 55.0F)
-      .setItemToRepair(INGOTADAMANTIUM)
+      .setItemToRepair(ADAMANTIUM_INGOT)
       .setToolEnchantability(12);
-   public static Item AQUATICPICKAXE = new ItemBasicTool("aquatic_pickaxe", CreativeTabs.TOOLS, 6000, 1, true)
+   public static final Item AQUATIC_PICKAXE = new ItemBasicTool("aquatic_pickaxe", CreativeTabs.TOOLS, 6000, 1, true)
       .setHarvestLvl("pickaxe", 11, 67.0F)
-      .setItemToRepair(INGOTAQUATIC)
+      .setItemToRepair(AQUATIC_INGOT)
       .setToolEnchantability(20);
-   public static Item AQUATICAXE = new ItemBasicTool("aquatic_axe", CreativeTabs.TOOLS, 6000, 1, true)
+   public static final Item AQUATIC_AXE = new ItemBasicTool("aquatic_axe", CreativeTabs.TOOLS, 6000, 1, true)
       .setHarvestLvl("axe", 11, 67.0F)
-      .setItemToRepair(INGOTAQUATIC)
+      .setItemToRepair(AQUATIC_INGOT)
       .setToolEnchantability(20);
-   public static Item AQUATICSHOVEL = new ItemBasicTool("aquatic_shovel", CreativeTabs.TOOLS, 6000, 1, true)
+   public static final Item AQUATIC_SHOVEL = new ItemBasicTool("aquatic_shovel", CreativeTabs.TOOLS, 6000, 1, true)
       .setHarvestLvl("shovel", 11, 67.0F)
-      .setItemToRepair(INGOTAQUATIC)
+      .setItemToRepair(AQUATIC_INGOT)
       .setToolEnchantability(20);
-   public static Item STORMPICKAXE = new ItemBasicTool("storm_pickaxe", CreativeTabs.TOOLS, 7000, 1, true)
+   public static final Item STORM_PICKAXE = new ItemBasicTool("storm_pickaxe", CreativeTabs.TOOLS, 7000, 1, true)
       .setHarvestLvl("pickaxe", 12, 85.0F)
       .setItemToRepair(PHASEOLITE)
       .setToolEnchantability(20);
-   public static Item STORMAXE = new ItemBasicTool("storm_axe", CreativeTabs.TOOLS, 7000, 1, true)
+   public static final Item STORM_AXE = new ItemBasicTool("storm_axe", CreativeTabs.TOOLS, 7000, 1, true)
       .setHarvestLvl("axe", 12, 85.0F)
       .setItemToRepair(PHASEOLITE)
       .setToolEnchantability(20);
-   public static Item STORMSHOVEL = new ItemBasicTool("storm_shovel", CreativeTabs.TOOLS, 7000, 1, true)
+   public static final Item STORM_SHOVEL = new ItemBasicTool("storm_shovel", CreativeTabs.TOOLS, 7000, 1, true)
       .setHarvestLvl("shovel", 12, 85.0F)
       .setItemToRepair(PHASEOLITE)
       .setToolEnchantability(20);
-   public static MiningTools toolsDiamond = new MiningTools(
+   public static final MiningTools DIAMOND_MINING_TOOLS = new MiningTools(
       new ResourceLocation("arpg:textures/mining_tools_diamond.png"),
       "tools_diamond",
       3,
@@ -1535,12 +1330,12 @@ public class ItemsRegister {
       new MiningTools.LaserDigger("laser_digger", 5120, ItemAccumulator.LEAD_ACID_CAPACITY * 2, ItemAccumulator.LEAD_ACID_THROUGHPUT, 180),
       new Vec3d(1.0, 0.0, 1.0)
    );
-   public static Item DIAMONDDRILLELECTRIC = toolsDiamond.electricDrill;
-   public static Item DIAMONDDRILLFUEL = toolsDiamond.fuelDrill;
-   public static Item DIAMONDCHAINSAWELECTRIC = toolsDiamond.electricChainsaw;
-   public static Item DIAMONDCHAINSAWFUEL = toolsDiamond.fuelChainsaw;
-   public static Item LASERDIGGER = toolsDiamond.miningLaser;
-   public static MiningTools toolsToxinium = new MiningTools(
+   public static final Item DIAMOND_ELECTRIC_DRILL = DIAMOND_MINING_TOOLS.electricDrill;
+   public static final Item DIAMOND_FUEL_DRILL = DIAMOND_MINING_TOOLS.fuelDrill;
+   public static final Item DIAMOND_ELECTRIC_CHAINSAW = DIAMOND_MINING_TOOLS.electricChainsaw;
+   public static final Item DIAMOND_FUEL_CHAINSAW = DIAMOND_MINING_TOOLS.fuelChainsaw;
+   public static final Item LASER_MINING_DIGGER = DIAMOND_MINING_TOOLS.miningLaser;
+   public static final MiningTools TOXINIUM_MINING_TOOLS = new MiningTools(
       new ResourceLocation("arpg:textures/mining_tools_toxinium.png"),
       "tools_toxinium",
       9,
@@ -1555,12 +1350,12 @@ public class ItemsRegister {
       new MiningTools.NuclearMiningRay("nuclear_mining_ray", 12500, ItemAccumulator.LI_ION_CAPACITY * 3, ItemAccumulator.LI_ION_THROUGHPUT, 210),
       new Vec3d(0.0, 1.0, 0.0)
    );
-   public static Item TOXINIUMDRILLELECTRIC = toolsToxinium.electricDrill;
-   public static Item TOXINIUMDRILLFUEL = toolsToxinium.fuelDrill;
-   public static Item TOXINIUMCHAINSAWELECTRIC = toolsToxinium.electricChainsaw;
-   public static Item TOXINIUMCHAINSAWFUEL = toolsToxinium.fuelChainsaw;
-   public static Item NUCLEARMININGRAY = toolsToxinium.miningLaser;
-   public static MiningTools toolsAdamantium = new MiningTools(
+   public static final Item TOXINIUM_ELECTRIC_DRILL = TOXINIUM_MINING_TOOLS.electricDrill;
+   public static final Item TOXINIUM_FUEL_DRILL = TOXINIUM_MINING_TOOLS.fuelDrill;
+   public static final Item TOXINIUM_ELECTRIC_CHAINSAW = TOXINIUM_MINING_TOOLS.electricChainsaw;
+   public static final Item TOXINIUM_FUEL_CHAINSAW = TOXINIUM_MINING_TOOLS.fuelChainsaw;
+   public static final Item NUCLEAR_MINING_RAY = TOXINIUM_MINING_TOOLS.miningLaser;
+   public static final MiningTools ADAMANTIUM_MINING_TOOLS = new MiningTools(
       new ResourceLocation("arpg:textures/mining_tools_adamantium.png"),
       "tools_adamantium",
       10,
@@ -1575,12 +1370,12 @@ public class ItemsRegister {
       new MiningTools.EyelightProspector("eyelight_prospector", 15000, ItemAccumulator.ANCIENT_CAPACITY * 2, ItemAccumulator.ANCIENT_THROUGHPUT, 240),
       new Vec3d(0.78, 0.87, 0.93)
    );
-   public static Item ADAMANTIUMDRILLELECTRIC = toolsAdamantium.electricDrill;
-   public static Item ADAMANTIUMDRILLFUEL = toolsAdamantium.fuelDrill;
-   public static Item ADAMANTIUMCHAINSAWELECTRIC = toolsAdamantium.electricChainsaw;
-   public static Item ADAMANTIUMCHAINSAWFUEL = toolsAdamantium.fuelChainsaw;
-   public static Item EYELIGHTPROSPECTOR = toolsAdamantium.miningLaser;
-   public static MiningTools toolsAquatic = new MiningTools(
+   public static final Item ADAMANTIUM_ELECTRIC_DRILL = ADAMANTIUM_MINING_TOOLS.electricDrill;
+   public static final Item ADAMANTIUM_FUEL_DRILL = ADAMANTIUM_MINING_TOOLS.fuelDrill;
+   public static final Item ADAMANTIUM_ELECTRIC_CHAINSAW = ADAMANTIUM_MINING_TOOLS.electricChainsaw;
+   public static final Item ADAMANTIUM_FUEL_CHAINSAW = ADAMANTIUM_MINING_TOOLS.fuelChainsaw;
+   public static final Item EYE_LIGHT_PROSPECTOR = ADAMANTIUM_MINING_TOOLS.miningLaser;
+   public static final MiningTools AQUATIC_MINING_TOOLS = new MiningTools(
       new ResourceLocation("arpg:textures/mining_tools_aquatic.png"),
       "tools_aquatic",
       11,
@@ -1595,12 +1390,12 @@ public class ItemsRegister {
       new MiningTools.CorrosiveWaterblaster("corrosive_waterblaster", 15000, 8000, 1),
       new Vec3d(0.2, 0.73, 1.0)
    );
-   public static Item AQUATICDRILLELECTRIC = toolsAquatic.electricDrill;
-   public static Item AQUATICDRILLFUEL = toolsAquatic.fuelDrill;
-   public static Item AQUATICCHAINSAWELECTRIC = toolsAquatic.electricChainsaw;
-   public static Item AQUATICCHAINSAWFUEL = toolsAquatic.fuelChainsaw;
-   public static Item CORROSIVEWATERBLASTER = toolsAquatic.miningLaser;
-   public static MiningTools toolsStorm = new MiningTools(
+   public static final Item AQUATIC_ELECTRIC_DRILL = AQUATIC_MINING_TOOLS.electricDrill;
+   public static final Item AQUATIC_FUEL_DRILL = AQUATIC_MINING_TOOLS.fuelDrill;
+   public static final Item AQUATIC_ELECTRIC_CHAINSAW = AQUATIC_MINING_TOOLS.electricChainsaw;
+   public static final Item AQUATIC_FUEL_CHAINSAW = AQUATIC_MINING_TOOLS.fuelChainsaw;
+   public static final Item CORROSIVE_WATER_BLASTER = AQUATIC_MINING_TOOLS.miningLaser;
+   public static final MiningTools STORM_MINING_TOOLS = new MiningTools(
       new ResourceLocation("arpg:textures/mining_tools_storm.png"),
       "tools_storm",
       12,
@@ -1615,1630 +1410,999 @@ public class ItemsRegister {
       new MiningTools.PlasmaCutter("plasma_cutter", 15000, ItemAccumulator.TOPAZITRON_CAPACITY * 2, ItemAccumulator.TOPAZITRON_THROUGHPUT, 320),
       new Vec3d(0.69, 0.58, 0.9)
    );
-   public static Item STORMDRILLELECTRIC = toolsStorm.electricDrill;
-   public static Item STORMDRILLFUEL = toolsStorm.fuelDrill;
-   public static Item STORMCHAINSAWELECTRIC = toolsStorm.electricChainsaw;
-   public static Item STORMCHAINSAWFUEL = toolsStorm.fuelChainsaw;
-   public static Item PLASMACUTTER = toolsStorm.miningLaser;
+   public static final Item STORM_ELECTRIC_DRILL = STORM_MINING_TOOLS.electricDrill;
+   public static final Item STORM_FUEL_DRILL = STORM_MINING_TOOLS.fuelDrill;
+   public static final Item STORM_ELECTRIC_CHAINSAW = STORM_MINING_TOOLS.electricChainsaw;
+   public static final Item STORM_FUEL_CHAINSAW = STORM_MINING_TOOLS.fuelChainsaw;
+   public static final Item PLASMA_CUTTER = STORM_MINING_TOOLS.miningLaser;
 
+   @SideOnly(Side.CLIENT)
    public static void registerItemsRender() {
       ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
-      CreateItemFile.ResLocationCreate(MODULEBIOFILTERING);
-      CreateItemFile.ResLocationCreate(RICHSCRAP);
-      mesher.register(RICHSCRAP, 0, new ModelResourceLocation(RICHSCRAP.getRegistryName(), "inventory"));
-      mesher.register(MODULEBIOFILTERING, 0, new ModelResourceLocation(MODULEBIOFILTERING.getRegistryName(), "inventory"));
-      mesher.register(SWARMETER, 0, new ModelResourceLocation(SWARMETER.getRegistryName(), "inventory"));
-      mesher.register(WIZARDCLOTH, 0, new ModelResourceLocation(WIZARDCLOTH.getRegistryName(), "inventory"));
-      mesher.register(WEATHERROCKETPOISONRAIN, 0, new ModelResourceLocation(WEATHERROCKETPOISONRAIN.getRegistryName(), "inventory"));
-      mesher.register(WEATHERROCKETRAINFALL, 0, new ModelResourceLocation(WEATHERROCKETRAINFALL.getRegistryName(), "inventory"));
-      mesher.register(WEATHERROCKETSTORM, 0, new ModelResourceLocation(WEATHERROCKETSTORM.getRegistryName(), "inventory"));
-      mesher.register(WEATHERROCKETRAINSTORM, 0, new ModelResourceLocation(WEATHERROCKETRAINSTORM.getRegistryName(), "inventory"));
-      mesher.register(TOXINIUMPICKAXE, 0, new ModelResourceLocation(TOXINIUMPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(TOXINIUMAXE, 0, new ModelResourceLocation(TOXINIUMAXE.getRegistryName(), "inventory"));
-      mesher.register(TOXINIUMSHOVEL, 0, new ModelResourceLocation(TOXINIUMSHOVEL.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMPICKAXE, 0, new ModelResourceLocation(ADAMANTIUMPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMAXE, 0, new ModelResourceLocation(ADAMANTIUMAXE.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMSHOVEL, 0, new ModelResourceLocation(ADAMANTIUMSHOVEL.getRegistryName(), "inventory"));
-      mesher.register(AQUATICPICKAXE, 0, new ModelResourceLocation(AQUATICPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(AQUATICAXE, 0, new ModelResourceLocation(AQUATICAXE.getRegistryName(), "inventory"));
-      mesher.register(AQUATICSHOVEL, 0, new ModelResourceLocation(AQUATICSHOVEL.getRegistryName(), "inventory"));
-      mesher.register(STORMPICKAXE, 0, new ModelResourceLocation(STORMPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(STORMAXE, 0, new ModelResourceLocation(STORMAXE.getRegistryName(), "inventory"));
-      mesher.register(STORMSHOVEL, 0, new ModelResourceLocation(STORMSHOVEL.getRegistryName(), "inventory"));
-      mesher.register(DOLERITEKEY, 0, new ModelResourceLocation(DOLERITEKEY.getRegistryName(), "inventory"));
-      mesher.register(FIBERBANDAGE, 0, new ModelResourceLocation(FIBERBANDAGE.getRegistryName(), "inventory"));
-      mesher.register(SELECTIVELEVITATOR, 0, new ModelResourceLocation(SELECTIVELEVITATOR.getRegistryName(), "inventory"));
-      mesher.register(STORMSPAWNERPIECE, 0, new ModelResourceLocation(STORMSPAWNERPIECE.getRegistryName(), "inventory"));
-      mesher.register(SACRIFICIALDAGGER, 0, new ModelResourceLocation(SACRIFICIALDAGGER.getRegistryName(), "inventory"));
-      mesher.register(SIRENKEY, 0, new ModelResourceLocation(SIRENKEY.getRegistryName(), "inventory"));
-      mesher.register(MERMAIDMEDALLION, 0, new ModelResourceLocation(MERMAIDMEDALLION.getRegistryName(), "inventory"));
-      mesher.register(WEATHERROCKETCLEAR, 0, new ModelResourceLocation(WEATHERROCKETCLEAR.getRegistryName(), "inventory"));
-      mesher.register(WEATHERROCKETSNOWFALL, 0, new ModelResourceLocation(WEATHERROCKETSNOWFALL.getRegistryName(), "inventory"));
-      mesher.register(WEATHERROCKETHAIL, 0, new ModelResourceLocation(WEATHERROCKETHAIL.getRegistryName(), "inventory"));
-      mesher.register(WEATHERROCKETAURORA, 0, new ModelResourceLocation(WEATHERROCKETAURORA.getRegistryName(), "inventory"));
-      mesher.register(PIRATESEXTANT, 0, new ModelResourceLocation(PIRATESEXTANT.getRegistryName(), "inventory"));
-      mesher.register(CIRCUITAQUATIC, 0, new ModelResourceLocation(CIRCUITAQUATIC.getRegistryName(), "inventory"));
-      mesher.register(TIDALHEART, 0, new ModelResourceLocation(TIDALHEART.getRegistryName(), "inventory"));
-      mesher.register(STABILIZATIONCELL, 0, new ModelResourceLocation(STABILIZATIONCELL.getRegistryName(), "inventory"));
-      mesher.register(SCRAPBOMB, 0, new ModelResourceLocation(SCRAPBOMB.getRegistryName(), "inventory"));
-      mesher.register(HEALTHFULCAPSULE, 0, new ModelResourceLocation(HEALTHFULCAPSULE.getRegistryName(), "inventory"));
-      mesher.register(GEIGERCOUNTER, 0, new ModelResourceLocation(GEIGERCOUNTER.getRegistryName(), "inventory"));
-      mesher.register(THUNDERBIRDFEATHER, 0, new ModelResourceLocation(THUNDERBIRDFEATHER.getRegistryName(), "inventory"));
-      mesher.register(PIZZASEAFOOD, 0, new ModelResourceLocation(PIZZASEAFOOD.getRegistryName(), "inventory"));
-      mesher.register(PALEMEATRAW, 0, new ModelResourceLocation(PALEMEATRAW.getRegistryName(), "inventory"));
-      mesher.register(PALEMEATSMOKED, 0, new ModelResourceLocation(PALEMEATSMOKED.getRegistryName(), "inventory"));
-      mesher.register(FISHSTEAKRAW, 0, new ModelResourceLocation(FISHSTEAKRAW.getRegistryName(), "inventory"));
-      mesher.register(FISHSTEAKROASTED, 0, new ModelResourceLocation(FISHSTEAKROASTED.getRegistryName(), "inventory"));
-      mesher.register(BLACKGOO, 0, new ModelResourceLocation(BLACKGOO.getRegistryName(), "inventory"));
-      mesher.register(FIBERCLOTH, 0, new ModelResourceLocation(FIBERCLOTH.getRegistryName(), "inventory"));
-      mesher.register(ANTIRADPLATING, 0, new ModelResourceLocation(ANTIRADPLATING.getRegistryName(), "inventory"));
-      mesher.register(PHASEOLITE, 0, new ModelResourceLocation(PHASEOLITE.getRegistryName(), "inventory"));
-      mesher.register(ETHERITEFUELCELL, 0, new ModelResourceLocation(ETHERITEFUELCELL.getRegistryName(), "inventory"));
-      mesher.register(VITREOUSHEART, 0, new ModelResourceLocation(VITREOUSHEART.getRegistryName(), "inventory"));
-      mesher.register(SOLIDIFIEDLIGHTNING, 0, new ModelResourceLocation(SOLIDIFIEDLIGHTNING.getRegistryName(), "inventory"));
-      mesher.register(KRAKENSKIN, 0, new ModelResourceLocation(KRAKENSKIN.getRegistryName(), "inventory"));
-      mesher.register(WORSHIPPERSBAIT, 0, new ModelResourceLocation(WORSHIPPERSBAIT.getRegistryName(), "inventory"));
-      mesher.register(FINWINGS, 0, new ModelResourceLocation(FINWINGS.getRegistryName(), "inventory"));
-      mesher.register(BATTERYANCIENT, 0, new ModelResourceLocation(BATTERYANCIENT.getRegistryName(), "inventory"));
-      mesher.register(BATTERYAQUATRONIC, 0, new ModelResourceLocation(BATTERYAQUATRONIC.getRegistryName(), "inventory"));
-      mesher.register(ANCIENTSPAWNERPIECE, 0, new ModelResourceLocation(ANCIENTSPAWNERPIECE.getRegistryName(), "inventory"));
-      mesher.register(EYEOFBEHOLDER, 0, new ModelResourceLocation(EYEOFBEHOLDER.getRegistryName(), "inventory"));
-      mesher.register(THUNDERBIRDWINGS, 0, new ModelResourceLocation(THUNDERBIRDWINGS.getRegistryName(), "inventory"));
-      mesher.register(WINDKEEPER, 0, new ModelResourceLocation(WINDKEEPER.getRegistryName(), "inventory"));
-      mesher.register(SHIPWREAKERSKNOT, 0, new ModelResourceLocation(SHIPWREAKERSKNOT.getRegistryName(), "inventory"));
-      mesher.register(WHITEWINDBELT, 0, new ModelResourceLocation(WHITEWINDBELT.getRegistryName(), "inventory"));
-      mesher.register(BELTOFSHADOWS, 0, new ModelResourceLocation(BELTOFSHADOWS.getRegistryName(), "inventory"));
-      mesher.register(EREBRISSHARD, 0, new ModelResourceLocation(EREBRISSHARD.getRegistryName(), "inventory"));
-      mesher.register(EREBRISFRAGMENT, 0, new ModelResourceLocation(EREBRISFRAGMENT.getRegistryName(), "inventory"));
-      mesher.register(EREBRISCHUNK, 0, new ModelResourceLocation(EREBRISCHUNK.getRegistryName(), "inventory"));
-      mesher.register(SILICIUM, 0, new ModelResourceLocation(SILICIUM.getRegistryName(), "inventory"));
-      mesher.register(SILICIUMWAFER, 0, new ModelResourceLocation(SILICIUMWAFER.getRegistryName(), "inventory"));
-      mesher.register(PHOTORESISTEDPLATE, 0, new ModelResourceLocation(PHOTORESISTEDPLATE.getRegistryName(), "inventory"));
-      mesher.register(LITOGRAPHEDPLATE, 0, new ModelResourceLocation(LITOGRAPHEDPLATE.getRegistryName(), "inventory"));
-      mesher.register(GALVANIZEDPLATE, 0, new ModelResourceLocation(GALVANIZEDPLATE.getRegistryName(), "inventory"));
-      mesher.register(LEPIDOLITE, 0, new ModelResourceLocation(LEPIDOLITE.getRegistryName(), "inventory"));
-      mesher.register(NUGGETLITHIUM, 0, new ModelResourceLocation(NUGGETLITHIUM.getRegistryName(), "inventory"));
-      mesher.register(INGOTLITHIUM, 0, new ModelResourceLocation(INGOTLITHIUM.getRegistryName(), "inventory"));
-      mesher.register(DUSTLITHIUM, 0, new ModelResourceLocation(DUSTLITHIUM.getRegistryName(), "inventory"));
-      mesher.register(VACUUMGUNPELLETS, 0, new ModelResourceLocation(VACUUMGUNPELLETS.getRegistryName(), "inventory"));
-      mesher.register(BEARINGLOWFRICTION, 0, new ModelResourceLocation(BEARINGLOWFRICTION.getRegistryName(), "inventory"));
-      mesher.register(CHARMOFUNDYING, 0, new ModelResourceLocation(CHARMOFUNDYING.getRegistryName(), "inventory"));
-      mesher.register(GOTHICGEM, 0, new ModelResourceLocation(GOTHICGEM.getRegistryName(), "inventory"));
-      mesher.register(HYDRAULICSHOTGUNCLIP, 0, new ModelResourceLocation(HYDRAULICSHOTGUNCLIP.getRegistryName(), "inventory"));
-      mesher.register(GOTHICGEAR, 0, new ModelResourceLocation(GOTHICGEAR.getRegistryName(), "inventory"));
-      mesher.register(ICECIRCLE, 0, new ModelResourceLocation(ICECIRCLE.getRegistryName(), "inventory"));
-      mesher.register(ICECIRCLEFILLED, 0, new ModelResourceLocation(ICECIRCLEFILLED.getRegistryName(), "inventory"));
-      mesher.register(HEALTHFRUIT, 0, new ModelResourceLocation(HEALTHFRUIT.getRegistryName(), "inventory"));
-      mesher.register(MANAEXPANSIONPOTION, 0, new ModelResourceLocation(MANAEXPANSIONPOTION.getRegistryName(), "inventory"));
-      mesher.register(RUBBLESTONE, 0, new ModelResourceLocation(RUBBLESTONE.getRegistryName(), "inventory"));
-      mesher.register(SALTPETER, 0, new ModelResourceLocation(SALTPETER.getRegistryName(), "inventory"));
-      mesher.register(ASH, 0, new ModelResourceLocation(ASH.getRegistryName(), "inventory"));
-      mesher.register(SLIMELOCATOR, 0, new ModelResourceLocation(SLIMELOCATOR.getRegistryName(), "inventory"));
-      mesher.register(RHINESTONEPICKAXE, 0, new ModelResourceLocation(RHINESTONEPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(RHINESTONEAXE, 0, new ModelResourceLocation(RHINESTONEAXE.getRegistryName(), "inventory"));
-      mesher.register(RHINESTONESHOVEL, 0, new ModelResourceLocation(RHINESTONESHOVEL.getRegistryName(), "inventory"));
-      mesher.register(TOPAZPICKAXE, 0, new ModelResourceLocation(TOPAZPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(TOPAZAXE, 0, new ModelResourceLocation(TOPAZAXE.getRegistryName(), "inventory"));
-      mesher.register(TOPAZSHOVEL, 0, new ModelResourceLocation(TOPAZSHOVEL.getRegistryName(), "inventory"));
-      mesher.register(SAPPHIREPICKAXE, 0, new ModelResourceLocation(SAPPHIREPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(SAPPHIREAXE, 0, new ModelResourceLocation(SAPPHIREAXE.getRegistryName(), "inventory"));
-      mesher.register(SAPPHIRESHOVEL, 0, new ModelResourceLocation(SAPPHIRESHOVEL.getRegistryName(), "inventory"));
-      mesher.register(AMETHYSTPICKAXE, 0, new ModelResourceLocation(AMETHYSTPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(AMETHYSTAXE, 0, new ModelResourceLocation(AMETHYSTAXE.getRegistryName(), "inventory"));
-      mesher.register(AMETHYSTSHOVEL, 0, new ModelResourceLocation(AMETHYSTSHOVEL.getRegistryName(), "inventory"));
-      mesher.register(CITRINEPICKAXE, 0, new ModelResourceLocation(CITRINEPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(CITRINEAXE, 0, new ModelResourceLocation(CITRINEAXE.getRegistryName(), "inventory"));
-      mesher.register(CITRINESHOVEL, 0, new ModelResourceLocation(CITRINESHOVEL.getRegistryName(), "inventory"));
-      mesher.register(RUBYPICKAXE, 0, new ModelResourceLocation(RUBYPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(RUBYAXE, 0, new ModelResourceLocation(RUBYAXE.getRegistryName(), "inventory"));
-      mesher.register(RUBYSHOVEL, 0, new ModelResourceLocation(RUBYSHOVEL.getRegistryName(), "inventory"));
-      mesher.register(MISSINGDUST, 0, new ModelResourceLocation(MISSINGDUST.getRegistryName(), "inventory"));
-      mesher.register(MISSINGINGOT, 0, new ModelResourceLocation(MISSINGINGOT.getRegistryName(), "inventory"));
-      mesher.register(MISSINGNUGGET, 0, new ModelResourceLocation(MISSINGNUGGET.getRegistryName(), "inventory"));
-      mesher.register(MISSINGMATERIAL, 0, new ModelResourceLocation(MISSINGMATERIAL.getRegistryName(), "inventory"));
-      mesher.register(INK, 0, new ModelResourceLocation(INK.getRegistryName(), "inventory"));
-      mesher.register(DUSTQUARTZ, 0, new ModelResourceLocation(DUSTQUARTZ.getRegistryName(), "inventory"));
-      mesher.register(EMPTYSYRINGE, 0, new ModelResourceLocation(EMPTYSYRINGE.getRegistryName(), "inventory"));
-      mesher.register(MODULEPYROLYSIS, 0, new ModelResourceLocation(MODULEPYROLYSIS.getRegistryName(), "inventory"));
-      mesher.register(INGOTPURPURALLOY, 0, new ModelResourceLocation(INGOTPURPURALLOY.getRegistryName(), "inventory"));
-      mesher.register(BLACKSTRAP, 0, new ModelResourceLocation(BLACKSTRAP.getRegistryName(), "inventory"));
-      mesher.register(TITANIUMSLAG, 0, new ModelResourceLocation(TITANIUMSLAG.getRegistryName(), "inventory"));
-      mesher.register(AQUATICSPAWNERPIECE, 0, new ModelResourceLocation(AQUATICSPAWNERPIECE.getRegistryName(), "inventory"));
-      mesher.register(DUSTADAMANTIUMORE, 0, new ModelResourceLocation(DUSTADAMANTIUMORE.getRegistryName(), "inventory"));
-      mesher.register(DUSTMITHRILORE, 0, new ModelResourceLocation(DUSTMITHRILORE.getRegistryName(), "inventory"));
-      mesher.register(DUSTSTONE, 0, new ModelResourceLocation(DUSTSTONE.getRegistryName(), "inventory"));
-      mesher.register(DUSTLIMESTONE, 0, new ModelResourceLocation(DUSTLIMESTONE.getRegistryName(), "inventory"));
-      mesher.register(DUSTBASALT, 0, new ModelResourceLocation(DUSTBASALT.getRegistryName(), "inventory"));
-      mesher.register(INGOTURANIUM, 0, new ModelResourceLocation(INGOTURANIUM.getRegistryName(), "inventory"));
-      mesher.register(DUSTURANIUM, 0, new ModelResourceLocation(DUSTURANIUM.getRegistryName(), "inventory"));
-      mesher.register(NUGGETURANIUM, 0, new ModelResourceLocation(NUGGETURANIUM.getRegistryName(), "inventory"));
-      mesher.register(DUSTTOXINIUMORE, 0, new ModelResourceLocation(DUSTTOXINIUMORE.getRegistryName(), "inventory"));
-      mesher.register(DUSTRADIOACTIVESTONE, 0, new ModelResourceLocation(DUSTRADIOACTIVESTONE.getRegistryName(), "inventory"));
-      mesher.register(NYLON, 0, new ModelResourceLocation(NYLON.getRegistryName(), "inventory"));
-      mesher.register(TAR, 0, new ModelResourceLocation(TAR.getRegistryName(), "inventory"));
-      mesher.register(PARAFFIN, 0, new ModelResourceLocation(PARAFFIN.getRegistryName(), "inventory"));
-      mesher.register(MODULEPOLYMERIZATION, 0, new ModelResourceLocation(MODULEPOLYMERIZATION.getRegistryName(), "inventory"));
-      mesher.register(MODULEDISTILLATION, 0, new ModelResourceLocation(MODULEDISTILLATION.getRegistryName(), "inventory"));
-      mesher.register(CIRCUITRESISTANT, 0, new ModelResourceLocation(CIRCUITRESISTANT.getRegistryName(), "inventory"));
-      mesher.register(GOLDTRANSFORMER, 0, new ModelResourceLocation(GOLDTRANSFORMER.getRegistryName(), "inventory"));
-      mesher.register(SILVERTRANSFORMER, 0, new ModelResourceLocation(SILVERTRANSFORMER.getRegistryName(), "inventory"));
-      mesher.register(TOPAZITRONCRYSTAL, 0, new ModelResourceLocation(TOPAZITRONCRYSTAL.getRegistryName(), "inventory"));
-      mesher.register(BATTERYTOPAZITRONCRYSTAL, 0, new ModelResourceLocation(BATTERYTOPAZITRONCRYSTAL.getRegistryName(), "inventory"));
-      mesher.register(BEARINGELECTROMAGNETIC, 0, new ModelResourceLocation(BEARINGELECTROMAGNETIC.getRegistryName(), "inventory"));
-      mesher.register(BLUEARTHROSTELECHAROD, 0, new ModelResourceLocation(BLUEARTHROSTELECHAROD.getRegistryName(), "inventory"));
-      mesher.register(PINKARTHROSTELECHAROD, 0, new ModelResourceLocation(PINKARTHROSTELECHAROD.getRegistryName(), "inventory"));
-      mesher.register(IMPULSETHRUSTER, 0, new ModelResourceLocation(IMPULSETHRUSTER.getRegistryName(), "inventory"));
-      mesher.register(CIRCUITSTORM, 0, new ModelResourceLocation(CIRCUITSTORM.getRegistryName(), "inventory"));
-      mesher.register(STORMBRASSPLASMATRON, 0, new ModelResourceLocation(STORMBRASSPLASMATRON.getRegistryName(), "inventory"));
-      mesher.register(INGOTMITHRIL, 0, new ModelResourceLocation(INGOTMITHRIL.getRegistryName(), "inventory"));
-      mesher.register(DUSTMITHRIL, 0, new ModelResourceLocation(DUSTMITHRIL.getRegistryName(), "inventory"));
-      mesher.register(NUGGETMITHRIL, 0, new ModelResourceLocation(NUGGETMITHRIL.getRegistryName(), "inventory"));
-      mesher.register(NUGGETAQUATIC, 0, new ModelResourceLocation(NUGGETAQUATIC.getRegistryName(), "inventory"));
-      mesher.register(PEARL, 0, new ModelResourceLocation(PEARL.getRegistryName(), "inventory"));
-      mesher.register(PEARLBLACK, 0, new ModelResourceLocation(PEARLBLACK.getRegistryName(), "inventory"));
-      mesher.register(PEARLGLOWING, 0, new ModelResourceLocation(PEARLGLOWING.getRegistryName(), "inventory"));
-      mesher.register(PEARLAQUATIC, 0, new ModelResourceLocation(PEARLAQUATIC.getRegistryName(), "inventory"));
-      mesher.register(INGOTAQUATIC, 0, new ModelResourceLocation(INGOTAQUATIC.getRegistryName(), "inventory"));
-      mesher.register(DUSTAQUATIC, 0, new ModelResourceLocation(DUSTAQUATIC.getRegistryName(), "inventory"));
-      mesher.register(CORAL, 0, new ModelResourceLocation(CORAL.getRegistryName(), "inventory"));
-      mesher.register(ARCHELONSHELL, 0, new ModelResourceLocation(ARCHELONSHELL.getRegistryName(), "inventory"));
-      mesher.register(PLACODERMSCALES, 0, new ModelResourceLocation(PLACODERMSCALES.getRegistryName(), "inventory"));
-      mesher.register(MESOGLEA, 0, new ModelResourceLocation(MESOGLEA.getRegistryName(), "inventory"));
-      mesher.register(TOXEDGEDOUGH, 0, new ModelResourceLocation(TOXEDGEDOUGH.getRegistryName(), "inventory"));
-      mesher.register(BUTTER, 0, new ModelResourceLocation(BUTTER.getRegistryName(), "inventory"));
-      mesher.register(BISCUIT, 0, new ModelResourceLocation(BISCUIT.getRegistryName(), "inventory"));
-      mesher.register(SWEETDOUGH, 0, new ModelResourceLocation(SWEETDOUGH.getRegistryName(), "inventory"));
-      mesher.register(COCOAPOWDER, 0, new ModelResourceLocation(COCOAPOWDER.getRegistryName(), "inventory"));
-      mesher.register(CARAMEL, 0, new ModelResourceLocation(CARAMEL.getRegistryName(), "inventory"));
-      mesher.register(CHOCOLATE, 0, new ModelResourceLocation(CHOCOLATE.getRegistryName(), "inventory"));
-      mesher.register(COCOABUTTER, 0, new ModelResourceLocation(COCOABUTTER.getRegistryName(), "inventory"));
-      mesher.register(PUDDINGVIOLET, 0, new ModelResourceLocation(PUDDINGVIOLET.getRegistryName(), "inventory"));
-      mesher.register(PUDDINGGREEN, 0, new ModelResourceLocation(PUDDINGGREEN.getRegistryName(), "inventory"));
-      mesher.register(PUDDINGBROWN, 0, new ModelResourceLocation(PUDDINGBROWN.getRegistryName(), "inventory"));
-      mesher.register(PUDDINGORANGE, 0, new ModelResourceLocation(PUDDINGORANGE.getRegistryName(), "inventory"));
-      mesher.register(FLOUR, 0, new ModelResourceLocation(FLOUR.getRegistryName(), "inventory"));
-      mesher.register(MEATBROTH, 0, new ModelResourceLocation(MEATBROTH.getRegistryName(), "inventory"));
-      mesher.register(STUFFEDFIERYBEAN, 0, new ModelResourceLocation(STUFFEDFIERYBEAN.getRegistryName(), "inventory"));
-      mesher.register(BORSCH, 0, new ModelResourceLocation(BORSCH.getRegistryName(), "inventory"));
-      mesher.register(MODULEFERMENTER, 0, new ModelResourceLocation(MODULEFERMENTER.getRegistryName(), "inventory"));
-      mesher.register(MODULECENTRIFUGE, 0, new ModelResourceLocation(MODULECENTRIFUGE.getRegistryName(), "inventory"));
-      mesher.register(TOMATOCHERRY, 0, new ModelResourceLocation(TOMATOCHERRY.getRegistryName(), "inventory"));
-      mesher.register(MAGICJAM, 0, new ModelResourceLocation(MAGICJAM.getRegistryName(), "inventory"));
-      mesher.register(DOUGH, 0, new ModelResourceLocation(DOUGH.getRegistryName(), "inventory"));
-      mesher.register(MOZZARELLA, 0, new ModelResourceLocation(MOZZARELLA.getRegistryName(), "inventory"));
-      mesher.register(MUSHROOMSINSAUCE, 0, new ModelResourceLocation(MUSHROOMSINSAUCE.getRegistryName(), "inventory"));
-      mesher.register(WHEYSTARTER, 0, new ModelResourceLocation(WHEYSTARTER.getRegistryName(), "inventory"));
-      mesher.register(YEAST, 0, new ModelResourceLocation(YEAST.getRegistryName(), "inventory"));
-      mesher.register(MOONSHROOMMEAT, 0, new ModelResourceLocation(MOONSHROOMMEAT.getRegistryName(), "inventory"));
-      mesher.register(GRAINSSALT, 0, new ModelResourceLocation(GRAINSSALT.getRegistryName(), "inventory"));
-      mesher.register(REDPEPPER, 0, new ModelResourceLocation(REDPEPPER.getRegistryName(), "inventory"));
-      mesher.register(HEALTHBERRY, 0, new ModelResourceLocation(HEALTHBERRY.getRegistryName(), "inventory"));
-      mesher.register(QUANTUMSLIMEBALL, 0, new ModelResourceLocation(QUANTUMSLIMEBALL.getRegistryName(), "inventory"));
-      mesher.register(MANABERRY, 0, new ModelResourceLocation(MANABERRY.getRegistryName(), "inventory"));
-      mesher.register(ALCHEMICALWAX, 0, new ModelResourceLocation(ALCHEMICALWAX.getRegistryName(), "inventory"));
-      mesher.register(ENIGMATETWINS, 0, new ModelResourceLocation(ENIGMATETWINS.getRegistryName(), "inventory"));
-      mesher.register(BULLETDIVERS, 0, new ModelResourceLocation(BULLETDIVERS.getRegistryName(), "inventory"));
-      mesher.register(BULLETCORAL, 0, new ModelResourceLocation(BULLETCORAL.getRegistryName(), "inventory"));
-      mesher.register(ROCKETSHELL, 0, new ModelResourceLocation(ROCKETSHELL.getRegistryName(), "inventory"));
-      mesher.register(BULLETERRATIC, 0, new ModelResourceLocation(BULLETERRATIC.getRegistryName(), "inventory"));
-      mesher.register(ROCKETSURPRISE, 0, new ModelResourceLocation(ROCKETSURPRISE.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMMINIGUNCLIP, 0, new ModelResourceLocation(ADAMANTIUMMINIGUNCLIP.getRegistryName(), "inventory"));
-      mesher.register(XMASSBUNDLE, 0, new ModelResourceLocation(XMASSBUNDLE.getRegistryName(), "inventory"));
-      mesher.register(BOOKOFELEMENTS, 0, new ModelResourceLocation(BOOKOFELEMENTS.getRegistryName(), "inventory"));
-      mesher.register(VIALEMPTY, 0, new ModelResourceLocation(VIALEMPTY.getRegistryName(), "inventory"));
-      mesher.register(DASHBELTIMPULSECORSLET, 0, new ModelResourceLocation(DASHBELTIMPULSECORSLET.getRegistryName(), "inventory"));
-      mesher.register(DASHBELTHELLHOUND, 0, new ModelResourceLocation(DASHBELTHELLHOUND.getRegistryName(), "inventory"));
-      mesher.register(DASHBELTBLACK, 0, new ModelResourceLocation(DASHBELTBLACK.getRegistryName(), "inventory"));
-      mesher.register(SHADOWWINGS, 0, new ModelResourceLocation(SHADOWWINGS.getRegistryName(), "inventory"));
-      mesher.register(VIALFIRE, 0, new ModelResourceLocation(VIALFIRE.getRegistryName(), "inventory"));
-      mesher.register(VIALEARTH, 0, new ModelResourceLocation(VIALEARTH.getRegistryName(), "inventory"));
-      mesher.register(VIALWATER, 0, new ModelResourceLocation(VIALWATER.getRegistryName(), "inventory"));
-      mesher.register(VIALAIR, 0, new ModelResourceLocation(VIALAIR.getRegistryName(), "inventory"));
-      mesher.register(VIALPOISON, 0, new ModelResourceLocation(VIALPOISON.getRegistryName(), "inventory"));
-      mesher.register(VIALCOLD, 0, new ModelResourceLocation(VIALCOLD.getRegistryName(), "inventory"));
-      mesher.register(VIALELECTRIC, 0, new ModelResourceLocation(VIALELECTRIC.getRegistryName(), "inventory"));
-      mesher.register(VIALVOID, 0, new ModelResourceLocation(VIALVOID.getRegistryName(), "inventory"));
-      mesher.register(VIALPLEASURE, 0, new ModelResourceLocation(VIALPLEASURE.getRegistryName(), "inventory"));
-      mesher.register(VIALPAIN, 0, new ModelResourceLocation(VIALPAIN.getRegistryName(), "inventory"));
-      mesher.register(VIALDEATH, 0, new ModelResourceLocation(VIALDEATH.getRegistryName(), "inventory"));
-      mesher.register(VIALLIVE, 0, new ModelResourceLocation(VIALLIVE.getRegistryName(), "inventory"));
-      mesher.register(MAGICEXPLORINGKIT, 0, new ModelResourceLocation(MAGICEXPLORINGKIT.getRegistryName(), "inventory"));
-      mesher.register(MAGICRESEARCHKIT, 0, new ModelResourceLocation(MAGICRESEARCHKIT.getRegistryName(), "inventory"));
-      mesher.register(MAGICWRITINGKIT, 0, new ModelResourceLocation(MAGICWRITINGKIT.getRegistryName(), "inventory"));
-      mesher.register(COOLEDRIFLECLIP, 0, new ModelResourceLocation(COOLEDRIFLECLIP.getRegistryName(), "inventory"));
-      mesher.register(BULLETNIVEOUS, 0, new ModelResourceLocation(BULLETNIVEOUS.getRegistryName(), "inventory"));
-      mesher.register(NIVEOLITE, 0, new ModelResourceLocation(NIVEOLITE.getRegistryName(), "inventory"));
-      mesher.register(HELLHOUNDFUR, 0, new ModelResourceLocation(HELLHOUNDFUR.getRegistryName(), "inventory"));
-      mesher.register(FROZENSPAWNERPIECE, 0, new ModelResourceLocation(FROZENSPAWNERPIECE.getRegistryName(), "inventory"));
-      mesher.register(RUSTEDSPAWNERPIECE, 0, new ModelResourceLocation(RUSTEDSPAWNERPIECE.getRegistryName(), "inventory"));
-      mesher.register(SPAWNERPIECE, 0, new ModelResourceLocation(SPAWNERPIECE.getRegistryName(), "inventory"));
-      mesher.register(SLIMYEGGS, 0, new ModelResourceLocation(SLIMYEGGS.getRegistryName(), "inventory"));
-      mesher.register(GRAINSBERYLLIUM, 0, new ModelResourceLocation(GRAINSBERYLLIUM.getRegistryName(), "inventory"));
-      mesher.register(MODULEELECTROLYZER, 0, new ModelResourceLocation(MODULEELECTROLYZER.getRegistryName(), "inventory"));
-      mesher.register(INGOTALUMINIUM, 0, new ModelResourceLocation(INGOTALUMINIUM.getRegistryName(), "inventory"));
-      mesher.register(DUSTALUMINIUM, 0, new ModelResourceLocation(DUSTALUMINIUM.getRegistryName(), "inventory"));
-      mesher.register(NUGGETALUMINIUM, 0, new ModelResourceLocation(NUGGETALUMINIUM.getRegistryName(), "inventory"));
-      mesher.register(BEARINGALLOYDUST, 0, new ModelResourceLocation(BEARINGALLOYDUST.getRegistryName(), "inventory"));
-      mesher.register(COPPERTRANSFORMER, 0, new ModelResourceLocation(COPPERTRANSFORMER.getRegistryName(), "inventory"));
-      mesher.register(STAMPMOLD, 0, new ModelResourceLocation(STAMPMOLD.getRegistryName(), "inventory"));
-      mesher.register(STEELSTAMP, 0, new ModelResourceLocation(STEELSTAMP.getRegistryName(), "inventory"));
-      mesher.register(INGOTSILVER, 0, new ModelResourceLocation(INGOTSILVER.getRegistryName(), "inventory"));
-      mesher.register(DUSTSILVER, 0, new ModelResourceLocation(DUSTSILVER.getRegistryName(), "inventory"));
-      mesher.register(NUGGETSILVER, 0, new ModelResourceLocation(NUGGETSILVER.getRegistryName(), "inventory"));
-      mesher.register(ARROWWIND, 0, new ModelResourceLocation(ARROWWIND.getRegistryName(), "inventory"));
-      mesher.register(ARROWTWIN, 0, new ModelResourceLocation(ARROWTWIN.getRegistryName(), "inventory"));
-      mesher.register(ARROWMITHRIL, 0, new ModelResourceLocation(ARROWMITHRIL.getRegistryName(), "inventory"));
-      mesher.register(ARROWBOUNCING, 0, new ModelResourceLocation(ARROWBOUNCING.getRegistryName(), "inventory"));
-      mesher.register(ARROWSHELL, 0, new ModelResourceLocation(ARROWSHELL.getRegistryName(), "inventory"));
-      mesher.register(ARROWVOID, 0, new ModelResourceLocation(ARROWVOID.getRegistryName(), "inventory"));
-      mesher.register(ARROWFISH, 0, new ModelResourceLocation(ARROWFISH.getRegistryName(), "inventory"));
-      mesher.register(ARROWBENGAL, 0, new ModelResourceLocation(ARROWBENGAL.getRegistryName(), "inventory"));
-      mesher.register(ARROWMODERN, 0, new ModelResourceLocation(ARROWMODERN.getRegistryName(), "inventory"));
-      mesher.register(ARROWVICIOUS, 0, new ModelResourceLocation(ARROWVICIOUS.getRegistryName(), "inventory"));
-      mesher.register(ARROWFIREJET, 0, new ModelResourceLocation(ARROWFIREJET.getRegistryName(), "inventory"));
-      mesher.register(ARROWFROZEN, 0, new ModelResourceLocation(ARROWFROZEN.getRegistryName(), "inventory"));
-      mesher.register(TIDEACTIVATOR1, 0, new ModelResourceLocation(TIDEACTIVATOR1.getRegistryName(), "inventory"));
-      mesher.register(TIDEACTIVATOR2, 0, new ModelResourceLocation(TIDEACTIVATOR2.getRegistryName(), "inventory"));
-      mesher.register(TIDEACTIVATOR3, 0, new ModelResourceLocation(TIDEACTIVATOR3.getRegistryName(), "inventory"));
-      mesher.register(TIDEACTIVATOR4, 0, new ModelResourceLocation(TIDEACTIVATOR4.getRegistryName(), "inventory"));
-      mesher.register(TIDEACTIVATOR5, 0, new ModelResourceLocation(TIDEACTIVATOR5.getRegistryName(), "inventory"));
-      mesher.register(ROCKETARCANE, 0, new ModelResourceLocation(ROCKETARCANE.getRegistryName(), "inventory"));
-      mesher.register(BUCKSHOT, 0, new ModelResourceLocation(BUCKSHOT.getRegistryName(), "inventory"));
-      mesher.register(NORTHERNHELM, 0, new ModelResourceLocation(NORTHERNHELM.getRegistryName(), "inventory"));
-      mesher.register(NORTHERNCHEST, 0, new ModelResourceLocation(NORTHERNCHEST.getRegistryName(), "inventory"));
-      mesher.register(NORTHERNLEGS, 0, new ModelResourceLocation(NORTHERNLEGS.getRegistryName(), "inventory"));
-      mesher.register(NORTHERNBOOTS, 0, new ModelResourceLocation(NORTHERNBOOTS.getRegistryName(), "inventory"));
-      mesher.register(CRYSTALHELM, 0, new ModelResourceLocation(CRYSTALHELM.getRegistryName(), "inventory"));
-      mesher.register(CRYSTALCHEST, 0, new ModelResourceLocation(CRYSTALCHEST.getRegistryName(), "inventory"));
-      mesher.register(CRYSTALLEGS, 0, new ModelResourceLocation(CRYSTALLEGS.getRegistryName(), "inventory"));
-      mesher.register(CRYSTALBOOTS, 0, new ModelResourceLocation(CRYSTALBOOTS.getRegistryName(), "inventory"));
-      mesher.register(THUNDERERHELM, 0, new ModelResourceLocation(THUNDERERHELM.getRegistryName(), "inventory"));
-      mesher.register(THUNDERERCHEST, 0, new ModelResourceLocation(THUNDERERCHEST.getRegistryName(), "inventory"));
-      mesher.register(THUNDERERLEGS, 0, new ModelResourceLocation(THUNDERERLEGS.getRegistryName(), "inventory"));
-      mesher.register(THUNDERERBOOTS, 0, new ModelResourceLocation(THUNDERERBOOTS.getRegistryName(), "inventory"));
-      mesher.register(GOTHICSWORD, 0, new ModelResourceLocation(GOTHICSWORD.getRegistryName(), "inventory"));
-      mesher.register(BURNINGFROSTIGNITER, 0, new ModelResourceLocation(BURNINGFROSTIGNITER.getRegistryName(), "inventory"));
-      mesher.register(WINTERSACRIFICE, 0, new ModelResourceLocation(WINTERSACRIFICE.getRegistryName(), "inventory"));
-      mesher.register(WINTERSCALE, 0, new ModelResourceLocation(WINTERSCALE.getRegistryName(), "inventory"));
-      mesher.register(HAILTEAR, 0, new ModelResourceLocation(HAILTEAR.getRegistryName(), "inventory"));
-      mesher.register(PLASMAMINIGUNCLIP, 0, new ModelResourceLocation(PLASMAMINIGUNCLIP.getRegistryName(), "inventory"));
-      mesher.register(CRYSTALCUTTERAMMO, 0, new ModelResourceLocation(CRYSTALCUTTERAMMO.getRegistryName(), "inventory"));
-      mesher.register(BLOWHOLEPELLETS, 0, new ModelResourceLocation(BLOWHOLEPELLETS.getRegistryName(), "inventory"));
-      mesher.register(NUGGETADAMANTIUM, 0, new ModelResourceLocation(NUGGETADAMANTIUM.getRegistryName(), "inventory"));
-      mesher.register(NAILGUNCLIP, 0, new ModelResourceLocation(NAILGUNCLIP.getRegistryName(), "inventory"));
-      mesher.register(NAIL, 0, new ModelResourceLocation(NAIL.getRegistryName(), "inventory"));
-      mesher.register(WIREWOLFRAM, 0, new ModelResourceLocation(WIREWOLFRAM.getRegistryName(), "inventory"));
-      mesher.register(GASFILTER, 0, new ModelResourceLocation(GASFILTER.getRegistryName(), "inventory"));
-      mesher.register(BATTERYLEADACID, 0, new ModelResourceLocation(BATTERYLEADACID.getRegistryName(), "inventory"));
-      mesher.register(BATTERYLIION, 0, new ModelResourceLocation(BATTERYLIION.getRegistryName(), "inventory"));
-      mesher.register(BEARINGLEAD, 0, new ModelResourceLocation(BEARINGLEAD.getRegistryName(), "inventory"));
-      mesher.register(BEARINGARSENIC, 0, new ModelResourceLocation(BEARINGARSENIC.getRegistryName(), "inventory"));
-      mesher.register(ELECTRICMOTOR, 0, new ModelResourceLocation(ELECTRICMOTOR.getRegistryName(), "inventory"));
-      mesher.register(LINEARMOTOR, 0, new ModelResourceLocation(LINEARMOTOR.getRegistryName(), "inventory"));
-      mesher.register(EYEOFSEER, 0, new ModelResourceLocation(EYEOFSEER.getRegistryName(), "inventory"));
-      mesher.register(PROCESSOR, 0, new ModelResourceLocation(PROCESSOR.getRegistryName(), "inventory"));
-      mesher.register(WIRECOPPER, 0, new ModelResourceLocation(WIRECOPPER.getRegistryName(), "inventory"));
-      mesher.register(WIREGOLD, 0, new ModelResourceLocation(WIREGOLD.getRegistryName(), "inventory"));
-      mesher.register(WIRESILVER, 0, new ModelResourceLocation(WIRESILVER.getRegistryName(), "inventory"));
-      mesher.register(RUBBER, 0, new ModelResourceLocation(RUBBER.getRegistryName(), "inventory"));
-      mesher.register(CIRCUIT, 0, new ModelResourceLocation(CIRCUIT.getRegistryName(), "inventory"));
-      mesher.register(CIRCUITADVANCED, 0, new ModelResourceLocation(CIRCUITADVANCED.getRegistryName(), "inventory"));
-      mesher.register(CIRCUITTOXIC, 0, new ModelResourceLocation(CIRCUITTOXIC.getRegistryName(), "inventory"));
-      mesher.register(CIRCUITDIMENSION, 0, new ModelResourceLocation(CIRCUITDIMENSION.getRegistryName(), "inventory"));
-      mesher.register(ICICLEMINIGUNCLIP, 0, new ModelResourceLocation(ICICLEMINIGUNCLIP.getRegistryName(), "inventory"));
-      mesher.register(SLIMEPLASTIC, 0, new ModelResourceLocation(SLIMEPLASTIC.getRegistryName(), "inventory"));
-      mesher.register(WHITESLIMEBALL, 0, new ModelResourceLocation(WHITESLIMEBALL.getRegistryName(), "inventory"));
-      mesher.register(PLASTIC, 0, new ModelResourceLocation(PLASTIC.getRegistryName(), "inventory"));
-      mesher.register(SLIMECELL, 0, new ModelResourceLocation(SLIMECELL.getRegistryName(), "inventory"));
-      mesher.register(TOXIBERRYSTICK, 0, new ModelResourceLocation(TOXIBERRYSTICK.getRegistryName(), "inventory"));
-      mesher.register(SCRAPMETAL, 0, new ModelResourceLocation(SCRAPMETAL.getRegistryName(), "inventory"));
-      mesher.register(SULFUR, 0, new ModelResourceLocation(SULFUR.getRegistryName(), "inventory"));
-      mesher.register(MAGMABLOOMSEEDS, 0, new ModelResourceLocation(MAGMABLOOMSEEDS.getRegistryName(), "inventory"));
-      mesher.register(PIZZACHICKEN, 0, new ModelResourceLocation(PIZZACHICKEN.getRegistryName(), "inventory"));
-      mesher.register(PIZZADIAVOLA, 0, new ModelResourceLocation(PIZZADIAVOLA.getRegistryName(), "inventory"));
-      mesher.register(PIZZACHEEZE, 0, new ModelResourceLocation(PIZZACHEEZE.getRegistryName(), "inventory"));
-      mesher.register(PIZZATOXIC, 0, new ModelResourceLocation(PIZZATOXIC.getRegistryName(), "inventory"));
-      mesher.register(PIZZAGLOWING, 0, new ModelResourceLocation(PIZZAGLOWING.getRegistryName(), "inventory"));
-      mesher.register(SMOKEDSAUSAGE, 0, new ModelResourceLocation(SMOKEDSAUSAGE.getRegistryName(), "inventory"));
-      mesher.register(RAWRIBS, 0, new ModelResourceLocation(RAWRIBS.getRegistryName(), "inventory"));
-      mesher.register(HOTSPICYRIBS, 0, new ModelResourceLocation(HOTSPICYRIBS.getRegistryName(), "inventory"));
-      mesher.register(BAUXITE, 0, new ModelResourceLocation(BAUXITE.getRegistryName(), "inventory"));
-      mesher.register(INGOTBRASS, 0, new ModelResourceLocation(INGOTBRASS.getRegistryName(), "inventory"));
-      mesher.register(DUSTBRASS, 0, new ModelResourceLocation(DUSTBRASS.getRegistryName(), "inventory"));
-      mesher.register(NUGGETBRASS, 0, new ModelResourceLocation(NUGGETBRASS.getRegistryName(), "inventory"));
-      mesher.register(INGOTZINC, 0, new ModelResourceLocation(INGOTZINC.getRegistryName(), "inventory"));
-      mesher.register(DUSTZINC, 0, new ModelResourceLocation(DUSTZINC.getRegistryName(), "inventory"));
-      mesher.register(NUGGETZINC, 0, new ModelResourceLocation(NUGGETZINC.getRegistryName(), "inventory"));
-      mesher.register(INGOTTITANIUM, 0, new ModelResourceLocation(INGOTTITANIUM.getRegistryName(), "inventory"));
-      mesher.register(DUSTTITANIUM, 0, new ModelResourceLocation(DUSTTITANIUM.getRegistryName(), "inventory"));
-      mesher.register(NUGGETTITANIUM, 0, new ModelResourceLocation(NUGGETTITANIUM.getRegistryName(), "inventory"));
-      mesher.register(CHEMICALGLASS, 0, new ModelResourceLocation(CHEMICALGLASS.getRegistryName(), "inventory"));
-      mesher.register(NUGGETTOXINIUM, 0, new ModelResourceLocation(NUGGETTOXINIUM.getRegistryName(), "inventory"));
-      mesher.register(ICEDUST, 0, new ModelResourceLocation(ICEDUST.getRegistryName(), "inventory"));
-      mesher.register(CONIFERROSIN, 0, new ModelResourceLocation(CONIFERROSIN.getRegistryName(), "inventory"));
-      mesher.register(FIERYOIL, 0, new ModelResourceLocation(FIERYOIL.getRegistryName(), "inventory"));
-      mesher.register(SALT, 0, new ModelResourceLocation(SALT.getRegistryName(), "inventory"));
-      mesher.register(CRYSTALPOISON, 0, new ModelResourceLocation(CRYSTALPOISON.getRegistryName(), "inventory"));
-      mesher.register(COPPERSULFATE, 0, new ModelResourceLocation(COPPERSULFATE.getRegistryName(), "inventory"));
-      mesher.register(PLANTFIBER, 0, new ModelResourceLocation(PLANTFIBER.getRegistryName(), "inventory"));
-      mesher.register(DRIEDPLANTFIBER, 0, new ModelResourceLocation(DRIEDPLANTFIBER.getRegistryName(), "inventory"));
-      mesher.register(DUSTGLOWINGCRYSTAL, 0, new ModelResourceLocation(DUSTGLOWINGCRYSTAL.getRegistryName(), "inventory"));
-      mesher.register(DUSTMAGICCRYSTAL, 0, new ModelResourceLocation(DUSTMAGICCRYSTAL.getRegistryName(), "inventory"));
-      mesher.register(ADVANCED_POLYMER, 0, new ModelResourceLocation(ADVANCED_POLYMER.getRegistryName(), "inventory"));
-      mesher.register(TOXIBERRYJUICEDRIP, 0, new ModelResourceLocation(TOXIBERRYJUICEDRIP.getRegistryName(), "inventory"));
-      mesher.register(THUNDERSTONE, 0, new ModelResourceLocation(THUNDERSTONE.getRegistryName(), "inventory"));
-      mesher.register(THUNDERCAPACITOR, 0, new ModelResourceLocation(THUNDERCAPACITOR.getRegistryName(), "inventory"));
-      mesher.register(SKYCRYSTAL, 0, new ModelResourceLocation(SKYCRYSTAL.getRegistryName(), "inventory"));
-      mesher.register(SKYCRYSTALPIECE, 0, new ModelResourceLocation(SKYCRYSTALPIECE.getRegistryName(), "inventory"));
-      mesher.register(WINDNATURE, 0, new ModelResourceLocation(WINDNATURE.getRegistryName(), "inventory"));
-      mesher.register(SKYSPHERE, 0, new ModelResourceLocation(SKYSPHERE.getRegistryName(), "inventory"));
-      mesher.register(INGOTARSENIC, 0, new ModelResourceLocation(INGOTARSENIC.getRegistryName(), "inventory"));
-      mesher.register(DUSTARSENIC, 0, new ModelResourceLocation(DUSTARSENIC.getRegistryName(), "inventory"));
-      mesher.register(NUGGETARSENIC, 0, new ModelResourceLocation(NUGGETARSENIC.getRegistryName(), "inventory"));
-      mesher.register(INGOTWOLFRAM, 0, new ModelResourceLocation(INGOTWOLFRAM.getRegistryName(), "inventory"));
-      mesher.register(DUSTWOLFRAM, 0, new ModelResourceLocation(DUSTWOLFRAM.getRegistryName(), "inventory"));
-      mesher.register(NUGGETWOLFRAM, 0, new ModelResourceLocation(NUGGETWOLFRAM.getRegistryName(), "inventory"));
-      mesher.register(INGOTSTORMBRASS, 0, new ModelResourceLocation(INGOTSTORMBRASS.getRegistryName(), "inventory"));
-      mesher.register(DUSTSTORMBRASS, 0, new ModelResourceLocation(DUSTSTORMBRASS.getRegistryName(), "inventory"));
-      mesher.register(NUGGETSTORMBRASS, 0, new ModelResourceLocation(NUGGETSTORMBRASS.getRegistryName(), "inventory"));
-      mesher.register(NUGGETSTORMSTEEL, 0, new ModelResourceLocation(NUGGETSTORMSTEEL.getRegistryName(), "inventory"));
-      mesher.register(INGOTTOXINIUM, 0, new ModelResourceLocation(INGOTTOXINIUM.getRegistryName(), "inventory"));
-      mesher.register(DUSTTOXINIUM, 0, new ModelResourceLocation(DUSTTOXINIUM.getRegistryName(), "inventory"));
-      mesher.register(INGOTSTORMSTEEL, 0, new ModelResourceLocation(INGOTSTORMSTEEL.getRegistryName(), "inventory"));
-      mesher.register(DUSTSTORMSTEEL, 0, new ModelResourceLocation(DUSTSTORMSTEEL.getRegistryName(), "inventory"));
-      mesher.register(VOIDCRYSTAL, 0, new ModelResourceLocation(VOIDCRYSTAL.getRegistryName(), "inventory"));
-      mesher.register(HEROBRINECURSE, 0, new ModelResourceLocation(HEROBRINECURSE.getRegistryName(), "inventory"));
-      mesher.register(DUSTADAMANTIUM, 0, new ModelResourceLocation(DUSTADAMANTIUM.getRegistryName(), "inventory"));
-      mesher.register(INGOTADAMANTIUM, 0, new ModelResourceLocation(INGOTADAMANTIUM.getRegistryName(), "inventory"));
-      mesher.register(STORMSPANNER, 0, new ModelResourceLocation(STORMSPANNER.getRegistryName(), "inventory"));
-      mesher.register(HAZARDHELM, 0, new ModelResourceLocation(HAZARDHELM.getRegistryName(), "inventory"));
-      mesher.register(HAZARDCHEST, 0, new ModelResourceLocation(HAZARDCHEST.getRegistryName(), "inventory"));
-      mesher.register(HAZARDLEGS, 0, new ModelResourceLocation(HAZARDLEGS.getRegistryName(), "inventory"));
-      mesher.register(HAZARDBOOTS, 0, new ModelResourceLocation(HAZARDBOOTS.getRegistryName(), "inventory"));
-      mesher.register(BULLETADAMANTIUM, 0, new ModelResourceLocation(BULLETADAMANTIUM.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMLONGSWORD, 0, new ModelResourceLocation(ADAMANTIUMLONGSWORD.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMKNIFE, 0, new ModelResourceLocation(ADAMANTIUMKNIFE.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMARMORHELM, 0, new ModelResourceLocation(ADAMANTIUMARMORHELM.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMARMORCHEST, 0, new ModelResourceLocation(ADAMANTIUMARMORCHEST.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMARMORLEGS, 0, new ModelResourceLocation(ADAMANTIUMARMORLEGS.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMARMORBOOTS, 0, new ModelResourceLocation(ADAMANTIUMARMORBOOTS.getRegistryName(), "inventory"));
-      mesher.register(ADAMANTIUMROUNDS, 0, new ModelResourceLocation(ADAMANTIUMROUNDS.getRegistryName(), "inventory"));
-      mesher.register(INGOTNORTHERN, 0, new ModelResourceLocation(INGOTNORTHERN.getRegistryName(), "inventory"));
-      mesher.register(NORTHERNSPHERE, 0, new ModelResourceLocation(NORTHERNSPHERE.getRegistryName(), "inventory"));
-      mesher.register(VILESUBSTANCE, 0, new ModelResourceLocation(VILESUBSTANCE.getRegistryName(), "inventory"));
-      mesher.register(EMBRYO, 0, new ModelResourceLocation(EMBRYO.getRegistryName(), "inventory"));
-      mesher.register(MUTAGEN, 0, new ModelResourceLocation(MUTAGEN.getRegistryName(), "inventory"));
-      mesher.register(CMO, 0, new ModelResourceLocation(CMO.getRegistryName(), "inventory"));
-      mesher.register(PROCESSORPATTERN, 0, new ModelResourceLocation(PROCESSORPATTERN.getRegistryName(), "inventory"));
-      mesher.register(STORMLEDGELOGWANDBRASS, 0, new ModelResourceLocation(STORMLEDGELOGWANDBRASS.getRegistryName(), "inventory"));
-      mesher.register(STORMLEDGELOGWANDPINK, 0, new ModelResourceLocation(STORMLEDGELOGWANDPINK.getRegistryName(), "inventory"));
-      mesher.register(ENDERCROWN, 0, new ModelResourceLocation(ENDERCROWN.getRegistryName(), "inventory"));
-      mesher.register(LIVEHEART, 0, new ModelResourceLocation(LIVEHEART.getRegistryName(), "inventory"));
-      mesher.register(ITEMTURRET, 0, new ModelResourceLocation(ITEMTURRET.getRegistryName(), "inventory"));
-      mesher.register(WRENCH, 0, new ModelResourceLocation(WRENCH.getRegistryName(), "inventory"));
-      mesher.register(VIRULENTROD, 0, new ModelResourceLocation(VIRULENTROD.getRegistryName(), "inventory"));
-      mesher.register(BUNKERKEYCARD, 0, new ModelResourceLocation(BUNKERKEYCARD.getRegistryName(), "inventory"));
-      mesher.register(ANTIRADPACK, 0, new ModelResourceLocation(ANTIRADPACK.getRegistryName(), "inventory"));
-      mesher.register(ANTIRADPILLS, 0, new ModelResourceLocation(ANTIRADPILLS.getRegistryName(), "inventory"));
-      mesher.register(ANTIRADINJECTOR, 0, new ModelResourceLocation(ANTIRADINJECTOR.getRegistryName(), "inventory"));
-      mesher.register(GASMASK, 0, new ModelResourceLocation(GASMASK.getRegistryName(), "inventory"));
-      mesher.register(ARSENICPICKAXE, 0, new ModelResourceLocation(ARSENICPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(ARSENICAXE, 0, new ModelResourceLocation(ARSENICAXE.getRegistryName(), "inventory"));
-      mesher.register(ARSENICSHOVEL, 0, new ModelResourceLocation(ARSENICSHOVEL.getRegistryName(), "inventory"));
-      mesher.register(RUSTEDKEY, 0, new ModelResourceLocation(RUSTEDKEY.getRegistryName(), "inventory"));
-      mesher.register(SNOWCOATARMORHELM, 0, new ModelResourceLocation(SNOWCOATARMORHELM.getRegistryName(), "inventory"));
-      mesher.register(SNOWCOATARMORCHEST, 0, new ModelResourceLocation(SNOWCOATARMORCHEST.getRegistryName(), "inventory"));
-      mesher.register(SNOWCOATARMORLEGS, 0, new ModelResourceLocation(SNOWCOATARMORLEGS.getRegistryName(), "inventory"));
-      mesher.register(SNOWCOATARMORBOOTS, 0, new ModelResourceLocation(SNOWCOATARMORBOOTS.getRegistryName(), "inventory"));
-      mesher.register(CORALARMORHELM, 0, new ModelResourceLocation(CORALARMORHELM.getRegistryName(), "inventory"));
-      mesher.register(CORALARMORCHEST, 0, new ModelResourceLocation(CORALARMORCHEST.getRegistryName(), "inventory"));
-      mesher.register(CORALARMORLEGS, 0, new ModelResourceLocation(CORALARMORLEGS.getRegistryName(), "inventory"));
-      mesher.register(CORALARMORBOOTS, 0, new ModelResourceLocation(CORALARMORBOOTS.getRegistryName(), "inventory"));
-      mesher.register(LICHARMORHELM, 0, new ModelResourceLocation(LICHARMORHELM.getRegistryName(), "inventory"));
-      mesher.register(LICHARMORCHEST, 0, new ModelResourceLocation(LICHARMORCHEST.getRegistryName(), "inventory"));
-      mesher.register(LICHARMORLEGS, 0, new ModelResourceLocation(LICHARMORLEGS.getRegistryName(), "inventory"));
-      mesher.register(LICHARMORBOOTS, 0, new ModelResourceLocation(LICHARMORBOOTS.getRegistryName(), "inventory"));
-      mesher.register(BONEARMORHELM, 0, new ModelResourceLocation(BONEARMORHELM.getRegistryName(), "inventory"));
-      mesher.register(BONEARMORCHEST, 0, new ModelResourceLocation(BONEARMORCHEST.getRegistryName(), "inventory"));
-      mesher.register(BONEARMORLEGS, 0, new ModelResourceLocation(BONEARMORLEGS.getRegistryName(), "inventory"));
-      mesher.register(BONEARMORBOOTS, 0, new ModelResourceLocation(BONEARMORBOOTS.getRegistryName(), "inventory"));
-      mesher.register(ROCKETVOID, 0, new ModelResourceLocation(ROCKETVOID.getRegistryName(), "inventory"));
-      mesher.register(ROCKETWATERBLAST, 0, new ModelResourceLocation(ROCKETWATERBLAST.getRegistryName(), "inventory"));
-      mesher.register(ROCKETDEMOLISHING, 0, new ModelResourceLocation(ROCKETDEMOLISHING.getRegistryName(), "inventory"));
-      mesher.register(ROCKETMINING, 0, new ModelResourceLocation(ROCKETMINING.getRegistryName(), "inventory"));
-      mesher.register(ROCKETCHEMICAL, 0, new ModelResourceLocation(ROCKETCHEMICAL.getRegistryName(), "inventory"));
-      mesher.register(ROCKETNAPALM, 0, new ModelResourceLocation(ROCKETNAPALM.getRegistryName(), "inventory"));
-      mesher.register(ROCKETFROSTFIRE, 0, new ModelResourceLocation(ROCKETFROSTFIRE.getRegistryName(), "inventory"));
-      mesher.register(GLASSHEART, 0, new ModelResourceLocation(GLASSHEART.getRegistryName(), "inventory"));
-      mesher.register(ROCKETCOMMON, 0, new ModelResourceLocation(ROCKETCOMMON.getRegistryName(), "inventory"));
-      mesher.register(SNAPBALLAMMO, 0, new ModelResourceLocation(SNAPBALLAMMO.getRegistryName(), "inventory"));
-      mesher.register(TEAMSELECTOR, 0, new ModelResourceLocation(TEAMSELECTOR.getRegistryName(), "inventory"));
-      mesher.register(FIREWHIP, 0, new ModelResourceLocation(TIMELESSSWORD.getRegistryName(), "inventory"));
-      mesher.register(TIMELESSSWORD, 0, new ModelResourceLocation(TIMELESSSWORD.getRegistryName(), "inventory"));
-      mesher.register(PALMLOGWAND, 0, new ModelResourceLocation(PALMLOGWAND.getRegistryName(), "inventory"));
-      mesher.register(CORALRIFLECLIP, 0, new ModelResourceLocation(CORALRIFLECLIP.getRegistryName(), "inventory"));
-      mesher.register(MANAKEEPER, 0, new ModelResourceLocation(MANAKEEPER.getRegistryName(), "inventory"));
-      mesher.register(THORNKEEPER, 0, new ModelResourceLocation(THORNKEEPER.getRegistryName(), "inventory"));
-      mesher.register(LIGHTBAND, 0, new ModelResourceLocation(LIGHTBAND.getRegistryName(), "inventory"));
-      mesher.register(SPRINGERWAISTBAND, 0, new ModelResourceLocation(SPRINGERWAISTBAND.getRegistryName(), "inventory"));
-      mesher.register(SPIRITTHORN, 0, new ModelResourceLocation(SPIRITTHORN.getRegistryName(), "inventory"));
-      mesher.register(VENOMEDDAGGER, 0, new ModelResourceLocation(VENOMEDDAGGER.getRegistryName(), "inventory"));
-      mesher.register(BLEEDINGROOT, 0, new ModelResourceLocation(BLEEDINGROOT.getRegistryName(), "inventory"));
-      mesher.register(PAINFULROOT, 0, new ModelResourceLocation(PAINFULROOT.getRegistryName(), "inventory"));
-      mesher.register(CYBERAMULET, 0, new ModelResourceLocation(CYBERAMULET.getRegistryName(), "inventory"));
-      mesher.register(PERSISTENCEPENDENT, 0, new ModelResourceLocation(PERSISTENCEPENDENT.getRegistryName(), "inventory"));
-      mesher.register(BRASSKNUCKLES, 0, new ModelResourceLocation(BRASSKNUCKLES.getRegistryName(), "inventory"));
-      mesher.register(HELLHOUNDCOLLAR, 0, new ModelResourceLocation(HELLHOUNDCOLLAR.getRegistryName(), "inventory"));
-      mesher.register(GOLDENKNUCKLES, 0, new ModelResourceLocation(GOLDENKNUCKLES.getRegistryName(), "inventory"));
-      mesher.register(LIVEBLOODNECKLACE, 0, new ModelResourceLocation(LIVEBLOODNECKLACE.getRegistryName(), "inventory"));
-      mesher.register(ANCIENTICESHARD, 0, new ModelResourceLocation(ANCIENTICESHARD.getRegistryName(), "inventory"));
-      mesher.register(MANARUBBLE, 0, new ModelResourceLocation(MANARUBBLE.getRegistryName(), "inventory"));
-      mesher.register(ICEHEART, 0, new ModelResourceLocation(ICEHEART.getRegistryName(), "inventory"));
-      mesher.register(FROSTINGUISHER, 0, new ModelResourceLocation(FROSTINGUISHER.getRegistryName(), "inventory"));
-      mesher.register(HOLYEXTINGUISHER, 0, new ModelResourceLocation(HOLYEXTINGUISHER.getRegistryName(), "inventory"));
-      mesher.register(GHOSTFLAMETRAP, 0, new ModelResourceLocation(GHOSTFLAMETRAP.getRegistryName(), "inventory"));
-      mesher.register(FLAMESUPPRESSOR, 0, new ModelResourceLocation(FLAMESUPPRESSOR.getRegistryName(), "inventory"));
-      mesher.register(CONDUCTIVEBELT, 0, new ModelResourceLocation(CONDUCTIVEBELT.getRegistryName(), "inventory"));
-      mesher.register(LIGHTNINGSOCKS, 0, new ModelResourceLocation(LIGHTNINGSOCKS.getRegistryName(), "inventory"));
-      mesher.register(AMMONIAFLASK, 0, new ModelResourceLocation(AMMONIAFLASK.getRegistryName(), "inventory"));
-      mesher.register(CORROSIVEFLASK, 0, new ModelResourceLocation(CORROSIVEFLASK.getRegistryName(), "inventory"));
-      mesher.register(CROSSCHAINLET, 0, new ModelResourceLocation(CROSSCHAINLET.getRegistryName(), "inventory"));
-      mesher.register(DETOXICATOR, 0, new ModelResourceLocation(DETOXICATOR.getRegistryName(), "inventory"));
-      mesher.register(HAZARDGLOVE, 0, new ModelResourceLocation(HAZARDGLOVE.getRegistryName(), "inventory"));
-      mesher.register(CONTACTLENSES, 0, new ModelResourceLocation(CONTACTLENSES.getRegistryName(), "inventory"));
-      mesher.register(MINERSGLOVE, 0, new ModelResourceLocation(MINERSGLOVE.getRegistryName(), "inventory"));
-      mesher.register(BODYWARMER, 0, new ModelResourceLocation(BODYWARMER.getRegistryName(), "inventory"));
-      mesher.register(DEVOURERSTEETH, 0, new ModelResourceLocation(DEVOURERSTEETH.getRegistryName(), "inventory"));
-      mesher.register(ENDERLEECH, 0, new ModelResourceLocation(ENDERLEECH.getRegistryName(), "inventory"));
-      mesher.register(ENERGYDRINK, 0, new ModelResourceLocation(ENERGYDRINK.getRegistryName(), "inventory"));
-      mesher.register(RUNNERSOCKS, 0, new ModelResourceLocation(RUNNERSOCKS.getRegistryName(), "inventory"));
-      mesher.register(SLIMEEATER, 0, new ModelResourceLocation(SLIMEEATER.getRegistryName(), "inventory"));
-      mesher.register(FIREEATER, 0, new ModelResourceLocation(FIREEATER.getRegistryName(), "inventory"));
-      mesher.register(SLIMEDEVOURER, 0, new ModelResourceLocation(SLIMEDEVOURER.getRegistryName(), "inventory"));
-      mesher.register(LAVAEATER, 0, new ModelResourceLocation(LAVAEATER.getRegistryName(), "inventory"));
-      mesher.register(PERSONALEXTINGUISHER, 0, new ModelResourceLocation(PERSONALEXTINGUISHER.getRegistryName(), "inventory"));
-      mesher.register(ETHERWORM, 0, new ModelResourceLocation(ETHERWORM.getRegistryName(), "inventory"));
-      mesher.register(ANGELWORM, 0, new ModelResourceLocation(ANGELWORM.getRegistryName(), "inventory"));
-      mesher.register(CANDYAPPLE, 0, new ModelResourceLocation(CANDYAPPLE.getRegistryName(), "inventory"));
-      mesher.register(CANDYCANE, 0, new ModelResourceLocation(CANDYCANE.getRegistryName(), "inventory"));
-      mesher.register(CRIMBERRYWINE, 0, new ModelResourceLocation(CRIMBERRYWINE.getRegistryName(), "inventory"));
-      mesher.register(GIFT, 0, new ModelResourceLocation(GIFT.getRegistryName(), "inventory"));
-      mesher.register(IMPETUS, 0, new ModelResourceLocation(AIRBORNECIRCLET.getRegistryName(), "inventory"));
-      mesher.register(AIRBORNECIRCLET, 0, new ModelResourceLocation(AIRBORNECIRCLET.getRegistryName(), "inventory"));
-      mesher.register(INGOTCHROMIUM, 0, new ModelResourceLocation(INGOTCHROMIUM.getRegistryName(), "inventory"));
-      mesher.register(DUSTCHROMIUM, 0, new ModelResourceLocation(DUSTCHROMIUM.getRegistryName(), "inventory"));
-      mesher.register(INGOTBERYLLIUM, 0, new ModelResourceLocation(INGOTBERYLLIUM.getRegistryName(), "inventory"));
-      mesher.register(DUSTBERYLLIUM, 0, new ModelResourceLocation(DUSTBERYLLIUM.getRegistryName(), "inventory"));
-      mesher.register(DUSTMANGANESE, 0, new ModelResourceLocation(DUSTMANGANESE.getRegistryName(), "inventory"));
-      mesher.register(INGOTMANGANESE, 0, new ModelResourceLocation(INGOTMANGANESE.getRegistryName(), "inventory"));
-      mesher.register(LOOTBOXENCHANTWEAPON, 0, new ModelResourceLocation(LOOTBOXENCHANTWEAPON.getRegistryName(), "inventory"));
-      mesher.register(LOOTBOXENCHANTSIMPLE, 0, new ModelResourceLocation(LOOTBOXENCHANTSIMPLE.getRegistryName(), "inventory"));
-      mesher.register(LOOTBOXENCHANTALL, 0, new ModelResourceLocation(LOOTBOXENCHANTALL.getRegistryName(), "inventory"));
-      mesher.register(EMERALDEYE, 0, new ModelResourceLocation(EMERALDEYE.getRegistryName(), "inventory"));
-      mesher.register(BULLETFESTIVAL, 0, new ModelResourceLocation(BULLETFESTIVAL.getRegistryName(), "inventory"));
-      mesher.register(BULLETEXPLODING, 0, new ModelResourceLocation(BULLETEXPLODING.getRegistryName(), "inventory"));
-      mesher.register(BULLETCRYSTAL, 0, new ModelResourceLocation(BULLETCRYSTAL.getRegistryName(), "inventory"));
-      mesher.register(BULLETTOXIC, 0, new ModelResourceLocation(BULLETTOXIC.getRegistryName(), "inventory"));
-      mesher.register(BULLETPOISON, 0, new ModelResourceLocation(BULLETPOISON.getRegistryName(), "inventory"));
-      mesher.register(BULLETTHUNDER, 0, new ModelResourceLocation(BULLETTHUNDER.getRegistryName(), "inventory"));
-      mesher.register(TOXINIUMSHOTGUNCLIP, 0, new ModelResourceLocation(TOXINIUMSHOTGUNCLIP.getRegistryName(), "inventory"));
-      mesher.register(BULLETFIRE, 0, new ModelResourceLocation(BULLETFIRE.getRegistryName(), "inventory"));
-      mesher.register(BULLETSILVER, 0, new ModelResourceLocation(BULLETSILVER.getRegistryName(), "inventory"));
-      mesher.register(BULLETLEAD, 0, new ModelResourceLocation(BULLETLEAD.getRegistryName(), "inventory"));
-      mesher.register(BULLETCOPPER, 0, new ModelResourceLocation(BULLETCOPPER.getRegistryName(), "inventory"));
-      mesher.register(BULLETGOLD, 0, new ModelResourceLocation(BULLETGOLD.getRegistryName(), "inventory"));
-      mesher.register(BULLETFROZEN, 0, new ModelResourceLocation(BULLETFROZEN.getRegistryName(), "inventory"));
-      mesher.register(SUBMACHINECLIP, 0, new ModelResourceLocation(SUBMACHINECLIP.getRegistryName(), "inventory"));
-      mesher.register(SUBMACHINE, 0, new ModelResourceLocation(SUBMACHINE.getRegistryName(), "inventory"));
-      mesher.register(LOCKER, 0, new ModelResourceLocation(LOCKER.getRegistryName(), "inventory"));
-      mesher.register(TOXINIUMSHOTGUN, 0, new ModelResourceLocation(TOXINIUMSHOTGUN.getRegistryName(), "inventory"));
-      mesher.register(COIN, 0, new ModelResourceLocation(COIN.getRegistryName(), "inventory"));
-      mesher.register(TOXINIUMHELM, 0, new ModelResourceLocation(TOXINIUMHELM.getRegistryName(), "inventory"));
-      mesher.register(TOXINIUMCHEST, 0, new ModelResourceLocation(TOXINIUMCHEST.getRegistryName(), "inventory"));
-      mesher.register(TOXINIUMLEGS, 0, new ModelResourceLocation(TOXINIUMLEGS.getRegistryName(), "inventory"));
-      mesher.register(TOXINIUMBOOTS, 0, new ModelResourceLocation(TOXINIUMBOOTS.getRegistryName(), "inventory"));
-      mesher.register(FORGETPICKAXE, 0, new ModelResourceLocation(FORGETPICKAXE.getRegistryName(), "inventory"));
-      mesher.register(FORGETAXE, 0, new ModelResourceLocation(FORGETAXE.getRegistryName(), "inventory"));
-      mesher.register(FORGETSHOVEL, 0, new ModelResourceLocation(FORGETSHOVEL.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(FIRST, 0, new ModelResourceLocation(FIRST.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ICHSHOWER, 0, new ModelResourceLocation(ICHSHOWER.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SHARKCANN, 0, new ModelResourceLocation(SHARKCANN.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SHARKAMMO, 0, new ModelResourceLocation(SHARKAMMO.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(MAGICBOOMERANG, 0, new ModelResourceLocation(MAGICBOOMERANG.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(BUTTERFLY, 0, new ModelResourceLocation(BUTTERFLY.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SUNRISE, 0, new ModelResourceLocation(SUNRISE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(LASERSNIPER, 0, new ModelResourceLocation(LASERSNIPER.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(IONBATTERY, 0, new ModelResourceLocation(IONBATTERY.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(LASERPISTOL, 0, new ModelResourceLocation(LASERPISTOL.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(LASERRIFLE, 0, new ModelResourceLocation(LASERRIFLE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(VAMPIREKNIFE, 0, new ModelResourceLocation(VAMPIREKNIFE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(VAMPIREKNIFESLAUN, 0, new ModelResourceLocation(VAMPIREKNIFESLAUN.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FROSTBOLT, 0, new ModelResourceLocation(FROSTBOLT.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ANTICHARGE, 0, new ModelResourceLocation(ANTICHARGE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ELAMMOFIRE, 0, new ModelResourceLocation(ELAMMOFIRE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ELAMMOWATER, 0, new ModelResourceLocation(ELAMMOWATER.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ELAMMOAIR, 0, new ModelResourceLocation(ELAMMOAIR.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ELAMMOEARTH, 0, new ModelResourceLocation(ELAMMOEARTH.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(STINGERBOLTS, 0, new ModelResourceLocation(STINGERBOLTS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIREWORKPACK, 0, new ModelResourceLocation(FIREWORKPACK.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIREWORKDRAGON, 0, new ModelResourceLocation(FIREWORKDRAGON.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(QUADROBELT, 0, new ModelResourceLocation(QUADROBELT.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(VORTEXBOTTLE, 0, new ModelResourceLocation(VORTEXBOTTLE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ETHERSIGN, 0, new ModelResourceLocation(ETHERSIGN.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(PHOENIXGHOSTCAPE, 0, new ModelResourceLocation(PHOENIXGHOSTCAPE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(BILEBITERAMMO, 0, new ModelResourceLocation(BILEBITERAMMO.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SNOWSTORMSTAFF, 0, new ModelResourceLocation(FROSTBOLT.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(WIZARDHELM, 0, new ModelResourceLocation(WIZARDHELM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(WIZARDCHEST, 0, new ModelResourceLocation(WIZARDCHEST.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(WIZARDLEGS, 0, new ModelResourceLocation(WIZARDLEGS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(WIZARDBOOTS, 0, new ModelResourceLocation(WIZARDBOOTS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIREMAGEHELM, 0, new ModelResourceLocation(FIREMAGEHELM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIREMAGECHEST, 0, new ModelResourceLocation(FIREMAGECHEST.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIREMAGELEGS, 0, new ModelResourceLocation(FIREMAGELEGS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIREMAGEBOOTS, 0, new ModelResourceLocation(FIREMAGEBOOTS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIRELORDHELM, 0, new ModelResourceLocation(FIRELORDHELM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIRELORDCHEST, 0, new ModelResourceLocation(FIRELORDCHEST.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIRELORDLEGS, 0, new ModelResourceLocation(FIRELORDLEGS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FIRELORDBOOTS, 0, new ModelResourceLocation(FIRELORDBOOTS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(GRAPLINGHOOK, 0, new ModelResourceLocation(GRAPLINGHOOK.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(JUNGLEGH, 0, new ModelResourceLocation(JUNGLEGH.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SEASHELL, 0, new ModelResourceLocation(SEASHELL.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SLIMEGH, 0, new ModelResourceLocation(SLIMEGH.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ENDERGH, 0, new ModelResourceLocation(ENDERGH.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(MAINFISHINGROD, 0, new ModelResourceLocation(MAINFISHINGROD.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICESWORD, 0, new ModelResourceLocation(ICESWORD.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(NETHERGRINDERAMMO, 0, new ModelResourceLocation(NETHERGRINDERAMMO.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SNOWFLAKESHUR, 0, new ModelResourceLocation(SNOWFLAKESHUR.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(CHAINDAGGER, 0, new ModelResourceLocation(CHAINDAGGER.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(TOXICNUCLEARWARHEAD, 0, new ModelResourceLocation(TOXICNUCLEARWARHEAD.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(EMPTYCELL, 0, new ModelResourceLocation(EMPTYCELL.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(CRYOGENCELL, 0, new ModelResourceLocation(CRYOGENCELL.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(LIGHTNINGGH, 0, new ModelResourceLocation(LIGHTNINGGH.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(RINGOFPROTECTION, 0, new ModelResourceLocation(RINGOFPROTECTION.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SPIKERING, 0, new ModelResourceLocation(SPIKERING.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SPARKLINGNECKLACE, 0, new ModelResourceLocation(SPARKLINGNECKLACE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(EXP, 0, new ModelResourceLocation(EMPTYCELL.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(DEMONICIGNITER, 0, new ModelResourceLocation(DEMONICIGNITER.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(BOUNCINGRING, 0, new ModelResourceLocation(BOUNCINGRING.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SLIMEBOOTS, 0, new ModelResourceLocation(SLIMEBOOTS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SLIMEHELM, 0, new ModelResourceLocation(SLIMEHELM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SLIMECHEST, 0, new ModelResourceLocation(SLIMECHEST.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SLIMELEGS, 0, new ModelResourceLocation(SLIMELEGS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICEBOOTS, 0, new ModelResourceLocation(ICEBOOTS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICEHELM, 0, new ModelResourceLocation(ICEHELM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICECHEST, 0, new ModelResourceLocation(ICECHEST.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICELEGS, 0, new ModelResourceLocation(ICELEGS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SOULCHARM, 0, new ModelResourceLocation(SOULCHARM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(JUNGLEBOOTS, 0, new ModelResourceLocation(JUNGLEBOOTS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(JUNGLEHELM, 0, new ModelResourceLocation(JUNGLEHELM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(JUNGLECHEST, 0, new ModelResourceLocation(JUNGLECHEST.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(JUNGLELEGS, 0, new ModelResourceLocation(JUNGLELEGS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(WEBGH, 0, new ModelResourceLocation(WEBGH.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ROPEGH, 0, new ModelResourceLocation(ROPEGH.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(PLASMARAILGUNBOLTS, 0, new ModelResourceLocation(PLASMARAILGUNBOLTS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(AIMLENS, 0, new ModelResourceLocation(AIMLENS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(FISHFEED, 0, new ModelResourceLocation(FISHFEED.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(VICIOUSEMBLEM, 0, new ModelResourceLocation(VICIOUSEMBLEM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ORBOFDESTROY, 0, new ModelResourceLocation(ORBOFDESTROY.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(WOODENSKIING, 0, new ModelResourceLocation(ORBOFDESTROY.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(VIALOFPOISON, 0, new ModelResourceLocation(VIALOFPOISON.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(VAMPIRICHEART, 0, new ModelResourceLocation(VAMPIRICHEART.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(FROZENWINGS, 0, new ModelResourceLocation(FROZENWINGS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(TOXICWINGS, 0, new ModelResourceLocation(TOXICWINGS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(GLACIDEBLADE, 0, new ModelResourceLocation(GLACIDEBLADE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(INFERNALBLADE, 0, new ModelResourceLocation(INFERNALBLADE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(CINDERBOW, 0, new ModelResourceLocation(CINDERBOW.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(INGOTINFERNUM, 0, new ModelResourceLocation(INGOTINFERNUM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(INGOTMOLTEN, 0, new ModelResourceLocation(INGOTMOLTEN.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(NUGGETINFERNUM, 0, new ModelResourceLocation(NUGGETINFERNUM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(NUGGETMOLTEN, 0, new ModelResourceLocation(NUGGETMOLTEN.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(MOLTENSTRING, 0, new ModelResourceLocation(MOLTENSTRING.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(LIQUIDFIRE, 0, new ModelResourceLocation(LIQUIDFIRE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(DEMONITE, 0, new ModelResourceLocation(DEMONITE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(DEMONITESHARD, 0, new ModelResourceLocation(DEMONITESHARD.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(RUBY, 0, new ModelResourceLocation(RUBY.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SAPPHIRE, 0, new ModelResourceLocation(SAPPHIRE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CITRINE, 0, new ModelResourceLocation(CITRINE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(AMETHYST, 0, new ModelResourceLocation(AMETHYST.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(TOPAZ, 0, new ModelResourceLocation(TOPAZ.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(RHINESTONE, 0, new ModelResourceLocation(RHINESTONE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(MAGIC_POWDER, 0, new ModelResourceLocation(MAGIC_POWDER.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICEGEM, 0, new ModelResourceLocation(ICEGEM.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(WEATHERFRAGMENTS, 0, new ModelResourceLocation(WEATHERFRAGMENTS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SNOWCLOTH, 0, new ModelResourceLocation(SNOWCLOTH.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(CONIFERSTICK, 0, new ModelResourceLocation(CONIFERSTICK.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SOULSTONE, 0, new ModelResourceLocation(SOULSTONE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SAPPHIREEYE, 0, new ModelResourceLocation(SAPPHIREEYE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ENCHANTMENTBOOKINS, 0, new ModelResourceLocation(ENCHANTMENTBOOKINS.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(THELORDOFPAIN, 0, new ModelResourceLocation(PHOENIXGHOSTCAPE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CRYSTALFAN, 0, new ModelResourceLocation(RUBY.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ANTIDOTE, 0, new ModelResourceLocation(ANTIDOTE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(TOXICOLA, 0, new ModelResourceLocation(TOXICOLA.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(ANTIPOTION, 0, new ModelResourceLocation(ANTIPOTION.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(DECEIDUSJUICE, 0, new ModelResourceLocation(DECEIDUSJUICE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(TOXEDGEBREAD, 0, new ModelResourceLocation(TOXEDGEBREAD.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(TOXIBERRYMOJITO, 0, new ModelResourceLocation(TOXIBERRYMOJITO.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(WASTEBURGER, 0, new ModelResourceLocation(WASTEBURGER.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(BROWNSLIMEWAND, 0, new ModelResourceLocation(BROWNSLIMEWAND.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SLIMEBLOBWAND, 0, new ModelResourceLocation(SLIMEBLOBWAND.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(BONESWAND, 0, new ModelResourceLocation(BONESWAND.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(GLOWINGTOXIBERRY, 0, new ModelResourceLocation(GLOWINGTOXIBERRY.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(SMALLTOXIBERRY, 0, new ModelResourceLocation(SMALLTOXIBERRY.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(GOTHICPICKAXE, 0, new ModelResourceLocation(GOTHICPICKAXE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(GOTHICAXE, 0, new ModelResourceLocation(GOTHICAXE.getRegistryName(), "inventory"));
-      Minecraft.getMinecraft()
-         .getRenderItem()
-         .getItemModelMesher()
-         .register(GOTHICSHOVEL, 0, new ModelResourceLocation(GOTHICSHOVEL.getRegistryName(), "inventory"));
+      CreateItemFile.ResLocationCreate(BIOFILTERING_MODULE);
+      CreateItemFile.ResLocationCreate(RICH_SCRAP);
+      String inventory = "inventory";
+      mesher.register(RICH_SCRAP, 0, new ModelResourceLocation(RICH_SCRAP.getRegistryName(), inventory));
+      mesher.register(BIOFILTERING_MODULE, 0, new ModelResourceLocation(BIOFILTERING_MODULE.getRegistryName(), inventory));
+      mesher.register(SWARMETER, 0, new ModelResourceLocation(SWARMETER.getRegistryName(), inventory));
+      mesher.register(WIZARD_CLOTH, 0, new ModelResourceLocation(WIZARD_CLOTH.getRegistryName(), inventory));
+      mesher.register(WEATHER_ROCKET_POISON_RAIN, 0, new ModelResourceLocation(WEATHER_ROCKET_POISON_RAIN.getRegistryName(), inventory));
+      mesher.register(WEATHER_ROCKET_RAIN_FALL, 0, new ModelResourceLocation(WEATHER_ROCKET_RAIN_FALL.getRegistryName(), inventory));
+      mesher.register(WEATHER_ROCKET_STORM, 0, new ModelResourceLocation(WEATHER_ROCKET_STORM.getRegistryName(), inventory));
+      mesher.register(WEATHER_ROCKET_RAINS_TORM, 0, new ModelResourceLocation(WEATHER_ROCKET_RAINS_TORM.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_PICKAXE, 0, new ModelResourceLocation(TOXINIUM_PICKAXE.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_AXE, 0, new ModelResourceLocation(TOXINIUM_AXE.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_SHOVEL, 0, new ModelResourceLocation(TOXINIUM_SHOVEL.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_PICKAXE, 0, new ModelResourceLocation(ADAMANTIUM_PICKAXE.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_AXE, 0, new ModelResourceLocation(ADAMANTIUM_AXE.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_SHOVEL, 0, new ModelResourceLocation(ADAMANTIUM_SHOVEL.getRegistryName(), inventory));
+      mesher.register(AQUATIC_PICKAXE, 0, new ModelResourceLocation(AQUATIC_PICKAXE.getRegistryName(), inventory));
+      mesher.register(AQUATIC_AXE, 0, new ModelResourceLocation(AQUATIC_AXE.getRegistryName(), inventory));
+      mesher.register(AQUATIC_SHOVEL, 0, new ModelResourceLocation(AQUATIC_SHOVEL.getRegistryName(), inventory));
+      mesher.register(STORM_PICKAXE, 0, new ModelResourceLocation(STORM_PICKAXE.getRegistryName(), inventory));
+      mesher.register(STORM_AXE, 0, new ModelResourceLocation(STORM_AXE.getRegistryName(), inventory));
+      mesher.register(STORM_SHOVEL, 0, new ModelResourceLocation(STORM_SHOVEL.getRegistryName(), inventory));
+      mesher.register(DOLERITE_KEY, 0, new ModelResourceLocation(DOLERITE_KEY.getRegistryName(), inventory));
+      mesher.register(FIBER_BANDAGE, 0, new ModelResourceLocation(FIBER_BANDAGE.getRegistryName(), inventory));
+      mesher.register(SELECTIVE_LEVITATOR, 0, new ModelResourceLocation(SELECTIVE_LEVITATOR.getRegistryName(), inventory));
+      mesher.register(STORM_SPAWNER_PIECE, 0, new ModelResourceLocation(STORM_SPAWNER_PIECE.getRegistryName(), inventory));
+      mesher.register(SACRIFICIAL_DAGGER, 0, new ModelResourceLocation(SACRIFICIAL_DAGGER.getRegistryName(), inventory));
+      mesher.register(SIREN_KEY, 0, new ModelResourceLocation(SIREN_KEY.getRegistryName(), inventory));
+      mesher.register(MERMAID_MEDALLION, 0, new ModelResourceLocation(MERMAID_MEDALLION.getRegistryName(), inventory));
+      mesher.register(WEATHER_ROCKET_CLEAR, 0, new ModelResourceLocation(WEATHER_ROCKET_CLEAR.getRegistryName(), inventory));
+      mesher.register(WEATHER_ROCKET_SNOWFALL, 0, new ModelResourceLocation(WEATHER_ROCKET_SNOWFALL.getRegistryName(), inventory));
+      mesher.register(WEATHER_ROCKET, 0, new ModelResourceLocation(WEATHER_ROCKET.getRegistryName(), inventory));
+      mesher.register(WEATHER_ROCKET_AURORA, 0, new ModelResourceLocation(WEATHER_ROCKET_AURORA.getRegistryName(), inventory));
+      mesher.register(PIRATE_SEXTANT, 0, new ModelResourceLocation(PIRATE_SEXTANT.getRegistryName(), inventory));
+      mesher.register(AQUATIC_CIRCUIT, 0, new ModelResourceLocation(AQUATIC_CIRCUIT.getRegistryName(), inventory));
+      mesher.register(TIDAL_HEART, 0, new ModelResourceLocation(TIDAL_HEART.getRegistryName(), inventory));
+      mesher.register(STABILIZATION_CELL, 0, new ModelResourceLocation(STABILIZATION_CELL.getRegistryName(), inventory));
+      mesher.register(SCRAP_BOMB, 0, new ModelResourceLocation(SCRAP_BOMB.getRegistryName(), inventory));
+      mesher.register(HEALTHFUL_CAPSULE, 0, new ModelResourceLocation(HEALTHFUL_CAPSULE.getRegistryName(), inventory));
+      mesher.register(GEIGER_COUNTER, 0, new ModelResourceLocation(GEIGER_COUNTER.getRegistryName(), inventory));
+      mesher.register(THUNDERBIRD_FEATHER, 0, new ModelResourceLocation(THUNDERBIRD_FEATHER.getRegistryName(), inventory));
+      mesher.register(PIZZA_SEAFOOD, 0, new ModelResourceLocation(PIZZA_SEAFOOD.getRegistryName(), inventory));
+      mesher.register(PALE_MEAT_RAW, 0, new ModelResourceLocation(PALE_MEAT_RAW.getRegistryName(), inventory));
+      mesher.register(PALE_MEAT_SMOKED, 0, new ModelResourceLocation(PALE_MEAT_SMOKED.getRegistryName(), inventory));
+      mesher.register(FISH_STEAK_RAW, 0, new ModelResourceLocation(FISH_STEAK_RAW.getRegistryName(), inventory));
+      mesher.register(FISH_STEAK_ROASTED, 0, new ModelResourceLocation(FISH_STEAK_ROASTED.getRegistryName(), inventory));
+      mesher.register(BLACK_GOO, 0, new ModelResourceLocation(BLACK_GOO.getRegistryName(), inventory));
+      mesher.register(FIBER_CLOTH, 0, new ModelResourceLocation(FIBER_CLOTH.getRegistryName(), inventory));
+      mesher.register(ANTI_RAD_PLATING, 0, new ModelResourceLocation(ANTI_RAD_PLATING.getRegistryName(), inventory));
+      mesher.register(PHASEOLITE, 0, new ModelResourceLocation(PHASEOLITE.getRegistryName(), inventory));
+      mesher.register(ETHERITE_FUEL_CELL, 0, new ModelResourceLocation(ETHERITE_FUEL_CELL.getRegistryName(), inventory));
+      mesher.register(VITREOUS_HEART, 0, new ModelResourceLocation(VITREOUS_HEART.getRegistryName(), inventory));
+      mesher.register(SOLIDIFIED_LIGHTNING, 0, new ModelResourceLocation(SOLIDIFIED_LIGHTNING.getRegistryName(), inventory));
+      mesher.register(KRAKEN_SKIN, 0, new ModelResourceLocation(KRAKEN_SKIN.getRegistryName(), inventory));
+      mesher.register(WORSHIPPERS_BAIT, 0, new ModelResourceLocation(WORSHIPPERS_BAIT.getRegistryName(), inventory));
+      mesher.register(FIN_WINGS, 0, new ModelResourceLocation(FIN_WINGS.getRegistryName(), inventory));
+      mesher.register(ANCIENT_BATTERY, 0, new ModelResourceLocation(ANCIENT_BATTERY.getRegistryName(), inventory));
+      mesher.register(AQUATRONIC_BATTERY, 0, new ModelResourceLocation(AQUATRONIC_BATTERY.getRegistryName(), inventory));
+      mesher.register(ANCIENT_SPAWNER_PIECE, 0, new ModelResourceLocation(ANCIENT_SPAWNER_PIECE.getRegistryName(), inventory));
+      mesher.register(EYE_OF_BEHOLDER, 0, new ModelResourceLocation(EYE_OF_BEHOLDER.getRegistryName(), inventory));
+      mesher.register(THUNDERBIRD_WINGS, 0, new ModelResourceLocation(THUNDERBIRD_WINGS.getRegistryName(), inventory));
+      mesher.register(WINDKEEPER, 0, new ModelResourceLocation(WINDKEEPER.getRegistryName(), inventory));
+      mesher.register(SHIPWREAKERS_KNOT, 0, new ModelResourceLocation(SHIPWREAKERS_KNOT.getRegistryName(), inventory));
+      mesher.register(WHITEWIND_BELT, 0, new ModelResourceLocation(WHITEWIND_BELT.getRegistryName(), inventory));
+      mesher.register(BELT_OF_SHADOWS, 0, new ModelResourceLocation(BELT_OF_SHADOWS.getRegistryName(), inventory));
+      mesher.register(EREBRIS_SHARD, 0, new ModelResourceLocation(EREBRIS_SHARD.getRegistryName(), inventory));
+      mesher.register(EREBRIS_FRAGMENT, 0, new ModelResourceLocation(EREBRIS_FRAGMENT.getRegistryName(), inventory));
+      mesher.register(EREBRIS_CHUNK, 0, new ModelResourceLocation(EREBRIS_CHUNK.getRegistryName(), inventory));
+      mesher.register(SILICIUM, 0, new ModelResourceLocation(SILICIUM.getRegistryName(), inventory));
+      mesher.register(SILICIUM_WAFER, 0, new ModelResourceLocation(SILICIUM_WAFER.getRegistryName(), inventory));
+      mesher.register(PHOTORESISTED_PLATE, 0, new ModelResourceLocation(PHOTORESISTED_PLATE.getRegistryName(), inventory));
+      mesher.register(LITOGRAPHED_PLATE, 0, new ModelResourceLocation(LITOGRAPHED_PLATE.getRegistryName(), inventory));
+      mesher.register(GALVANIZED_PLATE, 0, new ModelResourceLocation(GALVANIZED_PLATE.getRegistryName(), inventory));
+      mesher.register(LEPIDOLITE, 0, new ModelResourceLocation(LEPIDOLITE.getRegistryName(), inventory));
+      mesher.register(LITHIUM_NUGGET, 0, new ModelResourceLocation(LITHIUM_NUGGET.getRegistryName(), inventory));
+      mesher.register(LITHIUM_INGOT, 0, new ModelResourceLocation(LITHIUM_INGOT.getRegistryName(), inventory));
+      mesher.register(LITHIUM_DUST, 0, new ModelResourceLocation(LITHIUM_DUST.getRegistryName(), inventory));
+      mesher.register(VACUUM_GUN_PELLETS, 0, new ModelResourceLocation(VACUUM_GUN_PELLETS.getRegistryName(), inventory));
+      mesher.register(LOW_FRICTION_BEARING, 0, new ModelResourceLocation(LOW_FRICTION_BEARING.getRegistryName(), inventory));
+      mesher.register(CHARM_OF_UNDYING, 0, new ModelResourceLocation(CHARM_OF_UNDYING.getRegistryName(), inventory));
+      mesher.register(GOTHIC_GEM, 0, new ModelResourceLocation(GOTHIC_GEM.getRegistryName(), inventory));
+      mesher.register(HYDRAULIC_SHOTGUN_CLIP, 0, new ModelResourceLocation(HYDRAULIC_SHOTGUN_CLIP.getRegistryName(), inventory));
+      mesher.register(GOTHIC_GEAR, 0, new ModelResourceLocation(GOTHIC_GEAR.getRegistryName(), inventory));
+      mesher.register(ICE_CIRCLE, 0, new ModelResourceLocation(ICE_CIRCLE.getRegistryName(), inventory));
+      mesher.register(ICE_CIRCLE_FILLED, 0, new ModelResourceLocation(ICE_CIRCLE_FILLED.getRegistryName(), inventory));
+      mesher.register(HEALTH_FRUIT, 0, new ModelResourceLocation(HEALTH_FRUIT.getRegistryName(), inventory));
+      mesher.register(MANA_EXPANSION_POTION, 0, new ModelResourceLocation(MANA_EXPANSION_POTION.getRegistryName(), inventory));
+      mesher.register(RUBBLESTONE, 0, new ModelResourceLocation(RUBBLESTONE.getRegistryName(), inventory));
+      mesher.register(SALTPETER, 0, new ModelResourceLocation(SALTPETER.getRegistryName(), inventory));
+      mesher.register(ASH, 0, new ModelResourceLocation(ASH.getRegistryName(), inventory));
+      mesher.register(SLIME_LOCATOR, 0, new ModelResourceLocation(SLIME_LOCATOR.getRegistryName(), inventory));
+      mesher.register(RHINESTONE_PICKAXE, 0, new ModelResourceLocation(RHINESTONE_PICKAXE.getRegistryName(), inventory));
+      mesher.register(RHINESTONE_AXE, 0, new ModelResourceLocation(RHINESTONE_AXE.getRegistryName(), inventory));
+      mesher.register(RHINESTONE_SHOVEL, 0, new ModelResourceLocation(RHINESTONE_SHOVEL.getRegistryName(), inventory));
+      mesher.register(TOPAZ_PICKAXE, 0, new ModelResourceLocation(TOPAZ_PICKAXE.getRegistryName(), inventory));
+      mesher.register(TOPAZ_AXE, 0, new ModelResourceLocation(TOPAZ_AXE.getRegistryName(), inventory));
+      mesher.register(TOPAZ_SHOVEL, 0, new ModelResourceLocation(TOPAZ_SHOVEL.getRegistryName(), inventory));
+      mesher.register(SAPPHIRE_PICKAXE, 0, new ModelResourceLocation(SAPPHIRE_PICKAXE.getRegistryName(), inventory));
+      mesher.register(SAPPHIRE_AXE, 0, new ModelResourceLocation(SAPPHIRE_AXE.getRegistryName(), inventory));
+      mesher.register(SAPPHIRE_SHOVEL, 0, new ModelResourceLocation(SAPPHIRE_SHOVEL.getRegistryName(), inventory));
+      mesher.register(AMETHYST_PICKAXE, 0, new ModelResourceLocation(AMETHYST_PICKAXE.getRegistryName(), inventory));
+      mesher.register(AMETHYST_AXE, 0, new ModelResourceLocation(AMETHYST_AXE.getRegistryName(), inventory));
+      mesher.register(AMETHYST_SHOVEL, 0, new ModelResourceLocation(AMETHYST_SHOVEL.getRegistryName(), inventory));
+      mesher.register(CITRINE_PICKAXE, 0, new ModelResourceLocation(CITRINE_PICKAXE.getRegistryName(), inventory));
+      mesher.register(CITRINE_AXE, 0, new ModelResourceLocation(CITRINE_AXE.getRegistryName(), inventory));
+      mesher.register(CITRINE_SHOVEL, 0, new ModelResourceLocation(CITRINE_SHOVEL.getRegistryName(), inventory));
+      mesher.register(RUBY_PICKAXE, 0, new ModelResourceLocation(RUBY_PICKAXE.getRegistryName(), inventory));
+      mesher.register(RUBY_AXE, 0, new ModelResourceLocation(RUBY_AXE.getRegistryName(), inventory));
+      mesher.register(RUBY_SHOVEL, 0, new ModelResourceLocation(RUBY_SHOVEL.getRegistryName(), inventory));
+      mesher.register(MISSING_DUST, 0, new ModelResourceLocation(MISSING_DUST.getRegistryName(), inventory));
+      mesher.register(MISSING_INGOT, 0, new ModelResourceLocation(MISSING_INGOT.getRegistryName(), inventory));
+      mesher.register(MISSING_NUGGET, 0, new ModelResourceLocation(MISSING_NUGGET.getRegistryName(), inventory));
+      mesher.register(MISSING_MATERIAL, 0, new ModelResourceLocation(MISSING_MATERIAL.getRegistryName(), inventory));
+      mesher.register(INK, 0, new ModelResourceLocation(INK.getRegistryName(), inventory));
+      mesher.register(QUARTZ_DUST, 0, new ModelResourceLocation(QUARTZ_DUST.getRegistryName(), inventory));
+      mesher.register(EMPTY_SYRINGE, 0, new ModelResourceLocation(EMPTY_SYRINGE.getRegistryName(), inventory));
+      mesher.register(PYROLYSIS_MODULE, 0, new ModelResourceLocation(PYROLYSIS_MODULE.getRegistryName(), inventory));
+      mesher.register(PURPUR_ALLOY, 0, new ModelResourceLocation(PURPUR_ALLOY.getRegistryName(), inventory));
+      mesher.register(BLACK_STRAP, 0, new ModelResourceLocation(BLACK_STRAP.getRegistryName(), inventory));
+      mesher.register(TITANIUM_SLAG, 0, new ModelResourceLocation(TITANIUM_SLAG.getRegistryName(), inventory));
+      mesher.register(AQUATIC_SPAWNER_PIECE, 0, new ModelResourceLocation(AQUATIC_SPAWNER_PIECE.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_ORE_DUST, 0, new ModelResourceLocation(ADAMANTIUM_ORE_DUST.getRegistryName(), inventory));
+      mesher.register(MITHRIL_ORE_DUST, 0, new ModelResourceLocation(MITHRIL_ORE_DUST.getRegistryName(), inventory));
+      mesher.register(STONE_DUST, 0, new ModelResourceLocation(STONE_DUST.getRegistryName(), inventory));
+      mesher.register(LIMESTONE_DUST, 0, new ModelResourceLocation(LIMESTONE_DUST.getRegistryName(), inventory));
+      mesher.register(BASALT_DUST, 0, new ModelResourceLocation(BASALT_DUST.getRegistryName(), inventory));
+      mesher.register(URANIUM_INGOT, 0, new ModelResourceLocation(URANIUM_INGOT.getRegistryName(), inventory));
+      mesher.register(URANIUM_DUST, 0, new ModelResourceLocation(URANIUM_DUST.getRegistryName(), inventory));
+      mesher.register(URANIUM_NUGGET, 0, new ModelResourceLocation(URANIUM_NUGGET.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_ORE_DUST, 0, new ModelResourceLocation(TOXINIUM_ORE_DUST.getRegistryName(), inventory));
+      mesher.register(RADIOACTIVE_DUST, 0, new ModelResourceLocation(RADIOACTIVE_DUST.getRegistryName(), inventory));
+      mesher.register(NYLON, 0, new ModelResourceLocation(NYLON.getRegistryName(), inventory));
+      mesher.register(TAR, 0, new ModelResourceLocation(TAR.getRegistryName(), inventory));
+      mesher.register(PARAFFIN, 0, new ModelResourceLocation(PARAFFIN.getRegistryName(), inventory));
+      mesher.register(POLYMERIZATION_MODULE, 0, new ModelResourceLocation(POLYMERIZATION_MODULE.getRegistryName(), inventory));
+      mesher.register(DISTILLATION_MODULE, 0, new ModelResourceLocation(DISTILLATION_MODULE.getRegistryName(), inventory));
+      mesher.register(RESISTANT_CIRCUIT, 0, new ModelResourceLocation(RESISTANT_CIRCUIT.getRegistryName(), inventory));
+      mesher.register(GOLD_TRANSFORMER, 0, new ModelResourceLocation(GOLD_TRANSFORMER.getRegistryName(), inventory));
+      mesher.register(SILVER_TRANSFORMER, 0, new ModelResourceLocation(SILVER_TRANSFORMER.getRegistryName(), inventory));
+      mesher.register(TOPAZITRON_CRYSTAL, 0, new ModelResourceLocation(TOPAZITRON_CRYSTAL.getRegistryName(), inventory));
+      mesher.register(BATTERY_TOPAZITRON_CRYSTAL, 0, new ModelResourceLocation(BATTERY_TOPAZITRON_CRYSTAL.getRegistryName(), inventory));
+      mesher.register(ELECTROMAGNETIC_BEARING, 0, new ModelResourceLocation(ELECTROMAGNETIC_BEARING.getRegistryName(), inventory));
+      mesher.register(BLUE_ARTHROSTELECHA_ROD, 0, new ModelResourceLocation(BLUE_ARTHROSTELECHA_ROD.getRegistryName(), inventory));
+      mesher.register(PINK_ARTHROSTELECHA_ROD, 0, new ModelResourceLocation(PINK_ARTHROSTELECHA_ROD.getRegistryName(), inventory));
+      mesher.register(IMPULSE_THRUSTER, 0, new ModelResourceLocation(IMPULSE_THRUSTER.getRegistryName(), inventory));
+      mesher.register(STORM_CIRCUIT, 0, new ModelResourceLocation(STORM_CIRCUIT.getRegistryName(), inventory));
+      mesher.register(STORMBRASS_PLASMATRON, 0, new ModelResourceLocation(STORMBRASS_PLASMATRON.getRegistryName(), inventory));
+      mesher.register(MITHRIL_INGOT, 0, new ModelResourceLocation(MITHRIL_INGOT.getRegistryName(), inventory));
+      mesher.register(MITHRIL, 0, new ModelResourceLocation(MITHRIL.getRegistryName(), inventory));
+      mesher.register(MITHRIL_NUGGET, 0, new ModelResourceLocation(MITHRIL_NUGGET.getRegistryName(), inventory));
+      mesher.register(AQUATIC_NUGGET, 0, new ModelResourceLocation(AQUATIC_NUGGET.getRegistryName(), inventory));
+      mesher.register(PEARL, 0, new ModelResourceLocation(PEARL.getRegistryName(), inventory));
+      mesher.register(BLACK_PEARL, 0, new ModelResourceLocation(BLACK_PEARL.getRegistryName(), inventory));
+      mesher.register(GLOWING_PEARL, 0, new ModelResourceLocation(GLOWING_PEARL.getRegistryName(), inventory));
+      mesher.register(AQUATIC_PEARL, 0, new ModelResourceLocation(AQUATIC_PEARL.getRegistryName(), inventory));
+      mesher.register(AQUATIC_INGOT, 0, new ModelResourceLocation(AQUATIC_INGOT.getRegistryName(), inventory));
+      mesher.register(AQUATIC_DUST, 0, new ModelResourceLocation(AQUATIC_DUST.getRegistryName(), inventory));
+      mesher.register(CORAL, 0, new ModelResourceLocation(CORAL.getRegistryName(), inventory));
+      mesher.register(ARCHELON_SHELL, 0, new ModelResourceLocation(ARCHELON_SHELL.getRegistryName(), inventory));
+      mesher.register(PLACODERM_SCALES, 0, new ModelResourceLocation(PLACODERM_SCALES.getRegistryName(), inventory));
+      mesher.register(MESOGLEA, 0, new ModelResourceLocation(MESOGLEA.getRegistryName(), inventory));
+      mesher.register(TOXEDGE_DOUGH, 0, new ModelResourceLocation(TOXEDGE_DOUGH.getRegistryName(), inventory));
+      mesher.register(BUTTER, 0, new ModelResourceLocation(BUTTER.getRegistryName(), inventory));
+      mesher.register(BISCUIT, 0, new ModelResourceLocation(BISCUIT.getRegistryName(), inventory));
+      mesher.register(SWEET_DOUGH, 0, new ModelResourceLocation(SWEET_DOUGH.getRegistryName(), inventory));
+      mesher.register(COCOA_POWDER, 0, new ModelResourceLocation(COCOA_POWDER.getRegistryName(), inventory));
+      mesher.register(CARAMEL, 0, new ModelResourceLocation(CARAMEL.getRegistryName(), inventory));
+      mesher.register(CHOCOLATE, 0, new ModelResourceLocation(CHOCOLATE.getRegistryName(), inventory));
+      mesher.register(COCOA_BUTTER, 0, new ModelResourceLocation(COCOA_BUTTER.getRegistryName(), inventory));
+      mesher.register(VIOLET_PUDDING, 0, new ModelResourceLocation(VIOLET_PUDDING.getRegistryName(), inventory));
+      mesher.register(GREEN_PUDDING, 0, new ModelResourceLocation(GREEN_PUDDING.getRegistryName(), inventory));
+      mesher.register(BROWN_PUDDING, 0, new ModelResourceLocation(BROWN_PUDDING.getRegistryName(), inventory));
+      mesher.register(ORANGE_PUDDING, 0, new ModelResourceLocation(ORANGE_PUDDING.getRegistryName(), inventory));
+      mesher.register(FLOUR, 0, new ModelResourceLocation(FLOUR.getRegistryName(), inventory));
+      mesher.register(MEAT_BROTH, 0, new ModelResourceLocation(MEAT_BROTH.getRegistryName(), inventory));
+      mesher.register(STUFFED_FIERY_BEAN, 0, new ModelResourceLocation(STUFFED_FIERY_BEAN.getRegistryName(), inventory));
+      mesher.register(BORSCH, 0, new ModelResourceLocation(BORSCH.getRegistryName(), inventory));
+      mesher.register(FERMENTER_MODULE, 0, new ModelResourceLocation(FERMENTER_MODULE.getRegistryName(), inventory));
+      mesher.register(CENTRIFUGE_MODULE, 0, new ModelResourceLocation(CENTRIFUGE_MODULE.getRegistryName(), inventory));
+      mesher.register(CHERRY_TOMATO, 0, new ModelResourceLocation(CHERRY_TOMATO.getRegistryName(), inventory));
+      mesher.register(MAGIC_JAM, 0, new ModelResourceLocation(MAGIC_JAM.getRegistryName(), inventory));
+      mesher.register(DOUGH, 0, new ModelResourceLocation(DOUGH.getRegistryName(), inventory));
+      mesher.register(MOZZARELLA, 0, new ModelResourceLocation(MOZZARELLA.getRegistryName(), inventory));
+      mesher.register(MUSHROOMS_IN_SAUCE, 0, new ModelResourceLocation(MUSHROOMS_IN_SAUCE.getRegistryName(), inventory));
+      mesher.register(WHEY_STARTER, 0, new ModelResourceLocation(WHEY_STARTER.getRegistryName(), inventory));
+      mesher.register(YEAST, 0, new ModelResourceLocation(YEAST.getRegistryName(), inventory));
+      mesher.register(MOONSHROOM_MEAT, 0, new ModelResourceLocation(MOONSHROOM_MEAT.getRegistryName(), inventory));
+      mesher.register(SALT_GRAINS, 0, new ModelResourceLocation(SALT_GRAINS.getRegistryName(), inventory));
+      mesher.register(REDPEPPER, 0, new ModelResourceLocation(REDPEPPER.getRegistryName(), inventory));
+      mesher.register(HEALTH_BERRY, 0, new ModelResourceLocation(HEALTH_BERRY.getRegistryName(), inventory));
+      mesher.register(QUANTUM_SLIMEBALL, 0, new ModelResourceLocation(QUANTUM_SLIMEBALL.getRegistryName(), inventory));
+      mesher.register(MANA_BERRY, 0, new ModelResourceLocation(MANA_BERRY.getRegistryName(), inventory));
+      mesher.register(ALCHEMICAL_WAX, 0, new ModelResourceLocation(ALCHEMICAL_WAX.getRegistryName(), inventory));
+      mesher.register(ENIGMATE_TWINS, 0, new ModelResourceLocation(ENIGMATE_TWINS.getRegistryName(), inventory));
+      mesher.register(BULLET_DIVING, 0, new ModelResourceLocation(BULLET_DIVING.getRegistryName(), inventory));
+      mesher.register(BULLET_CORAL, 0, new ModelResourceLocation(BULLET_CORAL.getRegistryName(), inventory));
+      mesher.register(SHELL_ROCKET, 0, new ModelResourceLocation(SHELL_ROCKET.getRegistryName(), inventory));
+      mesher.register(BULLET_ERRATIC, 0, new ModelResourceLocation(BULLET_ERRATIC.getRegistryName(), inventory));
+      mesher.register(SURPRISE_ROCKET, 0, new ModelResourceLocation(SURPRISE_ROCKET.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_MINIGUN_CLIP, 0, new ModelResourceLocation(ADAMANTIUM_MINIGUN_CLIP.getRegistryName(), inventory));
+      mesher.register(XMASS_BUNDLE, 0, new ModelResourceLocation(XMASS_BUNDLE.getRegistryName(), inventory));
+      mesher.register(ELEMENTS_BOOK, 0, new ModelResourceLocation(ELEMENTS_BOOK.getRegistryName(), inventory));
+      mesher.register(VIAL_EMPTY, 0, new ModelResourceLocation(VIAL_EMPTY.getRegistryName(), inventory));
+      mesher.register(DASH_IMPULSE_CORSLET, 0, new ModelResourceLocation(DASH_IMPULSE_CORSLET.getRegistryName(), inventory));
+      mesher.register(DASH_HELLHOUND_BELT, 0, new ModelResourceLocation(DASH_HELLHOUND_BELT.getRegistryName(), inventory));
+      mesher.register(DASH_BELT_BLACK, 0, new ModelResourceLocation(DASH_BELT_BLACK.getRegistryName(), inventory));
+      mesher.register(SHADOW_WINGS, 0, new ModelResourceLocation(SHADOW_WINGS.getRegistryName(), inventory));
+      mesher.register(VIAL_FIRE, 0, new ModelResourceLocation(VIAL_FIRE.getRegistryName(), inventory));
+      mesher.register(VIAL_EARTH, 0, new ModelResourceLocation(VIAL_EARTH.getRegistryName(), inventory));
+      mesher.register(VIAL_WATER, 0, new ModelResourceLocation(VIAL_WATER.getRegistryName(), inventory));
+      mesher.register(VIAL_AIR, 0, new ModelResourceLocation(VIAL_AIR.getRegistryName(), inventory));
+      mesher.register(VIAL_POISON, 0, new ModelResourceLocation(VIAL_POISON.getRegistryName(), inventory));
+      mesher.register(VIAL_COLD, 0, new ModelResourceLocation(VIAL_COLD.getRegistryName(), inventory));
+      mesher.register(VIAL_ELECTRIC, 0, new ModelResourceLocation(VIAL_ELECTRIC.getRegistryName(), inventory));
+      mesher.register(VIAL_VOID, 0, new ModelResourceLocation(VIAL_VOID.getRegistryName(), inventory));
+      mesher.register(VIAL_PLEASURE, 0, new ModelResourceLocation(VIAL_PLEASURE.getRegistryName(), inventory));
+      mesher.register(VIAL_PAIN, 0, new ModelResourceLocation(VIAL_PAIN.getRegistryName(), inventory));
+      mesher.register(VIAL_DEATH, 0, new ModelResourceLocation(VIAL_DEATH.getRegistryName(), inventory));
+      mesher.register(VIAL_LIVE, 0, new ModelResourceLocation(VIAL_LIVE.getRegistryName(), inventory));
+      mesher.register(MAGIC_EXPLORING_KIT, 0, new ModelResourceLocation(MAGIC_EXPLORING_KIT.getRegistryName(), inventory));
+      mesher.register(MAGIC_RESEARCH_KIT, 0, new ModelResourceLocation(MAGIC_RESEARCH_KIT.getRegistryName(), inventory));
+      mesher.register(MAGIC_WRITING_KIT, 0, new ModelResourceLocation(MAGIC_WRITING_KIT.getRegistryName(), inventory));
+      mesher.register(COOLED_RIFLE_CLIP, 0, new ModelResourceLocation(COOLED_RIFLE_CLIP.getRegistryName(), inventory));
+      mesher.register(BULLET_NIVEOUS, 0, new ModelResourceLocation(BULLET_NIVEOUS.getRegistryName(), inventory));
+      mesher.register(NIVEOLITE, 0, new ModelResourceLocation(NIVEOLITE.getRegistryName(), inventory));
+      mesher.register(HELLHOUND_FUR, 0, new ModelResourceLocation(HELLHOUND_FUR.getRegistryName(), inventory));
+      mesher.register(FROZEN_SPAWNER_PIECE, 0, new ModelResourceLocation(FROZEN_SPAWNER_PIECE.getRegistryName(), inventory));
+      mesher.register(RUSTED_SPAWNER_PIECE, 0, new ModelResourceLocation(RUSTED_SPAWNER_PIECE.getRegistryName(), inventory));
+      mesher.register(SPAWNER_PIECE, 0, new ModelResourceLocation(SPAWNER_PIECE.getRegistryName(), inventory));
+      mesher.register(SLIMY_EGGS, 0, new ModelResourceLocation(SLIMY_EGGS.getRegistryName(), inventory));
+      mesher.register(BERYLLIUM_GRAINS, 0, new ModelResourceLocation(BERYLLIUM_GRAINS.getRegistryName(), inventory));
+      mesher.register(ELECTROLYZER_MODULE, 0, new ModelResourceLocation(ELECTROLYZER_MODULE.getRegistryName(), inventory));
+      mesher.register(ALUMINIUM_INGOT, 0, new ModelResourceLocation(ALUMINIUM_INGOT.getRegistryName(), inventory));
+      mesher.register(ALUMINIUM_DUST, 0, new ModelResourceLocation(ALUMINIUM_DUST.getRegistryName(), inventory));
+      mesher.register(ALUMINIUM_NUGGET, 0, new ModelResourceLocation(ALUMINIUM_NUGGET.getRegistryName(), inventory));
+      mesher.register(BEARING_ALLOY_DUST, 0, new ModelResourceLocation(BEARING_ALLOY_DUST.getRegistryName(), inventory));
+      mesher.register(COPPER_TRANSFORMER, 0, new ModelResourceLocation(COPPER_TRANSFORMER.getRegistryName(), inventory));
+      mesher.register(STAMP_MOLD, 0, new ModelResourceLocation(STAMP_MOLD.getRegistryName(), inventory));
+      mesher.register(STEEL_STAMP, 0, new ModelResourceLocation(STEEL_STAMP.getRegistryName(), inventory));
+      mesher.register(SILVER_INGOT, 0, new ModelResourceLocation(SILVER_INGOT.getRegistryName(), inventory));
+      mesher.register(SILVER_DUST, 0, new ModelResourceLocation(SILVER_DUST.getRegistryName(), inventory));
+      mesher.register(SILVER_NUGGET, 0, new ModelResourceLocation(SILVER_NUGGET.getRegistryName(), inventory));
+      mesher.register(ARROW_WIND, 0, new ModelResourceLocation(ARROW_WIND.getRegistryName(), inventory));
+      mesher.register(ARROW_TWIN, 0, new ModelResourceLocation(ARROW_TWIN.getRegistryName(), inventory));
+      mesher.register(ARROW_MITHRIL, 0, new ModelResourceLocation(ARROW_MITHRIL.getRegistryName(), inventory));
+      mesher.register(ARROW_BOUNCING, 0, new ModelResourceLocation(ARROW_BOUNCING.getRegistryName(), inventory));
+      mesher.register(ARROW_SHELL, 0, new ModelResourceLocation(ARROW_SHELL.getRegistryName(), inventory));
+      mesher.register(ARROW_VOID, 0, new ModelResourceLocation(ARROW_VOID.getRegistryName(), inventory));
+      mesher.register(ARROW_FISH, 0, new ModelResourceLocation(ARROW_FISH.getRegistryName(), inventory));
+      mesher.register(ARROW_BENGAL, 0, new ModelResourceLocation(ARROW_BENGAL.getRegistryName(), inventory));
+      mesher.register(ARROW_MODERN, 0, new ModelResourceLocation(ARROW_MODERN.getRegistryName(), inventory));
+      mesher.register(ARROW_VICIOUS, 0, new ModelResourceLocation(ARROW_VICIOUS.getRegistryName(), inventory));
+      mesher.register(ARROW_FIREJET, 0, new ModelResourceLocation(ARROW_FIREJET.getRegistryName(), inventory));
+      mesher.register(ARROW_FROZEN, 0, new ModelResourceLocation(ARROW_FROZEN.getRegistryName(), inventory));
+      mesher.register(TIDE_ACTIVATOR_1, 0, new ModelResourceLocation(TIDE_ACTIVATOR_1.getRegistryName(), inventory));
+      mesher.register(TIDE_ACTIVATOR_2, 0, new ModelResourceLocation(TIDE_ACTIVATOR_2.getRegistryName(), inventory));
+      mesher.register(TIDE_ACTIVATOR_3, 0, new ModelResourceLocation(TIDE_ACTIVATOR_3.getRegistryName(), inventory));
+      mesher.register(TIDE_ACTIVATOR_4, 0, new ModelResourceLocation(TIDE_ACTIVATOR_4.getRegistryName(), inventory));
+      mesher.register(TIDE_ACTIVATOR_5, 0, new ModelResourceLocation(TIDE_ACTIVATOR_5.getRegistryName(), inventory));
+      mesher.register(ARCANE_ROCKET, 0, new ModelResourceLocation(ARCANE_ROCKET.getRegistryName(), inventory));
+      mesher.register(BUCKSHOT, 0, new ModelResourceLocation(BUCKSHOT.getRegistryName(), inventory));
+      mesher.register(NORTHERN_HELM, 0, new ModelResourceLocation(NORTHERN_HELM.getRegistryName(), inventory));
+      mesher.register(NORTHERN_CHEST, 0, new ModelResourceLocation(NORTHERN_CHEST.getRegistryName(), inventory));
+      mesher.register(NORTHERN_LEGS, 0, new ModelResourceLocation(NORTHERN_LEGS.getRegistryName(), inventory));
+      mesher.register(NORTHERN_BOOTS, 0, new ModelResourceLocation(NORTHERN_BOOTS.getRegistryName(), inventory));
+      mesher.register(CRYSTAL_HELM, 0, new ModelResourceLocation(CRYSTAL_HELM.getRegistryName(), inventory));
+      mesher.register(CRYSTAL_CHEST, 0, new ModelResourceLocation(CRYSTAL_CHEST.getRegistryName(), inventory));
+      mesher.register(CRYSTAL_LEGS, 0, new ModelResourceLocation(CRYSTAL_LEGS.getRegistryName(), inventory));
+      mesher.register(CRYSTAL_BOOTS, 0, new ModelResourceLocation(CRYSTAL_BOOTS.getRegistryName(), inventory));
+      mesher.register(THUNDERER_HELM, 0, new ModelResourceLocation(THUNDERER_HELM.getRegistryName(), inventory));
+      mesher.register(THUNDERER_CHEST, 0, new ModelResourceLocation(THUNDERER_CHEST.getRegistryName(), inventory));
+      mesher.register(THUNDERER_LEGS, 0, new ModelResourceLocation(THUNDERER_LEGS.getRegistryName(), inventory));
+      mesher.register(THUNDERER_BOOTS, 0, new ModelResourceLocation(THUNDERER_BOOTS.getRegistryName(), inventory));
+      mesher.register(GOTHIC_SWORD, 0, new ModelResourceLocation(GOTHIC_SWORD.getRegistryName(), inventory));
+      mesher.register(BURNING_FROST_IGNITER, 0, new ModelResourceLocation(BURNING_FROST_IGNITER.getRegistryName(), inventory));
+      mesher.register(WINTER_SACRIFICE, 0, new ModelResourceLocation(WINTER_SACRIFICE.getRegistryName(), inventory));
+      mesher.register(WINTER_SCALE, 0, new ModelResourceLocation(WINTER_SCALE.getRegistryName(), inventory));
+      mesher.register(HAIL_TEAR, 0, new ModelResourceLocation(HAIL_TEAR.getRegistryName(), inventory));
+      mesher.register(PLASMA_MINIGUN_CLIP, 0, new ModelResourceLocation(PLASMA_MINIGUN_CLIP.getRegistryName(), inventory));
+      mesher.register(CRYSTAL_CUTTER_AMMO, 0, new ModelResourceLocation(CRYSTAL_CUTTER_AMMO.getRegistryName(), inventory));
+      mesher.register(BLOWHOLE_PELLETS, 0, new ModelResourceLocation(BLOWHOLE_PELLETS.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_NUGGET, 0, new ModelResourceLocation(ADAMANTIUM_NUGGET.getRegistryName(), inventory));
+      mesher.register(NAIL_GUN_CLIP, 0, new ModelResourceLocation(NAIL_GUN_CLIP.getRegistryName(), inventory));
+      mesher.register(NAIL, 0, new ModelResourceLocation(NAIL.getRegistryName(), inventory));
+      mesher.register(WOLFRAM_WIRE, 0, new ModelResourceLocation(WOLFRAM_WIRE.getRegistryName(), inventory));
+      mesher.register(GAS_FILTER, 0, new ModelResourceLocation(GAS_FILTER.getRegistryName(), inventory));
+      mesher.register(LEAD_ACID_BATTERY, 0, new ModelResourceLocation(LEAD_ACID_BATTERY.getRegistryName(), inventory));
+      mesher.register(LI_ION_BATTERY, 0, new ModelResourceLocation(LI_ION_BATTERY.getRegistryName(), inventory));
+      mesher.register(LEAD_BEARING, 0, new ModelResourceLocation(LEAD_BEARING.getRegistryName(), inventory));
+      mesher.register(ARSENIC_BEARING, 0, new ModelResourceLocation(ARSENIC_BEARING.getRegistryName(), inventory));
+      mesher.register(ELECTRIC_MOTOR, 0, new ModelResourceLocation(ELECTRIC_MOTOR.getRegistryName(), inventory));
+      mesher.register(LINEAR_MOTOR, 0, new ModelResourceLocation(LINEAR_MOTOR.getRegistryName(), inventory));
+      mesher.register(EYE_OF_SEER, 0, new ModelResourceLocation(EYE_OF_SEER.getRegistryName(), inventory));
+      mesher.register(PROCESSOR, 0, new ModelResourceLocation(PROCESSOR.getRegistryName(), inventory));
+      mesher.register(COPPER_WIRE, 0, new ModelResourceLocation(COPPER_WIRE.getRegistryName(), inventory));
+      mesher.register(GOLD_WIRE, 0, new ModelResourceLocation(GOLD_WIRE.getRegistryName(), inventory));
+      mesher.register(SILVER_WIRE, 0, new ModelResourceLocation(SILVER_WIRE.getRegistryName(), inventory));
+      mesher.register(RUBBER, 0, new ModelResourceLocation(RUBBER.getRegistryName(), inventory));
+      mesher.register(CIRCUIT, 0, new ModelResourceLocation(CIRCUIT.getRegistryName(), inventory));
+      mesher.register(ADVANCED_CIRCUIT, 0, new ModelResourceLocation(ADVANCED_CIRCUIT.getRegistryName(), inventory));
+      mesher.register(TOXIC_CIRCUIT, 0, new ModelResourceLocation(TOXIC_CIRCUIT.getRegistryName(), inventory));
+      mesher.register(DIMENSION_CIRCUIT, 0, new ModelResourceLocation(DIMENSION_CIRCUIT.getRegistryName(), inventory));
+      mesher.register(ICICLE_MINIGUN_CLIP, 0, new ModelResourceLocation(ICICLE_MINIGUN_CLIP.getRegistryName(), inventory));
+      mesher.register(SLIME_PLASTIC, 0, new ModelResourceLocation(SLIME_PLASTIC.getRegistryName(), inventory));
+      mesher.register(WHITE_SLIMEBALL, 0, new ModelResourceLocation(WHITE_SLIMEBALL.getRegistryName(), inventory));
+      mesher.register(PLASTIC, 0, new ModelResourceLocation(PLASTIC.getRegistryName(), inventory));
+      mesher.register(SLIME_CELL, 0, new ModelResourceLocation(SLIME_CELL.getRegistryName(), inventory));
+      mesher.register(TOXIBERRY_STICK, 0, new ModelResourceLocation(TOXIBERRY_STICK.getRegistryName(), inventory));
+      mesher.register(SCRAP_METAL, 0, new ModelResourceLocation(SCRAP_METAL.getRegistryName(), inventory));
+      mesher.register(SULFUR_DUST, 0, new ModelResourceLocation(SULFUR_DUST.getRegistryName(), inventory));
+      mesher.register(MAGMA_BLOOM_SEED, 0, new ModelResourceLocation(MAGMA_BLOOM_SEED.getRegistryName(), inventory));
+      mesher.register(PIZZA_CHICKEN, 0, new ModelResourceLocation(PIZZA_CHICKEN.getRegistryName(), inventory));
+      mesher.register(PIZZA_DIAVOLA, 0, new ModelResourceLocation(PIZZA_DIAVOLA.getRegistryName(), inventory));
+      mesher.register(PIZZA_CHEESE, 0, new ModelResourceLocation(PIZZA_CHEESE.getRegistryName(), inventory));
+      mesher.register(PIZZA_TOXIC, 0, new ModelResourceLocation(PIZZA_TOXIC.getRegistryName(), inventory));
+      mesher.register(PIZZA_GLOWING, 0, new ModelResourceLocation(PIZZA_GLOWING.getRegistryName(), inventory));
+      mesher.register(SMOKED_SAUSAGE, 0, new ModelResourceLocation(SMOKED_SAUSAGE.getRegistryName(), inventory));
+      mesher.register(RAW_RIBS, 0, new ModelResourceLocation(RAW_RIBS.getRegistryName(), inventory));
+      mesher.register(HOT_SPICY_RIBS, 0, new ModelResourceLocation(HOT_SPICY_RIBS.getRegistryName(), inventory));
+      mesher.register(BAUXITE, 0, new ModelResourceLocation(BAUXITE.getRegistryName(), inventory));
+      mesher.register(BRASS_INGOT, 0, new ModelResourceLocation(BRASS_INGOT.getRegistryName(), inventory));
+      mesher.register(BRASS_DUST, 0, new ModelResourceLocation(BRASS_DUST.getRegistryName(), inventory));
+      mesher.register(BRASS_NUGGET, 0, new ModelResourceLocation(BRASS_NUGGET.getRegistryName(), inventory));
+      mesher.register(ZINC_INGOT, 0, new ModelResourceLocation(ZINC_INGOT.getRegistryName(), inventory));
+      mesher.register(ZINC_DUST, 0, new ModelResourceLocation(ZINC_DUST.getRegistryName(), inventory));
+      mesher.register(ZINC_NUGGET, 0, new ModelResourceLocation(ZINC_NUGGET.getRegistryName(), inventory));
+      mesher.register(TITANIUM_INGOT, 0, new ModelResourceLocation(TITANIUM_INGOT.getRegistryName(), inventory));
+      mesher.register(TITANIUM_DUST, 0, new ModelResourceLocation(TITANIUM_DUST.getRegistryName(), inventory));
+      mesher.register(TITANIUM_NUGGET, 0, new ModelResourceLocation(TITANIUM_NUGGET.getRegistryName(), inventory));
+      mesher.register(CHEMICAL_GLASS, 0, new ModelResourceLocation(CHEMICAL_GLASS.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_NUGGET, 0, new ModelResourceLocation(TOXINIUM_NUGGET.getRegistryName(), inventory));
+      mesher.register(ICE_DUST, 0, new ModelResourceLocation(ICE_DUST.getRegistryName(), inventory));
+      mesher.register(CONIFER_ROSIN, 0, new ModelResourceLocation(CONIFER_ROSIN.getRegistryName(), inventory));
+      mesher.register(FIERY_OIL, 0, new ModelResourceLocation(FIERY_OIL.getRegistryName(), inventory));
+      mesher.register(SALT, 0, new ModelResourceLocation(SALT.getRegistryName(), inventory));
+      mesher.register(CRYSTALLIZED_POISON, 0, new ModelResourceLocation(CRYSTALLIZED_POISON.getRegistryName(), inventory));
+      mesher.register(COPPER_SULFATE, 0, new ModelResourceLocation(COPPER_SULFATE.getRegistryName(), inventory));
+      mesher.register(PLANT_FIBER, 0, new ModelResourceLocation(PLANT_FIBER.getRegistryName(), inventory));
+      mesher.register(DRIED_PLANT_FIBER, 0, new ModelResourceLocation(DRIED_PLANT_FIBER.getRegistryName(), inventory));
+      mesher.register(GLOWING_CRYSTAL_DUST, 0, new ModelResourceLocation(GLOWING_CRYSTAL_DUST.getRegistryName(), inventory));
+      mesher.register(MAGIC_CRYSTAL_DUST, 0, new ModelResourceLocation(MAGIC_CRYSTAL_DUST.getRegistryName(), inventory));
+      mesher.register(ADVANCED_POLYMER, 0, new ModelResourceLocation(ADVANCED_POLYMER.getRegistryName(), inventory));
+      mesher.register(TOXIBERRY_JUICE_DRIP, 0, new ModelResourceLocation(TOXIBERRY_JUICE_DRIP.getRegistryName(), inventory));
+      mesher.register(THUNDER_STONE, 0, new ModelResourceLocation(THUNDER_STONE.getRegistryName(), inventory));
+      mesher.register(THUNDER_CAPACITOR, 0, new ModelResourceLocation(THUNDER_CAPACITOR.getRegistryName(), inventory));
+      mesher.register(SKY_CRYSTAL, 0, new ModelResourceLocation(SKY_CRYSTAL.getRegistryName(), inventory));
+      mesher.register(SKY_CRYSTAL_PIECE, 0, new ModelResourceLocation(SKY_CRYSTAL_PIECE.getRegistryName(), inventory));
+      mesher.register(WIND_NATURE, 0, new ModelResourceLocation(WIND_NATURE.getRegistryName(), inventory));
+      mesher.register(SKY_SPHERE, 0, new ModelResourceLocation(SKY_SPHERE.getRegistryName(), inventory));
+      mesher.register(ARSENIC_INGOT, 0, new ModelResourceLocation(ARSENIC_INGOT.getRegistryName(), inventory));
+      mesher.register(ARSENIC_DUST, 0, new ModelResourceLocation(ARSENIC_DUST.getRegistryName(), inventory));
+      mesher.register(ARSENIC_NUGGET, 0, new ModelResourceLocation(ARSENIC_NUGGET.getRegistryName(), inventory));
+      mesher.register(WOLFRAM_INGOT, 0, new ModelResourceLocation(WOLFRAM_INGOT.getRegistryName(), inventory));
+      mesher.register(WOLFRAM_DUST, 0, new ModelResourceLocation(WOLFRAM_DUST.getRegistryName(), inventory));
+      mesher.register(WOLFRAM_NUGGET, 0, new ModelResourceLocation(WOLFRAM_NUGGET.getRegistryName(), inventory));
+      mesher.register(STORMBRASS_INGOT, 0, new ModelResourceLocation(STORMBRASS_INGOT.getRegistryName(), inventory));
+      mesher.register(STORMBRASS_DUST, 0, new ModelResourceLocation(STORMBRASS_DUST.getRegistryName(), inventory));
+      mesher.register(STORMBRASS_NUGGET, 0, new ModelResourceLocation(STORMBRASS_NUGGET.getRegistryName(), inventory));
+      mesher.register(STORMSTEEL_NUGGET, 0, new ModelResourceLocation(STORMSTEEL_NUGGET.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_INGOT, 0, new ModelResourceLocation(TOXINIUM_INGOT.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_DUST, 0, new ModelResourceLocation(TOXINIUM_DUST.getRegistryName(), inventory));
+      mesher.register(STORMSTEEL_INGOT, 0, new ModelResourceLocation(STORMSTEEL_INGOT.getRegistryName(), inventory));
+      mesher.register(STORMSTEEL_DUST, 0, new ModelResourceLocation(STORMSTEEL_DUST.getRegistryName(), inventory));
+      mesher.register(VOID_CRYSTAL, 0, new ModelResourceLocation(VOID_CRYSTAL.getRegistryName(), inventory));
+      mesher.register(HEROBRINE_CURSE, 0, new ModelResourceLocation(HEROBRINE_CURSE.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_DUST, 0, new ModelResourceLocation(ADAMANTIUM_DUST.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_INGOT, 0, new ModelResourceLocation(ADAMANTIUM_INGOT.getRegistryName(), inventory));
+      mesher.register(STORM_SPANNER, 0, new ModelResourceLocation(STORM_SPANNER.getRegistryName(), inventory));
+      mesher.register(HAZARD_HELM, 0, new ModelResourceLocation(HAZARD_HELM.getRegistryName(), inventory));
+      mesher.register(HAZARD_CHEST, 0, new ModelResourceLocation(HAZARD_CHEST.getRegistryName(), inventory));
+      mesher.register(HAZARD_LEGS, 0, new ModelResourceLocation(HAZARD_LEGS.getRegistryName(), inventory));
+      mesher.register(HAZARD_BOOTS, 0, new ModelResourceLocation(HAZARD_BOOTS.getRegistryName(), inventory));
+      mesher.register(BULLET_ADAMANTIUM, 0, new ModelResourceLocation(BULLET_ADAMANTIUM.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_LONGSWORD, 0, new ModelResourceLocation(ADAMANTIUM_LONGSWORD.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_KNIFE, 0, new ModelResourceLocation(ADAMANTIUM_KNIFE.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_HELM, 0, new ModelResourceLocation(ADAMANTIUM_HELM.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_CHEST, 0, new ModelResourceLocation(ADAMANTIUM_CHEST.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_LEGS, 0, new ModelResourceLocation(ADAMANTIUM_LEGS.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_BOOTS, 0, new ModelResourceLocation(ADAMANTIUM_BOOTS.getRegistryName(), inventory));
+      mesher.register(ADAMANTIUM_ROUNDS, 0, new ModelResourceLocation(ADAMANTIUM_ROUNDS.getRegistryName(), inventory));
+      mesher.register(NORTHERN_INGOT, 0, new ModelResourceLocation(NORTHERN_INGOT.getRegistryName(), inventory));
+      mesher.register(NORTHERN_SPHERE, 0, new ModelResourceLocation(NORTHERN_SPHERE.getRegistryName(), inventory));
+      mesher.register(VILE_SUBSTANCE, 0, new ModelResourceLocation(VILE_SUBSTANCE.getRegistryName(), inventory));
+      mesher.register(EMBRYO, 0, new ModelResourceLocation(EMBRYO.getRegistryName(), inventory));
+      mesher.register(MUTAGEN, 0, new ModelResourceLocation(MUTAGEN.getRegistryName(), inventory));
+      mesher.register(CMO, 0, new ModelResourceLocation(CMO.getRegistryName(), inventory));
+      mesher.register(PROCESSOR_PATTERN, 0, new ModelResourceLocation(PROCESSOR_PATTERN.getRegistryName(), inventory));
+      mesher.register(ARTHROSLELECHA_BRASS_LOG_WAND, 0, new ModelResourceLocation(ARTHROSLELECHA_BRASS_LOG_WAND.getRegistryName(), inventory));
+      mesher.register(ARTHROSLELECHA_PINK_LOG_WAND, 0, new ModelResourceLocation(ARTHROSLELECHA_PINK_LOG_WAND.getRegistryName(), inventory));
+      mesher.register(ENDER_CROWN, 0, new ModelResourceLocation(ENDER_CROWN.getRegistryName(), inventory));
+      mesher.register(LIVE_HEART, 0, new ModelResourceLocation(LIVE_HEART.getRegistryName(), inventory));
+      mesher.register(ITEM_TURRET, 0, new ModelResourceLocation(ITEM_TURRET.getRegistryName(), inventory));
+      mesher.register(WRENCH, 0, new ModelResourceLocation(WRENCH.getRegistryName(), inventory));
+      mesher.register(VIRULENT_ROD, 0, new ModelResourceLocation(VIRULENT_ROD.getRegistryName(), inventory));
+      mesher.register(BUNKER_KEYCARD, 0, new ModelResourceLocation(BUNKER_KEYCARD.getRegistryName(), inventory));
+      mesher.register(ANTI_RAD_PACK, 0, new ModelResourceLocation(ANTI_RAD_PACK.getRegistryName(), inventory));
+      mesher.register(ANTI_RAD_PILLS, 0, new ModelResourceLocation(ANTI_RAD_PILLS.getRegistryName(), inventory));
+      mesher.register(ANTI_RAD_INJECTOR, 0, new ModelResourceLocation(ANTI_RAD_INJECTOR.getRegistryName(), inventory));
+      mesher.register(GAS_MASK, 0, new ModelResourceLocation(GAS_MASK.getRegistryName(), inventory));
+      mesher.register(ARSENIC_PICKAXE, 0, new ModelResourceLocation(ARSENIC_PICKAXE.getRegistryName(), inventory));
+      mesher.register(ARSENIC_AXE, 0, new ModelResourceLocation(ARSENIC_AXE.getRegistryName(), inventory));
+      mesher.register(ARSENIC_SHOVEL, 0, new ModelResourceLocation(ARSENIC_SHOVEL.getRegistryName(), inventory));
+      mesher.register(RUSTED_KEY, 0, new ModelResourceLocation(RUSTED_KEY.getRegistryName(), inventory));
+      mesher.register(SNOW_COAT_HELM, 0, new ModelResourceLocation(SNOW_COAT_HELM.getRegistryName(), inventory));
+      mesher.register(SNOW_COAT_CHEST, 0, new ModelResourceLocation(SNOW_COAT_CHEST.getRegistryName(), inventory));
+      mesher.register(SNOW_COAT_LEGS, 0, new ModelResourceLocation(SNOW_COAT_LEGS.getRegistryName(), inventory));
+      mesher.register(SNOW_COAT_BOOTS, 0, new ModelResourceLocation(SNOW_COAT_BOOTS.getRegistryName(), inventory));
+      mesher.register(CORAL_HELM, 0, new ModelResourceLocation(CORAL_HELM.getRegistryName(), inventory));
+      mesher.register(CORAL_CHEST, 0, new ModelResourceLocation(CORAL_CHEST.getRegistryName(), inventory));
+      mesher.register(CORAL_LEGS, 0, new ModelResourceLocation(CORAL_LEGS.getRegistryName(), inventory));
+      mesher.register(CORAL_BOOTS, 0, new ModelResourceLocation(CORAL_BOOTS.getRegistryName(), inventory));
+      mesher.register(LICH_HELM, 0, new ModelResourceLocation(LICH_HELM.getRegistryName(), inventory));
+      mesher.register(LICH_CHEST, 0, new ModelResourceLocation(LICH_CHEST.getRegistryName(), inventory));
+      mesher.register(LICH_LEGS, 0, new ModelResourceLocation(LICH_LEGS.getRegistryName(), inventory));
+      mesher.register(LICH_BOOTS, 0, new ModelResourceLocation(LICH_BOOTS.getRegistryName(), inventory));
+      mesher.register(BONE_HELM, 0, new ModelResourceLocation(BONE_HELM.getRegistryName(), inventory));
+      mesher.register(BONE_CHEST, 0, new ModelResourceLocation(BONE_CHEST.getRegistryName(), inventory));
+      mesher.register(BONE_LEGS, 0, new ModelResourceLocation(BONE_LEGS.getRegistryName(), inventory));
+      mesher.register(BONE_BOOTS, 0, new ModelResourceLocation(BONE_BOOTS.getRegistryName(), inventory));
+      mesher.register(VOID_ROCKET, 0, new ModelResourceLocation(VOID_ROCKET.getRegistryName(), inventory));
+      mesher.register(WATERBLAST_ROCKET, 0, new ModelResourceLocation(WATERBLAST_ROCKET.getRegistryName(), inventory));
+      mesher.register(DEMOLISHING_ROCKET, 0, new ModelResourceLocation(DEMOLISHING_ROCKET.getRegistryName(), inventory));
+      mesher.register(MINING_ROCKET, 0, new ModelResourceLocation(MINING_ROCKET.getRegistryName(), inventory));
+      mesher.register(CHEMICAL_ROCKET, 0, new ModelResourceLocation(CHEMICAL_ROCKET.getRegistryName(), inventory));
+      mesher.register(NAPALM_ROCKET, 0, new ModelResourceLocation(NAPALM_ROCKET.getRegistryName(), inventory));
+      mesher.register(FROSTFIRE_ROCKET, 0, new ModelResourceLocation(FROSTFIRE_ROCKET.getRegistryName(), inventory));
+      mesher.register(GLASS_HEART, 0, new ModelResourceLocation(GLASS_HEART.getRegistryName(), inventory));
+      mesher.register(COMMON_ROCKET, 0, new ModelResourceLocation(COMMON_ROCKET.getRegistryName(), inventory));
+      mesher.register(SNAP_BALL_AMMO, 0, new ModelResourceLocation(SNAP_BALL_AMMO.getRegistryName(), inventory));
+      mesher.register(CREATIVE_TEAM_SELECTOR, 0, new ModelResourceLocation(CREATIVE_TEAM_SELECTOR.getRegistryName(), inventory));
+      mesher.register(FIRE_WHIP, 0, new ModelResourceLocation(TIMELESS_SWORD.getRegistryName(), inventory));
+      mesher.register(TIMELESS_SWORD, 0, new ModelResourceLocation(TIMELESS_SWORD.getRegistryName(), inventory));
+      mesher.register(PALM_LOG_WAND, 0, new ModelResourceLocation(PALM_LOG_WAND.getRegistryName(), inventory));
+      mesher.register(CORAL_RIFLE_CLIP, 0, new ModelResourceLocation(CORAL_RIFLE_CLIP.getRegistryName(), inventory));
+      mesher.register(MANA_KEEPER, 0, new ModelResourceLocation(MANA_KEEPER.getRegistryName(), inventory));
+      mesher.register(THORN_KEEPER, 0, new ModelResourceLocation(THORN_KEEPER.getRegistryName(), inventory));
+      mesher.register(LIGHT_BAND, 0, new ModelResourceLocation(LIGHT_BAND.getRegistryName(), inventory));
+      mesher.register(SPRINGER_WAISTBAND, 0, new ModelResourceLocation(SPRINGER_WAISTBAND.getRegistryName(), inventory));
+      mesher.register(SPIRIT_THORN, 0, new ModelResourceLocation(SPIRIT_THORN.getRegistryName(), inventory));
+      mesher.register(VENOMED_DAGGER, 0, new ModelResourceLocation(VENOMED_DAGGER.getRegistryName(), inventory));
+      mesher.register(BLEEDING_ROOT, 0, new ModelResourceLocation(BLEEDING_ROOT.getRegistryName(), inventory));
+      mesher.register(PAINFUL_ROOT, 0, new ModelResourceLocation(PAINFUL_ROOT.getRegistryName(), inventory));
+      mesher.register(CYBER_AMULET, 0, new ModelResourceLocation(CYBER_AMULET.getRegistryName(), inventory));
+      mesher.register(PERSISTENCE_PENDENT, 0, new ModelResourceLocation(PERSISTENCE_PENDENT.getRegistryName(), inventory));
+      mesher.register(BRASS_KNUCKLES, 0, new ModelResourceLocation(BRASS_KNUCKLES.getRegistryName(), inventory));
+      mesher.register(HELLHOUND_COLLAR, 0, new ModelResourceLocation(HELLHOUND_COLLAR.getRegistryName(), inventory));
+      mesher.register(GOLDEN_KNUCKLES, 0, new ModelResourceLocation(GOLDEN_KNUCKLES.getRegistryName(), inventory));
+      mesher.register(LIVE_BLOOD_NECKLACE, 0, new ModelResourceLocation(LIVE_BLOOD_NECKLACE.getRegistryName(), inventory));
+      mesher.register(ANCIENT_ICE_SHARD, 0, new ModelResourceLocation(ANCIENT_ICE_SHARD.getRegistryName(), inventory));
+      mesher.register(MANA_RUBBLE, 0, new ModelResourceLocation(MANA_RUBBLE.getRegistryName(), inventory));
+      mesher.register(ICE_HEART, 0, new ModelResourceLocation(ICE_HEART.getRegistryName(), inventory));
+      mesher.register(FROST_INGUISHER, 0, new ModelResourceLocation(FROST_INGUISHER.getRegistryName(), inventory));
+      mesher.register(HOLY_EXTINGUISHER, 0, new ModelResourceLocation(HOLY_EXTINGUISHER.getRegistryName(), inventory));
+      mesher.register(GHOSTFLAME_TRAP, 0, new ModelResourceLocation(GHOSTFLAME_TRAP.getRegistryName(), inventory));
+      mesher.register(FLAME_SUPPRESSOR, 0, new ModelResourceLocation(FLAME_SUPPRESSOR.getRegistryName(), inventory));
+      mesher.register(CONDUCTIVE_BELT, 0, new ModelResourceLocation(CONDUCTIVE_BELT.getRegistryName(), inventory));
+      mesher.register(LIGHTNING_SOCKS, 0, new ModelResourceLocation(LIGHTNING_SOCKS.getRegistryName(), inventory));
+      mesher.register(AMMONIA_FLASK, 0, new ModelResourceLocation(AMMONIA_FLASK.getRegistryName(), inventory));
+      mesher.register(CORROSIVE_FLASK, 0, new ModelResourceLocation(CORROSIVE_FLASK.getRegistryName(), inventory));
+      mesher.register(CROSS_CHAINLET, 0, new ModelResourceLocation(CROSS_CHAINLET.getRegistryName(), inventory));
+      mesher.register(DETOXICATOR, 0, new ModelResourceLocation(DETOXICATOR.getRegistryName(), inventory));
+      mesher.register(HAZARD_GLOVE, 0, new ModelResourceLocation(HAZARD_GLOVE.getRegistryName(), inventory));
+      mesher.register(MAGIC_CONTACT_LENSES, 0, new ModelResourceLocation(MAGIC_CONTACT_LENSES.getRegistryName(), inventory));
+      mesher.register(MINERS_GLOVE, 0, new ModelResourceLocation(MINERS_GLOVE.getRegistryName(), inventory));
+      mesher.register(BODY_WARMER, 0, new ModelResourceLocation(BODY_WARMER.getRegistryName(), inventory));
+      mesher.register(DEVOURERS_TEETH, 0, new ModelResourceLocation(DEVOURERS_TEETH.getRegistryName(), inventory));
+      mesher.register(ENDER_LEECH, 0, new ModelResourceLocation(ENDER_LEECH.getRegistryName(), inventory));
+      mesher.register(GASEOUS_ENERGY_DRINK, 0, new ModelResourceLocation(GASEOUS_ENERGY_DRINK.getRegistryName(), inventory));
+      mesher.register(RUNNERS_SOCKS, 0, new ModelResourceLocation(RUNNERS_SOCKS.getRegistryName(), inventory));
+      mesher.register(SLIME_EATER, 0, new ModelResourceLocation(SLIME_EATER.getRegistryName(), inventory));
+      mesher.register(FIRE_EATER, 0, new ModelResourceLocation(FIRE_EATER.getRegistryName(), inventory));
+      mesher.register(SLIME_DEVOURER, 0, new ModelResourceLocation(SLIME_DEVOURER.getRegistryName(), inventory));
+      mesher.register(LAVA_EATER, 0, new ModelResourceLocation(LAVA_EATER.getRegistryName(), inventory));
+      mesher.register(PERSONAL_EXTINGUISHER, 0, new ModelResourceLocation(PERSONAL_EXTINGUISHER.getRegistryName(), inventory));
+      mesher.register(ETHER_WORM, 0, new ModelResourceLocation(ETHER_WORM.getRegistryName(), inventory));
+      mesher.register(ANGEL_WORM, 0, new ModelResourceLocation(ANGEL_WORM.getRegistryName(), inventory));
+      mesher.register(CANDY_APPLE, 0, new ModelResourceLocation(CANDY_APPLE.getRegistryName(), inventory));
+      mesher.register(CANDY_CANE, 0, new ModelResourceLocation(CANDY_CANE.getRegistryName(), inventory));
+      mesher.register(CRIMBERRY_WINE, 0, new ModelResourceLocation(CRIMBERRY_WINE.getRegistryName(), inventory));
+      mesher.register(GIFT, 0, new ModelResourceLocation(GIFT.getRegistryName(), inventory));
+      mesher.register(IMPETUS, 0, new ModelResourceLocation(AIRBORNE_CIRCLET.getRegistryName(), inventory));
+      mesher.register(AIRBORNE_CIRCLET, 0, new ModelResourceLocation(AIRBORNE_CIRCLET.getRegistryName(), inventory));
+      mesher.register(CHROMIUM_INGOT, 0, new ModelResourceLocation(CHROMIUM_INGOT.getRegistryName(), inventory));
+      mesher.register(CHROMIUM_DUST, 0, new ModelResourceLocation(CHROMIUM_DUST.getRegistryName(), inventory));
+      mesher.register(BERYLLIUM_INGOT, 0, new ModelResourceLocation(BERYLLIUM_INGOT.getRegistryName(), inventory));
+      mesher.register(BERYLLIUM_DUST, 0, new ModelResourceLocation(BERYLLIUM_DUST.getRegistryName(), inventory));
+      mesher.register(MANGANESE_DUST, 0, new ModelResourceLocation(MANGANESE_DUST.getRegistryName(), inventory));
+      mesher.register(MANGANESE_INGOT, 0, new ModelResourceLocation(MANGANESE_INGOT.getRegistryName(), inventory));
+      mesher.register(WEAPON_ENCHANTMENTS_BOX, 0, new ModelResourceLocation(WEAPON_ENCHANTMENTS_BOX.getRegistryName(), inventory));
+      mesher.register(SIMPLE_ENCHANTMENTS_BOX, 0, new ModelResourceLocation(SIMPLE_ENCHANTMENTS_BOX.getRegistryName(), inventory));
+      mesher.register(ALL_ENCHANTMENTS_BOX, 0, new ModelResourceLocation(ALL_ENCHANTMENTS_BOX.getRegistryName(), inventory));
+      mesher.register(EMERALD_EYE, 0, new ModelResourceLocation(EMERALD_EYE.getRegistryName(), inventory));
+      mesher.register(BULLET_FESTIVAL, 0, new ModelResourceLocation(BULLET_FESTIVAL.getRegistryName(), inventory));
+      mesher.register(BULLET_EXPLODING, 0, new ModelResourceLocation(BULLET_EXPLODING.getRegistryName(), inventory));
+      mesher.register(BULLET_CRYSTAL, 0, new ModelResourceLocation(BULLET_CRYSTAL.getRegistryName(), inventory));
+      mesher.register(BULLET_TOXIC, 0, new ModelResourceLocation(BULLET_TOXIC.getRegistryName(), inventory));
+      mesher.register(BULLET_POISONOUS, 0, new ModelResourceLocation(BULLET_POISONOUS.getRegistryName(), inventory));
+      mesher.register(BULLET_THUNDER, 0, new ModelResourceLocation(BULLET_THUNDER.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_SHOTGUN_CLIP, 0, new ModelResourceLocation(TOXINIUM_SHOTGUN_CLIP.getRegistryName(), inventory));
+      mesher.register(BULLET_INCENDIARY, 0, new ModelResourceLocation(BULLET_INCENDIARY.getRegistryName(), inventory));
+      mesher.register(BULLET_SILVER, 0, new ModelResourceLocation(BULLET_SILVER.getRegistryName(), inventory));
+      mesher.register(BULLET_LEAD, 0, new ModelResourceLocation(BULLET_LEAD.getRegistryName(), inventory));
+      mesher.register(BULLET_COPPER, 0, new ModelResourceLocation(BULLET_COPPER.getRegistryName(), inventory));
+      mesher.register(BULLE_TGOLD, 0, new ModelResourceLocation(BULLE_TGOLD.getRegistryName(), inventory));
+      mesher.register(BULLET_FROZEN, 0, new ModelResourceLocation(BULLET_FROZEN.getRegistryName(), inventory));
+      mesher.register(SUBMACHINE_CLIP, 0, new ModelResourceLocation(SUBMACHINE_CLIP.getRegistryName(), inventory));
+      mesher.register(SUBMACHINE, 0, new ModelResourceLocation(SUBMACHINE.getRegistryName(), inventory));
+      mesher.register(LOCKER, 0, new ModelResourceLocation(LOCKER.getRegistryName(), inventory));
+      mesher.register(TOXINIUMSHOTGUN, 0, new ModelResourceLocation(TOXINIUMSHOTGUN.getRegistryName(), inventory));
+      mesher.register(COIN, 0, new ModelResourceLocation(COIN.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_HELM, 0, new ModelResourceLocation(TOXINIUM_HELM.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_CHEST, 0, new ModelResourceLocation(TOXINIUM_CHEST.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_LEGS, 0, new ModelResourceLocation(TOXINIUM_LEGS.getRegistryName(), inventory));
+      mesher.register(TOXINIUM_BOOTS, 0, new ModelResourceLocation(TOXINIUM_BOOTS.getRegistryName(), inventory));
+      mesher.register(FORGETPICK_AXE, 0, new ModelResourceLocation(FORGETPICK_AXE.getRegistryName(), inventory));
+      mesher.register(FORGET_AXE, 0, new ModelResourceLocation(FORGET_AXE.getRegistryName(), inventory));
+      mesher.register(FORGET_SHOVEL, 0, new ModelResourceLocation(FORGET_SHOVEL.getRegistryName(), inventory));
+      mesher.register(FIRST, 0, new ModelResourceLocation(FIRST.getRegistryName(), inventory));
+      mesher.register(ICHOR_SHOWER, 0, new ModelResourceLocation(ICHOR_SHOWER.getRegistryName(), inventory));
+      mesher.register(SHARK_CANNON, 0, new ModelResourceLocation(SHARK_CANNON.getRegistryName(), inventory));
+      mesher.register(SHARK_AMMO, 0, new ModelResourceLocation(SHARK_AMMO.getRegistryName(), inventory));
+      mesher.register(MAGIC_BOOMERANG, 0, new ModelResourceLocation(MAGIC_BOOMERANG.getRegistryName(), inventory));
+      mesher.register(BUTTERFLY, 0, new ModelResourceLocation(BUTTERFLY.getRegistryName(), inventory));
+      mesher.register(SUNRISE, 0, new ModelResourceLocation(SUNRISE.getRegistryName(), inventory));
+      mesher.register(LASER_SNIPER, 0, new ModelResourceLocation(LASER_SNIPER.getRegistryName(), inventory));
+      mesher.register(ION_BATTERY, 0, new ModelResourceLocation(ION_BATTERY.getRegistryName(), inventory));
+      mesher.register(LASER_PISTOL, 0, new ModelResourceLocation(LASER_PISTOL.getRegistryName(), inventory));
+      mesher.register(LASER_RIFLE, 0, new ModelResourceLocation(LASER_RIFLE.getRegistryName(), inventory));
+      mesher.register(VAMPIRE_KNIFE, 0, new ModelResourceLocation(VAMPIRE_KNIFE.getRegistryName(), inventory));
+      mesher.register(VAMPIRE_KNIFES, 0, new ModelResourceLocation(VAMPIRE_KNIFES.getRegistryName(), inventory));
+      mesher.register(FROST_BOLT_STAFF, 0, new ModelResourceLocation(FROST_BOLT_STAFF.getRegistryName(), inventory));
+      mesher.register(ANTIMATTER_CHARGE, 0, new ModelResourceLocation(ANTIMATTER_CHARGE.getRegistryName(), inventory));
+      mesher.register(ELEMENTAL_AMMO_FIRE, 0, new ModelResourceLocation(ELEMENTAL_AMMO_FIRE.getRegistryName(), inventory));
+      mesher.register(ELEMENTAL_AMMO_WATER, 0, new ModelResourceLocation(ELEMENTAL_AMMO_WATER.getRegistryName(), inventory));
+      mesher.register(ELEMENTAL_AMMO_AIR, 0, new ModelResourceLocation(ELEMENTAL_AMMO_AIR.getRegistryName(), inventory));
+      mesher.register(ELEMENTAL_AMMO_EARTH, 0, new ModelResourceLocation(ELEMENTAL_AMMO_EARTH.getRegistryName(), inventory));
+      mesher.register(STINGER_BOLTS, 0, new ModelResourceLocation(STINGER_BOLTS.getRegistryName(), inventory));
+      mesher.register(FIREWORK_PACK, 0, new ModelResourceLocation(FIREWORK_PACK.getRegistryName(), inventory));
+      mesher.register(FIREWORK_DRAGON_ROCKET, 0, new ModelResourceLocation(FIREWORK_DRAGON_ROCKET.getRegistryName(), inventory));
+      mesher.register(QUADROCOPTER_BELT, 0, new ModelResourceLocation(QUADROCOPTER_BELT.getRegistryName(), inventory));
+      mesher.register(VORTEX_IN_A_BOTTLE, 0, new ModelResourceLocation(VORTEX_IN_A_BOTTLE.getRegistryName(), inventory));
+      mesher.register(ETHER_SIGN, 0, new ModelResourceLocation(ETHER_SIGN.getRegistryName(), inventory));
+      mesher.register(PHOENIX_GHOST_CAPE, 0, new ModelResourceLocation(PHOENIX_GHOST_CAPE.getRegistryName(), inventory));
+      mesher.register(BILEBITER_SPHERE, 0, new ModelResourceLocation(BILEBITER_SPHERE.getRegistryName(), inventory));
+      mesher.register(SNOWSTORM_STAFF, 0, new ModelResourceLocation(FROST_BOLT_STAFF.getRegistryName(), inventory));
+      mesher.register(WIZARD_HELM, 0, new ModelResourceLocation(WIZARD_HELM.getRegistryName(), inventory));
+      mesher.register(WIZARD_CHEST, 0, new ModelResourceLocation(WIZARD_CHEST.getRegistryName(), inventory));
+      mesher.register(WIZARD_LEGS, 0, new ModelResourceLocation(WIZARD_LEGS.getRegistryName(), inventory));
+      mesher.register(WIZARD_BOOTS, 0, new ModelResourceLocation(WIZARD_BOOTS.getRegistryName(), inventory));
+      mesher.register(FIRE_MAGE_HELM, 0, new ModelResourceLocation(FIRE_MAGE_HELM.getRegistryName(), inventory));
+      mesher.register(FIRE_MAGE_CHEST, 0, new ModelResourceLocation(FIRE_MAGE_CHEST.getRegistryName(), inventory));
+      mesher.register(FIRE_MAGE_LEGS, 0, new ModelResourceLocation(FIRE_MAGE_LEGS.getRegistryName(), inventory));
+      mesher.register(FIRE_MAGE_BOOTS, 0, new ModelResourceLocation(FIRE_MAGE_BOOTS.getRegistryName(), inventory));
+      mesher.register(FIRE_LORD_HELM, 0, new ModelResourceLocation(FIRE_LORD_HELM.getRegistryName(), inventory));
+      mesher.register(FIRE_LORD_CHEST, 0, new ModelResourceLocation(FIRE_LORD_CHEST.getRegistryName(), inventory));
+      mesher.register(FIRE_LORD_LEGS, 0, new ModelResourceLocation(FIRE_LORD_LEGS.getRegistryName(), inventory));
+      mesher.register(FIRE_LORD_BOOTS, 0, new ModelResourceLocation(FIRE_LORD_BOOTS.getRegistryName(), inventory));
+      mesher.register(GRAPLING_HOOK, 0, new ModelResourceLocation(GRAPLING_HOOK.getRegistryName(), inventory));
+      mesher.register(JUNGLE_GRAPLING_HOOK, 0, new ModelResourceLocation(JUNGLE_GRAPLING_HOOK.getRegistryName(), inventory));
+      mesher.register(SEASHELL, 0, new ModelResourceLocation(SEASHELL.getRegistryName(), inventory));
+      mesher.register(SLIME_GRAPLING_HOOK, 0, new ModelResourceLocation(SLIME_GRAPLING_HOOK.getRegistryName(), inventory));
+      mesher.register(ENDER_GRAPLING_HOOK, 0, new ModelResourceLocation(ENDER_GRAPLING_HOOK.getRegistryName(), inventory));
+      mesher.register(FISHING_ROD, 0, new ModelResourceLocation(FISHING_ROD.getRegistryName(), inventory));
+      mesher.register(ICE_SWORD, 0, new ModelResourceLocation(ICE_SWORD.getRegistryName(), inventory));
+      mesher.register(NETHER_GRINDER_AMMO, 0, new ModelResourceLocation(NETHER_GRINDER_AMMO.getRegistryName(), inventory));
+      mesher.register(SNOWFLAKE_SHURIKEN, 0, new ModelResourceLocation(SNOWFLAKE_SHURIKEN.getRegistryName(), inventory));
+      mesher.register(CHAIN_DAGGER, 0, new ModelResourceLocation(CHAIN_DAGGER.getRegistryName(), inventory));
+      mesher.register(TOXIC_NUCLEAR_WARHEAD, 0, new ModelResourceLocation(TOXIC_NUCLEAR_WARHEAD.getRegistryName(), inventory));
+      mesher.register(EMPTY_CELL, 0, new ModelResourceLocation(EMPTY_CELL.getRegistryName(), inventory));
+      mesher.register(CRYOGEN_CELL, 0, new ModelResourceLocation(CRYOGEN_CELL.getRegistryName(), inventory));
+      mesher.register(LIGHTNING_HOOK, 0, new ModelResourceLocation(LIGHTNING_HOOK.getRegistryName(), inventory));
+      mesher.register(RING_OF_PROTECTION, 0, new ModelResourceLocation(RING_OF_PROTECTION.getRegistryName(), inventory));
+      mesher.register(SPIKE_RING, 0, new ModelResourceLocation(SPIKE_RING.getRegistryName(), inventory));
+      mesher.register(SPARKLING_NECKLACE, 0, new ModelResourceLocation(SPARKLING_NECKLACE.getRegistryName(), inventory));
+      mesher.register(EXP, 0, new ModelResourceLocation(EMPTY_CELL.getRegistryName(), inventory));
+      mesher.register(DEMONIC_IGNITER, 0, new ModelResourceLocation(DEMONIC_IGNITER.getRegistryName(), inventory));
+      mesher.register(BOUNCING_RING, 0, new ModelResourceLocation(BOUNCING_RING.getRegistryName(), inventory));
+      mesher.register(SLIME_BOOTS, 0, new ModelResourceLocation(SLIME_BOOTS.getRegistryName(), inventory));
+      mesher.register(SLIME_HELM, 0, new ModelResourceLocation(SLIME_HELM.getRegistryName(), inventory));
+      mesher.register(SLIME_CHEST, 0, new ModelResourceLocation(SLIME_CHEST.getRegistryName(), inventory));
+      mesher.register(SLIME_LEGS, 0, new ModelResourceLocation(SLIME_LEGS.getRegistryName(), inventory));
+      mesher.register(ICE_BOOTS, 0, new ModelResourceLocation(ICE_BOOTS.getRegistryName(), inventory));
+      mesher.register(ICE_HELM, 0, new ModelResourceLocation(ICE_HELM.getRegistryName(), inventory));
+      mesher.register(ICE_CHEST, 0, new ModelResourceLocation(ICE_CHEST.getRegistryName(), inventory));
+      mesher.register(ICE_LEGS, 0, new ModelResourceLocation(ICE_LEGS.getRegistryName(), inventory));
+      mesher.register(SOUL_CHARM, 0, new ModelResourceLocation(SOUL_CHARM.getRegistryName(), inventory));
+      mesher.register(JUNGLE_BOOTS, 0, new ModelResourceLocation(JUNGLE_BOOTS.getRegistryName(), inventory));
+      mesher.register(JUNGLE_HELM, 0, new ModelResourceLocation(JUNGLE_HELM.getRegistryName(), inventory));
+      mesher.register(JUNGLE_CHESTPLATE, 0, new ModelResourceLocation(JUNGLE_CHESTPLATE.getRegistryName(), inventory));
+      mesher.register(JUNGLE_LEGGINS, 0, new ModelResourceLocation(JUNGLE_LEGGINS.getRegistryName(), inventory));
+      mesher.register(WEB_GRAPLING_HOOK, 0, new ModelResourceLocation(WEB_GRAPLING_HOOK.getRegistryName(), inventory));
+      mesher.register(ROPE_GRAPLING_HOOK, 0, new ModelResourceLocation(ROPE_GRAPLING_HOOK.getRegistryName(), inventory));
+      mesher.register(PLASMA_RAILGUN_BOLTS, 0, new ModelResourceLocation(PLASMA_RAILGUN_BOLTS.getRegistryName(), inventory));
+      mesher.register(AIM_LENS, 0, new ModelResourceLocation(AIM_LENS.getRegistryName(), inventory));
+      mesher.register(FISH_FEED, 0, new ModelResourceLocation(FISH_FEED.getRegistryName(), inventory));
+      mesher.register(VICIOUS_EMBLEM, 0, new ModelResourceLocation(VICIOUS_EMBLEM.getRegistryName(), inventory));
+      mesher.register(ORB_OF_DESTROY, 0, new ModelResourceLocation(ORB_OF_DESTROY.getRegistryName(), inventory));
+      mesher.register(WOODEN_SKIING, 0, new ModelResourceLocation(ORB_OF_DESTROY.getRegistryName(), inventory));
+      mesher.register(VIAL_OF_POISON, 0, new ModelResourceLocation(VIAL_OF_POISON.getRegistryName(), inventory));
+      mesher.register(VAMPIRIC_HEART, 0, new ModelResourceLocation(VAMPIRIC_HEART.getRegistryName(), inventory));
+      mesher.register(FROZEN_WINGS, 0, new ModelResourceLocation(FROZEN_WINGS.getRegistryName(), inventory));
+      mesher.register(TOXIC_WINGS, 0, new ModelResourceLocation(TOXIC_WINGS.getRegistryName(), inventory));
+      mesher.register(GLACIDE_BLADE, 0, new ModelResourceLocation(GLACIDE_BLADE.getRegistryName(), inventory));
+      mesher.register(INFERNAL_BLADE, 0, new ModelResourceLocation(INFERNAL_BLADE.getRegistryName(), inventory));
+      mesher.register(CINDER_BOW, 0, new ModelResourceLocation(CINDER_BOW.getRegistryName(), inventory));
+      mesher.register(INFERNUM_INGOT, 0, new ModelResourceLocation(INFERNUM_INGOT.getRegistryName(), inventory));
+      mesher.register(MOLTEN_INGOT, 0, new ModelResourceLocation(MOLTEN_INGOT.getRegistryName(), inventory));
+      mesher.register(INFERNUM_NUGGET, 0, new ModelResourceLocation(INFERNUM_NUGGET.getRegistryName(), inventory));
+      mesher.register(MOLTEN_NUGGET, 0, new ModelResourceLocation(MOLTEN_NUGGET.getRegistryName(), inventory));
+      mesher.register(MOLTEN_STRING, 0, new ModelResourceLocation(MOLTEN_STRING.getRegistryName(), inventory));
+      mesher.register(LIQUID_FIRE, 0, new ModelResourceLocation(LIQUID_FIRE.getRegistryName(), inventory));
+      mesher.register(DEMONITE, 0, new ModelResourceLocation(DEMONITE.getRegistryName(), inventory));
+      mesher.register(DEMONITE_SHARD, 0, new ModelResourceLocation(DEMONITE_SHARD.getRegistryName(), inventory));
+      mesher.register(RUBY, 0, new ModelResourceLocation(RUBY.getRegistryName(), inventory));
+      mesher.register(SAPPHIRE, 0, new ModelResourceLocation(SAPPHIRE.getRegistryName(), inventory));
+      mesher.register(CITRINE, 0, new ModelResourceLocation(CITRINE.getRegistryName(), inventory));
+      mesher.register(AMETHYST, 0, new ModelResourceLocation(AMETHYST.getRegistryName(), inventory));
+      mesher.register(TOPAZ, 0, new ModelResourceLocation(TOPAZ.getRegistryName(), inventory));
+      mesher.register(RHINESTONE, 0, new ModelResourceLocation(RHINESTONE.getRegistryName(), inventory));
+      mesher.register(MAGIC_POWDER, 0, new ModelResourceLocation(MAGIC_POWDER.getRegistryName(), inventory));
+      mesher.register(ICE_GEM, 0, new ModelResourceLocation(ICE_GEM.getRegistryName(), inventory));
+      mesher.register(WEATHER_FRAGMENTS, 0, new ModelResourceLocation(WEATHER_FRAGMENTS.getRegistryName(), inventory));
+      mesher.register(SNOW_CLOTH, 0, new ModelResourceLocation(SNOW_CLOTH.getRegistryName(), inventory));
+      mesher.register(CONIFER_STICK, 0, new ModelResourceLocation(CONIFER_STICK.getRegistryName(), inventory));
+      mesher.register(SOUL_STONE, 0, new ModelResourceLocation(SOUL_STONE.getRegistryName(), inventory));
+      mesher.register(SAPPHIRE_EYE, 0, new ModelResourceLocation(SAPPHIRE_EYE.getRegistryName(), inventory));
+      mesher.register(INSTANT_ENCHANTMENT_BOOK, 0, new ModelResourceLocation(INSTANT_ENCHANTMENT_BOOK.getRegistryName(), inventory));
+      mesher.register(THE_LORD_OF_PAIN, 0, new ModelResourceLocation(PHOENIX_GHOST_CAPE.getRegistryName(), inventory));
+      mesher.register(CRYSTAL_FAN, 0, new ModelResourceLocation(RUBY.getRegistryName(), inventory));
+      mesher.register(ANTIDOTE, 0, new ModelResourceLocation(ANTIDOTE.getRegistryName(), inventory));
+      mesher.register(TOXI_COLA, 0, new ModelResourceLocation(TOXI_COLA.getRegistryName(), inventory));
+      mesher.register(ANTI_POTION, 0, new ModelResourceLocation(ANTI_POTION.getRegistryName(), inventory));
+      mesher.register(DECEIDUS_JUICE, 0, new ModelResourceLocation(DECEIDUS_JUICE.getRegistryName(), inventory));
+      mesher.register(TOXEDGE_BREAD, 0, new ModelResourceLocation(TOXEDGE_BREAD.getRegistryName(), inventory));
+      mesher.register(TOXIBERRY_MOJITO, 0, new ModelResourceLocation(TOXIBERRY_MOJITO.getRegistryName(), inventory));
+      mesher.register(WASTE_BURGER, 0, new ModelResourceLocation(WASTE_BURGER.getRegistryName(), inventory));
+      mesher.register(BROWN_SLIME_WAND, 0, new ModelResourceLocation(BROWN_SLIME_WAND.getRegistryName(), inventory));
+      mesher.register(SLIME_BLOB_WAND, 0, new ModelResourceLocation(SLIME_BLOB_WAND.getRegistryName(), inventory));
+      mesher.register(BONES_WAND, 0, new ModelResourceLocation(BONES_WAND.getRegistryName(), inventory));
+      mesher.register(GLOWING_TOXIBERRY, 0, new ModelResourceLocation(GLOWING_TOXIBERRY.getRegistryName(), inventory));
+      mesher.register(SMALL_TOXIBERRY, 0, new ModelResourceLocation(SMALL_TOXIBERRY.getRegistryName(), inventory));
+      mesher.register(GOTHIC_PICKAXE, 0, new ModelResourceLocation(GOTHIC_PICKAXE.getRegistryName(), inventory));
+      mesher.register(GOTHIC_AXE, 0, new ModelResourceLocation(GOTHIC_AXE.getRegistryName(), inventory));
+      mesher.register(GOTHIC_SHOVEL, 0, new ModelResourceLocation(GOTHIC_SHOVEL.getRegistryName(), inventory));
 
-      for (Item item : forrender) {
-         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+      for (Item item : FOR_RENDER) {
+         mesher.register(item, 0, new ModelResourceLocation(item.getRegistryName(), inventory));
       }
-
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ANIHGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ANIHGUN.getRegistryName(), "inventory");
-         }
-      });
-      ANIHGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ELEMENTFOCUS, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ELEMENTFOCUS.getRegistryName(), "inventory");
-         }
-      });
-      ELEMENTFOCUS.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(STINGER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.STINGER.getRegistryName(), "inventory");
-         }
-      });
+      
+      mesher.register(ANNIHILATION_GUN, stack ->
+              new ModelResourceLocation(ItemsRegister.ANNIHILATION_GUN.getRegistryName(), inventory));
+      ANNIHILATION_GUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ELEMENT_FOCUS, stack ->
+              new ModelResourceLocation(ItemsRegister.ELEMENT_FOCUS.getRegistryName(), inventory));
+      ELEMENT_FOCUS.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(STINGER, stack ->
+              new ModelResourceLocation(ItemsRegister.STINGER.getRegistryName(), inventory));
       STINGER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(FIREWORKSLAUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.FIREWORKSLAUN.getRegistryName(), "inventory");
-         }
-      });
-      FIREWORKSLAUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SCEPTEROFSANDS, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SCEPTEROFSANDS.getRegistryName(), "inventory");
-         }
-      });
-      SCEPTEROFSANDS.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(BILEBITER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.BILEBITER.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(FIREWORK_LAUNCHER, stack ->
+              new ModelResourceLocation(ItemsRegister.FIREWORK_LAUNCHER.getRegistryName(), inventory));
+      FIREWORK_LAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(SCEPTER_OF_SANDS, stack ->
+              new ModelResourceLocation(ItemsRegister.SCEPTER_OF_SANDS.getRegistryName(), inventory));
+      SCEPTER_OF_SANDS.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(BILEBITER, stack ->
+              new ModelResourceLocation(ItemsRegister.BILEBITER.getRegistryName(), inventory));
       BILEBITER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(FIREBALLSTAFF, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.FIREBALLSTAFF.getRegistryName(), "inventory");
-         }
-      });
-      FIREBALLSTAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ELECTRICSTAFF, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ELECTRICSTAFF.getRegistryName(), "inventory");
-         }
-      });
-      ELECTRICSTAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SLIMESHOTGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SLIMESHOTGUN.getRegistryName(), "inventory");
-         }
-      });
-      SLIMESHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MOLTENGREATAXE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.MOLTENGREATAXE.getRegistryName(), "inventory");
-         }
-      });
-      MOLTENGREATAXE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(NETHERGRINDER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.NETHERGRINDER.getRegistryName(), "inventory");
-         }
-      });
-      NETHERGRINDER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SNOWBALLCANNON, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SNOWBALLCANNON.getRegistryName(), "inventory");
-         }
-      });
-      SNOWBALLCANNON.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CURSEDBLADE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CURSEDBLADE.getRegistryName(), "inventory");
-         }
-      });
-      CURSEDBLADE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(GRAVELURKER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.GRAVELURKER.getRegistryName(), "inventory");
-         }
-      });
-      GRAVELURKER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(REAPER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.REAPER.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(FIREBALL_STAFF, stack ->
+              new ModelResourceLocation(ItemsRegister.FIREBALL_STAFF.getRegistryName(), inventory));
+      FIREBALL_STAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ELECTROSTATIC, stack ->
+              new ModelResourceLocation(ItemsRegister.ELECTROSTATIC.getRegistryName(), inventory));
+      ELECTROSTATIC.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(SLIME_SHOTGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.SLIME_SHOTGUN.getRegistryName(), inventory));
+      SLIME_SHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(MOLTEN_GREAT_AXE, stack ->
+              new ModelResourceLocation(ItemsRegister.MOLTEN_GREAT_AXE.getRegistryName(), inventory));
+      MOLTEN_GREAT_AXE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(NETHER_GRINDER, stack ->
+              new ModelResourceLocation(ItemsRegister.NETHER_GRINDER.getRegistryName(), inventory));
+      NETHER_GRINDER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(SNOWBALL_CANNON, stack ->
+              new ModelResourceLocation(ItemsRegister.SNOWBALL_CANNON.getRegistryName(), inventory));
+      SNOWBALL_CANNON.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CURSED_BLADE, stack ->
+              new ModelResourceLocation(ItemsRegister.CURSED_BLADE.getRegistryName(), inventory));
+      CURSED_BLADE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(GRAVE_LURKER, stack ->
+              new ModelResourceLocation(ItemsRegister.GRAVE_LURKER.getRegistryName(), inventory));
+      GRAVE_LURKER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(REAPER, stack ->
+              new ModelResourceLocation(ItemsRegister.REAPER.getRegistryName(), inventory));
       REAPER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(GHOSTSWORD, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.GHOSTSWORD.getRegistryName(), "inventory");
-         }
-      });
-      GHOSTSWORD.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CORPSESTAFF, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CORPSESTAFF.getRegistryName(), "inventory");
-         }
-      });
-      CORPSESTAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(TOXICNUKECANNON, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.TOXICNUKECANNON.getRegistryName(), "inventory");
-         }
-      });
-      TOXICNUKECANNON.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CRYOGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CRYOGUN.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(GHOST_SWORD, stack ->
+              new ModelResourceLocation(ItemsRegister.GHOST_SWORD.getRegistryName(), inventory));
+      GHOST_SWORD.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(STAFF_OF_CORPSE, stack ->
+              new ModelResourceLocation(ItemsRegister.STAFF_OF_CORPSE.getRegistryName(), inventory));
+      STAFF_OF_CORPSE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(TOXIC_NUCLEAR_CANNON, stack ->
+              new ModelResourceLocation(ItemsRegister.TOXIC_NUCLEAR_CANNON.getRegistryName(), inventory));
+      TOXIC_NUCLEAR_CANNON.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CRYOGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.CRYOGUN.getRegistryName(), inventory));
       CRYOGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CHARGER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CHARGER.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(CHARGER, stack ->
+              new ModelResourceLocation(ItemsRegister.CHARGER.getRegistryName(), inventory));
       CHARGER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICICLEMINIGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ICICLEMINIGUN.getRegistryName(), "inventory");
-         }
-      });
-      ICICLEMINIGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(STATICLANCE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.STATICLANCE.getRegistryName(), "inventory");
-         }
-      });
-      STATICLANCE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(WANDOFBLAZES, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.WANDOFBLAZES.getRegistryName(), "inventory");
-         }
-      });
-      WANDOFBLAZES.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CONIFERROD, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CONIFERROD.getRegistryName(), "inventory");
-         }
-      });
-      CONIFERROD.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(PLASMARAILGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.PLASMARAILGUN.getRegistryName(), "inventory");
-         }
-      });
-      PLASMARAILGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(PLASMARIFLE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.PLASMARIFLE.getRegistryName(), "inventory");
-         }
-      });
-      PLASMARIFLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(HOLOSHIELD, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.HOLOSHIELD.getRegistryName(), "inventory");
-         }
-      });
-      HOLOSHIELD.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(HEADSHOOTER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.HEADSHOOTER.getRegistryName(), "inventory");
-         }
-      });
-      HEADSHOOTER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(PLASMAPISTOL, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.PLASMAPISTOL.getRegistryName(), "inventory");
-         }
-      });
-      PLASMAPISTOL.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(BOGFLOWER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.BOGFLOWER.getRegistryName(), "inventory");
-         }
-      });
-      BOGFLOWER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(PISTOLFISH, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.PISTOLFISH.getRegistryName(), "inventory");
-         }
-      });
-      PISTOLFISH.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(BUBBLEFISH, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.BUBBLEFISH.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(ICICLE_MINIGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.ICICLE_MINIGUN.getRegistryName(), inventory));
+      ICICLE_MINIGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(STATIC_LANCE, stack ->
+              new ModelResourceLocation(ItemsRegister.STATIC_LANCE.getRegistryName(), inventory));
+      STATIC_LANCE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(WAND_OF_BLAZES, stack ->
+              new ModelResourceLocation(ItemsRegister.WAND_OF_BLAZES.getRegistryName(), inventory));
+      WAND_OF_BLAZES.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CONIFER_ROD, stack ->
+              new ModelResourceLocation(ItemsRegister.CONIFER_ROD.getRegistryName(), inventory));
+      CONIFER_ROD.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(PLASMA_RAILGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.PLASMA_RAILGUN.getRegistryName(), inventory));
+      PLASMA_RAILGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(PLASMA_RIFLE, stack ->
+              new ModelResourceLocation(ItemsRegister.PLASMA_RIFLE.getRegistryName(), inventory));
+      PLASMA_RIFLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(HOLOGRAPHIC_SHIELD, stack ->
+              new ModelResourceLocation(ItemsRegister.HOLOGRAPHIC_SHIELD.getRegistryName(), inventory));
+      HOLOGRAPHIC_SHIELD.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(HEAD_SHOOTER, stack ->
+              new ModelResourceLocation(ItemsRegister.HEAD_SHOOTER.getRegistryName(), inventory));
+      HEAD_SHOOTER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(PLASMA_PISTOL, stack ->
+              new ModelResourceLocation(ItemsRegister.PLASMA_PISTOL.getRegistryName(), inventory));
+      PLASMA_PISTOL.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(BOG_FLOWER, stack ->
+              new ModelResourceLocation(ItemsRegister.BOG_FLOWER.getRegistryName(), inventory));
+      BOG_FLOWER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(PISTOL_FISH, stack ->
+              new ModelResourceLocation(ItemsRegister.PISTOL_FISH.getRegistryName(), inventory));
+      PISTOL_FISH.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(BUBBLEFISH, stack ->
+              new ModelResourceLocation(ItemsRegister.BUBBLEFISH.getRegistryName(), inventory));
       BUBBLEFISH.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(LAVADROPPER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.LAVADROPPER.getRegistryName(), "inventory");
-         }
-      });
-      LAVADROPPER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(PLASMAACCELERATOR, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.PLASMAACCELERATOR.getRegistryName(), "inventory");
-         }
-      });
-      PLASMAACCELERATOR.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(VACUUMGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.VACUUMGUN.getRegistryName(), "inventory");
-         }
-      });
-      VACUUMGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(GEMSTAFF, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.GEMSTAFF.getRegistryName(), "inventory");
-         }
-      });
-      GEMSTAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(WANDOFCOLD, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.WANDOFCOLD.getRegistryName(), "inventory");
-         }
-      });
-      WANDOFCOLD.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICEBEAM, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ICEBEAM.getRegistryName(), "inventory");
-         }
-      });
-      ICEBEAM.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SKULLCRASHER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SKULLCRASHER.getRegistryName(), "inventory");
-         }
-      });
-      SKULLCRASHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SPELLHAMMER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SPELLHAMMER.getRegistryName(), "inventory");
-         }
-      });
-      SPELLHAMMER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ACIDFIRE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ACIDFIRE.getRegistryName(), "inventory");
-         }
-      });
-      ACIDFIRE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(GLOWBLADE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.GLOWBLADE.getRegistryName(), "inventory");
-         }
-      });
-      GLOWBLADE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(NAILGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.NAILGUN.getRegistryName(), "inventory");
-         }
-      });
-      NAILGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CRYSTALSTAR, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CRYSTALSTAR.getRegistryName(), "inventory");
-         }
-      });
-      CRYSTALSTAR.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(TOXINIUMSHOTGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.TOXINIUMSHOTGUN.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(LAVA_DROPPER, stack ->
+              new ModelResourceLocation(ItemsRegister.LAVA_DROPPER.getRegistryName(), inventory));
+      LAVA_DROPPER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(PLASMA_ACCELERATOR, stack ->
+              new ModelResourceLocation(ItemsRegister.PLASMA_ACCELERATOR.getRegistryName(), inventory));
+      PLASMA_ACCELERATOR.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(VACUUM_GUN, stack ->
+              new ModelResourceLocation(ItemsRegister.VACUUM_GUN.getRegistryName(), inventory));
+      VACUUM_GUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(GEM_STAFF, stack ->
+              new ModelResourceLocation(ItemsRegister.GEM_STAFF.getRegistryName(), inventory));
+      GEM_STAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(WAND_OF_COLD, stack ->
+              new ModelResourceLocation(ItemsRegister.WAND_OF_COLD.getRegistryName(), inventory));
+      WAND_OF_COLD.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ICE_BEAM, stack ->
+              new ModelResourceLocation(ItemsRegister.ICE_BEAM.getRegistryName(), inventory));
+      ICE_BEAM.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(SKULL_CRASHER, stack ->
+              new ModelResourceLocation(ItemsRegister.SKULL_CRASHER.getRegistryName(), inventory));
+      SKULL_CRASHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(SPELL_HAMMER, stack ->
+              new ModelResourceLocation(ItemsRegister.SPELL_HAMMER.getRegistryName(), inventory));
+      SPELL_HAMMER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ACID_FIRE, stack ->
+              new ModelResourceLocation(ItemsRegister.ACID_FIRE.getRegistryName(), inventory));
+      ACID_FIRE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(GLOW_BLADE, stack ->
+              new ModelResourceLocation(ItemsRegister.GLOW_BLADE.getRegistryName(), inventory));
+      GLOW_BLADE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(NAIL_GUN, stack ->
+              new ModelResourceLocation(ItemsRegister.NAIL_GUN.getRegistryName(), inventory));
+      NAIL_GUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CRYSTAL_STAR, stack ->
+              new ModelResourceLocation(ItemsRegister.CRYSTAL_STAR.getRegistryName(), inventory));
+      CRYSTAL_STAR.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(TOXINIUMSHOTGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.TOXINIUMSHOTGUN.getRegistryName(), inventory));
       TOXINIUMSHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SUBMACHINE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SUBMACHINE.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(SUBMACHINE, stack ->
+              new ModelResourceLocation(ItemsRegister.SUBMACHINE.getRegistryName(), inventory));
       SUBMACHINE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(THISTLETHORN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.THISTLETHORN.getRegistryName(), "inventory");
-         }
-      });
-      THISTLETHORN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(RESTLESSSKULL, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.RESTLESSSKULL.getRegistryName(), "inventory");
-         }
-      });
-      RESTLESSSKULL.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MAGICROCKET, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.MAGICROCKET.getRegistryName(), "inventory");
-         }
-      });
-      MAGICROCKET.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(STINGINGCELL, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.STINGINGCELL.getRegistryName(), "inventory");
-         }
-      });
-      STINGINGCELL.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SEAEFFLORESCE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SEAEFFLORESCE.getRegistryName(), "inventory");
-         }
-      });
-      SEAEFFLORESCE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CORALRIFLE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CORALRIFLE.getRegistryName(), "inventory");
-         }
-      });
-      CORALRIFLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(HADRONBLASTER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.HADRONBLASTER.getRegistryName(), "inventory");
-         }
-      });
-      HADRONBLASTER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SNAPBALL, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SNAPBALL.getRegistryName(), "inventory");
-         }
-      });
-      SNAPBALL.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ROCKETLAUNCHER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ROCKETLAUNCHER.getRegistryName(), "inventory");
-         }
-      });
-      ROCKETLAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CHAINMACEIRON, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CHAINMACEIRON.getRegistryName(), "inventory");
-         }
-      });
-      CHAINMACEIRON.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CHAINMACEDIAMOND, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CHAINMACEDIAMOND.getRegistryName(), "inventory");
-         }
-      });
-      CHAINMACEDIAMOND.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CHAINMACEMOLTEN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CHAINMACEMOLTEN.getRegistryName(), "inventory");
-         }
-      });
-      CHAINMACEMOLTEN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICEBREAKER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ICEBREAKER.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(THISTLE_THORN, stack ->
+              new ModelResourceLocation(ItemsRegister.THISTLE_THORN.getRegistryName(), inventory));
+      THISTLE_THORN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(RESTLESS_SKULL, stack ->
+              new ModelResourceLocation(ItemsRegister.RESTLESS_SKULL.getRegistryName(), inventory));
+      RESTLESS_SKULL.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(MAGIC_ROCKET, stack ->
+              new ModelResourceLocation(ItemsRegister.MAGIC_ROCKET.getRegistryName(), inventory));
+      MAGIC_ROCKET.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(STINGING_CELL, stack ->
+              new ModelResourceLocation(ItemsRegister.STINGING_CELL.getRegistryName(), inventory));
+      STINGING_CELL.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(SEA_EFFLORESCE, stack ->
+              new ModelResourceLocation(ItemsRegister.SEA_EFFLORESCE.getRegistryName(), inventory));
+      SEA_EFFLORESCE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CORAL_RIFLE, stack ->
+              new ModelResourceLocation(ItemsRegister.CORAL_RIFLE.getRegistryName(), inventory));
+      CORAL_RIFLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(HADRON_BLASTER, stack ->
+              new ModelResourceLocation(ItemsRegister.HADRON_BLASTER.getRegistryName(), inventory));
+      HADRON_BLASTER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(SNAP_BALL, stack ->
+              new ModelResourceLocation(ItemsRegister.SNAP_BALL.getRegistryName(), inventory));
+      SNAP_BALL.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ROCKET_LAUNCHER, stack ->
+              new ModelResourceLocation(ItemsRegister.ROCKET_LAUNCHER.getRegistryName(), inventory));
+      ROCKET_LAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CHAIN_MACE, stack ->
+              new ModelResourceLocation(ItemsRegister.CHAIN_MACE.getRegistryName(), inventory));
+      CHAIN_MACE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(DIAMOND_CHAIN_MACE, stack ->
+              new ModelResourceLocation(ItemsRegister.DIAMOND_CHAIN_MACE.getRegistryName(), inventory));
+      DIAMOND_CHAIN_MACE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(MOLTEN_CHAIN_MACE, stack ->
+              new ModelResourceLocation(ItemsRegister.MOLTEN_CHAIN_MACE.getRegistryName(), inventory));
+      MOLTEN_CHAIN_MACE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ICEBREAKER, stack ->
+              new ModelResourceLocation(ItemsRegister.ICEBREAKER.getRegistryName(), inventory));
       ICEBREAKER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ADAMANTIUMREVOLVER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ADAMANTIUMREVOLVER.getRegistryName(), "inventory");
-         }
-      });
-      ADAMANTIUMREVOLVER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ADAMANTIUMBATTLEAXE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ADAMANTIUMBATTLEAXE.getRegistryName(), "inventory");
-         }
-      });
-      ADAMANTIUMBATTLEAXE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ENDERPROTECTOR, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ENDERPROTECTOR.getRegistryName(), "inventory");
-         }
-      });
-      ENDERPROTECTOR.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(DRAGONTAIL, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.DRAGONTAIL.getRegistryName(), "inventory");
-         }
-      });
-      DRAGONTAIL.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(DRAGONSHELL, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.DRAGONSHELL.getRegistryName(), "inventory");
-         }
-      });
-      DRAGONSHELL.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(WINTERBREATH, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.WINTERBREATH.getRegistryName(), "inventory");
-         }
-      });
-      WINTERBREATH.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(TOXINIUMSHIELD, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.TOXINIUMSHIELD.getRegistryName(), "inventory");
-         }
-      });
-      TOXINIUMSHIELD.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CARAPACE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CARAPACE.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(ADAMANTIUM_REVOLVER, stack ->
+              new ModelResourceLocation(ItemsRegister.ADAMANTIUM_REVOLVER.getRegistryName(), inventory));
+      ADAMANTIUM_REVOLVER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ADAMANTIUM_BATTLE_AXE, stack ->
+              new ModelResourceLocation(ItemsRegister.ADAMANTIUM_BATTLE_AXE.getRegistryName(), inventory));
+      ADAMANTIUM_BATTLE_AXE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ENDER_PROTECTOR, stack ->
+              new ModelResourceLocation(ItemsRegister.ENDER_PROTECTOR.getRegistryName(), inventory));
+      ENDER_PROTECTOR.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(DRAGON_TAIL, stack ->
+              new ModelResourceLocation(ItemsRegister.DRAGON_TAIL.getRegistryName(), inventory));
+      DRAGON_TAIL.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(DRAGON_SHELL, stack ->
+              new ModelResourceLocation(ItemsRegister.DRAGON_SHELL.getRegistryName(), inventory));
+      DRAGON_SHELL.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(WINTER_BREATH, stack ->
+              new ModelResourceLocation(ItemsRegister.WINTER_BREATH.getRegistryName(), inventory));
+      WINTER_BREATH.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(TOXINIUM_SHIELD, stack ->
+              new ModelResourceLocation(ItemsRegister.TOXINIUM_SHIELD.getRegistryName(), inventory));
+      TOXINIUM_SHIELD.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CARAPACE, stack ->
+              new ModelResourceLocation(ItemsRegister.CARAPACE.getRegistryName(), inventory));
       CARAPACE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ROTTENSHIELD, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ROTTENSHIELD.getRegistryName(), "inventory");
-         }
-      });
-      ROTTENSHIELD.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(HELLMARK, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.HELLMARK.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(ROTTEN_SHIELD, stack ->
+              new ModelResourceLocation(ItemsRegister.ROTTEN_SHIELD.getRegistryName(), inventory));
+      ROTTEN_SHIELD.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(HELLMARK, stack ->
+              new ModelResourceLocation(ItemsRegister.HELLMARK.getRegistryName(), inventory));
       HELLMARK.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(BLOWHOLE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.BLOWHOLE.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(BLOWHOLE, stack ->
+              new ModelResourceLocation(ItemsRegister.BLOWHOLE.getRegistryName(), inventory));
       BLOWHOLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CRYSTALCUTTER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CRYSTALCUTTER.getRegistryName(), "inventory");
-         }
-      });
-      CRYSTALCUTTER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(PLASMAMINIGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.PLASMAMINIGUN.getRegistryName(), "inventory");
-         }
-      });
-      PLASMAMINIGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CERATARGET, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CERATARGET.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(CRYSTAL_CUTTER, stack ->
+              new ModelResourceLocation(ItemsRegister.CRYSTAL_CUTTER.getRegistryName(), inventory));
+      CRYSTAL_CUTTER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(PLASMA_MINIGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.PLASMA_MINIGUN.getRegistryName(), inventory));
+      PLASMA_MINIGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CERATARGET, stack ->
+              new ModelResourceLocation(ItemsRegister.CERATARGET.getRegistryName(), inventory));
       CERATARGET.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(GRENADELAUNCHER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.GRENADELAUNCHER.getRegistryName(), "inventory");
-         }
-      });
-      GRENADELAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(HOLYSHOTGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.HOLYSHOTGUN.getRegistryName(), "inventory");
-         }
-      });
-      HOLYSHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ECHINUS, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ECHINUS.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(GRENADE_LAUNCHER, stack ->
+              new ModelResourceLocation(ItemsRegister.GRENADE_LAUNCHER.getRegistryName(), inventory));
+      GRENADE_LAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(HOLY_SHOTGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.HOLY_SHOTGUN.getRegistryName(), inventory));
+      HOLY_SHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ECHINUS, stack ->
+              new ModelResourceLocation(ItemsRegister.ECHINUS.getRegistryName(), inventory));
       ECHINUS.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MITHRILBOW, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.MITHRILBOW.getRegistryName(), "inventory");
-         }
-      });
-      MITHRILBOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(COMPOUNDBOW, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.COMPOUNDBOW.getRegistryName(), "inventory");
-         }
-      });
-      COMPOUNDBOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(STAFFOFTHEAZUREORE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.STAFFOFTHEAZUREORE.getRegistryName(), "inventory");
-         }
-      });
-      STAFFOFTHEAZUREORE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(INSTANCER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.INSTANCER.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(MITHRIL_BOW, stack ->
+              new ModelResourceLocation(ItemsRegister.MITHRIL_BOW.getRegistryName(), inventory));
+      MITHRIL_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(COMPOUND_BOW, stack ->
+              new ModelResourceLocation(ItemsRegister.COMPOUND_BOW.getRegistryName(), inventory));
+      COMPOUND_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(AZURE_ORE_STAFF, stack ->
+              new ModelResourceLocation(ItemsRegister.AZURE_ORE_STAFF.getRegistryName(), inventory));
+      AZURE_ORE_STAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(INSTANCER, stack ->
+              new ModelResourceLocation(ItemsRegister.INSTANCER.getRegistryName(), inventory));
       INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ENDERINSTANCER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ENDERINSTANCER.getRegistryName(), "inventory");
-         }
-      });
-      ENDERINSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(WINTERINSTANCER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.WINTERINSTANCER.getRegistryName(), "inventory");
-         }
-      });
-      WINTERINSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MILITARYINSTANCER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.MILITARYINSTANCER.getRegistryName(), "inventory");
-         }
-      });
-      MILITARYINSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(AQUATICINSTANCER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.AQUATICINSTANCER.getRegistryName(), "inventory");
-         }
-      });
-      AQUATICINSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(VIOLENCE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.VIOLENCE.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(ENDER_INSTANCER, stack ->
+              new ModelResourceLocation(ItemsRegister.ENDER_INSTANCER.getRegistryName(), inventory));
+      ENDER_INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(WINTER_INSTANCER, stack ->
+              new ModelResourceLocation(ItemsRegister.WINTER_INSTANCER.getRegistryName(), inventory));
+      WINTER_INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(MILITARY_INSTANCER, stack ->
+              new ModelResourceLocation(ItemsRegister.MILITARY_INSTANCER.getRegistryName(), inventory));
+      MILITARY_INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(AQUATIC_INSTANCER, stack ->
+              new ModelResourceLocation(ItemsRegister.AQUATIC_INSTANCER.getRegistryName(), inventory));
+      AQUATIC_INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(VIOLENCE, stack ->
+              new ModelResourceLocation(ItemsRegister.VIOLENCE.getRegistryName(), inventory));
       VIOLENCE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(STAFFOFWITHERDRY, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.STAFFOFWITHERDRY.getRegistryName(), "inventory");
-         }
-      });
-      STAFFOFWITHERDRY.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(WHISPERSBLADE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.WHISPERSBLADE.getRegistryName(), "inventory");
-         }
-      });
-      WHISPERSBLADE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(VOLTRIDENT, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.VOLTRIDENT.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(STAFF_OF_WITHERDRY, stack ->
+              new ModelResourceLocation(ItemsRegister.STAFF_OF_WITHERDRY.getRegistryName(), inventory));
+      STAFF_OF_WITHERDRY.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(WHISPERS_BLADE, stack ->
+              new ModelResourceLocation(ItemsRegister.WHISPERS_BLADE.getRegistryName(), inventory));
+      WHISPERS_BLADE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(VOLTRIDENT, stack ->
+              new ModelResourceLocation(ItemsRegister.VOLTRIDENT.getRegistryName(), inventory));
       VOLTRIDENT.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(PUMPSHOTGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.PUMPSHOTGUN.getRegistryName(), "inventory");
-         }
-      });
-      PUMPSHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(GOTHICBOW, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.GOTHICBOW.getRegistryName(), "inventory");
-         }
-      });
-      GOTHICBOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CINDERBOW, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CINDERBOW.getRegistryName(), "inventory");
-         }
-      });
-      CINDERBOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(COOLEDRIFLE, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.COOLEDRIFLE.getRegistryName(), "inventory");
-         }
-      });
-      COOLEDRIFLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(AQUATICBOW, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.AQUATICBOW.getRegistryName(), "inventory");
-         }
-      });
-      AQUATICBOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(BEAKER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.BEAKER.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(PUMP_SHOTGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.PUMP_SHOTGUN.getRegistryName(), inventory));
+      PUMP_SHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(GOTHIC_BOW, stack ->
+              new ModelResourceLocation(ItemsRegister.GOTHIC_BOW.getRegistryName(), inventory));
+      GOTHIC_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CINDER_BOW, stack ->
+              new ModelResourceLocation(ItemsRegister.CINDER_BOW.getRegistryName(), inventory));
+      CINDER_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(COOLED_RIFLE, stack ->
+              new ModelResourceLocation(ItemsRegister.COOLED_RIFLE.getRegistryName(), inventory));
+      COOLED_RIFLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(AQUATIC_BOW, stack ->
+              new ModelResourceLocation(ItemsRegister.AQUATIC_BOW.getRegistryName(), inventory));
+      AQUATIC_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(BEAKER, stack ->
+              new ModelResourceLocation(ItemsRegister.BEAKER.getRegistryName(), inventory));
       BEAKER.setTileEntityItemStackRenderer(TEISROther.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SPELLPLIERS, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SPELLPLIERS.getRegistryName(), "inventory");
-         }
-      });
-      SPELLPLIERS.setTileEntityItemStackRenderer(TEISROther.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(VIAL, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.VIAL.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(SPELL_PLIERS, stack ->
+              new ModelResourceLocation(ItemsRegister.SPELL_PLIERS.getRegistryName(), inventory));
+      SPELL_PLIERS.setTileEntityItemStackRenderer(TEISROther.instance);
+      mesher.register(VIAL, stack ->
+              new ModelResourceLocation(ItemsRegister.VIAL.getRegistryName(), inventory));
       VIAL.setTileEntityItemStackRenderer(TEISROther.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SPELLROLL, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SPELLROLL.getRegistryName(), "inventory");
-         }
-      });
-      SPELLROLL.setTileEntityItemStackRenderer(TEISROther.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(XMASSLAUNCHER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.XMASSLAUNCHER.getRegistryName(), "inventory");
-         }
-      });
-      XMASSLAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ADAMANTIUMMINIGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ADAMANTIUMMINIGUN.getRegistryName(), "inventory");
-         }
-      });
-      ADAMANTIUMMINIGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(BUZDYGAN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.BUZDYGAN.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(SPELL_ROLL, stack ->
+              new ModelResourceLocation(ItemsRegister.SPELL_ROLL.getRegistryName(), inventory));
+      SPELL_ROLL.setTileEntityItemStackRenderer(TEISROther.instance);
+      mesher.register(XMASS_LAUNCHER, stack ->
+              new ModelResourceLocation(ItemsRegister.XMASS_LAUNCHER.getRegistryName(), inventory));
+      XMASS_LAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ADAMANTIUM_MINIGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.ADAMANTIUM_MINIGUN.getRegistryName(), inventory));
+      ADAMANTIUM_MINIGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(BUZDYGAN, stack ->
+              new ModelResourceLocation(ItemsRegister.BUZDYGAN.getRegistryName(), inventory));
       BUZDYGAN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(WHIP, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.WHIP.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(WHIP, stack ->
+              new ModelResourceLocation(ItemsRegister.WHIP.getRegistryName(), inventory));
       WHIP.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MAULER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.MAULER.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(MAULER, stack ->
+              new ModelResourceLocation(ItemsRegister.MAULER.getRegistryName(), inventory));
       MAULER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SNAKEWHIP, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SNAKEWHIP.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(SNAKEWHIP, stack ->
+              new ModelResourceLocation(ItemsRegister.SNAKEWHIP.getRegistryName(), inventory));
       SNAKEWHIP.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(SPELLROD, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.SPELLROD.getRegistryName(), "inventory");
-         }
-      });
-      SPELLROD.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CRYODESTROYER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CRYODESTROYER.getRegistryName(), "inventory");
-         }
-      });
-      CRYODESTROYER.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(HYDRAULICSHOTGUN, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.HYDRAULICSHOTGUN.getRegistryName(), "inventory");
-         }
-      });
-      HYDRAULICSHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ICECOMPASS, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.ICECOMPASS.getRegistryName(), "inventory");
-         }
-      });
-      ICECOMPASS.setTileEntityItemStackRenderer(TEISRGuns.instance);
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CANISTER, new ItemMeshDefinition() {
-         public ModelResourceLocation getModelLocation(ItemStack stack) {
-            return new ModelResourceLocation(ItemsRegister.CANISTER.getRegistryName(), "inventory");
-         }
-      });
+      mesher.register(SPELL_ROD, stack ->
+              new ModelResourceLocation(ItemsRegister.SPELL_ROD.getRegistryName(), inventory));
+      SPELL_ROD.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CRYO_DESTROYER, stack ->
+              new ModelResourceLocation(ItemsRegister.CRYO_DESTROYER.getRegistryName(), inventory));
+      CRYO_DESTROYER.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(HYDRAULIC_SHOTGUN, stack ->
+              new ModelResourceLocation(ItemsRegister.HYDRAULIC_SHOTGUN.getRegistryName(), inventory));
+      HYDRAULIC_SHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(ICE_COMPASS, stack ->
+              new ModelResourceLocation(ItemsRegister.ICE_COMPASS.getRegistryName(), inventory));
+      ICE_COMPASS.setTileEntityItemStackRenderer(TEISRGuns.instance);
+      mesher.register(CANISTER, stack ->
+              new ModelResourceLocation(ItemsRegister.CANISTER.getRegistryName(), inventory));
       CANISTER.setTileEntityItemStackRenderer(TEISROther.instance);
 
       for (final Item item : ItemMagicScroll.magicScrolls.values()) {
-         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, new ItemMeshDefinition() {
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-               return new ModelResourceLocation(item.getRegistryName(), "inventory");
-            }
-         });
+         mesher.register(item, stack ->
+              new ModelResourceLocation(item.getRegistryName(), inventory));
          item.setTileEntityItemStackRenderer(TEISRGuns.instance);
       }
 
       for (Item item : ItemGrenade.registry.values()) {
-         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, new ItemMeshDefinition() {
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-               return new ModelResourceLocation(ItemsRegister.GRENADECLASSIC.getRegistryName(), "inventory");
-            }
-         });
+         mesher.register(item, stack ->
+              new ModelResourceLocation(ItemsRegister.FRAG_GRENADE.getRegistryName(), inventory));
          item.setTileEntityItemStackRenderer(TEISRGuns.instance);
       }
 
@@ -3249,38 +2413,37 @@ public class ItemsRegister {
             if (field.getType() == Item.class) {
                final Item item = (Item)field.get(null);
                if (item instanceof ItemCalibrationThing || item instanceof AbstractMiningTool) {
-                  Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, new ItemMeshDefinition() {
-                     public ModelResourceLocation getModelLocation(ItemStack stack) {
-                        return new ModelResourceLocation(item.getRegistryName(), "inventory");
-                     }
-                  });
+                  mesher.register(item, stack ->
+              new ModelResourceLocation(item.getRegistryName(), inventory));
                   item.setTileEntityItemStackRenderer(TEISROther.instance);
                }
             }
          }
-      } catch (Exception var7) {
-         var7.printStackTrace();
+      } catch (Exception e) {
+         LOGGER.fatal(e);
       }
    }
 
-   public static void registerItems() throws IllegalAccessException {
+   @SubscribeEvent
+   public static void registerItems(RegistryEvent.Register<Item> event) throws IllegalAccessException {
       Field[] fields = ItemsRegister.class.getFields();
+      List<Item> items = new ArrayList<>();
 
       for (Field field : fields) {
          if (field.getType() == Item.class) {
             Item item = (Item)field.get(new ItemsRegister());
-            ForgeRegistries.ITEMS.register(item);
+            items.add(item);
          }
       }
 
       ItemMagicScroll.createScrolls();
+      items.addAll(ItemMagicScroll.magicScrolls.values());
 
-      for (Item item : ItemMagicScroll.magicScrolls.values()) {
-         ForgeRegistries.ITEMS.register(item);
-      }
+      event.getRegistry().registerAll(items.toArray(new Item[0]));
 
       BlocksRegister.setupAfterItems();
       ItemBullet.init();
       ItemRocket.init();
    }
+
 }

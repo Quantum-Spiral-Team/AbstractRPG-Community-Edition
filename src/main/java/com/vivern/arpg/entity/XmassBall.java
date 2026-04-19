@@ -37,17 +37,17 @@ public class XmassBall extends EntityThrowable {
 
    public XmassBall(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.XMASSLAUNCHER);
+      this.weaponstack = new ItemStack(ItemsRegister.XMASS_LAUNCHER);
    }
 
    public XmassBall(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.XMASSLAUNCHER);
+      this.weaponstack = new ItemStack(ItemsRegister.XMASS_LAUNCHER);
    }
 
    public XmassBall(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.XMASSLAUNCHER);
+      this.weaponstack = new ItemStack(ItemsRegister.XMASS_LAUNCHER);
    }
 
    public XmassBall(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -168,7 +168,7 @@ public class XmassBall extends EntityThrowable {
    public void expl(boolean isEntity) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
       int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack);
-      double damageRadius = this.alternative ? parameters.getEnchanted("alternative_ball_radius", range) : parameters.getEnchanted("ball_radius", range);
+      double damageRadius = this.alternative ? parameters.getEnchantedF("alternative_ball_radius", range) : parameters.getEnchantedF("ball_radius", range);
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -184,7 +184,7 @@ public class XmassBall extends EntityThrowable {
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("ball_knockback", impulse),
+                     parameters.getEnchantedF("ball_knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ

@@ -107,8 +107,8 @@ public class EnderProtector extends ItemWeapon {
                      player.addStat(StatList.getObjectUseStats(this));
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Weapons.setPlayerAnimationOnServer(player, 13, EnumHand.MAIN_HAND);
-                     double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                     float size = parameters.getEnchanted("raytrace_size", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
+                     double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     float size = parameters.getEnchantedF("raytrace_size", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
                      Vec3d vec = GetMOP.posRayTrace(edist, 1.0F, player, size, size * 0.9F);
                      Vec3d rocketPos = null;
                      double maxdist = 0.0;
@@ -118,7 +118,7 @@ public class EnderProtector extends ItemWeapon {
                            itemRand.nextGaussian() * 3.5, itemRand.nextGaussian() * 3.5, itemRand.nextGaussian() * 3.5
                         );
                         double dist = vec.squareDistanceTo(newvec);
-                        if (dist > maxdist && GetMOP.thereIsNoBlockCollidesBetween(world, newvec, vec, 1.0F, null, false)) {
+                        if (dist > maxdist && GetMOP.thereIsNoBlockCollidesBetween(world, newvec, vec, null, false)) {
                            maxdist = dist;
                            rocketPos = newvec;
                         }
@@ -129,8 +129,8 @@ public class EnderProtector extends ItemWeapon {
                      }
 
                      EntityLaunchedRocket projectile = new EntityLaunchedRocket(world, player, itemstack);
-                     projectile.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                     projectile.knockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                     projectile.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                     projectile.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                      double d0 = vec.x - rocketPos.x;
                      double d1 = vec.y - rocketPos.y;
                      double d2 = vec.z - rocketPos.z;
@@ -144,7 +144,7 @@ public class EnderProtector extends ItemWeapon {
                      float t1 = -MathHelper.sin(projectile.rotationPitch * (float) (Math.PI / 180.0));
                      float t2 = MathHelper.cos(projectile.rotationYaw * (float) (Math.PI / 180.0))
                         * MathHelper.cos(projectile.rotationPitch * (float) (Math.PI / 180.0));
-                     projectile.shoot(t, t1, t2, parameters.get("velocity"), parameters.getEnchanted("inaccuracy", acc));
+                     projectile.shoot(t, t1, t2, parameters.getF("velocity"), parameters.getEnchantedF("inaccuracy", acc));
                      projectile.setPosition(rocketPos.x, rocketPos.y, rocketPos.z);
                      world.spawnEntity(projectile);
                      IWeapon.fireEffect(

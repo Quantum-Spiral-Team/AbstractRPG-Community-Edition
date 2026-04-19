@@ -37,17 +37,17 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
 
    public PlasmaRifleBall(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMARIFLE);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RIFLE);
    }
 
    public PlasmaRifleBall(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMARIFLE);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RIFLE);
    }
 
    public PlasmaRifleBall(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.PLASMARIFLE);
+      this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RIFLE);
    }
 
    public PlasmaRifleBall(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -78,7 +78,7 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
       float f2 = MathHelper.cos(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       this.shoot(f, f1, f2, velocity, inaccuracy);
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double mot = parameters.getEnchanted("unstable", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack));
+      double mot = parameters.getEnchantedF("unstable", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack));
       this.motionX = this.motionX + entityThrower.motionX * mot;
       this.motionZ = this.motionZ + entityThrower.motionZ * mot;
       if (!entityThrower.onGround) {
@@ -134,11 +134,11 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
             int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
             Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.plasma),
-               this.getPowered() ? parameters.getEnchanted("damage_powered", might) : parameters.getEnchanted("damage", might),
+               this.getPowered() ? parameters.getEnchantedF("damage_powered", might) : parameters.getEnchantedF("damage", might),
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse)
+               parameters.getEnchantedF("knockback", impulse)
             );
             result.entityHit.hurtResistantTime = 0;
             if (result.entityHit instanceof EntityLivingBase) {

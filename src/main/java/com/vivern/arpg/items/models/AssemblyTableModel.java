@@ -150,31 +150,31 @@ public class AssemblyTableModel extends ModelBase {
       }
 
       public void setAnimation(AssemblyTableModel model, float partialTicks) {
-         float ft1 = GetMOP.getfromto(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
-         float ft2 = GetMOP.getfromto(ft1, 0.0F, 0.05F);
-         float ft3 = GetMOP.getfromto(ft1, 0.1F, 0.15F) - GetMOP.getfromto(ft1, 0.4F, 0.45F) * 0.5F + GetMOP.getfromto(ft1, 0.6F, 0.65F) * 0.5F;
-         float ft5 = GetMOP.getfromto(ft1, 0.5F, 0.55F);
-         float ft7 = GetMOP.getfromto(ft1, 0.9F, 1.0F);
+         float ft1 = GetMOP.getFromTo(GetMOP.partial((float)this.workTime, (float)this.prevworkTime, partialTicks), 0.0F, (float)this.maxworkTime);
+         float ft2 = GetMOP.getFromTo(ft1, 0.0F, 0.05F);
+         float ft3 = GetMOP.getFromTo(ft1, 0.1F, 0.15F) - GetMOP.getFromTo(ft1, 0.4F, 0.45F) * 0.5F + GetMOP.getFromTo(ft1, 0.6F, 0.65F) * 0.5F;
+         float ft5 = GetMOP.getFromTo(ft1, 0.5F, 0.55F);
+         float ft7 = GetMOP.getFromTo(ft1, 0.9F, 1.0F);
          model.manB.rotateAngleY = this.targetangleY1 * (ft2 - ft5) + this.targetangleY2 * (ft5 - ft7);
          model.setManipulatorAngle(ft3 - ft7);
          if (this.tool == 1) {
-            float ft4 = GetMOP.getfromto(ft1, 0.15F, 0.4F);
-            float ft6 = GetMOP.getfromto(ft1, 0.65F, 0.9F);
+            float ft4 = GetMOP.getFromTo(ft1, 0.15F, 0.4F);
+            float ft6 = GetMOP.getFromTo(ft1, 0.65F, 0.9F);
             model.tool1.rotateAngleY = 6.283185F * ft4 + 6.283185F * ft6;
          }
 
          if (this.tool == 2) {
-            float ft4 = GetMOP.getfromto(ft1, 0.2F, 0.25F);
-            float ft6 = GetMOP.getfromto(ft1, 0.7F, 0.75F);
-            float ft8 = GetMOP.getfromto(ft1, 0.85F, 1.0F);
+            float ft4 = GetMOP.getFromTo(ft1, 0.2F, 0.25F);
+            float ft6 = GetMOP.getFromTo(ft1, 0.7F, 0.75F);
+            float ft8 = GetMOP.getFromTo(ft1, 0.85F, 1.0F);
             model.tool2a.rotateAngleZ = 0.54F * (ft2 - ft4) + 0.54F * (ft6 - ft7);
             model.tool2b.rotateAngleZ = -model.tool2a.rotateAngleZ;
             model.tool2.rotateAngleY = -3.141593F * ft8;
          }
 
          if (this.tool == 3) {
-            float ft4 = GetMOP.getfromto(ft1, 0.15F, 0.4F);
-            float ft6 = GetMOP.getfromto(ft1, 0.65F, 0.9F);
+            float ft4 = GetMOP.getFromTo(ft1, 0.15F, 0.4F);
+            float ft6 = GetMOP.getFromTo(ft1, 0.65F, 0.9F);
             model.tool3a.rotateAngleX = 37.69911F * ft4 + 37.69911F * ft6;
          }
       }
@@ -199,7 +199,7 @@ public class AssemblyTableModel extends ModelBase {
       }
 
       public boolean isWorkingNow() {
-         float ft1 = GetMOP.getfromto((float)this.workTime, 0.0F, (float)this.maxworkTime);
+         float ft1 = GetMOP.getFromTo((float)this.workTime, 0.0F, (float)this.maxworkTime);
          return ft1 < 0.8F;
       }
    }

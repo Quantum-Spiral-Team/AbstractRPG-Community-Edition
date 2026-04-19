@@ -2,7 +2,7 @@ package com.vivern.arpg.main;
 
 import com.vivern.arpg.items.IWeapon;
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

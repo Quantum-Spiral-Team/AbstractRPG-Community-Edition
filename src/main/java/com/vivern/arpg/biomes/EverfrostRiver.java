@@ -9,7 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 
@@ -25,16 +24,16 @@ public class EverfrostRiver extends Biome {
       super.decorate(worldIn, rand, pos);
       if (rand.nextFloat() < 0.04F) {
          BlockPos position = new BlockPos(pos.getX() + 8 + rand.nextInt(16), 62, pos.getZ() + 8 + rand.nextInt(16));
-         WorldGenMinable generator = new WorldGenMinable(BlocksRegister.NIVEOLITEBLOCK.getDefaultState(), 7 + rand.nextInt(12), GetMOP.ALL_BLOCKS);
+         WorldGenMinable generator = new WorldGenMinable(BlocksRegister.NIVEOLITE_BLOCK.getDefaultState(), 7 + rand.nextInt(12), GetMOP.ALL_BLOCKS);
          generator.generate(worldIn, rand, position);
       }
    }
 
    public static class EverfrostRiverDecorator extends BiomeDecorator {
       public WorldGenGroundFoliage redberry = new WorldGenGroundFoliage(BlocksRegister.CRIMBERRY, 32, 8, 4);
-      public WorldGenGroundFoliage willow = new WorldGenGroundFoliage(BlocksRegister.WINTERWILLOW, 30, 7, 3);
-      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.FROSTEDWEED, 32, 6, 4);
-      public WorldGenGroundFoliage magicflower = new WorldGenGroundFoliage(BlocksRegister.ICEFLOWER, 20, 5, 3);
+      public WorldGenGroundFoliage willow = new WorldGenGroundFoliage(BlocksRegister.WINTER_WILLOW, 30, 7, 3);
+      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.FROSTED_WEED, 32, 6, 4);
+      public WorldGenGroundFoliage magicflower = new WorldGenGroundFoliage(BlocksRegister.ICE_FLOWER, 20, 5, 3);
 
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {

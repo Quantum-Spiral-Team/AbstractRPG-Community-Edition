@@ -42,21 +42,21 @@ public class ToxiberryTreeSapling extends Block implements IGrowable {
 
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       Block block = worldIn.getBlockState(pos.down()).getBlock();
-      return block == BlocksRegister.TOXICGRASS
-         || block == BlocksRegister.TOXICDIRT
+      return block == BlocksRegister.TOXIC_GRASS
+         || block == BlocksRegister.TOXIC_DIRT
          || block == BlocksRegister.SLUDGE
          || block == BlocksRegister.JUNK
-         || block == BlocksRegister.NUCLEARWASTE;
+         || block == BlocksRegister.NUCLEAR_WASTE;
    }
 
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
       Block block = worldIn.getBlockState(pos.down()).getBlock();
-      if (block != BlocksRegister.TOXICGRASS
-         && block != BlocksRegister.TOXICDIRT
+      if (block != BlocksRegister.TOXIC_GRASS
+         && block != BlocksRegister.TOXIC_DIRT
          && block != BlocksRegister.SLUDGE
          && block != BlocksRegister.JUNK
-         && block != BlocksRegister.NUCLEARWASTE) {
+         && block != BlocksRegister.NUCLEAR_WASTE) {
          this.dropBlockAsItem(worldIn, pos, state, 0);
          worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
       }
@@ -100,7 +100,7 @@ public class ToxiberryTreeSapling extends Block implements IGrowable {
       if (rand.nextFloat() < 0.15) {
          Block block = worldIn.getBlockState(pos.down()).getBlock();
          worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-         if (block == BlocksRegister.TOXICGRASS) {
+         if (block == BlocksRegister.TOXIC_GRASS) {
             WorldServer worldServer = (WorldServer)worldIn;
             MinecraftServer minecraftServer = worldIn.getMinecraftServer();
             TemplateManager templateManager = worldServer.getStructureTemplateManager();
@@ -132,7 +132,7 @@ public class ToxiberryTreeSapling extends Block implements IGrowable {
             }
 
             template.addBlocksToWorld(worldIn, pos.add(sx * 3, 0, sz * 3), ReplaceOnlyReplaceable.instance, settings, 2);
-         } else if (block == BlocksRegister.NUCLEARWASTE) {
+         } else if (block == BlocksRegister.NUCLEAR_WASTE) {
             worldIn.setBlockState(pos.down(), Blocks.AIR.getDefaultState());
             WorldServer worldServerx = (WorldServer)worldIn;
             MinecraftServer minecraftServerx = worldIn.getMinecraftServer();

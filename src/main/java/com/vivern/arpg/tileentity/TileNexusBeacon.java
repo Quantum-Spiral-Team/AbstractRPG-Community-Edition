@@ -196,19 +196,19 @@ public class TileNexusBeacon extends TileNexus {
          );
          Item activ = null;
          if (this.ACTIVATOR == 1) {
-            activ = ItemsRegister.TIDEACTIVATOR2;
+            activ = ItemsRegister.TIDE_ACTIVATOR_2;
          }
 
          if (this.ACTIVATOR == 2) {
-            activ = ItemsRegister.TIDEACTIVATOR3;
+            activ = ItemsRegister.TIDE_ACTIVATOR_3;
          }
 
          if (this.ACTIVATOR == 3) {
-            activ = ItemsRegister.TIDEACTIVATOR4;
+            activ = ItemsRegister.TIDE_ACTIVATOR_4;
          }
 
          if (this.ACTIVATOR == 4) {
-            activ = ItemsRegister.TIDEACTIVATOR5;
+            activ = ItemsRegister.TIDE_ACTIVATOR_5;
          }
 
          if (activ != null) {
@@ -230,7 +230,7 @@ public class TileNexusBeacon extends TileNexus {
                         this.getPos().getX() + 0.5,
                         this.getPos().getY() + 0.6,
                         this.getPos().getZ() + 0.5,
-                        new ItemStack(ItemsRegister.TIDALHEART)
+                        new ItemStack(ItemsRegister.TIDAL_HEART)
                      )
                   );
             }
@@ -243,7 +243,7 @@ public class TileNexusBeacon extends TileNexus {
                         this.getPos().getX() + 0.5,
                         this.getPos().getY() + 0.6,
                         this.getPos().getZ() + 0.5,
-                        new ItemStack(ItemsRegister.TIDALHEART)
+                        new ItemStack(ItemsRegister.TIDAL_HEART)
                      )
                   );
                if (this.rand.nextFloat() < 0.5F) {
@@ -254,7 +254,7 @@ public class TileNexusBeacon extends TileNexus {
                            this.getPos().getX() + 0.5,
                            this.getPos().getY() + 0.6,
                            this.getPos().getZ() + 0.5,
-                           new ItemStack(ItemsRegister.TIDALHEART)
+                           new ItemStack(ItemsRegister.TIDAL_HEART)
                         )
                      );
                }
@@ -263,19 +263,19 @@ public class TileNexusBeacon extends TileNexus {
       } else {
          Item activx = null;
          if (this.ACTIVATOR == 1) {
-            activx = ItemsRegister.TIDEACTIVATOR1;
+            activx = ItemsRegister.TIDE_ACTIVATOR_1;
          }
 
          if (this.ACTIVATOR == 2) {
-            activx = ItemsRegister.TIDEACTIVATOR2;
+            activx = ItemsRegister.TIDE_ACTIVATOR_2;
          }
 
          if (this.ACTIVATOR == 3) {
-            activx = ItemsRegister.TIDEACTIVATOR3;
+            activx = ItemsRegister.TIDE_ACTIVATOR_3;
          }
 
          if (this.ACTIVATOR == 4) {
-            activx = ItemsRegister.TIDEACTIVATOR4;
+            activx = ItemsRegister.TIDE_ACTIVATOR_4;
          }
 
          if (activx != null) {

@@ -20,7 +20,7 @@ public class Calcite extends Block implements IBlockHardBreak {
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_DUNGEON_STONES;
    }
 

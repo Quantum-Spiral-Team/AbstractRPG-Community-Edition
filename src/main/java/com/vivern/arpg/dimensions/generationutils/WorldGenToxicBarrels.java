@@ -31,7 +31,7 @@ public class WorldGenToxicBarrels extends WorldGenerator {
          );
          IBlockState state = worldIn.getBlockState(blockpos.down());
          if (worldIn.isAirBlock(blockpos) && blockpos.getY() < 255 && !state.getMaterial().isLiquid() && state.isFullCube()) {
-            worldIn.setBlockState(blockpos, BlocksRegister.TOXICBARREL.getDefaultState().withProperty(ToxicBarrel.VARIANT, rand.nextInt(13)));
+            worldIn.setBlockState(blockpos, BlocksRegister.TOXIC_BARREL.getDefaultState().withProperty(ToxicBarrel.VARIANT, rand.nextInt(13)));
          }
       }
 

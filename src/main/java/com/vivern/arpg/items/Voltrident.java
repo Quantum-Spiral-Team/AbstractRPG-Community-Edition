@@ -96,7 +96,7 @@ public class Voltrident extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.experienceLevel > level_stop_at) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               Weapons.addOrRemoveExperience(player, -parameters.geti("xp_decrease"));
+               Weapons.addOrRemoveExperience(player, -parameters.getI("xp_decrease"));
             } else {
                NBTHelper.SetNBTint(itemstack, -1, "level_stop_at");
                world.playSound(
@@ -123,7 +123,7 @@ public class Voltrident extends ItemWeapon {
          boolean shootingSide = NBTHelper.GetNBTboolean(itemstack, "side");
          int level_stop_at = NBTHelper.GetNBTint(itemstack, "level_stop_at");
          boolean powerOn = level_stop_at != -1;
-         float manacost = powerOn ? parameters.getEnchanted("manacost_powered", sor) : parameters.getEnchanted("manacost", sor);
+         float manacost = powerOn ? parameters.getEnchantedF("manacost_powered", sor) : parameters.getEnchantedF("manacost", sor);
          if (player.getHeldItemMainhand() == itemstack) {
             if (powerOn && player.ticksExisted % 7 == 0) {
                Weapons.setPlayerAnimationOnServer(player, 22, EnumHand.MAIN_HAND);
@@ -133,7 +133,7 @@ public class Voltrident extends ItemWeapon {
                NBTHelper.GiveNBTboolean(itemstack, false, "side");
                NBTHelper.GiveNBTint(itemstack, 0, "voltage");
                boolean spendMana = true;
-               double edist = parameters.getEnchanted("distance", range);
+               double edist = parameters.getEnchantedF("distance", range);
                Vec3d vec = GetMOP.posRayTrace(edist, 1.0F, player, 0.4, 0.3);
                world.playSound(
                   (EntityPlayer)null,
@@ -161,17 +161,17 @@ public class Voltrident extends ItemWeapon {
                   vec.z + damageRadius
                );
                List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
-               int voltage_to_overkill = parameters.geti("voltage_to_overkill");
+               int voltage_to_overkill = parameters.getI("voltage_to_overkill");
                if (!world.isRemote && !list.isEmpty()) {
                   for (Entity entity : list) {
                      if (Team.checkIsOpponent(player, entity)) {
                         Weapons.dealDamage(
                            new WeaponDamage(itemstack, player, null, false, false, player.getPositionEyes(1.0F), WeaponDamage.electric),
-                           parameters.getEnchanted("damage", might) * power,
+                           parameters.getEnchantedF("damage", might) * power,
                            player,
                            entity,
                            true,
-                           entity.isEntityAlive() ? parameters.getEnchanted("knockback", impulse) : 0.0F,
+                           entity.isEntityAlive() ? parameters.getEnchantedF("knockback", impulse) : 0.0F,
                            player.posX,
                            player.posY,
                            player.posZ
@@ -218,9 +218,9 @@ public class Voltrident extends ItemWeapon {
                if (!world.isRemote && overkill != null) {
                   List<EntityLivingBase> damaget = new ArrayList<>();
                   damaget.add(overkill);
-                  double damradius = parameters.getEnchanted("damage_radius", range);
+                  double damradius = parameters.getEnchantedF("damage_radius", range);
 
-                  for (int i = 0; i < parameters.getEnchantedi("targets", spec); i++) {
+                  for (int i = 0; i < parameters.getEnchantedI("targets", spec); i++) {
                      AxisAlignedBB aabb2 = new AxisAlignedBB(
                         overkill.posX - damradius,
                         overkill.posY - damradius,
@@ -238,12 +238,12 @@ public class Voltrident extends ItemWeapon {
                               entitylivingbasex.posY + entitylivingbasex.height / 2.0F,
                               entitylivingbasex.posZ
                            );
-                           if (GetMOP.thereIsNoBlockCollidesBetween(world, lastPos, newPos, 1.0F, null, false)
+                           if (GetMOP.thereIsNoBlockCollidesBetween(world, lastPos, newPos, null, false)
                               && !damaget.contains(entitylivingbasex)
                               && Team.checkIsOpponent(entitylivingbasex, player)) {
                               Weapons.dealDamage(
                                  new WeaponDamage(itemstack, player, null, false, false, lastPos, WeaponDamage.electric),
-                                 parameters.getEnchanted("damage_overkill", might) * power,
+                                 parameters.getEnchantedF("damage_overkill", might) * power,
                                  player,
                                  entitylivingbasex,
                                  true

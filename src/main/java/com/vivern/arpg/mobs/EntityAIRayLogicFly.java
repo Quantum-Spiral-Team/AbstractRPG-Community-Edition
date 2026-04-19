@@ -2,7 +2,7 @@ package com.vivern.arpg.mobs;
 
 import com.vivern.arpg.main.SuperKnockback;
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;

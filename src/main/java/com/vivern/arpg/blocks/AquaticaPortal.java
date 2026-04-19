@@ -5,7 +5,7 @@ import com.vivern.arpg.main.DimensionsRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TileAquaticaPortal;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -58,7 +58,7 @@ public class AquaticaPortal extends Block {
    }
 
    public boolean isBlockSupports(Block block) {
-      return block == BlocksRegister.AQUATICAPORTALFRAME || block == BlocksRegister.AQUATICAPORTAL;
+      return block == BlocksRegister.AQUATICA_PORTAL_FRAME || block == BlocksRegister.AQUATICA_PORTAL;
    }
 
    @SideOnly(Side.CLIENT)

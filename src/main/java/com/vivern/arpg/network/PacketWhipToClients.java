@@ -22,9 +22,8 @@ public class PacketWhipToClients extends Packet {
    double v2 = 0.0;
    double v3 = 0.0;
    int id = 0;
-   String name = "";
 
-   public void writeargs(double x, double y, double z, double a, double b, double c, double d1, double d2, double d3, double v1, double v2, double v3, int id) {
+   public void writeArgs(double x, double y, double z, double a, double b, double c, double d1, double d2, double d3, double v1, double v2, double v3, int id) {
       this.buf().writeDouble(x);
       this.buf().writeDouble(y);
       this.buf().writeDouble(z);
@@ -65,23 +64,22 @@ public class PacketWhipToClients extends Packet {
 
    void processMessage(Item item) {
       try {
-         ((FireWhip)item)
-            .effectt(
-               this.clientPlayer(),
-               this.clientPlayer().world,
-               this.x,
-               this.y,
-               this.z,
-               this.a,
-               this.b,
-               this.c,
-               this.d1,
-               this.d2,
-               this.d3,
-               this.v1,
-               this.v2,
-               this.v3
-            );
+         ((FireWhip) item)
+                 .effect(
+                         this.clientPlayer().world,
+                         this.x,
+                         this.y,
+                         this.z,
+                         (float) this.a,
+                         (float) this.b,
+                         (float) this.c,
+                         this.d1,
+                         this.d2,
+                         this.d3,
+                         (float) this.v1,
+                         (float) this.v2,
+                         (float) this.v3
+                 );
       } catch (ConcurrentModificationException var3) {
          var3.printStackTrace();
       }

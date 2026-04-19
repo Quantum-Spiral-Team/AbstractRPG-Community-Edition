@@ -7,7 +7,7 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.SuperKnockback;
 import com.vivern.arpg.network.PacketGrapplingHookToClients;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -78,7 +78,7 @@ public class GraplingHook extends Item {
             double distToGrapPoint = player.getDistance(xpos, ypos, zpos);
             if (distToGrapPoint <= this.maxTension) {
                if (!Double.isNaN(xpos) && !Double.isNaN(ypos) && !Double.isNaN(zpos)) {
-                  float powerApply = 0.1F + 0.9F * GetMOP.getfromto((float)distToGrapPoint, 0.0F, 2.0F);
+                  float powerApply = 0.1F + 0.9F * GetMOP.getFromTo((float)distToGrapPoint, 0.0F, 2.0F);
                   float finalFriction = this.friction * 0.5F + this.friction * 0.5F * powerApply;
                   player.motionX *= finalFriction;
                   player.motionY *= finalFriction;
@@ -104,7 +104,7 @@ public class GraplingHook extends Item {
                NBTHelper.SetNBTboolean(itemstack, false, "graped");
             }
          } else {
-            Vec3d vec = GetMOP.RotatedPosRayTrace(
+            Vec3d vec = GetMOP.rotatedPosRayTrace(
                NBTHelper.GetNBTint(itemstack, "length") * this.lengthMultiplier,
                1.0F,
                player,

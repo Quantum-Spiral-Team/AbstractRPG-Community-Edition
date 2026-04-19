@@ -104,7 +104,7 @@ public class CooledRifle extends ItemWeapon {
                   Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                   itemstack.damageItem(1, player);
                   NBTHelper.SetNBTboolean(itemstack, false, "shotgun");
-                  int shots = parameters.getEnchantedi("shots", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
+                  int shots = parameters.getEnchantedI("shots", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
 
                   for (int j = 0; j < shots; j++) {
                      HostileProjectiles.BulletCooled projectile = new HostileProjectiles.BulletCooled(world, player);
@@ -115,14 +115,14 @@ public class CooledRifle extends ItemWeapon {
                         player.rotationPitch - 3.0F,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy_shotgun", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy_shotgun", acc),
                         -0.2F,
                         0.5F,
                         0.5F
                      );
-                     projectile.damage = parameters.getEnchanted("damage_shotgun", might);
-                     projectile.knockback = parameters.getEnchanted("knockback_shotgun", impulse);
+                     projectile.damage = parameters.getEnchantedF("damage_shotgun", might);
+                     projectile.knockback = parameters.getEnchantedF("knockback_shotgun", impulse);
                      projectile.weaponstack = itemstack;
                      String bulletname = NBTHelper.GetNBTstring(itemstack, "bulletshotgun");
                      ItemBullet bullet = ItemBullet.getItemBulletFromString(bulletname);
@@ -163,12 +163,12 @@ public class CooledRifle extends ItemWeapon {
                            itemstack.damageItem(1, player);
                         }
 
-                        double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                        double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                         double damageRadius = 0.2;
-                        float inaccuracy = parameters.getEnchanted("inaccuracy", acc);
+                        float inaccuracy = parameters.getEnchantedF("inaccuracy", acc);
                         float rotP = player.rotationPitch + (float)itemRand.nextGaussian() * inaccuracy;
                         float rotY = player.rotationYaw + (float)itemRand.nextGaussian() * inaccuracy;
-                        Vec3d vec = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.2, 0.15, rotP, rotY);
+                        Vec3d vec = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.2, 0.15, rotP, rotY);
                         if (nonullbullet) {
                            bullet.onImpact(world, player, vec.x, vec.y, vec.z, null, null);
                         }
@@ -202,11 +202,11 @@ public class CooledRifle extends ItemWeapon {
                               if (Team.checkIsOpponent(player, entity)) {
                                  Weapons.dealDamage(
                                     new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                    parameters.getEnchanted("damage", might) + damageadd * parameters.get("bullet_damage"),
+                                    parameters.getEnchantedF("damage", might) + damageadd * parameters.getF("bullet_damage"),
                                     player,
                                     entity,
                                     true,
-                                    parameters.getEnchanted("knockback", impulse) + knockbackadd * parameters.get("bullet_knockback"),
+                                    parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
                                     player.posX,
                                     player.posY,
                                     player.posZ
@@ -241,7 +241,7 @@ public class CooledRifle extends ItemWeapon {
                            collidesWithAny ? 1.0 : 0.0
                         );
                      }
-                  } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.COOLEDRIFLECLIP, maxammo, true)) {
+                  } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.COOLED_RIFLE_CLIP, maxammo, true)) {
                      world.playSound(
                         (EntityPlayer)null,
                         player.posX,
@@ -352,7 +352,7 @@ public class CooledRifle extends ItemWeapon {
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return GetMOP.floatToIntWithChance(parameters.getEnchanted("cooldown", rapidity), itemRand);
+      return GetMOP.floatToIntWithChance(parameters.getEnchantedF("cooldown", rapidity), itemRand);
    }
 
    @Override

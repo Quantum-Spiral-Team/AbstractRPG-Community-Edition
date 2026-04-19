@@ -206,8 +206,8 @@ public class MyRenderHelper {
          posOnLine.z - cameraPos.z
       );
       Vec3d perp = directionVec.crossProduct(differenceVec);
-      Vec3d pw = GetMOP.Vec3dToPitchYaw(directionVec);
-      Vec3d normal = GetMOP.PitchYawToVec3d((float)pw.x + 90.0F, (float)pw.y);
+      Vec3d pw = GetMOP.vec3DToPitchYaw(directionVec);
+      Vec3d normal = GetMOP.pitchYawToVec3D((float)pw.x + 90.0F, (float)pw.y);
       double angle = GetMOP.getAngleBetweenVectors(perp, normal, perp.length(), 1.0);
       float mult = cameraPos.y > posOnLine.y ? -1.0F : 1.0F;
       return (float)angle * mult;

@@ -25,7 +25,7 @@ public class ToxicGrass extends BlockBlockHard {
 
    @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-      return Item.getItemFromBlock(BlocksRegister.TOXICDIRT);
+      return Item.getItemFromBlock(BlocksRegister.TOXIC_DIRT);
    }
 
    @Override
@@ -37,7 +37,7 @@ public class ToxicGrass extends BlockBlockHard {
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
       if (facing == EnumFacing.UP && playerIn.getHeldItem(hand).getItem() == Items.DYE && playerIn.getHeldItem(hand).getMetadata() == 15) {
-         WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXICTALLGRASS, 20, 5, 3);
+         WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXIC_TALLGRASS, 20, 5, 3);
          playerIn.getHeldItem(hand).shrink(1);
          tallgrass.generate(worldIn, RANDOM, pos);
          return true;
@@ -53,7 +53,7 @@ public class ToxicGrass extends BlockBlockHard {
          }
 
          if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getLightOpacity(worldIn, pos.up()) > 2) {
-            worldIn.setBlockState(pos, BlocksRegister.TOXICDIRT.getDefaultState());
+            worldIn.setBlockState(pos, BlocksRegister.TOXIC_DIRT.getDefaultState());
          } else if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
             for (int i = 0; i < 4; i++) {
                BlockPos blockpos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
@@ -63,7 +63,7 @@ public class ToxicGrass extends BlockBlockHard {
 
                IBlockState iblockstate = worldIn.getBlockState(blockpos.up());
                IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
-               if (iblockstate1.getBlock() == BlocksRegister.TOXICDIRT
+               if (iblockstate1.getBlock() == BlocksRegister.TOXIC_DIRT
                   && worldIn.getLightFromNeighbors(blockpos.up()) >= 4
                   && iblockstate.getLightOpacity(worldIn, pos.up()) <= 2) {
                   worldIn.setBlockState(blockpos, this.getDefaultState());

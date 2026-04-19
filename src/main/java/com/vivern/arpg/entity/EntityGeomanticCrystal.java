@@ -5,7 +5,7 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.network.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
@@ -63,7 +63,7 @@ public class EntityGeomanticCrystal extends Entity {
    }
 
    public void setClientStackColors(int color, int colorOverlay, int crystalType, int size) {
-      this.stackIn = new ItemStack(ItemsRegister.GEOMANTICCRYSTAL);
+      this.stackIn = new ItemStack(ItemsRegister.GEOMANTIC_CRYSTAL);
       NBTHelper.GiveNBTint(this.stackIn, color, "color");
       NBTHelper.GiveNBTint(this.stackIn, colorOverlay, "colorover");
       NBTHelper.GiveNBTint(this.stackIn, crystalType, "type");

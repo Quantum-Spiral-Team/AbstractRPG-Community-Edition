@@ -6,7 +6,7 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.network.PacketHandler;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -126,7 +126,7 @@ public class TileBookcase extends TileEntity {
          String tagname = "book" + i;
          if (compound.hasKey(tagname, 10)) {
             NBTTagCompound tag = compound.getCompoundTag(tagname);
-            ItemStack itemStack = new ItemStack(ItemsRegister.BOOKOFELEMENTS);
+            ItemStack itemStack = new ItemStack(ItemsRegister.ELEMENTS_BOOK);
             tag.setInteger("gem", this.booksGems[i]);
             itemStack.setTagCompound(tag);
             this.stacks.set(i, itemStack);

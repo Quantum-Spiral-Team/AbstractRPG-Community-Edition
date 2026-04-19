@@ -10,7 +10,7 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 import java.util.Random;
 import java.util.Map.Entry;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -85,18 +85,18 @@ public class DemonicFire extends Block {
    }
 
    public void init() {
-      this.setFireInfo(BlocksRegister.MANABOTTLE, 5, 20);
-      this.setFireInfo(BlocksRegister.CRYSTALSPHERE, 5, 10);
-      this.setFireInfo(BlocksRegister.ALCHEMICLAB, 5, 15);
-      this.setFireInfo(BlocksRegister.ALCHEMICVAPORIZER, 5, 20);
-      this.setFireInfo(BlocksRegister.CAVECRYSTALS, 7, 35);
-      this.setFireInfo(BlocksRegister.GLOWINGCAVECRYSTALS, 5, 30);
-      this.setFireInfo(BlocksRegister.MAGICSTONE, 7, 35);
-      this.setFireInfo(BlocksRegister.GLOWINGVEIN, 4, 10);
-      this.setFireInfo(BlocksRegister.INFERNUMFURNACE, 5, 20);
-      this.setFireInfo(BlocksRegister.NETHERMELTER, 5, 15);
-      this.setFireInfo(BlocksRegister.TOPAZCRYSTAL, 10, 30);
-      this.setFireInfo(BlocksRegister.SACRIFICIALALTAR, 10, 25);
+      this.setFireInfo(BlocksRegister.MANA_BOTTLE, 5, 20);
+      this.setFireInfo(BlocksRegister.CRYSTAL_SPHERE, 5, 10);
+      this.setFireInfo(BlocksRegister.ALCHEMIC_LAB, 5, 15);
+      this.setFireInfo(BlocksRegister.ALCHEMIC_VAPORIZER, 5, 20);
+      this.setFireInfo(BlocksRegister.CAVE_CRYSTAL, 7, 35);
+      this.setFireInfo(BlocksRegister.GLOWING_CAVE_CRYSTAL, 5, 30);
+      this.setFireInfo(BlocksRegister.MAGIC_STONE, 7, 35);
+      this.setFireInfo(BlocksRegister.GLOWING_VEIN, 4, 10);
+      this.setFireInfo(BlocksRegister.INFERNUM_FURNACE, 5, 20);
+      this.setFireInfo(BlocksRegister.NETHER_MELTER, 5, 15);
+      this.setFireInfo(BlocksRegister.TOPAZ_CRYSTAL, 10, 30);
+      this.setFireInfo(BlocksRegister.SACRIFICIAL_ALTAR, 10, 25);
    }
 
    public void setFireInfo(Block blockIn, int encouragement, int flammability) {

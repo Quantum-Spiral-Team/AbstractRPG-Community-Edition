@@ -4,7 +4,7 @@ import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TileBunkerDoor;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
@@ -60,7 +60,7 @@ public class BlockBunkerDoor extends BlockBlockHard {
          if (tileentity != null && tileentity instanceof TileBunkerDoor) {
             TileBunkerDoor door = (TileBunkerDoor)tileentity;
             if (door.keyCard.isEmpty()) {
-               if (player.isCreative() || player.getHeldItem(hand).getItem() == ItemsRegister.BUNKERKEYCARD) {
+               if (player.isCreative() || player.getHeldItem(hand).getItem() == ItemsRegister.BUNKER_KEYCARD) {
                   door.keyCard = player.getHeldItem(hand).copy();
                   worldIn.playSound(null, pos, Sounds.item_misc_b, SoundCategory.BLOCKS, 0.7F, 0.8F + RANDOM.nextFloat() / 5.0F);
                }

@@ -65,10 +65,10 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
       this.setattributes(1250.0, 64.0, 10.0, 0.4, 5.0, 3.0, 0.75, 0.2, 0.0, 0.55);
       this.registerLOOT(
          new MobDrop[]{
-            new MobDrop(ItemsRegister.BLACKGOO, 1.0F, 0, 8, 12, 0),
-            new MobDrop(ItemsRegister.TOXICWINGS, 0.25F, 0, 1, 1, 0),
+            new MobDrop(ItemsRegister.BLACK_GOO, 1.0F, 0, 8, 12, 0),
+            new MobDrop(ItemsRegister.TOXIC_WINGS, 0.25F, 0, 1, 1, 0),
             new MobDrop(ItemsRegister.DETOXICATOR, 0.25F, 0, 1, 1, 0),
-            new MobDrop(ItemsRegister.PAINFULROOT, 0.25F, 0, 1, 1, 0)
+            new MobDrop(ItemsRegister.PAINFUL_ROOT, 0.25F, 0, 1, 1, 0)
          }
       );
       this.setDropMoney(150, 200, 1.0F);
@@ -280,7 +280,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
                for (EntityLivingBase entitylivingbase : list) {
                   if (Team.checkIsOpponent(this, entitylivingbase)
                      && GetMOP.thereIsNoBlockCollidesBetween(
-                        this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbase), 1.0F, null, false
+                        this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbase), null, false
                      )) {
                      entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(this), 6.0F);
                      if (entitylivingbase instanceof EntityPlayer) {
@@ -546,7 +546,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
                if (this.entity.getPositionVector().squareDistanceTo(this.pos) <= this.maxDistSq) {
                   this.nowMoving = true;
                   this.throughBlocks = !GetMOP.thereIsNoBlockCollidesBetween(
-                     this.entity.world, GetMOP.entityCenterPos(this.entity), this.pos, 1.0F, null, false
+                     this.entity.world, GetMOP.entityCenterPos(this.entity), this.pos, null, false
                   );
                }
             } else if (!this.entity.getEntitySenses().canSee(attackTarg) || this.entity.getNavigator().noPath()) {

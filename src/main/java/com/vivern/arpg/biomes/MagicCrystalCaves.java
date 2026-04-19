@@ -8,7 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 
 public class MagicCrystalCaves extends Biome {
@@ -37,7 +36,7 @@ public class MagicCrystalCaves extends Biome {
                      pos.getX() + 31,
                      pos.getZ() + 1,
                      pos.getZ() + 29,
-                     BlocksRegister.MAGICSTONE
+                     BlocksRegister.MAGIC_STONE
                   );
                }
             }

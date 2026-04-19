@@ -57,7 +57,7 @@ public class CrystalStar extends ItemWeapon {
 
    public static int getLevelToStopEmpower(EntityPlayer player, ItemStack itemstack) {
       if (player.experienceLevel >= 10) {
-         float ft1 = GetMOP.getfromto((float)player.experienceLevel, 10.0F, 50.0F);
+         float ft1 = GetMOP.getFromTo((float)player.experienceLevel, 10.0F, 50.0F);
          float a = GetMOP.partial(-3.0F, -10.0F, ft1);
          return player.experienceLevel + MathHelper.floor(a);
       } else {
@@ -73,7 +73,7 @@ public class CrystalStar extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.experienceLevel > level_stop_at) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               Weapons.addOrRemoveExperience(player, -parameters.geti("xp_decrease"));
+               Weapons.addOrRemoveExperience(player, -parameters.getI("xp_decrease"));
             } else {
                NBTHelper.SetNBTint(itemstack, -1, "level_stop_at");
                world.playSound(
@@ -93,7 +93,7 @@ public class CrystalStar extends ItemWeapon {
             NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
             int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", sor);
+            float manacost = parameters.getEnchantedF("manacost", sor);
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
             if (hand != null) {
                if (firedelay > 0) {
@@ -146,7 +146,7 @@ public class CrystalStar extends ItemWeapon {
 
             if (firedelay == 1) {
                if (level_stop_at == -1) {
-                  int nn = parameters.geti("shots");
+                  int nn = parameters.getI("shots");
 
                   for (int i = 0; i < nn; i++) {
                      CrystalStarShoot projectile = new CrystalStarShoot(world, player, itemstack, power);
@@ -155,15 +155,15 @@ public class CrystalStar extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.get("inaccuracy") + i / 2.0F - parameters.get("inaccuracy_ench") * acc
+                        parameters.getF("velocity"),
+                        parameters.getF("inaccuracy") + i / 2.0F - parameters.getF("inaccuracy_ench") * acc
                      );
                      world.spawnEntity(projectile);
                   }
                } else {
                   CrystalStarPoweredShoot projectile = new CrystalStarPoweredShoot(world, player, itemstack, power);
                   projectile.shoot(
-                     player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.get("velocity"), parameters.getEnchanted("inaccuracy", acc)
+                     player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getF("velocity"), parameters.getEnchantedF("inaccuracy", acc)
                   );
                   world.spawnEntity(projectile);
                }
@@ -179,7 +179,7 @@ public class CrystalStar extends ItemWeapon {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int level_stop_at = NBTHelper.GetNBTint(itemstack, "level_stop_at");
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return parameters.getEnchantedi(level_stop_at == -1 ? "cooldown" : "cooldown_powered", rapidity);
+      return parameters.getEnchantedI(level_stop_at == -1 ? "cooldown" : "cooldown_powered", rapidity);
    }
 
    @SideOnly(Side.CLIENT)

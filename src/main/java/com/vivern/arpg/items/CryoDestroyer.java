@@ -198,7 +198,7 @@ public class CryoDestroyer extends ItemWeapon {
                         Weapons.setPlayerAnimationOnServer(player, 44, EnumHand.MAIN_HAND);
                         IWeapon.sendIWeaponState(itemstack, player, 1, itemSlot, EnumHand.MAIN_HAND);
                         RayTraceResult result = GetMOP.fixedRayTraceBlocks(
-                           world, player, 5.0 + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack) * 0.6, 0.4, 0.3, true, false, true, false
+                           world, player, 5.0 + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack) * 0.6, 0.4, true, false, true, false
                         );
                         BlockPos destroyPos = result.getBlockPos() == null ? new BlockPos(result.hitVec) : result.getBlockPos();
                         world.playSound(
@@ -296,7 +296,7 @@ public class CryoDestroyer extends ItemWeapon {
                         }
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYOGENCELL, maxammo, ItemsRegister.EMPTYCELL)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYOGEN_CELL, maxammo, ItemsRegister.EMPTY_CELL)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

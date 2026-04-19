@@ -127,8 +127,8 @@ public class XmassLauncher extends ItemWeapon {
                         player.rotationPitch - 2.0F,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.11F,
                         0.5F,
                         0.6F
@@ -140,7 +140,7 @@ public class XmassLauncher extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.XMASSBUNDLE, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.XMASS_BUNDLE, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

@@ -527,23 +527,23 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
                      nextpos = nextpos.offset((EnumFacing)next.getValue(BlockAssemblyAugment.FACING));
                      next = this.world.getBlockState(nextpos);
                      if (this.world.getTileEntity(nextpos) == this) {
-                        if (state.getBlock() == BlocksRegister.AUGMENTCUT) {
+                        if (state.getBlock() == BlocksRegister.TURNING_AUGMENT) {
                            info.cutters++;
                         }
 
-                        if (state.getBlock() == BlocksRegister.AUGMENTPRESS) {
+                        if (state.getBlock() == BlocksRegister.PRESS_AUGMENT) {
                            info.presses++;
                         }
 
-                        if (state.getBlock() == BlocksRegister.AUGMENTWELD) {
+                        if (state.getBlock() == BlocksRegister.WELD_AUGMENT) {
                            info.welds++;
                         }
 
-                        if (state.getBlock() == BlocksRegister.AUGMENTPLASMA) {
+                        if (state.getBlock() == BlocksRegister.PLASMA_SPRAY_AUGMENT) {
                            info.plasmaSprays++;
                         }
 
-                        if (state.getBlock() == BlocksRegister.AUGMENTMOLECULAR) {
+                        if (state.getBlock() == BlocksRegister.MOLECULAR_PRINTER_AUGMENT) {
                            info.molecularPrinters++;
                         }
 

@@ -141,7 +141,7 @@ public abstract class AbstractBow extends ItemWeapon {
                   removePull[0] = false;
                } else {
                   WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                  int minPullTime = parameters.geti("min_pull_time");
+                  int minPullTime = parameters.getI("min_pull_time");
                   if (pulling >= minPullTime) {
                      boolean creative = player.capabilities.isCreativeMode;
                      ItemStack ammo = this.findAmmo(player);
@@ -212,7 +212,7 @@ public abstract class AbstractBow extends ItemWeapon {
    ) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, bow);
-      entityarrow.setDamage(entityarrow.getDamage() + parameters.getEnchanted("damage", might));
+      entityarrow.setDamage(entityarrow.getDamage() + parameters.getEnchantedF("damage", might));
    }
 
    public boolean createAndShootArrow(ItemStack ammo, World world, EntityPlayer player, ItemStack bow, int pulling, float arrowvelocity, boolean isArrowUnlimit) {
@@ -229,15 +229,15 @@ public abstract class AbstractBow extends ItemWeapon {
             player.rotationPitch,
             player.rotationYaw,
             0.0F,
-            arrowvelocity * parameters.get("velocity"),
-            parameters.getEnchanted("inaccuracy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, bow))
+            arrowvelocity * parameters.getF("velocity"),
+            parameters.getEnchantedF("inaccuracy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, bow))
          );
          if (arrowvelocity >= this.speedToCritical) {
             entityarrow.setIsCritical(true);
          }
 
          this.setDamageToArrow(entityarrow, ammo, world, player, bow, pulling, arrowvelocity, isArrowUnlimit);
-         int k = GetMOP.floatToIntWithChance(parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, bow)), itemRand);
+         int k = GetMOP.floatToIntWithChance(parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, bow)), itemRand);
          entityarrow.setKnockbackStrength(k);
          if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, bow) > 0) {
             entityarrow.setFire(100);
@@ -300,7 +300,7 @@ public abstract class AbstractBow extends ItemWeapon {
    @Override
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      int maxPullTime = parameters.geti("max_pull_time");
+      int maxPullTime = parameters.getI("max_pull_time");
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
       float mult = 1.0F - 0.2F * rapidity;
       return Math.round(maxPullTime * mult);

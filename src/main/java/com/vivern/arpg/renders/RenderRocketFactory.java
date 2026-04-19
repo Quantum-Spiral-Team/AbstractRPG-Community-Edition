@@ -1,12 +1,11 @@
 package com.vivern.arpg.renders;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-public class RenderRocketFactory<ModelT extends ModelBase> implements IRenderFactory {
+public class RenderRocketFactory implements IRenderFactory {
    public final String reslocation;
    private Class myClass;
    private float scale;

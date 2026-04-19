@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
@@ -25,8 +24,8 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 public class ToxicMountains extends BiomeControlled {
    public ToxicMountains() {
       super(new BiomeProperties("Toxic mountains").setBaseHeight(1.4F).setHeightVariation(1.3F).setTemperature(0.6F).setRainfall(0.6F).setWaterColor(5931421));
-      this.topBlock = BlocksRegister.TOXICGRASS.getDefaultState();
-      this.fillerBlock = BlocksRegister.TOXICDIRT.getDefaultState();
+      this.topBlock = BlocksRegister.TOXIC_GRASS.getDefaultState();
+      this.fillerBlock = BlocksRegister.TOXIC_DIRT.getDefaultState();
       this.decorator = new ToxicMountainsDecorator();
    }
 
@@ -48,12 +47,12 @@ public class ToxicMountains extends BiomeControlled {
 
    class ToxicMountainsDecorator extends BiomeDecorator {
       public WorldGenGroundFoliage junkweed = new WorldGenGroundFoliage(BlocksRegister.JUNKWEED, 64, 8, 7);
-      public WorldGenGroundFoliage weep = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRYWEEPING, 20, 8, 5);
-      public WorldGenGroundFoliage vibrant = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRYVIBRANT, 15, 6, 5);
-      public WorldGenGroundFoliage mosspl = new WorldGenGroundFoliage(BlocksRegister.MOSSPLANT, 32, 8, 5);
+      public WorldGenGroundFoliage weep = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRY_WEEPING, 20, 8, 5);
+      public WorldGenGroundFoliage vibrant = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRY_VIBRANT, 15, 6, 5);
+      public WorldGenGroundFoliage mosspl = new WorldGenGroundFoliage(BlocksRegister.MOSS_PLANT, 32, 8, 5);
       public WorldGenBlockBlob SCRAP_GENERATOR = new WorldGenBlockBlob(BlocksRegister.SCRAP, 0);
       public WorldGenBlockBlob JUNK_GENERATOR = new WorldGenBlockBlob(BlocksRegister.JUNK, 0);
-      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXICTALLGRASS, 38, 6, 5);
+      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXIC_TALLGRASS, 38, 6, 5);
 
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
@@ -64,8 +63,8 @@ public class ToxicMountains extends BiomeControlled {
                   new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
-               if (blockd == BlocksRegister.TOXICGRASS
-                  || blockd == BlocksRegister.TOXICDIRT
+               if (blockd == BlocksRegister.TOXIC_GRASS
+                  || blockd == BlocksRegister.TOXIC_DIRT
                   || blockd == BlocksRegister.SLUDGE
                   || blockd == BlocksRegister.JUNK) {
                   WorldServer worldServer = (WorldServer)worldIn;
@@ -112,7 +111,7 @@ public class ToxicMountains extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDTOXIN, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 

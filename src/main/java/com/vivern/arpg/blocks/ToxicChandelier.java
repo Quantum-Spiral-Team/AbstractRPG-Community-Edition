@@ -34,12 +34,12 @@ public class ToxicChandelier extends Block {
       super(Material.WOOD);
       this.setRegistryName("toxic_chandelier");
       this.setTranslationKey("toxic_chandelier");
-      this.blockHardness = BlocksRegister.HR_TOXIBERRY_FURNITURE.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_TOXIBERRY_FURNITURE.RESISTANCE;
+      this.blockHardness = BlocksRegister.HR_TOXIBERRY_FURNITURE.hardness;
+      this.blockResistance = BlocksRegister.HR_TOXIBERRY_FURNITURE.resistance;
       this.setSoundType(SoundType.WOOD);
       this.setCreativeTab(CreativeTabs.DECORATIONS);
       this.setLightLevel(0.85F);
-      this.setHarvestLevel("axe", BlocksRegister.HR_TOXIBERRY_FURNITURE.LVL);
+      this.setHarvestLevel("axe", BlocksRegister.HR_TOXIBERRY_FURNITURE.lvl);
    }
 
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {

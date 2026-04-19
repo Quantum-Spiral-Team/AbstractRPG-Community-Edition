@@ -4,7 +4,7 @@ import com.vivern.arpg.blocks.MiniCoral;
 import com.vivern.arpg.dimensions.aquatica.AquaticaChunkGenerator;
 import com.vivern.arpg.main.BlocksRegister;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -28,7 +28,7 @@ public class WorldGenCoral extends WorldGenerator {
       IBlockState mainCoral = this.randomBlock(rand);
       IBlockState mainMiniCoral = this.randomMainMinicoral(rand);
       float diversity = 0.4F * this.diversityModifier;
-      worldIn.setBlockState(position, rand.nextFloat() < 0.5 ? BlocksRegister.SEASTONE.getDefaultState() : mainCoral, 2);
+      worldIn.setBlockState(position, rand.nextFloat() < 0.5 ? BlocksRegister.SEA_STONE.getDefaultState() : mainCoral, 2);
       int cycles = 2 + rand.nextInt(3);
 
       for (int i = 0; i <= cycles; i++) {
@@ -40,7 +40,7 @@ public class WorldGenCoral extends WorldGenerator {
                   if (x >= i || x <= -i || y >= i || y <= -i || z >= i || z <= -i) {
                      BlockPos pos = position.add(x, y, z);
                      IBlockState state = worldIn.getBlockState(pos);
-                     if (state.getBlock() == mainCoral.getBlock() || state.getBlock() == BlocksRegister.SEASTONE) {
+                     if (state.getBlock() == mainCoral.getBlock() || state.getBlock() == BlocksRegister.SEA_STONE) {
                         if (i < cycles) {
                            for (int f = 0; f < 3; f++) {
                               EnumFacing facing1 = EnumFacing.byIndex(rand.nextInt(6));
@@ -53,7 +53,7 @@ public class WorldGenCoral extends WorldGenerator {
                               }
 
                               if (worldIn.getBlockState(finalpos).getBlock().isReplaceable(worldIn, finalpos)) {
-                                 worldIn.setBlockState(finalpos, rand.nextFloat() < 0.5 - i / 7.0F ? BlocksRegister.SEASTONE.getDefaultState() : mainCoral, 2);
+                                 worldIn.setBlockState(finalpos, rand.nextFloat() < 0.5 - i / 7.0F ? BlocksRegister.SEA_STONE.getDefaultState() : mainCoral, 2);
                               }
 
                               if (rand.nextFloat() < 0.6) {

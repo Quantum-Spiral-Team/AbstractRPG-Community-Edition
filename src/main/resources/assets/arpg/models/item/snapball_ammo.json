@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "arpg:snapball_ammo"
+    "layer0": "arpg:snap_ball_ammo"
   }
 }

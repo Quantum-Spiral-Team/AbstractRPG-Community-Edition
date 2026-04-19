@@ -50,7 +50,7 @@ public class WorldGenMushroomSpawner implements IWorldGenerator {
             BlockPos pos = GetMOP.getTopBlocks(world, new BlockPos(x, y, z), Blocks.GRASS, Blocks.MYCELIUM, Blocks.DIRT);
             if (pos.getY() > 15
                && world.getBlockState(pos.up()).getBlock().isReplaceable(world, pos.up())
-               && !GetMOP.IFLUID_BLOCKS.apply(world.getBlockState(pos.up()))) {
+               && !GetMOP.FLUID_BLOCKS.apply(world.getBlockState(pos.up()))) {
                for (int xx = -this.radius; xx <= this.radius; xx++) {
                   for (int zz = -this.radius; zz <= this.radius; zz++) {
                      double dist = Math.sqrt(xx * xx + zz * zz);

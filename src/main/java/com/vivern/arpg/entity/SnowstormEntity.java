@@ -32,17 +32,17 @@ public class SnowstormEntity extends EntityThrowable {
 
    public SnowstormEntity(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.FIREBALLSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
    }
 
    public SnowstormEntity(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.FIREBALLSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
    }
 
    public SnowstormEntity(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.FIREBALLSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
    }
 
    public SnowstormEntity(World world, EntityLivingBase thrower, ItemStack itemstack) {

@@ -29,15 +29,15 @@ public class ElectrofernLeaves extends Block implements IBlockHardBreak {
       super(Material.GLASS);
       this.setRegistryName("electrofern_leaves");
       this.setTranslationKey("electrofern_leaves");
-      this.blockHardness = BlocksRegister.HR_STORM_FOLIAGE.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_STORM_FOLIAGE.RESISTANCE;
-      this.setHarvestLevel("axe", BlocksRegister.HR_STORM_FOLIAGE.LVL);
+      this.blockHardness = BlocksRegister.HR_STORM_FOLIAGE.hardness;
+      this.blockResistance = BlocksRegister.HR_STORM_FOLIAGE.resistance;
+      this.setHarvestLevel("axe", BlocksRegister.HR_STORM_FOLIAGE.lvl);
       this.setSoundType(SoundTypeCrunchy.CRUNCHY);
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_STORM_FOLIAGE;
    }
 

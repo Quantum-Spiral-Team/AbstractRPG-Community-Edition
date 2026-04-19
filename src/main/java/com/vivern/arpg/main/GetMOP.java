@@ -1,12 +1,10 @@
 package com.vivern.arpg.main;
 
 import com.google.common.base.Predicate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import java.util.*;
+
+import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -34,9 +32,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fluids.IFluidBlock;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class GetMOP {
-   public static Random rand = new Random();
+   public static final Random rand = new Random();
    public static final EnumFacing[] XY_TICALS = new EnumFacing[]{EnumFacing.UP, EnumFacing.EAST, EnumFacing.DOWN, EnumFacing.WEST};
    public static final EnumFacing[] ZY_TICALS = new EnumFacing[]{EnumFacing.UP, EnumFacing.NORTH, EnumFacing.DOWN, EnumFacing.SOUTH};
    public static final Predicate<IBlockState> SOLID_BLOCKS = input ->
@@ -55,10 +55,10 @@ public class GetMOP {
    public static final Predicate<IBlockState> ALL_BLOCKS = state -> true;
    public static final Predicate<IBlockState> WATER_BLOCKS = input ->
            input.getBlock() == Blocks.WATER || input.getBlock() == Blocks.FLOWING_WATER;
-   public static final Predicate<IBlockState> IFLUID_BLOCKS = input ->
+   public static final Predicate<IBlockState> FLUID_BLOCKS = input ->
            input.getBlock() instanceof IFluidBlock || input.getBlock() instanceof BlockLiquid;
 
-   public static List<EntityLivingBase> MopRayTrace(double blockReachDistance, float partialTicks, EntityLivingBase entity, double size, double step) {
+   public static List<EntityLivingBase> mopRayTrace(double blockReachDistance, float partialTicks, EntityLivingBase entity, double size, double step) {
       Vec3d vec3d = entity.getPositionEyes(partialTicks);
       Vec3d vec3d1 = entity.getLook(partialTicks);
       Vec3d vec3d2 = vec3d.add(
@@ -69,32 +69,40 @@ public class GetMOP {
          vec3d2 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
       }
 
-      return findEntitieslivingOnPath(vec3d, vec3d2, entity.world, entity, size, step);
+      return findEntitiesLivingOnPath(vec3d, vec3d2, entity.world, entity, size, step);
    }
 
-   protected static List<EntityLivingBase> findEntitieslivingOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep) {
-      Vec3d fromStartToEnd = end.subtract(start);
-      Vec3d toVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
-      List<EntityLivingBase> moblist = new ArrayList<>();
-      double step = raystep / fromStartToEnd.length();
+   protected static List<EntityLivingBase> findEntitiesLivingOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double rayStep) {
+      double dx = end.x - start.x;
+      double dy = end.y - start.y;
+      double dz = end.z - start.z;
+      double length = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-      for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d centerVertex = start.add(fromStartToEnd.scale(k));
-         Vec3d downVertex = centerVertex.subtract(toVertex);
-         Vec3d upVertex = centerVertex.add(toVertex);
-         AxisAlignedBB aabb = new AxisAlignedBB(downVertex, upVertex);
+      if (length < 0.0001) return Collections.emptyList();
+
+      double stepIncrement = rayStep / length;
+      double halfSize = size / 2.0;
+
+      for (double k = 0.0; k <= 1.0; k += stepIncrement) {
+         double x = start.x + dx * k;
+         double y = start.y + dy * k;
+         double z = start.z + dz * k;
+
+         AxisAlignedBB aabb = new AxisAlignedBB(
+                 x - halfSize, y - halfSize, z - halfSize,
+                 x + halfSize, y + halfSize, z + halfSize
+         );
+
          List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
-         if (!list.isEmpty()) {
-            for (EntityLivingBase entityliving : list) {
-               if (entityliving != shooter) {
-                  moblist.add(entityliving);
-                  return moblist;
-               }
+
+         for (EntityLivingBase entity : list) {
+            if (entity != shooter && entity.isEntityAlive()) {
+               return Collections.singletonList(entity);
             }
          }
       }
 
-      return moblist;
+      return Collections.emptyList();
    }
 
    public static boolean isCollideBlockOnPos(World world, double x, double y, double z) {
@@ -131,7 +139,7 @@ public class GetMOP {
    }
 
    public static Vec3d logicRayTrace(
-      World world, Vec3d from, Vec3d to, float partialTicks, Predicate<? super Entity> filterEntityToIgnore, double size, double step, boolean stoponLiquid
+           World world, Vec3d from, Vec3d to, Predicate<? super Entity> filterEntityToIgnore, double size, double step, boolean stoponLiquid
    ) {
       RayTraceResult raytraceresult = normalizeRayTraceResult(world.rayTraceBlocks(from, to, stoponLiquid, true, false));
       if (raytraceresult != null) {
@@ -142,7 +150,7 @@ public class GetMOP {
    }
 
    public static Vec3d logicRayTraceIgnoreMobs(
-      World world, Vec3d from, Vec3d to, float partialTicks, Predicate<? super IBlockState> filterBlockToIgnore, boolean stoponLiquid
+           World world, Vec3d from, Vec3d to, Predicate<? super IBlockState> filterBlockToIgnore, boolean stoponLiquid
    ) {
       RayTraceResult raytraceresult = rayTraceBlocks(world, from, to, filterBlockToIgnore, stoponLiquid, true, false);
       if (raytraceresult != null) {
@@ -153,49 +161,58 @@ public class GetMOP {
    }
 
    public static boolean thereIsNoBlockCollidesBetween(
-      World world, Vec3d from, Vec3d to, float partialTicks, @Nullable Predicate<? super IBlockState> filterBlockToIgnore, boolean stoponLiquid
+           World world, Vec3d from, Vec3d to, @Nullable Predicate<? super IBlockState> filter, boolean stopOnLiquid
    ) {
-      RayTraceResult result = rayTraceBlocks(world, from, to, filterBlockToIgnore, stoponLiquid, true, false);
-      return result == null
-         || world.getBlockState(result.getBlockPos())
-               .getBlock()
-               .getCollisionBoundingBox(world.getBlockState(result.getBlockPos()), world, result.getBlockPos())
-            == null;
+      RayTraceResult result = rayTraceBlocks(world, from, to, filter, stopOnLiquid, true, false);
+
+      if (result == null || result.typeOfHit == RayTraceResult.Type.MISS) {
+         return true;
+      }
+
+      BlockPos pos = result.getBlockPos();
+      IBlockState state = world.getBlockState(pos);
+
+      return state.getCollisionBoundingBox(world, pos) == Block.NULL_AABB;
    }
 
    public static EntityLivingBase findEntityOnPath(
-      double blockReachDistance, Vec3d from, Vec3d to, float partialTicks, EntityLivingBase entity, boolean checkTeam, double size, double step
+           Vec3d start, Vec3d end, EntityLivingBase entity, boolean checkTeam, double size, double step
    ) {
-      RayTraceResult raytraceresult = entity.world.rayTraceBlocks(from, to, false, true, false);
+      RayTraceResult raytraceresult = entity.world.rayTraceBlocks(start, end, false, true, false);
       if (raytraceresult != null) {
-         to = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
+         end = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
       }
 
-      return findEntityOnPath(from, to, entity.world, entity, size, step, checkTeam);
+      return findEntityOnPath(start, end, entity.world, entity, size, step, checkTeam);
    }
 
-   public static EntityLivingBase findEntityOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep, boolean checkTeam) {
-      Vec3d fromStartToEnd = end.subtract(start);
-      Vec3d toVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
-      new ArrayList();
-      double step = raystep / fromStartToEnd.length();
+   public static EntityLivingBase findEntityOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double rayStep, boolean checkTeam) {
+      double dx = end.x - start.x;
+      double dy = end.y - start.y;
+      double dz = end.z - start.z;
+      double length = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-      for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d centerVertex = start.add(fromStartToEnd.scale(k));
-         Vec3d downVertex = centerVertex.subtract(toVertex);
-         Vec3d upVertex = centerVertex.add(toVertex);
-         AxisAlignedBB aabb = new AxisAlignedBB(downVertex, upVertex);
+      if (length < 0.0001) return null;
+
+      double stepIncrement = rayStep / length;
+      double halfSize = size / 2.0;
+
+      for (double k = 0.0; k <= 1.0; k += stepIncrement) {
+         double curX = start.x + dx * k;
+         double curY = start.y + dy * k;
+         double curZ = start.z + dz * k;
+
+         AxisAlignedBB aabb = new AxisAlignedBB(
+                 curX - halfSize, curY - halfSize, curZ - halfSize,
+                 curX + halfSize, curY + halfSize, curZ + halfSize
+         );
+
          List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
-         if (!list.isEmpty()) {
-            for (EntityLivingBase entityLiving : list) {
-               if (entityLiving != shooter) {
-                  if (!checkTeam) {
-                     return entityLiving;
-                  }
 
-                  if (Team.checkIsOpponent(shooter, entityLiving)) {
-                     return entityLiving;
-                  }
+         for (EntityLivingBase entityLiving : list) {
+            if (entityLiving != shooter && entityLiving.isEntityAlive()) {
+               if (!checkTeam || Team.checkIsOpponent(shooter, entityLiving)) {
+                  return entityLiving;
                }
             }
          }
@@ -204,28 +221,34 @@ public class GetMOP {
       return null;
    }
 
-   public static Entity findEntity2OnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep, boolean checkTeam) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
-      new ArrayList();
-      double step = raystep / FromStartToEnd.length();
+   public static Entity findEntity2OnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double rayStep, boolean checkTeam) {
+      double dx = end.x - start.x;
+      double dy = end.y - start.y;
+      double dz = end.z - start.z;
+      double lengthSq = dx * dx + dy * dy + dz * dz;
 
-      for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, Cube);
-         if (!list.isEmpty()) {
-            for (Entity entity : list) {
-               if (entity != shooter) {
-                  if (!checkTeam) {
-                     return entity;
-                  }
+      if (lengthSq < 0.0001) return null;
 
-                  if (Team.checkIsOpponent(shooter, entity)) {
-                     return entity;
-                  }
+      double length = Math.sqrt(lengthSq);
+      double stepIncrement = rayStep / length;
+      double halfSize = size / 2.0;
+
+      for (double k = 0.0; k <= 1.0; k += stepIncrement) {
+         double curX = start.x + dx * k;
+         double curY = start.y + dy * k;
+         double curZ = start.z + dz * k;
+
+         AxisAlignedBB cube = new AxisAlignedBB(
+                 curX - halfSize, curY - halfSize, curZ - halfSize,
+                 curX + halfSize, curY + halfSize, curZ + halfSize
+         );
+
+         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, cube);
+
+         for (Entity entity : list) {
+            if (entity.canBeCollidedWith()) {
+               if (!checkTeam || Team.checkIsOpponent(shooter, entity)) {
+                  return entity;
                }
             }
          }
@@ -235,45 +258,65 @@ public class GetMOP {
    }
 
    public static List<Entity> findEntitiesOnPath(Vec3d start, Vec3d end, World world, @Nullable Entity shooter, double size, double raystep) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
-      List<Entity> moblist = new ArrayList<>();
-      double step = raystep / FromStartToEnd.length();
+      double dx = end.x - start.x;
+      double dy = end.y - start.y;
+      double dz = end.z - start.z;
+      double length = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-      for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, Cube);
-         if (!list.isEmpty()) {
-            for (Entity entityliving : list) {
-               if (entityliving.canBeCollidedWith() && !moblist.contains(entityliving)) {
-                  moblist.add(entityliving);
-               }
+      if (length < 0.0001) return Collections.emptyList();
+
+      Set<Entity> foundSet = new LinkedHashSet<>();
+      double halfSize = size / 2.0;
+      double stepIncrement = raystep / length;
+
+      for (double k = 0.0; k <= 1.0; k += stepIncrement) {
+         double x = start.x + dx * k;
+         double y = start.y + dy * k;
+         double z = start.z + dz * k;
+
+         AxisAlignedBB cube = new AxisAlignedBB(
+                 x - halfSize, y - halfSize, z - halfSize,
+                 x + halfSize, y + halfSize, z + halfSize
+         );
+
+         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, cube);
+
+         for (Entity entity : list) {
+            if (entity.canBeCollidedWith()) {
+               foundSet.add(entity);
             }
          }
       }
 
-      return moblist;
+      return new ArrayList<>(foundSet);
    }
 
    public static Vec3d findEndCoordOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
-      double step = raystep / FromStartToEnd.length();
+      double dx = end.x - start.x;
+      double dy = end.y - start.y;
+      double dz = end.z - start.z;
+      double length = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-      for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, Cube);
-         if (!list.isEmpty()) {
-            for (Entity entit : list) {
-               if (entit.canBeCollidedWith()) {
-                  return CenterVertex;
-               }
+      if (length < 0.0001) return start;
+
+      double halfSize = size / 2.0;
+      double stepIncrement = raystep / length;
+
+      for (double k = 0.0; k <= 1.0; k += stepIncrement) {
+         double curX = start.x + dx * k;
+         double curY = start.y + dy * k;
+         double curZ = start.z + dz * k;
+
+         AxisAlignedBB cube = new AxisAlignedBB(
+                 curX - halfSize, curY - halfSize, curZ - halfSize,
+                 curX + halfSize, curY + halfSize, curZ + halfSize
+         );
+
+         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, cube);
+
+         for (Entity entity : list) {
+            if (entity.canBeCollidedWith()) {
+               return new Vec3d(curX, curY, curZ);
             }
          }
       }
@@ -282,20 +325,32 @@ public class GetMOP {
    }
 
    public static Vec3d findEndCoordOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep, boolean checkTeam) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
-      double step = raystep / FromStartToEnd.length();
+      double diffX = end.x - start.x;
+      double diffY = end.y - start.y;
+      double diffZ = end.z - start.z;
+      double length = Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
 
-      for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, Cube);
-         if (!list.isEmpty()) {
-            for (Entity entit : list) {
-               if (entit.canBeCollidedWith() && (!checkTeam || Team.checkIsOpponent(shooter, entit))) {
-                  return CenterVertex;
+      if (length < 0.0001) return end;
+
+      double halfSize = size / 2.0;
+      double stepIncrement = raystep / length;
+
+      for (double k = 0.0; k <= 1.0; k += stepIncrement) {
+         double centerX = start.x + diffX * k;
+         double centerY = start.y + diffY * k;
+         double centerZ = start.z + diffZ * k;
+
+         AxisAlignedBB cube = new AxisAlignedBB(
+                 centerX - halfSize, centerY - halfSize, centerZ - halfSize,
+                 centerX + halfSize, centerY + halfSize, centerZ + halfSize
+         );
+
+         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, cube);
+
+         for (Entity entity : list) {
+            if (entity.canBeCollidedWith()) {
+               if (!checkTeam || Team.checkIsOpponent(shooter, entity)) {
+                  return new Vec3d(centerX, centerY, centerZ);
                }
             }
          }
@@ -304,23 +359,28 @@ public class GetMOP {
       return end;
    }
 
-   public static Vec3d findEndCoordOnPath(Vec3d start, Vec3d end, World world, Predicate<? super Entity> filterEntityToIgnore, double size, double raystep) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
-      new ArrayList();
-      double step = raystep / FromStartToEnd.length();
+   public static Vec3d findEndCoordOnPath(Vec3d start, Vec3d end, World world, Predicate<? super Entity> filter, double size, double raystep) {
+      Vec3d dir = end.subtract(start);
+      double length = dir.length();
+
+      if (length < 0.001) return start;
+
+      double halfSize = size / 2.0;
+      double step = raystep / length;
 
       for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, Cube);
-         if (!list.isEmpty()) {
-            for (Entity entit : list) {
-               if (entit.canBeCollidedWith() && !filterEntityToIgnore.apply(entit)) {
-                  return CenterVertex;
-               }
+         double x = start.x + dir.x * k;
+         double y = start.y + dir.y * k;
+         double z = start.z + dir.z * k;
+
+         AxisAlignedBB cube = new AxisAlignedBB(x - halfSize, y - halfSize, z - halfSize,
+                 x + halfSize, y + halfSize, z + halfSize);
+
+         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, cube);
+
+         for (Entity entity : list) {
+            if (entity.canBeCollidedWith() && !filter.apply(entity)) {
+               return new Vec3d(x, y, z);
             }
          }
       }
@@ -328,16 +388,16 @@ public class GetMOP {
       return end;
    }
 
-   public static Vec3d RotatedPosRayTrace(
+   public static Vec3d rotatedPosRayTrace(
       double blockReachDistance, float partialTicks, EntityLivingBase entity, double size, double step, float rotationPitch, float rotationYaw
    ) {
-      return RotatedPosRayTrace(blockReachDistance, partialTicks, entity, size, step, rotationPitch, rotationYaw, false);
+      return rotatedPosRayTrace(blockReachDistance, partialTicks, entity, size, step, rotationPitch, rotationYaw, false);
    }
 
-   public static Vec3d RotatedPosRayTrace(
-      double blockReachDistance, float partialTicks, Vec3d start, EntityLivingBase entity, double size, double step, float rotationPitch, float rotationYaw
+   public static Vec3d rotatedPosRayTrace(
+           double blockReachDistance, Vec3d start, EntityLivingBase entity, double size, double step, float rotationPitch, float rotationYaw
    ) {
-      Vec3d vec3d1 = PitchYawToVec3d(rotationPitch, rotationYaw);
+      Vec3d vec3d1 = pitchYawToVec3D(rotationPitch, rotationYaw);
       Vec3d vec3d2 = start.add(
          vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
       );
@@ -349,7 +409,7 @@ public class GetMOP {
       return findEndCoordOnPath(start, vec3d2, entity.world, entity, size, step);
    }
 
-   public static Vec3d RotatedPosRayTrace(
+   public static Vec3d rotatedPosRayTrace(
       double blockReachDistance,
       float partialTicks,
       EntityLivingBase entity,
@@ -360,7 +420,7 @@ public class GetMOP {
       boolean checkTeam
    ) {
       Vec3d vec3d = entity.getPositionEyes(partialTicks);
-      Vec3d vec3d1 = PitchYawToVec3d(rotationPitch, rotationYaw);
+      Vec3d vec3d1 = pitchYawToVec3D(rotationPitch, rotationYaw);
       Vec3d vec3d2 = vec3d.add(
          vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
       );
@@ -380,9 +440,9 @@ public class GetMOP {
       float rand1 = rand.nextFloat() * 2.0F - 1.0F;
       float rand2 = rand.nextFloat() * 2.0F - 1.0F;
       float X = rand1 * radius;
-      float new_R = (float)Math.sqrt(radius * radius - X * X);
-      float Y = rand2 * new_R;
-      float Z = (float)Math.sqrt(new_R * new_R - Y * Y);
+      float newR = (float)Math.sqrt(radius * radius - X * X);
+      float Y = rand2 * newR;
+      float Z = (float)Math.sqrt(newR * newR - Y * Y);
       if (rand.nextBoolean()) {
          Z *= -1.0F;
       }
@@ -390,7 +450,7 @@ public class GetMOP {
       return new Vec3d(xx, yy, zz).add(X, Y, Z);
    }
 
-   public static Vec3d PitchYawToVec3d(float pitch, float yaw) {
+   public static Vec3d pitchYawToVec3D(float pitch, float yaw) {
       float f = MathHelper.cos(-yaw * (float) (Math.PI / 180.0) - (float) Math.PI);
       float f1 = MathHelper.sin(-yaw * (float) (Math.PI / 180.0) - (float) Math.PI);
       float f2 = -MathHelper.cos(-pitch * (float) (Math.PI / 180.0));
@@ -398,28 +458,28 @@ public class GetMOP {
       return new Vec3d(f1 * f2, f3, f * f2);
    }
 
-   public static Vec3d YawToVec3d(float yaw) {
+   public static Vec3d yawToVec3D(float yaw) {
       float f = MathHelper.cos(-yaw * (float) (Math.PI / 180.0) - (float) Math.PI);
       float f1 = MathHelper.sin(-yaw * (float) (Math.PI / 180.0) - (float) Math.PI);
       return new Vec3d(-f1, 0.0, -f);
    }
 
    @Deprecated
-   public static Vec3d Vec3dToPitchYaw(Vec3d vec) {
+   public static Vec3d vec3DToPitchYaw(Vec3d vec) {
       float f = MathHelper.sqrt(vec.x * vec.x + vec.z * vec.z);
       float rotationYaw = (float)(MathHelper.atan2(vec.x, -vec.z) * (180.0 / Math.PI));
       float rotationPitch = (float)(MathHelper.atan2(vec.y, f) * (180.0 / Math.PI));
       return new Vec3d(rotationPitch, rotationYaw, 0.0);
    }
 
-   public static Vec2f Vec3dToPitchYawFixed(Vec3d vec) {
+   public static Vec2f vec3DToPitchYawFixed(Vec3d vec) {
       float f = MathHelper.sqrt(vec.x * vec.x + vec.z * vec.z);
       float rotationYaw = (float)(MathHelper.atan2(vec.x, -vec.z) * (180.0 / Math.PI));
       float rotationPitch = (float)(MathHelper.atan2(vec.y, f) * (180.0 / Math.PI));
       return new Vec2f(-rotationPitch, MathHelper.wrapDegrees(rotationYaw + 180.0F));
    }
 
-   public static float Vec2dToYaw(double x, double z) {
+   public static float vec2DToYaw(double x, double z) {
       float f = MathHelper.sqrt(x + z);
       return (float)(MathHelper.atan2(x, -z) * (180.0 / Math.PI));
    }
@@ -441,29 +501,32 @@ public class GetMOP {
       return full;
    }
 
-   public static boolean collidesWithBlock(World world, BlockPos pos, Block block) {
-      return world.getBlockState(pos.up()).getBlock() == block
-         || world.getBlockState(pos.down()).getBlock() == block
-         || world.getBlockState(pos.west()).getBlock() == block
-         || world.getBlockState(pos.south()).getBlock() == block
-         || world.getBlockState(pos.north()).getBlock() == block
-         || world.getBlockState(pos.east()).getBlock() == block;
+   public static boolean collidesWithBlock(IBlockAccess world, BlockPos pos, Block block) {
+      for (EnumFacing facing : EnumFacing.values()) {
+         if (world.getBlockState(pos.offset(facing)).getBlock() == block) {
+            return true;
+         }
+      }
+      return false;
    }
 
    public static boolean collidesWithBlockHorizontal(IBlockAccess world, BlockPos pos, Block block) {
-      return world.getBlockState(pos.west()).getBlock() == block
-         || world.getBlockState(pos.south()).getBlock() == block
-         || world.getBlockState(pos.north()).getBlock() == block
-         || world.getBlockState(pos.east()).getBlock() == block;
+      for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
+         if (world.getBlockState(pos.offset(facing)).getBlock() == block) {
+            return true;
+         }
+      }
+      return false;
    }
 
    public static boolean collidesWithAnyBlock(World world, BlockPos pos) {
-      return world.getBlockState(pos.up()).getCollisionBoundingBox(world, pos) != null
-         || world.getBlockState(pos.down()).getCollisionBoundingBox(world, pos) != null
-         || world.getBlockState(pos.west()).getCollisionBoundingBox(world, pos) != null
-         || world.getBlockState(pos.south()).getCollisionBoundingBox(world, pos) != null
-         || world.getBlockState(pos.north()).getCollisionBoundingBox(world, pos) != null
-         || world.getBlockState(pos.east()).getCollisionBoundingBox(world, pos) != null;
+      for (EnumFacing facing : EnumFacing.values()) {
+         BlockPos neighborPos = pos.offset(facing);
+         if (world.getBlockState(neighborPos).getCollisionBoundingBox(world, neighborPos) != null) {
+            return true;
+         }
+      }
+      return false;
    }
 
    public static boolean collidesWithBlockExcept(World world, BlockPos pos, Block block, EnumFacing facingExcept) {
@@ -476,17 +539,17 @@ public class GetMOP {
       return false;
    }
 
-   public static int next(int value, int amountnext, int bound) {
-      int result = value + amountnext;
-      if (result >= bound && amountnext < bound) {
+   public static int next(int value, int amountNext, int bound) {
+      int result = value + amountNext;
+      if (result >= bound && amountNext < bound) {
          result -= bound;
       }
 
-      if (amountnext == bound) {
+      if (amountNext == bound) {
          return value;
       } else {
-         if (amountnext > bound) {
-            int perc = amountnext % bound;
+         if (amountNext > bound) {
+            int perc = amountNext % bound;
             result = value + perc;
          }
 
@@ -515,47 +578,6 @@ public class GetMOP {
          return Math.min(baseValue + followAmount, targetValue);
       } else {
          return baseValue > targetValue ? Math.max(baseValue - followAmount, targetValue) : baseValue;
-      }
-   }
-
-   public static float getDirectionBetweenAngles(float baseValue, float targetValue) {
-      baseValue = MathHelper.wrapDegrees(baseValue) + 180.0F;
-      targetValue = MathHelper.wrapDegrees(targetValue) + 180.0F;
-      if (targetValue == baseValue) {
-         return 0.0F;
-      } else {
-         float baseValue180 = MathHelper.wrapDegrees(baseValue) + 180.0F;
-         if (targetValue == baseValue180) {
-            return 180.0F;
-         } else {
-            if (baseValue180 > baseValue) {
-               if (targetValue > baseValue && targetValue < baseValue180) {
-                  return targetValue - baseValue;
-               }
-
-               if (targetValue >= 0.0F && targetValue < baseValue) {
-                  return targetValue - baseValue;
-               }
-
-               if (targetValue <= 360.0F && targetValue > baseValue180) {
-                  return -baseValue - (360.0F - targetValue);
-               }
-            } else {
-               if (targetValue < baseValue && targetValue > baseValue180) {
-                  return targetValue - baseValue;
-               }
-
-               if (targetValue >= 0.0F && targetValue < baseValue180) {
-                  return 360.0F - baseValue + targetValue;
-               }
-
-               if (targetValue <= 360.0F && targetValue > baseValue) {
-                  return targetValue - baseValue;
-               }
-            }
-
-            return 0.0F;
-         }
       }
    }
 
@@ -603,266 +625,271 @@ public class GetMOP {
 
    @Nullable
    public static RayTraceResult rayTraceBlocks(
-      World world,
-      Vec3d vec31,
-      Vec3d vec32,
-      Predicate<? super IBlockState> filterBlockToIgnore,
-      boolean stopOnLiquid,
-      boolean ignoreBlockWithoutBoundingBox,
-      boolean returnLastUncollidableBlock
+           World world, Vec3d start, Vec3d end,
+           Predicate<? super IBlockState> filter,
+           boolean stopOnLiquid,
+           boolean ignoreNoBox,
+           boolean returnLastUncollidable
    ) {
-      if (Double.isNaN(vec31.x) || Double.isNaN(vec31.y) || Double.isNaN(vec31.z)) {
-         return null;
-      } else if (!Double.isNaN(vec32.x) && !Double.isNaN(vec32.y) && !Double.isNaN(vec32.z)) {
-         int i = MathHelper.floor(vec32.x);
-         int j = MathHelper.floor(vec32.y);
-         int k = MathHelper.floor(vec32.z);
-         int l = MathHelper.floor(vec31.x);
-         int i1 = MathHelper.floor(vec31.y);
-         int j1 = MathHelper.floor(vec31.z);
-         BlockPos blockpos = new BlockPos(l, i1, j1);
-         IBlockState iblockstate = world.getBlockState(blockpos);
-         Block block = iblockstate.getBlock();
-         if ((
-               !ignoreBlockWithoutBoundingBox
-                  || iblockstate.getCollisionBoundingBox(world, blockpos) != Block.NULL_AABB
-                  || stopOnLiquid && iblockstate.getMaterial().isLiquid()
-            )
-            && block.canCollideCheck(iblockstate, stopOnLiquid)
-            && (filterBlockToIgnore == null || !filterBlockToIgnore.apply(iblockstate))) {
-            RayTraceResult raytraceresult = iblockstate.collisionRayTrace(world, blockpos, vec31, vec32);
-            if (raytraceresult != null) {
-               return raytraceresult;
-            }
-         }
+      if (isInvalid(start) || isInvalid(end)) return null;
 
-         RayTraceResult raytraceresult2 = null;
-         int k1 = 200;
+      int endX = MathHelper.floor(end.x);
+      int endY = MathHelper.floor(end.y);
+      int endZ = MathHelper.floor(end.z);
 
-         while (k1-- >= 0) {
-            if (Double.isNaN(vec31.x) || Double.isNaN(vec31.y) || Double.isNaN(vec31.z)) {
-               return null;
-            }
+      int curX = MathHelper.floor(start.x);
+      int curY = MathHelper.floor(start.y);
+      int curZ = MathHelper.floor(start.z);
 
-            if (l == i && i1 == j && j1 == k) {
-               return returnLastUncollidableBlock ? raytraceresult2 : null;
-            }
+      BlockPos pos = new BlockPos(curX, curY, curZ);
+      RayTraceResult lastResult = null;
 
-            boolean flag2 = true;
-            boolean flag = true;
-            boolean flag1 = true;
-            double d0 = 999.0;
-            double d1 = 999.0;
-            double d2 = 999.0;
-            if (i > l) {
-               d0 = l + 1.0;
-            } else if (i < l) {
-               d0 = l + 0.0;
-            } else {
-               flag2 = false;
-            }
-
-            if (j > i1) {
-               d1 = i1 + 1.0;
-            } else if (j < i1) {
-               d1 = i1 + 0.0;
-            } else {
-               flag = false;
-            }
-
-            if (k > j1) {
-               d2 = j1 + 1.0;
-            } else if (k < j1) {
-               d2 = j1 + 0.0;
-            } else {
-               flag1 = false;
-            }
-
-            double d3 = 999.0;
-            double d4 = 999.0;
-            double d5 = 999.0;
-            double d6 = vec32.x - vec31.x;
-            double d7 = vec32.y - vec31.y;
-            double d8 = vec32.z - vec31.z;
-            if (flag2) {
-               d3 = (d0 - vec31.x) / d6;
-            }
-
-            if (flag) {
-               d4 = (d1 - vec31.y) / d7;
-            }
-
-            if (flag1) {
-               d5 = (d2 - vec31.z) / d8;
-            }
-
-            if (d3 == -0.0) {
-               d3 = -1.0E-4;
-            }
-
-            if (d4 == -0.0) {
-               d4 = -1.0E-4;
-            }
-
-            if (d5 == -0.0) {
-               d5 = -1.0E-4;
-            }
-
-            EnumFacing enumfacing;
-            if (d3 < d4 && d3 < d5) {
-               enumfacing = i > l ? EnumFacing.WEST : EnumFacing.EAST;
-               vec31 = new Vec3d(d0, vec31.y + d7 * d3, vec31.z + d8 * d3);
-            } else if (d4 < d5) {
-               enumfacing = j > i1 ? EnumFacing.DOWN : EnumFacing.UP;
-               vec31 = new Vec3d(vec31.x + d6 * d4, d1, vec31.z + d8 * d4);
-            } else {
-               enumfacing = k > j1 ? EnumFacing.NORTH : EnumFacing.SOUTH;
-               vec31 = new Vec3d(vec31.x + d6 * d5, vec31.y + d7 * d5, d2);
-            }
-
-            l = MathHelper.floor(vec31.x) - (enumfacing == EnumFacing.EAST ? 1 : 0);
-            i1 = MathHelper.floor(vec31.y) - (enumfacing == EnumFacing.UP ? 1 : 0);
-            j1 = MathHelper.floor(vec31.z) - (enumfacing == EnumFacing.SOUTH ? 1 : 0);
-            blockpos = new BlockPos(l, i1, j1);
-            IBlockState iblockstate1 = world.getBlockState(blockpos);
-            Block block1 = iblockstate1.getBlock();
-            if ((
-                  !ignoreBlockWithoutBoundingBox
-                     || iblockstate1.getMaterial() == Material.PORTAL
-                     || iblockstate1.getCollisionBoundingBox(world, blockpos) != Block.NULL_AABB
-                     || stopOnLiquid && iblockstate1.getMaterial().isLiquid()
-               )
-               && (filterBlockToIgnore == null || !filterBlockToIgnore.apply(iblockstate1))) {
-               if (block1.canCollideCheck(iblockstate1, stopOnLiquid)) {
-                  RayTraceResult raytraceresult1 = iblockstate1.collisionRayTrace(world, blockpos, vec31, vec32);
-                  if (raytraceresult1 != null) {
-                     return raytraceresult1;
-                  }
-               } else {
-                  raytraceresult2 = new RayTraceResult(Type.MISS, vec31, enumfacing, blockpos);
-               }
-            }
-         }
-
-         return returnLastUncollidableBlock ? raytraceresult2 : null;
-      } else {
-         return null;
+      IBlockState state = world.getBlockState(pos);
+      if (shouldCollide(world, pos, state, filter, stopOnLiquid, ignoreNoBox)) {
+         return state.collisionRayTrace(world, pos, start, end);
       }
+
+      for (int k1 = 200; k1-- >= 0; ) {
+         if (curX == endX && curY == endY && curZ == endZ) {
+            return returnLastUncollidable ? lastResult : null;
+         }
+
+         double nextBoundX = (endX > curX) ? curX + 1 : (endX < curX ? curX : 999);
+         double nextBoundY = (endY > curY) ? curY + 1 : (endY < curY ? curY : 999);
+         double nextBoundZ = (endZ > curZ) ? curZ + 1 : (endZ < curZ ? curZ : 999);
+
+         double diffX = end.x - start.x;
+         double diffY = end.y - start.y;
+         double diffZ = end.z - start.z;
+
+         double tX = (nextBoundX != 999) ? (nextBoundX - start.x) / diffX : 999;
+         double tY = (nextBoundY != 999) ? (nextBoundY - start.y) / diffY : 999;
+         double tZ = (nextBoundZ != 999) ? (nextBoundZ - start.z) / diffZ : 999;
+
+         if (tX == -0.0) tX = -1.0E-4;
+         if (tY == -0.0) tY = -1.0E-4;
+         if (tZ == -0.0) tZ = -1.0E-4;
+
+         EnumFacing facing;
+         if (tX < tY && tX < tZ) {
+            facing = endX > curX ? EnumFacing.WEST : EnumFacing.EAST;
+            start = new Vec3d(nextBoundX, start.y + diffY * tX, start.z + diffZ * tX);
+         } else if (tY < tZ) {
+            facing = endY > curY ? EnumFacing.DOWN : EnumFacing.UP;
+            start = new Vec3d(start.x + diffX * tY, nextBoundY, start.z + diffZ * tY);
+         } else {
+            facing = endZ > curZ ? EnumFacing.NORTH : EnumFacing.SOUTH;
+            start = new Vec3d(start.x + diffX * tZ, start.y + diffY * tZ, nextBoundZ);
+         }
+
+         curX = MathHelper.floor(start.x) - (facing == EnumFacing.EAST ? 1 : 0);
+         curY = MathHelper.floor(start.y) - (facing == EnumFacing.UP ? 1 : 0);
+         curZ = MathHelper.floor(start.z) - (facing == EnumFacing.SOUTH ? 1 : 0);
+
+         pos = new BlockPos(curX, curY, curZ);
+         state = world.getBlockState(pos);
+
+         if (shouldCollide(world, pos, state, filter, stopOnLiquid, ignoreNoBox)) {
+            return state.collisionRayTrace(world, pos, start, end);
+         } else {
+            lastResult = new RayTraceResult(RayTraceResult.Type.MISS, start, facing, pos);
+         }
+      }
+
+      return returnLastUncollidable ? lastResult : null;
    }
 
-   public static RayTraceResult rayTraceLiquids(World world, Vec3d start, Vec3d end) {
-      double dist = start.distanceTo(end);
-      double step = 0.0625;
-      int iterations = (int)(dist / step);
-      Vec3d vecadd = end.subtract(start).normalize().scale(step);
-      PooledMutableBlockPos blockpos$pooledmutableblockpos = PooledMutableBlockPos.retain();
+   private static boolean shouldCollide(World world, BlockPos pos, IBlockState state,
+                                        Predicate<? super IBlockState> filter,
+                                        boolean stopOnLiquid, boolean ignoreNoBox) {
+      if (filter != null && filter.apply(state)) return false;
 
-      for (int i = 0; i < iterations; i++) {
-         blockpos$pooledmutableblockpos.setPos(
-            MathHelper.floor(start.x + vecadd.x * i),
-            MathHelper.floor(start.y + vecadd.y * i),
-            MathHelper.floor(start.z + vecadd.z * i)
-         );
-         IBlockState iBlockState = world.getBlockState(blockpos$pooledmutableblockpos);
-         if (iBlockState.getMaterial().isLiquid()) {
-            boolean succ = false;
-            if (iBlockState.getBlock() instanceof IFluidBlock) {
-               IFluidBlock fluidBlock = (IFluidBlock)iBlockState.getBlock();
-               if (fluidBlock.getFilledPercentage(world, blockpos$pooledmutableblockpos) >= 1.0F) {
-                  succ = true;
-               }
-            } else if (iBlockState.getBlock() instanceof BlockLiquid && (Integer)iBlockState.getValue(BlockLiquid.LEVEL) == 0) {
-               succ = true;
-            }
+      boolean hasBox = state.getCollisionBoundingBox(world, pos) != Block.NULL_AABB;
+      boolean isLiquid = state.getMaterial().isLiquid();
+      boolean isPortal = state.getMaterial() == Material.PORTAL;
 
-            if (succ) {
-               RayTraceResult result = new RayTraceResult(
-                  Type.BLOCK,
-                  new Vec3d(
-                     start.x + vecadd.x * i,
-                     start.y + vecadd.y * i,
-                     start.z + vecadd.z * i
-                  ),
-                  EnumFacing.UP,
-                  blockpos$pooledmutableblockpos.toImmutable()
-               );
-               blockpos$pooledmutableblockpos.release();
-               return result;
-            }
-         }
+      if (ignoreNoBox && !hasBox && !isPortal && !(stopOnLiquid && isLiquid)) {
+         return false;
       }
 
-      blockpos$pooledmutableblockpos.release();
+      return state.getBlock().canCollideCheck(state, stopOnLiquid);
+   }
+
+   private static boolean isInvalid(Vec3d vec) {
+      return Double.isNaN(vec.x) || Double.isNaN(vec.y) || Double.isNaN(vec.z);
+   }
+
+   @Nullable
+   public static RayTraceResult rayTraceLiquids(World world, Vec3d start, Vec3d end) {
+      if (Double.isNaN(start.x) || Double.isNaN(start.y) || Double.isNaN(start.z) ||
+              Double.isNaN(end.x) || Double.isNaN(end.y) || Double.isNaN(end.z)) {
+         return null;
+      }
+
+      int endX = MathHelper.floor(end.x);
+      int endY = MathHelper.floor(end.y);
+      int endZ = MathHelper.floor(end.z);
+      int x = MathHelper.floor(start.x);
+      int y = MathHelper.floor(start.y);
+      int z = MathHelper.floor(start.z);
+
+      BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(x, y, z);
+
+      RayTraceResult startCheck = checkLiquid(world, pos, start);
+      if (startCheck != null) return startCheck;
+
+      int limit = 200; // Чтобы не было зацикливания
+      while (limit-- >= 0) {
+         if (x == endX && y == endY && z == endZ) return null;
+
+         boolean moveX = true;
+         boolean moveY = true;
+         boolean moveZ = true;
+         double nextX = 999.0;
+         double nextY = 999.0;
+         double nextZ = 999.0;
+
+         if (endX > x) nextX = x + 1.0; else if (endX < x) nextX = x; else moveX = false;
+         if (endY > y) nextY = y + 1.0; else if (endY < y) nextY = y; else moveY = false;
+         if (endZ > z) nextZ = z + 1.0; else if (endZ < z) nextZ = z; else moveZ = false;
+
+         double stepX = moveX ? (nextX - start.x) / (end.x - start.x) : 999.0;
+         double stepY = moveY ? (nextY - start.y) / (end.y - start.y) : 999.0;
+         double stepZ = moveZ ? (nextZ - start.z) / (end.z - start.z) : 999.0;
+
+         if (stepX < stepY && stepX < stepZ) {
+            x += (endX > x ? 1 : -1);
+            start = new Vec3d(nextX, start.y + (end.y - start.y) * stepX, start.z + (end.z - start.z) * stepX);
+         } else if (stepY < stepZ) {
+            y += (endY > y ? 1 : -1);
+            start = new Vec3d(start.x + (end.x - start.x) * stepY, nextY, start.z + (end.z - start.z) * stepY);
+         } else {
+            z += (endZ > z ? 1 : -1);
+            start = new Vec3d(start.x + (end.x - start.x) * stepZ, start.y + (end.y - start.y) * stepZ, nextZ);
+         }
+
+         pos.setPos(x, y, z);
+         RayTraceResult result = checkLiquid(world, pos, start);
+         if (result != null) return result;
+      }
+
+      return null;
+   }
+
+   private static RayTraceResult checkLiquid(World world, BlockPos pos, Vec3d hitVec) {
+      IBlockState state = world.getBlockState(pos);
+      if (state.getMaterial().isLiquid()) {
+         Block block = state.getBlock();
+         boolean isFull = false;
+
+         if (block instanceof IFluidBlock) {
+            isFull = ((IFluidBlock) block).getFilledPercentage(world, pos) >= 1.0F;
+         } else if (block instanceof BlockLiquid) {
+            isFull = state.getValue(BlockLiquid.LEVEL) == 0;
+         }
+
+         if (isFull) {
+            return new RayTraceResult(RayTraceResult.Type.BLOCK, hitVec, EnumFacing.UP, pos.toImmutable());
+         }
+      }
       return null;
    }
 
    public static boolean containsBlock(World world, AxisAlignedBB bb, Block cblock) {
-      int j2 = MathHelper.floor(bb.minX);
-      int k2 = MathHelper.ceil(bb.maxX);
-      int l2 = MathHelper.floor(bb.minY);
-      int i3 = MathHelper.ceil(bb.maxY);
-      int j3 = MathHelper.floor(bb.minZ);
-      int k3 = MathHelper.ceil(bb.maxZ);
-      PooledMutableBlockPos blockpos$pooledmutableblockpos = PooledMutableBlockPos.retain();
+      int minX = MathHelper.floor(bb.minX);
+      int maxX = MathHelper.ceil(bb.maxX);
+      int minY = MathHelper.floor(bb.minY);
+      int maxY = MathHelper.ceil(bb.maxY);
+      int minZ = MathHelper.floor(bb.minZ);
+      int maxZ = MathHelper.ceil(bb.maxZ);
 
-      for (int l3 = j2; l3 < k2; l3++) {
-         for (int i4 = l2; i4 < i3; i4++) {
-            for (int j4 = j3; j4 < k3; j4++) {
-               IBlockState iblockstate1 = world.getBlockState(blockpos$pooledmutableblockpos.setPos(l3, i4, j4));
-               if (iblockstate1.getMaterial().isLiquid() && iblockstate1.getBlock() == cblock) {
-                  blockpos$pooledmutableblockpos.release();
+      BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+
+      int lastChunkX = Integer.MIN_VALUE;
+      int lastChunkZ = Integer.MIN_VALUE;
+      Chunk chunk = null;
+
+      for (int x = minX; x < maxX; ++x) {
+         for (int z = minZ; z < maxZ; ++z) {
+
+            int cx = x >> 4;
+            int cz = z >> 4;
+            if (chunk == null || cx != lastChunkX || cz != lastChunkZ) {
+               if (!world.getChunkProvider().isChunkGeneratedAt(cx, cz)) continue;
+               chunk = world.getChunk(cx, cz);
+               lastChunkX = cx;
+               lastChunkZ = cz;
+            }
+
+            for (int y = minY; y < maxY; ++y) {
+               pos.setPos(x, y, z);
+
+               IBlockState state = chunk.getBlockState(pos);
+
+               if (state.getBlock() == cblock && state.getMaterial().isLiquid()) {
                   return true;
                }
             }
          }
       }
 
-      blockpos$pooledmutableblockpos.release();
       return false;
    }
 
    @Nullable
    public static IBlockState firstBlockStateContains(World world, AxisAlignedBB bb, Predicate<IBlockState> blocksToAccess) {
-      int j2 = MathHelper.floor(bb.minX);
-      int k2 = MathHelper.ceil(bb.maxX);
-      int l2 = MathHelper.floor(bb.minY);
-      int i3 = MathHelper.ceil(bb.maxY);
-      int j3 = MathHelper.floor(bb.minZ);
-      int k3 = MathHelper.ceil(bb.maxZ);
-      PooledMutableBlockPos blockpos$pooledmutableblockpos = PooledMutableBlockPos.retain();
+      int minX = MathHelper.floor(bb.minX);
+      int maxX = MathHelper.ceil(bb.maxX);
+      int minY = MathHelper.floor(bb.minY);
+      int maxY = MathHelper.ceil(bb.maxY);
+      int minZ = MathHelper.floor(bb.minZ);
+      int maxZ = MathHelper.ceil(bb.maxZ);
 
-      for (int l3 = j2; l3 < k2; l3++) {
-         for (int i4 = l2; i4 < i3; i4++) {
-            for (int j4 = j3; j4 < k3; j4++) {
-               IBlockState iblockstate1 = world.getBlockState(blockpos$pooledmutableblockpos.setPos(l3, i4, j4));
-               if (blocksToAccess.apply(iblockstate1)) {
-                  blockpos$pooledmutableblockpos.release();
-                  return iblockstate1;
+      BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+      Chunk lastChunk = null;
+      int lastChunkX = Integer.MIN_VALUE;
+      int lastChunkZ = Integer.MIN_VALUE;
+
+      for (int x = minX; x < maxX; x++) {
+         for (int z = minZ; z < maxZ; z++) {
+            int chunkX = x >> 4;
+            int chunkZ = z >> 4;
+
+            if (lastChunk == null || chunkX != lastChunkX || chunkZ != lastChunkZ) {
+               lastChunk = world.getChunk(chunkX, chunkZ);
+               lastChunkX = chunkX;
+               lastChunkZ = chunkZ;
+            }
+
+            for (int y = minY; y < maxY; y++) {
+               pos.setPos(x, y, z);
+               IBlockState state = lastChunk.getBlockState(pos);
+
+               if (blocksToAccess.apply(state)) {
+                  return state;
                }
             }
          }
       }
 
-      blockpos$pooledmutableblockpos.release();
       return null;
    }
 
    @Nullable
-   public static <T extends Entity> T findNearestEntityWithinAABB(World world, Class<? extends T> entityType, AxisAlignedBB aabb, Vec3d closestTo) {
-      List<T> list = world.getEntitiesWithinAABB(entityType, aabb);
-      T t = null;
+   public static Entity findNearestEntityWithinAABB(World world, Class<? extends Entity> entityType, AxisAlignedBB aabb, Vec3d closestTo) {
+      List<Entity> list = world.getEntitiesWithinAABB(entityType, aabb);
+      Entity t = null;
       double d0 = Double.MAX_VALUE;
 
-      for (int j2 = 0; j2 < list.size(); j2++) {
-         T t1 = (T)list.get(j2);
-         if (EntitySelectors.NOT_SPECTATING.apply(t1)) {
-            double d1 = closestTo.distanceTo(t1.getPositionVector());
-            if (d1 <= d0) {
-               t = t1;
-               d0 = d1;
-            }
-         }
-      }
+       for (Entity value : list) {
+           if (EntitySelectors.NOT_SPECTATING.apply(value)) {
+               double distance = closestTo.distanceTo(value.getPositionVector());
+               if (distance <= d0) {
+                   t = value;
+                   d0 = distance;
+               }
+           }
+       }
 
       return t;
    }
@@ -892,12 +919,11 @@ public class GetMOP {
       float partialTicks,
       EntityLivingBase entity,
       double size,
-      double step,
       float rotationPitch,
       float rotationYaw
    ) {
       Vec3d vec3d = entity.getPositionEyes(partialTicks);
-      Vec3d vec3d1 = PitchYawToVec3d(rotationPitch, rotationYaw);
+      Vec3d vec3d1 = pitchYawToVec3D(rotationPitch, rotationYaw);
       Vec3d vec3d2 = vec3d.add(
          vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
       );
@@ -906,7 +932,7 @@ public class GetMOP {
          vec3d2 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
       }
 
-      return findCustomEntityOnPath(eclass, vec3d, vec3d2, entity.world, entity, size, step);
+      return findCustomEntityOnPath(eclass, vec3d, vec3d2, entity.world, entity, size);
    }
 
    public static EntityLivingBase entityRayTrace(
@@ -923,30 +949,39 @@ public class GetMOP {
    }
 
    protected static List<Entity> findCustomEntityOnPath(
-      Class<? extends Entity> eclass, Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep
+           Class<? extends Entity> eclass, Vec3d start, Vec3d end, World world, Entity shooter, double size
    ) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
-      List<Entity> moblist = new ArrayList<>();
-      double step = raystep / FromStartToEnd.length();
+      AxisAlignedBB traceBox = new AxisAlignedBB(start.x, start.y, start.z, end.x, end.y, end.z)
+              .grow(size);
 
-      for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<Entity> list = world.getEntitiesWithinAABB(eclass, Cube);
-         if (!list.isEmpty()) {
-            for (Entity entityliving : list) {
-               if (entityliving.canBeCollidedWith() && entityliving != shooter) {
-                  moblist.add(entityliving);
-                  return moblist;
-               }
+      List<Entity> candidates = world.getEntitiesWithinAABB(eclass, traceBox);
+      List<Entity> result = new ArrayList<>();
+
+      Entity closestEntity = null;
+      double closestDistance = Double.MAX_VALUE;
+
+      for (Entity entity : candidates) {
+         if (entity == shooter || !entity.canBeCollidedWith()) {
+            continue;
+         }
+
+         AxisAlignedBB entityBB = entity.getEntityBoundingBox().grow(size / 2.0);
+         RayTraceResult intercept = entityBB.calculateIntercept(start, end);
+
+         if (intercept != null) {
+            double dist = start.squareDistanceTo(intercept.hitVec);
+            if (dist < closestDistance) {
+               closestDistance = dist;
+               closestEntity = entity;
             }
          }
       }
 
-      return moblist;
+      if (closestEntity != null) {
+         result.add(closestEntity);
+      }
+
+      return result;
    }
 
    public static BlockPos getTrueHeight(World world, BlockPos pos) {
@@ -978,10 +1013,10 @@ public class GetMOP {
       Chunk chunk = world.getChunk(pos);
 
       for (int y = pos.getY(); y > 0; y--) {
-         Block blockgetted = chunk.getBlockState(pos.getX(), y, pos.getZ()).getBlock();
+         Block gotBlock = chunk.getBlockState(pos.getX(), y, pos.getZ()).getBlock();
 
          for (Block block : blocks) {
-            if (blockgetted == block) {
+            if (gotBlock == block) {
                return new BlockPos(pos.getX(), y, pos.getZ());
             }
          }
@@ -1006,60 +1041,39 @@ public class GetMOP {
 
    @Nullable
    public static BlockTraceResult blockTrace(
-      World world, BlockPos startpos, EnumFacing direction, int distance, @Nullable Predicate<? super IBlockState> filterBlockToCollide
+           World world, BlockPos startPos, EnumFacing direction, int distance, @Nullable Predicate<? super IBlockState> filter
    ) {
-      if (filterBlockToCollide == null) {
-         IBlockState laststate = world.getBlockState(startpos);
-         PooledMutableBlockPos blockpos$pooledmutableblockpos = PooledMutableBlockPos.retain();
+      IBlockState lastState = world.getBlockState(startPos);
+      PooledMutableBlockPos mutablePos = PooledMutableBlockPos.retain();
 
+      try {
          for (int i = 1; i <= distance; i++) {
-            blockpos$pooledmutableblockpos.setPos(
-               startpos.getX() + direction.getXOffset() * i,
-               startpos.getY() + direction.getYOffset() * i,
-               startpos.getZ() + direction.getZOffset() * i
+            mutablePos.setPos(
+                    startPos.getX() + direction.getXOffset() * i,
+                    startPos.getY() + direction.getYOffset() * i,
+                    startPos.getZ() + direction.getZOffset() * i
             );
-            IBlockState newstate = world.getBlockState(blockpos$pooledmutableblockpos);
-            if (newstate.getBlock() != laststate.getBlock()) {
+
+            IBlockState currentState = world.getBlockState(mutablePos);
+
+            boolean hit = (filter == null)
+                    ? (currentState.getBlock() != lastState.getBlock())
+                    : filter.apply(currentState);
+
+            if (hit) {
                BlockTraceResult res = new BlockTraceResult();
-               res.impactState = newstate;
-               res.prevState = laststate;
-               res.pos = new BlockPos(blockpos$pooledmutableblockpos);
+               res.impactState = currentState;
+               res.prevState = lastState;
+               res.pos = mutablePos.toImmutable();
                res.prevPos = res.pos.offset(direction.getOpposite());
                res.facing = direction;
-               blockpos$pooledmutableblockpos.release();
                return res;
             }
 
-            laststate = newstate;
+            lastState = currentState;
          }
-
-         blockpos$pooledmutableblockpos.release();
-      } else {
-         IBlockState laststate = world.getBlockState(startpos);
-         PooledMutableBlockPos blockpos$pooledmutableblockpos = PooledMutableBlockPos.retain();
-
-         for (int i = 1; i <= distance; i++) {
-            blockpos$pooledmutableblockpos.setPos(
-               startpos.getX() + direction.getXOffset() * i,
-               startpos.getY() + direction.getYOffset() * i,
-               startpos.getZ() + direction.getZOffset() * i
-            );
-            IBlockState newstate = world.getBlockState(blockpos$pooledmutableblockpos);
-            if (filterBlockToCollide.apply(newstate)) {
-               BlockTraceResult res = new BlockTraceResult();
-               res.impactState = newstate;
-               res.prevState = laststate;
-               res.pos = new BlockPos(blockpos$pooledmutableblockpos);
-               res.prevPos = res.pos.offset(direction.getOpposite());
-               res.facing = direction;
-               blockpos$pooledmutableblockpos.release();
-               return res;
-            }
-
-            laststate = newstate;
-         }
-
-         blockpos$pooledmutableblockpos.release();
+      } finally {
+         mutablePos.release();
       }
 
       return null;
@@ -1067,63 +1081,48 @@ public class GetMOP {
 
    public static List<BlockPos> getBlockPosesCollidesAABB(World world, AxisAlignedBB bb, boolean getLiquids) {
       List<BlockPos> list = new ArrayList<>();
-      int j2 = MathHelper.floor(bb.minX);
-      int k2 = MathHelper.ceil(bb.maxX);
-      int l2 = MathHelper.floor(bb.minY);
-      int i3 = MathHelper.ceil(bb.maxY);
-      int j3 = MathHelper.floor(bb.minZ);
-      int k3 = MathHelper.ceil(bb.maxZ);
-      PooledMutableBlockPos blockpos$pooledmutableblockpos = PooledMutableBlockPos.retain();
 
-      for (int l3 = j2; l3 < k2; l3++) {
-         for (int i4 = l2; i4 < i3; i4++) {
-            for (int j4 = j3; j4 < k3; j4++) {
-               IBlockState iblockstate1 = world.getBlockState(blockpos$pooledmutableblockpos.setPos(l3, i4, j4));
-               if (iblockstate1.getMaterial() != Material.AIR && (getLiquids || !iblockstate1.getMaterial().isLiquid())) {
-                  list.add(new BlockPos(l3, i4, j4));
-               }
-            }
+      Iterable<BlockPos.MutableBlockPos> box = BlockPos.getAllInBoxMutable(
+              MathHelper.floor(bb.minX), MathHelper.floor(bb.minY), MathHelper.floor(bb.minZ),
+              MathHelper.ceil(bb.maxX) - 1, MathHelper.ceil(bb.maxY) - 1, MathHelper.ceil(bb.maxZ) - 1
+      );
+
+      for (BlockPos.MutableBlockPos pos : box) {
+         IBlockState state = world.getBlockState(pos);
+
+         if (state.getMaterial() != Material.AIR && (getLiquids || !state.getMaterial().isLiquid())) {
+            list.add(pos.toImmutable()); // Превращаем Mutable в обычный BlockPos для списка
          }
       }
 
-      blockpos$pooledmutableblockpos.release();
       return list;
    }
 
-   public static List<BlockPos> getBlockPosesCollidesAABBwithTheirHitbox(World world, AxisAlignedBB bb, boolean getLiquids) {
+   public static List<BlockPos> getCollidingBlocks(World world, AxisAlignedBB bb, boolean getLiquids) {
       List<BlockPos> list = new ArrayList<>();
-      int j2 = MathHelper.floor(bb.minX);
-      int k2 = MathHelper.ceil(bb.maxX);
-      int l2 = MathHelper.floor(bb.minY);
-      int i3 = MathHelper.ceil(bb.maxY);
-      int j3 = MathHelper.floor(bb.minZ);
-      int k3 = MathHelper.ceil(bb.maxZ);
-      PooledMutableBlockPos blockpos$pooledmutableblockpos = PooledMutableBlockPos.retain();
 
-      for (int l3 = j2; l3 < k2; l3++) {
-         for (int i4 = l2; i4 < i3; i4++) {
-            for (int j4 = j3; j4 < k3; j4++) {
-               IBlockState iblockstate1 = world.getBlockState(blockpos$pooledmutableblockpos.setPos(l3, i4, j4));
-               if (iblockstate1.getMaterial() != Material.AIR && (getLiquids || !IFLUID_BLOCKS.apply(iblockstate1))) {
-                  AxisAlignedBB aabb = iblockstate1.getBoundingBox(world, blockpos$pooledmutableblockpos);
-                  if (aabb != null && aabb.offset(l3, i4, j4).intersects(bb)) {
-                     list.add(new BlockPos(l3, i4, j4));
-                  }
-               }
-            }
+      Iterable<BlockPos.MutableBlockPos> box = BlockPos.getAllInBoxMutable(
+              MathHelper.floor(bb.minX), MathHelper.floor(bb.minY), MathHelper.floor(bb.minZ),
+              MathHelper.ceil(bb.maxX) - 1, MathHelper.ceil(bb.maxY) - 1, MathHelper.ceil(bb.maxZ) - 1
+      );
+
+      for (BlockPos.MutableBlockPos pos : box) {
+         IBlockState state = world.getBlockState(pos);
+
+         if (state.getMaterial() != Material.AIR && (getLiquids || !FLUID_BLOCKS.apply(state)) && state.getBoundingBox(world, pos).offset(pos).intersects(bb)) {
+            list.add(pos.toImmutable());
          }
       }
 
-      blockpos$pooledmutableblockpos.release();
       return list;
    }
 
+   //TODO упростить группу методов
    public static RayTraceResult fixedRayTraceBlocks(
       World world,
       Entity shooter,
       double blockReachDistance,
       double size,
-      double raystep,
       boolean checkTeam,
       boolean stopOnLiquid,
       boolean ignoreBlockWithoutBoundingBox,
@@ -1132,12 +1131,12 @@ public class GetMOP {
       float rotationYaw
    ) {
       Vec3d vec3d = shooter.getPositionEyes(1.0F);
-      Vec3d vec3d1 = PitchYawToVec3d(rotationPitch, rotationYaw);
+      Vec3d vec3d1 = pitchYawToVec3D(rotationPitch, rotationYaw);
       Vec3d vec3d2 = vec3d.add(
          vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
       );
       return fixedRayTraceBlocks(
-         world, shooter, size, raystep, checkTeam, vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, returnLastUncollidableBlock
+         world, shooter, size, checkTeam, vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, returnLastUncollidableBlock
       );
    }
 
@@ -1146,7 +1145,6 @@ public class GetMOP {
       Entity shooter,
       double blockReachDistance,
       double size,
-      double raystep,
       boolean checkTeam,
       boolean stopOnLiquid,
       boolean ignoreBlockWithoutBoundingBox,
@@ -1158,7 +1156,7 @@ public class GetMOP {
          vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
       );
       return fixedRayTraceBlocks(
-         world, shooter, size, raystep, checkTeam, vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, returnLastUncollidableBlock
+         world, shooter, size, checkTeam, vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, returnLastUncollidableBlock
       );
    }
 
@@ -1166,7 +1164,6 @@ public class GetMOP {
       World world,
       Entity shooter,
       double size,
-      double raystep,
       boolean checkTeam,
       Vec3d start,
       Vec3d end,
@@ -1177,16 +1174,16 @@ public class GetMOP {
    ) {
       RayTraceResult result = rayTraceBlocks(world, start, end, filterBlockToIgnore, stopOnLiquid, ignoreBlockWithoutBoundingBox, returnLastUncollidableBlock);
       if (result != null && result.typeOfHit == Type.BLOCK && result.hitVec != null) {
-         RayTraceResult baseres = findEntityAndPosOnPath(start, result.hitVec, world, shooter, size, raystep, checkTeam);
-         if (baseres != null) {
-            result.entityHit = baseres.entityHit;
+         RayTraceResult baseRes = findEntityAndPosOnPath(start, result.hitVec, world, shooter, size, checkTeam);
+         if (baseRes != null) {
+            result.entityHit = baseRes.entityHit;
             result.typeOfHit = Type.ENTITY;
-            result.hitVec = baseres.hitVec;
+            result.hitVec = baseRes.hitVec;
          }
       } else if (result == null || result.hitVec == null || result.typeOfHit == Type.MISS) {
-         RayTraceResult baseres = findEntityAndPosOnPath(start, end, world, shooter, size, raystep, checkTeam);
-         if (baseres != null) {
-            result = new RayTraceResult(baseres.entityHit, baseres.hitVec);
+         RayTraceResult baseRes = findEntityAndPosOnPath(start, end, world, shooter, size, checkTeam);
+         if (baseRes != null) {
+            result = new RayTraceResult(baseRes.entityHit, baseRes.hitVec);
             result.typeOfHit = Type.ENTITY;
          } else {
             result = new RayTraceResult(Type.MISS, end, null, null);
@@ -1200,7 +1197,6 @@ public class GetMOP {
       World world,
       Entity shooter,
       double size,
-      double raystep,
       boolean checkTeam,
       Vec3d start,
       Vec3d end,
@@ -1209,94 +1205,78 @@ public class GetMOP {
       boolean returnLastUncollidableBlock
    ) {
       return fixedRayTraceBlocks(
-         world, shooter, size, raystep, checkTeam, start, end, stopOnLiquid, ignoreBlockWithoutBoundingBox, returnLastUncollidableBlock, null
+         world, shooter, size, checkTeam, start, end, stopOnLiquid, ignoreBlockWithoutBoundingBox, returnLastUncollidableBlock, null
       );
    }
 
-   public static RayTraceResult findEntityAndPosOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep, boolean checkTeam) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
-      new ArrayList();
-      double step = raystep / FromStartToEnd.length();
+   public static RayTraceResult findEntityAndPosOnPath(Vec3d start, Vec3d end, World world, Entity shooter, double size, boolean checkTeam) {
+      Entity pointedEntity = null;
+      Vec3d hitVec = null;
 
-      for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, Cube);
-         if (!list.isEmpty()) {
-            for (Entity entityliving : list) {
-               if (entityliving.canBeCollidedWith()) {
-                  if (!checkTeam) {
-                     return new RayTraceResult(entityliving, CenterVertex);
-                  }
+      AxisAlignedBB searchBox = new AxisAlignedBB(start.x, start.y, start.z, end.x, end.y, end.z).grow(size);
+      List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(shooter, searchBox);
 
-                  if (Team.checkIsOpponent(shooter, entityliving)) {
-                     return new RayTraceResult(entityliving, CenterVertex);
-                  }
+      double minDistance = start.distanceTo(end);
+
+      for (Entity entity : list) {
+         if (entity.canBeCollidedWith()) {
+            if (checkTeam && !Team.checkIsOpponent(shooter, entity)) continue;
+
+            float collisionSize = entity.getCollisionBorderSize();
+            AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().grow(collisionSize + size / 2.0);
+
+            RayTraceResult intercept = axisalignedbb.calculateIntercept(start, end);
+
+            if (intercept != null) {
+               double dist = start.distanceTo(intercept.hitVec);
+               if (dist < minDistance) {
+                  pointedEntity = entity;
+                  hitVec = intercept.hitVec;
+                  minDistance = dist;
                }
             }
          }
       }
 
-      return null;
+      return pointedEntity != null ? new RayTraceResult(pointedEntity, hitVec) : null;
    }
 
    public static Vec3d rotateVecAroundAxis(Vec3d vector, Vec3d axisVector, float angle) {
       axisVector = axisVector.normalize();
-      double cosangle = Math.cos(angle);
-      return axisVector.scale(axisVector.dotProduct(vector) * (1.0 - cosangle))
+      double cosAngle = Math.cos(angle);
+      return axisVector.scale(axisVector.dotProduct(vector) * (1.0 - cosAngle))
          .add(axisVector.crossProduct(vector).scale(Math.sin(angle)))
-         .add(vector.scale(cosangle));
+         .add(vector.scale(cosAngle));
    }
 
-   public static Vec3d rotateVecAroundAxis(Vec3d vector, Vec3d axisVector, Rotation rotation) {
-      double cosangle = 0.0;
-      double sinangle = 0.0;
-      if (rotation == Rotation.NONE) {
-         cosangle = 1.0;
-         sinangle = 0.0;
-      } else if (rotation == Rotation.CLOCKWISE_90) {
-         cosangle = 0.0;
-         sinangle = 1.0;
-      } else if (rotation == Rotation.CLOCKWISE_180) {
-         cosangle = -1.0;
-         sinangle = 0.0;
-      } else if (rotation == Rotation.COUNTERCLOCKWISE_90) {
-         cosangle = 0.0;
-         sinangle = -1.0;
+   public static Vec3d rotateVecAroundAxis(Vec3d vector, Vec3d axis, Rotation rotation) {
+      double c;
+      double s;
+      switch (rotation) {
+         case CLOCKWISE_90:        c = 0;  s = 1;  break;
+         case CLOCKWISE_180:       c = -1; s = 0;  break;
+         case COUNTERCLOCKWISE_90: c = 0;  s = -1; break;
+         default:                  c = 1;  s = 0;  break;
       }
 
-      return axisVector.scale(axisVector.dotProduct(vector) * (1.0 - cosangle))
-         .add(axisVector.crossProduct(vector).scale(sinangle))
-         .add(vector.scale(cosangle));
+      return axis.scale(axis.dotProduct(vector) * (1.0 - c))
+              .add(axis.crossProduct(vector).scale(s))
+              .add(vector.scale(c));
    }
 
    public static Vec3d getNormalForRotation(float rotationX, float rotationY, float rotationZ) {
-      Vec3d vec = new Vec3d(0.0, 1.0, 0.0);
-      Vec3d axisvec1 = new Vec3d(0.0, 0.0, 1.0);
-      Vec3d axisvec2 = new Vec3d(0.0, 1.0, 0.0);
-      Vec3d axisvec3 = new Vec3d(1.0, 0.0, 0.0);
-      if (rotationZ != 0.0F) {
-         vec = rotateVecAroundAxis(vec, axisvec1, -rotationZ * -1.0F);
-         axisvec2 = rotateVecAroundAxis(axisvec2, axisvec1, -rotationZ * -1.0F);
-         axisvec3 = rotateVecAroundAxis(axisvec3, axisvec1, -rotationZ * -1.0F);
-      }
+      double radX = Math.toRadians(rotationX);
+      double radY = Math.toRadians(rotationY);
+      double radZ = Math.toRadians(rotationZ);
 
-      if (rotationY != 0.0F) {
-         vec = rotateVecAroundAxis(vec, axisvec2, -rotationY);
-         axisvec3 = rotateVecAroundAxis(axisvec3, axisvec2, -rotationY);
-      }
+      double x = Math.sin(radZ) * Math.cos(radY) + Math.cos(radZ) * Math.sin(radY) * Math.sin(radX);
+      double y = Math.cos(radZ) * Math.cos(radX);
+      double z = -Math.sin(radZ) * Math.sin(radY) * Math.sin(radX) + Math.cos(radZ) * Math.sin(radY);
 
-      if (rotationX != 0.0F) {
-         vec = rotateVecAroundAxis(vec, axisvec3, -rotationX);
-      }
-
-      return vec;
+      return new Vec3d(x, y, z);
    }
 
-   public static float getfromto(float mainNumber, float from, float to) {
+   public static float getFromTo(float mainNumber, float from, float to) {
       if (mainNumber < from) {
          return 0.0F;
       } else if (mainNumber > to) {
@@ -1308,7 +1288,7 @@ public class GetMOP {
       }
    }
 
-   public static double getfromto(double mainNumber, double from, double to) {
+   public static double getFromTo(double mainNumber, double from, double to) {
       if (mainNumber < from) {
          return 0.0;
       } else if (mainNumber > to) {
@@ -1320,7 +1300,7 @@ public class GetMOP {
       }
    }
 
-   public static float softfromto(float mainNumber, float from, float to) {
+   public static float softFromTo(float mainNumber, float from, float to) {
       if (mainNumber < from) {
          return 0.0F;
       } else {
@@ -1329,123 +1309,11 @@ public class GetMOP {
    }
 
    public static Vec3d getNearestPointInAABBtoPoint(Vec3d point, AxisAlignedBB aabb) {
-      if (point.y >= aabb.maxY) {
-         if (point.x >= aabb.maxX) {
-            if (point.z >= aabb.maxZ) {
-               return new Vec3d(aabb.maxX, aabb.maxY, aabb.maxZ);
-            }
+      double clampedX = Math.max(aabb.minX, Math.min(point.x, aabb.maxX));
+      double clampedY = Math.max(aabb.minY, Math.min(point.y, aabb.maxY));
+      double clampedZ = Math.max(aabb.minZ, Math.min(point.z, aabb.maxZ));
 
-            if (point.z < aabb.maxZ && point.z > aabb.minZ) {
-               return new Vec3d(aabb.maxX, aabb.maxY, point.z);
-            }
-
-            if (point.z <= aabb.minZ) {
-               return new Vec3d(aabb.maxX, aabb.maxY, aabb.minZ);
-            }
-         } else if (point.x < aabb.maxX && point.x > aabb.minX) {
-            if (point.z >= aabb.maxZ) {
-               return new Vec3d(point.x, aabb.maxY, aabb.maxZ);
-            }
-
-            if (point.z < aabb.maxZ && point.z > aabb.minZ) {
-               return new Vec3d(point.x, aabb.maxY, point.z);
-            }
-
-            if (point.z <= aabb.minZ) {
-               return new Vec3d(point.x, aabb.maxY, aabb.minZ);
-            }
-         } else if (point.x <= aabb.minX) {
-            if (point.z >= aabb.maxZ) {
-               return new Vec3d(aabb.minX, aabb.maxY, aabb.maxZ);
-            }
-
-            if (point.z < aabb.maxZ && point.z > aabb.minZ) {
-               return new Vec3d(aabb.minX, aabb.maxY, point.z);
-            }
-
-            if (point.z <= aabb.minZ) {
-               return new Vec3d(aabb.minX, aabb.maxY, aabb.minZ);
-            }
-         }
-      } else if (point.y < aabb.maxY && point.y > aabb.minY) {
-         if (point.x >= aabb.maxX) {
-            if (point.z >= aabb.maxZ) {
-               return new Vec3d(aabb.maxX, point.y, aabb.maxZ);
-            }
-
-            if (point.z < aabb.maxZ && point.z > aabb.minZ) {
-               return new Vec3d(aabb.maxX, point.y, point.z);
-            }
-
-            if (point.z <= aabb.minZ) {
-               return new Vec3d(aabb.maxX, point.y, aabb.minZ);
-            }
-         } else if (point.x < aabb.maxX && point.x > aabb.minX) {
-            if (point.z >= aabb.maxZ) {
-               return new Vec3d(point.x, point.y, aabb.maxZ);
-            }
-
-            if (point.z < aabb.maxZ && point.z > aabb.minZ) {
-               return point;
-            }
-
-            if (point.z <= aabb.minZ) {
-               return new Vec3d(point.x, point.y, aabb.minZ);
-            }
-         } else if (point.x <= aabb.minX) {
-            if (point.z >= aabb.maxZ) {
-               return new Vec3d(aabb.minX, point.y, aabb.maxZ);
-            }
-
-            if (point.z < aabb.maxZ && point.z > aabb.minZ) {
-               return new Vec3d(aabb.minX, point.y, point.z);
-            }
-
-            if (point.z <= aabb.minZ) {
-               return new Vec3d(aabb.minX, point.y, aabb.minZ);
-            }
-         }
-      } else if (point.y <= aabb.minY) {
-         if (point.x >= aabb.maxX) {
-            if (point.z >= aabb.maxZ) {
-               return new Vec3d(aabb.maxX, aabb.minY, aabb.maxZ);
-            }
-
-            if (point.z < aabb.maxZ && point.z > aabb.minZ) {
-               return new Vec3d(aabb.maxX, aabb.minY, point.z);
-            }
-
-            if (point.z <= aabb.minZ) {
-               return new Vec3d(aabb.maxX, aabb.minY, aabb.minZ);
-            }
-         } else if (point.x < aabb.maxX && point.x > aabb.minX) {
-            if (point.z >= aabb.maxZ) {
-               return new Vec3d(point.x, aabb.minY, aabb.maxZ);
-            }
-
-            if (point.z < aabb.maxZ && point.z > aabb.minZ) {
-               return new Vec3d(point.x, aabb.minY, point.z);
-            }
-
-            if (point.z <= aabb.minZ) {
-               return new Vec3d(point.x, aabb.minY, aabb.minZ);
-            }
-         } else if (point.x <= aabb.minX) {
-            if (point.z >= aabb.maxZ) {
-               return new Vec3d(aabb.minX, aabb.minY, aabb.maxZ);
-            }
-
-            if (point.z < aabb.maxZ && point.z > aabb.minZ) {
-               return new Vec3d(aabb.minX, aabb.minY, point.z);
-            }
-
-            if (point.z <= aabb.minZ) {
-               return new Vec3d(aabb.minX, aabb.minY, aabb.minZ);
-            }
-         }
-      }
-
-      return aabb.getCenter();
+      return new Vec3d(clampedX, clampedY, clampedZ);
    }
 
    public static Vec3d entityCenterPos(Entity entity) {
@@ -1455,9 +1323,9 @@ public class GetMOP {
    public static Vec3d entityCenterPos(Entity entity, float partialTicks) {
       float he2 = entity.height / 2.0F;
       return new Vec3d(
-         partial(entity.posX, entity.prevPosX, (double)partialTicks),
-         partial(entity.posY + he2, entity.prevPosY + he2, (double)partialTicks),
-         partial(entity.posZ, entity.prevPosZ, (double)partialTicks)
+         partial(entity.posX, entity.prevPosX, partialTicks),
+         partial(entity.posY + he2, entity.prevPosY + he2, partialTicks),
+         partial(entity.posZ, entity.prevPosZ, partialTicks)
       );
    }
 
@@ -1474,7 +1342,7 @@ public class GetMOP {
    }
 
    public static double partial(double value, double previousValue) {
-      return partial(value, previousValue, (double)Minecraft.getMinecraft().getRenderPartialTicks());
+      return partial(value, previousValue, Minecraft.getMinecraft().getRenderPartialTicks());
    }
 
    public static EnumFacing rotate(EnumFacing face, int rotation) {
@@ -1482,98 +1350,59 @@ public class GetMOP {
          rotation %= 4;
       }
 
-      if (rotation == 0) {
-         return face;
-      } else if (rotation == 1) {
-         return face.rotateY();
-      } else if (rotation == 2) {
-         return face.getOpposite();
-      } else {
-         return rotation == 3 ? face.rotateYCCW() : face;
+      switch (rotation) {
+         case 0: return face;
+         case 1: return face.rotateY();
+         case 2: return face.getOpposite();
+         default: return rotation == 3 ? face.rotateYCCW() : face;
       }
    }
 
    public static EnumFacing rotateZ(EnumFacing face, boolean clockwise) {
-      if (face != EnumFacing.SOUTH && face != EnumFacing.NORTH) {
-         if (clockwise) {
-            if (face == EnumFacing.WEST) {
-               return EnumFacing.UP;
-            }
+      if (face == EnumFacing.SOUTH || face == EnumFacing.NORTH) {
+         return face;
+      }
 
-            if (face == EnumFacing.UP) {
-               return EnumFacing.EAST;
-            }
-
-            if (face == EnumFacing.EAST) {
-               return EnumFacing.DOWN;
-            }
-
-            if (face == EnumFacing.DOWN) {
-               return EnumFacing.WEST;
-            }
-         } else {
-            if (face == EnumFacing.UP) {
-               return EnumFacing.WEST;
-            }
-
-            if (face == EnumFacing.EAST) {
-               return EnumFacing.UP;
-            }
-
-            if (face == EnumFacing.DOWN) {
-               return EnumFacing.EAST;
-            }
-
-            if (face == EnumFacing.WEST) {
-               return EnumFacing.DOWN;
-            }
+      if (clockwise) {
+         switch (face) {
+            case WEST:  return EnumFacing.UP;
+            case UP:    return EnumFacing.EAST;
+            case EAST:  return EnumFacing.DOWN;
+            case DOWN:  return EnumFacing.WEST;
+            default:    return face;
          }
-
-         return face;
       } else {
-         return face;
+         switch (face) {
+            case UP:    return EnumFacing.WEST;
+            case EAST:  return EnumFacing.UP;
+            case DOWN:  return EnumFacing.EAST;
+            case WEST:  return EnumFacing.DOWN;
+            default:    return face;
+         }
       }
    }
 
    public static EnumFacing rotateX(EnumFacing face, boolean clockwise) {
-      if (face != EnumFacing.WEST && face != EnumFacing.EAST) {
-         if (clockwise) {
-            if (face == EnumFacing.SOUTH) {
-               return EnumFacing.UP;
-            }
+      if (face == EnumFacing.WEST || face == EnumFacing.EAST) {
+         return face;
+      }
 
-            if (face == EnumFacing.UP) {
-               return EnumFacing.NORTH;
-            }
-
-            if (face == EnumFacing.NORTH) {
-               return EnumFacing.DOWN;
-            }
-
-            if (face == EnumFacing.DOWN) {
-               return EnumFacing.SOUTH;
-            }
-         } else {
-            if (face == EnumFacing.UP) {
-               return EnumFacing.SOUTH;
-            }
-
-            if (face == EnumFacing.NORTH) {
-               return EnumFacing.UP;
-            }
-
-            if (face == EnumFacing.DOWN) {
-               return EnumFacing.NORTH;
-            }
-
-            if (face == EnumFacing.SOUTH) {
-               return EnumFacing.DOWN;
-            }
+      if (clockwise) {
+         switch (face) {
+            case SOUTH: return EnumFacing.UP;
+            case UP:    return EnumFacing.NORTH;
+            case NORTH: return EnumFacing.DOWN;
+            case DOWN:  return EnumFacing.SOUTH;
+            default:    return face;
          }
-
-         return face;
       } else {
-         return face;
+         switch (face) {
+            case UP:    return EnumFacing.SOUTH;
+            case NORTH: return EnumFacing.UP;
+            case DOWN:  return EnumFacing.NORTH;
+            case SOUTH: return EnumFacing.DOWN;
+            default:    return face;
+         }
       }
    }
 
@@ -1589,60 +1418,40 @@ public class GetMOP {
 
    @Nullable
    public static EntityLivingBase findNearestEnemy(World world, Entity enemyTo, double x, double y, double z, double radius, boolean bestSearch) {
-      double max = Double.MAX_VALUE;
-      EntityLivingBase targ = null;
-      if (!bestSearch) {
-         AxisAlignedBB axisalignedbb = new AxisAlignedBB(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
-         List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
-         if (!list.isEmpty()) {
-            for (EntityLivingBase entitylivingbase : list) {
-               if (Team.checkIsOpponent(enemyTo, entitylivingbase) && EntitySelectors.NOT_SPECTATING.apply(entitylivingbase)) {
-                  double dist = entitylivingbase.getDistance(x, y, z);
-                  if (dist < max) {
-                     max = dist;
-                     targ = entitylivingbase;
-                  }
-               }
-            }
-         }
-      } else {
-         AxisAlignedBB axisalignedbb = new AxisAlignedBB(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
-         List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
-         if (!list.isEmpty()) {
-            for (EntityLivingBase entitylivingbasex : list) {
-               if (entitylivingbasex.isCreatureType(EnumCreatureType.MONSTER, false)
-                  && Team.checkIsOpponent(enemyTo, entitylivingbasex)
-                  && EntitySelectors.NOT_SPECTATING.apply(entitylivingbasex)
-                  && entitylivingbasex.getHealth() > 0.0F) {
-                  double dist = entitylivingbasex.getDistance(x, y, z);
-                  if (dist < max) {
-                     max = dist;
-                     targ = entitylivingbasex;
-                  }
-               }
-            }
+      AxisAlignedBB area = new AxisAlignedBB(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
+      List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, area);
 
-            if (targ == null) {
-               for (EntityLivingBase entitylivingbasexx : list) {
-                  if (Team.checkIsOpponent(enemyTo, entitylivingbasexx)
-                     && EntitySelectors.NOT_SPECTATING.apply(entitylivingbasexx)
-                     && entitylivingbasexx.getHealth() > 0.0F) {
-                     double dist = entitylivingbasexx.getDistance(x, y, z);
-                     if (dist < max) {
-                        max = dist;
-                        targ = entitylivingbasexx;
-                     }
-                  }
-               }
-            }
+      if (entities.isEmpty()) return null;
+
+      Predicate<EntityLivingBase> baseFilter = e ->
+              Team.checkIsOpponent(enemyTo, e) && EntitySelectors.NOT_SPECTATING.apply(e);
+
+      if (bestSearch) {
+         Predicate<EntityLivingBase> aliveFilter = Predicates.and(baseFilter, e -> e.getHealth() > 0.0F);
+         Predicate<EntityLivingBase> monsterFilter = Predicates.and(aliveFilter, e -> e.isCreatureType(EnumCreatureType.MONSTER, false));
+
+         EntityLivingBase target = entities.stream()
+                 .filter(monsterFilter::apply)
+                 .min(Comparator.comparingDouble(e -> e.getDistanceSq(x, y, z)))
+                 .orElse(null);
+
+         if (target == null) {
+            target = entities.stream()
+                    .filter(aliveFilter::apply)
+                    .min(Comparator.comparingDouble(e -> e.getDistanceSq(x, y, z)))
+                    .orElse(null);
          }
+         return target;
       }
 
-      return targ;
+      return entities.stream()
+              .filter(baseFilter::apply)
+              .min(Comparator.comparingDouble(e -> e.getDistanceSq(x, y, z)))
+              .orElse(null);
    }
 
    public static List<EntityLivingBase> getHostilesInAABBto(
-      World world, Vec3d forPosition, double radiusXZ, double radiusY, @Nullable EntityLivingBase hostileTo, @Nullable Entity entityExluding
+      World world, Vec3d forPosition, double radiusXZ, double radiusY, @Nullable EntityLivingBase hostileTo
    ) {
       AxisAlignedBB bb = new AxisAlignedBB(
          forPosition.x - radiusXZ,
@@ -1664,7 +1473,7 @@ public class GetMOP {
       return list2;
    }
 
-   public static List<Entity> getEntitiesInAABBof(World world, Entity forPosition, double radius, @Nullable Entity entityExluding) {
+   public static List<Entity> getEntitiesInAABBof(World world, Entity forPosition, double radius, @Nullable Entity entityExcluding) {
       Vec3d cenVec3d = entityCenterPos(forPosition);
       AxisAlignedBB bb = new AxisAlignedBB(
          cenVec3d.x - radius,
@@ -1674,10 +1483,10 @@ public class GetMOP {
          cenVec3d.y + radius,
          cenVec3d.z + radius
       );
-      return world.getEntitiesWithinAABBExcludingEntity(entityExluding, bb);
+      return world.getEntitiesWithinAABBExcludingEntity(entityExcluding, bb);
    }
 
-   public static List<Entity> getEntitiesInAABBof(World world, Vec3d forPosition, double radius, @Nullable Entity entityExluding) {
+   public static List<Entity> getEntitiesInAABBof(World world, Vec3d forPosition, double radius, @Nullable Entity entityExcluding) {
       AxisAlignedBB bb = new AxisAlignedBB(
          forPosition.x - radius,
          forPosition.y - radius,
@@ -1686,10 +1495,10 @@ public class GetMOP {
          forPosition.y + radius,
          forPosition.z + radius
       );
-      return world.getEntitiesWithinAABBExcludingEntity(entityExluding, bb);
+      return world.getEntitiesWithinAABBExcludingEntity(entityExcluding, bb);
    }
 
-   public static List<Entity> getEntitiesInAABBof(World world, BlockPos forPosition, double radius, @Nullable Entity entityExluding) {
+   public static List<Entity> getEntitiesInAABBof(World world, BlockPos forPosition, double radius, @Nullable Entity entityExcluding) {
       AxisAlignedBB bb = new AxisAlignedBB(
          forPosition.getX() - radius,
          forPosition.getY() - radius,
@@ -1698,7 +1507,7 @@ public class GetMOP {
          forPosition.getY() + 1 + radius,
          forPosition.getZ() + 1 + radius
       );
-      return world.getEntitiesWithinAABBExcludingEntity(entityExluding, bb);
+      return world.getEntitiesWithinAABBExcludingEntity(entityExcluding, bb);
    }
 
    public static double getSpeed(Entity entity) {
@@ -1727,95 +1536,103 @@ public class GetMOP {
       );
    }
 
-   public static AxisAlignedBB newAABB(int pixelsWidth, int pixelsHeight, int pixelsYoffset) {
-      double xradius = 0.03125 * pixelsWidth;
+   public static AxisAlignedBB newAABB(int pixelsWidth, int pixelsHeight, int pixelsYAOffset) {
+      double radius = 0.03125 * pixelsWidth;
       double height = 0.0625 * pixelsHeight;
-      double y = 0.0625 * pixelsYoffset;
-      return new AxisAlignedBB(0.5 - xradius, y, 0.5 - xradius, 0.5 + xradius, y + height, 0.5 + xradius);
+      double y = 0.0625 * pixelsYAOffset;
+      return new AxisAlignedBB(0.5 - radius, y, 0.5 - radius, 0.5 + radius, y + height, 0.5 + radius);
    }
 
    public static List<Entity> entityUncollidedRayTrace(
-      Class<? extends Entity> eclass,
-      double blockReachDistance,
-      float partialTicks,
-      EntityLivingBase entity,
-      double size,
-      double step,
-      float rotationPitch,
-      float rotationYaw
+           Class<? extends Entity> eclass,
+           double blockReachDistance,
+           float partialTicks,
+           EntityLivingBase entity,
+           double size,
+           float rotationPitch,
+           float rotationYaw
    ) {
       Vec3d vec3d = entity.getPositionEyes(partialTicks);
-      Vec3d vec3d1 = PitchYawToVec3d(rotationPitch, rotationYaw);
+      Vec3d vec3d1 = pitchYawToVec3D(rotationPitch, rotationYaw); // Сохраняем твою кастомную логику
+
       Vec3d vec3d2 = vec3d.add(
-         vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
+              vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
       );
+
       RayTraceResult raytraceresult = entity.world.rayTraceBlocks(vec3d, vec3d2, false, true, false);
       if (raytraceresult != null) {
-         vec3d2 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
+         vec3d2 = raytraceresult.hitVec;
       }
 
-      return findUncollidedEntityOnPath(eclass, vec3d, vec3d2, entity.world, entity, size, step);
+      return findUncollidedEntityOnPath(eclass, vec3d, vec3d2, entity.world, entity, size);
    }
 
    protected static List<Entity> findUncollidedEntityOnPath(
-      Class<? extends Entity> eclass, Vec3d start, Vec3d end, World world, Entity shooter, double size, double raystep
+           Class<? extends Entity> eclass, Vec3d start, Vec3d end, World world, Entity shooter, double size
    ) {
-      Vec3d FromStartToEnd = end.subtract(start);
-      Vec3d ToVertex = new Vec3d(size / 2.0, size / 2.0, size / 2.0);
       List<Entity> moblist = new ArrayList<>();
-      double step = raystep / FromStartToEnd.length();
+      double expand = size / 2.0;
 
-      for (double k = 0.0; k <= 1.0; k += step) {
-         Vec3d CenterVertex = start.add(FromStartToEnd.scale(k));
-         Vec3d DownVertex = CenterVertex.subtract(ToVertex);
-         Vec3d UpVertex = CenterVertex.add(ToVertex);
-         AxisAlignedBB Cube = new AxisAlignedBB(DownVertex, UpVertex);
-         List<Entity> list = world.getEntitiesWithinAABB(eclass, Cube);
-         if (!list.isEmpty()) {
-            for (Entity entityliving : list) {
-               if (entityliving != shooter) {
-                  moblist.add(entityliving);
-                  return moblist;
+      AxisAlignedBB pathBox = new AxisAlignedBB(start.x, start.y, start.z, end.x, end.y, end.z).grow(expand);
+
+      List<? extends Entity> list = world.getEntitiesWithinAABB(eclass, pathBox);
+
+      Entity closestEntity = null;
+      double minDistanceSq = Double.MAX_VALUE;
+
+      for (Entity entityLiving : list) {
+         if (entityLiving != shooter) {
+            AxisAlignedBB entityBox = entityLiving.getEntityBoundingBox().grow(expand);
+            RayTraceResult intercept = entityBox.calculateIntercept(start, end);
+
+            if (intercept != null) {
+               double distanceSq = start.squareDistanceTo(intercept.hitVec);
+
+               if (distanceSq < minDistanceSq) {
+                  minDistanceSq = distanceSq;
+                  closestEntity = entityLiving;
                }
+            } else if (entityBox.contains(start) && minDistanceSq > 0.0D) {
+               closestEntity = entityLiving;
+               minDistanceSq = 0.0D;
             }
          }
+      }
+
+      if (closestEntity != null) {
+         moblist.add(closestEntity);
       }
 
       return moblist;
    }
 
-   @Nonnull
-   public static RayTraceResult rayTrace(World world, double blockReachDistance, EntityLivingBase entity, boolean useLiquids) {
-      float f = entity.rotationPitch;
-      float f1 = entity.rotationYaw;
-      double d0 = entity.posX;
-      double d1 = entity.posY + entity.getEyeHeight();
-      double d2 = entity.posZ;
-      Vec3d vec3d = new Vec3d(d0, d1, d2);
-      float f2 = MathHelper.cos(-f1 * (float) (Math.PI / 180.0) - (float) Math.PI);
-      float f3 = MathHelper.sin(-f1 * (float) (Math.PI / 180.0) - (float) Math.PI);
-      float f4 = -MathHelper.cos(-f * (float) (Math.PI / 180.0));
-      float f5 = MathHelper.sin(-f * (float) (Math.PI / 180.0));
-      float f6 = f3 * f4;
-      float f7 = f2 * f4;
-      Vec3d vec3d1 = vec3d.add(f6 * blockReachDistance, f5 * blockReachDistance, f7 * blockReachDistance);
-      RayTraceResult res = normalizeRayTraceResult(rayTraceBlocks(world, vec3d, vec3d1, null, useLiquids, true, false));
-      return res != null ? res : new RayTraceResult(Type.MISS, vec3d1, null, new BlockPos(vec3d1));
+   public static @NotNull RayTraceResult rayTrace(World world, double blockReachDistance, EntityLivingBase entity, boolean useLiquids) {
+      Vec3d startPos = new Vec3d(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ);
+
+      Vec3d lookVec = entity.getLook(1.0F);
+
+      Vec3d endPos = startPos.add(lookVec.x * blockReachDistance,
+              lookVec.y * blockReachDistance,
+              lookVec.z * blockReachDistance);
+
+      RayTraceResult res = world.rayTraceBlocks(startPos, endPos, useLiquids, false, true);
+
+      return res != null ? res : new RayTraceResult(RayTraceResult.Type.MISS, endPos, null, new BlockPos(endPos));
    }
 
    @Nullable
    public static Entity loadEntity(World world, int chunkX, int chunkZ, UUID entityUuid) {
       ClassInheritanceMultiMap<Entity>[] entityLists = world.getChunk(chunkX, chunkZ).getEntityLists();
 
-      for (int k = 0; k < entityLists.length; k++) {
-         if (!entityLists[k].isEmpty()) {
-            for (Entity entity : entityLists[k]) {
-               if (entityUuid.equals(entity.getUniqueID())) {
-                  return entity;
+       for (ClassInheritanceMultiMap<Entity> entityList : entityLists) {
+           if (!entityList.isEmpty()) {
+               for (Entity entity : entityList) {
+                   if (entityUuid.equals(entity.getUniqueID())) {
+                       return entity;
+                   }
                }
-            }
-         }
-      }
+           }
+       }
 
       return null;
    }
@@ -1854,12 +1671,11 @@ public class GetMOP {
    public static RayTraceResult normalizeRayTraceResult(@Nullable RayTraceResult sourceResult, double offset) {
       if (sourceResult != null && sourceResult.sideHit != null && sourceResult.hitVec != null) {
          Vec3d vec = sourceResult.hitVec;
-         Vec3d newvec = new Vec3d(
+         sourceResult.hitVec = new Vec3d(
             vec.x + sourceResult.sideHit.getXOffset() * offset,
             vec.y + sourceResult.sideHit.getYOffset() * offset,
             vec.z + sourceResult.sideHit.getZOffset() * offset
          );
-         sourceResult.hitVec = newvec;
       }
 
       return sourceResult;
@@ -1877,34 +1693,34 @@ public class GetMOP {
    }
 
    public static boolean isBoxInPlane(Vec3d planePoint, Vec3d normalVector, AxisAlignedBB aabb) {
-      double sign1 = isPointInPlane(planePoint, normalVector, new Vec3d(aabb.maxX, aabb.maxY, aabb.maxZ));
-      double sign2 = isPointInPlane(planePoint, normalVector, new Vec3d(aabb.minX, aabb.minY, aabb.minZ));
-      double sign3 = isPointInPlane(planePoint, normalVector, new Vec3d(aabb.maxX, aabb.maxY, aabb.minZ));
-      double sign4 = isPointInPlane(planePoint, normalVector, new Vec3d(aabb.minX, aabb.maxY, aabb.minZ));
-      double sign5 = isPointInPlane(planePoint, normalVector, new Vec3d(aabb.minX, aabb.maxY, aabb.maxZ));
-      double sign6 = isPointInPlane(planePoint, normalVector, new Vec3d(aabb.minX, aabb.minY, aabb.maxZ));
-      double sign7 = isPointInPlane(planePoint, normalVector, new Vec3d(aabb.maxX, aabb.minY, aabb.minZ));
-      double sign8 = isPointInPlane(planePoint, normalVector, new Vec3d(aabb.maxX, aabb.minY, aabb.maxZ));
-      return sign1 > 0.0 && sign2 > 0.0 && sign3 > 0.0 && sign4 > 0.0 && sign5 > 0.0 && sign6 > 0.0 && sign7 > 0.0 && sign8 > 0.0
-         ? false
-         : !(sign1 < 0.0) || !(sign2 < 0.0) || !(sign3 < 0.0) || !(sign4 < 0.0) || !(sign5 < 0.0) || !(sign6 < 0.0) || !(sign7 < 0.0) || !(sign8 < 0.0);
+      boolean hasPositive = false;
+      boolean hasNegative = false;
+
+      double[] xSide = {aabb.minX, aabb.maxX};
+      double[] ySide = {aabb.minY, aabb.maxY};
+      double[] zSide = {aabb.minZ, aabb.maxZ};
+
+      for (double x : xSide) {
+         for (double y : ySide) {
+            for (double z : zSide) {
+               double sign = isPointInPlane(planePoint, normalVector, new Vec3d(x, y, z));
+
+               if (sign > 0) hasPositive = true;
+               else if (sign < 0) hasNegative = true;
+               else return true;
+
+               if (hasPositive && hasNegative) return true;
+            }
+         }
+      }
+      return false;
    }
 
    public static Vec3d getNearestPointInLineToPoint(Vec3d linePoint, Vec3d lineDirection, Vec3d point) {
-      double Xc = point.x;
-      double Yc = point.y;
-      double Zc = point.z;
-      double Xa = linePoint.x;
-      double Ya = linePoint.y;
-      double Za = linePoint.z;
-      double Ax = lineDirection.x;
-      double Ay = lineDirection.y;
-      double Az = lineDirection.z;
-      double tmin = (Ax * (Xc - Xa) + Ay * (Yc - Ya) + Az * (Zc - Za)) / (Ax * Ax + Ay * Ay + Az * Az);
-      double X = Xa + Ax * tmin;
-      double Y = Ya + Ay * tmin;
-      double Z = Za + Az * tmin;
-      return new Vec3d(X, Y, Z);
+      Vec3d ac = point.subtract(linePoint);
+      double t = ac.dotProduct(lineDirection) / lineDirection.dotProduct(lineDirection);
+
+      return linePoint.add(lineDirection.scale(t));
    }
 
    public static float interpolateRotation(float prevYawOffset, float yawOffset, float partialTicks) {
@@ -1939,9 +1755,9 @@ public class GetMOP {
       int randi = rand.nextInt(6);
 
       for (int i = 0; i < 6; i++) {
-         EnumFacing getted = EnumFacing.byIndex(randi);
-         if (getted != except) {
-            return getted;
+         EnumFacing got = EnumFacing.byIndex(randi);
+         if (got != except) {
+            return got;
          }
 
          randi = next(randi, 1, 6);
@@ -1954,157 +1770,70 @@ public class GetMOP {
       return world.getEntitiesWithinAABBExcludingEntity(excluding, aabb);
    }
 
-   public static float isInCaves(World world, BlockPos position) {
+   public static float isInCaves(World world, BlockPos pos) {
       int airs = 0;
+      int[] radii = {3, 8};
 
-      for (int radius = 3; radius < 10; radius += 5) {
-         double radius2 = Math.sqrt(radius * radius / 2.0);
-         if (world.isAirBlock(position.east(radius))) {
-            airs++;
-         }
+      Vec3d[] directions = {
+              new Vec3d(1, 0, 0), new Vec3d(-1, 0, 0),  // East, West
+              new Vec3d(0, 0, 1), new Vec3d(0, 0, -1),  // South, North
+              new Vec3d(0, 1, 0), new Vec3d(0, -1, 0),  // Up, Down
 
-         if (world.isAirBlock(position.west(radius))) {
-            airs++;
-         }
+              new Vec3d(0.707, 0, 0.707), new Vec3d(-0.707, 0, 0.707),
+              new Vec3d(0.707, 0, -0.707), new Vec3d(-0.707, 0, -0.707),
+              new Vec3d(0, 0.707, 0.707), new Vec3d(0, 0.707, -0.707),
+              new Vec3d(0, -0.707, 0.707), new Vec3d(0, -0.707, -0.707),
+              new Vec3d(0.707, 0.707, 0), new Vec3d(-0.707, 0.707, 0),
+              new Vec3d(0.707, -0.707, 0), new Vec3d(-0.707, -0.707, 0)
+      };
 
-         if (world.isAirBlock(position.north(radius))) {
-            airs++;
-         }
+      for (int r : radii) {
+         for (Vec3d dir : directions) {
+            BlockPos checkPos = new BlockPos(
+                    pos.getX() + dir.x * r,
+                    pos.getY() + dir.y * r,
+                    pos.getZ() + dir.z * r
+            );
 
-         if (world.isAirBlock(position.south(radius))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(radius2, 0.0, radius2))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(-radius2, 0.0, radius2))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(radius2, 0.0, -radius2))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(-radius2, 0.0, -radius2))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.up(radius))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(0.0, radius2, radius2))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(0.0, radius2, -radius2))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(radius2, radius2, 0.0))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(-radius2, radius2, 0.0))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.down(radius))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(0.0, -radius2, radius2))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(0.0, -radius2, -radius2))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(radius2, -radius2, 0.0))) {
-            airs++;
-         }
-
-         if (world.isAirBlock(position.add(-radius2, -radius2, 0.0))) {
-            airs++;
+            if (world.isAirBlock(checkPos)) {
+               airs++;
+            }
          }
       }
 
-      return 1.0F - airs / 36.0F;
+      return 1.0F - (airs / 36.0F);
    }
 
-   public static Random getBestRandomBasedOnCoordinates(int coord1, int coord2, long coord3) {
-      Random rand1 = new Random(coord3 ^ coord1 ^ coord2);
+   public static Random getBestRandomBasedOnCoordinates(int c1, int c2, long c3) {
+      Random rand = new Random(c3 ^ c1 ^ c2);
 
-      for (int i = 0; i < coord1 % 5; i++) {
-         rand1.nextInt();
-      }
-
-      for (int i = 0; i < coord2 % 5; i++) {
-         rand1.nextInt();
-      }
-
-      for (int i = 0; i < coord3 % 5L; i++) {
-         rand1.nextInt();
-      }
-
-      int rint1 = rand1.nextInt();
-      Random rand2 = new Random(rint1);
       int exit = 0;
-
       for (int i = 0; i < 32; i++) {
-         exit |= doSomeWithBits(coord1, coord2, i, rand2.nextInt(6));
+         exit |= doSomeWithBits(c1, c2, i, rand.nextInt(6));
       }
 
-      Random rand3 = new Random(exit);
-      Random rand4 = new Random(coord1);
-      Random rand5 = new Random(coord2);
-      exit = 0;
+      rand.setSeed(exit);
+      int finalExit = 0;
 
       for (int i = 0; i < 32; i++) {
-         exit |= doSomeWithBits(rand4.nextInt(), rand3.nextInt(), i, rand5.nextInt(6));
+         finalExit |= doSomeWithBits(rand.nextInt(), rand.nextInt(), i, rand.nextInt(6));
       }
 
-      rand3 = new Random(exit);
-      exit = 0;
-
-      for (int i = 0; i < 32; i++) {
-         exit |= doSomeWithBits(rand3.nextInt(), rand5.nextInt(), i, rand4.nextInt(6));
-      }
-
-      return new Random(exit);
+      return new Random(finalExit);
    }
 
-   private static int doSomeWithBits(int number1, int number2, int bitOffset, int operation) {
-      int stencil = 1 << bitOffset;
-      int exit = 0;
-      if (operation == 0) {
-         exit = number1 & number2;
+   private static int doSomeWithBits(int n1, int n2, int offset, int op) {
+      int res;
+      switch (op) {
+         case 0:  res = n1 & n2; break;
+         case 1:  res = n1 | n2; break;
+         case 2:  res = n1 ^ n2; break;
+         case 3:  res = ~(n1 | n2); break;
+         case 4:  res = ~(n1 ^ n2); break;
+         case 5:  res = ~(n1 & n2); break;
+         default: res = 0;
       }
-
-      if (operation == 1) {
-         exit = number1 | number2;
-      }
-
-      if (operation == 2) {
-         exit = number1 ^ number2;
-      }
-
-      if (operation == 3) {
-         exit = ~(number1 | number2);
-      }
-
-      if (operation == 4) {
-         exit = ~(number1 ^ number2);
-      }
-
-      if (operation == 5) {
-         exit = ~(number1 & number2);
-      }
-
-      return exit & stencil;
+      return res & (1 << offset);
    }
 
    public static class BlockTraceResult {

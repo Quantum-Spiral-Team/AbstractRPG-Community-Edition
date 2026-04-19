@@ -300,7 +300,7 @@ public class RenderTentacles {
       double oneFragm = rotationVecLength / (posesAmount - 1);
 
       for (int i = 0; i < posesAmount; i++) {
-         float ratio = GetMOP.softfromto(i, 0.0F, posesAmount - 1);
+         float ratio = GetMOP.softFromTo(i, 0.0F, posesAmount - 1);
          float unratio = 1.0F - ratio;
          double lengthSplitted = oneFragm * i;
          double unlengthSplitted = rotationVecLength - lengthSplitted;

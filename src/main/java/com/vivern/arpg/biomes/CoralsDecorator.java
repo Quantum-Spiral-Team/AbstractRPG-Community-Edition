@@ -30,42 +30,42 @@ class CoralsDecorator extends BiomeDecorator {
    public WorldGenCoral coralGenerator = new WorldGenCoral(0.6F, 0.8F, null);
    public WorldGenMetallicCoral coralOreGenerator = new WorldGenMetallicCoral(16, true);
    public WorldGenMiniCoral[] normalCorals = new WorldGenMiniCoral[]{
-      new WorldGenMiniCoral(BlocksRegister.MINICORALBROWN, 33, 4, 3),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALPURPLE, 33, 4, 3),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALRED, 33, 4, 3),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALWHITE, 33, 4, 3),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALWHITE2, 33, 4, 3)
+      new WorldGenMiniCoral(BlocksRegister.GORGONARIA_BROWN, 33, 4, 3),
+      new WorldGenMiniCoral(BlocksRegister.ACROPORA_PURPLE, 33, 4, 3),
+      new WorldGenMiniCoral(BlocksRegister.GORGONARIA_RED, 33, 4, 3),
+      new WorldGenMiniCoral(BlocksRegister.ACROPORA_WHITE, 33, 4, 3),
+      new WorldGenMiniCoral(BlocksRegister.GORGONARIA_WHITE, 33, 4, 3)
    };
    public WorldGenMiniCoral[] faviaCorals = new WorldGenMiniCoral[]{
-      new WorldGenMiniCoral(BlocksRegister.MINICORALFAVIABLUE, 24, 3, 3),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALFAVIAGREEN, 24, 3, 3),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALFAVIARED, 24, 3, 3),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALFAVIAYELLOW, 24, 3, 3)
+      new WorldGenMiniCoral(BlocksRegister.FAVIA_BLUE, 24, 3, 3),
+      new WorldGenMiniCoral(BlocksRegister.FAVIA_GREEN, 24, 3, 3),
+      new WorldGenMiniCoral(BlocksRegister.FAVIA_RED, 24, 3, 3),
+      new WorldGenMiniCoral(BlocksRegister.FAVIA_YELLOW, 24, 3, 3)
    };
    public WorldGenMiniCoral[] bigCorals = new WorldGenMiniCoral[]{
-      new WorldGenMiniCoral(BlocksRegister.MINICORALBROWNBIG, 30, 5, 1),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALPURPLEBIG, 30, 5, 1),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALREDBIG, 30, 5, 1),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALWHITE2BIG, 30, 5, 1),
-      new WorldGenMiniCoral(BlocksRegister.MINICORALWHITEBIG, 30, 5, 1)
+      new WorldGenMiniCoral(BlocksRegister.GORGONARIA_BROWN_BIG, 30, 5, 1),
+      new WorldGenMiniCoral(BlocksRegister.ACROPORA_PURPLE_BIG, 30, 5, 1),
+      new WorldGenMiniCoral(BlocksRegister.GORGONARIA_RED_BIG, 30, 5, 1),
+      new WorldGenMiniCoral(BlocksRegister.GORGONARIA_WHITE_BIG, 30, 5, 1),
+      new WorldGenMiniCoral(BlocksRegister.ACROPORA_WHITE_BIG, 30, 5, 1)
    };
    public WorldGenMiniCoral[] corallimorphaCorals = new WorldGenMiniCoral[]{
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHABLUE, 18, 4, 2).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHABROWN, 18, 4, 2).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHAGREEN, 18, 4, 2).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHALILAC, 18, 4, 2).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHAPINK, 18, 4, 2).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHARED, 18, 4, 2).setcorallimorpha(),
-      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHAYELLOW, 18, 4, 2).setcorallimorpha()
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_BLUE, 18, 4, 2).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_BROWN, 18, 4, 2).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_GREEN, 18, 4, 2).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_LILAC, 18, 4, 2).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_PINK, 18, 4, 2).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_RED, 18, 4, 2).setcorallimorpha(),
+      new WorldGenMiniCoral(BlocksRegister.CORALLIMORPHA_YELLOW, 18, 4, 2).setcorallimorpha()
    };
    public WorldGenMiniCoral[] glowingCorals = new WorldGenMiniCoral[]{
-      new WorldGenMiniCoral(BlocksRegister.ACTINIFORABLUE, 21, 5, 5),
-      new WorldGenMiniCoral(BlocksRegister.ACTINIFORARED, 21, 5, 5),
-      new WorldGenMiniCoral(BlocksRegister.ACTINIFORAYELLOW, 21, 5, 5),
-      new WorldGenMiniCoral(BlocksRegister.ACTINIFORABLUEBIG, 21, 4, 3),
-      new WorldGenMiniCoral(BlocksRegister.ACTINIFORAREDBIG, 20, 3, 2)
+      new WorldGenMiniCoral(BlocksRegister.ACTINIFORA_RAMIFORM, 21, 5, 5),
+      new WorldGenMiniCoral(BlocksRegister.ACTINIFORA_ARENACEOUS, 21, 5, 5),
+      new WorldGenMiniCoral(BlocksRegister.ACTINIFORA_BRIGHT, 21, 5, 5),
+      new WorldGenMiniCoral(BlocksRegister.ACTINIFORA_SEGREGATE, 21, 4, 3),
+      new WorldGenMiniCoral(BlocksRegister.ACTINIFORA_GIANT, 20, 3, 2)
    };
-   public WorldGenMiniCoral[] brainCorals = new WorldGenMiniCoral[]{new WorldGenMiniCoral(BlocksRegister.MINICORALBRAIN, 16, 5, 2)};
+   public WorldGenMiniCoral[] brainCorals = new WorldGenMiniCoral[]{new WorldGenMiniCoral(BlocksRegister.FAVIA_BRAIN, 16, 5, 2)};
 
    public static int getNBcount2Dquad(boolean[][] matrix, int x, int z, int addition16X2) {
       int count = 0;
@@ -114,7 +114,7 @@ class CoralsDecorator extends BiomeDecorator {
          }
 
          Block coralBlock = BlocksRegister.STROMATOLITE;
-         Block seastoneBlock = BlocksRegister.SEASTONE;
+         Block seastoneBlock = BlocksRegister.SEA_STONE;
          int iters = 27;
          int addition = 4;
          int addition16X2 = 16 + addition * 2;
@@ -342,7 +342,7 @@ class CoralsDecorator extends BiomeDecorator {
             if (position.getY() != AquaticaChunkGenerator.sealvl) {
                boolean w = world.getBlockState(position).getMaterial() == Material.WATER;
                world.setBlockState(
-                  position, BlocksRegister.GIANTSHELL.getDefaultState().withProperty(GiantShell.TYPE, random.nextInt(8)).withProperty(GiantShell.WET, w), 2
+                  position, BlocksRegister.GIANT_SHELL.getDefaultState().withProperty(GiantShell.TYPE, random.nextInt(8)).withProperty(GiantShell.WET, w), 2
                );
             }
          }

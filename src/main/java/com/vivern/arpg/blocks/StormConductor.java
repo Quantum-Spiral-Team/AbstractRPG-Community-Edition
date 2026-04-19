@@ -31,9 +31,9 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
       super(Material.ROCK);
       this.setRegistryName("storm_conductor");
       this.setTranslationKey("storm_conductor");
-      this.blockHardness = BlocksRegister.HR_ZARPION_ROCKS.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_ZARPION_ROCKS.RESISTANCE;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_ZARPION_ROCKS.LVL);
+      this.blockHardness = BlocksRegister.HR_ZARPION_ROCKS.hardness;
+      this.blockResistance = BlocksRegister.HR_ZARPION_ROCKS.resistance;
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_ZARPION_ROCKS.lvl);
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
       this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, 2));
       this.setSoundType(SoundType.STONE);
@@ -41,7 +41,7 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_ZARPION_ROCKS;
    }
 

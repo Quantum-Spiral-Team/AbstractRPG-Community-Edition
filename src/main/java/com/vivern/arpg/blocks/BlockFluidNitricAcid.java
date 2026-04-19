@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.FluidsRegister;
 import com.vivern.arpg.main.ItemsRegister;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -55,19 +55,19 @@ public class BlockFluidNitricAcid extends BlockFluidClassic {
          boolean helmt = false;
 
          for (ItemStack stack : base.getArmorInventoryList()) {
-            if (stack.getItem() == ItemsRegister.TOXINIUMBOOTS || !(entityIn.posY > minY) || !(entityIn.posY < maxY)) {
+            if (stack.getItem() == ItemsRegister.TOXINIUM_BOOTS || !(entityIn.posY > minY) || !(entityIn.posY < maxY)) {
                boots = true;
             }
 
-            if (stack.getItem() == ItemsRegister.TOXINIUMCHEST || !(entityIn.posY + 0.8 > minY) || !(entityIn.posY + 1.3 < maxY)) {
+            if (stack.getItem() == ItemsRegister.TOXINIUM_CHEST || !(entityIn.posY + 0.8 > minY) || !(entityIn.posY + 1.3 < maxY)) {
                chest = true;
             }
 
-            if (stack.getItem() == ItemsRegister.TOXINIUMLEGS || !(entityIn.posY > minY) || !(entityIn.posY + 0.8 < maxY)) {
+            if (stack.getItem() == ItemsRegister.TOXINIUM_LEGS || !(entityIn.posY > minY) || !(entityIn.posY + 0.8 < maxY)) {
                leggs = true;
             }
 
-            if (stack.getItem() == ItemsRegister.TOXINIUMHELM
+            if (stack.getItem() == ItemsRegister.TOXINIUM_HELM
                || !(entityIn.posY + 1.3 > minY)
                || !(entityIn.posY + entityIn.height < maxY)) {
                helmt = true;

@@ -10,7 +10,7 @@ import com.vivern.arpg.recipes.EnergyCost;
 import com.vivern.arpg.renders.IMagicVision;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -156,7 +156,7 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
 
       if (this.world.isRemote) {
          if (!this.isEmpty()) {
-            this.clientBeamLook = GetMOP.PitchYawToVec3d(this.rendrotationPitch, this.rendrotationYaw);
+            this.clientBeamLook = GetMOP.pitchYawToVec3D(this.rendrotationPitch, this.rendrotationYaw);
             if (GetMOP.rand.nextFloat() < 0.3) {
                this.spawnParticleAtMirror();
             }
@@ -196,7 +196,7 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
             Vec3d start = new Vec3d(
                this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5
             );
-            Vec3d end = start.add(GetMOP.PitchYawToVec3d(this.rendrotationPitch, this.rendrotationYaw).scale(20.0));
+            Vec3d end = start.add(GetMOP.pitchYawToVec3D(this.rendrotationPitch, this.rendrotationYaw).scale(20.0));
             RayTraceResult result = fixedRayTraceBlocks(
                this.world, this.getPos(), null, 0.8, 0.8, false, start, end, this.elementType != ShardType.WATER, true, false
             );
@@ -326,8 +326,8 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
       if (this.elementType != null) {
          float randvalue1 = (GetMOP.rand.nextFloat() - 0.5F) * 8.0F * 0.0625F;
          float randvalue2 = (GetMOP.rand.nextFloat() - 0.5F) * 8.0F * 0.0625F;
-         Vec3d vecV = GetMOP.PitchYawToVec3d(this.rendrotationPitch - 90.0F, this.rendrotationYaw).scale(randvalue1);
-         Vec3d vecH = GetMOP.PitchYawToVec3d(this.rendrotationPitch, this.rendrotationYaw - 90.0F).scale(randvalue2);
+         Vec3d vecV = GetMOP.pitchYawToVec3D(this.rendrotationPitch - 90.0F, this.rendrotationYaw).scale(randvalue1);
+         Vec3d vecH = GetMOP.pitchYawToVec3D(this.rendrotationPitch, this.rendrotationYaw - 90.0F).scale(randvalue2);
          float grav = ShardType.particlesGravityMult;
          if (this.elementType == ShardType.DEATH) {
             ShardType.particlesGravityMult = 1.0F;
@@ -587,7 +587,7 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
                      || blockposDown.getY() != posToIgnore.getY()
                      || blockposDown.getZ() != posToIgnore.getZ()
                )
-               && blockDown == BlocksRegister.RUNICMIRROR) {
+               && blockDown == BlocksRegister.RUNIC_MIRROR) {
                RayTraceResult raytraceresult1 = rayTrace(blockposDown, blockposDown, vec31, vec32, BlockRunicMirror.MIRROR_AABB);
                if (raytraceresult1 != null) {
                   return raytraceresult1;
@@ -599,7 +599,7 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
                      || blockpos.getY() != posToIgnore.getY()
                      || blockpos.getZ() != posToIgnore.getZ()
                )
-               && block1 == BlocksRegister.RUNICMIRROR) {
+               && block1 == BlocksRegister.RUNIC_MIRROR) {
                RayTraceResult raytraceresult1 = rayTrace(blockpos, blockpos, vec31, vec32, BlockRunicMirror.ALL_AABB3);
                if (raytraceresult1 != null) {
                   return raytraceresult1;

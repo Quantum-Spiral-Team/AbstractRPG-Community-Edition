@@ -1073,7 +1073,7 @@ public class CreateItemFile {
 
       for (int xx = 0; xx < result.getWidth(); xx++) {
          for (int yy = 0; yy < result.getHeight(); yy++) {
-            float ratio = GetMOP.getfromto((float)xx, (float)(halfWidth - overlap), (float)halfWidth);
+            float ratio = GetMOP.getFromTo((float)xx, (float)(halfWidth - overlap), (float)halfWidth);
             int color1 = getColorCycledSafe(image, xx + halfWidth, yy);
             int color2 = getColorCycledSafe(image, xx + halfWidth + overlap, yy);
             int resultColor = mixIntColors(color2, color1, ratio);
@@ -1086,7 +1086,7 @@ public class CreateItemFile {
 
       for (int xx = 0; xx < finalresult.getWidth(); xx++) {
          for (int yy = 0; yy < finalresult.getHeight(); yy++) {
-            float ratio = GetMOP.getfromto((float)yy, (float)(halfHeight - overlap), (float)halfHeight);
+            float ratio = GetMOP.getFromTo((float)yy, (float)(halfHeight - overlap), (float)halfHeight);
             int color1 = getColorCycledSafe(result, xx, yy + halfHeight);
             int color2 = getColorCycledSafe(result, xx, yy + halfHeight + overlap);
             int resultColor = mixIntColors(color2, color1, ratio);

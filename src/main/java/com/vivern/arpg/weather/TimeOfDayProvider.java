@@ -248,10 +248,10 @@ public class TimeOfDayProvider {
       public float getPower(int clampedWorldTime, TimeOfDayProvider timeOfDayProvider) {
          float selector1 = clampedWorldTime;
          float selector2 = clampedWorldTime + timeOfDayProvider.dayLength;
-         float value1 = GetMOP.getfromto(selector1, (float)this.upriseStartTime, (float)this.upriseEndTime)
-            - GetMOP.getfromto(selector1, (float)this.fallStartTime, (float)this.fallEndTime);
-         float value2 = GetMOP.getfromto(selector2, (float)this.upriseStartTime, (float)this.upriseEndTime)
-            - GetMOP.getfromto(selector2, (float)this.fallStartTime, (float)this.fallEndTime);
+         float value1 = GetMOP.getFromTo(selector1, (float)this.upriseStartTime, (float)this.upriseEndTime)
+            - GetMOP.getFromTo(selector1, (float)this.fallStartTime, (float)this.fallEndTime);
+         float value2 = GetMOP.getFromTo(selector2, (float)this.upriseStartTime, (float)this.upriseEndTime)
+            - GetMOP.getFromTo(selector2, (float)this.fallStartTime, (float)this.fallEndTime);
          return MathHelper.clamp(value1 + value2, 0.0F, 1.0F);
       }
    }

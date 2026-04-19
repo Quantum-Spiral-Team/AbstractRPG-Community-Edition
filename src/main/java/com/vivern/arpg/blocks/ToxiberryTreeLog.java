@@ -27,9 +27,9 @@ public class ToxiberryTreeLog extends BlockRotatedPillar implements IBlockHardBr
       super(Material.WOOD);
       this.setRegistryName("toxiberry_tree_log");
       this.setTranslationKey("toxiberry_tree_log");
-      this.blockHardness = BlocksRegister.HR_TOXIBERRY_LOG.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_TOXIBERRY_LOG.RESISTANCE;
-      this.setHarvestLevel("axe", BlocksRegister.HR_TOXIBERRY_LOG.LVL);
+      this.blockHardness = BlocksRegister.HR_TOXIBERRY_LOG.hardness;
+      this.blockResistance = BlocksRegister.HR_TOXIBERRY_LOG.resistance;
+      this.setHarvestLevel("axe", BlocksRegister.HR_TOXIBERRY_LOG.lvl);
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
       this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
       this.setSoundType(SoundType.WOOD);

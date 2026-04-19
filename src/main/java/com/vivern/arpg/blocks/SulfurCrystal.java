@@ -95,7 +95,7 @@ public class SulfurCrystal extends Block {
    }
 
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-      return ItemsRegister.SULFUR;
+      return ItemsRegister.SULFUR_DUST;
    }
 
    public boolean isOpaqueCube(IBlockState state) {
@@ -124,7 +124,7 @@ public class SulfurCrystal extends Block {
 
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
-      if (GetMOP.collidesWithBlock(worldIn, pos, BlocksRegister.FLUIDSULFURICGAS)) {
+      if (GetMOP.collidesWithBlock(worldIn, pos, BlocksRegister.FLUID_SULFURIC_GAS)) {
          BlockFluidSulfuricGas.applySulfuricGasPotions(entityIn);
       }
    }

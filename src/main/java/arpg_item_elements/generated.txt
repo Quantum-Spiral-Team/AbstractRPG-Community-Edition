@@ -269,7 +269,7 @@ arpg:modern_arrow 0 0.2 false 0.0 0.2 0.0 0.0 0.3 0.0 0.1 0.0 0.0 0.5 0.1 0.0
 arpg:firejet_arrow 0 0.5 false 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.5 0.0 0.0
 arpg:frag_grenade 0 0.5 false 1.5 0.8 0.0 0.0 0.3 0.0 0.2 0.0 0.0 1.5 0.0 0.0
 arpg:bomb 0 0.4 false 5.0 2.7 0.0 2.0 0.0 0.0 1.8 0.5 0.0 5.0 0.0 0.0
-arpg:cryogrenade 0 0.5 false 0.6 0.3 0.1 0.0 0.1 1.0 0.5 0.1 0.0 1.0 0.0 0.0
+arpg:cryo_grenade 0 0.5 false 0.6 0.3 0.1 0.0 0.1 1.0 0.5 0.1 0.0 1.0 0.0 0.0
 arpg:gas_grenade 0 0.0 false 0.0 1.5 0.8 3.3 3.6 0.0 1.0 0.4 0.1 1.0 0.1 0.0
 arpg:shell_rocket 0 0.2 false 1.0 1.1 1.1 0.0 0.2 0.0 0.0 0.0 0.0 1.8 0.0 0.0
 arpg:ion_battery 0 0.6 false 0.0 12.0 3.0 0.0 18.0 0.0 10.5 2.0 2.0 0.0 6.0 0.0
@@ -297,7 +297,7 @@ arpg:grenade_launcher 0 0.1 false 1.0 7.0 0.0 2.0 0.0 0.0 3.0 1.0 0.0 4.0 1.0 0.
 arpg:watching_grenade 0 0.1 false 2.3 2.4 0.2 0.0 0.2 0.2 0.3 7.8 0.0 1.0 0.0 0.0
 arpg:gravity_grenade 0 0.75 false 0.0 0.8 0.0 1.3 0.0 0.1 0.0 4.6 0.0 1.0 1.0 0.0
 arpg:hadron_blaster 0 0.5 false 0.0 52.0 2.0 0.0 15.0 2.0 52.0 6.0 26.0 12.0 14.0 0.0
-arpg:snapball 0 0.2 false 56.0 45.0 2.0 28.0 21.0 0.0 100.0 28.0 14.0 4.0 4.0 0.0
+arpg:snap_ball 0 0.2 false 56.0 45.0 2.0 28.0 21.0 0.0 100.0 28.0 14.0 4.0 4.0 0.0
 arpg:instancer 0 0.0 false 0.5 48.0 0.0 1.0 6.0 2.0 48.0 23.0 0.0 12.0 12.5 0.0
 arpg:brass_knuckles 0 0.6 false 0.0 6.6 0.0 0.0 0.0 0.0 6.6 0.0 1.8 0.0 0.0 0.0
 arpg:hazard_glove 0 0.5 false 0.0 7.0 1.0 0.0 1.0 0.0 3.0 0.0 3.0 0.0 0.0 0.0
@@ -496,7 +496,7 @@ arpg:acid_bomb 0 0.0 false 11.0 3.5 46.0 0.0 41.5 0.0 0.0 0.0 0.0 15.0 0.0 0.0
 arpg:antidote 0 0.2 false 0.2 1.2 2.5 0.0 0.0 0.0 0.0 0.2 4.0 3.0 0.0 0.0
 arpg:antipotion 0 0.2 false 0.0 0.5 1.2 0.0 0.0 0.0 0.0 0.0 0.0 2.2 0.0 0.0
 arpg:anti_rad_injector 0 0.2 false 0.1 1.7 1.4 0.0 0.0 0.0 0.0 0.1 4.0 3.0 0.0 0.0
-arpg:snapball_ammo 0 0.0 false 0.0 0.1 0.0 0.0 0.2 0.0 0.0 0.2 0.0 0.0 0.0 0.0
+arpg:snap_ball_ammo 0 0.0 false 0.0 0.1 0.0 0.0 0.2 0.0 0.0 0.2 0.0 0.0 0.0 0.0
 arpg:corrosive_flask 0 0.2 false 0.2 1.0 4.0 4.0 3.0 0.0 0.0 0.2 2.0 0.0 0.0 0.0
 arpg:galvanized_plate 0 0.6 false 2.0 0.1 0.5 0.0 2.1 0.0 0.0 0.0 0.0 0.0 0.0 0.0
 minecraft:wooden_door 0 0.1 false 0.0 1.4 0.0 0.4 0.0 0.0 0.0 0.0 0.0 0.0 0.2 0.0

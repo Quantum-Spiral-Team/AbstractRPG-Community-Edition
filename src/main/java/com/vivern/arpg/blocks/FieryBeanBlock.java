@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import com.google.common.base.Predicate;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -102,11 +102,11 @@ public class FieryBeanBlock extends Block {
    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
       BlockPos blockpos = pos.offset(facing.getOpposite());
       IBlockState iblockstate = worldIn.getBlockState(blockpos);
-      return facing != EnumFacing.UP && facing != EnumFacing.DOWN ? iblockstate.getBlock() == BlocksRegister.FIERYBEANLOG : false;
+      return facing != EnumFacing.UP && facing != EnumFacing.DOWN ? iblockstate.getBlock() == BlocksRegister.FIERY_BEAN_LOG : false;
    }
 
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-      return Item.getItemFromBlock(BlocksRegister.FIERYBEANSAPLING);
+      return Item.getItemFromBlock(BlocksRegister.FIERY_BEAN_SAPLING);
    }
 
    public int quantityDropped(IBlockState state, int fortune, Random random) {

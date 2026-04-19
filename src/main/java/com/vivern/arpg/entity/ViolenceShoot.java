@@ -184,7 +184,7 @@ public class ViolenceShoot extends EntityThrowable {
 
    public void expl() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -197,15 +197,15 @@ public class ViolenceShoot extends EntityThrowable {
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, false, false, this, WeaponDamage.soul),
-                  parameters.getEnchanted("damage", might) * this.magicPower,
+                  parameters.getEnchantedF("damage", might) * this.magicPower,
                   this.getThrower(),
                   entity,
                   true,
-                  parameters.getEnchanted("knockback", impulse)
+                  parameters.getEnchantedF("knockback", impulse)
                );
                entity.hurtResistantTime = 0;
                Weapons.setPotionIfEntityLB(
-                  entity, PotionEffects.DEMONIC_BURN, parameters.getEnchantedi("potion_time", witchery), parameters.geti("potion_power")
+                  entity, PotionEffects.DEMONIC_BURN, parameters.getEnchantedI("potion_time", witchery), parameters.getI("potion_power")
                );
             }
          }
@@ -236,9 +236,9 @@ public class ViolenceShoot extends EntityThrowable {
       if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
          BlockPos pos = result.sideHit == EnumFacing.UP ? this.getPosition() : this.getPosition().down();
          IBlockState state = this.world.getBlockState(pos);
-         if (BlocksRegister.DEMONICFIRE.canPlaceBlockAt(this.world, pos) && Weapons.easyBreakBlockFor(this.world, 0.2F, pos)) {
+         if (BlocksRegister.DEMONIC_FIRE.canPlaceBlockAt(this.world, pos) && Weapons.easyBreakBlockFor(this.world, 0.2F, pos)) {
             this.world.destroyBlock(pos, true);
-            this.world.setBlockState(pos, BlocksRegister.DEMONICFIRE.getDefaultState());
+            this.world.setBlockState(pos, BlocksRegister.DEMONIC_FIRE.getDefaultState());
          }
       }
    }

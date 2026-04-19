@@ -10,7 +10,7 @@ import com.vivern.arpg.mobs.NPCMobsPack;
 import com.vivern.arpg.recipes.Soul;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityCreature;
@@ -80,7 +80,7 @@ public class SoulStone extends ItemWeapon {
    }
 
    public static ItemStack getSouledStack(int soul) {
-      ItemStack stack = new ItemStack(ItemsRegister.SOULSTONE);
+      ItemStack stack = new ItemStack(ItemsRegister.SOUL_STONE);
       NBTHelper.GiveNBTint(stack, soul, "soul");
       NBTHelper.SetNBTint(stack, soul, "soul");
       NBTHelper.GiveNBTint(stack, soul, "soul");
@@ -118,7 +118,7 @@ public class SoulStone extends ItemWeapon {
                0.9F + itemRand.nextFloat() / 5.0F
             );
          IWeapon.fireEffect(
-            ItemsRegister.SOULSTONE,
+            ItemsRegister.SOUL_STONE,
             attacker,
             attacker.world,
             32.0,

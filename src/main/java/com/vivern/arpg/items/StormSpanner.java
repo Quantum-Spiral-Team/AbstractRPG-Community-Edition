@@ -37,13 +37,13 @@ public class StormSpanner extends Item {
          BlockPos pos = raytraceresult.getBlockPos();
          Block blockfrom = world.getBlockState(pos).getBlock();
          if (player.canPlayerEdit(pos, EnumFacing.UP, itemstack)) {
-            if (blockfrom == BlocksRegister.BEAMROCK) {
-               IBlockState st = BlocksRegister.BEAMROCK.getStateFromMeta(1);
+            if (blockfrom == BlocksRegister.BEAM_ROCK) {
+               IBlockState st = BlocksRegister.BEAM_ROCK.getStateFromMeta(1);
                world.setBlockState(pos, st);
                world.playSound(
                   (EntityPlayer)null,
                   pos,
-                  BlocksRegister.BEAMROCK.getSoundType(st, world, pos, player).getPlaceSound(),
+                  BlocksRegister.BEAM_ROCK.getSoundType(st, world, pos, player).getPlaceSound(),
                   SoundCategory.BLOCKS,
                   0.8F,
                   0.9F + itemRand.nextFloat() / 5.0F
@@ -51,13 +51,13 @@ public class StormSpanner extends Item {
                return new ActionResult(EnumActionResult.SUCCESS, itemstack);
             }
 
-            if (blockfrom == BlocksRegister.STORMCONDUCTOR) {
-               IBlockState st = BlocksRegister.STORMCONDUCTOR.getStateFromMeta(0);
+            if (blockfrom == BlocksRegister.STORM_CONDUCTOR) {
+               IBlockState st = BlocksRegister.STORM_CONDUCTOR.getStateFromMeta(0);
                world.setBlockState(pos, st);
                world.playSound(
                   (EntityPlayer)null,
                   pos,
-                  BlocksRegister.STORMCONDUCTOR.getSoundType(st, world, pos, player).getPlaceSound(),
+                  BlocksRegister.STORM_CONDUCTOR.getSoundType(st, world, pos, player).getPlaceSound(),
                   SoundCategory.BLOCKS,
                   0.8F,
                   0.9F + itemRand.nextFloat() / 5.0F

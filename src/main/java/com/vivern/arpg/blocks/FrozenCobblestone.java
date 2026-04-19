@@ -10,11 +10,11 @@ public class FrozenCobblestone extends BlockBlockHard {
       super(
          Material.ROCK,
          "frozen_cobblestone",
-         BlocksRegister.HR_FROZEN_COBBLESTONE.HARDNESS,
-         BlocksRegister.HR_FROZEN_COBBLESTONE.RESISTANCE,
-         BlocksRegister.HR_FROZEN_COBBLESTONE.SLOW,
-         BlocksRegister.HR_FROZEN_COBBLESTONE.FAST,
-         BlocksRegister.HR_FROZEN_COBBLESTONE.LVL,
+         BlocksRegister.HR_FROZEN_COBBLESTONE.hardness,
+         BlocksRegister.HR_FROZEN_COBBLESTONE.resistance,
+         BlocksRegister.HR_FROZEN_COBBLESTONE.slow,
+         BlocksRegister.HR_FROZEN_COBBLESTONE.fast,
+         BlocksRegister.HR_FROZEN_COBBLESTONE.lvl,
          "pickaxe",
          true
       );

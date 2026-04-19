@@ -40,7 +40,7 @@ public class ElementsBook extends Item implements IItemColor {
 
    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
       ItemStack itemstack = playerIn.getHeldItem(handIn);
-      if (!playerIn.getCooldownTracker().hasCooldown(ItemsRegister.BOOKOFELEMENTS)) {
+      if (!playerIn.getCooldownTracker().hasCooldown(ItemsRegister.ELEMENTS_BOOK)) {
          RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
          if (raytraceresult != null && raytraceresult.typeOfHit == Type.BLOCK) {
             BlockPos blockpos = raytraceresult.getBlockPos();
@@ -51,7 +51,7 @@ public class ElementsBook extends Item implements IItemColor {
                   if (!worldIn.isRemote && splitter.lastDissolvedItem != null) {
                      NBTTagList tagList = NBTHelper.GetNbtTagList(itemstack, "pages", 10);
                      if (tagList.tagCount() >= getMaxPagesCount()) {
-                        playerIn.getCooldownTracker().setCooldown(ItemsRegister.BOOKOFELEMENTS, 3);
+                        playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
                         return new ActionResult(EnumActionResult.FAIL, itemstack);
                      }
 
@@ -59,11 +59,11 @@ public class ElementsBook extends Item implements IItemColor {
                      itemInBook.setString("item", splitter.lastDissolvedItem.getRegistryName().toString());
                      itemInBook.setInteger("metadata", splitter.lastDissolvedMetadata);
                      tagList.appendTag(itemInBook);
-                     playerIn.getCooldownTracker().setCooldown(ItemsRegister.BOOKOFELEMENTS, 3);
+                     playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
                      return new ActionResult(EnumActionResult.SUCCESS, itemstack);
                   }
 
-                  playerIn.getCooldownTracker().setCooldown(ItemsRegister.BOOKOFELEMENTS, 3);
+                  playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
                   return new ActionResult(EnumActionResult.PASS, itemstack);
                }
 
@@ -71,11 +71,11 @@ public class ElementsBook extends Item implements IItemColor {
                   TileBookcase bookcase = (TileBookcase)tentity;
                   if (bookcase.addBook(itemstack)) {
                      itemstack.shrink(1);
-                     playerIn.getCooldownTracker().setCooldown(ItemsRegister.BOOKOFELEMENTS, 3);
+                     playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
                      return new ActionResult(EnumActionResult.SUCCESS, itemstack);
                   }
 
-                  playerIn.getCooldownTracker().setCooldown(ItemsRegister.BOOKOFELEMENTS, 3);
+                  playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
                   return new ActionResult(EnumActionResult.PASS, itemstack);
                }
             }
@@ -83,7 +83,7 @@ public class ElementsBook extends Item implements IItemColor {
 
          this.openGui(playerIn, itemstack);
          playerIn.addStat(StatList.getObjectUseStats(this));
-         playerIn.getCooldownTracker().setCooldown(ItemsRegister.BOOKOFELEMENTS, 3);
+         playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
          return new ActionResult(EnumActionResult.SUCCESS, itemstack);
       } else {
          return new ActionResult(EnumActionResult.FAIL, itemstack);

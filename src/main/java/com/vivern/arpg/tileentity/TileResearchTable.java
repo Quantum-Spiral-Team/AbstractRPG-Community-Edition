@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -269,7 +269,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
                spells[i] = spell;
             }
 
-            ItemStack newRoll = new ItemStack(ItemsRegister.SPELLROLL);
+            ItemStack newRoll = new ItemStack(ItemsRegister.SPELL_ROLL);
             if (!newRoll.hasTagCompound()) {
                NBTTagCompound itemCompound = new NBTTagCompound();
                newRoll.setTagCompound(itemCompound);

@@ -120,8 +120,8 @@ public class Whip extends ItemWeapon {
 
             if (hand != null) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               float soundPitchSwosh = parameters.get("sound_pitch_swosh");
-               float soundPitchClap = parameters.get("sound_pitch_clap");
+               float soundPitchSwosh = parameters.getF("sound_pitch_swosh");
+               float soundPitchClap = parameters.getF("sound_pitch_clap");
                this.onWhipUpdateInHand(world, itemstack, player, hand, itemSlot, keypressed);
                if (delay == 0 && cooldown > 0.2F && this.isSpecattackReady(world, itemstack, player, hand, itemSlot, keypressed)) {
                   int specAttackReady = NBTHelper.GetNBTint(itemstack, "sa_ready");
@@ -160,7 +160,7 @@ public class Whip extends ItemWeapon {
                if (delay == 4) {
                   Vec3d vec3dEyes = player.getPositionEyes(1.0F);
                   Vec3d vec3dLook = player.getLook(1.0F);
-                  float length = parameters.getEnchanted("length", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                  float length = parameters.getEnchantedF("length", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                   Vec3d vec3dEnd = vec3dEyes.add(vec3dLook.x * length, vec3dLook.y * length, vec3dLook.z * length);
                   RayTraceResult resultHit = world.rayTraceBlocks(vec3dEyes, vec3dEnd, false, true, false);
                   Vec3d vec3dHit = resultHit == null ? vec3dEnd : resultHit.hitVec;
@@ -226,7 +226,7 @@ public class Whip extends ItemWeapon {
       );
       entity.hurtResistantTime = 0;
       int firelvl = WeaponParameters.getWeaponParameters(stack.getItem())
-         .getEnchantedi("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
+         .getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
       if (firelvl > 0) {
          entity.setFire(firelvl);
       }
@@ -250,11 +250,11 @@ public class Whip extends ItemWeapon {
    public Vec3d specAttack(IWeapon iweapon, ItemStack stack, EntityPlayer player, EnumHand hand) {
       World world = player.world;
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-      float damage = parameters.getEnchanted("splash_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
-      float knockback = parameters.getEnchanted("splash_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack));
-      float length = parameters.getEnchanted("length", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack));
+      float damage = parameters.getEnchantedF("splash_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+      float knockback = parameters.getEnchantedF("splash_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack));
+      float length = parameters.getEnchantedF("length", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack));
       float size = 0.85F;
-      float endSize = parameters.getEnchanted("splash_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack));
+      float endSize = parameters.getEnchantedF("splash_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack));
       Vec3d vec = GetMOP.posRayTrace(length, 1.0F, player, size, size / 2.0F);
       AxisAlignedBB aabb = new AxisAlignedBB(
          vec.x - endSize,
@@ -311,7 +311,7 @@ public class Whip extends ItemWeapon {
             0.9F + itemRand.nextFloat() / 5.0F
          );
       int whipMaxCharge = WeaponParameters.getWeaponParameters(this)
-         .getEnchantedi("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
+         .getEnchantedI("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
       NBTHelper.SetNBTint(itemstack, -whipMaxCharge, "charge");
       Vec3d poseyes = player.getPositionEyes(1.0F);
       Vec3d scaledVec = new Vec3d(
@@ -338,8 +338,8 @@ public class Whip extends ItemWeapon {
 
    public void onSpecAttackDamage(Entity entity, Vec3d pos, IWeapon iweapon, ItemStack itemstack, EntityPlayer player, EnumHand hand, float damage) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int time = parameters.getEnchantedi("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack));
-      int power = parameters.geti("potion_power");
+      int time = parameters.getEnchantedI("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack));
+      int power = parameters.getI("potion_power");
       Weapons.setPotionIfEntityLB(entity, MobEffects.SLOWNESS, time, power);
    }
 
@@ -477,7 +477,7 @@ public class Whip extends ItemWeapon {
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       int whipMaxCharge = WeaponParameters.getWeaponParameters(this)
-         .getEnchantedi("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
+         .getEnchantedI("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
       return 1.0F - MathHelper.clamp((float)(-NBTHelper.GetNBTint(itemstack, "charge")) / whipMaxCharge, 0.0F, 1.0F);
    }
 

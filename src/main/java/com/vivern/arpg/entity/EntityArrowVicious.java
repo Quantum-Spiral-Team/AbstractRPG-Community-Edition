@@ -5,7 +5,6 @@ import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -68,7 +67,7 @@ public class EntityArrowVicious extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWVICIOUS);
+      return new ItemStack(ItemsRegister.ARROW_VICIOUS);
    }
 
    @Override

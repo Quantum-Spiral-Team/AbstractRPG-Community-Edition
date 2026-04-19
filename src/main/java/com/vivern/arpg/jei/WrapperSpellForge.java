@@ -87,7 +87,7 @@ public class WrapperSpellForge implements IRecipeWrapper {
          GlStateManager.rotate(AnimationTimer.tick / 2.0F, 0.0F, 1.0F, 0.57735F);
          float scl = 32.0F;
          GlStateManager.scale(scl, scl, scl);
-         minecraft.getRenderItem().renderItem(new ItemStack(BlocksRegister.GEMSPARKBLOCK), TransformType.GUI);
+         minecraft.getRenderItem().renderItem(new ItemStack(BlocksRegister.GEMSPARK_BLOCK), TransformType.GUI);
          GlStateManager.popMatrix();
          GlStateManager.pushMatrix();
          GlStateManager.translate(0.0F, 0.0F, 40.0F);

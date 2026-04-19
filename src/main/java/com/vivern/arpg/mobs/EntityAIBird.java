@@ -3,7 +3,7 @@ package com.vivern.arpg.mobs;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.SuperKnockback;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -478,7 +478,7 @@ public class EntityAIBird extends AbstractMob.AbstractAI {
       float rotationYaw
    ) {
       Vec3d vec3d = entity.getPositionEyes(partialTicks);
-      Vec3d vec3d1 = GetMOP.PitchYawToVec3d(rotationPitch, rotationYaw);
+      Vec3d vec3d1 = GetMOP.pitchYawToVec3D(rotationPitch, rotationYaw);
       Vec3d vec3d2 = vec3d.add(
          vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
       );

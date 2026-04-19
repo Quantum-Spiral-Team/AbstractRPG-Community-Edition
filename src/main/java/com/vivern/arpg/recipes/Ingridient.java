@@ -6,7 +6,7 @@ import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.OreDicHelper;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -54,15 +54,15 @@ public abstract class Ingridient {
       if (itemStack != null && !itemStack.isEmpty()) {
          Item item = itemStack.getItem();
          int count = itemStack.getCount();
-         if (item == ItemsRegister.SLIMEPLASTIC) {
+         if (item == ItemsRegister.SLIME_PLASTIC) {
             return new IngridientItem(OreDicHelper.PLASTIC, count);
          } else if (item == ItemsRegister.PLASTIC) {
             return new IngridientItem(OreDicHelper.PLASTICADVANCED, count);
          } else if (item == ItemsRegister.RUBBER) {
             return new IngridientItem(OreDicHelper.RUBBER2, count);
-         } else if (item == ItemsRegister.SOULSTONE) {
+         } else if (item == ItemsRegister.SOUL_STONE) {
             return new IngridientSoulStone(SoulStone.getSoul(itemStack));
-         } else if (item == ItemsRegister.GEMSTAFF) {
+         } else if (item == ItemsRegister.GEM_STAFF) {
             return new IngridientGemStaff(NBTHelper.GetNBTint(itemStack, "type"));
          } else {
             List<String> orenames = OreDicHelper.getOreNames(itemStack);
@@ -148,7 +148,7 @@ public abstract class Ingridient {
 
       @Override
       public boolean isStackAllowed(ItemStack itemStack) {
-         return itemStack.getItem() == ItemsRegister.GEMSTAFF && NBTHelper.GetNBTint(itemStack, "type") == this.gem;
+         return itemStack.getItem() == ItemsRegister.GEM_STAFF && NBTHelper.GetNBTint(itemStack, "type") == this.gem;
       }
 
       @Override
@@ -303,7 +303,7 @@ public abstract class Ingridient {
 
       @Override
       public boolean isStackAllowed(ItemStack itemStack) {
-         return itemStack.getItem() == ItemsRegister.SOULSTONE && SoulStone.getSoul(itemStack) == this.soul;
+         return itemStack.getItem() == ItemsRegister.SOUL_STONE && SoulStone.getSoul(itemStack) == this.soul;
       }
 
       @Override

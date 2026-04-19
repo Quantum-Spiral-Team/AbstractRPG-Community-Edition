@@ -3,7 +3,7 @@ package com.vivern.arpg.entity;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.main.WeaponParameters;
 import java.lang.reflect.Field;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -13,7 +13,6 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -69,7 +68,7 @@ public abstract class AbstractArrow extends EntityArrow {
 
    public double getItemArrowDamage(World worldIn) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.itemArrow);
-      return parameters.get("damage");
+      return parameters.getF("damage");
    }
 
    public abstract SoundEvent getHitSound();

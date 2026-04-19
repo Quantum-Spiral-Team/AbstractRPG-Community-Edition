@@ -4,7 +4,7 @@ import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.FluidsRegister;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Sounds;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -61,19 +61,19 @@ public class BlockFluidSulfuricAcid extends BlockFluidClassic {
          boolean helmt = false;
 
          for (ItemStack stack : base.getArmorInventoryList()) {
-            if (stack.getItem() == ItemsRegister.TOXINIUMBOOTS || !(entityIn.posY > minY) || !(entityIn.posY < maxY)) {
+            if (stack.getItem() == ItemsRegister.TOXINIUM_BOOTS || !(entityIn.posY > minY) || !(entityIn.posY < maxY)) {
                boots = true;
             }
 
-            if (stack.getItem() == ItemsRegister.TOXINIUMCHEST || !(entityIn.posY + 0.8 > minY) || !(entityIn.posY + 1.3 < maxY)) {
+            if (stack.getItem() == ItemsRegister.TOXINIUM_CHEST || !(entityIn.posY + 0.8 > minY) || !(entityIn.posY + 1.3 < maxY)) {
                chest = true;
             }
 
-            if (stack.getItem() == ItemsRegister.TOXINIUMLEGS || !(entityIn.posY > minY) || !(entityIn.posY + 0.8 < maxY)) {
+            if (stack.getItem() == ItemsRegister.TOXINIUM_LEGS || !(entityIn.posY > minY) || !(entityIn.posY + 0.8 < maxY)) {
                leggs = true;
             }
 
-            if (stack.getItem() == ItemsRegister.TOXINIUMHELM
+            if (stack.getItem() == ItemsRegister.TOXINIUM_HELM
                || !(entityIn.posY + 1.3 > minY)
                || !(entityIn.posY + entityIn.height < maxY)) {
                helmt = true;
@@ -96,15 +96,15 @@ public class BlockFluidSulfuricAcid extends BlockFluidClassic {
             Block block = world.getBlockState(frompos).getBlock();
             if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
                if (frompos.getY() > pos.getY()) {
-                  world.setBlockState(pos, BlocksRegister.GREENONYX.getDefaultState());
+                  world.setBlockState(pos, BlocksRegister.GREEN_ONYX.getDefaultState());
                } else {
-                  world.setBlockState(frompos, BlocksRegister.GREENONYX.getDefaultState());
+                  world.setBlockState(frompos, BlocksRegister.GREEN_ONYX.getDefaultState());
                }
 
                world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
             }
 
-            if (block == BlocksRegister.FLUIDCRYON) {
+            if (block == BlocksRegister.FLUID_CRYON) {
                world.setBlockState(frompos, Blocks.ICE.getDefaultState());
                world.playSound(null, frompos, Sounds.fluid_freezing, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
             }

@@ -8,7 +8,7 @@ import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

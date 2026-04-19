@@ -180,11 +180,9 @@ public class SummonedBlaze extends EntitySummoned {
          if (!list.isEmpty()) {
             for (EntityLivingBase entitylivingbase : list) {
                if (GetMOP.findEntityOnPath(
-                        15.0,
-                        this.getPositionEyes(1.0F),
+                       this.getPositionEyes(1.0F),
                         entitylivingbase.getPositionVector().add(0.0, entitylivingbase.height / 2.0F, 0.0),
-                        1.0F,
-                        this,
+                       this,
                         true,
                         0.1,
                         0.01

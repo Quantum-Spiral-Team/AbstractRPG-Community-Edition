@@ -113,7 +113,7 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
       double d2 = 20.0F + Debugger.floats[1];
       double perlin = field.noiseGeneratorPerlin1.getValue(x / d1, z / d1)
          + Debugger.floats[2]
-         + (2.0F - GetMOP.getfromto((float)inArrayY, 0.0F, 7.0F) * 3.0F);
+         + (2.0F - GetMOP.getFromTo((float)inArrayY, 0.0F, 7.0F) * 3.0F);
       return (field.noiseGenerator3D.getValue(x / d2, y / d2, z / d2) + 1.2F + Debugger.floats[3]) * perlin > 11.0F + Debugger.floats[4];
    }
 

@@ -98,8 +98,8 @@ public class ToxicNuclearCannon extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.1F,
                         0.5F,
                         0.4F
@@ -110,7 +110,7 @@ public class ToxicNuclearCannon extends ItemWeapon {
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.TOXICNUCLEARWARHEAD, maxammo)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.TOXIC_NUCLEAR_WARHEAD, maxammo)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

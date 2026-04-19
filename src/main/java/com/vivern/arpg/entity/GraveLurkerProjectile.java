@@ -29,19 +29,19 @@ public class GraveLurkerProjectile extends EntityThrowable {
 
    public GraveLurkerProjectile(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.GRAVELURKER);
+      this.weaponstack = new ItemStack(ItemsRegister.GRAVE_LURKER);
       this.isCrit = false;
    }
 
    public GraveLurkerProjectile(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.GRAVELURKER);
+      this.weaponstack = new ItemStack(ItemsRegister.GRAVE_LURKER);
       this.isCrit = false;
    }
 
    public GraveLurkerProjectile(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.GRAVELURKER);
+      this.weaponstack = new ItemStack(ItemsRegister.GRAVE_LURKER);
       this.isCrit = false;
    }
 

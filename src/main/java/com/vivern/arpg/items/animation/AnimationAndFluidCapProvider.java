@@ -2,7 +2,7 @@ package com.vivern.arpg.items.animation;
 
 import com.vivern.arpg.items.AnimationCapabilityProvider;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

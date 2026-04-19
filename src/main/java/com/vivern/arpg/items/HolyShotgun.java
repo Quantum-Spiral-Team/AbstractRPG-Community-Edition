@@ -126,21 +126,21 @@ public class HolyShotgun extends ItemWeapon {
                      itemstack.damageItem(1 * doubleMult, player);
                   }
 
-                  double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                  double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                   double damageRadius = 0.3;
                   int seed = itemRand.nextInt();
                   Random random1 = new Random(seed);
                   int c = nonullbullet ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
                   int impacts = 0;
-                  int amount = Math.min(doubleMult * parameters.getEnchantedi("shots", reuse), 31);
+                  int amount = Math.min(doubleMult * parameters.getEnchantedI("shots", reuse), 31);
 
                   for (int i = 0; i < amount; i++) {
                      boolean collideWithAny = false;
-                     float inaccuracy = parameters.getEnchanted("inaccuracy", acc);
-                     float inaccuracy2 = parameters.getEnchanted("inaccuracy_horizontal", acc);
+                     float inaccuracy = parameters.getEnchantedF("inaccuracy", acc);
+                     float inaccuracy2 = parameters.getEnchantedF("inaccuracy_horizontal", acc);
                      float rotP = player.rotationPitch + (float)random1.nextGaussian() * inaccuracy;
                      float rotY = player.rotationYaw + (float)random1.nextGaussian() * inaccuracy2;
-                     Vec3d vec = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.3, 0.2, rotP, rotY);
+                     Vec3d vec = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.3, 0.2, rotP, rotY);
                      if (nonullbullet && i % 2 == 0) {
                         bullet.onImpact(world, player, vec.x, vec.y, vec.z, null, null);
                      }
@@ -173,11 +173,11 @@ public class HolyShotgun extends ItemWeapon {
                            if (Team.checkIsOpponent(player, entity)) {
                               Weapons.dealDamage(
                                  new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                 parameters.getEnchanted("damage", might) + damageadd * parameters.get("bullet_damage"),
+                                 parameters.getEnchantedF("damage", might) + damageadd * parameters.getF("bullet_damage"),
                                  player,
                                  entity,
                                  true,
-                                 parameters.getEnchanted("knockback", impulse) + knockbackadd * parameters.get("bullet_knockback"),
+                                 parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
                                  player.posX,
                                  player.posY,
                                  player.posZ
@@ -244,11 +244,11 @@ public class HolyShotgun extends ItemWeapon {
          Vec3d col = ColorConverters.DecimaltoRGB((int)b);
 
          for (int i = 0; i < Math.min(a, 31.0); i++) {
-            float inaccuracy = parameters.getEnchanted("inaccuracy", (int)z);
-            float inaccuracy2 = parameters.getEnchanted("inaccuracy_horizontal", (int)z);
+            float inaccuracy = parameters.getEnchantedF("inaccuracy", (int)z);
+            float inaccuracy2 = parameters.getEnchantedF("inaccuracy_horizontal", (int)z);
             float rotP = player.rotationPitch + (float)random1.nextGaussian() * inaccuracy;
             float rotY = player.rotationYaw + (float)random1.nextGaussian() * inaccuracy2;
-            Vec3d to = GetMOP.RotatedPosRayTrace(edist, 1.0F, player, 0.3, 0.2, rotP, rotY);
+            Vec3d to = GetMOP.rotatedPosRayTrace(edist, 1.0F, player, 0.3, 0.2, rotP, rotY);
             float dist = (float)from.distanceTo(to);
             boolean full = (impacts & 1 << i) > 0;
             BulletParticle part = new BulletParticle(

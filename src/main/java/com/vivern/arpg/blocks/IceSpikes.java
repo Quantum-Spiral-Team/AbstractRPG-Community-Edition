@@ -60,7 +60,7 @@ public class IceSpikes extends Block {
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       if (!worldIn.isRemote && entityIn instanceof EntityLivingBase) {
          ItemStack stack = ((EntityLivingBase)entityIn).getHeldItemMainhand();
-         if (stack.getItem() == ItemsRegister.ICEBEAM && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) > 0) {
+         if (stack.getItem() == ItemsRegister.ICE_BEAM && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) > 0) {
             return;
          }
 

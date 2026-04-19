@@ -26,16 +26,16 @@ public class ArthrostelechaLog extends BlockRotatedPillar implements IBlockHardB
       super(Material.WOOD);
       this.setRegistryName(brass ? "arthrostelecha_log_brass" : "arthrostelecha_log_pink");
       this.setTranslationKey(brass ? "arthrostelecha_log_brass" : "arthrostelecha_log_pink");
-      this.blockHardness = BlocksRegister.HR_STORM_FOLIAGE.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_STORM_FOLIAGE.RESISTANCE;
-      this.setHarvestLevel("axe", BlocksRegister.HR_STORM_FOLIAGE.LVL);
+      this.blockHardness = BlocksRegister.HR_STORM_FOLIAGE.hardness;
+      this.blockResistance = BlocksRegister.HR_STORM_FOLIAGE.resistance;
+      this.setHarvestLevel("axe", BlocksRegister.HR_STORM_FOLIAGE.lvl);
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
       this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
       this.setSoundType(SoundType.STONE);
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_STORM_FOLIAGE;
    }
 
@@ -48,11 +48,11 @@ public class ArthrostelechaLog extends BlockRotatedPillar implements IBlockHardB
    }
 
    public static boolean isArthrostelechaLeaves(Block block) {
-      return block == BlocksRegister.ARTHROSTELECHALEAVESBRASS || block == BlocksRegister.ARTHROSTELECHALEAVESPINK;
+      return block == BlocksRegister.ARTHROSTELECHA_LEAVES_BRASS || block == BlocksRegister.ARTHROSTELECHA_LEAVES_PINK;
    }
 
    public static boolean isArthrostelechaLog(Block block) {
-      return block == BlocksRegister.ARTHROSTELECHALOGPINK || block == BlocksRegister.ARTHROSTELECHALOGBRASS;
+      return block == BlocksRegister.ARTHROSTELECHA_LOG_PINK || block == BlocksRegister.ARTHROSTELECHA_LOG_BRASS;
    }
 
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {

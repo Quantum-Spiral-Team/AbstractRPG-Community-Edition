@@ -70,10 +70,10 @@ public class JungleHelm extends ItemArmor {
          EntityPlayer player = (EntityPlayer)entityIn;
          World world = player.getEntityWorld();
          float power = Mana.getMagicPowerMax(player);
-         if (((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.FIREMAGEHELM
-            && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.FIREMAGECHEST
-            && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.FIREMAGELEGS
-            && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.FIREMAGEBOOTS) {
+         if (((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.FIRE_MAGE_HELM
+            && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.FIRE_MAGE_CHEST
+            && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.FIRE_MAGE_LEGS
+            && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.FIRE_MAGE_BOOTS) {
          }
       }
    }

@@ -82,7 +82,7 @@ public class TileNexusNiveoliteModel extends ModelBase {
          TileEntity tileEntity = Minecraft.getMinecraft().world.getTileEntity(new BlockPos(f, f1, f2));
          if (tileEntity != null && tileEntity instanceof TileNexusNiveolite) {
             TileNexusNiveolite tileNexusNiveolite = (TileNexusNiveolite)tileEntity;
-            float ft1 = GetMOP.softfromto(GetMOP.partial((float)tileNexusNiveolite.clientUprise, (float)tileNexusNiveolite.clientUprisePrev), 0.0F, 40.0F);
+            float ft1 = GetMOP.softFromTo(GetMOP.partial((float)tileNexusNiveolite.clientUprise, (float)tileNexusNiveolite.clientUprisePrev), 0.0F, 40.0F);
             this.circle0.offsetY = (ft1 * -4.0F + 3.0F) * 0.0625F;
             float anim = GetMOP.partial(tileNexusNiveolite.clientAnimation, tileNexusNiveolite.clientAnimationPrev);
             this.circle0.rotateAngleY = anim * 0.022F;

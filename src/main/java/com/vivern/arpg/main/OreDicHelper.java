@@ -2,7 +2,7 @@ package com.vivern.arpg.main;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
@@ -227,54 +227,54 @@ public class OreDicHelper {
       OreDictionary.registerOre(AMETHYST, ItemsRegister.AMETHYST);
       OreDictionary.registerOre(TOPAZ, ItemsRegister.TOPAZ);
       OreDictionary.registerOre(RHINESTONE, ItemsRegister.RHINESTONE);
-      OreDictionary.registerOre(MANGANESE, ItemsRegister.INGOTMANGANESE);
-      OreDictionary.registerOre(DUSTMANGANESE, ItemsRegister.DUSTMANGANESE);
-      OreDictionary.registerOre(BERYLLIUM, ItemsRegister.INGOTBERYLLIUM);
-      OreDictionary.registerOre(DUSTBERYLLIUM, ItemsRegister.DUSTBERYLLIUM);
-      OreDictionary.registerOre(CHROMIUM, ItemsRegister.INGOTCHROMIUM);
-      OreDictionary.registerOre(DUSTCHROMIUM, ItemsRegister.DUSTCHROMIUM);
-      OreDictionary.registerOre(DUSTSULFUR, ItemsRegister.SULFUR);
+      OreDictionary.registerOre(MANGANESE, ItemsRegister.MANGANESE_INGOT);
+      OreDictionary.registerOre(DUSTMANGANESE, ItemsRegister.MANGANESE_DUST);
+      OreDictionary.registerOre(BERYLLIUM, ItemsRegister.BERYLLIUM_INGOT);
+      OreDictionary.registerOre(DUSTBERYLLIUM, ItemsRegister.BERYLLIUM_DUST);
+      OreDictionary.registerOre(CHROMIUM, ItemsRegister.CHROMIUM_INGOT);
+      OreDictionary.registerOre(DUSTCHROMIUM, ItemsRegister.CHROMIUM_DUST);
+      OreDictionary.registerOre(DUSTSULFUR, ItemsRegister.SULFUR_DUST);
       OreDictionary.registerOre(DUSTASH, ItemsRegister.ASH);
       OreDictionary.registerOre(DUSTSALTPETER, ItemsRegister.SALTPETER);
-      OreDictionary.registerOre(DUSTSTONE, ItemsRegister.DUSTSTONE);
-      OreDictionary.registerOre(BRASS, ItemsRegister.INGOTBRASS);
-      OreDictionary.registerOre(DUSTBRASS, ItemsRegister.DUSTBRASS);
-      OreDictionary.registerOre(NUGGETBRASS, ItemsRegister.NUGGETBRASS);
-      OreDictionary.registerOre(TITANIUM, ItemsRegister.INGOTTITANIUM);
-      OreDictionary.registerOre(DUSTTITANIUM, ItemsRegister.DUSTTITANIUM);
-      OreDictionary.registerOre(NUGGETTITANIUM, ItemsRegister.NUGGETTITANIUM);
-      OreDictionary.registerOre(SILVER, ItemsRegister.INGOTSILVER);
-      OreDictionary.registerOre(DUSTSILVER, ItemsRegister.DUSTSILVER);
-      OreDictionary.registerOre(NUGGETSILVER, ItemsRegister.NUGGETSILVER);
-      OreDictionary.registerOre(ALUMINIUM, ItemsRegister.INGOTALUMINIUM);
-      OreDictionary.registerOre(DUSTALUMINIUM, ItemsRegister.DUSTALUMINIUM);
-      OreDictionary.registerOre(NUGGETALUMINIUM, ItemsRegister.NUGGETALUMINIUM);
-      OreDictionary.registerOre(ZINC, ItemsRegister.INGOTZINC);
-      OreDictionary.registerOre(DUSTZINC, ItemsRegister.DUSTZINC);
-      OreDictionary.registerOre(NUGGETZINC, ItemsRegister.NUGGETZINC);
-      OreDictionary.registerOre(PLANKS, BlocksRegister.FIERYBEANPLANKS);
-      OreDictionary.registerOre(PLANKS, BlocksRegister.PALMPLANKS);
-      OreDictionary.registerOre(PLANKS, BlocksRegister.ROTTENPLANKS);
-      OreDictionary.registerOre(LOG, BlocksRegister.FIERYBEANLOG);
-      OreDictionary.registerOre(LOG, BlocksRegister.PALMLOG);
+      OreDictionary.registerOre(DUSTSTONE, ItemsRegister.STONE_DUST);
+      OreDictionary.registerOre(BRASS, ItemsRegister.BRASS_INGOT);
+      OreDictionary.registerOre(DUSTBRASS, ItemsRegister.BRASS_DUST);
+      OreDictionary.registerOre(NUGGETBRASS, ItemsRegister.BRASS_NUGGET);
+      OreDictionary.registerOre(TITANIUM, ItemsRegister.TITANIUM_INGOT);
+      OreDictionary.registerOre(DUSTTITANIUM, ItemsRegister.TITANIUM_DUST);
+      OreDictionary.registerOre(NUGGETTITANIUM, ItemsRegister.TITANIUM_NUGGET);
+      OreDictionary.registerOre(SILVER, ItemsRegister.SILVER_INGOT);
+      OreDictionary.registerOre(DUSTSILVER, ItemsRegister.SILVER_DUST);
+      OreDictionary.registerOre(NUGGETSILVER, ItemsRegister.SILVER_NUGGET);
+      OreDictionary.registerOre(ALUMINIUM, ItemsRegister.ALUMINIUM_INGOT);
+      OreDictionary.registerOre(DUSTALUMINIUM, ItemsRegister.ALUMINIUM_DUST);
+      OreDictionary.registerOre(NUGGETALUMINIUM, ItemsRegister.ALUMINIUM_NUGGET);
+      OreDictionary.registerOre(ZINC, ItemsRegister.ZINC_INGOT);
+      OreDictionary.registerOre(DUSTZINC, ItemsRegister.ZINC_DUST);
+      OreDictionary.registerOre(NUGGETZINC, ItemsRegister.ZINC_NUGGET);
+      OreDictionary.registerOre(PLANKS, BlocksRegister.FIERY_BEAN_PLANKS);
+      OreDictionary.registerOre(PLANKS, BlocksRegister.PALM_PLANKS);
+      OreDictionary.registerOre(PLANKS, BlocksRegister.ROTTEN_PLANKS);
+      OreDictionary.registerOre(LOG, BlocksRegister.FIERY_BEAN_LOG);
+      OreDictionary.registerOre(LOG, BlocksRegister.PALM_LOG);
       OreDictionary.registerOre(CIRCUIT, ItemsRegister.CIRCUIT);
-      OreDictionary.registerOre(CIRCUITADVANCED, ItemsRegister.CIRCUITADVANCED);
+      OreDictionary.registerOre(CIRCUITADVANCED, ItemsRegister.ADVANCED_CIRCUIT);
       OreDictionary.registerOre(RUBBER, ItemsRegister.RUBBER);
       OreDictionary.registerOre(RUBBER2, ItemsRegister.RUBBER);
-      OreDictionary.registerOre(PLASTIC, ItemsRegister.SLIMEPLASTIC);
+      OreDictionary.registerOre(PLASTIC, ItemsRegister.SLIME_PLASTIC);
       OreDictionary.registerOre(PLASTIC, ItemsRegister.PLASTIC);
       OreDictionary.registerOre(PLASTICADVANCED, ItemsRegister.PLASTIC);
       OreDictionary.registerOre(POLYMERADVANCED, ItemsRegister.ADVANCED_POLYMER);
       OreDictionary.registerOre(DUSTSALT, ItemsRegister.SALT);
       OreDictionary.registerOre(YEAST, ItemsRegister.YEAST);
       OreDictionary.registerOre(DUSTFLOUR, ItemsRegister.FLOUR);
-      OreDictionary.registerOre(DUSTQUARTZ, ItemsRegister.DUSTQUARTZ);
-      OreDictionary.registerOre(GLASSHARDENED, BlocksRegister.CHROMIUMGLASS);
-      OreDictionary.registerOre(BLOCKSILVER, BlocksRegister.SILVERBLOCK);
-      OreDictionary.registerOre(ORESILVER, BlocksRegister.ORESILVER);
-      OreDictionary.registerOre(LITHIUM, ItemsRegister.INGOTLITHIUM);
-      OreDictionary.registerOre(DUSTLITHIUM, ItemsRegister.DUSTLITHIUM);
-      OreDictionary.registerOre(NUGGETLITHIUM, ItemsRegister.NUGGETLITHIUM);
+      OreDictionary.registerOre(DUSTQUARTZ, ItemsRegister.QUARTZ_DUST);
+      OreDictionary.registerOre(GLASSHARDENED, BlocksRegister.CHROMIUM_GLASS);
+      OreDictionary.registerOre(BLOCKSILVER, BlocksRegister.SILVER_BLOCK);
+      OreDictionary.registerOre(ORESILVER, BlocksRegister.SILVER_ORE);
+      OreDictionary.registerOre(LITHIUM, ItemsRegister.LITHIUM_INGOT);
+      OreDictionary.registerOre(DUSTLITHIUM, ItemsRegister.LITHIUM_DUST);
+      OreDictionary.registerOre(NUGGETLITHIUM, ItemsRegister.LITHIUM_NUGGET);
       OreDictionary.registerOre(SILICIUM, ItemsRegister.SILICIUM);
       OreDictionary.registerOre("itemSilicon", ItemsRegister.SILICIUM);
       regiserOreIfNameNoAdded(Items.FLINT, FLINT);
@@ -302,21 +302,21 @@ public class OreDicHelper {
 
    public static ItemStack getMissingItemStack(String nameOrOredicName, int amount) {
       if (nameOrOredicName.contains("dust")) {
-         return new ItemStack(ItemsRegister.MISSINGDUST, amount).setStackDisplayName("Missing mod item: " + nameOrOredicName);
+         return new ItemStack(ItemsRegister.MISSING_DUST, amount).setStackDisplayName("Missing mod item: " + nameOrOredicName);
       } else if (nameOrOredicName.contains("ingot")) {
-         return new ItemStack(ItemsRegister.MISSINGINGOT, amount).setStackDisplayName("Missing mod item: " + nameOrOredicName);
+         return new ItemStack(ItemsRegister.MISSING_INGOT, amount).setStackDisplayName("Missing mod item: " + nameOrOredicName);
       } else {
          return nameOrOredicName.contains("nugget")
-            ? new ItemStack(ItemsRegister.MISSINGNUGGET, amount).setStackDisplayName("Missing mod item: " + nameOrOredicName)
-            : new ItemStack(ItemsRegister.MISSINGMATERIAL, amount).setStackDisplayName("Missing mod item: " + nameOrOredicName);
+            ? new ItemStack(ItemsRegister.MISSING_NUGGET, amount).setStackDisplayName("Missing mod item: " + nameOrOredicName)
+            : new ItemStack(ItemsRegister.MISSING_MATERIAL, amount).setStackDisplayName("Missing mod item: " + nameOrOredicName);
       }
    }
 
    public static boolean isMissing(Item item) {
-      return item == ItemsRegister.MISSINGMATERIAL
-         || item == ItemsRegister.MISSINGINGOT
-         || item == ItemsRegister.MISSINGDUST
-         || item == ItemsRegister.MISSINGNUGGET;
+      return item == ItemsRegister.MISSING_MATERIAL
+         || item == ItemsRegister.MISSING_INGOT
+         || item == ItemsRegister.MISSING_DUST
+         || item == ItemsRegister.MISSING_NUGGET;
    }
 
    public static boolean doesOreNameExist(String name) {

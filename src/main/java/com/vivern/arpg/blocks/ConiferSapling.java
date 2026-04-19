@@ -56,13 +56,13 @@ public class ConiferSapling extends Block implements IGrowable {
 
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       Block block = worldIn.getBlockState(pos.down()).getBlock();
-      return block == Blocks.SNOW || block == Blocks.GRASS || block == Blocks.DIRT || block == BlocksRegister.SNOWICE;
+      return block == Blocks.SNOW || block == Blocks.GRASS || block == Blocks.DIRT || block == BlocksRegister.SNOW_ICE;
    }
 
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
       Block block = worldIn.getBlockState(pos.down()).getBlock();
-      if (block != Blocks.SNOW && block != Blocks.GRASS && block != Blocks.DIRT && block != BlocksRegister.SNOWICE) {
+      if (block != Blocks.SNOW && block != Blocks.GRASS && block != Blocks.DIRT && block != BlocksRegister.SNOW_ICE) {
          this.dropBlockAsItem(worldIn, pos, state, 0);
          worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
       }
@@ -106,7 +106,7 @@ public class ConiferSapling extends Block implements IGrowable {
       if (random.nextFloat() < 0.1) {
          worldIn.setBlockToAir(position);
          Block blockd = worldIn.getBlockState(position.down()).getBlock();
-         if (blockd == Blocks.SNOW || blockd == Blocks.GRASS || blockd == Blocks.DIRT || blockd == BlocksRegister.SNOWICE) {
+         if (blockd == Blocks.SNOW || blockd == Blocks.GRASS || blockd == Blocks.DIRT || blockd == BlocksRegister.SNOW_ICE) {
             WorldServer worldServer = (WorldServer)worldIn;
             MinecraftServer minecraftServer = worldIn.getMinecraftServer();
             TemplateManager templateManager = worldServer.getStructureTemplateManager();
@@ -147,11 +147,11 @@ public class ConiferSapling extends Block implements IGrowable {
                BlockPos fpos = transfpos.up(rt);
                if (!worldIn.getBlockState(fpos).getBlock().isReplaceable(worldIn, fpos)
                   && worldIn.getBlockState(fpos).getBlock() != Blocks.SNOW) {
-                  if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFERLOG) {
+                  if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFER_LOG) {
                      break;
                   }
                } else {
-                  worldIn.setBlockState(fpos, BlocksRegister.CONIFERLOG.getDefaultState());
+                  worldIn.setBlockState(fpos, BlocksRegister.CONIFER_LOG.getDefaultState());
                }
             }
 
@@ -159,11 +159,11 @@ public class ConiferSapling extends Block implements IGrowable {
                BlockPos fpos = transfpos.add(1, 0, 1).up(rtx);
                if (!worldIn.getBlockState(fpos).getBlock().isReplaceable(worldIn, fpos)
                   && worldIn.getBlockState(fpos).getBlock() != Blocks.SNOW) {
-                  if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFERLOG) {
+                  if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFER_LOG) {
                      break;
                   }
                } else {
-                  worldIn.setBlockState(fpos, BlocksRegister.CONIFERLOG.getDefaultState());
+                  worldIn.setBlockState(fpos, BlocksRegister.CONIFER_LOG.getDefaultState());
                }
             }
 
@@ -171,11 +171,11 @@ public class ConiferSapling extends Block implements IGrowable {
                BlockPos fpos = transfpos.add(0, 0, 1).up(rtxx);
                if (!worldIn.getBlockState(fpos).getBlock().isReplaceable(worldIn, fpos)
                   && worldIn.getBlockState(fpos).getBlock() != Blocks.SNOW) {
-                  if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFERLOG) {
+                  if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFER_LOG) {
                      break;
                   }
                } else {
-                  worldIn.setBlockState(fpos, BlocksRegister.CONIFERLOG.getDefaultState());
+                  worldIn.setBlockState(fpos, BlocksRegister.CONIFER_LOG.getDefaultState());
                }
             }
 
@@ -183,11 +183,11 @@ public class ConiferSapling extends Block implements IGrowable {
                BlockPos fpos = transfpos.add(1, 0, 0).up(rtxxx);
                if (!worldIn.getBlockState(fpos).getBlock().isReplaceable(worldIn, fpos)
                   && worldIn.getBlockState(fpos).getBlock() != Blocks.SNOW) {
-                  if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFERLOG) {
+                  if (worldIn.getBlockState(fpos).getBlock() == BlocksRegister.CONIFER_LOG) {
                      break;
                   }
                } else {
-                  worldIn.setBlockState(fpos, BlocksRegister.CONIFERLOG.getDefaultState());
+                  worldIn.setBlockState(fpos, BlocksRegister.CONIFER_LOG.getDefaultState());
                }
             }
          }

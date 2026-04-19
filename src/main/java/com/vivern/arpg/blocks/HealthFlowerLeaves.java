@@ -36,7 +36,7 @@ public class HealthFlowerLeaves extends Block implements IPlantable {
 
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote && rand.nextFloat() < 0.04F && worldIn.isAirBlock(pos.up())) {
-         worldIn.setBlockState(pos.up(), BlocksRegister.HEALTHFLOWER.getDefaultState());
+         worldIn.setBlockState(pos.up(), BlocksRegister.HEALTH_FLOWER.getDefaultState());
       }
    }
 
@@ -97,7 +97,7 @@ public class HealthFlowerLeaves extends Block implements IPlantable {
    public static void growForGeneration(World world, BlockPos pos, Random rand) {
       if (!world.isRemote && rand.nextFloat() < 0.4F && world.isAirBlock(pos.up())) {
          world.setBlockState(
-            pos.up(), BlocksRegister.HEALTHFLOWER.getDefaultState().withProperty(HealthFlower.AGE, rand.nextInt(3))
+            pos.up(), BlocksRegister.HEALTH_FLOWER.getDefaultState().withProperty(HealthFlower.AGE, rand.nextInt(3))
          );
       }
    }
@@ -107,7 +107,7 @@ public class HealthFlowerLeaves extends Block implements IPlantable {
          super(
             Material.PLANTS,
             "health_flower",
-            new Block[]{BlocksRegister.HEALTHFLOWERLEAVES},
+            new Block[]{BlocksRegister.HEALTH_FLOWER_LEAVES},
             0.2F,
             0.2F,
             SoundType.PLANT,
@@ -136,10 +136,10 @@ public class HealthFlowerLeaves extends Block implements IPlantable {
                         for (int i = 0; i >= -2; i--) {
                            BlockPos poss = pos.offset(facing).add(0, i, 0);
                            if (worldIn.isAirBlock(poss)
-                              && BlocksRegister.HEALTHFLOWERLEAVES.canPlaceBlockAt(worldIn, poss)
+                              && BlocksRegister.HEALTH_FLOWER_LEAVES.canPlaceBlockAt(worldIn, poss)
                               && isFertileOre(worldIn.getBlockState(poss.down()).getBlock())) {
                               worldIn.setBlockState(poss.down(), Blocks.STONE.getDefaultState());
-                              worldIn.setBlockState(poss, BlocksRegister.HEALTHFLOWERLEAVES.getDefaultState());
+                              worldIn.setBlockState(poss, BlocksRegister.HEALTH_FLOWER_LEAVES.getDefaultState());
                               break;
                            }
                         }

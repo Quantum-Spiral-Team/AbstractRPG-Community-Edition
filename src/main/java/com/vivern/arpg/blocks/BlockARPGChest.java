@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.tileentity.EnumChest;
 import com.vivern.arpg.tileentity.TileARPGChest;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -36,7 +36,7 @@ public class BlockARPGChest extends BlockBlockHard {
    public static final AxisAlignedBB NOT_CONNECTED_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 0.9375);
    public final EnumChest chestType;
 
-   public BlockARPGChest(Material mater, String name, BlocksRegister.Hardres hardres, String tool, SoundType stype, EnumChest chestType) {
+   public BlockARPGChest(Material mater, String name, BlocksRegister.HardRes hardres, String tool, SoundType stype, EnumChest chestType) {
       super(mater, name, hardres, tool, true);
       this.setCreativeTab(CreativeTabs.DECORATIONS);
       this.setSoundType(stype);

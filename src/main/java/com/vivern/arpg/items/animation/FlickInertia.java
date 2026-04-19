@@ -33,7 +33,7 @@ public class FlickInertia extends AbstractFlick {
    @Override
    public float get(float partialTicks) {
       float partialValue = GetMOP.partial(this.value, this.previousValue, partialTicks);
-      return GetMOP.getfromto(partialValue, (float)this.valueMin, (float)this.valueMax);
+      return GetMOP.getFromTo(partialValue, (float)this.valueMin, (float)this.valueMax);
    }
 
    @Override

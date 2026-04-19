@@ -24,7 +24,7 @@ public class TileVial extends TileEntity {
 
       for (int i = 0; i < 4; i++) {
          if (this.vials[i] == null) {
-            boolean emptyvial = stack.getItem() == ItemsRegister.VIALEMPTY;
+            boolean emptyvial = stack.getItem() == ItemsRegister.VIAL_EMPTY;
             ShardType shardType = ShardType.byId(stack.getMetadata());
             if (shardType == null && !emptyvial) {
                return false;

@@ -19,7 +19,7 @@ import com.vivern.arpg.tileentity.ManaBuffer;
 import com.vivern.arpg.tileentity.TileResearchTable;
 import com.vivern.arpg.weather.Weather;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
@@ -477,7 +477,7 @@ public abstract class ShardType {
                part.animDelay = 1;
                part.disableOnEnd = true;
                part.useNormalTime = true;
-               Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(new Vec3d(motionX, motionY, motionZ));
+               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(new Vec3d(motionX, motionY, motionZ));
                part.rotationPitchYaw = new Vec2f((float)pitchYaw.x, (float)pitchYaw.y);
                part.animCounter = addlt;
                world.spawnEntity(part);
@@ -705,7 +705,7 @@ public abstract class ShardType {
                float EcolR = 1.0F - 0.1F * rand.nextFloat();
                float EcolG = 0.5F - 0.3F * rand.nextFloat();
                float EcolB = 1.0F;
-               Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(new Vec3d(motionX, motionY, motionZ));
+               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(new Vec3d(motionX, motionY, motionZ));
                int lt = 13 + rand.nextInt(15);
                float scl = (0.1F + rand.nextFloat() * 0.04F) * scaleMultiplier;
                GUNParticle part = new GUNParticle(
@@ -1193,7 +1193,7 @@ public abstract class ShardType {
                );
                part.alphaGlowing = true;
                Vec3d motionvec = new Vec3d(motionX, motionY, motionZ);
-               Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(motionvec);
+               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(motionvec);
                part.rotationPitchYaw = new Vec2f((float)pitchYaw.x - 90.0F, (float)pitchYaw.y);
                part.tracker = new ParticleTracker.TrackerFractalRender(
                   amountFractal, 0.87F + rand.nextFloat() * 0.1F, 3 + rand.nextInt(13), 1.0F + rand.nextFloat() * 0.18F, 0.3F, showTime, showedTime, hideTime
@@ -1300,7 +1300,7 @@ public abstract class ShardType {
                world.spawnEntity(part);
             } else {
                Vec3d motionvec = new Vec3d(motionX, motionY, motionZ);
-               Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(motionvec);
+               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(motionvec);
                int lt = 20;
                float scl = (0.65F + rand.nextFloat() * 0.4F) * scaleMultiplier;
                Vec3d posAdd = motionvec.normalize().scale(scl / 1.45);
@@ -1540,18 +1540,18 @@ public abstract class ShardType {
          boolean continie = true;
          if (entity instanceof EntityItem) {
             EntityItem entityItem = (EntityItem)entity;
-            if (entityItem.getItem().getItem() == ItemsRegister.PHOTORESISTEDPLATE && damagePosition instanceof Vec3d) {
+            if (entityItem.getItem().getItem() == ItemsRegister.PHOTORESISTED_PLATE && damagePosition instanceof Vec3d) {
                Vec3d vec = (Vec3d)damagePosition;
                Vec3d subtraction = vec.subtract(entityItem.getPositionVector());
                double angle = GetMOP.getAngleBetweenVectors(new Vec3d(0.0, 1.0, 0.0), subtraction, 1.0, subtraction.length());
                if (angle < 60.0) {
-                  entityItem.setItem(new ItemStack(ItemsRegister.LITOGRAPHEDPLATE));
+                  entityItem.setItem(new ItemStack(ItemsRegister.LITOGRAPHED_PLATE));
                   EntityItem newitem = new EntityItem(
                      entityItem.world,
                      entityItem.posX,
                      entityItem.posY,
                      entityItem.posZ,
-                     new ItemStack(ItemsRegister.PROCESSORPATTERN)
+                     new ItemStack(ItemsRegister.PROCESSOR_PATTERN)
                   );
                   entityItem.world.spawnEntity(newitem);
                   newitem.setPickupDelay(40);
@@ -1605,7 +1605,7 @@ public abstract class ShardType {
                world.spawnEntity(part);
             } else {
                Vec3d motionvec = new Vec3d(motionX, motionY, motionZ);
-               Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(motionvec);
+               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(motionvec);
                int lt = 10 + rand.nextInt(30);
                float scl = (0.6F + rand.nextFloat() * 0.35F) * scaleMultiplier;
                Vec3d posAdd = motionvec.normalize().scale(scl / 1.45);

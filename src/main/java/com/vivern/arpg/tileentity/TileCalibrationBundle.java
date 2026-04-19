@@ -6,7 +6,7 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Spell;
 import com.vivern.arpg.network.PacketHandler;
 import java.util.ArrayList;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -218,7 +218,7 @@ public class TileCalibrationBundle extends TileEntity implements ISpellcastListe
          if (itm instanceof ItemCalibrationThing) {
             this.item = (ItemCalibrationThing)itm;
          } else {
-            this.item = (ItemCalibrationThing)ItemsRegister.CALIBRATIONCRYSTAL_ATTRACT_SMALL;
+            this.item = (ItemCalibrationThing)ItemsRegister.CALIBRATION_CRYSTAL_ATTRACT_SMALL;
          }
 
          if (compound.hasKey("allPoses")) {

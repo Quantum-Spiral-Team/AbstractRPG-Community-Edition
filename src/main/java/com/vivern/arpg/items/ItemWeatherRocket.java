@@ -3,7 +3,7 @@ package com.vivern.arpg.items;
 import com.vivern.arpg.entity.EntityWeatherRocket;
 import com.vivern.arpg.main.Sounds;
 import java.util.ArrayList;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

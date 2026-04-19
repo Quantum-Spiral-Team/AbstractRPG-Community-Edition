@@ -51,7 +51,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
 
    public EntityTimelessSword(World worldIn) {
       super(worldIn);
-      this.weaponstack = new ItemStack(ItemsRegister.TIMELESSSWORD);
+      this.weaponstack = new ItemStack(ItemsRegister.TIMELESS_SWORD);
       this.setSize(0.1F, 0.1F);
       this.ignoreFrustumCheck = true;
    }
@@ -176,7 +176,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
       };
       World world = player.world;
       float sweepingAdd = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING, stack) / 5.0F;
-      Vec3d vec = GetMOP.logicRayTrace(world, from, to, 1.0F, filterEntityToIgnore, 0.9 + sweepingAdd, 0.4, false);
+      Vec3d vec = GetMOP.logicRayTrace(world, from, to, filterEntityToIgnore, 0.9 + sweepingAdd, 0.4, false);
       double damageRadius = 1.0 + sweepingAdd;
       AxisAlignedBB aabb = new AxisAlignedBB(
          vec.x - damageRadius,
@@ -258,7 +258,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
       }
 
       IWeapon.fireEffect(
-         ItemsRegister.TIMELESSSWORD,
+         ItemsRegister.TIMELESS_SWORD,
          player,
          world,
          64.0,

@@ -46,7 +46,7 @@ public class PumpShotgunModel extends ModelBase {
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
-      this.pump.offsetZ = (GetMOP.getfromto(f1, 0.3F, 0.53F) - GetMOP.getfromto(f1, 0.55F, 0.78F)) * 3.5F;
+      this.pump.offsetZ = (GetMOP.getFromTo(f1, 0.3F, 0.53F) - GetMOP.getFromTo(f1, 0.55F, 0.78F)) * 3.5F;
       this.shape1.render(f5);
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shapess1.offsetX, this.shapess1.offsetY, this.shapess1.offsetZ);

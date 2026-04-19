@@ -54,15 +54,15 @@ public class BlockFluidLuminescent extends BlockFluidClassic {
             Block block = world.getBlockState(frompos).getBlock();
             if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
                if (frompos.getY() > pos.getY()) {
-                  world.setBlockState(pos, BlocksRegister.GREENONYX.getDefaultState());
+                  world.setBlockState(pos, BlocksRegister.GREEN_ONYX.getDefaultState());
                } else {
-                  world.setBlockState(frompos, BlocksRegister.GREENONYX.getDefaultState());
+                  world.setBlockState(frompos, BlocksRegister.GREEN_ONYX.getDefaultState());
                }
 
                world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
             }
 
-            if (block == BlocksRegister.FLUIDCRYON) {
+            if (block == BlocksRegister.FLUID_CRYON) {
                world.setBlockState(frompos, Blocks.ICE.getDefaultState());
                world.playSound(null, frompos, Sounds.fluid_freezing, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
             }

@@ -118,13 +118,13 @@ public class IcicleMinigun extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.35F,
                         0.5F,
                         0.8F
                      );
-                     bullet.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     bullet.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      world.spawnEntity(bullet);
                      if (!player.capabilities.isCreativeMode) {
                         this.addAmmo(ammo, itemstack, -1);
@@ -132,7 +132,7 @@ public class IcicleMinigun extends ItemWeapon {
                      }
                   }
                } else if (this.initiateMetadataReload(
-                  itemstack, player, new ItemStack(ItemsRegister.ICICLEMINIGUNCLIP, 1, 1), maxammo, new ItemStack(ItemsRegister.ICICLEMINIGUNCLIP, 1, 0)
+                  itemstack, player, new ItemStack(ItemsRegister.ICICLE_MINIGUN_CLIP, 1, 1), maxammo, new ItemStack(ItemsRegister.ICICLE_MINIGUN_CLIP, 1, 0)
                )) {
                   world.playSound(
                      (EntityPlayer)null,
@@ -150,8 +150,8 @@ public class IcicleMinigun extends ItemWeapon {
             }
 
             if (!isAttacking && attackTime > 0) {
-               int slowdown = parameters.getEnchantedi("slowdown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
-               int attackTimeForFast = parameters.getEnchantedi("attacktime_for_fast", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
+               int slowdown = parameters.getEnchantedI("slowdown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
+               int attackTimeForFast = parameters.getEnchantedI("attacktime_for_fast", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
                if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) != 0 && ammo > 0) {
                   NBTHelper.SetNBTint(itemstack, Math.max(attackTime - slowdown, 0), "attack_time");
                } else {
@@ -193,10 +193,10 @@ public class IcicleMinigun extends ItemWeapon {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int attackTime = NBTHelper.GetNBTint(itemstack, "attack_time");
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      int minCooldown = parameters.geti("min_cooldown");
-      int maxCooldown = parameters.geti("max_cooldown");
-      int attackTimeForFast = parameters.getEnchantedi("attacktime_for_fast", rapidity);
-      float ft1 = 1.0F - GetMOP.getfromto((float)attackTime, 0.0F, (float)attackTimeForFast);
+      int minCooldown = parameters.getI("min_cooldown");
+      int maxCooldown = parameters.getI("max_cooldown");
+      int attackTimeForFast = parameters.getEnchantedI("attacktime_for_fast", rapidity);
+      float ft1 = 1.0F - GetMOP.getFromTo((float)attackTime, 0.0F, (float)attackTimeForFast);
       return minCooldown + Math.round((maxCooldown - minCooldown) * ft1);
    }
 

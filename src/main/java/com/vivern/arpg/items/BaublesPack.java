@@ -531,7 +531,7 @@ public class BaublesPack {
             if (!player.getCooldownTracker().hasCooldown(this) && Keys.isKeyPressed(player, Keys.HEADABILITY)) {
                double blockReachDistance = 12.0;
                Vec3d vec3d = entity.getPositionEyes(1.0F);
-               Vec3d vec3d1 = GetMOP.PitchYawToVec3d(player.rotationPitch, player.rotationYaw);
+               Vec3d vec3d1 = GetMOP.pitchYawToVec3D(player.rotationPitch, player.rotationYaw);
                Vec3d vec3d2 = vec3d.add(
                   vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
                );
@@ -841,7 +841,7 @@ public class BaublesPack {
                   Vec3d vec3dEyes = new Vec3d(
                      playerattacker.posX, playerattacker.posY + playerattacker.getEyeHeight() + 0.2F, playerattacker.posZ
                   );
-                  Vec3d yawVec = GetMOP.YawToVec3d(playerattacker.rotationYawHead + (nexttwin ? 90 : -90));
+                  Vec3d yawVec = GetMOP.yawToVec3D(playerattacker.rotationYawHead + (nexttwin ? 90 : -90));
                   float shoulders = 0.4F;
                   Vec3d pos = vec3dEyes.add(yawVec.x * shoulders, yawVec.y * shoulders, yawVec.z * shoulders);
                   EnigmateTwinsShoot projectile = new EnigmateTwinsShoot(playerattacker.world, playerattacker, itemstack);
@@ -922,11 +922,11 @@ public class BaublesPack {
       }
    }
 
-   public static class Gasmask extends Item implements IBauble, IRenderBauble {
+   public static class GasMask extends Item implements IBauble, IRenderBauble {
       public static GasmaskModel model = new GasmaskModel();
       public static ResourceLocation tex = new ResourceLocation("arpg:textures/gasmask_model_tex.png");
 
-      public Gasmask() {
+      public GasMask() {
          this.setRegistryName("gasmask");
          this.setCreativeTab(CreativeTabs.COMBAT);
          this.setTranslationKey("gasmask");
@@ -939,7 +939,7 @@ public class BaublesPack {
       }
 
       public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-         return repair.getItem() == ItemsRegister.GASFILTER;
+         return repair.getItem() == ItemsRegister.GAS_FILTER;
       }
 
       @Override
@@ -1277,13 +1277,13 @@ public class BaublesPack {
       }
    }
 
-   public static class Lightband extends Item implements IBauble, IRenderBauble, IAttributedBauble {
-      public static ResourceLocation textur = new ResourceLocation("arpg:textures/circle.png");
+   public static class LightBand extends Item implements IBauble, IRenderBauble, IAttributedBauble {
+      public static final ResourceLocation texture = new ResourceLocation("arpg:textures/circle.png");
 
-      public Lightband() {
-         this.setRegistryName("lightband");
+      public LightBand() {
+         this.setRegistryName("light_band");
          this.setCreativeTab(CreativeTabs.COMBAT);
-         this.setTranslationKey("lightband");
+         this.setTranslationKey("light_band");
          this.setMaxStackSize(1);
          this.setMaxDamage(5);
       }
@@ -1296,9 +1296,8 @@ public class BaublesPack {
       @Override
       public void onWornTick(ItemStack itemstack, EntityLivingBase entityIn) {
          entityIn.removeActivePotionEffect(PotionEffects.SHOCK);
-         Item itemIn = itemstack.getItem();
          if (entityIn instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer)entityIn;
+            EntityPlayer player = (EntityPlayer) entityIn;
             boolean click = Keys.isPressedDoubleJump(player);
             int dm = itemstack.getItemDamage();
             if (click && (dm == 0 || dm == 2 || dm == 4)) {
@@ -1307,7 +1306,7 @@ public class BaublesPack {
                itemstack.damageItem(1, entityIn);
                player.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -1368,7 +1367,7 @@ public class BaublesPack {
 
       @Override
       public String itemName() {
-         return "lightband";
+         return "light_band";
       }
 
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
@@ -1377,8 +1376,8 @@ public class BaublesPack {
       }
    }
 
-   public static class LivebloodNecklace extends Item implements IBauble, IRenderBauble, IItemHurted {
-      public LivebloodNecklace() {
+   public static class LiveBloodNecklace extends Item implements IBauble, IRenderBauble, IItemHurted {
+      public LiveBloodNecklace() {
          this.setRegistryName("liveblood_necklace");
          this.setCreativeTab(CreativeTabs.COMBAT);
          this.setTranslationKey("liveblood_necklace");
@@ -1952,11 +1951,11 @@ public class BaublesPack {
       }
    }
 
-   public static class Thornkeeper extends Item implements IBauble, IRenderBauble {
-      public Thornkeeper() {
-         this.setRegistryName("thornkeeper");
+   public static class ThornKeeper extends Item implements IBauble, IRenderBauble {
+      public ThornKeeper() {
+         this.setRegistryName("thorn_keeper");
          this.setCreativeTab(CreativeTabs.COMBAT);
-         this.setTranslationKey("thornkeeper");
+         this.setTranslationKey("thorn_keeper");
          this.setMaxStackSize(1);
       }
 

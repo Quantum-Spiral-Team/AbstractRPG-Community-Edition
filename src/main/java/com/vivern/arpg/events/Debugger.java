@@ -5,6 +5,7 @@ import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.OreDicHelper;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import net.minecraft.block.Block;
@@ -152,15 +153,15 @@ public class Debugger {
       }
    }
 
-   public static final void endPROFILINGandADD(int number) {
+   public static void endPROFILINGandADD(int number) {
       profTimesAdd[number] = profTimesAdd[number] + (System.nanoTime() - profTimes[number]);
    }
 
-   public static final void endPROFILINGandPRINT(int number) {
+   public static void endPROFILINGandPRINT(int number) {
       System.out.println("TIME " + number + " : " + profTimesAdd[number]);
    }
 
-   public static final void allPROFILINGandPRINT() {
+   public static void allPROFILINGandPRINT() {
       for (int i = 0; i < profTimesAdd.length; i++) {
          if (profTimesAdd[i] != 0L) {
             endPROFILINGandPRINT(i);
@@ -168,17 +169,13 @@ public class Debugger {
       }
    }
 
-   public static final void resetPROFILING() {
-      for (int i = 0; i < bounder.length; i++) {
-         bounder[i] = 0;
-      }
-
-      for (int i = 0; i < profTimesAdd.length; i++) {
-         profTimesAdd[i] = 0L;
-      }
+   public static void resetPROFILING() {
+      Arrays.fill(bounder, 0);
+      Arrays.fill(profTimesAdd, 0L);
    }
 
    public static void checkChest(EntityPlayer player) {
+      //TODO понять логику метода и реализовать. В противном случае удалить
    }
 
    public static String getAsIngridient(ItemStack st, boolean formatToItemStack) throws IllegalArgumentException, IllegalAccessException {
@@ -190,20 +187,20 @@ public class Debugger {
          int soul = SoulStone.getSoul(st);
          return "SoulStone.getSouledStack(" + soul + ")";
       } else {
-         String getter = itemgetter(st.getItem());
+         String getter = itemGetter(st.getItem());
          if (getter != null) {
-            return formatToItemStack ? formatingridient(getter, st.getCount(), st.getMetadata()) : getter;
+            return formatToItemStack ? formatingIngredient(getter, st.getCount(), st.getMetadata()) : getter;
          } else if (OreDicHelper.hasOreName(st)) {
             List<String> nams = OreDicHelper.getOreNames(st);
             return !nams.isEmpty() ? "OreDicHelper.getOrNull(\"" + nams.get(0) + "\", " + st.getCount() + ")" : "EXEPTION";
          } else {
-            String itemmm = "Item.getByNameOrId(\"" + st.getItem().getRegistryName().toString() + "\")";
-            return formatToItemStack ? formatingridient(itemmm, st.getCount(), st.getMetadata()) : itemmm;
+            String item = "Item.getByNameOrId(\"" + st.getItem().getRegistryName().toString() + "\")";
+            return formatToItemStack ? formatingIngredient(item, st.getCount(), st.getMetadata()) : item;
          }
       }
    }
 
-   public static String formatingridient(String item, int count, int meta) {
+   public static String formatingIngredient(String item, int count, int meta) {
       if (count != 0 && meta == 0) {
          return "new ItemStack(" + item + ", " + count + ")";
       } else {
@@ -211,16 +208,16 @@ public class Debugger {
       }
    }
 
-   public static String itemgetter(Item item) throws IllegalArgumentException, IllegalAccessException {
+   public static String itemGetter(Item item) throws IllegalArgumentException, IllegalAccessException {
       if (item instanceof ItemBlock) {
          if (item.getRegistryName().getNamespace().equals("minecraft")) {
             Field[] fields = Blocks.class.getFields();
 
-            for (Field f : fields) {
-               if (f.get(null) instanceof Block) {
-                  Block block = (Block)f.get(null);
+            for (Field field : fields) {
+               if (field.get(null) instanceof Block) {
+                  Block block = (Block)field.get(null);
                   if (Item.getItemFromBlock(block) == item) {
-                     return "Blocks." + f.getName();
+                     return "Blocks." + field.getName();
                   }
                }
             }
@@ -231,11 +228,11 @@ public class Debugger {
 
             Field[] fields = BlocksRegister.class.getFields();
 
-            for (Field fx : fields) {
-               if (fx.get(null) instanceof Block) {
-                  Block block = (Block)fx.get(null);
+            for (Field field : fields) {
+               if (field.get(null) instanceof Block) {
+                  Block block = (Block)field.get(null);
                   if (Item.getItemFromBlock(block) == item) {
-                     return "BlocksRegister." + fx.getName();
+                     return "BlocksRegister." + field.getName();
                   }
                }
             }
@@ -243,9 +240,9 @@ public class Debugger {
       } else if (item.getRegistryName().getNamespace().equals("minecraft")) {
          Field[] fields = Items.class.getFields();
 
-         for (Field fxx : fields) {
-            if (fxx.get(null) == item) {
-               return "Items." + fxx.getName();
+         for (Field field : fields) {
+            if (field.get(null) == item) {
+               return "Items." + field.getName();
             }
          }
       } else {
@@ -255,9 +252,9 @@ public class Debugger {
 
          Field[] fields = ItemsRegister.class.getFields();
 
-         for (Field fxxx : fields) {
-            if (fxxx.get(null) == item) {
-               return "ItemsRegister." + fxxx.getName();
+         for (Field field : fields) {
+            if (field.get(null) == item) {
+               return "ItemsRegister." + field.getName();
             }
          }
       }

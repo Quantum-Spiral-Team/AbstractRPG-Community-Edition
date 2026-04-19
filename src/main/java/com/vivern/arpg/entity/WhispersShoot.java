@@ -12,7 +12,7 @@ import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -43,19 +43,19 @@ public class WhispersShoot extends EntityThrowable implements IEntitySynchronize
 
    public WhispersShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.WHISPERSBLADE);
+      this.weaponstack = new ItemStack(ItemsRegister.WHISPERS_BLADE);
       this.setSize(0.1F, 0.1F);
    }
 
    public WhispersShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.WHISPERSBLADE);
+      this.weaponstack = new ItemStack(ItemsRegister.WHISPERS_BLADE);
       this.setSize(0.1F, 0.1F);
    }
 
    public WhispersShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.WHISPERSBLADE);
+      this.weaponstack = new ItemStack(ItemsRegister.WHISPERS_BLADE);
       this.setSize(0.1F, 0.1F);
    }
 
@@ -99,7 +99,7 @@ public class WhispersShoot extends EntityThrowable implements IEntitySynchronize
       if (this.ticksExisted < 2 || this.ticksExisted % 10 == 0) {
          Vec3d look = this.getVectorForRotation(this.rotationPitch, -this.rotationYaw);
          this.bladeNormal = GetMOP.rotateVecAroundAxis(
-            GetMOP.PitchYawToVec3d(this.rotationPitch - 90.0F, -this.rotationYaw), look, (float)Math.toRadians(this.rotationRoll)
+            GetMOP.pitchYawToVec3D(this.rotationPitch - 90.0F, -this.rotationYaw), look, (float)Math.toRadians(this.rotationRoll)
          );
          IEntitySynchronize.sendSynchronize(this, 64.0, this.rotationRoll, this.cutterSize);
          if (this.powered) {
@@ -144,11 +144,11 @@ public class WhispersShoot extends EntityThrowable implements IEntitySynchronize
                      new WeaponDamage(
                         this.weaponstack, this.getThrower(), this, false, false, this, this.powered ? WeaponDamage.dismember : WeaponDamage.blade
                      ),
-                     (this.powered ? parameters.getEnchanted("damage_powered", might) : parameters.getEnchanted("damage_edge", might)) * this.magicPower,
+                     (this.powered ? parameters.getEnchantedF("damage_powered", might) : parameters.getEnchantedF("damage_edge", might)) * this.magicPower,
                      this.getThrower(),
                      entity,
                      true,
-                     this.powered ? parameters.getEnchanted("knockback_powered", impulse) : parameters.getEnchanted("knockback_edge", impulse)
+                     this.powered ? parameters.getEnchantedF("knockback_powered", impulse) : parameters.getEnchantedF("knockback_edge", impulse)
                   );
                   entity.hurtResistantTime = 0;
                   DeathEffects.applyDeathEffect(entity, DeathEffects.DE_CUT, this.powered ? 1.0F : 0.3F);
@@ -294,11 +294,11 @@ public class WhispersShoot extends EntityThrowable implements IEntitySynchronize
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.blade),
-                  parameters.getEnchanted("damage", might) * this.magicPower,
+                  parameters.getEnchantedF("damage", might) * this.magicPower,
                   this.getThrower(),
                   result.entityHit,
                   true,
-                  parameters.getEnchanted("knockback", impulse)
+                  parameters.getEnchantedF("knockback", impulse)
                );
                result.entityHit.hurtResistantTime = 0;
                DeathEffects.applyDeathEffect(result.entityHit, DeathEffects.DE_CUT, 0.5F);

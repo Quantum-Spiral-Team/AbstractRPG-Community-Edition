@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.ItemsRegister;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -196,19 +196,19 @@ public class ToxiberryTreeLeaves extends Block implements IShearable {
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       Random rand = world instanceof World ? ((World)world).rand : new Random();
       if (rand.nextInt(17) == 0) {
-         drops.add(new ItemStack(BlocksRegister.TOXIBERRYSAPLING));
+         drops.add(new ItemStack(BlocksRegister.TOXIBERRY_TREE_SAPLING));
       }
 
       if (rand.nextInt(4) == 0) {
-         drops.add(new ItemStack(ItemsRegister.SMALLTOXIBERRY));
+         drops.add(new ItemStack(ItemsRegister.SMALL_TOXIBERRY));
       }
 
       if (rand.nextInt(5) == 0) {
-         drops.add(new ItemStack(ItemsRegister.SMALLTOXIBERRY));
+         drops.add(new ItemStack(ItemsRegister.SMALL_TOXIBERRY));
       }
 
       if (rand.nextInt(4) == 0) {
-         drops.add(new ItemStack(ItemsRegister.PLANTFIBER));
+         drops.add(new ItemStack(ItemsRegister.PLANT_FIBER));
       }
    }
 

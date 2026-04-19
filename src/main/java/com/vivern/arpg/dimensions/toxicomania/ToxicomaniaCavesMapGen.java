@@ -230,21 +230,21 @@ public class ToxicomaniaCavesMapGen extends MapGenBase {
          return true;
       } else if (p_175793_1_.getBlock() == Blocks.DIRT) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.RADIOSTONE) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.RADIOACTIVE_STONE) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.RADIOCOBBLE) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.RADIOACTIVE_COBBLESTONE) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.TOXICDIRT) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.TOXIC_DIRT) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.TOXICGRASS) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.TOXIC_GRASS) {
          return true;
       } else if (p_175793_1_.getBlock() == BlocksRegister.SLUDGE) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.NUCLEARWASTE) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.NUCLEAR_WASTE) {
          return true;
       } else if (p_175793_1_.getBlock() == BlocksRegister.SCRAP) {
          return true;
-      } else if (p_175793_1_.getBlock() == BlocksRegister.SCRAPELECTRONICS) {
+      } else if (p_175793_1_.getBlock() == BlocksRegister.SCRAP_ELECTRONICS) {
          return true;
       } else if (p_175793_1_.getBlock() == BlocksRegister.JUNK) {
          return true;
@@ -253,7 +253,7 @@ public class ToxicomaniaCavesMapGen extends MapGenBase {
       } else if (p_175793_1_.getBlock() == Blocks.SNOW_LAYER) {
          return true;
       } else {
-         return p_175793_1_.getBlock() == BlocksRegister.FLUIDPOISON
+         return p_175793_1_.getBlock() == BlocksRegister.FLUID_POISON
             ? false
             : (p_175793_1_.getBlock() == Blocks.SAND || p_175793_1_.getBlock() == Blocks.GRAVEL)
                && p_175793_2_.getMaterial() != Material.WATER;

@@ -36,13 +36,13 @@ public class VirulentCapsule extends BlockBlockHard {
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
-      if (player.getHeldItem(hand).getItem() == ItemsRegister.BUNKERKEYCARD) {
+      if (player.getHeldItem(hand).getItem() == ItemsRegister.BUNKER_KEYCARD) {
          player.swingArm(hand);
          if (!world.isRemote) {
             world.playSound(null, pos, Sounds.keycard_open, SoundCategory.BLOCKS, 1.3F, 0.9F + world.rand.nextFloat() / 5.0F);
             world.setBlockToAir(pos);
             EntityItem it = new EntityItem(
-               world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(ItemsRegister.VIRULENTROD)
+               world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(ItemsRegister.VIRULENT_ROD)
             );
             it.motionX = 0.0;
             it.motionZ = 0.0;

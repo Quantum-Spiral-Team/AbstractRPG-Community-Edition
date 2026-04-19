@@ -5,7 +5,7 @@ import com.google.common.base.Predicate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAITarget;

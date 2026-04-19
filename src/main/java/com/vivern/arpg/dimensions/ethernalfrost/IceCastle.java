@@ -12,7 +12,7 @@ import com.vivern.arpg.tileentity.TilePuzzle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
@@ -84,16 +84,16 @@ public class IceCastle {
          for (int z = pos.getZ() - size; z <= pos.getZ() + size; z++) {
             boolean generate = false;
             IBlockState material = world.getBlockState(new BlockPos(x, pos.getY(), z));
-            if (material.getBlock() == BlocksRegister.FROZENBRICKS
+            if (material.getBlock() == BlocksRegister.BLOCK_BLOCK_HARD
                || material.getBlock() == Blocks.STONEBRICK
-               || material.getBlock() == BlocksRegister.FROZENBRICKPILASTER) {
+               || material.getBlock() == BlocksRegister.FROZEN_BRICK_PILASTER) {
                generate = true;
             }
 
-            if (material.getBlock() == BlocksRegister.FROZENVASE
-               || material.getBlock() == BlocksRegister.FROZENCHANDELIER
-               || material.getBlock() == BlocksRegister.FROZENBRICKSTAIRS) {
-               material = BlocksRegister.FROZENBRICKS.getDefaultState();
+            if (material.getBlock() == BlocksRegister.FROZEN_VASE
+               || material.getBlock() == BlocksRegister.FROZEN_CHANDELIER
+               || material.getBlock() == BlocksRegister.FROZEN_BRICK_STAIRS) {
+               material = BlocksRegister.BLOCK_BLOCK_HARD.getDefaultState();
                generate = true;
             }
 
@@ -125,7 +125,7 @@ public class IceCastle {
                         && block != Blocks.ICE
                         && block != Blocks.SNOW
                         && block != Blocks.SNOW_LAYER) {
-                        if (under <= 0 || block != BlocksRegister.SNOWICE && block != BlocksRegister.GLACIER && block != BlocksRegister.CLEANICE) {
+                        if (under <= 0 || block != BlocksRegister.SNOW_ICE && block != BlocksRegister.GLACIER && block != BlocksRegister.CLEAN_ICE) {
                            break;
                         }
 
@@ -142,7 +142,7 @@ public class IceCastle {
    }
 
    public static void placeSpawner(World world, BlockPos pos, boolean parapet, Random random) {
-      world.setBlockState(pos, BlocksRegister.MOBSPAWNERFROZEN.getDefaultState());
+      world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
       DimensionEthernalFrost.setupRandomSpawner(
          world,
          world.getTileEntity(pos),

@@ -134,9 +134,9 @@ public class CeratargetModel extends ModelBase {
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f3 == 0.0F) {
-         float ft1 = (GetMOP.getfromto(f1, 0.0F, 0.04F) - GetMOP.getfromto(f1, 0.92F, 0.96F)) * 1.25F;
-         float ft2 = (GetMOP.getfromto(f1, 0.04F, 0.08F) - GetMOP.getfromto(f1, 0.96F, 1.0F)) * 2.0F;
-         float ft3 = GetMOP.getfromto(f1, 0.0F, 0.2F) - GetMOP.getfromto(f1, 0.3F, 0.55F) + 1.0F;
+         float ft1 = (GetMOP.getFromTo(f1, 0.0F, 0.04F) - GetMOP.getFromTo(f1, 0.92F, 0.96F)) * 1.25F;
+         float ft2 = (GetMOP.getFromTo(f1, 0.04F, 0.08F) - GetMOP.getFromTo(f1, 0.96F, 1.0F)) * 2.0F;
+         float ft3 = GetMOP.getFromTo(f1, 0.0F, 0.2F) - GetMOP.getFromTo(f1, 0.3F, 0.55F) + 1.0F;
          if (f1 == 0.0F) {
             ft3 = 2.0F;
          }
@@ -180,7 +180,7 @@ public class CeratargetModel extends ModelBase {
          AbstractMobModel.light(100 + (int)(ft3 * 20.0F), true);
          this.pearl.render(f5);
          AbstractMobModel.returnlight();
-         AbstractMobModel.light((int)(GetMOP.getfromto(f1, 0.1F, 1.0F) * 130.0F), true);
+         AbstractMobModel.light((int)(GetMOP.getFromTo(f1, 0.1F, 1.0F) * 130.0F), true);
 
          for (int i = 0; i < f2; i++) {
             if (i % 2 == 0) {

@@ -139,8 +139,8 @@ public class RocketLauncher extends ItemWeapon {
                         }
 
                         EntityLaunchedRocket projectile = new EntityLaunchedRocket(world, player, itemstack);
-                        projectile.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                        projectile.knockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                        projectile.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                        projectile.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                         Weapons.shoot(
                            projectile,
                            EnumHand.MAIN_HAND,
@@ -148,8 +148,8 @@ public class RocketLauncher extends ItemWeapon {
                            player.rotationPitch,
                            player.rotationYaw,
                            0.0F,
-                           parameters.get("velocity"),
-                           parameters.getEnchanted("inaccuracy", acc),
+                           parameters.getF("velocity"),
+                           parameters.getEnchantedF("inaccuracy", acc),
                            -0.05F,
                            0.5F,
                            0.7F
@@ -197,8 +197,8 @@ public class RocketLauncher extends ItemWeapon {
 
                      for (int i = 0; i < 3; i++) {
                         EntityLaunchedRocket projectile = new EntityLaunchedRocket(world, player, itemstack);
-                        projectile.damage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                        projectile.knockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                        projectile.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                        projectile.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                         Weapons.shoot(
                            projectile,
                            EnumHand.MAIN_HAND,
@@ -206,8 +206,8 @@ public class RocketLauncher extends ItemWeapon {
                            player.rotationPitch,
                            player.rotationYaw + (i - 1) * 5,
                            0.0F,
-                           parameters.get("velocity"),
-                           parameters.getEnchanted("inaccuracy", acc),
+                           parameters.getF("velocity"),
+                           parameters.getEnchantedF("inaccuracy", acc),
                            -0.05F,
                            0.5F,
                            0.7F

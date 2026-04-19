@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -304,7 +304,7 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
             int radY = rand.nextInt(this.radius * 2 + 1) - this.radius;
             int radZ = rand.nextInt(this.radius * 2 + 1) - this.radius;
             BlockPos randomPos = this.getPos().add(radX, radY, radZ);
-            if (this.world.getBlockState(randomPos).getBlock() == BlocksRegister.FLUIDHYDROTHERMAL) {
+            if (this.world.getBlockState(randomPos).getBlock() == BlocksRegister.FLUID_HYDROTHERMAL) {
                if (collidesWithSoftBlock(this.world, randomPos)) {
                   this.world.setBlockToAir(randomPos);
                   this.world.createExplosion(null, randomPos.getX(), randomPos.getY(), randomPos.getZ(), 2.7F, false);
@@ -339,7 +339,7 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
 
             for (int ix = 0; ix < ii; ix++) {
                EntityGeomanticCrystal randomEntity = list.get(rand.nextInt(list.size()));
-               if (this.world.getBlockState(randomEntity.getPosition()).getBlock() == BlocksRegister.FLUIDHYDROTHERMAL) {
+               if (this.world.getBlockState(randomEntity.getPosition()).getBlock() == BlocksRegister.FLUID_HYDROTHERMAL) {
                   if (this.growItemStack(randomEntity.stackIn)) {
                      this.updateGuiColors();
                      Crystallizer.trySendPacketUpdate(this.world, this.getPos(), this, 8);
@@ -610,7 +610,7 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
 
    public static boolean isNonGermeticBlock(World world, float hardnessBreaks, BlockPos pos) {
       IBlockState block = world.getBlockState(pos);
-      if (block.getBlock() == BlocksRegister.FLUIDHYDROTHERMAL) {
+      if (block.getBlock() == BlocksRegister.FLUID_HYDROTHERMAL) {
          return false;
       } else if (block.getMaterial().isLiquid()) {
          return true;

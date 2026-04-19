@@ -30,14 +30,14 @@ public class SummonedSnowman extends EntitySummoned {
    public SummonedSnowman(World world) {
       super(world);
       this.setSize(0.7F, 1.7F);
-      this.weaponstack = new ItemStack(ItemsRegister.CONIFERROD);
+      this.weaponstack = new ItemStack(ItemsRegister.CONIFER_ROD);
    }
 
    public SummonedSnowman(World world, double x, double y, double z) {
       super(world);
       this.setSize(0.7F, 1.7F);
       this.setPositionAndUpdate(x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.CONIFERROD);
+      this.weaponstack = new ItemStack(ItemsRegister.CONIFER_ROD);
    }
 
    public SummonedSnowman(World world, double x, double y, double z, EntityPlayer owner, ItemStack itemstack) {
@@ -84,11 +84,9 @@ public class SummonedSnowman extends EntitySummoned {
          if (!list.isEmpty()) {
             for (EntityLivingBase entitylivingbase : list) {
                if (GetMOP.findEntityOnPath(
-                        15.0,
-                        this.getPositionEyes(1.0F),
+                       this.getPositionEyes(1.0F),
                         entitylivingbase.getPositionVector().add(0.0, entitylivingbase.height / 2.0F, 0.0),
-                        1.0F,
-                        this,
+                       this,
                         true,
                         0.1,
                         0.01

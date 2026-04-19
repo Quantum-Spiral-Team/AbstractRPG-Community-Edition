@@ -19,7 +19,7 @@ public class BlockRadioactive extends BlockBlockHard {
    public int walkRad;
 
    public BlockRadioactive(
-      Material mater, String name, BlocksRegister.Hardres hardres, String tool, int radianceRadiation, int radianceDistance, int breakRad, int walkRad
+           Material mater, String name, BlocksRegister.HardRes hardres, String tool, int radianceRadiation, int radianceDistance, int breakRad, int walkRad
    ) {
       super(mater, name, hardres, tool, false);
       this.radiance = radianceRadiation;

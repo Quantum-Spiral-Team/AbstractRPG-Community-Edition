@@ -48,6 +48,6 @@ public class EntityArrowMithril extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWMITHRIL);
+      return new ItemStack(ItemsRegister.ARROW_MITHRIL);
    }
 }

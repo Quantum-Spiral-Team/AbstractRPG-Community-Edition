@@ -5,7 +5,7 @@ import com.vivern.arpg.weather.WorldEvent;
 import com.vivern.arpg.weather.WorldEventsHandler;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;

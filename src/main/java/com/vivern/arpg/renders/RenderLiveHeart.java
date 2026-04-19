@@ -41,7 +41,7 @@ public class RenderLiveHeart<T extends EntityLiveHeart> extends Render<T> {
 
    public RenderLiveHeart(RenderManager renderManagerIn) {
       super(renderManagerIn);
-      torender = new ItemStack(ItemsRegister.LIVEHEART);
+      torender = new ItemStack(ItemsRegister.LIVE_HEART);
    }
 
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
@@ -57,7 +57,7 @@ public class RenderLiveHeart<T extends EntityLiveHeart> extends Render<T> {
       }
 
       float toft = (entity.ticksExisted + entity.randomRotat) % 60 + partialTicks;
-      float light = Math.max(MathHelper.sin(GetMOP.getfromto(toft, 20.0F, 40.0F) * 3.2F), 0.2F) * 200.0F;
+      float light = Math.max(MathHelper.sin(GetMOP.getFromTo(toft, 20.0F, 40.0F) * 3.2F), 0.2F) * 200.0F;
       AbstractMobModel.light((int)light, true);
       this.renderItem(torender, TransformType.GROUND, entity.getRed(), entity.getGreen(), entity.getBlue(), entity.randTranslate);
       AbstractMobModel.returnlight();

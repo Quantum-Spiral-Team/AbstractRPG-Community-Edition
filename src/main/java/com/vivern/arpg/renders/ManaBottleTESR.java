@@ -62,13 +62,13 @@ public class ManaBottleTESR extends TileEntitySpecialRenderer<TileManaBottle> {
       float[] color2 = new float[]{1.0F, 1.0F, 1.0F};
       if (type == 0) {
          this.renderColoredGlowingCuboid(
-            GetMOP.getfromto(fullness, 0.0F, 0.6F), 0.0625F, color, color2, 0.25F, 0.375F, 0.03125F, partialTicks, true, true, (byte)4
+            GetMOP.getFromTo(fullness, 0.0F, 0.6F), 0.0625F, color, color2, 0.25F, 0.375F, 0.03125F, partialTicks, true, true, (byte)4
          );
          this.renderColoredGlowingCuboid(
-            GetMOP.getfromto(fullness, 0.6F, 0.9F), 0.4375F, color, color, 0.125F, 0.1875F, 0.03125F, partialTicks, false, true, (byte)4
+            GetMOP.getFromTo(fullness, 0.6F, 0.9F), 0.4375F, color, color, 0.125F, 0.1875F, 0.03125F, partialTicks, false, true, (byte)4
          );
          this.renderColoredGlowingCuboid(
-            GetMOP.getfromto(fullness, 0.9F, 1.0F), 0.625F, color, color, 0.03125F, 0.3125F, 0.03125F, partialTicks, false, true, (byte)4
+            GetMOP.getFromTo(fullness, 0.9F, 1.0F), 0.625F, color, color, 0.03125F, 0.3125F, 0.03125F, partialTicks, false, true, (byte)4
          );
       }
 
@@ -77,13 +77,13 @@ public class ManaBottleTESR extends TileEntitySpecialRenderer<TileManaBottle> {
          float max = 1.375F;
          float fillValue = fullness * (max - min);
          this.renderColoredGlowingCuboid(
-            GetMOP.getfromto(fullness, 0.0F, 0.62F), 0.0625F, color, color2, 0.28125F, 0.5625F, 0.03125F, partialTicks, true, true, (byte)4
+            GetMOP.getFromTo(fullness, 0.0F, 0.62F), 0.0625F, color, color2, 0.28125F, 0.5625F, 0.03125F, partialTicks, true, true, (byte)4
          );
          this.renderColoredGlowingCuboid(
-            GetMOP.getfromto(fullness, 0.62F, 0.92F), 0.625F, color, color, 0.125F, 0.5F, 0.03125F, partialTicks, false, true, (byte)4
+            GetMOP.getFromTo(fullness, 0.62F, 0.92F), 0.625F, color, color, 0.125F, 0.5F, 0.03125F, partialTicks, false, true, (byte)4
          );
          this.renderColoredGlowingCuboid(
-            GetMOP.getfromto(fullness, 0.92F, 1.0F), 1.125F, color, color, 0.03125F, 0.25F, 0.03125F, partialTicks, false, true, (byte)4
+            GetMOP.getFromTo(fullness, 0.92F, 1.0F), 1.125F, color, color, 0.03125F, 0.25F, 0.03125F, partialTicks, false, true, (byte)4
          );
       }
 
@@ -92,13 +92,13 @@ public class ManaBottleTESR extends TileEntitySpecialRenderer<TileManaBottle> {
          float max = 1.625F;
          float fillValue = fullness * (max - min);
          this.renderColoredGlowingCuboid(
-            GetMOP.getfromto(fullness, 0.0F, 0.75F), 0.25F, color, color2, 0.3125F, 0.625F, 0.03125F, partialTicks, true, true, (byte)4
+            GetMOP.getFromTo(fullness, 0.0F, 0.75F), 0.25F, color, color2, 0.3125F, 0.625F, 0.03125F, partialTicks, true, true, (byte)4
          );
          this.renderColoredGlowingCuboid(
-            GetMOP.getfromto(fullness, 0.75F, 0.95F), 0.875F, color, color, 0.1875F, 0.3125F, 0.03125F, partialTicks, false, true, (byte)4
+            GetMOP.getFromTo(fullness, 0.75F, 0.95F), 0.875F, color, color, 0.1875F, 0.3125F, 0.03125F, partialTicks, false, true, (byte)4
          );
          this.renderColoredGlowingCuboid(
-            GetMOP.getfromto(fullness, 0.95F, 1.0F), 1.1875F, color, color, 0.03125F, 0.4375F, 0.03125F, partialTicks, false, true, (byte)4
+            GetMOP.getFromTo(fullness, 0.95F, 1.0F), 1.1875F, color, color, 0.03125F, 0.4375F, 0.03125F, partialTicks, false, true, (byte)4
          );
       }
 

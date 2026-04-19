@@ -6,7 +6,7 @@ import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.tileentity.TileSacrificialAltar;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -61,7 +61,7 @@ public class SacrificialAltar extends Block {
          TileSacrificialAltar tile = this.getTileEntity(worldIn, pos);
          ItemStack stack = player.getHeldItem(hand);
          if (tile != null) {
-            if (stack.getItem() == ItemsRegister.SOULSTONE && SoulStone.getSoul(stack) > 0 && tile.isEmpty()) {
+            if (stack.getItem() == ItemsRegister.SOUL_STONE && SoulStone.getSoul(stack) > 0 && tile.isEmpty()) {
                tile.setInventorySlotContents(0, stack.copy());
                stack.shrink(1);
                trySendPacketUpdate(worldIn, pos, tile);
@@ -70,7 +70,7 @@ public class SacrificialAltar extends Block {
             }
 
             ItemStack stackintile = tile.getStackInSlot(0);
-            if (!stackintile.isEmpty() && stackintile.getItem() == ItemsRegister.SOULSTONE && SoulStone.getSoul(stackintile) == 0) {
+            if (!stackintile.isEmpty() && stackintile.getItem() == ItemsRegister.SOUL_STONE && SoulStone.getSoul(stackintile) == 0) {
                worldIn.spawnEntity(
                   new EntityItem(worldIn, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, stackintile.copy())
                );

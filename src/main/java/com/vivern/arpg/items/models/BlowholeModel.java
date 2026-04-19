@@ -64,7 +64,7 @@ public class BlowholeModel extends ModelBase {
             this.stick.render(f5);
             this.stick.rotateAngleX = f2 * -0.8F * (float) (Math.PI / 180.0);
             if (f3 > 0.0F) {
-               this.stick.rotateAngleX = this.stick.rotateAngleX + 0.48F * GetMOP.getfromto(f3, 0.0F, 10.0F) * (1.0F - GetMOP.getfromto(f3, f4 - 10.0F, f4));
+               this.stick.rotateAngleX = this.stick.rotateAngleX + 0.48F * GetMOP.getFromTo(f3, 0.0F, 10.0F) * (1.0F - GetMOP.getFromTo(f3, f4 - 10.0F, f4));
             }
          }
       }

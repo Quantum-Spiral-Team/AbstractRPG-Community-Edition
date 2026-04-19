@@ -28,7 +28,7 @@ public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
    public boolean removeFire = false;
    public String[] text;
    public boolean render = false;
-   public int rendertype;
+   public int renderType;
 
    public BaubleAntipotion(String name, CreativeTabs tab, Potion[] potion, BaubleType btype, boolean removeFire, String[] text) {
       this.setRegistryName(name);
@@ -51,8 +51,8 @@ public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
       this.text = new String[]{text};
    }
 
-   public BaubleAntipotion setRender(int rendertype) {
-      this.rendertype = rendertype;
+   public BaubleAntipotion setRender(int renderType) {
+      this.renderType = renderType;
       this.render = true;
       return this;
    }
@@ -60,7 +60,7 @@ public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
    @Override
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (this.render) {
-         if (this.rendertype == 1 && type == RenderType.BODY) {
+         if (this.renderType == 1 && type == RenderType.BODY) {
             GlStateManager.pushMatrix();
             GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
             Helper.rotateIfSneaking(player);
@@ -69,7 +69,7 @@ public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
             GlStateManager.popMatrix();
          }
 
-         if (this.rendertype == 2 && type == RenderType.HEAD) {
+         if (this.renderType == 2 && type == RenderType.HEAD) {
             GlStateManager.pushMatrix();
             GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
             Helper.rotateIfSneaking(player);
@@ -78,19 +78,19 @@ public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
             GlStateManager.popMatrix();
          }
 
-         if (this.rendertype == 3 && type == RenderType.BODY) {
+         if (this.renderType == 3 && type == RenderType.BODY) {
             GlStateManager.pushMatrix();
             HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.RIGHT);
             GlStateManager.popMatrix();
          }
 
-         if (this.rendertype == 4 && type == RenderType.BODY) {
+         if (this.renderType == 4 && type == RenderType.BODY) {
             GlStateManager.pushMatrix();
             HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.LEFT);
             GlStateManager.popMatrix();
          }
 
-         if (this.rendertype == 5 && type == RenderType.BODY) {
+         if (this.renderType == 5 && type == RenderType.BODY) {
             GlStateManager.pushMatrix();
             if (BaublesApi.getBaubles(player).getStackInSlot(1) == stack) {
                HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.RIGHT, TransformType.THIRD_PERSON_RIGHT_HAND);

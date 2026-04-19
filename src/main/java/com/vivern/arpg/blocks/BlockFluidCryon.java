@@ -7,7 +7,7 @@ import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -139,9 +139,9 @@ public class BlockFluidCryon extends BlockFluidClassic {
             Block block = world.getBlockState(frompos).getBlock();
             if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
                if (frompos.getY() > pos.getY()) {
-                  world.setBlockState(pos, BlocksRegister.FROZENSTONE.getDefaultState());
+                  world.setBlockState(pos, BlocksRegister.FROZEN_STONE.getDefaultState());
                } else {
-                  world.setBlockState(frompos, BlocksRegister.FROZENSTONE.getDefaultState());
+                  world.setBlockState(frompos, BlocksRegister.FROZEN_STONE.getDefaultState());
                }
 
                world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);

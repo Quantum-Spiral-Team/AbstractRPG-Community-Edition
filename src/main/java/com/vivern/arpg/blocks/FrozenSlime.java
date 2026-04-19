@@ -129,7 +129,7 @@ public class FrozenSlime extends Block {
                   -0.5,
                   -0.5,
                   0.08,
-                  new int[]{Block.getStateId(BlocksRegister.CLEANICE.getDefaultState())}
+                  new int[]{Block.getStateId(BlocksRegister.CLEAN_ICE.getDefaultState())}
                );
          }
       }

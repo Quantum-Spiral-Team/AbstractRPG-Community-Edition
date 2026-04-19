@@ -6,7 +6,7 @@ import com.vivern.arpg.network.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.tileentity.TileDungeonLadder;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;

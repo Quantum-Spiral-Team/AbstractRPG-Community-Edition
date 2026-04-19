@@ -36,7 +36,7 @@ public class ManaFlowerLeaves extends Block implements IPlantable {
 
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote && rand.nextFloat() < 0.1F && worldIn.isAirBlock(pos.up())) {
-         worldIn.setBlockState(pos.up(), BlocksRegister.MANAFLOWER.getDefaultState());
+         worldIn.setBlockState(pos.up(), BlocksRegister.MANA_FLOWER.getDefaultState());
       }
    }
 
@@ -92,7 +92,7 @@ public class ManaFlowerLeaves extends Block implements IPlantable {
 
    public static void growForGeneration(World world, BlockPos pos, Random rand) {
       if (!world.isRemote && rand.nextFloat() < 0.4F && world.isAirBlock(pos.up())) {
-         world.setBlockState(pos.up(), BlocksRegister.MANAFLOWER.getDefaultState().withProperty(ManaFlower.AGE, rand.nextInt(3)));
+         world.setBlockState(pos.up(), BlocksRegister.MANA_FLOWER.getDefaultState().withProperty(ManaFlower.AGE, rand.nextInt(3)));
       }
    }
 
@@ -101,7 +101,7 @@ public class ManaFlowerLeaves extends Block implements IPlantable {
          super(
             Material.PLANTS,
             "mana_flower",
-            new Block[]{BlocksRegister.MANAFLOWERLEAVES},
+            new Block[]{BlocksRegister.MANA_FLOWER_LEAVES},
             0.1F,
             0.1F,
             SoundType.PLANT,
@@ -130,13 +130,13 @@ public class ManaFlowerLeaves extends Block implements IPlantable {
                         for (int i = 0; i >= -2; i--) {
                            BlockPos poss = pos.offset(facing).add(0, i, 0);
                            if (worldIn.isAirBlock(poss)
-                              && BlocksRegister.MANAFLOWERLEAVES.canPlaceBlockAt(worldIn, poss)
+                              && BlocksRegister.MANA_FLOWER_LEAVES.canPlaceBlockAt(worldIn, poss)
                               && worldIn.getBlockState(poss.down()).getBlock().isFertile(worldIn, poss.down())) {
                               if (worldIn.getBlockState(poss.down()).getBlock() == Blocks.FARMLAND) {
                                  worldIn.setBlockState(poss.down(), Blocks.DIRT.getDefaultState());
                               }
 
-                              worldIn.setBlockState(poss, BlocksRegister.MANAFLOWERLEAVES.getDefaultState());
+                              worldIn.setBlockState(poss, BlocksRegister.MANA_FLOWER_LEAVES.getDefaultState());
                               break;
                            }
                         }

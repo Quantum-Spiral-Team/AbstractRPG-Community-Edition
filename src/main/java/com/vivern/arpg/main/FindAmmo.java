@@ -6,14 +6,14 @@ import com.vivern.arpg.items.SoulStone;
 import com.vivern.arpg.items.Wrench;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class FindAmmo {
    @Deprecated
-   public static int Find(InventoryPlayer inventory, Item item) {
+   public static int find(InventoryPlayer inventory, Item item) {
       int count = 0;
 
       for (int i = 0; i < 36; i++) {
@@ -25,7 +25,7 @@ public class FindAmmo {
       return count;
    }
 
-   public static Item FindModulate(InventoryPlayer inventory, List<Item> itemlist) {
+   public static Item findModulate(InventoryPlayer inventory, List<Item> itemlist) {
       for (int i = 0; i < 36; i++) {
          for (Item variantItem : itemlist) {
             if (inventory.getStackInSlot(i).getItem() == variantItem) {
@@ -39,7 +39,7 @@ public class FindAmmo {
 
    public static ItemStack getStackFor(InventoryPlayer inventory, Item item) {
       for (int i = 0; i < inventory.mainInventory.size(); i++) {
-         ItemStack st = (ItemStack)inventory.mainInventory.get(i);
+         ItemStack st = inventory.mainInventory.get(i);
          if (!st.isEmpty() && item == st.getItem()) {
             return st;
          }
@@ -50,10 +50,10 @@ public class FindAmmo {
 
    public static int getNonEmptyClipStack(InventoryPlayer inventory, Item item) {
       for (int i = 0; i < inventory.mainInventory.size(); i++) {
-         ItemStack st = (ItemStack)inventory.mainInventory.get(i);
+         ItemStack st = inventory.mainInventory.get(i);
          if (!st.isEmpty() && item == st.getItem()) {
-            String nbtname = NBTHelper.GetNBTstring(st, "bullet");
-            if (!nbtname.isEmpty()) {
+            String nbtName = NBTHelper.GetNBTstring(st, "bullet");
+            if (!nbtName.isEmpty()) {
                return i;
             }
          }
@@ -64,10 +64,10 @@ public class FindAmmo {
 
    public static int getNonEmptyClipStack(InventoryPlayer inventory, Item item, int amount) {
       for (int i = 0; i < inventory.mainInventory.size(); i++) {
-         ItemStack st = (ItemStack)inventory.mainInventory.get(i);
+         ItemStack st = inventory.mainInventory.get(i);
          if (!st.isEmpty() && item == st.getItem()) {
-            String nbtname = NBTHelper.GetNBTstring(st, "bullet");
-            if (!nbtname.isEmpty()) {
+            String nbtName = NBTHelper.GetNBTstring(st, "bullet");
+            if (!nbtName.isEmpty()) {
                if (st.getCount() >= amount) {
                   return i;
                }
@@ -75,10 +75,10 @@ public class FindAmmo {
                int count = st.getCount();
 
                for (int i2 = i + 1; i2 < inventory.mainInventory.size(); i2++) {
-                  ItemStack st2 = (ItemStack)inventory.mainInventory.get(i2);
+                  ItemStack st2 = inventory.mainInventory.get(i2);
                   if (!st2.isEmpty() && item == st2.getItem()) {
-                     String nbtname2 = NBTHelper.GetNBTstring(st2, "bullet");
-                     if (nbtname.equals(nbtname2)) {
+                     String nbtName1 = NBTHelper.GetNBTstring(st2, "bullet");
+                     if (nbtName.equals(nbtName1)) {
                         count += st2.getCount();
                      }
                   }
@@ -96,7 +96,7 @@ public class FindAmmo {
 
    public static int getSlotFor(InventoryPlayer inventory, Item item) {
       for (int i = 0; i < inventory.mainInventory.size(); i++) {
-         ItemStack st = (ItemStack)inventory.mainInventory.get(i);
+         ItemStack st = inventory.mainInventory.get(i);
          if (!st.isEmpty() && item == st.getItem()) {
             return i;
          }
@@ -107,7 +107,7 @@ public class FindAmmo {
 
    public static int getSlotForWrench(InventoryPlayer inventory) {
       for (int i = 0; i < inventory.mainInventory.size(); i++) {
-         ItemStack st = (ItemStack)inventory.mainInventory.get(i);
+         ItemStack st = inventory.mainInventory.get(i);
          if (!st.isEmpty() && st.getItem() instanceof Wrench) {
             return i;
          }
@@ -116,10 +116,10 @@ public class FindAmmo {
       return -1;
    }
 
-   public static int getSlotForEmptySoulstone(InventoryPlayer inventory) {
+   public static int getSlotForEmptySoulStone(InventoryPlayer inventory) {
       for (int i = 0; i < inventory.mainInventory.size(); i++) {
-         ItemStack st = (ItemStack)inventory.mainInventory.get(i);
-         if (!st.isEmpty() && ItemsRegister.SOULSTONE == st.getItem() && SoulStone.getSoul(st) == 0) {
+         ItemStack st = inventory.mainInventory.get(i);
+         if (!st.isEmpty() && ItemsRegister.SOUL_STONE == st.getItem() && SoulStone.getSoul(st) == 0) {
             return i;
          }
       }
@@ -129,7 +129,7 @@ public class FindAmmo {
 
    public static int getSlotForItemBullet(InventoryPlayer inventory, @Nullable ItemBullet bullet, boolean onlyCurrentType) {
       for (int i = 0; i < inventory.mainInventory.size(); i++) {
-         ItemStack st = (ItemStack)inventory.mainInventory.get(i);
+         ItemStack st = inventory.mainInventory.get(i);
          if (!st.isEmpty() && (bullet == null || st.getItem() == bullet)) {
             return i;
          }
@@ -137,7 +137,7 @@ public class FindAmmo {
 
       if (!onlyCurrentType) {
          for (int ix = 0; ix < inventory.mainInventory.size(); ix++) {
-            ItemStack st = (ItemStack)inventory.mainInventory.get(ix);
+            ItemStack st = inventory.mainInventory.get(ix);
             if (!st.isEmpty() && st.getItem() instanceof ItemBullet) {
                return ix;
             }
@@ -154,9 +154,6 @@ public class FindAmmo {
          Item item = inventory.getStackInSlot(n).getItem();
          if (item instanceof ItemRocket) {
             List<Integer> list = new ArrayList<>();
-            if (!list.contains(n)) {
-               list.add(n);
-            }
 
             for (int i = n; i < 36; i++) {
                if (inventory.getStackInSlot(i).getItem() == item) {

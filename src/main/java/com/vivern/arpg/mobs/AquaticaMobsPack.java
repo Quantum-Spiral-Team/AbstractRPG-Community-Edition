@@ -37,7 +37,7 @@ import com.google.common.base.Predicate;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -276,7 +276,7 @@ public class AquaticaMobsPack {
          this.setattributes(320.0, 64.0, 16.0, 0.12, 12.0, 7.0, 0.8, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.ARCHELONSHELL, 0.85F, 0, 1, 1, 0), new MobDrop(ItemsRegister.ARCHELONSHELL, 0.15F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.ARCHELON_SHELL, 0.85F, 0, 1, 1, 0), new MobDrop(ItemsRegister.ARCHELON_SHELL, 0.15F, 0, 1, 1, 0)
             }
          );
          this.stepHeight = 1.0F;
@@ -355,7 +355,7 @@ public class AquaticaMobsPack {
             }
 
             float headProtectAn = 100 - this.animations[3];
-            float headProtect = GetMOP.getfromto(headProtectAn, 0.0F, 20.0F) - GetMOP.getfromto(headProtectAn, 80.0F, 100.0F);
+            float headProtect = GetMOP.getFromTo(headProtectAn, 0.0F, 20.0F) - GetMOP.getFromTo(headProtectAn, 80.0F, 100.0F);
             float unheadProtect = 1.0F - headProtect;
             if (this.archelonHead == null || this.archelonHead.isDead) {
                this.archelonHead = new EntityPart(this.world, this, this.team, 0.7F, 0.7F);
@@ -781,7 +781,7 @@ public class AquaticaMobsPack {
          this.setattributes(65.0, 48.0, 13.0, 0.22, 8.0, 4.0, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.FISHSTEAKRAW, 1.0F, 0, 1, 1, 1), new MobDrop(ItemsRegister.PLACODERMSCALES, 0.6F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.FISH_STEAK_RAW, 1.0F, 0, 1, 1, 1), new MobDrop(ItemsRegister.PLACODERM_SCALES, 0.6F, 0, 1, 1, 0)
             }
          );
          this.var3 = 0.0F;
@@ -1065,9 +1065,9 @@ public class AquaticaMobsPack {
          this.setattributes(200.0, 64.0, 20.0, 0.27, 10.0, 7.0, 0.4, 0.2, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.FISHSTEAKRAW, 0.5F, 0, 1, 1, 3),
-               new MobDrop(ItemsRegister.NUGGETAQUATIC, 0.5F, 0, 1, 3, 0),
-               new MobDrop(ItemsRegister.PEARLBLACK, 0.1F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.FISH_STEAK_RAW, 0.5F, 0, 1, 1, 3),
+               new MobDrop(ItemsRegister.AQUATIC_NUGGET, 0.5F, 0, 1, 3, 0),
+               new MobDrop(ItemsRegister.BLACK_PEARL, 0.1F, 0, 1, 1, 0)
             }
          );
       }
@@ -1103,7 +1103,7 @@ public class AquaticaMobsPack {
          this.setattributes(100.0, 48.0, 15.0, 0.25, 9.0, 5.0, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.FISHSTEAKRAW, 1.0F, 0, 1, 2, 2), new MobDrop(ItemsRegister.PLACODERMSCALES, 0.9F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.FISH_STEAK_RAW, 1.0F, 0, 1, 2, 2), new MobDrop(ItemsRegister.PLACODERM_SCALES, 0.9F, 0, 1, 1, 0)
             }
          );
          this.var3 = 0.0F;
@@ -1816,7 +1816,7 @@ public class AquaticaMobsPack {
             if (tentacle.kraken != null) {
                Vec3d pos1 = tentacle.kraken.getTentaclesAlign(partialTicks);
                Vec3d pos2 = GetMOP.entityCenterPos(tentacle, partialTicks);
-               Vec3d normalizedRotation1 = GetMOP.PitchYawToVec3d(
+               Vec3d normalizedRotation1 = GetMOP.pitchYawToVec3D(
                   -GetMOP.partial(tentacle.kraken.rotationPitch, tentacle.kraken.prevRotationPitch),
                   -GetMOP.partial(tentacle.kraken.rotationYaw, tentacle.kraken.prevRotationYaw)
                );
@@ -1918,7 +1918,7 @@ public class AquaticaMobsPack {
             if (tentacle.kraken != null) {
                Vec3d pos1 = tentacle.kraken.getTentaclesAlign(partialTicks);
                Vec3d pos2 = GetMOP.entityCenterPos(tentacle, partialTicks);
-               Vec3d normalizedRotation1 = GetMOP.PitchYawToVec3d(
+               Vec3d normalizedRotation1 = GetMOP.pitchYawToVec3D(
                   -GetMOP.partial(tentacle.kraken.rotationPitch, tentacle.kraken.prevRotationPitch),
                   -GetMOP.partial(tentacle.kraken.rotationYaw, tentacle.kraken.prevRotationYaw)
                );
@@ -2064,7 +2064,7 @@ public class AquaticaMobsPack {
             if (tentacle.kraken != null) {
                Vec3d pos1 = tentacle.kraken.getTentaclesAlign(partialTicks);
                Vec3d pos2 = GetMOP.entityCenterPos(tentacle, partialTicks);
-               Vec3d normalizedRotation1 = GetMOP.PitchYawToVec3d(
+               Vec3d normalizedRotation1 = GetMOP.pitchYawToVec3D(
                   -GetMOP.partial(tentacle.kraken.rotationPitch, tentacle.kraken.prevRotationPitch),
                   -GetMOP.partial(tentacle.kraken.rotationYaw, tentacle.kraken.prevRotationYaw)
                );
@@ -2167,7 +2167,7 @@ public class AquaticaMobsPack {
             if (tentacle.kraken != null) {
                Vec3d pos1 = tentacle.kraken.getTentaclesAlign(partialTicks);
                Vec3d pos2 = GetMOP.entityCenterPos(tentacle, partialTicks);
-               Vec3d normalizedRotation1 = GetMOP.PitchYawToVec3d(
+               Vec3d normalizedRotation1 = GetMOP.pitchYawToVec3D(
                   -GetMOP.partial(tentacle.kraken.rotationPitch, tentacle.kraken.prevRotationPitch),
                   -GetMOP.partial(tentacle.kraken.rotationYaw, tentacle.kraken.prevRotationYaw)
                );
@@ -2270,7 +2270,7 @@ public class AquaticaMobsPack {
                         this.world.setEntityState(this, (byte)9);
                      }
                   } else {
-                     List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(this.world, this.getPositionVector(), 3.0, 3.0, this, this);
+                     List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(this.world, this.getPositionVector(), 3.0, 3.0, this);
                      if (!list.isEmpty() && !this.attacking) {
                         this.attacking = true;
                         this.world.setEntityState(this, (byte)10);
@@ -2409,7 +2409,7 @@ public class AquaticaMobsPack {
             if (tentacle.kraken != null) {
                Vec3d pos1 = tentacle.kraken.getTentaclesAlign(partialTicks);
                Vec3d pos2 = GetMOP.entityCenterPos(tentacle, partialTicks);
-               Vec3d normalizedRotation1 = GetMOP.PitchYawToVec3d(
+               Vec3d normalizedRotation1 = GetMOP.pitchYawToVec3D(
                   -GetMOP.partial(tentacle.kraken.rotationPitch, tentacle.kraken.prevRotationPitch),
                   -GetMOP.partial(tentacle.kraken.rotationYaw, tentacle.kraken.prevRotationYaw)
                );
@@ -2472,7 +2472,7 @@ public class AquaticaMobsPack {
       public static Predicate<? super EntityLivingBase> targetEntitySelector = new Predicate<EntityLivingBase>() {
          public boolean apply(EntityLivingBase input) {
             if (input instanceof EntityPlayer) {
-               boolean med = BaublesApi.getBaublesHandler((EntityPlayer)input).getStackInSlot(0).getItem() == ItemsRegister.MERMAIDMEDALLION;
+               boolean med = BaublesApi.getBaublesHandler((EntityPlayer)input).getStackInSlot(0).getItem() == ItemsRegister.MERMAID_MEDALLION;
                if (med) {
                   return false;
                }
@@ -2492,9 +2492,9 @@ public class AquaticaMobsPack {
          this.setattributes(230.0, 64.0, 20.0, 0.27, 10.0, 8.0, 0.4, 0.2, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.FISHSTEAKRAW, 0.5F, 0, 1, 1, 3),
-               new MobDrop(ItemsRegister.NUGGETAQUATIC, 0.5F, 0, 1, 3, 0),
-               new MobDrop(ItemsRegister.TIDEACTIVATOR1, 0.1F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.FISH_STEAK_RAW, 0.5F, 0, 1, 1, 3),
+               new MobDrop(ItemsRegister.AQUATIC_NUGGET, 0.5F, 0, 1, 3, 0),
+               new MobDrop(ItemsRegister.TIDE_ACTIVATOR_1, 0.1F, 0, 1, 1, 0),
                new MobDrop(ItemsRegister.PEARL, 0.3F, 0, 0, 3, 0)
             }
          );
@@ -2685,7 +2685,7 @@ public class AquaticaMobsPack {
                   }
 
                   if (this.ticksExisted % 9 == 0 && this.getAttackTarget() != null && this.spellhitCoolown <= 0) {
-                     List<EntityLivingBase> around = GetMOP.getHostilesInAABBto(this.world, GetMOP.entityCenterPos(this), 8.0, 5.0, this, this);
+                     List<EntityLivingBase> around = GetMOP.getHostilesInAABBto(this.world, GetMOP.entityCenterPos(this), 8.0, 5.0, this);
                      int maxcount = 0;
                      Vec3d maxpos = null;
                      if (!around.isEmpty()) {
@@ -2697,7 +2697,7 @@ public class AquaticaMobsPack {
                                  (this.rand.nextDouble() - 0.5) * 3.0,
                                  (this.rand.nextDouble() - 0.5) * 6.0
                               );
-                           List<EntityLivingBase> hostiles = GetMOP.getHostilesInAABBto(this.world, pos, 3.2, 1.8, this, this);
+                           List<EntityLivingBase> hostiles = GetMOP.getHostilesInAABBto(this.world, pos, 3.2, 1.8, this);
                            if (maxcount < hostiles.size()) {
                               maxcount = hostiles.size();
                               maxpos = pos;
@@ -2720,7 +2720,7 @@ public class AquaticaMobsPack {
                      if (this.spellhitReady < this.maxSpellhitReady) {
                         this.spellhitReady++;
                      } else {
-                        for (EntityLivingBase entity : GetMOP.getHostilesInAABBto(this.world, this.spellhitPos, 3.2, 1.8, this, this)) {
+                        for (EntityLivingBase entity : GetMOP.getHostilesInAABBto(this.world, this.spellhitPos, 3.2, 1.8, this)) {
                            Weapons.dealDamage(
                               new WeaponDamage(null, this, null, false, false, this.spellhitPos, WeaponDamage.acid),
                               25.0F,
@@ -2948,7 +2948,7 @@ public class AquaticaMobsPack {
          this.setattributes(80.0, 48.0, 12.0, 0.32, 8.0, 4.0, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.FISHSTEAKRAW, 0.5F, 0, 1, 1, 1), new MobDrop(ItemsRegister.PLACODERMSCALES, 0.2F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.FISH_STEAK_RAW, 0.5F, 0, 1, 1, 1), new MobDrop(ItemsRegister.PLACODERM_SCALES, 0.2F, 0, 1, 1, 0)
             }
          );
          this.var3 = 0.0F;
@@ -3150,7 +3150,7 @@ public class AquaticaMobsPack {
          this.livingSound = SoundEvents.ENTITY_GUARDIAN_AMBIENT;
          this.defaultteam = AquaticaMobsPack.mobsteam;
          this.setattributes(375.0, 48.0, 9.0, 0.08, 3.0, 6.0, 0.4, 0.0, 0.0, 0.0);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.PEARLAQUATIC, 0.25F, 0, 1, 1, 0)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.AQUATIC_PEARL, 0.25F, 0, 1, 1, 0)});
          this.var3 = 0.0F;
          this.var4 = 0.0F;
          this.var5 = 0.0F;
@@ -4258,7 +4258,7 @@ public class AquaticaMobsPack {
          this.defaultteam = AquaticaMobsPack.mobsteam;
          this.moveHelper = new WaterMoveHelper(this);
          this.setattributes(150.0, 48.0, 14.0, 0.24, 5.0, 2.0, 0.0, 0.0, 0.0, 0.0);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.FISHSTEAKRAW, 1.0F, 0, 1, 1, 2)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.FISH_STEAK_RAW, 1.0F, 0, 1, 1, 2)});
          this.var3 = 0.0F;
          this.var4 = 0.0F;
          this.var5 = 0.0F;

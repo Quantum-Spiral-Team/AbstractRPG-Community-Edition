@@ -8,7 +8,7 @@ import com.vivern.arpg.main.PropertiesRegistry;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Weapons;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -147,7 +147,7 @@ public class BlockFluidBiogenicAcid extends BlockFluidClassic {
             if (block != Blocks.LAVA && block == Blocks.FLOWING_LAVA) {
             }
 
-            if (block == BlocksRegister.FLUIDCRYON) {
+            if (block == BlocksRegister.FLUID_CRYON) {
                world.setBlockState(pos, Blocks.ICE.getDefaultState());
                world.playSound(null, pos, Sounds.fluid_freezing, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
             }

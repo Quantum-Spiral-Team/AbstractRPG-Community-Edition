@@ -25,17 +25,17 @@ public class CannonSnowball extends EntityThrowable {
 
    public CannonSnowball(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALLCANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALL_CANNON);
    }
 
    public CannonSnowball(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALLCANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALL_CANNON);
    }
 
    public CannonSnowball(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALLCANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.SNOWBALL_CANNON);
    }
 
    public CannonSnowball(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -78,7 +78,7 @@ public class CannonSnowball extends EntityThrowable {
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse),
+               parameters.getEnchantedF("knockback", impulse),
                this.posX,
                this.posY,
                this.posZ
@@ -94,7 +94,7 @@ public class CannonSnowball extends EntityThrowable {
             != null
          && !this.world.isRemote) {
          int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack);
-         if (this.rand.nextFloat() < WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getEnchanted("snow_set_chance", reuse)
+         if (this.rand.nextFloat() < WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getEnchantedF("snow_set_chance", reuse)
             && this.world.getBlockState(result.getBlockPos().add(0, 1, 0)).getBlock() == Blocks.AIR
             && this.world.getBlockState(result.getBlockPos()).isTopSolid()) {
             this.world.setBlockState(result.getBlockPos().add(0, 1, 0), Blocks.SNOW_LAYER.getDefaultState());

@@ -43,17 +43,17 @@ public class EntityElectricBolt extends EntityThrowable implements IEntitySynchr
 
    public EntityElectricBolt(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.ELECTRICSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.ELECTROSTATIC);
    }
 
    public EntityElectricBolt(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.ELECTRICSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.ELECTROSTATIC);
    }
 
    public EntityElectricBolt(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.ELECTRICSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.ELECTROSTATIC);
    }
 
    public EntityElectricBolt(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -151,11 +151,11 @@ public class EntityElectricBolt extends EntityThrowable implements IEntitySynchr
             int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
             Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.electric),
-               parameters.getEnchanted("damage", might) * this.magicPower,
+               parameters.getEnchantedF("damage", might) * this.magicPower,
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse),
+               parameters.getEnchantedF("knockback", impulse),
                this.posX,
                this.posY,
                this.posZ

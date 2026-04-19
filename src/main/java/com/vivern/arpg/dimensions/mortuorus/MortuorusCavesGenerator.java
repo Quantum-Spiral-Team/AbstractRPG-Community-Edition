@@ -180,12 +180,12 @@ public class MortuorusCavesGenerator {
                   double distanceValue = Math.sqrt(x * x + y * y + z * z) - sizeXZ;
                   if (noiseValue > distanceValue) {
                      BlockPos poss = new BlockPos(pos.getX() + x, pos.getY() + y * heightMult, pos.getZ() + z);
-                     this.setBlockState(poss, poss.getY() == 1 ? BlocksRegister.FLUIDDARKNESS.getDefaultState() : Blocks.AIR.getDefaultState());
+                     this.setBlockState(poss, poss.getY() == 1 ? BlocksRegister.FLUID_DARKNESS.getDefaultState() : Blocks.AIR.getDefaultState());
                   } else if (noiseValue > distanceValue - 1.0) {
                      BlockPos poss = new BlockPos(pos.getX() + x, pos.getY() + y * heightMult, pos.getZ() + z);
                      if (this.getBlockState(poss).getBlock() == BlocksRegister.BONESBLOCK) {
                         this.setBlockState(
-                           poss, poss.getY() == 1 ? BlocksRegister.FLUIDDARKNESS.getDefaultState() : Blocks.AIR.getDefaultState()
+                           poss, poss.getY() == 1 ? BlocksRegister.FLUID_DARKNESS.getDefaultState() : Blocks.AIR.getDefaultState()
                         );
                      }
                   }
@@ -309,7 +309,7 @@ public class MortuorusCavesGenerator {
          BlockPos fpos = new BlockPos(pos.getX(), y, pos.getZ());
          if (this.getBlockState(fpos).isTopSolid()) {
             if (--depth <= 0) {
-               this.setBlockState(fpos.up(), BlocksRegister.ICESPIKES.getDefaultState());
+               this.setBlockState(fpos.up(), BlocksRegister.ICE_SPIKES.getDefaultState());
                return;
             }
 
@@ -330,12 +330,12 @@ public class MortuorusCavesGenerator {
                   double fd = (double)x * x / rx2 + (double)y * y / ry2 + (double)z * z / rz2;
                   if (fd < 1.0) {
                      BlockPos poss = new BlockPos(posx + x, posy + y, posz + z);
-                     this.setBlockState(poss, poss.getY() == 1 ? BlocksRegister.FLUIDDARKNESS.getDefaultState() : Blocks.AIR.getDefaultState());
+                     this.setBlockState(poss, poss.getY() == 1 ? BlocksRegister.FLUID_DARKNESS.getDefaultState() : Blocks.AIR.getDefaultState());
                   } else if (fd < 2.0) {
                      BlockPos poss = new BlockPos(posx + x, posy + y, posz + z);
                      if (this.getBlockState(poss).getBlock() == BlocksRegister.BONESBLOCK) {
                         this.setBlockState(
-                           poss, poss.getY() == 1 ? BlocksRegister.FLUIDDARKNESS.getDefaultState() : Blocks.AIR.getDefaultState()
+                           poss, poss.getY() == 1 ? BlocksRegister.FLUID_DARKNESS.getDefaultState() : Blocks.AIR.getDefaultState()
                         );
                      }
                   }

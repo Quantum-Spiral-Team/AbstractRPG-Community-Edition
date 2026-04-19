@@ -97,14 +97,14 @@ public class ElementFocus extends Item {
 
             if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
                ArrayList<Item> ammolist = new ArrayList<>();
-               ammolist.add(ItemsRegister.ELAMMOAIR);
-               ammolist.add(ItemsRegister.ELAMMOEARTH);
-               ammolist.add(ItemsRegister.ELAMMOFIRE);
-               ammolist.add(ItemsRegister.ELAMMOWATER);
-               Item ammotype = FindAmmo.FindModulate(player.inventory, ammolist);
+               ammolist.add(ItemsRegister.ELEMENTAL_AMMO_AIR);
+               ammolist.add(ItemsRegister.ELEMENTAL_AMMO_EARTH);
+               ammolist.add(ItemsRegister.ELEMENTAL_AMMO_FIRE);
+               ammolist.add(ItemsRegister.ELEMENTAL_AMMO_WATER);
+               Item ammotype = FindAmmo.findModulate(player.inventory, ammolist);
                if (ammotype != null) {
                   player.addStat(StatList.getObjectUseStats(this));
-                  if (ammotype == ItemsRegister.ELAMMOAIR) {
+                  if (ammotype == ItemsRegister.ELEMENTAL_AMMO_AIR) {
                      ElementProjectile proj1 = new ElementProjectile(world, player, 1, itemstack);
                      proj1.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 2.5F, 0.2F - acclvl / 15.0F);
                      world.spawnEntity(proj1);
@@ -115,7 +115,7 @@ public class ElementFocus extends Item {
                      }
                   }
 
-                  if (ammotype == ItemsRegister.ELAMMOWATER) {
+                  if (ammotype == ItemsRegister.ELEMENTAL_AMMO_WATER) {
                      ElementProjectile proj2 = new ElementProjectile(world, player, 4, itemstack);
                      proj2.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 2.3F, 0.3F - acclvl / 10.0F);
                      world.spawnEntity(proj2);
@@ -126,7 +126,7 @@ public class ElementFocus extends Item {
                      }
                   }
 
-                  if (ammotype == ItemsRegister.ELAMMOFIRE) {
+                  if (ammotype == ItemsRegister.ELEMENTAL_AMMO_FIRE) {
                      ElementProjectile proj2 = new ElementProjectile(world, player, 3, itemstack);
                      proj2.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 2.4F, 0.4F - acclvl / 7.5F);
                      world.spawnEntity(proj2);
@@ -137,7 +137,7 @@ public class ElementFocus extends Item {
                      }
                   }
 
-                  if (ammotype == ItemsRegister.ELAMMOEARTH) {
+                  if (ammotype == ItemsRegister.ELEMENTAL_AMMO_EARTH) {
                      ElementProjectile proj2 = new ElementProjectile(world, player, 2, itemstack);
                      proj2.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 2.3F, 0.3F - acclvl / 10.0F);
                      world.spawnEntity(proj2);

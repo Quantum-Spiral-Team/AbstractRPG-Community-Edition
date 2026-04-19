@@ -31,17 +31,17 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
 
    public EntityMinigunIcicle(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.ICICLEMINIGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.ICICLE_MINIGUN);
    }
 
    public EntityMinigunIcicle(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.ICICLEMINIGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.ICICLE_MINIGUN);
    }
 
    public EntityMinigunIcicle(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.ICICLEMINIGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.ICICLE_MINIGUN);
    }
 
    public EntityMinigunIcicle(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -133,12 +133,12 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
             int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
             int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
-            float bdamage = parameters.getEnchanted("damage", might);
+            float bdamage = parameters.getEnchantedF("damage", might);
             if (result.entityHit instanceof EntityLivingBase) {
                EntityLivingBase entitylivingbase = (EntityLivingBase)result.entityHit;
                boolean active = Freezing.canImmobilizeEntity(entitylivingbase, entitylivingbase.getActivePotionEffect(PotionEffects.FREEZING));
                if (active) {
-                  bdamage += parameters.getEnchanted("icebreak_damage", might);
+                  bdamage += parameters.getEnchantedF("icebreak_damage", might);
                }
 
                if (active && entitylivingbase.getHealth() <= 0.0F) {
@@ -152,7 +152,7 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse)
+               parameters.getEnchantedF("knockback", impulse)
             );
             result.entityHit.hurtResistantTime = 0;
             this.world

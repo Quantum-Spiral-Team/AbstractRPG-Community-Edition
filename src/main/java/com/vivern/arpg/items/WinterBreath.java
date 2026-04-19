@@ -119,7 +119,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
-                     NBTHelper.SetNBTint(itemstack, parameters.geti("max_hits"), "blocking");
+                     NBTHelper.SetNBTint(itemstack, parameters.getI("max_hits"), "blocking");
                      player.addExhaustion(0.6F);
                   } else {
                      if (player.ticksExisted % 7 == 0) {
@@ -147,7 +147,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
    public float onAttackedWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
       if (!player.world.isRemote && NBTHelper.GetNBTint(stack, "blocking") > 0) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-         float damageBlocks = parameters.getEnchanted("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+         float damageBlocks = parameters.getEnchantedF("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
          Entity attacker = source.getImmediateSource() == null ? source.getTrueSource() : source.getImmediateSource();
          if (!IWeapon.checkShieldAngle(stack, player, source)) {
             return hurtdamage;
@@ -171,10 +171,10 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                } else {
                   if (attacker != null) {
                      int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack);
-                     int potionValue1 = parameters.getEnchantedi("freezing_time_add", witchery);
-                     int potionValue2 = parameters.getEnchantedi("freezing_highest_power_add", witchery);
-                     int potionValue3 = parameters.getEnchantedi("freezing_time_max", witchery);
-                     int potionValue4 = parameters.getEnchantedi("freezing_power_max", witchery);
+                     int potionValue1 = parameters.getEnchantedI("freezing_time_add", witchery);
+                     int potionValue2 = parameters.getEnchantedI("freezing_highest_power_add", witchery);
+                     int potionValue3 = parameters.getEnchantedI("freezing_time_max", witchery);
+                     int potionValue4 = parameters.getEnchantedI("freezing_power_max", witchery);
                      PotionEffect lastdebaff = Weapons.mixPotion(
                         attacker,
                         PotionEffects.FREEZING,
@@ -191,8 +191,8 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                      SuperKnockback.applyShieldBlock(
                         player,
                         attacker,
-                        parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
-                        parameters.get("self_knockback")
+                        parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
+                        parameters.getF("self_knockback")
                      );
                   }
 
@@ -248,10 +248,10 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
 
    public void winterbreak(World world, ItemStack stack, EntityPlayer player) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-      int snowNeed = parameters.getEnchantedi("winterbreak_snow_need", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack));
+      int snowNeed = parameters.getEnchantedI("winterbreak_snow_need", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack));
       if (NBTHelper.GetNBTint(stack, "snow") >= snowNeed) {
          Vec3d vec = GetMOP.entityCenterPos(player);
-         double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack));
+         double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack));
          AxisAlignedBB aabb = new AxisAlignedBB(
             vec.x - damageRadius,
             vec.y - damageRadius,
@@ -268,15 +268,15 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                int spec = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack);
                SuperKnockback.applyKnockback(
                   en,
-                  parameters.getEnchanted("winterbreak_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
+                  parameters.getEnchantedF("winterbreak_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
                   player.posX,
                   player.posY - 0.3,
                   player.posZ
                );
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack);
-               int potionValue1 = parameters.getEnchantedi("slowness_time_add", witchery);
-               int potionValue2 = parameters.getEnchantedi("slowness_power_add", witchery);
-               int potionValue3 = parameters.getEnchantedi("slowness_time_max", witchery);
+               int potionValue1 = parameters.getEnchantedI("slowness_time_add", witchery);
+               int potionValue2 = parameters.getEnchantedI("slowness_power_add", witchery);
+               int potionValue3 = parameters.getEnchantedI("slowness_time_max", witchery);
                Weapons.mixPotion(
                   en,
                   MobEffects.SLOWNESS,
@@ -290,9 +290,9 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                   0
                );
                if (spec > 0) {
-                  potionValue1 = parameters.getEnchantedi("frostburn_time_add", witchery);
-                  potionValue2 = parameters.getEnchantedi("frostburn_power_add", witchery);
-                  potionValue3 = parameters.getEnchantedi("frostburn_time_max", witchery);
+                  potionValue1 = parameters.getEnchantedI("frostburn_time_add", witchery);
+                  potionValue2 = parameters.getEnchantedI("frostburn_power_add", witchery);
+                  potionValue3 = parameters.getEnchantedI("frostburn_time_max", witchery);
                   Weapons.mixPotion(
                      en,
                      PotionEffects.FROSTBURN,
@@ -326,7 +326,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
 
    public void findSnowAndCharge(World world, ItemStack stack, EntityPlayer player) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-      int need = parameters.getEnchantedi("winterbreak_snow_need", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack));
+      int need = parameters.getEnchantedI("winterbreak_snow_need", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack));
       boolean effect = false;
       if (NBTHelper.GetNBTint(stack, "snow") < need) {
          for (int x = -3; x <= 3; x++) {
@@ -335,7 +335,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                   if (itemRand.nextFloat() < 0.7) {
                      BlockPos pos = new BlockPos(player.posX + x, player.posY + y, player.posZ + z);
                      Block bl = world.getBlockState(pos).getBlock();
-                     if (bl == Blocks.SNOW || bl == Blocks.SNOW_LAYER || bl == BlocksRegister.LOOSESNOW) {
+                     if (bl == Blocks.SNOW || bl == Blocks.SNOW_LAYER || bl == BlocksRegister.LOOSE_SNOW) {
                         effect = true;
                         world.setBlockToAir(pos);
                         NBTHelper.AddNBTint(stack, 1, "snow");
@@ -448,7 +448,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                   if (limit > 0 && itemRand.nextFloat() < 0.7) {
                      BlockPos pos = new BlockPos(x + xx, y + yy, z + zz);
                      Block bl = world.getBlockState(pos).getBlock();
-                     if (bl == Blocks.SNOW || bl == Blocks.SNOW_LAYER || bl == BlocksRegister.LOOSESNOW) {
+                     if (bl == Blocks.SNOW || bl == Blocks.SNOW_LAYER || bl == BlocksRegister.LOOSE_SNOW) {
                         limit--;
                         GUNParticle particle = new GUNParticle(
                            snow2,
@@ -482,7 +482,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).geti("max_hits"), 0.0F, 1.0F
+         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getI("max_hits"), 0.0F, 1.0F
       );
    }
 

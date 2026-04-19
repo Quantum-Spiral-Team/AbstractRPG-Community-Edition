@@ -56,7 +56,7 @@ public class IchorShower extends ItemWeapon {
             float power = Mana.getMagicPowerMax(player);
             boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", sor);
+            float manacost = parameters.getEnchantedF("manacost", sor);
             if (click && player.getHeldItemMainhand() == itemstack && Mana.getMana(player) > manacost && !player.getCooldownTracker().hasCooldown(this)) {
                world.playSound(
                   (EntityPlayer)null,
@@ -79,8 +79,8 @@ public class IchorShower extends ItemWeapon {
                   player.rotationPitch - 8.0F,
                   player.rotationYaw,
                   0.0F,
-                  parameters.get("velocity"),
-                  parameters.getEnchanted("inaccuracy", acc),
+                  parameters.getF("velocity"),
+                  parameters.getEnchantedF("inaccuracy", acc),
                   -0.3F,
                   0.4F,
                   0.2F
@@ -105,7 +105,7 @@ public class IchorShower extends ItemWeapon {
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return GetMOP.floatToIntWithChance(parameters.getEnchanted("cooldown", rapidity), itemRand);
+      return GetMOP.floatToIntWithChance(parameters.getEnchantedF("cooldown", rapidity), itemRand);
    }
 
    @Override

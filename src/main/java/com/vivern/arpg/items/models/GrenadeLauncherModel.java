@@ -58,8 +58,8 @@ public class GrenadeLauncherModel extends ModelBase {
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
-      this.shape1.rotateAngleX = (GetMOP.getfromto(f1, 0.085F, 0.185F) - GetMOP.getfromto(f1, 0.75F, 0.9F)) * 0.78F;
-      float ft1 = 1.0F - GetMOP.getfromto(f1, 0.23F, 0.5F);
+      this.shape1.rotateAngleX = (GetMOP.getFromTo(f1, 0.085F, 0.185F) - GetMOP.getFromTo(f1, 0.75F, 0.9F)) * 0.78F;
+      float ft1 = 1.0F - GetMOP.getFromTo(f1, 0.23F, 0.5F);
       this.ammo.rotateAngleX = -2.18F * ft1;
       this.ammo.rotateAngleY = 1.0F * ft1;
       this.shapescope.isHidden = f == 1.0F;

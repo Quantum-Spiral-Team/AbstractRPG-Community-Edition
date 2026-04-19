@@ -40,11 +40,11 @@ public class LoppyToxiberry extends Block implements IShearable {
    }
 
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-      return ItemsRegister.GLOWINGTOXIBERRY;
+      return ItemsRegister.GLOWING_TOXIBERRY;
    }
 
    public boolean isBerry(Block block) {
-      return block == BlocksRegister.LOPPYTOXIBERRY || block == BlocksRegister.LOPPYTOXISTEM;
+      return block == BlocksRegister.LOPPY_TOXIBERRY || block == BlocksRegister.LOPPY_TOXISTEM;
    }
 
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
@@ -68,7 +68,7 @@ public class LoppyToxiberry extends Block implements IShearable {
          if (rand.nextFloat() < num) {
             worldIn.setBlockState(pos.down(), this.getDefaultState());
          } else {
-            worldIn.setBlockState(pos.down(), BlocksRegister.LOPPYTOXISTEM.getDefaultState());
+            worldIn.setBlockState(pos.down(), BlocksRegister.LOPPY_TOXISTEM.getDefaultState());
          }
       }
    }

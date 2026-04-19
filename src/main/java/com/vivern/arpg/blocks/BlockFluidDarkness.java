@@ -5,7 +5,7 @@ import com.vivern.arpg.main.FluidsRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -118,7 +118,7 @@ public class BlockFluidDarkness extends BlockFluidClassic {
                if (full) {
                   world.setBlockState(pos, Blocks.SLIME_BLOCK.getDefaultState());
                } else {
-                  world.setBlockState(pos, BlocksRegister.SLIMEGLOB.getDefaultState());
+                  world.setBlockState(pos, BlocksRegister.SLIME_GLOB.getDefaultState());
                }
 
                world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
@@ -128,7 +128,7 @@ public class BlockFluidDarkness extends BlockFluidClassic {
                if (full) {
                   world.setBlockState(pos, Blocks.SLIME_BLOCK.getDefaultState());
                } else {
-                  world.setBlockState(pos, BlocksRegister.SLIMEGLOB.getDefaultState());
+                  world.setBlockState(pos, BlocksRegister.SLIME_GLOB.getDefaultState());
                }
 
                world.playSound(null, frompos, Sounds.bubble_fish, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);

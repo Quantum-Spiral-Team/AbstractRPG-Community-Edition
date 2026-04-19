@@ -19,7 +19,7 @@ import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.TEISRGuns;
 import java.util.List;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -95,8 +95,8 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
          int lazerdel = NBTHelper.GetNBTint(itemstack, "laserdelay");
          boolean lazerdelAdded = false;
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         int RFtoShoot = parameters.getEnchantedi("rf_to_shoot", reuse);
-         int RFtoLazer = parameters.getEnchantedi("rf_to_lazer", reuse);
+         int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
+         int RFtoLazer = parameters.getEnchantedI("rf_to_lazer", reuse);
          int RF = this.getEnergyStored(itemstack);
          if (inmainhand) {
             if (player.ticksExisted % 5 == 0) {
@@ -111,8 +111,8 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                   }
                }
 
-               int hadron_price = parameters.getEnchantedi("hadron_price", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-               int hadrons_to_laser = parameters.geti("hadrons_to_laser");
+               int hadron_price = parameters.getEnchantedI("hadron_price", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+               int hadrons_to_laser = parameters.getI("hadrons_to_laser");
                int points = NBTHelper.GetNBTint(itemstack, "hadrons") + bons * hadron_price;
                if (points > hadrons_to_laser) {
                   if (!NBTHelper.GetNBTboolean(itemstack, "sensor")) {
@@ -134,7 +134,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
             }
 
             if (capturetime <= 0 && !beam && !hascooldown && click2) {
-               int captureTimeTo = parameters.geti("capture_time");
+               int captureTimeTo = parameters.getI("capture_time");
                player.getCooldownTracker().setCooldown(this, captureTimeTo);
                NBTHelper.SetNBTint(itemstack, captureTimeTo, "capturetime");
                world.playSound(
@@ -165,9 +165,9 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                   }
                }
 
-               int hadron_price = parameters.getEnchantedi("hadron_price", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-               int hadron_points_max = parameters.getEnchantedi("hadron_points_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-               int hadrons_to_laser = parameters.geti("hadrons_to_laser");
+               int hadron_price = parameters.getEnchantedI("hadron_price", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+               int hadron_points_max = parameters.getEnchantedI("hadron_points_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+               int hadrons_to_laser = parameters.getI("hadrons_to_laser");
                NBTHelper.SetNBTint(itemstack, Math.min(hadr + bonsx * hadron_price, hadron_points_max), "hadrons");
                if (capturetime == 1) {
                   NBTHelper.SetNBTint(itemstack, 0, "laserdelay");
@@ -208,8 +208,8 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.05F,
                         0.5F,
                         0.3F
@@ -249,7 +249,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                      NBTHelper.AddNBTint(itemstack, 1, "laserdelay");
                      lazerdelAdded = true;
                   } else {
-                     double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      Vec3d vec = GetMOP.posRayTrace(edist, 1.0F, player, 0.8, 0.6);
                      if (!world.isRemote) {
                         if (!player.capabilities.isCreativeMode) {
@@ -290,7 +290,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                            Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
                         }
 
-                        double damageRadius = parameters.getEnchanted("damage_radius_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                        double damageRadius = parameters.getEnchantedF("damage_radius_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                         AxisAlignedBB aabbxx = new AxisAlignedBB(
                            vec.x - damageRadius,
                            vec.y - damageRadius,
@@ -300,8 +300,8 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                            vec.z + damageRadius
                         );
                         List<Entity> listxx = world.getEntitiesWithinAABBExcludingEntity(player, aabbxx);
-                        float wdamage_laser = parameters.getEnchanted("damage_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                        float wknockback_laser = parameters.getEnchanted("knockback_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                        float wdamage_laser = parameters.getEnchantedF("damage_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                        float wknockback_laser = parameters.getEnchantedF("knockback_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                         if (!listxx.isEmpty()) {
                            for (Entity entity : listxx) {
                               if (Team.checkIsOpponent(player, entity)) {
@@ -669,7 +669,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int hadrons_to_laser = parameters.geti("hadrons_to_laser");
+      int hadrons_to_laser = parameters.getI("hadrons_to_laser");
       int hadronss = NBTHelper.GetNBTint(itemstack, "hadrons");
       return MathHelper.clamp((float)hadronss / hadrons_to_laser, 0.0F, 1.0F);
    }

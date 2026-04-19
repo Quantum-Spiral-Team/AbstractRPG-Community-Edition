@@ -117,7 +117,7 @@ public class EntityAINPC extends EntityAIBase {
                Vec3d to = new Vec3d(minpos.getX() + 0.5, minpos.getY() + 0.75, minpos.getZ() + 0.5);
                Vec3d from = ai.entity.getPositionEyes(1.0F);
                ai.entity.getLookHelper().setLookPosition(to.x, to.y, to.z, 50.0F, 50.0F);
-               if (from.squareDistanceTo(to) <= this.seeDistanceSq && GetMOP.thereIsNoBlockCollidesBetween(ai.entity.world, from, to, 1.0F, null, false)) {
+               if (from.squareDistanceTo(to) <= this.seeDistanceSq && GetMOP.thereIsNoBlockCollidesBetween(ai.entity.world, from, to, null, false)) {
                   ai.entity.swingArm(EnumHand.MAIN_HAND);
                   if (ai.entity.isRiding()) {
                      ai.entity.dismountRidingEntity();

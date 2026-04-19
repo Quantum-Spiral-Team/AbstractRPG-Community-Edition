@@ -45,17 +45,17 @@ public class GemStaffShoot extends EntityThrowable implements IRenderOptions {
 
    public GemStaffShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.GEMSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.GEM_STAFF);
    }
 
    public GemStaffShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.GEMSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.GEM_STAFF);
    }
 
    public GemStaffShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.GEMSTAFF);
+      this.weaponstack = new ItemStack(ItemsRegister.GEM_STAFF);
    }
 
    public GemStaffShoot(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -123,9 +123,9 @@ public class GemStaffShoot extends EntityThrowable implements IRenderOptions {
    public void handleStatusUpdate(byte id) {
       this.type = id > 7 ? id - 8 : id;
       WeaponParameters parameters = GemStaff.getWeaponParameter(this.type);
-      this.red = parameters.get("red");
-      this.green = parameters.get("green");
-      this.blue = parameters.get("blue");
+      this.red = parameters.getF("red");
+      this.green = parameters.getF("green");
+      this.blue = parameters.getF("blue");
       if (id > 7) {
          this.spawnpart(this.red, this.green, this.blue);
       }

@@ -114,7 +114,7 @@ public class ToxicPortalTESR extends TileEntitySpecialRenderer<TileToxicPortal> 
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-            float f4 = f1 * (0.4F + 0.6F * GetMOP.getfromto((float)j, 9.0F, (float)i));
+            float f4 = f1 * (0.4F + 0.6F * GetMOP.getFromTo((float)j, 9.0F, (float)i));
             if (p == 1) {
                bufferbuilder.pos(x + axisXadd, y, z + 1.0 - axisZadd).color(f1, f4, f1, 1.0F).endVertex();
                bufferbuilder.pos(x + 1.0 - axisXadd, y, z + 1.0 - axisZadd).color(f1, f4, f1, 1.0F).endVertex();

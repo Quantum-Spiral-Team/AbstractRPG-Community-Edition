@@ -129,7 +129,7 @@ public class TileWeaponSpawner extends TileEntityLockableLoot implements ITickab
                         for (int ix = 1; ix < 5; ix++) {
                            ItemStack stackx = this.spawn[ix];
                            if (!stackx.isEmpty()) {
-                              int count = this.hasSecondItemLimit ? FindAmmo.Find(player.inventory, stackx.getItem()) : -1;
+                              int count = this.hasSecondItemLimit ? FindAmmo.find(player.inventory, stackx.getItem()) : -1;
                               if (count < this.secondItemLimit) {
                                  ItemStack stackresult = stackx.copy();
                                  stackresult.setCount(Math.min(stackx.getCount(), this.secondItemLimit - count));

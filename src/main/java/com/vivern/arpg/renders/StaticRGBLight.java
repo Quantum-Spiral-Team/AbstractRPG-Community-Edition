@@ -118,31 +118,31 @@ public class StaticRGBLight extends Thread {
       mapColors.put(Blocks.ENDER_CHEST, compileLightInit(0, 6, 4, 0, 7, 7));
       mapColors.put(Blocks.BEACON, compileLightInit(4, 12, 14, 15, 15, 15));
       mapColors.put(Blocks.POWERED_COMPARATOR, compileLightInit(13, 0, 0, 9, 0, 0));
-      mapColors.put(BlocksRegister.ALCHEMICLAB, compileLightInit(13, 0, 3, 7, 0, 7));
-      mapColors.put(BlocksRegister.NUCLEARWASTE, compileLightInit(3, 13, 0, 6, 6, 0));
-      mapColors.put(BlocksRegister.FLUIDCRYON, compileLightInit(2, 9, 15, 6, 6, 6));
-      mapColors.put(BlocksRegister.OREMOLTEN, compileLightInit(13, 10, 2, 15, 15, 15));
-      mapColors.put(BlocksRegister.BLUEGLOWINGMUSH, compileLightInit(3, 7, 15, 6, 6, 6));
-      mapColors.put(BlocksRegister.GLOWINGCAVECRYSTALS, compileLightInit(3, 7, 15, 8, 8, 8));
-      mapColors.put(BlocksRegister.MAGICSTONE, compileLightInit(13, 4, 12, 7, 7, 7));
-      mapColors.put(BlocksRegister.CAVECRYSTALS, compileLightInit(13, 6, 12, 6, 6, 6));
-      mapColors.put(BlocksRegister.MANABOTTLE, compileLightInit(4, 6, 8, 4, 4, 4));
-      mapColors.put(BlocksRegister.DEMONICFIRE, compileLightInit(11, 0, 14, 12, 0, 12));
-      mapColors.put(BlocksRegister.PORTALFROST, compileLightInit(0, 5, 7, 0, 5, 5));
-      mapColors.put(BlocksRegister.FROZENCHANDELIER, compileLightInit(3, 8, 14, 10, 10, 10));
-      mapColors.put(BlocksRegister.FROZENTORCH, compileLightInit(3, 8, 14, 11, 11, 11));
-      mapColors.put(BlocksRegister.TOPAZCRYSTAL, compileLightInit(10, 3, 8, 5, 7, 7));
-      mapColors.put(BlocksRegister.GREENGLOWINGMUSH, compileLightInit(2, 14, 4, 6, 6, 6));
-      mapColors.put(BlocksRegister.LOPPYTOXIBERRY, compileLightInit(0, 6, 0, 0, 6, 0));
-      mapColors.put(BlocksRegister.LOPPYTOXISTEM, compileLightInit(0, 6, 0, 0, 4, 0));
-      mapColors.put(BlocksRegister.TOXICTORCH, compileLightInit(4, 15, 0, 12, 12, 0));
-      mapColors.put(BlocksRegister.TOXICCHANDELIER, compileLightInit(4, 15, 0, 12, 12, 0));
-      mapColors.put(BlocksRegister.CORALTORCH, compileLightInit(4, 14, 12, 14, 14, 14));
-      mapColors.put(BlocksRegister.CORALCHANDELIER, compileLightInit(4, 14, 12, 12, 12, 12));
-      mapColors.put(BlocksRegister.CRYSTALTORCH, compileLightInit(15, 6, 14, 15, 15, 15));
-      mapColors.put(BlocksRegister.CRYSTALCHANDELIER, compileLightInit(15, 6, 14, 13, 13, 13));
-      mapColors.put(BlocksRegister.BURNINGFROST, compileLightInit(0, 8, 14, 0, 6, 6));
-      mapColors.put(BlocksRegister.PALMTORCH, compileLightInit(15, 7, 5, 13, 13, 13));
+      mapColors.put(BlocksRegister.ALCHEMIC_LAB, compileLightInit(13, 0, 3, 7, 0, 7));
+      mapColors.put(BlocksRegister.NUCLEAR_WASTE, compileLightInit(3, 13, 0, 6, 6, 0));
+      mapColors.put(BlocksRegister.FLUID_CRYON, compileLightInit(2, 9, 15, 6, 6, 6));
+      mapColors.put(BlocksRegister.MOLTEN_ORE, compileLightInit(13, 10, 2, 15, 15, 15));
+      mapColors.put(BlocksRegister.BLUE_GLOWING_MUSHROOM, compileLightInit(3, 7, 15, 6, 6, 6));
+      mapColors.put(BlocksRegister.GLOWING_CAVE_CRYSTAL, compileLightInit(3, 7, 15, 8, 8, 8));
+      mapColors.put(BlocksRegister.MAGIC_STONE, compileLightInit(13, 4, 12, 7, 7, 7));
+      mapColors.put(BlocksRegister.CAVE_CRYSTAL, compileLightInit(13, 6, 12, 6, 6, 6));
+      mapColors.put(BlocksRegister.MANA_BOTTLE, compileLightInit(4, 6, 8, 4, 4, 4));
+      mapColors.put(BlocksRegister.DEMONIC_FIRE, compileLightInit(11, 0, 14, 12, 0, 12));
+      mapColors.put(BlocksRegister.ETHERNAL_FROST_PORTAL, compileLightInit(0, 5, 7, 0, 5, 5));
+      mapColors.put(BlocksRegister.FROZEN_CHANDELIER, compileLightInit(3, 8, 14, 10, 10, 10));
+      mapColors.put(BlocksRegister.FROZEN_TORCH, compileLightInit(3, 8, 14, 11, 11, 11));
+      mapColors.put(BlocksRegister.TOPAZ_CRYSTAL, compileLightInit(10, 3, 8, 5, 7, 7));
+      mapColors.put(BlocksRegister.GREEN_GLOWING_MUSHROOM, compileLightInit(2, 14, 4, 6, 6, 6));
+      mapColors.put(BlocksRegister.LOPPY_TOXIBERRY, compileLightInit(0, 6, 0, 0, 6, 0));
+      mapColors.put(BlocksRegister.LOPPY_TOXISTEM, compileLightInit(0, 6, 0, 0, 4, 0));
+      mapColors.put(BlocksRegister.TOXIC_TORCH, compileLightInit(4, 15, 0, 12, 12, 0));
+      mapColors.put(BlocksRegister.TOXIC_CHANDELIER, compileLightInit(4, 15, 0, 12, 12, 0));
+      mapColors.put(BlocksRegister.CORAL_TORCH, compileLightInit(4, 14, 12, 14, 14, 14));
+      mapColors.put(BlocksRegister.CORAL_CHANDELIER, compileLightInit(4, 14, 12, 12, 12, 12));
+      mapColors.put(BlocksRegister.CRYSTAL_TORCH, compileLightInit(15, 6, 14, 15, 15, 15));
+      mapColors.put(BlocksRegister.CRYSTAL_CHANDELIER, compileLightInit(15, 6, 14, 13, 13, 13));
+      mapColors.put(BlocksRegister.BURNING_FROST, compileLightInit(0, 8, 14, 0, 6, 6));
+      mapColors.put(BlocksRegister.PALM_TORCH, compileLightInit(15, 7, 5, 13, 13, 13));
    }
 
    public static long getColor(IBlockState state) {
@@ -172,18 +172,18 @@ public class StaticRGBLight extends Thread {
             return 43980010030240L;
          } else if (block == Blocks.PORTAL) {
             return 131939885388055L;
-         } else if (block == BlocksRegister.FROZENCHANDELIER || block == BlocksRegister.FROZENTORCH) {
+         } else if (block == BlocksRegister.FROZEN_CHANDELIER || block == BlocksRegister.FROZEN_TORCH) {
             return 153930096971570L;
-         } else if (block == BlocksRegister.CAVECRYSTALS || block == BlocksRegister.MAGICSTONE) {
+         } else if (block == BlocksRegister.CAVE_CRYSTAL || block == BlocksRegister.MAGIC_STONE) {
             return 153929887257430L;
-         } else if (block == BlocksRegister.GLOWINGCAVECRYSTALS) {
+         } else if (block == BlocksRegister.GLOWING_CAVE_CRYSTAL) {
             return 131940032187905L;
-         } else if (block == BlocksRegister.BLUEGLOWINGMUSH) {
+         } else if (block == BlocksRegister.BLUE_GLOWING_MUSHROOM) {
             return 87960038934805L;
-         } else if (block == BlocksRegister.GREENGLOWINGMUSH) {
+         } else if (block == BlocksRegister.GREEN_GLOWING_MUSHROOM) {
             return 65970068522437L;
          } else {
-            return block == BlocksRegister.DEMONICFIRE
+            return block == BlocksRegister.DEMONIC_FIRE
                ? 219899808980100L
                : ColorConverters.RGBtoDecimal2097140((int)Debugger.floats[0], (int)Debugger.floats[1], (int)Debugger.floats[2]);
          }

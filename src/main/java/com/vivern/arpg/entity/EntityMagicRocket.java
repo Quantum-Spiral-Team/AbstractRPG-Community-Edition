@@ -44,17 +44,17 @@ public class EntityMagicRocket extends EntityThrowable implements IEntitySynchro
 
    public EntityMagicRocket(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.MAGICROCKET);
+      this.weaponstack = new ItemStack(ItemsRegister.MAGIC_ROCKET);
    }
 
    public EntityMagicRocket(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.MAGICROCKET);
+      this.weaponstack = new ItemStack(ItemsRegister.MAGIC_ROCKET);
    }
 
    public EntityMagicRocket(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.MAGICROCKET);
+      this.weaponstack = new ItemStack(ItemsRegister.MAGIC_ROCKET);
    }
 
    public EntityMagicRocket(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -92,12 +92,12 @@ public class EntityMagicRocket extends EntityThrowable implements IEntitySynchro
          } else {
             this.ticks++;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            double mt = parameters.getEnchanted("friction", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack));
-            float acceleration = parameters.getEnchanted("acceleration", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack));
+            double mt = parameters.getEnchantedF("friction", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack));
+            float acceleration = parameters.getEnchantedF("acceleration", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, this.weaponstack));
             if (!this.useTarget) {
                double max = Double.MAX_VALUE;
                EntityLivingBase targ = null;
-               double damageRadius = parameters.getEnchanted("find_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+               double damageRadius = parameters.getEnchantedF("find_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
                if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) == 0) {
                   AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
                      .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
@@ -129,7 +129,7 @@ public class EntityMagicRocket extends EntityThrowable implements IEntitySynchro
                            && EntitySelectors.NOT_SPECTATING.apply(entitylivingbasex)
                            && entitylivingbasex.getHealth() > 0.0F
                            && GetMOP.thereIsNoBlockCollidesBetween(
-                              this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasex), 1.0F, null, false
+                              this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasex), null, false
                            )) {
                            double dist = entitylivingbasex.getDistance(this);
                            if (dist < max) {
@@ -146,7 +146,7 @@ public class EntityMagicRocket extends EntityThrowable implements IEntitySynchro
                               && EntitySelectors.NOT_SPECTATING.apply(entitylivingbasexx)
                               && entitylivingbasexx.getHealth() > 0.0F
                               && GetMOP.thereIsNoBlockCollidesBetween(
-                                 this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasexx), 1.0F, null, false
+                                 this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(entitylivingbasexx), null, false
                               )) {
                               double dist = entitylivingbasexx.getDistance(this);
                               if (dist < max) {
@@ -222,11 +222,11 @@ public class EntityMagicRocket extends EntityThrowable implements IEntitySynchro
             int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
             Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.magic),
-               parameters.getEnchanted("damage", might) * this.magicPower,
+               parameters.getEnchantedF("damage", might) * this.magicPower,
                this.getThrower(),
                result.entityHit,
                true,
-               parameters.getEnchanted("knockback", impulse),
+               parameters.getEnchantedF("knockback", impulse),
                this.posX,
                this.posY - 1.0,
                this.posZ

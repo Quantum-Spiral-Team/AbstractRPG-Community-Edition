@@ -4,7 +4,7 @@ import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Sounds;
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.player.EntityPlayer;
@@ -229,7 +229,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
             }
 
             if (this.rand.nextFloat() < 0.066F) {
-               this.entityDropItem(new ItemStack(ItemsRegister.PEARLBLACK), offsetY);
+               this.entityDropItem(new ItemStack(ItemsRegister.BLACK_PEARL), offsetY);
             }
          }
       }

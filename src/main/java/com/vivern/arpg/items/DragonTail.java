@@ -68,7 +68,7 @@ public class DragonTail extends ItemWeapon {
             }
 
             int charge = NBTHelper.GetNBTint(itemstack, "charge");
-            if (charge < parameters.geti("max_charge")) {
+            if (charge < parameters.getI("max_charge")) {
                NBTHelper.AddNBTint(itemstack, 1, "charge");
             }
 
@@ -87,9 +87,9 @@ public class DragonTail extends ItemWeapon {
                         itemstack,
                         player,
                         hand,
-                        charge >= parameters.geti("max_charge")
+                        charge >= parameters.getI("max_charge")
                            && itemRand.nextFloat()
-                              < parameters.getEnchanted("cloud_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))
+                              < parameters.getEnchantedF("cloud_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))
                      )
                      .success) {
                      world.playSound(
@@ -143,21 +143,21 @@ public class DragonTail extends ItemWeapon {
       );
       entity.hurtResistantTime = 0;
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int firelvl = parameters.getEnchantedi("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
+      int firelvl = parameters.getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
       if (firelvl > 0) {
          entity.setFire(firelvl);
       }
 
       if (isCritical) {
          int charge = NBTHelper.GetNBTint(stack, "charge");
-         if (charge >= parameters.geti("max_charge")) {
+         if (charge >= parameters.getI("max_charge")) {
             EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(
                entity.world, entity.posX, entity.posY, entity.posZ
             );
             entityareaeffectcloud.setOwner(player);
             entityareaeffectcloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
-            entityareaeffectcloud.setRadius(parameters.getEnchantedi("cloud_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack)));
-            entityareaeffectcloud.setDuration(parameters.geti("cloud_duration"));
+            entityareaeffectcloud.setRadius(parameters.getEnchantedI("cloud_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack)));
+            entityareaeffectcloud.setDuration(parameters.getI("cloud_duration"));
             if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) == 0) {
                entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / entityareaeffectcloud.getDuration());
             }

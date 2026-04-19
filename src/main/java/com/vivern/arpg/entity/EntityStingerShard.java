@@ -170,7 +170,7 @@ public class EntityStingerShard extends EntityThrowable {
    protected void onImpact(RayTraceResult result) {
       if (!this.world.isRemote) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         double damageRadius = parameters.getEnchanted("damage_radius_shard", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+         double damageRadius = parameters.getEnchantedF("damage_radius_shard", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
          AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
             .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
             .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -182,11 +182,11 @@ public class EntityStingerShard extends EntityThrowable {
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),
-                     parameters.getEnchanted("damage_shard", might),
+                     parameters.getEnchantedF("damage_shard", might),
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback_shard", impulse),
+                     parameters.getEnchantedF("knockback_shard", impulse),
                      this.posX,
                      this.posY - 0.1,
                      this.posZ

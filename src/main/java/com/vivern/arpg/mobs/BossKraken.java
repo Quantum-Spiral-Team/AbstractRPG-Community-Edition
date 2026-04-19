@@ -66,7 +66,7 @@ public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMul
       this.defaultteam = AquaticaMobsPack.mobsteam;
       this.moveHelper = new AquaticaMobsPack.WaterMoveHelper(this);
       this.setattributes(4500.0, 100.0, 8.0, 0.04, 4.0, 5.0, 0.75, 0.3, 0.0, 0.0);
-      this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.KRAKENSKIN, 1.0F, 0, 12, 15, 0)});
+      this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.KRAKEN_SKIN, 1.0F, 0, 12, 15, 0)});
       this.ignoreFrustumCheck = true;
       if (world.isRemote) {
          this.var2 = 0.0F;
@@ -279,7 +279,7 @@ public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMul
    public void onUpdate() {
       int airr = this.getAir();
       super.onUpdate();
-      Vec3d lookVec = GetMOP.PitchYawToVec3d(-this.rotationPitch, -this.rotationYaw);
+      Vec3d lookVec = GetMOP.pitchYawToVec3D(-this.rotationPitch, -this.rotationYaw);
       float lookScale = 3.5F;
       this.prevtentaclesAlignX = this.tentaclesAlignX;
       this.prevtentaclesAlignY = this.tentaclesAlignY;

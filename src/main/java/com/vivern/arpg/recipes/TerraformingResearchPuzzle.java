@@ -5,7 +5,7 @@ import com.vivern.arpg.renders.RenderTerraformingResearch;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;

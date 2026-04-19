@@ -84,8 +84,8 @@ public class LaserSniper extends ItemWeapon {
                      player.addStat(StatList.getObjectUseStats(this));
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
-                     float siz = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                     double edist = parameters.getEnchanted("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     float siz = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      Vec3d vec = GetMOP.posRayTrace(edist, 1.0F, player, siz, siz);
                      AxisAlignedBB aabb = new AxisAlignedBB(
                         vec.x - siz,
@@ -96,8 +96,8 @@ public class LaserSniper extends ItemWeapon {
                         vec.z + siz
                      );
                      List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
-                     float wdamage = parameters.getEnchanted("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                     float wknockback = parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                     float wdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                     float wknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                      if (!list.isEmpty()) {
                         for (Entity entitylivingbase : list) {
                            if (Team.checkIsOpponent(player, entitylivingbase)) {
@@ -136,7 +136,7 @@ public class LaserSniper extends ItemWeapon {
                      }
                   }
                } else if (this.initiateMetadataReload(
-                  itemstack, player, new ItemStack(ItemsRegister.IONBATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(ItemsRegister.IONBATTERY, 1, 0)
+                  itemstack, player, new ItemStack(ItemsRegister.ION_BATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(ItemsRegister.ION_BATTERY, 1, 0)
                )) {
                   world.playSound(
                      (EntityPlayer)null,
@@ -167,7 +167,7 @@ public class LaserSniper extends ItemWeapon {
    }
 
    public int getMaxAmmo(ItemStack itemstack) {
-      return WeaponParameters.getWeaponParameters(this).getEnchantedi("clipsize", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
+      return WeaponParameters.getWeaponParameters(this).getEnchantedI("clipsize", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
    }
 
    @Override

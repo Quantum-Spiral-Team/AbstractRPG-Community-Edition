@@ -46,7 +46,7 @@ public class EntityAILaserAttack extends EntityAIBase {
          EntityLivingBase target = this.entity.getAttackTarget();
          this.entity.getLookHelper().setLookPositionWithEntity(target, 10.0F, 10.0F);
          this.delay = this.maxDelay + this.entity.getRNG().nextInt(this.delayRandom);
-         List<EntityLivingBase> list = GetMOP.MopRayTrace(this.attackDist, 1.0F, this.entity, 0.01, 0.01);
+         List<EntityLivingBase> list = GetMOP.mopRayTrace(this.attackDist, 1.0F, this.entity, 0.01, 0.01);
          if (!list.isEmpty()) {
             for (EntityLivingBase entitylivingbase : list) {
                if (entitylivingbase != this.entity) {

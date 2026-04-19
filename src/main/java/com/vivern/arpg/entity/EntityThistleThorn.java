@@ -36,17 +36,17 @@ public class EntityThistleThorn extends EntityThrowable {
 
    public EntityThistleThorn(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.PISTOLFISH);
+      this.weaponstack = new ItemStack(ItemsRegister.PISTOL_FISH);
    }
 
    public EntityThistleThorn(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.PISTOLFISH);
+      this.weaponstack = new ItemStack(ItemsRegister.PISTOL_FISH);
    }
 
    public EntityThistleThorn(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.PISTOLFISH);
+      this.weaponstack = new ItemStack(ItemsRegister.PISTOL_FISH);
    }
 
    public EntityThistleThorn(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

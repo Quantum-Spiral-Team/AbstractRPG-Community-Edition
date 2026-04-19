@@ -33,17 +33,17 @@ public class ThornkeeperShoot extends EntityThrowable {
 
    public ThornkeeperShoot(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.THORNKEEPER);
+      this.weaponstack = new ItemStack(ItemsRegister.THORN_KEEPER);
    }
 
    public ThornkeeperShoot(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.THORNKEEPER);
+      this.weaponstack = new ItemStack(ItemsRegister.THORN_KEEPER);
    }
 
    public ThornkeeperShoot(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.THORNKEEPER);
+      this.weaponstack = new ItemStack(ItemsRegister.THORN_KEEPER);
    }
 
    public ThornkeeperShoot(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

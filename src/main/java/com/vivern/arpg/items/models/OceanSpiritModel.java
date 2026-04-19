@@ -237,7 +237,7 @@ public class OceanSpiritModel extends AbstractMobModel {
       this.armLeft1.rotateAngleZ = 0.0F;
       float pt = Minecraft.getMinecraft().getRenderPartialTicks();
       if (an3 != 0) {
-         float an1progr = GetMOP.getfromto(100 - an3 + pt, 0.0F, 10.0F) - GetMOP.getfromto(100 - an3 + pt, 20.0F, 30.0F);
+         float an1progr = GetMOP.getFromTo(100 - an3 + pt, 0.0F, 10.0F) - GetMOP.getFromTo(100 - an3 + pt, 20.0F, 30.0F);
          this.shapearmLeft.rotateAngleX += (float) (-Math.PI * 2.0 / 9.0) * an1progr;
          this.armLeft1.rotateAngleY += (float) (Math.PI / 9) * an1progr;
          this.armLeft1.rotateAngleZ += (float) (Math.PI / 12) * an1progr;
@@ -245,7 +245,7 @@ public class OceanSpiritModel extends AbstractMobModel {
       }
 
       if (an1 != 0) {
-         float an1progr = GetMOP.getfromto(100 - an1 + pt, 0.0F, 10.0F) - GetMOP.getfromto(100 - an1 + pt, 10.0F, 13.0F);
+         float an1progr = GetMOP.getFromTo(100 - an1 + pt, 0.0F, 10.0F) - GetMOP.getFromTo(100 - an1 + pt, 10.0F, 13.0F);
          this.shapearmRight.rotateAngleX += (float) (-Math.PI * 4.0 / 9.0) * an1progr;
          this.armLeft2.rotateAngleX += (float) (-Math.PI / 9) * an1progr;
       }

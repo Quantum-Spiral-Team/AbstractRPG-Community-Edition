@@ -86,7 +86,7 @@ public class TileNexusFlower extends TileNexus {
       }
 
       super.onInvasionEnd(success);
-      if (this.world.getBlockState(this.getPos()).getBlock() == BlocksRegister.SWEETNECTARFLOWER) {
+      if (this.world.getBlockState(this.getPos()).getBlock() == BlocksRegister.SWEET_NECTAR_FLOWER) {
          this.world.destroyBlock(this.getPos(), false);
       }
    }
@@ -190,7 +190,7 @@ public class TileNexusFlower extends TileNexus {
          int spawnedThisW = this.groupsSpawnedThisWave;
          List<AbstractMob> list = new ArrayList<>();
          ToxicomaniaMobsPack.TestTubeSubstance subs = new ToxicomaniaMobsPack.TestTubeSubstance(this.world);
-         subs.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ItemsRegister.BUNKERKEYCARD));
+         subs.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ItemsRegister.BUNKER_KEYCARD));
          subs.setGlowing(true);
          list.add(subs);
          this.placeMobs(x, y, z, list);

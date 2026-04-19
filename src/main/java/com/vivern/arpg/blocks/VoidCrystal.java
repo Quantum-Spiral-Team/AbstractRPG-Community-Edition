@@ -6,7 +6,7 @@ import com.vivern.arpg.tileentity.TileVoidCrystal;
 import com.google.common.base.Predicate;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -28,7 +28,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 public class VoidCrystal extends BlockSpawner {
    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.15, 0.15, 0.15, 0.85, 0.85, 0.85);
 
-   public VoidCrystal(Material mater, String name, BlocksRegister.Hardres hardres, int xpDropMin, int xpDropMax) {
+   public VoidCrystal(Material mater, String name, BlocksRegister.HardRes hardres, int xpDropMin, int xpDropMax) {
       super(mater, name, hardres, xpDropMin, xpDropMax);
       this.setSoundType(SoundTypeShards.SHARDS);
    }
@@ -118,7 +118,7 @@ public class VoidCrystal extends BlockSpawner {
 
    @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-      return ItemsRegister.VOIDCRYSTAL;
+      return ItemsRegister.VOID_CRYSTAL;
    }
 
    @Override

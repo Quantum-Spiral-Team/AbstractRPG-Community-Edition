@@ -5,7 +5,7 @@ import com.vivern.arpg.main.DimensionsRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TileEntityFrostPortal;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -59,7 +59,7 @@ public class EthernalFrostPortal extends Block {
    }
 
    public boolean isBlockSupports(Block block) {
-      return block == Blocks.SNOW || block == BlocksRegister.PORTALFROST;
+      return block == Blocks.SNOW || block == BlocksRegister.ETHERNAL_FROST_PORTAL;
    }
 
    @SideOnly(Side.CLIENT)

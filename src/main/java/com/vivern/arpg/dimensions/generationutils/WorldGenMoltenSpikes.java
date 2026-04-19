@@ -92,7 +92,7 @@ public class WorldGenMoltenSpikes implements IWorldGenerator {
                   }
 
                   if (oregencount > 0 && oregen && (world.getBlockState(center).getBlock() == Blocks.LAVA || genStarted)) {
-                     world.setBlockState(center, BlocksRegister.OREMOLTEN.getDefaultState());
+                     world.setBlockState(center, BlocksRegister.MOLTEN_ORE.getDefaultState());
                      oregencount--;
                      genStarted = true;
                   }
@@ -106,12 +106,12 @@ public class WorldGenMoltenSpikes implements IWorldGenerator {
 
                   if (r < 1) {
                      if (oregen && rand.nextFloat() < 0.3) {
-                        world.setBlockState(center.up(), BlocksRegister.OREMOLTEN.getDefaultState());
+                        world.setBlockState(center.up(), BlocksRegister.MOLTEN_ORE.getDefaultState());
                         break;
                      }
 
                      if (oregen && rand.nextFloat() < 0.3) {
-                        world.setBlockState(center, BlocksRegister.OREMOLTEN.getDefaultState());
+                        world.setBlockState(center, BlocksRegister.MOLTEN_ORE.getDefaultState());
                         break;
                      }
 

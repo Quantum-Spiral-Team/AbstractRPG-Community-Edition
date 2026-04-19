@@ -197,11 +197,11 @@ public class AdamantiumBattleAxe extends ItemWeapon {
          stack,
          player,
          hand,
-         parameters.getEnchanted("damage_special", sharpness),
-         parameters.getEnchanted("knockback", knockback),
-         parameters.getEnchanted("length", sweeping),
-         parameters.getEnchanted("size", sweeping),
-         parameters.getEnchanted("end_size", sweeping),
+         parameters.getEnchantedF("damage_special", sharpness),
+         parameters.getEnchantedF("knockback", knockback),
+         parameters.getEnchantedF("length", sweeping),
+         parameters.getEnchantedF("size", sweeping),
+         parameters.getEnchantedF("end_size", sweeping),
          isCritical,
          sweepAngle,
          sweepStepAngle
@@ -212,7 +212,7 @@ public class AdamantiumBattleAxe extends ItemWeapon {
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return parameters.getEnchantedi(NBTHelper.GetNBTboolean(itemstack, "specattack") ? "cooldown_special" : "cooldown", rapidity);
+      return parameters.getEnchantedI(NBTHelper.GetNBTboolean(itemstack, "specattack") ? "cooldown_special" : "cooldown", rapidity);
    }
 
    @Override

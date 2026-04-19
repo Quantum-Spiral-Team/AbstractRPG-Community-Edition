@@ -8,7 +8,7 @@ import com.vivern.arpg.items.models.ChestModelLAR;
 import com.vivern.arpg.items.models.ChestShaftedModel;
 import com.vivern.arpg.tileentity.EnumChest;
 import com.vivern.arpg.tileentity.TileChest;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;

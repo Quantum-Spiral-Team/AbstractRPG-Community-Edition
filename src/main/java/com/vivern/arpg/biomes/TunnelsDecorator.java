@@ -24,7 +24,7 @@ class TunnelsDecorator extends BiomeDecorator {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");
       } else {
-         Block blockstalact = BlocksRegister.STONESPELEOTHEM;
+         Block blockstalact = BlocksRegister.STONE_SPELEOTHEM;
 
          for (int iix = 0; iix < 16; iix++) {
             for (int iiz = 0; iiz < 16; iiz++) {

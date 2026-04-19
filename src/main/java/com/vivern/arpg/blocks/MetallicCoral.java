@@ -108,14 +108,14 @@ public class MetallicCoral extends Block implements IBlockHardBreak {
       super(Material.ROCK);
       this.setRegistryName("metallic_coral");
       this.setTranslationKey("metallic_coral");
-      this.blockHardness = BlocksRegister.HR_METALLIC_CORALS.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_METALLIC_CORALS.RESISTANCE;
+      this.blockHardness = BlocksRegister.HR_METALLIC_CORALS.hardness;
+      this.blockResistance = BlocksRegister.HR_METALLIC_CORALS.resistance;
       this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_METALLIC_CORALS.LVL);
+      this.setHarvestLevel("pickaxe", BlocksRegister.HR_METALLIC_CORALS.lvl);
    }
 
    @Override
-   public BlocksRegister.Hardres getHardres() {
+   public BlocksRegister.HardRes getHardRes() {
       return BlocksRegister.HR_METALLIC_CORALS;
    }
 

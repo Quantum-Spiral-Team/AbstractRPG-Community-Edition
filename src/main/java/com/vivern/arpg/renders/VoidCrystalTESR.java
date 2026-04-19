@@ -21,7 +21,7 @@ public class VoidCrystalTESR extends TileEntitySpecialRenderer<TileVoidCrystal> 
 
    public void render(TileVoidCrystal te, double xx, double yy, double zz, float partialTicks, int destroyStage, float alpha) {
       float distSq = (float)(xx * xx + yy * yy + zz * zz);
-      float ftAllsize = GetMOP.getfromto(4030.0F - distSq, 0.0F, 1453.0F);
+      float ftAllsize = GetMOP.getFromTo(4030.0F - distSq, 0.0F, 1453.0F);
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);
       GlStateManager.depthMask(true);

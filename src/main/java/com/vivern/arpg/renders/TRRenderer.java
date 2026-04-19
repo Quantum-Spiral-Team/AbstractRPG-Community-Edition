@@ -198,7 +198,7 @@ public class TRRenderer {
             double animAdd = this.animationDelay == 0
                ? 0.0
                : onepixelY * this.texHeight * ((this.time() + rand.nextInt(999999)) / this.animationDelay % this.animationCycle);
-            float yColorDiffuse = GetMOP.getfromto(posy + yadd, -ccolorDiffuseRange, ccolorDiffuseRange);
+            float yColorDiffuse = GetMOP.getFromTo(posy + yadd, -ccolorDiffuseRange, ccolorDiffuseRange);
             float unyColorDiffuse = 1.0F - yColorDiffuse;
             float r = (unyColorDiffuse + (float)this.diffuseColor.x * yColorDiffuse) * (1.0F - this.randomBrightness * rand.nextFloat());
             float g = (unyColorDiffuse + (float)this.diffuseColor.y * yColorDiffuse) * (1.0F - this.randomBrightness * rand.nextFloat());
@@ -301,11 +301,11 @@ public class TRRenderer {
          float yColorDiffuse1;
          float yColorDiffuse2;
          if (this.diffuseDirection) {
-            yColorDiffuse1 = 1.0F - GetMOP.getfromto(posy + 25.0F, -ccolorDiffuseRange, ccolorDiffuseRange);
-            yColorDiffuse2 = 1.0F - GetMOP.getfromto(posy - 25.0F, -ccolorDiffuseRange, ccolorDiffuseRange);
+            yColorDiffuse1 = 1.0F - GetMOP.getFromTo(posy + 25.0F, -ccolorDiffuseRange, ccolorDiffuseRange);
+            yColorDiffuse2 = 1.0F - GetMOP.getFromTo(posy - 25.0F, -ccolorDiffuseRange, ccolorDiffuseRange);
          } else {
-            yColorDiffuse1 = GetMOP.getfromto(posy + 25.0F, -ccolorDiffuseRange, ccolorDiffuseRange);
-            yColorDiffuse2 = GetMOP.getfromto(posy - 25.0F, -ccolorDiffuseRange, ccolorDiffuseRange);
+            yColorDiffuse1 = GetMOP.getFromTo(posy + 25.0F, -ccolorDiffuseRange, ccolorDiffuseRange);
+            yColorDiffuse2 = GetMOP.getFromTo(posy - 25.0F, -ccolorDiffuseRange, ccolorDiffuseRange);
          }
 
          float unyColorDiffuse1 = 1.0F - yColorDiffuse1;

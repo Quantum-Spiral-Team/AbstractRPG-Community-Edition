@@ -38,7 +38,7 @@ public class ToxicNukeShard extends EntityThrowable {
       this.ssx = 0.02F;
       this.ssy = 0.02F;
       this.ssz = 0.02F;
-      this.weaponstack = new ItemStack(ItemsRegister.TOXICNUKECANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
    }
 
    public ToxicNukeShard(World world, EntityLivingBase thrower) {
@@ -46,7 +46,7 @@ public class ToxicNukeShard extends EntityThrowable {
       this.ssx = 0.02F;
       this.ssy = 0.02F;
       this.ssz = 0.02F;
-      this.weaponstack = new ItemStack(ItemsRegister.TOXICNUKECANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
    }
 
    public ToxicNukeShard(World world, double x, double y, double z) {
@@ -54,7 +54,7 @@ public class ToxicNukeShard extends EntityThrowable {
       this.ssx = 0.02F;
       this.ssy = 0.02F;
       this.ssz = 0.02F;
-      this.weaponstack = new ItemStack(ItemsRegister.TOXICNUKECANNON);
+      this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
    }
 
    public ToxicNukeShard(World world, EntityLivingBase thrower, double ssx, double ssy, double ssz, ItemStack itemstack) {
@@ -114,8 +114,8 @@ public class ToxicNukeShard extends EntityThrowable {
    public void onUpdate() {
       super.onUpdate();
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double shard_damage_radius = parameters.getEnchanted("shard_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
-      if (this.ticksExisted > parameters.geti("shard_livetime")) {
+      double shard_damage_radius = parameters.getEnchantedF("shard_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      if (this.ticksExisted > parameters.getI("shard_livetime")) {
          this.setDead();
       }
 
@@ -136,16 +136,16 @@ public class ToxicNukeShard extends EntityThrowable {
                if (Team.checkIsOpponent(this.thrower, entitylivingbase)) {
                   if (!this.world.isRemote) {
                      PotionEffect debaff = new PotionEffect(
-                        PotionEffects.TOXIN, parameters.getEnchantedi("toxin_time", witchery), parameters.getEnchantedi("toxin_power", witchery)
+                        PotionEffects.TOXIN, parameters.getEnchantedI("toxin_time", witchery), parameters.getEnchantedI("toxin_power", witchery)
                      );
                      entitylivingbase.addPotionEffect(debaff);
                   }
                } else if (!this.world.isRemote) {
-                  float friendlyfire = parameters.get("friendlyfire");
+                  float friendlyfire = parameters.getF("friendlyfire");
                   PotionEffect debaff = new PotionEffect(
                      PotionEffects.TOXIN,
-                     (int)(parameters.getEnchantedi("toxin_time", witchery) * friendlyfire),
-                     (int)(friendlyfire * parameters.getEnchantedi("toxin_power", witchery))
+                     (int)(parameters.getEnchantedI("toxin_time", witchery) * friendlyfire),
+                     (int)(friendlyfire * parameters.getEnchantedI("toxin_power", witchery))
                   );
                   entitylivingbase.addPotionEffect(debaff);
                }
@@ -190,7 +190,7 @@ public class ToxicNukeShard extends EntityThrowable {
 
          if (!this.world.isRemote && result.typeOfHit == Type.BLOCK && !this.blockcollided) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            if (this.rand.nextFloat() < parameters.get("dig_chance")) {
+            if (this.rand.nextFloat() < parameters.getF("dig_chance")) {
                BlockPos blockpos = result.getBlockPos();
                Block block = this.world.getBlockState(blockpos).getBlock();
                float hard = block.getBlockHardness(this.world.getBlockState(blockpos), this.world, blockpos);

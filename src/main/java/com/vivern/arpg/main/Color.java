@@ -55,13 +55,13 @@ public class Color {
    @SubscribeEvent
    public static void onItemColor(Item event) {
       ModelLoader.setCustomModelResourceLocation(
-         ItemsRegister.GEOMANTICCRYSTAL, 0, new ModelResourceLocation(ItemsRegister.GEOMANTICCRYSTAL.getRegistryName(), "inventory")
+         ItemsRegister.GEOMANTIC_CRYSTAL, 0, new ModelResourceLocation(ItemsRegister.GEOMANTIC_CRYSTAL.getRegistryName(), "inventory")
       );
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.GEOMANTICCRYSTAL, new net.minecraft.item.Item[]{ItemsRegister.GEOMANTICCRYSTAL});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.ADAMANTIUMROUNDS, new net.minecraft.item.Item[]{ItemsRegister.ADAMANTIUMROUNDS});
+      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.GEOMANTIC_CRYSTAL, new net.minecraft.item.Item[]{ItemsRegister.GEOMANTIC_CRYSTAL});
+      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.ADAMANTIUM_ROUNDS, new net.minecraft.item.Item[]{ItemsRegister.ADAMANTIUM_ROUNDS});
       event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.BUCKSHOT, new net.minecraft.item.Item[]{ItemsRegister.BUCKSHOT});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.BOOKOFELEMENTS, new net.minecraft.item.Item[]{ItemsRegister.BOOKOFELEMENTS});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.HYDRAULICSHOTGUNCLIP, new net.minecraft.item.Item[]{ItemsRegister.HYDRAULICSHOTGUNCLIP});
+      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.ELEMENTS_BOOK, new net.minecraft.item.Item[]{ItemsRegister.ELEMENTS_BOOK});
+      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.HYDRAULIC_SHOTGUN_CLIP, new net.minecraft.item.Item[]{ItemsRegister.HYDRAULIC_SHOTGUN_CLIP});
    }
 
    @SubscribeEvent

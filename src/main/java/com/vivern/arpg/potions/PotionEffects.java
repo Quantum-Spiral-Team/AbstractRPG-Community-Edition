@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
@@ -415,42 +415,42 @@ public class PotionEffects {
    }
 
    public static void RegisterPotionRecipes() {
-      addMixWithRedstoneAndGlowsone(PotionTypes.AWKWARD, ItemsRegister.ICEGEM, FREEZING_POTIONTYPE_MAIN, null, FREEZING_POTIONTYPE_STRONG);
-      PotionHelper.addMix(FREEZING_POTIONTYPE_STRONG, ItemsRegister.CRYOGENCELL, FREEZING_POTIONTYPE_VERYSTRONG);
-      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.CONIFERROSIN, FROSTBURN_POTIONTYPE_MAIN);
+      addMixWithRedstoneAndGlowsone(PotionTypes.AWKWARD, ItemsRegister.ICE_GEM, FREEZING_POTIONTYPE_MAIN, null, FREEZING_POTIONTYPE_STRONG);
+      PotionHelper.addMix(FREEZING_POTIONTYPE_STRONG, ItemsRegister.CRYOGEN_CELL, FREEZING_POTIONTYPE_VERYSTRONG);
+      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.CONIFER_ROSIN, FROSTBURN_POTIONTYPE_MAIN);
       addMixWithRedstoneAndGlowsone(
-         PotionTypes.AWKWARD, ItemsRegister.FIERYOIL, FIERYOIL_POTIONTYPE_MAIN, FIERYOIL_POTIONTYPE_LONG, FIERYOIL_POTIONTYPE_STRONG
+         PotionTypes.AWKWARD, ItemsRegister.FIERY_OIL, FIERYOIL_POTIONTYPE_MAIN, FIERYOIL_POTIONTYPE_LONG, FIERYOIL_POTIONTYPE_STRONG
       );
       addMixWithRedstoneAndGlowsone(
-         PotionTypes.FIRE_RESISTANCE, ItemsRegister.INGOTMOLTEN, FIRE_AURA_POTIONTYPE_MAIN, FIRE_AURA_POTIONTYPE_LONG, FIRE_AURA_POTIONTYPE_STRONG
+         PotionTypes.FIRE_RESISTANCE, ItemsRegister.MOLTEN_INGOT, FIRE_AURA_POTIONTYPE_MAIN, FIRE_AURA_POTIONTYPE_LONG, FIRE_AURA_POTIONTYPE_STRONG
       );
-      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.TOXIBERRYJUICEDRIP, PotionTypes.POISON);
+      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.TOXIBERRY_JUICE_DRIP, PotionTypes.POISON);
       addMixWithRedstoneAndGlowsone(
-         PotionTypes.POISON, ItemsRegister.NUGGETTOXINIUM, TOXIN_POTIONTYPE_MAIN, TOXIN_POTIONTYPE_LONG, TOXIN_POTIONTYPE_STRONG
+         PotionTypes.POISON, ItemsRegister.TOXINIUM_NUGGET, TOXIN_POTIONTYPE_MAIN, TOXIN_POTIONTYPE_LONG, TOXIN_POTIONTYPE_STRONG
       );
       addMixWithRedstoneAndGlowsone(
          PotionTypes.STRENGTH, ItemsRegister.MAGIC_POWDER, MAGIC_POWER_POTIONTYPE_MAIN, MAGIC_POWER_POTIONTYPE_LONG, MAGIC_POWER_POTIONTYPE_STRONG
       );
       addMixWithRedstoneAndGlowsone(
          PotionTypes.AWKWARD,
-         Item.getItemFromBlock(BlocksRegister.ICEFLOWER),
+         Item.getItemFromBlock(BlocksRegister.ICE_FLOWER),
          MANA_REGENERATION_POTIONTYPE_MAIN,
          MANA_REGENERATION_POTIONTYPE_LONG,
          MANA_REGENERATION_POTIONTYPE_STRONG
       );
-      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.MANABERRY, INSTANT_MANA_POTIONTYPE_MAIN);
+      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.MANA_BERRY, INSTANT_MANA_POTIONTYPE_MAIN);
       PotionHelper.addMix(INSTANT_MANA_POTIONTYPE_MAIN, Items.GLOWSTONE_DUST, INSTANT_MANA_POTIONTYPE_STRONG);
       PotionHelper.addMix(INSTANT_MANA_POTIONTYPE_STRONG, ItemsRegister.MAGIC_POWDER, INSTANT_MANA_POTIONTYPE_VERYSTRONG);
-      PotionHelper.addMix(INSTANT_MANA_POTIONTYPE_VERYSTRONG, Item.getItemFromBlock(BlocksRegister.ICEFLOWER), INSTANT_MANA_POTIONTYPE_GREAT);
-      PotionHelper.addMix(INSTANT_MANA_POTIONTYPE_GREAT, ItemsRegister.DUSTGLOWINGCRYSTAL, INSTANT_MANA_POTIONTYPE_POWERFUL);
-      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.QUANTUMSLIMEBALL, ENDER_POISON_POTIONTYPE_MAIN);
+      PotionHelper.addMix(INSTANT_MANA_POTIONTYPE_VERYSTRONG, Item.getItemFromBlock(BlocksRegister.ICE_FLOWER), INSTANT_MANA_POTIONTYPE_GREAT);
+      PotionHelper.addMix(INSTANT_MANA_POTIONTYPE_GREAT, ItemsRegister.GLOWING_CRYSTAL_DUST, INSTANT_MANA_POTIONTYPE_POWERFUL);
+      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.QUANTUM_SLIMEBALL, ENDER_POISON_POTIONTYPE_MAIN);
       addMixWithRedstoneAndGlowsone(
-         PotionTypes.AWKWARD, ItemsRegister.WHITESLIMEBALL, SLIME_POTIONTYPE_MAIN, SLIME_POTIONTYPE_LONG, SLIME_POTIONTYPE_STRONG
+         PotionTypes.AWKWARD, ItemsRegister.WHITE_SLIMEBALL, SLIME_POTIONTYPE_MAIN, SLIME_POTIONTYPE_LONG, SLIME_POTIONTYPE_STRONG
       );
       PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.DEMONITE, DEMONIC_BURN_POTIONTYPE_MAIN);
       addMixWithRedstoneAndGlowsone(
          PotionTypes.AWKWARD,
-         ItemsRegister.HEALTHBERRY,
+         ItemsRegister.HEALTH_BERRY,
          HEALTH_DEGRADATION_POTIONTYPE_MAIN,
          HEALTH_DEGRADATION_POTIONTYPE_LONG,
          HEALTH_DEGRADATION_POTIONTYPE_STRONG
@@ -458,10 +458,10 @@ public class PotionEffects {
       addMixWithRedstoneAndGlowsone(
          HEALTH_DEGRADATION_POTIONTYPE_MAIN, Items.FERMENTED_SPIDER_EYE, HEALTH_BOOST_POTIONTYPE_MAIN, HEALTH_BOOST_POTIONTYPE_LONG, HEALTH_BOOST_POTIONTYPE_STRONG
       );
-      PotionHelper.addMix(FREEZING_POTIONTYPE_MAIN, ItemsRegister.MOLTENSTRING, FREEZE_IMMUNITY_POTIONTYPE_MAIN);
-      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.PLACODERMSCALES, PotionTypes.WATER_BREATHING);
-      PotionHelper.addMix(PotionTypes.LONG_WATER_BREATHING, ItemsRegister.DUSTMAGICCRYSTAL, WATER_BREATHING_POTIONTYPE_VERYLONG);
-      PotionHelper.addMix(PotionTypes.LONG_NIGHT_VISION, ItemsRegister.DUSTMAGICCRYSTAL, NIGHT_VISION_POTIONTYPE_VERYLONG);
+      PotionHelper.addMix(FREEZING_POTIONTYPE_MAIN, ItemsRegister.MOLTEN_STRING, FREEZE_IMMUNITY_POTIONTYPE_MAIN);
+      PotionHelper.addMix(PotionTypes.AWKWARD, ItemsRegister.PLACODERM_SCALES, PotionTypes.WATER_BREATHING);
+      PotionHelper.addMix(PotionTypes.LONG_WATER_BREATHING, ItemsRegister.MAGIC_CRYSTAL_DUST, WATER_BREATHING_POTIONTYPE_VERYLONG);
+      PotionHelper.addMix(PotionTypes.LONG_NIGHT_VISION, ItemsRegister.MAGIC_CRYSTAL_DUST, NIGHT_VISION_POTIONTYPE_VERYLONG);
    }
 
    public static void addMixWithRedstoneAndGlowsone(

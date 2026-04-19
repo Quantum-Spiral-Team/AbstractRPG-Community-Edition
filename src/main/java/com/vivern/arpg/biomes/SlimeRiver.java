@@ -21,7 +21,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
@@ -30,8 +29,8 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 public class SlimeRiver extends BiomeControlled {
    public SlimeRiver() {
       super(new BiomeProperties("Slime river").setBaseHeight(-0.5F).setHeightVariation(0.0F).setTemperature(1.35F).setRainfall(0.9F).setWaterColor(5931421));
-      this.topBlock = BlocksRegister.SLIMEGLOB.getDefaultState();
-      this.fillerBlock = BlocksRegister.BROWNSLIME.getDefaultState();
+      this.topBlock = BlocksRegister.SLIME_GLOB.getDefaultState();
+      this.fillerBlock = BlocksRegister.BROWN_SLIME.getDefaultState();
       this.decorator = new SlimeRiverDecorator();
    }
 
@@ -50,13 +49,13 @@ public class SlimeRiver extends BiomeControlled {
 
    @Override
    public void onPlayer60ticksInBiome(BiomeControlled biome, EntityPlayer player) {
-      Mana.addRad(player, BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTIRADPACK) > -1 ? 10 : 40, true);
+      Mana.addRad(player, BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTI_RAD_PACK) > -1 ? 10 : 40, true);
    }
 
    class SlimeRiverDecorator extends BiomeDecorator {
       public WorldGenGroundFoliage junkweed = new WorldGenGroundFoliage(BlocksRegister.JUNKWEED, 64, 6, 4);
-      public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISONLILY, 8, 4, 0);
-      public WorldGenSpread slimeblob = new WorldGenSpread(BlocksRegister.SLIMEBLOB, 16, 8, 4, BlocksRegister.BROWNSLIME);
+      public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISON_LILY, 8, 4, 0);
+      public WorldGenSpread slimeblob = new WorldGenSpread(BlocksRegister.SLIME_BLOB, 16, 8, 4, BlocksRegister.BROWN_SLIME);
 
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
@@ -67,7 +66,7 @@ public class SlimeRiver extends BiomeControlled {
                   new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
                );
                Block blockd = worldIn.getBlockState(position.down()).getBlock();
-               if ((!worldIn.getBlockState(position).getMaterial().isLiquid() || random.nextFloat() < 0.3F) && blockd == BlocksRegister.BROWNSLIME) {
+               if ((!worldIn.getBlockState(position).getMaterial().isLiquid() || random.nextFloat() < 0.3F) && blockd == BlocksRegister.BROWN_SLIME) {
                   WorldServer worldServer = (WorldServer)worldIn;
                   MinecraftServer minecraftServer = worldIn.getMinecraftServer();
                   TemplateManager templateManager = worldServer.getStructureTemplateManager();
@@ -122,7 +121,7 @@ public class SlimeRiver extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDTOXIN, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 
@@ -133,7 +132,7 @@ public class SlimeRiver extends BiomeControlled {
                if (i17 > 0) {
                   int k19 = random.nextInt(i17);
                   BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDSLIME, BlocksRegister.RADIOSTONE).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_SLIME, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
                }
             }
 
@@ -143,7 +142,7 @@ public class SlimeRiver extends BiomeControlled {
                int i17 = random.nextInt(17) + 64;
                if (i17 > 0) {
                   BlockPos blockpos6 = this.chunkPos.add(i10, i17, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUIDSLIME, BlocksRegister.BROWNSLIME).generate(worldIn, random, blockpos6);
+                  new WorldGenCaveLiquids(BlocksRegister.FLUID_SLIME, BlocksRegister.BROWN_SLIME).generate(worldIn, random, blockpos6);
                }
             }
 
@@ -154,11 +153,11 @@ public class SlimeRiver extends BiomeControlled {
 
                int ii;
                for (ii = 0; ii < random.nextInt(10) + 5; ii++) {
-                  worldIn.setBlockState(poss.down(ii), BlocksRegister.FLUIDSLIME.getDefaultState(), 2);
+                  worldIn.setBlockState(poss.down(ii), BlocksRegister.FLUID_SLIME.getDefaultState(), 2);
                }
 
                for (BlockPos ps : GetMOP.getPosesInsideSphere(poss.getX(), poss.getY() - ii, poss.getZ(), random.nextInt(4) + 2)) {
-                  worldIn.setBlockState(ps, BlocksRegister.FLUIDSLIME.getDefaultState(), 2);
+                  worldIn.setBlockState(ps, BlocksRegister.FLUID_SLIME.getDefaultState(), 2);
                }
 
                boolean genPool = true;
@@ -171,14 +170,14 @@ public class SlimeRiver extends BiomeControlled {
                      for (int it = 0; it < itmax; it++) {
                         BlockPos fpos = poss.add(random.nextGaussian() * gausMult, ir, random.nextGaussian() * gausMult);
                         if (worldIn.isAirBlock(fpos) && worldIn.getBlockState(fpos.down()).getMaterial().isLiquid()) {
-                           worldIn.setBlockState(fpos, BlocksRegister.FLUIDSLIME.getDefaultState(), 2);
+                           worldIn.setBlockState(fpos, BlocksRegister.FLUID_SLIME.getDefaultState(), 2);
                         }
                      }
 
                      genPool = false;
                   }
 
-                  worldIn.setBlockState(poss.up(ir), BlocksRegister.FLUIDSLIME.getDefaultState(), 2);
+                  worldIn.setBlockState(poss.up(ir), BlocksRegister.FLUID_SLIME.getDefaultState(), 2);
                }
             }
 
@@ -200,7 +199,7 @@ public class SlimeRiver extends BiomeControlled {
                int k = random.nextInt(16) + 8;
                BlockPos posup = worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k));
                Block block = worldIn.getBlockState(posup.down()).getBlock();
-               if (block == BlocksRegister.BROWNSLIME || block == BlocksRegister.SLUDGE) {
+               if (block == BlocksRegister.BROWN_SLIME || block == BlocksRegister.SLUDGE) {
                   this.slimeblob.generate(worldIn, random, posup);
                }
             }

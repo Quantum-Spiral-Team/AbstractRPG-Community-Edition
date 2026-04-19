@@ -103,7 +103,7 @@ public class Aurora extends WorldEvent {
             double ylength2 = this.perlin2.getValue(x * perlinLengthMult + time, z2 * perlinLengthMult) * perlinLengthPower;
             Vec3d color2 = getAuroraColor(this.perlin3.getValue(x * perlinColorMult + time, z2 * perlinColorMult) * perlinColorPower);
             float bottomMult = (float)this.perlin4.getValue(x * perlinColorMult + time, z2 * perlinColorMult);
-            bottomMult = GetMOP.getfromto(bottomMult, -1.0F, 1.0F);
+            bottomMult = GetMOP.getFromTo(bottomMult, -1.0F, 1.0F);
             float lineR = 0.0F * bottomMult * this.showness;
             float lineG = 0.5F * bottomMult * this.showness;
             float lineB = 0.3F * bottomMult * this.showness;
@@ -118,8 +118,8 @@ public class Aurora extends WorldEvent {
                double distX2 = Math.abs(x + sin2 + displ2 - entity.posX);
                double distZ1 = Math.abs(z - entity.posZ);
                double distZ2 = Math.abs(z2 - entity.posZ);
-               float colorReduct1 = (1.0F - GetMOP.getfromto((float)Math.max(distX1, distZ1), (float)rangeMin, (float)range)) * this.showness;
-               float colorReduct2 = (1.0F - GetMOP.getfromto((float)Math.max(distX2, distZ2), (float)rangeMin, (float)range)) * this.showness;
+               float colorReduct1 = (1.0F - GetMOP.getFromTo((float)Math.max(distX1, distZ1), (float)rangeMin, (float)range)) * this.showness;
+               float colorReduct2 = (1.0F - GetMOP.getFromTo((float)Math.max(distX2, distZ2), (float)rangeMin, (float)range)) * this.showness;
                float r1 = (float)color1.x * colorReduct1;
                float g1 = (float)color1.y * colorReduct1;
                float b1 = (float)color1.z * colorReduct1;

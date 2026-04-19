@@ -99,10 +99,10 @@ public class IceHelm extends ItemArmor implements IItemHurted {
    @Override
    public float onHurtWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
       if (!player.getCooldownTracker().hasCooldown(this)
-         && ((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.ICEHELM
-         && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.ICECHEST
-         && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.ICELEGS
-         && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.ICEBOOTS
+         && ((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.ICE_HELM
+         && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.ICE_CHEST
+         && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.ICE_LEGS
+         && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.ICE_BOOTS
          && source.getTrueSource() != null
          && source.getTrueSource() instanceof EntityLivingBase
          && !player.world.isRemote) {

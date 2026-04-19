@@ -27,8 +27,8 @@ import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 
 class ReefDecorator extends BiomeDecorator {
-   public WorldGenCoral coralGenerator1 = new WorldGenCoral(0.2F, 0.4F, BlocksRegister.CORALWHITE);
-   public WorldGenCoral coralGenerator2 = new WorldGenCoral(0.2F, 0.3F, BlocksRegister.CORALPINK);
+   public WorldGenCoral coralGenerator1 = new WorldGenCoral(0.2F, 0.4F, BlocksRegister.CORAL_WHITE);
+   public WorldGenCoral coralGenerator2 = new WorldGenCoral(0.2F, 0.3F, BlocksRegister.CORAL_PINK);
    public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(Blocks.TALLGRASS, 1, 32, 6, 4);
    public WorldGenShrubFixed shrub = new WorldGenShrubFixed(Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3));
    public WorldGenTrees trees1 = new WorldGenTrees(false, 6, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3), true);

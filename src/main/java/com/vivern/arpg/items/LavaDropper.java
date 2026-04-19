@@ -60,7 +60,7 @@ public class LavaDropper extends ItemWeapon {
             float mana = Mana.getMana(player);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchanted("manacost", sor);
+            float manacost = parameters.getEnchantedF("manacost", sor);
             if (click && player.getHeldItemMainhand() == itemstack && mana > manacost && !hascooldown) {
                world.playSound(
                   (EntityPlayer)null,
@@ -89,8 +89,8 @@ public class LavaDropper extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.0F,
-                  parameters.get("velocity"),
-                  parameters.getEnchanted("inaccuracy", acc),
+                  parameters.getF("velocity"),
+                  parameters.getEnchantedF("inaccuracy", acc),
                   -0.1F,
                   0.5F,
                   0.2F
@@ -126,8 +126,8 @@ public class LavaDropper extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.0F,
-                  parameters.get("velocity"),
-                  parameters.getEnchanted("inaccuracy", acc),
+                  parameters.getF("velocity"),
+                  parameters.getEnchantedF("inaccuracy", acc),
                   -0.1F,
                   0.5F,
                   0.2F

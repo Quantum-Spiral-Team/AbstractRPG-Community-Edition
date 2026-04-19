@@ -3,7 +3,7 @@ package com.vivern.arpg.dimensions.dungeon;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.GetMOP;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.BlockLadder;
 import net.minecraft.block.state.IBlockState;
@@ -134,7 +134,7 @@ public class MineshaftGenerator2 {
          BlockPos fpos1 = possOffset.offset(faceRotY, i);
          if (this.isInGenRange(fpos1)) {
             this.replaceToWoodOrShaft(world, fpos1);
-            this.setBlockState(fpos1.up(height), BlocksRegister.WOODENSHAFT.getDefaultState());
+            this.setBlockState(fpos1.up(height), BlocksRegister.WOODEN_SHAFT.getDefaultState());
             if (Math.abs(i) < size) {
                this.air(world, fpos1, height - 1);
             }
@@ -153,7 +153,7 @@ public class MineshaftGenerator2 {
                      BlockPos fpos2 = posTOP.offset(faceRotY, ni);
                      if (ni == 0 || this.isInGenRange(fpos2)) {
                         this.replaceToWoodOrShaft(world, fpos2);
-                        this.setBlockState(fpos2.up(), BlocksRegister.ROTTENPLANKS.getDefaultState());
+                        this.setBlockState(fpos2.up(), BlocksRegister.ROTTEN_PLANKS.getDefaultState());
                      }
                   }
                }
@@ -173,7 +173,7 @@ public class MineshaftGenerator2 {
                   }
 
                   this.setBlockState(
-                     new BlockPos(fpos1.getX(), fpos1.getY() + nearDist, fpos1.getZ()), BlocksRegister.ROTTENPLANKS.getDefaultState()
+                     new BlockPos(fpos1.getX(), fpos1.getY() + nearDist, fpos1.getZ()), BlocksRegister.ROTTEN_PLANKS.getDefaultState()
                   );
                }
             }
@@ -191,16 +191,16 @@ public class MineshaftGenerator2 {
          for (int z = -size; z <= size; z++) {
             BlockPos xzpos = pos.add(x, 0, z);
             if (this.isInGenRange(xzpos)) {
-               this.setBlockState(xzpos, BlocksRegister.ROTTENPLANKS.getDefaultState());
+               this.setBlockState(xzpos, BlocksRegister.ROTTEN_PLANKS.getDefaultState());
                BlockPos posupp = xzpos.up(height + 1);
                if (!this.getBlockState(posupp).getMaterial().isReplaceable()) {
-                  this.setBlockState(posupp, BlocksRegister.ROTTENPLANKS.getDefaultState());
+                  this.setBlockState(posupp, BlocksRegister.ROTTEN_PLANKS.getDefaultState());
                }
 
                if (x != -size && x != size && z != -size && z != size) {
                   this.air(world, xzpos, height);
                } else {
-                  this.setBlockState(xzpos.up(height), BlocksRegister.WOODENSHAFT.getDefaultState());
+                  this.setBlockState(xzpos.up(height), BlocksRegister.WOODEN_SHAFT.getDefaultState());
                   this.air(world, xzpos, height - 1);
                }
             }
@@ -239,9 +239,9 @@ public class MineshaftGenerator2 {
                      }
                   } else {
                      for (int i = 0; i < downLevels; i++) {
-                        this.setBlockState(xzpos.down(i * 2), BlocksRegister.WOODENSHAFT.getDefaultState());
+                        this.setBlockState(xzpos.down(i * 2), BlocksRegister.WOODEN_SHAFT.getDefaultState());
                         if (xb && zb) {
-                           this.setBlockState(xzpos.down(i * 2 + 1), BlocksRegister.WOODENSHAFT.getDefaultState());
+                           this.setBlockState(xzpos.down(i * 2 + 1), BlocksRegister.WOODEN_SHAFT.getDefaultState());
                         } else {
                            this.setBlockState(xzpos.down(i * 2 + 1), Blocks.AIR.getDefaultState());
                         }
@@ -251,8 +251,8 @@ public class MineshaftGenerator2 {
                   if (x != -size && x != size && z != -size && z != size) {
                      this.air(world, xzpos, height);
                   } else {
-                     this.setBlockState(xzpos, BlocksRegister.ROTTENPLANKS.getDefaultState());
-                     this.setBlockState(xzpos.up(height), BlocksRegister.WOODENSHAFT.getDefaultState());
+                     this.setBlockState(xzpos, BlocksRegister.ROTTEN_PLANKS.getDefaultState());
+                     this.setBlockState(xzpos.up(height), BlocksRegister.WOODEN_SHAFT.getDefaultState());
                      this.air(world, xzpos, height - 1);
                   }
                }
@@ -268,12 +268,12 @@ public class MineshaftGenerator2 {
             for (int zx = -size; zx <= size; zx++) {
                BlockPos xzpos = pos.add(x, downAdd, zx);
                if (this.isInGenRange(xzpos)) {
-                  this.setBlockState(xzpos, BlocksRegister.ROTTENPLANKS.getDefaultState());
+                  this.setBlockState(xzpos, BlocksRegister.ROTTEN_PLANKS.getDefaultState());
                   if (x != -size && x != size && zx != -size && zx != size) {
                      this.air(world, xzpos, height);
                   } else {
-                     this.setBlockState(xzpos.up(height + 1), BlocksRegister.ROTTENPLANKS.getDefaultState());
-                     this.setBlockState(xzpos.up(height), BlocksRegister.WOODENSHAFT.getDefaultState());
+                     this.setBlockState(xzpos.up(height + 1), BlocksRegister.ROTTEN_PLANKS.getDefaultState());
+                     this.setBlockState(xzpos.up(height), BlocksRegister.WOODEN_SHAFT.getDefaultState());
                      this.air(world, xzpos, height - 1);
                   }
                }
@@ -289,12 +289,12 @@ public class MineshaftGenerator2 {
          EnumFacing faceLadderOpp = facingLadder.getOpposite();
          if (this.isInGenRange(posLadderPlanks)) {
             for (int ix = 0; ix < downLevels; ix++) {
-               this.setBlockState(posLadderPlanks.down(ix * 2), BlocksRegister.ROTTENPLANKS.getDefaultState());
-               this.setBlockState(posLadderPlanks.down(ix * 2 + 1), BlocksRegister.ROTTENPLANKS.getDefaultState());
+               this.setBlockState(posLadderPlanks.down(ix * 2), BlocksRegister.ROTTEN_PLANKS.getDefaultState());
+               this.setBlockState(posLadderPlanks.down(ix * 2 + 1), BlocksRegister.ROTTEN_PLANKS.getDefaultState());
             }
 
             for (int ix = downLevels * 2; ix < -downAdd; ix++) {
-               this.setBlockState(posLadderPlanks.down(ix), BlocksRegister.ROTTENPLANKS.getDefaultState());
+               this.setBlockState(posLadderPlanks.down(ix), BlocksRegister.ROTTEN_PLANKS.getDefaultState());
             }
          }
 
@@ -342,7 +342,7 @@ public class MineshaftGenerator2 {
    public void shaft(World world, BlockPos pos, int height) {
       if (this.isInGenRange(pos)) {
          for (int y = 1; y <= height; y++) {
-            this.setBlockState(pos.up(y), BlocksRegister.WOODENSHAFT.getDefaultState());
+            this.setBlockState(pos.up(y), BlocksRegister.WOODEN_SHAFT.getDefaultState());
          }
       }
    }
@@ -356,9 +356,9 @@ public class MineshaftGenerator2 {
    public void replaceToWoodOrShaft(World world, BlockPos pos) {
       IBlockState state = this.getBlockState(pos);
       if (state.getMaterial().isLiquid()) {
-         this.setBlockState(pos, BlocksRegister.ROTTENPLANKS.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.ROTTEN_PLANKS.getDefaultState());
       } else if (state.getMaterial().isReplaceable()) {
-         this.setBlockState(pos, BlocksRegister.WOODENSHAFT.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.WOODEN_SHAFT.getDefaultState());
       }
    }
 
@@ -418,7 +418,7 @@ public class MineshaftGenerator2 {
       } else if (styleBlock >= 20) {
          this.setBlockState(pos, Blocks.COBBLESTONE.getDefaultState());
       } else if (styleBlock >= 18) {
-         this.setBlockState(pos, BlocksRegister.ROTTENPLANKS.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.ROTTEN_PLANKS.getDefaultState());
       } else if (styleBlock >= 17) {
          this.setBlockState(pos, Blocks.COAL_ORE.getDefaultState());
       } else if (styleBlock >= 16) {
@@ -434,21 +434,21 @@ public class MineshaftGenerator2 {
       } else if (styleBlock >= 11) {
          this.setBlockState(pos, Blocks.GRAVEL.getDefaultState());
       } else if (styleBlock >= 10) {
-         this.setBlockState(pos, BlocksRegister.ORERUBY.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.RUBY_ORE.getDefaultState());
       } else if (styleBlock >= 9) {
-         this.setBlockState(pos, BlocksRegister.ORECITRINE.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.CITRINE_ORE.getDefaultState());
       } else if (styleBlock >= 8) {
-         this.setBlockState(pos, BlocksRegister.ORESAPPHIRE.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.SAPPHIRE_ORE.getDefaultState());
       } else if (styleBlock >= 7) {
-         this.setBlockState(pos, BlocksRegister.ORETOPAZ.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.TOPAZ_ORE.getDefaultState());
       } else if (styleBlock >= 6) {
-         this.setBlockState(pos, BlocksRegister.ORERHINESTONE.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.RHINESTONE_ORE.getDefaultState());
       } else if (styleBlock >= 5) {
-         this.setBlockState(pos, BlocksRegister.OREAMETHYST.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.AMETHYST_ORE.getDefaultState());
       } else if (styleBlock >= 3) {
          this.setBlockState(pos, Blocks.MOSSY_COBBLESTONE.getDefaultState());
       } else {
-         this.setBlockState(pos, BlocksRegister.GREENGLOWINGMUSH.getDefaultState());
+         this.setBlockState(pos, BlocksRegister.GREEN_GLOWING_MUSHROOM.getDefaultState());
       }
    }
 

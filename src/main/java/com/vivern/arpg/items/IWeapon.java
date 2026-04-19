@@ -22,7 +22,9 @@ import com.google.common.collect.Multimap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
-import javax.annotation.Nullable;
+
+import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -54,7 +56,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public interface IWeapon {
-   String defaultcolor = "пїЅ7";
+
+   //UNUSED
+   String defaultColor = "\u00a77"; // Пофиксил битый символ. Скорее всего декомпилятор перевёл двухбайтовый символ в два однобайтовых
 
    default boolean autoReload(ItemStack itemstack) {
       return false;
@@ -66,6 +70,7 @@ public interface IWeapon {
       return false;
    }
 
+   //TODO add @param `World world`
    @SideOnly(Side.CLIENT)
    default void bom(int param) {
    }
@@ -73,13 +78,13 @@ public interface IWeapon {
    default int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return parameters.getEnchantedi("cooldown", rapidity);
+      return parameters.getEnchantedI("cooldown", rapidity);
    }
 
    default int getReloadTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
       int reloading = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack);
-      return parameters.getEnchantedi("reload", reloading);
+      return parameters.getEnchantedI("reload", reloading);
    }
 
    default float getZoom(ItemStack itemstack, EntityPlayer player) {
@@ -105,7 +110,7 @@ public interface IWeapon {
       NBTHelper.SetNBTint(itemstack, this.getReloadTime(itemstack), "reload_time");
    }
 
-   default void decreaceMana(EntityPlayer player, float amount) {
+   default void decreaseMana(EntityPlayer player, float amount) {
       if (!player.capabilities.isCreativeMode) {
          Mana.changeMana(player, amount);
          Mana.setManaSpeed(player, 0.001F);
@@ -595,7 +600,7 @@ public interface IWeapon {
       );
       entity.hurtResistantTime = 0;
       int firelvl = WeaponParameters.getWeaponParameters(stack.getItem())
-         .getEnchantedi("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
+         .getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
       if (firelvl > 0) {
          entity.setFire(firelvl);
       }
@@ -613,11 +618,11 @@ public interface IWeapon {
          stack,
          player,
          hand,
-         parameters.getEnchanted("damage", sharpness),
-         parameters.getEnchanted("knockback", knockback),
-         parameters.getEnchanted("length", sweeping),
-         parameters.getEnchanted("size", sweeping),
-         parameters.getEnchanted("end_size", sweeping),
+         parameters.getEnchantedF("damage", sharpness),
+         parameters.getEnchantedF("knockback", knockback),
+         parameters.getEnchantedF("length", sweeping),
+         parameters.getEnchantedF("size", sweeping),
+         parameters.getEnchantedF("end_size", sweeping),
          isCritical
       );
    }
@@ -683,10 +688,10 @@ public interface IWeapon {
          stack,
          player,
          hand,
-         parameters.getEnchanted("damage", sharpness),
-         parameters.getEnchanted("knockback", knockback),
-         parameters.getEnchanted("length", sweeping),
-         parameters.getEnchanted("size", sweeping),
+         parameters.getEnchantedF("damage", sharpness),
+         parameters.getEnchantedF("knockback", knockback),
+         parameters.getEnchantedF("length", sweeping),
+         parameters.getEnchantedF("size", sweeping),
          isCritical
       );
    }
@@ -744,11 +749,11 @@ public interface IWeapon {
          stack,
          player,
          hand,
-         parameters.getEnchanted("damage", sharpness),
-         parameters.getEnchanted("knockback", knockback),
-         parameters.getEnchanted("length", sweeping),
-         parameters.getEnchanted("size", sweeping),
-         parameters.getEnchanted("end_size", sweeping),
+         parameters.getEnchantedF("damage", sharpness),
+         parameters.getEnchantedF("knockback", knockback),
+         parameters.getEnchantedF("length", sweeping),
+         parameters.getEnchantedF("size", sweeping),
+         parameters.getEnchantedF("end_size", sweeping),
          isCritical,
          sweepAngle,
          sweepStepAngle
@@ -776,7 +781,7 @@ public interface IWeapon {
       int pit = (int)player.rotationPitch + sweepAngle;
 
       while (pit > player.rotationPitch - sweepAngle) {
-         vec = GetMOP.RotatedPosRayTrace(length, 1.0F, player, size, size, pit, player.rotationYaw);
+         vec = GetMOP.rotatedPosRayTrace(length, 1.0F, player, size, size, pit, player.rotationYaw);
          AxisAlignedBB aabb2 = new AxisAlignedBB(
             vec.x - size,
             vec.y - size,
@@ -846,9 +851,9 @@ public interface IWeapon {
          stack,
          player,
          hand,
-         parameters.getEnchanted("damage", sharpness),
-         parameters.getEnchanted("knockback", knockback),
-         parameters.getEnchanted("length", sweeping),
+         parameters.getEnchantedF("damage", sharpness),
+         parameters.getEnchantedF("knockback", knockback),
+         parameters.getEnchantedF("length", sweeping),
          isCritical
       );
    }
@@ -859,15 +864,15 @@ public interface IWeapon {
       Vec3d vec3d = player.getPositionEyes(1.0F);
       Vec3d vec3d1 = player.getLook(1.0F);
       Vec3d vec3d2 = vec3d.add(vec3d1.x * length, vec3d1.y * length, vec3d1.z * length);
-      RayTraceResult result = GetMOP.fixedRayTraceBlocks(player.world, player, 0.2F, 0.15F, true, vec3d, vec3d2, false, true, false);
+      RayTraceResult result = GetMOP.fixedRayTraceBlocks(player.world, player, 0.2F, true, vec3d, vec3d2, false, true, false);
       if (result != null && result.entityHit != null) {
          boolean ret = false;
          if (Team.checkIsOpponent(player, result.entityHit) && Weapons.canDealDamageTo(result.entityHit)) {
-            float angle = Math.abs(GetMOP.getDirectionBetweenAngles(result.entityHit.rotationYaw, player.rotationYaw));
+            float angle = Math.abs(MathHelper.wrapDegrees(player.rotationYaw - result.entityHit.rotationYaw));
             if (angle < 80.0F) {
                isCritical = true;
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-               damage += parameters.get("critical_damage");
+               damage += parameters.getF("critical_damage");
             }
 
             IAttributeInstance entityAttribute = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
@@ -909,11 +914,11 @@ public interface IWeapon {
          stack,
          player,
          hand,
-         parameters.getEnchanted("damage", sharpness),
-         parameters.getEnchanted("knockback", knockback),
-         parameters.getEnchanted("length", sweeping),
-         parameters.getEnchanted("size", sweeping),
-         parameters.getEnchanted("end_size", sweeping)
+         parameters.getEnchantedF("damage", sharpness),
+         parameters.getEnchantedF("knockback", knockback),
+         parameters.getEnchantedF("length", sweeping),
+         parameters.getEnchantedF("size", sweeping),
+         parameters.getEnchantedF("end_size", sweeping)
       );
    }
 
@@ -930,7 +935,7 @@ public interface IWeapon {
          yaw = 90.0F;
       }
 
-      Vec3d yawVec = GetMOP.YawToVec3d(player.rotationYawHead + yaw);
+      Vec3d yawVec = GetMOP.yawToVec3D(player.rotationYawHead + yaw);
       float shoulders = 0.2F;
       vec3dEyes = vec3dEyes.add(yawVec.x * shoulders, yawVec.y * shoulders, yawVec.z * shoulders);
       Vec3d vec3dLook = player.getLook(1.0F);
@@ -1059,7 +1064,7 @@ public interface IWeapon {
 
    static boolean checkShieldAngle(ItemStack stack, EntityPlayer playerWithShield, DamageSource source) {
       float shieldAngle = WeaponParameters.getWeaponParameters(stack.getItem())
-         .getEnchanted("shield_angle", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack));
+         .getEnchantedF("shield_angle", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack));
       Vec3d vec1 = playerWithShield.getLookVec();
       Vec3d vec2 = playerWithShield.getPositionEyes(1.0F);
       Vec3d vec3;
@@ -1238,9 +1243,9 @@ public interface IWeapon {
 
    default WeaponParameters setDefaultDescription(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-      tooltip.add("пїЅ7Damage: " + parameters.get("damage") + parameters.get("damage_ench") * EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+      tooltip.add("пїЅ7Damage: " + parameters.getF("damage") + parameters.getF("damage_ench") * EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
       tooltip.add(
-         "пїЅ7Knockback: " + parameters.get("knockback") + parameters.get("knockback_ench") * EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)
+         "пїЅ7Knockback: " + parameters.getF("knockback") + parameters.getF("knockback_ench") * EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)
       );
       tooltip.add("пїЅ7Cooldown: " + this.getCooldownTime(stack));
       int reload = this.getReloadTime(stack);

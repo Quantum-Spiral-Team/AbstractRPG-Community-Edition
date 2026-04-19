@@ -62,7 +62,7 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
       if (!this.world.isRemote) {
          if (this.hasMaterials) {
             IBlockState state = this.world.getBlockState(this.pos);
-            boolean wet = state.getBlock() == BlocksRegister.TRITONHEARTH ? (Boolean)state.getValue(TritonHearth.WET) : false;
+            boolean wet = state.getBlock() == BlocksRegister.TRITON_HEARTH ? (Boolean)state.getValue(TritonHearth.WET) : false;
             if (this.workTicks > (wet ? workTicksMax : workTicksMax * 1.5F)) {
                this.workTicks = 0;
                this.hasMaterials = false;
@@ -73,7 +73,7 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
                         this.getPos().getX() + 0.5,
                         this.getPos().getY() + 0.9,
                         this.getPos().getZ() + 0.5,
-                        new ItemStack(ItemsRegister.INGOTAQUATIC)
+                        new ItemStack(ItemsRegister.AQUATIC_INGOT)
                      )
                   );
                ITileEntitySynchronize.sendSynchronize(this, 48.0, 1.0);
@@ -86,7 +86,7 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
             }
          } else if (this.workTicks > 20) {
             IBlockState state = this.world.getBlockState(this.pos);
-            this.checkMaterials(state.getBlock() == BlocksRegister.TRITONHEARTH ? (Boolean)state.getValue(TritonHearth.WET) : false);
+            this.checkMaterials(state.getBlock() == BlocksRegister.TRITON_HEARTH ? (Boolean)state.getValue(TritonHearth.WET) : false);
             this.workTicks = 0;
          } else {
             this.workTicks++;
@@ -116,13 +116,13 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
             if (entityItem != null && entityItem.getItem() != null) {
                ItemStack stack = entityItem.getItem();
                boolean is = false;
-               if (stack.getItem() == Item.getItemFromBlock(BlocksRegister.METALLICCORAL) && stack.getCount() >= 8) {
+               if (stack.getItem() == Item.getItemFromBlock(BlocksRegister.METALLIC_CORAL) && stack.getCount() >= 8) {
                   stack.shrink(8);
                   is = true;
-               } else if (stack.getItem() == ItemsRegister.DUSTAQUATIC && stack.getCount() >= 1) {
+               } else if (stack.getItem() == ItemsRegister.AQUATIC_DUST && stack.getCount() >= 1) {
                   stack.shrink(1);
                   is = true;
-               } else if (stack.getItem() == ItemsRegister.NUGGETAQUATIC && stack.getCount() >= 9) {
+               } else if (stack.getItem() == ItemsRegister.AQUATIC_NUGGET && stack.getCount() >= 9) {
                   stack.shrink(9);
                   is = true;
                }

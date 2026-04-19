@@ -86,8 +86,8 @@ public class ZarpionIntricacyGenerator {
          for (int zz = -halfSizeInBlocks; zz <= halfSizeInBlocks; zz++) {
             System.out.println("ins 2");
             BlockPos inPos = this.centerPos.add(xx, 2, zz);
-            world.setBlockState(inPos, BlocksRegister.STORMPLATE.getDefaultState(), 2);
-            world.setBlockState(inPos.up(6), BlocksRegister.STORMMASONRY.getDefaultState(), 2);
+            world.setBlockState(inPos, BlocksRegister.STORM_PLATE.getDefaultState(), 2);
+            world.setBlockState(inPos.up(6), BlocksRegister.STORM_MASONRY.getDefaultState(), 2);
             int arrX = MathHelper.clamp((xx + halfSizeInBlocks) / this.corridorWidth, 0, (int)arrsize - 1);
             int arrZ = MathHelper.clamp((zz + halfSizeInBlocks) / this.corridorWidth, 0, (int)arrsize - 1);
             boolean isWall = false;
@@ -96,11 +96,11 @@ public class ZarpionIntricacyGenerator {
                      || Math.abs(xx) < halfSizeInBlocks - this.corridorWidth * 2 && Math.abs(zz) < halfSizeInBlocks - this.corridorWidth * 2
                )
                && (xx == -halfSizeInBlocks || xx == halfSizeInBlocks || zz == -halfSizeInBlocks || zz == halfSizeInBlocks || cells[arrX][arrZ])) {
-               world.setBlockState(inPos.up(), BlocksRegister.STORMMASONRY.getDefaultState(), 2);
-               world.setBlockState(inPos.up(2), BlocksRegister.STORMPLATE.getDefaultState(), 2);
-               world.setBlockState(inPos.up(3), BlocksRegister.STORMMASONRY.getDefaultState(), 2);
-               world.setBlockState(inPos.up(4), BlocksRegister.STORMMASONRY.getDefaultState(), 2);
-               world.setBlockState(inPos.up(5), BlocksRegister.STORMPLATE.getDefaultState(), 2);
+               world.setBlockState(inPos.up(), BlocksRegister.STORM_MASONRY.getDefaultState(), 2);
+               world.setBlockState(inPos.up(2), BlocksRegister.STORM_PLATE.getDefaultState(), 2);
+               world.setBlockState(inPos.up(3), BlocksRegister.STORM_MASONRY.getDefaultState(), 2);
+               world.setBlockState(inPos.up(4), BlocksRegister.STORM_MASONRY.getDefaultState(), 2);
+               world.setBlockState(inPos.up(5), BlocksRegister.STORM_PLATE.getDefaultState(), 2);
                isWall = true;
             }
 
@@ -111,13 +111,13 @@ public class ZarpionIntricacyGenerator {
                   world,
                   inPos.up(7),
                   pyramidRoofHeight,
-                  isWall ? BlocksRegister.STORMMASONRY.getDefaultState() : BlocksRegister.STORMPLATE.getDefaultState()
+                  isWall ? BlocksRegister.STORM_MASONRY.getDefaultState() : BlocksRegister.STORM_PLATE.getDefaultState()
                );
                this.column(
                   world,
                   inPos.down(),
                   -pyramidRoofHeight,
-                  isWall ? BlocksRegister.STORMMASONRY.getDefaultState() : BlocksRegister.STORMPLATE.getDefaultState()
+                  isWall ? BlocksRegister.STORM_MASONRY.getDefaultState() : BlocksRegister.STORM_PLATE.getDefaultState()
                );
             }
 
@@ -336,19 +336,19 @@ public class ZarpionIntricacyGenerator {
             npc.enablePersistence();
             world.setBlockState(
                new BlockPos(npc.posX + 2.0, this.centerPos.getY() + 2, npc.posZ + 2.0),
-               BlocksRegister.STORMCONDUCTOR.getDefaultState()
+               BlocksRegister.STORM_CONDUCTOR.getDefaultState()
             );
             world.setBlockState(
                new BlockPos(npc.posX - 2.0, this.centerPos.getY() + 2, npc.posZ + 2.0),
-               BlocksRegister.STORMCONDUCTOR.getDefaultState()
+               BlocksRegister.STORM_CONDUCTOR.getDefaultState()
             );
             world.setBlockState(
                new BlockPos(npc.posX - 2.0, this.centerPos.getY() + 2, npc.posZ - 2.0),
-               BlocksRegister.STORMCONDUCTOR.getDefaultState()
+               BlocksRegister.STORM_CONDUCTOR.getDefaultState()
             );
             world.setBlockState(
                new BlockPos(npc.posX + 2.0, this.centerPos.getY() + 2, npc.posZ - 2.0),
-               BlocksRegister.STORMCONDUCTOR.getDefaultState()
+               BlocksRegister.STORM_CONDUCTOR.getDefaultState()
             );
             break;
          }
@@ -503,23 +503,23 @@ public class ZarpionIntricacyGenerator {
             IBlockState columnstate = null;
             int randstate = rand.nextInt(7);
             if (randstate == 0 || randstate == 1) {
-               columnstate = BlocksRegister.STORMRACK.getDefaultState().withProperty(StormRack.FACING, facing.getOpposite());
+               columnstate = BlocksRegister.STORM_RACK.getDefaultState().withProperty(StormRack.FACING, facing.getOpposite());
             }
 
             if (randstate == 2 || randstate == 3) {
-               columnstate = BlocksRegister.STORMCONDUCTOR.getStateFromMeta(5);
+               columnstate = BlocksRegister.STORM_CONDUCTOR.getStateFromMeta(5);
             }
 
             if (randstate == 4) {
-               columnstate = BlocksRegister.STORMMASONRY.getDefaultState();
+               columnstate = BlocksRegister.STORM_MASONRY.getDefaultState();
             }
 
             if (randstate == 5) {
-               columnstate = BlocksRegister.STORMPLATE.getDefaultState();
+               columnstate = BlocksRegister.STORM_PLATE.getDefaultState();
             }
 
             if (randstate == 6) {
-               columnstate = BlocksRegister.BEAMROCK.getDefaultState();
+               columnstate = BlocksRegister.BEAM_ROCK.getDefaultState();
             }
 
             BlockPos posRLRight = result.pos.offset(facingR, rl);
@@ -562,7 +562,7 @@ public class ZarpionIntricacyGenerator {
    }
 
    public void spawner(World world, BlockPos posm, Random rand) {
-      world.setBlockState(posm, BlocksRegister.MOBSPAWNERSTORM.getDefaultState(), 2);
+      world.setBlockState(posm, BlocksRegister.STORM_SPAWNER.getDefaultState(), 2);
       SpawnerTuners.ZARPION_INTRICACY.setupSpawner(world, posm, rand);
    }
 

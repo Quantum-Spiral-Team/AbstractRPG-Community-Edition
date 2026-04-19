@@ -37,9 +37,9 @@ public class SnowSewingTable extends Block {
       super(Material.WOOD);
       this.setRegistryName("snow_sewing_table");
       this.setTranslationKey("snow_sewing_table");
-      this.blockHardness = BlocksRegister.HR_CONIFER_PLANKS.HARDNESS;
-      this.blockResistance = BlocksRegister.HR_CONIFER_PLANKS.RESISTANCE;
-      this.setHarvestLevel("axe", BlocksRegister.HR_CONIFER_PLANKS.LVL);
+      this.blockHardness = BlocksRegister.HR_CONIFER_PLANKS.hardness;
+      this.blockResistance = BlocksRegister.HR_CONIFER_PLANKS.resistance;
+      this.setHarvestLevel("axe", BlocksRegister.HR_CONIFER_PLANKS.lvl);
       this.setSoundType(SoundType.WOOD);
       this.setCreativeTab(CreativeTabs.DECORATIONS);
       this.setTickRandomly(true);
@@ -73,19 +73,19 @@ public class SnowSewingTable extends Block {
          int count = 5 - damage - rand.nextInt(3);
          if (count > 0) {
             for (int i = 0; i < count; i++) {
-               drops.add(new ItemStack(ItemsRegister.CONIFERSTICK, 1));
+               drops.add(new ItemStack(ItemsRegister.CONIFER_STICK, 1));
             }
          }
 
          count = 5 - damage - rand.nextInt(3);
          if (count > 0) {
             for (int i = 0; i < count; i++) {
-               drops.add(new ItemStack(ItemsRegister.WINTERWILLOWSEEDS, 1));
+               drops.add(new ItemStack(ItemsRegister.WINTER_WILLOW_SEEDS, 1));
             }
          }
 
          if (rand.nextFloat() > 0.25F * damage) {
-            drops.add(new ItemStack(ItemsRegister.ICEGEM, 1));
+            drops.add(new ItemStack(ItemsRegister.ICE_GEM, 1));
          }
       }
    }
@@ -131,18 +131,18 @@ public class SnowSewingTable extends Block {
 
             world.setBlockToAir(pos.up());
             world.spawnEntity(
-               new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.15, pos.getZ() + 0.5, new ItemStack(ItemsRegister.SNOWCLOTH))
+               new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.15, pos.getZ() + 0.5, new ItemStack(ItemsRegister.SNOW_CLOTH))
             );
             this.deactivateAndDamage(world, pos, state);
             world.playSound(null, pos, Sounds.sewing, SoundCategory.BLOCKS, 0.7F, 0.85F + RANDOM.nextFloat() * 0.3F);
             return true;
          }
 
-         if (block == BlocksRegister.LOOSESNOW) {
+         if (block == BlocksRegister.LOOSE_SNOW) {
             if (RANDOM.nextFloat() < 0.9) {
                int l = (Integer)stateup.getValue(LooseSnow.LAYERS);
                if (l > 1) {
-                  world.setBlockState(pos.up(), BlocksRegister.LOOSESNOW.getDefaultState().withProperty(LooseSnow.LAYERS, l - 1));
+                  world.setBlockState(pos.up(), BlocksRegister.LOOSE_SNOW.getDefaultState().withProperty(LooseSnow.LAYERS, l - 1));
                } else {
                   world.setBlockToAir(pos.up());
                }
@@ -153,7 +153,7 @@ public class SnowSewingTable extends Block {
 
             world.setBlockToAir(pos.up());
             world.spawnEntity(
-               new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.15, pos.getZ() + 0.5, new ItemStack(ItemsRegister.SNOWCLOTH))
+               new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.15, pos.getZ() + 0.5, new ItemStack(ItemsRegister.SNOW_CLOTH))
             );
             this.deactivateAndDamage(world, pos, state);
             world.playSound(null, pos, Sounds.sewing, SoundCategory.BLOCKS, 0.7F, 0.85F + RANDOM.nextFloat() * 0.3F);

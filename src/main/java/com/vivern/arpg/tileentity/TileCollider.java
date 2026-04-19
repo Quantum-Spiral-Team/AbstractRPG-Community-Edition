@@ -11,7 +11,7 @@ import com.vivern.arpg.main.OreDicHelper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -142,7 +142,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
          for (EnumFacing face : EnumFacing.VALUES) {
             BlockPos newpos = this.getPos().offset(face);
             IBlockState newstate = this.world.getBlockState(newpos);
-            if (newstate.getBlock() == BlocksRegister.COLLIDERPIPE && !(Boolean)newstate.getValue(ColliderPipe.HERMETIC) && istorage[0] > 0) {
+            if (newstate.getBlock() == BlocksRegister.COLLIDER_PIPE && !(Boolean)newstate.getValue(ColliderPipe.HERMETIC) && istorage[0] > 0) {
                istorage[0]--;
                this.vacuumate(istorage, newpos, face.getOpposite());
             }
@@ -192,7 +192,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
          if (face != previous) {
             BlockPos newpos = pos.offset(face);
             IBlockState newstate = this.world.getBlockState(newpos);
-            if (newstate.getBlock() == BlocksRegister.COLLIDERPIPE && !(Boolean)newstate.getValue(ColliderPipe.HERMETIC) && istorage[0] > 0) {
+            if (newstate.getBlock() == BlocksRegister.COLLIDER_PIPE && !(Boolean)newstate.getValue(ColliderPipe.HERMETIC) && istorage[0] > 0) {
                istorage[0]--;
                this.world.setBlockState(pos, newstate.withProperty(ColliderPipe.HERMETIC, true));
                this.vacuumate(istorage, newpos, face.getOpposite());
@@ -308,7 +308,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
 
    public boolean isPipeForBeam(BlockPos pos) {
       IBlockState state = this.world.getBlockState(pos);
-      return state.getBlock() == BlocksRegister.COLLIDERPIPE || state.getBlock() == BlocksRegister.COLLIDER;
+      return state.getBlock() == BlocksRegister.COLLIDER_PIPE || state.getBlock() == BlocksRegister.COLLIDER;
    }
 
    @Nullable

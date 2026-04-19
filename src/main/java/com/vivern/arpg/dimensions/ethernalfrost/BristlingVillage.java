@@ -26,7 +26,7 @@ import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 public class BristlingVillage {
    public static Predicate<IBlockState> BLOCKS_TO_COLLIDE = new Predicate<IBlockState>() {
       public boolean apply(IBlockState input) {
-         if (input.getBlock() == BlocksRegister.CONIFERPLANKS) {
+         if (input.getBlock() == BlocksRegister.CONIFER_PLANKS) {
             return true;
          } else {
             return input.getMaterial() == Material.SNOW
@@ -47,10 +47,10 @@ public class BristlingVillage {
    public int maximumRoadLength;
    public World world;
    public IBlockState[] roadBlocks = new IBlockState[]{
-      BlocksRegister.CONIFERPLANKS.getDefaultState(), Blocks.SNOW.getDefaultState(), BlocksRegister.CONIFERPLANKS.getDefaultState()
+      BlocksRegister.CONIFER_PLANKS.getDefaultState(), Blocks.SNOW.getDefaultState(), BlocksRegister.CONIFER_PLANKS.getDefaultState()
    };
    public IBlockState[] fluidRoadBlocks = new IBlockState[]{
-      BlocksRegister.CONIFERPLANKS.getDefaultState(), BlocksRegister.FROZENSTONE.getDefaultState(), BlocksRegister.FROZENBRICKS.getDefaultState()
+      BlocksRegister.CONIFER_PLANKS.getDefaultState(), BlocksRegister.FROZEN_STONE.getDefaultState(), BlocksRegister.BLOCK_BLOCK_HARD.getDefaultState()
    };
    public Random rand;
    public static NamedInt[] structuresHomes = new NamedInt[]{
@@ -88,35 +88,35 @@ public class BristlingVillage {
       int lamp = this.rand.nextInt(5);
       this.lampstyle = this.rand.nextInt(4);
       if (lamp == 0) {
-         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.LAMPRUBY.getDefaultState();
-         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.LANTERNRUBY.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.RUBY_LAMP.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.RUBY_LANTERN.getDefaultState();
       }
 
       if (lamp == 1) {
-         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.LAMPRHINESTONE.getDefaultState();
-         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.LANTERNRHINESTONE.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.RHINESTONE_LAMP.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.RHINESTONE_LANTERN.getDefaultState();
       }
 
       if (lamp == 2) {
-         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.LAMPTOPAZ.getDefaultState();
-         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.LANTERNTOPAZ.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.TOPAZ_LAMP.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.TOPAZ_LANTERN.getDefaultState();
       }
 
       if (lamp == 3) {
-         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.LAMPCITRINE.getDefaultState();
-         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.LANTERNCITRINE.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.CITRINE_LAMP.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.CITRINE_LANTERN.getDefaultState();
       }
 
       if (lamp == 4) {
-         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.LAMPDIAMOND.getDefaultState();
-         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.LANTERNDIAMOND.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLampState = BlocksRegister.DIAMOND_LAMP.getDefaultState();
+         ChestReplacersFrozen.replacerPresentBoxLanternState = BlocksRegister.DIAMOND_LANTERN.getDefaultState();
       }
 
       this.center = this.world.getHeight(pos).add(0, 16, 0);
       int i1 = this.rand.nextInt(360);
-      this.recursiveGenerate(this.center, GetMOP.YawToVec3d(i1), this.maximumRoadLength);
+      this.recursiveGenerate(this.center, GetMOP.yawToVec3D(i1), this.maximumRoadLength);
       if (this.homesSpawned < 10 && this.recursionLast > 0) {
-         Vec3d direction = GetMOP.YawToVec3d(i1 + 180);
+         Vec3d direction = GetMOP.yawToVec3D(i1 + 180);
 
          for (int i = 2; i < 20; i += 2) {
             BlockPos offsetPos = this.center.add(direction.x * i, 0.0, direction.z * i);
@@ -158,9 +158,9 @@ public class BristlingVillage {
 
                   this.recursiveGenerate(pos, direction, last);
                   if (this.rand.nextFloat() < 0.35F + Debugger.floats[4]) {
-                     float angle = GetMOP.Vec2dToYaw(direction.x, direction.z);
+                     float angle = GetMOP.vec2DToYaw(direction.x, direction.z);
                      angle += this.rand.nextFloat() < 0.5F ? 90.0F + (this.rand.nextFloat() - 0.5F) * 90.0F : -90.0F - (this.rand.nextFloat() - 0.5F) * 90.0F;
-                     Vec3d direction2 = GetMOP.YawToVec3d(angle);
+                     Vec3d direction2 = GetMOP.yawToVec3D(angle);
                      if ((this.rand.nextFloat() < 0.8 + Debugger.floats[6] || this.noHomesTime > 0) && this.outpathesLast > 0) {
                         this.outpathesLast--;
                         this.noHomesTime--;
@@ -183,7 +183,7 @@ public class BristlingVillage {
                   }
                }
             } else {
-               EnumFacing face = EnumFacing.fromAngle(GetMOP.Vec2dToYaw(-direction.x, direction.z));
+               EnumFacing face = EnumFacing.fromAngle(GetMOP.vec2DToYaw(-direction.x, direction.z));
                int structId = this.rand.nextInt(structuresHomes.length);
                NamedInt structure = structuresHomes[structId];
                BlockPos finalpos = result.pos.offset(face, structure.value);
@@ -233,7 +233,7 @@ public class BristlingVillage {
             if (x * x + z * z <= sizeSq) {
                BlockPos poss = pos.add(x, 0, z);
                IBlockState hasState = this.world.getBlockState(poss);
-               if (hasState.getBlock() != BlocksRegister.CONIFERPLANKS) {
+               if (hasState.getBlock() != BlocksRegister.CONIFER_PLANKS) {
                   if (hasState.getMaterial().isLiquid()) {
                      this.world.setBlockState(poss, this.fluidRoadBlocks[this.rand.nextInt(this.fluidRoadBlocks.length)], 2);
                   } else if (!BLOCKS_TO_COLLIDE.apply(this.world.getBlockState(poss.up())) && BLOCKS_TO_COLLIDE.apply(hasState)) {
@@ -283,10 +283,10 @@ public class BristlingVillage {
          for (int z = pos.getZ() - size; z <= pos.getZ() + size; z++) {
             boolean generate = false;
             IBlockState material = world.getBlockState(new BlockPos(x, pos.getY(), z));
-            if (material.getBlock() == BlocksRegister.CONIFERLOG
-               || material.getBlock() == BlocksRegister.CONIFERPLANKS
-               || material.getBlock() == BlocksRegister.FROZENBRICKS
-               || material.getBlock() == BlocksRegister.FROZENCOBBLE
+            if (material.getBlock() == BlocksRegister.CONIFER_LOG
+               || material.getBlock() == BlocksRegister.CONIFER_PLANKS
+               || material.getBlock() == BlocksRegister.BLOCK_BLOCK_HARD
+               || material.getBlock() == BlocksRegister.FROZEN_COBBLESTONE
                || material.getBlock() == Blocks.PLANKS) {
                generate = true;
             }

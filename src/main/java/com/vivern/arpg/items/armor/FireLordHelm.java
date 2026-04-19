@@ -72,10 +72,10 @@ public class FireLordHelm extends ItemArmor {
       if (entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
          World world = player.getEntityWorld();
-         if (((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.FIRELORDHELM
-            && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.FIRELORDCHEST
-            && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.FIRELORDLEGS
-            && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.FIRELORDBOOTS) {
+         if (((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.FIRE_LORD_HELM
+            && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.FIRE_LORD_CHEST
+            && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.FIRE_LORD_LEGS
+            && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.FIRE_LORD_BOOTS) {
             player.extinguish();
             if (player.ticksExisted % 60 == 0 && player.getHealth() < player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getAttributeValue() / 2.0
                )
@@ -92,7 +92,7 @@ public class FireLordHelm extends ItemArmor {
       if (armorSlot != EntityEquipmentSlot.HEAD) {
          return null;
       } else if (itemStack != ItemStack.EMPTY) {
-         ModelBiped whm = ClientProxy.firelordhelmmodel;
+         ModelBiped whm = ClientProxy.fireLordHelmModel;
          whm.isSneak = entityLiving.isSneaking();
          whm.isRiding = entityLiving.isRiding();
          whm.isChild = entityLiving.isChild();

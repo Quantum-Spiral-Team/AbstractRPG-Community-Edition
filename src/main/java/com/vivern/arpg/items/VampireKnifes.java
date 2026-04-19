@@ -71,8 +71,8 @@ public class VampireKnifes extends Item {
                player.addStat(StatList.getObjectUseStats(this));
             }
 
-            if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && FindAmmo.Find(player.inventory, ItemsRegister.VAMPIREKNIFE) >= 20) {
-               player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.VAMPIREKNIFE, 20).getItem(), -1, 20, null);
+            if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && FindAmmo.find(player.inventory, ItemsRegister.VAMPIRE_KNIFE) >= 20) {
+               player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.VAMPIRE_KNIFE, 20).getItem(), -1, 20, null);
                itemstack.setItemDamage(0);
                player.getCooldownTracker().setCooldown(this, 45 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 5);
                world.playSound(

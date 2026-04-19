@@ -101,8 +101,8 @@ public class NetherGrinder extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.2F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.2F,
                         0.5F,
                         0.2F
@@ -112,14 +112,14 @@ public class NetherGrinder extends ItemWeapon {
                      }
 
                      projectile.bullet = bullet;
-                     projectile.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      world.spawnEntity(projectile);
                      if (!player.capabilities.isCreativeMode) {
                         this.addAmmo(ammo, itemstack, -1);
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.NETHERGRINDERAMMO, maxammo, true)) {
+               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.NETHER_GRINDER_AMMO, maxammo, true)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,

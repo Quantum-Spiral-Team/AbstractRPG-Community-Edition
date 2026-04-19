@@ -39,19 +39,19 @@ public class EntitySlimeBullet extends StandardBullet {
 
    public EntitySlimeBullet(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.SLIMESHOTGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.SLIME_SHOTGUN);
       this.setSize(0.32F, 0.32F);
    }
 
    public EntitySlimeBullet(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.SLIMESHOTGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.SLIME_SHOTGUN);
       this.setSize(0.32F, 0.32F);
    }
 
    public EntitySlimeBullet(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.SLIMESHOTGUN);
+      this.weaponstack = new ItemStack(ItemsRegister.SLIME_SHOTGUN);
       this.setSize(0.32F, 0.32F);
    }
 
@@ -207,11 +207,11 @@ public class EntitySlimeBullet extends StandardBullet {
          int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
          Weapons.dealDamage(
             new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.acid),
-            parameters.getEnchanted("impact_damage", might),
+            parameters.getEnchantedF("impact_damage", might),
             this.thrower,
             result.entityHit,
             true,
-            parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack)),
+            parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack)),
             this.posX,
             this.posY,
             this.posZ
@@ -220,15 +220,15 @@ public class EntitySlimeBullet extends StandardBullet {
          Weapons.setPotionIfEntityLB(
             result.entityHit,
             PotionEffects.SLIME,
-            parameters.getEnchantedi("slime_duration_impact", witchery),
-            Math.round(parameters.getEnchanted("slime_power", witchery))
+            parameters.getEnchantedI("slime_duration_impact", witchery),
+            Math.round(parameters.getEnchantedF("slime_power", witchery))
          );
       }
    }
 
    public void explode() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -240,11 +240,11 @@ public class EntitySlimeBullet extends StandardBullet {
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, false, false, this, WeaponDamage.acid),
-                  parameters.getEnchanted("damage", might),
+                  parameters.getEnchantedF("damage", might),
                   this.thrower,
                   entity,
                   true,
-                  parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack)),
+                  parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack)),
                   this.posX,
                   this.posY,
                   this.posZ
@@ -253,8 +253,8 @@ public class EntitySlimeBullet extends StandardBullet {
                Weapons.setPotionIfEntityLB(
                   entity,
                   PotionEffects.SLIME,
-                  parameters.getEnchantedi("slime_duration_explode", witchery),
-                  Math.round(parameters.getEnchanted("slime_power", witchery))
+                  parameters.getEnchantedI("slime_duration_explode", witchery),
+                  Math.round(parameters.getEnchantedF("slime_power", witchery))
                );
             }
          }

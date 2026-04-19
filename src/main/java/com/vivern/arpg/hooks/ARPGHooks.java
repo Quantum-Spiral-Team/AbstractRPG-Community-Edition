@@ -90,7 +90,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import paulscode.sound.SoundSystem;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.*;
 import java.util.*;
 
@@ -209,7 +209,7 @@ public class ARPGHooks {
                     && (random.nextFloat() >= 0.35F || has.getMaterial() != Material.LEAVES)) {
                worldIn.setBlockToAir(pos);
             } else {
-               worldIn.setBlockState(pos, BlocksRegister.ASHBLOCK.getDefaultState().withProperty(AshBlock.LAYERS, 1)
+               worldIn.setBlockState(pos, BlocksRegister.ASH_BLOCK.getDefaultState().withProperty(AshBlock.LAYERS, 1)
                        .withProperty(AshBlock.ISFALLING, false));
             }
          }
@@ -677,7 +677,7 @@ public class ARPGHooks {
             eitem.setDead();
          }
 
-         world.setBlockState(pos, BlocksRegister.GEMSPARKBLOCK.getDefaultState());
+         world.setBlockState(pos, BlocksRegister.GEMSPARK_BLOCK.getDefaultState());
          world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.8F,
                  0.9F + world.rand.nextFloat() / 5.0F);
       }

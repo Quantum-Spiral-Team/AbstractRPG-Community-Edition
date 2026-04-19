@@ -15,11 +15,11 @@ public class FrozenStone extends BlockBlockHard {
       super(
          Material.ROCK,
          "frozen_stone",
-         BlocksRegister.HR_FROZEN_STONE.HARDNESS,
-         BlocksRegister.HR_FROZEN_STONE.RESISTANCE,
-         BlocksRegister.HR_FROZEN_STONE.SLOW,
-         BlocksRegister.HR_FROZEN_STONE.FAST,
-         BlocksRegister.HR_FROZEN_STONE.LVL,
+         BlocksRegister.HR_FROZEN_STONE.hardness,
+         BlocksRegister.HR_FROZEN_STONE.resistance,
+         BlocksRegister.HR_FROZEN_STONE.slow,
+         BlocksRegister.HR_FROZEN_STONE.fast,
+         BlocksRegister.HR_FROZEN_STONE.lvl,
          "pickaxe",
          true
       );
@@ -33,7 +33,7 @@ public class FrozenStone extends BlockBlockHard {
 
    @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-      return Item.getItemFromBlock(BlocksRegister.FROZENCOBBLE);
+      return Item.getItemFromBlock(BlocksRegister.FROZEN_COBBLESTONE);
    }
 
    @Override

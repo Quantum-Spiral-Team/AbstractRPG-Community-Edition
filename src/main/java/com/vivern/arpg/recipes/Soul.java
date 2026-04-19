@@ -2,7 +2,7 @@ package com.vivern.arpg.recipes;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class Soul {
    public static HashMap<Integer, Soul> soulRegistry = new HashMap<>();

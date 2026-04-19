@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.tileentity.IManaBuffer;
 import com.vivern.arpg.tileentity.TileInfernumFurnace;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;

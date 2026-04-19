@@ -3,7 +3,7 @@ package com.vivern.arpg.mobs;
 import com.vivern.arpg.entity.EntityBossLoot;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.potions.RespawnPenalty;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

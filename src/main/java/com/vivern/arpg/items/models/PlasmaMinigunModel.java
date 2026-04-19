@@ -210,18 +210,18 @@ public class PlasmaMinigunModel extends ModelBase {
    }
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-      this.shape1.offsetX = 6.0F * GetMOP.getfromto(f1, 0.0F, 0.3F);
-      this.shape3_a.offsetX = -1.5F * GetMOP.getfromto(f1, 0.3F, 0.5F);
-      this.shape3_b.offsetX = 1.5F * GetMOP.getfromto(f1, 0.3F, 0.5F);
-      this.shape_s_1.rotateAngleZ = -0.5F * GetMOP.getfromto(f1, 0.5F, 0.65F);
-      this.shape_s_2.rotateAngleZ = 0.5F * GetMOP.getfromto(f1, 0.5F, 0.65F);
-      this.shape_s_3.rotateAngleZ = -0.91F * GetMOP.getfromto(f1, 0.65F, 0.8F);
-      this.shape_s_4.rotateAngleZ = 0.91F * GetMOP.getfromto(f1, 0.65F, 0.8F);
-      this.shapess5.rotateAngleZ = -2.0F * GetMOP.getfromto(f1, 0.5F, 1.0F);
+      this.shape1.offsetX = 6.0F * GetMOP.getFromTo(f1, 0.0F, 0.3F);
+      this.shape3_a.offsetX = -1.5F * GetMOP.getFromTo(f1, 0.3F, 0.5F);
+      this.shape3_b.offsetX = 1.5F * GetMOP.getFromTo(f1, 0.3F, 0.5F);
+      this.shape_s_1.rotateAngleZ = -0.5F * GetMOP.getFromTo(f1, 0.5F, 0.65F);
+      this.shape_s_2.rotateAngleZ = 0.5F * GetMOP.getFromTo(f1, 0.5F, 0.65F);
+      this.shape_s_3.rotateAngleZ = -0.91F * GetMOP.getFromTo(f1, 0.65F, 0.8F);
+      this.shape_s_4.rotateAngleZ = 0.91F * GetMOP.getFromTo(f1, 0.65F, 0.8F);
+      this.shapess5.rotateAngleZ = -2.0F * GetMOP.getFromTo(f1, 0.5F, 1.0F);
       float wdf2 = MathHelper.wrapDegrees(f2);
-      float ft1 = GetMOP.getfromto(f1, 0.8F, 1.0F);
+      float ft1 = GetMOP.getFromTo(f1, 0.8F, 1.0F);
       float mult = 0.027453F + 0.03F * f1;
-      this.shape2.rotateAngleZ = wdf2 * mult * (1.0F - GetMOP.getfromto(f1, 0.0F, 0.3F));
+      this.shape2.rotateAngleZ = wdf2 * mult * (1.0F - GetMOP.getFromTo(f1, 0.0F, 0.3F));
       this.shape_r_1.rotateAngleZ = wdf2 * mult * ft1 - (float) (Math.PI / 3);
       this.shape_r_2.rotateAngleZ = -wdf2 * mult * ft1 + (float) (Math.PI * 5.0 / 6.0);
       this.shape_r_3.rotateAngleZ = -wdf2 * mult * ft1 - (float) (Math.PI / 6);

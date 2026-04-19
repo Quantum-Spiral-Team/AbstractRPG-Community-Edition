@@ -90,42 +90,42 @@ public abstract class AbstractMiningTool extends ItemWeapon {
    }
 
    public float getLength(ItemStack itemstack) {
-      return WeaponParameters.getWeaponParameters(this.toolsSet.name).getEnchanted("length", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+      return WeaponParameters.getWeaponParameters(this.toolsSet.name).getEnchantedF("length", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
    }
 
    public float getLengthLaser(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(this.toolsSet.name)
-         .getEnchanted("length_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+         .getEnchantedF("length_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
    }
 
    public float getDamageToMobsLaser(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(this.toolsSet.name)
-         .getEnchanted("damage_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+         .getEnchantedF("damage_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
    }
 
    public float getDamageToMobsDrill(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(this.toolsSet.name)
-         .getEnchanted("damage_drill", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+         .getEnchantedF("damage_drill", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
    }
 
    public float getDamageToMobsChainsaw(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(this.toolsSet.name)
-         .getEnchanted("damage_chainsaw", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+         .getEnchantedF("damage_chainsaw", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
    }
 
    public float getKnockbackToMobsDrill(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(this.toolsSet.name)
-         .getEnchanted("knockback_drill", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+         .getEnchantedF("knockback_drill", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
    }
 
    public float getKnockbackToMobsChainsaw(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(this.toolsSet.name)
-         .getEnchanted("knockback_chainsaw", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+         .getEnchantedF("knockback_chainsaw", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
    }
 
    public float getKnockbackToMobsLaser(ItemStack itemstack) {
       return WeaponParameters.getWeaponParameters(this.toolsSet.name)
-         .getEnchanted("knockback_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+         .getEnchantedF("knockback_laser", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
    }
 
    public void spendCharge(ItemStack itemstack, World world, EntityPlayer player, int blocksBreak) {
@@ -308,7 +308,7 @@ public abstract class AbstractMiningTool extends ItemWeapon {
    public int getReloadTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.toolsSet.name);
       int reloading = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack);
-      return parameters.getEnchantedi("reload", reloading);
+      return parameters.getEnchantedI("reload", reloading);
    }
 
    @Override

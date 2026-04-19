@@ -32,7 +32,7 @@ public class BurningFrostIgniter extends Item {
       } else {
          if (worldIn.isAirBlock(pos)) {
             worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-            worldIn.setBlockState(pos, BlocksRegister.BURNINGFROST.getDefaultState(), 11);
+            worldIn.setBlockState(pos, BlocksRegister.BURNING_FROST.getDefaultState(), 11);
          }
 
          if (player instanceof EntityPlayerMP) {

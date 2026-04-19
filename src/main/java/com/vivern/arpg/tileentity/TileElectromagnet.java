@@ -373,7 +373,7 @@ public class TileElectromagnet extends TileEntity implements ITickable, IFillDra
 
    public boolean isMagnet(int type, BlockPos pos) {
       IBlockState state = this.world.getBlockState(pos);
-      return state.getBlock() == BlocksRegister.ELECTROMAGNET ? (Integer)state.getValue(BlockElectromagnet.TYPE) == type : false;
+      return state.getBlock() == BlocksRegister.BLOCK_ELECTROMAGNET ? (Integer)state.getValue(BlockElectromagnet.TYPE) == type : false;
    }
 
    @Override
@@ -396,7 +396,7 @@ public class TileElectromagnet extends TileEntity implements ITickable, IFillDra
    }
 
    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-      if (this.world.getBlockState(this.getPos().offset(facing)).getBlock() == BlocksRegister.ELECTROMAGNET) {
+      if (this.world.getBlockState(this.getPos().offset(facing)).getBlock() == BlocksRegister.BLOCK_ELECTROMAGNET) {
          return (T)super.getCapability(capability, facing);
       } else {
          if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null) {

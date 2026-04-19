@@ -27,7 +27,7 @@ import com.vivern.arpg.renders.GUNParticle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -166,7 +166,7 @@ public class OtherMobsPack {
          this.setattributes(25.0, 32.0, 6.0, 0.1, 4.0, 1.5, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.RAWRIBS, 0.4F, 0, 1, 1, 1), new MobDrop(ItemsRegister.NUGGETMOLTEN, 0.1F, 0, 1, 1, 1)
+               new MobDrop(ItemsRegister.RAW_RIBS, 0.4F, 0, 1, 1, 1), new MobDrop(ItemsRegister.MOLTEN_NUGGET, 0.1F, 0, 1, 1, 1)
             }
          );
          this.isImmuneToFire = true;
@@ -196,7 +196,7 @@ public class OtherMobsPack {
       }
 
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
-         if (player.getHeldItemMainhand().getItem() == ItemsRegister.MAGMABLOOMSEEDS) {
+         if (player.getHeldItemMainhand().getItem() == ItemsRegister.MAGMA_BLOOM_SEED) {
             if (!player.capabilities.isCreativeMode) {
                player.getHeldItemMainhand().shrink(1);
             }
@@ -316,7 +316,7 @@ public class OtherMobsPack {
          this.livingSound = Sounds.ender_seer_living;
          this.defaultteam = OtherMobsPack.mobsteamender;
          this.setattributes(75.0, 64.0, 1.0, 0.1, 5.0, 3.0, 0.7, 0.0, 1.0, 0.1);
-         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.EYEOFSEER, 1.0F, 0, 1, 1, 0)});
+         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.EYE_OF_SEER, 1.0F, 0, 1, 1, 0)});
          this.setDropMoney(-5, 15, 0.9F);
          this.experienceValue = 20;
          this.soul = Soul.NOBLE;
@@ -421,8 +421,8 @@ public class OtherMobsPack {
          this.registerLOOT(
             new MobDrop[]{
                new MobDrop(Items.EMERALD, 0.2F, 0, 1, 1, 1),
-               new MobDrop(ItemsRegister.ARROWBOUNCING, 0.85F, 0, 2, 4, 3),
-               new MobDrop(ItemsRegister.BLACKSTRAP, 0.8F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.ARROW_BOUNCING, 0.85F, 0, 2, 4, 3),
+               new MobDrop(ItemsRegister.BLACK_STRAP, 0.8F, 0, 1, 1, 0)
             }
          );
          this.leadershipBase = 10;
@@ -595,8 +595,8 @@ public class OtherMobsPack {
          this.setattributes(35.0, 48.0, 5.0, 0.32, 2.0, 2.0, 0.4, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.HELLHOUNDCOLLAR, 0.07F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.HELLHOUNDFUR, 0.85F, 0, 1, 1, 1)
+               new MobDrop(ItemsRegister.HELLHOUND_COLLAR, 0.07F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.HELLHOUND_FUR, 0.85F, 0, 1, 1, 1)
             }
          );
          this.leadershipBase = 7;
@@ -690,7 +690,7 @@ public class OtherMobsPack {
                }
 
                if (!this.world.isRemote) {
-                  for (EntityLivingBase base : GetMOP.MopRayTrace(4.5F + this.world.getDifficulty().getId() / 1.25F, 1.0F, this, 0.85F, 0.6F)) {
+                  for (EntityLivingBase base : GetMOP.mopRayTrace(4.5F + this.world.getDifficulty().getId() / 1.25F, 1.0F, this, 0.85F, 0.6F)) {
                      if (Team.checkIsOpponent(this, base)) {
                         Weapons.dealDamage(new WeaponDamage(null, this, null, false, false, this, WeaponDamage.soul), 2.0F, this, base, true, 0.2F);
                         base.addPotionEffect(new PotionEffect(PotionEffects.DEMONIC_BURN, 100));
@@ -836,7 +836,7 @@ public class OtherMobsPack {
          this.setattributes(20.0, 32.0, 4.0, 0.28, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(Items.EMERALD, 0.35F, 0, 1, 1, 1), new MobDrop(ItemsRegister.BLACKSTRAP, 0.75F, 0, 1, 1, 0)
+               new MobDrop(Items.EMERALD, 0.35F, 0, 1, 1, 1), new MobDrop(ItemsRegister.BLACK_STRAP, 0.75F, 0, 1, 1, 0)
             }
          );
          this.leadershipBase = 6;
@@ -1032,7 +1032,7 @@ public class OtherMobsPack {
          this.setattributes(30.0, 32.0, 5.0, 0.32, 4.0, 2.0, 0.0, 0.0, 0.0, 0.2);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(Items.EMERALD, 0.2F, 0, 1, 1, 1), new MobDrop(ItemsRegister.BLACKSTRAP, 0.85F, 0, 1, 1, 0)
+               new MobDrop(Items.EMERALD, 0.2F, 0, 1, 1, 1), new MobDrop(ItemsRegister.BLACK_STRAP, 0.85F, 0, 1, 1, 0)
             }
          );
          this.leadershipBase = 7;
@@ -1229,7 +1229,7 @@ public class OtherMobsPack {
          this.setattributes(35.0, 48.0, 4.0, 0.08, 2.0, 2.0, 0.3, 0.1, 0.0, 0.0);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.LIQUIDFIRE, 0.85F, 0, 1, 3, 2), new MobDrop(ItemsRegister.RAWRIBS, 0.9F, 0, 1, 3, 2)
+               new MobDrop(ItemsRegister.LIQUID_FIRE, 0.85F, 0, 1, 3, 2), new MobDrop(ItemsRegister.RAW_RIBS, 0.9F, 0, 1, 3, 2)
             }
          );
          this.isImmuneToFire = true;
@@ -1391,7 +1391,7 @@ public class OtherMobsPack {
                if (enemy != null
                   && enemy != this
                   && enemy != this.owner
-                  && GetMOP.thereIsNoBlockCollidesBetween(this.world, this.getPositionEyes(1.0F), GetMOP.entityCenterPos(enemy), 1.0F, null, false)) {
+                  && GetMOP.thereIsNoBlockCollidesBetween(this.world, this.getPositionEyes(1.0F), GetMOP.entityCenterPos(enemy), null, false)) {
                   this.setAttackTarget(enemy);
                }
             }
@@ -1614,11 +1614,11 @@ public class OtherMobsPack {
          this.setattributes(26.0, 48.0, 3.5, 0.3, 4.0, 1.0, 0.0, 0.0, 1.0, 0.1);
          this.registerLOOT(
             new MobDrop[]{
-               new MobDrop(ItemsRegister.RAWRIBS, 0.4F, 0, 1, 1, 1),
-               new MobDrop(ItemsRegister.DEMONITESHARD, 0.04F, 0, 1, 1, 0),
-               new MobDrop(ItemsRegister.NUGGETINFERNUM, 0.08F, 0, 1, 2, 1),
+               new MobDrop(ItemsRegister.RAW_RIBS, 0.4F, 0, 1, 1, 1),
+               new MobDrop(ItemsRegister.DEMONITE_SHARD, 0.04F, 0, 1, 1, 0),
+               new MobDrop(ItemsRegister.INFERNUM_NUGGET, 0.08F, 0, 1, 2, 1),
                new MobDrop(ItemsRegister.MAGIC_POWDER, 0.05F, 0, 1, 2, 1),
-               new MobDrop(ItemsRegister.FIREEATER, 0.02F, 0, 1, 1, 0)
+               new MobDrop(ItemsRegister.FIRE_EATER, 0.02F, 0, 1, 1, 0)
             }
          );
          this.leadershipBase = 3;
@@ -1693,7 +1693,7 @@ public class OtherMobsPack {
       public void shoot() {
          EntityLivingBase target = this.getAttackTarget();
          if (target != null) {
-            for (EntityLivingBase entit : GetMOP.MopRayTrace(8.0, 1.0F, this, 0.4, 0.3)) {
+            for (EntityLivingBase entit : GetMOP.mopRayTrace(8.0, 1.0F, this, 0.4, 0.3)) {
                if (!Team.checkIsOpponent(this, entit)) {
                   return;
                }
@@ -1748,7 +1748,7 @@ public class OtherMobsPack {
                this.tasks.addTask(2, new EntityAIRush(this, true, true, true));
                this.tasks.addTask(6, new EntityAITeasing(this, EntityPigZombie.class, true, 22.0));
                if (this.ELITE) {
-                  this.tasks.addTask(3, new EntityAIBuildWay(this, 20, false, BlocksRegister.SUMMONEDHELLSTONE.getDefaultState()));
+                  this.tasks.addTask(3, new EntityAIBuildWay(this, 20, false, BlocksRegister.SUMMONED_HELLSTONE.getDefaultState()));
                }
             }
          }
@@ -1813,7 +1813,7 @@ public class OtherMobsPack {
       }
 
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
-         if (player.getHeldItemMainhand().getItem() == ItemsRegister.SULFUR) {
+         if (player.getHeldItemMainhand().getItem() == ItemsRegister.SULFUR_DUST) {
             if (!player.capabilities.isCreativeMode) {
                player.getHeldItemMainhand().shrink(1);
             }
@@ -1929,9 +1929,9 @@ public class OtherMobsPack {
          if (!this.isSubMob) {
             this.registerLOOT(
                new MobDrop[]{
-                  new MobDrop(ItemsRegister.VOIDCRYSTAL, 0.1F, 0, 1, 1, 0),
-                  new MobDrop(ItemsRegister.ENDERGH, 0.02F, 0, 1, 1, 0),
-                  new MobDrop(ItemsRegister.ENDERLEECH, 0.03F, 0, 1, 1, 0)
+                  new MobDrop(ItemsRegister.VOID_CRYSTAL, 0.1F, 0, 1, 1, 0),
+                  new MobDrop(ItemsRegister.ENDER_GRAPLING_HOOK, 0.02F, 0, 1, 1, 0),
+                  new MobDrop(ItemsRegister.ENDER_LEECH, 0.03F, 0, 1, 1, 0)
                }
             );
             this.deathSound = Sounds.gnater_dead;
@@ -2060,7 +2060,7 @@ public class OtherMobsPack {
          }
 
          if (!this.isSubMob) {
-            Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
+            Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
             this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
             this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
             if (this.poslist != null) {
@@ -2126,13 +2126,13 @@ public class OtherMobsPack {
             if (this.headEntity != null) {
                if (this.headEntity.poslist.size() > this.number) {
                   if (this.number > 0) {
-                     Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(this.getPositionVector().subtract(this.headEntity.poslist.get(this.number - 1)));
+                     Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.headEntity.poslist.get(this.number - 1)));
                      this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
                      this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
                   }
 
                   if (this.number == 0) {
-                     Vec3d pitchYaw = GetMOP.Vec3dToPitchYaw(this.getPositionVector().subtract(this.headEntity.getPositionVector()));
+                     Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.headEntity.getPositionVector()));
                      this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
                      this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
                   }

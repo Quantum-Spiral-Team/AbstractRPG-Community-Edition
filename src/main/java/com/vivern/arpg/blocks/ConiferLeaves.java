@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.ItemsRegister;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -53,7 +53,7 @@ public class ConiferLeaves extends BlockLeaves {
    }
 
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-      return rand.nextFloat() < 0.45F ? ItemsRegister.CONIFERSTICK : Item.getItemFromBlock(BlocksRegister.CONIFERSAPLING);
+      return rand.nextFloat() < 0.45F ? ItemsRegister.CONIFER_STICK : Item.getItemFromBlock(BlocksRegister.CONIFER_SAPLING);
    }
 
    protected int getSaplingDropChance(IBlockState state) {

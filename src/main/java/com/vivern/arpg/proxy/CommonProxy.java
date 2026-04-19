@@ -243,7 +243,7 @@ import com.vivern.arpg.tileentity.TileVoidCrystal;
 import com.vivern.arpg.tileentity.TileWeaponSpawner;
 import com.google.common.base.Predicate;
 import java.lang.reflect.Field;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.client.renderer.GlStateManager;
@@ -269,7 +269,6 @@ public class CommonProxy {
       AnimationCapabilityProvider.register();
       WeaponParameters.registerAll();
       Soul.registerSoul();
-      ItemsRegister.registerItems();
       BlocksRegister.registerBlocks();
       BiomesRegister.registerBiomes();
       PotionEffects.RegisterPotions();
@@ -480,7 +479,7 @@ public class CommonProxy {
       EntityRegistry.registerModEntity(new ResourceLocation("arpg", "coin"), EntityCoin.class, "arpg:coin", 64,
             AbstractRPG.instance, 64, 20, true);
       EntityRegistry.registerModEntity(
-            new ResourceLocation("arpg", "thornkeeper_shoot"), ThornkeeperShoot.class, "arpg:entity_thornkeeper_shoot",
+            new ResourceLocation("arpg", "thorn_keeper_shoot"), ThornkeeperShoot.class, "arpg:entity_thorn_keeper_shoot",
             65, AbstractRPG.instance, 64, 20, true);
       EntityRegistry.registerModEntity(
             new ResourceLocation("arpg", "thistle_thorn_entity"), EntityThistleThorn.class, "arpg:entity_thistle_thorn",
@@ -534,7 +533,7 @@ public class CommonProxy {
             new ResourceLocation("arpg", "hadron_bonus"), HadronBlasterShoot.HadronBlasterBonus.class,
             "arpg:entity_hadron_bonus", 80, AbstractRPG.instance, 64, 20, true);
       EntityRegistry.registerModEntity(
-            new ResourceLocation("arpg", "snapball_entity"), EntitySnapball.class, "arpg:entity_snapball", 81,
+            new ResourceLocation("arpg", "snap_ball_entity"), EntitySnapball.class, "arpg:entity_snap_ball", 81,
             AbstractRPG.instance, 64, 100, false);
       EntityRegistry.registerModEntity(
             new ResourceLocation("arpg", "launched_rocket"), EntityLaunchedRocket.class, "arpg:entity_launched_rocket",
@@ -835,39 +834,39 @@ public class CommonProxy {
       OreBlockMatcher matcherNether = new OreBlockMatcher(new Block[] { Blocks.NETHERRACK });
       OreBlockMatcher matcherOverworld = new OreBlockMatcher(new Block[] { Blocks.STONE });
       OreBlockMatcher matcherOverwNethToxi = new OreBlockMatcher(
-            new Block[] { Blocks.STONE, Blocks.NETHERRACK, BlocksRegister.RADIOSTONE });
+            new Block[] { Blocks.STONE, Blocks.NETHERRACK, BlocksRegister.RADIOACTIVE_STONE});
       OreBlockMatcher matcherLava = new OreBlockMatcher(new Block[] { Blocks.LAVA, Blocks.FLOWING_LAVA });
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.OREDEMONITE.getDefaultState(), -1, matcherNether, 1, 4, 9, 0, 128));
+            new CustomOreGenerator(BlocksRegister.DEMONITE_ORE.getDefaultState(), -1, matcherNether, 1, 4, 9, 0, 128));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.OREINFERNUM.getDefaultState(), -1, matcherNether, 2, 8, 14, 0, 128));
+            new CustomOreGenerator(BlocksRegister.INFERNUM_ORE.getDefaultState(), -1, matcherNether, 2, 8, 14, 0, 128));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.OREMOLTEN.getDefaultState(), -1, matcherNether, 1, 2, 6, 0, 128));
+            new CustomOreGenerator(BlocksRegister.MOLTEN_ORE.getDefaultState(), -1, matcherNether, 1, 2, 6, 0, 128));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.ORERUBY.getDefaultState(), 0, matcherOverworld, 4, 8, 2, 0, 36));
+            new CustomOreGenerator(BlocksRegister.RUBY_ORE.getDefaultState(), 0, matcherOverworld, 4, 8, 2, 0, 36));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.ORESAPPHIRE.getDefaultState(), 0, matcherOverworld, 4, 8, 2, 0, 36));
+            new CustomOreGenerator(BlocksRegister.SAPPHIRE_ORE.getDefaultState(), 0, matcherOverworld, 4, 8, 2, 0, 36));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.ORECITRINE.getDefaultState(), 0, matcherOverworld, 4, 8, 2, 0, 36));
+            new CustomOreGenerator(BlocksRegister.CITRINE_ORE.getDefaultState(), 0, matcherOverworld, 4, 8, 2, 0, 36));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.ORETOPAZ.getDefaultState(), 0, matcherOverworld, 3, 8, 3, 0, 48));
+            new CustomOreGenerator(BlocksRegister.TOPAZ_ORE.getDefaultState(), 0, matcherOverworld, 3, 8, 3, 0, 48));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.OREAMETHYST.getDefaultState(), 0, matcherOverworld, 3, 9, 3, 0, 48));
-      registerWorldGen(new CustomOreGenerator(BlocksRegister.ORERHINESTONE.getDefaultState(), 0, matcherOverworld, 5,
+            new CustomOreGenerator(BlocksRegister.AMETHYST_ORE.getDefaultState(), 0, matcherOverworld, 3, 9, 3, 0, 48));
+      registerWorldGen(new CustomOreGenerator(BlocksRegister.RHINESTONE_ORE.getDefaultState(), 0, matcherOverworld, 5,
             10, 6, 10, 84));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.ORESILVER.getDefaultState(), 0, matcherOverworld, 3, 8, 5, 0, 58));
+            new CustomOreGenerator(BlocksRegister.SILVER_ORE.getDefaultState(), 0, matcherOverworld, 3, 8, 5, 0, 58));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.ORESALT.getDefaultState(), 0, matcherOverworld, 3, 10, 3, 25, 64));
+            new CustomOreGenerator(BlocksRegister.SALT_ORE.getDefaultState(), 0, matcherOverworld, 3, 10, 3, 25, 64));
       registerWorldGen(
-            new CustomOreGenerator(BlocksRegister.ORETITANIUM.getDefaultState(), 0, matcherOverworld, 1, 5, 1, 0, 20));
-      registerWorldGen(new CustomOreGenerator(BlocksRegister.ORETITANIUMRADIOACTIVE.getDefaultState(), 101,
+            new CustomOreGenerator(BlocksRegister.TITANIUM_ORE.getDefaultState(), 0, matcherOverworld, 1, 5, 1, 0, 20));
+      registerWorldGen(new CustomOreGenerator(BlocksRegister.RADIOACTIVE_TITANIUM_ORE.getDefaultState(), 101,
             matcherOverwNethToxi, 1, 6, 2, 0, 32));
-      registerWorldGen(new CustomOreGenerator(BlocksRegister.ORETITANIUM.getDefaultState(), 102, matcherOverworld, 1, 6,
+      registerWorldGen(new CustomOreGenerator(BlocksRegister.TITANIUM_ORE.getDefaultState(), 102, matcherOverworld, 1, 6,
             16, 0, 255));
       registerWorldGen(
             new OreGenChromium(
-                  BlocksRegister.ORECHROMIUM.getDefaultState(), 0,
+                  BlocksRegister.CHROMIUM_ORE.getDefaultState(), 0,
                   new OreBlockMatcher(new Block[] { Blocks.STONE, Blocks.AIR }), 3, 7, 2, 6, 43)
                   .setGeode(
                         0.3F,
@@ -876,7 +875,7 @@ public class CommonProxy {
                         Blocks.WATER.getDefaultState(),
                         OreDicHelper.getBlock("oreLead")));
       registerWorldGen(
-            new OreGenZinc(BlocksRegister.OREZINC.getDefaultState(), 0, matcherOverworld, 26, 64, 0.35F, 8, 56)
+            new OreGenZinc(BlocksRegister.ZINC_ORE.getDefaultState(), 0, matcherOverworld, 26, 64, 0.35F, 8, 56)
                   .setFalsiveBlocks(
                         0.26F,
                         Blocks.MONSTER_EGG.getDefaultState(),
@@ -884,13 +883,13 @@ public class CommonProxy {
                         Blocks.OBSIDIAN.getDefaultState(),
                         Blocks.GRAVEL.getDefaultState()));
       registerWorldGen(
-            new OreGenBauxite(BlocksRegister.OREALUMINIUM.getDefaultState(),
-                  BlocksRegister.BAUXITEBLOCK.getDefaultState(), 0, matcherOverworld, 14, 45, 0.5F, 40, 75));
+            new OreGenBauxite(BlocksRegister.ALUMINIUM_ORE.getDefaultState(),
+                  BlocksRegister.BAUXITE.getDefaultState(), 0, matcherOverworld, 14, 45, 0.5F, 40, 75));
       registerWorldGen(new WorldGenFieryBeans());
       registerWorldGen(
             new WorldGenSulfur(
-                  BlocksRegister.SULFURCRYSTAL.getDefaultState(),
-                  BlocksRegister.FLUIDSULFURICGAS.getDefaultState(),
+                  BlocksRegister.SULFUR_CRYSTAL.getDefaultState(),
+                  BlocksRegister.FLUID_SULFURIC_GAS.getDefaultState(),
                   0.4F,
                   new int[] { 0, -1, 101 },
                   matcherOverwNethToxi,
@@ -899,18 +898,18 @@ public class CommonProxy {
                   0.6F,
                   10,
                   90));
-      registerWorldGen(new WorldGenMagmaBloom(BlocksRegister.MAGMABLOOM.getDefaultState(), -1, matcherLava, 3, 10,
+      registerWorldGen(new WorldGenMagmaBloom(BlocksRegister.MAGMA_BLOOM.getDefaultState(), -1, matcherLava, 3, 10,
             0.05F, 14, 50, 2));
       registerWorldGen(
             new WorldGenRoofVines(
-                  BlocksRegister.REDPEPPERVINE.getDefaultState().withProperty(RedPepperVine.FRUITAGE, false), 3, -1, 80,
+                  BlocksRegister.RED_PEPPER_VINE.getDefaultState().withProperty(RedPepperVine.FRUITAGE, false), 3, -1, 80,
                   120, 2, 8, 6, 4));
       registerWorldGen(new WorldGenVoidCrystals());
       registerWorldGen(
             new WorldGenPetroleum(
-                  BlocksRegister.FLUIDPETROLEUM.getDefaultState(),
+                  BlocksRegister.FLUID_PETROLEUM.getDefaultState(),
                   Blocks.STONE.getDefaultState(),
-                  BlocksRegister.FLUIDNATURALGAS.getDefaultState(),
+                  BlocksRegister.FLUID_NATURAL_GAS.getDefaultState(),
                   0,
                   WorldGenPetroleum.defaultBlocksToReplace,
                   22,
@@ -921,7 +920,7 @@ public class CommonProxy {
                   .setOptions(0.08, 0.04, 4.0, 2.0, 0.4, 0.6, 0.8, 1.2, 0.2, 0.8));
       registerWorldGen(
             new WorldGenPetroleum(
-                  BlocksRegister.FLUIDNATURALGAS.getDefaultState(),
+                  BlocksRegister.FLUID_NATURAL_GAS.getDefaultState(),
                   Blocks.STONE.getDefaultState(),
                   null,
                   0,
@@ -962,12 +961,12 @@ public class CommonProxy {
 
    public void postInit(FMLPostInitializationEvent event) {
       System.out.println("arpg | Adding enchants to lootboxes");
-      ((ItemLootCase) ItemsRegister.LOOTBOXENCHANTALL).entries = ItemLootCase.entriesAllEnch();
-      ((ItemLootCase) ItemsRegister.LOOTBOXENCHANTWEAPON).entries = ItemLootCase.entriesWeaponEnch();
-      ((ItemLootCase) ItemsRegister.LOOTBOXENCHANTSIMPLE).entries = ItemLootCase.entriesSimpleEnch();
+      ((ItemLootCase) ItemsRegister.ALL_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesAllEnch();
+      ((ItemLootCase) ItemsRegister.WEAPON_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesWeaponEnch();
+      ((ItemLootCase) ItemsRegister.SIMPLE_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesSimpleEnch();
       System.out.println("arpg | Init new flaming blocks");
-      ((DemonicFire) BlocksRegister.DEMONICFIRE).init();
-      ((BurningFrost) BlocksRegister.BURNINGFROST).init();
+      ((DemonicFire) BlocksRegister.DEMONIC_FIRE).init();
+      ((BurningFrost) BlocksRegister.BURNING_FROST).init();
       System.out.println("arpg | Init advanced recipes");
       AssemblyTableRecipesRegister.register();
       SpellForgeRecipesRegister.register();

@@ -187,7 +187,7 @@ public class CryoGunEntity extends EntityThrowable {
 
    public void expl() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
+      double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);
@@ -201,11 +201,11 @@ public class CryoGunEntity extends EntityThrowable {
                   int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.frost),
-                     parameters.getEnchanted("damage", might),
+                     parameters.getEnchantedF("damage", might),
                      this.getThrower(),
                      entity,
                      true,
-                     parameters.getEnchanted("knockback", impulse),
+                     parameters.getEnchantedF("knockback", impulse),
                      this.posX,
                      this.posY,
                      this.posZ
@@ -216,14 +216,14 @@ public class CryoGunEntity extends EntityThrowable {
                      PotionEffect lastdebaff = Weapons.mixPotion(
                         entitylivingbase,
                         PotionEffects.FREEZING,
-                        (float)parameters.getEnchantedi("potion_time_add", witchery),
-                        (float)parameters.geti("potion_power_add"),
+                        (float)parameters.getEnchantedI("potion_time_add", witchery),
+                        (float)parameters.getI("potion_power_add"),
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumMathOperation.PLUS,
                         Weapons.EnumMathOperation.PLUS,
-                        parameters.getEnchantedi("potion_time_max", witchery),
-                        parameters.getEnchantedi("potion_power_max", witchery)
+                        parameters.getEnchantedI("potion_time_max", witchery),
+                        parameters.getEnchantedI("potion_power_max", witchery)
                      );
                      Freezing.tryPlaySound(entitylivingbase, lastdebaff);
                      if (entitylivingbase.getHealth() <= 0.0F && this.rand.nextFloat() < 0.4 && entitylivingbase.deathTime < 1) {

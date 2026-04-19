@@ -49,7 +49,7 @@ public class MagicScrollModel extends ModelBase {
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(0.0F, f * 4.0F, 0.0F);
-      float ft1 = GetMOP.getfromto(f, 0.0F, 0.9F);
+      float ft1 = GetMOP.getFromTo(f, 0.0F, 0.9F);
       this.shape2.offsetY = -10.0F * ft1;
       this.shape2.offsetZ = 0.5F * ft1;
       this.shape1.render(f5);

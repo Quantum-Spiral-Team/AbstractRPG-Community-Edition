@@ -31,19 +31,19 @@ public class ShootOfWitherdry extends EntityThrowable {
 
    public ShootOfWitherdry(World world) {
       super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.STAFFOFWITHERDRY);
+      this.weaponstack = new ItemStack(ItemsRegister.STAFF_OF_WITHERDRY);
       this.setSize(0.1F, 0.1F);
    }
 
    public ShootOfWitherdry(World world, EntityLivingBase thrower) {
       super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.STAFFOFWITHERDRY);
+      this.weaponstack = new ItemStack(ItemsRegister.STAFF_OF_WITHERDRY);
       this.setSize(0.1F, 0.1F);
    }
 
    public ShootOfWitherdry(World world, double x, double y, double z) {
       super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.STAFFOFWITHERDRY);
+      this.weaponstack = new ItemStack(ItemsRegister.STAFF_OF_WITHERDRY);
       this.setSize(0.1F, 0.1F);
    }
 
@@ -90,28 +90,28 @@ public class ShootOfWitherdry extends EntityThrowable {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-               float decr = Math.max(1.0F - this.ticksExisted * parameters.get("tick_damage_reduction"), 0.0F);
+               float decr = Math.max(1.0F - this.ticksExisted * parameters.getF("tick_damage_reduction"), 0.0F);
                int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
-               float damage = parameters.getEnchanted("damage", might) * this.magicPower * decr;
+               float damage = parameters.getEnchantedF("damage", might) * this.magicPower * decr;
                Weapons.dealDamage(
                   new WeaponDamage(this.weaponstack, this.getThrower(), this, false, false, this, WeaponDamage.fire),
                   damage,
                   this.getThrower(),
                   result.entityHit,
                   true,
-                  parameters.getEnchanted("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack))
+                  parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack))
                );
                result.entityHit.hurtResistantTime = 0;
                if (Weapons.canDealDamageTo(result.entityHit)) {
-                  result.entityHit.setFire(parameters.getEnchantedi("fire", witchery));
+                  result.entityHit.setFire(parameters.getEnchantedI("fire", witchery));
                }
 
                if (result.entityHit instanceof EntityLivingBase) {
                   EntityLivingBase elb = (EntityLivingBase)result.entityHit;
-                  if (elb.getHealth() <= 0.0F && elb.deathTime < 2 && this.rand.nextFloat() < parameters.get("incinerate_chance")) {
+                  if (elb.getHealth() <= 0.0F && elb.deathTime < 2 && this.rand.nextFloat() < parameters.getF("incinerate_chance")) {
                      DeathEffects.applyDeathEffect(result.entityHit, DeathEffects.DE_FIRE);
-                     if (elb.getMaxHealth() >= parameters.get("mob_health_for_charge")
+                     if (elb.getMaxHealth() >= parameters.getF("mob_health_for_charge")
                         && NBTHelper.GetNBTint(this.weaponstack, "charge") < StaffOfWitherdry.maxcharge(this.weaponstack)) {
                         NBTHelper.AddNBTint(this.weaponstack, 1, "charge");
                      }

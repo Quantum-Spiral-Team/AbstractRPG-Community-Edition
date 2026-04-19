@@ -57,7 +57,7 @@ public class Chlorite extends AdvancedPotion {
    @Override
    public boolean isPotionApplicable(EntityLivingBase entityOnEffect, PotionEffect effect) {
       if (entityOnEffect instanceof EntityPlayer) {
-         int eq = BaublesApi.isBaubleEquipped((EntityPlayer)entityOnEffect, ItemsRegister.GASMASK);
+         int eq = BaublesApi.isBaubleEquipped((EntityPlayer)entityOnEffect, ItemsRegister.GAS_MASK);
          if (eq > -1) {
             ItemStack st = BaublesApi.getBaublesHandler((EntityPlayer)entityOnEffect).getStackInSlot(eq);
             if (st.getItemDamage() == st.getMaxDamage()) {

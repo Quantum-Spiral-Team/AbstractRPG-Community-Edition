@@ -98,9 +98,9 @@ public class HolyShotgunModel extends ModelBase {
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
-      this.sh1.rotateAngleY = (GetMOP.getfromto(f1, 0.085F, 0.185F) - GetMOP.getfromto(f1, 0.65F, 0.8F)) * 0.48F;
+      this.sh1.rotateAngleY = (GetMOP.getFromTo(f1, 0.085F, 0.185F) - GetMOP.getFromTo(f1, 0.65F, 0.8F)) * 0.48F;
       this.sh1a.rotateAngleY = this.sh1.rotateAngleY;
-      float ft1 = 1.0F - GetMOP.getfromto(f1, 0.33F, 0.5F);
+      float ft1 = 1.0F - GetMOP.getFromTo(f1, 0.33F, 0.5F);
       this.ammo1.rotateAngleX = -2.18F * ft1;
       this.ammo1.rotateAngleY = 1.0F * ft1;
       this.ammo1a.rotateAngleX = -2.09F * ft1;

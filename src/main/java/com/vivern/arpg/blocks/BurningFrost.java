@@ -7,7 +7,7 @@ import com.vivern.arpg.tileentity.TilePortal;
 import com.google.common.collect.Maps;
 import java.util.Map;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -76,17 +76,17 @@ public class BurningFrost extends Block {
    }
 
    public void init() {
-      this.setFireInfo(BlocksRegister.CONIFERLOG, 5, 20);
-      this.setFireInfo(BlocksRegister.CONIFERLEAVES, 30, 60);
-      this.setFireInfo(BlocksRegister.FROZENBARREL, 20, 50);
-      this.setFireInfo(BlocksRegister.FROZENTORCH, 60, 20);
-      this.setFireInfo(BlocksRegister.CONIFERPLANKS, 20, 20);
-      this.setFireInfo(BlocksRegister.CONIFERPILASTER, 20, 20);
-      this.setFireInfo(BlocksRegister.CONIFERORNAMENT, 15, 20);
-      this.setFireInfo(BlocksRegister.CONIFERSTAIRS, 15, 20);
-      this.setFireInfo(BlocksRegister.CONIFERCHAIR, 10, 20);
-      this.setFireInfo(BlocksRegister.CONIFERTABLE, 10, 20);
-      this.setFireInfo(BlocksRegister.FROZENSLIME, 8, 50);
+      this.setFireInfo(BlocksRegister.CONIFER_LOG, 5, 20);
+      this.setFireInfo(BlocksRegister.CONIFER_LEAVES, 30, 60);
+      this.setFireInfo(BlocksRegister.FROZEN_TREASURE_BARREL, 20, 50);
+      this.setFireInfo(BlocksRegister.FROZEN_TORCH, 60, 20);
+      this.setFireInfo(BlocksRegister.CONIFER_PLANKS, 20, 20);
+      this.setFireInfo(BlocksRegister.CONIFER_PILASTER, 20, 20);
+      this.setFireInfo(BlocksRegister.CONIFER_ORNAMENT, 15, 20);
+      this.setFireInfo(BlocksRegister.CONIFER_STAIRS, 15, 20);
+      this.setFireInfo(BlocksRegister.CONIFER_CHAIR, 10, 20);
+      this.setFireInfo(BlocksRegister.CONIFER_TABLE, 10, 20);
+      this.setFireInfo(BlocksRegister.FROZEN_SLIME, 8, 50);
    }
 
    public void setFireInfo(Block blockIn, int encouragement, int flammability) {
@@ -137,7 +137,7 @@ public class BurningFrost extends Block {
          }
 
          Block block = worldIn.getBlockState(pos.down()).getBlock();
-         boolean flag = block == BlocksRegister.CLEANICE;
+         boolean flag = block == BlocksRegister.CLEAN_ICE;
          int i = (Integer)state.getValue(AGE);
          if (!flag && worldIn.isRaining() && this.canDie(worldIn, pos) && rand.nextFloat() < 0.2F + i * 0.03F) {
             worldIn.setBlockToAir(pos);
@@ -423,7 +423,7 @@ public class BurningFrost extends Block {
 
    public boolean canCatchFire(IBlockAccess world, BlockPos pos, EnumFacing face) {
       Block block = world.getBlockState(pos).getBlock();
-      return face == EnumFacing.UP && block == BlocksRegister.CLEANICE ? true : this.getFlammability(block) > 0;
+      return face == EnumFacing.UP && block == BlocksRegister.CLEAN_ICE ? true : this.getFlammability(block) > 0;
    }
 
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {

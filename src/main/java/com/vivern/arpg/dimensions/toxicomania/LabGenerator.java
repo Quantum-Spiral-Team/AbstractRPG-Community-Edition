@@ -26,7 +26,7 @@ import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 
 public class LabGenerator {
-   public static IBlockState plating = BlocksRegister.LABPLATING.getDefaultState();
+   public static IBlockState plating = BlocksRegister.LAB_PLATING.getDefaultState();
    public static IBlockState glass = Blocks.STAINED_GLASS.getStateFromMeta(0);
    public static IBlockState concrete = Blocks.CONCRETE.getStateFromMeta(0);
    public static IBlockState slab = Blocks.STONE_SLAB.getDefaultState();
@@ -206,12 +206,12 @@ public class LabGenerator {
       if (world.getBlockState(position).getBlock() == concrete.getBlock()) {
          position = position.up();
          if (rand.nextFloat() < 0.1 && distanceFromWall >= 5) {
-            GenerationHelper.genBlocksHeap(world, position.up(roomHeight - 3), rand, 15, BlocksRegister.SCRAPELECTRONICS.getDefaultState());
+            GenerationHelper.genBlocksHeap(world, position.up(roomHeight - 3), rand, 15, BlocksRegister.SCRAP_ELECTRONICS.getDefaultState());
          } else if (rand.nextFloat() < 0.08 && distanceFromWall >= 3) {
-            world.setBlockState(position.add(2, 0, 2), BlocksRegister.BIOCELL.getDefaultState());
-            world.setBlockState(position.add(-2, 0, 2), BlocksRegister.BIOCELL.getDefaultState());
-            world.setBlockState(position.add(-2, 0, -2), BlocksRegister.BIOCELL.getDefaultState());
-            world.setBlockState(position.add(2, 0, -2), BlocksRegister.BIOCELL.getDefaultState());
+            world.setBlockState(position.add(2, 0, 2), BlocksRegister.BIO_CELL.getDefaultState());
+            world.setBlockState(position.add(-2, 0, 2), BlocksRegister.BIO_CELL.getDefaultState());
+            world.setBlockState(position.add(-2, 0, -2), BlocksRegister.BIO_CELL.getDefaultState());
+            world.setBlockState(position.add(2, 0, -2), BlocksRegister.BIO_CELL.getDefaultState());
          } else if (rand.nextFloat() < 0.45 && distanceFromWall >= 3 && roomHeight >= 4) {
             placeStruct(world, position, rand, ":lab_decor_" + (rand.nextInt(3) + 6), 3, 0, rand.nextInt(4));
          } else if (rand.nextFloat() < 0.15 && distanceFromWall >= 4 && roomHeight >= 5) {
@@ -221,7 +221,7 @@ public class LabGenerator {
          } else if (rand.nextFloat() < 0.15 && distanceFromWall >= 6 && roomHeight >= 3) {
             placeStruct(world, position, rand, ":lab_decor_5", 5, 0, rand.nextInt(4));
          } else if (rand.nextFloat() < 0.25) {
-            IBlockState state = BlocksRegister.CHESTRUSTED.getDefaultState().withRotation(Rotation.values()[rand.nextInt(4)]);
+            IBlockState state = BlocksRegister.CHEST_RUSTED.getDefaultState().withRotation(Rotation.values()[rand.nextInt(4)]);
             world.setBlockState(position, state);
             TileEntity tileentity = world.getTileEntity(position);
             if (tileentity instanceof TileARPGChest) {
@@ -233,10 +233,10 @@ public class LabGenerator {
 
    public static void decorateSurfaceRoomCenter(World world, BlockPos position, int roomRadius, Random rand) {
       if (rand.nextFloat() < 0.15 && roomRadius >= 3) {
-         world.setBlockState(position.add(2, 0, 2), BlocksRegister.BIOCELL.getDefaultState());
-         world.setBlockState(position.add(-2, 0, 2), BlocksRegister.BIOCELL.getDefaultState());
-         world.setBlockState(position.add(-2, 0, -2), BlocksRegister.BIOCELL.getDefaultState());
-         world.setBlockState(position.add(2, 0, -2), BlocksRegister.BIOCELL.getDefaultState());
+         world.setBlockState(position.add(2, 0, 2), BlocksRegister.BIO_CELL.getDefaultState());
+         world.setBlockState(position.add(-2, 0, 2), BlocksRegister.BIO_CELL.getDefaultState());
+         world.setBlockState(position.add(-2, 0, -2), BlocksRegister.BIO_CELL.getDefaultState());
+         world.setBlockState(position.add(2, 0, -2), BlocksRegister.BIO_CELL.getDefaultState());
       } else if (rand.nextFloat() < 0.45 && roomRadius >= 3) {
          placeStruct(world, position, rand, ":lab_decor_" + (rand.nextInt(3) + 6), 3, 0, rand.nextInt(4));
       } else if (rand.nextFloat() < 0.3 && roomRadius >= 4) {
@@ -244,7 +244,7 @@ public class LabGenerator {
       } else if (rand.nextFloat() < 0.15 && roomRadius >= 5) {
          placeStruct(world, position, rand, ":lab_decor_5", 5, 0, rand.nextInt(4));
       } else {
-         IBlockState state = BlocksRegister.CHESTRUSTED.getDefaultState().withRotation(Rotation.values()[rand.nextInt(4)]);
+         IBlockState state = BlocksRegister.CHEST_RUSTED.getDefaultState().withRotation(Rotation.values()[rand.nextInt(4)]);
          world.setBlockState(position, state);
          TileEntity tileentity = world.getTileEntity(position);
          if (tileentity instanceof TileARPGChest) {
@@ -305,7 +305,7 @@ public class LabGenerator {
                   if (clmn && xz == 0 && y == height - 1) {
                      world.setBlockState(
                         pos.add(0, y, xz),
-                        BlocksRegister.RUSTLAMP
+                        BlocksRegister.RUST_LAMP
                            .getDefaultState()
                            .withProperty(RustLamp.FACING, EnumFacing.DOWN)
                            .withProperty(RustLamp.ON, rand.nextFloat() < 0.25F)
@@ -348,7 +348,7 @@ public class LabGenerator {
                   if (clmn && xz == 0 && yx == height - 1) {
                      world.setBlockState(
                         pos.add(xz, yx, 0),
-                        BlocksRegister.RUSTLAMP
+                        BlocksRegister.RUST_LAMP
                            .getDefaultState()
                            .withProperty(RustLamp.FACING, EnumFacing.DOWN)
                            .withProperty(RustLamp.ON, rand.nextFloat() < 0.25F)
@@ -587,7 +587,7 @@ public class LabGenerator {
                      if (clmn && xz == -size + 1 && y == 3) {
                         world.setBlockState(
                            pos.add(0, y, xz),
-                           BlocksRegister.RUSTLAMP
+                           BlocksRegister.RUST_LAMP
                               .getDefaultState()
                               .withProperty(RustLamp.FACING, EnumFacing.SOUTH)
                               .withProperty(RustLamp.ON, rand.nextFloat() < 0.25F)
@@ -595,7 +595,7 @@ public class LabGenerator {
                      } else if (clmn && xz == size - 1 && y == 3) {
                         world.setBlockState(
                            pos.add(0, y, xz),
-                           BlocksRegister.RUSTLAMP
+                           BlocksRegister.RUST_LAMP
                               .getDefaultState()
                               .withProperty(RustLamp.FACING, EnumFacing.NORTH)
                               .withProperty(RustLamp.ON, rand.nextFloat() < 0.25F)
@@ -603,17 +603,17 @@ public class LabGenerator {
                      } else if (y == 0) {
                         if (xz == 0) {
                            world.setBlockState(pos, glass);
-                           world.setBlockState(pos.down(1), BlocksRegister.RUSTEDPIPE.getDefaultState());
+                           world.setBlockState(pos.down(1), BlocksRegister.RUSTED_PIPE.getDefaultState());
                            world.setBlockState(pos.down(2), glass);
                            if (rand.nextFloat() < 0.07F) {
-                              world.setBlockState(pos.add(0, -1, 1), BlocksRegister.RUSTEDPIPE.getDefaultState());
+                              world.setBlockState(pos.add(0, -1, 1), BlocksRegister.RUSTED_PIPE.getDefaultState());
                               world.setBlockState(pos.add(0, -2, 1), glass);
                            } else {
                               world.setBlockState(pos.add(0, -1, 1), glass);
                            }
 
                            if (rand.nextFloat() < 0.07F) {
-                              world.setBlockState(pos.add(0, -1, -1), BlocksRegister.RUSTEDPIPE.getDefaultState());
+                              world.setBlockState(pos.add(0, -1, -1), BlocksRegister.RUSTED_PIPE.getDefaultState());
                               world.setBlockState(pos.add(0, -2, -1), glass);
                            } else {
                               world.setBlockState(pos.add(0, -1, -1), glass);
@@ -657,7 +657,7 @@ public class LabGenerator {
                      if (clmn && xz == -size + 1 && yx == 3) {
                         world.setBlockState(
                            pos.add(xz, yx, 0),
-                           BlocksRegister.RUSTLAMP
+                           BlocksRegister.RUST_LAMP
                               .getDefaultState()
                               .withProperty(RustLamp.FACING, EnumFacing.EAST)
                               .withProperty(RustLamp.ON, rand.nextFloat() < 0.25F)
@@ -665,7 +665,7 @@ public class LabGenerator {
                      } else if (clmn && xz == size - 1 && yx == 3) {
                         world.setBlockState(
                            pos.add(xz, yx, 0),
-                           BlocksRegister.RUSTLAMP
+                           BlocksRegister.RUST_LAMP
                               .getDefaultState()
                               .withProperty(RustLamp.FACING, EnumFacing.WEST)
                               .withProperty(RustLamp.ON, rand.nextFloat() < 0.25F)
@@ -673,17 +673,17 @@ public class LabGenerator {
                      } else if (yx == 0) {
                         if (xz == 0) {
                            world.setBlockState(pos, glass);
-                           world.setBlockState(pos.down(1), BlocksRegister.RUSTEDPIPE.getDefaultState());
+                           world.setBlockState(pos.down(1), BlocksRegister.RUSTED_PIPE.getDefaultState());
                            world.setBlockState(pos.down(2), glass);
                            if (rand.nextFloat() < 0.07F) {
-                              world.setBlockState(pos.add(1, -1, 0), BlocksRegister.RUSTEDPIPE.getDefaultState());
+                              world.setBlockState(pos.add(1, -1, 0), BlocksRegister.RUSTED_PIPE.getDefaultState());
                               world.setBlockState(pos.add(1, -2, 0), glass);
                            } else {
                               world.setBlockState(pos.add(1, -1, 0), glass);
                            }
 
                            if (rand.nextFloat() < 0.07F) {
-                              world.setBlockState(pos.add(-1, -1, 0), BlocksRegister.RUSTEDPIPE.getDefaultState());
+                              world.setBlockState(pos.add(-1, -1, 0), BlocksRegister.RUSTED_PIPE.getDefaultState());
                               world.setBlockState(pos.add(-1, -2, 0), glass);
                            } else {
                               world.setBlockState(pos.add(-1, -1, 0), glass);
@@ -842,10 +842,10 @@ public class LabGenerator {
       } else if (height2 >= 5 && rand.nextFloat() < 0.2) {
          placeStruct(world, position, rand, ":lab_decor_2", 4, -4, rand.nextInt(4));
       } else if ((rand.nextFloat() < 0.2 || continueTunnel == 0) && size >= 3) {
-         world.setBlockState(position.add(2, 1, 2), BlocksRegister.BIOCELL.getDefaultState());
-         world.setBlockState(position.add(-2, 1, 2), BlocksRegister.BIOCELL.getDefaultState());
-         world.setBlockState(position.add(-2, 1, -2), BlocksRegister.BIOCELL.getDefaultState());
-         world.setBlockState(position.add(2, 1, -2), BlocksRegister.BIOCELL.getDefaultState());
+         world.setBlockState(position.add(2, 1, 2), BlocksRegister.BIO_CELL.getDefaultState());
+         world.setBlockState(position.add(-2, 1, 2), BlocksRegister.BIO_CELL.getDefaultState());
+         world.setBlockState(position.add(-2, 1, -2), BlocksRegister.BIO_CELL.getDefaultState());
+         world.setBlockState(position.add(2, 1, -2), BlocksRegister.BIO_CELL.getDefaultState());
       }
 
       if (continueTunnel > 0) {

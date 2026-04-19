@@ -122,19 +122,19 @@ public abstract class VaporizeAction {
                if (rand.nextFloat() < 0.5F
                   && (
                      world.isSideSolid(newPos.down(), EnumFacing.UP)
-                        || world.getBlockState(newPos.down()).getBlock() == BlocksRegister.MANAOILSPELEOTHEM
+                        || world.getBlockState(newPos.down()).getBlock() == BlocksRegister.MANAOIL_SPELEOTHEM
                   )) {
                   world.setBlockState(
-                     newPos, BlocksRegister.MANAOILSPELEOTHEM.getStateForPlacement(world, newPos, EnumFacing.UP, 0.0F, 0.0F, 0.0F, 0, null, EnumHand.MAIN_HAND)
+                     newPos, BlocksRegister.MANAOIL_SPELEOTHEM.getStateForPlacement(world, newPos, EnumFacing.UP, 0.0F, 0.0F, 0.0F, 0, null, EnumHand.MAIN_HAND)
                   );
                   return;
                }
 
                if (world.isSideSolid(newPos.up(), EnumFacing.DOWN)
-                  || world.getBlockState(newPos.up()).getBlock() == BlocksRegister.MANAOILSPELEOTHEM) {
+                  || world.getBlockState(newPos.up()).getBlock() == BlocksRegister.MANAOIL_SPELEOTHEM) {
                   world.setBlockState(
                      newPos,
-                     BlocksRegister.MANAOILSPELEOTHEM.getStateForPlacement(world, newPos, EnumFacing.DOWN, 0.0F, 0.0F, 0.0F, 0, null, EnumHand.MAIN_HAND)
+                     BlocksRegister.MANAOIL_SPELEOTHEM.getStateForPlacement(world, newPos, EnumFacing.DOWN, 0.0F, 0.0F, 0.0F, 0, null, EnumHand.MAIN_HAND)
                   );
                   return;
                }

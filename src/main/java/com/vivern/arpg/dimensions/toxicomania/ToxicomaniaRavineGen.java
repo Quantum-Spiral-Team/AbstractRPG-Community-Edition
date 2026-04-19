@@ -186,7 +186,7 @@ public class ToxicomaniaRavineGen extends MapGenBase {
 
    protected boolean isOceanBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
       Block block = data.getBlockState(x, y, z).getBlock();
-      return block == BlocksRegister.FLUIDPOISON;
+      return block == BlocksRegister.FLUID_POISON;
    }
 
    private boolean isExceptionBiome(Biome biome) {
@@ -210,7 +210,7 @@ public class ToxicomaniaRavineGen extends MapGenBase {
       IBlockState state = data.getBlockState(x, y, z);
       IBlockState top = this.isExceptionBiome(biome) ? Blocks.GRASS.getDefaultState() : biome.topBlock;
       IBlockState filler = this.isExceptionBiome(biome) ? Blocks.DIRT.getDefaultState() : biome.fillerBlock;
-      if (state.getBlock() == BlocksRegister.RADIOSTONE || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock()
+      if (state.getBlock() == BlocksRegister.RADIOACTIVE_STONE || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock()
          )
        {
          if (y - 1 < 10) {

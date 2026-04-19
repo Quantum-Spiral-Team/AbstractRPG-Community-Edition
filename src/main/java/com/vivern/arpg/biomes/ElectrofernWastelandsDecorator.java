@@ -24,7 +24,7 @@ class ElectrofernWastelandsDecorator extends BiomeDecorator {
             if (!worldIn.collidesWithAnyBlock(new AxisAlignedBB(randomPos).grow(6.0))) {
                WorldGenElectrofern gen = new WorldGenElectrofern();
                gen.maxLength = 5 + random.nextInt(30);
-               worldIn.setBlockState(randomPos, BlocksRegister.ELECTROFERNSTEM.getDefaultState(), 2);
+               worldIn.setBlockState(randomPos, BlocksRegister.ELECTROFERN_STEM.getDefaultState(), 2);
                boolean rotate = random.nextFloat() < 0.5F;
 
                for (EnumFacing facing : EnumFacing.VALUES) {
@@ -32,13 +32,13 @@ class ElectrofernWastelandsDecorator extends BiomeDecorator {
                   if (!rotate) {
                      gen.generateRotated = false;
                      if (facing.getAxis() != Axis.X) {
-                        worldIn.setBlockState(randomPos.offset(facing), BlocksRegister.ELECTROFERNSTEM.getDefaultState(), 2);
+                        worldIn.setBlockState(randomPos.offset(facing), BlocksRegister.ELECTROFERN_STEM.getDefaultState(), 2);
                         gen.generate(worldIn, random, randomPos.offset(facing));
                      }
                   } else {
                      gen.generateRotated = facing.getAxis() == Axis.Y;
                      if (facing.getAxis() != Axis.Z) {
-                        worldIn.setBlockState(randomPos.offset(facing), BlocksRegister.ELECTROFERNSTEM.getDefaultState(), 2);
+                        worldIn.setBlockState(randomPos.offset(facing), BlocksRegister.ELECTROFERN_STEM.getDefaultState(), 2);
                         gen.generate(worldIn, random, randomPos.offset(facing));
                      }
                   }

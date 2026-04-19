@@ -141,12 +141,12 @@ public class StaticLance extends ItemWeapon {
                   double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
                   player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
                   NBTHelper.SetNBTint(
-                     itemstack, parameters.getEnchantedi("blow_cooldown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack)), "boomcooldown"
+                     itemstack, parameters.getEnchantedI("blow_cooldown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack)), "boomcooldown"
                   );
                }
 
                if (blowdelay > 0 && blowdelay <= 4) {
-                  double boomDistance = parameters.getEnchanted("blow_distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                  double boomDistance = parameters.getEnchantedF("blow_distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                   Vec3d vec3d = player.getPositionEyes(1.0F);
                   Vec3d vec3d1 = player.getLook(1.0F);
                   Vec3d vec3d2 = vec3d.add(
@@ -167,7 +167,7 @@ public class StaticLance extends ItemWeapon {
                         1.2F,
                         0.9F + itemRand.nextFloat() / 5.0F
                      );
-                     double damageRadius = parameters.getEnchanted("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     double damageRadius = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      AxisAlignedBB aabb = new AxisAlignedBB(
                         vec.x - damageRadius,
                         vec.y - damageRadius,
@@ -178,7 +178,7 @@ public class StaticLance extends ItemWeapon {
                      );
                      List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
                      double power = Math.min(
-                        (double)parameters.get("special_max_power"),
+                        (double)parameters.getF("special_max_power"),
                         EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 ? Math.abs(player.motionY) : 0.0
                      );
                      if (!list.isEmpty()) {
@@ -188,13 +188,13 @@ public class StaticLance extends ItemWeapon {
                                  new WeaponDamage(itemstack, player, null, true, false, vec, WeaponDamage.electric),
                                  (float)(
                                     player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()
-                                       + parameters.getEnchanted("blow_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack))
-                                       + power * parameters.get("special_damage")
+                                       + parameters.getEnchantedF("blow_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack))
+                                       + power * parameters.getF("special_damage")
                                  ),
                                  player,
                                  entity,
                                  true,
-                                 parameters.getEnchanted("blow_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)),
+                                 parameters.getEnchantedF("blow_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)),
                                  vec.x,
                                  vec.y - 0.5,
                                  vec.z
@@ -204,10 +204,10 @@ public class StaticLance extends ItemWeapon {
                                  entity,
                                  MobEffects.LEVITATION,
                                  (int)(
-                                    parameters.getEnchanted("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack))
+                                    parameters.getEnchantedF("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack))
                                        + (float)Math.round(
                                           power
-                                             * parameters.getEnchanted(
+                                             * parameters.getEnchantedF(
                                                 "special_potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack)
                                              )
                                        )
@@ -313,7 +313,7 @@ public class StaticLance extends ItemWeapon {
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       return NBTHelper.GetNBTint(itemstack, "boomcooldown")
-         / parameters.getEnchanted("blow_cooldown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
+         / parameters.getEnchantedF("blow_cooldown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
    }
 
    @SideOnly(Side.CLIENT)

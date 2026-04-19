@@ -1,7 +1,7 @@
 package com.vivern.arpg.renders;
 
 import com.vivern.arpg.entity.EntityHangingAllSides;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;

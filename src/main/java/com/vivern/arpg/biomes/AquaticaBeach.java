@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 
@@ -48,7 +47,7 @@ public class AquaticaBeach extends Biome {
                if (position.getY() != AquaticaChunkGenerator.sealvl) {
                   boolean w = world.getBlockState(position).getMaterial() == Material.WATER;
                   world.setBlockState(
-                     position, BlocksRegister.GIANTSHELL.getDefaultState().withProperty(GiantShell.TYPE, random.nextInt(8)).withProperty(GiantShell.WET, w), 2
+                     position, BlocksRegister.GIANT_SHELL.getDefaultState().withProperty(GiantShell.TYPE, random.nextInt(8)).withProperty(GiantShell.WET, w), 2
                   );
                }
             }
@@ -59,7 +58,7 @@ public class AquaticaBeach extends Biome {
                   )
                   .up();
                if (position.getY() > AquaticaChunkGenerator.sealvl) {
-                  world.setBlockState(position, BlocksRegister.BONESPILE.getDefaultState(), 2);
+                  world.setBlockState(position, BlocksRegister.BONES_PILE.getDefaultState(), 2);
                }
             }
 

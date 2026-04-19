@@ -14,7 +14,7 @@ import com.vivern.arpg.recipes.PyrocrystallineRecipe;
 import com.vivern.arpg.renders.ParticleTracker;
 import java.util.Random;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -74,7 +74,7 @@ public class TilePyrocrystallineConverter extends TileEntityLockable implements 
       if (!this.world.isRemote) {
          if (this.ticksExisted % 5 == 0) {
             boolean sendUpd = false;
-            if (!this.getStackInSlot(3).isEmpty() && this.getStackInSlot(3).getItem() == ItemsRegister.GEOMANTICCRYSTAL) {
+            if (!this.getStackInSlot(3).isEmpty() && this.getStackInSlot(3).getItem() == ItemsRegister.GEOMANTIC_CRYSTAL) {
                this.melt = GeomanticFocus.getMeltFromFocus(this.getStackInSlot(3));
             }
 

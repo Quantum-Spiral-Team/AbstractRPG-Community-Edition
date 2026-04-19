@@ -301,7 +301,7 @@ public class TileRetort extends TileEntity implements ITickable, ITileEntitySync
                ItemStack itemstack = tileVial.vials[i];
                if (itemstack != null
                   && !itemstack.isEmpty()
-                  && itemstack.getItem() == ItemsRegister.VIALEMPTY
+                  && itemstack.getItem() == ItemsRegister.VIAL_EMPTY
                   && GetMOP.approximatelyEqual(tileVial.positions[i][0], 8, 1)
                   && GetMOP.approximatelyEqual(tileVial.positions[i][1], 8, 1)) {
                   tileVial.removeVialItem(i);

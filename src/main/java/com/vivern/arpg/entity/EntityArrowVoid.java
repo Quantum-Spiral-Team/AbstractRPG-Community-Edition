@@ -70,7 +70,7 @@ public class EntityArrowVoid extends AbstractArrow {
    }
 
    protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROWVOID);
+      return new ItemStack(ItemsRegister.ARROW_VOID);
    }
 
    public boolean handleWaterMovement() {

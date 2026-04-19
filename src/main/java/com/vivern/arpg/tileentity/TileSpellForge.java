@@ -21,7 +21,7 @@ import com.vivern.arpg.renders.ManaBar;
 import com.vivern.arpg.renders.ParticleTracker;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -116,7 +116,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
    @Override
    public float getElementEnergy(ShardType shardType) {
       return Minecraft.getMinecraft().player != null
-            && Minecraft.getMinecraft().player.getHeldItemMainhand().getItem() == ItemsRegister.SPELLROLL
+            && Minecraft.getMinecraft().player.getHeldItemMainhand().getItem() == ItemsRegister.SPELL_ROLL
          ? 0.0F
          : this.elementsCollected[shardType.id - 1];
    }

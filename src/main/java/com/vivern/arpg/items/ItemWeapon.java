@@ -64,8 +64,8 @@ public abstract class ItemWeapon extends Item implements IWeapon {
          addTooltip(parameters, tooltip, "shield_angle");
          addTooltip(parameters, tooltip, "damage_reduce");
          addTooltip(parameters, tooltip, "max_hits");
-         float max_pull_time = parameters.get("max_pull_time");
-         if (max_pull_time != 0.0F) {
+         float maxPullTime = parameters.getF("max_pull_time");
+         if (maxPullTime != 0.0F) {
             addTooltip(parameters, tooltip, "velocity");
             tooltip.add(TextFormatting.GRAY + Ln.translate("bow_damage_velocity"));
          }
@@ -89,7 +89,7 @@ public abstract class ItemWeapon extends Item implements IWeapon {
    }
 
    public static void addTooltip(WeaponParameters parameters, List<String> tooltip, String parameter) {
-      float value = parameters.get(parameter);
+      float value = parameters.getF(parameter);
       if (value != 0.0F) {
          tooltip.add(TextFormatting.GRAY + Ln.translate(parameter) + ": " + ManaBar.asString(value));
       }
@@ -199,8 +199,8 @@ public abstract class ItemWeapon extends Item implements IWeapon {
             ItemStack stack = this.entity.getHeldItemMainhand();
             if (!stack.isEmpty() && stack.getItem() == this.itemInHand) {
                long playtime = this.endDate - this.entity.world.getTotalWorldTime();
-               float ft1 = GetMOP.getfromto((float)this.ticksExisted, 0.0F, (float)this.startTime);
-               float ft2 = 1.0F - GetMOP.getfromto((float)playtime, 0.0F, (float)this.endTime);
+               float ft1 = GetMOP.getFromTo((float)this.ticksExisted, 0.0F, (float)this.startTime);
+               float ft2 = 1.0F - GetMOP.getFromTo((float)playtime, 0.0F, (float)this.endTime);
                this.ticksExisted++;
                this.volume = (ft1 - ft2) * this.initVolume;
                this.pitch = this.startPitch * (1.0F - ft1) + this.initPitch * (ft1 - ft2) + this.endPitch * ft2;

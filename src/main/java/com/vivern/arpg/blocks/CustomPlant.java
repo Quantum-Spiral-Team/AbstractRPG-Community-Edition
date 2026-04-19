@@ -31,21 +31,23 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class CustomPlant extends Block implements IGrowable, IShearable {
    public static final PropertyBool GROWED = PropertyBool.create("growed");
-   public static AxisAlignedBB CP_AABB = new AxisAlignedBB(0.2, 0.0, 0.2, 0.8, 0.8, 0.8);
-   public static AxisAlignedBB CPsmall_AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.3, 0.75);
-   public static AxisAlignedBB CPdouble_AABB = new AxisAlignedBB(0.2, 0.0, 0.2, 0.8, 1.2, 0.8);
-   public AxisAlignedBB COLLISION_AABB = null;
+   public static final AxisAlignedBB CP_AABB = new AxisAlignedBB(0.2, 0.0, 0.2, 0.8, 0.8, 0.8);
+   public static final AxisAlignedBB CP_SMALL_AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.3, 0.75);
+   public static final AxisAlignedBB CP_DOUBLE_AABB = new AxisAlignedBB(0.2, 0.0, 0.2, 0.8, 1.2, 0.8);
+   public final AxisAlignedBB COLLISION_AABB;
    public final Block[] groundBlocks;
-   public final boolean canUseBonemeal;
+   public final boolean canUseBoneMeal;
    public final String drops;
-   public int minLightForGrow = 0;
-   public int maxLightForGrow = 15;
-   public float growChance = 0.0F;
-   public Item seed = null;
-   public int modelType = 0;
+   public int minLightForGrow;
+   public int maxLightForGrow;
+   public float growChance;
+   public @Nullable Item seed = null;
+   public int modelType;
    public int seedRadiation = 0;
 
    public CustomPlant(
@@ -53,9 +55,9 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
       float hardnessResistance,
       float lightLvl,
       SoundType soundType,
-      AxisAlignedBB collision_aabb,
+      AxisAlignedBB collisionAabb,
       Block[] groundBlocks,
-      boolean canUseBonemeal,
+      boolean canUseBoneMeal,
       String drops,
       int minLightForGrow,
       int maxLightForGrow,
@@ -70,10 +72,10 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
       this.setCreativeTab(CreativeTabs.DECORATIONS);
       this.setLightLevel(lightLvl);
       this.setSoundType(soundType);
-      this.COLLISION_AABB = collision_aabb;
+      this.COLLISION_AABB = collisionAabb;
       this.groundBlocks = groundBlocks;
       this.setTickRandomly(true);
-      this.canUseBonemeal = canUseBonemeal;
+      this.canUseBoneMeal = canUseBoneMeal;
       this.drops = drops;
       this.minLightForGrow = minLightForGrow;
       this.maxLightForGrow = maxLightForGrow;
@@ -86,9 +88,9 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
       float hardnessResistance,
       float lightLvl,
       SoundType soundType,
-      AxisAlignedBB collision_aabb,
+      AxisAlignedBB collisionAabb,
       Block[] groundBlocks,
-      boolean canUseBonemeal,
+      boolean canUseBoneMeal,
       String drops,
       int minLightForGrow,
       int maxLightForGrow,
@@ -105,20 +107,20 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
          hardnessResistance,
          lightLvl,
          soundType,
-         collision_aabb,
+         collisionAabb,
          groundBlocks,
-         canUseBonemeal,
+         canUseBoneMeal,
          drops,
          minLightForGrow,
          maxLightForGrow,
          growChance,
          modelType
       );
-      Item seed = (Item)(seedEatable > 0 ? new CustomPlantSeedEatable(plant, seedEatable, potion, dur, amp, effectChance) : new CustomPlantSeed(plant));
+      Item seed = seedEatable > 0 ? new CustomPlantSeedEatable(plant, seedEatable, potion, dur, amp, effectChance) : new CustomPlantSeed(plant);
       plant.seed = seed;
       CreateItemFile.customPlantResLocationCreate(plant, modelType);
-      BlocksRegister.forrender.add(plant);
-      ItemsRegister.forrender.add(seed);
+      BlocksRegister.FOR_RENDER.add(plant);
+      ItemsRegister.FOR_RENDER.add(seed);
       return plant;
    }
 
@@ -137,6 +139,7 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
       return this;
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (rand.nextFloat() < this.growChance) {
          int light = Math.max(worldIn.getLightFor(EnumSkyBlock.BLOCK, pos), worldIn.getLightFor(EnumSkyBlock.SKY, pos));
@@ -146,48 +149,56 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
       }
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return this.drops.isEmpty() ? 1 : 0;
    }
 
+   @Override
    public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
-      return (Boolean)world.getBlockState(pos).getValue(GROWED);
+      return world.getBlockState(pos).getValue(GROWED);
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return EnumOffsetType.XYZ;
    }
 
-   public void getDrops(NonNullList<ItemStack> lastdrops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-      super.getDrops(lastdrops, world, pos, state, fortune);
-      if ((Boolean)state.getValue(GROWED)) {
+   @Override
+   public void getDrops(NonNullList<ItemStack> lastDrops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+      super.getDrops(lastDrops, world, pos, state, fortune);
+      if (state.getValue(GROWED)) {
          String[] lootTypes = this.drops.split(" ");
 
          for (String lootType : lootTypes) {
             String[] words = lootType.split(",");
             Item item = Item.getByNameOrId(words[0]);
-            int countmin = Integer.parseInt(words[1]);
-            int countmax = Integer.parseInt(words[2]);
+            int minCount = Integer.parseInt(words[1]);
+            int maxCount = Integer.parseInt(words[2]);
             int meta = Integer.parseInt(words[3]);
-            lastdrops.add(new ItemStack(item, countmin + RANDOM.nextInt(countmax - countmin + 1), meta));
+            lastDrops.add(new ItemStack(item, minCount + RANDOM.nextInt(maxCount - minCount + 1), meta));
          }
       } else if (RANDOM.nextFloat() < 0.7) {
-         lastdrops.add(new ItemStack(this.seed, 1));
+         lastDrops.add(new ItemStack(this.seed, 1));
       }
    }
 
+   @Override
    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
       return !(Boolean)state.getValue(GROWED);
    }
 
+   @Override
    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-      return this.canUseBonemeal;
+      return this.canUseBoneMeal;
    }
 
+   @Override
    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
       worldIn.setBlockState(pos, state.withProperty(GROWED, true), 2);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!this.canBlockStay(worldIn, pos)) {
          this.dropBlock(worldIn, pos, state);
@@ -212,23 +223,26 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return this.COLLISION_AABB != null ? this.COLLISION_AABB : NULL_AABB;
+      return this.COLLISION_AABB != null ? this.COLLISION_AABB : Block.FULL_BLOCK_AABB;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      if (!(Boolean)state.getValue(GROWED)) {
-         return CPsmall_AABB;
+      if (!state.getValue(GROWED)) {
+         return CP_SMALL_AABB;
       } else if (this.modelType == 1) {
          return CP_AABB;
       } else if (this.modelType == 2) {
-         return CPdouble_AABB;
+         return CP_DOUBLE_AABB;
       } else {
-         return this.modelType == 3 ? CP_AABB : NULL_AABB;
+         return this.modelType == 3 ? CP_AABB : Block.FULL_BLOCK_AABB;
       }
    }
 
@@ -245,7 +259,7 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
    }
 
    protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{GROWED});
+      return new BlockStateContainer(this, GROWED);
    }
 
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
@@ -256,7 +270,7 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
       return false;
    }
 
-   public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+   public boolean isSideSolid(IBlockState blockState, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return false;
    }
 

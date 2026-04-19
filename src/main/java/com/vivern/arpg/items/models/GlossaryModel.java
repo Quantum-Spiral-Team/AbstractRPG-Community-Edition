@@ -96,7 +96,7 @@ public class GlossaryModel extends ModelBase {
          this.shape4.render(f5);
          this.shape3.render(f5);
          if (f1 > 0.0F) {
-            float ft5 = GetMOP.getfromto(f1, 0.0F, 0.5F) - GetMOP.getfromto(f1, 0.5F, 1.0F);
+            float ft5 = GetMOP.getFromTo(f1, 0.0F, 0.5F) - GetMOP.getFromTo(f1, 0.5F, 1.0F);
             AbstractMobModel.alphaGlow();
             GlStateManager.color(ft5, ft5, ft5);
             this.runes.render(f5);
@@ -104,10 +104,10 @@ public class GlossaryModel extends ModelBase {
             AbstractMobModel.alphaGlowDisable();
          }
       } else {
-         float ft1 = GetMOP.getfromto(f, 0.0F, 0.25F);
-         float ft2 = GetMOP.getfromto(f, 0.25F, 0.5F);
-         float ft3 = GetMOP.getfromto(f, 0.5F, 0.75F);
-         float ft4 = GetMOP.getfromto(f, 0.75F, 1.0F);
+         float ft1 = GetMOP.getFromTo(f, 0.0F, 0.25F);
+         float ft2 = GetMOP.getFromTo(f, 0.25F, 0.5F);
+         float ft3 = GetMOP.getFromTo(f, 0.5F, 0.75F);
+         float ft4 = GetMOP.getFromTo(f, 0.75F, 1.0F);
          float angleStart = 0.18203785F - f3;
          float angleStop = 2.959555F + f3;
          float angleAdd = angleStop - angleStart;

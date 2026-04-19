@@ -52,7 +52,7 @@ public class WorshippersBait extends Item {
                   AxisAlignedBB aabb = new AxisAlignedBB(
                      xzxpos.getX() - 4, y, xzxpos.getZ() - 4, xzxpos.getX() + 4, y + 8, xzxpos.getZ() + 4
                   );
-                  List<BlockPos> list = GetMOP.getBlockPosesCollidesAABBwithTheirHitbox(entityItem.world, aabb, false);
+                  List<BlockPos> list = GetMOP.getBlockPosesCollidesAABB(entityItem.world, aabb, false);
                   if (list.isEmpty()) {
                      BossKraken boss = new BossKraken(entityItem.world);
                      boss.setPosition(xzxpos.getX(), y, xzxpos.getZ());
@@ -61,7 +61,7 @@ public class WorshippersBait extends Item {
                      boss.canDropLoot = true;
                      entityItem.world
                         .playSound(
-                           (EntityPlayer)null,
+                           null,
                            xzxpos.getX(),
                            y,
                            xzxpos.getZ(),

@@ -19,7 +19,7 @@ import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
 public class BlockBlockCraftingTable extends BlockBlockHard {
-   public BlockBlockCraftingTable(Material mater, String name, BlocksRegister.Hardres hardnessResistance, String tool, boolean canDropWhithoutTool) {
+   public BlockBlockCraftingTable(Material mater, String name, BlocksRegister.HardRes hardnessResistance, String tool, boolean canDropWhithoutTool) {
       super(mater, name, hardnessResistance, tool, canDropWhithoutTool);
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }

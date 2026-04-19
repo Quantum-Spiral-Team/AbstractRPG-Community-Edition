@@ -99,23 +99,23 @@ public class CryoGun extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.get("velocity"),
-                        parameters.getEnchanted("inaccuracy", acc),
+                        parameters.getF("velocity"),
+                        parameters.getEnchantedF("inaccuracy", acc),
                         -0.25F,
                         0.5F,
                         0.6F
                      );
-                     projectile.livetime = parameters.getEnchantedi("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                     projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      world.spawnEntity(projectile);
                      if (!player.capabilities.isCreativeMode) {
-                        if (itemRand.nextFloat() < parameters.getEnchanted("ammo_consume_chance", reuse)) {
+                        if (itemRand.nextFloat() < parameters.getEnchantedF("ammo_consume_chance", reuse)) {
                            this.addAmmo(ammo, itemstack, -1);
                         }
 
                         itemstack.damageItem(1, player);
                      }
                   }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYOGENCELL, maxammo, ItemsRegister.EMPTYCELL)) {
+               } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYOGEN_CELL, maxammo, ItemsRegister.EMPTY_CELL)) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,
@@ -133,7 +133,7 @@ public class CryoGun extends ItemWeapon {
                   && !player.getCooldownTracker().hasCooldown(this)) {
                   NBTHelper.GiveNBTint(itemstack, 0, "ammo");
                   this.startReload(itemstack);
-                  NBTHelper.SetNBTint(itemstack, parameters.geti("ammo_on_water_reload"), "ammo");
+                  NBTHelper.SetNBTint(itemstack, parameters.getI("ammo_on_water_reload"), "ammo");
                }
             }
          }
