@@ -92,6 +92,7 @@ public class BulletParticle extends Entity {
       this.rotatPitch = -angle;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > this.livetime + this.hidetime) {
@@ -119,12 +120,15 @@ public class BulletParticle extends Entity {
       }
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 }

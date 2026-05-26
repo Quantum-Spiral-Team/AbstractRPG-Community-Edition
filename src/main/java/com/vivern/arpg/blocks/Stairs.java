@@ -92,6 +92,7 @@ public class Stairs extends Block {
       this.setHarvestLevel(tool, harvestlvl);
    }
 
+   @Override
    public void addCollisionBoxToList(
       IBlockState state,
       World worldIn,
@@ -175,6 +176,7 @@ public class Stairs extends Block {
       }
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       state = this.getActualState(state, worldIn, pos);
       if (face.getAxis() == Axis.Y) {
@@ -199,101 +201,124 @@ public class Stairs extends Block {
       }
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       this.modelBlock.randomDisplayTick(stateIn, worldIn, pos, rand);
    }
 
+   @Override
    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
       this.modelBlock.onBlockClicked(worldIn, pos, playerIn);
    }
 
+   @Override
    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
       this.modelBlock.onPlayerDestroy(worldIn, pos, state);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return this.modelState.getPackedLightmapCoords(source, pos);
    }
 
+   @Override
    public float getExplosionResistance(Entity exploder) {
       return this.modelBlock.getExplosionResistance(exploder);
    }
 
+   @Override
    public int tickRate(World worldIn) {
       return this.modelBlock.tickRate(worldIn);
    }
 
+   @Override
    public Vec3d modifyAcceleration(World worldIn, BlockPos pos, Entity entityIn, Vec3d motion) {
       return this.modelBlock.modifyAcceleration(worldIn, pos, entityIn, motion);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return this.modelBlock.getRenderLayer();
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
       return this.modelState.getSelectedBoundingBox(worldIn, pos);
    }
 
+   @Override
    public boolean isCollidable() {
       return this.modelBlock.isCollidable();
    }
 
+   @Override
    public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
       return this.modelBlock.canCollideCheck(state, hitIfLiquid);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return this.modelBlock.canPlaceBlockAt(worldIn, pos);
    }
 
+   @Override
    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
       this.modelState.neighborChanged(worldIn, pos, Blocks.AIR, pos);
       this.modelBlock.onBlockAdded(worldIn, pos, this.modelState);
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       this.modelBlock.breakBlock(worldIn, pos, this.modelState);
    }
 
+   @Override
    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
       this.modelBlock.onEntityWalk(worldIn, pos, entityIn);
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       this.modelBlock.updateTick(worldIn, pos, state, rand);
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
       return this.modelBlock.onBlockActivated(worldIn, pos, this.modelState, playerIn, hand, EnumFacing.DOWN, 0.0F, 0.0F, 0.0F);
    }
 
+   @Override
    public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
       this.modelBlock.onExplosionDestroy(worldIn, pos, explosionIn);
    }
 
+   @Override
    public boolean isTopSolid(IBlockState state) {
       return state.getValue(HALF) == EnumHalf.TOP;
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return this.modelBlock.getMapColor(this.modelState, worldIn, pos);
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       IBlockState iblockstate = super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
       iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing()).withProperty(SHAPE, EnumShape.STRAIGHT);
@@ -302,6 +327,7 @@ public class Stairs extends Block {
          : iblockstate.withProperty(HALF, EnumHalf.BOTTOM);
    }
 
+   @Override
    @Nullable
    public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
       List<RayTraceResult> list = Lists.newArrayList();
@@ -326,11 +352,13 @@ public class Stairs extends Block {
       return raytraceresult1;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState().withProperty(HALF, (meta & 4) > 0 ? EnumHalf.TOP : EnumHalf.BOTTOM);
       return iblockstate.withProperty(FACING, EnumFacing.byIndex(5 - (meta & 3)));
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       if (state.getValue(HALF) == EnumHalf.TOP) {
@@ -340,6 +368,7 @@ public class Stairs extends Block {
       return i | 5 - ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return state.withProperty(SHAPE, getStairsShape(state, worldIn, pos));
    }
@@ -386,10 +415,12 @@ public class Stairs extends Block {
       return state.getBlock() instanceof Stairs;
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
       EnumShape blockstairs$enumshape = (EnumShape)state.getValue(SHAPE);
@@ -430,16 +461,19 @@ public class Stairs extends Block {
       return super.withMirror(state, mirrorIn);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return (BlockStateContainer)(this.material == Material.WATER
          ? new BlockUnderwater.BlockStateContainerUnderwater(this, new IProperty[]{FACING, HALF, SHAPE})
          : new BlockStateContainer(this, new IProperty[]{FACING, HALF, SHAPE}));
    }
 
+   @Override
    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
       return false;
    }
 
+   @Override
    public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face) {
       if (ForgeModContainer.disableStairSlabCulling) {
          return super.doesSideBlockRendering(state, world, pos, face);
@@ -481,6 +515,7 @@ public class Stairs extends Block {
          return this.name;
       }
 
+      @Override
       public String getName() {
          return this.name;
       }
@@ -504,6 +539,7 @@ public class Stairs extends Block {
          return this.name;
       }
 
+      @Override
       public String getName() {
          return this.name;
       }
@@ -548,6 +584,7 @@ public class Stairs extends Block {
          this.fastSpeed = hardres.fast;
       }
 
+      @Override
       public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
          player.addStat(StatList.getBlockStats(this));
          player.addExhaustion(0.005F);

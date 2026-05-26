@@ -20,6 +20,7 @@ public class RenderModular<T extends Entity> extends Render<T> {
       this.factory = factory;
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (entity.ticksExisted >= this.factory.renderStartTick) {
          GlStateManager.pushMatrix();
@@ -44,6 +45,7 @@ public class RenderModular<T extends Entity> extends Render<T> {
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(Entity entity) {
       return TextureMap.LOCATION_BLOCKS_TEXTURE;
    }
@@ -62,6 +64,7 @@ public class RenderModular<T extends Entity> extends Render<T> {
          return this;
       }
 
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderModular(manager, this);
       }

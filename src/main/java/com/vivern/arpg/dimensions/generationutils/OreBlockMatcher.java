@@ -12,6 +12,7 @@ public class OreBlockMatcher implements Predicate<IBlockState> {
       this.blocks = blocksType;
    }
 
+   @Override
    public boolean apply(@Nullable IBlockState apply) {
       if (apply != null) {
          for (Block bl : this.blocks) {

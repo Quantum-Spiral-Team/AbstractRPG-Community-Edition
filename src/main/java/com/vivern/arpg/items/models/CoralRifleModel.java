@@ -107,6 +107,7 @@ public class CoralRifleModel extends ModelBase {
       this.setRotateAngle(this.shape_6, 1.1838568F, -0.4098033F, -0.31869712F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.riflee_1.render(f5);
       this.shape_9.render(f5);

@@ -5,6 +5,8 @@ import com.vivern.arpg.main.Sounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Rainstorm extends Storm {
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/stormledge_rainstorm.png");
@@ -15,6 +17,7 @@ public class Rainstorm extends Storm {
       this.soundRainAbove = Sounds.weather_rainstorm;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       super.render(partialTicks, world, mc);

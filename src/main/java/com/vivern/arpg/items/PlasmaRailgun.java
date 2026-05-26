@@ -35,6 +35,7 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -44,14 +45,17 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -96,7 +100,7 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getF("velocity"),
+                        parameters.getFloat("velocity"),
                         parameters.getEnchantedF("inaccuracy", acc),
                         -0.15F,
                         0.25F,
@@ -143,6 +147,7 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
       return WeaponHandleType.TWO_HANDED;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.8F;
@@ -158,11 +163,13 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);

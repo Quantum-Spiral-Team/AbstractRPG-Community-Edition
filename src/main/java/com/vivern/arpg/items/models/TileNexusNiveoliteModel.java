@@ -77,6 +77,7 @@ public class TileNexusNiveoliteModel extends ModelBase {
       this.circle0.addChild(this.circle_5);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (Minecraft.getMinecraft().world != null) {
          TileEntity tileEntity = Minecraft.getMinecraft().world.getTileEntity(new BlockPos(f, f1, f2));

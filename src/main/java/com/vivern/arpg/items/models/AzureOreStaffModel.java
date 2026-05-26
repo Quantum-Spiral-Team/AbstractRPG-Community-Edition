@@ -67,6 +67,7 @@ public class AzureOreStaffModel extends ModelBase {
       this.staf2.addChild(this.staf3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f == 1.0F) {
          this.ore2.render(f5);

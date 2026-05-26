@@ -17,6 +17,7 @@ public class TESRSieve extends TileEntitySpecialRenderer<TileSieve> {
       this.texture = texture;
    }
 
+   @Override
    public void render(TileSieve te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);

@@ -160,6 +160,7 @@ public class BlockSpeleothem extends Block {
       return state.isSideSolid(world, pos, face) || bfs == BlockFaceShape.CENTER_BIG || bfs == BlockFaceShape.CENTER_SMALL || bfs == BlockFaceShape.CENTER;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       int ths = (Integer)state.getValue(TYPE);
       if (ths == 0 || ths == 4) {
@@ -169,6 +170,7 @@ public class BlockSpeleothem extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       Vec3d vec = state.getOffset(source, pos);
       return this.getBox(state, source, pos).offset(vec.x, 0.0, vec.z);
@@ -193,10 +195,12 @@ public class BlockSpeleothem extends Block {
       }
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return EnumOffsetType.XYZ;
    }
 
+   @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       int ths = (Integer)state.getValue(TYPE);
       if (ths == 6) {
@@ -213,47 +217,58 @@ public class BlockSpeleothem extends Block {
       }
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return false;
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return this.alwaysDrops ? 1 : 0;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return true;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(TYPE, meta);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(TYPE);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{TYPE});
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (this.canStay(worldIn, pos, state)) {
          int ths = (Integer)state.getValue(TYPE);
@@ -321,6 +336,7 @@ public class BlockSpeleothem extends Block {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       IBlockState stateup = worldIn.getBlockState(pos.up());
       IBlockState statedown = worldIn.getBlockState(pos.down());
@@ -379,6 +395,7 @@ public class BlockSpeleothem extends Block {
       return this.getDefaultState().withProperty(TYPE, 2);
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       int ths = (Integer)state.getValue(TYPE);
       if (ths == 2) {

@@ -37,6 +37,7 @@ import net.minecraft.world.World;
 public class ItemVial extends Item {
    public ShardType shardType;
    public static Predicate<IBlockState> VIALS = new Predicate<IBlockState>() {
+      @Override
       public boolean apply(IBlockState input) {
          return input.getBlock() == BlocksRegister.BLOCK_VIAL;
       }
@@ -62,6 +63,7 @@ public class ItemVial extends Item {
       }
    }
 
+   @Override
    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
       if (this.getHasSubtypes() && this.isInCreativeTab(tab)) {
          for (int i = 1; i <= 12; i++) {
@@ -74,6 +76,7 @@ public class ItemVial extends Item {
       }
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
       ItemStack itemstack = playerIn.getHeldItem(handIn);
       Vec3d vec3d = playerIn.getPositionEyes(1.0F);

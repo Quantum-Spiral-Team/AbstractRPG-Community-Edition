@@ -27,6 +27,7 @@ public class RenderAdvFallingBlock extends Render<AdvancedFallingBlock> {
       this.shadowSize = 0.5F;
    }
 
+   @Override
    public void doRender(AdvancedFallingBlock entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (entity.getBlock() != null) {
          IBlockState iblockstate = entity.getBlock();
@@ -73,11 +74,13 @@ public class RenderAdvFallingBlock extends Render<AdvancedFallingBlock> {
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(AdvancedFallingBlock entity) {
       return TextureMap.LOCATION_BLOCKS_TEXTURE;
    }
 
    public static class RenderAdvFallBlockFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderAdvFallingBlock(manager);
       }

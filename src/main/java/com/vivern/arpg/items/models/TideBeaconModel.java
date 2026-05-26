@@ -99,6 +99,7 @@ public class TideBeaconModel extends ModelBase {
       this.shapeL2.addChild(this.shapeL3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float timer = this.isDried ? 0.0F : AnimationTimer.tick;
       this.shapeL1.rotateAngleX = -0.4553564F + MathHelper.sin(timer / 20.0F) * 0.18F - 0.14F;

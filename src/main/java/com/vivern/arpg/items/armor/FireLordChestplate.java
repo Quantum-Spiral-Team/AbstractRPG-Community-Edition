@@ -35,6 +35,7 @@ public class FireLordChestplate extends ItemArmor {
       BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (equipmentSlot == this.armorType) {
@@ -63,6 +64,7 @@ public class FireLordChestplate extends ItemArmor {
       return multimap;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
       if (armorSlot != EntityEquipmentSlot.CHEST) {
@@ -78,6 +80,7 @@ public class FireLordChestplate extends ItemArmor {
       }
    }
 
+   @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return "arpg:textures/firelord_armor_model_tex2.png";
    }

@@ -39,6 +39,7 @@ public class IceCompass extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
@@ -116,6 +117,7 @@ public class IceCompass extends Item {
        }
    }
 
+   @Override
    public void onUpdate(ItemStack stack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote && isSelected && entityIn.ticksExisted % 32 == 0) {
          NBTHelper.GiveNBTlong(stack, world.getSeed(), "worldseed");

@@ -40,14 +40,17 @@ public class EntityAIFlyingKeepDistToTarget extends EntityAIBase {
       this.followPoint = entity.getPositionVector();
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null && this.enable;
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return super.shouldContinueExecuting() && this.enable;
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase attackTarg = this.entity.getAttackTarget();
       if (attackTarg != null) {

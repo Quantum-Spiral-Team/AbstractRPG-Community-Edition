@@ -65,10 +65,12 @@ public class ChestItemHandler extends WeakReference<TileChest> implements IItemH
       return tileEntityChest != null && !tileEntityChest.isInvalid() ? tileEntityChest : null;
    }
 
+   @Override
    public int getSlots() {
       return 54;
    }
 
+   @Override
    @Nonnull
    public ItemStack getStackInSlot(int slot) {
       boolean accessingUpperChest = slot < 27;
@@ -77,6 +79,7 @@ public class ChestItemHandler extends WeakReference<TileChest> implements IItemH
       return chest != null ? chest.getStackInSlot(targetSlot) : ItemStack.EMPTY;
    }
 
+   @Override
    public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
       boolean accessingUpperChest = slot < 27;
       int targetSlot = accessingUpperChest ? slot : slot - 27;
@@ -94,6 +97,7 @@ public class ChestItemHandler extends WeakReference<TileChest> implements IItemH
       }
    }
 
+   @Override
    @Nonnull
    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
       boolean accessingUpperChest = slot < 27;
@@ -115,6 +119,7 @@ public class ChestItemHandler extends WeakReference<TileChest> implements IItemH
       }
    }
 
+   @Override
    @Nonnull
    public ItemStack extractItem(int slot, int amount, boolean simulate) {
       boolean accessingUpperChest = slot < 27;
@@ -135,11 +140,13 @@ public class ChestItemHandler extends WeakReference<TileChest> implements IItemH
       }
    }
 
+   @Override
    public int getSlotLimit(int slot) {
       boolean accessingUpperChest = slot < 27;
       return this.getChest(accessingUpperChest).getInventoryStackLimit();
    }
 
+   @Override
    public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
       boolean accessingUpperChest = slot < 27;
       int targetSlot = accessingUpperChest ? slot : slot - 27;

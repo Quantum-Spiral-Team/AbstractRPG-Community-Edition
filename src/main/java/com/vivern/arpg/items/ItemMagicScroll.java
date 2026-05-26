@@ -43,6 +43,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.BlockPos.PooledMutableBlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 
 public class ItemMagicScroll extends ItemWeapon {
@@ -224,6 +226,7 @@ public class ItemMagicScroll extends ItemWeapon {
       return registry;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (d1 == 0.0) {
@@ -394,10 +397,12 @@ public class ItemMagicScroll extends ItemWeapon {
    public void onSpellCast(ItemStack itemstack, World worldIn, EntityPlayer player) {
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return !ItemStack.areItemsEqual(oldStack, newStack);
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!worldIn.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -538,6 +543,7 @@ public class ItemMagicScroll extends ItemWeapon {
       return 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;

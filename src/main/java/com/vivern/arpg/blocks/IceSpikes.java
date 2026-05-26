@@ -57,6 +57,7 @@ public class IceSpikes extends Block {
       this.setTickRandomly(true);
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       if (!worldIn.isRemote && entityIn instanceof EntityLivingBase) {
          ItemStack stack = ((EntityLivingBase)entityIn).getHeldItemMainhand();
@@ -81,20 +82,24 @@ public class IceSpikes extends Block {
       }
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return 0;
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return true;
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote && (Boolean)state.getValue(NOTPERMANENT) && worldIn.getLightFor(EnumSkyBlock.SKY, pos) > 0 && rand.nextFloat() < 0.4F) {
          worldIn.setBlockToAir(pos);
       }
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       for (EnumFacing enumfacing : EnumFacing.values()) {
          if (canPlaceAt(worldIn, pos, enumfacing)) {
@@ -122,10 +127,12 @@ public class IceSpikes extends Block {
       return block.canPlaceTorchOnTop(worldIn.getBlockState(pos), worldIn, pos);
    }
 
+   @Override
    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
       this.checkForDrop(worldIn, pos, state);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       this.onNeighborChangeInternal(worldIn, pos, state);
    }
@@ -168,6 +175,7 @@ public class IceSpikes extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       switch ((EnumFacing)state.getValue(FACING)) {
          case EAST:
@@ -183,23 +191,28 @@ public class IceSpikes extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState();
       boolean permanent = meta >= 6;
@@ -230,6 +243,7 @@ public class IceSpikes extends Block {
       return iblockstate.withProperty(NOTPERMANENT, permanent);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int permanent = state.getValue(NOTPERMANENT) ? 6 : 0;
       switch ((EnumFacing)state.getValue(FACING)) {
@@ -248,18 +262,22 @@ public class IceSpikes extends Block {
       }
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING, NOTPERMANENT});
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       if (canPlaceAt(worldIn, pos, facing)) {
          return this.getDefaultState().withProperty(FACING, facing);
@@ -274,6 +292,7 @@ public class IceSpikes extends Block {
       }
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }

@@ -31,14 +31,17 @@ public class EntityAIDash extends EntityAIBase {
       return this;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return this.entity.getAttackTarget() != null && this.entity.getAttackTarget().isEntityAlive();
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase attackTarg = this.entity.getAttackTarget();
       this.attackTimer--;

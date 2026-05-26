@@ -38,14 +38,17 @@ public class SeleniteCrystal extends Block {
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }
 
+   @Override
    public boolean isFullBlock(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return false;
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       boolean west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST, false) || worldIn.getBlockState(pos.west()).isFullCube();
       boolean east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST, false) || worldIn.getBlockState(pos.east()).isFullCube();
@@ -61,6 +64,7 @@ public class SeleniteCrystal extends Block {
          .withProperty(DOWN, down);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       boolean west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST) || worldIn.isBlockFullCube(pos.west());
       boolean east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST) || worldIn.isBlockFullCube(pos.east());
@@ -71,43 +75,53 @@ public class SeleniteCrystal extends Block {
       return east || north || south || west || up || down;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return ALL_AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(TYPE, meta);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(TYPE);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, UPPER, DOWN, TYPE});
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       boolean west;
       boolean east;

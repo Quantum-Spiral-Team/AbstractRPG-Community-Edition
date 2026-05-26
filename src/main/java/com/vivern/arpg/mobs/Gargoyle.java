@@ -23,9 +23,11 @@ public class Gargoyle extends EntityMob {
       this.setNoGravity(true);
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 10) {
@@ -53,6 +55,7 @@ public class Gargoyle extends EntityMob {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       this.motionX = this.motionX * this.friction;
@@ -60,6 +63,7 @@ public class Gargoyle extends EntityMob {
       this.motionZ = this.motionZ * this.friction;
    }
 
+   @Override
    protected void applyEntityAttributes() {
       super.applyEntityAttributes();
       this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0);
@@ -67,6 +71,7 @@ public class Gargoyle extends EntityMob {
       this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0);
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAIRayLogicFly(this));
       this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));

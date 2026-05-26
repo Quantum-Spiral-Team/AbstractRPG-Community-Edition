@@ -25,6 +25,7 @@ public class Locker extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);

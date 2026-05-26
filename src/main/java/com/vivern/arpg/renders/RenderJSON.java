@@ -30,6 +30,7 @@ public class RenderJSON<T extends Entity> extends Render<T> {
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y, (float)z);
@@ -76,6 +77,7 @@ public class RenderJSON<T extends Entity> extends Render<T> {
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(Entity entity) {
       return TextureMap.LOCATION_BLOCKS_TEXTURE;
    }

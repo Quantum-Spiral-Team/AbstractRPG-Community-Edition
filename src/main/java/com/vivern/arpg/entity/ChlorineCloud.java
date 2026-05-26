@@ -16,6 +16,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ChlorineCloud extends EntityThrowable {
    ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largecloud.png");
@@ -42,10 +44,13 @@ public class ChlorineCloud extends EntityThrowable {
       this.setSize(0.1F, 0.1F);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean isInRangeToRenderDist(double distance) {
       return false;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted % 5 == 0) {
@@ -84,11 +89,13 @@ public class ChlorineCloud extends EntityThrowable {
       }
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       compound.setInteger("ticks", this.ticks);
       super.writeEntityToNBT(compound);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("ticks")) {
          this.ticks = compound.getInteger("ticks");
@@ -97,10 +104,12 @@ public class ChlorineCloud extends EntityThrowable {
       super.readEntityFromNBT(compound);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onEntityUpdate() {
       super.onEntityUpdate();
       if (this.world.isRemote && this.rand.nextFloat() < 0.2F) {
@@ -131,6 +140,7 @@ public class ChlorineCloud extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit == null) {
          Block block = this.world.getBlockState(result.getBlockPos()).getBlock();

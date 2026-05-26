@@ -28,6 +28,7 @@ public class WorldGenVoidCrystals implements IWorldGenerator {
       }
    }
 
+   @Override
    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       if (world.provider.getDimension() == 1 && chunkX * chunkX + chunkZ * chunkZ > 900 && random.nextFloat() < 0.06F) {
          this.generate(world, random, new BlockPos(chunkX * 16 + random.nextInt(16), 48 + random.nextInt(128), chunkZ * 16 + random.nextInt(16)));

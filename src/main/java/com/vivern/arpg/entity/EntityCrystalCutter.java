@@ -62,6 +62,7 @@ public class EntityCrystalCutter extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -72,10 +73,12 @@ public class EntityCrystalCutter extends EntityThrowable {
       this.motionZ = this.motionZ + entityThrower.motionZ * mot;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted < 2 || this.ticksExisted % 40 == 0) {
@@ -133,7 +136,7 @@ public class EntityCrystalCutter extends EntityThrowable {
       this.leftNodeY = absLeftVec.y;
       this.leftNodeZ = absLeftVec.z;
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      float raySize = this.triple ? parameters.getF("cutter_thickness_triple") : parameters.getF("cutter_thickness");
+      float raySize = this.triple ? parameters.getFloat("cutter_thickness_triple") : parameters.getFloat("cutter_thickness");
       List<Entity> list = GetMOP.findEntitiesOnPath(absLeftVec, absRightVec, this.world, this.thrower, raySize, 0.2F);
       int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
       int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
@@ -159,6 +162,7 @@ public class EntityCrystalCutter extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 9) {
@@ -240,6 +244,7 @@ public class EntityCrystalCutter extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit == null
          && this.world

@@ -1,27 +1,31 @@
 package com.vivern.arpg.main;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderLivingEvent.Pre;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class DeathEffect {
-   public static HashMap<Integer, DeathEffect> registry = new HashMap<>();
-   public static int idStart = 1;
+   public static final List<DeathEffect> REGISTRY = new ArrayList<>();
    public List<EntityLivingBase> listMobs = new ArrayList<>();
    public List<EntityLivingBase> toRemove = new ArrayList<>();
-   public int id = idStart++;
+   public final int id;
 
    public DeathEffect() {
-      registry.put(this.id, this);
+      REGISTRY.add(this);
+      this.id = REGISTRY.size();
    }
 
-   public abstract void onRenderLivingPre(Pre var1, EntityLivingBase var2);
+   @SideOnly(Side.CLIENT)
+   public abstract void onRenderLivingPre(RenderLivingEvent.Pre<? extends EntityLivingBase> event, EntityLivingBase living);
 
-   public abstract void onLivingUpdate(World var1, LivingUpdateEvent var2, EntityLivingBase var3, double var4, double var6, double var8);
+   @SideOnly(Side.CLIENT)
+   public abstract void onLivingUpdate(World world, LivingEvent.LivingUpdateEvent event, EntityLivingBase living, double var4, double var6, double var8);
 
    public boolean exist(EntityLivingBase entity) {
       return this.listMobs.contains(entity);

@@ -43,6 +43,7 @@ public class RustLamp extends Block {
       this.setSoundType(SoundType.METAL);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!worldIn.isRemote) {
          boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
@@ -52,15 +53,18 @@ public class RustLamp extends Block {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
       return state.getValue(ON) ? 14 : 0;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       switch ((EnumFacing)state.getValue(FACING)) {
          case EAST:
@@ -78,6 +82,7 @@ public class RustLamp extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       switch ((EnumFacing)blockState.getValue(FACING)) {
          case EAST:
@@ -95,36 +100,44 @@ public class RustLamp extends Block {
       }
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return meta >= 6
          ? this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta)).withProperty(ON, true)
          : this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta)).withProperty(ON, false);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex() + (state.getValue(ON) ? 6 : 0);
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING, ON});
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, facing).withProperty(ON, false);
    }

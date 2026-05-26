@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class GlowingVeinTESR extends TileEntitySpecialRenderer<TileGlowingVein> {
    private static final ResourceLocation TEXTURE = new ResourceLocation("arpg:textures/te_glowing_vein.png");
 
+   @Override
    public void render(TileGlowingVein te, double xx, double yy, double zz, float partialTicks, int destroyStage, float alpha) {
       float lbx = OpenGlHelper.lastBrightnessX;
       float lby = OpenGlHelper.lastBrightnessY;

@@ -31,13 +31,14 @@ public class CreativeTeamSelector extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
       RayTraceResult raytraceresult = this.rayTrace(world, player, false);
-      NBTHelper.GiveNBTboolean(itemstack, true, "MakeAgressive");
-      NBTHelper.GiveNBTboolean(itemstack, true, "Rewrite");
-      NBTHelper.GiveNBTboolean(itemstack, false, "set");
+      NBTHelper.giveNBTboolean(itemstack, true, "MakeAgressive");
+      NBTHelper.giveNBTboolean(itemstack, true, "Rewrite");
+      NBTHelper.giveNBTboolean(itemstack, false, "set");
       if (player.isSneaking()) {
          BlockPos pos1 = NBTHelper.GetNBTBlockPos(itemstack, "pos1");
          BlockPos pos2 = NBTHelper.GetNBTBlockPos(itemstack, "pos2");

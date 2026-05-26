@@ -71,6 +71,7 @@ public class ToxicJungle extends BiomeControlled {
       public WorldGenShrubFixed shrub = new WorldGenShrubFixed(BlocksRegister.TOXIBERRY_LOG.getDefaultState(), BlocksRegister.TOXIBERRY_LEAVES.getDefaultState());
       public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISON_LILY, 10, 8, 0);
 
+      @Override
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

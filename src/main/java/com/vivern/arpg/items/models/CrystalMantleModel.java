@@ -186,6 +186,7 @@ public class CrystalMantleModel extends ModelBiped {
       this.helm.addChild(this.helm3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.rightleg.render(f5);
       this.chest.render(f5);
@@ -197,6 +198,7 @@ public class CrystalMantleModel extends ModelBiped {
       this.rightboot.render(f5);
    }
 
+   @Override
    public void setModelAttributes(ModelBase model) {
       super.setModelAttributes(model);
       if (model instanceof ModelBiped) {

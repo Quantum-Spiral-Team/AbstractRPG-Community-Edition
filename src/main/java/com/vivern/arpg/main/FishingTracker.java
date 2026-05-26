@@ -1,14 +1,13 @@
 package com.vivern.arpg.main;
 
-import net.minecraftforge.client.event.RenderGameOverlayEvent.Post;
+import com.vivern.arpg.Tags;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 @SideOnly(Side.CLIENT)
 public class FishingTracker {
    public static boolean fishing;
@@ -17,6 +16,6 @@ public class FishingTracker {
 
    @SubscribeEvent
    @SideOnly(Side.CLIENT)
-   public static void onRenderWorld(Post event) {
+   public static void onRenderWorld(RenderGameOverlayEvent.Post event) {
    }
 }

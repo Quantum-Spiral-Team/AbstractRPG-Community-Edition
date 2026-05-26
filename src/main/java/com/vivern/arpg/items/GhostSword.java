@@ -26,6 +26,7 @@ public class GhostSword extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
@@ -36,6 +37,7 @@ public class GhostSword extends Item {
       return multimap;
    }
 
+   @Override
    public boolean hitEntity(ItemStack itemstack, EntityLivingBase target, EntityLivingBase attacker) {
       if (attacker instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)attacker;
@@ -59,6 +61,7 @@ public class GhostSword extends Item {
       return super.hitEntity(itemstack, target, attacker);
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!entityIn.world.isRemote && entityIn instanceof EntityPlayer) {
          NBTHelper.GiveNBTfloat(itemstack, 0.0F, "stength");

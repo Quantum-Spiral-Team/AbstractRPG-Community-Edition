@@ -134,40 +134,6 @@ public class FluidsRegister {
       }
    }
 
-   public static void registerRender() {
-      modelLoader(BlocksRegister.FLUID_CRYON, "cryon");
-      modelLoader(BlocksRegister.FLUID_POISON, "poison");
-      modelLoader(BlocksRegister.FLUID_SLIME, "slime");
-      modelLoader(BlocksRegister.FLUID_DARKNESS, "darkness");
-      modelLoader(BlocksRegister.FLUID_LARVA_WATER, "larva_water");
-      modelLoader(BlocksRegister.FLUID_HYDROTHERMAL, "hydrothermal_solution");
-      modelLoader(BlocksRegister.FLUID_BIOGENIC_ACID, "biogenic_acid");
-      modelLoader(BlocksRegister.FLUID_TOXIN, "toxin");
-      modelLoader(BlocksRegister.FLUID_SULFURIC_ACID, "sulfuric_acid");
-      modelLoader(BlocksRegister.FLUID_LUMINESCENT, "luminescent_liquid");
-      modelLoader(BlocksRegister.FLUID_SULFURIC_GAS, "sulfuric_gas");
-      modelLoader(BlocksRegister.FLUID_MANA_OIL, "mana_oil");
-      modelLoader(BlocksRegister.FLUID_PETROLEUM, "petroleum");
-      modelLoader(BlocksRegister.FLUID_GASOLINE, "gasoline");
-      modelLoader(BlocksRegister.FLUID_FUEL_OIL, "fuel_oil");
-      modelLoader(BlocksRegister.FLUID_NITRIC_ACID, "nitric_acid");
-      modelLoader(BlocksRegister.FLUID_NATURAL_GAS, "natural_gas");
-      modelLoader(BlocksRegister.FLUID_DISSOLVED_TOXINIUM, "dissolved_toxinium");
-   }
-
-   @SideOnly(Side.CLIENT)
-   public static void modelLoader(Block block, String variant) {
-      final ModelResourceLocation flLocation = new ModelResourceLocation("arpg:fluid", variant);
-      Item fl = Item.getItemFromBlock(block);
-      ModelBakery.registerItemVariants(fl, new ResourceLocation[0]);
-      ModelLoader.setCustomMeshDefinition(fl, stack -> flLocation);
-      ModelLoader.setCustomStateMapper(block, new StateMapperBase() {
-         protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-            return flLocation;
-         }
-      });
-   }
-
    public static CoolantInfo getFluidCoolantInfo(Fluid coolant) {
       return coolantInfoMap.get(coolant);
    }

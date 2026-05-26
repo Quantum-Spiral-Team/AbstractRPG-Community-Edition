@@ -33,6 +33,7 @@ public class WorldGenWateredMountains extends WorldGenerator {
       this.noise = noise;
    }
 
+   @Override
    public boolean generate(World worldIn, Random rand, BlockPos position) {
       int allheight = position.getY() + this.height + this.height / 6;
       int currentradius = this.startradius;

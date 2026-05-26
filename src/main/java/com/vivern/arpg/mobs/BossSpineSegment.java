@@ -36,6 +36,7 @@ public class BossSpineSegment extends EntityMob {
       this.isImmuneToFire = true;
    }
 
+   @Override
    public void onDeath(DamageSource cause) {
       if (this.owner != null) {
          this.owner.deads++;
@@ -44,9 +45,11 @@ public class BossSpineSegment extends EntityMob {
       super.onDeath(cause);
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
+   @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       if (source == DamageSource.IN_WALL || source == DamageSource.CRAMMING || source == DamageSource.CACTUS) {
          return false;
@@ -63,10 +66,12 @@ public class BossSpineSegment extends EntityMob {
       }
    }
 
+   @Override
    public boolean canBreatheUnderwater() {
       return true;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote) {
@@ -111,6 +116,7 @@ public class BossSpineSegment extends EntityMob {
       }
    }
 
+   @Override
    protected void applyEntityAttributes() {
       super.applyEntityAttributes();
       this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0);
@@ -121,14 +127,17 @@ public class BossSpineSegment extends EntityMob {
       this.getEntityAttribute(PropertiesRegistry.ARMOR_PROTECTION).setBaseValue(3.0);
    }
 
+   @Override
    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
       return Sounds.spine_hurt;
    }
 
+   @Override
    protected SoundEvent getDeathSound() {
       return Sounds.spine_segment_dead;
    }
 
+   @Override
    protected void initEntityAI() {
    }
 }

@@ -1,5 +1,6 @@
 package com.vivern.arpg.shader;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.potions.PotionEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -16,10 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
-@SideOnly(Side.CLIENT)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class LensblurShaderTracker {
    static Minecraft mc = Minecraft.getMinecraft();
    public static Framebuffer fbuffer = new Framebuffer(mc.displayWidth, mc.displayHeight, true);

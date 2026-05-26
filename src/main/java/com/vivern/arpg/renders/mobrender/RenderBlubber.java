@@ -17,12 +17,14 @@ public class RenderBlubber extends RenderLiving<Blubber> {
       super(manager, new BlubberModel(), 0.3F);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull Blubber entity) {
       return this.mobTexture;
    }
 
    public static class BlubberFactory implements IRenderFactory<Blubber> {
+      @Override
       public Render<? super Blubber> createRenderFor(RenderManager manager) {
          return new RenderBlubber(manager);
       }

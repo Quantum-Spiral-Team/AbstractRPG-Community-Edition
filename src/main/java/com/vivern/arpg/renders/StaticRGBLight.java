@@ -27,10 +27,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
-@EventBusSubscriber(
-   modid = "arpg"
-)
+@EventBusSubscriber(value = Side.CLIENT, modid = "arpg")
 public class StaticRGBLight extends Thread {
    public static HashMap<Long, LoadedRGBChunk> loadedChunks = new HashMap<>();
    public static byte[] usedposes = new byte[33824];

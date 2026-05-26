@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public class AdvancedBlockDetectorTESR extends TileEntitySpecialRenderer<TileAdvancedBlockDetector> {
+   @Override
    public void render(TileAdvancedBlockDetector te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       if (te.stackForRender != null && !te.stackForRender.isEmpty()) {
          GlStateManager.pushMatrix();

@@ -20,6 +20,7 @@ public class Antidote extends Item {
       this.setTranslationKey("antidote");
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       if (player.isPotionActive(MobEffects.POISON)) {

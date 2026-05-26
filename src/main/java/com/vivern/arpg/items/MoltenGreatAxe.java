@@ -24,6 +24,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MoltenGreatAxe extends ItemWeapon {
    public MoltenGreatAxe() {
@@ -34,14 +36,17 @@ public class MoltenGreatAxe extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -155,11 +160,13 @@ public class MoltenGreatAxe extends ItemWeapon {
       return ret;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(NBTHelper.GetNBTint(itemstack, "duration") / 2400.0F, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "duration") > 0;

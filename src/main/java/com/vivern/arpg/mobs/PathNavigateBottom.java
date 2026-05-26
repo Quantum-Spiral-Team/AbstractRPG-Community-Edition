@@ -27,6 +27,7 @@ public class PathNavigateBottom extends PathNavigate {
       super(entitylivingIn, worldIn);
    }
 
+   @Override
    public PathFinder getPathFinder() {
       this.nodeProcessor = new BottomNodeProcessor();
       this.nodeProcessor.setCanEnterDoors(true);
@@ -34,14 +35,17 @@ public class PathNavigateBottom extends PathNavigate {
       return new PathFinder(this.nodeProcessor);
    }
 
+   @Override
    public boolean canNavigate() {
       return this.entity.onGround && this.isInLiquid() || this.entity.isRiding();
    }
 
+   @Override
    protected Vec3d getEntityPosition() {
       return new Vec3d(this.entity.posX, this.getPathablePosY(), this.entity.posZ);
    }
 
+   @Override
    public Path getPathToPos(BlockPos pos) {
       if (this.world.getBlockState(pos).getMaterial() == Material.WATER) {
          BlockPos blockpos = pos.down();
@@ -77,6 +81,7 @@ public class PathNavigateBottom extends PathNavigate {
       }
    }
 
+   @Override
    public Path getPathToEntityLiving(Entity entityIn) {
       return this.getPathToPos(new BlockPos(entityIn));
    }
@@ -108,6 +113,7 @@ public class PathNavigateBottom extends PathNavigate {
       }
    }
 
+   @Override
    protected void removeSunnyPath() {
       super.removeSunnyPath();
       if (this.shouldAvoidSun) {
@@ -132,6 +138,7 @@ public class PathNavigateBottom extends PathNavigate {
       }
    }
 
+   @Override
    protected boolean isDirectPathBetweenPoints(Vec3d posVec31, Vec3d posVec32, int sizeX, int sizeY, int sizeZ) {
       int i = MathHelper.floor(posVec31.x);
       int j = MathHelper.floor(posVec31.z);
@@ -277,6 +284,7 @@ public class PathNavigateBottom extends PathNavigate {
    }
 
    public class BottomNodeProcessor extends WalkNodeProcessor {
+      @Override
       public PathPoint getStart() {
          int i;
          if (this.getCanSwim() && this.entity.isInWater()) {

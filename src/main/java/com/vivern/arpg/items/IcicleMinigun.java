@@ -40,6 +40,7 @@ public class IcicleMinigun extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -49,34 +50,39 @@ public class IcicleMinigun extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
       return new AnimationCapabilityProvider();
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
       if (state == 1) {
-         Flicks.instance.setClientAnimation(player, slot, EnumFlick.RELOAD, 0, 65, -1, 65);
+         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.RELOAD, 0, 65, -1, 65);
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (world.isRemote) {
          if (entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            if (Flicks.instance.confirmPack(player).get(itemSlot, EnumFlick.SHOOT) == null) {
-               Flicks.instance.setClientAnimation(player, itemSlot, EnumFlick.SHOOT, 0, Integer.MAX_VALUE, 0, 0);
+            if (Flicks.INSTANCE.confirmPack(player).get(itemSlot, EnumFlick.SHOOT) == null) {
+               Flicks.INSTANCE.setClientAnimation(player, itemSlot, EnumFlick.SHOOT, 0, Integer.MAX_VALUE, 0, 0);
             } else {
                int attackTime = NBTHelper.GetNBTint(itemstack, "attack_time");
-               Flicks.instance.setTendency(player, itemSlot, EnumFlick.SHOOT, Math.min(MathHelper.ceil(attackTime / 3.0F), 50));
+               Flicks.INSTANCE.setTendency(player, itemSlot, EnumFlick.SHOOT, Math.min(MathHelper.ceil(attackTime / 3.0F), 50));
             }
          }
       } else {
@@ -118,7 +124,7 @@ public class IcicleMinigun extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getF("velocity"),
+                        parameters.getFloat("velocity"),
                         parameters.getEnchantedF("inaccuracy", acc),
                         -0.35F,
                         0.5F,
@@ -162,11 +168,13 @@ public class IcicleMinigun extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;
@@ -193,8 +201,8 @@ public class IcicleMinigun extends ItemWeapon {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int attackTime = NBTHelper.GetNBTint(itemstack, "attack_time");
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      int minCooldown = parameters.getI("min_cooldown");
-      int maxCooldown = parameters.getI("max_cooldown");
+      int minCooldown = parameters.getInt("min_cooldown");
+      int maxCooldown = parameters.getInt("max_cooldown");
       int attackTimeForFast = parameters.getEnchantedI("attacktime_for_fast", rapidity);
       float ft1 = 1.0F - GetMOP.getFromTo((float)attackTime, 0.0F, (float)attackTimeForFast);
       return minCooldown + Math.round((maxCooldown - minCooldown) * ft1);

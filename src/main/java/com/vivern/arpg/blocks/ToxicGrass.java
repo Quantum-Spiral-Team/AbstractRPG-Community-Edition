@@ -33,6 +33,7 @@ public class ToxicGrass extends BlockBlockHard {
       return true;
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -46,6 +47,7 @@ public class ToxicGrass extends BlockBlockHard {
       }
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote) {
          if (!worldIn.isAreaLoaded(pos, 3)) {

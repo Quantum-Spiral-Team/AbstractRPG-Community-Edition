@@ -138,6 +138,7 @@ public class EntityWeatherRocket extends StandardBullet implements RenderModule.
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 11) {

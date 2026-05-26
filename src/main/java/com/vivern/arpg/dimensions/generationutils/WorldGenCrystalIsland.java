@@ -33,6 +33,7 @@ public class WorldGenCrystalIsland extends WorldGenAdvanced {
    public NoiseGeneratorPerlin perlin2;
    public NoiseGeneratorPerlin perlin3;
 
+   @Override
    public boolean generate(World world, Random rand, BlockPos position) {
       this.generateCrystalIsland(rand, new Vec3d(position), 0, 1.0F);
       return true;

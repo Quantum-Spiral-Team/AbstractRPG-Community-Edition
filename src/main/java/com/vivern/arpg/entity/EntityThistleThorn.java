@@ -55,6 +55,7 @@ public class EntityThistleThorn extends EntityThrowable {
       this.magicPower = power;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -65,10 +66,12 @@ public class EntityThistleThorn extends EntityThrowable {
       this.motionZ = this.motionZ + entityThrower.motionZ * mot;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.005F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote) {
@@ -93,6 +96,7 @@ public class EntityThistleThorn extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -162,6 +166,7 @@ public class EntityThistleThorn extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit)

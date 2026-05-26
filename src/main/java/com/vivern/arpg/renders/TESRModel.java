@@ -26,6 +26,7 @@ public class TESRModel extends TileEntitySpecialRenderer<TileEntity> {
       this.dataToFloats = dataToFloats;
    }
 
+   @Override
    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);

@@ -34,6 +34,7 @@ public class DisenchantmentTable extends Block {
       this.setHarvestLevel("pickaxe", 2);
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof IInventory) {
@@ -44,19 +45,23 @@ public class DisenchantmentTable extends Block {
       super.breakBlock(worldIn, pos, state);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -71,19 +76,23 @@ public class DisenchantmentTable extends Block {
       return false;
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileDisenchantmentTable createTileEntity(World world, IBlockState blockState) {
       return new TileDisenchantmentTable();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }

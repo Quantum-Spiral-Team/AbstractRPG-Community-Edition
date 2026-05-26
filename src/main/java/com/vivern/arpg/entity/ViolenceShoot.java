@@ -71,6 +71,7 @@ public class ViolenceShoot extends EntityThrowable {
       );
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -78,10 +79,12 @@ public class ViolenceShoot extends EntityThrowable {
       this.shoot(f, f1, f2, velocity, inaccuracy);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.03F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 100) {
@@ -97,6 +100,7 @@ public class ViolenceShoot extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -165,6 +169,7 @@ public class ViolenceShoot extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.world.isRemote) {
          if (result.entityHit != null) {
@@ -205,7 +210,7 @@ public class ViolenceShoot extends EntityThrowable {
                );
                entity.hurtResistantTime = 0;
                Weapons.setPotionIfEntityLB(
-                  entity, PotionEffects.DEMONIC_BURN, parameters.getEnchantedI("potion_time", witchery), parameters.getI("potion_power")
+                  entity, PotionEffects.DEMONIC_BURN, parameters.getEnchantedI("potion_time", witchery), parameters.getInt("potion_power")
                );
             }
          }
@@ -215,6 +220,7 @@ public class ViolenceShoot extends EntityThrowable {
       this.setDead();
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       super.onEntityUpdate();

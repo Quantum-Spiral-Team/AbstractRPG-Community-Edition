@@ -61,6 +61,7 @@ public class ToxiniumShotgunModel extends ModelBase {
       this.shapebarr_5.addBox(0.0F, 0.0F, 0.0F, 2, 2, 7, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape2.render(f5);
       this.shapebarr_4.render(f5);

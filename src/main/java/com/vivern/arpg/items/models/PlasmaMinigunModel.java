@@ -209,6 +209,7 @@ public class PlasmaMinigunModel extends ModelBase {
       this.shape_r_4.addChild(this.barrel_4_b);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1.offsetX = 6.0F * GetMOP.getFromTo(f1, 0.0F, 0.3F);
       this.shape3_a.offsetX = -1.5F * GetMOP.getFromTo(f1, 0.3F, 0.5F);

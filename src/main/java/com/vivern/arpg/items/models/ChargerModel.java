@@ -76,6 +76,7 @@ public class ChargerModel extends ModelBase {
       this.shape3.addBox(-1.0F, -0.5F, 0.0F, 2, 1, 5, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shapeaaa1.offsetX, this.shapeaaa1.offsetY, this.shapeaaa1.offsetZ);

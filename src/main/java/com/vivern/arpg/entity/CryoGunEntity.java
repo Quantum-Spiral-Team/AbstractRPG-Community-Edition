@@ -53,6 +53,7 @@ public class CryoGunEntity extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -65,6 +66,7 @@ public class CryoGunEntity extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > this.livetime) {
@@ -74,10 +76,12 @@ public class CryoGunEntity extends EntityThrowable {
       this.world.setEntityState(this, (byte)8);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -171,6 +175,7 @@ public class CryoGunEntity extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -217,7 +222,7 @@ public class CryoGunEntity extends EntityThrowable {
                         entitylivingbase,
                         PotionEffects.FREEZING,
                         (float)parameters.getEnchantedI("potion_time_add", witchery),
-                        (float)parameters.getI("potion_power_add"),
+                        (float)parameters.getInt("potion_power_add"),
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumMathOperation.PLUS,

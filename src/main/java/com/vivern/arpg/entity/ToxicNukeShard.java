@@ -65,6 +65,7 @@ public class ToxicNukeShard extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -77,10 +78,12 @@ public class ToxicNukeShard extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.015F;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -111,11 +114,12 @@ public class ToxicNukeShard extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
       double shard_damage_radius = parameters.getEnchantedF("shard_damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, this.weaponstack));
-      if (this.ticksExisted > parameters.getI("shard_livetime")) {
+      if (this.ticksExisted > parameters.getInt("shard_livetime")) {
          this.setDead();
       }
 
@@ -141,7 +145,7 @@ public class ToxicNukeShard extends EntityThrowable {
                      entitylivingbase.addPotionEffect(debaff);
                   }
                } else if (!this.world.isRemote) {
-                  float friendlyfire = parameters.getF("friendlyfire");
+                  float friendlyfire = parameters.getFloat("friendlyfire");
                   PotionEffect debaff = new PotionEffect(
                      PotionEffects.TOXIN,
                      (int)(parameters.getEnchantedI("toxin_time", witchery) * friendlyfire),
@@ -161,6 +165,7 @@ public class ToxicNukeShard extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       float frictionMultipl = 1.3F;
       if (result.typeOfHit == Type.BLOCK) {
@@ -190,7 +195,7 @@ public class ToxicNukeShard extends EntityThrowable {
 
          if (!this.world.isRemote && result.typeOfHit == Type.BLOCK && !this.blockcollided) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            if (this.rand.nextFloat() < parameters.getF("dig_chance")) {
+            if (this.rand.nextFloat() < parameters.getFloat("dig_chance")) {
                BlockPos blockpos = result.getBlockPos();
                Block block = this.world.getBlockState(blockpos).getBlock();
                float hard = block.getBlockHardness(this.world.getBlockState(blockpos), this.world, blockpos);

@@ -50,6 +50,7 @@ public class CannonSnowball extends EntityThrowable {
       this.shoot(f, f1, f2, velocity, inaccuracy);
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 100) {
@@ -57,6 +58,7 @@ public class CannonSnowball extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -66,6 +68,7 @@ public class CannonSnowball extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {

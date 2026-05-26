@@ -45,23 +45,28 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
       return BlocksRegister.HR_ZARPION_ROCKS;
    }
 
+   @Override
    public boolean isFullBlock(IBlockState state) {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       int axis = (Integer)state.getValue(AXIS);
       if (axis == 1) {
@@ -90,6 +95,7 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       if (meta == 0) {
          return this.getDefaultState().withProperty(AXIS, 0);
@@ -155,6 +161,7 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
       }
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       boolean b1f = (Boolean)state.getValue(FORWARD);
@@ -193,14 +200,17 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{AXIS, FORWARD, BACKWARD});
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return MapColor.OBSIDIAN;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       if (EnumAxis.fromFacingAxis(facing.getAxis()) == EnumAxis.X) {
          return this.getStateFromMeta(meta).withProperty(AXIS, 1);
@@ -213,6 +223,7 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
       }
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       switch (rot) {
          case COUNTERCLOCKWISE_90:

@@ -64,6 +64,7 @@ public class ParticleTracker<T extends Entity> {
          this.enableAlphaGlow = enableAlphaGlow;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          if (entity.dropped) {
             entity.texture = this.tex;
@@ -98,6 +99,7 @@ public class ParticleTracker<T extends Entity> {
          this.newDisableOnEnd = newDisableOnEnd;
       }
 
+      @Override
       public void update(AnimatedGParticle entity) {
          if (entity.dropped) {
             if (entity.texture != this.tex && this.randomizeRotation) {
@@ -138,6 +140,7 @@ public class ParticleTracker<T extends Entity> {
          this.colorBmult = colorBmult;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          if (entity.ticksExisted >= this.startTime && entity.ticksExisted <= this.targetTime) {
             entity.Red = entity.Red * this.colorRmult;
@@ -148,6 +151,7 @@ public class ParticleTracker<T extends Entity> {
    }
 
    public static class TrackerDelayCollide extends ParticleTracker<GUNParticle> {
+      @Override
       public void update(GUNParticle entity) {
          if (entity.ticksExisted > 4) {
             entity.collide = true;
@@ -305,6 +309,7 @@ public class ParticleTracker<T extends Entity> {
          }
       }
 
+      @Override
       public void render(GUNParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
          GlStateManager.pushMatrix();
          float translate = 1.7F;
@@ -360,6 +365,7 @@ public class ParticleTracker<T extends Entity> {
          this.insert = insert;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          if (!entity.dropped) {
             Vec2f vec = entity.rotationPitchYaw;
@@ -384,6 +390,7 @@ public class ParticleTracker<T extends Entity> {
          this.colorChangeEndTime = colorChangeEndTime;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          float ft1 = GetMOP.getFromTo((float)entity.ticksExisted, (float)this.colorChangeStartTime, (float)this.colorChangeEndTime);
          float ft2 = 1.0F - ft1;
@@ -443,6 +450,7 @@ public class ParticleTracker<T extends Entity> {
          return this;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          if (entity.world.getWorldTime() != insuranceWorldTime && rand.nextFloat() < this.chance) {
             List<Entity> list = GetMOP.getEntitiesInAABBof(entity.world, entity, (double)this.findRadius, entity);
@@ -513,6 +521,7 @@ public class ParticleTracker<T extends Entity> {
          this.speed = speed;
       }
 
+      @Override
       public void render(GUNParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
          GlStateManager.rotate((entity.ticksExisted + partialTicks) * this.speed, 0.0F, 0.0F, 1.0F);
       }
@@ -588,6 +597,7 @@ public class ParticleTracker<T extends Entity> {
          this.rotateOnDropped = rotateOnDropped;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          if (this.rotateOnDropped || !entity.dropped) {
             entity.rotation = entity.rotation + this.speed;
@@ -604,6 +614,7 @@ public class ParticleTracker<T extends Entity> {
          this.sinSpeed = sinSpeed;
       }
 
+      @Override
       public void render(GUNParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
          float finalscale = 1.0F
             + MathHelper.sin((entity.ticksExisted + entity.getEntityId() * 2.3481033F + partialTicks) * this.sinSpeed) * this.amplitude;
@@ -620,6 +631,7 @@ public class ParticleTracker<T extends Entity> {
          this.vectorsScale = vectorsScale;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          if (this.vectorsAlpha != null) {
             for (Vec3d vect : this.vectorsAlpha) {
@@ -640,6 +652,7 @@ public class ParticleTracker<T extends Entity> {
          }
       }
 
+      @Override
       public void render(GUNParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
          if (this.vectorsScale != null) {
             for (Vec3d vect : this.vectorsScale) {
@@ -662,6 +675,7 @@ public class ParticleTracker<T extends Entity> {
          this.vectorsScale = vectorsScale;
       }
 
+      @Override
       public void update(BetweenParticle entity) {
          if (this.vectorsAlpha != null) {
             for (Vec3d vect : this.vectorsAlpha) {
@@ -698,6 +712,7 @@ public class ParticleTracker<T extends Entity> {
          this.deleteOriginalParticle = deleteOriginalParticle;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          if (this.entityToSpawn != null) {
             if (this.type == 0) {
@@ -736,6 +751,7 @@ public class ParticleTracker<T extends Entity> {
          this.colorChangeEndTime = colorChangeEndTime;
       }
 
+      @Override
       public void update(TrailParticle entity) {
          float ft1 = GetMOP.getFromTo((float)entity.ticksExisted, (float)this.colorChangeStartTime, (float)this.colorChangeEndTime);
          float ft2 = 1.0F - ft1;
@@ -757,6 +773,7 @@ public class ParticleTracker<T extends Entity> {
          this.positions = positions;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          for (int i = 1; i < this.times.length; i++) {
             int time = this.times[i];
@@ -796,6 +813,7 @@ public class ParticleTracker<T extends Entity> {
          this.speedScale = speedScale;
       }
 
+      @Override
       public void update(GUNParticle entity) {
          double scaledX = entity.posX * this.noiseScale;
          double scaledY = entity.posY * this.noiseScale;
@@ -817,6 +835,7 @@ public class ParticleTracker<T extends Entity> {
          this.to = to;
       }
 
+      @Override
       public void render(GUNParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
          float ft = GetMOP.getFromTo(entity.ticksExisted + partialTicks, this.from, this.to) * this.amountTranslate;
          double xx = x * ft;

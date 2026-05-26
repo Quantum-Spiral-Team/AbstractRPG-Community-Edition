@@ -93,6 +93,7 @@ public class EntityAIAttackSweep extends AbstractMob.AbstractAI {
       return this;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null && this.enable;
    }
@@ -139,6 +140,7 @@ public class EntityAIAttackSweep extends AbstractMob.AbstractAI {
       }
    }
 
+   @Override
    public void updateTask() {
       if (this.enable) {
          if (this.entity.getAttackTarget() != null) {

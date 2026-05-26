@@ -34,6 +34,7 @@ public class MovingSoundTileEntity extends MovingSound {
       this.upriseTicks = upriseTicks;
    }
 
+   @Override
    public void update() {
       this.time++;
       TileEntity getted = this.world.getTileEntity(this.tilepos);

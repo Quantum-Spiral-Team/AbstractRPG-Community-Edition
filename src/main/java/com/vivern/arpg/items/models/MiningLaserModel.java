@@ -225,6 +225,7 @@ public class MiningLaserModel extends ModelBase {
       this.grip2.addChild(this.grip3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       this.corpus.render(f5);

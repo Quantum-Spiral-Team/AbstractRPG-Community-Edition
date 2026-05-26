@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class GUNParticle extends EntityThrowable {
    public float scale;
    public float gravity;
@@ -162,10 +161,12 @@ public class GUNParticle extends EntityThrowable {
       this.setVelocity(speedx, speedy, speedz);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return this.gravity;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.tracker != null) {
@@ -194,14 +195,17 @@ public class GUNParticle extends EntityThrowable {
       this.alpha = this.alpha + this.alphaTickAdding;
    }
 
+   @Override
    public boolean isInWater() {
       return this.noWaterBubble ? false : this.inWater;
    }
 
+   @Override
    public boolean isPushedByWater() {
       return this.isPushedByLiquids;
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (this.collide
          && this.ticksExisted > 1
@@ -265,6 +269,7 @@ public class GUNParticle extends EntityThrowable {
       }
    }
 
+   @Override
    public boolean shouldRenderInPass(int pass) {
       return pass == 1;
    }

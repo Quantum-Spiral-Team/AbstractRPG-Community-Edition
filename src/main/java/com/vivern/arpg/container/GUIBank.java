@@ -52,6 +52,7 @@ public class GUIBank extends GuiScreen {
       this.fontRenderer.drawString(s, 88 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       if (this.mc != null) {
          this.drawDefaultBackground();
@@ -92,6 +93,7 @@ public class GUIBank extends GuiScreen {
       }
    }
 
+   @Override
    protected void mouseReleased(int mouseX, int mouseY, int state) {
       super.mouseReleased(mouseX, mouseY, state);
       this.sendCoinsMoved();
@@ -100,6 +102,7 @@ public class GUIBank extends GuiScreen {
       this.isclicked = false;
    }
 
+   @Override
    public void updateScreen() {
       super.updateScreen();
       if (this.isclicked) {
@@ -108,6 +111,7 @@ public class GUIBank extends GuiScreen {
       }
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       int x = mouseX - (this.width - 176) / 2;
       int y = mouseY - (this.height - 109) / 2;
@@ -143,6 +147,7 @@ public class GUIBank extends GuiScreen {
       }
    }
 
+   @Override
    public void onGuiClosed() {
       super.onGuiClosed();
       this.sendCoinsMoved();
@@ -181,10 +186,12 @@ public class GUIBank extends GuiScreen {
       }
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       if (this.mc != null && (keyCode == 1 || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode))) {
          this.mc.player.closeScreen();

@@ -14,8 +14,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
+@SideOnly(Side.CLIENT)
 public class GUIDebugColorBlock extends GuiScreen {
    public static final ResourceLocation pixel = new ResourceLocation("arpg:textures/pixel.png");
    public static final ResourceLocation gui_color_debug = new ResourceLocation("arpg:textures/gui_color_debug.png");
@@ -29,7 +32,7 @@ public class GUIDebugColorBlock extends GuiScreen {
       World world = Minecraft.getMinecraft().world;
       if (world != null) {
          TileEntity e = world.getTileEntity(this.pos.up());
-         if (e != null && e instanceof TileEntitySign) {
+         if (e instanceof TileEntitySign) {
             TileEntitySign tes = (TileEntitySign)e;
             return tes.signText[0].getUnformattedComponentText();
          }
@@ -38,6 +41,7 @@ public class GUIDebugColorBlock extends GuiScreen {
       return null;
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
@@ -88,6 +92,7 @@ public class GUIDebugColorBlock extends GuiScreen {
       }
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       String name = this.getName();
       if (name != null) {
@@ -116,10 +121,12 @@ public class GUIDebugColorBlock extends GuiScreen {
       }
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       if (keyCode == 1 || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
          this.mc.player.closeScreen();

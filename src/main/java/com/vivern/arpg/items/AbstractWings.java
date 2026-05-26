@@ -3,6 +3,7 @@ package com.vivern.arpg.items;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.items.models.ModelWings;
 import com.vivern.arpg.main.Booom;
@@ -41,10 +42,13 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
    public int flapPeriod = 8;
    public float flapPeriodFloat = 1.7F;
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       IEnergyItem.addRFInformation(stack, worldIn, tooltip, flagIn);
    }
 
+   @SideOnly(Side.CLIENT)
    public void renderDefaultWings(
       ResourceLocation texture,
       ModelWings model,
@@ -62,7 +66,7 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
          );
          float glidingRaw = GetMOP.partial(NBTHelper.GetNBTfloat(stack, "gliding"), NBTHelper.GetNBTfloat(stack, "prevgliding"), partialTicks);
          float expand = (-player.rotationPitch + 90.0F) / 180.0F;
-         float nofly = 0.0F;
+         float nofly;
          if (!player.isElytraFlying()) {
             nofly = 1.0F;
          } else {
@@ -75,7 +79,6 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
          }
 
          expand /= 1.0F + nofly * 1.5F;
-         int maxflytime = this.getMaxFlyTime(stack);
          float upward = GetMOP.getFromTo(flytime, 0.0F, 5.0F) * GetMOP.getFromTo(flyupStarted, 0.0F, (float)(this.flapPeriod / 2));
          float upwardProgress = flytime / this.flapPeriodFloat;
          float gliding = glidingRaw / 8.0F * nofly;
@@ -147,29 +150,24 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
 
    @Override
    public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
-      return player instanceof EntityPlayer
-         ? IWings.isEquippableWithChestplate(((ItemStack)((EntityPlayer)player).inventory.armorInventory.get(2)).getItem())
-         : false;
+      return player instanceof EntityPlayer && IWings.isEquippableWithChestplate(((EntityPlayer) player).inventory.armorInventory.get(2).getItem());
    }
 
    @Override
    public void onWornTick(ItemStack itemstack, EntityLivingBase entity) {
       if (entity instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entity;
-         boolean stateChanged = false;
          int bitstate = 0;
-         boolean flying = (Boolean)player.getDataManager().get(PropertiesRegistry.FLYING);
+         boolean flying = player.getDataManager().get(PropertiesRegistry.FLYING);
          boolean click = Keys.isPressedDoubleJump(player);
-         if (click && !entity.world.isRemote && !flying && this.canUseWings(itemstack, player)) {
+         if (click &&  !flying && this.canUseWings(itemstack, player)) {
             if (player.isSneaking()) {
                if (!entity.world.isRemote) {
                   player.getDataManager().set(PropertiesRegistry.FLYING, true);
+               } else {
+                  AbstractRPG.proxy.playWingsSound(player, this.getWingsSound(player));
                }
-
-               if (player instanceof EntityPlayerSP) {
-                  this.startElytraSound((EntityPlayerSP)player);
-               }
-            } else {
+            } else if (!entity.world.isRemote) {
                NBTHelper.GiveNBTint(itemstack, 0, "flytime");
                NBTHelper.GiveNBTint(itemstack, 0, "lastbitstate");
                int flytime = NBTHelper.GetNBTint(itemstack, "flytime");
@@ -216,13 +214,13 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
          }
 
          if (!entity.world.isRemote) {
-            ItemStack chestplate = (ItemStack)player.inventory.armorInventory.get(2);
+            ItemStack chestplate = player.inventory.armorInventory.get(2);
             if (!chestplate.isEmpty() && !IWings.isEquippableWithChestplate(chestplate.getItem())) {
                IWings.chestplateReturnToInv(player);
             }
 
-            int lastbitstate = NBTHelper.GetNBTint(itemstack, "lastbitstate");
-            if (bitstate != lastbitstate) {
+            int lastBitState = NBTHelper.GetNBTint(itemstack, "lastbitstate");
+            if (bitstate != lastBitState) {
                PacketBaublesNbtToClients.send(player, 64.0, 3, 's', bitstate, Weapons.EnumMathOperation.NONE, 5);
                NBTHelper.SetNBTint(itemstack, bitstate, "lastbitstate");
             }
@@ -280,7 +278,7 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
       if (player.ticksExisted % 20 == 0) {
          itemstack.damageItem(1, player);
          if (itemstack.getMaxDamage() - itemstack.getItemDamage() < 20 && Minecraft.getMinecraft().ingameGUI != null) {
-            Minecraft.getMinecraft().ingameGUI.setOverlayMessage("пїЅ4Your wings are almost broken", false);
+            Minecraft.getMinecraft().ingameGUI.setOverlayMessage("\u00A74Your wings are almost broken", false);
          }
       }
    }
@@ -289,21 +287,22 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
       return true;
    }
 
-   public abstract double getMaxUpwardMotion(ItemStack var1);
+   public abstract double getMaxUpwardMotion(ItemStack stack);
 
-   public abstract double getUpwardMotionAdd(ItemStack var1);
+   public abstract double getUpwardMotionAdd(ItemStack stack);
 
-   public abstract double getFallingMotionAdd(ItemStack var1);
+   public abstract double getFallingMotionAdd(ItemStack stack);
 
    @Override
-   public abstract int getMaxFlyTime(ItemStack var1);
+   public abstract int getMaxFlyTime(ItemStack stack);
 
-   public abstract double getFallingMotionSlowdown(ItemStack var1);
+   public abstract double getFallingMotionSlowdown(ItemStack stack);
 
-   public abstract void startElytraSound(EntityPlayerSP var1);
+   @SideOnly(Side.CLIENT)
+   protected abstract MovingSound getWingsSound(EntityPlayer player);
 
    public void tryPlayFlapSound(EntityPlayer player, ItemStack itemstack, int clientFlyTime) {
-      NBTHelper.GiveNBTboolean(itemstack, false, "soundPlayed");
+      NBTHelper.giveNBTboolean(itemstack, false, "soundPlayed");
       boolean soundPlayed = NBTHelper.GetNBTboolean(itemstack, "soundPlayed");
       double soundCycle = clientFlyTime / this.flapPeriodFloat % (Math.PI * 2);
       if (soundCycle >= 1.8) {
@@ -336,12 +335,12 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
    }
 
    @SideOnly(Side.CLIENT)
-   public class WingsSound extends MovingSound {
-      private final EntityPlayerSP player;
+   public static class WingsSound extends MovingSound {
+      private final EntityPlayer player;
       private int time;
       Random rand = new Random();
 
-      public WingsSound(EntityPlayerSP player, SoundEvent sound) {
+      public WingsSound(EntityPlayer player, SoundEvent sound) {
          super(sound, SoundCategory.PLAYERS);
          this.player = player;
          this.repeat = true;
@@ -349,6 +348,7 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
          this.volume = 0.1F;
       }
 
+      @Override
       public void update() {
          this.time++;
          if (!this.player.isDead && (this.time <= 20 || this.player.isElytraFlying())) {
@@ -382,7 +382,6 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
                this.volume = (float)(this.volume * ((this.time - 20) / 20.0));
             }
 
-            float f2 = 0.8F;
             if (this.volume > 0.8F) {
                this.pitch = 1.0F + (this.volume - 0.8F);
             } else {

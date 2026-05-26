@@ -219,12 +219,12 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
             float bdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack));
             float bknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack));
             if (this.bullet != null) {
-               bdamage += this.bullet.damage * parameters.getF("bullet_damage");
-               bknockback += this.bullet.knockback * parameters.getF("bullet_knockback");
+               bdamage += this.bullet.damage * parameters.getFloat("bullet_damage");
+               bknockback += this.bullet.knockback * parameters.getFloat("bullet_knockback");
             }
 
             if (result.entityHit.isBurning()) {
-               bdamage += parameters.getF("fire_bonus");
+               bdamage += parameters.getFloat("fire_bonus");
             }
 
             Weapons.dealDamage(

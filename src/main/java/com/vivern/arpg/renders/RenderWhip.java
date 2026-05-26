@@ -21,6 +21,7 @@ public class RenderWhip<T extends WhipParticle> extends Render<WhipParticle> {
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(WhipParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       float mx = (float)(entity.from.x + entity.startMotionX * partialTicks - (entity.to.x + entity.targetMotionX * partialTicks));
       float mz = (float)(entity.from.z + entity.startMotionZ * partialTicks - (entity.to.z + entity.targetMotionZ * partialTicks));
@@ -141,11 +142,13 @@ public class RenderWhip<T extends WhipParticle> extends Render<WhipParticle> {
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(WhipParticle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
 
    public static class RenderWhipFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderWhip(manager);
       }

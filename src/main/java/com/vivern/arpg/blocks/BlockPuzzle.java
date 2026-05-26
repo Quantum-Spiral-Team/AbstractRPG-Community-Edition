@@ -1,5 +1,6 @@
 package com.vivern.arpg.blocks;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.container.GUIFrozenPuzzle;
 import com.vivern.arpg.container.GuiHandler;
 import com.vivern.arpg.main.BlocksRegister;
@@ -35,7 +36,7 @@ public class BlockPuzzle extends Block implements IBlockHardBreak {
    @Override
    public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
       TilePuzzle tile = this.getTileEntity(world, pos);
-      if (tile != null && tile.causesRedstone && toolLevel >= 3 && state.getBlock().isToolEffective(tool, state)) {
+      if (tile.causesRedstone && toolLevel >= 3 && state.getBlock().isToolEffective(tool, state)) {
          return originalSpeed * BlocksRegister.HR_PUZZLE.fast;
       } else {
          return toolLevel >= BlocksRegister.HR_PUZZLE.lvl && state.getBlock().isToolEffective(tool, state)
@@ -44,6 +45,7 @@ public class BlockPuzzle extends Block implements IBlockHardBreak {
       }
    }
 
+   @Override
    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
       TilePuzzle tile = this.getTileEntity(worldIn, pos);
@@ -53,37 +55,38 @@ public class BlockPuzzle extends Block implements IBlockHardBreak {
 
          try {
             i = Integer.parseInt(name);
-         } catch (NumberFormatException var10) {
+         } catch (NumberFormatException ignored) {
+
          }
       }
 
       tile.setupPuzzle(i);
    }
 
+   @Override
    public boolean canProvidePower(IBlockState state) {
       return true;
    }
 
+   @Override
    public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
       TilePuzzle tile = this.getTileEntity(blockAccess, pos);
       return tile.causesRedstone ? 15 : 0;
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       for (EnumFacing enumfacing : EnumFacing.values()) {
          worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
       if (worldIn.isRemote) {
-         TilePuzzle tile = this.getTileEntity(worldIn, pos);
-         if (tile != null) {
-            GuiHandler.displayGui(player, new GUIFrozenPuzzle(tile));
-            return true;
-         }
+         player.openGui(AbstractRPG.instance, GuiHandler.PUZZLE_GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
       }
 
       return true;
@@ -116,10 +119,12 @@ public class BlockPuzzle extends Block implements IBlockHardBreak {
       return (TilePuzzle)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TilePuzzle createTileEntity(World world, IBlockState blockState) {
       return new TilePuzzle();

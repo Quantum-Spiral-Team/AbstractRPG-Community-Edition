@@ -44,11 +44,13 @@ public class StormRack extends Block {
       this.setLightLevel(0.2F);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return 15728880;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       switch ((EnumFacing)state.getValue(FACING)) {
          case NORTH:
@@ -63,14 +65,17 @@ public class StormRack extends Block {
       }
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
       if (this.canAttachTo(worldIn, pos.west(), side)) {
          return true;
@@ -87,6 +92,7 @@ public class StormRack extends Block {
       return !flag && iblockstate.getBlockFaceShape(p_193392_1_, p_193392_2_, p_193392_3_) == BlockFaceShape.SOLID && !iblockstate.canProvidePower();
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       if (facing.getAxis().isHorizontal() && this.canAttachTo(worldIn, pos.offset(facing.getOpposite()), facing)) {
          return this.getDefaultState().withProperty(FACING, facing);
@@ -101,6 +107,7 @@ public class StormRack extends Block {
       }
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
       if (!this.canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing)) {
@@ -111,6 +118,7 @@ public class StormRack extends Block {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       EnumFacing enumfacing = EnumFacing.byIndex(meta);
       if (enumfacing.getAxis() == Axis.Y) {
@@ -120,27 +128,33 @@ public class StormRack extends Block {
       return this.getDefaultState().withProperty(FACING, enumfacing);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }

@@ -17,18 +17,22 @@ public class MagicOrnament extends BlockBlock {
       super(mater, name, hard, resi);
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(TYPE, meta);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(TYPE);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{TYPE});
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       int type = 0;
       if (facing == EnumFacing.UP) {

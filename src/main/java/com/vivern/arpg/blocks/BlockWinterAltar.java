@@ -7,6 +7,8 @@ import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.tileentity.TileNexusWinterAltar;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -57,15 +59,18 @@ public class BlockWinterAltar extends BlockBlockHard {
       return (TileNexusWinterAltar)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileNexusWinterAltar createTileEntity(World world, IBlockState blockState) {
       return new TileNexusWinterAltar();
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -110,6 +115,7 @@ public class BlockWinterAltar extends BlockBlockHard {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;

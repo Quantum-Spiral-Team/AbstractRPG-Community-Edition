@@ -30,11 +30,13 @@ public class AquaticaBeach extends Biome {
       this.decorator = new AquaticaBeachDecorator();
    }
 
+   @Override
    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
       AquaticaChunkGenerator.generateBiomeTerrain(this, worldIn, rand, chunkPrimerIn, x, z, noiseVal);
    }
 
    class AquaticaBeachDecorator extends BiomeDecorator {
+      @Override
       public void decorate(World world, Random random, Biome biome, BlockPos decpos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

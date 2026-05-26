@@ -144,14 +144,17 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
       return DeathEffects.WIND_BLOOD;
    }
 
+   @Override
    protected float getSoundPitch() {
       return 0.7F;
    }
 
+   @Override
    protected float getSoundVolume() {
       return 3.0F;
    }
 
+   @Override
    public float getEyeHeight() {
       return this.height * 0.5F;
    }
@@ -208,6 +211,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
       }
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
@@ -994,6 +998,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
       }
    }
 
+   @Override
    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
       Potion potion = potioneffectIn.getPotion();
       return potion != PotionEffects.BLOOD_THIRST
@@ -1006,6 +1011,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
          : false;
    }
 
+   @Override
    protected float updateDistance(float p_110146_1_, float p_110146_2_) {
       float maxadd = 2.0F;
       float f = MathHelper.wrapDegrees(p_110146_1_ - this.renderYawOffset);
@@ -1031,10 +1037,12 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
       return p_110146_2_;
    }
 
+   @Override
    public int getVerticalFaceSpeed() {
       return 2;
    }
 
+   @Override
    public int getHorizontalFaceSpeed() {
       return 2;
    }
@@ -1058,6 +1066,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
       );
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void handleStatusUpdate(byte id) {
       super.handleStatusUpdate(id);
@@ -1165,6 +1174,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
       }
    }
 
+   @Override
    protected void initEntityAI() {
       this.ai = new EntityAICorrupter(this, 180, 65.0F, 0, false, 20.0F, 8.0F);
       this.ai.deltaRotation = 90;
@@ -1208,24 +1218,29 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
          this.setMutexBits(3);
       }
 
+      @Override
       public boolean shouldExecute() {
          return this.entity.getAttackTarget() != null && this.enable;
       }
 
+      @Override
       public boolean shouldContinueExecuting() {
          return (this.shouldExecute() || !this.entity.getNavigator().noPath()) && this.enable;
       }
 
+      @Override
       public void startExecuting() {
          super.startExecuting();
       }
 
+      @Override
       public void resetTask() {
          super.resetTask();
          this.seeTime = 0;
          this.entity.resetActiveHand();
       }
 
+      @Override
       public void updateTask() {
          EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
          if (entitylivingbase != null) {

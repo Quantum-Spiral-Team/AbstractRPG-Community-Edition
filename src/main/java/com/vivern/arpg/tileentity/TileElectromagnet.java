@@ -69,6 +69,7 @@ public class TileElectromagnet extends TileEntity implements ITickable, IFillDra
       }
    }
 
+   @Override
    public void update() {
       this.ticks++;
       int tempOfBiome = FluidsRegister.biomeToLiquidTemperature(this.world.getBiome(this.getPos()).getTemperature(this.getPos()));
@@ -391,10 +392,12 @@ public class TileElectromagnet extends TileEntity implements ITickable, IFillDra
       BlockElectromagnet.trySendPacketUpdate(this.world, this.getPos(), this, fluidTypeChanges ? 64 : 8);
    }
 
+   @Override
    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
       return capability == CapabilityEnergy.ENERGY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
    }
 
+   @Override
    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
       if (this.world.getBlockState(this.getPos().offset(facing)).getBlock() == BlocksRegister.BLOCK_ELECTROMAGNET) {
          return (T)super.getCapability(capability, facing);
@@ -472,32 +475,38 @@ public class TileElectromagnet extends TileEntity implements ITickable, IFillDra
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);

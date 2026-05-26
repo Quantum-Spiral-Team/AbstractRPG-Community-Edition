@@ -19,13 +19,16 @@ public class Gnater extends AbstractMob {
       this.experienceValue = 3;
    }
 
+   @Override
    public float getCollisionBorderSize() {
       return 0.2F;
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAIRayLogicFly(this));
       this.tasks.addTask(2, new EntityAIAABBAttack(this, 30, 0.2F));

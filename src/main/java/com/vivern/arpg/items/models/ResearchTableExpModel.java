@@ -54,6 +54,7 @@ public class ResearchTableExpModel extends ModelBase {
       this.setRotateAngle(this.shape11_4, 0.0F, (float) (Math.PI / 4), 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shapeDust.render(f5);
       this.shape11_5.render(f5);

@@ -103,6 +103,7 @@ public class AnnihilationGunModel extends ModelBase {
       this.shape2_3.addBox(-0.5F, 1.0F, -2.0F, 1, 1, 10, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape2_1.render(f5);
       GlStateManager.pushMatrix();

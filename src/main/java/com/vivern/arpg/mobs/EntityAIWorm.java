@@ -86,20 +86,24 @@ public class EntityAIWorm extends EntityAIBase {
       this.vec = entity.getPositionVector();
    }
 
+   @Override
    public void startExecuting() {
       this.homePosition = this.entity.getPositionVector();
       super.startExecuting();
    }
 
+   @Override
    public void resetTask() {
       this.homePosition = null;
       super.resetTask();
    }
 
+   @Override
    public boolean shouldExecute() {
       return !this.entity.isSubMob;
    }
 
+   @Override
    public void updateTask() {
       Vec3d followPoint = this.entity.getAttackTarget() != null ? GetMOP.entityCenterPos(this.entity.getAttackTarget()) : this.homePosition;
       if (followPoint != null) {

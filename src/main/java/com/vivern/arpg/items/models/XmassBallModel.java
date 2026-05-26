@@ -31,6 +31,7 @@ public class XmassBallModel extends ModelBase {
       this.ball2.addBox(-1.0F, -1.0F, -1.0F, 2, 2, 2, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.up.render(f5);
       int i = (int)(entity.getEntityId() * 1.4827375F) % 4;

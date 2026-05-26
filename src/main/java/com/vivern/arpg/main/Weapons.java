@@ -134,9 +134,7 @@ public class Weapons {
          int i2 = stack2.getItemDamage();
          int n1 = NBTHelper.GetNBTint(stack1, "reload_time");
          int n2 = NBTHelper.GetNBTint(stack2, "reload_time");
-         if (i1 >= i2 && n1 >= n2) {
-            return true;
-         }
+         return i1 >= i2 && n1 >= n2;
       }
 
       return false;

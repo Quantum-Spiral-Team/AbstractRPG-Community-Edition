@@ -67,6 +67,7 @@ public class SweepParticle extends Entity {
       this.schedule = schedule;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.scale < this.scaleMax) {
@@ -80,20 +81,25 @@ public class SweepParticle extends Entity {
       this.alpha = this.alpha + this.alphaTickAdding;
    }
 
+   @Override
    public boolean isInWater() {
       return false;
    }
 
+   @Override
    public boolean isPushedByWater() {
       return false;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 }

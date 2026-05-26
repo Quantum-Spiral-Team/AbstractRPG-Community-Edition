@@ -39,6 +39,7 @@ public class BlockTeamBanner extends Block {
       this.setHarvestLevel("axe", 0);
    }
 
+   @Override
    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       TileEntity tileEntity = world.getTileEntity(pos);
       if (tileEntity != null && tileEntity instanceof TileTeamBanner && placer != null && placer instanceof EntityPlayer) {
@@ -55,6 +56,7 @@ public class BlockTeamBanner extends Block {
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -69,36 +71,44 @@ public class BlockTeamBanner extends Block {
       return true;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return ALL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return ALL_AABB;
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileTeamBanner createTileEntity(World world, IBlockState blockState) {
       return new TileTeamBanner();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }

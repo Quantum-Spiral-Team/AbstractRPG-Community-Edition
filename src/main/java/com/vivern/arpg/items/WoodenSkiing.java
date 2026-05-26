@@ -19,10 +19,12 @@ public class WoodenSkiing extends ItemArmor {
       BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
    }
 
+   @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return "arpg:textures/ice_armor_1.png";
    }
 
+   @Override
    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (itemSlot == 0 && entityIn.onGround) {
          entityIn.motionX *= 1.5;

@@ -96,6 +96,7 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
       return this.energyType == null || this.energyStored <= 0.0F;
    }
 
+   @Override
    public void update() {
       if (this.world.isRemote && this.energyType == ShardType.AIR) {
          if (rand.nextFloat() < 0.15F) {
@@ -167,6 +168,7 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
       }
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound tags = new NBTTagCompound();
       tags.setFloat("stored", this.energyStored);
@@ -179,6 +181,7 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
       return new SPacketUpdateTileEntity(this.pos, 1, tags);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       if (compound.hasKey("stored")) {
@@ -190,6 +193,7 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
       }
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound tags = super.getUpdateTag();
       tags.setFloat("stored", this.energyStored);
@@ -202,6 +206,7 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
       return tags;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       if (compound.hasKey("stored")) {
          this.energyStored = compound.getFloat("stored");
@@ -214,6 +219,7 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("stored")) {
          this.energyStored = compound.getFloat("stored");
@@ -226,6 +232,7 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       compound.setFloat("stored", this.energyStored);
       if (this.energyType != null) {

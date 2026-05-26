@@ -15,6 +15,7 @@ import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 class SkyIslandsDecorator extends BiomeDecorator {
    public WorldGenFluidLake lake = new WorldGenFluidLake(Blocks.WATER, BlocksRegister.FULMINIFLORA, null, BlocksRegister.FULMINIFLORA, false, true);
 
+   @Override
    public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");

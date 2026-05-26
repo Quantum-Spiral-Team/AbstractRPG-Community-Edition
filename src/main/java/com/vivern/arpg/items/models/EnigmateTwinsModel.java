@@ -75,6 +75,7 @@ public class EnigmateTwinsModel extends ModelBase {
       this.shapeMain.addChild(this.holePart3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float r1 = AnimationTimer.rainbow1;
       float r2 = AnimationTimer.rainbow2;

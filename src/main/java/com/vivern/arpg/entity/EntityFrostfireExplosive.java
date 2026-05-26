@@ -62,18 +62,22 @@ public class EntityFrostfireExplosive extends Entity implements IEntitySynchroni
       this.power = power;
    }
 
+   @Override
    public void setSize(float width, float height) {
       super.setSize(width, height);
    }
 
+   @Override
    protected boolean canTriggerWalking() {
       return false;
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return !this.isDead;
    }
 
+   @Override
    public void onUpdate() {
       this.prevPosX = this.posX;
       this.prevPosY = this.posY;
@@ -352,11 +356,13 @@ public class EntityFrostfireExplosive extends Entity implements IEntitySynchroni
       }
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       compound.setShort("Fuse", (short)this.fuse);
       compound.setFloat("power", this.power);
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("Fuse")) {
          this.fuse = compound.getShort("Fuse");
@@ -372,10 +378,12 @@ public class EntityFrostfireExplosive extends Entity implements IEntitySynchroni
       return this.tntPlacedBy;
    }
 
+   @Override
    public float getEyeHeight() {
       return 0.0F;
    }
 
+   @Override
    protected void entityInit() {
    }
 }

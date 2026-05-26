@@ -21,6 +21,7 @@ public class ChestReplacerToxic implements ITemplateProcessor {
    public static ReplacerBunker instanceReplBunker = new ReplacerBunker();
    public static ReplacerLab instanceReplLab = new ReplacerLab();
 
+   @Override
    public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
       if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
          GenerationHelper.setChestWithLoot(
@@ -33,6 +34,7 @@ public class ChestReplacerToxic implements ITemplateProcessor {
    }
 
    public static class ReplacerBunker implements ITemplateProcessor {
+      @Override
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
             world.setBlockState(pos, BlocksRegister.RUSTED_SPAWNER.getDefaultState());
@@ -64,6 +66,7 @@ public class ChestReplacerToxic implements ITemplateProcessor {
    }
 
    public static class ReplacerLab implements ITemplateProcessor {
+      @Override
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
             world.setBlockState(pos, BlocksRegister.RUSTED_SPAWNER.getDefaultState());

@@ -34,6 +34,7 @@ public class ARPGPlugin implements IModPlugin {
    public static IGuiHelper guihelper = null;
    static long prevTime = 0L;
 
+   @Override
    public void registerCategories(IRecipeCategoryRegistration registry) {
       guihelper = registry.getJeiHelpers().getGuiHelper();
       categoryNetherMelter = new CategoryNetherMelter(guihelper);
@@ -47,6 +48,7 @@ public class ARPGPlugin implements IModPlugin {
       );
    }
 
+   @Override
    public void register(IModRegistry registry) {
       ArrayList<WrapperNetherMelter> listNM = new ArrayList<>();
 

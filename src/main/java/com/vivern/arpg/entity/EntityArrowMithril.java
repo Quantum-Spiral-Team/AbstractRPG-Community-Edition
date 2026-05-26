@@ -38,6 +38,7 @@ public class EntityArrowMithril extends AbstractArrow {
       this.motionZ *= multiplier;
    }
 
+   @Override
    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
       super.shoot(x, y, z, velocity * 1.4F, inaccuracy / 2.0F);
    }
@@ -47,6 +48,7 @@ public class EntityArrowMithril extends AbstractArrow {
       return Sounds.arrow_mithril;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_MITHRIL);
    }

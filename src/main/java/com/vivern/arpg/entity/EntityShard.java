@@ -78,13 +78,16 @@ public class EntityShard extends Entity {
       this.ticks = this.rand.nextInt(60);
    }
 
+   @Override
    protected boolean canTriggerWalking() {
       return false;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == -25) {
@@ -123,6 +126,7 @@ public class EntityShard extends Entity {
       }
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound nbt) {
       if (nbt.hasKey("ticks")) {
          this.ticks = nbt.getInteger("ticks");
@@ -137,11 +141,13 @@ public class EntityShard extends Entity {
       }
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound nbt) {
       nbt.setInteger("ticks", this.ticks);
       nbt.setString("type", this.shardType.getName());
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       this.ticks++;
@@ -250,6 +256,7 @@ public class EntityShard extends Entity {
       }
    }
 
+   @Override
    public void onCollideWithPlayer(EntityPlayer entityIn) {
       if (this.shardType != null && this.ticksExisted > 15 && !entityIn.world.isRemote) {
          this.world.setEntityState(this, (byte)0);
@@ -258,10 +265,12 @@ public class EntityShard extends Entity {
       }
    }
 
+   @Override
    public boolean canBeAttackedWithItem() {
       return false;
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return this.world.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.WATER, this);
    }

@@ -14,18 +14,22 @@ public class MightEnch extends Enchantment {
       EnchantmentInit.ENCHANTMENTSLIST.add(this);
    }
 
+   @Override
    public int getMinEnchantability(int enchantmentLevel) {
       return 1 + (enchantmentLevel - 1) * 10;
    }
 
+   @Override
    public int getMaxEnchantability(int enchantmentLevel) {
       return this.getMinEnchantability(enchantmentLevel) + 15;
    }
 
+   @Override
    public int getMaxLevel() {
       return 7;
    }
 
+   @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack) {
       return stack.getItem() instanceof IWeapon;
    }

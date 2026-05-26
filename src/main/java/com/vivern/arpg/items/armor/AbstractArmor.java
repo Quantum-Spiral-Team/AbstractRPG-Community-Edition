@@ -31,19 +31,23 @@ public abstract class AbstractArmor extends ItemArmor {
       BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
       Multimap<String, AttributeModifier> multimap = HashMultimap.create();
       return multimap;
    }
 
+   @Override
    public boolean hasOverlay(ItemStack stack) {
       return false;
    }
 
+   @Override
    public int getItemEnchantability() {
       return this.enchantability;
    }
 
+   @Override
    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
       return false;
    }

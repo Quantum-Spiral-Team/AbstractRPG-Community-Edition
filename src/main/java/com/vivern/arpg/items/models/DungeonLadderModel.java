@@ -120,6 +120,7 @@ public class DungeonLadderModel extends ModelBase {
       this.ladder2_5.addBox(-1.0F, -1.0F, 0.0F, 3, 3, 16, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f == 0.0F) {
          this.shape3.render(f5);

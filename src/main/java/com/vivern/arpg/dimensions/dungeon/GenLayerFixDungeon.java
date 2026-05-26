@@ -36,6 +36,7 @@ public class GenLayerFixDungeon {
          this.fromId = Biome.getIdForBiome(from);
       }
 
+      @Override
       public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
          int i = areaX - 1;
          int j = areaY - 1;

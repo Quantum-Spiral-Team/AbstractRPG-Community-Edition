@@ -38,6 +38,7 @@ public class Reaper extends ItemWeapon {
       this.setMaxDamage(3000);
       this.setMaxStackSize(1);
       this.addPropertyOverride(new ResourceLocation("throw"), new IItemPropertyGetter() {
+         @Override
          @SideOnly(Side.CLIENT)
          public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
             if (entityIn == null) {
@@ -52,6 +53,7 @@ public class Reaper extends ItemWeapon {
       });
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -61,10 +63,12 @@ public class Reaper extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -112,6 +116,7 @@ public class Reaper extends ItemWeapon {
       return ret;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -119,7 +124,7 @@ public class Reaper extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
             boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
-            NBTHelper.GiveNBTboolean(itemstack, false, "throwed");
+            NBTHelper.giveNBTboolean(itemstack, false, "throwed");
             if (!player.getCooldownTracker().hasCooldown(this)) {
                NBTHelper.SetNBTboolean(itemstack, false, "throwed");
             }

@@ -43,14 +43,17 @@ public class SpellRod extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 5.0F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
@@ -65,6 +68,7 @@ public class SpellRod extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Entity entity = world.getEntityByID((int)c);
@@ -90,6 +94,7 @@ public class SpellRod extends ItemWeapon {
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -232,6 +237,7 @@ public class SpellRod extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       int i = NBTHelper.GetNBTint(stack, "vessel");
@@ -278,6 +284,7 @@ public class SpellRod extends ItemWeapon {
       return 2;
    }
 
+   @Override
    public float getDestroySpeed(ItemStack stack, IBlockState state) {
       return 0.0F;
    }

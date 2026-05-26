@@ -14,6 +14,7 @@ public class AquaticaPortalFrame extends BlockBlock {
       super(mater, name, hard, resi);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
       IBlockState statewater = world.getBlockState(fromPos);
       if (statewater.getBlock() == Blocks.WATER || statewater.getBlock() == Blocks.FLOWING_WATER) {

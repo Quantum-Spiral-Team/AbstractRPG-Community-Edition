@@ -23,6 +23,7 @@ public abstract class AbstractBoss extends AbstractMob {
       this.bossInfo = new BossInfoServer(this.getDisplayName(), barColor, Overlay.PROGRESS);
    }
 
+   @Override
    public boolean isNonBoss() {
       return false;
    }
@@ -31,11 +32,13 @@ public abstract class AbstractBoss extends AbstractMob {
       return false;
    }
 
+   @Override
    public void addTrackingPlayer(EntityPlayerMP player) {
       super.addTrackingPlayer(player);
       this.bossInfo.addPlayer(player);
    }
 
+   @Override
    public void removeTrackingPlayer(EntityPlayerMP player) {
       super.removeTrackingPlayer(player);
       this.bossInfo.removePlayer(player);
@@ -74,6 +77,7 @@ public abstract class AbstractBoss extends AbstractMob {
       }
    }
 
+   @Override
    @Nullable
    public EntityItem entityDropItem(ItemStack stack, float offsetY) {
       if (stack.isEmpty()) {

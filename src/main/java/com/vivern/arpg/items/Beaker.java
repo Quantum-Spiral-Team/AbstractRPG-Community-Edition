@@ -16,6 +16,7 @@ public class Beaker extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
       return true;
    }

@@ -19,6 +19,7 @@ public class Chlorite extends AdvancedPotion {
       this.setIconIndex(29, 1);
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
       if (!entityOnEffect.world.isRemote) {
          if (amplifier > 15 && entityOnEffect.ticksExisted % 20 == 0 && this.getThisDuration(entityOnEffect) > 0) {
@@ -30,6 +31,7 @@ public class Chlorite extends AdvancedPotion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

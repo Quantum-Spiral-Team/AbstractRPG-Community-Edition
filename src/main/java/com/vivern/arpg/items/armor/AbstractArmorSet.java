@@ -163,6 +163,7 @@ public abstract class AbstractArmorSet {
          this.armorSet.constructItem(this);
       }
 
+      @Override
       public float getXpRepairRatio(ItemStack stack) {
          float nonRelative = 4.0F;
          float armorRelative = 4.0F;
@@ -189,6 +190,7 @@ public abstract class AbstractArmorSet {
          return nonRelative * 0.6F + armorRelative * 0.4F;
       }
 
+      @Override
       public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
          if (entity instanceof EntityLivingBase) {
             EntityLivingBase entityLivingBase = (EntityLivingBase)entity;
@@ -204,6 +206,7 @@ public abstract class AbstractArmorSet {
          }
       }
 
+      @Override
       public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemStack) {
          Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
          if (equipmentSlot == this.armorType) {
@@ -223,15 +226,18 @@ public abstract class AbstractArmorSet {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          return itemStack != ItemStack.EMPTY ? this.armorSet.getArmorModel(entityLiving, itemStack, armorSlot, model) : null;
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return this.armorSet.getArmorTexture(stack, entity, slot, type);
       }
 
+      @Override
       public int getItemEnchantability(ItemStack stack) {
          return this.armorSet.enchantability;
       }
@@ -285,6 +291,7 @@ public abstract class AbstractArmorSet {
          return this.armorSet.onHurtWithItem(this, hurtdamage, stack, player, source, this.armorType);
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          IEnergyItem.addRFInformation(stack, worldIn, tooltip, flagIn);

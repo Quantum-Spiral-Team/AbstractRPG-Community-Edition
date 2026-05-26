@@ -66,6 +66,7 @@ public class EntityArrowVicious extends AbstractArrow {
       return Sounds.arrow_vicious;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_VICIOUS);
    }
@@ -113,6 +114,7 @@ public class EntityArrowVicious extends AbstractArrow {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 9) {

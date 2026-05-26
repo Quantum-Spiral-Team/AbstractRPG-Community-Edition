@@ -92,6 +92,7 @@ public class ModelsEverfrostMob {
          this.bipedHead.addChild(this.horn3);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
          int anim1 = 0;
@@ -120,6 +121,7 @@ public class ModelsEverfrostMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
          if (entityIn instanceof EntityZombie && ((EntityZombie)entityIn).isArmsRaised()) {
@@ -144,6 +146,7 @@ public class ModelsEverfrostMob {
          this.bipedLeftArm.rotateAngleX = this.bipedLeftArm.rotateAngleX - MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
       }
 
+      @Override
       public void postRenderArm(float scale, EnumHandSide side) {
          super.postRenderArm(scale, side);
          GlStateManager.translate(side == EnumHandSide.RIGHT ? 0.07F : -0.07F, 0.1F, 0.0F);
@@ -237,6 +240,7 @@ public class ModelsEverfrostMob {
          this.tent3.addChild(this.tentaaa3);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          GlStateManager.pushMatrix();
          GlStateManager.translate(0.0F, 1.0F, 0.0F);
@@ -403,6 +407,7 @@ public class ModelsEverfrostMob {
          this.wolfHeadMain0.addChild(this.eyes);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          float health = 45.0F;
          float maxhealth = 45.0F;
@@ -443,6 +448,7 @@ public class ModelsEverfrostMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.wolfHeadMain0.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.wolfHeadMain0.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
@@ -567,6 +573,7 @@ public class ModelsEverfrostMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.head.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.head.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
@@ -692,6 +699,7 @@ public class ModelsEverfrostMob {
          this.tentaaa1.addChild(this.tentbbb1);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          f5 *= 1.3F;
          GlStateManager.pushMatrix();
@@ -726,6 +734,7 @@ public class ModelsEverfrostMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.core.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.core.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
@@ -885,6 +894,7 @@ public class ModelsEverfrostMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.head.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.head.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
@@ -989,6 +999,7 @@ public class ModelsEverfrostMob {
          this.headneck.addChild(this.head2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          float sin1 = MathHelper.sin(AnimationTimer.tick / 50.0F) * 0.124F;
          float cos1 = MathHelper.cos(AnimationTimer.tick / 50.0F) * 0.124F;
@@ -1208,6 +1219,7 @@ public class ModelsEverfrostMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.head.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.head.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
@@ -1287,6 +1299,7 @@ public class ModelsEverfrostMob {
          this.horn3.addChild(this.horn4);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          int anim1 = 0;
          if (entity instanceof AbstractMob) {
@@ -1375,6 +1388,7 @@ public class ModelsEverfrostMob {
          this.shape1.addChild(this.shape2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.shape1.render(f5);
       }

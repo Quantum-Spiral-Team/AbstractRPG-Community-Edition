@@ -92,15 +92,19 @@ public class GraplingHookParticle extends Entity {
       this.setEntityBoundingBox(bb);
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > this.livetime) {

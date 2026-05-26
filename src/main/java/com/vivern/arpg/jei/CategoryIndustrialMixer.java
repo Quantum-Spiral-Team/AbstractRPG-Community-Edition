@@ -26,26 +26,32 @@ public class CategoryIndustrialMixer implements IRecipeCategory<WrapperIndustria
       this.arrow = h.createAnimatedDrawable(staticarrow, 60, StartDirection.TOP, false);
    }
 
+   @Override
    public String getUid() {
       return "arpg:industrial_mixer";
    }
 
+   @Override
    public String getTitle() {
       return "Industrial Mixer";
    }
 
+   @Override
    public String getModName() {
       return "arpg";
    }
 
+   @Override
    public IDrawable getBackground() {
       return this.background;
    }
 
+   @Override
    public void drawExtras(Minecraft minecraft) {
       this.arrow.draw(minecraft, 58, 20);
    }
 
+   @Override
    public void setRecipe(IRecipeLayout recipeLayout, WrapperIndustrialMixer recipeWrapper, IIngredients ingredients) {
       IGuiItemStackGroup isg = recipeLayout.getItemStacks();
       IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();

@@ -18,6 +18,7 @@ public class AppleEffect extends EntityThrowable {
       super(world, x, y, z);
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.world.isRemote) {
          this.world.setEntityState(this, (byte)4);
@@ -25,6 +26,7 @@ public class AppleEffect extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 10) {
@@ -32,6 +34,7 @@ public class AppleEffect extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.001F;
    }

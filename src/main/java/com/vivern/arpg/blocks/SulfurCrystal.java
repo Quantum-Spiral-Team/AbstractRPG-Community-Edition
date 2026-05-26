@@ -44,14 +44,17 @@ public class SulfurCrystal extends Block {
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }
 
+   @Override
    public boolean isFullBlock(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return false;
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       boolean west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST, false) || worldIn.getBlockState(pos.west()).isFullCube();
       boolean east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST, false) || worldIn.getBlockState(pos.east()).isFullCube();
@@ -67,6 +70,7 @@ public class SulfurCrystal extends Block {
          .withProperty(DOWN, down);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       boolean west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST) || worldIn.isBlockFullCube(pos.west());
       boolean east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST) || worldIn.isBlockFullCube(pos.east());
@@ -77,51 +81,63 @@ public class SulfurCrystal extends Block {
       return east || north || south || west || up || down;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return ALL_AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return Minecraft.getMinecraft().gameSettings.fancyGraphics ? BlockRenderLayer.TRANSLUCENT : BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return random.nextInt(3 + fortune) + (random.nextFloat() < 0.3F ? 1 : 0);
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return ItemsRegister.SULFUR_DUST;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState();
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return 0;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, UPPER, DOWN});
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       if (GetMOP.collidesWithBlock(worldIn, pos, BlocksRegister.FLUID_SULFURIC_GAS)) {
@@ -129,6 +145,7 @@ public class SulfurCrystal extends Block {
       }
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       boolean west;
       boolean east;

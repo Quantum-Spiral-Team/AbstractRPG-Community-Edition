@@ -31,6 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FieryBeanBlock extends Block {
    public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
+      @Override
       public boolean apply(@Nullable EnumFacing p_apply_1_) {
          return p_apply_1_ != EnumFacing.DOWN && p_apply_1_ != EnumFacing.UP;
       }
@@ -50,12 +51,14 @@ public class FieryBeanBlock extends Block {
       this.setTickRandomly(true);
    }
 
+   @Override
    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
       if (rand.nextFloat() < 0.5 && this.checkForDrop(world, pos, state)) {
          world.setBlockState(pos, state.withProperty(AGE, Math.min((Integer)state.getValue(AGE) + 1, 2)));
       }
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       for (EnumFacing enumfacing : EnumFacing.HORIZONTALS) {
          if (this.canPlaceAt(worldIn, pos, enumfacing)) {
@@ -66,10 +69,12 @@ public class FieryBeanBlock extends Block {
       return false;
    }
 
+   @Override
    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
       this.checkForDrop(worldIn, pos, state);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       this.onNeighborChangeInternal(worldIn, pos, state);
    }
@@ -105,10 +110,12 @@ public class FieryBeanBlock extends Block {
       return facing != EnumFacing.UP && facing != EnumFacing.DOWN ? iblockstate.getBlock() == BlocksRegister.FIERY_BEAN_LOG : false;
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return Item.getItemFromBlock(BlocksRegister.FIERY_BEAN_SAPLING);
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return state.getValue(AGE) == 2 ? 1 : 0;
    }
@@ -126,50 +133,61 @@ public class FieryBeanBlock extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState();
       int i = meta / 4;
       return iblockstate.withProperty(FACING, EnumFacing.byHorizontalIndex(meta % 4)).withProperty(AGE, i);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = (Integer)state.getValue(AGE) * 4;
       return ((EnumFacing)state.getValue(FACING)).getHorizontalIndex() + i;
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING, AGE});
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       if (this.canPlaceAt(worldIn, pos, facing)) {
          return this.getDefaultState().withProperty(FACING, facing);
@@ -184,10 +202,12 @@ public class FieryBeanBlock extends Block {
       }
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return true;
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }

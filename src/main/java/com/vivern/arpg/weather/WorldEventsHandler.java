@@ -5,6 +5,9 @@ import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.GetMOP;
 import com.google.common.base.Predicate;
 import java.util.Random;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -72,6 +75,8 @@ public class WorldEventsHandler extends IRenderHandler {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       for (int i = 0; i < this.events.length; i++) {
          WorldEvent event = this.events[i];

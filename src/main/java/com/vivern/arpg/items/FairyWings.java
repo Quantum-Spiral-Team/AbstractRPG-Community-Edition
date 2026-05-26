@@ -302,6 +302,7 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
       }
    }
 
+   @Override
    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       NBTHelper.SetNBTint(stack, 0, "boost");
    }
@@ -374,6 +375,7 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
          this.volume = 0.1F;
       }
 
+      @Override
       public void update() {
          this.time++;
          if (!this.player.isDead && (this.time <= 20 || this.player.isElytraFlying())) {

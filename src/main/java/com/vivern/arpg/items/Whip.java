@@ -60,6 +60,7 @@ public class Whip extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -69,31 +70,36 @@ public class Whip extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
       if (state == 1) {
          int cooldown = this.getCooldownTime(itemstack);
-         Flicks.instance.setClientAnimation(player, slot, EnumFlick.ATTACK, 0, cooldown, 1, 0);
+         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.ATTACK, 0, cooldown, 1, 0);
       }
 
       if (state == 2) {
          int cooldown = this.getCooldownTime(itemstack);
-         Flicks.instance.setClientAnimation(player, slot, EnumFlick.ATTACK, 0, cooldown - 4, 1, 7);
+         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.ATTACK, 0, cooldown - 4, 1, 7);
       }
    }
 
+   @Override
    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
       return new AnimationCapabilityProvider();
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -120,8 +126,8 @@ public class Whip extends ItemWeapon {
 
             if (hand != null) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               float soundPitchSwosh = parameters.getF("sound_pitch_swosh");
-               float soundPitchClap = parameters.getF("sound_pitch_clap");
+               float soundPitchSwosh = parameters.getFloat("sound_pitch_swosh");
+               float soundPitchClap = parameters.getFloat("sound_pitch_clap");
                this.onWhipUpdateInHand(world, itemstack, player, hand, itemSlot, keypressed);
                if (delay == 0 && cooldown > 0.2F && this.isSpecattackReady(world, itemstack, player, hand, itemSlot, keypressed)) {
                   int specAttackReady = NBTHelper.GetNBTint(itemstack, "sa_ready");
@@ -339,7 +345,7 @@ public class Whip extends ItemWeapon {
    public void onSpecAttackDamage(Entity entity, Vec3d pos, IWeapon iweapon, ItemStack itemstack, EntityPlayer player, EnumHand hand, float damage) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int time = parameters.getEnchantedI("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack));
-      int power = parameters.getI("potion_power");
+      int power = parameters.getInt("potion_power");
       Weapons.setPotionIfEntityLB(entity, MobEffects.SLOWNESS, time, power);
    }
 
@@ -357,6 +363,7 @@ public class Whip extends ItemWeapon {
       Booom.FOVpower = 0.03F;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (a != 2.0 && a != 3.0) {
@@ -469,11 +476,13 @@ public class Whip extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "charge") < 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       int whipMaxCharge = WeaponParameters.getWeaponParameters(this)

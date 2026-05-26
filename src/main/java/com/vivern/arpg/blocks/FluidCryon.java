@@ -11,6 +11,7 @@ public class FluidCryon extends Fluid {
       this.setTemperature(150);
    }
 
+   @Override
    public int getColor() {
       return -4263425;
    }

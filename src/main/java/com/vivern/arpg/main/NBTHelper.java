@@ -44,7 +44,7 @@ public class NBTHelper {
       }
    }
 
-   public static void GiveNBTboolean(ItemStack itemstack, boolean baseValue, String name) {
+   public static void giveNBTboolean(ItemStack itemstack, boolean baseValue, String name) {
       if (!itemstack.hasTagCompound()) {
          NBTTagCompound itemCompound = new NBTTagCompound();
          itemstack.setTagCompound(itemCompound);

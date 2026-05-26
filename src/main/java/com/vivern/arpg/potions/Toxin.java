@@ -8,6 +8,8 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Toxin extends Potion {
    protected Toxin(boolean isBadEffectIn, int liquidColorIn) {
@@ -17,11 +19,14 @@ public class Toxin extends Potion {
       this.setIconIndex(15, 1);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasStatusIcon() {
       Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
       return true;
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
       if (entityLivingBase.ticksExisted % 12 == 0) {
          IAttributeInstance entityAttribute = entityLivingBase.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
@@ -36,6 +41,7 @@ public class Toxin extends Potion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

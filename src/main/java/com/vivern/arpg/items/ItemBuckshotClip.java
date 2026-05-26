@@ -19,8 +19,10 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBuckshotClip extends Item implements IItemColor {
+public class ItemBuckshotClip extends Item {
    public final int maxAmmoStore;
    public boolean specialAmmo = false;
 
@@ -39,11 +41,7 @@ public class ItemBuckshotClip extends Item implements IItemColor {
       this.specialAmmo = special;
    }
 
-   public int colorMultiplier(ItemStack stack, int tintIndex) {
-      ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
-      return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
-   }
-
+   @Override
    public double getDurabilityForDisplay(ItemStack stack) {
       if (this.specialAmmo) {
          return stack.getMetadata() == 0 ? 1.0 : 0.0;
@@ -52,6 +50,7 @@ public class ItemBuckshotClip extends Item implements IItemColor {
       }
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       if (this.specialAmmo) {
@@ -119,6 +118,8 @@ public class ItemBuckshotClip extends Item implements IItemColor {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       if (this.specialAmmo) {
          tooltip.add("Ammo: " + (stack.getMetadata() == 0 ? "empty" : "full"));

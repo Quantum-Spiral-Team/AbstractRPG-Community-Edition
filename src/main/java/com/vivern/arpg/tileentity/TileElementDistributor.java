@@ -89,10 +89,12 @@ public class TileElementDistributor extends TileEntityLockableLoot implements Ti
       }
    }
 
+   @Override
    public int getSizeInventory() {
       return 1;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.stacks) {
          if (!itemstack.isEmpty()) {
@@ -136,42 +138,50 @@ public class TileElementDistributor extends TileEntityLockableLoot implements Ti
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       super.setInventorySlotContents(index, stack);
    }
 
+   @Override
    public int getField(int id) {
       switch (id) {
          case 0:
@@ -181,6 +191,7 @@ public class TileElementDistributor extends TileEntityLockableLoot implements Ti
       }
    }
 
+   @Override
    public void setField(int id, int value) {
       switch (id) {
          case 0:
@@ -188,22 +199,27 @@ public class TileElementDistributor extends TileEntityLockableLoot implements Ti
       }
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 1;
    }
 
+   @Override
    public String getName() {
       return "tile_creative_element_distributor";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       return new ContainerElementDistributor(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.creative_element_distributor";
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.stacks;
    }

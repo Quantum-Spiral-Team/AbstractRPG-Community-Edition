@@ -113,6 +113,7 @@ public abstract class TileNexus extends TileEntity implements ITickable {
    public void onInvaderDespawn(AbstractMob entity) {
    }
 
+   @Override
    public void update() {
       if (this.invasionStarted) {
          this.invasionTime++;
@@ -251,6 +252,7 @@ public abstract class TileNexus extends TileEntity implements ITickable {
       );
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       compound.setInteger("invasionTime", this.invasionTime);
       compound.setBoolean("invasionStarted", this.invasionStarted);
@@ -284,6 +286,7 @@ public abstract class TileNexus extends TileEntity implements ITickable {
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("invasionTime")) {
          this.invasionTime = compound.getInteger("invasionTime");

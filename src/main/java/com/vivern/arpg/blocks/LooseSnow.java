@@ -49,6 +49,7 @@ public class LooseSnow extends BlockFalling {
       this.setHarvestLevel("shovel", 0);
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       int i = (Integer)blockState.getValue(LAYERS);
@@ -65,50 +66,62 @@ public class LooseSnow extends BlockFalling {
          );
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return SNOW_AABB[state.getValue(LAYERS)];
    }
 
+   @Override
    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
       return (Integer)worldIn.getBlockState(pos).getValue(LAYERS) < 5;
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return Items.SNOWBALL;
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return 2;
    }
 
+   @Override
    public int damageDropped(IBlockState state) {
       return super.damageDropped(state);
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return (Integer)state.getValue(LAYERS) == 8;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(LAYERS, meta).withProperty(ISFALLING, false);
    }
 
+   @Override
    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
       return true;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(LAYERS);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{LAYERS, ISFALLING});
    }
 
+   @Override
    public void onEndFalling(World worldIn, BlockPos pos, IBlockState placed, IBlockState replaced) {
       if (replaced.getBlock() == BlocksRegister.LOOSE_SNOW) {
          worldIn.setBlockState(
@@ -121,6 +134,7 @@ public class LooseSnow extends BlockFalling {
       }
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote) {
          this.checkFallable(worldIn, pos);
@@ -154,18 +168,22 @@ public class LooseSnow extends BlockFalling {
       }
    }
 
+   @Override
    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
       return true;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(LAYERS, 1).withProperty(ISFALLING, false);
    }
 
+   @Override
    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return side == EnumFacing.DOWN || (Integer)state.getValue(LAYERS) == 8;
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing side) {
       return side != EnumFacing.DOWN && state.getValue(LAYERS) != 8 ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
    }

@@ -83,6 +83,7 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
       this.tex = tex;
    }
 
+   @Override
    public void doRender(Entity entityTo, double x, double y, double z, float entityYaw, float partialTicks) {
       if (this.type == 1) {
          LordOfPainSpike entity = (LordOfPainSpike)entityTo;
@@ -1007,6 +1008,7 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(Entity entity) {
       return this.tex;
    }
@@ -1020,6 +1022,7 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
          this.tex = tex;
       }
 
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderSpecial(manager, this.type, this.tex);
       }

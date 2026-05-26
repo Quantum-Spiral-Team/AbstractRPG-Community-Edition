@@ -17,6 +17,7 @@ public class FrozenBeach extends Biome {
       this.decorator = new EverfrostRiver.EverfrostRiverDecorator();
    }
 
+   @Override
    public void decorate(World worldIn, Random rand, BlockPos pos) {
       if (rand.nextFloat() < 0.07F) {
          BlockPos position = new BlockPos(pos.getX() + 8 + rand.nextInt(16), 63, pos.getZ() + 8 + rand.nextInt(16));

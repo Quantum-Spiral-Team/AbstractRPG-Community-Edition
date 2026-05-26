@@ -35,6 +35,7 @@ public class WhispersBlade extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -44,14 +45,17 @@ public class WhispersBlade extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          NBTHelper.GiveNBTint(itemstack, -1, "level_stop_at");
@@ -60,7 +64,7 @@ public class WhispersBlade extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.experienceLevel > level_stop_at) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               Weapons.addOrRemoveExperience(player, -parameters.getI("xp_decrease"));
+               Weapons.addOrRemoveExperience(player, -parameters.getInt("xp_decrease"));
             } else {
                NBTHelper.SetNBTint(itemstack, -1, "level_stop_at");
                world.playSound(
@@ -144,7 +148,7 @@ public class WhispersBlade extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.0F,
-                  powered ? parameters.getF("velocity_powered") : parameters.getF("velocity"),
+                  powered ? parameters.getFloat("velocity_powered") : parameters.getFloat("velocity"),
                   parameters.getEnchantedF("inaccuracy", acc)
                );
                projectile.setPosition(player.posX, player.posY + player.getEyeHeight() - 0.2, player.posZ);

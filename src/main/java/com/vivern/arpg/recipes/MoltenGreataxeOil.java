@@ -21,6 +21,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 public class MoltenGreataxeOil extends Impl<IRecipe> implements IRecipe {
    public static ResourceLocation name = new ResourceLocation("arpg:molten_greataxe_oil_recipe");
 
+   @Override
    public boolean matches(InventoryCrafting inv, World worldIn) {
       ItemStack greataxe = null;
       ItemStack poison = null;
@@ -46,6 +47,7 @@ public class MoltenGreataxeOil extends Impl<IRecipe> implements IRecipe {
       return greataxe != null && poison != null;
    }
 
+   @Override
    public ItemStack getCraftingResult(InventoryCrafting inv) {
       ItemStack greataxe = null;
       ItemStack poison = null;
@@ -154,10 +156,12 @@ public class MoltenGreataxeOil extends Impl<IRecipe> implements IRecipe {
       return newgreataxe;
    }
 
+   @Override
    public boolean canFit(int width, int height) {
       return width + height == 3;
    }
 
+   @Override
    public ItemStack getRecipeOutput() {
       return ItemStack.EMPTY;
    }

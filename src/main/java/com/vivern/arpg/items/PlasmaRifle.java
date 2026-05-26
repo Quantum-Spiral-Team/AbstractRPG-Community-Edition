@@ -47,6 +47,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -56,14 +57,17 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Vec3d start = new Vec3d(x, y, z);
@@ -215,6 +219,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          boolean hasShoot = false;
@@ -230,7 +235,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
             int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
             if (player.getHeldItemMainhand() == itemstack) {
                int heat = NBTHelper.GetNBTint(itemstack, "heat");
-               if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && heat >= parameters.getI("heat_max") && !hascooldown) {
+               if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && heat >= parameters.getInt("heat_max") && !hascooldown) {
                   int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
                   int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);
@@ -264,7 +269,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                            parameters.getEnchantedF("wave_knockback", impulse)
                         );
                         entity.hurtResistantTime = 0;
-                        entity.setFire(parameters.getI("fire"));
+                        entity.setFire(parameters.getInt("fire"));
                         Stun.stunEntity(entity, 1.0F);
                      }
                   }
@@ -285,7 +290,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                      0.0,
                      0.0
                   );
-                  NBTHelper.GiveNBTboolean(itemstack, true, "fast");
+                  NBTHelper.giveNBTboolean(itemstack, true, "fast");
                   NBTHelper.SetNBTboolean(itemstack, true, "fast");
                }
 
@@ -321,7 +326,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                      } else if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
                         NBTHelper.GiveNBTint(itemstack, 0, "heat");
                         int heatadd = parameters.getEnchantedI("heat_per_shoot", rapidity);
-                        int max = parameters.getI("heat_max");
+                        int max = parameters.getInt("heat_max");
                         NBTHelper.SetNBTint(itemstack, Math.min(heat + heatadd, max), "heat");
                         if (heat < max && heat + heatadd >= max) {
                            world.playSound(
@@ -345,7 +350,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        powered ? parameters.getF("velocity_powered") : parameters.getF("velocity"),
+                        powered ? parameters.getFloat("velocity_powered") : parameters.getFloat("velocity"),
                         parameters.getEnchantedF("inaccuracy", acc),
                         -0.23F,
                         0.5F,
@@ -402,15 +407,17 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "heat") > 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      return (float)NBTHelper.GetNBTint(itemstack, "heat") / parameters.getI("heat_max");
+      return (float)NBTHelper.GetNBTint(itemstack, "heat") / parameters.getInt("heat_max");
    }
 
    @Override
@@ -423,6 +430,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
       return ItemAccumulator.TOPAZITRON_THROUGHPUT;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       super.addInformation(stack, worldIn, tooltip, flagIn);

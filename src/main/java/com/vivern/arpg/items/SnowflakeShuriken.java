@@ -17,6 +17,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SnowflakeShuriken extends ItemWeapon {
    public SnowflakeShuriken() {
@@ -26,6 +28,7 @@ public class SnowflakeShuriken extends ItemWeapon {
       this.setMaxStackSize(64);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -35,14 +38,17 @@ public class SnowflakeShuriken extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack stack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(stack, entityIn);
@@ -73,8 +79,8 @@ public class SnowflakeShuriken extends ItemWeapon {
                   0.9F + itemRand.nextFloat() / 5.0F
                );
                EntitySnowflakeShuriken projectile = new EntitySnowflakeShuriken(world, player, stack);
-               projectile.damage = parameters.getF("damage");
-               projectile.knockback = parameters.getF("knockback");
+               projectile.damage = parameters.getFloat("damage");
+               projectile.knockback = parameters.getFloat("knockback");
                Weapons.shoot(
                   projectile,
                   hand,
@@ -82,8 +88,8 @@ public class SnowflakeShuriken extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.3F,
-                  parameters.getF("velocity"),
-                  parameters.getF("inaccuracy"),
+                  parameters.getFloat("velocity"),
+                  parameters.getFloat("inaccuracy"),
                   -0.15F,
                   0.5F,
                   0.1F
@@ -107,6 +113,7 @@ public class SnowflakeShuriken extends ItemWeapon {
       return WeaponHandleType.ONE_HANDED;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasSpecialDescription() {
       return false;

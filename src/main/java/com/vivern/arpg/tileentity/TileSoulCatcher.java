@@ -40,6 +40,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
    public static final int[] SLOT = new int[]{0};
    public static Random rand = new Random();
    public static Predicate<IBlockState> CATCHERS = new Predicate<IBlockState>() {
+      @Override
       public boolean apply(IBlockState input) {
          return input.getBlock() == BlocksRegister.SOUL_CATCHER;
       }
@@ -81,6 +82,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
       }
    }
 
+   @Override
    public void update() {
       this.ticksExisted++;
       if (this.ticksExisted % 60 == 0 && this.getStackInSlot(0).getItem() == ItemsRegister.SOUL_STONE) {
@@ -152,6 +154,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
       }
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.stack = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
       ItemStackHelper.loadAllItems(compound, this.stack);
@@ -166,6 +169,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       ItemStackHelper.saveAllItems(compound, this.stack);
       compound.setFloat("rotationYaw", this.rotationYaw);
@@ -191,101 +195,125 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public int getSizeInventory() {
       return 1;
    }
 
+   @Override
    public boolean isEmpty() {
       return ((ItemStack)this.stack.get(0)).isEmpty();
    }
 
+   @Override
    public ItemStack getStackInSlot(int index) {
       return (ItemStack)this.stack.get(index);
    }
 
+   @Override
    public ItemStack decrStackSize(int index, int count) {
       return ItemStackHelper.getAndSplit(this.stack, index, count);
    }
 
+   @Override
    public ItemStack removeStackFromSlot(int index) {
       return ItemStackHelper.getAndRemove(this.stack, index);
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       this.stack.set(index, stack);
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 1;
    }
 
+   @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
       return false;
    }
 
+   @Override
    public void openInventory(EntityPlayer player) {
    }
 
+   @Override
    public void closeInventory(EntityPlayer player) {
    }
 
+   @Override
    public boolean isItemValidForSlot(int index, ItemStack stack) {
       return stack.getItem() == ItemsRegister.SOUL_STONE;
    }
 
+   @Override
    public int getField(int id) {
       return 0;
    }
 
+   @Override
    public void setField(int id, int value) {
    }
 
+   @Override
    public int getFieldCount() {
       return 0;
    }
 
+   @Override
    public void clear() {
       this.stack.set(0, ItemStack.EMPTY);
    }
 
+   @Override
    public String getName() {
       return "tile_soul_catcher";
    }
 
+   @Override
    public boolean hasCustomName() {
       return false;
    }
 
+   @Override
    public int[] getSlotsForFace(EnumFacing side) {
       return SLOT;
    }
 
+   @Override
    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
       return ((ItemStack)this.stack.get(0)).isEmpty() && this.isItemValidForSlot(index, itemStackIn) && direction != EnumFacing.DOWN;
    }
 
+   @Override
    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
       return SoulStone.getSoul((ItemStack)this.stack.get(0)) != 0 && direction == EnumFacing.DOWN;
    }

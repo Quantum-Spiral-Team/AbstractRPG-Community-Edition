@@ -13,6 +13,9 @@ import com.vivern.arpg.mobs.AbstractMob;
 import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -38,6 +41,7 @@ public class ConiferRod extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -47,14 +51,17 @@ public class ConiferRod extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -204,6 +211,7 @@ public class ConiferRod extends ItemWeapon {
       return mobToAgree;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void guiClick(ItemStack itemstack, EntityLivingBase player, int mouseX, int mouseY, int mouseButton) {
       NBTHelper.GiveNBTint(itemstack, 0, "mode");
@@ -315,6 +323,7 @@ public class ConiferRod extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void receiveClientString(ItemStack itemstack, EntityLivingBase player, String string) {
       char ch = string.charAt(0);

@@ -87,10 +87,12 @@ public class EntityAIArcAttack extends EntityAIBase {
       }
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase attackTarg = this.entity.getAttackTarget();
       this.attackTimer--;

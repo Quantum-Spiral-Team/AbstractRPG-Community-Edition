@@ -121,6 +121,7 @@ public class EntityArrowBouncing extends AbstractArrow {
       return Sounds.arrow_bouncing;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_BOUNCING);
    }

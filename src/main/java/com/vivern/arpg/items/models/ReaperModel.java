@@ -298,6 +298,7 @@ public class ReaperModel extends ModelBase {
       this.shape2_1.addChild(this.shape_22);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape3_1.offsetX, this.shape3_1.offsetY, this.shape3_1.offsetZ);

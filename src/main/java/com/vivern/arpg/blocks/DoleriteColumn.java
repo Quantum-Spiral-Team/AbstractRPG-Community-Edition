@@ -24,6 +24,8 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DoleriteColumn extends BlockRotatedPillar implements IBlockHardBreak {
    public static final PropertyEnum<EnumAxis> LOG_AXIS = PropertyEnum.create("axis", EnumAxis.class);
@@ -50,43 +52,45 @@ public class DoleriteColumn extends BlockRotatedPillar implements IBlockHardBrea
       return BlocksRegister.HR_DOLERITE_BRICKS;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.07) {
          EnumFacing face = EnumFacing.VALUES[rand.nextInt(6)];
-         EnumAxis axis = (EnumAxis)stateIn.getValue(LOG_AXIS);
+         EnumAxis axis = stateIn.getValue(LOG_AXIS);
          if (axis == EnumAxis.Y && face.getAxis() != Axis.Y) {
             double x = pos.getX() + 0.5 + face.getXOffset() * 0.51;
             double y = pos.getY() + 0.5 + face.getYOffset() * 0.51;
             double z = pos.getZ() + 0.5 + face.getZOffset() * 0.51;
-            GUNParticle spelll = new GUNParticle(
+            GUNParticle spell = new GUNParticle(
                rand.nextFloat() < 0.5 ? res1 : res2, 0.1875F, 0.0F, 120, 240, worldIn, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, 0
             );
-            spelll.alpha = 0.0F;
-            spelll.tracker = ssh;
-            spelll.alphaGlowing = true;
-            spelll.rotationPitchYaw = new Vec2f(0.0F, face.getHorizontalAngle() + 180.0F);
-            worldIn.spawnEntity(spelll);
+            spell.alpha = 0.0F;
+            spell.tracker = ssh;
+            spell.alphaGlowing = true;
+            spell.rotationPitchYaw = new Vec2f(0.0F, face.getHorizontalAngle() + 180.0F);
+            worldIn.spawnEntity(spell);
          }
 
          if (axis == EnumAxis.X && face.getAxis() != Axis.X) {
             double x = pos.getX() + 0.5 + face.getXOffset() * 0.51;
             double y = pos.getY() + 0.5 + face.getYOffset() * 0.51;
             double z = pos.getZ() + 0.5 + face.getZOffset() * 0.51;
-            GUNParticle spelll = new GUNParticle(
+            GUNParticle spell = new GUNParticle(
                rand.nextFloat() < 0.5 ? res1 : res2, 0.1875F, 0.0F, 120, 240, worldIn, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, -90
             );
-            spelll.alpha = 0.0F;
-            spelll.tracker = ssh;
-            spelll.alphaGlowing = true;
-            spelll.rotationPitchYaw = new Vec2f(face.getAxis() == Axis.Y ? 90.0F : 0.0F, 0.0F);
-            worldIn.spawnEntity(spelll);
+            spell.alpha = 0.0F;
+            spell.tracker = ssh;
+            spell.alphaGlowing = true;
+            spell.rotationPitchYaw = new Vec2f(face.getAxis() == Axis.Y ? 90.0F : 0.0F, 0.0F);
+            worldIn.spawnEntity(spell);
          }
 
          if (axis == EnumAxis.Z && face.getAxis() != Axis.Z) {
             double x = pos.getX() + 0.5 + face.getXOffset() * 0.51;
             double y = pos.getY() + 0.5 + face.getYOffset() * 0.51;
             double z = pos.getZ() + 0.5 + face.getZOffset() * 0.51;
-            GUNParticle spelll = new GUNParticle(
+            GUNParticle spell = new GUNParticle(
                rand.nextFloat() < 0.5 ? res1 : res2,
                0.1875F,
                0.0F,
@@ -105,15 +109,16 @@ public class DoleriteColumn extends BlockRotatedPillar implements IBlockHardBrea
                true,
                face.getAxis() == Axis.X ? 90 : 180
             );
-            spelll.alpha = 0.0F;
-            spelll.tracker = ssh;
-            spelll.alphaGlowing = true;
-            spelll.rotationPitchYaw = new Vec2f(face.getAxis() == Axis.Y ? 90.0F : 0.0F, face.getAxis() == Axis.X ? 90.0F : 0.0F);
-            worldIn.spawnEntity(spelll);
+            spell.alpha = 0.0F;
+            spell.tracker = ssh;
+            spell.alphaGlowing = true;
+            spell.rotationPitchYaw = new Vec2f(face.getAxis() == Axis.Y ? 90.0F : 0.0F, face.getAxis() == Axis.X ? 90.0F : 0.0F);
+            worldIn.spawnEntity(spell);
          }
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
       switch (meta) {
@@ -133,9 +138,10 @@ public class DoleriteColumn extends BlockRotatedPillar implements IBlockHardBrea
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      switch ((EnumAxis)state.getValue(LOG_AXIS)) {
+      switch (state.getValue(LOG_AXIS)) {
          case X:
             i = 4;
             break;
@@ -149,23 +155,27 @@ public class DoleriteColumn extends BlockRotatedPillar implements IBlockHardBrea
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
+      return new BlockStateContainer(this, LOG_AXIS);
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return MapColor.OBSIDIAN;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       switch (rot) {
          case COUNTERCLOCKWISE_90:
          case CLOCKWISE_90:
-            switch ((EnumAxis)state.getValue(LOG_AXIS)) {
+            switch (state.getValue(LOG_AXIS)) {
                case X:
                   return state.withProperty(LOG_AXIS, EnumAxis.Z);
                case Z:

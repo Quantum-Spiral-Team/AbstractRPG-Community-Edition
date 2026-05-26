@@ -98,6 +98,7 @@ public class VacuumGunShoot extends StandardBullet {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 15) {

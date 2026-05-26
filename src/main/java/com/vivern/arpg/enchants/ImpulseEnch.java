@@ -14,18 +14,22 @@ public class ImpulseEnch extends Enchantment {
       EnchantmentInit.ENCHANTMENTSLIST.add(this);
    }
 
+   @Override
    public int getMinEnchantability(int enchantmentLevel) {
       return 10 + (enchantmentLevel - 1) * 10;
    }
 
+   @Override
    public int getMaxEnchantability(int enchantmentLevel) {
       return this.getMinEnchantability(enchantmentLevel) + 35;
    }
 
+   @Override
    public int getMaxLevel() {
       return 5;
    }
 
+   @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack) {
       return stack.getItem() instanceof IWeapon;
    }

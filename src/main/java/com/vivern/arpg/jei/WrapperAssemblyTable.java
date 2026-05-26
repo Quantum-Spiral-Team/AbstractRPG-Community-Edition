@@ -18,6 +18,7 @@ public class WrapperAssemblyTable implements IRecipeWrapper {
       this.recipe = recipe;
    }
 
+   @Override
    public void getIngredients(IIngredients ingredients) {
       ingredients.setInputs(VanillaTypes.ITEM, this.recipe.exportInputsAsList());
       ingredients.setOutputs(
@@ -26,6 +27,7 @@ public class WrapperAssemblyTable implements IRecipeWrapper {
       );
    }
 
+   @Override
    public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
       if (ARPGPlugin.guihelper != null && this.recipe.augmentsRecipe != null && !this.recipe.augmentsRecipe.isEmpty()) {
          int i = 0;

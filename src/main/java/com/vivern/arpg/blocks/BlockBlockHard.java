@@ -45,6 +45,7 @@ public class BlockBlockHard extends BlockBlock implements IBlockHardBreak {
       this.setHarvest(tool, this.level);
    }
 
+   @Override
    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
       player.addStat(StatList.getBlockStats(this));
       player.addExhaustion(0.005F);

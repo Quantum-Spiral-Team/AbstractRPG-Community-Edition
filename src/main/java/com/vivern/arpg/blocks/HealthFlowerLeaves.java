@@ -18,6 +18,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class HealthFlowerLeaves extends Block implements IPlantable {
    public static AxisAlignedBB AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0);
@@ -34,38 +36,47 @@ public class HealthFlowerLeaves extends Block implements IPlantable {
       this.setTickRandomly(true);
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote && rand.nextFloat() < 0.04F && worldIn.isAirBlock(pos.up())) {
          worldIn.setBlockState(pos.up(), BlocksRegister.HEALTH_FLOWER.getDefaultState());
       }
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       entityIn.motionX *= 0.85;
       entityIn.motionZ *= 0.85;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return super.canPlaceBlockAt(worldIn, pos) && this.canStayAtPos(worldIn, pos);
    }
@@ -80,16 +91,19 @@ public class HealthFlowerLeaves extends Block implements IPlantable {
          || blockd == Blocks.MOSSY_COBBLESTONE;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!this.canStayAtPos(worldIn, pos)) {
          worldIn.destroyBlock(pos, true);
       }
    }
 
+   @Override
    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
       return EnumPlantType.Cave;
    }
 
+   @Override
    public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
       return world.getBlockState(pos);
    }

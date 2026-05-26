@@ -1,6 +1,7 @@
 package com.vivern.arpg.main;
 
 import baubles.api.BaublesApi;
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.items.IWeapon;
 import java.lang.reflect.Field;
 import org.jetbrains.annotations.Nullable;
@@ -18,10 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
-@SideOnly(Side.CLIENT)
+@EventBusSubscriber(value =Side.CLIENT, modid = Tags.MOD_ID)
 public class FOVUpdateTracker {
    public static AttributeModifier SPRINTING_SPEED_BOOST;
    public static boolean canTryReflection = true;
@@ -47,10 +45,7 @@ public class FOVUpdateTracker {
                if (obj instanceof AttributeModifier) {
                   SPRINTING_SPEED_BOOST = (AttributeModifier)obj;
                }
-            } catch (NoSuchFieldException var4) {
-            } catch (SecurityException var5) {
-            } catch (IllegalArgumentException var6) {
-            } catch (IllegalAccessException var7) {
+            } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException | SecurityException ignored) {
             }
          }
       }

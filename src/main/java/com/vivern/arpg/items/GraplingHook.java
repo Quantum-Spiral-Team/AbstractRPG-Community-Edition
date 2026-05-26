@@ -41,6 +41,7 @@ public class GraplingHook extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote && entityIn.isEntityAlive() && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
@@ -55,8 +56,8 @@ public class GraplingHook extends Item {
             NBTHelper.SetNBTboolean(itemstack, false, "graped");
          }
 
-         NBTHelper.GiveNBTboolean(itemstack, false, "throwed");
-         NBTHelper.GiveNBTboolean(itemstack, false, "graped");
+         NBTHelper.giveNBTboolean(itemstack, false, "throwed");
+         NBTHelper.giveNBTboolean(itemstack, false, "graped");
          NBTHelper.GiveNBTint(itemstack, 0, "length");
          NBTHelper.GiveNBTfloat(itemstack, 0.0F, "rotationPitch");
          NBTHelper.GiveNBTfloat(itemstack, 0.0F, "rotationYaw");

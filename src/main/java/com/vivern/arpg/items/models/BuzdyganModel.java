@@ -75,6 +75,7 @@ public class BuzdyganModel extends ModelBase {
       this.shapeMain.addChild(this.shape3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       if (f3 == 0.0F) {

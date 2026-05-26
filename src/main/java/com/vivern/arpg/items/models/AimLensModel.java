@@ -38,6 +38,7 @@ public class AimLensModel extends ModelBase {
       this.shape5.addBox(-3.7F, -7.8F, 3.5F, 2, 5, 1, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1.render(f5);
       this.shape4.render(f5);

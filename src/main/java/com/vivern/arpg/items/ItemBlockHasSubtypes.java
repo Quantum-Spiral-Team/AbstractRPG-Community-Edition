@@ -17,6 +17,7 @@ public class ItemBlockHasSubtypes extends ItemBlock {
       super(block);
       this.setHasSubtypes(true);
       this.addPropertyOverride(new ResourceLocation("rtype"), new IItemPropertyGetter() {
+         @Override
          @SideOnly(Side.CLIENT)
          public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
             return NBTHelper.GetNBTint(stack, "type");
@@ -24,6 +25,7 @@ public class ItemBlockHasSubtypes extends ItemBlock {
       });
    }
 
+   @Override
    public int getMaxDamage() {
       return 0;
    }

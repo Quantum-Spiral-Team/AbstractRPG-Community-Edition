@@ -16,6 +16,7 @@ public class RenderBossLoot extends RenderEntityItem {
    }
 
    public static class BossLootFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderBossLoot(manager, Minecraft.getMinecraft().getRenderItem());
       }

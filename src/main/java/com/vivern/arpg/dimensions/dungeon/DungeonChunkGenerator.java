@@ -216,6 +216,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
       this.forestNoise = ctx.getForest();
    }
 
+   @Override
    public Chunk generateChunk(int x, int z) {
       this.rand.setSeed(x * 341873128712L + z * 132897987541L);
       ChunkPrimer chunkprimer = new ChunkPrimer();
@@ -274,6 +275,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
       }
    }
 
+   @Override
    public void populate(int x, int z) {
       BlockFalling.fallInstantly = true;
       int i = x * 16;
@@ -835,22 +837,27 @@ public class DungeonChunkGenerator implements IChunkGenerator {
       }
    }
 
+   @Override
    public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
       Biome biome = this.world.getBiome(pos);
       return biome.getSpawnableList(creatureType);
    }
 
+   @Override
    public void recreateStructures(Chunk chunkIn, int x, int z) {
    }
 
+   @Override
    public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
       return false;
    }
 
+   @Override
    public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
       return null;
    }
 
+   @Override
    public boolean generateStructures(Chunk chunkIn, int x, int z) {
       return false;
    }

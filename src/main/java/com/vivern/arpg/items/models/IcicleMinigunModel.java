@@ -81,6 +81,7 @@ public class IcicleMinigunModel extends ModelBase {
       this.setRotateAngle(this.shape1_3, 3.0277972F, 0.0F, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float m = 0.017453F;
       this.setRotateAngle(this.barr, 0.0F, 0.0F, f1 * m + (float) (Math.PI / 3));

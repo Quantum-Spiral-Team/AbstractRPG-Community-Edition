@@ -1,5 +1,6 @@
 package com.vivern.arpg.main;
 
+import com.vivern.arpg.Tags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -13,12 +14,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
-@SideOnly(Side.CLIENT)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class Gunfire {
-   public static ResourceLocation flame = new ResourceLocation("arpg:textures/flame_big.png");
+   public static ResourceLocation flame = new ResourceLocation(Tags.MOD_ID, "textures/flame_big.png");
 
    public static void onRenderHand(RenderHandEvent event) {
       ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
@@ -30,7 +28,7 @@ public class Gunfire {
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
       GlStateManager.disableLighting();
       Minecraft.getMinecraft().getTextureManager().bindTexture(flame);
-      drawCustomSizedTexturedRect(i / 2 - 120 + player.posX, f - 25, 36, 36, 0.0);
+      drawCustomSizedTexturedRect((double) i / 2 - 120 + player.posX, f - 25, 36, 36, 0.0);
       GlStateManager.popMatrix();
    }
 

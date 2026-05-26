@@ -22,6 +22,7 @@ public class RenderSeaEffloresce<T extends EntitySeaEffloresce> extends Render<T
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       Random rand = new Random(entity.getEntityId());
 
@@ -140,11 +141,13 @@ public class RenderSeaEffloresce<T extends EntitySeaEffloresce> extends Render<T
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntitySeaEffloresce entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
 
    public static class SeaEffloresceFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderSeaEffloresce(manager);
       }

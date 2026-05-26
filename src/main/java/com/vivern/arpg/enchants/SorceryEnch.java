@@ -14,18 +14,22 @@ public class SorceryEnch extends Enchantment {
       EnchantmentInit.ENCHANTMENTSLIST.add(this);
    }
 
+   @Override
    public int getMinEnchantability(int enchantmentLevel) {
       return 6 + (enchantmentLevel - 1) * 14;
    }
 
+   @Override
    public int getMaxEnchantability(int enchantmentLevel) {
       return 50;
    }
 
+   @Override
    public int getMaxLevel() {
       return 4;
    }
 
+   @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack) {
       return stack.getItem() instanceof IWeapon;
    }

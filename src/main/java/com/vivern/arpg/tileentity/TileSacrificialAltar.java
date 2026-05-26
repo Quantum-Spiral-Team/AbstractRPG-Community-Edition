@@ -31,6 +31,7 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
    public float charge = 0.0F;
    public int ticksExisted = 0;
 
+   @Override
    public void update() {
       this.getManaBuffer().updateManaBuffer(this.world, this.pos);
       this.ticksExisted++;
@@ -78,116 +79,142 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public int getSizeInventory() {
       return 1;
    }
 
+   @Override
    public boolean isEmpty() {
       return ((ItemStack)this.stack.get(0)).isEmpty();
    }
 
+   @Override
    public ItemStack getStackInSlot(int index) {
       return (ItemStack)this.stack.get(index);
    }
 
+   @Override
    public ItemStack decrStackSize(int index, int count) {
       ItemStack stack = ItemStackHelper.getAndSplit(this.stack, index, count);
       SacrificialAltar.trySendPacketUpdate(this.world, this.getPos(), this);
       return stack;
    }
 
+   @Override
    public ItemStack removeStackFromSlot(int index) {
       ItemStack stack = ItemStackHelper.getAndRemove(this.stack, index);
       SacrificialAltar.trySendPacketUpdate(this.world, this.getPos(), this);
       return stack;
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       this.stack.set(index, stack);
       SacrificialAltar.trySendPacketUpdate(this.world, this.getPos(), this);
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 1;
    }
 
+   @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
       return false;
    }
 
+   @Override
    public void openInventory(EntityPlayer player) {
    }
 
+   @Override
    public void closeInventory(EntityPlayer player) {
    }
 
+   @Override
    public boolean isItemValidForSlot(int index, ItemStack stack) {
       return stack.getItem() == ItemsRegister.SOUL_STONE;
    }
 
+   @Override
    public int getField(int id) {
       return 0;
    }
 
+   @Override
    public void setField(int id, int value) {
    }
 
+   @Override
    public int getFieldCount() {
       return 0;
    }
 
+   @Override
    public void clear() {
       this.stack.set(0, ItemStack.EMPTY);
    }
 
+   @Override
    public String getName() {
       return "tile_sacrificial_altar";
    }
 
+   @Override
    public boolean hasCustomName() {
       return false;
    }
 
+   @Override
    public int[] getSlotsForFace(EnumFacing side) {
       return SLOT;
    }
 
+   @Override
    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
       return ((ItemStack)this.stack.get(0)).isEmpty() && this.isItemValidForSlot(index, itemStackIn) && direction != EnumFacing.DOWN;
    }
 
+   @Override
    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
       return SoulStone.getSoul((ItemStack)this.stack.get(0)) == 0 && direction == EnumFacing.DOWN;
    }

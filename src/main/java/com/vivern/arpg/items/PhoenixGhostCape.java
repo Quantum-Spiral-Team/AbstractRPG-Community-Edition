@@ -4,6 +4,7 @@ import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.items.models.PhoenixGhostCapeModel;
 import com.vivern.arpg.items.models.PhoenixGhostModel;
 import com.vivern.arpg.main.ItemsRegister;
@@ -41,9 +42,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
    ResourceLocation sparkle = new ResourceLocation("arpg:textures/sparkle.png");
    ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
@@ -58,21 +57,22 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
       this.setMaxStackSize(1);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (type == RenderType.BODY) {
          float plrotation = MathHelper.wrapDegrees(player.rotationYaw);
          float mx = (float)player.motionX;
          float mz = (float)player.motionZ;
-         float cosangle = 0.0F;
-         float tangle = 0.0F;
-         float rotate = 0.0F;
-         float excl = 0.0F;
-         float moti = (float)Math.sqrt(mx * mx + mz * mz);
-         if (moti == 0.0F) {
+         float cosangle;
+         float tangle;
+         float rotate;
+         float excl;
+         float motion = (float)Math.sqrt(mx * mx + mz * mz);
+         if (motion == 0.0F) {
             rotate = 0.0F;
          } else {
-            cosangle = mz / moti;
+            cosangle = mz / motion;
             tangle = (float)Math.toDegrees(Math.acos(cosangle));
             if (mx > 0.0F) {
                tangle = -tangle;
@@ -80,7 +80,7 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
 
             excl = Math.abs(tangle - plrotation);
             excl = Math.min(excl, 360.0F - excl);
-            rotate = -(moti * (excl - 90.0F) / 70.0F);
+            rotate = -(motion * (excl - 90.0F) / 70.0F);
          }
 
          rotate = Math.min(0.35F, rotate);
@@ -107,9 +107,9 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
 
    @SideOnly(Side.CLIENT)
    public void Effects(World world, EntityPlayer player, boolean bom1, boolean bom2) {
-      float param1 = (float)(Math.sin(player.ticksExisted / 5) / 2.0);
-      float param2 = (float)(Math.cos(player.ticksExisted / 4) / 3.0);
-      float param3 = (float)(Math.sin(player.ticksExisted / 6) / 2.0);
+      float param1 = (float)(Math.sin((double) player.ticksExisted / 5) / 2.0);
+      float param2 = (float)(Math.cos((double) player.ticksExisted / 4) / 3.0);
+      float param3 = (float)(Math.sin((double) player.ticksExisted / 6) / 2.0);
       Entity bigboom = new GUNParticle(
          this.sparkle,
          0.1F + (float)itemRand.nextGaussian() / 25.0F,
@@ -329,17 +329,18 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
       }
    }
 
+   @SuppressWarnings("deprecation")
+   @SideOnly(Side.CLIENT)
    @SubscribeEvent
    public static void onPlayerRender(Pre e) {
       ItemStack stack = BaublesApi.getBaubles(e.getEntityPlayer()).getStackInSlot(5);
       if (stack.getItem() == ItemsRegister.PHOENIX_GHOST_CAPE && stack.getItemDamage() != 0 && stack.getItemDamage() != 10) {
          e.setCanceled(true);
-         float partialTicks = e.getPartialRenderTick();
          PhoenixGhostModel model = ClientProxy.phoenixGhostModel;
          ResourceLocation textur = new NetworkPlayerInfo(Minecraft.getMinecraft().player.getGameProfile()).getLocationSkin();
          EntityPlayer entity = e.getEntityPlayer();
          int ticks = entity.ticksExisted;
-         model.setRotateAngle(model.body, 1.3658947F + (float)Math.sin(ticks / 2) / 7.0F, 0.0F, 0.0F);
+         model.setRotateAngle(model.body, 1.3658947F + (float)Math.sin((double) ticks / 2) / 7.0F, 0.0F, 0.0F);
          float scale1 = (float)((entity.motionX + entity.motionY + entity.motionZ) / 3.0);
          GlStateManager.pushMatrix();
          GL11.glDisable(2884);

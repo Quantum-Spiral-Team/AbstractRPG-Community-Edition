@@ -13,6 +13,7 @@ public class SirenSong extends AdvancedPotion {
       this.setIconIndex(34, 1);
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
       if (entityOnEffect == Minecraft.getMinecraft().player) {
          int dur = this.getThisDuration(entityOnEffect);
@@ -26,6 +27,7 @@ public class SirenSong extends AdvancedPotion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

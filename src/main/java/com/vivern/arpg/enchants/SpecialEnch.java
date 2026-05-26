@@ -14,18 +14,22 @@ public class SpecialEnch extends Enchantment {
       EnchantmentInit.ENCHANTMENTSLIST.add(this);
    }
 
+   @Override
    public int getMinEnchantability(int enchantmentLevel) {
       return 17;
    }
 
+   @Override
    public int getMaxEnchantability(int enchantmentLevel) {
       return 50;
    }
 
+   @Override
    public int getMaxLevel() {
       return 1;
    }
 
+   @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack) {
       return stack.getItem() instanceof IWeapon;
    }

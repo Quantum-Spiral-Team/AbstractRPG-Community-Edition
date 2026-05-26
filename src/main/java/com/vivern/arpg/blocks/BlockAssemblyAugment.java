@@ -67,6 +67,7 @@ public class BlockAssemblyAugment extends Block {
       this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       if (worldIn.getBlockState(pos.offset(facing)).getBlock() instanceof BlockAssemblyAugment) {
          return this.getDefaultState().withProperty(FACING, facing);
@@ -81,6 +82,7 @@ public class BlockAssemblyAugment extends Block {
       }
    }
 
+   @Override
    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       super.onBlockPlacedBy(world, pos, state, placer, stack);
       BlockPos nextpos = pos;
@@ -101,6 +103,7 @@ public class BlockAssemblyAugment extends Block {
       }
    }
 
+   @Override
    public void breakBlock(World world, BlockPos pos, IBlockState state) {
       BlockPos nextpos = pos;
       IBlockState next = state;
@@ -121,6 +124,7 @@ public class BlockAssemblyAugment extends Block {
       super.breakBlock(world, pos, state);
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       EnumFacing enumfacing = EnumFacing.byIndex(meta);
       if (enumfacing.getAxis() == Axis.Y) {
@@ -130,22 +134,27 @@ public class BlockAssemblyAugment extends Block {
       return this.getDefaultState().withProperty(FACING, enumfacing);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       if (this.useBBOne) {
          return this.AABB[0];
@@ -154,6 +163,7 @@ public class BlockAssemblyAugment extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       if (this.useBBOne) {
          return this.AABB[0];
@@ -162,15 +172,18 @@ public class BlockAssemblyAugment extends Block {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return this.opaque;
    }
@@ -190,14 +203,17 @@ public class BlockAssemblyAugment extends Block {
       return this;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return this.fullcube;
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileAssemblyAugment createTileEntity(World world, IBlockState blockState) {
       return new TileAssemblyAugment();

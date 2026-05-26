@@ -52,11 +52,13 @@ public class BlockSieve extends Block {
       this.setSoundType(SoundType.WOOD);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public void addCollisionBoxToList(
       IBlockState state,
       World worldIn,
@@ -73,10 +75,12 @@ public class BlockSieve extends Block {
       addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_SOUTH);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -94,33 +98,40 @@ public class BlockSieve extends Block {
       return (TileSieve)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileSieve createTileEntity(World world, IBlockState blockState) {
       return new TileSieve();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
       TileSieve tile = this.getTileEntity(worldIn, pos);
       tile.rotated = placer.getHorizontalFacing().getAxis() == Axis.Z;
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return face == EnumFacing.UP ? BlockFaceShape.BOWL : BlockFaceShape.UNDEFINED;
    }

@@ -19,6 +19,7 @@ public class PresentBoxTESR extends TileEntitySpecialRenderer<TilePresentBox> {
       new ResourceLocation("arpg:textures/present_box_6.png")
    };
 
+   @Override
    public void render(TilePresentBox te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       if (te != null) {
          if (te.opened) {

@@ -95,6 +95,7 @@ public class FinWingsModel extends ModelWings {
       this.shape2b.addChild(this.shape3b);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1a.render(f5);
       this.shape1b.render(f5);

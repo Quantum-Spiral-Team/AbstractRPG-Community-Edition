@@ -34,6 +34,7 @@ public class MagicBoomerang extends ItemWeapon {
       this.setFull3D();
       this.setMaxDamage(2);
       this.addPropertyOverride(new ResourceLocation("throw"), new IItemPropertyGetter() {
+         @Override
          @SideOnly(Side.CLIENT)
          public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
             if (entityIn == null) {
@@ -48,6 +49,7 @@ public class MagicBoomerang extends ItemWeapon {
       });
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -57,14 +59,17 @@ public class MagicBoomerang extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack stack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(stack, entityIn);
@@ -105,7 +110,7 @@ public class MagicBoomerang extends ItemWeapon {
                      player.rotationYaw,
                      0.0F,
                      parameters.getEnchantedF("velocity", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)),
-                     parameters.getF("inaccuracy"),
+                     parameters.getFloat("inaccuracy"),
                      -0.15F,
                      0.4F,
                      0.1F

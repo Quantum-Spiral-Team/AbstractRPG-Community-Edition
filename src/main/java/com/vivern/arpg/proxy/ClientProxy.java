@@ -9,13 +9,10 @@ import com.vivern.arpg.items.models.CrystalStarShootModel;
 import com.vivern.arpg.items.models.CubikModel;
 import com.vivern.arpg.items.models.DragonFireworkModel;
 import com.vivern.arpg.items.models.ElProjectileModel;
-import com.vivern.arpg.items.models.ElectricSieveModel;
 import com.vivern.arpg.items.models.EntityThistleThornModel;
-import com.vivern.arpg.items.models.EtheriteInvocatorModel;
 import com.vivern.arpg.items.models.FireLordChestModel;
 import com.vivern.arpg.items.models.FireLordHelmModel;
 import com.vivern.arpg.items.models.FireMageHatModel;
-import com.vivern.arpg.items.models.ItemChargerModel;
 import com.vivern.arpg.items.models.MagicHoodie;
 import com.vivern.arpg.items.models.MinigunIcicleModel;
 import com.vivern.arpg.items.models.PhoenixGhostModel;
@@ -24,13 +21,10 @@ import com.vivern.arpg.items.models.QuadroBeltModel;
 import com.vivern.arpg.items.models.RocketModel;
 import com.vivern.arpg.items.models.SharkRocketModel;
 import com.vivern.arpg.items.models.ShellShardModel;
-import com.vivern.arpg.items.models.SieveModel;
 import com.vivern.arpg.items.models.SpikedBurstModel;
 import com.vivern.arpg.items.models.StingerBoltModel;
 import com.vivern.arpg.items.models.ThornkeeperShootModel;
-import com.vivern.arpg.items.models.TileNexusNiveoliteModel;
 import com.vivern.arpg.items.models.ToxicNukeModel;
-import com.vivern.arpg.items.models.TritonHearthModel;
 import com.vivern.arpg.items.models.VampireKnifes;
 import com.vivern.arpg.items.models.WeatherRocketModel;
 import com.vivern.arpg.items.models.WizardHatModel;
@@ -163,11 +157,7 @@ import com.vivern.arpg.entity.XmassBall;
 import com.vivern.arpg.entity.XmassRocket;
 import com.vivern.arpg.hooks.ARPGHooks;
 import com.vivern.arpg.hooks.coloredlightning.ColoredLightning;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.FluidsRegister;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.AquaticaMobsPack;
 import com.vivern.arpg.mobs.Blubber;
 import com.vivern.arpg.mobs.DungeonMobsPack;
@@ -184,50 +174,27 @@ import com.vivern.arpg.mobs.ToxicomaniaMobsPack;
 import com.vivern.arpg.mobs.Troglodyte;
 import com.vivern.arpg.mobs.WhiteSlime;
 import com.vivern.arpg.potions.Freezing;
-import com.vivern.arpg.renders.ARPGChestTESR;
-import com.vivern.arpg.renders.AdvancedBlockDetectorTESR;
-import com.vivern.arpg.renders.AlchemicLabTESR;
 import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.AnimatedGunPRender;
-import com.vivern.arpg.renders.AquaticaPortalTESR;
-import com.vivern.arpg.renders.AssemblyAugmentTESR;
-import com.vivern.arpg.renders.AssemblyTableTESR;
 import com.vivern.arpg.renders.BetweenRenderFactory;
-import com.vivern.arpg.renders.BioCellTESR;
 import com.vivern.arpg.renders.BlockEntityFactory;
-import com.vivern.arpg.renders.BookcaseTESR;
 import com.vivern.arpg.renders.BulletParticle;
-import com.vivern.arpg.renders.CalibrationBundleTESR;
-import com.vivern.arpg.renders.ChestsTESR;
-import com.vivern.arpg.renders.CrystalSphereTESR;
 import com.vivern.arpg.renders.CubikFactory;
 import com.vivern.arpg.renders.CustomArrowFactory;
 import com.vivern.arpg.renders.CustomProjectileRender;
-import com.vivern.arpg.renders.DisenchantmentTableTESR;
-import com.vivern.arpg.renders.DungeonLadderTESR;
-import com.vivern.arpg.renders.DungeonPortalTESR;
 import com.vivern.arpg.renders.FireworkRenderFactory;
 import com.vivern.arpg.renders.FreezingFactory;
-import com.vivern.arpg.renders.FrostPortalTESR;
 import com.vivern.arpg.renders.GHFactory;
 import com.vivern.arpg.renders.GUNPFactory;
 import com.vivern.arpg.renders.GUNParticle;
-import com.vivern.arpg.renders.GlossaryTESR;
-import com.vivern.arpg.renders.GlowingVeinTESR;
-import com.vivern.arpg.renders.IndustrialMixerTESR;
 import com.vivern.arpg.renders.InvasionInfo;
-import com.vivern.arpg.renders.ItemChargerTESR;
 import com.vivern.arpg.renders.JSONFactory;
 import com.vivern.arpg.renders.LaserFactory;
-import com.vivern.arpg.renders.MagicGeneratorTESR;
-import com.vivern.arpg.renders.ManaBottleTESR;
-import com.vivern.arpg.renders.ManaPumpTESR;
 import com.vivern.arpg.renders.ModelledPartickle;
 import com.vivern.arpg.renders.ModelledPartickleRender;
 import com.vivern.arpg.renders.ParticleTentacle;
 import com.vivern.arpg.renders.ParticleTentacleRender;
 import com.vivern.arpg.renders.PlacedItemFactory;
-import com.vivern.arpg.renders.PresentBoxTESR;
 import com.vivern.arpg.renders.RenderAdvFallingBlock;
 import com.vivern.arpg.renders.RenderBigLightningStrike;
 import com.vivern.arpg.renders.RenderBoomerangFactory;
@@ -248,28 +215,11 @@ import com.vivern.arpg.renders.RenderSpecial;
 import com.vivern.arpg.renders.RenderSplash;
 import com.vivern.arpg.renders.RenderStingingCell;
 import com.vivern.arpg.renders.RenderWhip;
-import com.vivern.arpg.renders.ResearchTableTESR;
-import com.vivern.arpg.renders.RetortTESR;
-import com.vivern.arpg.renders.RunicMirrorTESR;
-import com.vivern.arpg.renders.SacrificialAltarTESR;
 import com.vivern.arpg.renders.ShardRenderFactory;
-import com.vivern.arpg.renders.ShimmeringBeastbloomTESR;
-import com.vivern.arpg.renders.SoulCatcherTESR;
 import com.vivern.arpg.renders.SpearRenderFactory;
-import com.vivern.arpg.renders.SpellForgeTESR;
-import com.vivern.arpg.renders.SplitterTESR;
-import com.vivern.arpg.renders.StarLanternTESR;
-import com.vivern.arpg.renders.StormledgePortalTESR;
 import com.vivern.arpg.renders.StreamLaserFactory;
 import com.vivern.arpg.renders.SweepParticle;
 import com.vivern.arpg.renders.SweepParticleFactory;
-import com.vivern.arpg.renders.TESRModel;
-import com.vivern.arpg.renders.TESRSieve;
-import com.vivern.arpg.renders.TeamBannerTESR;
-import com.vivern.arpg.renders.TideBeaconTESR;
-import com.vivern.arpg.renders.ToxicPortalTESR;
-import com.vivern.arpg.renders.VialTESR;
-import com.vivern.arpg.renders.VoidCrystalTESR;
 import com.vivern.arpg.renders.WhipParticle;
 import com.vivern.arpg.renders.mobrender.InitMobRenders;
 import com.vivern.arpg.renders.mobrender.RenderBlubber;
@@ -279,63 +229,22 @@ import com.vivern.arpg.renders.mobrender.RenderSummonedBlaze;
 import com.vivern.arpg.renders.mobrender.RenderTroglodyte;
 import com.vivern.arpg.renders.mobrender.RenderWhiteSlime;
 import com.vivern.arpg.shader.ShaderMain;
-import com.vivern.arpg.tileentity.TileARPGChest;
-import com.vivern.arpg.tileentity.TileAdvancedBlockDetector;
-import com.vivern.arpg.tileentity.TileAlchemicLab;
-import com.vivern.arpg.tileentity.TileAquaticaPortal;
-import com.vivern.arpg.tileentity.TileAssemblyAugment;
-import com.vivern.arpg.tileentity.TileAssemblyTable;
-import com.vivern.arpg.tileentity.TileBioCell;
-import com.vivern.arpg.tileentity.TileBookcase;
-import com.vivern.arpg.tileentity.TileCalibrationBundle;
-import com.vivern.arpg.tileentity.TileChest;
-import com.vivern.arpg.tileentity.TileCrystalSphere;
-import com.vivern.arpg.tileentity.TileDisenchantmentTable;
-import com.vivern.arpg.tileentity.TileDungeonLadder;
-import com.vivern.arpg.tileentity.TileDungeonPortal;
-import com.vivern.arpg.tileentity.TileElectricSieve;
-import com.vivern.arpg.tileentity.TileEntityFrostPortal;
-import com.vivern.arpg.tileentity.TileEtheriteInvocator;
-import com.vivern.arpg.tileentity.TileGlossary;
-import com.vivern.arpg.tileentity.TileGlowingVein;
-import com.vivern.arpg.tileentity.TileIndustrialMixer;
-import com.vivern.arpg.tileentity.TileItemCharger;
-import com.vivern.arpg.tileentity.TileMagicGenerator;
-import com.vivern.arpg.tileentity.TileManaBottle;
-import com.vivern.arpg.tileentity.TileManaPump;
-import com.vivern.arpg.tileentity.TileNexusBeacon;
-import com.vivern.arpg.tileentity.TileNexusNiveolite;
-import com.vivern.arpg.tileentity.TilePresentBox;
-import com.vivern.arpg.tileentity.TileResearchTable;
-import com.vivern.arpg.tileentity.TileRetort;
-import com.vivern.arpg.tileentity.TileRunicMirror;
-import com.vivern.arpg.tileentity.TileSacrificialAltar;
-import com.vivern.arpg.tileentity.TileShimmeringBeastbloom;
-import com.vivern.arpg.tileentity.TileSieve;
-import com.vivern.arpg.tileentity.TileSoulCatcher;
-import com.vivern.arpg.tileentity.TileSpellForge;
-import com.vivern.arpg.tileentity.TileSplitter;
-import com.vivern.arpg.tileentity.TileStarLantern;
-import com.vivern.arpg.tileentity.TileStormledgePortal;
-import com.vivern.arpg.tileentity.TileTeamBanner;
-import com.vivern.arpg.tileentity.TileToxicPortal;
-import com.vivern.arpg.tileentity.TileTritonHearth;
-import com.vivern.arpg.tileentity.TileVial;
-import com.vivern.arpg.tileentity.TileVoidCrystal;
 import com.vivern.arpg.weather.Weather;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.MovingSound;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -366,8 +275,7 @@ public class ClientProxy extends CommonProxy {
    public void preInit(FMLPreInitializationEvent event) throws IllegalArgumentException, IllegalAccessException {
       super.preInit(event);
       Keys.register();
-      FluidsRegister.registerRender();
-      Flicks.instance = new Flicks();
+      RenderRegister.registerFluidsRender();
       RenderingRegistry.registerEntityRenderingHandler(EntityFlyApple.class, new SnowballRender(Items.APPLE));
       RenderingRegistry.registerEntityRenderingHandler(
          AppleEffect.class, new RenderSplash("arpg:textures/splash_apple.png", 1.0F, 10, 1.0F, 0.0F, 0.0F, 0.0F, false, -1, DestFactor.ONE)
@@ -951,65 +859,8 @@ public class ClientProxy extends CommonProxy {
    @Override
    public void init(FMLInitializationEvent event) {
       super.init(event);
-      ItemsRegister.registerItemsRender();
-      ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFrostPortal.class, new FrostPortalTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileAdvancedBlockDetector.class, new AdvancedBlockDetectorTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileGlowingVein.class, new GlowingVeinTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileCrystalSphere.class, new CrystalSphereTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileSpellForge.class, new SpellForgeTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileSacrificialAltar.class, new SacrificialAltarTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileAlchemicLab.class, new AlchemicLabTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileChest.class, new ChestsTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileRunicMirror.class, new RunicMirrorTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileManaBottle.class, new ManaBottleTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileStarLantern.class, new StarLanternTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TilePresentBox.class, new PresentBoxTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileShimmeringBeastbloom.class, new ShimmeringBeastbloomTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileBioCell.class, new BioCellTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileDungeonLadder.class, new DungeonLadderTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileToxicPortal.class, new ToxicPortalTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileDungeonPortal.class, new DungeonPortalTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileVoidCrystal.class, new VoidCrystalTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileNexusBeacon.class, new TideBeaconTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileResearchTable.class, new ResearchTableTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileSplitter.class, new SplitterTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileRetort.class, new RetortTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileVial.class, new VialTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileBookcase.class, new BookcaseTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileGlossary.class, new GlossaryTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileDisenchantmentTable.class, new DisenchantmentTableTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(
-         TileTritonHearth.class, new TESRModel(new TritonHearthModel(), new ResourceLocation("arpg:textures/triton_hearth_model_tex.png"))
-      );
-      ClientRegistry.bindTileEntitySpecialRenderer(TileIndustrialMixer.class, new IndustrialMixerTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileAssemblyTable.class, new AssemblyTableTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileAssemblyAugment.class, new AssemblyAugmentTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(
-         TileNexusNiveolite.class, new TESRModel(new TileNexusNiveoliteModel(), new ResourceLocation("arpg:textures/tile_nexus_niveolite_model_tex.png"))
-      );
-      ClientRegistry.bindTileEntitySpecialRenderer(TileCalibrationBundle.class, new CalibrationBundleTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileSoulCatcher.class, new SoulCatcherTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileManaPump.class, new ManaPumpTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileSieve.class, new TESRSieve(new SieveModel(), new ResourceLocation("arpg:textures/sieve_model_tex.png")));
-      ClientRegistry.bindTileEntitySpecialRenderer(
-         TileElectricSieve.class, new TESRSieve(new ElectricSieveModel(), new ResourceLocation("arpg:textures/electric_sieve_model_tex.png"))
-      );
-      ClientRegistry.bindTileEntitySpecialRenderer(
-         TileItemCharger.class, new ItemChargerTESR(new ItemChargerModel(), new ResourceLocation("arpg:textures/item_charger_model_tex.png"))
-      );
-      ClientRegistry.bindTileEntitySpecialRenderer(TileARPGChest.class, new ARPGChestTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileAquaticaPortal.class, new AquaticaPortalTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileStormledgePortal.class, new StormledgePortalTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(TileMagicGenerator.class, new MagicGeneratorTESR());
-      ClientRegistry.bindTileEntitySpecialRenderer(
-         TileEtheriteInvocator.class,
-         new TESRModel(
-            new EtheriteInvocatorModel(),
-            new ResourceLocation("arpg:textures/etherite_invocator_model_tex.png"),
-            tile -> ((TileEtheriteInvocator)tile).hasCell ? new float[]{1.0F} : null
-         )
-      );
-      ClientRegistry.bindTileEntitySpecialRenderer(TileTeamBanner.class, new TeamBannerTESR());
+      RenderRegister.registerItemsRender();
+      RenderRegister.registerTileEntitySpecialRenderers();
       quadroBeltModel = new QuadroBeltModel();
       quadroBeltModel.bipedBody.showModel = false;
       quadroBeltModel.bipedHead.showModel = false;
@@ -1118,5 +969,12 @@ public class ClientProxy extends CommonProxy {
    public static void registerModels(ModelRegistryEvent event) {
       BlocksRegister.registerStateMappers();
       BlocksRegister.registerBlocksRender();
+   }
+
+   @Override
+   public void playWingsSound(EntityPlayer player, MovingSound sound) {
+      if (player instanceof EntityPlayerSP) {
+         Minecraft.getMinecraft().getSoundHandler().playSound(sound);
+      }
    }
 }

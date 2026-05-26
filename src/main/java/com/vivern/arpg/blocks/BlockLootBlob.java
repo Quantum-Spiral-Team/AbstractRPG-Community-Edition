@@ -33,15 +33,18 @@ public class BlockLootBlob extends Block {
       this.setHarvestLevel("shovel", 0);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
       if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
          if (RANDOM.nextFloat() < 0.04) {
@@ -112,6 +115,7 @@ public class BlockLootBlob extends Block {
       }
    }
 
+   @Override
    public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
       return MathHelper.getInt(RANDOM, 2, 10);
    }

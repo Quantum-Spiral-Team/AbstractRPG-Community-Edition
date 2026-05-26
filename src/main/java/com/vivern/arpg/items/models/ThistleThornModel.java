@@ -172,6 +172,7 @@ public class ThistleThornModel extends ModelBase {
       this.setRotateAngle(this.stem2, 0.0F, 0.0F, 0.13665928F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float lbX = OpenGlHelper.lastBrightnessX;
       float lbY = OpenGlHelper.lastBrightnessY;

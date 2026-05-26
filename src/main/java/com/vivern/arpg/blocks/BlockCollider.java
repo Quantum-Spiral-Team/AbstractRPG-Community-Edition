@@ -38,6 +38,7 @@ public class BlockCollider extends Block {
       this.setSoundType(SoundType.METAL);
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -81,23 +82,28 @@ public class BlockCollider extends Block {
       return (TileInfernumFurnace)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileInfernumFurnace createTileEntity(World world, IBlockState blockState) {
       return new TileInfernumFurnace();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       EnumFacing enumfacing = EnumFacing.byIndex(meta);
       if (enumfacing.getAxis() == Axis.Y) {
@@ -107,18 +113,22 @@ public class BlockCollider extends Block {
       return this.getDefaultState().withProperty(FACING, enumfacing);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }

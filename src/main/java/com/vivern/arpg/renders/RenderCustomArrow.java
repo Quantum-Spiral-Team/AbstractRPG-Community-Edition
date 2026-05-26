@@ -34,6 +34,7 @@ public class RenderCustomArrow<T extends EntityArrow> extends Render<T> {
       this.blend = blend;
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       this.bindEntityTexture(entity);
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -154,6 +155,7 @@ public class RenderCustomArrow<T extends EntityArrow> extends Render<T> {
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntityArrow entity) {
       return this.tex;
    }

@@ -245,9 +245,8 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings({"deprecation", "ConstantConditions"})
+@SuppressWarnings("ConstantConditions")
 public class BlocksRegister {
-   public static final BlocksRegister INSTANCE = new BlocksRegister();
    public static final Set<Block> FOR_RENDER = new HashSet<>();
    public static final HardRes HR_CONIFER_LOG = new HardRes(6.0F, 30.0F, 0.4F, 1.0F, 4);
    public static final HardRes HR_CONIFER_PLANKS = new HardRes(5.5F, 35.0F, 0.4F, 1.0F, 4);
@@ -642,7 +641,7 @@ public class BlocksRegister {
          Material.ROCK, "radioactive_titanium_ore", HR_RADIOACTIVE_STONE, "pickaxe", 0, 0, 20, 0
       )
       .setisReplaceableOreGen(false);
-   public static final Block[] TOXIC_GROUNDS = new Block[]{TOXIC_GRASS, TOXIC_DIRT, SLUDGE, NUCLEAR_WASTE, JUNK};
+   private static final Block[] TOXIC_GROUNDS = new Block[]{TOXIC_GRASS, TOXIC_DIRT, SLUDGE, NUCLEAR_WASTE, JUNK};
    public static final CustomPlant TOXIBERRY_ARCANO = CustomPlant.createCustomPlant(
       "toxiberry_arcanophyllum",
       0.0F,
@@ -1510,7 +1509,7 @@ public class BlocksRegister {
 
       for (Field field : fields) {
          if (field.getType() == Block.class || field.getType() == CustomPlant.class) {
-            Block block = (Block)field.get(INSTANCE);
+            Block block = (Block) field.get(new BlocksRegister());
             setRegister(block, fuels);
          }
       }
@@ -1888,6 +1887,7 @@ public class BlocksRegister {
       }
    }
 
+   //TODO move to ContentRegister and events
    private static void setRegister(Block block, HashMap<Block, Integer> fuels) {
       int burn = fuels.getOrDefault(block, 0);
       if (burn == 0) {

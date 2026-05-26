@@ -33,6 +33,7 @@ import net.minecraft.world.gen.structure.template.Template.BlockInfo;
 
 public class HorribleVillage {
    public static Predicate<IBlockState> BLOCKS_TO_COLLIDE = new Predicate<IBlockState>() {
+      @Override
       public boolean apply(IBlockState input) {
          return input.getBlock() == Blocks.PLANKS
             ? true
@@ -46,6 +47,7 @@ public class HorribleVillage {
       }
    };
    public static ITemplateProcessor replacerHorribleVillage = new ITemplateProcessor() {
+      @Override
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
             IBlockState state = Blocks.CHEST.getStateFromMeta(Blocks.CHEST.getMetaFromState(blockInfoIn.blockState));

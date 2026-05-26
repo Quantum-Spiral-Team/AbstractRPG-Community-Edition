@@ -60,6 +60,7 @@ public class SoulStone extends ItemWeapon {
       this.setCreativeTab(CreativeTabs.TOOLS);
       this.setTranslationKey("soul_stone");
       this.addPropertyOverride(new ResourceLocation("soul"), new IItemPropertyGetter() {
+         @Override
          @SideOnly(Side.CLIENT)
          public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
             return SoulStone.getSoul(stack);
@@ -67,6 +68,7 @@ public class SoulStone extends ItemWeapon {
       });
    }
 
+   @Override
    public int getItemStackLimit(ItemStack stack) {
       return getSoul(stack) == 0 ? 64 : 1;
    }
@@ -88,6 +90,7 @@ public class SoulStone extends ItemWeapon {
       return stack;
    }
 
+   @Override
    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
       catchSoul(stack, target, attacker, 0);
       return super.hitEntity(stack, target, attacker);
@@ -149,6 +152,7 @@ public class SoulStone extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       for (int i = 0; i < 10; i++) {
@@ -222,6 +226,7 @@ public class SoulStone extends ItemWeapon {
       return 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;
@@ -232,6 +237,7 @@ public class SoulStone extends ItemWeapon {
       return WeaponHandleType.ONE_HANDED;
    }
 
+   @Override
    public String getItemStackDisplayName(ItemStack stack) {
       int soulId = getSoul(stack);
       if (soulId != 0) {
@@ -244,6 +250,7 @@ public class SoulStone extends ItemWeapon {
       return super.getItemStackDisplayName(stack);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       int soulId = getSoul(stack);

@@ -117,6 +117,7 @@ public class ElementFocusModel extends ModelBase {
       this.setRotateAngle(this.shape1_17, -0.3642502F, 0.0F, (float) Math.PI);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1_5.render(f5);
       this.shape1_1.render(f5);

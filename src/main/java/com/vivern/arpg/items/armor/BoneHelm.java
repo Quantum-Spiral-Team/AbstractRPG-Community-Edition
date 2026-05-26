@@ -49,6 +49,7 @@ public class BoneHelm extends AbstractArmor {
       return multimap;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
       if (itemStack != ItemStack.EMPTY) {
@@ -67,6 +68,7 @@ public class BoneHelm extends AbstractArmor {
       }
    }
 
+   @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return armortexture;
    }
@@ -104,6 +106,7 @@ public class BoneHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -122,6 +125,7 @@ public class BoneHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return BoneHelm.armortexture;
       }
@@ -162,6 +166,7 @@ public class BoneHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -180,6 +185,7 @@ public class BoneHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return BoneHelm.armortexture;
       }
@@ -220,6 +226,7 @@ public class BoneHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -238,6 +245,7 @@ public class BoneHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return BoneHelm.armortexture;
       }

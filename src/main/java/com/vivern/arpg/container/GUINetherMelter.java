@@ -17,18 +17,21 @@ public class GUINetherMelter extends GuiContainer {
       this.tileFurnace = furnaceInv;
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
       this.renderHoveredToolTip(mouseX, mouseY);
    }
 
+   @Override
    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
       String s = this.tileFurnace.getDisplayName().getUnformattedText();
       this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
       this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 100, this.ySize - 96 + 2, 4210752);
    }
 
+   @Override
    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
       this.mc.getTextureManager().bindTexture(FURNACE_GUI_TEXTURES);

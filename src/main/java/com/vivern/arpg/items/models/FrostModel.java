@@ -123,6 +123,7 @@ public class FrostModel extends ModelBase {
       this.tent1.addChild(this.tentaaa1);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(0.0F, 1.0F, 0.0F);
@@ -156,6 +157,7 @@ public class FrostModel extends ModelBase {
       modelRenderer.rotateAngleZ = z;
    }
 
+   @Override
    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
       this.core.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
       this.core.rotateAngleX = headPitch * (float) (Math.PI / 180.0);

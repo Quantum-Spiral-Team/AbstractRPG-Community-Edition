@@ -62,6 +62,7 @@ public class SlimeShotgunModel extends ModelBase {
       this.setRotateAngle(this.shape_4, 1.0927507F, 0.0F, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape_2.offsetX, this.shape_2.offsetY, this.shape_2.offsetZ);

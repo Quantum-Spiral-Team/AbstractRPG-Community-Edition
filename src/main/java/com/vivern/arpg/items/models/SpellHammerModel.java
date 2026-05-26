@@ -63,6 +63,7 @@ public class SpellHammerModel extends ModelBase {
       this.shape5.addChild(this.shape6);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1.render(f5);
       this.shape2.render(f5);

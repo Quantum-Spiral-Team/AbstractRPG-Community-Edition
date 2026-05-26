@@ -106,16 +106,19 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
       return this.isInWater() ? 0.0F : 0.001F;
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBox(Entity entityIn) {
       return null;
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox() {
       return this.getEntityBoundingBox();
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote) {
@@ -149,7 +152,7 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
 
          if (this.thrower != null && this.ticksExisted % 3 == 0) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            float attraction = parameters.getF("attraction");
+            float attraction = parameters.getFloat("attraction");
             double distsq = this.getDistanceSq(this.thrower);
             if (this.ticksExisted < 60 && distsq < 49.0) {
                SuperKnockback.applyMove(
@@ -270,10 +273,12 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
    }
 
+   @Override
    public void onEntityUpdate() {
       super.onEntityUpdate();
       if (this.world.isRemote) {
@@ -303,9 +308,11 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
       }
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       if ((this.throwerName == null || this.throwerName.isEmpty()) && this.thrower instanceof EntityPlayer) {
          this.throwerName = this.thrower.getName();
@@ -314,6 +321,7 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
       compound.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       this.thrower = null;
       this.throwerName = compound.getString("ownerName");

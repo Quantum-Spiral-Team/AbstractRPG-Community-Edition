@@ -258,6 +258,7 @@ public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBaubl
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       Item itemIn = itemstack.getItem();
       if (entityIn instanceof EntityPlayer) {

@@ -156,6 +156,7 @@ public class AquaticBowModel extends ModelBase {
       this.shapeUP2.addChild(this.ropeUP);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       boolean ench = f1 > 0.0F;

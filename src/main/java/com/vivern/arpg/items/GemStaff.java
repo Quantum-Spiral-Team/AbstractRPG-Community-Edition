@@ -32,6 +32,7 @@ public class GemStaff extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -41,10 +42,12 @@ public class GemStaff extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -62,6 +65,7 @@ public class GemStaff extends ItemWeapon {
       return WeaponParameters.getWeaponParameters("gem_staff_" + gem);
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -98,9 +102,9 @@ public class GemStaff extends ItemWeapon {
                bolt.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
                bolt.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                bolt.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-               bolt.red = parameters.getF("red");
-               bolt.green = parameters.getF("green");
-               bolt.blue = parameters.getF("blue");
+               bolt.red = parameters.getFloat("red");
+               bolt.green = parameters.getFloat("green");
+               bolt.blue = parameters.getFloat("blue");
                Weapons.shoot(
                   bolt,
                   hand,
@@ -108,7 +112,7 @@ public class GemStaff extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.0F,
-                  parameters.getF("velocity"),
+                  parameters.getFloat("velocity"),
                   parameters.getEnchantedF("inaccuracy", acc),
                   -0.1F,
                   0.5F,
@@ -143,6 +147,7 @@ public class GemStaff extends ItemWeapon {
       return false;
    }
 
+   @Override
    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
       if (this.isInCreativeTab(tab)) {
          for (int i = 0; i <= 7; i++) {
@@ -158,6 +163,7 @@ public class GemStaff extends ItemWeapon {
       }
    }
 
+   @Override
    public String getItemStackDisplayName(ItemStack stack) {
       if (stack.getItem() == ItemsRegister.GEM_STAFF) {
          int type = NBTHelper.GetNBTint(stack, "type");

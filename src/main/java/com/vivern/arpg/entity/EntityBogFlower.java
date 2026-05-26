@@ -50,6 +50,7 @@ public class EntityBogFlower extends EntityThrowable {
       this.magicPower = power;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 40 && !this.isImpacted) {
@@ -82,10 +83,12 @@ public class EntityBogFlower extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.013F;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -181,6 +184,7 @@ public class EntityBogFlower extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.world.isRemote) {
          BlockPos pos = result.getBlockPos();

@@ -32,6 +32,7 @@ public class GraveLurker extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -41,14 +42,17 @@ public class GraveLurker extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -112,7 +116,7 @@ public class GraveLurker extends ItemWeapon {
 
                if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0
                   && itemRand.nextFloat() < ColorConverters.InBorder(0.2F, 0.4F, 0.2F * power)) {
-                  NBTHelper.GiveNBTboolean(itemstack, false, "crit");
+                  NBTHelper.giveNBTboolean(itemstack, false, "crit");
                   NBTHelper.SetNBTboolean(itemstack, true, "crit");
                }
             }

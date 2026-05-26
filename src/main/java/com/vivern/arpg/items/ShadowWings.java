@@ -66,7 +66,6 @@ public class ShadowWings extends AbstractWings implements IAttributedBauble, IRe
          }
 
          expand /= 1.0F + nofly * 1.5F;
-         int maxflytime = this.getMaxFlyTime(stack);
          float upward = GetMOP.getFromTo(flytime, 0.0F, 5.0F) * GetMOP.getFromTo(flyupStarted, 0.0F, (float)(this.flapPeriod / 2));
          float upwardProgress = flytime / this.flapPeriodFloat;
          float gliding = glidingRaw / 8.0F * nofly;
@@ -104,17 +103,17 @@ public class ShadowWings extends AbstractWings implements IAttributedBauble, IRe
    }
 
    @Override
-   public double getMaxUpwardMotion(ItemStack itemstack) {
+   public double getMaxUpwardMotion(ItemStack stack) {
       return 0.7;
    }
 
    @Override
-   public double getUpwardMotionAdd(ItemStack itemstack) {
+   public double getUpwardMotionAdd(ItemStack stack) {
       return 0.11;
    }
 
    @Override
-   public double getFallingMotionAdd(ItemStack itemstack) {
+   public double getFallingMotionAdd(ItemStack stack) {
       return 0.35;
    }
 
@@ -124,13 +123,14 @@ public class ShadowWings extends AbstractWings implements IAttributedBauble, IRe
    }
 
    @Override
-   public double getFallingMotionSlowdown(ItemStack itemstack) {
+   public double getFallingMotionSlowdown(ItemStack stack) {
       return 0.75;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
-   public void startElytraSound(EntityPlayerSP player) {
-      Minecraft.getMinecraft().getSoundHandler().playSound(new ShadowWingsSound(player));
+   protected MovingSound getWingsSound(EntityPlayer player) {
+      return new ShadowWingsSound(player);
    }
 
    @Override
@@ -182,19 +182,20 @@ public class ShadowWings extends AbstractWings implements IAttributedBauble, IRe
    }
 
    @SideOnly(Side.CLIENT)
-   public class ShadowWingsSound extends MovingSound {
-      private final EntityPlayerSP player;
+   public static class ShadowWingsSound extends MovingSound {
+      private final EntityPlayer player;
       private int time;
       Random rand = new Random();
 
-      public ShadowWingsSound(EntityPlayerSP p_i47113_1_) {
+      public ShadowWingsSound(EntityPlayer player) {
          super(Sounds.toxic_wings_flying, SoundCategory.PLAYERS);
-         this.player = p_i47113_1_;
+         this.player = player;
          this.repeat = true;
          this.repeatDelay = 0;
          this.volume = 0.1F;
       }
 
+      @Override
       public void update() {
          this.time++;
          if (!this.player.isDead && (this.time <= 20 || this.player.isElytraFlying())) {

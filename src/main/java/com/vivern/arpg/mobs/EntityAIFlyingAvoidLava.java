@@ -14,10 +14,12 @@ public class EntityAIFlyingAvoidLava extends EntityAIBase {
       this.entity = entity;
    }
 
+   @Override
    public boolean shouldExecute() {
       return true;
    }
 
+   @Override
    public void updateTask() {
       for (int ii = 0; ii < 3; ii++) {
          for (int rr = 0; rr < 3; rr++) {

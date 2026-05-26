@@ -11,18 +11,22 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class FishingBait implements IRecipe {
+   @Override
    public IRecipe setRegistryName(ResourceLocation name) {
       return this;
    }
 
+   @Override
    public ResourceLocation getRegistryName() {
       return new ResourceLocation("arpg:bait_use_recipe");
    }
 
+   @Override
    public Class<IRecipe> getRegistryType() {
       return this.getRegistryType();
    }
 
+   @Override
    public boolean matches(InventoryCrafting inv, World worldIn) {
       ItemStack rod = null;
       ItemStack bait = null;
@@ -48,6 +52,7 @@ public class FishingBait implements IRecipe {
       return rod != null && bait != null;
    }
 
+   @Override
    public ItemStack getCraftingResult(InventoryCrafting inv) {
       ItemStack rod = null;
       ItemStack bait = null;
@@ -67,10 +72,12 @@ public class FishingBait implements IRecipe {
       return newrod;
    }
 
+   @Override
    public boolean canFit(int width, int height) {
       return width + height == 3;
    }
 
+   @Override
    public ItemStack getRecipeOutput() {
       return new ItemStack(ItemsRegister.FISHING_ROD);
    }

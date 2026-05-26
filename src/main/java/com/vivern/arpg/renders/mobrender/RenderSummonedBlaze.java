@@ -17,12 +17,14 @@ public class RenderSummonedBlaze extends RenderLiving<SummonedBlaze> {
       super(manager, new SummonedBlazeModel(), 0.5F);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull SummonedBlaze entity) {
       return this.mobTexture;
    }
 
    public static class SummonedBlazeFactory implements IRenderFactory<SummonedBlaze> {
+      @Override
       public Render<? super SummonedBlaze> createRenderFor(RenderManager manager) {
          return new RenderSummonedBlaze(manager);
       }

@@ -51,6 +51,7 @@ public class WrapperAlchemicLab implements IRecipeWrapper {
       return true;
    }
 
+   @Override
    public void getIngredients(IIngredients ingredients) {
       ingredients.setInputs(VanillaTypes.ITEM, this.recipe.exportInputsAsList());
       ingredients.setInput(VanillaTypes.FLUID, this.fluidInput);
@@ -58,6 +59,7 @@ public class WrapperAlchemicLab implements IRecipeWrapper {
       ingredients.setOutput(VanillaTypes.FLUID, this.fluidOutput);
    }
 
+   @Override
    public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
       if (mouseX > 56 && mouseY > 64 && mouseX < 133 && mouseY < 76) {
          minecraft.fontRenderer.drawString(ManaBar.asString(this.recipe.manacost) + " Mana", mouseX + 4, mouseY, 38655, true);

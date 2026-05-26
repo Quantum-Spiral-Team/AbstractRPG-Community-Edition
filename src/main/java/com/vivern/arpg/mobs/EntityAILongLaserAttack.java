@@ -28,6 +28,7 @@ public class EntityAILongLaserAttack extends EntityAIBase {
       this.checkWalls = checkWalls;
    }
 
+   @Override
    public boolean shouldExecute() {
       if (this.checkWalls) {
          Vec3d vec3d = this.entity.getPositionEyes(1.0F);
@@ -41,6 +42,7 @@ public class EntityAILongLaserAttack extends EntityAIBase {
       }
    }
 
+   @Override
    public void updateTask() {
       if (!this.entity.world.isRemote) {
          EntityLivingBase attackTarg = this.entity.getAttackTarget();

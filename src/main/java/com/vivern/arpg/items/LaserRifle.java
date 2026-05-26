@@ -30,6 +30,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LaserRifle extends ItemWeapon {
    ResourceLocation texture = new ResourceLocation("arpg:textures/laser_rifle_laser.png");
@@ -43,10 +45,12 @@ public class LaserRifle extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 3.0F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -56,14 +60,17 @@ public class LaserRifle extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          boolean removecharge = true;
@@ -185,6 +192,7 @@ public class LaserRifle extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer clientplayer, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Entity playe = world.getEntityByID((int)x);
@@ -235,11 +243,13 @@ public class LaserRifle extends ItemWeapon {
       return WeaponParameters.getWeaponParameters(this).getEnchantedI("clipsize", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / this.getMaxAmmo(itemstack), 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

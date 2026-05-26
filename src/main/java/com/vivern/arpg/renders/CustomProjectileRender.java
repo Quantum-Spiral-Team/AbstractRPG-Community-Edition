@@ -21,6 +21,7 @@ public class CustomProjectileRender<T extends CustomMobProjectile> extends Rende
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(CustomMobProjectile entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (entity.texture != null) {
          GlStateManager.pushMatrix();
@@ -86,11 +87,13 @@ public class CustomProjectileRender<T extends CustomMobProjectile> extends Rende
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(CustomMobProjectile entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
 
    public static class CustomProjectileFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new CustomProjectileRender(manager);
       }

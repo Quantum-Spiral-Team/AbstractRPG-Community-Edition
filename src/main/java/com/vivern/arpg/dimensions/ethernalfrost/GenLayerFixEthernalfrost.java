@@ -61,6 +61,7 @@ public class GenLayerFixEthernalfrost {
          this.neighborId = Biome.getIdForBiome(BiomesRegister.FROZEN_LAKE);
       }
 
+      @Override
       public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
          int i = areaX - 1;
          int j = areaY - 1;
@@ -104,6 +105,7 @@ public class GenLayerFixEthernalfrost {
          this.fromId = fromId;
       }
 
+      @Override
       public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
          int i = areaX - 1;
          int j = areaY - 1;

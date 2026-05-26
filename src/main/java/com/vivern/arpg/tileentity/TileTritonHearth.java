@@ -57,6 +57,7 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
       return this.manaBuffer;
    }
 
+   @Override
    public void update() {
       this.getManaBuffer().updateManaBuffer(this.world, this.pos);
       if (!this.world.isRemote) {
@@ -173,32 +174,38 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
       return compound;
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);

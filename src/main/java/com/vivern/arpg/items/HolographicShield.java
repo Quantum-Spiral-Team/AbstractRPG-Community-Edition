@@ -16,6 +16,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class HolographicShield extends ItemWeapon implements IItemHurted {
    private static final UUID[] SHIELD_MODIFIERS = new UUID[]{
@@ -33,6 +35,7 @@ public class HolographicShield extends ItemWeapon implements IItemHurted {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemstack) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (IWeapon.canShoot(itemstack)) {
@@ -50,6 +53,7 @@ public class HolographicShield extends ItemWeapon implements IItemHurted {
       return multimap;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!worldIn.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -82,6 +86,7 @@ public class HolographicShield extends ItemWeapon implements IItemHurted {
       return 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;

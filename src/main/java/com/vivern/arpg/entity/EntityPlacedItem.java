@@ -37,13 +37,16 @@ public class EntityPlacedItem extends EntityThrowable {
       return this.currentItem;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return this.onGround ? 0.0F : 0.03F;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 1000) {
@@ -51,6 +54,7 @@ public class EntityPlacedItem extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.typeOfHit == Type.BLOCK
          && this.world
@@ -78,6 +82,7 @@ public class EntityPlacedItem extends EntityThrowable {
       }
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       NBTTagCompound nbttagcompound = compound.getCompoundTag("PlacedItem");
       if (!nbttagcompound.isEmpty()) {
@@ -89,6 +94,7 @@ public class EntityPlacedItem extends EntityThrowable {
       super.readEntityFromNBT(nbttagcompound);
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       if (this.getPlacedItemStack() != null) {
          compound.setTag("PlacedItem", this.getPlacedItemStack().writeToNBT(new NBTTagCompound()));

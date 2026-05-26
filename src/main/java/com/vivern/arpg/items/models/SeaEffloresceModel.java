@@ -116,6 +116,7 @@ public class SeaEffloresceModel extends ModelBase {
       this.weeda_1.addChild(this.weedb_1);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f1 == 0.0F) {
          GlStateManager.pushMatrix();

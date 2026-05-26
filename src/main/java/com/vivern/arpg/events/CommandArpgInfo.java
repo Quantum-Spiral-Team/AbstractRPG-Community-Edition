@@ -14,26 +14,32 @@ public class CommandArpgInfo extends CommandBase {
    public static final String NAME = "arpg";
    public static final String USAGE = "/arpg info";
 
+   @Override
    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
       return true;
    }
 
+   @Override
    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
       return getListOfStringsMatchingLastWord(args, new String[]{"info"});
    }
 
+   @Override
    public String getName() {
       return "arpg";
    }
 
+   @Override
    public int getRequiredPermissionLevel() {
       return 0;
    }
 
+   @Override
    public String getUsage(ICommandSender sender) {
       return "/arpg info";
    }
 
+   @Override
    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException, NumberFormatException {
       if (args.length == 1 && "info".equals(args[0])) {
          if (Minecraft.getMinecraft().player != null) {

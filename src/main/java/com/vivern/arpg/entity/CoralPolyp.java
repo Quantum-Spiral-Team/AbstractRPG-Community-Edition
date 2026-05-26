@@ -19,6 +19,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CoralPolyp extends Entity {
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/coral_polyp_body.png");
@@ -47,6 +49,7 @@ public class CoralPolyp extends Entity {
       this.damage = damage;
    }
 
+   @Override
    protected void playStepSound(BlockPos pos, Block blockIn) {
    }
 
@@ -58,14 +61,17 @@ public class CoralPolyp extends Entity {
       );
    }
 
+   @Override
    public Team getTeam() {
       return this.thrower != null ? this.thrower.getTeam() : super.getTeam();
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return !this.world.isRemote;
    }
 
+   @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       if (!this.world.isRemote) {
          if (this.attacked >= 1 || amount > 10.0F || source.getTrueSource() instanceof EntityPlayer) {
@@ -80,6 +86,8 @@ public class CoralPolyp extends Entity {
       return super.attackEntityFrom(source, amount);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void handleStatusUpdate(byte id) {
       super.handleStatusUpdate(id);
       if (id == 8 && this.segmentPoses != null) {
@@ -121,6 +129,7 @@ public class CoralPolyp extends Entity {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.isInWater() && this.jump <= 0 && !this.hasNoGravity()) {
@@ -224,12 +233,15 @@ public class CoralPolyp extends Entity {
       }
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 }

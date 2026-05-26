@@ -89,6 +89,7 @@ public class ResearchTableWriModel extends ModelBase {
       this.shapeBlank2.addChild(this.shape6);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape2.render(f5);
       this.shape13.render(f5);

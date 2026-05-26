@@ -163,6 +163,7 @@ public class EnderInstancerModel extends ModelBase {
       this.shape3.addChild(this.shape4);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       float ft1 = GetMOP.getFromTo(f, 0.3F, 0.8F);

@@ -34,6 +34,7 @@ public class WandOfCold extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -43,10 +44,12 @@ public class WandOfCold extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -70,6 +73,7 @@ public class WandOfCold extends ItemWeapon {
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -105,7 +109,7 @@ public class WandOfCold extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                   player.addStat(StatList.getObjectUseStats(this));
                   IWeapon.fireBomEffect(this, player, world, 0);
-                  int nn = itemRand.nextInt(parameters.getI("max_shots")) + 1;
+                  int nn = itemRand.nextInt(parameters.getInt("max_shots")) + 1;
 
                   for (int i = 0; i < nn; i++) {
                      WandColdShoot projectile = new WandColdShoot(world, player, itemstack, power);
@@ -115,7 +119,7 @@ public class WandOfCold extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw + itemRand.nextInt(9) - 4.0F,
                         0.0F,
-                        parameters.getF("velocity"),
+                        parameters.getFloat("velocity"),
                         parameters.getEnchantedF("inaccuracy", acc) + i
                      );
                      world.spawnEntity(projectile);
@@ -133,7 +137,7 @@ public class WandOfCold extends ItemWeapon {
                   && NBTHelper.GetNBTint(itemstack, "charges") >= maxcharge(itemstack)
                   && !player.getCooldownTracker().hasCooldown(this)) {
                   NBTHelper.SetNBTint(itemstack, 5, "fdelay");
-                  player.getCooldownTracker().setCooldown(this, parameters.getI("wave_cooldown"));
+                  player.getCooldownTracker().setCooldown(this, parameters.getInt("wave_cooldown"));
                   Weapons.setPlayerAnimationOnServer(player, 26, EnumHand.MAIN_HAND);
                   player.addStat(StatList.getObjectUseStats(this));
                   IWeapon.fireBomEffect(this, player, world, 1);
@@ -162,7 +166,7 @@ public class WandOfCold extends ItemWeapon {
                      player.rotationPitch - 1.0F,
                      player.rotationYaw,
                      0.0F,
-                     parameters.getF("wave_velocity"),
+                     parameters.getFloat("wave_velocity"),
                      parameters.getEnchantedF("wave_inaccuracy", acc),
                      -0.45F,
                      0.0F,
@@ -186,11 +190,13 @@ public class WandOfCold extends ItemWeapon {
          .getEnchantedI("max_charges", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "charges") / maxcharge(itemstack), 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "charges") > 0;

@@ -27,6 +27,7 @@ public class CreativeElementDistributor extends Block {
       this.setCreativeTab(CreativeTabs.MISC);
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -70,10 +71,12 @@ public class CreativeElementDistributor extends Block {
       return (TileElementDistributor)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileElementDistributor createTileEntity(World world, IBlockState blockState) {
       return new TileElementDistributor();

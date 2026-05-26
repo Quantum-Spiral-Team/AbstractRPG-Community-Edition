@@ -95,6 +95,7 @@ public class AdamantiumMinigunModel extends ModelBase {
       this.roundBase.addChild(this.barrel3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float ft1 = GetMOP.getFromTo(f2, 0.0F, 0.1F) - GetMOP.getFromTo(f2, 0.9F, 1.0F);
       float ft2 = GetMOP.getFromTo(f2, 0.2F, 0.3F);

@@ -49,6 +49,7 @@ public class EnderProtector extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -58,10 +59,12 @@ public class EnderProtector extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -80,6 +83,7 @@ public class EnderProtector extends ItemWeapon {
       Booom.FOVpower = 0.016F;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -144,7 +148,7 @@ public class EnderProtector extends ItemWeapon {
                      float t1 = -MathHelper.sin(projectile.rotationPitch * (float) (Math.PI / 180.0));
                      float t2 = MathHelper.cos(projectile.rotationYaw * (float) (Math.PI / 180.0))
                         * MathHelper.cos(projectile.rotationPitch * (float) (Math.PI / 180.0));
-                     projectile.shoot(t, t1, t2, parameters.getF("velocity"), parameters.getEnchantedF("inaccuracy", acc));
+                     projectile.shoot(t, t1, t2, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc));
                      projectile.setPosition(rocketPos.x, rocketPos.y, rocketPos.z);
                      world.spawnEntity(projectile);
                      IWeapon.fireEffect(
@@ -195,6 +199,7 @@ public class EnderProtector extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Vec2f rotation = new Vec2f((float)a, (float)b);
@@ -307,11 +312,13 @@ public class EnderProtector extends ItemWeapon {
       world.spawnEntity(particle2);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

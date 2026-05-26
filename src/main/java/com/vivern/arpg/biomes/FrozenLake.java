@@ -16,6 +16,7 @@ public class FrozenLake extends Biome {
       this.fillerBlock = BlocksRegister.GLACIER.getDefaultState();
    }
 
+   @Override
    public void decorate(World worldIn, Random rand, BlockPos pos) {
       if (rand.nextFloat() < 0.075F) {
          BlockPos position = new BlockPos(pos.getX() + 8 + rand.nextInt(16), 63, pos.getZ() + 8 + rand.nextInt(16));

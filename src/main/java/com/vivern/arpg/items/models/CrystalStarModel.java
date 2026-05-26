@@ -117,6 +117,7 @@ public class CrystalStarModel extends ModelBase {
       this.setRotateAngle(this.cryst_4, -2.5497515F, -0.4553564F, -0.22759093F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.staf.offsetX, this.staf.offsetY, this.staf.offsetZ);

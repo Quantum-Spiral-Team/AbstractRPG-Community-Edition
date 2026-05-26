@@ -21,6 +21,7 @@ public class TileBunkerDoor extends TileEntity implements ITickable {
    public BlockPos relativeCurrentPos = BlockPos.ORIGIN;
    public int ticks = 0;
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       compound.setBoolean("started", this.started);
       compound.setBoolean("triggeredByOtherDoor", this.triggeredByOtherDoor);
@@ -36,6 +37,7 @@ public class TileBunkerDoor extends TileEntity implements ITickable {
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("started")) {
          this.started = compound.getBoolean("started");
@@ -66,6 +68,7 @@ public class TileBunkerDoor extends TileEntity implements ITickable {
       this.triggeredByOtherDoor = triggeredByOtherDoor;
    }
 
+   @Override
    public void update() {
       if (this.started) {
          this.ticks++;

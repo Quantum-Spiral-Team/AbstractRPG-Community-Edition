@@ -17,6 +17,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Shock extends Potion {
    Random rand = new Random();
@@ -28,11 +30,14 @@ public class Shock extends Potion {
       this.setIconIndex(6, 1);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasStatusIcon() {
       Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
       return true;
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
       World world = entityLivingBase.world;
       DeathEffects.addTolistEFFECTshock(entityLivingBase);
@@ -74,6 +79,7 @@ public class Shock extends Potion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return duration % 20 / (amplifier + 1) == 0;
    }

@@ -81,6 +81,7 @@ public class ItemCalibrationThing extends Item {
    public int maximalRandomValue;
    public int randomDisplayType;
    public static Predicate<IBlockState> BUNDLES = new Predicate<IBlockState>() {
+      @Override
       public boolean apply(IBlockState input) {
          return input.getBlock() == BlocksRegister.BLOCK_CALIBRATION_BUNDLE;
       }
@@ -222,6 +223,8 @@ public class ItemCalibrationThing extends Item {
       return thing;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       if (this.attraction < 0.0F) {
          tooltip.add(TextFormatting.DARK_PURPLE + "Attraction " + this.attraction);
@@ -248,6 +251,7 @@ public class ItemCalibrationThing extends Item {
       }
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
       ItemStack itemstack = playerIn.getHeldItem(handIn);
       Vec3d vec3d = playerIn.getPositionEyes(1.0F);

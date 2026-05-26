@@ -30,6 +30,7 @@ import org.apache.commons.lang3.Validate;
 
 public class EntityHangingAllSides extends EntityHanging implements IEntitySynchronize {
    private static final Predicate<Entity> IS_HANGING_ENTITY = new Predicate<Entity>() {
+      @Override
       public boolean apply(@Nullable Entity p_apply_1_) {
          return p_apply_1_ instanceof EntityHanging;
       }
@@ -53,6 +54,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       this.updateFacingWithBoundingBox(facing);
    }
 
+   @Override
    protected void entityInit() {
       this.getDataManager().register(ITEM, ItemStack.EMPTY);
       this.getDataManager().register(ROTATION, 0);
@@ -67,6 +69,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote && (this.ticksExisted < 2 || this.ticksExisted % 50 == 0)) {
@@ -81,6 +84,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       }
    }
 
+   @Override
    protected void updateFacingWithBoundingBox(EnumFacing facingDirectionIn) {
       Validate.notNull(facingDirectionIn);
       this.facingDirection = facingDirectionIn;
@@ -102,6 +106,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       }
    }
 
+   @Override
    protected void updateBoundingBox() {
       if (this.facingDirection != null) {
          double d0 = this.hangingPosition.getX() + 0.5;
@@ -156,6 +161,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       return p_190202_1_ % 32 == 0 ? 0.5 : 0.0;
    }
 
+   @Override
    public boolean onValidSurface() {
       if (!this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty()) {
          return false;
@@ -167,14 +173,17 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       }
    }
 
+   @Override
    public float getEyeHeight() {
       return this.height / 2.0F;
    }
 
+   @Override
    public float getCollisionBorderSize() {
       return 0.0F;
    }
 
+   @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       if (this.isEntityInvulnerable(source)) {
          return false;
@@ -190,14 +199,17 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       }
    }
 
+   @Override
    public int getWidthPixels() {
       return 12;
    }
 
+   @Override
    public int getHeightPixels() {
       return 12;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean isInRangeToRenderDist(double distance) {
       double d0 = 16.0;
@@ -205,11 +217,13 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       return distance < d0 * d0;
    }
 
+   @Override
    public void onBroken(@Nullable Entity brokenEntity) {
       this.playSound(this.breakSound, 1.0F, 1.0F);
       this.dropItemOrSelf(brokenEntity);
    }
 
+   @Override
    public void playPlaceSound() {
       this.playSound(this.placeSound, 1.0F, 1.0F);
    }
@@ -277,6 +291,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       }
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       if (!this.getDisplayedItem().isEmpty()) {
          compound.setTag("Item", this.getDisplayedItem().writeToNBT(new NBTTagCompound()));
@@ -292,6 +307,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       compound.setInteger("type", this.type);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
       if (nbttagcompound != null && !nbttagcompound.isEmpty()) {
@@ -310,6 +326,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
       this.updateFacingWithBoundingBox(EnumFacing.byIndex(compound.getByte("Facing")));
    }
 
+   @Override
    public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       if (!this.world.isRemote) {

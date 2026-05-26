@@ -12,6 +12,7 @@ public class ItemBlockFuel extends ItemBlock {
       this.burntime = burntime;
    }
 
+   @Override
    public int getItemBurnTime(ItemStack itemStack) {
       return this.burntime < 0 ? -1 : this.burntime * 20;
    }

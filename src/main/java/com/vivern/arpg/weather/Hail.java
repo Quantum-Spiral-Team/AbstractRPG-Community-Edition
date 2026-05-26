@@ -14,6 +14,8 @@ import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 public class Hail extends WorldEvent implements IVoxelCloudInfo {
@@ -71,6 +73,7 @@ public class Hail extends WorldEvent implements IVoxelCloudInfo {
       return 3000 + this.worldProvider.getWorld().rand.nextInt(6000);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void spawnSnowRainParticle(BlockPos pos, int allUsedPosesCount, float dist) {
       if (this.rand2.nextFloat() < (2.0F - dist / 4.0F) / allUsedPosesCount) {
@@ -106,12 +109,14 @@ public class Hail extends WorldEvent implements IVoxelCloudInfo {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       super.render(partialTicks, world, mc);
       WorldEventsHandler.renderRainSnow(partialTicks, this.rand1, 0.4F * this.showness, tex, this.showness, 0.016F, -0.2F, 0.0F, 0.0F, null, this);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void renderClouds(float partialTicks, WorldClient world, Minecraft mc) {
       if (this.voxelCloudField == null) {
@@ -122,6 +127,7 @@ public class Hail extends WorldEvent implements IVoxelCloudInfo {
       this.voxelCloudField.render(partialTicks, world, mc);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void stopRenderClouds() {
       this.voxelCloudField = null;

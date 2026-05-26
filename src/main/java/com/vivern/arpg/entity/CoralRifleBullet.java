@@ -95,6 +95,7 @@ public class CoralRifleBullet extends StandardBullet implements IEntitySynchroni
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -175,8 +176,8 @@ public class CoralRifleBullet extends StandardBullet implements IEntitySynchroni
             float bdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack));
             float bknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack));
             if (this.bullet != null) {
-               bdamage += this.bullet.damage * parameters.getF("bullet_damage");
-               bknockback += this.bullet.knockback * parameters.getF("bullet_knockback");
+               bdamage += this.bullet.damage * parameters.getFloat("bullet_damage");
+               bknockback += this.bullet.knockback * parameters.getFloat("bullet_knockback");
             }
 
             Weapons.dealDamage(
@@ -243,6 +244,7 @@ public class CoralRifleBullet extends StandardBullet implements IEntitySynchroni
       }
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }

@@ -19,22 +19,27 @@ public class CommandWorldEvents extends CommandBase {
    public static final String NAME = "worldevents";
    public static final String USAGE = "/worldevents <start|stop|info> event_class_name";
 
+   @Override
    public String getName() {
       return "worldevents";
    }
 
+   @Override
    public String getUsage(ICommandSender sender) {
       return "/worldevents <start|stop|info> event_class_name";
    }
 
+   @Override
    public int getRequiredPermissionLevel() {
       return 2;
    }
 
+   @Override
    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
       return args.length == 1 ? getListOfStringsMatchingLastWord(args, new String[]{"start", "stop", "info"}) : Collections.emptyList();
    }
 
+   @Override
    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException, NumberFormatException {
       if (args.length <= 0) {
          throw new WrongUsageException("/worldevents <start|stop|info> event_class_name", new Object[0]);

@@ -88,6 +88,7 @@ public class StaticLanceModel extends ModelBase {
       this.setRotateAngle(this.blade, (float) (Math.PI / 4), 0.0F, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape_6.offsetX, this.shape_6.offsetY, this.shape_6.offsetZ);

@@ -49,6 +49,7 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -61,10 +62,12 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.001F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > this.livetime) {
@@ -127,6 +130,7 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {

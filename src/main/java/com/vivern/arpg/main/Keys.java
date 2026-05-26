@@ -233,10 +233,12 @@ public class Keys implements IKeyConflictContext {
       return (keys & 4096) != 0;
    }
 
+   @Override
    public boolean isActive() {
       return true;
    }
 
+   @Override
    public boolean conflicts(IKeyConflictContext other) {
       return false;
    }

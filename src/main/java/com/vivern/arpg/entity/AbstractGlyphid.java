@@ -241,6 +241,7 @@ public abstract class AbstractGlyphid extends AbstractMob implements EntityFlyin
       }
    }
 
+   @Override
    public boolean hasPath() {
       return this.ai != null && this.ai.path != null;
    }

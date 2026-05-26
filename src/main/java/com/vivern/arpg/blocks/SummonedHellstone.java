@@ -34,6 +34,7 @@ public class SummonedHellstone extends Block {
       this.setLightLevel(0.3F);
    }
 
+   @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       long i = MathHelper.getCoordinateRandom(pos.getX(), 0, pos.getZ());
       double xRand = (float)(i >> 16 & 15L) / 15.0F - 0.5;
@@ -42,15 +43,19 @@ public class SummonedHellstone extends Block {
       return new Vec3d(xRand * 0.25, yRand * 0.15, zRand * 0.25);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return 15728880;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
       super.updateTick(world, pos, state, rand);
       if (!world.isRemote) {
@@ -63,6 +68,7 @@ public class SummonedHellstone extends Block {
       }
    }
 
+   @Override
    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
       super.onEntityWalk(worldIn, pos, entityIn);
       IBlockState state = worldIn.getBlockState(pos);
@@ -72,22 +78,27 @@ public class SummonedHellstone extends Block {
       }
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(EXPIRE, meta);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(EXPIRE);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{EXPIRE});
    }

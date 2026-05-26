@@ -67,6 +67,7 @@ class SeaweedBayDecorator extends BiomeDecorator {
    public WorldGenSpread seagrass = new WorldGenSpread(BlocksRegister.SEAGRASS, 60, 7, 1, null, true);
    public WorldGenSpread seagrass2 = new WorldGenSpread(BlocksRegister.SEAGRASS, 30, 5, 1, null, true);
 
+   @Override
    public void decorate(World world, Random random, Biome biome, BlockPos decpos) {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");

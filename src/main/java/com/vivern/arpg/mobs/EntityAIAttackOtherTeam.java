@@ -41,6 +41,7 @@ public class EntityAIAttackOtherTeam<T extends EntityLivingBase> extends EntityA
       this.sorter = new net.minecraft.entity.ai.EntityAINearestAttackableTarget.Sorter(creature);
       this.setMutexBits(1);
       this.targetEntitySelector = new Predicate<T>() {
+         @Override
          public boolean apply(@Nullable T p_apply_1_) {
             if (p_apply_1_ == null) {
                return false;
@@ -53,10 +54,12 @@ public class EntityAIAttackOtherTeam<T extends EntityLivingBase> extends EntityA
       };
    }
 
+   @Override
    protected boolean isSuitableTarget(EntityLivingBase target, boolean includeInvincibles) {
       return super.isSuitableTarget(target, includeInvincibles) && !Team.isOnSameTeam(target, this.taskOwner);
    }
 
+   @Override
    public boolean shouldExecute() {
       if (this.taskOwner instanceof AbstractMob) {
          AbstractMob amob = (AbstractMob)this.taskOwner;
@@ -89,6 +92,7 @@ public class EntityAIAttackOtherTeam<T extends EntityLivingBase> extends EntityA
       return this.taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance, targetDistance);
    }
 
+   @Override
    public void startExecuting() {
       this.taskOwner.setAttackTarget(this.targetEntity);
       super.startExecuting();
@@ -101,6 +105,7 @@ public class EntityAIAttackOtherTeam<T extends EntityLivingBase> extends EntityA
          this.entity = entityIn;
       }
 
+      @Override
       public int compare(Entity p_compare_1_, Entity p_compare_2_) {
          double d0 = this.entity.getDistanceSq(p_compare_1_);
          double d1 = this.entity.getDistanceSq(p_compare_2_);

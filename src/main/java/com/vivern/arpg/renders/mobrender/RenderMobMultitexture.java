@@ -27,6 +27,7 @@ public class RenderMobMultitexture extends RenderLiving<EntityLiving> {
       return new RenderMobMultitexFactory(model, shadowSize);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull EntityLiving entity) {
       return ((IMultitexture)entity).getMultitexture();
@@ -53,6 +54,7 @@ public class RenderMobMultitexture extends RenderLiving<EntityLiving> {
          return this;
       }
 
+      @Override
       public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
          return new RenderMobMultitexture(manager, this.model, this.shadowSize, this.layerHeldItem, this.layerArmor);
       }

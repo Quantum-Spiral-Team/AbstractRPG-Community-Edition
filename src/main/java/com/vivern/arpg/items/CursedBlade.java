@@ -26,6 +26,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CursedBlade extends ItemWeapon {
    static ResourceLocation sweeptex = new ResourceLocation("arpg:textures/sweep2.png");
@@ -38,6 +40,7 @@ public class CursedBlade extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       this.setCanShoot(stack, entityLiving);
       if (IWeapon.canShoot(stack)) {
@@ -206,6 +209,7 @@ public class CursedBlade extends ItemWeapon {
       return 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;

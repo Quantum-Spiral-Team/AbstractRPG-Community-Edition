@@ -15,6 +15,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SeaUrchin extends Block implements IBlockHardBreak {
    protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.01, 0.01, 0.01, 0.99, 0.99, 0.99);
@@ -30,14 +32,17 @@ public class SeaUrchin extends Block implements IBlockHardBreak {
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return STANDING_AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return STANDING_AABB;
    }
 
+   @Override
    public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entityIn) {
       if (!world.isRemote && entityIn.hurtResistantTime <= 0) {
          if (entityIn instanceof EntityPlayer) {
@@ -62,10 +67,13 @@ public class SeaUrchin extends Block implements IBlockHardBreak {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }

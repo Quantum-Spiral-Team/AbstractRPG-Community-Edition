@@ -83,7 +83,7 @@ public class Mana {
       setManaSpeed(event.player, loadManaSpeedFromNBT(event.player));
       Shards.loadShardsFromNBT(event.player);
       Coins.loadCoinsFromNBT(event.player);
-      boolean fly = event.player.getEntityData().hasKey("wflying") ? event.player.getEntityData().getBoolean("wflying") : false;
+      boolean fly = event.player.getEntityData().hasKey("wflying") && event.player.getEntityData().getBoolean("wflying");
       event.player.getEntityData().setBoolean("wflying", fly);
       boolean rad = event.player.getEntityData().hasKey("arpg.radiation");
       if (rad) {
@@ -166,6 +166,7 @@ public class Mana {
       return sett;
    }
 
+   @SuppressWarnings("deprecation")
    @SubscribeEvent
    public static void onPlayerUpdate(LivingUpdateEvent event) {
       if (event.getEntityLiving() instanceof EntityPlayer) {
@@ -175,7 +176,7 @@ public class Mana {
             Weapons.decrementPlayerAnimation(player);
             KillScore.tick();
             if (player == Minecraft.getMinecraft().player) {
-               Flicks.instance.clientTick(player.ticksExisted);
+               Flicks.INSTANCE.clientTick(player.ticksExisted);
                if (world.provider instanceof AbstractWorldProvider) {
                   ((AbstractWorldProvider)world.provider).onUpdatePlayerOnClient(player);
                }
@@ -228,30 +229,28 @@ public class Mana {
                }
             }
 
-            if (player != null) {
-               IInventory inv = BaublesApi.getBaubles(player);
+            IInventory inv = BaublesApi.getBaubles(player);
 
-               for (int i = 0; i < 7; i++) {
-                  Item bitem = inv.getStackInSlot(i).getItem();
-                  UUID uuid = UUID.fromString("CB2F4" + i + "D3-64" + i + "A-4F78-A497-9C56A33DB" + i + "BB");
-                  String name = bitem.getRegistryName().toString();
-                  if (!(bitem instanceof IAttributedBauble) || bitem == null) {
-                     checkIds(uuid, player);
-                  } else if (!((IAttributedBauble)bitem).useMultimap()) {
-                     IAttribute attr = ((IAttributedBauble)bitem).getAttribute();
-                     AttributeModifier modif = new AttributeModifier(uuid, name, ((IAttributedBauble)bitem).value(), ((IAttributedBauble)bitem).operation());
-                     checkNames(uuid, name, player);
-                     if (!player.getEntityAttribute(attr).hasModifier(modif)) {
-                        player.getEntityAttribute(attr).applyModifier(modif);
-                     }
-                  } else {
-                     Multimap<String, AttributeModifier> multimap = ((IAttributedBauble)bitem).getAttributeModifiers(player, i, inv.getStackInSlot(i));
-                     player.getAttributeMap().applyAttributeModifiers(multimap);
+            for (int i = 0; i < 7; i++) {
+               Item bitem = inv.getStackInSlot(i).getItem();
+               UUID uuid = UUID.fromString("CB2F4" + i + "D3-64" + i + "A-4F78-A497-9C56A33DB" + i + "BB");
+               String name = bitem.getRegistryName().toString();
+               if (!(bitem instanceof IAttributedBauble)) {
+                  checkIds(uuid, player);
+               } else if (!((IAttributedBauble)bitem).useMultimap()) {
+                  IAttribute attr = ((IAttributedBauble)bitem).getAttribute();
+                  AttributeModifier modif = new AttributeModifier(uuid, name, ((IAttributedBauble)bitem).value(), ((IAttributedBauble)bitem).operation());
+                  checkNames(uuid, name, player);
+                  if (!player.getEntityAttribute(attr).hasModifier(modif)) {
+                     player.getEntityAttribute(attr).applyModifier(modif);
                   }
+               } else {
+                  Multimap<String, AttributeModifier> multimap = ((IAttributedBauble)bitem).getAttributeModifiers(player, i, inv.getStackInSlot(i));
+                  player.getAttributeMap().applyAttributeModifiers(multimap);
+               }
 
-                  if (i == 5 && !(bitem instanceof IWings)) {
-                     player.getDataManager().set(PropertiesRegistry.FLYING, false);
-                  }
+               if (i == 5 && !(bitem instanceof IWings)) {
+                  player.getDataManager().set(PropertiesRegistry.FLYING, false);
                }
             }
 
@@ -269,7 +268,7 @@ public class Mana {
 
    private static void checkNames(UUID uuid, String name, EntityPlayer player) {
       for (IAttributeInstance instance : player.getAttributeMap().getAllAttributes()) {
-         if (instance != null && instance.getModifier(uuid) != null && instance.getModifier(uuid).getName() != name) {
+         if (instance != null && instance.getModifier(uuid) != null && !instance.getModifier(uuid).getName().equals(name)) {
             instance.removeModifier(uuid);
          }
       }

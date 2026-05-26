@@ -55,6 +55,7 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
       this.weaponstack = itemstack;
    }
 
+   @Override
    protected void entityInit() {
       this.dataManager.register(POWERED, false);
    }
@@ -72,6 +73,7 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
       return this.getPowered() ? red : white;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -86,10 +88,12 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 140) {
@@ -97,6 +101,7 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -126,6 +131,7 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {

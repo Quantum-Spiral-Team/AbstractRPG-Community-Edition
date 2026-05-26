@@ -34,6 +34,7 @@ public class BeakerModel extends ModelBase {
       this.shape1.addBox(-2.0F, 0.0F, -2.0F, 4, 18, 4, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape2.render(f5);
       this.shape4.render(f5);

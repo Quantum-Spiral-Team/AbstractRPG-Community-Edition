@@ -60,6 +60,7 @@ public class CryoGunModel extends ModelBase {
       this.shape4.addBox(-1.5F, -1.5F, -1.5F, 3, 3, 3, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape6.render(f5);
       this.shape2.render(f5);

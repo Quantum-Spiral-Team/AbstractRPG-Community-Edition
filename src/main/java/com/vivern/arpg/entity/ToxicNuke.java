@@ -52,6 +52,7 @@ public class ToxicNuke extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 60) {
@@ -61,10 +62,12 @@ public class ToxicNuke extends EntityThrowable {
       this.world.setEntityState(this, (byte)8);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.02F;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -212,6 +215,7 @@ public class ToxicNuke extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -242,7 +246,7 @@ public class ToxicNuke extends EntityThrowable {
                float wdamage = parameters.getEnchantedF("damage", might);
                float wknockback = parameters.getEnchantedF("knockback", impulse);
                if (!Team.checkIsOpponent(this.thrower, entity)) {
-                  float friendlyfire = parameters.getF("friendlyfire");
+                  float friendlyfire = parameters.getFloat("friendlyfire");
                   wdamage *= friendlyfire;
                   wknockback *= friendlyfire;
                }
@@ -265,7 +269,7 @@ public class ToxicNuke extends EntityThrowable {
 
       if (!this.world.isRemote) {
          Explosion explosion = new Explosion(
-            this.world, null, this.posX, this.posY, this.posZ, parameters.getF("explosion_power"), false, true
+            this.world, null, this.posX, this.posY, this.posZ, parameters.getFloat("explosion_power"), false, true
          );
          explosion.doExplosionA();
          explosion.doExplosionB(false);

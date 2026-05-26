@@ -19,6 +19,7 @@ public class MagicCrystalCaves extends Biome {
    }
 
    class MagicCrystalCavesDecorator extends BiomeDecorator {
+      @Override
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

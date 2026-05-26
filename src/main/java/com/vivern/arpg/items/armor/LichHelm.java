@@ -49,6 +49,7 @@ public class LichHelm extends AbstractArmor {
       return multimap;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
       if (itemStack != ItemStack.EMPTY) {
@@ -67,6 +68,7 @@ public class LichHelm extends AbstractArmor {
       }
    }
 
+   @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return armortexture;
    }
@@ -108,6 +110,7 @@ public class LichHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -126,6 +129,7 @@ public class LichHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return LichHelm.armortexture;
       }
@@ -166,6 +170,7 @@ public class LichHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -184,6 +189,7 @@ public class LichHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return LichHelm.armortexture;
       }
@@ -224,6 +230,7 @@ public class LichHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -242,6 +249,7 @@ public class LichHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return LichHelm.armortexture;
       }

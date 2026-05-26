@@ -18,6 +18,7 @@ import org.lwjgl.opengl.GL11;
 public class DungeonLadderTESR extends TileEntitySpecialRenderer<TileDungeonLadder> {
    public static DungeonLadderModel model = new DungeonLadderModel();
 
+   @Override
    public void render(TileDungeonLadder te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       float lbX = OpenGlHelper.lastBrightnessX;
       float lbY = OpenGlHelper.lastBrightnessY;

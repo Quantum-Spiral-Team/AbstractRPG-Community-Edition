@@ -21,6 +21,7 @@ public class ModelledPartickleRender<T extends ModelledPartickle> extends Render
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(ModelledPartickle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y, (float)z);
@@ -94,6 +95,7 @@ public class ModelledPartickleRender<T extends ModelledPartickle> extends Render
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(ModelledPartickle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
@@ -121,6 +123,7 @@ public class ModelledPartickleRender<T extends ModelledPartickle> extends Render
    }
 
    public static class ModelledPartickleFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new ModelledPartickleRender(manager);
       }

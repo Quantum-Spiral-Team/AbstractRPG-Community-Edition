@@ -251,14 +251,17 @@ public class EverfrostMobsPack {
          return super.attackEntityAsMob(entityIn);
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.UNDEAD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          return potioneffectIn.getPotion() == PotionEffects.WINTER_CURSE ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIRush(this, false, true, true));
@@ -316,10 +319,12 @@ public class EverfrostMobsPack {
          return DeathEffects.AURORA_BLOOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -541,6 +546,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIFlying(this, 150, 10.0F, 0.03F, false));
          this.tasks.addTask(2, new EntityAIFlyingKeepDistToTarget(this, 60, 8.0F, 0.08F, 2.0F, 2.0F, 1.0F, 1.05F));
@@ -601,6 +607,7 @@ public class EverfrostMobsPack {
          return at;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIRush(this, false, true, false));
@@ -653,10 +660,12 @@ public class EverfrostMobsPack {
          return DeathEffects.ICE_BLOOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -812,6 +821,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIFlying(this, 150, 10.0F, 0.04F, false));
          this.tasks.addTask(2, new EntityAIFlyingKeepDistToTarget(this, 60, 8.0F, 0.3F, 2.0F, 2.0F, 1.0F, 1.05F));
@@ -850,6 +860,7 @@ public class EverfrostMobsPack {
          return DeathEffects.GARGOYLE_BLOOD;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -861,6 +872,7 @@ public class EverfrostMobsPack {
          this.motionZ = this.motionZ * this.friction;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIRayLogicFly(this));
          this.tasks
@@ -906,10 +918,12 @@ public class EverfrostMobsPack {
          return DeathEffects.SNOW_BLOOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1028,6 +1042,7 @@ public class EverfrostMobsPack {
          this.world.setEntityState(this, (byte)9);
       }
 
+      @Override
       public void addPotionEffect(PotionEffect potioneffectIn) {
          if (potioneffectIn.getPotion() != PotionEffects.FREEZING) {
             super.addPotionEffect(potioneffectIn);
@@ -1089,6 +1104,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIFlying(this, 150, 12.0F, 0.02F, false));
          this.tasks.addTask(2, new EntityAIFlyingKeepDistToTarget(this, 100, 10.0F, 0.17F, 2.0F, 2.0F, 1.0F, 1.08F));
@@ -1149,6 +1165,7 @@ public class EverfrostMobsPack {
          return super.attackEntityFrom(source, amount);
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1164,6 +1181,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1249,10 +1267,12 @@ public class EverfrostMobsPack {
             );
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFloatingSkeleton(this, 110, 20.0F, 5, true, 8.0F, 3.0F, 1.25F, 0.2F, false, false));
@@ -1300,10 +1320,12 @@ public class EverfrostMobsPack {
          return DeathEffects.ICE_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.83F;
       }
 
+      @Override
       public float getAIMoveSpeed() {
          return this.getAttackTarget() != null && this.getAttackTarget().getDistanceSq(this) <= 30.0 ? super.getAIMoveSpeed() * 0.5F : super.getAIMoveSpeed();
       }
@@ -1405,10 +1427,12 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAISkeleton(this, 1.0, 40, 0.0F, 1));
@@ -1471,6 +1495,7 @@ public class EverfrostMobsPack {
          return super.attackEntityAsMob(entityIn);
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          if (potioneffectIn.getPotion() == PotionEffects.FREEZING) {
             return false;
@@ -1495,13 +1520,16 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.UNDEAD;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1579,6 +1607,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFloatingSkeleton(this, 60, 13.0F, 8, true, 6.0F, 4.0F, 1.5F, 0.23F, true, true));
@@ -1625,11 +1654,13 @@ public class EverfrostMobsPack {
          return DeathEffects.ICE_BLOOD;
       }
 
+      @Override
       protected void jump() {
          this.triggerAnimation(-3);
          super.jump();
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
          distance -= 2.0F;
          if (distance < 0.0F) {
@@ -1639,10 +1670,12 @@ public class EverfrostMobsPack {
          super.fall(distance, damageMultiplier);
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIJumpingMovement(this, 30, 0.1F));
          this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));
@@ -1689,6 +1722,7 @@ public class EverfrostMobsPack {
          return DeathEffects.ICE_BLOOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          if (potioneffectIn.getPotion() == PotionEffects.FREEZING) {
             return false;
@@ -1739,6 +1773,7 @@ public class EverfrostMobsPack {
          return super.attackEntityAsMob(entityIn);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks
@@ -1818,6 +1853,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.2F;
       }
@@ -1941,6 +1977,7 @@ public class EverfrostMobsPack {
          return aabb.expand(this.motionX, 0.0, this.motionZ);
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -2110,6 +2147,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
       }
    }
@@ -2153,6 +2191,7 @@ public class EverfrostMobsPack {
          return DeathEffects.SNOW_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.75F;
       }
@@ -2172,6 +2211,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       public float getAIMoveSpeed() {
          return this.hasGun && this.getAttackTarget() != null && this.getAttackTarget().getDistanceSq(this) <= 50.0
             ? super.getAIMoveSpeed() * 0.05F
@@ -2220,6 +2260,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -2256,6 +2297,7 @@ public class EverfrostMobsPack {
          }
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
       }
@@ -2285,6 +2327,7 @@ public class EverfrostMobsPack {
          compound.setBoolean("hasGun", this.hasGun);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIRush(this, true, true, false));

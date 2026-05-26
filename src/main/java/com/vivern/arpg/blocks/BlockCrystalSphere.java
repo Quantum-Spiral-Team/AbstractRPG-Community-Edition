@@ -40,6 +40,7 @@ public class BlockCrystalSphere extends Block {
       this.setSoundType(SoundTypeShards.SHARDS);
    }
 
+   @Override
    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
       if (!world.isRemote) {
          ItemStack stack = new ItemStack(Item.getItemFromBlock(this));
@@ -60,23 +61,28 @@ public class BlockCrystalSphere extends Block {
       }
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return 0;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return super.getOffset(state, worldIn, pos);
    }
@@ -102,6 +108,7 @@ public class BlockCrystalSphere extends Block {
       }
    }
 
+   @Override
    public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
       this.onPlayerDestroy(worldIn, pos, worldIn.getBlockState(pos));
    }
@@ -114,23 +121,28 @@ public class BlockCrystalSphere extends Block {
       return (TileCrystalSphere)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileCrystalSphere createTileEntity(World world, IBlockState blockState) {
       return new TileCrystalSphere();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }

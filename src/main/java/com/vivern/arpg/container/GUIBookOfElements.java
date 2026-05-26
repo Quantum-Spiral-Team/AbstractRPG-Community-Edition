@@ -81,6 +81,7 @@ public class GUIBookOfElements extends GuiScreen {
       this.playsound(Sounds.paper);
    }
 
+   @Override
    public void onGuiClosed() {
       super.onGuiClosed();
       this.playsound(Sounds.book_close);
@@ -103,6 +104,7 @@ public class GUIBookOfElements extends GuiScreen {
       }
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       super.mouseClicked(mouseX, mouseY, mouseButton);
       mouseX -= (this.width - 186) / 2;
@@ -118,16 +120,19 @@ public class GUIBookOfElements extends GuiScreen {
       }
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       if (keyCode == 1 || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
          this.mc.player.closeScreen();
       }
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);

@@ -15,6 +15,7 @@ public class BloodThirst extends AdvancedPotion {
       this.registerPotionAttributeModifier(SharedMonsterAttributes.ATTACK_DAMAGE, MathHelper.getRandomUUID().toString(), 2.0, 0);
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
       if (!entityOnEffect.world.isRemote && entityOnEffect.ticksExisted % 25 == 0 && this.getThisDuration(entityOnEffect) > 0) {
          double motion = entityOnEffect.motionY;
@@ -23,6 +24,7 @@ public class BloodThirst extends AdvancedPotion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

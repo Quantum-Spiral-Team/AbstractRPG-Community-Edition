@@ -161,6 +161,7 @@ public class MerchantModel extends ModelBiped {
       this.bipedHead.addChild(this.bipedEye1);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.bipedRightLeg.render(f5);
       this.bipedLeftLeg.render(f5);
@@ -170,6 +171,7 @@ public class MerchantModel extends ModelBiped {
       this.bipedRightArm.render(f5);
    }
 
+   @Override
    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
       boolean flag = entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).getTicksElytraFlying() > 4;
       this.bipedHead.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);

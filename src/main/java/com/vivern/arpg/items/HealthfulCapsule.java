@@ -19,6 +19,7 @@ public class HealthfulCapsule extends Item {
       this.setTranslationKey("healthful_capsule");
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       if (!world.isRemote) {

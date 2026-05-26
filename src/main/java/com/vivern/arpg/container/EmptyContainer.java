@@ -21,10 +21,12 @@ public class EmptyContainer extends Container {
       }
    }
 
+   @Override
    public boolean canInteractWith(EntityPlayer playerIn) {
       return false;
    }
 
+   @Override
    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
       return ItemStack.EMPTY;
    }

@@ -1,5 +1,6 @@
 package com.vivern.arpg.items;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.entity.EntityFlyApple;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,9 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import org.lwjgl.input.Mouse;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
 public class ItemFirst extends Item {
    public ItemFirst() {
       this.setRegistryName("first_item");
@@ -31,43 +29,47 @@ public class ItemFirst extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public int getMaxItemUseDuration(ItemStack itemstack) {
       return 72000;
    }
 
+   @Override
    public EnumAction getItemUseAction(ItemStack stack) {
       return EnumAction.BOW;
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
-      return new ActionResult(EnumActionResult.PASS, itemstack);
+      return new ActionResult<>(EnumActionResult.PASS, itemstack);
    }
 
+   @Override
    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
       return true;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!worldIn.isRemote && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
          World world = player.getEntityWorld();
          Item itemIn = itemstack.getItem();
-         EnumHand hand = player.getActiveHand();
          boolean click = Mouse.isButtonDown(1);
          if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             if (damage <= 19) {
                world.playSound(
-                  (EntityPlayer)null,
-                  player.posX,
-                  player.posY,
-                  player.posZ,
-                  Sounds.applecannon,
-                  SoundCategory.AMBIENT,
-                  0.8F,
-                  0.4F / (itemRand.nextFloat() * 0.4F + 0.8F)
+                       null,
+                       player.posX,
+                       player.posY,
+                       player.posZ,
+                       Sounds.applecannon,
+                       SoundCategory.AMBIENT,
+                       0.8F,
+                       0.4F / (itemRand.nextFloat() * 0.4F + 0.8F)
                );
                player.getCooldownTracker().setCooldown(this, 5);
                player.addStat(StatList.getObjectUseStats(this));
@@ -78,14 +80,14 @@ public class ItemFirst extends Item {
                itemstack.setItemDamage(0);
                player.getCooldownTracker().setCooldown(this, 40);
                world.playSound(
-                  (EntityPlayer)null,
-                  player.posX,
-                  player.posY,
-                  player.posZ,
-                  SoundEvents.BLOCK_BREWING_STAND_BREW,
-                  SoundCategory.NEUTRAL,
-                  0.5F,
-                  0.4F / (itemRand.nextFloat() * 0.4F + 0.8F)
+                       null,
+                       player.posX,
+                       player.posY,
+                       player.posZ,
+                       SoundEvents.BLOCK_BREWING_STAND_BREW,
+                       SoundCategory.NEUTRAL,
+                       0.5F,
+                       0.4F / (itemRand.nextFloat() * 0.4F + 0.8F)
                );
             }
 

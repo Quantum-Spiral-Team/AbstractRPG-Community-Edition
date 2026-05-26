@@ -29,6 +29,7 @@ public class WinterCurse extends AdvancedPotion {
       this.setIconIndex(31, 1);
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
       if (entityOnEffect.ticksExisted % 30 == 0) {
          if (!entityOnEffect.world.isRemote && this.getThisDuration(entityOnEffect) > 0) {
@@ -62,6 +63,7 @@ public class WinterCurse extends AdvancedPotion {
       }
    }
 
+   @Override
    public List<ItemStack> getCurativeItems() {
       ArrayList<ItemStack> ret = new ArrayList<>();
       ret.add(new ItemStack(Items.MILK_BUCKET));
@@ -69,6 +71,7 @@ public class WinterCurse extends AdvancedPotion {
       return ret;
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

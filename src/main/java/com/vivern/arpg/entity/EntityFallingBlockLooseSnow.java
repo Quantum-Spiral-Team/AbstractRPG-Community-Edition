@@ -61,6 +61,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
       this.setOrigin(new BlockPos(this));
    }
 
+   @Override
    public boolean canBeAttackedWithItem() {
       return false;
    }
@@ -74,18 +75,22 @@ public class EntityFallingBlockLooseSnow extends Entity {
       return (BlockPos)this.dataManager.get(ORIGIN);
    }
 
+   @Override
    protected boolean canTriggerWalking() {
       return false;
    }
 
+   @Override
    protected void entityInit() {
       this.dataManager.register(ORIGIN, BlockPos.ORIGIN);
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return !this.isDead;
    }
 
+   @Override
    public void onUpdate() {
       Block block = this.fallTile.getBlock();
       if (this.fallTile.getMaterial() == Material.AIR) {
@@ -159,6 +164,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
       }
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
       Block block = this.fallTile.getBlock();
       if (this.hurtEntities) {
@@ -187,6 +193,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
    public static void registerFixesFallingBlock(DataFixer fixer) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.AIR;
       ResourceLocation resourcelocation = (ResourceLocation)Block.REGISTRY.getNameForObject(block);
@@ -202,6 +209,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
       }
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
       int i = compound.getByte("Data") & 255;
       if (compound.hasKey("Block", 8)) {
@@ -239,6 +247,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
       this.hurtEntities = p_145806_1_;
    }
 
+   @Override
    public void addEntityCrashInfo(CrashReportCategory category) {
       super.addEntityCrashInfo(category);
       if (this.fallTile != null) {
@@ -253,6 +262,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
       return this.world;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean canRenderOnFire() {
       return false;
@@ -263,6 +273,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
       return this.fallTile;
    }
 
+   @Override
    public boolean ignoreItemEntityData() {
       return true;
    }

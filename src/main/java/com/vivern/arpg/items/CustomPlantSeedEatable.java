@@ -30,6 +30,7 @@ public class CustomPlantSeedEatable extends ItemFood {
       }
    }
 
+   @Override
    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
       if (worldIn.isAirBlock(pos.up()) && this.plant.canBlockStay(worldIn, pos.up()) && facing == EnumFacing.UP) {
          player.getHeldItem(hand).shrink(1);
@@ -40,6 +41,7 @@ public class CustomPlantSeedEatable extends ItemFood {
       }
    }
 
+   @Override
    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
       if (this.plant.seedRadiation != 0 && entityLiving instanceof EntityPlayer) {
          Mana.addRad((EntityPlayer)entityLiving, this.plant.seedRadiation, false);
@@ -48,6 +50,7 @@ public class CustomPlantSeedEatable extends ItemFood {
       return super.onItemUseFinish(stack, worldIn, entityLiving);
    }
 
+   @Override
    public int getItemBurnTime(ItemStack itemStack) {
       return this.burntime * 20;
    }

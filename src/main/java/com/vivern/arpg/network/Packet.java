@@ -22,6 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class Packet implements IMessage, IMessageHandler<Packet, Packet> {
    public ByteBuf buf;
 
+   @Override
    public Packet onMessage(Packet sp, MessageContext ctx) {
       if (ctx.side.isServer()) {
          sp.server(ctx.getServerHandler().player, sp, ctx);
@@ -42,10 +43,12 @@ public class Packet implements IMessage, IMessageHandler<Packet, Packet> {
    public void server(EntityLivingBase player, Packet sp, MessageContext ctx) {
    }
 
+   @Override
    public void fromBytes(ByteBuf buf) {
       this.buf = buf;
    }
 
+   @Override
    public void toBytes(ByteBuf buf) {
       if (buf != null) {
          buf.writeBytes(this.buf);

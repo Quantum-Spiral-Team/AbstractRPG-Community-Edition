@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public class AlchemicLabTESR extends TileEntitySpecialRenderer<TileAlchemicLab> {
+   @Override
    public void render(TileAlchemicLab te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       boolean t1nonull = te.tank1.getFluid() != null;
       boolean t2nonull = te.tank2.getFluid() != null;

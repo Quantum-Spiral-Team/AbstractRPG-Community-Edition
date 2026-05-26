@@ -101,6 +101,7 @@ public class CompoundBowModel extends ModelBase {
       this.shapeMAIN.addChild(this.shape4);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       this.shapeUP1.rotateAngleX = GetMOP.partial(0.4553564F, 0.5009095F, f);

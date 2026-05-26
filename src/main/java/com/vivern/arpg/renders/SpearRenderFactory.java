@@ -16,6 +16,7 @@ public class SpearRenderFactory implements IRenderFactory {
       this.light = light;
    }
 
+   @Override
    public Render createRenderFor(RenderManager manager) {
       return new RenderSpear(manager, this.IntegItem, this.scale, this.light);
    }

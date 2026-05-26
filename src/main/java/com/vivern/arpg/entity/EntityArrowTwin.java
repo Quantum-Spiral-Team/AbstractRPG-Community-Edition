@@ -225,8 +225,8 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
                         if (GetMOP.thereIsNoBlockCollidesBetween(this.world, point1, point2, null, false)) {
                            List<Entity> list = GetMOP.findEntitiesOnPath(point1, point2, this.world, this.shootingEntity, 0.3, 0.2);
                            WeaponParameters parameters = WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_TWIN);
-                           float damage_link = parameters.getF("damage_link");
-                           float damage_link_length_mult = parameters.getF("damage_link_length_mult");
+                           float damage_link = parameters.getFloat("damage_link");
+                           float damage_link_length_mult = parameters.getFloat("damage_link_length_mult");
 
                            for (Entity entity : list) {
                               if (Team.checkIsOpponent(this.shootingEntity, entity)) {
@@ -240,7 +240,7 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
                                  );
                                  entity.hurtResistantTime = 0;
                                  this.allDamageLinkDealen += damageDealen;
-                                 if (this.allDamageLinkDealen > parameters.getF("damage_link_max")) {
+                                 if (this.allDamageLinkDealen > parameters.getFloat("damage_link_max")) {
                                     this.active = false;
                                  }
                               }
@@ -304,10 +304,12 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
       return this.ticksStucked < 2 ? Sounds.arrow_mithril : null;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_TWIN);
    }
 
+   @Override
    public void onCollideWithPlayer(EntityPlayer entityIn) {
       if (!this.world.isRemote && this.inGround && this.arrowShake <= 0) {
          boolean flag = this.pickupStatus == PickupStatus.ALLOWED || this.pickupStatus == PickupStatus.CREATIVE_ONLY && entityIn.capabilities.isCreativeMode;
@@ -324,6 +326,7 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 9) {
@@ -361,6 +364,7 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
          this.pitch = pitch;
       }
 
+      @Override
       public void update() {
          if (!this.entity1.isDead && !this.entity2.isDead && !this.stop) {
             this.xPosF = (float)(this.entity1.posX + (this.entity2.posX - this.entity1.posX) / 2.0);

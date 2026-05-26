@@ -52,6 +52,7 @@ public class BilebiterHomingModel extends ModelBase {
       this.setRotateAngle(this.shape3, 0.8196066F, 0.0F, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       int tick = AnimationTimer.tick;
       float sin = (float)Math.sin(tick) * 32.0F;

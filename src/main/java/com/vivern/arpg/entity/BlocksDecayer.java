@@ -20,6 +20,7 @@ public class BlocksDecayer extends Entity {
       this.decayingLogs.add(pos);
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
 
@@ -41,12 +42,15 @@ public class BlocksDecayer extends Entity {
       }
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 }

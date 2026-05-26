@@ -1,6 +1,7 @@
 package com.vivern.arpg.items;
 
 import baubles.api.render.IRenderBauble;
+import com.vivern.arpg.events.Events;
 import com.vivern.arpg.items.models.ToxicWingsModel;
 import com.vivern.arpg.main.Booom;
 import com.vivern.arpg.main.GetMOP;
@@ -53,7 +54,7 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
          );
          float glidingRaw = GetMOP.partial(NBTHelper.GetNBTfloat(stack, "gliding"), NBTHelper.GetNBTfloat(stack, "prevgliding"), partialTicks);
          float expand = (-player.rotationPitch + 90.0F) / 180.0F;
-         float nofly = 0.0F;
+         float nofly;
          if (!player.isElytraFlying()) {
             nofly = 1.0F;
          } else {
@@ -66,7 +67,6 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
          }
 
          expand /= 1.0F + nofly * 1.5F;
-         int maxflytime = this.getMaxFlyTime(stack);
          float upward = GetMOP.getFromTo(flytime, 0.0F, 5.0F) * GetMOP.getFromTo(flyupStarted, 0.0F, (float)(this.flapPeriod / 2));
          float upwardProgress = flytime / this.flapPeriodFloat;
          float gliding = glidingRaw / 8.0F * nofly;
@@ -104,17 +104,17 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
    }
 
    @Override
-   public double getMaxUpwardMotion(ItemStack itemstack) {
+   public double getMaxUpwardMotion(ItemStack stack) {
       return 0.55;
    }
 
    @Override
-   public double getUpwardMotionAdd(ItemStack itemstack) {
+   public double getUpwardMotionAdd(ItemStack stack) {
       return 0.12;
    }
 
    @Override
-   public double getFallingMotionAdd(ItemStack itemstack) {
+   public double getFallingMotionAdd(ItemStack stack) {
       return 0.3;
    }
 
@@ -124,18 +124,19 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
    }
 
    @Override
-   public double getFallingMotionSlowdown(ItemStack itemstack) {
+   public double getFallingMotionSlowdown(ItemStack stack) {
       return 0.82;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
-   public void startElytraSound(EntityPlayerSP player) {
-      Minecraft.getMinecraft().getSoundHandler().playSound(new ToxicWingsSound(player));
+   protected MovingSound getWingsSound(EntityPlayer player) {
+      return new ToxicWingsSound(player);
    }
 
    @Override
    public void tryPlayFlapSound(EntityPlayer player, ItemStack itemstack, int clientFlyTime) {
-      NBTHelper.GiveNBTboolean(itemstack, false, "soundPlayed");
+      NBTHelper.giveNBTboolean(itemstack, false, "soundPlayed");
       boolean soundPlayed = NBTHelper.GetNBTboolean(itemstack, "soundPlayed");
       double soundCycle = clientFlyTime / this.flapPeriodFloat % Math.PI;
       if (soundCycle >= 1.8) {
@@ -197,19 +198,20 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
    }
 
    @SideOnly(Side.CLIENT)
-   public class ToxicWingsSound extends MovingSound {
-      private final EntityPlayerSP player;
+   public static class ToxicWingsSound extends MovingSound {
+      private final EntityPlayer player;
       private int time;
       Random rand = new Random();
 
-      public ToxicWingsSound(EntityPlayerSP p_i47113_1_) {
+      public ToxicWingsSound(EntityPlayer player) {
          super(Sounds.toxic_wings_flying, SoundCategory.PLAYERS);
-         this.player = p_i47113_1_;
+         this.player = player;
          this.repeat = true;
          this.repeatDelay = 0;
          this.volume = 0.1F;
       }
 
+      @Override
       public void update() {
          this.time++;
          if (!this.player.isDead && (this.time <= 20 || this.player.isElytraFlying())) {

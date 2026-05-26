@@ -27,6 +27,7 @@ public class ItemKey extends ItemItem {
       this.consumes = consumes;
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);

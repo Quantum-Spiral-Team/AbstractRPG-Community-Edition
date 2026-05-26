@@ -1,6 +1,7 @@
 package com.vivern.arpg.items;
 
 import baubles.api.render.IRenderBauble;
+import com.vivern.arpg.events.Events;
 import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.items.models.FinWingsModel;
 import com.vivern.arpg.main.GetMOP;
@@ -12,6 +13,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import java.util.UUID;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -21,6 +23,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FinWings extends AbstractWings implements IAttributedBauble, IRenderBauble {
    public static FinWingsModel model = new FinWingsModel();
@@ -57,17 +61,17 @@ public class FinWings extends AbstractWings implements IAttributedBauble, IRende
    }
 
    @Override
-   public double getMaxUpwardMotion(ItemStack itemstack) {
+   public double getMaxUpwardMotion(ItemStack stack) {
       return 0.75;
    }
 
    @Override
-   public double getUpwardMotionAdd(ItemStack itemstack) {
+   public double getUpwardMotionAdd(ItemStack stack) {
       return 0.1;
    }
 
    @Override
-   public double getFallingMotionAdd(ItemStack itemstack) {
+   public double getFallingMotionAdd(ItemStack stack) {
       return 0.4;
    }
 
@@ -77,13 +81,14 @@ public class FinWings extends AbstractWings implements IAttributedBauble, IRende
    }
 
    @Override
-   public double getFallingMotionSlowdown(ItemStack itemstack) {
+   public double getFallingMotionSlowdown(ItemStack stack) {
       return 0.7;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
-   public void startElytraSound(EntityPlayerSP player) {
-      Minecraft.getMinecraft().getSoundHandler().playSound(new WingsSound(player, Sounds.toxic_wings_flying));
+   protected MovingSound getWingsSound(EntityPlayer player) {
+      return new WingsSound(player, Sounds.toxic_wings_flying);
    }
 
    @Override

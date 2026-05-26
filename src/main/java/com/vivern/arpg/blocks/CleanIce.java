@@ -39,37 +39,45 @@ public class CleanIce extends BlockBreakable {
       this.slipperiness = 0.99F;
    }
 
+   @Override
    public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos) {
       Block bl = world.getBlockState(pos.up()).getBlock();
       return bl != BlocksRegister.LOOSE_SNOW && bl != Blocks.SNOW_LAYER ? super.getLightOpacity(state, world, pos) : 255;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       worldIn.checkLight(pos);
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return CLEAN_ICE_AABB;
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return 0;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return true;
    }
 
+   @Override
    public void onLanded(World worldIn, Entity entityIn) {
       this.breakIce(worldIn, entityIn);
    }
@@ -117,10 +125,12 @@ public class CleanIce extends BlockBreakable {
       }
    }
 
+   @Override
    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
       worldIn.setBlockState(pos, Blocks.FLOWING_WATER.getStateFromMeta(9));
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11 - this.getDefaultState().getLightOpacity()) {
          worldIn.setBlockToAir(pos);
@@ -128,11 +138,13 @@ public class CleanIce extends BlockBreakable {
       }
    }
 
+   @Override
    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
       this.breakIce(worldIn, entityIn);
       super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
    }
 
+   @Override
    public EnumPushReaction getPushReaction(IBlockState state) {
       return EnumPushReaction.NORMAL;
    }

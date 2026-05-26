@@ -75,9 +75,9 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
 
    public void setHomingPower() {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      float homingpower = parameters.getF("homing_power") + this.rand.nextFloat() * parameters.getF("homing_power_random");
+      float homingpower = parameters.getFloat("homing_power") + this.rand.nextFloat() * parameters.getFloat("homing_power_random");
       this.homingPower = -homingpower;
-      this.homingPowerMax = -parameters.getF("homing_power_max");
+      this.homingPowerMax = -parameters.getFloat("homing_power_max");
    }
 
    @Override
@@ -217,7 +217,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
                   }
                } else {
                   boolean apricked = NailGunShoot.isEntityPricked(this.world, entitylivingbase);
-                  boolean healthmin = entitylivingbase.getHealth() <= parameters.getF("health_to_prick_powered");
+                  boolean healthmin = entitylivingbase.getHealth() <= parameters.getFloat("health_to_prick_powered");
                   if (!this.damageDealed) {
                      this.damageDealed = true;
                      if (healthmin && !apricked) {
@@ -251,9 +251,9 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
 
    public void expl(Vec3d pos) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-      int nn = parameters.getI("shots");
+      int nn = parameters.getInt("shots");
       if (this.getThrower() != null) {
-         float radius = parameters.getF("explode_find_radius");
+         float radius = parameters.getFloat("explode_find_radius");
          List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(this.world, pos, radius, radius, this.getThrower());
          float randchance = list.isEmpty() ? 2.0F : 0.5F - list.size() * 0.08F;
          boolean hasspecial = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0;
@@ -283,7 +283,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
 
                SuperKnockback.setMove(
                   projectile,
-                  -parameters.getF("velocity"),
+                  -parameters.getFloat("velocity"),
                   target.posX + (this.rand.nextFloat() - 0.5F) * 0.18F,
                   target.posY + target.height / 2.0F + (this.rand.nextFloat() - 0.5F) * 0.18F,
                   target.posZ + (this.rand.nextFloat() - 0.5F) * 0.18F
@@ -314,6 +314,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
       this.setDead();
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       Vec3d pos1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);

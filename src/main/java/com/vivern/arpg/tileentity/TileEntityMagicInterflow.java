@@ -7,6 +7,7 @@ public class TileEntityMagicInterflow extends TileEntity {
    public int type;
    public int power;
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       super.readFromNBT(compound);
       if (compound.hasKey("type")) {
@@ -22,6 +23,7 @@ public class TileEntityMagicInterflow extends TileEntity {
       }
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       super.writeToNBT(compound);
       compound.setInteger("type", this.type);

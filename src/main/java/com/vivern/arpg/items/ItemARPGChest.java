@@ -25,6 +25,7 @@ public class ItemARPGChest extends ItemBlock {
       this.chestType = ((BlockARPGChest)block).chestType;
    }
 
+   @Override
    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
       IBlockState iblockstate = worldIn.getBlockState(pos);
       Block block = iblockstate.getBlock();
@@ -51,6 +52,7 @@ public class ItemARPGChest extends ItemBlock {
       }
    }
 
+   @Override
    public boolean placeBlockAt(
       ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState
    ) {

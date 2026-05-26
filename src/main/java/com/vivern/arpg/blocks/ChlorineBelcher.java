@@ -42,6 +42,7 @@ public class ChlorineBelcher extends BlockBlockHard {
       this.setTickRandomly(true);
    }
 
+   @Override
    public void randomTick(World world, BlockPos pos, IBlockState state, Random random) {
       if (!world.isRemote
          && RANDOM.nextFloat() < 0.9
@@ -62,6 +63,7 @@ public class ChlorineBelcher extends BlockBlockHard {
       super.randomTick(world, pos, state, random);
    }
 
+   @Override
    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
       IBlockState st = worldIn.getBlockState(pos.offset(side.getOpposite()));
       Block bloc = st.getBlock();
@@ -77,6 +79,7 @@ public class ChlorineBelcher extends BlockBlockHard {
          );
    }
 
+   @Override
    public void breakBlock(World world, BlockPos pos, IBlockState state) {
       super.breakBlock(world, pos, state);
    }
@@ -86,6 +89,7 @@ public class ChlorineBelcher extends BlockBlockHard {
       return EnumOffsetType.XYZ;
    }
 
+   @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       EnumFacing face = (EnumFacing)state.getValue(FACING);
       long i = MathHelper.getCoordinateRandom(pos.getX(), 0, pos.getZ());
@@ -152,26 +156,32 @@ public class ChlorineBelcher extends BlockBlockHard {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, facing);
    }

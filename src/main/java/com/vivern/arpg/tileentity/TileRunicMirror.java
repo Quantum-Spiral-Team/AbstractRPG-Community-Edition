@@ -10,6 +10,9 @@ import com.vivern.arpg.recipes.EnergyCost;
 import com.vivern.arpg.renders.IMagicVision;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -58,6 +61,8 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public AxisAlignedBB getRenderBoundingBox() {
       return this.renderAABB == null ? INFINITE_EXTENT_AABB : this.renderAABB;
    }
@@ -131,6 +136,7 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
       PacketHandler.trySendPacketUpdate(this.world, this.pos, this, 64.0);
    }
 
+   @Override
    public void update() {
       this.prevrendrotationPitch = this.rendrotationPitch;
       this.prevrendrotationYaw = this.rendrotationYaw;
@@ -388,11 +394,13 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       this.rendrotationPitch = this.rotationPitch;
@@ -400,22 +408,26 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);

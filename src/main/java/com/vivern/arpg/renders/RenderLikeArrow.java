@@ -26,6 +26,7 @@ public class RenderLikeArrow<T extends Entity> extends Render<T> {
       this.checkAdvanced = checkAdvanced;
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       this.bindEntityTexture(entity);
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -114,6 +115,7 @@ public class RenderLikeArrow<T extends Entity> extends Render<T> {
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(Entity entity) {
       return this.tex;
    }
@@ -135,6 +137,7 @@ public class RenderLikeArrow<T extends Entity> extends Render<T> {
          this.checkAdvanced = checkAdvanced;
       }
 
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderLikeArrow(manager, this.tex, this.scale, this.light, this.checkAdvanced);
       }

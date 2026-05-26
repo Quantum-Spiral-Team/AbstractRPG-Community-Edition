@@ -26,19 +26,23 @@ public class ToxiCola extends Item {
       this.setTranslationKey("toxicola");
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
       playerIn.setActiveHand(handIn);
       return new ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
    }
 
+   @Override
    public EnumAction getItemUseAction(ItemStack stack) {
       return EnumAction.DRINK;
    }
 
+   @Override
    public int getMaxItemUseDuration(ItemStack stack) {
       return 20;
    }
 
+   @Override
    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
       if (entityLiving instanceof EntityPlayerMP) {
          EntityPlayerMP entityplayermp = (EntityPlayerMP)entityLiving;

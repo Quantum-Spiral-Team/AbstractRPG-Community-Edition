@@ -35,15 +35,18 @@ public class MelanzaStem extends BlockRotatedPillar {
       this.setHarvestLevel("axe", 0);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
       switch (meta) {
@@ -63,6 +66,7 @@ public class MelanzaStem extends BlockRotatedPillar {
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((EnumAxis)state.getValue(LOG_AXIS)) {
@@ -79,18 +83,22 @@ public class MelanzaStem extends BlockRotatedPillar {
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return MapColor.GRAY;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       switch (rot) {
          case COUNTERCLOCKWISE_90:

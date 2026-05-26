@@ -47,6 +47,7 @@ public class NetherMelter extends Block implements IMagicUI {
       this.setLightLevel(0.3F);
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof IInventory) {
@@ -76,16 +77,19 @@ public class NetherMelter extends Block implements IMagicUI {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT_MIPPED;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return 13107400;
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -129,23 +133,28 @@ public class NetherMelter extends Block implements IMagicUI {
       return (TileNetherMelter)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileNetherMelter createTileEntity(World world, IBlockState blockState) {
       return new TileNetherMelter();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       EnumFacing enumfacing = EnumFacing.byIndex(meta);
       if (enumfacing.getAxis() == Axis.Y) {
@@ -155,18 +164,22 @@ public class NetherMelter extends Block implements IMagicUI {
       return this.getDefaultState().withProperty(FACING, enumfacing);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }

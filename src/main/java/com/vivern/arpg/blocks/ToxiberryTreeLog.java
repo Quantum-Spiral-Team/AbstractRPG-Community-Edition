@@ -35,14 +35,17 @@ public class ToxiberryTreeLog extends BlockRotatedPillar implements IBlockHardBr
       this.setSoundType(SoundType.WOOD);
    }
 
+   @Override
    public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
       return true;
    }
 
+   @Override
    public boolean isWood(IBlockAccess world, BlockPos pos) {
       return true;
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       int i = 4;
       int j = 5;
@@ -56,6 +59,7 @@ public class ToxiberryTreeLog extends BlockRotatedPillar implements IBlockHardBr
       }
    }
 
+   @Override
    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
       if (!world.isRemote) {
          Mana.addRad(player, 15, true);
@@ -64,6 +68,7 @@ public class ToxiberryTreeLog extends BlockRotatedPillar implements IBlockHardBr
       return super.removedByPlayer(state, world, pos, player, willHarvest);
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
       switch (meta) {
@@ -83,6 +88,7 @@ public class ToxiberryTreeLog extends BlockRotatedPillar implements IBlockHardBr
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((EnumAxis)state.getValue(LOG_AXIS)) {
@@ -99,18 +105,22 @@ public class ToxiberryTreeLog extends BlockRotatedPillar implements IBlockHardBr
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return MapColor.GREEN;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       switch (rot) {
          case COUNTERCLOCKWISE_90:

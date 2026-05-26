@@ -14,6 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings({"deprecation", "ConstantConditions"})
 public class ToolWand extends Item {
@@ -77,6 +79,7 @@ public class ToolWand extends Item {
       return this;
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
@@ -181,6 +184,8 @@ public class ToolWand extends Item {
       return this;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasEffect(ItemStack stack) {
       return this.enchanted || super.hasEffect(stack);
    }

@@ -26,14 +26,17 @@ public class EntityAIGlyphid extends EntityAIBase {
       this.entity = entity;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return this.entity.getAttackTarget() != null && this.entity.getAttackTarget().isEntityAlive();
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase attackTarg = this.entity.getAttackTarget();
       if (attackTarg != null) {
@@ -206,10 +209,12 @@ public class EntityAIGlyphid extends EntityAIBase {
          return this;
       }
 
+      @Override
       public PathPointGlyphid offset(EnumFacing facing) {
          return this.offset(facing, 1);
       }
 
+      @Override
       public PathPointGlyphid offset(EnumFacing facing, int n) {
          return n == 0
             ? this

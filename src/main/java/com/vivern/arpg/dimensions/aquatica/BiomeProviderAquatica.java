@@ -40,14 +40,17 @@ public class BiomeProviderAquatica extends BiomeProvider {
       this(info.getSeed(), info.getTerrainType(), info.getGeneratorOptions());
    }
 
+   @Override
    public Biome getBiome(BlockPos pos) {
       return this.getBiome(pos, null);
    }
 
+   @Override
    public Biome getBiome(BlockPos pos, Biome defaultBiome) {
       return this.biomeCache.getBiome(pos.getX(), pos.getZ(), defaultBiome);
    }
 
+   @Override
    public Biome[] getBiomesForGeneration(Biome[] par1ArrayOfBiome, int par2, int par3, int par4, int par5) {
       IntCache.resetIntCache();
       if (par1ArrayOfBiome == null || par1ArrayOfBiome.length < par4 * par5) {
@@ -74,10 +77,12 @@ public class BiomeProviderAquatica extends BiomeProvider {
       }
    }
 
+   @Override
    public Biome[] getBiomes(Biome[] oldBiomeList, int x, int z, int width, int depth) {
       return this.getBiomes(oldBiomeList, x, z, width, depth, true);
    }
 
+   @Override
    public Biome[] getBiomes(Biome[] listToReuse, int x, int y, int width, int length, boolean cacheFlag) {
       IntCache.resetIntCache();
       if (listToReuse == null || listToReuse.length < width * length) {
@@ -99,6 +104,7 @@ public class BiomeProviderAquatica extends BiomeProvider {
       }
    }
 
+   @Override
    public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
       IntCache.resetIntCache();
       int i = x - radius >> 2;
@@ -130,6 +136,7 @@ public class BiomeProviderAquatica extends BiomeProvider {
       }
    }
 
+   @Override
    public BlockPos findBiomePosition(int x, int z, int range, List biomes, Random random) {
       IntCache.resetIntCache();
       int l = x - range >> 2;
@@ -155,6 +162,7 @@ public class BiomeProviderAquatica extends BiomeProvider {
       return blockpos;
    }
 
+   @Override
    public void cleanupCache() {
       this.biomeCache.cleanupCache();
    }

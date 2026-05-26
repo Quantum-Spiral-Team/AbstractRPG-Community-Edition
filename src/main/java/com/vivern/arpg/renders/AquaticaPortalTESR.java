@@ -27,6 +27,7 @@ public class AquaticaPortalTESR extends TileEntitySpecialRenderer<TileAquaticaPo
    private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
    public static ModelSphere sphere = new ModelSphere(1.0F, 8);
 
+   @Override
    public void render(TileAquaticaPortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.disableLighting();
       RANDOM.setSeed(31100L);

@@ -23,24 +23,29 @@ public class ElectricAcidRadiationPotion extends Item {
       this.setTranslationKey("electric_acid_radiation_potion");
    }
 
+   @Override
    public int getMaxItemUseDuration(ItemStack itemstack) {
       return 72000;
    }
 
+   @Override
    public EnumAction getItemUseAction(ItemStack stack) {
       return EnumAction.BOW;
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
       return new ActionResult(EnumActionResult.PASS, itemstack);
    }
 
+   @Override
    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
       return true;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;

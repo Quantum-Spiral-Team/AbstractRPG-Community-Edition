@@ -66,6 +66,7 @@ public class SnowballCannonModel extends ModelBase {
       this.shape1.addBox(-1.5F, -0.5F, 0.0F, 3, 3, 3, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shapess2.offsetX, this.shapess2.offsetY, this.shapess2.offsetZ);

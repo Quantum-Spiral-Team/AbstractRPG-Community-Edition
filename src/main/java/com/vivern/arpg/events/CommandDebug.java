@@ -12,14 +12,17 @@ public class CommandDebug extends CommandBase {
    public static final String USAGE = "/debugvar integer_number float_value";
    public boolean ENABLED = false;
 
+   @Override
    public String getName() {
       return "debugvar";
    }
 
+   @Override
    public String getUsage(ICommandSender sender) {
       return "/debugvar integer_number float_value";
    }
 
+   @Override
    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException, NumberFormatException {
       if (args.length > 2) {
          if (Minecraft.getMinecraft().getIntegratedServer() == null) {

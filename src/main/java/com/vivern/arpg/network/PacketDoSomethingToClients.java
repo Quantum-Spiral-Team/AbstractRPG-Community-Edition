@@ -1,6 +1,6 @@
 package com.vivern.arpg.network;
 
-import com.vivern.arpg.arpgamemodes.SurvivorGamestyleWatcher;
+import com.vivern.arpg.arpgamemodes.SurvivorGameStyleWatcher;
 import com.vivern.arpg.items.BaublesPack;
 import com.vivern.arpg.entity.EntityGeomanticCrystal;
 import com.vivern.arpg.mobs.EntityAIArcAttack;
@@ -103,7 +103,7 @@ public class PacketDoSomethingToClients extends Packet {
          }
 
          if (this.id == 9) {
-            SurvivorGamestyleWatcher.onClient(this.x, this.y, this.z, this.a, this.b, this.c);
+            SurvivorGameStyleWatcher.onClient(this.x, this.y, this.z, this.a, this.b, this.c);
          }
 
          if (this.id == 10) {

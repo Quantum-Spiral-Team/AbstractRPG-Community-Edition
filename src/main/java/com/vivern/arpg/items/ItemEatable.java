@@ -1,6 +1,8 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.main.Mana;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.creativetab.CreativeTabs;
@@ -56,6 +58,7 @@ public class ItemEatable extends ItemFood {
       this.radiation = radiation;
    }
 
+   @Override
    public EnumAction getItemUseAction(ItemStack stack) {
       return this.drink ? EnumAction.DRINK : EnumAction.EAT;
    }
@@ -76,6 +79,7 @@ public class ItemEatable extends ItemFood {
       return this;
    }
 
+   @Override
    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
       if (!worldIn.isRemote) {
          entityLiving.curePotionEffects(stack);
@@ -124,6 +128,7 @@ public class ItemEatable extends ItemFood {
       return stack;
    }
 
+   @Override
    protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
       if (!worldIn.isRemote && this.effectsToAdd != null) {
          int size = this.effectsToAdd.length;
@@ -137,6 +142,7 @@ public class ItemEatable extends ItemFood {
       }
    }
 
+   @Override
    public int getMaxItemUseDuration(ItemStack stack) {
       return this.eatTime;
    }
@@ -156,14 +162,18 @@ public class ItemEatable extends ItemFood {
       return this;
    }
 
+   @Override
    public int getItemBurnTime(ItemStack itemStack) {
       return this.burntime;
    }
 
+   @Override
    public boolean isBeaconPayment(ItemStack stack) {
       return this.beacon ? this.beacon : super.isBeaconPayment(stack);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasEffect(ItemStack stack) {
       return this.ench ? this.ench : super.hasEffect(stack);
    }

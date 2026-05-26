@@ -37,6 +37,7 @@ public class ModelRendererGlow extends ModelRenderer {
       return this;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void render(float scale) {
       if (!this.isHidden && this.showModel) {
@@ -118,6 +119,7 @@ public class ModelRendererGlow extends ModelRenderer {
       OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lbX, lbY);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void renderWithRotation(float scale) {
       if (!this.isHidden && this.showModel) {
@@ -144,6 +146,7 @@ public class ModelRendererGlow extends ModelRenderer {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void postRender(float scale) {
       if (!this.isHidden && this.showModel) {

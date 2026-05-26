@@ -64,6 +64,7 @@ public class ItemChargerModel extends ModelBase {
       this.lamp1glow.addBox(0.0F, 0.0F, 0.0F, 2, 2, 2, 0.3F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1.render(f5);
       this.shapes1.render(f5);

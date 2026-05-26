@@ -145,6 +145,7 @@ public class ModelsOtherMob {
          this.bipedHead.addChild(this.bipedVibriss2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
          copyModelAngles(this.bipedBody, this.bipedBodyWear);
@@ -172,6 +173,7 @@ public class ModelsOtherMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          boolean flag = entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).getTicksElytraFlying() > 4;
          this.bipedHead.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
@@ -646,6 +648,7 @@ public class ModelsOtherMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.wolfHeadMain0.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.wolfHeadMain0.rotateAngleX = 0.3642502F + headPitch * (float) (Math.PI / 180.0);
@@ -719,6 +722,7 @@ public class ModelsOtherMob {
          this.leg4.addChild(this.legA4);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.setRotateAngle(this.leg1, 0.0F, 0.0F, -1.0016445F);
          this.setRotateAngle(this.leg2, 0.0F, 0.0F, -1.0016445F);
@@ -966,6 +970,7 @@ public class ModelsOtherMob {
          this.setRotateAngle(this.tent6, -0.22759093F, 0.4098033F, 0.0F);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          AbstractMobModel.light(60, true);
          this.shape1.render(f5);
@@ -1004,6 +1009,7 @@ public class ModelsOtherMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.head.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.head.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
@@ -1115,6 +1121,7 @@ public class ModelsOtherMob {
          this.bipedGoogles1.addChild(this.bipedGoogles2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
          this.bipedBody.render(f5);
@@ -1240,6 +1247,7 @@ public class ModelsOtherMob {
          this.shapeGun.addChild(this.shapeGunUp);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.shapeWingA1.rotateAngleZ = 0.4F * MathHelper.sin(AnimationTimer.tick / 20.0F);
          this.shapeWingA2.rotateAngleZ = 0.4F * MathHelper.sin(AnimationTimer.tick / 20.0F + 0.3F);
@@ -1305,6 +1313,7 @@ public class ModelsOtherMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.shapeGun.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.shapeGun.rotateAngleX = 0.785398F + headPitch * (float) (Math.PI / 180.0);
@@ -1416,6 +1425,7 @@ public class ModelsOtherMob {
          this.bipedRightLeg1.render(scale);
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.bipedHead.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.bipedHead.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
@@ -1541,6 +1551,7 @@ public class ModelsOtherMob {
          this.bipedHead.addChild(this.bipedBeard);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
          this.bipedLeftArm.render(f5);

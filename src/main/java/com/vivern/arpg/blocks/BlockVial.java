@@ -32,6 +32,7 @@ public class BlockVial extends Block {
       this.setSoundType(SoundTypeShards.SHARDS);
    }
 
+   @Override
    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
       if (!world.isRemote) {
          TileEntity tileEntity = world.getTileEntity(pos);
@@ -55,14 +56,17 @@ public class BlockVial extends Block {
       super.onBlockHarvested(world, pos, state, player);
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return 0;
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return false;
    }
 
+   @Override
    public void onBlockClicked(World world, BlockPos pos, EntityPlayer playerIn) {
       if (!world.isRemote) {
          TileEntity tileEntity = world.getTileEntity(pos);
@@ -115,19 +119,23 @@ public class BlockVial extends Block {
       }
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileVial createTileEntity(World world, IBlockState blockState) {
       return new TileVial();
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return super.canPlaceBlockAt(worldIn, pos) && worldIn.isSideSolid(pos.down(), EnumFacing.UP);
    }
 
+   @Override
    public void addCollisionBoxToList(
       IBlockState state,
       World world,
@@ -149,6 +157,7 @@ public class BlockVial extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
       TileEntity tileEntity = world.getTileEntity(pos);
       if (tileEntity != null && tileEntity instanceof TileVial) {
@@ -159,14 +168,17 @@ public class BlockVial extends Block {
       }
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }

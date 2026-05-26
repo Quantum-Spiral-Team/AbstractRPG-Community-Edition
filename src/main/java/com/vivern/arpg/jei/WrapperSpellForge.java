@@ -25,11 +25,13 @@ public class WrapperSpellForge implements IRecipeWrapper {
       this.recipe = recipe;
    }
 
+   @Override
    public void getIngredients(IIngredients ingredients) {
       ingredients.setInputs(VanillaTypes.ITEM, this.recipe.exportInputsAsList());
       ingredients.setOutput(VanillaTypes.ITEM, this.recipe.craftresult.createStack());
    }
 
+   @Override
    public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
       minecraft.fontRenderer.drawString(ManaBar.asString(this.recipe.hitsNeed), 129.0F, 28.0F, 7763574, false);
       if (this.recipe.useEnergy) {

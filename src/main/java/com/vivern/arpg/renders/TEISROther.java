@@ -69,6 +69,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
    public static ResourceLocation beaker_fluid_etheric_top = new ResourceLocation("arpg:textures/beaker_fluid_etheric_top.png");
    public static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
+   @Override
    public void renderByItem(ItemStack itemStackIn) {
       this.renderByItem(itemStackIn, 1.0F);
    }
@@ -77,6 +78,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
       return beakerFluid.modifiers[indx] == 2 ? 3 : beakerFluid.modifiers[indx];
    }
 
+   @Override
    public void renderByItem(ItemStack itemstack, float partialTicks) {
       Item item = itemstack.getItem();
       if (item == ItemsRegister.BEAKER) {
@@ -393,7 +395,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
 
       if (item instanceof AbstractMiningTool) {
          AbstractMiningTool miningTool = (AbstractMiningTool)item;
-         float anim1 = Flicks.instance.getClientAnimation(itemstack, EnumFlick.SHOOT, Minecraft.getMinecraft().getRenderPartialTicks(), true);
+         float anim1 = Flicks.INSTANCE.getClientAnimation(itemstack, EnumFlick.SHOOT, Minecraft.getMinecraft().getRenderPartialTicks(), true);
          GlStateManager.pushMatrix();
          if (NBTHelper.GetNBTboolean(itemstack, "tremor")) {
             GlStateManager.translate(0.0F, MathHelper.sin(AnimationTimer.tick * 0.83F) * 0.006F, 0.0F);

@@ -1,5 +1,6 @@
 package com.vivern.arpg.renders;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.Sounds;
@@ -17,10 +18,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class InvasionInfo {
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/invasion_bars.png");
    public static HashMap<Integer, InvasionInfo> invasionsIdToInfo = new HashMap<>();
@@ -62,6 +63,7 @@ public class InvasionInfo {
       invasionsIdToInfo.put(4, new InvasionInfo("Winter Ritual", "altar", new Vec3d(0.07F, 0.79F, 0.3F), new Vec3d(0.1, 0.05, 0.65), 48842));
    }
 
+   @SideOnly(Side.CLIENT)
    public static void render(FontRenderer fontRenderer, EntityPlayer player, int i, int f) {
       if (wave != 0 && currentInfo != null) {
          Minecraft.getMinecraft().getTextureManager().bindTexture(tex);
@@ -79,11 +81,11 @@ public class InvasionInfo {
 
          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
          fontRenderer.drawStringWithShadow(
-            currentInfo.unlocalizedInvasionName, i / 2 - fontRenderer.getStringWidth(currentInfo.unlocalizedInvasionName) / 2, 1.0F, currentInfo.colorFont
+            currentInfo.unlocalizedInvasionName, (float) i / 2 - (float) fontRenderer.getStringWidth(currentInfo.unlocalizedInvasionName) / 2, 1.0F, currentInfo.colorFont
          );
          fontRenderer.drawStringWithShadow(
             currentInfo.unlocalizedNexusName + ":",
-            i / 2 - 55 - fontRenderer.getStringWidth(currentInfo.unlocalizedNexusName + ":"),
+            (float) i / 2 - 55 - fontRenderer.getStringWidth(currentInfo.unlocalizedNexusName + ":"),
             16.0F,
             currentInfo.colorFont
          );
@@ -97,7 +99,7 @@ public class InvasionInfo {
                .fontRenderer
                .drawStringWithShadow(
                   unlocalizedFinal,
-                  (i / 2 - fontRenderer.getStringWidth(unlocalizedFinal) / 2 * scale) / scale,
+                  ((float) i / 2 - (float) fontRenderer.getStringWidth(unlocalizedFinal) / 2 * scale) / scale,
                   30.0F / scale,
                   ColorConverters.RGBAtoDecimal255(227, 30, 30, (int)(GetMOP.getFromTo((float)finalwaveAnim, 0.0F, 40.0F) * 255.0F - fromto * 255.0F))
                );
@@ -116,7 +118,7 @@ public class InvasionInfo {
                .fontRenderer
                .drawStringWithShadow(
                   ubw,
-                  (i / 2 - fontRenderer.getStringWidth(ubw) / 2 * scale) / scale,
+                  ((float) i / 2 - (float) fontRenderer.getStringWidth(ubw) / 2 * scale) / scale,
                   30.0F / scale,
                   ColorConverters.RGBAtoDecimal255(90, 55, 227, (int)(GetMOP.getFromTo((float)nextwaveAnim, 0.0F, 40.0F) * 255.0F - fromto * 255.0F))
                );
@@ -135,7 +137,7 @@ public class InvasionInfo {
                .fontRenderer
                .drawStringWithShadow(
                   ubw,
-                  (i / 2 - fontRenderer.getStringWidth(ubw) / 2 * scale) / scale,
+                  ((float) i / 2 - (float) fontRenderer.getStringWidth(ubw) / 2 * scale) / scale,
                   40.0F / scale,
                   ColorConverters.RGBAtoDecimal255(245, 223, 77, (int)(GetMOP.getFromTo((float)winAnim, 0.0F, 40.0F) * 255.0F - fromto * 255.0F))
                );
@@ -150,7 +152,7 @@ public class InvasionInfo {
                   .fontRenderer
                   .drawStringWithShadow(
                      ubw2,
-                     (i / 2 - fontRenderer.getStringWidth(ubw2) / 2 * scale2) / scale2,
+                     ((float) i / 2 - (float) fontRenderer.getStringWidth(ubw2) / 2 * scale2) / scale2,
                      65.0F / scale2,
                      ColorConverters.RGBAtoDecimal255(245, 223, 77, (int)(GetMOP.getFromTo((float)winAnim, 10.0F, 50.0F) * 255.0F - fromto2 * 255.0F))
                   );
@@ -176,7 +178,7 @@ public class InvasionInfo {
                .fontRenderer
                .drawStringWithShadow(
                   ubwx,
-                  (i / 2 - fontRenderer.getStringWidth(ubwx) / 2 * scalex) / scalex,
+                  ((float) i / 2 - (float) fontRenderer.getStringWidth(ubwx) / 2 * scalex) / scalex,
                   30.0F / scalex,
                   ColorConverters.RGBAtoDecimal255(190, 30, 36, (int)(GetMOP.getFromTo((float)loseAnim, 0.0F, 60.0F) * 255.0F - fromtox * 255.0F))
                );
@@ -204,10 +206,10 @@ public class InvasionInfo {
       Tessellator tessellator = Tessellator.getInstance();
       BufferBuilder bufferbuilder = tessellator.getBuffer();
       bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-      bufferbuilder.pos(x + 0, y + height, zLevel).tex((textureX + 0) * onepixelX, (textureY + height) * onepixelY).endVertex();
+      bufferbuilder.pos(x, y + height, zLevel).tex(textureX * onepixelX, (textureY + height) * onepixelY).endVertex();
       bufferbuilder.pos(x + width, y + height, zLevel).tex((textureX + width) * onepixelX, (textureY + height) * onepixelY).endVertex();
-      bufferbuilder.pos(x + width, y + 0, zLevel).tex((textureX + width) * onepixelX, (textureY + 0) * onepixelY).endVertex();
-      bufferbuilder.pos(x + 0, y + 0, zLevel).tex((textureX + 0) * onepixelX, (textureY + 0) * onepixelY).endVertex();
+      bufferbuilder.pos(x + width, y, zLevel).tex((textureX + width) * onepixelX, textureY * onepixelY).endVertex();
+      bufferbuilder.pos(x, y, zLevel).tex(textureX * onepixelX, textureY * onepixelY).endVertex();
       tessellator.draw();
    }
 }

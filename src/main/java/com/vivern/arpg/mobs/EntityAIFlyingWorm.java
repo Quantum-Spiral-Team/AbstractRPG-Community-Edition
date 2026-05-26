@@ -53,12 +53,14 @@ public class EntityAIFlyingWorm extends EntityAIBase {
       this.vec = entity.getPositionVector();
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null
          ? this.entity.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue() > this.entity.getDistance(this.entity.getAttackTarget())
          : false;
    }
 
+   @Override
    public void updateTask() {
       if (this.entity.getAttackTarget() != null) {
          if (this.delay <= 0) {

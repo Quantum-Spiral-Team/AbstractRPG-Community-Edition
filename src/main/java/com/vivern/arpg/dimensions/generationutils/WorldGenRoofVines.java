@@ -44,6 +44,7 @@ public class WorldGenRoofVines implements IWorldGenerator {
       }
    }
 
+   @Override
    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       int dim = world.provider.getDimension();
       if (dim == this.dimension && random.nextInt(this.chance) == 0) {

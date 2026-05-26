@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class TEISRChests extends TileEntityItemStackRenderer {
    public final ModelChest simpleChest = new ModelChest();
 
+   @Override
    public void renderByItem(ItemStack itemStackIn) {
       this.renderByItem(itemStackIn, 1.0F);
    }

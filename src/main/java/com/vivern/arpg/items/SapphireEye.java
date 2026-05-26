@@ -28,6 +28,7 @@ public class SapphireEye extends Item implements IBauble {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
       ItemStack itemstack = playerIn.getHeldItem(handIn);
       RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
@@ -78,12 +79,12 @@ public class SapphireEye extends Item implements IBauble {
                         0.9F + itemRand.nextFloat() / 5.0F
                      );
                   } else {
-                     NBTHelper.GiveNBTboolean(itemstack, true, "firstclicked");
+                     NBTHelper.giveNBTboolean(itemstack, true, "firstclicked");
                      NBTHelper.SetNBTboolean(itemstack, true, "firstclicked");
                      NBTHelper.GiveNBTBlockPos(itemstack, blockpos, "from");
                      NBTHelper.SetNBTBlockPos(itemstack, blockpos, "from");
                      if (tentity instanceof TileTopazCrystal) {
-                        NBTHelper.GiveNBTboolean(itemstack, true, "topaz");
+                        NBTHelper.giveNBTboolean(itemstack, true, "topaz");
                         NBTHelper.SetNBTboolean(itemstack, true, "topaz");
                      }
 

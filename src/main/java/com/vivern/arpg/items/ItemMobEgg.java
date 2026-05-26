@@ -52,6 +52,7 @@ public class ItemMobEgg extends ItemItem {
       }
    }
 
+   @Override
    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
       ItemStack itemstack = player.getHeldItem(hand);
       if (worldIn.isRemote) {
@@ -80,6 +81,7 @@ public class ItemMobEgg extends ItemItem {
       }
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
       ItemStack itemstack = playerIn.getHeldItem(handIn);
       if (worldIn.isRemote) {

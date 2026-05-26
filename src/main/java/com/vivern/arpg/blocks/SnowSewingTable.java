@@ -28,6 +28,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SnowSewingTable extends Block {
    public static final PropertyBool READY = PropertyBool.create("ready");
@@ -45,14 +47,17 @@ public class SnowSewingTable extends Block {
       this.setTickRandomly(true);
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
       if (!(Boolean)state.getValue(READY)) {
          if (DimensionEthernalFrost.isSnowfallNow(world)) {
@@ -64,6 +69,7 @@ public class SnowSewingTable extends Block {
       }
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       Random rand = RANDOM;
       int damage = (Integer)state.getValue(DAMAGE);
@@ -104,6 +110,7 @@ public class SnowSewingTable extends Block {
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -164,20 +171,25 @@ public class SnowSewingTable extends Block {
       return false;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return meta <= 3
          ? this.getDefaultState().withProperty(DAMAGE, meta).withProperty(READY, false)
          : this.getDefaultState().withProperty(DAMAGE, Math.min(meta - 4, 4)).withProperty(READY, true);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(DAMAGE) + (state.getValue(READY) ? 4 : 0);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{DAMAGE, READY});
    }

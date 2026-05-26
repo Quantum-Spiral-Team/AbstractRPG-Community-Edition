@@ -14,10 +14,12 @@ public class EntityAIEnderSeerAttack extends EntityAIBase {
       this.entity = entity;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null && this.entity.getDistance(this.entity.getAttackTarget()) < 80.0F;
    }
 
+   @Override
    public void updateTask() {
       this.bigDelay--;
       if (this.bigDelay < 1) {

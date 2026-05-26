@@ -29,6 +29,7 @@ public class Frostburn extends AdvancedPotion {
       this.shouldRender = true;
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
       if (!entityOnEffect.world.isRemote && entityOnEffect.ticksExisted % 20 == 0) {
          entityOnEffect.attackEntityFrom(DamageSource.MAGIC, 2 + amplifier);
@@ -108,6 +109,7 @@ public class Frostburn extends AdvancedPotion {
       return false;
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }
@@ -118,6 +120,7 @@ public class Frostburn extends AdvancedPotion {
       PotionBurningEffects.renderEntityOnFire(entityOnEffect, x, y + 0.15, z, partialTicks, fire0, fire1, 180);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void renderFirstperson(EntityPlayer player, PotionEffect effect, RenderHandEvent event) {
       PotionBurningEffects.renderFireInFirstPerson(fire1, 0.6F, -0.3F + 0.1F * Math.min(effect.getAmplifier(), 2));

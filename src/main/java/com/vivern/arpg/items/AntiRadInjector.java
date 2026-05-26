@@ -22,6 +22,7 @@ public class AntiRadInjector extends Item {
       this.setTranslationKey("anti_rad_injector");
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       Mana.addRad(player, -100, false);

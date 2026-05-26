@@ -14,18 +14,22 @@ public class RangeEnch extends Enchantment {
       EnchantmentInit.ENCHANTMENTSLIST.add(this);
    }
 
+   @Override
    public int getMinEnchantability(int enchantmentLevel) {
       return 8 + (enchantmentLevel - 1) * 12;
    }
 
+   @Override
    public int getMaxEnchantability(int enchantmentLevel) {
       return this.getMinEnchantability(enchantmentLevel) + 25;
    }
 
+   @Override
    public int getMaxLevel() {
       return 4;
    }
 
+   @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack) {
       return stack.getItem() instanceof IWeapon;
    }

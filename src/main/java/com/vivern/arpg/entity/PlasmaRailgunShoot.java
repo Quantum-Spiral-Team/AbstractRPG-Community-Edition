@@ -230,6 +230,7 @@ public class PlasmaRailgunShoot extends StandardBullet implements IEntitySynchro
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       Vec3d subtraction = this.pos1.subtract(this.pos2);

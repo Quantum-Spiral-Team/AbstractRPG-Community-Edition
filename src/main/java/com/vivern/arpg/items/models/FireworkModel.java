@@ -28,6 +28,7 @@ public class FireworkModel extends ModelBase {
       this.shape1_3.addBox(-1.0F, -1.0F, -5.6F, 2, 2, 1, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape1_2.offsetX, this.shape1_2.offsetY, this.shape1_2.offsetZ);

@@ -29,6 +29,7 @@ public class WorldGenFluidLake extends WorldGenerator {
       this.lavaStyle = stoneAround;
    }
 
+   @Override
    public boolean generate(World worldIn, Random rand, BlockPos position) {
       if (position.getY() <= 4) {
          return false;

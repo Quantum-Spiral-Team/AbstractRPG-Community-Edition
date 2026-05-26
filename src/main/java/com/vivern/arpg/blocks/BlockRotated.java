@@ -88,12 +88,14 @@ public class BlockRotated extends Block {
       return this.fullFacing ? FACING_FULL : FACING;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.fullFacing
          ? this.getDefaultState().withProperty(FACING, facing)
          : this.getDefaultState().withProperty(this.getProperty(), placer.getHorizontalFacing());
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       EnumFacing enumfacing = EnumFacing.byIndex(meta);
       if (!this.fullFacing && enumfacing.getAxis() == Axis.Y) {
@@ -103,22 +105,27 @@ public class BlockRotated extends Block {
       return this.getDefaultState().withProperty(this.getProperty(), enumfacing);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(this.getProperty())).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(this.getProperty(), rot.rotate((EnumFacing)state.getValue(this.getProperty())));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(this.getProperty())));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{this.getProperty()});
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       if (this.useBBOne) {
          return this.AABB[0];
@@ -129,6 +136,7 @@ public class BlockRotated extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       if (this.useBBOne) {
          return this.AABB[0];
@@ -139,11 +147,13 @@ public class BlockRotated extends Block {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return this.layer;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return this.opaque;
    }
@@ -188,14 +198,17 @@ public class BlockRotated extends Block {
       return this;
    }
 
+   @Override
    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
       return this.replaceableOreGen;
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return this.dropped == null ? Item.getItemFromBlock(this) : this.dropped;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return this.fullcube;
    }
@@ -242,6 +255,7 @@ public class BlockRotated extends Block {
          this.setHarvest(tool, hardres.lvl);
       }
 
+      @Override
       public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
          player.addStat(StatList.getBlockStats(this));
          player.addExhaustion(0.005F);

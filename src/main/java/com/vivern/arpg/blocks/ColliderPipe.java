@@ -103,19 +103,23 @@ public class ColliderPipe extends Block {
       this.setDefaultState(this.getDefaultState().withProperty(POWERED, false).withProperty(HERMETIC, false));
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
       boolean flag = world.isBlockPowered(pos) || world.isBlockPowered(pos.up());
       world.setBlockState(pos, state.withProperty(POWERED, flag));
    }
 
+   @Override
    public boolean isFullBlock(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return side == EnumFacing.UP || side == EnumFacing.DOWN;
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       BlockPos wb = pos.west();
       BlockPos eb = pos.east();
@@ -137,14 +141,17 @@ public class ColliderPipe extends Block {
          .withProperty(DOWN, down);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return true;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return this.getAABB(blockState);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return this.getAABB(this.getActualState(state, source, pos));
    }
@@ -253,23 +260,28 @@ public class ColliderPipe extends Block {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(POWERED, (meta & 1) > 0).withProperty(HERMETIC, (meta & 2) > 0);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       if ((Boolean)state.getValue(POWERED)) {
@@ -283,14 +295,17 @@ public class ColliderPipe extends Block {
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, UPPER, DOWN, POWERED, HERMETIC});
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       BlockPos wb = pos.west();
       BlockPos eb = pos.east();

@@ -45,6 +45,7 @@ public class ToxicFlowerIslands extends BiomeControlled {
       public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXIC_TALLGRASS, 22, 8, 4);
       public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISON_LILY, 10, 8, 0);
 
+      @Override
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

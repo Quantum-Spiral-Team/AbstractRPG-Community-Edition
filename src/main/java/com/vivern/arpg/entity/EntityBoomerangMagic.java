@@ -109,6 +109,7 @@ public class EntityBoomerangMagic extends StandardBullet {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {

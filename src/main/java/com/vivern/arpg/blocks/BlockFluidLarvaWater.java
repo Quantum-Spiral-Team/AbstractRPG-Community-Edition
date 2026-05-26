@@ -36,6 +36,7 @@ public class BlockFluidLarvaWater extends BlockFluidClassic {
       this.setRegistryName("fluid_larva_water_block");
    }
 
+   @Override
    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       BlockPos posoff = pos.offset(side);
       IBlockState neighbor = world.getBlockState(posoff);
@@ -44,6 +45,7 @@ public class BlockFluidLarvaWater extends BlockFluidClassic {
          : super.shouldSideBeRendered(state, world, pos, side);
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       if (entityIn instanceof EntityLivingBase && !((EntityLivingBase)entityIn).isEntityUndead()) {
@@ -134,6 +136,7 @@ public class BlockFluidLarvaWater extends BlockFluidClassic {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       double d0 = pos.getX();
@@ -219,11 +222,13 @@ public class BlockFluidLarvaWater extends BlockFluidClassic {
       }
    }
 
+   @Override
    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
       super.onBlockAdded(world, pos, state);
       this.mergerFluids(pos, world);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
       super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
       this.mergerFluids(pos, world);

@@ -44,6 +44,7 @@ public class RenderLiveHeart<T extends EntityLiveHeart> extends Render<T> {
       torender = new ItemStack(ItemsRegister.LIVE_HEART);
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y + 0.18, (float)z);
@@ -71,11 +72,13 @@ public class RenderLiveHeart<T extends EntityLiveHeart> extends Render<T> {
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected int getTeamColor(T entityIn) {
       Vec3d col = ColorConverters.getTeamColor(entityIn.clientTeamColor);
       return ColorConverters.RGBtoDecimal((float)col.x, (float)col.y, (float)col.z);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntityLiveHeart entity) {
       return TextureMap.LOCATION_BLOCKS_TEXTURE;
    }
@@ -172,6 +175,7 @@ public class RenderLiveHeart<T extends EntityLiveHeart> extends Render<T> {
    }
 
    public static class RenderLiveHeartFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderLiveHeart(manager);
       }

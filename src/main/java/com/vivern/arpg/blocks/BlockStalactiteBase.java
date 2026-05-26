@@ -36,11 +36,13 @@ public class BlockStalactiteBase extends Block {
       this.setHarvestLevel(tool, harvestlvl);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
       if (this.type == 0) {
          return side == EnumFacing.DOWN;
@@ -57,10 +59,12 @@ public class BlockStalactiteBase extends Block {
       }
    }
 
+   @Override
    public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
       return false;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (this.type == 0) {
          if (worldIn.isAirBlock(pos.up())) {
@@ -79,42 +83,52 @@ public class BlockStalactiteBase extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return this.type == 1 ? AABBsmall : AABB;
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return 0;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public int damageDropped(IBlockState state) {
       return ((EnumType)state.getValue(VARIANT)).getMetadata();
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta));
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return ((EnumType)state.getValue(VARIANT)).getMapColor();
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumType)state.getValue(VARIANT)).getMetadata();
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{VARIANT});
    }
@@ -164,6 +178,7 @@ public class BlockStalactiteBase extends Block {
          return META_LOOKUP[meta];
       }
 
+      @Override
       public String getName() {
          return this.name;
       }

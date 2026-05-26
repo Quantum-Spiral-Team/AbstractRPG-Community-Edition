@@ -75,6 +75,7 @@ public class GUISummon extends GuiScreen {
       }
    }
 
+   @Override
    public void initGui() {
       int i = (this.width - this.xSize) / 2;
       int j = (this.height - this.ySize) / 2;
@@ -84,11 +85,13 @@ public class GUISummon extends GuiScreen {
       this.filterHostilEdit.setMaxStringLength(64);
    }
 
+   @Override
    public void updateScreen() {
       this.filterMinionEdit.updateCursorCounter();
       this.filterHostilEdit.updateCursorCounter();
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -143,6 +146,7 @@ public class GUISummon extends GuiScreen {
       this.filterHostilEdit.drawTextBox();
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       int mx = mouseX - (this.width - this.xSize) / 2;
       int my = mouseY - (this.height - this.ySize) / 2;
@@ -304,6 +308,7 @@ public class GUISummon extends GuiScreen {
       }
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       if (!this.filterMinionEdit.isFocused()
          && !this.filterHostilEdit.isFocused()
@@ -341,6 +346,7 @@ public class GUISummon extends GuiScreen {
       return flag;
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }

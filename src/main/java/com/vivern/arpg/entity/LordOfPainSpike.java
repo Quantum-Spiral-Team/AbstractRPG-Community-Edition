@@ -70,14 +70,17 @@ public class LordOfPainSpike extends EntityThrowable implements INailer {
       this.ignoreFrustumCheck = true;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return true;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       this.motionX *= 0.8;
@@ -140,6 +143,7 @@ public class LordOfPainSpike extends EntityThrowable implements INailer {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -171,6 +175,7 @@ public class LordOfPainSpike extends EntityThrowable implements INailer {
       return true;
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null && !this.damageDealed && Team.checkIsOpponent(this.thrower, result.entityHit)) {
          this.damageDealed = true;

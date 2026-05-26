@@ -35,6 +35,7 @@ public class TileAdvancedBlockDetector extends TileEntity {
       return st;
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound tags = new NBTTagCompound();
       if (this.state != null) {
@@ -46,6 +47,7 @@ public class TileAdvancedBlockDetector extends TileEntity {
       return new SPacketUpdateTileEntity(this.pos, 1, tags);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       if (compound.hasKey("meta") && compound.hasKey("blockname")) {
@@ -57,6 +59,7 @@ public class TileAdvancedBlockDetector extends TileEntity {
       }
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound tags = super.getUpdateTag();
       if (this.state != null) {
@@ -68,6 +71,7 @@ public class TileAdvancedBlockDetector extends TileEntity {
       return tags;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       if (compound.hasKey("meta") && compound.hasKey("blockname")) {
          this.setState(Block.getBlockFromName(compound.getString("blockname")).getStateFromMeta(compound.getInteger("meta")));
@@ -80,6 +84,7 @@ public class TileAdvancedBlockDetector extends TileEntity {
       super.handleUpdateTag(compound);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public double getMaxRenderDistanceSquared() {
       return 1024.0;
@@ -92,6 +97,7 @@ public class TileAdvancedBlockDetector extends TileEntity {
       this.stackForRender = stack;
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("meta") && compound.hasKey("blockname")) {
          this.setState(Block.getBlockFromName(compound.getString("blockname")).getStateFromMeta(compound.getInteger("meta")));
@@ -104,6 +110,7 @@ public class TileAdvancedBlockDetector extends TileEntity {
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       if (this.state != null) {
          compound.setInteger("meta", this.state.getBlock().getMetaFromState(this.state));

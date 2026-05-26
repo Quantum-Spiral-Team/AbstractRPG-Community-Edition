@@ -65,6 +65,7 @@ public class SummonedBlaze extends EntitySummoned {
       return displayicon;
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
@@ -324,6 +325,7 @@ public class SummonedBlaze extends EntitySummoned {
       this.getEntityAttribute(PropertiesRegistry.ARMOR_PROTECTION).setBaseValue(1.0);
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(0, new EntityAIFlyToSummoner(this, 1.0, 15.0F));
    }

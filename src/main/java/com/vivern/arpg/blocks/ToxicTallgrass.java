@@ -33,39 +33,48 @@ public class ToxicTallgrass extends Block implements IShearable {
       this.setSoundType(SoundType.PLANT);
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
       return true;
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return EnumOffsetType.XYZ;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return random.nextFloat() < 0.65F ? 1 : 0;
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return ItemsRegister.PLANT_FIBER;
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return canStayAtPos(worldIn, pos);
    }
@@ -79,20 +88,24 @@ public class ToxicTallgrass extends Block implements IShearable {
          || blockd == BlocksRegister.NUCLEAR_WASTE;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!canStayAtPos(worldIn, pos)) {
          worldIn.destroyBlock(pos, true);
       }
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public NonNullList<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
       return NonNullList.withSize(1, new ItemStack(this, 1));
    }
 
+   @Override
    public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
       return true;
    }

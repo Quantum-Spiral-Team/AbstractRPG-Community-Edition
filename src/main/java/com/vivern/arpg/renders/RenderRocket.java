@@ -40,6 +40,7 @@ public class RenderRocket<T extends Entity, ModelT extends ModelBase> extends Re
       }
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.disableCull();
@@ -87,6 +88,7 @@ public class RenderRocket<T extends Entity, ModelT extends ModelBase> extends Re
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(Entity entity) {
       return this.texture;
    }

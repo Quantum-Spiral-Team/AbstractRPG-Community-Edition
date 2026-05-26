@@ -37,19 +37,23 @@ public class BossSpineMinion extends EntityMob {
       this.owner = owner;
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
+   @Override
    public boolean canBreatheUnderwater() {
       return true;
    }
 
+   @Override
    public void addPotionEffect(PotionEffect potioneffectIn) {
       if (potioneffectIn.getPotion() != PotionEffects.FREEZING) {
          super.addPotionEffect(potioneffectIn);
       }
    }
 
+   @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       if (source != DamageSource.IN_WALL && source != DamageSource.CRAMMING && source != DamageSource.CACTUS) {
          return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
@@ -58,6 +62,7 @@ public class BossSpineMinion extends EntityMob {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
 
@@ -68,6 +73,7 @@ public class BossSpineMinion extends EntityMob {
       }
    }
 
+   @Override
    protected void applyEntityAttributes() {
       super.applyEntityAttributes();
       this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(35.0);
@@ -76,14 +82,17 @@ public class BossSpineMinion extends EntityMob {
       this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0);
    }
 
+   @Override
    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
       return Sounds.spine_minion_hurt;
    }
 
+   @Override
    protected SoundEvent getDeathSound() {
       return Sounds.spine_minion_dead;
    }
 
+   @Override
    public boolean attackEntityAsMob(Entity entityIn) {
       if (entityIn instanceof EntityLivingBase) {
          PotionEffect baff = new PotionEffect(PotionEffects.INCORPOREITY, 50, 1);
@@ -93,6 +102,7 @@ public class BossSpineMinion extends EntityMob {
       return super.attackEntityAsMob(entityIn);
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAIFlying(this, 120, 16.0F, 0.015F, false));
       this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));

@@ -48,6 +48,7 @@ public class OreGenBauxite implements IWorldGenerator {
       this.maxHeight = maxHeight;
       this.oreState2 = oreState2;
       ORE_BLOCKS = new Predicate<IBlockState>() {
+         @Override
          public boolean apply(IBlockState input) {
             return input.getBlock() == oreState.getBlock();
          }
@@ -68,6 +69,7 @@ public class OreGenBauxite implements IWorldGenerator {
       this(oreState, oreState2, new int[]{dimension}, blocksToReplace, blockAmountMin, blockAmountMax, chancesToSpawn, minHeight, maxHeight);
    }
 
+   @Override
    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       int dim = world.provider.getDimension();
 

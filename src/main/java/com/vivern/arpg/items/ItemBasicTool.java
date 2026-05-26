@@ -36,6 +36,7 @@ public class ItemBasicTool extends ItemItem {
       this.isRepairable = isRepairable;
    }
 
+   @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
       return enchantment.type == EnumEnchantmentType.DIGGER
          || enchantment.type == EnumEnchantmentType.BREAKABLE
@@ -101,6 +102,7 @@ public class ItemBasicTool extends ItemItem {
       return this;
    }
 
+   @Override
    public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
       return this.gethLevel(toolClass);
    }
@@ -129,10 +131,12 @@ public class ItemBasicTool extends ItemItem {
       }
    }
 
+   @Override
    public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
       return this.canHarvestBlock(state);
    }
 
+   @Override
    public boolean canHarvestBlock(IBlockState state) {
       int lvl = state.getBlock().getHarvestLevel(state);
       String tool = state.getBlock().getHarvestTool(state);
@@ -171,6 +175,7 @@ public class ItemBasicTool extends ItemItem {
       }
    }
 
+   @Override
    public float getDestroySpeed(ItemStack stack, IBlockState state) {
       int lvl = state.getBlock().getHarvestLevel(state);
       String tool = state.getBlock().getHarvestTool(state);
@@ -186,6 +191,7 @@ public class ItemBasicTool extends ItemItem {
       return maxspeed;
    }
 
+   @Override
    public boolean isRepairable() {
       return this.isRepairable;
    }
@@ -195,6 +201,7 @@ public class ItemBasicTool extends ItemItem {
       return this;
    }
 
+   @Override
    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
       if (!this.isRepairable) {
          return false;
@@ -205,6 +212,7 @@ public class ItemBasicTool extends ItemItem {
       }
    }
 
+   @Override
    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
       if (this.damages) {
          stack.damageItem(1, entityLiving);
@@ -213,6 +221,7 @@ public class ItemBasicTool extends ItemItem {
       return super.onBlockDestroyed(stack, worldIn, state, pos, entityLiving);
    }
 
+   @Override
    public int getItemEnchantability() {
       return this.enchantability;
    }

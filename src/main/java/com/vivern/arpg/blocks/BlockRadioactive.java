@@ -29,6 +29,7 @@ public class BlockRadioactive extends BlockBlockHard {
       this.setTickRandomly(radianceRadiation != 0 && radianceDistance > 0);
    }
 
+   @Override
    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
       if (!worldIn.isRemote) {
          AxisAlignedBB axisalignedbb = new AxisAlignedBB(
@@ -45,6 +46,7 @@ public class BlockRadioactive extends BlockBlockHard {
       super.randomTick(worldIn, pos, state, random);
    }
 
+   @Override
    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
       if (!world.isRemote && this.breakRad != 0) {
          Mana.addRad(player, this.breakRad, true);
@@ -53,6 +55,7 @@ public class BlockRadioactive extends BlockBlockHard {
       return super.removedByPlayer(state, world, pos, player, willHarvest);
    }
 
+   @Override
    public void onEntityWalk(World world, BlockPos pos, Entity entityIn) {
       if (!world.isRemote && this.walkRad != 0 && entityIn instanceof EntityPlayer) {
          Mana.addRad((EntityPlayer)entityIn, this.walkRad, true);

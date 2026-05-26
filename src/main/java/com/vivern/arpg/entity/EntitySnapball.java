@@ -81,10 +81,12 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       this.setRenderYawOffset(0.0F);
    }
 
+   @Override
    public double getYOffset() {
       return 0.0;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -98,6 +100,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return this.enablePhysics ? 0.05F : 0.0F;
    }
@@ -127,6 +130,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 440) {
@@ -151,7 +155,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                   );
             }
 
-            boolean isPowered = NBTHelper.GetNBTint(this.thrower.getHeldItemMainhand(), "charge") > parameters.getI("charge_to_powered");
+            boolean isPowered = NBTHelper.GetNBTint(this.thrower.getHeldItemMainhand(), "charge") > parameters.getInt("charge_to_powered");
             if (isPowered) {
                this.world.setEntityState(this, (byte)11);
             }
@@ -283,6 +287,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -361,6 +366,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (this.exploding && result != null && result.entityHit != null && Team.checkIsOpponent(this.thrower, result.entityHit)) {
          this.expl(false);
@@ -518,7 +524,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
       if (this.powered
          && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0
-         && this.ticksExisted < parameters.getI("minimal_special_livetime")) {
+         && this.ticksExisted < parameters.getInt("minimal_special_livetime")) {
          if (inChangeDerection) {
             this.motionX = -this.motionX;
             this.motionY = -this.motionY;
@@ -578,6 +584,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       }
    }
 
+   @Override
    public void onEntityUpdate() {
       super.onEntityUpdate();
       if (this.world.isRemote && this.powered && this.ticksExisted % 4 == 0) {

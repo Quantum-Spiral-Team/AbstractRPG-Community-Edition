@@ -62,14 +62,17 @@ public class EntityMiniNuke extends Entity implements IEntitySynchronize {
       this.power = power;
    }
 
+   @Override
    protected boolean canTriggerWalking() {
       return false;
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return !this.isDead;
    }
 
+   @Override
    public void onUpdate() {
       this.prevPosX = this.posX;
       this.prevPosY = this.posY;
@@ -346,11 +349,13 @@ public class EntityMiniNuke extends Entity implements IEntitySynchronize {
       }
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       compound.setShort("Fuse", (short)this.fuse);
       compound.setFloat("power", this.power);
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("Fuse")) {
          this.fuse = compound.getShort("Fuse");
@@ -366,10 +371,12 @@ public class EntityMiniNuke extends Entity implements IEntitySynchronize {
       return this.tntPlacedBy;
    }
 
+   @Override
    public float getEyeHeight() {
       return 0.0F;
    }
 
+   @Override
    protected void entityInit() {
    }
 }

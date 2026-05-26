@@ -70,6 +70,7 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
       this.ignoreFrustumCheck = true;
    }
 
+   @Override
    public void setSize(float width, float height) {
       if (width != this.width || height != this.height) {
          float f = this.width;
@@ -119,6 +120,7 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
       }
    }
 
+   @Override
    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
       float f = MathHelper.sqrt(x * x + y * y + z * z);
       x /= f;
@@ -144,16 +146,19 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
       return this.gravity;
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBox(Entity entityIn) {
       return null;
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox() {
       return !this.noClip && this.ticksExisted >= 3 ? this.getEntityBoundingBox() : null;
    }
 
+   @Override
    public float getCollisionBorderSize() {
       return this.collisionBorderSize;
    }
@@ -221,6 +226,7 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
       return new Vec3d(-angle, angle_Yaw + 180.0F, distance);
    }
 
+   @Override
    public void onUpdate() {
       this.lastTickPosX = this.posX;
       this.lastTickPosY = this.posY;
@@ -351,6 +357,7 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == -1) {
@@ -399,9 +406,11 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
       }
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       if (this.throwerName == null || this.throwerName.isEmpty()) {
          this.throwerName = this.thrower.getName();
@@ -410,6 +419,7 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
       compound.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       this.thrower = null;
       this.throwerName = compound.getString("ownerName");

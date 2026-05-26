@@ -130,6 +130,7 @@ public class NorthernArmorModel extends ModelBiped {
       this.horn.addChild(this.horn_2);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.leftarm.render(f5);
       this.helm.render(f5);
@@ -141,6 +142,7 @@ public class NorthernArmorModel extends ModelBiped {
       this.leftleg.render(f5);
    }
 
+   @Override
    public void setModelAttributes(ModelBase model) {
       super.setModelAttributes(model);
       if (model instanceof ModelBiped) {

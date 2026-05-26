@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class EntityStreamLaserP extends Entity {
    public float scale = 0.1F;
    public int light = 240;
@@ -124,20 +123,25 @@ public class EntityStreamLaserP extends Entity {
       this.creationDate = worldIn.getTotalWorldTime() + 1L;
    }
 
+   @Override
    public boolean shouldRenderInPass(int pass) {
       return pass == 1;
    }
 
+   @Override
    public boolean isOutsideBorder() {
       return super.isOutsideBorder();
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 
@@ -153,6 +157,7 @@ public class EntityStreamLaserP extends Entity {
       }
    }
 
+   @Override
    public Vec3d getPositionEyes(float partialTicks) {
       if (this.useOldPositioning) {
          if (partialTicks == 1.0F) {
@@ -170,6 +175,7 @@ public class EntityStreamLaserP extends Entity {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.player != null && this.useOldPositioning) {

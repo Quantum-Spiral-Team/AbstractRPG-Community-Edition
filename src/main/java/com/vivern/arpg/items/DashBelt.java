@@ -10,6 +10,9 @@ import com.vivern.arpg.main.Keys;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
 import java.util.List;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -128,7 +131,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       NBTHelper.SetNBTdouble(itemstack, entity.posZ, "posz");
       if (this.canDoVerticalDash) {
          if (dashDirectionNormalized.y != 0.0) {
-            NBTHelper.GiveNBTboolean(itemstack, false, "isvertical");
+            NBTHelper.giveNBTboolean(itemstack, false, "isvertical");
             NBTHelper.SetNBTboolean(itemstack, true, "isvertical");
          } else {
             NBTHelper.SetNBTboolean(itemstack, false, "isvertical");
@@ -512,6 +515,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Allows do three dashes");
          tooltip.add("Extinguishes inertia");
@@ -533,6 +538,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          model.beltRibbons.isHidden = false;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Allows do dash in any horizontal direction");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -610,6 +617,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Allows do dash");
          tooltip.add("Extinguishes inertia");
@@ -724,6 +733,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Allows do two dashes");
          tooltip.add("Extinguishes inertia");
@@ -853,6 +864,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          return true;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Allows do three dashes");
          tooltip.add("Extinguishes inertia");
@@ -944,6 +957,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Allows do long dash");
          tooltip.add("Extinguishes inertia");
@@ -1043,6 +1058,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          return true;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Allows do four dashes");
          tooltip.add("Extinguishes inertia");

@@ -29,6 +29,7 @@ public class ModelRendererUncompiled extends ModelRenderer {
       this.uselight = false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void render(float scale) {
       if (!this.isHidden && this.showModel) {
@@ -98,6 +99,7 @@ public class ModelRendererUncompiled extends ModelRenderer {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void renderWithRotation(float scale) {
       if (!this.isHidden && this.showModel) {
@@ -120,6 +122,7 @@ public class ModelRendererUncompiled extends ModelRenderer {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void postRender(float scale) {
       if (!this.isHidden && this.showModel) {

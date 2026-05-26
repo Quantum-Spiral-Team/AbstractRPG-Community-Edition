@@ -34,6 +34,7 @@ public class ManaBottleTESR extends TileEntitySpecialRenderer<TileManaBottle> {
       }
    }
 
+   @Override
    public void render(TileManaBottle te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       float energyMax = 50.0F;
       float fullness = 0.0F;

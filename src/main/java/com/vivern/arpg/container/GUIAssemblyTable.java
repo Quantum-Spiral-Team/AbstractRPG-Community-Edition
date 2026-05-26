@@ -22,6 +22,7 @@ public class GUIAssemblyTable extends GuiContainer {
       this.ySize = 233;
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       if (Character.isDigit(typedChar) || keyCode == 14) {
          PacketTileClickToServer packet = new PacketTileClickToServer();
@@ -43,6 +44,7 @@ public class GUIAssemblyTable extends GuiContainer {
       }
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
@@ -69,6 +71,7 @@ public class GUIAssemblyTable extends GuiContainer {
       }
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       super.mouseClicked(mouseX, mouseY, mouseButton);
       int i = (this.width - this.xSize) / 2;
@@ -78,12 +81,14 @@ public class GUIAssemblyTable extends GuiContainer {
       PacketHandler.NETWORK.sendToServer(packet);
    }
 
+   @Override
    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
       String s = this.tileinv.getDisplayName().getUnformattedText();
       this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
       this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
    }
 
+   @Override
    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
       int i = (this.width - this.xSize) / 2;

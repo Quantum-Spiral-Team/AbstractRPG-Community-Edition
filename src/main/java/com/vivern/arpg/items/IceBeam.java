@@ -40,6 +40,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class IceBeam extends ItemWeapon {
    ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largecloud.png");
@@ -54,10 +56,12 @@ public class IceBeam extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 14.0F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -67,14 +71,17 @@ public class IceBeam extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
@@ -93,7 +100,7 @@ public class IceBeam extends ItemWeapon {
          int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
          int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
          int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
-         float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getF("rapid_multiplier");
+         float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getFloat("rapid_multiplier");
          float manacost = parameters.getEnchantedF("manacost", sor) * rapidMult;
          boolean b1 = true;
          if (player.getHeldItemMainhand() == itemstack && mana > manacost && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
@@ -110,7 +117,7 @@ public class IceBeam extends ItemWeapon {
                0.9F + itemRand.nextFloat() / 5.0F
             );
             b1 = false;
-            double damageRadius = parameters.getF("damage_radius");
+            double damageRadius = parameters.getFloat("damage_radius");
             AxisAlignedBB aabb = new AxisAlignedBB(
                vec.x - damageRadius,
                vec.y - damageRadius,
@@ -153,7 +160,7 @@ public class IceBeam extends ItemWeapon {
                               entitylivingbase,
                               PotionEffects.FREEZING,
                               parameters.getEnchantedI("potion_time_add", witchery) * rapidMult,
-                              (float)((int)(dur * parameters.getF("potion_power_depends_on_time") + 1.0F)),
+                              (float)((int)(dur * parameters.getFloat("potion_power_depends_on_time") + 1.0F)),
                               Weapons.EnumPotionMix.WITH_MAXIMUM,
                               Weapons.EnumPotionMix.WITH_MAXIMUM,
                               Weapons.EnumMathOperation.PLUS,
@@ -294,6 +301,7 @@ public class IceBeam extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       GUNParticle bigsmoke = new GUNParticle(

@@ -46,6 +46,7 @@ public class Garland extends Block {
       this.setLightLevel(0.2F);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return 15728880;
@@ -74,6 +75,7 @@ public class Garland extends Block {
       }
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       if ((Boolean)state.getValue(VERTICAL)) {
          boolean west = worldIn.getBlockState(pos.west()).getBlock() == this;
@@ -90,6 +92,7 @@ public class Garland extends Block {
       }
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       boolean west = this.isBlocksolid(worldIn, pos.west());
       boolean east = this.isBlocksolid(worldIn, pos.east());
@@ -103,43 +106,53 @@ public class Garland extends Block {
       return worldIn.getBlockState(pos).getCollisionBoundingBox(worldIn, pos) != Block.NULL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return this.getAABB(this.getActualState(state, source, pos));
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(VERTICAL, meta > 0);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return state.getValue(VERTICAL) ? 1 : 0;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, VERTICAL});
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       boolean west = this.isBlocksolid(worldIn, pos.west());
       boolean east = this.isBlocksolid(worldIn, pos.east());

@@ -37,7 +37,7 @@ public class GiantShell extends Block implements IHasSubtypes {
    public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);
    public static final PropertyBool WET = PropertyBool.create("wet");
    protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.15, 0.0, 0.15, 0.85, 0.5, 0.85);
-   public BlockRenderLayer layer = BlockRenderLayer.SOLID;
+   public BlockRenderLayer layer;
    public double offset = 0.4;
 
    public GiantShell(String name, BlockRenderLayer layer) {
@@ -51,14 +51,17 @@ public class GiantShell extends Block implements IHasSubtypes {
       this.layer = layer;
    }
 
+   @Override
    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
       return false;
    }
 
+   @Override
    public Material getMaterial(IBlockState state) {
       return state.getValue(WET) ? Material.WATER : Material.ROCK;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!this.isInWater(world, pos)) {
          world.setBlockState(pos, state.withProperty(WET, false));
@@ -70,29 +73,16 @@ public class GiantShell extends Block implements IHasSubtypes {
    }
 
    public boolean isInWater(World worldIn, BlockPos pos) {
-      IBlockState state1 = worldIn.getBlockState(pos.up());
-      if (state1.getMaterial() == Material.WATER || state1.isOpaqueCube()) {
-         IBlockState state2 = worldIn.getBlockState(pos.east());
-         if (state2.getMaterial() == Material.WATER || state2.isOpaqueCube()) {
-            IBlockState state3 = worldIn.getBlockState(pos.south());
-            if (state3.getMaterial() == Material.WATER || state3.isOpaqueCube()) {
-               IBlockState state4 = worldIn.getBlockState(pos.west());
-               if (state4.getMaterial() == Material.WATER || state4.isOpaqueCube()) {
-                  IBlockState state5 = worldIn.getBlockState(pos.north());
-                  if (state5.getMaterial() == Material.WATER || state5.isOpaqueCube()) {
-                     IBlockState state6 = worldIn.getBlockState(pos.down());
-                     if (state6.getMaterial() == Material.WATER || state6.isOpaqueCube()) {
-                        return true;
-                     }
-                  }
-               }
-            }
+      for (EnumFacing facing : EnumFacing.values()) {
+         IBlockState state = worldIn.getBlockState(pos.offset(facing));
+         if (!(state.getMaterial() == Material.WATER || state.isOpaqueCube())) {
+            return false;
          }
       }
-
-      return false;
+      return true;
    }
 
+   @Override
    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
       return this.canPlaceBlockAt(worldIn, pos) && worldIn.getBlockState(pos.offset(side.getOpposite())).isOpaqueCube();
    }
@@ -113,14 +103,16 @@ public class GiantShell extends Block implements IHasSubtypes {
       return false;
    }
 
+   @Override
    public void breakBlock(World world, BlockPos pos, IBlockState state) {
-      if ((Boolean)state.getValue(WET) && this.isAroundWater(world, pos)) {
+      if (state.getValue(WET) && this.isAroundWater(world, pos)) {
          world.setBlockState(pos, Blocks.WATER.getDefaultState());
       }
 
       super.breakBlock(world, pos, state);
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return EnumOffsetType.XZ;
    }
@@ -130,62 +122,74 @@ public class GiantShell extends Block implements IHasSubtypes {
       return this;
    }
 
+   @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       long i = MathHelper.getCoordinateRandom(pos.getX(), 0, pos.getZ());
       return new Vec3d(((float)(i >> 16 & 15L) / 15.0F - 0.5) * this.offset, 0.0, ((float)(i >> 24 & 15L) / 15.0F - 0.5) * this.offset);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return STANDING_AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return STANDING_AABB;
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return this.layer;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
       return this.getItemStack(state);
    }
 
    public ItemStack getItemStack(IBlockState state) {
-      int variant = (Integer)state.getValue(TYPE);
+      int variant = state.getValue(TYPE);
       ItemStack stack = new ItemStack(this);
       NBTHelper.GiveNBTint(stack, variant, "type");
       NBTHelper.SetNBTint(stack, variant, "type");
       return stack;
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       drops.add(this.getItemStack(state));
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       boolean wett = meta >= 8;
       return this.getDefaultState().withProperty(TYPE, wett ? meta - 8 : meta).withProperty(LEVEL, 0).withProperty(WET, wett);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
-      int i = (Integer)state.getValue(TYPE);
+      int i = state.getValue(TYPE);
       return state.getValue(WET) ? i + 8 : i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{TYPE, LEVEL, WET});
+      return new BlockStateContainer(this, TYPE, LEVEL, WET);
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       for (int i = 0; i < 8; i++) {
          ItemStack stack = new ItemStack(this);
@@ -195,6 +199,7 @@ public class GiantShell extends Block implements IHasSubtypes {
       }
    }
 
+   @Override
    public IBlockState getStateForPlacement(
       World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand
    ) {
@@ -206,6 +211,8 @@ public class GiantShell extends Block implements IHasSubtypes {
          : this.getDefaultState();
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
       return world.provider.getDimension() == 103
          ? DimensionAquatica.getBlockFogColor(world, pos, state, entity, originalColor, partialTicks)

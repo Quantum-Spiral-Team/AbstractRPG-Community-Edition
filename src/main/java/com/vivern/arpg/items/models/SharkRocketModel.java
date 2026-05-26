@@ -34,6 +34,7 @@ public class SharkRocketModel extends ModelBase {
       this.shape2.addChild(this.shape3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.rotate = f4;
       this.setRotateAngle(this.shape2, 0.0F, 0.0F, this.rotate);

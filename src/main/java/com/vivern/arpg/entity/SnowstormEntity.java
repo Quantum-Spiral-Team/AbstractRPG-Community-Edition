@@ -50,6 +50,7 @@ public class SnowstormEntity extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -62,6 +63,7 @@ public class SnowstormEntity extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 10) {
@@ -69,10 +71,12 @@ public class SnowstormEntity extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.004F;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -116,6 +120,7 @@ public class SnowstormEntity extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.typeOfHit == Type.BLOCK && !this.world.isRemote) {
          this.world.setEntityState(this, (byte)5);

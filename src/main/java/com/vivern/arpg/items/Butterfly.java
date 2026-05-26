@@ -31,6 +31,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 
 public class Butterfly extends ItemWeapon {
@@ -42,22 +44,27 @@ public class Butterfly extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public int getMaxItemUseDuration(ItemStack itemstack) {
       return 72000;
    }
 
+   @Override
    public EnumAction getItemUseAction(ItemStack stack) {
       return EnumAction.BOW;
    }
 
+   @Override
    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
       return true;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!worldIn.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -225,6 +232,7 @@ public class Butterfly extends ItemWeapon {
       return 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;

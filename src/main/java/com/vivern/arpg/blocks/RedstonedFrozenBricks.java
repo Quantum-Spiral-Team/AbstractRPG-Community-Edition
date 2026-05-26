@@ -29,10 +29,12 @@ public class RedstonedFrozenBricks extends Block implements IBlockHardBreak {
       return BlocksRegister.HR_FROZEN_BRICK;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       Block blockk = worldIn.getBlockState(pos.down()).getBlock();
       if (worldIn.isBlockPowered(pos.down()) && blockk != BlocksRegister.REDSTONED_FROZEN_BRICKS && blockk != BlocksRegister.BLOCK_BLOCK_HARD) {

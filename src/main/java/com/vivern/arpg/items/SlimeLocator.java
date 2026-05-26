@@ -18,6 +18,8 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SlimeLocator extends Item {
    public SlimeLocator() {
@@ -27,6 +29,7 @@ public class SlimeLocator extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer playerIn, EnumHand handIn) {
       if (!world.isRemote) {
          BlockPos blockpos = new BlockPos(
@@ -46,24 +49,26 @@ public class SlimeLocator extends Item {
          Biome biome = world.getBiome(blockpos);
          if (biome == Biomes.SWAMPLAND) {
             if (blockpos.getY() > 50.0 && blockpos.getY() < 70.0) {
-               return "пїЅaSlimes can spawn in Swampland biome";
+               return "\u00A7aSlimes can spawn in Swampland biome";
             }
 
-            return "пїЅ6Slimes can spawn in Swampland biome, but below 70 and above 50 height";
+            return "\u00A76Slimes can spawn in Swampland biome, but below 70 and above 50 height";
          }
 
          if (chunk.getRandomWithSeed(987234911L).nextInt(10) == 0) {
             if (blockpos.getY() < 40.0) {
-               return "пїЅaSlimes can spawn here";
+               return "\u00A7aSlimes can spawn here";
             }
 
-            return "пїЅ6Slimes can spawn in this chunk, but below 40 height";
+            return "\u00A76Slimes can spawn in this chunk, but below 40 height";
          }
       }
 
-      return "пїЅ4Slimes can't spawn here";
+      return "\u00A74Slimes can't spawn here";
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       tooltip.add("This locator can be used to find chunks, where vanilla slimes are spawn");
       super.addInformation(stack, worldIn, tooltip, flagIn);

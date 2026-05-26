@@ -17,12 +17,14 @@ public class RenderWhiteSlime extends RenderLiving<WhiteSlime> {
       super(manager, new SlimeModel(), 0.4F);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull WhiteSlime entity) {
       return this.mobTexture;
    }
 
    public static class WhiteSlimeFactory implements IRenderFactory<WhiteSlime> {
+      @Override
       public Render<? super WhiteSlime> createRenderFor(RenderManager manager) {
          return new RenderWhiteSlime(manager);
       }

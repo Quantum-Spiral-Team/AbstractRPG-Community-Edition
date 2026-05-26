@@ -29,6 +29,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Hellmark extends ItemWeapon implements IItemAttacked {
    public Hellmark() {
@@ -39,6 +41,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -48,14 +51,17 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (NBTHelper.GetNBTint(stack, "blocking") > 0) {
@@ -77,6 +83,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
       return multimap;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -102,7 +109,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
-                     NBTHelper.SetNBTint(itemstack, parameters.getI("max_hits"), "blocking");
+                     NBTHelper.SetNBTint(itemstack, parameters.getInt("max_hits"), "blocking");
                      player.addExhaustion(0.6F);
                      if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0
                         && IWeapon.doMeleeSwordAttack(
@@ -163,11 +170,11 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
                         player,
                         attacker,
                         parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
-                        parameters.getF("self_knockback")
+                        parameters.getFloat("self_knockback")
                      );
                      DamageSource wDamageSource = new WeaponDamage(stack, player, null, false, false, player, WeaponDamage.pierce).setIsThornsDamage();
                      float damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack))
-                        + (attacker.isBurning() ? parameters.getF("fire_damage_bonus") : 0.0F);
+                        + (attacker.isBurning() ? parameters.getFloat("fire_damage_bonus") : 0.0F);
                      Weapons.dealDamage(wDamageSource, damage, player, attacker, true);
                      if (attacker.isBurning()) {
                         player.world
@@ -245,7 +252,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
       boolean ret = entity.attackEntityFrom(
          new WeaponDamage(stack, player, null, false, false, player, WeaponDamage.blade),
          (float)player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * artropods * holy
-            + (entity.isBurning() ? WeaponParameters.getWeaponParameters(stack.getItem()).getF("fire_damage_bonus") : 0.0F)
+            + (entity.isBurning() ? WeaponParameters.getWeaponParameters(stack.getItem()).getFloat("fire_damage_bonus") : 0.0F)
       );
       entity.hurtResistantTime = 0;
       if (ret && entity.isBurning()) {
@@ -255,7 +262,7 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
             entity.posY,
             entity.posZ,
             2,
-            WeaponParameters.getWeaponParameters(stack.getItem()).getF("heart_health"),
+            WeaponParameters.getWeaponParameters(stack.getItem()).getFloat("heart_health"),
             true,
             5.0F,
             player
@@ -271,13 +278,15 @@ public class Hellmark extends ItemWeapon implements IItemAttacked {
       return ret;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getI("max_hits"), 0.0F, 1.0F
+         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getInt("max_hits"), 0.0F, 1.0F
       );
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "blocking") > 0;

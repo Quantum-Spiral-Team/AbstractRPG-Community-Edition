@@ -18,6 +18,7 @@ public class TileBlockPlacer extends TileEntityLockableLoot {
    private static final Random RNG = new Random();
    private NonNullList<ItemStack> stacks = NonNullList.withSize(9, ItemStack.EMPTY);
 
+   @Override
    public int getSizeInventory() {
       return 9;
    }
@@ -44,6 +45,7 @@ public class TileBlockPlacer extends TileEntityLockableLoot {
       return item instanceof ItemBlock || item instanceof IPlantable || item instanceof ISeed;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.stacks) {
          if (!itemstack.isEmpty()) {
@@ -65,6 +67,7 @@ public class TileBlockPlacer extends TileEntityLockableLoot {
       return -1;
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       super.readFromNBT(compound);
       this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
@@ -77,6 +80,7 @@ public class TileBlockPlacer extends TileEntityLockableLoot {
       }
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       super.writeToNBT(compound);
       if (!this.checkLootAndWrite(compound)) {
@@ -90,23 +94,28 @@ public class TileBlockPlacer extends TileEntityLockableLoot {
       return compound;
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 1;
    }
 
+   @Override
    public String getName() {
       return "block_placer";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       this.fillWithLoot(playerIn);
       return new Container9(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "minecraft:dispenser";
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.stacks;
    }

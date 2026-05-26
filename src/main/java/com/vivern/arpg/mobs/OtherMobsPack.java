@@ -186,6 +186,7 @@ public class OtherMobsPack {
          return DeathEffects.CINDER_BLOOD;
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.5F;
       }
@@ -195,6 +196,7 @@ public class OtherMobsPack {
          return ai.glyphidAiType == 1 || ai.glyphidAiType == 0;
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          if (player.getHeldItemMainhand().getItem() == ItemsRegister.MAGMA_BLOOM_SEED) {
             if (!player.capabilities.isCreativeMode) {
@@ -214,6 +216,7 @@ public class OtherMobsPack {
          return super.applyPlayerInteraction(player, vec, hand);
       }
 
+      @Override
       protected float getSoundPitch() {
          return super.getSoundPitch() * 0.8F;
       }
@@ -230,10 +233,12 @@ public class OtherMobsPack {
          super.onUpdate();
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
          super.fall(distance, damageMultiplier * 0.9F);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
@@ -269,6 +274,7 @@ public class OtherMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       public void setInWeb() {
          this.fallDistance = 0.0F;
       }
@@ -289,10 +295,12 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.ARTHROPOD;
       }
 
+      @Override
       protected void initEntityAI() {
          this.ai = new EntityAILavaGlyphid(this);
          this.tasks.addTask(1, this.ai);
@@ -332,17 +340,21 @@ public class OtherMobsPack {
          return DeathEffects.ENDER_BLOOD;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @Override
       protected boolean canDespawn() {
          return this.getAttackTarget() == null || this.getDistance(this.getAttackTarget()) > 100.0F;
       }
 
+      @Override
       protected float getSoundVolume() {
          return 10.0F;
       }
 
+      @Override
       public void onEntityUpdate() {
          if (this.world.isRemote) {
             GUNParticle fire2 = new GUNParticle(
@@ -392,6 +404,7 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIFlying(this, 150, 25.0F, 0.02F, false));
          this.tasks.addTask(2, new EntityAIEnderSeerAttack(this));
@@ -459,6 +472,7 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
          super.fall(Math.max(distance - 10.0F, 0.0F), damageMultiplier);
       }
@@ -523,6 +537,7 @@ public class OtherMobsPack {
          return super.attackEntityFrom(source, amount);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == -1) {
@@ -556,6 +571,7 @@ public class OtherMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFollowSummoner(this, 1.0));
@@ -621,6 +637,7 @@ public class OtherMobsPack {
          return DeathEffects.DEMONIC_VIOLET_BLOOD;
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          if (player.getHeldItemMainhand().getItem() instanceof ItemFood && ((ItemFood)player.getHeldItemMainhand().getItem()).isWolfsFavoriteMeat()) {
             if (this.owner == null) {
@@ -653,18 +670,22 @@ public class OtherMobsPack {
          return super.applyPlayerInteraction(player, vec, hand);
       }
 
+      @Override
       protected float getSoundPitch() {
          return (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 0.85F;
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.3F;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.85F;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          return potioneffectIn.getPotion() == PotionEffects.DEMONIC_BURN ? false : super.isPotionApplicable(potioneffectIn);
       }
@@ -764,10 +785,12 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public float getAIMoveSpeed() {
          return this.fireTime > 0 ? 0.0F : super.getAIMoveSpeed();
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -806,6 +829,7 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIRush(this, false, true, false));
@@ -954,6 +978,7 @@ public class OtherMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -1001,6 +1026,7 @@ public class OtherMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFollowSummoner(this, 1.0));
@@ -1056,6 +1082,7 @@ public class OtherMobsPack {
          return DeathEffects.BLACK_STRAP_BLOOD;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
          super.fall(Math.max(distance - 2.0F, 0.0F), damageMultiplier);
       }
@@ -1142,6 +1169,7 @@ public class OtherMobsPack {
          return super.attackEntityAsMob(entityIn);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -1203,6 +1231,7 @@ public class OtherMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFollowSummoner(this, 1.0));
@@ -1253,10 +1282,12 @@ public class OtherMobsPack {
          return DeathEffects.LAVA_BLOOD;
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.3F;
       }
 
+      @Override
       public void onLivingUpdate() {
          super.onLivingUpdate();
          if (!this.onGround && this.motionY < 0.0) {
@@ -1264,6 +1295,7 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.2F;
       }
@@ -1279,9 +1311,11 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1300,6 +1334,7 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFloatingSkeleton(this, 40, 16.0F, 0, true, 9.0F, 3.0F, 3.5F, 0.15F, true, false));
@@ -1398,6 +1433,7 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public void onLivingUpdate() {
          super.onLivingUpdate();
          if (!this.onGround && this.motionY < 0.0) {
@@ -1460,6 +1496,7 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.15F;
       }
@@ -1475,9 +1512,11 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1589,6 +1628,7 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIShootDelayed(this, 8, 20.0F, 0, false, 80));
          this.tasks.addTask(8, new EntityAILookIdle(this));
@@ -1653,10 +1693,12 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.4F;
       }
 
+      @Override
       public void applyEntityCollision(Entity entityIn) {
          if (!this.isRidingSameEntity(entityIn) && !entityIn.noClip && !this.noClip) {
             double d0 = entityIn.posX - this.posX;
@@ -1812,6 +1854,7 @@ public class OtherMobsPack {
          return super.attackEntityAsMob(entityIn);
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          if (player.getHeldItemMainhand().getItem() == ItemsRegister.SULFUR_DUST) {
             if (!player.capabilities.isCreativeMode) {
@@ -1831,6 +1874,7 @@ public class OtherMobsPack {
          return super.applyPlayerInteraction(player, vec, hand);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
@@ -1877,6 +1921,7 @@ public class OtherMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFollowSummoner(this, 1.0));
@@ -1958,6 +2003,7 @@ public class OtherMobsPack {
          this(world, false, 0, null);
       }
 
+      @Override
       public boolean hasNoGravity() {
          return true;
       }
@@ -2015,6 +2061,7 @@ public class OtherMobsPack {
          return number < this.poslist.size() ? this.poslist.get(number) : this.getPositionVector();
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -2039,6 +2086,7 @@ public class OtherMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -2145,6 +2193,7 @@ public class OtherMobsPack {
          }
       }
 
+      @Override
       public void onLivingUpdate() {
          if (this.world.isRemote && !this.isSubMob) {
             for (int i = 0; i < 2; i++) {
@@ -2165,6 +2214,7 @@ public class OtherMobsPack {
          super.onLivingUpdate();
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAISegmAABBAttack(this, 40, 0.2F));
          this.initToHead();

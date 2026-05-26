@@ -1,6 +1,7 @@
 package com.vivern.arpg.arpgamemodes;
 
 import baubles.api.BaublesApi;
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.container.GUISurvivorEnchant;
 import com.vivern.arpg.container.GuiHandler;
 import com.vivern.arpg.dimensions.toxicomania.ARPGTeleporter;
@@ -33,8 +34,10 @@ import com.vivern.arpg.network.PacketHandler;
 
 import java.util.*;
 
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -70,20 +73,18 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
-public class SurvivorGamestyleWatcher {
+@EventBusSubscriber(modid = Tags.MOD_ID)
+public class SurvivorGameStyleWatcher {
    public static Random rand = new Random();
-   public static SurvivorGamestyleWatcher currentWatcher;
+   public static SurvivorGameStyleWatcher currentWatcher;
    public int STAGE = 0;
    public int LEVEL = 0;
    public int POINTS = 0;
    public int TREASURE = 0;
-   public int LOOTSPAWNERS = 0;
+   public int LOOT_SPAWNERS = 0;
    public boolean hasAmmoTrader = false;
    public int ticksExisted;
-   public int STARTCHESTS = 3;
+   public int START_CHESTS = 3;
    public int totalEnchants = 0;
    public boolean portalPlaced = true;
    public int enchSeed;
@@ -169,7 +170,7 @@ public class SurvivorGamestyleWatcher {
       rslc(1, 2, 1.3, 10, ItemsRegister.FIRE_MAGE_BOOTS)
    };
 
-   public SurvivorGamestyleWatcher() {
+   public SurvivorGameStyleWatcher() {
       MobSpawn.spawnByDimension.clear();
       MobSpawn.spawnByDimension.put(0, new MobSpawnOverworld(true));
       MobSpawn.spawnByDimension.put(-1, new MobSpawnNether());
@@ -182,7 +183,7 @@ public class SurvivorGamestyleWatcher {
    }
 
    public static void startSurvivor(MinecraftServer server) {
-      currentWatcher = new SurvivorGamestyleWatcher();
+      currentWatcher = new SurvivorGameStyleWatcher();
 
       for (EntityPlayer player : server.getPlayerList().getPlayers()) {
          player.addItemStackToInventory(new ItemStack(Items.STONE_SWORD));
@@ -259,19 +260,19 @@ public class SurvivorGamestyleWatcher {
          Mana.addSwarmPoints(player, 250 + this.LEVEL * 50);
       }
 
-      if (rand.nextFloat() < 0.0025F && player.dimension == this.stageDimension(this.STAGE) && (this.LOOTSPAWNERS > 0 || this.STARTCHESTS > 0)) {
+      if (rand.nextFloat() < 0.0025F && player.dimension == this.stageDimension(this.STAGE) && (this.LOOT_SPAWNERS > 0 || this.START_CHESTS > 0)) {
          BlockPos spawnpos = this.getLootSpawnerSpawnPos(player, 128);
          if (spawnpos != null) {
             SurvivorLootSpawner lootSpawner = new SurvivorLootSpawner(
                player.world, spawnpos.getX() + 0.5, spawnpos.getY(), spawnpos.getZ() + 0.5
             );
-            if (rand.nextFloat() < 0.55F && this.STARTCHESTS <= 0) {
+            if (rand.nextFloat() < 0.55F && this.START_CHESTS <= 0) {
                lootSpawner.TRADES = this.getRandomLootTrades();
             } else {
                lootSpawner.LOOT = this.getRandomLootChest();
             }
 
-            this.STARTCHESTS--;
+            this.START_CHESTS--;
             player.world.spawnEntity(lootSpawner);
          }
       }
@@ -314,18 +315,20 @@ public class SurvivorGamestyleWatcher {
 
    @SideOnly(Side.CLIENT)
    public static void onClient(double x, double y, double z, double a, double b, double c) {
-      GuiHandler.displayGui(Minecraft.getMinecraft().player, new GUISurvivorEnchant(Minecraft.getMinecraft().player, getEnchantments((int)x)));
+      EntityPlayerSP player = Minecraft.getMinecraft().player;
+      GuiHandler.displayGui(player, new GUISurvivorEnchant(player, getEnchantments((int) x)));
    }
+
 
    public void onServerPacket(EntityLivingBase player, double x, double y, double z, double a, double b, double c) {
       if (player instanceof EntityPlayer) {
          if (y == 1.0) {
-            int levelneed = 2;
-            if (((EntityPlayer)player).experienceLevel >= levelneed && !((EntityPlayer)player).getCooldownTracker().hasCooldown(Items.GOLD_INGOT)) {
-               BlockPos spawnpos = this.getLootSpawnerSpawnPos(player, 16);
-               if (spawnpos != null) {
+            int levelNeed = 2;
+            if (((EntityPlayer) player).experienceLevel >= levelNeed && !((EntityPlayer)player).getCooldownTracker().hasCooldown(Items.GOLD_INGOT)) {
+               BlockPos spawnPos = this.getLootSpawnerSpawnPos(player, 16);
+               if (spawnPos != null) {
                   SurvivorLootSpawner lootSpawner = new SurvivorLootSpawner(
-                     player.world, spawnpos.getX() + 0.5, spawnpos.getY(), spawnpos.getZ() + 0.5
+                     player.world, spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5
                   );
                   ArrayList<NPCMobsPack.Trade> list = new ArrayList<>();
                   this.addSupplyTradesToList(list);
@@ -336,39 +339,39 @@ public class SurvivorGamestyleWatcher {
                   lootSpawner.TRADES = list;
                   lootSpawner.LOOT = list2;
                   player.world.spawnEntity(lootSpawner);
-                  ((EntityPlayer)player).addExperienceLevel(-levelneed);
+                  ((EntityPlayer) player).addExperienceLevel(-levelNeed);
                   player.world
                      .playSound(
-                        (EntityPlayer)null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.item_misc_a,
-                        SoundCategory.AMBIENT,
-                        0.8F,
-                        0.9F + rand.nextFloat() / 5.0F
+                             null,
+                             player.posX,
+                             player.posY,
+                             player.posZ,
+                             Sounds.item_misc_a,
+                             SoundCategory.AMBIENT,
+                             0.8F,
+                             0.9F + rand.nextFloat() / 5.0F
                      );
-                  ((EntityPlayer)player).getCooldownTracker().setCooldown(Items.GOLD_INGOT, 500);
+                  ((EntityPlayer) player).getCooldownTracker().setCooldown(Items.GOLD_INGOT, 500);
                }
             }
          } else {
-            int fullseed = this.enchSeed + this.totalEnchants;
-            Enchantment[] enchantments = getEnchantments(fullseed);
+            int fullSeed = this.enchSeed + this.totalEnchants;
+            Enchantment[] enchantments = getEnchantments(fullSeed);
             Enchantment enchantmentTo = enchantments[MathHelper.clamp((int)x, 0, enchantments.length - 1)];
-            int levelneed = howMuchLevelsNeedToEnchant(player.getHeldItemMainhand(), enchantmentTo);
-            if (levelneed >= 0 && ((EntityPlayer)player).experienceLevel >= levelneed) {
+            int levelNeed = howMuchLevelsNeedToEnchant(player.getHeldItemMainhand(), enchantmentTo);
+            if (levelNeed >= 0 && ((EntityPlayer)player).experienceLevel >= levelNeed) {
                this.enchantPlayerHand((EntityPlayer)player, enchantmentTo);
-               ((EntityPlayer)player).addExperienceLevel(-levelneed);
+               ((EntityPlayer)player).addExperienceLevel(-levelNeed);
                player.world
                   .playSound(
-                     (EntityPlayer)null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE,
-                     SoundCategory.AMBIENT,
-                     0.8F,
-                     0.9F + rand.nextFloat() / 5.0F
+                          null,
+                          player.posX,
+                          player.posY,
+                          player.posZ,
+                          SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE,
+                          SoundCategory.AMBIENT,
+                          0.8F,
+                          0.9F + rand.nextFloat() / 5.0F
                   );
             }
          }
@@ -414,8 +417,8 @@ public class SurvivorGamestyleWatcher {
       if (!(mob instanceof AbstractMob)) {
          int i = GetMOP.floatToIntWithChance(mob.getMaxHealth() / 7.0F, rand);
          if (i > 1) {
-            int coinsfall = rand.nextInt(i);
-            Coins.dropMoneyToWorld(mob.world, coinsfall, 4, mob.posX, mob.posY + mob.height * 0.25, mob.posZ);
+            int coinsFall = rand.nextInt(i);
+            Coins.dropMoneyToWorld(mob.world, coinsFall, 4, mob.posX, mob.posY + mob.height * 0.25, mob.posZ);
          }
       }
    }
@@ -427,7 +430,9 @@ public class SurvivorGamestyleWatcher {
             this.LEVEL++;
             this.POINTS = 0;
 
-            Minecraft.getMinecraft().player.sendChatMessage("LEVEL " + this.LEVEL);
+            for (EntityPlayer player : world.playerEntities) {
+               player.sendMessage(new TextComponentString("LEVEL " + this.LEVEL));
+            }
          }
 
          if (this.LEVEL > 4) {
@@ -436,7 +441,7 @@ public class SurvivorGamestyleWatcher {
 
          this.TREASURE += points;
          if (this.TREASURE >= 60) {
-            this.LOOTSPAWNERS++;
+            this.LOOT_SPAWNERS++;
             this.TREASURE = 0;
          }
       }
@@ -446,7 +451,7 @@ public class SurvivorGamestyleWatcher {
       this.LEVEL = 0;
       this.STAGE++;
       this.TREASURE = 0;
-      this.LOOTSPAWNERS = 0;
+      this.LOOT_SPAWNERS = 0;
       this.hasAmmoTrader = false;
       this.portalPlaced = false;
    }
@@ -472,7 +477,7 @@ public class SurvivorGamestyleWatcher {
             int id = this.byWeight(rand, this.weapons);
             RSLC rslc = this.weapons[id];
             Item item = rslc.item;
-            ItemStack itemStack = ItemStack.EMPTY;
+            ItemStack itemStack;
             if (item == ItemsRegister.GEM_STAFF) {
                itemStack = GemStaff.getStackWithGem(rand.nextInt(8));
             } else {
@@ -590,8 +595,8 @@ public class SurvivorGamestyleWatcher {
       return ret;
    }
 
-   public static boolean setNetherPortal(World world, BlockPos randpos) {
-      GetMOP.BlockTraceResult result = GetMOP.blockTrace(world, randpos, EnumFacing.DOWN, 250, GetMOP.SOLID_NON_PLANTS_BLOCKS);
+   public static boolean setNetherPortal(World world, BlockPos randPos) {
+      GetMOP.BlockTraceResult result = GetMOP.blockTrace(world, randPos, EnumFacing.DOWN, 250, GetMOP.SOLID_NON_PLANTS_BLOCKS);
       if (result == null) {
          return false;
       } else {
@@ -647,8 +652,8 @@ public class SurvivorGamestyleWatcher {
       return summ <= 0 ? 0 : this.byWeight(summ, rand, weights);
    }
 
-   public int byWeight(int summ, Random rand, RSLC... weights) {
-      int r = rand.nextInt(summ);
+   public int byWeight(int sum, Random rand, RSLC... weights) {
+      int r = rand.nextInt(sum);
       int all = 0;
 
       for (int i = 0; i < weights.length; i++) {
@@ -679,17 +684,17 @@ public class SurvivorGamestyleWatcher {
          y += 60.0;
       }
 
-      BlockPos randpos = new BlockPos(
+      BlockPos randPos = new BlockPos(
          (rand.nextDouble() - 0.5) * diameter + player.posX, y, (rand.nextDouble() - 0.5) * diameter + player.posZ
       );
       BlockPos spawnpos = null;
-      if (player.world.isAirBlock(randpos)) {
-         GetMOP.BlockTraceResult result = GetMOP.blockTrace(player.world, randpos, EnumFacing.DOWN, 120, GetMOP.SOLID_NON_PLANTS_BLOCKS);
+      if (player.world.isAirBlock(randPos)) {
+         GetMOP.BlockTraceResult result = GetMOP.blockTrace(player.world, randPos, EnumFacing.DOWN, 120, GetMOP.SOLID_NON_PLANTS_BLOCKS);
          if (result != null) {
-            spawnpos = randpos;
+            spawnpos = randPos;
          }
       } else {
-         GetMOP.BlockTraceResult result0 = GetMOP.blockTrace(player.world, randpos, EnumFacing.DOWN, 60, GetMOP.SOLID_NON_PLANTS_BLOCKS);
+         GetMOP.BlockTraceResult result0 = GetMOP.blockTrace(player.world, randPos, EnumFacing.DOWN, 60, GetMOP.SOLID_NON_PLANTS_BLOCKS);
          if (result0 != null && player.world.isAirBlock(result0.pos)) {
             spawnpos = result0.pos;
          }

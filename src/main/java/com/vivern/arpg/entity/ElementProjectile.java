@@ -55,6 +55,7 @@ public class ElementProjectile extends EntityThrowable {
       this.weaponstack = stack;
    }
 
+   @Override
    protected float getGravityVelocity() {
       if (this.type == 1) {
          return 0.0F;
@@ -67,6 +68,7 @@ public class ElementProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 20 && this.type == 1) {
@@ -102,6 +104,7 @@ public class ElementProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -114,6 +117,7 @@ public class ElementProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 1) {
@@ -323,6 +327,7 @@ public class ElementProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return true;
    }
@@ -401,6 +406,7 @@ public class ElementProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       float might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
       float impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);

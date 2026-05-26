@@ -1,6 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.arpgamemodes.SurvivorGamestyleWatcher;
+import com.vivern.arpg.arpgamemodes.SurvivorGameStyleWatcher;
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.MobSpawnAquatica;
@@ -56,6 +56,7 @@ public abstract class MobSpawn {
    public int highestCost = 0;
    public boolean inSurvivorMode = false;
    public static Predicate<Block> toxic = new Predicate<Block>() {
+      @Override
       public boolean apply(Block input) {
          return input == BlocksRegister.TOXIC_DIRT
             || input == BlocksRegister.TOXIC_GRASS
@@ -68,16 +69,19 @@ public abstract class MobSpawn {
       }
    };
    public static Predicate<Block> toxicflower = new Predicate<Block>() {
+      @Override
       public boolean apply(Block input) {
          return input == BlocksRegister.MUTATED_FLOWER_PINK || input == BlocksRegister.MUTATED_FLOWER_RED;
       }
    };
    public static Predicate<Block> slime = new Predicate<Block>() {
+      @Override
       public boolean apply(Block input) {
          return input == BlocksRegister.BROWN_SLIME || input == Blocks.SLIME_BLOCK;
       }
    };
    public static Predicate<Block> bunker = new Predicate<Block>() {
+      @Override
       public boolean apply(Block input) {
          return input == BlocksRegister.RUST_METAL || input == BlocksRegister.RUST_ARMATURE || input == BlocksRegister.DARK_RUST_METALL;
       }
@@ -340,8 +344,8 @@ public abstract class MobSpawn {
                      if (mob.isNotColliding()) {
                         this.spawnEntityNaturally(world, mob);
                         this.lastSpawnedMobs++;
-                        if (this.inSurvivorMode && SurvivorGamestyleWatcher.currentWatcher != null) {
-                           SurvivorGamestyleWatcher.currentWatcher.handleSpawnedMob(mob, this);
+                        if (this.inSurvivorMode && SurvivorGameStyleWatcher.currentWatcher != null) {
+                           SurvivorGameStyleWatcher.currentWatcher.handleSpawnedMob(mob, this);
                         }
 
                         succ = true;

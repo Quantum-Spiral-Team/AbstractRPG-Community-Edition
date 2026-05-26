@@ -40,10 +40,12 @@ public class TileWeaponSpawner extends TileEntityLockableLoot implements ITickab
    public void mouseClick(int mouseX, int mouseY, int mouseButton) {
    }
 
+   @Override
    public int getSizeInventory() {
       return 5;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.stacks) {
          if (!itemstack.isEmpty()) {
@@ -54,6 +56,7 @@ public class TileWeaponSpawner extends TileEntityLockableLoot implements ITickab
       return true;
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       super.setInventorySlotContents(index, stack);
       this.spawnclear();
@@ -76,6 +79,7 @@ public class TileWeaponSpawner extends TileEntityLockableLoot implements ITickab
          && this.spawn[4].isEmpty();
    }
 
+   @Override
    public void update() {
       if (!this.world.isRemote && !this.playerRelativeCooldown) {
          if (this.cooldown <= 0) {
@@ -233,54 +237,65 @@ public class TileWeaponSpawner extends TileEntityLockableLoot implements ITickab
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public String getName() {
       return "tile_weapon_spawner";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       return new ContainerHopper(playerInventory, this, playerIn);
    }
 
+   @Override
    public String getGuiID() {
       return "minecraft:hopper";
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.stacks;
    }

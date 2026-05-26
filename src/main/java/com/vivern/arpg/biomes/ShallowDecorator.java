@@ -39,6 +39,7 @@ class ShallowDecorator extends BiomeDecorator {
    public WorldGenCoral coralGenerator2 = new WorldGenCoral(0.1F, 0.4F, BlocksRegister.CORAL_ORANGE);
    public WorldGenSpread seagrass = new WorldGenSpread(BlocksRegister.SEAGRASS, 35, 7, 1, null, true);
 
+   @Override
    public void decorate(World world, Random random, Biome biome, BlockPos decpos) {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");

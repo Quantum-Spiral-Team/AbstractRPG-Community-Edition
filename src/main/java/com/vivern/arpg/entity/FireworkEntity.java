@@ -64,6 +64,7 @@ public class FireworkEntity extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    protected void entityInit() {
       this.dataManager.register(FIREWORK_SIZE, 1);
    }
@@ -76,10 +77,12 @@ public class FireworkEntity extends EntityThrowable {
       this.dataManager.set(FIREWORK_SIZE, value);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 1.0E-4F + this.grav;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -92,6 +95,7 @@ public class FireworkEntity extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 15) {
@@ -172,6 +176,7 @@ public class FireworkEntity extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       this.motionX = this.motionX + this.motiX;
@@ -218,6 +223,7 @@ public class FireworkEntity extends EntityThrowable {
       this.world.setEntityState(this, (byte)14);
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != this.thrower && !this.world.isRemote) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());

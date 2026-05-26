@@ -113,22 +113,30 @@ public class DimensionStormledge extends AbstractWorldProvider {
       this.worldEventsHandler = new WorldEventsHandler(this, this.storm, this.rainstorm);
    }
 
+   @Override
    public void getLightmapColors(float partialTicks, float sunBrightness, float skyLight, float blockLight, float[] colors) {
       timeOfDayProvider.setLightmapColors(7, this.getWorldTime(), partialTicks, sunBrightness, skyLight, blockLight, colors);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
       return null;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public IRenderHandler getSkyRenderer() {
       return skyRender;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public IRenderHandler getWeatherRenderer() {
       return this.worldEventsHandler;
    }
 
+   @Override
    public void updateWeather() {
       this.worldEventsHandler.onUpdate();
    }
@@ -143,6 +151,8 @@ public class DimensionStormledge extends AbstractWorldProvider {
       return timeOfDayProvider;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
       float f = MathHelper.cos(p_76562_1_ * (float) (Math.PI * 2)) * 2.0F + 0.5F;
       f = MathHelper.clamp(f, 0.0F, 1.0F);
@@ -186,24 +196,23 @@ public class DimensionStormledge extends AbstractWorldProvider {
       }
 
       if (this.world.getLastLightningBolt() > 0) {
-         float f12 = this.world.getLastLightningBolt() - partialTicks;
-         if (f12 > 1.0F) {
-            f12 = 1.0F;
-         }
+         float f12 = Math.min(this.world.getLastLightningBolt() - partialTicks, 1.0F);
 
          f12 *= 0.45F;
          f3 = f3 * (1.0F - f12) + 0.8F * f12;
          f4 = f4 * (1.0F - f12) + 0.8F * f12;
-         f5 = f5 * (1.0F - f12) + 1.0F * f12;
+         f5 = f5 * (1.0F - f12) + f12;
       }
 
       return new Vec3d(f3, f4, f5);
    }
 
+   @Override
    public DimensionType getDimensionType() {
       return DimensionsRegister.STORMLEDGE;
    }
 
+   @Override
    public IChunkGenerator createChunkGenerator() {
       return new StormledgeChunkGenerator(this.world, this.world.getSeed());
    }
@@ -215,6 +224,7 @@ public class DimensionStormledge extends AbstractWorldProvider {
       this.biomeProvider = new BiomeProviderStormledge(this.world);
    }
 
+   @Override
    public boolean canRespawnHere() {
       return true;
    }

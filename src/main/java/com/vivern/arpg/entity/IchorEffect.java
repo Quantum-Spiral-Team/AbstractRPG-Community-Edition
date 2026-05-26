@@ -18,6 +18,7 @@ public class IchorEffect extends EntityThrowable {
       super(world, x, y, z);
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.world.isRemote) {
          this.world.setEntityState(this, (byte)7);
@@ -25,6 +26,7 @@ public class IchorEffect extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 7) {
@@ -32,6 +34,7 @@ public class IchorEffect extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.002F;
    }

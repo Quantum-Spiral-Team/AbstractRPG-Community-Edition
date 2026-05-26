@@ -101,18 +101,21 @@ public class ModelRendererLimited extends ModelRenderer {
       return this;
    }
 
+   @Override
    public ModelRenderer setTextureOffset(int x, int y) {
       this.texxOffsetX = x;
       this.texxOffsetY = y;
       return super.setTextureOffset(x, y);
    }
 
+   @Override
    public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth) {
       this.cubeList
          .add(new ModelBoxLimited(this, this.texxOffsetX, this.texxOffsetY, offX, offY, offZ, width, height, depth, 0.0F, this.avaliables));
       return this;
    }
 
+   @Override
    public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth, boolean mirrored) {
       this.cubeList
          .add(
@@ -123,6 +126,7 @@ public class ModelRendererLimited extends ModelRenderer {
       return this;
    }
 
+   @Override
    public void addBox(float offX, float offY, float offZ, int width, int height, int depth, float scaleFactor) {
       this.cubeList
          .add(
@@ -132,6 +136,7 @@ public class ModelRendererLimited extends ModelRenderer {
          );
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void render(float scale) {
       if (!this.isHidden && this.showModel) {
@@ -213,6 +218,7 @@ public class ModelRendererLimited extends ModelRenderer {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void renderWithRotation(float scale) {
       if (!this.isHidden && this.showModel) {
@@ -239,6 +245,7 @@ public class ModelRendererLimited extends ModelRenderer {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void postRender(float scale) {
       if (!this.isHidden && this.showModel) {
@@ -379,6 +386,7 @@ public class ModelRendererLimited extends ModelRenderer {
          this.availables = availables;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void render(BufferBuilder renderer, float scale) {
          int i = 0;

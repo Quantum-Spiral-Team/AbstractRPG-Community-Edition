@@ -38,6 +38,7 @@ class ReefDecorator extends BiomeDecorator {
    public NoiseGeneratorPerlin perlin = null;
    public long perlinseed = 0L;
 
+   @Override
    public void decorate(World world, Random random, Biome biome, BlockPos pos) {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");

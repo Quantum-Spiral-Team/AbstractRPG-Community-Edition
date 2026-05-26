@@ -15,6 +15,7 @@ public class RenderEntityMUI<T extends EntityMagicUI> extends Render<T> {
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (entity != null) {
          entity.renderAsEntity(x, y, z, entityYaw, partialTicks, this.renderManager);
@@ -22,11 +23,13 @@ public class RenderEntityMUI<T extends EntityMagicUI> extends Render<T> {
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(T entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
 
    public static class RenderEntityMUIFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderEntityMUI(manager);
       }

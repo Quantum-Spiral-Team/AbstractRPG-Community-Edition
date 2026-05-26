@@ -33,6 +33,7 @@ public class EntitySunrise extends EntityThrowable {
       super(world, x, y, z);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void setVelocity(double x, double y, double z) {
       this.motionX = x;
@@ -40,6 +41,7 @@ public class EntitySunrise extends EntityThrowable {
       this.motionZ = z;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -52,6 +54,7 @@ public class EntitySunrise extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       ResourceLocation resoue = new ResourceLocation("arpg:textures/light.png");
@@ -113,6 +116,7 @@ public class EntitySunrise extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (this.to == null
          && result.entityHit != this.thrower
@@ -139,6 +143,7 @@ public class EntitySunrise extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       if (this.rand.nextGaussian() > 0.0) {
          this.world.setEntityState(this, (byte)18);

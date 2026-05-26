@@ -23,6 +23,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ShootOfWitherdry extends EntityThrowable {
    public final ItemStack weaponstack;
@@ -54,6 +56,7 @@ public class ShootOfWitherdry extends EntityThrowable {
       this.setSize(0.1F, 0.1F);
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -67,10 +70,12 @@ public class ShootOfWitherdry extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return -0.003F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote && this.ticksExisted > this.livetime) {
@@ -81,16 +86,19 @@ public class ShootOfWitherdry extends EntityThrowable {
       this.setSize(size, size);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean isInRangeToRenderDist(double distance) {
       return Debugger.floats[9] == 0.0F ? false : super.isInRangeToRenderDist(distance);
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.world.isRemote) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-               float decr = Math.max(1.0F - this.ticksExisted * parameters.getF("tick_damage_reduction"), 0.0F);
+               float decr = Math.max(1.0F - this.ticksExisted * parameters.getFloat("tick_damage_reduction"), 0.0F);
                int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
                float damage = parameters.getEnchantedF("damage", might) * this.magicPower * decr;
@@ -109,9 +117,9 @@ public class ShootOfWitherdry extends EntityThrowable {
 
                if (result.entityHit instanceof EntityLivingBase) {
                   EntityLivingBase elb = (EntityLivingBase)result.entityHit;
-                  if (elb.getHealth() <= 0.0F && elb.deathTime < 2 && this.rand.nextFloat() < parameters.getF("incinerate_chance")) {
+                  if (elb.getHealth() <= 0.0F && elb.deathTime < 2 && this.rand.nextFloat() < parameters.getFloat("incinerate_chance")) {
                      DeathEffects.applyDeathEffect(result.entityHit, DeathEffects.DE_FIRE);
-                     if (elb.getMaxHealth() >= parameters.getF("mob_health_for_charge")
+                     if (elb.getMaxHealth() >= parameters.getFloat("mob_health_for_charge")
                         && NBTHelper.GetNBTint(this.weaponstack, "charge") < StaffOfWitherdry.maxcharge(this.weaponstack)) {
                         NBTHelper.AddNBTint(this.weaponstack, 1, "charge");
                      }

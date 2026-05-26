@@ -477,11 +477,13 @@ public class HostileProjectiles {
       public void setPotionEffect() {
       }
 
+      @Override
       protected void entityInit() {
          super.entityInit();
          this.dataManager.register(COLOR, -1);
       }
 
+      @Override
       protected void onHit(RayTraceResult raytraceResultIn) {
          if (raytraceResultIn.entityHit != null) {
             raytraceResultIn.entityHit.hurtResistantTime = 0;
@@ -509,6 +511,7 @@ public class HostileProjectiles {
          super.onHit(raytraceResultIn);
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.world.isRemote) {
@@ -574,6 +577,7 @@ public class HostileProjectiles {
          EntityArrow.registerFixesArrow(fixer, "TippedArrow");
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          if (this.potion != PotionTypes.EMPTY && this.potion != null) {
@@ -595,11 +599,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          this.setPotionEffect();
       }
 
+      @Override
       protected void arrowHit(EntityLivingBase living) {
          super.arrowHit(living);
          living.setFire(Math.round(this.firee));
@@ -623,6 +629,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected ItemStack getArrowStack() {
          if (this.customPotionEffects.isEmpty() && this.potion == PotionTypes.EMPTY) {
             return new ItemStack(Items.ARROW);
@@ -644,6 +651,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 0) {
@@ -672,6 +680,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
       }
@@ -703,11 +712,13 @@ public class HostileProjectiles {
       public void setPotionEffect() {
       }
 
+      @Override
       protected void entityInit() {
          super.entityInit();
          this.dataManager.register(COLOR, -1);
       }
 
+      @Override
       protected void onHit(RayTraceResult raytraceResultIn) {
          if (raytraceResultIn.entityHit != null) {
             raytraceResultIn.entityHit.hurtResistantTime = 0;
@@ -717,6 +728,7 @@ public class HostileProjectiles {
          super.onHit(raytraceResultIn);
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.world.isRemote) {
@@ -782,6 +794,7 @@ public class HostileProjectiles {
          EntityArrow.registerFixesArrow(fixer, "TippedArrow");
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          if (this.potion != PotionTypes.EMPTY && this.potion != null) {
@@ -803,11 +816,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          this.setPotionEffect();
       }
 
+      @Override
       protected void arrowHit(EntityLivingBase living) {
          super.arrowHit(living);
          living.setFire(Math.round(this.firee));
@@ -848,6 +863,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected ItemStack getArrowStack() {
          if (this.customPotionEffects.isEmpty() && this.potion == PotionTypes.EMPTY) {
             return new ItemStack(Items.ARROW);
@@ -869,6 +885,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 0) {
@@ -897,10 +914,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
       }
 
+      @Override
       public boolean handleWaterMovement() {
          return false;
       }
@@ -935,11 +954,13 @@ public class HostileProjectiles {
          this.customPotionEffects.add(new PotionEffect(MobEffects.POISON, 60, 0));
       }
 
+      @Override
       protected void entityInit() {
          super.entityInit();
          this.dataManager.register(COLOR, -1);
       }
 
+      @Override
       protected void onHit(RayTraceResult raytraceResultIn) {
          if (raytraceResultIn.entityHit != null) {
             raytraceResultIn.entityHit.hurtResistantTime = 0;
@@ -949,6 +970,7 @@ public class HostileProjectiles {
          super.onHit(raytraceResultIn);
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.world.isRemote) {
@@ -1014,6 +1036,7 @@ public class HostileProjectiles {
          EntityArrow.registerFixesArrow(fixer, "TippedArrow");
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          if (this.potion != PotionTypes.EMPTY && this.potion != null) {
@@ -1035,11 +1058,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          this.setPotionEffect();
       }
 
+      @Override
       protected void arrowHit(EntityLivingBase living) {
          super.arrowHit(living);
          living.setFire(Math.round(this.firee));
@@ -1066,6 +1091,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected ItemStack getArrowStack() {
          if (this.customPotionEffects.isEmpty() && this.potion == PotionTypes.EMPTY) {
             return new ItemStack(Items.ARROW);
@@ -1087,6 +1113,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 0) {
@@ -1115,6 +1142,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
       }
@@ -1141,6 +1169,7 @@ public class HostileProjectiles {
          return EverfrostMobsPack.AurorasPhantasm.getPhantasmColor(this);
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          if (player.getHeldItem(hand).getItem() == ItemsRegister.ICE_CIRCLE) {
             player.getHeldItem(hand).shrink(1);
@@ -1167,15 +1196,18 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public boolean canBeCollidedWith() {
          return true;
       }
 
+      @Override
       protected float getGravityVelocity() {
          BlockPos pos = this.getPosition().down(3);
          return this.world.getBlockState(pos).getCollisionBoundingBox(this.world, pos) == null ? 0.001F : 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 1200 && !this.world.isRemote) {
@@ -1187,6 +1219,7 @@ public class HostileProjectiles {
          this.motionZ *= 0.96;
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
       }
    }
@@ -1211,6 +1244,7 @@ public class HostileProjectiles {
          this.setSize(0.25F, 0.25F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -1223,10 +1257,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.04F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 60) {
@@ -1283,11 +1319,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -1295,6 +1333,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -1349,6 +1388,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)
@@ -1402,6 +1442,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public boolean handleWaterMovement() {
          return false;
       }
@@ -1424,6 +1465,7 @@ public class HostileProjectiles {
          super(world, x, y, z);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -1436,10 +1478,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.001F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 20) {
@@ -1451,11 +1495,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -1463,6 +1509,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (this.bullet != null && !this.bulletCollided) {
             this.bulletCollided = this.bullet
@@ -1689,8 +1736,8 @@ public class HostileProjectiles {
             if (result.entityHit != null) {
                if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
                   WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-                  float bdamage = this.bullet == null ? this.damage : this.damage + this.bullet.damage * parameters.getF("bullet_damage");
-                  float bknockback = this.bullet == null ? this.knockback : this.knockback + this.bullet.knockback * parameters.getF("bullet_knockback");
+                  float bdamage = this.bullet == null ? this.damage : this.damage + this.bullet.damage * parameters.getFloat("bullet_damage");
+                  float bknockback = this.bullet == null ? this.knockback : this.knockback + this.bullet.knockback * parameters.getFloat("bullet_knockback");
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.bullet),
                      bdamage,
@@ -1744,6 +1791,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
          super.onEntityUpdate();
@@ -1822,6 +1870,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -1834,6 +1883,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
@@ -1852,6 +1902,8 @@ public class HostileProjectiles {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public boolean isInRangeToRenderDist(double distance) {
          double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0;
          if (Double.isNaN(d0)) {
@@ -1862,6 +1914,7 @@ public class HostileProjectiles {
          return distance < d0 * d0;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.world.isRemote) {
@@ -1923,11 +1976,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -1935,6 +1990,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
       }
    }
@@ -1958,6 +2014,7 @@ public class HostileProjectiles {
          this.setSize(0.35F, 0.35F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -1970,10 +2027,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 20) {
@@ -1981,11 +2040,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -1993,6 +2054,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -2024,6 +2086,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -2092,6 +2155,7 @@ public class HostileProjectiles {
          this.setSize(0.4F, 0.4F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -2104,10 +2168,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.01F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 80) {
@@ -2117,11 +2183,13 @@ public class HostileProjectiles {
          this.world.setEntityState(this, (byte)9);
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -2129,6 +2197,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -2186,6 +2255,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -2277,11 +2347,13 @@ public class HostileProjectiles {
          super(world, x, y, z);
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -2289,6 +2361,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -2301,10 +2374,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.09F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (!this.world.isRemote) {
@@ -2337,6 +2412,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -2455,6 +2531,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -2574,6 +2651,7 @@ public class HostileProjectiles {
          this.setSize(1.8F, 1.8F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -2581,10 +2659,12 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 30 - this.world.getDifficulty().getId() * 6 && !this.world.isRemote) {
@@ -2592,11 +2672,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -2604,6 +2686,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -2692,9 +2775,11 @@ public class HostileProjectiles {
          this.setDead();
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
       }
 
+      @Override
       public void onEntityUpdate() {
          if (this.world.isRemote && this.ticksExisted % 5 == 0) {
             GUNParticle fire = new GUNParticle(
@@ -2750,18 +2835,23 @@ public class HostileProjectiles {
          this.setSize(0.3F, 0.3F);
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public boolean isInRangeToRenderDist(double distance) {
          return distance < 16384.0;
       }
 
+      @Override
       public boolean canBeCollidedWith() {
          return true;
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.5F;
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -2774,10 +2864,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.03F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 150) {
@@ -2798,6 +2890,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -2923,6 +3016,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
          Vec3d pos1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
@@ -2939,6 +3033,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public boolean attackEntityFrom(DamageSource source, float amount) {
          if (this.isEntityInvulnerable(source)) {
             return false;
@@ -2964,6 +3059,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (this.thrower == null || Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -3072,6 +3168,7 @@ public class HostileProjectiles {
          this.setSize(0.5F, 0.5F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -3079,10 +3176,12 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 100) {
@@ -3108,11 +3207,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -3120,6 +3221,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -3142,6 +3244,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -3209,6 +3312,7 @@ public class HostileProjectiles {
          this.setSize(0.25F, 0.25F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -3221,10 +3325,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.07F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 60) {
@@ -3232,11 +3338,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -3244,6 +3352,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -3282,6 +3391,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -3354,10 +3464,12 @@ public class HostileProjectiles {
          this.setSize(0.3F, 0.3F);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -3365,6 +3477,7 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 200) {
@@ -3379,15 +3492,18 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public boolean handleWaterMovement() {
          return false;
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -3422,6 +3538,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -3485,6 +3602,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (!this.world.isRemote) {
             if (result.entityHit != null) {
@@ -3618,10 +3736,12 @@ public class HostileProjectiles {
          this.setSize(1.0F, 1.0F);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.001F;
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -3629,6 +3749,7 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 180) {
@@ -3636,15 +3757,18 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public boolean handleWaterMovement() {
          return false;
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -3652,6 +3776,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -3712,6 +3837,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (!this.world.isRemote) {
             if (result.entityHit != null) {
@@ -3790,6 +3916,7 @@ public class HostileProjectiles {
          this.setSize(0.4F, 0.4F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -3802,10 +3929,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 80) {
@@ -3813,11 +3942,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -3825,6 +3956,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -3881,6 +4013,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)
@@ -3954,6 +4087,7 @@ public class HostileProjectiles {
          this.setSize(0.5F, 0.5F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -3979,10 +4113,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.04F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 80) {
@@ -3990,11 +4126,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -4002,6 +4140,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -4035,6 +4174,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (!this.world.isRemote) {
             this.tryPlaceLava(result);
@@ -4086,6 +4226,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
          Vec3d pos1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
@@ -4150,6 +4291,7 @@ public class HostileProjectiles {
          this.setSize(0.5F, 0.5F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -4157,10 +4299,12 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > this.explodeTime) {
@@ -4197,11 +4341,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -4209,6 +4355,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -4272,6 +4419,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -4340,6 +4488,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public boolean handleWaterMovement() {
          return false;
       }
@@ -4367,6 +4516,7 @@ public class HostileProjectiles {
          this.setSize(0.2F, 0.2F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -4374,10 +4524,12 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.006F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 45) {
@@ -4385,11 +4537,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -4397,6 +4551,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -4488,6 +4643,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -4544,6 +4700,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
          Vec3d pos1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
@@ -4633,6 +4790,7 @@ public class HostileProjectiles {
          this.dataManager.set(LIVETIMEMAX, livetime);
       }
 
+      @Override
       protected void entityInit() {
          this.dataManager.register(RED, 1.0F);
          this.dataManager.register(GREEN, 1.0F);
@@ -4680,6 +4838,7 @@ public class HostileProjectiles {
          return this.gravity;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public boolean isInRangeToRenderDist(double distance) {
          double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0;
@@ -4691,6 +4850,7 @@ public class HostileProjectiles {
          return distance < d0 * d0;
       }
 
+      @Override
       public void onUpdate() {
          this.lastTickPosX = this.posX;
          this.lastTickPosY = this.posY;
@@ -4818,6 +4978,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          compound.setFloat("damage", this.damage);
          if ((this.throwerName == null || this.throwerName.isEmpty()) && this.thrower instanceof EntityPlayer) {
@@ -4827,6 +4988,7 @@ public class HostileProjectiles {
          compound.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          if (compound.hasKey("damage")) {
             this.damage = compound.getFloat("damage");
@@ -4904,6 +5066,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -4916,10 +5079,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.world.isRemote && this.firstUpdate1) {
@@ -4991,6 +5156,8 @@ public class HostileProjectiles {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id >= 8 && id <= 11) {
@@ -4998,11 +5165,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -5010,6 +5179,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit == null
             && this.world
@@ -5055,6 +5225,7 @@ public class HostileProjectiles {
          this.setSize(0.2F, 0.2F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -5067,10 +5238,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.02F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 80) {
@@ -5103,11 +5276,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -5115,6 +5290,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -5145,6 +5321,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (!this.world.isRemote && result.hitVec != null && this.getThrower() != null) {
             if (result.entityHit != null) {
@@ -5217,6 +5394,7 @@ public class HostileProjectiles {
          super(world, x, y, z);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -5229,10 +5407,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 50) {
@@ -5242,6 +5422,7 @@ public class HostileProjectiles {
          this.world.setEntityState(this, (byte)5);
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -5337,6 +5518,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -5441,6 +5623,7 @@ public class HostileProjectiles {
          this.thrower = thrower;
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -5453,11 +5636,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -5465,10 +5650,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return this.stopped ? 0.0F : (this.isInWater() ? 0.003F : 0.036F);
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted - this.explodeTimeOffset > 80) {
@@ -5505,6 +5692,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -5573,6 +5761,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit == null
             && result.getBlockPos() != null
@@ -5692,10 +5881,12 @@ public class HostileProjectiles {
          this.setSize(0.25F, 0.25F);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -5703,6 +5894,7 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 80) {
@@ -5710,11 +5902,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -5722,6 +5916,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -5801,6 +5996,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (!this.world.isRemote) {
             if (result.entityHit != null) {
@@ -5876,6 +6072,7 @@ public class HostileProjectiles {
          this.setSize(0.55F, 1.1F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -5888,14 +6085,17 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public double getYOffset() {
          return 0.8;
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onEntityUpdate() {
          float RP = 0.0F;
          float RY = (float)this.shieldTick + this.displace;
@@ -5906,6 +6106,7 @@ public class HostileProjectiles {
          this.rotationYaw = RY;
       }
 
+      @Override
       public void onUpdate() {
          float RP = 0.0F;
          float RY = (float)this.shieldTick + this.displace;
@@ -5962,11 +6163,13 @@ public class HostileProjectiles {
          SuperKnockback.applyMove(this, (float)(-Math.min((double)kb, 0.4)), movex, movey, movez);
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("shieldhp", this.shieldHP);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("shieldhp")) {
@@ -5974,6 +6177,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -5989,23 +6193,28 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public boolean attackEntityFrom(DamageSource source, float amount) {
          this.shieldHP -= amount;
          return super.attackEntityFrom(source, amount);
       }
 
+      @Override
       public boolean canBeCollidedWith() {
          return this.shieldHP > 0.0F;
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.2F;
       }
 
+      @Override
       public boolean handleWaterMovement() {
          return false;
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
       }
    }
@@ -6029,6 +6238,7 @@ public class HostileProjectiles {
          this.setSize(0.25F, 0.25F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -6041,10 +6251,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 50) {
@@ -6052,11 +6264,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -6064,6 +6278,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -6093,6 +6308,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -6173,27 +6389,34 @@ public class HostileProjectiles {
          this.setSize(3.8F, 1.5F);
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public boolean isInRangeToRenderDist(double distance) {
          return false;
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       @Nullable
       public AxisAlignedBB getCollisionBox(Entity entityIn) {
          return entityIn.getEntityBoundingBox();
       }
 
+      @Override
       public boolean isPushedByWater() {
          return false;
       }
 
+      @Override
       public boolean canBePushed() {
          return false;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (!this.world.isRemote) {
@@ -6230,11 +6453,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -6242,9 +6467,11 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
       }
 
+      @Override
       public void onEntityUpdate() {
          if (this.world.isRemote && this.ticksExisted % 2 == 0) {
             float scalen = this.rand.nextFloat() * 0.5F + 0.36F;
@@ -6296,11 +6523,13 @@ public class HostileProjectiles {
          this.setSize(0.32F, 0.32F);
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -6308,6 +6537,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -6320,10 +6550,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 40) {
@@ -6333,6 +6565,7 @@ public class HostileProjectiles {
          this.world.setEntityState(this, (byte)5);
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -6504,6 +6737,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
          Vec3d pos1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
@@ -6520,6 +6754,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -6621,10 +6856,12 @@ public class HostileProjectiles {
          this.setSize(0.2F, 0.2F);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 80) {
@@ -6646,15 +6883,18 @@ public class HostileProjectiles {
          this.world.setEntityState(this, (byte)9);
       }
 
+      @Override
       public boolean handleWaterMovement() {
          return false;
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -6662,6 +6902,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -6691,6 +6932,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -6763,6 +7005,7 @@ public class HostileProjectiles {
          this.setSize(0.15F, 0.15F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -6770,10 +7013,12 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (!this.world.isRemote && this.ticksExisted > 25) {
@@ -6781,11 +7026,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -6820,6 +7067,7 @@ public class HostileProjectiles {
          this.world.spawnEntity(sp);
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (!this.world.isRemote) {
             if (result.entityHit != null) {
@@ -6882,6 +7130,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public boolean handleWaterMovement() {
          return false;
       }
@@ -6912,27 +7161,34 @@ public class HostileProjectiles {
          this.setSize(3.0F, 1.5F);
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public boolean isInRangeToRenderDist(double distance) {
          return false;
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.001F;
       }
 
+      @Override
       @Nullable
       public AxisAlignedBB getCollisionBox(Entity entityIn) {
          return entityIn.getEntityBoundingBox();
       }
 
+      @Override
       public boolean isPushedByWater() {
          return false;
       }
 
+      @Override
       public boolean canBePushed() {
          return false;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (!this.world.isRemote) {
@@ -6987,11 +7243,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -6999,6 +7257,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
       }
 
@@ -7008,6 +7267,7 @@ public class HostileProjectiles {
             && this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this);
       }
 
+      @Override
       public void onEntityUpdate() {
          if (this.world.isRemote && this.ticksExisted % 5 == 0) {
             float dR = 3.0F + MathHelper.clamp(this.ticksExisted / 115.0F, 0.0F, 2.0F);
@@ -7083,10 +7343,12 @@ public class HostileProjectiles {
          this.setSize(0.2F, 0.2F);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (!this.world.isRemote) {
@@ -7147,11 +7409,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -7159,6 +7423,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -7188,6 +7453,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -7236,6 +7502,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
          Vec3d pos1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
@@ -7272,6 +7539,7 @@ public class HostileProjectiles {
          this.setSize(0.4F, 0.4F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -7284,10 +7552,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.001F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 28) {
@@ -7295,12 +7565,14 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
          compound.setBoolean("burn", this.burn);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -7312,6 +7584,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -7420,6 +7693,7 @@ public class HostileProjectiles {
          this.setSize(0.2F, 0.2F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -7427,10 +7701,12 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 40) {
@@ -7438,11 +7714,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -7450,6 +7728,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -7482,6 +7761,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -7531,6 +7811,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
          Vec3d pos1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
@@ -7568,6 +7849,7 @@ public class HostileProjectiles {
          this.setSize(0.2F, 0.2F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -7575,10 +7857,12 @@ public class HostileProjectiles {
          this.shoot(f, f1, f2, velocity, inaccuracy);
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 30) {
@@ -7586,11 +7870,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -7598,6 +7884,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -7642,6 +7929,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -7691,6 +7979,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
          Vec3d pos1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
@@ -7728,6 +8017,7 @@ public class HostileProjectiles {
          this.setSize(0.2F, 0.2F);
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -7740,10 +8030,12 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.0F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 50) {
@@ -7751,11 +8043,13 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -7763,6 +8057,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 8) {
@@ -7792,6 +8087,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -7841,6 +8137,7 @@ public class HostileProjectiles {
          }
       }
 
+      @Override
       public void onEntityUpdate() {
          super.onEntityUpdate();
          if (this.ticksExisted == 2) {

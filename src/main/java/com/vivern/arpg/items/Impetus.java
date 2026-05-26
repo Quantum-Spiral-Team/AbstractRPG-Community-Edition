@@ -46,28 +46,34 @@ public class Impetus extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public int getMaxItemUseDuration(ItemStack itemstack) {
       return 72000;
    }
 
+   @Override
    public EnumAction getItemUseAction(ItemStack stack) {
       return EnumAction.BOW;
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
       return new ActionResult(EnumActionResult.PASS, itemstack);
    }
 
+   @Override
    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
       return true;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return false;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
@@ -235,6 +241,7 @@ public class Impetus extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       GUNParticle bigsmoke = new GUNParticle(
@@ -346,6 +353,7 @@ public class Impetus extends ItemWeapon {
       return 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;

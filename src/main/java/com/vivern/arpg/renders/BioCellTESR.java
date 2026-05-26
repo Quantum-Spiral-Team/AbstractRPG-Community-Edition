@@ -12,6 +12,7 @@ public class BioCellTESR extends TileEntitySpecialRenderer<TileBioCell> {
    public static BioCellModel model = new BioCellModel();
    public static ResourceLocation TEXTURE = new ResourceLocation("arpg:textures/bio_cell_model_tex.png");
 
+   @Override
    public void render(TileBioCell te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);

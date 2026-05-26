@@ -1,5 +1,6 @@
 package com.vivern.arpg.blocks;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.container.GUIBank;
 import com.vivern.arpg.container.GuiHandler;
 import com.vivern.arpg.main.Coins;
@@ -15,7 +16,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -44,43 +44,42 @@ public class BlockMoneyBox extends Block {
       this.setHarvestLevel("axe", 0);
    }
 
+   @Override
    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
       if (!world.isRemote) {
-         TileEntity tile = this.getTileEntity(world, pos);
-         if (tile != null && tile instanceof TileBank) {
-            TileBank bank = (TileBank)tile;
-            Coins.dropMoneyToWorld(world, bank.coins, 25, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-            bank.coins = 0;
-         }
+         TileBank tile = this.getTileEntity(world, pos);
+         Coins.dropMoneyToWorld(world, tile.coins, 25, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+         tile.coins = 0;
       }
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return ALL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return ALL_AABB;
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
       if (worldIn.isRemote) {
-         TileBank tile = this.getTileEntity(worldIn, pos);
-         if (tile != null) {
-            GuiHandler.displayGui(player, new GUIBank(tile, player));
-            return true;
-         }
+         player.openGui(AbstractRPG.instance, GuiHandler.BANK_GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
       }
 
       return true;
@@ -90,23 +89,28 @@ public class BlockMoneyBox extends Block {
       return (TileBank)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileBank createTileEntity(World world, IBlockState blockState) {
       return new TileBank();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       EnumFacing enumfacing = EnumFacing.byIndex(meta);
       if (enumfacing.getAxis() == Axis.Y) {
@@ -116,18 +120,22 @@ public class BlockMoneyBox extends Block {
       return this.getDefaultState().withProperty(FACING, enumfacing);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }

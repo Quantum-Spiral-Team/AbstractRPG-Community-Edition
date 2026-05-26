@@ -1,6 +1,6 @@
 package com.vivern.arpg.potions;
 
-import com.vivern.arpg.arpgamemodes.SurvivorGamestyleWatcher;
+import com.vivern.arpg.arpgamemodes.SurvivorGameStyleWatcher;
 import com.vivern.arpg.main.ArmorProtectionTracker;
 import com.vivern.arpg.main.Catalyst;
 import com.vivern.arpg.main.ItemsRegister;
@@ -54,6 +54,8 @@ public class AdvancedPotion extends Potion {
       potionByIndex.put(index, this);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasStatusIcon() {
       Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
       return true;
@@ -375,7 +377,7 @@ public class AdvancedPotion extends Potion {
    public static void onLivingDeath(LivingDeathEvent event) {
       ArmorProtectionTracker.onEntityLivingDeath(event);
       Catalyst.onLivingDeath(event);
-      SurvivorGamestyleWatcher.onLivingDeath(event);
+      SurvivorGameStyleWatcher.onLivingDeath(event);
       KillScore.onLivingDeath(event);
       Collection<PotionEffect> list = event.getEntityLiving().getActivePotionEffects();
       if (!list.isEmpty()) {

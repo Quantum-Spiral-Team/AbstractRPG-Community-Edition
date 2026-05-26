@@ -40,14 +40,17 @@ public class BreakerBlock extends Block {
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
@@ -60,15 +63,18 @@ public class BreakerBlock extends Block {
       return (TileSpellForge)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileSpellForge createTileEntity(World world, IBlockState blockState) {
       return new TileSpellForge();
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -129,6 +135,7 @@ public class BreakerBlock extends Block {
       }
    }
 
+   @Override
    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       TileSpellForge tile = this.getTileEntity(worldIn, pos);
       if (tile != null) {

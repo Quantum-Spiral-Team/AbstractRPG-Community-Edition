@@ -41,10 +41,12 @@ public class RespawnPenalty extends AdvancedPotion {
       }
    }
 
+   @Override
    public List<ItemStack> getCurativeItems() {
       return new ArrayList<>();
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityLivingBaseIn, int amplifier) {
       super.performEffect(entityLivingBaseIn, amplifier);
       if (!entityLivingBaseIn.world.isRemote && entityLivingBaseIn.isDead && entityLivingBaseIn instanceof EntityPlayerMP) {
@@ -54,6 +56,7 @@ public class RespawnPenalty extends AdvancedPotion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

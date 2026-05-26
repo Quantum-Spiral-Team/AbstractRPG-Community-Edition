@@ -185,6 +185,7 @@ public class ToxiniumArmorModel extends ModelBiped {
       this.rightarm.addChild(this.rightarm_1);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       if (entity.isSneaking()) {
@@ -213,6 +214,7 @@ public class ToxiniumArmorModel extends ModelBiped {
       GlStateManager.popMatrix();
    }
 
+   @Override
    public void setModelAttributes(ModelBase model) {
       super.setModelAttributes(model);
       if (model instanceof ModelBiped) {

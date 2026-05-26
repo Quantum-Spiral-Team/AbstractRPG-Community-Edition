@@ -123,6 +123,7 @@ public class Spiked extends AdvancedPotion {
          }
       }
 
+      @Override
       public NBTTagCompound writeCustomPotionEffectToNBT(NBTTagCompound nbt) {
          NBTTagCompound tag = new NBTTagCompound();
 

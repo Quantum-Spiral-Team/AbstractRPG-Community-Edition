@@ -104,6 +104,8 @@ public class EntityArrowFirejet extends AbstractArrow {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean canRenderOnFire() {
       return false;
    }
@@ -113,10 +115,12 @@ public class EntityArrowFirejet extends AbstractArrow {
       return Sounds.fire_c;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_FIREJET);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -148,6 +152,7 @@ public class EntityArrowFirejet extends AbstractArrow {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       super.onEntityUpdate();

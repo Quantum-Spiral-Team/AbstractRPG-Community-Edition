@@ -17,12 +17,14 @@ public class RenderEnderSeer extends RenderLiving<EnderSeer> {
       super(manager, new EnderSeerModel(), 0.3F);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull EnderSeer entity) {
       return this.mobTexture;
    }
 
    public static class EnderSeerFactory implements IRenderFactory<EnderSeer> {
+      @Override
       public Render<? super EnderSeer> createRenderFor(RenderManager manager) {
          return new RenderEnderSeer(manager);
       }

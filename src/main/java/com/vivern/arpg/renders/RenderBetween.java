@@ -24,6 +24,7 @@ public class RenderBetween<T extends BetweenParticle> extends Render<BetweenPart
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(BetweenParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       double dist = entity.distance;
       GlStateManager.pushMatrix();
@@ -120,6 +121,7 @@ public class RenderBetween<T extends BetweenParticle> extends Render<BetweenPart
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(BetweenParticle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }

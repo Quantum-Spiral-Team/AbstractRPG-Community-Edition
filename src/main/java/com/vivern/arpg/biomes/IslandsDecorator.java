@@ -32,6 +32,7 @@ class IslandsDecorator extends BiomeDecorator {
    public WorldGenTrees trees2 = new WorldGenTrees(false, 9, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3), true);
    public WorldGenTrees trees3 = new WorldGenTrees(false, 12, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3), true);
 
+   @Override
    public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");

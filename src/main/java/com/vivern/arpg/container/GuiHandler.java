@@ -1,18 +1,9 @@
 package com.vivern.arpg.container;
 
 import com.vivern.arpg.mobs.NPCMobsPack;
-import com.vivern.arpg.tileentity.TileAlchemicLab;
-import com.vivern.arpg.tileentity.TileAlchemicVaporizer;
-import com.vivern.arpg.tileentity.TileAssemblyTable;
-import com.vivern.arpg.tileentity.TileCrystallizer;
-import com.vivern.arpg.tileentity.TileDisenchantmentTable;
-import com.vivern.arpg.tileentity.TileElementDistributor;
-import com.vivern.arpg.tileentity.TileIndustrialMixer;
-import com.vivern.arpg.tileentity.TileInfernumFurnace;
-import com.vivern.arpg.tileentity.TileItemCharger;
-import com.vivern.arpg.tileentity.TileNetherMelter;
-import com.vivern.arpg.tileentity.TilePyrocrystallineConverter;
-import com.vivern.arpg.tileentity.TileResearchTable;
+import com.vivern.arpg.tileentity.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -24,108 +15,116 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
-   public static final int NETHER_MELTER_GUIID = 0;
-   public static final int INFERNUM_FURNACE_GUIID = 1;
-   public static final int ALCHEMIC_LAB_GUIID = 2;
-   public static final int ALCHEMIC_VAPORIZER_GUIID = 3;
-   public static final int PUZZLE_GUIID = 4;
-   public static final int SEALOCK_GUIID = 5;
-   public static final int TRADER_GUIID = 6;
-   public static final int CRYSTALLIZER_GUIID = 7;
-   public static final int PYROCRYSTALLINE_CONV_GUIID = 8;
-   public static final int ASSEMBLY_TABLE_GUIID = 9;
-   public static final int ELECTROMAGNET_GUIID = 10;
-   public static final int SUMMON_GUIID = 11;
-   public static final int ITEM_CHARGER_GUIID = 12;
-   public static final int INDUSTRIAL_MIXER_GUIID = 13;
-   public static final int RESEARCH_TABLE_GUIID = 14;
-   public static final int CREATIVE_ELEMENT_DISTRIBUTOR_GUIID = 15;
-   public static final int DISENCHANTMENT_TABLE_GUIID = 16;
-   public static final int MECHANIC_GUIID = 17;
+   public static final int NETHER_MELTER_GUI_ID = 0;
+   public static final int INFERNUM_FURNACE_GUI_ID = 1;
+   public static final int ALCHEMIC_LAB_GUI_ID = 2;
+   public static final int ALCHEMIC_VAPORIZER_GUI_ID = 3;
+   public static final int PUZZLE_GUI_ID = 4;
+   public static final int SEALOCK_GUI_ID = 5;
+   public static final int TRADER_GUI_ID = 6;
+   public static final int CRYSTALLIZER_GUI_ID = 7;
+   public static final int PYROCRYSTALLINE_CONV_GUI_ID = 8;
+   public static final int ASSEMBLY_TABLE_GUI_ID = 9;
+   public static final int ELECTROMAGNET_GUI_ID = 10;
+   public static final int SUMMON_GUI_ID = 11;
+   public static final int ITEM_CHARGER_GUI_ID = 12;
+   public static final int INDUSTRIAL_MIXER_GUI_ID = 13;
+   public static final int RESEARCH_TABLE_GUI_ID = 14;
+   public static final int CREATIVE_ELEMENT_DISTRIBUTOR_GUI_ID = 15;
+   public static final int DISENCHANTMENT_TABLE_GUI_ID = 16;
+   public static final int MECHANIC_GUI_ID = 17;
+   public static final int BANK_GUI_ID = 18;
+   public static final int BOOK_OF_ELEMENTS_GUI_ID = 19;
+   public static final int DEBUG_COLOR_GUI_ID = 20;
 
+   @Override
    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-      if (ID == 0) {
-         return new ContainerNetherMelter(player.inventory, (TileNetherMelter)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 1) {
-         return new ContainerInfernumFurnace(player.inventory, (TileInfernumFurnace)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 2) {
-         return new ContainerAlchemicLab(player.inventory, (TileAlchemicLab)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 3) {
-         return new ContainerAlchemicVaporizer(player.inventory, (TileAlchemicVaporizer)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 6) {
-         return new ContainerTrader(player.inventory);
-      } else if (ID == 7) {
-         return new ContainerCrystallizer(player.inventory, (TileCrystallizer)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 8) {
-         return new ContainerPyrocrystalline(player.inventory, (TilePyrocrystallineConverter)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 9) {
-         return new ContainerAssemblyTable(player.inventory, (TileAssemblyTable)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 12) {
-         return new ContainerCharger(player.inventory, (TileItemCharger)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 13) {
-         return new ContainerIndustrialMixer(player.inventory, (TileIndustrialMixer)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 14) {
-         return new ContainerResearchTable(player.inventory, (TileResearchTable)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 15) {
-         return new ContainerElementDistributor(player.inventory, (TileElementDistributor)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 16) {
-         return new Container1(player.inventory, (TileDisenchantmentTable)world.getTileEntity(new BlockPos(x, y, z)));
-      } else {
-         if (ID == 17) {
+      switch (ID) {
+         case NETHER_MELTER_GUI_ID:
+            return new ContainerNetherMelter(player.inventory, (TileNetherMelter)world.getTileEntity(new BlockPos(x, y, z)));
+         case INFERNUM_FURNACE_GUI_ID:
+            return new ContainerInfernumFurnace(player.inventory, (TileInfernumFurnace)world.getTileEntity(new BlockPos(x, y, z)));
+         case ALCHEMIC_LAB_GUI_ID:
+            return new ContainerAlchemicLab(player.inventory, (TileAlchemicLab)world.getTileEntity(new BlockPos(x, y, z)));
+         case ALCHEMIC_VAPORIZER_GUI_ID:
+            return new ContainerAlchemicVaporizer(player.inventory, (TileAlchemicVaporizer)world.getTileEntity(new BlockPos(x, y, z)));
+         case TRADER_GUI_ID:
+            return new ContainerTrader(player.inventory);
+         case CRYSTALLIZER_GUI_ID:
+            return new ContainerCrystallizer(player.inventory, (TileCrystallizer)world.getTileEntity(new BlockPos(x, y, z)));
+         case PYROCRYSTALLINE_CONV_GUI_ID:
+            return new ContainerPyrocrystalline(player.inventory, (TilePyrocrystallineConverter)world.getTileEntity(new BlockPos(x, y, z)));
+         case ASSEMBLY_TABLE_GUI_ID:
+            return new ContainerAssemblyTable(player.inventory, (TileAssemblyTable)world.getTileEntity(new BlockPos(x, y, z)));
+         case ITEM_CHARGER_GUI_ID:
+            return new ContainerCharger(player.inventory, (TileItemCharger)world.getTileEntity(new BlockPos(x, y, z)));
+         case INDUSTRIAL_MIXER_GUI_ID:
+            return new ContainerIndustrialMixer(player.inventory, (TileIndustrialMixer)world.getTileEntity(new BlockPos(x, y, z)));
+         case RESEARCH_TABLE_GUI_ID:
+            return new ContainerResearchTable(player.inventory, (TileResearchTable)world.getTileEntity(new BlockPos(x, y, z)));
+         case CREATIVE_ELEMENT_DISTRIBUTOR_GUI_ID:
+            return new ContainerElementDistributor(player.inventory, (TileElementDistributor)world.getTileEntity(new BlockPos(x, y, z)));
+         case DISENCHANTMENT_TABLE_GUI_ID:
+            return new Container1(player.inventory, (TileDisenchantmentTable)world.getTileEntity(new BlockPos(x, y, z)));
+         case MECHANIC_GUI_ID:
             Entity e = world.getEntityByID(x);
             if (e instanceof NPCMobsPack.NpcMechanic) {
                return new ContainerMechanic(player.inventory, (NPCMobsPack.NpcMechanic)e);
             }
-         }
-
-         return null;
       }
+
+      return null;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-      if (ID == 0) {
-         return new GUINetherMelter(player.inventory, (TileNetherMelter)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 1) {
-         return new GUIInfernumFurnace(player.inventory, (TileInfernumFurnace)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 2) {
-         return new GUIAlchemicLab(player.inventory, (TileAlchemicLab)world.getTileEntity(new BlockPos(x, y, z)));
-      } else if (ID == 3) {
-         return new GUIAlchemicVaporizer(player.inventory, (TileAlchemicVaporizer)world.getTileEntity(new BlockPos(x, y, z)));
-      } else {
-         if (ID == 6) {
-            Entity e = world.getEntityByID(x);
-            if (e instanceof NPCMobsPack.NpcTrader) {
-               return new GUITrader((NPCMobsPack.NpcTrader)e, player);
-            }
-         }
+      Entity entity = world.getEntityByID(x);
 
-         if (ID == 7) {
-            return new GUICrystallizer(player.inventory, (TileCrystallizer)world.getTileEntity(new BlockPos(x, y, z)));
-         } else if (ID == 8) {
-            return new GUIPyrocrystallineConverter(player.inventory, (TilePyrocrystallineConverter)world.getTileEntity(new BlockPos(x, y, z)));
-         } else if (ID == 9) {
-            return new GUIAssemblyTable(player.inventory, (TileAssemblyTable)world.getTileEntity(new BlockPos(x, y, z)));
-         } else if (ID == 12) {
-            return new GUICharger(player.inventory, (TileItemCharger)world.getTileEntity(new BlockPos(x, y, z)));
-         } else if (ID == 13) {
-            return new GUIIndustrialMixer(player.inventory, (TileIndustrialMixer)world.getTileEntity(new BlockPos(x, y, z)));
-         } else if (ID == 14) {
-            return new GUIResearchTable(player.inventory, (TileResearchTable)world.getTileEntity(new BlockPos(x, y, z)));
-         } else if (ID == 15) {
-            return new GUIElementDistributor(player.inventory, (TileElementDistributor)world.getTileEntity(new BlockPos(x, y, z)));
-         } else if (ID == 16) {
-            return new GUIDisenchantmentTable(player.inventory, (TileDisenchantmentTable)world.getTileEntity(new BlockPos(x, y, z)));
-         } else {
-            if (ID == 17) {
-               Entity e = world.getEntityByID(x);
-               if (e instanceof NPCMobsPack.NpcMechanic) {
-                  return new GUIMechanic((NPCMobsPack.NpcMechanic)e, player);
-               }
+      switch (ID) {
+         case NETHER_MELTER_GUI_ID:
+            return new GUINetherMelter(player.inventory, (TileNetherMelter) world.getTileEntity(new BlockPos(x, y, z)));
+         case INFERNUM_FURNACE_GUI_ID:
+            return new GUIInfernumFurnace(player.inventory, (TileInfernumFurnace) world.getTileEntity(new BlockPos(x, y, z)));
+         case ALCHEMIC_LAB_GUI_ID:
+            return new GUIAlchemicLab(player.inventory, (TileAlchemicLab) world.getTileEntity(new BlockPos(x, y, z)));
+         case ALCHEMIC_VAPORIZER_GUI_ID:
+            return new GUIAlchemicVaporizer(player.inventory, (TileAlchemicVaporizer) world.getTileEntity(new BlockPos(x, y, z)));
+         case PUZZLE_GUI_ID:
+            return new GUIFrozenPuzzle((TilePuzzle) world.getTileEntity(new BlockPos(x, y, z)));
+         case TRADER_GUI_ID:
+            if (entity instanceof NPCMobsPack.NpcTrader) {
+               return new GUITrader((NPCMobsPack.NpcTrader) entity, player);
             }
-
-            return null;
-         }
+         case CRYSTALLIZER_GUI_ID:
+            return new GUICrystallizer(player.inventory, (TileCrystallizer) world.getTileEntity(new BlockPos(x, y, z)));
+         case PYROCRYSTALLINE_CONV_GUI_ID:
+            return new GUIPyrocrystallineConverter(player.inventory, (TilePyrocrystallineConverter) world.getTileEntity(new BlockPos(x, y, z)));
+         case ASSEMBLY_TABLE_GUI_ID:
+            return new GUIAssemblyTable(player.inventory, (TileAssemblyTable) world.getTileEntity(new BlockPos(x, y, z)));
+         case ITEM_CHARGER_GUI_ID:
+            return new GUICharger(player.inventory, (TileItemCharger) world.getTileEntity(new BlockPos(x, y, z)));
+         case INDUSTRIAL_MIXER_GUI_ID:
+            return new GUIIndustrialMixer(player.inventory, (TileIndustrialMixer) world.getTileEntity(new BlockPos(x, y, z)));
+         case RESEARCH_TABLE_GUI_ID:
+            return new GUIResearchTable(player.inventory, (TileResearchTable) world.getTileEntity(new BlockPos(x, y, z)));
+         case CREATIVE_ELEMENT_DISTRIBUTOR_GUI_ID:
+            return new GUIElementDistributor(player.inventory, (TileElementDistributor) world.getTileEntity(new BlockPos(x, y, z)));
+         case DISENCHANTMENT_TABLE_GUI_ID:
+            return new GUIDisenchantmentTable(player.inventory, (TileDisenchantmentTable) world.getTileEntity(new BlockPos(x, y, z)));
+         case MECHANIC_GUI_ID:
+            if (entity instanceof NPCMobsPack.NpcMechanic) {
+               return new GUIMechanic((NPCMobsPack.NpcMechanic)entity, player);
+            }
+         case BANK_GUI_ID:
+            return new GUIBank((TileBank) world.getTileEntity(new BlockPos(x, y, z)), player);
+         case BOOK_OF_ELEMENTS_GUI_ID:
+            return new GUIBookOfElements(((TileBookcase) world.getTileEntity(new BlockPos(x, y, z))).stacks);
+         case DEBUG_COLOR_GUI_ID:
+            return new GUIDebugColorBlock(new  BlockPos(x, y, z));
       }
+
+      return null;
    }
 
    public static void displayGui(EntityPlayer player, @Nullable GuiScreen gui) {

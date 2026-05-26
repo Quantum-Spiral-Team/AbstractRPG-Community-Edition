@@ -27,6 +27,7 @@ public class RenderSpear<T extends EntitySunrise> extends Render<T> {
       this.light = light;
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.disableCull();
@@ -73,6 +74,7 @@ public class RenderSpear<T extends EntitySunrise> extends Render<T> {
       return new ItemStack(this.item);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntitySunrise entity) {
       return TextureMap.LOCATION_BLOCKS_TEXTURE;
    }

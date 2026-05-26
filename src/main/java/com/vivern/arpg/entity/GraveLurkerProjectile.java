@@ -52,6 +52,7 @@ public class GraveLurkerProjectile extends EntityThrowable {
       this.isCrit = isCrit;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -64,10 +65,12 @@ public class GraveLurkerProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 40) {
@@ -82,6 +85,7 @@ public class GraveLurkerProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       float mult = this.isCrit ? 0.3F : 1.0F;
@@ -142,6 +146,7 @@ public class GraveLurkerProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -161,7 +166,7 @@ public class GraveLurkerProjectile extends EntityThrowable {
             if (result.entityHit instanceof EntityLivingBase) {
                EntityLivingBase entitylivingbase = (EntityLivingBase)result.entityHit;
                if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0 && entitylivingbase.getHealth() <= 0.0F && this.isCrit) {
-                  NBTHelper.GiveNBTboolean(this.weaponstack, false, "crit");
+                  NBTHelper.giveNBTboolean(this.weaponstack, false, "crit");
                   NBTHelper.SetNBTboolean(this.weaponstack, true, "crit");
                }
             }

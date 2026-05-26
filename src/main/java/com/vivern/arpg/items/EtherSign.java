@@ -4,6 +4,7 @@ import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.main.ItemsRegister;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,10 +20,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
 public class EtherSign extends Item implements IBauble, IRenderBauble {
    public EtherSign() {
       this.setRegistryName("ether_sign");
@@ -32,6 +32,7 @@ public class EtherSign extends Item implements IBauble, IRenderBauble {
       this.setMaxStackSize(1);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
       if (type == RenderType.BODY) {
@@ -53,18 +54,5 @@ public class EtherSign extends Item implements IBauble, IRenderBauble {
    @Override
    public void onWornTick(ItemStack itemstack, EntityLivingBase entityIn) {
       entityIn.fallDistance = 0.0F;
-   }
-
-   @SubscribeEvent
-   public static void onLivingHurt(LivingHurtEvent e) {
-      if (e.getEntityLiving() instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)e.getEntityLiving();
-         IInventory inventory = BaublesApi.getBaubles(player);
-         ItemStack stack = inventory.getStackInSlot(6);
-         if (stack.getItem() == ItemsRegister.ETHER_SIGN && stack.getItemDamage() < 2000 && e.getSource() == DamageSource.FALL) {
-            e.setCanceled(true);
-            inventory.getStackInSlot(6).damageItem(1, player);
-         }
-      }
    }
 }

@@ -34,6 +34,7 @@ public class ManaPump extends Block {
       this.setHarvestLevel("pickaxe", 1);
    }
 
+   @Override
    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
       TileEntity tile = worldIn.getTileEntity(pos);
@@ -43,11 +44,13 @@ public class ManaPump extends Block {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       TileEntity tile = source.getTileEntity(pos);
       if (tile != null && tile instanceof TileManaPump) {
@@ -60,23 +63,28 @@ public class ManaPump extends Block {
       return AABB1;
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileManaPump createTileEntity(World world, IBlockState blockState) {
       return new TileManaPump();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }

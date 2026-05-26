@@ -2,6 +2,9 @@ package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.network.PacketHandler;
 import java.util.ArrayList;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -75,10 +78,12 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
       return this.locks;
    }
 
+   @Override
    public boolean isLocked() {
       return this.chestState != 0;
    }
 
+   @Override
    public void update() {
       int i = this.pos.getX();
       int j = this.pos.getY();
@@ -156,6 +161,7 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public boolean receiveClientEvent(int id, int type) {
       if (id == 1) {
          this.numPlayersUsing = type;
@@ -168,6 +174,7 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public void openInventory(EntityPlayer player) {
       if (!player.isSpectator() && !this.isLocked()) {
          if (this.numPlayersUsing < 0) {
@@ -180,6 +187,7 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public void closeInventory(EntityPlayer player) {
       if (!player.isSpectator()) {
          this.numPlayersUsing--;
@@ -304,14 +312,17 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public int getSizeInventory() {
       return 27;
    }
 
+   @Override
    public ItemStack getStackInSlot(int index) {
       return this.isLocked() ? ItemStack.EMPTY : super.getStackInSlot(index);
    }
 
+   @Override
    public boolean isItemValidForSlot(int index, ItemStack stack) {
       if (!this.isLocked()) {
          TileARPGChest other = this.getOtherChest();
@@ -323,6 +334,7 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
       return false;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.chestContents) {
          if (!itemstack.isEmpty()) {
@@ -333,36 +345,44 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
       return true;
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public String getName() {
       return this.hasCustomName() ? this.customName : "arpg_chest";
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.chest";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       this.fillWithLoot(playerIn);
       return new ContainerChest(playerInventory, this, playerIn);
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.chestContents;
    }
 
+   @Override
    protected IItemHandler createUnSidedHandler() {
       return new InvWrapper(this.getOpenedInventory());
    }
 
+   @Override
    @Nullable
    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
       return (T)(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? this.createUnSidedHandler() : super.getCapability(capability, facing));
    }
 
+   @Override
    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
       if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && !this.isLocked()) {
          TileARPGChest other = this.getOtherChest();
@@ -374,6 +394,8 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
       return super.hasCapability(capability, facing);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public AxisAlignedBB getRenderBoundingBox() {
       return this.getChestStanding() == EnumChestStanding.LEFT
          ? super.getRenderBoundingBox().expand(this.otherChestSide.getXOffset(), 0.0, this.otherChestSide.getZOffset())
@@ -428,32 +450,38 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
       return compound;
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);

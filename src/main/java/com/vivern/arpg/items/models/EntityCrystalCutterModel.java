@@ -30,6 +30,7 @@ public class EntityCrystalCutterModel extends ModelBase {
       this.shape1.addBox(0.0F, -1.0F, -1.0F, 3, 2, 2, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape4.offsetX, this.shape4.offsetY, this.shape4.offsetZ);

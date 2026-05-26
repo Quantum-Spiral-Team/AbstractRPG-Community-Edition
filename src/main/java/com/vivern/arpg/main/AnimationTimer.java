@@ -1,5 +1,6 @@
 package com.vivern.arpg.main;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.renders.CloudSubparticle;
 import com.vivern.arpg.renders.MagicSubparticle;
 import com.vivern.arpg.renders.SparkleSubparticle;
@@ -11,12 +12,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
-@SideOnly(Side.CLIENT)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class AnimationTimer {
    public static int tick = 0;
    public static int normaltick = 0;

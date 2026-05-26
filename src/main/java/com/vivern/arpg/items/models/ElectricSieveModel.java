@@ -50,6 +50,7 @@ public class ElectricSieveModel extends ModelBase {
       this.sieve.addChild(this.wall3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.sieve.offsetZ = f3;
       this.leg1.render(f5);

@@ -49,24 +49,29 @@ public class ChainDagger extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public int getMaxItemUseDuration(ItemStack itemstack) {
       return 72000;
    }
 
+   @Override
    public EnumAction getItemUseAction(ItemStack stack) {
       return EnumAction.BOW;
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
       return new ActionResult(EnumActionResult.PASS, itemstack);
    }
 
+   @Override
    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
       return true;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
@@ -75,8 +80,8 @@ public class ChainDagger extends Item {
          boolean click2 = GameSettings.isKeyDown(Keys.SECONDARYATTACK);
          boolean click = Mouse.isButtonDown(1);
          Item itemIn = itemstack.getItem();
-         NBTHelper.GiveNBTboolean(itemstack, false, "throwed");
-         NBTHelper.GiveNBTboolean(itemstack, false, "returning");
+         NBTHelper.giveNBTboolean(itemstack, false, "throwed");
+         NBTHelper.giveNBTboolean(itemstack, false, "returning");
          NBTHelper.GiveNBTint(itemstack, 0, "length");
          NBTHelper.GiveNBTfloat(itemstack, 0.0F, "rotationPitch");
          NBTHelper.GiveNBTfloat(itemstack, 0.0F, "rotationYaw");

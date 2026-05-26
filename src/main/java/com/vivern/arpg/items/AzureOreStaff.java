@@ -35,10 +35,12 @@ public class AzureOreStaff extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 3.0F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -48,10 +50,12 @@ public class AzureOreStaff extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -64,6 +68,7 @@ public class AzureOreStaff extends ItemWeapon {
       Booom.FOVpower = 0.009F;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          NBTHelper.GiveNBTint(itemstack, -1, "level_stop_at");
@@ -72,7 +77,7 @@ public class AzureOreStaff extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.experienceLevel > level_stop_at) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               Weapons.addOrRemoveExperience(player, -parameters.getI("xp_decrease"));
+               Weapons.addOrRemoveExperience(player, -parameters.getInt("xp_decrease"));
             } else {
                NBTHelper.SetNBTint(itemstack, -1, "level_stop_at");
                world.playSound(
@@ -107,7 +112,7 @@ public class AzureOreStaff extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                   player.addStat(StatList.getObjectUseStats(this));
                   IWeapon.fireBomEffect(this, player, world, 0);
-                  int shots = level_stop_at != -1 ? parameters.getI("shots_powered") : parameters.getI("shots");
+                  int shots = level_stop_at != -1 ? parameters.getInt("shots_powered") : parameters.getInt("shots");
 
                   for (int i = 0; i < shots; i++) {
                      AzureOreShoot shoot = new AzureOreShoot(world, player, itemstack, power);
@@ -118,7 +123,7 @@ public class AzureOreStaff extends ItemWeapon {
                         player.rotationPitch - 1.0F,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getF("velocity") * velocityMult,
+                        parameters.getFloat("velocity") * velocityMult,
                         parameters.getEnchantedF("inaccuracy", acc)
                      );
                      shoot.powered = level_stop_at != -1;

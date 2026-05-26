@@ -31,39 +31,48 @@ public class SlimeBlob extends Block {
       this.setSoundType(SoundType.SLIME);
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return Items.SLIME_BALL;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return EnumOffsetType.XZ;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public boolean canPlaceBlockAt(World world, BlockPos pos) {
       return world.isSideSolid(pos.down(), EnumFacing.UP) ? super.canPlaceBlockAt(world, pos) : false;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return false;
    }

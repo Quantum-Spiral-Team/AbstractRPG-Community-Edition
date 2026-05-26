@@ -35,6 +35,7 @@ public class SnapBall extends ItemWeapon implements IEnergyItem {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -44,14 +45,17 @@ public class SnapBall extends ItemWeapon implements IEnergyItem {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -87,7 +91,7 @@ public class SnapBall extends ItemWeapon implements IEnergyItem {
 
                      NBTHelper.GiveNBTint(itemstack, 0, "charge");
                      int charge = NBTHelper.GetNBTint(itemstack, "charge");
-                     boolean isPowered = charge > parameters.getI("charge_to_powered");
+                     boolean isPowered = charge > parameters.getInt("charge_to_powered");
                      if (click) {
                         EntitySnapball projectile = new EntitySnapball(world, player, itemstack);
                         Weapons.shoot(
@@ -97,7 +101,7 @@ public class SnapBall extends ItemWeapon implements IEnergyItem {
                            player.rotationPitch,
                            player.rotationYaw,
                            0.0F,
-                           isPowered ? parameters.getF("velocity_charged") : parameters.getF("velocity"),
+                           isPowered ? parameters.getFloat("velocity_charged") : parameters.getFloat("velocity"),
                            parameters.getEnchantedF("inaccuracy", acc),
                            -0.15F,
                            0.5F,
@@ -129,7 +133,7 @@ public class SnapBall extends ItemWeapon implements IEnergyItem {
                            player.rotationPitch,
                            player.rotationYaw,
                            0.0F,
-                           parameters.getF("velocity_grenade"),
+                           parameters.getFloat("velocity_grenade"),
                            parameters.getEnchantedF("inaccuracy", acc),
                            -0.15F,
                            0.5F,
@@ -175,16 +179,18 @@ public class SnapBall extends ItemWeapon implements IEnergyItem {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int charge = NBTHelper.GetNBTint(itemstack, "charge");
-      int chtp = parameters.getI("charge_to_powered") + 1;
+      int chtp = parameters.getInt("charge_to_powered") + 1;
       return MathHelper.clamp((float)charge / chtp, 0.0F, 1.0F);
    }
 

@@ -45,6 +45,7 @@ public class PresentBoxModel extends ModelBase {
       this.open2.addChild(this.band2);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.open1.rotateAngleX = -f;
       this.open2.rotateAngleX = f;

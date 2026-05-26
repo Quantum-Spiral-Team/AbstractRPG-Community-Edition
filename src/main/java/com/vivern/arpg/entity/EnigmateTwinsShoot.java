@@ -66,10 +66,12 @@ public class EnigmateTwinsShoot extends EntityThrowable {
       this.impactTickNeed = this.rand.nextFloat() < 0.6 ? -1 : this.rand.nextInt(25);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 80) {
@@ -117,6 +119,7 @@ public class EnigmateTwinsShoot extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -148,6 +151,7 @@ public class EnigmateTwinsShoot extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (this.canImpactTick == 0) {
@@ -209,6 +213,7 @@ public class EnigmateTwinsShoot extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       Vec3d pos1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);

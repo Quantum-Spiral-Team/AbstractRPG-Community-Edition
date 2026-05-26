@@ -19,10 +19,12 @@ public class EntityAIAABBAttack extends EntityAIBase {
       this.grow = grow;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase attackTarg = this.entity.getAttackTarget();
       this.attackTimer--;

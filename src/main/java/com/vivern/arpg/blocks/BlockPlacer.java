@@ -44,10 +44,12 @@ public class BlockPlacer extends Block {
       this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
    }
 
+   @Override
    public int tickRate(World worldIn) {
       return 4;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
       boolean flag1 = (Boolean)state.getValue(TRIGGERED);
@@ -83,6 +85,7 @@ public class BlockPlacer extends Block {
       }
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote) {
          this.tryPlaceBlock(state, worldIn, pos);
@@ -126,6 +129,7 @@ public class BlockPlacer extends Block {
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -149,15 +153,18 @@ public class BlockPlacer extends Block {
       return (TileBlockPlacer)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileBlockPlacer createTileEntity(World world, IBlockState blockState) {
       return new TileBlockPlacer();
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof TileBlockPlacer) {
@@ -168,22 +175,27 @@ public class BlockPlacer extends Block {
       super.breakBlock(worldIn, pos, state);
    }
 
+   @Override
    public boolean hasComparatorInputOverride(IBlockState state) {
       return true;
    }
 
+   @Override
    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
       return Container.calcRedstone(worldIn.getTileEntity(pos));
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(TRIGGERED, false);
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta & 7)).withProperty(TRIGGERED, (meta & 8) > 0);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       i |= ((EnumFacing)state.getValue(FACING)).getIndex();
@@ -194,14 +206,17 @@ public class BlockPlacer extends Block {
       return i;
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING, TRIGGERED});
    }

@@ -38,36 +38,44 @@ public class FrozenSlime extends Block {
       this.setLightOpacity(2);
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       worldIn.checkLight(pos);
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return 0;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return true;
    }
 
+   @Override
    public void onLanded(World worldIn, Entity entityIn) {
       this.breakIce(worldIn, entityIn);
    }
 
+   @Override
    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
       if (!worldIn.isRemote) {
          int max = RANDOM.nextInt(fortune + 1) + 1;
@@ -135,10 +143,12 @@ public class FrozenSlime extends Block {
       }
    }
 
+   @Override
    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
       this.breakIce(worldIn, pos);
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11) {
          this.breakIce(worldIn, pos);
@@ -151,11 +161,13 @@ public class FrozenSlime extends Block {
       }
    }
 
+   @Override
    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
       this.breakIce(worldIn, entityIn);
       super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
    }
 
+   @Override
    public EnumPushReaction getPushReaction(IBlockState state) {
       return EnumPushReaction.NORMAL;
    }

@@ -280,6 +280,7 @@ public class DungeonCleftsMapGen extends MapGenBase {
       }
    }
 
+   @Override
    protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn) {
       int i = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(15) + 1) + 1);
       if (this.rand.nextInt(8) != 0) {

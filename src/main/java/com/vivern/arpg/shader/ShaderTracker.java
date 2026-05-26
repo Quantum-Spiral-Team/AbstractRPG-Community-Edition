@@ -1,5 +1,6 @@
 package com.vivern.arpg.shader;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.Mana;
 import com.vivern.arpg.potions.PotionEffects;
@@ -21,14 +22,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
-@SideOnly(Side.CLIENT)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class ShaderTracker {
-   static Minecraft mc = Minecraft.getMinecraft();
-   static ResourceLocation texEnch1 = new ResourceLocation("arpg:textures/sobig-1.png");
-   static ResourceLocation texEnch2 = new ResourceLocation("arpg:textures/sobig-5.png");
+   private static final Minecraft mc = Minecraft.getMinecraft();
+   private static ResourceLocation texEnch1 = new ResourceLocation("arpg:textures/sobig-1.png");
+   private static ResourceLocation texEnch2 = new ResourceLocation("arpg:textures/sobig-5.png");
    public static Framebuffer fbuffer = new Framebuffer(mc.displayWidth, mc.displayHeight, true);
 
    @SubscribeEvent

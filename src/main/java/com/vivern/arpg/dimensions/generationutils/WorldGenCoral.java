@@ -24,6 +24,7 @@ public class WorldGenCoral extends WorldGenerator {
       this.mainCoralPrioriry = mainCoralPrioriry;
    }
 
+   @Override
    public boolean generate(World worldIn, Random rand, BlockPos position) {
       IBlockState mainCoral = this.randomBlock(rand);
       IBlockState mainMiniCoral = this.randomMainMinicoral(rand);

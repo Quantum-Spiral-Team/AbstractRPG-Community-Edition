@@ -564,6 +564,7 @@ public class ModelsDungeonMob {
          this.leg11.addChild(this.leg12);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
          this.leg11.render(f5);
@@ -579,6 +580,7 @@ public class ModelsDungeonMob {
          this.leg21.render(f5);
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.head1.rotateAngleX = 1.0016445F + headPitch * 0.010453292F;
          this.head1.rotateAngleY = netHeadYaw * 0.010453292F;
@@ -846,6 +848,7 @@ public class ModelsDungeonMob {
          GlStateManager.popMatrix();
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.head1.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
          this.head1.rotateAngleY = MathHelper.clamp(netHeadYaw * 0.010453292F, -0.78F, 0.78F);
@@ -1213,6 +1216,7 @@ public class ModelsDungeonMob {
             .build();
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.animation1.animate(entity, 1.25F);
          this.bone3.render(f5);
@@ -2119,6 +2123,7 @@ public class ModelsDungeonMob {
          this.body0.addChild(this.shapeTent1_2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          f5 *= 1.3F;
          GlStateManager.pushMatrix();
@@ -2263,6 +2268,7 @@ public class ModelsDungeonMob {
          this.spiderLegL2.addChild(this.spiderLegLa2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          float angleX = 0.0F;
          float angleY = 0.0F;
@@ -2369,6 +2375,7 @@ public class ModelsDungeonMob {
          GlStateManager.popMatrix();
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.spiderHead.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.spiderHead.rotateAngleX = headPitch * (float) (Math.PI / 180.0);

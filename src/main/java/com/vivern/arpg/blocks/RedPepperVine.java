@@ -44,6 +44,7 @@ public class RedPepperVine extends Block implements IGrowable {
       this.setTickRandomly(true);
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       entityIn.motionX *= 0.7;
@@ -51,6 +52,7 @@ public class RedPepperVine extends Block implements IGrowable {
       entityIn.motionZ *= 0.7;
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return super.canPlaceBlockAt(worldIn, pos) && this.canStayAtPos(worldIn, pos);
    }
@@ -61,39 +63,47 @@ public class RedPepperVine extends Block implements IGrowable {
       return block == Blocks.NETHERRACK || block == this || block == Blocks.MAGMA || block == Blocks.SOUL_SAND;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!this.canStayAtPos(worldIn, pos)) {
          worldIn.destroyBlock(pos, true);
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote && rand.nextFloat() < 0.15F) {
          this.grow(worldIn, rand, pos, state);
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -121,14 +131,17 @@ public class RedPepperVine extends Block implements IGrowable {
       return super.onBlockActivated(worldIn, pos, state, player, hand, facing, hitX, hitY, hitZ);
    }
 
+   @Override
    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
       return true;
    }
 
+   @Override
    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
       return false;
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       drops.add(new ItemStack(this));
       if ((Boolean)state.getValue(FRUITAGE)) {
@@ -137,6 +150,7 @@ public class RedPepperVine extends Block implements IGrowable {
       }
    }
 
+   @Override
    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
       if (rand.nextFloat() < 0.5) {
          if (rand.nextFloat() < 0.6 && worldIn.getBlockState(pos.up(4)).getBlock() != this && this.canPlaceBlockAt(worldIn, pos.down())) {
@@ -147,14 +161,17 @@ public class RedPepperVine extends Block implements IGrowable {
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(FRUITAGE, meta > 0);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return state.getValue(FRUITAGE) ? 1 : 0;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FRUITAGE});
    }

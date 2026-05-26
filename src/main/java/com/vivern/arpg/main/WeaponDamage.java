@@ -102,16 +102,19 @@ public class WeaponDamage extends EntityDamageSource {
       this.damageSourceEntity = entity;
    }
 
+   @Override
    public WeaponDamage setIsThornsDamage() {
       super.setIsThornsDamage();
       return this;
    }
 
+   @Override
    @Nullable
    public Entity getImmediateSource() {
       return this.entityProjectile;
    }
 
+   @Override
    @Nullable
    public Vec3d getDamageLocation() {
       if (this.damagePosition != null) {
@@ -123,6 +126,7 @@ public class WeaponDamage extends EntityDamageSource {
       }
    }
 
+   @Override
    public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
       EntityLivingBase entitydamager = entityLivingBaseIn.getAttackingEntity();
       String s = "death.attack." + this.damageType;

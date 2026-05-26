@@ -22,6 +22,7 @@ public class ItemShell extends Item {
       this.setTranslationKey("seashell");
       this.setMaxStackSize(64);
       this.addPropertyOverride(new ResourceLocation("rtype"), new IItemPropertyGetter() {
+         @Override
          @SideOnly(Side.CLIENT)
          public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
             return NBTHelper.GetNBTint(stack, "type");
@@ -41,6 +42,7 @@ public class ItemShell extends Item {
       return stack;
    }
 
+   @Override
    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
       if (this.isInCreativeTab(tab)) {
          for (int i = 0; i <= 4; i++) {

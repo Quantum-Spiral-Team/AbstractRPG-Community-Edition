@@ -64,6 +64,7 @@ public class EntityStingerShard extends EntityThrowable {
       this.weaponstack = new ItemStack(ItemsRegister.STINGER);
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 40) {
@@ -77,6 +78,7 @@ public class EntityStingerShard extends EntityThrowable {
       this.world.setEntityState(this, (byte)7);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 6) {
@@ -163,10 +165,12 @@ public class EntityStingerShard extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.05F;
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.world.isRemote) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());

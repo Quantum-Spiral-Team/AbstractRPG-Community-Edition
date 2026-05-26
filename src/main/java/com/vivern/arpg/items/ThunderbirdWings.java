@@ -9,6 +9,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import java.util.UUID;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -17,6 +18,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ThunderbirdWings extends AbstractWings implements IAttributedBauble, IRenderBauble, IEnergyItem {
    public static ThunderbirdWingsModel model = new ThunderbirdWingsModel();
@@ -59,17 +62,17 @@ public class ThunderbirdWings extends AbstractWings implements IAttributedBauble
    }
 
    @Override
-   public double getMaxUpwardMotion(ItemStack itemstack) {
+   public double getMaxUpwardMotion(ItemStack stack) {
       return 0.7;
    }
 
    @Override
-   public double getUpwardMotionAdd(ItemStack itemstack) {
+   public double getUpwardMotionAdd(ItemStack stack) {
       return 0.11;
    }
 
    @Override
-   public double getFallingMotionAdd(ItemStack itemstack) {
+   public double getFallingMotionAdd(ItemStack stack) {
       return 0.35;
    }
 
@@ -79,13 +82,14 @@ public class ThunderbirdWings extends AbstractWings implements IAttributedBauble
    }
 
    @Override
-   public double getFallingMotionSlowdown(ItemStack itemstack) {
+   public double getFallingMotionSlowdown(ItemStack stack) {
       return 0.65;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
-   public void startElytraSound(EntityPlayerSP player) {
-      Minecraft.getMinecraft().getSoundHandler().playSound(new WingsSound(player, Sounds.toxic_wings_flying));
+   protected MovingSound getWingsSound(EntityPlayer player) {
+      return new WingsSound(player, Sounds.toxic_wings_flying);
    }
 
    @Override

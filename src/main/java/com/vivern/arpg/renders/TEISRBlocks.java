@@ -40,10 +40,12 @@ import net.minecraft.nbt.NBTTagCompound;
 public class TEISRBlocks extends TileEntityItemStackRenderer {
    public static TileEntityItemStackRenderer instance = new TEISRBlocks();
 
+   @Override
    public void renderByItem(ItemStack itemStackIn) {
       this.renderByItem(itemStackIn, 1.0F);
    }
 
+   @Override
    public void renderByItem(ItemStack itemstack, float partialTicks) {
       Item item = itemstack.getItem();
       if (item instanceof ItemBlock) {

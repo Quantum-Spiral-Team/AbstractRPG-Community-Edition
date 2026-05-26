@@ -20,6 +20,8 @@ import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
    modid = "arpg"
@@ -68,6 +70,7 @@ public class Shards {
    }
 
    @SubscribeEvent
+   @SideOnly(Side.CLIENT)
    public static void onPlayerOpenInventory(GuiOpenEvent event) {
       if (event.getGui() instanceof GuiInventory) {
          ManaBar.energy_bars_enable = true;

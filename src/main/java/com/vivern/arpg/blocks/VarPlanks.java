@@ -25,28 +25,34 @@ public class VarPlanks extends Block {
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
    }
 
+   @Override
    public int damageDropped(IBlockState state) {
       return ((EnumType)state.getValue(VARIANT)).getMetadata();
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       for (EnumType blockplanks$enumtype : EnumType.values()) {
          items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta));
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return ((EnumType)state.getValue(VARIANT)).getMapColor();
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumType)state.getValue(VARIANT)).getMetadata();
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{VARIANT});
    }
@@ -92,6 +98,7 @@ public class VarPlanks extends Block {
          return META_LOOKUP[meta];
       }
 
+      @Override
       public String getName() {
          return this.name;
       }

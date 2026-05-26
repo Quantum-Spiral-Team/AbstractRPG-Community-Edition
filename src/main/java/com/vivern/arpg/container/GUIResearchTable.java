@@ -122,6 +122,7 @@ public class GUIResearchTable extends GuiContainer {
       return TileResearchTable.isInfiniteWriteEnabled();
    }
 
+   @Override
    public void onGuiClosed() {
       super.onGuiClosed();
       if (puzzleRender != null) {
@@ -153,6 +154,7 @@ public class GUIResearchTable extends GuiContainer {
       this.toSort = new ArrayList<>();
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.pt = partialTicks;
       this.drawDefaultBackground();
@@ -160,6 +162,7 @@ public class GUIResearchTable extends GuiContainer {
       this.renderHoveredToolTip(mouseX, mouseY);
    }
 
+   @Override
    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
       if (this.specialization == 1 && this.exploringField != null) {
          mouseX -= this.getGuiLeft();
@@ -258,6 +261,7 @@ public class GUIResearchTable extends GuiContainer {
       this.drawTexturedModalRect(x + renderFromX, y, textureX + renderFromX, textureY, renderToX - renderFromX, height);
    }
 
+   @Override
    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
       if (this.specialization == 1) {
          GlStateManager.pushMatrix();
@@ -490,10 +494,12 @@ public class GUIResearchTable extends GuiContainer {
       }
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       super.keyTyped(typedChar, keyCode);
    }
 
+   @Override
    public void handleMouseInput() throws IOException {
       super.handleMouseInput();
       if (this.specialization == 2 && puzzleRender != null) {
@@ -511,6 +517,7 @@ public class GUIResearchTable extends GuiContainer {
       return puzzleRender.boardPosToCellPos(boardPos[0], boardPos[1]);
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       super.mouseClicked(mouseX, mouseY, mouseButton);
       mouseX -= this.getGuiLeft();
@@ -824,6 +831,7 @@ public class GUIResearchTable extends GuiContainer {
       }
    }
 
+   @Override
    protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
       super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
       int interpMouseX = mouseX - this.getGuiLeft();
@@ -889,6 +897,7 @@ public class GUIResearchTable extends GuiContainer {
       this.prevMouseY = interpMouseY;
    }
 
+   @Override
    protected void mouseReleased(int mouseX, int mouseY, int state) {
       super.mouseReleased(mouseX, mouseY, state);
       this.updatePrevMouses = true;
@@ -943,6 +952,7 @@ public class GUIResearchTable extends GuiContainer {
       }
    }
 
+   @Override
    public void updateScreen() {
       super.updateScreen();
       if (SpellsRedactors.isRedactorEnabled()) {
@@ -1074,6 +1084,7 @@ public class GUIResearchTable extends GuiContainer {
          this.dirt = dirt;
       }
 
+      @Override
       public int compareTo(AnalyzedSpell other) {
          return other.similarity - this.similarity;
       }

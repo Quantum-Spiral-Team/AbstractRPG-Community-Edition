@@ -68,6 +68,7 @@ public class GlowBladeModel extends ModelBase {
       this.shapess2.addChild(this.shape4);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shapess.offsetX, this.shapess.offsetY, this.shapess.offsetZ);

@@ -57,6 +57,7 @@ public class AdamantiumMinigun extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -66,14 +67,17 @@ public class AdamantiumMinigun extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemstack) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
@@ -86,30 +90,33 @@ public class AdamantiumMinigun extends ItemWeapon {
       return multimap;
    }
 
+   @Override
    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
       return new AnimationCapabilityProvider();
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
       if (state == 0) {
-         Flicks.instance.setClientAnimation(player, slot, EnumFlick.SHOOT, 0, Integer.MAX_VALUE, 0, 0);
+         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.SHOOT, 0, Integer.MAX_VALUE, 0, 0);
       } else if (state < 60) {
-         Flicks.instance.setTendency(player, slot, EnumFlick.SHOOT, Math.min(state / 4, 15));
+         Flicks.INSTANCE.setTendency(player, slot, EnumFlick.SHOOT, Math.min(state / 4, 15));
       } else if (state == 70) {
-         Flicks.instance.setClientAnimation(player, slot, EnumFlick.RELOAD, 0, 65, -1, 65);
+         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.RELOAD, 0, 65, -1, 65);
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (world.isRemote) {
          if (entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            if (Flicks.instance.confirmPack(player).get(itemSlot, EnumFlick.SHOOT) == null) {
-               Flicks.instance.setClientAnimation(player, itemSlot, EnumFlick.SHOOT, 0, Integer.MAX_VALUE, 0, 0);
+            if (Flicks.INSTANCE.confirmPack(player).get(itemSlot, EnumFlick.SHOOT) == null) {
+               Flicks.INSTANCE.setClientAnimation(player, itemSlot, EnumFlick.SHOOT, 0, Integer.MAX_VALUE, 0, 0);
             } else {
                int speed = NBTHelper.GetNBTint(itemstack, "speed");
-               Flicks.instance.setTendency(player, itemSlot, EnumFlick.SHOOT, Math.min(speed / 3, 30));
+               Flicks.INSTANCE.setTendency(player, itemSlot, EnumFlick.SHOOT, Math.min(speed / 3, 30));
             }
          }
       } else {
@@ -122,7 +129,7 @@ public class AdamantiumMinigun extends ItemWeapon {
             this.decrementHeat(itemstack, heat, 1);
          } else if (heat < 0) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            if (entityIn.ticksExisted % Math.max(reuse * parameters.getI("reuse_cooling_delay"), 1) == 0) {
+            if (entityIn.ticksExisted % Math.max(reuse * parameters.getInt("reuse_cooling_delay"), 1) == 0) {
                this.decrementHeat(itemstack, heat, 1);
             }
          } else {
@@ -143,7 +150,7 @@ public class AdamantiumMinigun extends ItemWeapon {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
             if (heat >= 0) {
                if (isInHand && reuse > 0 && Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && player.isSneaking() && !hascooldown) {
-                  NBTHelper.GiveNBTboolean(itemstack, false, "coolingMode");
+                  NBTHelper.giveNBTboolean(itemstack, false, "coolingMode");
                   NBTHelper.SetNBTboolean(itemstack, !coolingMode, "coolingMode");
                   player.getCooldownTracker().setCooldown(this, 8);
                   world.playSound(
@@ -192,7 +199,7 @@ public class AdamantiumMinigun extends ItemWeapon {
                         player.addStat(StatList.getObjectUseStats(this));
                         IWeapon.fireBomEffect(this, player, world, 0);
                         Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
-                        if (heat < parameters.getI("heat_to_melee")) {
+                        if (heat < parameters.getInt("heat_to_melee")) {
                            NBTHelper.GiveNBTint(itemstack, 0, "heat");
                            NBTHelper.AddNBTint(itemstack, 5, "heat");
                         } else {
@@ -270,11 +277,11 @@ public class AdamantiumMinigun extends ItemWeapon {
 
                                  Weapons.dealDamage(
                                     new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                    parameters.getEnchantedF("damage_ranged", might) + damageadd * parameters.getF("bullet_damage"),
+                                    parameters.getEnchantedF("damage_ranged", might) + damageadd * parameters.getFloat("bullet_damage"),
                                     player,
                                     entity,
                                     true,
-                                    parameters.getEnchantedF("knockback_ranged", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
+                                    parameters.getEnchantedF("knockback_ranged", impulse) + knockbackadd * parameters.getFloat("bullet_knockback"),
                                     player.posX,
                                     player.posY,
                                     player.posZ
@@ -406,6 +413,7 @@ public class AdamantiumMinigun extends ItemWeapon {
       return super.attackEntityMelee(entity, stack, player, hand, isCritical);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Vec3d from = new Vec3d(x, y, z);
@@ -468,11 +476,13 @@ public class AdamantiumMinigun extends ItemWeapon {
       return false;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);

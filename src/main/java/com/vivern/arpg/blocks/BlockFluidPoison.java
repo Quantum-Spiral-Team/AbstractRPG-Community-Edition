@@ -31,16 +31,19 @@ public class BlockFluidPoison extends BlockFluidClassic {
       this.setLightOpacity(2);
    }
 
+   @Override
    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
       super.onBlockAdded(world, pos, state);
       this.mergerFluids(pos, world);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
       super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
       this.mergerFluids(pos, world);
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       if (entityIn instanceof EntityLivingBase && entityIn.ticksExisted % 25 == 0) {

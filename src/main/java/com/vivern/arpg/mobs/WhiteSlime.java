@@ -39,6 +39,7 @@ public class WhiteSlime extends AbstractMob {
       this.experienceValue = 2;
    }
 
+   @Override
    public float getCollisionBorderSize() {
       return 0.1F;
    }
@@ -73,6 +74,7 @@ public class WhiteSlime extends AbstractMob {
       }
    }
 
+   @Override
    protected float getJumpUpwardsMotion() {
       return 0.55F;
    }
@@ -87,6 +89,7 @@ public class WhiteSlime extends AbstractMob {
       return Sounds.slime_dead;
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
       distance -= 2.0F;
       if (distance < 0.0F) {
@@ -96,10 +99,12 @@ public class WhiteSlime extends AbstractMob {
       super.fall(distance, damageMultiplier);
    }
 
+   @Override
    public boolean canBreatheUnderwater() {
       return true;
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAIJumpingMovement(this, 30, 0.0F));
       this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));

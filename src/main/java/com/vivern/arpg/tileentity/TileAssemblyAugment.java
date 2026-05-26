@@ -54,6 +54,7 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
       }
    }
 
+   @Override
    public void update() {
       if (this.augment == 0) {
          IBlockState blockState = this.getWorld().getBlockState(this.getPos());

@@ -50,10 +50,12 @@ public class Pilaster extends Block {
       this.setHarvestLevel(tool, harvestlvl);
    }
 
+   @Override
    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return ((EnumFacing)state.getValue(FACING)).getOpposite() == side;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       switch ((EnumFacing)state.getValue(FACING)) {
          case EAST:
@@ -71,6 +73,7 @@ public class Pilaster extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       switch ((EnumFacing)blockState.getValue(FACING)) {
          case EAST:
@@ -88,14 +91,17 @@ public class Pilaster extends Block {
       }
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState();
       switch (meta) {
@@ -121,6 +127,7 @@ public class Pilaster extends Block {
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       byte var3;
@@ -150,26 +157,32 @@ public class Pilaster extends Block {
       return var3;
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockUnderwater.BlockStateContainerUnderwater(this, new IProperty[]{FACING});
    }
 
+   @Override
    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
       return false;
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       items.add(new ItemStack(this, 1, 0));
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, facing);
    }
@@ -210,6 +223,7 @@ public class Pilaster extends Block {
          this.fastSpeed = hardres.fast;
       }
 
+      @Override
       public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
          player.addStat(StatList.getBlockStats(this));
          player.addExhaustion(0.005F);

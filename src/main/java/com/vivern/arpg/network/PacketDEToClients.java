@@ -14,7 +14,7 @@ public class PacketDEToClients extends Packet {
    int entityId = 0;
    int effect = 0;
 
-   public void writeargs(int entityId, int effect) {
+   public void writeArgs(int entityId, int effect) {
       this.buf().writeInt(entityId);
       this.buf().writeInt(effect);
    }
@@ -33,10 +33,10 @@ public class PacketDEToClients extends Packet {
    void processMessage(World world) {
       try {
          if (this.effect > 0) {
-            DeathEffect de = DeathEffect.registry.get(this.effect);
+            DeathEffect de = DeathEffect.REGISTRY.get(this.effect - 1);
             if (de != null) {
                Entity entity = world.getEntityByID(this.entityId);
-               if (entity != null && entity instanceof EntityLivingBase) {
+               if (entity instanceof EntityLivingBase) {
                   de.add((EntityLivingBase)entity);
                }
             }

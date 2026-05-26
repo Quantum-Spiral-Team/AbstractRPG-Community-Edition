@@ -1,5 +1,6 @@
 package com.vivern.arpg.renders;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.main.AnimationTimer;
@@ -40,10 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
-@SideOnly(Side.CLIENT)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class PotionBurningEffects {
    static Random rand = new Random();
    static ResourceLocation fiertex = new ResourceLocation("arpg:textures/oildrop.png");

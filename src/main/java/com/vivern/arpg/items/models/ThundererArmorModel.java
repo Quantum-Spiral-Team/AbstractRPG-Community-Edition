@@ -152,6 +152,7 @@ public class ThundererArmorModel extends ModelBiped {
       this.helm.addChild(this.helm1);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.belt.render(f5);
       GlStateManager.pushMatrix();
@@ -171,6 +172,7 @@ public class ThundererArmorModel extends ModelBiped {
       this.leftarm.render(f5);
    }
 
+   @Override
    public void setModelAttributes(ModelBase model) {
       super.setModelAttributes(model);
       if (model instanceof ModelBiped) {

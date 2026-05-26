@@ -8,6 +8,7 @@ public class ItemNoGravivy extends ItemItem {
       super(name, tab, maxdamage, maxstacksize);
    }
 
+   @Override
    public boolean onEntityItemUpdate(EntityItem entityItem) {
       if (!entityItem.hasNoGravity()) {
          entityItem.setNoGravity(true);

@@ -48,6 +48,7 @@ public class AdamantiumBattleAxeModel extends ModelBase {
       this.staf_1.addBox(-0.5F, 0.0F, -0.5F, 1, 14, 1, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.base_1.offsetX, this.base_1.offsetY, this.base_1.offsetZ);

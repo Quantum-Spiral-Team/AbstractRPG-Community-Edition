@@ -15,6 +15,7 @@ public class TeamBannerTESR extends TileEntitySpecialRenderer<TileTeamBanner> {
    public static TeamBannerModel model = new TeamBannerModel();
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/team_banner_model_tex.png");
 
+   @Override
    public void render(TileTeamBanner te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);

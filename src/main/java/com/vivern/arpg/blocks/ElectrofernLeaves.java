@@ -41,37 +41,45 @@ public class ElectrofernLeaves extends Block implements IBlockHardBreak {
       return BlocksRegister.HR_STORM_FOLIAGE;
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return super.canPlaceBlockAt(worldIn, pos);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       EnumFacing facing = (EnumFacing)state.getValue(FACING);
       boolean rotated = (Boolean)state.getValue(ROTATED);
       return facing.getIndex() + (rotated ? 6 : 0);
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       boolean rotated = false;
       if (meta >= 6) {
@@ -82,10 +90,12 @@ public class ElectrofernLeaves extends Block implements IBlockHardBreak {
       return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta)).withProperty(ROTATED, rotated);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING, ROTATED});
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       boolean rotated = false;
       if (facing != EnumFacing.UP && facing != EnumFacing.DOWN) {

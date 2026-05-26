@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class WorldGenHorribleVillage implements IWorldGenerator {
    public static int probablity = 351;
 
+   @Override
    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       if (world.provider.getDimension() == 0 && GenerationHelper.canGenerateDungeonAtChunkPos(chunkX, chunkZ, world.getSeed(), probablity, 8)) {
          int x = chunkX * 16 + random.nextInt(16);

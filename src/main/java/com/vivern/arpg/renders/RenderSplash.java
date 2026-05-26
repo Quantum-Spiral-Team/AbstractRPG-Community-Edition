@@ -81,6 +81,7 @@ public class RenderSplash implements IRenderFactory {
       return this;
    }
 
+   @Override
    public Render createRenderFor(RenderManager manager) {
       return new Render2D(
          manager,

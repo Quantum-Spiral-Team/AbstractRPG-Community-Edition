@@ -57,6 +57,7 @@ public class SlimeRiver extends BiomeControlled {
       public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISON_LILY, 8, 4, 0);
       public WorldGenSpread slimeblob = new WorldGenSpread(BlocksRegister.SLIME_BLOB, 16, 8, 4, BlocksRegister.BROWN_SLIME);
 
+      @Override
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

@@ -207,6 +207,7 @@ public class CoralArmorModel extends ModelBiped {
       this.leftarm.addChild(this.ane);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       if (entity.isSneaking()) {
@@ -233,6 +234,7 @@ public class CoralArmorModel extends ModelBiped {
       GlStateManager.popMatrix();
    }
 
+   @Override
    public void setModelAttributes(ModelBase model) {
       super.setModelAttributes(model);
       if (model instanceof ModelBiped) {

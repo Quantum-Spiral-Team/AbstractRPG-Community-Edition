@@ -39,6 +39,7 @@ public class BlockAcidBomb extends AbstractBomb {
       this.setSoundType(SoundType.METAL);
    }
 
+   @Override
    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
       super.onBlockAdded(worldIn, pos, state);
       if (worldIn.isBlockPowered(pos)) {
@@ -47,6 +48,7 @@ public class BlockAcidBomb extends AbstractBomb {
       }
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (worldIn.isBlockPowered(pos)) {
          this.onPlayerDestroy(worldIn, pos, state.withProperty(EXPLODE, true));
@@ -54,6 +56,7 @@ public class BlockAcidBomb extends AbstractBomb {
       }
    }
 
+   @Override
    public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
       if (!worldIn.isRemote) {
          EntityAcidBomb entitytntprimed = new EntityAcidBomb(
@@ -80,6 +83,7 @@ public class BlockAcidBomb extends AbstractBomb {
       }
    }
 
+   @Override
    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
       this.explode(worldIn, pos, state, (EntityLivingBase)null);
    }
@@ -103,6 +107,7 @@ public class BlockAcidBomb extends AbstractBomb {
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -122,21 +127,26 @@ public class BlockAcidBomb extends AbstractBomb {
       }
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
    }
 
+   @Override
    public boolean canDropFromExplosion(Explosion explosionIn) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(EXPLODE, (meta & 1) > 0);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return state.getValue(EXPLODE) ? 1 : 0;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{EXPLODE});
    }

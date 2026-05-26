@@ -260,10 +260,12 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
       return 0;
    }
 
+   @Override
    public int getSizeInventory() {
       return 16;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.stacks) {
          if (!itemstack.isEmpty()) {
@@ -377,6 +379,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
       }
    }
 
+   @Override
    public void update() {
       if (!this.world.isRemote) {
          if (this.augments == AugmentInfo.EMPTY) {
@@ -564,10 +567,12 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
       }
    }
 
+   @Override
    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
       return capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, facing);
    }
 
+   @Override
    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
       if (capability == CapabilityEnergy.ENERGY) {
          return (T)this.electricStorage;
@@ -714,38 +719,45 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       super.setInventorySlotContents(index, stack);
       if (!this.world.isRemote) {
@@ -766,26 +778,32 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
       }
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public String getName() {
       return "tile_assembly_table";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       return new ContainerAssemblyTable(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.assembly_table";
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.stacks;
    }
 
+   @Override
    public int getField(int id) {
       switch (id) {
          case 0:
@@ -844,6 +862,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
       }
    }
 
+   @Override
    public void setField(int id, int value) {
       switch (id) {
          case 0:
@@ -904,6 +923,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
       }
    }
 
+   @Override
    public int getFieldCount() {
       return 13;
    }
@@ -924,6 +944,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
          );
    }
 
+   @Override
    public int[] getSlotsForFace(EnumFacing side) {
       if (side == EnumFacing.DOWN) {
          return SLOTS_BOTTOM;
@@ -932,10 +953,12 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
       }
    }
 
+   @Override
    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
       return direction == EnumFacing.UP ? false : !this.getStackInSlot(index).isEmpty() && ItemStack.areItemsEqual(this.getStackInSlot(index), itemStackIn);
    }
 
+   @Override
    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
       return direction == EnumFacing.DOWN && (index == 14 || index == 15);
    }

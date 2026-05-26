@@ -29,6 +29,7 @@ public class RenderRocketFactory implements IRenderFactory {
       this.checkAdvanced = checkAdvanced;
    }
 
+   @Override
    public Render createRenderFor(RenderManager manager) {
       return new RenderRocket(manager, new ResourceLocation(this.reslocation), this.myClass, this.scale, this.opaq, this.melting, this.checkAdvanced);
    }

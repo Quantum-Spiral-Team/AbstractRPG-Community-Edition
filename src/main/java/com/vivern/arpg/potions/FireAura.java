@@ -11,6 +11,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FireAura extends Potion {
    protected FireAura(boolean isBadEffectIn, int liquidColorIn) {
@@ -20,11 +22,14 @@ public class FireAura extends Potion {
       this.setIconIndex(12, 1);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasStatusIcon() {
       Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
       return true;
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
       World world = entityLivingBase.world;
       double damageRadius = 3.0 + amplifier;
@@ -51,6 +56,7 @@ public class FireAura extends Potion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return duration % Math.round((float)(10 / (amplifier + 1) + 5)) == 0;
    }

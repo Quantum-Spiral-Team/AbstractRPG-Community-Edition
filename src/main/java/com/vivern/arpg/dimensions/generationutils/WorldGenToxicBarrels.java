@@ -22,6 +22,7 @@ public class WorldGenToxicBarrels extends WorldGenerator {
       this.sizeY = sizeY;
    }
 
+   @Override
    public boolean generate(World worldIn, Random rand, BlockPos position) {
       for (int i = 0; i < this.samples; i++) {
          BlockPos blockpos = position.add(

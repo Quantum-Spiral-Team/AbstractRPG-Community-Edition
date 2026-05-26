@@ -32,6 +32,7 @@ public class ToxiniumHelm extends AbstractArmor {
       return true;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (entityIn.ticksExisted % 40 == 0 && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
@@ -96,6 +97,7 @@ public class ToxiniumHelm extends AbstractArmor {
       }
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (equipmentSlot == this.armorType) {
@@ -126,6 +128,7 @@ public class ToxiniumHelm extends AbstractArmor {
       return multimap;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
       if (itemStack != ItemStack.EMPTY) {
@@ -144,6 +147,7 @@ public class ToxiniumHelm extends AbstractArmor {
       }
    }
 
+   @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return armortexture;
    }
@@ -153,6 +157,7 @@ public class ToxiniumHelm extends AbstractArmor {
          super(EntityEquipmentSlot.FEET, "toxinium_boots", 8000, 4);
       }
 
+      @Override
       public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
          Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
          if (equipmentSlot == this.armorType) {
@@ -187,6 +192,7 @@ public class ToxiniumHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -205,6 +211,7 @@ public class ToxiniumHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return ToxiniumHelm.armortexture;
       }
@@ -220,6 +227,7 @@ public class ToxiniumHelm extends AbstractArmor {
          super(EntityEquipmentSlot.CHEST, "toxinium_chestplate", 9000, 4);
       }
 
+      @Override
       public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
          Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
          if (equipmentSlot == this.armorType) {
@@ -258,6 +266,7 @@ public class ToxiniumHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -276,6 +285,7 @@ public class ToxiniumHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return ToxiniumHelm.armortexture;
       }
@@ -286,6 +296,7 @@ public class ToxiniumHelm extends AbstractArmor {
          super(EntityEquipmentSlot.LEGS, "toxinium_leggins", 8500, 4);
       }
 
+      @Override
       public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
          Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
          if (equipmentSlot == this.armorType) {
@@ -320,6 +331,7 @@ public class ToxiniumHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -338,6 +350,7 @@ public class ToxiniumHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return ToxiniumHelm.armortexture;
       }

@@ -57,6 +57,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -69,10 +70,12 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote && this.ticksExisted > this.livetime) {
@@ -82,6 +85,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
       this.world.setEntityState(this, (byte)5);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -213,6 +217,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit) && Weapons.canDealDamageTo(result.entityHit)) {
@@ -242,7 +247,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
                if (Team.checkIsOpponent(this.thrower, entity)) {
                   float damage = parameters.getEnchantedF("damage", might)
                      * Math.max(
-                        parameters.getF("damage_multiplier")
+                        parameters.getFloat("damage_multiplier")
                            - (float)Weapons.getDistanceToMobHitbox(
                               entity.width,
                               entity.height,
@@ -272,7 +277,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
                } else {
                   float damage = parameters.getEnchantedF("friendlyfire_damage", might)
                      * Math.max(
-                        parameters.getF("damage_multiplier")
+                        parameters.getFloat("damage_multiplier")
                            - (float)Weapons.getDistanceToMobHitbox(
                               entity.width,
                               entity.height,
@@ -285,7 +290,7 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
                            ),
                         0.1F
                      )
-                     * parameters.getF("friendlyfire");
+                     * parameters.getFloat("friendlyfire");
                   entity.hurtResistantTime = 0;
                   Weapons.dealDamage(
                      new WeaponDamage(this.weaponstack, this.getThrower(), this, true, false, this, WeaponDamage.explode),

@@ -45,6 +45,7 @@ public class DungeonFloorLadder extends Block {
       this.setLightOpacity(1);
    }
 
+   @Override
    public void addCollisionBoxToList(
       IBlockState state,
       World worldIn,
@@ -61,10 +62,12 @@ public class DungeonFloorLadder extends Block {
       addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_SOUTH);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return FULL_BLOCK_AABB;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
@@ -77,10 +80,12 @@ public class DungeonFloorLadder extends Block {
       return (TileDungeonLadder)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileDungeonLadder createTileEntity(World world, IBlockState blockState) {
       return new TileDungeonLadder();
@@ -118,6 +123,7 @@ public class DungeonFloorLadder extends Block {
       }
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       if (!worldIn.isRemote && entityIn.getEntityBoundingBox().minY <= pos.getY() + 0.125 && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
@@ -133,23 +139,28 @@ public class DungeonFloorLadder extends Block {
       }
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return true;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
       return true;
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       if (face == EnumFacing.UP) {
          return BlockFaceShape.BOWL;

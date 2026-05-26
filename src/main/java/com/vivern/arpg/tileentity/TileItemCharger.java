@@ -34,10 +34,12 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
       );
    }
 
+   @Override
    public int getSizeInventory() {
       return 1;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.stacks) {
          if (!itemstack.isEmpty()) {
@@ -63,6 +65,7 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
       return this.electricStorage.extractEnergy(amount, true) >= amount ? this.electricStorage.extractEnergy(amount, false) >= amount : false;
    }
 
+   @Override
    public void update() {
       if (!this.world.isRemote) {
          ItemStack stack = (ItemStack)this.stacks.get(0);
@@ -104,10 +107,12 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
       }
    }
 
+   @Override
    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
       return capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, facing);
    }
 
+   @Override
    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
       return (T)(capability == CapabilityEnergy.ENERGY ? this.electricStorage : super.getCapability(capability, facing));
    }
@@ -146,38 +151,45 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       super.setInventorySlotContents(index, stack);
       if (!this.world.isRemote) {
@@ -185,6 +197,7 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
       }
    }
 
+   @Override
    public int getField(int id) {
       switch (id) {
          case 0:
@@ -202,6 +215,7 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
       }
    }
 
+   @Override
    public void setField(int id, int value) {
       switch (id) {
          case 0:
@@ -211,22 +225,27 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
       }
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 1;
    }
 
+   @Override
    public String getName() {
       return "tile_item_charger";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       return new ContainerCharger(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.item_charger";
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.stacks;
    }

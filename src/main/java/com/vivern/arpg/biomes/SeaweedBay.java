@@ -25,6 +25,7 @@ public class SeaweedBay extends Biome {
       this.decorator = new SeaweedBayDecorator();
    }
 
+   @Override
    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
       AquaticaChunkGenerator.generateBiomeTerrain(this, worldIn, rand, chunkPrimerIn, x, z, noiseVal);
    }

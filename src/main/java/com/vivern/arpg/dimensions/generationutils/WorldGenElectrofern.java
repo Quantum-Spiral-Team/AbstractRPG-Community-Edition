@@ -21,6 +21,7 @@ public class WorldGenElectrofern extends WorldGenerator {
    public int maxLength;
    int maxFernRootMultiples = 0;
 
+   @Override
    public boolean generate(World world, Random rand, BlockPos position) {
       this.maxFernRootMultiples = 0;
       this.generateBranch(world, rand, position, this.maxLength, this.generateDirection, this.generateRotated);

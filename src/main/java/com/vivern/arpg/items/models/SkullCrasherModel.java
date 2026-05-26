@@ -33,6 +33,7 @@ public class SkullCrasherModel extends ModelBase {
       this.shape_1.addBox(0.0F, 0.0F, 0.0F, 6, 6, 2, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape.render(f5);
       GlStateManager.pushMatrix();

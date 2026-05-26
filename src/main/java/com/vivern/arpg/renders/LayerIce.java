@@ -28,6 +28,7 @@ public class LayerIce implements LayerRenderer<EntityLivingBase> {
       this.renderer = rendererIn;
    }
 
+   @Override
    public void doRenderLayer(
       EntityLivingBase entitylivingbaseIn,
       float limbSwing,
@@ -88,6 +89,7 @@ public class LayerIce implements LayerRenderer<EntityLivingBase> {
       }
    }
 
+   @Override
    public boolean shouldCombineTextures() {
       return false;
    }

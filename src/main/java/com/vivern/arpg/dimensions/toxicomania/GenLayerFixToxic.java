@@ -106,6 +106,7 @@ public class GenLayerFixToxic {
          this.percentchance = percentchance;
       }
 
+      @Override
       public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
          int i = areaX - 1;
          int j = areaY - 1;
@@ -151,6 +152,7 @@ public class GenLayerFixToxic {
          this.fromId = Biome.getIdForBiome(from);
       }
 
+      @Override
       public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
          int i = areaX - 1;
          int j = areaY - 1;
@@ -195,12 +197,14 @@ public class GenLayerFixToxic {
          this.avoid = avoid;
       }
 
+      @Override
       public void initWorldGenSeed(long seed) {
          this.biomePatternGeneratorChain.initWorldGenSeed(seed);
          this.riverPatternGeneratorChain.initWorldGenSeed(seed);
          super.initWorldGenSeed(seed);
       }
 
+      @Override
       public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
          int[] aint = this.biomePatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
          int[] aint1 = this.riverPatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);

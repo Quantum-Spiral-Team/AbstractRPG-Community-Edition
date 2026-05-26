@@ -17,6 +17,7 @@ import net.minecraft.world.gen.structure.template.Template.BlockInfo;
 
 public class ReplacersAquatica {
    public static ITemplateProcessor replacerSunkenTown = new ITemplateProcessor() {
+      @Override
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
             world.setBlockState(pos, BlocksRegister.AQUATIC_SPAWNER.getDefaultState());

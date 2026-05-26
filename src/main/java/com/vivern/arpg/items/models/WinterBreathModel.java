@@ -50,6 +50,7 @@ public class WinterBreathModel extends ModelBase {
       this.setRotateAngle(this.shape_3, 0.0F, 0.0F, -0.18203785F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       AbstractMobModel.light(170, false);

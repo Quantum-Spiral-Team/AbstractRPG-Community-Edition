@@ -342,6 +342,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.4F;
       }
@@ -444,14 +445,17 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -464,6 +468,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected float updateDistance(float p_110146_1_, float p_110146_2_) {
          float maxadd = 1.5F;
          float f = MathHelper.wrapDegrees(p_110146_1_ - this.renderYawOffset);
@@ -489,6 +494,7 @@ public class AquaticaMobsPack {
          return p_110146_2_;
       }
 
+      @Override
       protected void initEntityAI() {
          this.rush = new EntityAIRush(this, true, false, false);
          this.sweep = new EntityAIAttackSweep(this, 49 - this.getMobDifficulty() * 6, 1.0F, 1.8F, 3.75F, 16).setTriggerOnStart();
@@ -554,10 +560,12 @@ public class AquaticaMobsPack {
          return DeathEffects.JELLY_BLOOD;
       }
 
+      @Override
       public boolean hasNoGravity() {
          return this.parent != null && this.parent.isEntityAlive() ? true : super.hasNoGravity();
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -610,6 +618,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
@@ -761,6 +770,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(8, new EntityAIWatchClosest(this, Archelon.class, 8.0F));
          this.tasks.addTask(8, new EntityAILookIdle(this));
@@ -807,6 +817,7 @@ public class AquaticaMobsPack {
          return DeathEffects.FISH_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.6F;
       }
@@ -884,14 +895,17 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -904,6 +918,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIShootAndSwim(this, 57 - this.getMobDifficulty() * 5, 17.0F, 23 - this.getMobDifficulty() * 4, 10, 60));
          this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0));
@@ -950,10 +965,12 @@ public class AquaticaMobsPack {
          return DeathEffects.POLYP_BLOOD;
       }
 
+      @Override
       protected float getSoundPitch() {
          return 1.2F;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.5F;
       }
@@ -1007,6 +1024,7 @@ public class AquaticaMobsPack {
          this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void setVelocity(double x, double y, double z) {
          this.motionX = x;
@@ -1027,14 +1045,17 @@ public class AquaticaMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -1047,6 +1068,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIRush(this, true, true, false));
          this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0));
@@ -1129,10 +1151,12 @@ public class AquaticaMobsPack {
          return DeathEffects.FISH_BLOOD;
       }
 
+      @Override
       protected float getSoundPitch() {
          return 0.87F;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.6F;
       }
@@ -1210,14 +1234,17 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -1230,6 +1257,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIShootAndSwim(this, 71 - this.getMobDifficulty() * 8, 20.0F, 20 - this.getMobDifficulty() * 4, 15, 80));
          this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0));
@@ -1260,14 +1288,17 @@ public class AquaticaMobsPack {
          return DeathEffects.FISH_BLOOD;
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -1280,6 +1311,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIGrapBite(this, true, 60, 2.5F, 1.0F, 1.0F, 80, 10.0F, false, 1.0F, true, false, false));
          this.tasks.addTask(2, new EntityAIRush(this, true, true, false));
@@ -1312,10 +1344,12 @@ public class AquaticaMobsPack {
          this.corrupter.deltaRotation = 70;
       }
 
+      @Override
       public boolean shouldExecute() {
          return true;
       }
 
+      @Override
       public void updateTask() {
          EntityLivingBase attarget = this.mob.getAttackTarget();
          if (this.dashCooldown > 0) {
@@ -1437,6 +1471,7 @@ public class AquaticaMobsPack {
          return DeathEffects.JELLY_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.5F;
       }
@@ -1493,6 +1528,7 @@ public class AquaticaMobsPack {
          this.rotationYawHead = this.rotationYaw;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void setVelocity(double x, double y, double z) {
          this.motionX = x;
@@ -1611,14 +1647,17 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -1631,6 +1670,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(2, new EntityAIJellyfishRush(this, motionMaxSpeedRush, speedIncrease, 0.1F));
          this.tasks
@@ -1661,6 +1701,8 @@ public class AquaticaMobsPack {
          this.soul = null;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public AxisAlignedBB getRenderBoundingBox() {
          return super.getRenderBoundingBox().grow(100.0);
       }
@@ -1670,10 +1712,12 @@ public class AquaticaMobsPack {
          return DeathEffects.KRAKEN_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.5F;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public boolean isInRangeToRenderDist(double distance) {
          double d0 = 256.0;
@@ -1685,10 +1729,12 @@ public class AquaticaMobsPack {
          return this.kraken;
       }
 
+      @Override
       protected boolean canDespawn() {
          return false;
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.8F;
       }
@@ -1744,6 +1790,7 @@ public class AquaticaMobsPack {
          return source != DamageSource.DROWN && source != DamageSource.IN_WALL ? super.attackEntityFrom(source, amount) : false;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
    }
@@ -1800,6 +1847,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAITentacle(this, true, 8.0F, 4.0F, 0.2F, 140, 60, 2.0F));
          this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -1901,6 +1949,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks
             .addTask(1, new EntityAITentacle(this, true, 7.0F, 6.0F, 0.25F, 140, 60, 2.4F).setBreakBlocks(BossKraken.hardnessBreaks, 0.12F, 2));
@@ -2032,6 +2081,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          if (this.isAngryBiteTentacle) {
             this.tasks.addTask(1, new EntityAITentacle(this, true, 7.0F, 4.0F, 0.1F, 60, 20, 1.7F));
@@ -2151,6 +2201,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAITentacle(this, false, 15.0F, 6.0F, 0.2F, 0, 0, 0.0F).setShoot(80, 2, 18, false));
          this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -2393,6 +2444,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAITentacle(this, true, 12.0F, 6.0F, 0.0F, 270, 50, 1.0F).setShoot(150, 10, 8, false));
          this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -2470,6 +2522,7 @@ public class AquaticaMobsPack {
       public EntityAIRush rush = null;
       public EntityAIAttackSweep tridentsweep = null;
       public static Predicate<? super EntityLivingBase> targetEntitySelector = new Predicate<EntityLivingBase>() {
+         @Override
          public boolean apply(EntityLivingBase input) {
             if (input instanceof EntityPlayer) {
                boolean med = BaublesApi.getBaublesHandler((EntityPlayer)input).getStackInSlot(0).getItem() == ItemsRegister.MERMAID_MEDALLION;
@@ -2529,6 +2582,7 @@ public class AquaticaMobsPack {
          return DeathEffects.FISH_BLOOD;
       }
 
+      @Override
       protected float getSoundPitch() {
          return 0.8F;
       }
@@ -2898,14 +2952,17 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -2918,6 +2975,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(3, new EntityAIAttackSweep(this, 30, 1.0F, 2.0F, 2.5F, 10).setTriggerOnStart());
          this.tasks.addTask(7, new EntityAIWander(this, 1.0, 80));
@@ -2970,6 +3028,7 @@ public class AquaticaMobsPack {
          return DeathEffects.FISH_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.6F;
       }
@@ -3017,14 +3076,17 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -3052,6 +3114,7 @@ public class AquaticaMobsPack {
          super.readEntityFromNBT(compound);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIRush(this, true, true, true));
          this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0));
@@ -3175,6 +3238,7 @@ public class AquaticaMobsPack {
          return DeathEffects.OCEAN_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.93F;
       }
@@ -3473,10 +3537,12 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -3489,6 +3555,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.aiswim = new EntityAIFloatingSkeletonSwim(this, 70, 32.0F, 11, true, 10.0F, 3.0F, 2.0F, 0.14F, true, true);
          this.aiswim.deltaRotation = 80;
@@ -3594,6 +3661,7 @@ public class AquaticaMobsPack {
          super.readEntityFromNBT(compound);
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.5F;
       }
@@ -3649,6 +3717,7 @@ public class AquaticaMobsPack {
          this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void setVelocity(double x, double y, double z) {
          this.motionX = x;
@@ -3669,14 +3738,17 @@ public class AquaticaMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -3695,6 +3767,7 @@ public class AquaticaMobsPack {
          return super.onInitialSpawn(difficulty, livingdata);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIRush(this, true, true, false));
          this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0));
@@ -3735,6 +3808,7 @@ public class AquaticaMobsPack {
          return DeathEffects.OCEAN_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.75F;
       }
@@ -3769,10 +3843,12 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void handleJumpWater() {
          this.motionY = this.motionY + 0.04F * this.getEntityAttribute(SWIM_SPEED).getAttributeValue() * Debugger.floats[0];
       }
 
+      @Override
       protected float getWaterSlowDown() {
          return Debugger.floats[1];
       }
@@ -3796,14 +3872,17 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateBottom(this, worldIn);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIRush(this, true, true, false));
          this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0));
@@ -3921,6 +4000,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -3961,6 +4041,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public AxisAlignedBB getRenderBoundingBox() {
          if (Minecraft.getMinecraft().player != null && Minecraft.getMinecraft().player.isPotionActive(PotionEffects.SIREN_SONG)) {
@@ -3975,6 +4056,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAISiren(this));
          this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -4025,6 +4107,7 @@ public class AquaticaMobsPack {
          return DeathEffects.JELLY_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.5F;
       }
@@ -4106,6 +4189,7 @@ public class AquaticaMobsPack {
          this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void setVelocity(double x, double y, double z) {
          this.motionX = x;
@@ -4151,14 +4235,17 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -4171,6 +4258,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0));
          this.tasks.addTask(7, new EntityAIRandomSwim(this, motionMaxSpeed, speedIncrease, 0.01F, false));
@@ -4196,6 +4284,7 @@ public class AquaticaMobsPack {
          this.setYawOffset = setYawOffset;
       }
 
+      @Override
       public void onUpdateMoveHelper() {
          if (this.action == Action.MOVE_TO && !this.entitymob.getNavigator().noPath()) {
             double d0 = this.posX - this.entitymob.posX;
@@ -4286,6 +4375,7 @@ public class AquaticaMobsPack {
          return DeathEffects.FISH_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.6F;
       }
@@ -4506,14 +4596,17 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected PathNavigate createNavigator(World worldIn) {
          return new PathNavigateSwimmer(this, worldIn);
       }
 
+      @Override
       public void travel(float strafe, float vertical, float forward) {
          if (this.isServerWorld() && this.isInWater()) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -4526,6 +4619,7 @@ public class AquaticaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIShootAndSwim(this, 65, 19.0F, 23 - this.getMobDifficulty() * 4, 18, 130));
          this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0));

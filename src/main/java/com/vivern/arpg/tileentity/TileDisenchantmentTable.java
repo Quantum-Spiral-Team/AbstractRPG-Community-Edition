@@ -39,10 +39,12 @@ public class TileDisenchantmentTable extends TileEntityLockableLoot implements I
    public float bookRotationPrev;
    public float tRot;
 
+   @Override
    public int getSizeInventory() {
       return 1;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.stacks) {
          if (!itemstack.isEmpty()) {
@@ -53,6 +55,7 @@ public class TileDisenchantmentTable extends TileEntityLockableLoot implements I
       return true;
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       super.setInventorySlotContents(index, stack);
       this.progress = 0;
@@ -70,27 +73,33 @@ public class TileDisenchantmentTable extends TileEntityLockableLoot implements I
       return -1;
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 1;
    }
 
+   @Override
    public String getName() {
       return "disenchantment_table";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       this.fillWithLoot(playerIn);
       return new Container1(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.disenchantment_table";
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.stacks;
    }
 
+   @Override
    public void update() {
       this.manaBuffer.updateManaBuffer(this.world, this.pos);
       if (this.world.isRemote) {
@@ -256,38 +265,45 @@ public class TileDisenchantmentTable extends TileEntityLockableLoot implements I
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public int getField(int id) {
       if (id == 0) {
          return this.progress;

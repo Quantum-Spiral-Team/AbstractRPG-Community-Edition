@@ -54,6 +54,7 @@ public class ThundererHelm extends AbstractArmor {
       return multimap;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
       if (itemStack != ItemStack.EMPTY) {
@@ -73,6 +74,7 @@ public class ThundererHelm extends AbstractArmor {
       }
    }
 
+   @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return armortexture;
    }
@@ -115,6 +117,7 @@ public class ThundererHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -134,6 +137,7 @@ public class ThundererHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return ThundererHelm.armortexture;
       }
@@ -183,6 +187,7 @@ public class ThundererHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -202,6 +207,7 @@ public class ThundererHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return ThundererHelm.armortexture;
       }
@@ -247,6 +253,7 @@ public class ThundererHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -266,6 +273,7 @@ public class ThundererHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return ThundererHelm.armortexture;
       }

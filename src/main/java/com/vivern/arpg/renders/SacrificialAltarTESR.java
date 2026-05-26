@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 
 public class SacrificialAltarTESR extends TileEntitySpecialRenderer<TileSacrificialAltar> {
+   @Override
    public void render(TileSacrificialAltar te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       ItemStack stack0 = te.getStackInSlot(0);
       if (!stack0.isEmpty()) {

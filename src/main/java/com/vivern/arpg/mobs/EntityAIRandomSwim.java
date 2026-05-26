@@ -33,14 +33,17 @@ public class EntityAIRandomSwim extends EntityAIBase {
       this.createNewVector();
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.isInWater() && (!this.isIdle || this.entity.getAttackTarget() == null);
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return this.entity.isInWater() && (!this.isIdle || this.entity.getAttackTarget() == null);
    }
 
+   @Override
    public void updateTask() {
       if (this.move) {
          float speed = (float)this.entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();

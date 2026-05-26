@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class BetweenParticle extends Entity {
    public float scale = 0.1F;
    public int light = 240;
@@ -90,15 +89,19 @@ public class BetweenParticle extends Entity {
       super(worldIn);
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.tracker != null) {
@@ -111,6 +114,7 @@ public class BetweenParticle extends Entity {
       }
    }
 
+   @Override
    public boolean shouldRenderInPass(int pass) {
       return pass == 1;
    }

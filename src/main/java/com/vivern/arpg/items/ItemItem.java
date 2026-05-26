@@ -3,6 +3,8 @@ package com.vivern.arpg.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemItem extends Item {
    public int burntime = -1;
@@ -32,15 +34,19 @@ public class ItemItem extends Item {
       return this;
    }
 
+   @Override
    public int getItemBurnTime(ItemStack itemStack) {
       return this.burntime * 20;
    }
 
+   @Override
    public boolean isBeaconPayment(ItemStack stack) {
       return this.beacon ? this.beacon : super.isBeaconPayment(stack);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasEffect(ItemStack stack) {
-      return this.ench ? this.ench : super.hasEffect(stack);
+      return this.ench || super.hasEffect(stack);
    }
 }

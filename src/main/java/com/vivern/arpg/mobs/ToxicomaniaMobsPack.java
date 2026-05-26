@@ -265,6 +265,7 @@ public class ToxicomaniaMobsPack {
          return source.getTrueSource() != null && source.getTrueSource() instanceof BossAbomination ? false : super.attackEntityFrom(source, amount);
       }
 
+      @Override
       public NBTTagCompound writeToNBT(NBTTagCompound compound) {
          if (this.boss != null) {
             compound.setUniqueId("boss", this.boss.getUniqueID());
@@ -274,6 +275,7 @@ public class ToxicomaniaMobsPack {
          return super.writeToNBT(compound);
       }
 
+      @Override
       public void readFromNBT(NBTTagCompound compound) {
          if (compound.hasKey("boss")) {
             UUID id = compound.getUniqueId("boss");
@@ -362,9 +364,11 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION && potion != PotionEffects.CHLORITE
@@ -449,6 +453,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -562,6 +567,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       public void onEntityUpdate() {
          super.onEntityUpdate();
          if (this.world.isRemote && this.boss != null) {
@@ -579,6 +585,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
          this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
@@ -628,17 +635,21 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.ROBOT_OIL_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.5F;
       }
 
+      @Override
       protected float getSoundPitch() {
          return (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.2F;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION
@@ -698,6 +709,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -768,6 +780,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAICorrupter(this, 40, 32.0F, 1, true, 7.0F, 5.0F).setBurst(true, 2, 5, false, 15, 0));
          this.tasks.addTask(4, new EntityAICorrupterIdle(this));
@@ -817,11 +830,13 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.MUTANT_PURPLE_BLOOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
@@ -834,6 +849,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          if (!player.getCooldownTracker().hasCooldown(Items.ROTTEN_FLESH) && player.getHeldItemMainhand().getItem() == Items.ROTTEN_FLESH) {
             if (!player.capabilities.isCreativeMode) {
@@ -854,6 +870,7 @@ public class ToxicomaniaMobsPack {
          return super.applyPlayerInteraction(player, vec, hand);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
@@ -878,6 +895,7 @@ public class ToxicomaniaMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFollowSummoner(this, 1.0));
@@ -896,6 +914,7 @@ public class ToxicomaniaMobsPack {
 
    public static class FlowerSpider extends AbstractMob {
       public static Predicate<Block> blocks = new Predicate<Block>() {
+         @Override
          public boolean apply(Block input) {
             return input == BlocksRegister.MUTATED_FLOWER_PINK;
          }
@@ -911,6 +930,7 @@ public class ToxicomaniaMobsPack {
          this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VISCOSA_SEEDS, 0.8F, 0, 1, 1, 2)});
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.ARTHROPOD;
       }
@@ -926,11 +946,13 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -949,6 +971,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIHunt(this, false, true, true, 30, blocks));
@@ -1011,10 +1034,12 @@ public class ToxicomaniaMobsPack {
          return super.onInitialSpawn(difficulty, livingdata);
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.UNDEAD;
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
@@ -1070,6 +1095,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 9) {
@@ -1179,6 +1205,7 @@ public class ToxicomaniaMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAISwimming(this));
          EntityAISkeleton ai1 = new EntityAISkeleton(this, 1.0, 47, 25.0F, 10);
@@ -1239,6 +1266,7 @@ public class ToxicomaniaMobsPack {
          return number < this.poslist.size() ? this.poslist.get(number) : this.getPositionVector();
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1342,15 +1370,18 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAISegmAABBAttack(this, 40, 0.2F));
       }
@@ -1409,10 +1440,12 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.UNDEAD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION
@@ -1431,6 +1464,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1449,6 +1483,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIRush(this, false, true, true).configureDistance(0.0F, 4.0F));
@@ -1480,6 +1515,7 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.ABOMINATION_BLOOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          if (potion == MobEffects.POISON) {
@@ -1491,6 +1527,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
@@ -1526,6 +1563,7 @@ public class ToxicomaniaMobsPack {
          super.onDeath(cause);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIAABBAttack(this, 20, 0.4F));
@@ -1573,13 +1611,16 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.ROTTEN_BLOOD;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.ARTHROPOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
@@ -1647,6 +1688,7 @@ public class ToxicomaniaMobsPack {
          return false;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAICorrupter(this, 20, 32.0F, 1, false, 2.5F, 3.0F));
          this.tasks.addTask(2, new EntityAIAABBAttack(this, 15, 0.3F));
@@ -1698,6 +1740,7 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.ROTTEN_BLOOD;
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          if (!player.getCooldownTracker().hasCooldown(ItemsRegister.WASTE_BURGER) && player.getHeldItemMainhand().getItem() == ItemsRegister.WASTE_BURGER) {
             if (!player.capabilities.isCreativeMode) {
@@ -1719,6 +1762,7 @@ public class ToxicomaniaMobsPack {
          return super.applyPlayerInteraction(player, vec, hand);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
@@ -1848,10 +1892,12 @@ public class ToxicomaniaMobsPack {
          return false;
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.UNDEAD;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFollowSummoner(this, 1.0));
@@ -1921,10 +1967,12 @@ public class ToxicomaniaMobsPack {
          return super.attackEntityAsMob(entityIn);
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.UNDEAD;
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          if (!player.getCooldownTracker().hasCooldown(Items.ROTTEN_FLESH) && player.getHeldItemMainhand().getItem() == Items.ROTTEN_FLESH) {
             if (!player.capabilities.isCreativeMode) {
@@ -1945,6 +1993,7 @@ public class ToxicomaniaMobsPack {
          return super.applyPlayerInteraction(player, vec, hand);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
@@ -1969,6 +2018,7 @@ public class ToxicomaniaMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFollowSummoner(this, 1.0));
@@ -2108,14 +2158,17 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.TEST_TUBE_BLOOD;
       }
 
+      @Override
       public AxisAlignedBB getEntityBoundingBox() {
          return super.getEntityBoundingBox();
       }
 
+      @Override
       protected boolean canDespawn() {
          return false;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          if (potioneffectIn.getPotion() == MobEffects.POISON) {
             return false;
@@ -2134,6 +2187,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -2152,6 +2206,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIShoot(this, 45, 30.0F, 70));
          this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -2208,10 +2263,12 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.ROBOT_OIL_BLOOD;
       }
 
+      @Override
       public boolean isPushedByWater() {
          return false;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.92F;
       }
@@ -2224,10 +2281,12 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected float getSoundPitch() {
          return (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 0.8F;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION
@@ -2246,6 +2305,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -2283,6 +2343,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAISkeleton(this, 0.4, 50, 40.0F, 1).setApproach());
          this.tasks.addTask(2, new EntityAIAttackSweep(this, 30, 1.7F, 2.0F, 3.0F, 10).setTriggerOnStart());
@@ -2305,15 +2366,18 @@ public class ToxicomaniaMobsPack {
          this.registerLOOT(new MobDrop[]{new MobDrop(Items.SLIME_BALL, 1.0F, 0, 0, 3, 3)});
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected void initEntityAI() {
       }
    }
@@ -2343,6 +2407,7 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.MUTANT_PURPLE_BLOOD;
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          Item itemm = player.getHeldItemMainhand().getItem();
          if ((
@@ -2365,6 +2430,7 @@ public class ToxicomaniaMobsPack {
          return super.applyPlayerInteraction(player, vec, hand);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
@@ -2389,15 +2455,18 @@ public class ToxicomaniaMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFollowSummoner(this, 1.0));
@@ -2440,15 +2509,18 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.TEST_TUBE_BLOOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -2502,6 +2574,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIAABBAttack(this, 40, 0.4F));
@@ -2542,15 +2615,18 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.TEST_TUBE_BLOOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public boolean canBreatheUnderwater() {
          return true;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIAABBAttack(this, 40, 0.4F));
@@ -2620,6 +2696,7 @@ public class ToxicomaniaMobsPack {
          return super.onInitialSpawn(difficulty, livingdata);
       }
 
+      @Override
       public EntityItem entityDropItem(ItemStack stack, float offsetY) {
          EntityItem entityItem = super.entityDropItem(stack, offsetY);
          if (entityItem != null && entityItem.getItem().getItem() == ItemsRegister.BUNKER_KEYCARD) {
@@ -2680,6 +2757,7 @@ public class ToxicomaniaMobsPack {
          return DeathEffects.ROBOT_OIL_BLOOD;
       }
 
+      @Override
       protected void collideWithEntity(Entity entityIn) {
          if (!entityIn.isRidingSameEntity(this) && !this.noClip && !entityIn.noClip) {
             double d0 = this.posX - entityIn.posX;
@@ -2709,6 +2787,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       public void applyEntityCollision(Entity entityIn) {
          if (!this.isRidingSameEntity(entityIn) && !entityIn.noClip && !this.noClip) {
             double d0 = entityIn.posX - this.posX;
@@ -2738,16 +2817,19 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       public String getName() {
          return this.infinityAmmo
             ? super.getName()
             : super.getName() + " | " + (this.bullets == null ? "AMMO" : this.bullets.getNbtName()) + ": " + this.ammo;
       }
 
+      @Override
       public boolean isAIDisabled() {
          return this.deployStage < 1.0F || super.isAIDisabled();
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          if (!this.world.isRemote && !Team.checkIsOpponent(player, this)) {
             boolean movewrench = true;
@@ -2908,6 +2990,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void turn(float yaw, float pitch) {
          if (this.getRidingEntity() != null) {
@@ -2924,6 +3007,7 @@ public class ToxicomaniaMobsPack {
          this.bullets = ItemBullet.getItemBulletFromId((int)a);
       }
 
+      @Override
       public NBTTagCompound writeToNBT(NBTTagCompound compound) {
          compound.setFloat("deploystage", this.deployStage);
          if (this.mightlvl > 0) {
@@ -2939,6 +3023,7 @@ public class ToxicomaniaMobsPack {
          return super.writeToNBT(compound);
       }
 
+      @Override
       public void readFromNBT(NBTTagCompound compound) {
          if (compound.hasKey("deploystage")) {
             this.deployStage = compound.getFloat("deploystage");
@@ -2975,10 +3060,12 @@ public class ToxicomaniaMobsPack {
          return super.onInitialSpawn();
       }
 
+      @Override
       protected float getJumpUpwardsMotion() {
          return 0.0F;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION
@@ -3004,6 +3091,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -3037,6 +3125,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(3, new EntityAISkeleton(this, 0.0, 50, 25.0F, 1).setBurst(true, 10, 0, false, 7));
          this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
@@ -3088,9 +3177,11 @@ public class ToxicomaniaMobsPack {
          return r;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
@@ -3104,6 +3195,7 @@ public class ToxicomaniaMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIDash(this, 120, 8.0F, 3.0F, 1.5F, false, 0.3F).setSoundOnDash(Sounds.mob_mutant_attack));

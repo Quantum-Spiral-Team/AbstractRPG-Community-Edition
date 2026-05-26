@@ -19,6 +19,7 @@ public class ChestModelLAR extends ModelChest {
       this.chestKnob.addBox(-1.0F, -2.0F, -15.0F, 2, 4, 1, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.chestBelow.render(f5);
       this.chestLid.render(f5);

@@ -31,10 +31,12 @@ public class TheLordOfPain extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return false;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!worldIn.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -139,6 +141,7 @@ public class TheLordOfPain extends ItemWeapon {
       return 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;

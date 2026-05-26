@@ -5,6 +5,8 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TenacityPotion extends Potion {
    protected TenacityPotion(boolean isBadEffectIn, int liquidColorIn) {
@@ -15,6 +17,8 @@ public class TenacityPotion extends Potion {
       this.registerPotionAttributeModifier(SharedMonsterAttributes.KNOCKBACK_RESISTANCE, MathHelper.getRandomUUID().toString(), 0.2, 0);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasStatusIcon() {
       Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
       return true;

@@ -50,6 +50,7 @@ public class EarthInSphereModel extends ModelBase {
       this.shape5.addBox(-0.75F, -1.25F, 0.75F, 2, 2, 1, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float time = AnimationTimer.tick / 100.0F;
       float mult = 0.015625F + Debugger.floats[0];

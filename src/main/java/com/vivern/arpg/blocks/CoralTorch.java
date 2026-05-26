@@ -54,7 +54,8 @@ public class CoralTorch extends BlockUnderwater {
       this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
    }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+   @Override
+   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       for (EnumFacing enumfacing : FACING.getAllowedValues()) {
          if (this.canPlaceAt(worldIn, pos, enumfacing)) {
             return true;
@@ -81,6 +82,7 @@ public class CoralTorch extends BlockUnderwater {
       return block.canPlaceTorchOnTop(worldIn.getBlockState(pos), worldIn, pos);
    }
 
+   @Override
    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
       this.checkForDrop(worldIn, pos, state);
    }
@@ -128,6 +130,7 @@ public class CoralTorch extends BlockUnderwater {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       switch (state.getValue(FACING)) {
          case EAST:
@@ -143,11 +146,13 @@ public class CoralTorch extends BlockUnderwater {
       }
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
@@ -162,6 +167,7 @@ public class CoralTorch extends BlockUnderwater {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState();
       switch (meta) {
@@ -185,9 +191,10 @@ public class CoralTorch extends BlockUnderwater {
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             i |= 1;
             break;
@@ -209,18 +216,23 @@ public class CoralTorch extends BlockUnderwater {
       return i;
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
+   @Override
+   @SideOnly(Side.CLIENT)
    protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{FACING, LEVEL, WET});
+      return new BlockStateContainer(this, FACING, LEVEL, WET);
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       items.add(new ItemStack(this, 1, 0));
    }
@@ -240,11 +252,13 @@ public class CoralTorch extends BlockUnderwater {
       }
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.19F) {
          EnumFacing enumfacing = (EnumFacing)stateIn.getValue(FACING);
@@ -258,7 +272,7 @@ public class CoralTorch extends BlockUnderwater {
          float scaleTickAdding = scale / livetime;
          if (enumfacing.getAxis().isHorizontal()) {
             EnumFacing enumfacing1 = enumfacing.getOpposite();
-            GUNParticle spelll = new GUNParticle(
+            GUNParticle spell = new GUNParticle(
                res,
                0.15F,
                0.0F,
@@ -277,14 +291,14 @@ public class CoralTorch extends BlockUnderwater {
                true,
                0
             );
-            spelll.alpha = 1.0F;
-            spelll.alphaTickAdding = -0.0125F;
-            spelll.scaleTickAdding = scaleTickAdding;
-            spelll.alphaGlowing = true;
-            spelll.isPushedByLiquids = false;
-            worldIn.spawnEntity(spelll);
+            spell.alpha = 1.0F;
+            spell.alphaTickAdding = -0.0125F;
+            spell.scaleTickAdding = scaleTickAdding;
+            spell.alphaGlowing = true;
+            spell.isPushedByLiquids = false;
+            worldIn.spawnEntity(spell);
          } else {
-            GUNParticle spelll = new GUNParticle(
+            GUNParticle spell = new GUNParticle(
                res,
                0.15F,
                0.0F,
@@ -303,16 +317,17 @@ public class CoralTorch extends BlockUnderwater {
                true,
                0
             );
-            spelll.alpha = 1.0F;
-            spelll.alphaTickAdding = -0.0125F;
-            spelll.scaleTickAdding = scaleTickAdding;
-            spelll.alphaGlowing = true;
-            spelll.isPushedByLiquids = false;
-            worldIn.spawnEntity(spelll);
+            spell.alpha = 1.0F;
+            spell.alphaTickAdding = -0.0125F;
+            spell.scaleTickAdding = scaleTickAdding;
+            spell.alphaGlowing = true;
+            spell.isPushedByLiquids = false;
+            worldIn.spawnEntity(spell);
          }
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
       return world.provider.getDimension() == 103

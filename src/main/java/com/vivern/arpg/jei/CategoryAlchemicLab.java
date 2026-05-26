@@ -32,28 +32,34 @@ public class CategoryAlchemicLab implements IRecipeCategory<WrapperAlchemicLab> 
       this.mana = h.createAnimatedDrawable(staticmana, 120, StartDirection.RIGHT, true);
    }
 
+   @Override
    public String getUid() {
       return "arpg:alchemic_lab";
    }
 
+   @Override
    public String getTitle() {
       return "Alchemic Lab";
    }
 
+   @Override
    public String getModName() {
       return "arpg";
    }
 
+   @Override
    public IDrawable getBackground() {
       return this.background;
    }
 
+   @Override
    public void drawExtras(Minecraft minecraft) {
       this.arrow.draw(minecraft, 71, 14);
       this.flame.draw(minecraft, 87, 51);
       this.mana.draw(minecraft, 57, 66);
    }
 
+   @Override
    public void setRecipe(IRecipeLayout recipeLayout, WrapperAlchemicLab recipeWrapper, IIngredients ingredients) {
       IGuiItemStackGroup isg = recipeLayout.getItemStacks();
       IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();

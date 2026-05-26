@@ -17,12 +17,14 @@ public class RenderTroglodyte extends RenderLiving<Troglodyte> {
       super(manager, new TroglodyteModel(), 0.3F);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull Troglodyte entity) {
       return this.mobTexture;
    }
 
    public static class TroglodyteFactory implements IRenderFactory<Troglodyte> {
+      @Override
       public Render<? super Troglodyte> createRenderFor(RenderManager manager) {
          return new RenderTroglodyte(manager);
       }

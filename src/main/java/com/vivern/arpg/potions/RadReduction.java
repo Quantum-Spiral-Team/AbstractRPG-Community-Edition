@@ -12,6 +12,7 @@ public class RadReduction extends AdvancedPotion {
       this.setIconIndex(30, 1);
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
       if (!entityOnEffect.world.isRemote
          && entityOnEffect instanceof EntityPlayer
@@ -21,6 +22,7 @@ public class RadReduction extends AdvancedPotion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

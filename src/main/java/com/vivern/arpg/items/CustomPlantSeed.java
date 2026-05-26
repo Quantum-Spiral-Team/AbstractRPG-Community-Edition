@@ -22,6 +22,7 @@ public class CustomPlantSeed extends Item {
       this.plant = plant;
    }
 
+   @Override
    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
       if (worldIn.isAirBlock(pos.up()) && this.plant.canBlockStay(worldIn, pos.up()) && facing == EnumFacing.UP) {
          player.getHeldItem(hand).shrink(1);
@@ -32,6 +33,7 @@ public class CustomPlantSeed extends Item {
       }
    }
 
+   @Override
    public int getItemBurnTime(ItemStack itemStack) {
       return this.burntime * 20;
    }

@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class TrailParticle extends GUNParticle {
    public Vec3d pos1 = this.getPositionVector();
    public Vec3d pos2 = this.getPositionVector();
@@ -70,6 +69,7 @@ public class TrailParticle extends GUNParticle {
       this.Ttexture = Ttexture;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       Vec3d subtraction = this.pos1.subtract(this.pos2);

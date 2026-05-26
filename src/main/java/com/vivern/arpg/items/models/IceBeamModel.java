@@ -47,6 +47,7 @@ public class IceBeamModel extends ModelBase {
       this.setRotateAngle(this.ice3, 0.0F, (float) (Math.PI / 2), 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape_1.render(f5);
       this.shape.render(f5);

@@ -241,6 +241,7 @@ public class BilebiterModel extends ModelBase {
       this.setRotateAngle(this.wing6, 0.0F, -0.13665928F, (float) Math.PI);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1.render(f5);
       GlStateManager.pushMatrix();

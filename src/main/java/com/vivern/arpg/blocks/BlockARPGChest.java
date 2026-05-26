@@ -44,6 +44,7 @@ public class BlockARPGChest extends BlockBlockHard {
       this.setOpacity(0);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!world.isRemote) {
          TileEntity tileentity = world.getTileEntity(pos);
@@ -56,12 +57,14 @@ public class BlockARPGChest extends BlockBlockHard {
       }
    }
 
+   @Override
    public boolean eventReceived(IBlockState state, World worldIn, BlockPos pos, int id, int param) {
       super.eventReceived(state, worldIn, pos, id, param);
       TileEntity tileentity = worldIn.getTileEntity(pos);
       return tileentity == null ? false : tileentity.receiveClientEvent(id, param);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
@@ -77,10 +80,12 @@ public class BlockARPGChest extends BlockBlockHard {
       }
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileARPGChest createTileEntity(World world, IBlockState blockState) {
       TileARPGChest tchest = new TileARPGChest();
@@ -98,11 +103,13 @@ public class BlockARPGChest extends BlockBlockHard {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean hasCustomBreakingProgress(IBlockState state) {
       return true;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
@@ -120,6 +127,7 @@ public class BlockARPGChest extends BlockBlockHard {
       }
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof IInventory) {
@@ -130,6 +138,7 @@ public class BlockARPGChest extends BlockBlockHard {
       super.breakBlock(worldIn, pos, state);
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -147,10 +156,12 @@ public class BlockARPGChest extends BlockBlockHard {
       return true;
    }
 
+   @Override
    public boolean hasComparatorInputOverride(IBlockState state) {
       return true;
    }
 
+   @Override
    public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
       TileEntity tileentity = world.getTileEntity(pos);
       if (tileentity instanceof TileARPGChest) {
@@ -163,6 +174,7 @@ public class BlockARPGChest extends BlockBlockHard {
       return 0;
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }

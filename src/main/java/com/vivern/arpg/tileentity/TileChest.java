@@ -125,22 +125,27 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public boolean isLocked() {
       return (this.chestState & 7) != 0;
    }
 
+   @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
       return !this.isLocked();
    }
 
+   @Override
    public ItemStack getStackInSlot(int index) {
       return this.isLocked() ? ItemStack.EMPTY : super.getStackInSlot(index);
    }
 
+   @Override
    public int getSizeInventory() {
       return 27;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.chestContents) {
          if (!itemstack.isEmpty()) {
@@ -151,6 +156,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
       return true;
    }
 
+   @Override
    public String getName() {
       return this.hasCustomName() ? this.customName : "chest";
    }
@@ -194,42 +200,50 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
       return compound;
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public void updateContainingBlockInfo() {
       super.updateContainingBlockInfo();
       this.adjacentChestChecked = false;
@@ -302,6 +316,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public void update() {
       this.checkForAdjacentChests();
       int i = this.pos.getX();
@@ -392,6 +407,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public boolean receiveClientEvent(int id, int type) {
       if (id == 1) {
          this.numPlayersUsing = type;
@@ -401,6 +417,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public void openInventory(EntityPlayer player) {
       if (!player.isSpectator() && !this.isLocked()) {
          if (this.numPlayersUsing < 0) {
@@ -413,6 +430,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public void closeInventory(EntityPlayer player) {
       if (!player.isSpectator() && this.getBlockType() instanceof Chest) {
          this.numPlayersUsing--;
@@ -421,10 +439,12 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
       }
    }
 
+   @Override
    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
       return this.isLocked() ? false : super.hasCapability(capability, facing);
    }
 
+   @Override
    @Nullable
    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
       if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -444,21 +464,25 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
       return (IItemHandler)super.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
    }
 
+   @Override
    public void invalidate() {
       super.invalidate();
       this.updateContainingBlockInfo();
       this.checkForAdjacentChests();
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.chest";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       this.fillWithLoot(playerIn);
       return new ContainerChest(playerInventory, this, playerIn);
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.chestContents;
    }

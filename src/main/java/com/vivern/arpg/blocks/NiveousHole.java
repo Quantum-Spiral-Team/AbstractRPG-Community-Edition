@@ -22,6 +22,7 @@ public class NiveousHole extends Block implements IBlockHardBreak {
       this.setHarvestLevel("pickaxe", BlocksRegister.HR_NIVEOUS_HALL.lvl);
    }
 
+   @Override
    public void onLanded(World worldIn, Entity entityIn) {
       if (!worldIn.isRemote && entityIn instanceof EverfrostMobsPack.NiveousSlider) {
          ((EverfrostMobsPack.NiveousSlider)entityIn).onFallToHole();

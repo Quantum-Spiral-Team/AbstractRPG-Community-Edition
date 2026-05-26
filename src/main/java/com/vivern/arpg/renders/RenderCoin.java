@@ -41,6 +41,7 @@ public class RenderCoin<T extends EntityCoin> extends Render<T> {
       torender = new ItemStack(ItemsRegister.COIN);
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y + 0.1, (float)z);
@@ -74,6 +75,7 @@ public class RenderCoin<T extends EntityCoin> extends Render<T> {
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntityCoin entity) {
       return TextureMap.LOCATION_BLOCKS_TEXTURE;
    }
@@ -170,6 +172,7 @@ public class RenderCoin<T extends EntityCoin> extends Render<T> {
    }
 
    public static class RenderCoinFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderCoin(manager);
       }

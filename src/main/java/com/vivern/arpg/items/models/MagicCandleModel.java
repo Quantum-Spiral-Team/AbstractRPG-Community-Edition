@@ -112,6 +112,7 @@ public class MagicCandleModel extends ModelBase {
       this.shapeD1.addChild(this.shapeD5);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       int rotation = (int)f1 / 5;
       int type = (int)f1 % 5;

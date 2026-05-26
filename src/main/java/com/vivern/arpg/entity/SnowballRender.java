@@ -14,6 +14,7 @@ public class SnowballRender implements IRenderFactory {
       this.IntegItem = InputItem;
    }
 
+   @Override
    public Render createRenderFor(RenderManager manager) {
       return new RenderSnowball(manager, this.IntegItem, Minecraft.getMinecraft().getRenderItem());
    }

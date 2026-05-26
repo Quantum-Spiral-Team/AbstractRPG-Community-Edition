@@ -102,6 +102,7 @@ public class ViolenceModel extends ModelBase {
       this.setRotateAngle(this.crystal_5, -1.3658947F, -0.4098033F, -0.31869712F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.staf.offsetX, this.staf.offsetY, this.staf.offsetZ);

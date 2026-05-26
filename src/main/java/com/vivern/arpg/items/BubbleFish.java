@@ -25,6 +25,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BubbleFish extends ItemWeapon {
    public static int maxammo = 180;
@@ -37,6 +39,7 @@ public class BubbleFish extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -46,10 +49,12 @@ public class BubbleFish extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -78,6 +83,7 @@ public class BubbleFish extends ItemWeapon {
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (world.isRemote) {
          if (itemRand.nextFloat() < 0.15F && !this.isReloaded(itemstack) && Weapons.getPlayerAnimationId(entityIn, EnumHand.MAIN_HAND) == 4) {
@@ -143,14 +149,14 @@ public class BubbleFish extends ItemWeapon {
                            player.rotationPitch,
                            player.rotationYaw,
                            0.0F,
-                           parameters.getF("velocity"),
+                           parameters.getFloat("velocity"),
                            parameters.getEnchantedF("inaccuracy", acc),
                            -0.05F,
                            0.5F,
                            0.5F
                         );
                         projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack))
-                           + itemRand.nextInt(parameters.getI("livetime_random_add"));
+                           + itemRand.nextInt(parameters.getInt("livetime_random_add"));
                         world.spawnEntity(projectile);
                      }
                   }
@@ -176,11 +182,13 @@ public class BubbleFish extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) == 0;

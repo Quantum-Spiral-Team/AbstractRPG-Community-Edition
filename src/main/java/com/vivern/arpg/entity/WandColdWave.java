@@ -76,6 +76,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
       this.setSize(0.1F, 0.1F);
    }
 
+   @Override
    protected void entityInit() {
       this.dataManager.register(CUTTER_SIZE, 1.0F);
    }
@@ -88,6 +89,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
       this.dataManager.set(CUTTER_SIZE, value);
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -98,12 +100,14 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
       this.motionZ = this.motionZ + entityThrower.motionZ * mot;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean isInRangeToRenderDist(double distance) {
       double d0 = 64.0;
       return distance < d0 * d0;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
@@ -124,6 +128,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted < 2 || this.ticksExisted % 10 == 0) {
@@ -330,6 +335,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -347,10 +353,12 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
       }
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.world.isRemote
          && result.entityHit == null

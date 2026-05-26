@@ -42,9 +42,11 @@ public class TileTopazCrystal extends TileEntity implements ITickable, IMagicUI 
       this.givePos = pos;
    }
 
+   @Override
    public void update() {
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       compound.setFloat("stored", this.energyStored);
@@ -63,6 +65,7 @@ public class TileTopazCrystal extends TileEntity implements ITickable, IMagicUI 
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       if (compound.hasKey("stored")) {
@@ -78,6 +81,7 @@ public class TileTopazCrystal extends TileEntity implements ITickable, IMagicUI 
       }
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       compound.setFloat("stored", this.energyStored);
@@ -96,6 +100,7 @@ public class TileTopazCrystal extends TileEntity implements ITickable, IMagicUI 
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       if (compound.hasKey("stored")) {
          this.energyStored = compound.getFloat("stored");
@@ -112,6 +117,7 @@ public class TileTopazCrystal extends TileEntity implements ITickable, IMagicUI 
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("stored")) {
          this.energyStored = compound.getFloat("stored");
@@ -128,6 +134,7 @@ public class TileTopazCrystal extends TileEntity implements ITickable, IMagicUI 
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       compound.setFloat("stored", this.energyStored);
       if (this.givePos != null) {

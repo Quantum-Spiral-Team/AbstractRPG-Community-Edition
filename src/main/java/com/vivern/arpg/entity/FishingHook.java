@@ -79,6 +79,7 @@ public class FishingHook extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -90,6 +91,7 @@ public class FishingHook extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote) {
@@ -200,22 +202,20 @@ public class FishingHook extends EntityThrowable {
                               );
                         } else if (this.fishTime + lure * 5 > this.fishs.fishTime) {
                            ItemStack fishstack = new ItemStack(this.fishs.item, 1, this.fishs.damage);
-                           if (fishstack != null) {
-                              this.giveFish(fishstack);
-                           }
+                           this.giveFish(fishstack);
 
                            this.returning = true;
                            this.world.setEntityState(this, (byte)9);
                            this.world
                               .playSound(
-                                 (EntityPlayer)null,
-                                 this.thrower.posX,
-                                 this.thrower.posY,
-                                 this.thrower.posZ,
-                                 Sounds.fishing_success,
-                                 SoundCategory.AMBIENT,
-                                 0.8F,
-                                 1.0F
+                                      null,
+                                      this.thrower.posX,
+                                      this.thrower.posY,
+                                      this.thrower.posZ,
+                                      Sounds.fishing_success,
+                                      SoundCategory.AMBIENT,
+                                      0.8F,
+                                      1.0F
                               );
                            this.tryLooseBait();
                         }
@@ -231,21 +231,21 @@ public class FishingHook extends EntityThrowable {
                   if (!this.dropped) {
                      this.world
                         .playSound(
-                           (EntityPlayer)null,
-                           this.posX,
-                           this.posY,
-                           this.posZ,
-                           Sounds.fishing_drop,
-                           SoundCategory.AMBIENT,
-                           0.7F,
-                           1.0F
+                                null,
+                                this.posX,
+                                this.posY,
+                                this.posZ,
+                                Sounds.fishing_drop,
+                                SoundCategory.AMBIENT,
+                                0.7F,
+                                1.0F
                         );
                      this.dropped = true;
                   }
                }
 
                Block block2 = this.isInLiqid(0.0F);
-               if (block2 != null && block2 instanceof BlockLiquid) {
+               if (block2 instanceof BlockLiquid) {
                   this.motionY = 0.001;
                }
             }
@@ -268,6 +268,8 @@ public class FishingHook extends EntityThrowable {
       }
    }
 
+   @SuppressWarnings("deprecation")
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.returning) {
          double frictionMultipl = 3.0;
@@ -306,14 +308,14 @@ public class FishingHook extends EntityThrowable {
       this.world.setEntityState(this, (byte)9);
       this.world
          .playSound(
-            (EntityPlayer)null,
-            this.thrower.posX,
-            this.thrower.posY,
-            this.thrower.posZ,
-            Sounds.fishing_reset,
-            SoundCategory.AMBIENT,
-            0.6F,
-            1.0F
+                 null,
+                 this.thrower.posX,
+                 this.thrower.posY,
+                 this.thrower.posZ,
+                 Sounds.fishing_reset,
+                 SoundCategory.AMBIENT,
+                 0.6F,
+                 1.0F
          );
       if (this.rodstack != null) {
          NBTHelper.SetNBTboolean(this.rodstack, true, "hasHook");
@@ -322,16 +324,16 @@ public class FishingHook extends EntityThrowable {
       this.setDead();
    }
 
-   public void giveFish(ItemStack fishstack) {
-      EntityItem entityitem = new EntityItem(this.world, this.posX, this.posY, this.posZ, fishstack);
+   public void giveFish(ItemStack fishStack) {
+      EntityItem entityitem = new EntityItem(this.world, this.posX, this.posY, this.posZ, fishStack);
       double d0 = this.thrower.posX - this.posX;
       double d1 = this.thrower.posY - this.posY;
       double d2 = this.thrower.posZ - this.posZ;
       double d3 = MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
       double d4 = 0.1;
-      entityitem.motionX = d0 * 0.1;
-      entityitem.motionY = d1 * 0.1 + MathHelper.sqrt(d3) * 0.08;
-      entityitem.motionZ = d2 * 0.1;
+      entityitem.motionX = d0 * d4;
+      entityitem.motionY = d1 * d4 + MathHelper.sqrt(d3) * 0.08;
+      entityitem.motionZ = d2 * d4;
       this.world.spawnEntity(entityitem);
    }
 

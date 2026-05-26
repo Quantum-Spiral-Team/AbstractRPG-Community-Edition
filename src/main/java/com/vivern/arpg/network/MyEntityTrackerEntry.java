@@ -126,6 +126,7 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
       return this.trackedEntity.getEntityId();
    }
 
+   @Override
    public void updatePlayerList(List<EntityPlayer> players) {
       if (!this.trackedEntity.isDead) {
          this.playerEntitiesUpdated = false;
@@ -266,12 +267,14 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
       }
    }
 
+   @Override
    public void sendPacketToTrackedPlayers(net.minecraft.network.Packet<?> packetIn) {
       for (EntityPlayerMP entityplayermp : this.trackingPlayers) {
          entityplayermp.connection.sendPacket(packetIn);
       }
    }
 
+   @Override
    public void sendToTrackingAndSelf(net.minecraft.network.Packet<?> packetIn) {
       this.sendPacketToTrackedPlayers(packetIn);
       if (this.trackedEntity instanceof EntityPlayerMP) {
@@ -279,6 +282,7 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
       }
    }
 
+   @Override
    public void sendDestroyEntityPacketToTrackedPlayers() {
       for (EntityPlayerMP entityplayermp : this.trackingPlayers) {
          this.trackedEntity.removeTrackingPlayer(entityplayermp);
@@ -286,6 +290,7 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
       }
    }
 
+   @Override
    public void removeFromTrackedPlayers(EntityPlayerMP playerMP) {
       if (this.trackingPlayers.contains(playerMP)) {
          this.trackedEntity.removeTrackingPlayer(playerMP);
@@ -294,6 +299,7 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
       }
    }
 
+   @Override
    public void updatePlayerEntity(EntityPlayerMP playerMP) {
       if (playerMP != this.trackedEntity) {
          if (this.isVisibleTo(playerMP)) {
@@ -378,6 +384,7 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
       }
    }
 
+   @Override
    public boolean isVisibleTo(EntityPlayerMP playerMP) {
       double d0 = playerMP.posX - this.encodedPosX / 4096.0;
       double d1 = playerMP.posZ - this.encodedPosZ / 4096.0;
@@ -389,6 +396,7 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
       return playerMP.getServerWorld().getPlayerChunkMap().isPlayerWatchingChunk(playerMP, this.trackedEntity.chunkCoordX, this.trackedEntity.chunkCoordZ);
    }
 
+   @Override
    public void updatePlayerEntities(List<EntityPlayer> players) {
       for (int i = 0; i < players.size(); i++) {
          this.updatePlayerEntity((EntityPlayerMP)players.get(i));
@@ -496,6 +504,7 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
       }
    }
 
+   @Override
    public void removeTrackedPlayerSymmetric(EntityPlayerMP playerMP) {
       if (this.trackingPlayers.contains(playerMP)) {
          this.trackingPlayers.remove(playerMP);
@@ -504,14 +513,17 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
       }
    }
 
+   @Override
    public Entity getTrackedEntity() {
       return this.trackedEntity;
    }
 
+   @Override
    public void setMaxRange(int maxRangeIn) {
       this.maxRange = maxRangeIn;
    }
 
+   @Override
    public void resetPlayerVisibility() {
       this.updatedPlayerVisibility = false;
    }
@@ -556,6 +568,7 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
          CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity To Track");
          crashreportcategory.addCrashSection("Tracking range", trackingRange + " blocks");
          crashreportcategory.addDetail("Update interval", new ICrashReportDetail<String>() {
+            @Override
             public String call() throws Exception {
                String s = "Once per " + updateFrequency + " ticks";
                if (updateFrequency == Integer.MAX_VALUE) {

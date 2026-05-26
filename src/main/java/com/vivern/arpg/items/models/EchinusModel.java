@@ -166,6 +166,7 @@ public class EchinusModel extends ModelBase {
       this.chainA_7.addChild(this.chainB_7);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f == -2.0F) {
          this.chainA.render(f5);

@@ -19,6 +19,7 @@ public class RenderStingingCell<T extends StingingCellEntity> extends Render<T> 
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y + 0.28F, (float)z);
@@ -59,11 +60,13 @@ public class RenderStingingCell<T extends StingingCellEntity> extends Render<T> 
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(StingingCellEntity entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
 
    public static class StingingCellRenderFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderStingingCell(manager);
       }

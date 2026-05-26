@@ -61,6 +61,7 @@ public class WandOfColdModel extends ModelBase {
       this.setRotateAngle(this.shape3, 0.0F, 0.0F, -0.8651597F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float lbX = OpenGlHelper.lastBrightnessX;
       float lbY = OpenGlHelper.lastBrightnessY;

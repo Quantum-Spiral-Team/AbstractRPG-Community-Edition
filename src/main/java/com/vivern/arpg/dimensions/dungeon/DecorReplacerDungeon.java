@@ -50,6 +50,7 @@ public class DecorReplacerDungeon implements ITemplateProcessor {
       }
    }
 
+   @Override
    public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
       if (this.mode == DimensionDungeon.EnumCaveDecorType.MAGIC) {
          if (blockInfoIn.blockState.getBlock() == BlocksRegister.SELENITE) {

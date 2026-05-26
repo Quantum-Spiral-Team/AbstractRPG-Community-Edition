@@ -18,6 +18,7 @@ public class DisenchantmentTableTESR extends TileEntitySpecialRenderer<TileDisen
    public static ResourceLocation TEXTURE = new ResourceLocation("arpg:textures/disenchantment_table_cube_model_tex.png");
    public static DisenchantmentTableCubeModel modelBook = new DisenchantmentTableCubeModel();
 
+   @Override
    public void render(TileDisenchantmentTable te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x + 0.5F, (float)y + 0.875F, (float)z + 0.5F);

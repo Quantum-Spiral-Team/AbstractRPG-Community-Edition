@@ -56,6 +56,7 @@ public class BlubberModel extends ModelBase {
       this.shape7.addBox(-0.5F, 0.0F, -0.5F, 1, 6, 1, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
       this.shape1.render(f5);
@@ -81,6 +82,7 @@ public class BlubberModel extends ModelBase {
       modelRenderer.rotateAngleZ = z;
    }
 
+   @Override
    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
       float anglee = (float)Math.sin(AnimationTimer.tick / 40.0);
       this.shape2.rotateAngleX = (float)Math.sin((AnimationTimer.tick + 15) / 40.0) / 3.0F;

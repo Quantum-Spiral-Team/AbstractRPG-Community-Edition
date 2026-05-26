@@ -35,21 +35,23 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+// extends ItemBow, not ItemWeapon
 public abstract class AbstractBow extends ItemWeapon {
    public float speedToCritical = 1.0F;
    public MovingSoundEntity clientPullSound = null;
    public float pullSoundPitch = 1.0F;
 
    public AbstractBow(
-      String name, int maxdamage, float velocity, float inaccuracy, int maxPullTime, int minPullTime, float arrowDamageBonus, float mightDamageBonus
+      String name, int maxDamage, float velocity, float inaccuracy, int maxPullTime, int minPullTime, float arrowDamageBonus, float mightDamageBonus
    ) {
       this.setRegistryName(name);
       this.setCreativeTab(CreativeTabs.COMBAT);
       this.setTranslationKey(name);
-      this.setMaxDamage(maxdamage);
+      this.setMaxDamage(maxDamage);
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -59,10 +61,12 @@ public abstract class AbstractBow extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -100,11 +104,15 @@ public abstract class AbstractBow extends ItemWeapon {
       }
    }
 
+
    @Override
-   public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
+   @SideOnly(Side.CLIENT)
+   public
+    void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       player.world
          .playSound(x, y, z, this.getShootSound(), SoundCategory.PLAYERS, 0.7F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + (float)a * 0.5F, false);
    }
+
 
    public abstract SoundEvent getShootSound();
 
@@ -112,6 +120,7 @@ public abstract class AbstractBow extends ItemWeapon {
       return Sounds.bow_aim;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          boolean[] removePull = new boolean[]{true};
@@ -141,7 +150,7 @@ public abstract class AbstractBow extends ItemWeapon {
                   removePull[0] = false;
                } else {
                   WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                  int minPullTime = parameters.getI("min_pull_time");
+                  int minPullTime = parameters.getInt("min_pull_time");
                   if (pulling >= minPullTime) {
                      boolean creative = player.capabilities.isCreativeMode;
                      ItemStack ammo = this.findAmmo(player);
@@ -158,19 +167,19 @@ public abstract class AbstractBow extends ItemWeapon {
                            IWeapon.fireBomEffect(this, player, world, pulling);
                            itemstack.damageItem(1, player);
                            IWeapon.fireEffect(
-                              this,
-                              player,
-                              world,
-                              64.0,
-                              player.posX,
-                              player.posY,
-                              player.posZ,
-                              (double)arrowvelocity,
-                              0.0,
-                              0.0,
-                              0.0,
-                              0.0,
-                              0.0
+                                   this,
+                                   player,
+                                   world,
+                                   64.0,
+                                   player.posX,
+                                   player.posY,
+                                   player.posZ,
+                                   arrowvelocity,
+                                   0.0,
+                                   0.0,
+                                   0.0,
+                                   0.0,
+                                   0.0
                            );
                            if (!creative && !isArrowUnlimit) {
                               ammo.shrink(1);
@@ -220,37 +229,34 @@ public abstract class AbstractBow extends ItemWeapon {
       NBTHelper.SetNBTint(bow, -10000, "arrowUsing");
       ItemArrow itemarrow = (ItemArrow)ammo.getItem();
       EntityArrow entityarrow = itemarrow.createArrow(world, ammo, player);
-      if (entityarrow == null) {
-         return false;
-      } else {
-         WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         entityarrow.shoot(
-            player,
-            player.rotationPitch,
-            player.rotationYaw,
-            0.0F,
-            arrowvelocity * parameters.getF("velocity"),
-            parameters.getEnchantedF("inaccuracy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, bow))
-         );
-         if (arrowvelocity >= this.speedToCritical) {
-            entityarrow.setIsCritical(true);
-         }
 
-         this.setDamageToArrow(entityarrow, ammo, world, player, bow, pulling, arrowvelocity, isArrowUnlimit);
-         int k = GetMOP.floatToIntWithChance(parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, bow)), itemRand);
-         entityarrow.setKnockbackStrength(k);
-         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, bow) > 0) {
-            entityarrow.setFire(100);
-         }
-
-         if (isArrowUnlimit || player.capabilities.isCreativeMode) {
-            entityarrow.pickupStatus = PickupStatus.CREATIVE_ONLY;
-         }
-
-         boolean isspawned = world.spawnEntity(entityarrow);
-         this.customizeArrow(entityarrow, ammo, world, player, bow, pulling, arrowvelocity, isArrowUnlimit);
-         return isspawned;
+      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+      entityarrow.shoot(
+         player,
+         player.rotationPitch,
+         player.rotationYaw,
+         0.0F,
+         arrowvelocity * parameters.getFloat("velocity"),
+         parameters.getEnchantedF("inaccuracy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, bow))
+      );
+      if (arrowvelocity >= this.speedToCritical) {
+         entityarrow.setIsCritical(true);
       }
+
+      this.setDamageToArrow(entityarrow, ammo, world, player, bow, pulling, arrowvelocity, isArrowUnlimit);
+      int k = GetMOP.floatToIntWithChance(parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, bow)), itemRand);
+      entityarrow.setKnockbackStrength(k);
+      if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, bow) > 0) {
+         entityarrow.setFire(100);
+      }
+
+      if (isArrowUnlimit || player.capabilities.isCreativeMode) {
+         entityarrow.pickupStatus = PickupStatus.CREATIVE_ONLY;
+      }
+
+      boolean isspawned = world.spawnEntity(entityarrow);
+      this.customizeArrow(entityarrow, ammo, world, player, bow, pulling, arrowvelocity, isArrowUnlimit);
+      return isspawned;
    }
 
    public void customizeArrow(
@@ -293,14 +299,9 @@ public abstract class AbstractBow extends ItemWeapon {
    }
 
    @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
-
-   @Override
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      int maxPullTime = parameters.getI("max_pull_time");
+      int maxPullTime = parameters.getInt("max_pull_time");
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
       float mult = 1.0F - 0.2F * rapidity;
       return Math.round(maxPullTime * mult);
@@ -323,52 +324,32 @@ public abstract class AbstractBow extends ItemWeapon {
             switch (this.getWeaponHandleType()) {
                case TWO_HANDED:
                   if (mainH == itemstack) {
-                     if (!offH.isEmpty() && !(offH.getItem() instanceof IWeapon) && !this.isArrow(offH)) {
-                        return false;
-                     }
-
-                     return true;
-                  } else if (offH == itemstack) {
-                     if (!mainH.isEmpty() && !this.isArrow(mainH)) {
-                        return false;
-                     }
-
-                     return true;
+                     return offH.isEmpty() || offH.getItem() instanceof IWeapon || this.isArrow(offH);
+                  } else {
+                     return mainH.isEmpty() || this.isArrow(mainH);
                   }
                case ONE_HANDED:
-                  if (mainH == itemstack) {
-                     return true;
-                  } else if (offH == itemstack) {
-                     if (mainH.getItem() instanceof IWeapon) {
-                        if (((IWeapon)mainH.getItem()).getWeaponHandleType() == WeaponHandleType.TWO_HANDED) {
-                           return false;
-                        }
+                  if (mainH != itemstack) {
+                      if (mainH.getItem() instanceof IWeapon) {
+                          return ((IWeapon) mainH.getItem()).getWeaponHandleType() != WeaponHandleType.TWO_HANDED;
+                      }
 
-                        return true;
-                     }
-
-                     return true;
                   }
+                  return true;
                case SEMI_ONE_HANDED:
-                  if (mainH == itemstack) {
-                     return true;
-                  } else if (offH == itemstack) {
-                     if (mainH.getItem() instanceof IWeapon) {
-                        if (((IWeapon)mainH.getItem()).getWeaponHandleType() == WeaponHandleType.TWO_HANDED) {
-                           return false;
-                        }
+                  if (mainH != itemstack) {
+                      if (mainH.getItem() instanceof IWeapon) {
+                          if (((IWeapon) mainH.getItem()).getWeaponHandleType() == WeaponHandleType.TWO_HANDED) {
+                              return false;
+                          }
 
-                        if (((IWeapon)mainH.getItem()).getWeaponHandleType() == WeaponHandleType.SEMI_ONE_HANDED) {
-                           return false;
-                        }
+                          return ((IWeapon) mainH.getItem()).getWeaponHandleType() != WeaponHandleType.SEMI_ONE_HANDED;
+                      }
 
-                        return true;
-                     }
-
-                     return true;
                   }
+                  return true;
                default:
-                  return false;
+                 return false;
             }
          }
       } else {
@@ -376,23 +357,22 @@ public abstract class AbstractBow extends ItemWeapon {
       }
    }
 
+   //TODO add nbt to support arrows with potion effects
    @SideOnly(Side.CLIENT)
    public static void renderArrowInBow(ItemStack itemstack, float progress, float partialTicksTeisr, float arrowOffset) {
       int arrow = NBTHelper.GetNBTint(itemstack, "arrowUsing");
       if (arrow != -10000) {
-         Item itemarrow = Item.getItemById(arrow);
-         if (itemarrow != null) {
-            GlStateManager.pushMatrix();
-            GlStateManager.translate(0.43F + progress * arrowOffset, 0.47F, 0.04F);
-            GlStateManager.rotate(135.0F, 0.0F, -0.05F, 1.0F);
-            float scale = 2.0F;
-            GlStateManager.scale(scale, scale, scale);
-            GlStateManager.enableBlend();
-            AbstractMobModel.alphaGlowDisable();
-            Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(itemarrow), TransformType.GROUND);
-            GlStateManager.disableBlend();
-            GlStateManager.popMatrix();
-         }
+         Item itemArrow = Item.getItemById(arrow);
+         GlStateManager.pushMatrix();
+         GlStateManager.translate(0.43F + progress * arrowOffset, 0.47F, 0.04F);
+         GlStateManager.rotate(135.0F, 0.0F, -0.05F, 1.0F);
+         float scale = 2.0F;
+         GlStateManager.scale(scale, scale, scale);
+         GlStateManager.enableBlend();
+         AbstractMobModel.alphaGlowDisable();
+         Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(itemArrow), TransformType.GROUND);
+         GlStateManager.disableBlend();
+         GlStateManager.popMatrix();
       }
    }
 }

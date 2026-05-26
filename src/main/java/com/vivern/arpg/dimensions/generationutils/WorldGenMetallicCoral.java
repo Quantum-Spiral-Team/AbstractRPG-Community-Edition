@@ -28,6 +28,7 @@ public class WorldGenMetallicCoral extends WorldGenerator {
       }
    }
 
+   @Override
    public boolean generate(World worldIn, Random rand, BlockPos position) {
       IBlockState mainCoral = BlocksRegister.METALLIC_CORAL.getDefaultState();
       boolean minicorals = this.canGrowMinicorals && rand.nextFloat() < 0.8;

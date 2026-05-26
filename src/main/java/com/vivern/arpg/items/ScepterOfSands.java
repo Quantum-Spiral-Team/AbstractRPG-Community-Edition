@@ -40,10 +40,12 @@ public class ScepterOfSands extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 20.0F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -53,14 +55,17 @@ public class ScepterOfSands extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
@@ -75,13 +80,13 @@ public class ScepterOfSands extends ItemWeapon {
          float manacost = parameters.getEnchantedF("manacost", sor);
          float power = Mana.getMagicPowerMax(player);
          EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-         float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getF("rapid_multiplier");
+         float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getFloat("rapid_multiplier");
          manacost *= rapidMult;
          int rapidOne = GetMOP.floatToIntWithChance(rapidMult, itemRand);
          if (hand != null && mana > manacost && click) {
             if (!world.isRemote) {
                int crystal = NBTHelper.GetNBTint(itemstack, "crystal");
-               if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && crystal < parameters.getI("max_crystal_charge")) {
+               if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && crystal < parameters.getInt("max_crystal_charge")) {
                   NBTHelper.AddNBTint(itemstack, rapidOne, "crystal");
                   if (crystal < 64 && crystal + rapidOne >= 64) {
                      world.playSound(
@@ -112,7 +117,7 @@ public class ScepterOfSands extends ItemWeapon {
                      player.rotationPitch - 3.0F,
                      player.rotationYaw,
                      0.0F,
-                     parameters.getF("velocity"),
+                     parameters.getFloat("velocity"),
                      parameters.getEnchantedF("inaccuracy", acc),
                      -0.4F,
                      0.0F,
@@ -163,7 +168,7 @@ public class ScepterOfSands extends ItemWeapon {
                }
             }
 
-            int traceCount = GetMOP.floatToIntWithChance(rapidMult * parameters.getF("trace_count"), itemRand);
+            int traceCount = GetMOP.floatToIntWithChance(rapidMult * parameters.getFloat("trace_count"), itemRand);
 
             for (int i = 0; i < traceCount; i++) {
                double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));

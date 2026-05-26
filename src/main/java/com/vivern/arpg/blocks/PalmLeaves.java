@@ -49,6 +49,7 @@ public class PalmLeaves extends Block implements IShearable {
       this.setHarvestLevel("shears", 0);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
       IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
@@ -56,6 +57,7 @@ public class PalmLeaves extends Block implements IShearable {
       return side.getAxis() != Axis.Y && block == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       int i = 1;
       int j = 2;
@@ -82,6 +84,7 @@ public class PalmLeaves extends Block implements IShearable {
       worldIn.setBlockToAir(pos);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (worldIn.isRainingAt(pos.up()) && !worldIn.getBlockState(pos.down()).isTopSolid() && rand.nextInt(15) == 1) {
@@ -92,14 +95,17 @@ public class PalmLeaves extends Block implements IShearable {
       }
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return 0;
    }
 
+   @Override
    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
       super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote && (Boolean)state.getValue(CHECK_DECAY) && (Boolean)state.getValue(DECAYABLE)) {
          int i = 4;
@@ -183,24 +189,29 @@ public class PalmLeaves extends Block implements IShearable {
       }
    }
 
+   @Override
    public boolean causesSuffocation(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
       return true;
    }
 
+   @Override
    public void beginLeavesDecay(IBlockState state, World world, BlockPos pos) {
       if (!(Boolean)state.getValue(CHECK_DECAY)) {
          world.setBlockState(pos, state.withProperty(CHECK_DECAY, true), 4);
       }
    }
 
+   @Override
    public boolean isLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
       return true;
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       Random rand = world instanceof World ? ((World)world).rand : new Random();
       if (rand.nextInt(17) == 0) {
@@ -208,27 +219,33 @@ public class PalmLeaves extends Block implements IShearable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT_MIPPED;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       items.add(new ItemStack(this, 1));
    }
 
+   @Override
    protected ItemStack getSilkTouchDrop(IBlockState state) {
       return new ItemStack(Item.getItemFromBlock(this), 1);
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       switch (meta) {
          case 0:
@@ -249,6 +266,7 @@ public class PalmLeaves extends Block implements IShearable {
       }
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       if (!(Boolean)state.getValue(DECAYABLE) && !(Boolean)state.getValue(CHECK_DECAY)) {
          return 0;
@@ -261,14 +279,17 @@ public class PalmLeaves extends Block implements IShearable {
       }
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{CHECK_DECAY, DECAYABLE});
    }
 
+   @Override
    public int damageDropped(IBlockState state) {
       return 0;
    }
 
+   @Override
    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
       if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
          player.addStat(StatList.getBlockStats(this));
@@ -277,6 +298,7 @@ public class PalmLeaves extends Block implements IShearable {
       }
    }
 
+   @Override
    public NonNullList<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
       return NonNullList.withSize(1, new ItemStack(this, 1));
    }

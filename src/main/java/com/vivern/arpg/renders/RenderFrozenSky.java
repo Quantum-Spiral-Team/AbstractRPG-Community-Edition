@@ -17,6 +17,8 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.IRenderHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class RenderFrozenSky extends IRenderHandler {
    public static ResourceLocation mountain = new ResourceLocation("arpg:textures/sky_frozen_mountains.png");
@@ -32,6 +34,8 @@ public class RenderFrozenSky extends IRenderHandler {
       this.timeOfDayProvider = timeOfDayProvider;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       AbstractWorldProvider.disableFarplane();
       if (this.starGLCallList < 0) {

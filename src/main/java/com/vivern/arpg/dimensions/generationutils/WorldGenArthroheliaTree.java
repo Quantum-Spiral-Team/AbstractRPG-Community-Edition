@@ -22,6 +22,7 @@ public class WorldGenArthroheliaTree extends WorldGenerator {
    public static float[] chancesTree = new float[]{0.95F, 0.05F, 0.7F};
    public static float[] chancesMini = new float[]{0.95F, 0.1F, 0.1F};
 
+   @Override
    public boolean generate(World world, Random rand, BlockPos position) {
       this.samples = this.maxsamples;
       world.setBlockState(position, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, this.growDirection), 2);

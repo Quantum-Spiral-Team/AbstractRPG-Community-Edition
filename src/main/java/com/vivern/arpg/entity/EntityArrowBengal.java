@@ -133,7 +133,7 @@ public class EntityArrowBengal extends AbstractArrow {
             SparkleSubparticle.particles.add(sparkl);
          } else if (this.ticksExisted % 10 == 0) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_BENGAL);
-            float bengal_damage = parameters.getF("bengal_damage");
+            float bengal_damage = parameters.getFloat("bengal_damage");
 
             for (Entity entity : GetMOP.getEntitiesInAABBof(this.world, this, 1.7, this)) {
                if (Team.checkIsOpponent(this.shootingEntity, entity)) {
@@ -152,10 +152,12 @@ public class EntityArrowBengal extends AbstractArrow {
       return Sounds.arrow_bengal;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_BENGAL);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 9) {

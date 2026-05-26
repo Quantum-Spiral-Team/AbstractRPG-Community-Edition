@@ -19,6 +19,7 @@ public class Coin extends Item {
       this.setTranslationKey("coin");
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       int count = player.isSneaking() ? itemstack.getCount() : 1;

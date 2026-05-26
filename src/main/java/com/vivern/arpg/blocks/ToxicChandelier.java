@@ -42,31 +42,38 @@ public class ToxicChandelier extends Block {
       this.setHarvestLevel("axe", BlocksRegister.HR_TOXIBERRY_FURNITURE.lvl);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return !worldIn.isAirBlock(pos.down());
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       switch (meta) {
          case 0:
@@ -78,6 +85,7 @@ public class ToxicChandelier extends Block {
       }
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((FrozenChandelier.EnumAxis)state.getValue(ROTATE)) {
@@ -91,22 +99,27 @@ public class ToxicChandelier extends Block {
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{ROTATE});
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       items.add(new ItemStack(this, 1, 0));
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getStateFromMeta(meta).withProperty(ROTATE, FrozenChandelier.EnumAxis.fromFacingAxis(placer.getHorizontalFacing().getOpposite().getAxis()));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(ROTATE, rot != Rotation.NONE && rot != Rotation.CLOCKWISE_180 ? FrozenChandelier.EnumAxis.Z : FrozenChandelier.EnumAxis.X);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       FrozenChandelier.EnumAxis enumaxis = (FrozenChandelier.EnumAxis)stateIn.getValue(ROTATE);

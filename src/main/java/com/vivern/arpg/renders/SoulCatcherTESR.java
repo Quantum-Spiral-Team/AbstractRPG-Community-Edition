@@ -12,6 +12,7 @@ public class SoulCatcherTESR extends TileEntitySpecialRenderer<TileSoulCatcher> 
    public static SoulCatcherModel model = new SoulCatcherModel();
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/soul_catcher_model_tex.png");
 
+   @Override
    public void render(TileSoulCatcher te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);

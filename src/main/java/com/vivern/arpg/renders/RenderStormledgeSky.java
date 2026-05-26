@@ -42,6 +42,8 @@ public class RenderStormledgeSky extends IRenderHandler {
       this.timeOfDayProvider = timeOfDayProvider;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       AbstractWorldProvider.disableFarplane();
       if (this.starGLCallList < 0) {

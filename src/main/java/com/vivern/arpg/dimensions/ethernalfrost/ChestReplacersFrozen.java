@@ -23,6 +23,7 @@ import net.minecraft.world.gen.structure.template.Template.BlockInfo;
 public class ChestReplacersFrozen {
    public static ArrayList<BlockPos> posesToSetPuzzle = new ArrayList<>();
    public static ITemplateProcessor replacerMound = new ITemplateProcessor() {
+      @Override
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
             GenerationHelper.setChestWithLoot(
@@ -48,6 +49,7 @@ public class ChestReplacersFrozen {
       }
    };
    public static ITemplateProcessor replacerIceCastle = new ITemplateProcessor() {
+      @Override
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
             if (world.rand.nextFloat() < 0.6) {
@@ -132,6 +134,7 @@ public class ChestReplacersFrozen {
       }
    };
    public static ITemplateProcessor replacerStructures = new ITemplateProcessor() {
+      @Override
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_SLAB) {
             if (world.rand.nextFloat() < 0.35) {
@@ -175,6 +178,7 @@ public class ChestReplacersFrozen {
       }
    };
    public static ITemplateProcessor replacerGrave = new ITemplateProcessor() {
+      @Override
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
             GenerationHelper.setChestWithLoot(
@@ -195,6 +199,7 @@ public class ChestReplacersFrozen {
    public static IBlockState replacerPresentBoxLanternState = BlocksRegister.RUBY_LANTERN.getDefaultState();
 
    public static class PresentBoxReplacer implements ITemplateProcessor {
+      @Override
       public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
          if (blockInfoIn.blockState.getBlock() == BlocksRegister.CITRINE_LANTERN) {
             world.setBlockState(pos, ChestReplacersFrozen.replacerPresentBoxLanternState);

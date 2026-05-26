@@ -20,6 +20,7 @@ public class RenderGeomanticCrystal<T extends EntityGeomanticCrystal> extends Re
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y + 0.1, (float)z);
@@ -44,11 +45,13 @@ public class RenderGeomanticCrystal<T extends EntityGeomanticCrystal> extends Re
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntityGeomanticCrystal entity) {
       return TextureMap.LOCATION_BLOCKS_TEXTURE;
    }
 
    public static class GeomanticCrystalFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderGeomanticCrystal(manager);
       }

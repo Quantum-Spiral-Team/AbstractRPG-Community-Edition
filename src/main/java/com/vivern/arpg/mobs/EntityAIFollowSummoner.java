@@ -26,6 +26,7 @@ public class EntityAIFollowSummoner extends EntityAIBase {
       }
    }
 
+   @Override
    public boolean shouldExecute() {
       if (this.minion.owner == null) {
          return false;
@@ -36,21 +37,25 @@ public class EntityAIFollowSummoner extends EntityAIBase {
       }
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return this.minion.owner != null && !(this.minion.getDistanceSq(this.minion.owner) < 16.0) ? !this.minion.isStaying : false;
    }
 
+   @Override
    public void startExecuting() {
       this.timeToRecalcPath = 0;
       this.oldWaterCost = this.minion.getPathPriority(PathNodeType.WATER);
       this.minion.setPathPriority(PathNodeType.WATER, 0.0F);
    }
 
+   @Override
    public void resetTask() {
       this.petPathfinder.clearPath();
       this.minion.setPathPriority(PathNodeType.WATER, this.oldWaterCost);
    }
 
+   @Override
    public void updateTask() {
       if (--this.timeToRecalcPath <= 0) {
          this.timeToRecalcPath = 10;

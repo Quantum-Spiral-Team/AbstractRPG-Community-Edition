@@ -32,6 +32,7 @@ public class BlockDrill extends Block {
       this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
       if (worldIn.getTileEntity(pos) instanceof TileDrill) {
@@ -54,43 +55,53 @@ public class BlockDrill extends Block {
       return (TileDrill)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileDrill createTileEntity(World world, IBlockState blockState) {
       return new TileDrill();
    }
 
+   @Override
    public boolean hasComparatorInputOverride(IBlockState state) {
       return true;
    }
 
+   @Override
    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
       return Container.calcRedstone(worldIn.getTileEntity(pos));
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }

@@ -59,18 +59,22 @@ public class EntityAISkeleton extends EntityAIBase {
       return this;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.enable && this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return this.enable && (this.shouldExecute() || !this.entity.getNavigator().noPath());
    }
 
+   @Override
    public void startExecuting() {
       super.startExecuting();
    }
 
+   @Override
    public void resetTask() {
       super.resetTask();
       this.seeTime = 0;
@@ -78,6 +82,7 @@ public class EntityAISkeleton extends EntityAIBase {
       this.entity.resetActiveHand();
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
       if (this.currentattackCooldown > 0) {

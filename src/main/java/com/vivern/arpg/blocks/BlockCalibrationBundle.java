@@ -4,6 +4,9 @@ import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.tileentity.TileCalibrationBundle;
 import java.util.List;
 import java.util.Random;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -32,6 +35,7 @@ public class BlockCalibrationBundle extends Block {
       this.setSoundType(SoundTypeShards.WOOD);
    }
 
+   @Override
    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
       if (!world.isRemote) {
          TileEntity tileEntity = world.getTileEntity(pos);
@@ -54,14 +58,17 @@ public class BlockCalibrationBundle extends Block {
       super.onBlockHarvested(world, pos, state, player);
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return 0;
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return false;
    }
 
+   @Override
    public void onBlockClicked(World world, BlockPos pos, EntityPlayer playerIn) {
       if (!world.isRemote) {
          TileEntity tileEntity = world.getTileEntity(pos);
@@ -114,19 +121,24 @@ public class BlockCalibrationBundle extends Block {
       }
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileCalibrationBundle createTileEntity(World world, IBlockState blockState) {
       return new TileCalibrationBundle();
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return super.canPlaceBlockAt(worldIn, pos) && worldIn.isSideSolid(pos.down(), EnumFacing.UP);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World world, BlockPos pos, Random rand) {
       super.randomDisplayTick(stateIn, world, pos, rand);
       TileEntity tileEntity = world.getTileEntity(pos);
@@ -139,6 +151,7 @@ public class BlockCalibrationBundle extends Block {
       }
    }
 
+   @Override
    public void addCollisionBoxToList(
       IBlockState state,
       World world,
@@ -161,6 +174,7 @@ public class BlockCalibrationBundle extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
       TileEntity tileEntity = world.getTileEntity(pos);
       if (tileEntity != null && tileEntity instanceof TileCalibrationBundle) {
@@ -171,14 +185,17 @@ public class BlockCalibrationBundle extends Block {
       }
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }

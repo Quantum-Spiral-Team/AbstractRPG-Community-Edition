@@ -53,6 +53,7 @@ public class BlockEntityFactory implements IRenderFactory {
       this.rotateZ = rotateZ;
    }
 
+   @Override
    public Render createRenderFor(RenderManager manager) {
       return new RenderBlockEntity(
          manager,

@@ -34,6 +34,7 @@ public class Blubber extends AbstractMob {
       return DeathEffects.ENDER_BLOOD;
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
@@ -94,6 +95,7 @@ public class Blubber extends AbstractMob {
       }
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAIFlying(this, 120, 16.0F, 0.015F, false));
       this.tasks.addTask(2, new EntityAICloudAttack(this, 40, 1.8F, 4.0F, 1.8F, (byte)8, PotionEffects.ENDER_POISON));

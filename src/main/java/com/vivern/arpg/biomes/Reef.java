@@ -13,6 +13,8 @@ import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Reef extends Biome {
    public Reef() {
@@ -24,14 +26,19 @@ public class Reef extends Biome {
       this.decorator = new ReefDecorator();
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public int getGrassColorAtPos(BlockPos pos) {
       return 7395905;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public int getFoliageColorAtPos(BlockPos pos) {
       return 7395905;
    }
 
+   @Override
    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
       this.generateReefTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
    }

@@ -30,6 +30,7 @@ public class EntityElectricAcidRadiationPotion extends EntityThrowable {
       super(world, x, y, z);
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if ((
             result.entityHit != null
@@ -45,6 +46,7 @@ public class EntityElectricAcidRadiationPotion extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {

@@ -23,10 +23,12 @@ public class SpellPliers extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack stack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          if (NBTHelper.GetNBTint(stack, "heat") > 0) {

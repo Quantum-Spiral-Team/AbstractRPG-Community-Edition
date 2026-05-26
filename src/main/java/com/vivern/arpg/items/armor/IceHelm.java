@@ -53,6 +53,7 @@ public class IceHelm extends ItemArmor implements IItemHurted {
       BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (equipmentSlot == this.armorType) {
@@ -80,6 +81,7 @@ public class IceHelm extends ItemArmor implements IItemHurted {
       return multimap;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
       if (armorSlot != EntityEquipmentSlot.HEAD) {
@@ -92,6 +94,7 @@ public class IceHelm extends ItemArmor implements IItemHurted {
       }
    }
 
+   @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return "arpg:textures/ice_armor_1.png";
    }

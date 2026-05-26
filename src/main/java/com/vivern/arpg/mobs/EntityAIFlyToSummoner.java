@@ -34,6 +34,7 @@ public class EntityAIFlyToSummoner extends EntityAIBase {
       }
    }
 
+   @Override
    public boolean shouldExecute() {
       EntityLivingBase entitylivingbase = this.summoned.getOwner();
       if (entitylivingbase == null) {
@@ -50,6 +51,7 @@ public class EntityAIFlyToSummoner extends EntityAIBase {
       }
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       if (this.summoned.isEntityInsideOpaqueBlock()) {
          return true;
@@ -60,15 +62,18 @@ public class EntityAIFlyToSummoner extends EntityAIBase {
       }
    }
 
+   @Override
    public void startExecuting() {
    }
 
+   @Override
    public void resetTask() {
       this.owner = null;
       this.summoned.noClip = false;
       this.summoned.setNoGravity(false);
    }
 
+   @Override
    public void updateTask() {
       float dist = this.summoned.getDistance(this.owner);
       if (this.summoned.allowedFollow

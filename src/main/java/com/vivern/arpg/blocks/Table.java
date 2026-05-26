@@ -34,43 +34,53 @@ public class Table extends Block {
       this.setHarvestLevel(tool, harvestlvl);
    }
 
+   @Override
    public boolean isTopSolid(IBlockState state) {
       return true;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return !facing.equals(EnumFacing.UP) && !facing.equals(EnumFacing.DOWN) ? this.getStateFromMeta(1) : this.getStateFromMeta(0);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return state.getValue(FLAT) ? AABB_FLAT : AABB_FULL;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return blockState.getValue(FLAT) ? AABB_FLAT : AABB_FULL;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return meta == 1 ? this.getDefaultState().withProperty(FLAT, true) : this.getDefaultState().withProperty(FLAT, false);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return state.getValue(FLAT) ? 1 : 0;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FLAT});
    }

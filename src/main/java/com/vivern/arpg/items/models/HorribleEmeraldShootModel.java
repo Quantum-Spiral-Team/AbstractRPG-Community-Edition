@@ -41,6 +41,7 @@ public class HorribleEmeraldShootModel extends ModelBase {
       this.shape0.addChild(this.shape1);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       boolean d = entity.getEntityId() % 2 == 0;
       this.shape0.rotateAngleY = d ? AnimationTimer.tick * 0.05F : AnimationTimer.tick * -0.05F;

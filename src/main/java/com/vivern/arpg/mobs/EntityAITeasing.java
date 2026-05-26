@@ -25,20 +25,24 @@ public class EntityAITeasing<T extends EntityLiving> extends EntityAIBase {
       this.distToAttackTargetSq = distToAttackTarget * distToAttackTarget;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return this.entity.getAttackTarget() != null && this.entity.getAttackTarget().isEntityAlive();
    }
 
+   @Override
    public void resetTask() {
       this.noPathCount = 0;
       this.targetEntity = null;
       super.resetTask();
    }
 
+   @Override
    public void updateTask() {
       if (this.entity.getAttackTarget() != null) {
          if (this.targetEntity == null) {

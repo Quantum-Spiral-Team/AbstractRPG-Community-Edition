@@ -1,26 +1,21 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
 import java.util.List;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Buckshot extends Item implements IItemColor {
+public class Buckshot extends Item {
    public Buckshot() {
       this.setRegistryName("buckshot");
       this.setCreativeTab(CreativeTabs.COMBAT);
       this.setTranslationKey("buckshot");
-   }
-
-   public int colorMultiplier(ItemStack stack, int tintIndex) {
-      ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
-      return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
    }
 
    public static ItemStack getBuckshotStack(String bullet, int amount) {
@@ -31,6 +26,8 @@ public class Buckshot extends Item implements IItemColor {
       return stack;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       tooltip.add("Ammo: " + NBTHelper.GetNBTstring(stack, "bullet"));
    }

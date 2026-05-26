@@ -42,15 +42,18 @@ public class SweetNectarFlower extends BlockBlockHard {
       return (TileNexusFlower)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileNexusFlower createTileEntity(World world, IBlockState blockState) {
       return new TileNexusFlower();
    }
 
+   @Override
    public void breakBlock(World world, BlockPos pos, IBlockState state) {
       TileEntity tile = world.getTileEntity(pos);
       if (tile instanceof TileNexusFlower) {
@@ -63,10 +66,12 @@ public class SweetNectarFlower extends BlockBlockHard {
       super.breakBlock(world, pos, state);
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return false;
    }
 
+   @Override
    public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune) {
       TileEntity tile = world.getTileEntity(pos);
       if (tile instanceof TileNexusFlower) {
@@ -79,6 +84,7 @@ public class SweetNectarFlower extends BlockBlockHard {
       super.dropBlockAsItemWithChance(world, pos, state, chance, fortune);
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {

@@ -60,6 +60,7 @@ public class EntityAIRush extends EntityAIBase {
       return false;
    }
 
+   @Override
    public boolean shouldExecute() {
       EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
       if (entitylivingbase == null || !this.enable) {
@@ -91,6 +92,7 @@ public class EntityAIRush extends EntityAIBase {
       }
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
       if (entitylivingbase == null || !this.enable) {
@@ -107,11 +109,13 @@ public class EntityAIRush extends EntityAIBase {
       }
    }
 
+   @Override
    public void startExecuting() {
       this.attacker.getNavigator().setPath(this.path, this.speedTowardsTarget);
       this.delayCounter = 0;
    }
 
+   @Override
    public void resetTask() {
       EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
       if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative())) {
@@ -121,6 +125,7 @@ public class EntityAIRush extends EntityAIBase {
       this.attacker.getNavigator().clearPath();
    }
 
+   @Override
    public void updateTask() {
       if (this.enable) {
          EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();

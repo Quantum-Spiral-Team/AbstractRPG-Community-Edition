@@ -52,6 +52,7 @@ public class SpellPliersModel extends ModelBase {
       this.shape1.addChild(this.shape3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape4.rotateAngleX = -0.8196066F + f1;
       GlStateManager.pushMatrix();

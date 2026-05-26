@@ -401,10 +401,12 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
       return new TEISRGuns();
    }
 
+   @Override
    public void renderByItem(ItemStack itemStackIn) {
       this.renderByItem(itemStackIn, Minecraft.getMinecraft().getRenderPartialTicks());
    }
 
+   @Override
    public void renderByItem(ItemStack Itemstack, float partialTicks) {
       if (IWeapon.canShoot(Itemstack)) {
          Item item = Itemstack.getItem();
@@ -605,7 +607,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
 
          if (item == ItemsRegister.SCEPTER_OF_SANDS) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(Itemstack.getItem());
-            float chargeFullness = NBTHelper.GetNBTint(Itemstack, "crystal") / parameters.getF("max_crystal_charge");
+            float chargeFullness = NBTHelper.GetNBTint(Itemstack, "crystal") / parameters.getFloat("max_crystal_charge");
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.09F, 0.09F, 0.09F);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1233,8 +1235,8 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
          }
 
          if (item == ItemsRegister.ICICLE_MINIGUN) {
-            float anim1 = Flicks.instance.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, true);
-            float anim2 = 1.0F - Flicks.instance.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
+            float anim1 = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, true);
+            float anim2 = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.1F, 0.1F, 0.1F);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2751,7 +2753,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
          if (item == ItemsRegister.SNAP_BALL) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(Itemstack.getItem());
             float reloadTime = ((IWeapon)item).getReloadTime(Itemstack);
-            boolean charged = NBTHelper.GetNBTint(Itemstack, "charge") > parameters.getI("charge_to_powered");
+            boolean charged = NBTHelper.GetNBTint(Itemstack, "charge") > parameters.getInt("charge_to_powered");
             float reloadTick = NBTHelper.GetNBTint(Itemstack, "reload_time");
             if (reloadTick < reloadTime) {
                reloadTick -= Minecraft.getMinecraft().getRenderPartialTicks();
@@ -3814,7 +3816,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
             float animRotate = GetMOP.partial(
                NBTHelper.GetNBTfloat(Itemstack, "rotate"), NBTHelper.GetNBTfloat(Itemstack, "prevrotate"), Minecraft.getMinecraft().getRenderPartialTicks()
             );
-            int maxheat = WeaponParameters.getWeaponParameters(Itemstack.getItem()).getI("max_heat");
+            int maxheat = WeaponParameters.getWeaponParameters(Itemstack.getItem()).getInt("max_heat");
             float overheat = GetMOP.getFromTo(Math.abs(NBTHelper.GetNBTfloat(Itemstack, "heat")), maxheat / 4.0F, (float)maxheat);
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.1F, 0.1F, 0.1F);
@@ -4779,9 +4781,9 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
          }
 
          if (item == ItemsRegister.XMASS_LAUNCHER) {
-            float anim1x = 1.0F - Flicks.instance.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, false);
-            float anim2x = 1.0F - Flicks.instance.getClientAnimation(Itemstack, EnumFlick.ROCKET, partialTicks, false);
-            float anim3 = 1.0F - Flicks.instance.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
+            float anim1x = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, false);
+            float anim2x = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.ROCKET, partialTicks, false);
+            float anim3 = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
             EntityPlayer pl = Minecraft.getMinecraft().player;
             int ammoxx = NBTHelper.GetNBTint(Itemstack, "ammo");
             GlStateManager.pushMatrix();
@@ -4836,8 +4838,8 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
          }
 
          if (item == ItemsRegister.ADAMANTIUM_MINIGUN) {
-            float anim1xx = Flicks.instance.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, true);
-            float anim2xx = 1.0F - Flicks.instance.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
+            float anim1xx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, true);
+            float anim2xx = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
             int heatInt = NBTHelper.GetNBTint(Itemstack, "heat");
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.1F, 0.1F, 0.1F);
@@ -4906,7 +4908,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
          }
 
          if (item == ItemsRegister.BUZDYGAN) {
-            float anim1xxx = Flicks.instance.getClientAnimation(Itemstack, EnumFlick.SPIN, partialTicks, true);
+            float anim1xxx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SPIN, partialTicks, true);
             float runes = NBTHelper.GetNBTfloat(Itemstack, "runes");
             boolean activex = NBTHelper.GetNBTboolean(Itemstack, "active");
             GlStateManager.pushMatrix();
@@ -4964,7 +4966,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
          }
 
          if (item == ItemsRegister.WHIP) {
-            float anim1xxxx = Flicks.instance.getClientAnimation(Itemstack, EnumFlick.ATTACK, partialTicks, false) * 24.0F;
+            float anim1xxxx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.ATTACK, partialTicks, false) * 24.0F;
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.09F, 0.09F, 0.09F);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -5006,7 +5008,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
          }
 
          if (item == ItemsRegister.MAULER) {
-            float anim1xxxx = Flicks.instance.getClientAnimation(Itemstack, EnumFlick.ATTACK, partialTicks, false) * 24.0F;
+            float anim1xxxx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.ATTACK, partialTicks, false) * 24.0F;
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.09F, 0.09F, 0.09F);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -5048,7 +5050,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
          }
 
          if (item == ItemsRegister.SNAKEWHIP) {
-            float anim1xxxx = Flicks.instance.getClientAnimation(Itemstack, EnumFlick.ATTACK, partialTicks, false) * 24.0F;
+            float anim1xxxx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.ATTACK, partialTicks, false) * 24.0F;
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.09F, 0.09F, 0.09F);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -5133,9 +5135,9 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
          }
 
          if (item == ItemsRegister.CRYO_DESTROYER) {
-            float anim1xxxx = 1.0F - Flicks.instance.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, false);
-            float anim2xxx = 1.0F - Flicks.instance.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
-            float anim3x = Flicks.instance.getClientAnimation(Itemstack, EnumFlick.INFO, partialTicks, true);
+            float anim1xxxx = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, false);
+            float anim2xxx = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
+            float anim3x = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.INFO, partialTicks, true);
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.1F, 0.1F, 0.1F);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -5180,10 +5182,10 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
             if (currentShot != 0) {
                anim1xxxx = 1.0F - currentShot / 3.0F;
             } else {
-               anim1xxxx = 1.0F - Flicks.instance.getClientAnimation(Itemstack, EnumFlick.COOLDOWN, partialTicks, false);
+               anim1xxxx = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.COOLDOWN, partialTicks, false);
             }
 
-            float anim3x = 1.0F - Flicks.instance.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
+            float anim3x = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.09F, 0.09F, 0.09F);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);

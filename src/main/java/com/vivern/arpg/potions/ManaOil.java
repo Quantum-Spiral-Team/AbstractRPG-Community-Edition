@@ -19,6 +19,7 @@ public class ManaOil extends AdvancedPotion {
       this.registerPotionAttributeModifier(PropertiesRegistry.ENTITY_COLOR_BLUE_MAX, MathHelper.getRandomUUID().toString(), -0.100000024F, 1);
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
       if (!entityOnEffect.world.isRemote
          && entityOnEffect instanceof EntityPlayer
@@ -27,6 +28,7 @@ public class ManaOil extends AdvancedPotion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

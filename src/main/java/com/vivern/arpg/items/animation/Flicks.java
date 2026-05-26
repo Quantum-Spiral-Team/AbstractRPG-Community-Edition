@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class Flicks {
-   public static Flicks instance;
+   public static Flicks INSTANCE = new Flicks();
    public HashMap<String, PlayerFlickersPack> flicksMap = new HashMap<>();
 
    public void clientTick(int tick) {

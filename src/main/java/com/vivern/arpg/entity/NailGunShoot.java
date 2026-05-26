@@ -62,6 +62,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -74,6 +75,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
       }
    }
 
+   @Override
    public void playSound(SoundEvent soundIn, float volume, float pitch) {
       if (soundIn == SoundEvents.ENTITY_ARROW_HIT) {
          soundIn = Sounds.bullet;
@@ -135,6 +137,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
       return true;
    }
 
+   @Override
    protected void onHit(RayTraceResult raytraceResultIn) {
       Entity entity = raytraceResultIn.entityHit;
       if (entity != null) {
@@ -151,14 +154,14 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
 
                this.world
                   .playSound(
-                     (EntityPlayer)null,
-                     this.posX,
-                     this.posY,
-                     this.posZ,
-                     Sounds.bullet,
-                     SoundCategory.AMBIENT,
-                     0.8F,
-                     0.9F + this.rand.nextFloat() / 5.0F
+                          null,
+                          this.posX,
+                          this.posY,
+                          this.posZ,
+                          Sounds.bullet,
+                          SoundCategory.AMBIENT,
+                          0.8F,
+                          0.9F + this.rand.nextFloat() / 5.0F
                   );
                this.world.setEntityState(this, (byte)8);
                if (entitylivingbase.getHealth() <= 0.0F && this.rand.nextFloat() < 0.95) {
@@ -189,7 +192,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
          IBlockState iblockstate = this.world.getBlockState(blockpos);
 
          try {
-            Class thisclass = this.getClass();
+            Class<?> thisclass = this.getClass();
             Field fxtile = thisclass.getField("xTile");
             Field fytile = thisclass.getField("yTile");
             Field fztile = thisclass.getField("zTile");
@@ -228,6 +231,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 200 && !this.prickedToWall || this.ticksExisted > 300) {
@@ -420,6 +424,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
       return 1;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.NAIL);
    }

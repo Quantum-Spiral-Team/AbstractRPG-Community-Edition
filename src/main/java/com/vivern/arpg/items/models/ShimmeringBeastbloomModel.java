@@ -50,6 +50,7 @@ public class ShimmeringBeastbloomModel extends ModelBase {
       this.leafc.addChild(this.leafd);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float openval = 0.014F * (MathHelper.clamp(Math.abs(this.opening), 20, 70) - 20);
       GlStateManager.pushMatrix();

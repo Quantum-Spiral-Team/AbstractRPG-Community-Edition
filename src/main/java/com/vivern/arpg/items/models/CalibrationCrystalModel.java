@@ -61,6 +61,7 @@ public class CalibrationCrystalModel extends ModelBase {
       this.big.addChild(this.shape4);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f == 1.0F) {
          this.small.render(f5);

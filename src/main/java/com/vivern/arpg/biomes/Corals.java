@@ -24,6 +24,7 @@ public class Corals extends Biome {
       this.decorator = new CoralsDecorator();
    }
 
+   @Override
    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
       AquaticaChunkGenerator.generateBiomeTerrain(this, worldIn, rand, chunkPrimerIn, x, z, noiseVal);
    }

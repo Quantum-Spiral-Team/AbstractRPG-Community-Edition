@@ -93,6 +93,7 @@ public class XmassRocketModel extends ModelBase {
       this.shape4.addChild(this.ball_4);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (entity != null) {
          this.shape4.rotateAngleZ = entity.getEntityId() * 0.45723543F + AnimationTimer.tick * (entity.getEntityId() % 2 == 0 ? 0.03F : -0.03F);

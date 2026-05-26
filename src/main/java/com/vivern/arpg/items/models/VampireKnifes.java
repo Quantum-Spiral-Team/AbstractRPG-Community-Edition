@@ -28,6 +28,7 @@ public class VampireKnifes extends ModelBase {
       this.shape1.addBox(0.0F, 0.0F, 0.0F, 1, 1, 3, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape2_2.offsetX, this.shape2_2.offsetY, this.shape2_2.offsetZ);

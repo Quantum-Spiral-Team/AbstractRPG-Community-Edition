@@ -68,10 +68,12 @@ public class EntityAICloudAttack extends EntityAIBase {
       this.handleStatusUpdateID = handleStatusUpdateID;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public void updateTask() {
       if (this.entity.ticksExisted % this.frequency == 0) {
          EntityLivingBase attackTarg = this.entity.getAttackTarget();

@@ -28,6 +28,7 @@ public class SlimeModel extends ModelBase {
       this.shape3.addBox(2.0F, -6.0F, -5.0F, 2, 2, 2, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (entity instanceof WhiteSlime) {
          float jumpscale = ((WhiteSlime)entity).jumpscale;

@@ -54,11 +54,11 @@ public class WebGraplingHook extends GraplingHook {
             NBTHelper.SetNBTboolean(itemstack, false, "graped4");
          }
 
-         NBTHelper.GiveNBTboolean(itemstack, false, "throwed");
-         NBTHelper.GiveNBTboolean(itemstack, false, "graped1");
-         NBTHelper.GiveNBTboolean(itemstack, false, "graped2");
-         NBTHelper.GiveNBTboolean(itemstack, false, "graped3");
-         NBTHelper.GiveNBTboolean(itemstack, false, "graped4");
+         NBTHelper.giveNBTboolean(itemstack, false, "throwed");
+         NBTHelper.giveNBTboolean(itemstack, false, "graped1");
+         NBTHelper.giveNBTboolean(itemstack, false, "graped2");
+         NBTHelper.giveNBTboolean(itemstack, false, "graped3");
+         NBTHelper.giveNBTboolean(itemstack, false, "graped4");
          NBTHelper.GiveNBTint(itemstack, 0, "length");
          NBTHelper.GiveNBTfloat(itemstack, 0.0F, "rotationPitch");
          NBTHelper.GiveNBTfloat(itemstack, 0.0F, "rotationYaw");

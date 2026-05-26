@@ -23,26 +23,32 @@ public class CategoryNetherMelter implements IRecipeCategory<WrapperNetherMelter
       this.arrow = h.createAnimatedDrawable(staticarrow, 60, StartDirection.LEFT, false);
    }
 
+   @Override
    public String getUid() {
       return "arpg:nether_melter";
    }
 
+   @Override
    public String getTitle() {
       return "Nether Melter";
    }
 
+   @Override
    public String getModName() {
       return "arpg";
    }
 
+   @Override
    public IDrawable getBackground() {
       return this.background;
    }
 
+   @Override
    public void drawExtras(Minecraft minecraft) {
       this.arrow.draw(minecraft, 99, 6);
    }
 
+   @Override
    public void setRecipe(IRecipeLayout recipeLayout, WrapperNetherMelter recipeWrapper, IIngredients ingredients) {
       IGuiItemStackGroup isg = recipeLayout.getItemStacks();
 

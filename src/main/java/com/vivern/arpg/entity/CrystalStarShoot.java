@@ -66,10 +66,12 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
       this.magicPower = power;
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -82,6 +84,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
       }
    }
 
+   @Override
    public void playSound(SoundEvent soundIn, float volume, float pitch) {
       if (soundIn == SoundEvents.ENTITY_ARROW_HIT) {
          soundIn = Sounds.bullet;
@@ -114,6 +117,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
       return this.timeInGround < 10;
    }
 
+   @Override
    protected void onHit(RayTraceResult raytraceResultIn) {
       Entity entity = raytraceResultIn.entityHit;
       if (entity != null) {
@@ -151,7 +155,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
             if (entity instanceof EntityLivingBase) {
                EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
                boolean apricked = NailGunShoot.isEntityPricked(this.world, entitylivingbase);
-               boolean healthmin = entitylivingbase.getHealth() <= parameters.getF("health_to_prick");
+               boolean healthmin = entitylivingbase.getHealth() <= parameters.getFloat("health_to_prick");
                if (!this.damageDealed) {
                   this.damageDealed = true;
                   if (healthmin && !apricked) {
@@ -224,6 +228,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.inGround) {
@@ -406,6 +411,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
       return 2;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return ItemStack.EMPTY;
    }

@@ -30,10 +30,12 @@ public class EntityAIShootAndSwim extends EntityAIBase {
       this.randomMoveDelay = randomMoveDelay;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null && this.enable;
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase attackTarg = this.entity.getAttackTarget();
       if (attackTarg != null && this.enable) {

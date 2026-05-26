@@ -12,6 +12,7 @@ public class RenderBoomerangFactory implements IRenderFactory {
       this.IntegItem = InputItem;
    }
 
+   @Override
    public Render createRenderFor(RenderManager manager) {
       return new RenderBoomerang(manager, this.IntegItem);
    }

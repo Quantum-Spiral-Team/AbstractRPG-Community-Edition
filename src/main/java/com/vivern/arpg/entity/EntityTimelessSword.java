@@ -74,6 +74,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
       this.ignoreFrustumCheck = true;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean isInRangeToRenderDist(double distance) {
       double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0;
@@ -93,6 +94,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
       this.to = new Vec3d(a, b, c);
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote && this.to != null && this.ticksExisted <= 1) {
@@ -170,6 +172,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
       float rotation
    ) {
       Predicate<Entity> filterEntityToIgnore = new Predicate<Entity>() {
+         @Override
          public boolean apply(Entity input) {
             return !Team.checkIsOpponent(input, player);
          }
@@ -275,12 +278,15 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
       return ret;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 }

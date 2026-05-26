@@ -6,6 +6,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAccumulator extends Item implements IEnergyItem {
    public static int REDSTONE_ION_CAPACITY = 150000;
@@ -32,6 +34,8 @@ public class ItemAccumulator extends Item implements IEnergyItem {
       this.throughput = throughput;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       IEnergyItem.addRFInformation(stack, worldIn, tooltip, flagIn);
    }
@@ -46,10 +50,12 @@ public class ItemAccumulator extends Item implements IEnergyItem {
       return this.throughput;
    }
 
+   @Override
    public double getDurabilityForDisplay(ItemStack stack) {
       return 1.0 - (double)this.getEnergyStored(stack) / this.getMaxEnergyStored(stack);
    }
 
+   @Override
    public boolean showDurabilityBar(ItemStack stack) {
       return this.getEnergyStored(stack) != 0;
    }

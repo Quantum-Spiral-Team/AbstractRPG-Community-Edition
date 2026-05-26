@@ -17,12 +17,14 @@ public class RenderGnater extends RenderLiving<Gnater> {
       super(manager, new GnaterModel(), 0.3F);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull Gnater entity) {
       return this.mobTexture;
    }
 
    public static class GnaterFactory implements IRenderFactory<Gnater> {
+      @Override
       public Render<? super Gnater> createRenderFor(RenderManager manager) {
          return new RenderGnater(manager);
       }

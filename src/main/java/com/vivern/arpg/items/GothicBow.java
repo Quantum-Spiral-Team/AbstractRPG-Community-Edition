@@ -21,6 +21,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GothicBow extends AbstractBow {
    public GothicBow() {
@@ -32,6 +34,7 @@ public class GothicBow extends AbstractBow {
       return Sounds.gothic_bow;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (b == 0.0) {
@@ -58,8 +61,8 @@ public class GothicBow extends AbstractBow {
 
             if (click2) {
                if (!player.getCooldownTracker().hasCooldown(this)) {
-                  int smin = parameters.getI("shards_min");
-                  int smax = parameters.getI("shards_max");
+                  int smin = parameters.getInt("shards_min");
+                  int smax = parameters.getInt("shards_max");
                   int nn = itemRand.nextInt(smax - smin + 1) + smin;
                   int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
 
@@ -72,7 +75,7 @@ public class GothicBow extends AbstractBow {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getF("shard_velocity"),
+                        parameters.getFloat("shard_velocity"),
                         parameters.getEnchantedF("shard_inaccuracy", acc) + i * 2,
                         -0.1F,
                         0.4F,
@@ -137,14 +140,16 @@ public class GothicBow extends AbstractBow {
    }
 
    public int getChargesToShoot() {
-      return WeaponParameters.getWeaponParameters(this).getI("charges_to_shoot");
+      return WeaponParameters.getWeaponParameters(this).getInt("charges_to_shoot");
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)Math.abs(NBTHelper.GetNBTint(itemstack, "ice")) / this.getChargesToShoot(), 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "ice") != 0;

@@ -15,6 +15,7 @@ import net.minecraft.world.gen.ChunkGeneratorSettings.Factory;
 class IceHillsDecorator extends BiomeDecorator {
    public WorldGenGroundFoliage magicflower = new WorldGenGroundFoliage(BlocksRegister.ICE_FLOWER, 38, 5, 4);
 
+   @Override
    public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");

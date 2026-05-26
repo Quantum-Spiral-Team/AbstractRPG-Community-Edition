@@ -10,10 +10,12 @@ public class EntityChair extends Entity {
       super(world);
    }
 
+   @Override
    public void entityInit() {
       this.setSize(0.0F, 0.0F);
    }
 
+   @Override
    public void onEntityUpdate() {
       super.onEntityUpdate();
       if (!this.isBeingRidden()) {
@@ -25,9 +27,11 @@ public class EntityChair extends Entity {
       }
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound nbt) {
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound nbt) {
    }
 }

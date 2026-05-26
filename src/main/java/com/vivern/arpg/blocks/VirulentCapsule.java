@@ -33,6 +33,7 @@ public class VirulentCapsule extends BlockBlockHard {
       this.setSoundType(SoundType.METAL);
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -49,7 +50,7 @@ public class VirulentCapsule extends BlockBlockHard {
             world.spawnEntity(it);
          } else {
             for (int i = 0; i < 6; i++) {
-               EntityCubicParticle spel = new EntityCubicParticle(
+               EntityCubicParticle spell = new EntityCubicParticle(
                   resou,
                   0.027F,
                   0.03F,
@@ -73,8 +74,8 @@ public class VirulentCapsule extends BlockBlockHard {
                   true,
                   0.0F
                );
-               world.spawnEntity(spel);
-               GUNParticle bigsmoke = new GUNParticle(
+               world.spawnEntity(spell);
+               GUNParticle bigSmoke = new GUNParticle(
                   largesmoke,
                   0.5F + RANDOM.nextFloat(),
                   3.0E-4F,
@@ -95,9 +96,9 @@ public class VirulentCapsule extends BlockBlockHard {
                   true,
                   1.0F
                );
-               bigsmoke.tracker = ChlorineCloud.trssh;
-               bigsmoke.alpha = 0.0F;
-               world.spawnEntity(bigsmoke);
+               bigSmoke.tracker = ChlorineCloud.trssh;
+               bigSmoke.alpha = 0.0F;
+               world.spawnEntity(bigSmoke);
             }
          }
       }

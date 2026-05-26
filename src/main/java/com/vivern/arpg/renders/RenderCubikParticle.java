@@ -22,6 +22,7 @@ public class RenderCubikParticle<T extends EntityCubicParticle> extends Render<T
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       float rrotateX = 0.0F;
       float rrotateY = 0.0F;
@@ -91,6 +92,7 @@ public class RenderCubikParticle<T extends EntityCubicParticle> extends Render<T
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntityCubicParticle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }

@@ -32,10 +32,12 @@ public class EntityAINPC extends EntityAIBase {
       }
    }
 
+   @Override
    public boolean shouldExecute() {
       return true;
    }
 
+   @Override
    public void updateTask() {
       this.cooldown--;
       if (this.cooldown <= 0) {

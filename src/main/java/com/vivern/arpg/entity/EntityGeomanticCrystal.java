@@ -70,19 +70,23 @@ public class EntityGeomanticCrystal extends Entity {
       NBTHelper.GiveNBTint(this.stackIn, size, "size");
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBox(Entity entityIn) {
       return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox() {
       return this.getEntityBoundingBox();
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted == 2 || this.ticksExisted % 80 == 0) {
@@ -114,6 +118,7 @@ public class EntityGeomanticCrystal extends Entity {
       }
    }
 
+   @Override
    public void onCollideWithPlayer(EntityPlayer player) {
       if (this.ticksExisted > 15) {
          if (!player.world.isRemote) {
@@ -124,6 +129,7 @@ public class EntityGeomanticCrystal extends Entity {
       }
    }
 
+   @Override
    public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
       if (player.isSneaking()) {
          return EnumActionResult.FAIL;
@@ -137,6 +143,7 @@ public class EntityGeomanticCrystal extends Entity {
       }
    }
 
+   @Override
    public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
       if (player.isSneaking()) {
          return false;
@@ -150,6 +157,7 @@ public class EntityGeomanticCrystal extends Entity {
       }
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
       NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
       this.stackIn = new ItemStack(nbttagcompound);
@@ -158,12 +166,14 @@ public class EntityGeomanticCrystal extends Entity {
       }
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       if (!this.stackIn.isEmpty()) {
          compound.setTag("Item", this.stackIn.writeToNBT(new NBTTagCompound()));
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 0) {

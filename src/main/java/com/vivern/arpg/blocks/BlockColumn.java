@@ -30,6 +30,7 @@ public class BlockColumn extends BlockBlock {
       this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumAxis.Y));
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState().withProperty(AXIS, EnumAxis.Y);
       switch (meta) {
@@ -49,6 +50,7 @@ public class BlockColumn extends BlockBlock {
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((EnumAxis)state.getValue(AXIS)) {
@@ -65,14 +67,17 @@ public class BlockColumn extends BlockBlock {
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{AXIS});
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getStateFromMeta(meta).withProperty(AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       switch (rot) {
          case COUNTERCLOCKWISE_90:
@@ -109,6 +114,7 @@ public class BlockColumn extends BlockBlock {
          this.setHarvest(tool, harvestlvl);
       }
 
+      @Override
       public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
          player.addStat(StatList.getBlockStats(this));
          player.addExhaustion(0.005F);

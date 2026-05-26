@@ -131,6 +131,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Faster decreases rad and gives 75% resistance from biome radiation");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -313,6 +315,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Releases mosquitoes when you take damage");
          tooltip.add("Mosquito attack cause Berserk");
@@ -403,6 +407,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Saves the wearer from death once");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -480,6 +486,8 @@ public class BaublesPack {
          return multimap;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Adds +3 Max Health and also +0.08 Movement speed if");
          tooltip.add("you didn't take damage for 3 seconds");
@@ -868,7 +876,7 @@ public class BaublesPack {
                         0.7F,
                         0.9F + itemRand.nextFloat() / 5.0F
                      );
-                  NBTHelper.GiveNBTboolean(itemstack, false, "nexttwin");
+                  NBTHelper.giveNBTboolean(itemstack, false, "nexttwin");
                   NBTHelper.SetNBTboolean(itemstack, !nexttwin, "nexttwin");
                   NBTHelper.AddNBTint(itemstack, -1, "shots");
                } else {
@@ -934,10 +942,12 @@ public class BaublesPack {
          this.setMaxDamage(1000);
       }
 
+      @Override
       public boolean isRepairable() {
          return true;
       }
 
+      @Override
       public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
          return repair.getItem() == ItemsRegister.GAS_FILTER;
       }
@@ -961,6 +971,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Protects against chlorite inhalation");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1012,6 +1024,8 @@ public class BaublesPack {
          return "glass_heart";
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Removes 19 Maximum Health");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1087,6 +1101,8 @@ public class BaublesPack {
          return multimap;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Adds +1 Armor Protection, +2 Melee Attack Damage");
          tooltip.add("and imposes Berserk when health lower than 8");
@@ -1127,6 +1143,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Imposes Berserk when health lower than 8");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1197,6 +1215,8 @@ public class BaublesPack {
          return hurtdamage;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Any damage kills you, but mobs drop double experience");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1271,6 +1291,8 @@ public class BaublesPack {
          return multimap;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Adds +5 Maximum Mana, +0.2 Mana Regeneration and gives mana when you take damage");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1370,6 +1392,8 @@ public class BaublesPack {
          return "light_band";
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Allows do four jumps, adds +0.05 Airborne Mobility and grants immunity to Shock");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1410,6 +1434,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Gives mana when you take damage");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1507,6 +1533,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Periodically shoots thorny balls to mobs");
          tooltip.add("Balls regen you mana when cause damage");
@@ -1540,6 +1568,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("The mermaids won't attack you first");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1615,6 +1645,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Releases mosquitoes when you take damage");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1700,6 +1732,8 @@ public class BaublesPack {
          return multimap;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Adds +0.1 Melee attack speed, +0.2 Knockback resistance");
          tooltip.add("and accumulates charge (up to 10) that protects against damage.");
@@ -1747,6 +1781,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Levitates all items and coins in large area, preventing them from falling into the void");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -1830,6 +1866,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Releases mosquitoes when you take damage");
          tooltip.add("Mosquito attack cause Weakness");
@@ -1945,6 +1983,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Allows do triple jump");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -2021,6 +2061,8 @@ public class BaublesPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Periodically shoots thorny balls to mobs");
          super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -2050,6 +2092,8 @@ public class BaublesPack {
          return hurtdamage;
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          tooltip.add("Melee attack cause Weaknes");
          super.addInformation(stack, worldIn, tooltip, flagIn);

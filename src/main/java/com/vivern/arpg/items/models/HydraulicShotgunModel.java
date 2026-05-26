@@ -136,6 +136,7 @@ public class HydraulicShotgunModel extends ModelBase {
       this.ammo1.addChild(this.ammo2);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float ft1 = GetMOP.getFromTo(f2, 0.085F, 0.185F);
       float ft2 = GetMOP.getFromTo(f2, 0.15F, 0.2F);

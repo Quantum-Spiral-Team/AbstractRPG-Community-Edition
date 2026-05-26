@@ -28,6 +28,7 @@ public class RenderTerraformingResearch {
    public TFRSurfaceRenderInstance[][] atmosphereAnimations;
    public ArrayList<TerraformingResearchParticle> particles = new ArrayList<>();
    public static Predicate<TerraformingResearchParticle> particlesDeleter = new Predicate<TerraformingResearchParticle>() {
+      @Override
       public boolean apply(TerraformingResearchParticle input) {
          return input.isDead;
       }

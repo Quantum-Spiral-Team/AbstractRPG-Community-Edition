@@ -35,6 +35,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Charger extends ItemWeapon {
    public static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/blueexplode.png");
@@ -48,10 +50,12 @@ public class Charger extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 25.0F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -61,10 +65,12 @@ public class Charger extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -104,6 +110,7 @@ public class Charger extends ItemWeapon {
       return targ;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
@@ -118,7 +125,7 @@ public class Charger extends ItemWeapon {
          int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);
          int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-         float rapidMult = 1.0F + rapidity * parameters.getF("rapid_multiplier");
+         float rapidMult = 1.0F + rapidity * parameters.getFloat("rapid_multiplier");
          float manacost = parameters.getEnchantedF("manacost", sor) * rapidMult;
          boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
          boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
@@ -295,6 +302,7 @@ public class Charger extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (c == 0.0) {

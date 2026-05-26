@@ -37,6 +37,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DragonShell extends ItemWeapon implements IItemAttacked {
    static ResourceLocation explode = new ResourceLocation("arpg:textures/void_explode.png");
@@ -50,6 +52,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -59,14 +62,17 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (NBTHelper.GetNBTint(stack, "blocking") > 0) {
@@ -88,6 +94,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
       return multimap;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -115,7 +122,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
-                     NBTHelper.SetNBTint(itemstack, parameters.getI("max_hits"), "blocking");
+                     NBTHelper.SetNBTint(itemstack, parameters.getInt("max_hits"), "blocking");
                      player.addExhaustion(0.6F);
                   } else {
                      if (player.ticksExisted % 7 == 0) {
@@ -158,7 +165,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                               double x = en.posX;
                               double y = en.posY;
                               double z = en.posZ;
-                              double teleport_distance = parameters.getF("teleport_distance");
+                              double teleport_distance = parameters.getFloat("teleport_distance");
 
                               for (int i = 0; i < 8; i++) {
                                  en.setPosition(
@@ -250,7 +257,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                         player,
                         attacker,
                         parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
-                        parameters.getF("self_knockback")
+                        parameters.getFloat("self_knockback")
                      );
                   }
 
@@ -305,6 +312,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       AxisAlignedBB aabb = new AxisAlignedBB(x - a, y - a, z - a, x + a, y + a, z + a);
@@ -377,13 +385,15 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getI("max_hits"), 0.0F, 1.0F
+         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getInt("max_hits"), 0.0F, 1.0F
       );
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "blocking") > 0;
@@ -412,7 +422,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
    public void teleportAway(World worldIn, EntityLivingBase entityLiving, EntityPlayer player, WeaponParameters parameters) {
       if (!worldIn.isRemote) {
          double maxTpDistanceSq = 144.0;
-         double mobTeleportDistance = parameters.getF("mob_teleport_distance");
+         double mobTeleportDistance = parameters.getFloat("mob_teleport_distance");
          double mobTeleportDistance2 = mobTeleportDistance * 2.0;
          double d0 = entityLiving.posX;
          double d1 = entityLiving.posY;

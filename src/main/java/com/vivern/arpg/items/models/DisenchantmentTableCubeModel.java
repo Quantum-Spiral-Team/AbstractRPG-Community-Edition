@@ -23,6 +23,7 @@ public class DisenchantmentTableCubeModel extends ModelBase {
       this.shape2.addBox(-1.5F, -3.0F, 0.0F, 6, 6, 3, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float amount = 0.125F;
       this.shape1.offsetZ = -amount * f3;

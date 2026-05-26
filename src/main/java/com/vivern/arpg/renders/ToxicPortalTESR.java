@@ -28,6 +28,7 @@ public class ToxicPortalTESR extends TileEntitySpecialRenderer<TileToxicPortal> 
    private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
    private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
+   @Override
    public void render(TileToxicPortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.disableLighting();
       RANDOM.setSeed(31100L);

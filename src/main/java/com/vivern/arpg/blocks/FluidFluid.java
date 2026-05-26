@@ -18,6 +18,7 @@ public class FluidFluid extends Fluid {
          super(fluidName, new ResourceLocation("arpg", still), new ResourceLocation("arpg", flowing));
       }
 
+      @Override
       public int getColor() {
          return 12189679;
       }
@@ -28,6 +29,7 @@ public class FluidFluid extends Fluid {
          super(fluidName, new ResourceLocation("arpg", still), new ResourceLocation("arpg", flowing));
       }
 
+      @Override
       public int getColor() {
          return 10655026;
       }
@@ -38,6 +40,7 @@ public class FluidFluid extends Fluid {
          super(fluidName, new ResourceLocation("arpg", still), new ResourceLocation("arpg", flowing));
       }
 
+      @Override
       public int getColor() {
          return 12828261;
       }
@@ -48,6 +51,7 @@ public class FluidFluid extends Fluid {
          super(fluidName, new ResourceLocation("arpg", still), new ResourceLocation("arpg", flowing));
       }
 
+      @Override
       public int getColor() {
          return 1024783;
       }

@@ -64,6 +64,7 @@ public class GUIFrozenPuzzle extends GuiScreen {
       this.tile = tile;
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
@@ -110,6 +111,7 @@ public class GUIFrozenPuzzle extends GuiScreen {
       }
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       int x = mouseX - ((this.width - 144) / 2 + 16);
       int y = mouseY - ((this.height - 180) / 2 + 16);
@@ -125,10 +127,12 @@ public class GUIFrozenPuzzle extends GuiScreen {
       PacketHandler.NETWORK.sendToServer(packet);
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       if (keyCode == 1 || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
          this.mc.player.closeScreen();

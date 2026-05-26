@@ -55,6 +55,7 @@ public class PhoenixGhostModel extends ModelBase {
       this.head.addBox(-4.0F, -7.0F, -7.0F, 8, 8, 8, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape1AAAA.offsetX, this.shape1AAAA.offsetY, this.shape1AAAA.offsetZ);

@@ -43,6 +43,7 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
       this.setTickRandomly(true);
    }
 
+   @Override
    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
       if (!worldIn.isRemote) {
          double distance = 4.0;
@@ -82,6 +83,7 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
       }
    }
 
+   @Override
    public IBlockState getStateForPlacement(
       World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand
    ) {
@@ -105,6 +107,7 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
       return false;
    }
 
+   @Override
    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
       return this.getItemStack(state);
    }
@@ -117,6 +120,7 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
       return stack;
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       if (RANDOM.nextFloat() < 0.75F) {
          drops.add(new ItemStack(ItemsRegister.RICH_SCRAP));
@@ -127,14 +131,17 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
       }
    }
 
+   @Override
    protected ItemStack getSilkTouchDrop(IBlockState state) {
       return this.getItemStack(state);
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return true;
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       for (int i = 0; i < 12; i++) {
          ItemStack stack = new ItemStack(this);
@@ -144,18 +151,22 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(VARIANT, meta);
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return MapColor.BROWN;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(VARIANT);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{VARIANT});
    }

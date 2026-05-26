@@ -156,6 +156,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
       return Debugger.floats[10] == 10.0F;
    }
 
+   @Override
    public void update() {
       if (this.specialization == 2 && this.tfrPuzzle != null) {
          this.tfrPuzzle.update(this.puzzleCommand);
@@ -337,6 +338,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
       }
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       if (this.specialization == 2 && this.tfrPuzzle != null) {
@@ -348,6 +350,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       if (this.specialization == 2 && compound.hasKey("researchPuzzle")) {
@@ -359,32 +362,38 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public int getSizeInventory() {
       return 4;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.stacks) {
          if (!itemstack.isEmpty()) {
@@ -395,26 +404,32 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
       return true;
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public String getName() {
       return "tile_research_table";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       return new ContainerResearchTable(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.research_table";
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.stacks;
    }
 
+   @Override
    public int getField(int id) {
       switch (id) {
          case 0:
@@ -436,6 +451,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
       }
    }
 
+   @Override
    public void setField(int id, int value) {
       switch (id) {
          case 3:

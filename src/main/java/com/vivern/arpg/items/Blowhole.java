@@ -35,6 +35,7 @@ public class Blowhole extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -44,10 +45,12 @@ public class Blowhole extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -72,6 +75,7 @@ public class Blowhole extends ItemWeapon {
       Booom.power = 0.3F * (param / 10.0F);
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -89,7 +93,7 @@ public class Blowhole extends ItemWeapon {
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
             boolean click3 = hand == EnumHand.MAIN_HAND ? click : click2;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int maxcharge = parameters.getI("max_charge");
+            int maxcharge = parameters.getInt("max_charge");
             if (hand != null) {
                boolean anotherHandEmpty = player.getHeldItem(hand == EnumHand.MAIN_HAND ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND).isEmpty();
                if (click3) {
@@ -107,7 +111,7 @@ public class Blowhole extends ItemWeapon {
                         );
                      }
 
-                     NBTHelper.AddNBTint(itemstack, parameters.getI("charge_add"), "charge");
+                     NBTHelper.AddNBTint(itemstack, parameters.getInt("charge_add"), "charge");
                      if (charge > 7 && charge % 9 == 0) {
                         Weapons.setPlayerAnimationOnServer(player, anotherHandEmpty ? 11 : 10, hand);
                         world.playSound(
@@ -193,11 +197,13 @@ public class Blowhole extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

@@ -22,6 +22,7 @@ public class PlacedItemRender<T extends EntityPlacedItem> extends Render<EntityP
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(EntityPlacedItem entity, double x, double y, double z, float entityYaw, float partialTicks) {
       ItemStack torender = entity.getPlacedItemStack();
       if (torender != null && torender != ItemStack.EMPTY) {
@@ -48,6 +49,7 @@ public class PlacedItemRender<T extends EntityPlacedItem> extends Render<EntityP
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntityPlacedItem entity) {
       return TextureMap.LOCATION_BLOCKS_TEXTURE;
    }

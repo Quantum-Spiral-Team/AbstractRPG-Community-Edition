@@ -21,6 +21,7 @@ public class Troglodyte extends AbstractMob {
       this.setDropMoney(-2, 5, 0.8F);
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAISwimming(this));
       this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));

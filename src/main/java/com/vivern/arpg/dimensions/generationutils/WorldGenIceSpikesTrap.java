@@ -59,6 +59,7 @@ public class WorldGenIceSpikesTrap extends WorldGenerator {
       }
    }
 
+   @Override
    public boolean generate(World worldIn, Random rand, BlockPos position) {
       for (EnumFacing facing : EnumFacing.HORIZONTALS) {
          this.place(worldIn, facing, facing.rotateY(), position, rand.nextInt(this.size) + 2, rand.nextInt(this.size) + 4, rand);

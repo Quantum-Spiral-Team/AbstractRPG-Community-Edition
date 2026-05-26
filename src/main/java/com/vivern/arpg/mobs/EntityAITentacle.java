@@ -85,10 +85,12 @@ public class EntityAITentacle extends EntityAIBase {
       return this;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.enable && this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public void updateTask() {
       this.attackTick = Math.max(this.attackTick - 1, 0);
       this.byteSendDelay = Math.max(this.byteSendDelay - 1, 0);

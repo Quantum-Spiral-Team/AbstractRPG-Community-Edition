@@ -170,6 +170,7 @@ public class WorldEvent extends IRenderHandler {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       this.renderClouds(partialTicks, world, mc);

@@ -97,22 +97,32 @@ public class DimensionAquatica extends AbstractWorldProvider {
       this.worldEventsHandler = new WorldEventsHandler(this, this.rainfall);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void getLightmapColors(float partialTicks, float sunBrightness, float skyLight, float blockLight, float[] colors) {
       timeOfDayProvider.setLightmapColors(8, this.getWorldTime(), partialTicks, sunBrightness, skyLight, blockLight, colors);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
       return null;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public IRenderHandler getSkyRenderer() {
       return skyRender;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public IRenderHandler getWeatherRenderer() {
       return this.worldEventsHandler;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void updateWeather() {
       this.worldEventsHandler.onUpdate();
    }
@@ -127,33 +137,9 @@ public class DimensionAquatica extends AbstractWorldProvider {
       return timeOfDayProvider;
    }
 
-   public Vec3d getSkyColor(Entity cameraEntity, float partialTicks) {
-      return this.getSkyColorVec(cameraEntity, partialTicks);
-   }
-
-   public static Vec3d getBlockFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
-      if (state.getMaterial() == Material.WATER) {
-         float r = MathHelper.clamp((-entity.rotationPitch + 90.0F) / 180.0F, 0.0F, 1.0F);
-         return new Vec3d(0.1 + 0.1 * r, 0.4 + 0.35 * r, 0.85 + 0.23 * r);
-      } else {
-         return originalColor;
-      }
-   }
-
-   public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
-      float f = MathHelper.cos(p_76562_1_ * (float) (Math.PI * 2)) * 2.0F + 0.5F;
-      f = MathHelper.clamp(f, 0.0F, 1.0F);
-      float f1 = 0.58F;
-      float f2 = 0.85F;
-      float f3 = 1.0F;
-      f1 *= f * 0.94F + 0.06F;
-      f2 *= f * 0.94F + 0.06F;
-      f3 *= f * 0.91F + 0.09F;
-      return new Vec3d(f1, f2, f3);
-   }
-
    @SideOnly(Side.CLIENT)
-   public Vec3d getSkyColorVec(Entity entityIn, float partialTicks) {
+   @Override
+   public Vec3d getSkyColor(Entity cameraEntity, float partialTicks) {
       float f = this.world.getCelestialAngle(partialTicks);
       float f1 = MathHelper.cos(f * (float) (Math.PI * 2)) * 2.0F + 0.5F;
       f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
@@ -183,29 +169,47 @@ public class DimensionAquatica extends AbstractWorldProvider {
       }
 
       if (this.world.getLastLightningBolt() > 0) {
-         float f12 = this.world.getLastLightningBolt() - partialTicks;
-         if (f12 > 1.0F) {
-            f12 = 1.0F;
-         }
+         float f12 = Math.min(this.world.getLastLightningBolt() - partialTicks, 1.0F);
 
          f12 *= 0.45F;
          f3 = f3 * (1.0F - f12) + 0.8F * f12;
          f4 = f4 * (1.0F - f12) + 0.8F * f12;
-         f5 = f5 * (1.0F - f12) + 1.0F * f12;
+         f5 = f5 * (1.0F - f12) + f12;
       }
 
       return new Vec3d(f3, f4, f5);
    }
 
+   @SideOnly(Side.CLIENT)
+   public static Vec3d getBlockFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
+      if (state.getMaterial() == Material.WATER) {
+         float r = MathHelper.clamp((-entity.rotationPitch + 90.0F) / 180.0F, 0.0F, 1.0F);
+         return new Vec3d(0.1 + 0.1 * r, 0.4 + 0.35 * r, 0.85 + 0.23 * r);
+      } else {
+         return originalColor;
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   @Override
+   public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
+      float f = MathHelper.cos(p_76562_1_ * (float) (Math.PI * 2)) * 2.0F + 0.5F;
+      f = MathHelper.clamp(f, 0.0F, 1.0F);
+      float f1 = 0.58F;
+      float f2 = 0.85F;
+      float f3 = 1.0F;
+      f1 *= f * 0.94F + 0.06F;
+      f2 *= f * 0.94F + 0.06F;
+      f3 *= f * 0.91F + 0.09F;
+      return new Vec3d(f1, f2, f3);
+   }
+
+   @Override
    public DimensionType getDimensionType() {
       return DimensionsRegister.AQUATICA;
    }
 
    @Override
-   public boolean canDoRainSnowIce(Chunk chunk) {
-      return false;
-   }
-
    public IChunkGenerator createChunkGenerator() {
       return new AquaticaChunkGenerator(this.world, this.world.getSeed());
    }
@@ -217,7 +221,4 @@ public class DimensionAquatica extends AbstractWorldProvider {
       this.biomeProvider = new BiomeProviderAquatica(this.world.getWorldInfo());
    }
 
-   public boolean canRespawnHere() {
-      return true;
-   }
 }

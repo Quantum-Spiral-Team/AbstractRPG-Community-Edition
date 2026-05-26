@@ -9,6 +9,8 @@ import com.vivern.arpg.weather.WorldEventsHandler;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.client.IRenderHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 public class DimensionToxicomania extends AbstractWorldProvider {
@@ -66,22 +68,30 @@ public class DimensionToxicomania extends AbstractWorldProvider {
       this.worldEventsHandler = new WorldEventsHandler(this, this.poisonRain);
    }
 
+   @Override
    public void getLightmapColors(float partialTicks, float sunBrightness, float skyLight, float blockLight, float[] colors) {
       timeOfDayProvider.setLightmapColors(6, this.getWorldTime(), partialTicks, sunBrightness, skyLight, blockLight, colors);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
       return null;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public IRenderHandler getSkyRenderer() {
       return skyRender;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public IRenderHandler getWeatherRenderer() {
       return this.worldEventsHandler;
    }
 
+   @Override
    public void updateWeather() {
       this.worldEventsHandler.onUpdate();
    }
@@ -96,10 +106,12 @@ public class DimensionToxicomania extends AbstractWorldProvider {
       return timeOfDayProvider;
    }
 
+   @Override
    public DimensionType getDimensionType() {
       return DimensionsRegister.TOXICOMANIA;
    }
 
+   @Override
    public IChunkGenerator createChunkGenerator() {
       return new ToxicomaniaChunkGenerator(this.world, this.world.getSeed());
    }
@@ -111,6 +123,7 @@ public class DimensionToxicomania extends AbstractWorldProvider {
       this.biomeProvider = new BiomeProviderToxic(this.world.getSeed());
    }
 
+   @Override
    public boolean canRespawnHere() {
       return true;
    }

@@ -59,6 +59,7 @@ public class ToxicSlimeland extends BiomeControlled {
       public WorldGenSpread slimeblob = new WorldGenSpread(BlocksRegister.SLIME_BLOB, 16, 8, 4, BlocksRegister.BROWN_SLIME);
       public WorldGenFluidLake lakeslime = new WorldGenFluidLake(BlocksRegister.FLUID_SLIME, null, null, BlocksRegister.BROWN_SLIME, false, false);
 
+      @Override
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

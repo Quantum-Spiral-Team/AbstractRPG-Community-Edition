@@ -12,7 +12,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -46,10 +45,12 @@ public class BlockUnderwater extends Block {
       super(materialIn);
    }
 
+   @Override
    public Material getMaterial(IBlockState state) {
       return state.getValue(WET) ? Material.WATER : Material.ROCK;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!isInWater(world, pos)) {
          world.setBlockState(pos, state.withProperty(WET, false));
@@ -61,27 +62,13 @@ public class BlockUnderwater extends Block {
    }
 
    public static boolean isInWater(IBlockAccess worldIn, BlockPos pos) {
-      IBlockState state1 = worldIn.getBlockState(pos.up());
-      if (state1.getMaterial() == Material.WATER || state1.isOpaqueCube()) {
-         IBlockState state2 = worldIn.getBlockState(pos.east());
-         if (state2.getMaterial() == Material.WATER || state2.isOpaqueCube()) {
-            IBlockState state3 = worldIn.getBlockState(pos.south());
-            if (state3.getMaterial() == Material.WATER || state3.isOpaqueCube()) {
-               IBlockState state4 = worldIn.getBlockState(pos.west());
-               if (state4.getMaterial() == Material.WATER || state4.isOpaqueCube()) {
-                  IBlockState state5 = worldIn.getBlockState(pos.north());
-                  if (state5.getMaterial() == Material.WATER || state5.isOpaqueCube()) {
-                     IBlockState state6 = worldIn.getBlockState(pos.down());
-                     if (state6.getMaterial() == Material.WATER || state6.isOpaqueCube()) {
-                        return true;
-                     }
-                  }
-               }
-            }
+      for (EnumFacing facing : EnumFacing.values()) {
+         IBlockState state = worldIn.getBlockState(pos.offset(facing));
+         if (!(state.getMaterial() == Material.WATER || state.isOpaqueCube())) {
+            return false;
          }
       }
-
-      return false;
+      return true;
    }
 
    public static boolean isAroundWater(IBlockAccess world, BlockPos pos) {
@@ -100,28 +87,35 @@ public class BlockUnderwater extends Block {
       return false;
    }
 
+   @Override
    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
       return isAroundWater(world, pos)
          ? world.setBlockState(pos, Blocks.WATER.getDefaultState(), world.isRemote ? 10 : 2)
          : world.setBlockState(pos, Blocks.AIR.getDefaultState(), world.isRemote ? 10 : 2);
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return super.getActualState(state, worldIn, pos).withProperty(LEVEL, 0).withProperty(WET, isInWater(worldIn, pos));
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(LEVEL, 0).withProperty(WET, isInWater(worldIn, pos));
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
       return world.provider.getDimension() == 103
          ? DimensionAquatica.getBlockFogColor(world, pos, state, entity, originalColor, partialTicks)
@@ -152,14 +146,17 @@ public class BlockUnderwater extends Block {
          this.setLightOpacity(255);
       }
 
+      @Override
       protected BlockStateContainer createBlockState() {
          return new BlockStateContainer(this, new IProperty[]{LEVEL, WET});
       }
 
+      @Override
       public IBlockState getStateFromMeta(int meta) {
          return this.getDefaultState();
       }
 
+      @Override
       public int getMetaFromState(IBlockState state) {
          return 0;
       }
@@ -169,11 +166,13 @@ public class BlockUnderwater extends Block {
          return this;
       }
 
+      @Override
       public float getSlipperiness(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
          return this.blockSlipperiness;
       }
 
       @SideOnly(Side.CLIENT)
+      @Override
       public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
          return this.packedLightmapCoords == -1 ? super.getPackedLightmapCoords(state, source, pos) : this.packedLightmapCoords;
       }
@@ -185,6 +184,7 @@ public class BlockUnderwater extends Block {
       }
 
       @SideOnly(Side.CLIENT)
+      @Override
       public BlockRenderLayer getRenderLayer() {
          return this.layer;
       }
@@ -204,6 +204,7 @@ public class BlockUnderwater extends Block {
          return this;
       }
 
+      @Override
       public EnumOffsetType getOffsetType() {
          return this.offsets;
       }
@@ -218,7 +219,7 @@ public class BlockUnderwater extends Block {
          return this;
       }
 
-      public BlockBlockUnderwater setFullcube(boolean b) {
+      public BlockBlockUnderwater setFullCube(boolean b) {
          this.fullcub = b;
          return this;
       }
@@ -237,14 +238,17 @@ public class BlockUnderwater extends Block {
          return this;
       }
 
+      @Override
       public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
          return this.aabbSEL;
       }
 
+      @Override
       public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
          return this.aabbCOL;
       }
 
+      @SideOnly(Side.CLIENT)
       public BlockBlockUnderwater setRenderLayer(BlockRenderLayer render) {
          this.layer = render;
          return this;
@@ -255,7 +259,7 @@ public class BlockUnderwater extends Block {
          return this;
       }
 
-      public BlockBlockUnderwater setisReplaceableOreGen(boolean b) {
+      public BlockBlockUnderwater setIsReplaceableOreGen(boolean b) {
          this.replaceableOreGen = b;
          return this;
       }
@@ -270,14 +274,17 @@ public class BlockUnderwater extends Block {
          return this;
       }
 
+      @Override
       public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-         return this.vasePlace && worldIn.isAirBlock(pos.down()) ? false : super.canPlaceBlockAt(worldIn, pos);
+         return (!this.vasePlace || !worldIn.isAirBlock(pos.down())) && super.canPlaceBlockAt(worldIn, pos);
       }
 
+      @Override
       public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
          return this.replaceableOreGen;
       }
 
+      @Override
       public Item getItemDropped(IBlockState state, Random rand, int fortune) {
          if (this.dropped != null) {
             Item dr = Item.getByNameOrId(this.dropped);
@@ -292,6 +299,7 @@ public class BlockUnderwater extends Block {
          return this.fullcub;
       }
 
+      @Override
       public boolean isFullBlock(IBlockState state) {
          return this.fullbloc;
       }
@@ -306,6 +314,7 @@ public class BlockUnderwater extends Block {
          super(blockIn, properties, unlistedProperties);
       }
 
+      @Override
       protected StateImplementation createState(
          Block block, ImmutableMap<IProperty<?>, Comparable<?>> properties, @Nullable ImmutableMap<IUnlistedProperty<?>, Optional<?>> unlistedProperties
       ) {
@@ -324,6 +333,8 @@ public class BlockUnderwater extends Block {
          super(blockIn, propertiesIn, propertyValueTable);
       }
 
+      @SuppressWarnings("unchecked")
+      @Override
       public <T extends Comparable<T>> T getValue(IProperty<T> property) {
          return (T)("level".equals(property.getName())
             ? Blocks.WATER.getDefaultState().getValue(BlockLiquid.LEVEL)

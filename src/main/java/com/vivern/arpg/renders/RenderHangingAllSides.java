@@ -33,6 +33,7 @@ public class RenderHangingAllSides extends Render<EntityHangingAllSides> {
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(EntityHangingAllSides entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       BlockPos blockpos = entity.getHangingPosition();
@@ -75,6 +76,7 @@ public class RenderHangingAllSides extends Render<EntityHangingAllSides> {
       }
    }
 
+   @Override
    @Nullable
    protected ResourceLocation getEntityTexture(EntityHangingAllSides entity) {
       return null;
@@ -113,6 +115,7 @@ public class RenderHangingAllSides extends Render<EntityHangingAllSides> {
       }
    }
 
+   @Override
    protected void renderName(EntityHangingAllSides entity, double x, double y, double z) {
       if (Minecraft.isGuiEnabled()
          && !entity.getDisplayedItem().isEmpty()
@@ -128,6 +131,7 @@ public class RenderHangingAllSides extends Render<EntityHangingAllSides> {
    }
 
    public static class RenderHangingAllSidesFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderHangingAllSides(manager);
       }

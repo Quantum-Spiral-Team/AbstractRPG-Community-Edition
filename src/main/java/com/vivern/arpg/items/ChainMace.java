@@ -78,6 +78,7 @@ public class ChainMace extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -87,10 +88,12 @@ public class ChainMace extends ItemWeapon {
       return 2;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -102,9 +105,9 @@ public class ChainMace extends ItemWeapon {
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             boolean shouldStop = true;
             if (player.getHeldItemMainhand() == itemstack && (this.canBreak || damage < this.getMaxDamage())) {
-               NBTHelper.GiveNBTboolean(itemstack, false, "throwed");
-               NBTHelper.GiveNBTboolean(itemstack, false, "spinned");
-               NBTHelper.GiveNBTboolean(itemstack, false, "spindirection");
+               NBTHelper.giveNBTboolean(itemstack, false, "throwed");
+               NBTHelper.giveNBTboolean(itemstack, false, "spinned");
+               NBTHelper.giveNBTboolean(itemstack, false, "spindirection");
                NBTHelper.GiveNBTint(itemstack, -1, "entityId");
                NBTHelper.GiveNBTint(itemstack, 0, "spinprogress");
                boolean throwed = NBTHelper.GetNBTboolean(itemstack, "throwed");
@@ -124,7 +127,7 @@ public class ChainMace extends ItemWeapon {
                         if (entity != null && entity instanceof EntityChainMace && !entity.isDead) {
                            EntityChainMace mace = (EntityChainMace)entity;
                            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-                           mace.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getF("velocity"), 3.0F - acc);
+                           mace.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), 3.0F - acc);
                            this.sendEntitySpin(world, mace, false, NBTHelper.GetNBTboolean(itemstack, "spindirection"));
                         } else {
                            NBTHelper.SetNBTboolean(itemstack, false, "throwed");
@@ -234,7 +237,7 @@ public class ChainMace extends ItemWeapon {
       entity.setPosition(player.posX, player.posY + player.height / 2.0F, player.posZ);
       entity.gravity = this.gravity;
       if (!spin) {
-         entity.shoot(player, player.rotationPitch - 10.0F, player.rotationYaw, 0.0F, parameters.getF("velocity"), 3.0F - acc);
+         entity.shoot(player, player.rotationPitch - 10.0F, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), 3.0F - acc);
       } else {
          entity.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.1F, 3.0F);
       }
@@ -442,7 +445,7 @@ public class ChainMace extends ItemWeapon {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int firelvl = parameters.getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
       if (maceEntity.isBurning()) {
-         firelvl += parameters.getI("burning_mace_fire");
+         firelvl += parameters.getInt("burning_mace_fire");
       }
 
       if (firelvl > 0) {
@@ -657,6 +660,7 @@ public class ChainMace extends ItemWeapon {
          this.itemSendId = 2;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ResourceLocation getTexture() {
          return TEISRGuns.texChainMaceDiamond;
@@ -688,16 +692,19 @@ public class ChainMace extends ItemWeapon {
          return Sounds.shield_hit_soft;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ResourceLocation getTexture() {
          return TEISRGuns.texEchinusModel;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBase getModel() {
          return TEISRGuns.echinusModel;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public float getAdditionalDurabilityBar(ItemStack itemstack) {
          return MathHelper.clamp(
@@ -708,6 +715,7 @@ public class ChainMace extends ItemWeapon {
          );
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
          return true;
@@ -721,7 +729,7 @@ public class ChainMace extends ItemWeapon {
             if (active) {
                int kills = NBTHelper.GetNBTint(entity.weaponstack, "kills");
                if (kills <= 0) {
-                  NBTHelper.GiveNBTboolean(entity.weaponstack, false, "active");
+                  NBTHelper.giveNBTboolean(entity.weaponstack, false, "active");
                   NBTHelper.SetNBTboolean(entity.weaponstack, false, "active");
                } else if (result.entityHit != null) {
                   if (Team.checkIsOpponent(entity.thrower, result.entityHit)) {
@@ -801,13 +809,13 @@ public class ChainMace extends ItemWeapon {
             if (NBTHelper.GetNBTboolean(entity.weaponstack, "spinned") && (entity.ticksExisted > 80 || active)) {
                int kills = NBTHelper.GetNBTint(entity.weaponstack, "kills");
                if (!active && kills >= 16) {
-                  NBTHelper.GiveNBTboolean(entity.weaponstack, true, "active");
+                  NBTHelper.giveNBTboolean(entity.weaponstack, true, "active");
                   NBTHelper.SetNBTboolean(entity.weaponstack, true, "active");
                }
 
                if (active) {
                   if (kills <= 0) {
-                     NBTHelper.GiveNBTboolean(entity.weaponstack, false, "active");
+                     NBTHelper.giveNBTboolean(entity.weaponstack, false, "active");
                      NBTHelper.SetNBTboolean(entity.weaponstack, false, "active");
                   } else {
                      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
@@ -856,7 +864,7 @@ public class ChainMace extends ItemWeapon {
             if (elb.getHealth() <= 0.0F) {
                dead = true;
                if (elb.isPotionActive(MobEffects.POISON) || elb.isPotionActive(PotionEffects.TOXIN) || elb.isPotionActive(PotionEffects.BROKEN_ARMOR)) {
-                  addkills += parameters.getI("charges_effects_bonus");
+                  addkills += parameters.getInt("charges_effects_bonus");
                }
             }
          }
@@ -905,6 +913,7 @@ public class ChainMace extends ItemWeapon {
          this.soundFrequency = 20;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ResourceLocation getTexture() {
          return TEISRGuns.texIcebreaker;
@@ -1041,6 +1050,7 @@ public class ChainMace extends ItemWeapon {
          this.soundFrequency = 25;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderEntity(EntityChainMace entity, double x, double y, double z, float entityYaw, float partialTicks, Render render) {
          GL11.glDisable(2896);
@@ -1050,6 +1060,7 @@ public class ChainMace extends ItemWeapon {
          GL11.glEnable(2896);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ResourceLocation getTexture() {
          return TEISRGuns.texChainMaceMolten;

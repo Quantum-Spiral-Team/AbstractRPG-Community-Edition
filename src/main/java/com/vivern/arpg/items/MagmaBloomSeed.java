@@ -25,6 +25,7 @@ public class MagmaBloomSeed extends Item implements ISeed {
       this.setTranslationKey("magma_bloom_seeds");
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);

@@ -243,6 +243,10 @@ import com.vivern.arpg.tileentity.TileVoidCrystal;
 import com.vivern.arpg.tileentity.TileWeaponSpawner;
 import com.google.common.base.Predicate;
 import java.lang.reflect.Field;
+
+import net.minecraft.client.audio.MovingSound;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.SoundEvent;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMushroom;
@@ -1011,9 +1015,14 @@ public class CommonProxy {
 
    public void addEnchType() {
       EnchantmentInit.enchantmentTypeWeapon = EnumHelper.addEnchantmentType("i_weapon", new Predicate<Item>() {
+         @Override
          public boolean apply(@Nullable Item item) {
             return item == null ? false : item instanceof IWeapon;
          }
       });
+   }
+
+   public void playWingsSound(EntityPlayer player, MovingSound sound) {
+      //nothing on server side
    }
 }

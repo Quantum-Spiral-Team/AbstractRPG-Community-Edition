@@ -6,7 +6,6 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.OreDicHelper;
 import com.vivern.arpg.main.Sounds;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -19,13 +18,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemGeomanticCrystal extends Item implements IItemColor {
+public class ItemGeomanticCrystal extends Item {
    public ItemGeomanticCrystal() {
       this.setRegistryName("geomantic_crystal");
       this.setCreativeTab(CreativeTabs.MATERIALS);
       this.setTranslationKey("geomantic_crystal");
       this.setMaxDamage(100);
       this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
+         @Override
          @SideOnly(Side.CLIENT)
          public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
             float size = NBTHelper.GetNBTfloat(stack, "size");
@@ -34,10 +34,7 @@ public class ItemGeomanticCrystal extends Item implements IItemColor {
       });
    }
 
-   public int colorMultiplier(ItemStack stack, int tintIndex) {
-      return tintIndex == 0 ? NBTHelper.GetNBTint(stack, "color") : NBTHelper.GetNBTint(stack, "colorover");
-   }
-
+   @Override
    public boolean onEntityItemUpdate(EntityItem entityItem) {
       if (!entityItem.world.isRemote
          && entityItem.ticksExisted > 40

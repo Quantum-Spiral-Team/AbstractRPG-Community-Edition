@@ -25,6 +25,7 @@ public class RenderBulletParticle<T extends BulletParticle> extends Render<Bulle
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(BulletParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y, (float)z);
@@ -121,11 +122,13 @@ public class RenderBulletParticle<T extends BulletParticle> extends Render<Bulle
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(BulletParticle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
 
    public static class BulletParticleFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderBulletParticle(manager);
       }

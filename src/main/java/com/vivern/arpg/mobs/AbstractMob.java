@@ -128,10 +128,12 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       InitMobRenders.torender.add(entry);
    }
 
+   @Override
    public boolean isOnSameTeam(Entity entityIn) {
       return this.isOnScoreboardTeam(entityIn.getTeam()) || Team.isOnSameTeam(this, entityIn);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("agressive")) {
          this.isAgressive = compound.getBoolean("agressive");
@@ -157,6 +159,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       super.readEntityFromNBT(compound);
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       compound.setBoolean("agressive", this.isAgressive);
       compound.setString("mobteam", this.team);
@@ -171,6 +174,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       super.writeEntityToNBT(compound);
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
 
@@ -231,6 +235,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       super.handleStatusUpdate(id);
@@ -241,6 +246,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       }
    }
 
+   @Override
    protected void applyEntityAttributes() {
       super.applyEntityAttributes();
    }
@@ -249,6 +255,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       this.loot = values;
    }
 
+   @Override
    protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
       if (this.canDropLoot && this.loot != null) {
          for (int i = 0; i < this.loot.length; i++) {
@@ -334,24 +341,29 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       role.setMoneyValue(this, dimensionNumber);
    }
 
+   @Override
    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
       return this.hurtSound;
    }
 
+   @Override
    protected SoundEvent getDeathSound() {
       return this.deathSound;
    }
 
+   @Override
    protected SoundEvent getAmbientSound() {
       return this.livingSound;
    }
 
+   @Override
    public void playLivingSound() {
       if (!this.isSubMob) {
          super.playLivingSound();
       }
    }
 
+   @Override
    protected void playStepSound(BlockPos pos, Block blockIn) {
       if (this.stepSound != null) {
          this.playSound(this.stepSound, 0.15F, 1.0F);
@@ -360,6 +372,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       }
    }
 
+   @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       if (amount > 0.0F) {
          this.emptyTime = 0;
@@ -374,15 +387,18 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       return amount > 0.0F ? super.attackEntityFrom(source, amount) : false;
    }
 
+   @Override
    public boolean attackEntityAsMob(Entity entityIn) {
       this.emptyTime = 0;
       return super.attackEntityAsMob(entityIn);
    }
 
+   @Override
    protected void onDeathUpdate() {
       super.onDeathUpdate();
    }
 
+   @Override
    public void onDeath(DamageSource cause) {
       if (this.nexus != null) {
          this.nexus.onInvaderKilled(this, cause);
@@ -403,6 +419,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       super.onDeath(cause);
    }
 
+   @Override
    protected void despawnEntity() {
       super.despawnEntity();
       if (this.isDead && this.nexus != null) {
@@ -410,6 +427,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       }
    }
 
+   @Override
    protected void updateAITasks() {
       super.updateAITasks();
    }
@@ -430,6 +448,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       return this.getHealth() <= 5.0F || capturer != null && Team.isOnSameTeam(this, capturer);
    }
 
+   @Override
    public void setDead() {
       if (this.serializeNbtWasCalled && this.getHealth() > 5.0F) {
          if (!this.world.tickableTileEntities.isEmpty()) {
@@ -514,11 +533,13 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       }
    }
 
+   @Override
    public NBTTagCompound serializeNBT() {
       this.serializeNbtWasCalled = true;
       return super.serializeNBT();
    }
 
+   @Override
    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
       this.team = this.defaultteam;
       this.setHealth((float) this.maxHealth);
@@ -573,6 +594,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       return allLeadersh;
    }
 
+   @Override
    protected boolean isMovementBlocked() {
       return this.isStaying ? true : super.isMovementBlocked();
    }
@@ -625,6 +647,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
    public void dropShards() {
    }
 
+   @Override
    protected int getExperiencePoints(EntityPlayer player) {
       if (this.isNonBoss()) {
          return this.rand.nextFloat() < 0.35 ? Math.round(this.experienceValue / 0.35F) : 0;

@@ -26,10 +26,12 @@ public class BloodDrop extends EntityThrowable {
       this.throwerthrower = throwerthrower;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 200) {
@@ -60,6 +62,7 @@ public class BloodDrop extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
    }
 }

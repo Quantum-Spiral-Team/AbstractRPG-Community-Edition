@@ -35,6 +35,7 @@ public class PoisonLily extends Block {
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }
 
+   @Override
    public void addCollisionBoxToList(
       IBlockState state,
       World worldIn,
@@ -49,6 +50,7 @@ public class PoisonLily extends Block {
       }
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       if (entityIn instanceof EntityBoat) {
@@ -56,14 +58,17 @@ public class PoisonLily extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return LILY_PAD_AABB;
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return worldIn.getBlockState(pos).getMaterial().isLiquid() ? false : this.canBlockStay(worldIn, pos);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
       this.checkAndDropBlock(worldIn, pos, state);
@@ -86,23 +91,28 @@ public class PoisonLily extends Block {
       }
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return 0;
    }

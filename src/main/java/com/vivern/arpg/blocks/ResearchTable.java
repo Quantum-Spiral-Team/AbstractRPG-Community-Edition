@@ -9,6 +9,9 @@ import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.recipes.ExploringField;
 import com.vivern.arpg.tileentity.TileResearchTable;
 import java.util.Random;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -32,6 +35,7 @@ public class ResearchTable extends Table {
       super(Material.WOOD, "research_table", 3.0F, 25.0F, SoundType.WOOD, "axe", 0);
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof TileResearchTable) {
@@ -52,6 +56,7 @@ public class ResearchTable extends Table {
       super.breakBlock(worldIn, pos, state);
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -102,15 +107,19 @@ public class ResearchTable extends Table {
       return (TileResearchTable)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileResearchTable createTileEntity(World world, IBlockState blockState) {
       return new TileResearchTable();
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World world, BlockPos pos, Random rand) {
       TileResearchTable tile = this.getTileEntity(world, pos);
       if (tile.specialization == 1) {

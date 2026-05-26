@@ -18,6 +18,7 @@ public class ResearchTableTESR extends TileEntitySpecialRenderer<TileResearchTab
    public static ResourceLocation texResearch = new ResourceLocation("arpg:textures/research_table_res_model_tex.png");
    public static ResourceLocation texWriting = new ResourceLocation("arpg:textures/research_table_wri_model_tex.png");
 
+   @Override
    public void render(TileResearchTable te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       int specialization = te.specialization;
       if (specialization > 0) {

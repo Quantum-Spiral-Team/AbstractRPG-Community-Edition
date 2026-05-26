@@ -36,6 +36,7 @@ public class Vec2i implements Comparable<Vec2i> {
       return this.getY() * 31 + this.getX();
    }
 
+   @Override
    public int compareTo(Vec2i p_compareTo_1_) {
       return this.getY() == p_compareTo_1_.getY() ? this.getX() - p_compareTo_1_.getX() : this.getY() - p_compareTo_1_.getY();
    }

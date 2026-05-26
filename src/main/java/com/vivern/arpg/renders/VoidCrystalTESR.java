@@ -19,6 +19,7 @@ public class VoidCrystalTESR extends TileEntitySpecialRenderer<TileVoidCrystal> 
    public static VoidCrystalModel model = new VoidCrystalModel();
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/void_crystal_model_tex.png");
 
+   @Override
    public void render(TileVoidCrystal te, double xx, double yy, double zz, float partialTicks, int destroyStage, float alpha) {
       float distSq = (float)(xx * xx + yy * yy + zz * zz);
       float ftAllsize = GetMOP.getFromTo(4030.0F - distSq, 0.0F, 1453.0F);

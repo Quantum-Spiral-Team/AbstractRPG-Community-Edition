@@ -55,6 +55,7 @@ public class Armors {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
@@ -89,6 +90,7 @@ public class Armors {
       public NorthernArmorModel armormodel = new NorthernArmorModel();
       public String armortexture = "arpg:textures/northern_armor_model_tex.png";
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
@@ -112,6 +114,7 @@ public class Armors {
       public HazardSuitModel armormodel = new HazardSuitModel();
       public String armortexture = "arpg:textures/hazard_suit_model_tex.png";
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
@@ -181,6 +184,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet slimeSET = new AbstractArmorSet("slime", "helmet") {
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          return null;
@@ -205,6 +209,7 @@ public class Armors {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
@@ -289,6 +294,7 @@ public class Armors {
          return hurtdamage;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
@@ -305,6 +311,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet wizardSET = new AbstractArmorSet("wizard", "hat") {
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
@@ -333,6 +340,7 @@ public class Armors {
       public AdamantiumArmorModel armormodel = new AdamantiumArmorModel();
       public String armortexture = "arpg:textures/adamantium_armor_model_tex.png";
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
@@ -356,6 +364,7 @@ public class Armors {
       public ToxiniumArmorModel armormodel = new ToxiniumArmorModel();
       public String armortexture = "arpg:textures/toxinium_armor_model_tex.png";
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
@@ -443,6 +452,7 @@ public class Armors {
       public CoralArmorModel armormodel = new CoralArmorModel();
       public String armortexture = "arpg:textures/coral_armor_model_tex.png";
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
@@ -466,6 +476,7 @@ public class Armors {
       public CrystalMantleModel armormodel = new CrystalMantleModel();
       public String armortexture = "arpg:textures/crystal_mantle_model_tex.png";
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
@@ -491,6 +502,7 @@ public class Armors {
          "arpg:textures/snowcoat_armor_model_tex.png", "arpg:textures/snowcoat_armor_model_tex_blue.png", "arpg:textures/snowcoat_armor_model_tex_white.png"
       };
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
@@ -513,6 +525,7 @@ public class Armors {
       @Override
       public void constructItem(ARPGArmor item) {
          item.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
+            @Override
             @SideOnly(Side.CLIENT)
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
                return NBTHelper.GetNBTint(stack, "colorid");
@@ -524,6 +537,7 @@ public class Armors {
       public ThundererArmorModel armormodel = new ThundererArmorModel();
       public String armortexture = "arpg:textures/thunderer_armor_model_tex.png";
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          this.armormodel.setModelAttributes(model);
@@ -547,6 +561,7 @@ public class Armors {
       public HazardSuitModel armormodel = new HazardSuitModel();
       public String armortexture = "arpg:textures/hazard_suit_model_tex.png";
 
+      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {

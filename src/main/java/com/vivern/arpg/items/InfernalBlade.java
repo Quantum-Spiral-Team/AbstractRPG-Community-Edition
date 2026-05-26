@@ -29,6 +29,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class InfernalBlade extends ItemWeapon {
    static ResourceLocation fire_circle2 = new ResourceLocation("arpg:textures/fire_circle2.png");
@@ -43,10 +45,12 @@ public class InfernalBlade extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
@@ -71,7 +75,7 @@ public class InfernalBlade extends ItemWeapon {
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
                Weapons.dealDamage(
                   new WeaponDamage(itemstack, player, entityExploded, true, false, entityExploded, WeaponDamage.explode),
-                  Math.min(parameters.getEnchantedF("damage_explode_per_health", might) * health, parameters.getF("damage_explode_max")),
+                  Math.min(parameters.getEnchantedF("damage_explode_per_health", might) * health, parameters.getFloat("damage_explode_max")),
                   player,
                   entity,
                   true,
@@ -113,6 +117,7 @@ public class InfernalBlade extends ItemWeapon {
       );
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       GUNParticle particle = new GUNParticle(
@@ -204,6 +209,7 @@ public class InfernalBlade extends ItemWeapon {
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);

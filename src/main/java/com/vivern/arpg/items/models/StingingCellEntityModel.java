@@ -67,6 +67,7 @@ public class StingingCellEntityModel extends ModelBase {
       this.shape1.addChild(this.shape3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f == 0.0F) {
          this.shape1.render(f5);

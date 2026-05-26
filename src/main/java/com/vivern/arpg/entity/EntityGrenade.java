@@ -42,6 +42,7 @@ public class EntityGrenade extends EntityThrowable {
       this.randomRotate = new Vec3d(this.rand.nextGaussian(), this.rand.nextGaussian(), this.rand.nextGaussian());
    }
 
+   @Override
    protected float getGravityVelocity() {
       return this.inWater ? super.getGravityVelocity() / 2.0F : super.getGravityVelocity();
    }
@@ -50,17 +51,19 @@ public class EntityGrenade extends EntityThrowable {
       return (float)(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
    }
 
+   @Override
    public boolean isInWater() {
       return this.waterMoveHook ? false : super.isInWater();
    }
 
+   @Override
    public void onUpdate() {
       this.flyingTime++;
       if (this.grenade != null && this.grenade.doWaterMoveHook() && !this.inGround && this.inWater) {
          this.waterMoveHook = true;
          super.onUpdate();
          this.waterMoveHook = false;
-         int imax = this.grenade.waterParticlesHookAdding();
+         int imax = this.grenade.getWaterParticlesHookAdding();
          if (imax > 0) {
             for (int i = 0; i < imax; i++) {
                float f3 = 0.25F;
@@ -96,6 +99,7 @@ public class EntityGrenade extends EntityThrowable {
       }
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       compound.setInteger("time", this.flyingTime);
       if (this.grenade != null) {
@@ -109,13 +113,14 @@ public class EntityGrenade extends EntityThrowable {
       super.writeEntityToNBT(compound);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("time")) {
          this.flyingTime = compound.getInteger("time");
       }
 
       if (compound.hasKey("grenadeid")) {
-         this.grenade = ItemGrenade.registry.get(compound.getByte("grenadeid"));
+         this.grenade = ItemGrenade.REGISTRY.get(compound.getByte("grenadeid"));
       }
 
       if (compound.hasKey("explodes")) {
@@ -125,10 +130,11 @@ public class EntityGrenade extends EntityThrowable {
       super.readEntityFromNBT(compound);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id != -1 || this.grenade == null) {
-         this.grenade = ItemGrenade.registry.get(id);
+         this.grenade = ItemGrenade.REGISTRY.get(id);
       } else if (this.world.isRemote) {
          this.grenade.explode(this.world, this.thrower, this.posX, this.posY, this.posZ, null, this);
       }
@@ -170,6 +176,7 @@ public class EntityGrenade extends EntityThrowable {
       this.motionZ *= mult;
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (this.grenade != null) {
          this.grenade.onProjectileImpact(this, result);

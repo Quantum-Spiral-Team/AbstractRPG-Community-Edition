@@ -28,6 +28,7 @@ public class StingerBoltModel extends ModelBase {
       this.shape1.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 7, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape1_2.offsetX, this.shape1_2.offsetY, this.shape1_2.offsetZ);

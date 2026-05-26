@@ -30,6 +30,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PalmFruitBunch extends Block {
    public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
+      @Override
       public boolean apply(@Nullable EnumFacing p_apply_1_) {
          return p_apply_1_ != EnumFacing.DOWN && p_apply_1_ != EnumFacing.UP;
       }
@@ -47,6 +48,7 @@ public class PalmFruitBunch extends Block {
       this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       for (EnumFacing enumfacing : EnumFacing.HORIZONTALS) {
          if (this.canPlaceAt(worldIn, pos, enumfacing)) {
@@ -57,10 +59,12 @@ public class PalmFruitBunch extends Block {
       return false;
    }
 
+   @Override
    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
       this.checkForDrop(worldIn, pos, state);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       this.onNeighborChangeInternal(worldIn, pos, state);
    }
@@ -98,6 +102,7 @@ public class PalmFruitBunch extends Block {
          : false;
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       Random rand = world instanceof World ? ((World)world).rand : new Random();
       drops.add(new ItemStack(BlocksRegister.PALM_SAPLING));
@@ -123,27 +128,33 @@ public class PalmFruitBunch extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState();
       switch (meta) {
@@ -166,6 +177,7 @@ public class PalmFruitBunch extends Block {
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((EnumFacing)state.getValue(FACING)) {
@@ -188,22 +200,27 @@ public class PalmFruitBunch extends Block {
       return i;
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       items.add(new ItemStack(this, 1, 0));
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       if (this.canPlaceAt(worldIn, pos, facing)) {
          return this.getDefaultState().withProperty(FACING, facing);
@@ -218,6 +235,7 @@ public class PalmFruitBunch extends Block {
       }
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }

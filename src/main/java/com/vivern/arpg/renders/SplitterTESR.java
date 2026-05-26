@@ -51,6 +51,7 @@ public class SplitterTESR extends TileEntitySpecialRenderer<TileSplitter> {
       }
    }
 
+   @Override
    public void render(TileSplitter te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       AbstractMobModel.light(240, false);
       RenderHelper.disableStandardItemLighting();

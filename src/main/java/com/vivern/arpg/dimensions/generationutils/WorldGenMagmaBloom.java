@@ -58,6 +58,7 @@ public class WorldGenMagmaBloom implements IWorldGenerator {
       this(oreState, new int[]{dimension}, blocksGround, blockAmountMin, blockAmountMax, chancesToSpawn, minHeight, maxHeight, maxMeta);
    }
 
+   @Override
    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       int dim = world.provider.getDimension();
 

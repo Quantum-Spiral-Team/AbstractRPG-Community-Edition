@@ -25,6 +25,7 @@ public class EntityThistleThornModel extends ModelBase {
       this.shape1.addBox(-1.5F, 0.0F, -4.0F, 3, 1, 9, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float lbX = OpenGlHelper.lastBrightnessX;
       float lbY = OpenGlHelper.lastBrightnessY;

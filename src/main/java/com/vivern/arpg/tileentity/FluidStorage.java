@@ -62,31 +62,38 @@ public class FluidStorage extends FluidTank {
       return nbt;
    }
 
+   @Override
    @Nullable
    public FluidStack getFluid() {
       return this.fluid;
    }
 
+   @Override
    public void setFluid(@Nullable FluidStack fluid) {
       this.fluid = fluid;
    }
 
+   @Override
    public int getFluidAmount() {
       return this.fluid == null ? 0 : this.fluid.amount;
    }
 
+   @Override
    public int getCapacity() {
       return this.capacity;
    }
 
+   @Override
    public void setCapacity(int capacity) {
       this.capacity = capacity;
    }
 
+   @Override
    public void setTileEntity(TileEntity tile) {
       this.tile = tile;
    }
 
+   @Override
    public int fill(FluidStack resource, boolean doFill) {
       if (this.filldrain != null) {
          return this.filldrain.fill(this, resource, doFill);
@@ -95,6 +102,7 @@ public class FluidStorage extends FluidTank {
       }
    }
 
+   @Override
    public int fillInternal(FluidStack resource, boolean doFill) {
       if (resource == null || resource.amount <= 0) {
          return 0;
@@ -132,6 +140,7 @@ public class FluidStorage extends FluidTank {
       }
    }
 
+   @Override
    public FluidStack drain(int maxDrain, boolean doDrain) {
       if (this.filldrain != null) {
          return this.filldrain.drain(this, maxDrain, doDrain);
@@ -140,11 +149,13 @@ public class FluidStorage extends FluidTank {
       }
    }
 
+   @Override
    @Nullable
    public FluidStack drainInternal(FluidStack resource, boolean doDrain) {
       return resource != null && resource.isFluidEqual(this.getFluid()) ? this.drainInternal(resource.amount, doDrain) : null;
    }
 
+   @Override
    @Nullable
    public FluidStack drainInternal(int maxDrain, boolean doDrain) {
       if (this.fluid != null && maxDrain > 0) {
@@ -174,26 +185,32 @@ public class FluidStorage extends FluidTank {
       }
    }
 
+   @Override
    public boolean canFill() {
       return this.canFill;
    }
 
+   @Override
    public boolean canDrain() {
       return this.canDrain;
    }
 
+   @Override
    public void setCanFill(boolean canFill) {
       this.canFill = canFill;
    }
 
+   @Override
    public void setCanDrain(boolean canDrain) {
       this.canDrain = canDrain;
    }
 
+   @Override
    public boolean canFillFluidType(FluidStack fluid) {
       return this.canFill();
    }
 
+   @Override
    public boolean canDrainFluidType(@Nullable FluidStack fluid) {
       return fluid != null && this.canDrain();
    }
@@ -204,6 +221,7 @@ public class FluidStorage extends FluidTank {
       }
    }
 
+   @Override
    public FluidTankInfo getInfo() {
       return new FluidTankInfo(this);
    }

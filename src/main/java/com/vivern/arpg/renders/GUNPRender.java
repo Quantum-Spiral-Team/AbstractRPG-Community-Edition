@@ -18,13 +18,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-// FIX: change `Render<T>` to `Render<GUNParticle>`
 @SideOnly(Side.CLIENT)
 public class GUNPRender<T extends GUNParticle> extends Render<GUNParticle> {
    public GUNPRender(RenderManager renderManagerIn) {
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(GUNParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y, (float)z);
@@ -111,6 +111,7 @@ public class GUNPRender<T extends GUNParticle> extends Render<GUNParticle> {
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(GUNParticle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }

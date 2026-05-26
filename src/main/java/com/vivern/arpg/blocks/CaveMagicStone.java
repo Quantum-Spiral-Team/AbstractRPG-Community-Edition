@@ -22,19 +22,23 @@ public class CaveMagicStone extends Block {
       this.setLightLevel(0.5F);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }

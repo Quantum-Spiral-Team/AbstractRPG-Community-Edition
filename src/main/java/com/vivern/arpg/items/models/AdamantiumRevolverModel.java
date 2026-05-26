@@ -57,6 +57,7 @@ public class AdamantiumRevolverModel extends ModelBase {
       this.shape2_1.addChild(this.shape2_5);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shapess1.offsetX, this.shapess1.offsetY, this.shapess1.offsetZ);

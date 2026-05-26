@@ -22,6 +22,7 @@ public class FairyWingsModel extends ModelBase {
       this.setRotateAngle(this.shape1a, 0.22759093F, 0.18203785F, -0.31869712F);
    }
 
+   @Override
    public void render(Entity entity, float sweep, float flapnormal, float ticksforward, float nofly, float sneaking, float f5) {
       float fly = 1.0F - nofly;
       float flapforw1 = (float)Math.sin(ticksforward * 0.4F) * ticksforward;

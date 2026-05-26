@@ -21,6 +21,7 @@ public class BookcaseTESR extends TileEntitySpecialRenderer<TileBookcase> {
       new ResourceLocation("arpg:textures/books_rhinestone_tex.png")
    };
 
+   @Override
    public void render(TileBookcase te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);

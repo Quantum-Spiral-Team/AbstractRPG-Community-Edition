@@ -27,14 +27,17 @@ public class NiveoliteBlock extends Block implements IBlockHardBreak {
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
    }
 
+   @Override
    public EnumPushReaction getPushReaction(IBlockState state) {
       return EnumPushReaction.IGNORE;
    }
 
+   @Override
    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
       return false;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       boolean drop = true;
 
@@ -63,10 +66,12 @@ public class NiveoliteBlock extends Block implements IBlockHardBreak {
       }
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return 0;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }

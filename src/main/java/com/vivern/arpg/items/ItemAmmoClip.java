@@ -16,6 +16,8 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAmmoClip extends Item {
    public final int maxAmmoStore;
@@ -36,6 +38,7 @@ public class ItemAmmoClip extends Item {
       this.specialAmmo = special;
    }
 
+   @Override
    public double getDurabilityForDisplay(ItemStack stack) {
       if (this.specialAmmo) {
          return stack.getMetadata() == 0 ? 1.0 : 0.0;
@@ -44,6 +47,7 @@ public class ItemAmmoClip extends Item {
       }
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       if (this.specialAmmo) {
@@ -118,6 +122,8 @@ public class ItemAmmoClip extends Item {
       return map;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       if (this.specialAmmo) {
          tooltip.add("Ammo: " + (stack.getMetadata() == 0 ? "empty" : "full"));

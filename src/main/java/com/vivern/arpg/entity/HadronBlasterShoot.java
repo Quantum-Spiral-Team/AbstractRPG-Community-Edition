@@ -60,6 +60,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -72,10 +73,12 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 30) {
@@ -83,6 +86,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
    }
@@ -161,6 +165,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit) && Weapons.canDealDamageTo(result.entityHit)) {
@@ -270,6 +275,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
       }
    }
 
+   @Override
    public void onEntityUpdate() {
       super.onEntityUpdate();
       if (this.world.isRemote) {
@@ -337,13 +343,16 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
          }
       }
 
+      @Override
       public double getYOffset() {
          return 0.05;
       }
 
+      @Override
       protected void entityInit() {
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.follow && this.owner != null) {
@@ -409,6 +418,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public boolean isInRangeToRenderDist(double distance) {
          double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0;
@@ -420,12 +430,15 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
          return distance < d0 * d0;
       }
 
+      @Override
       protected void readEntityFromNBT(NBTTagCompound compound) {
       }
 
+      @Override
       protected void writeEntityToNBT(NBTTagCompound compound) {
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 0) {
@@ -453,6 +466,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
          GlStateManager.color(1.0F, 1.0F, 1.0F);
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void onEntityUpdate() {
          if (this.ticksExisted < 50) {

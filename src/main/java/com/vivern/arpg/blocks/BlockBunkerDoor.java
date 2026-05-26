@@ -35,6 +35,7 @@ public class BlockBunkerDoor extends BlockBlockHard {
       this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
       if (worldIn.getTileEntity(pos) instanceof TileBunkerDoor) {
@@ -50,6 +51,7 @@ public class BlockBunkerDoor extends BlockBlockHard {
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -82,35 +84,43 @@ public class BlockBunkerDoor extends BlockBlockHard {
       return (TileBunkerDoor)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileBunkerDoor createTileEntity(World world, IBlockState blockState) {
       return new TileBunkerDoor();
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer).getOpposite());
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }

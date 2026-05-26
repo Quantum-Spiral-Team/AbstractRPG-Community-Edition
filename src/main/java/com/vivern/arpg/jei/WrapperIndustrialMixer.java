@@ -85,6 +85,7 @@ public class WrapperIndustrialMixer implements IRecipeWrapper {
       return true;
    }
 
+   @Override
    public void getIngredients(IIngredients ingredients) {
       List inputItems;
       if (this.recipe.catalyst1 == null && this.recipe.catalyst2 == null) {
@@ -107,6 +108,7 @@ public class WrapperIndustrialMixer implements IRecipeWrapper {
       ingredients.setOutputs(VanillaTypes.FLUID, this.fluidOutput);
    }
 
+   @Override
    public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
       if (mouseX > 75 && mouseY > 25 && mouseX < 91 && mouseY < 59) {
          minecraft.fontRenderer.drawString("RF: " + this.recipe.rfToAll, mouseX, mouseY, -1, true);

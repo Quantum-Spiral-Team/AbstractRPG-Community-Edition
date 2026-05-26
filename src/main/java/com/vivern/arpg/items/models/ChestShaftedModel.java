@@ -51,6 +51,7 @@ public class ChestShaftedModel extends ModelChest {
       return this;
    }
 
+   @Override
    public void renderAll() {
       float lbX = OpenGlHelper.lastBrightnessX;
       float lbY = OpenGlHelper.lastBrightnessY;
@@ -71,6 +72,7 @@ public class ChestShaftedModel extends ModelChest {
       }
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float lbX = OpenGlHelper.lastBrightnessX;
       float lbY = OpenGlHelper.lastBrightnessY;

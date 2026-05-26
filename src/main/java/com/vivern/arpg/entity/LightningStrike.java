@@ -15,6 +15,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LightningStrike extends Entity implements IEntitySynchronize {
    public static ResourceLocation texture = new ResourceLocation("arpg:textures/lightning1.png");
@@ -76,10 +78,13 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
       this.world.spawnEntity(laser);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean isInRangeToRenderDist(double distance) {
       return false;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote) {
@@ -221,12 +226,15 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
       return ret.add(-prunex, -pruney, -prunez);
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 }

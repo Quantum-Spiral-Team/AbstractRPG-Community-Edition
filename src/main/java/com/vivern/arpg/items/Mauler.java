@@ -20,6 +20,8 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Mauler extends Whip {
    public static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
@@ -44,7 +46,7 @@ public class Mauler extends Whip {
             1.8F,
             0.9F + itemRand.nextFloat() / 5.0F
          );
-      int whipMaxCharge = WeaponParameters.getWeaponParameters(this).getI("max_charge");
+      int whipMaxCharge = WeaponParameters.getWeaponParameters(this).getInt("max_charge");
       NBTHelper.SetNBTint(itemstack, -whipMaxCharge, "charge");
       Vec3d poseyes = player.getPositionEyes(1.0F);
       Vec3d scaledVec = new Vec3d(
@@ -68,7 +70,7 @@ public class Mauler extends Whip {
          0.0
       );
       if (killSomeone && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && !player.world.isRemote) {
-         float explosionSize = WeaponParameters.getWeaponParameters(this).getF("special_explosion_size");
+         float explosionSize = WeaponParameters.getWeaponParameters(this).getFloat("special_explosion_size");
          Explosion explosion = new Explosion(player.world, player, pos.x, pos.y, pos.z, explosionSize, true, true);
          explosion.doExplosionA();
          explosion.doExplosionB(true);
@@ -79,7 +81,7 @@ public class Mauler extends Whip {
    public void onSpecAttackDamage(Entity entity, Vec3d pos, IWeapon iweapon, ItemStack itemstack, EntityPlayer player, EnumHand hand, float damage) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int time = parameters.getEnchantedI("potion_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack));
-      int power = parameters.getI("potion_power");
+      int power = parameters.getInt("potion_power");
       Weapons.setPotionIfEntityLB(entity, PotionEffects.BERSERK, time, power);
    }
 
@@ -92,6 +94,7 @@ public class Mauler extends Whip {
       return super.attackEntityMelee(entity, stack, player, hand, isCritical);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (a != 2.0 && a != 3.0) {

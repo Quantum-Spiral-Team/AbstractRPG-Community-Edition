@@ -23,6 +23,7 @@ public class ShellShardModel extends ModelBase {
       this.shape2.addBox(-1.5F, -0.5F, -1.0F, 3, 1, 3, -0.1F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       int i = entity.getEntityId() % 3;
       if (i == 0) {

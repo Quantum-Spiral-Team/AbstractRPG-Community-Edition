@@ -39,27 +39,33 @@ public class ConiferLeaves extends BlockLeaves {
       this.setHarvestLevel("shears", 0);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT_MIPPED;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return rand.nextFloat() < 0.45F ? ItemsRegister.CONIFER_STICK : Item.getItemFromBlock(BlocksRegister.CONIFER_SAPLING);
    }
 
+   @Override
    protected int getSaplingDropChance(IBlockState state) {
       return 6;
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       Random rand = RANDOM;
       int chance = this.getSaplingDropChance(state);
@@ -78,14 +84,17 @@ public class ConiferLeaves extends BlockLeaves {
       }
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       items.add(new ItemStack(this, 1));
    }
 
+   @Override
    protected ItemStack getSilkTouchDrop(IBlockState state) {
       return new ItemStack(Item.getItemFromBlock(this), 1);
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       switch (meta) {
          case 0:
@@ -106,6 +115,7 @@ public class ConiferLeaves extends BlockLeaves {
       }
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       if (!(Boolean)state.getValue(DECAYABLE) && !(Boolean)state.getValue(CHECK_DECAY)) {
          return 0;
@@ -118,14 +128,17 @@ public class ConiferLeaves extends BlockLeaves {
       }
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{CHECK_DECAY, DECAYABLE});
    }
 
+   @Override
    public int damageDropped(IBlockState state) {
       return 0;
    }
 
+   @Override
    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
       if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
          player.addStat(StatList.getBlockStats(this));
@@ -134,10 +147,12 @@ public class ConiferLeaves extends BlockLeaves {
       }
    }
 
+   @Override
    public NonNullList<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
       return NonNullList.withSize(1, new ItemStack(this, 1));
    }
 
+   @Override
    public EnumType getWoodType(int meta) {
       return EnumType.SPRUCE;
    }

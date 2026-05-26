@@ -51,6 +51,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class StormledgeMobsPack {
    public static String mobsteam = "stormledge.mob.team";
@@ -190,14 +192,17 @@ public class StormledgeMobsPack {
          return DeathEffects.ELECTRIC_BLOOD;
       }
 
+      @Override
       protected float getSoundPitch() {
          return 0.86F;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.45F;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -350,6 +355,7 @@ public class StormledgeMobsPack {
          return super.attackEntityAsMob(entityIn);
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
@@ -362,6 +368,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -446,6 +453,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          EntityAIAttackSweep swe = new EntityAIAttackSweep(this, 50, 0.8F, 3.0F, 4.0F, 10, true, 10.0F, 5.0F, Sounds.mob_ghost_hurt).setTriggerOnStart();
          swe.swoshSound = Sounds.cloud_eater_attack;
@@ -525,13 +533,16 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public double getMountedYOffset() {
          return 1.5;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
@@ -544,6 +555,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -562,6 +574,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAICorrupter(this, 4, 15.0F, 1, false, 5.0F, 4.0F));
          this.tasks
@@ -617,6 +630,7 @@ public class StormledgeMobsPack {
          return DeathEffects.WIND_BLOOD;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -649,6 +663,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
@@ -661,6 +676,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -736,6 +752,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAICorrupter(this, 1, 1.0F, 1, false, 10.0F, 5.0F));
          this.tasks.addTask(2, new EntityAIForceAttack(this, 10.0F, 40, 4.5F, 0.0F, 2.5F, 0.4F, 5.0F, 1.2F).setSoundOnAttack(Sounds.impetus_1));
@@ -782,9 +799,11 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
@@ -797,6 +816,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIRayLogicFly(this));
          this.tasks.addTask(2, new EntityAIDash(this, 100, 3.0F, 1.0F, 3.0F, false, 0.0F));
@@ -838,6 +858,7 @@ public class StormledgeMobsPack {
          return DeathEffects.ELECTRIC_BLOOD;
       }
 
+      @Override
       protected float getSoundVolume() {
          return 1.5F;
       }
@@ -847,6 +868,7 @@ public class StormledgeMobsPack {
          return source == DamageSource.IN_WALL ? false : super.attackEntityFrom(source, amount);
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.66F;
       }
@@ -895,10 +917,12 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       protected boolean canDespawn() {
          return this.despawnIfNoBoss ? false : super.canDespawn();
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -987,6 +1011,7 @@ public class StormledgeMobsPack {
          return angle + f;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
@@ -999,6 +1024,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1022,6 +1048,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
          this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -1098,6 +1125,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1137,6 +1165,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return this.noScreenTime == 0 ? 0.8F : 0.0F;
       }
@@ -1151,6 +1180,7 @@ public class StormledgeMobsPack {
          return super.attackEntityFrom(source, amount);
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
@@ -1163,6 +1193,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1237,6 +1268,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAICorrupter(this, 4, 15.0F, 1, false, 8.0F, 3.0F));
          this.tasks.addTask(2, new EntityAIAABBAttack(this, 20, 0.6F));
@@ -1292,6 +1324,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1311,6 +1344,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
@@ -1323,6 +1357,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1341,6 +1376,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAICorrupter(this, 23, 18.0F, 1, true, 8.0F, 3.0F));
          this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));
@@ -1391,6 +1427,7 @@ public class StormledgeMobsPack {
          return DeathEffects.ELECTRIC_BLOOD;
       }
 
+      @Override
       protected float getSoundPitch() {
          return 0.9F;
       }
@@ -1406,6 +1443,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1492,6 +1530,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.SHOCK
@@ -1505,6 +1544,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1574,6 +1614,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIBird(this, 100, 30.0F, 2, true, 8.0F, 3.0F, true));
          this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));
@@ -1631,6 +1672,7 @@ public class StormledgeMobsPack {
          return DeathEffects.WIND_BLOOD;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1703,6 +1745,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
@@ -1715,6 +1758,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1733,6 +1777,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAICorrupter(this, 75, 30.0F, 1, true, 7.0F, 7.0F).setBurst(true, 6, 0, false, 5, 0));
          this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));
@@ -1795,6 +1840,7 @@ public class StormledgeMobsPack {
          return super.onInitialSpawn(difficulty, livingdata);
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1956,6 +2002,7 @@ public class StormledgeMobsPack {
          }
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return this.WEAPON == 3 && this.shieldPower > 0.0F ? 1.2F : 0.0F;
       }
@@ -1976,6 +2023,7 @@ public class StormledgeMobsPack {
          return super.attackEntityFrom(source, amount);
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
@@ -1988,6 +2036,7 @@ public class StormledgeMobsPack {
             : false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -2122,6 +2171,7 @@ public class StormledgeMobsPack {
          super.readEntityFromNBT(compound);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIFloatingSkeleton(this, 50, 20.0F, 5, true, 8.0F, 4.0F, 1.4F, 0.25F, true, true));

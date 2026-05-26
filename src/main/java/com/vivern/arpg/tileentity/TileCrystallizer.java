@@ -295,6 +295,7 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
       this.solutionSecnColor = ColorConverters.RGBtoDecimal(Rs, Gs, Bs);
    }
 
+   @Override
    public void update() {
       this.getManaBuffer().updateManaBuffer(this.world, this.pos);
       this.ticksExisted++;
@@ -372,10 +373,12 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
          || isNonGermeticBlock(world, 3.0F, pos.east());
    }
 
+   @Override
    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
       return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
    }
 
+   @Override
    @Nullable
    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
       return (T)(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null ? this.tank1 : super.getCapability(capability, facing));
@@ -444,42 +447,50 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public int getSizeInventory() {
       return 1;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.containItemStacks) {
          if (!itemstack.isEmpty()) {
@@ -490,18 +501,22 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
       return true;
    }
 
+   @Override
    public ItemStack getStackInSlot(int index) {
       return (ItemStack)this.containItemStacks.get(index);
    }
 
+   @Override
    public ItemStack decrStackSize(int index, int count) {
       return ItemStackHelper.getAndSplit(this.containItemStacks, index, count);
    }
 
+   @Override
    public ItemStack removeStackFromSlot(int index) {
       return ItemStackHelper.getAndRemove(this.containItemStacks, index);
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       ItemStack itemstack = (ItemStack)this.containItemStacks.get(index);
       boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
@@ -515,18 +530,22 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
       }
    }
 
+   @Override
    public String getName() {
       return "tile_crystallizer";
    }
 
+   @Override
    public boolean hasCustomName() {
       return false;
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
       return this.world.getTileEntity(this.pos) != this
          ? false
@@ -534,29 +553,36 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
             <= 64.0;
    }
 
+   @Override
    public void openInventory(EntityPlayer player) {
       Crystallizer.trySendPacketUpdate(this.world, this.getPos(), this, 8);
    }
 
+   @Override
    public void closeInventory(EntityPlayer player) {
    }
 
+   @Override
    public boolean isItemValidForSlot(int index, ItemStack stack) {
       return true;
    }
 
+   @Override
    public int[] getSlotsForFace(EnumFacing side) {
       return SLOT;
    }
 
+   @Override
    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
       return this.isItemValidForSlot(index, itemStackIn);
    }
 
+   @Override
    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
       return true;
    }
 
+   @Override
    public int getField(int id) {
       switch (id) {
          case 0:
@@ -576,6 +602,7 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
       }
    }
 
+   @Override
    public void setField(int id, int value) {
       switch (id) {
          case 0:
@@ -592,18 +619,22 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
       }
    }
 
+   @Override
    public int getFieldCount() {
       return 6;
    }
 
+   @Override
    public void clear() {
       this.containItemStacks.clear();
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       return new ContainerCrystallizer(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.crystallizer";
    }

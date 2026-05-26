@@ -18,10 +18,12 @@ public class TileElectricSieve extends TileSieve {
       }
    }
 
+   @Override
    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
       return capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, facing);
    }
 
+   @Override
    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
       return (T)(capability == CapabilityEnergy.ENERGY ? this.electricStorage : super.getCapability(capability, facing));
    }

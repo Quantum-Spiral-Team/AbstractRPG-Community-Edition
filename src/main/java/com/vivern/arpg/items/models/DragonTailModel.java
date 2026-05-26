@@ -68,6 +68,7 @@ public class DragonTailModel extends ModelBase {
       this.setRotateAngle(this.crystal_3, -0.22759093F, -1.3203416F, 2.4586453F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.staf2.offsetX, this.staf2.offsetY, this.staf2.offsetZ);

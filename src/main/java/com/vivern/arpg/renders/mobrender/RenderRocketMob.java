@@ -51,6 +51,7 @@ public class RenderRocketMob extends RenderLiving<EntityLiving> {
       }
    }
 
+   @Override
    public void doRender(EntityLiving entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (!MinecraftForge.EVENT_BUS.post(new Pre(entity, this, partialTicks, x, y, z))) {
          GlStateManager.pushMatrix();
@@ -193,6 +194,7 @@ public class RenderRocketMob extends RenderLiving<EntityLiving> {
       return new RocketMobFactory(model, mobTexture, shadowSize, vertical, entry);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull EntityLiving entity) {
       if (this.lightLayerMode) {
@@ -229,6 +231,7 @@ public class RenderRocketMob extends RenderLiving<EntityLiving> {
          return this;
       }
 
+      @Override
       public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
          return new RenderRocketMob(manager, this.model, this.mobTexture, this.shadowSize, this.layerHeldItem, this.layerArmor, this.vertical, this.entry);
       }

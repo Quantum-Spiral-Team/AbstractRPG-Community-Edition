@@ -15,14 +15,17 @@ public class SnowClod extends EntityMob {
       this.setSize(0.85F, 0.85F);
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
       super.fall(distance, damageMultiplier);
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
    }
 
+   @Override
    protected void applyEntityAttributes() {
       super.applyEntityAttributes();
       this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0);
@@ -31,6 +34,7 @@ public class SnowClod extends EntityMob {
       this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25);
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0, false));
       this.tasks.addTask(2, new EntityAIRayLogicJump(this));

@@ -28,16 +28,19 @@ public class BlockFluidNitricAcid extends BlockFluidClassic {
       this.setRegistryName("fluid_nitric_acid_block");
    }
 
+   @Override
    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
       super.onBlockAdded(world, pos, state);
       this.mergerFluids(pos, world);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
       super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
       this.mergerFluids(pos, world);
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       if (entityIn instanceof EntityLivingBase && entityIn.ticksExisted % 15 == 0) {
@@ -88,6 +91,7 @@ public class BlockFluidNitricAcid extends BlockFluidClassic {
    private void mergerFluids(BlockPos pos, World world) {
    }
 
+   @Override
    @Nullable
    public PathNodeType getAiPathNodeType(IBlockState state, IBlockAccess world, BlockPos pos, @Nullable EntityLiving entity) {
       return entity != null && entity.isEntityInvulnerable(DamageSource.WITHER) && entity.isEntityInvulnerable(DamageSource.MAGIC)

@@ -168,6 +168,7 @@ public class ThunderbirdWingsModel extends ModelWings {
       this.shapeXa2.addChild(this.shapeWa2);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1a.render(f5);
    }

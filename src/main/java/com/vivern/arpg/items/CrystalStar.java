@@ -38,6 +38,7 @@ public class CrystalStar extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -47,10 +48,12 @@ public class CrystalStar extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -65,6 +68,7 @@ public class CrystalStar extends ItemWeapon {
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          NBTHelper.GiveNBTint(itemstack, -1, "level_stop_at");
@@ -73,7 +77,7 @@ public class CrystalStar extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.experienceLevel > level_stop_at) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               Weapons.addOrRemoveExperience(player, -parameters.getI("xp_decrease"));
+               Weapons.addOrRemoveExperience(player, -parameters.getInt("xp_decrease"));
             } else {
                NBTHelper.SetNBTint(itemstack, -1, "level_stop_at");
                world.playSound(
@@ -146,7 +150,7 @@ public class CrystalStar extends ItemWeapon {
 
             if (firedelay == 1) {
                if (level_stop_at == -1) {
-                  int nn = parameters.getI("shots");
+                  int nn = parameters.getInt("shots");
 
                   for (int i = 0; i < nn; i++) {
                      CrystalStarShoot projectile = new CrystalStarShoot(world, player, itemstack, power);
@@ -155,15 +159,15 @@ public class CrystalStar extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getF("velocity"),
-                        parameters.getF("inaccuracy") + i / 2.0F - parameters.getF("inaccuracy_ench") * acc
+                        parameters.getFloat("velocity"),
+                        parameters.getFloat("inaccuracy") + i / 2.0F - parameters.getFloat("inaccuracy_ench") * acc
                      );
                      world.spawnEntity(projectile);
                   }
                } else {
                   CrystalStarPoweredShoot projectile = new CrystalStarPoweredShoot(world, player, itemstack, power);
                   projectile.shoot(
-                     player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getF("velocity"), parameters.getEnchantedF("inaccuracy", acc)
+                     player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc)
                   );
                   world.spawnEntity(projectile);
                }

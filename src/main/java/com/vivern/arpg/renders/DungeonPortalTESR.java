@@ -32,6 +32,7 @@ public class DungeonPortalTESR extends TileEntitySpecialRenderer<TileDungeonPort
    private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("arpg:textures/portal_dungeon.png");
    private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("arpg:textures/portal_dungeon2.png");
 
+   @Override
    public void render(TileDungeonPortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       if (te.notRendered) {
          double FX = x + 0.5;

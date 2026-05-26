@@ -34,6 +34,8 @@ import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fluids.capability.wrappers.BlockLiquidWrapper;
 import net.minecraftforge.fluids.capability.wrappers.BlockWrapper;
 import net.minecraftforge.fluids.capability.wrappers.FluidBlockWrapper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class Canister extends ItemFluidContainer {
@@ -45,14 +47,17 @@ public class Canister extends ItemFluidContainer {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public float getDestroySpeed(ItemStack stack, IBlockState state) {
       return 0.0F;
    }
 
+   @Override
    public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
       return super.doesSneakBypassUse(stack, world, pos, player);
    }
@@ -72,6 +77,7 @@ public class Canister extends ItemFluidContainer {
       world.playSound((EntityPlayer)null, pos.getX(), pos.getY(), pos.getZ(), soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
@@ -220,6 +226,8 @@ public class Canister extends ItemFluidContainer {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack itemstack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       super.addInformation(itemstack, worldIn, tooltip, flagIn);
       if (itemstack.hasTagCompound()) {

@@ -35,23 +35,28 @@ public class BlockItemCharger extends Block {
       this.setHarvestLevel("pickaxe", 1);
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -66,6 +71,7 @@ public class BlockItemCharger extends Block {
       return true;
    }
 
+   @Override
    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
       TileItemCharger tile = this.getTileEntity(worldIn, pos);
@@ -99,10 +105,12 @@ public class BlockItemCharger extends Block {
       return (TileItemCharger)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileItemCharger createTileEntity(World world, IBlockState blockState) {
       return new TileItemCharger();

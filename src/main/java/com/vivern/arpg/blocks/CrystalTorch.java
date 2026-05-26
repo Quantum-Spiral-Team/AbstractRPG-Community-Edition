@@ -33,6 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CrystalTorch extends Block {
    public static ResourceLocation res = new ResourceLocation("arpg:textures/star.png");
    public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
+      @Override
       public boolean apply(@Nullable EnumFacing p_apply_1_) {
          return p_apply_1_ != EnumFacing.DOWN;
       }
@@ -55,6 +56,7 @@ public class CrystalTorch extends Block {
       this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       for (EnumFacing enumfacing : FACING.getAllowedValues()) {
          if (this.canPlaceAt(worldIn, pos, enumfacing)) {
@@ -82,10 +84,12 @@ public class CrystalTorch extends Block {
       return block.canPlaceTorchOnTop(worldIn.getBlockState(pos), worldIn, pos);
    }
 
+   @Override
    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
       this.checkForDrop(worldIn, pos, state);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       this.onNeighborChangeInternal(worldIn, pos, state);
    }
@@ -128,6 +132,7 @@ public class CrystalTorch extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       switch ((EnumFacing)state.getValue(FACING)) {
          case EAST:
@@ -143,23 +148,28 @@ public class CrystalTorch extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState();
       switch (meta) {
@@ -183,6 +193,7 @@ public class CrystalTorch extends Block {
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((EnumFacing)state.getValue(FACING)) {
@@ -207,22 +218,27 @@ public class CrystalTorch extends Block {
       return i;
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       items.add(new ItemStack(this, 1, 0));
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       if (this.canPlaceAt(worldIn, pos, facing)) {
          return this.getDefaultState().withProperty(FACING, facing);
@@ -237,10 +253,12 @@ public class CrystalTorch extends Block {
       }
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.23F) {

@@ -100,18 +100,22 @@ public class EntityAIDragon extends AbstractMob.AbstractAI {
       return this;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return this.shouldExecute() || !this.entity.getNavigator().noPath();
    }
 
+   @Override
    public void startExecuting() {
       super.startExecuting();
    }
 
+   @Override
    public void resetTask() {
       super.resetTask();
       this.entity.resetActiveHand();
@@ -160,6 +164,7 @@ public class EntityAIDragon extends AbstractMob.AbstractAI {
       return randomVec.subtract(vec.scale(vec.dotProduct(randomVec) / vec.lengthSquared()));
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
       if (this.currentattackCooldown > 0) {

@@ -25,26 +25,32 @@ public class CategoryAssemblyTable implements IRecipeCategory<WrapperAssemblyTab
       this.arrow = h.createAnimatedDrawable(staticarrow, 60, StartDirection.LEFT, false);
    }
 
+   @Override
    public String getUid() {
       return "arpg:assembly_table";
    }
 
+   @Override
    public String getTitle() {
       return "Assembly Table";
    }
 
+   @Override
    public String getModName() {
       return "arpg";
    }
 
+   @Override
    public IDrawable getBackground() {
       return this.background;
    }
 
+   @Override
    public void drawExtras(Minecraft minecraft) {
       this.arrow.draw(minecraft, 95, 77);
    }
 
+   @Override
    public void setRecipe(IRecipeLayout recipeLayout, WrapperAssemblyTable recipeWrapper, IIngredients ingredients) {
       IGuiItemStackGroup isg = recipeLayout.getItemStacks();
 

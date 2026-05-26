@@ -27,6 +27,7 @@ public class StreamLaserRender<T extends EntityStreamLaserP> extends Render<Enti
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(EntityStreamLaserP entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (entity.useModel) {
          entity.resetPlayerArmPitchYaw(partialTicks);
@@ -140,6 +141,7 @@ public class StreamLaserRender<T extends EntityStreamLaserP> extends Render<Enti
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntityStreamLaserP entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }

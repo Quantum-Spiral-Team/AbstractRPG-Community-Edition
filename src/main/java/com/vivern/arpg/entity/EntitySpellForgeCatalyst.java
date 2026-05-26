@@ -17,6 +17,8 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchronize {
    private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntitySpellForgeCatalyst.class, DataSerializers.ITEM_STACK);
@@ -72,14 +74,17 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
       }
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return true;
    }
 
+   @Override
    protected boolean canTriggerWalking() {
       return false;
    }
 
+   @Override
    protected void entityInit() {
       this.getDataManager().register(ITEM, ItemStack.EMPTY);
    }
@@ -92,6 +97,8 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void handleStatusUpdate(byte id) {
       super.handleStatusUpdate(id);
       if (id == 11) {
@@ -99,6 +106,7 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
       }
    }
 
+   @Override
    public void onUpdate() {
       if (this.spendTick <= 0) {
          if (this.heat <= 0) {
@@ -211,6 +219,7 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
       }
    }
 
+   @Override
    public boolean handleWaterMovement() {
       if (this.world.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.WATER, this)) {
          if (!this.inWater && !this.firstUpdate) {
@@ -254,9 +263,11 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
       return this.inWater;
    }
 
+   @Override
    protected void dealFireDamage(int amount) {
    }
 
+   @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       if (this.world.isRemote || this.isDead) {
          return false;
@@ -273,6 +284,7 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
       }
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       compound.setShort("Health", (short)this.health);
       compound.setShort("Age", (short)this.age);
@@ -291,6 +303,7 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
       }
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       this.health = compound.getShort("Health");
       this.age = compound.getShort("Age");
@@ -317,6 +330,7 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
       }
    }
 
+   @Override
    public boolean canBeAttackedWithItem() {
       return false;
    }

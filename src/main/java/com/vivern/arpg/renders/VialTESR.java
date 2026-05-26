@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 
 public class VialTESR extends TileEntitySpecialRenderer<TileVial> {
+   @Override
    public void render(TileVial te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(x, y + 0.5, z);

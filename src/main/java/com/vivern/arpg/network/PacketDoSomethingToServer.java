@@ -1,6 +1,6 @@
 package com.vivern.arpg.network;
 
-import com.vivern.arpg.arpgamemodes.SurvivorGamestyleWatcher;
+import com.vivern.arpg.arpgamemodes.SurvivorGameStyleWatcher;
 import io.netty.buffer.ByteBuf;
 import java.util.ConcurrentModificationException;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,7 +16,7 @@ public class PacketDoSomethingToServer extends Packet {
    double c = 0.0;
    int id = 0;
 
-   public void writeargs(double x, double y, double z, double a, double b, double c, int id) {
+   public void writeArgs(double x, double y, double z, double a, double b, double c, int id) {
       this.buf().writeDouble(x);
       this.buf().writeDouble(y);
       this.buf().writeDouble(z);
@@ -44,8 +44,8 @@ public class PacketDoSomethingToServer extends Packet {
 
    void processMessage(EntityLivingBase player) {
       try {
-         if (this.id == 9 && SurvivorGamestyleWatcher.currentWatcher != null) {
-            SurvivorGamestyleWatcher.currentWatcher.onServerPacket(player, this.x, this.y, this.z, this.a, this.b, this.c);
+         if (this.id == 9 && SurvivorGameStyleWatcher.currentWatcher != null) {
+            SurvivorGameStyleWatcher.currentWatcher.onServerPacket(player, this.x, this.y, this.z, this.a, this.b, this.c);
          }
       } catch (ConcurrentModificationException var3) {
          var3.printStackTrace();

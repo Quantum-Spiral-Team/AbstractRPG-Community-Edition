@@ -25,6 +25,7 @@ public class FrostPortalTESR extends TileEntitySpecialRenderer<TileEntityFrostPo
    private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
    private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
+   @Override
    public void render(TileEntityFrostPortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.disableLighting();
       RANDOM.setSeed(31100L);

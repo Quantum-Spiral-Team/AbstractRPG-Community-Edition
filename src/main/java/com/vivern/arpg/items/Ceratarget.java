@@ -42,6 +42,7 @@ public class Ceratarget extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -51,14 +52,17 @@ public class Ceratarget extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -108,7 +112,7 @@ public class Ceratarget extends ItemWeapon {
                            player.rotationPitch,
                            player.rotationYaw + yawAdd,
                            0.0F,
-                           parameters.getF("velocity"),
+                           parameters.getFloat("velocity"),
                            parameters.getEnchantedF("inaccuracy", acc),
                            -0.2F,
                            0.0F,
@@ -201,6 +205,7 @@ public class Ceratarget extends ItemWeapon {
       Booom.power = 0.3F;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Entity en = world.getEntityByID((int)x);
@@ -212,11 +217,13 @@ public class Ceratarget extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxAmmo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

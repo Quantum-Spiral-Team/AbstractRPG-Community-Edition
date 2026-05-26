@@ -57,14 +57,17 @@ public class TideBeacon extends Block implements IBlockHardBreak {
       this.setSoundType(SoundTypeCrunchy.CRUNCHY);
    }
 
+   @Override
    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
       return false;
    }
 
+   @Override
    public Material getMaterial(IBlockState state) {
       return state.getValue(WET) ? Material.WATER : Material.ROCK;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!this.isInWater(world, pos)) {
          world.setBlockState(pos, state.withProperty(WET, false));
@@ -76,27 +79,13 @@ public class TideBeacon extends Block implements IBlockHardBreak {
    }
 
    public boolean isInWater(World worldIn, BlockPos pos) {
-      IBlockState state1 = worldIn.getBlockState(pos.up());
-      if (state1.getMaterial() == Material.WATER || state1.isOpaqueCube()) {
-         IBlockState state2 = worldIn.getBlockState(pos.east());
-         if (state2.getMaterial() == Material.WATER || state2.isOpaqueCube()) {
-            IBlockState state3 = worldIn.getBlockState(pos.south());
-            if (state3.getMaterial() == Material.WATER || state3.isOpaqueCube()) {
-               IBlockState state4 = worldIn.getBlockState(pos.west());
-               if (state4.getMaterial() == Material.WATER || state4.isOpaqueCube()) {
-                  IBlockState state5 = worldIn.getBlockState(pos.north());
-                  if (state5.getMaterial() == Material.WATER || state5.isOpaqueCube()) {
-                     IBlockState state6 = worldIn.getBlockState(pos.down());
-                     if (state6.getMaterial() == Material.WATER || state6.isOpaqueCube()) {
-                        return true;
-                     }
-                  }
-               }
-            }
+      for (EnumFacing facing : EnumFacing.values()) {
+         IBlockState state = worldIn.getBlockState(pos.offset(facing));
+         if (!(state.getMaterial() == Material.WATER || state.isOpaqueCube())) {
+            return false;
          }
       }
-
-      return false;
+      return true;
    }
 
    public Class<TileNexusBeacon> getTileEntityClass() {
@@ -107,10 +96,12 @@ public class TideBeacon extends Block implements IBlockHardBreak {
       return (TileNexusBeacon)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileNexusBeacon createTileEntity(World world, IBlockState blockState) {
       return new TileNexusBeacon();
@@ -132,6 +123,7 @@ public class TideBeacon extends Block implements IBlockHardBreak {
       return false;
    }
 
+   @Override
    public void breakBlock(World world, BlockPos pos, IBlockState state) {
       TileEntity tile = world.getTileEntity(pos);
       if (tile instanceof TileNexusBeacon) {
@@ -141,34 +133,40 @@ public class TideBeacon extends Block implements IBlockHardBreak {
          }
       }
 
-      if ((Boolean)state.getValue(WET) && this.isAroundWater(world, pos)) {
+      if (state.getValue(WET) && this.isAroundWater(world, pos)) {
          world.setBlockState(pos, Blocks.WATER.getDefaultState());
       }
 
       super.breakBlock(world, pos, state);
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return false;
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return 0;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{LEVEL, WET});
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
-      boolean wett = meta > 0;
-      return this.getDefaultState().withProperty(LEVEL, 0).withProperty(WET, wett);
+      boolean wet = meta > 0;
+      return this.getDefaultState().withProperty(LEVEL, 0).withProperty(WET, wet);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return state.getValue(WET) ? 1 : 0;
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -231,27 +229,33 @@ public class TideBeacon extends Block implements IBlockHardBreak {
       }
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
@@ -261,24 +265,26 @@ public class TideBeacon extends Block implements IBlockHardBreak {
       return BlocksRegister.HR_SANKTUARYBRICKS.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(LEVEL, 0).withProperty(WET, this.isInWater(worldIn, pos));
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.19F) {
          double d0 = pos.getX() + 0.5;
          double d1 = pos.getY() + 2.0;
          double d2 = pos.getZ() + 0.5;
-         int livetime = 80;
+         int liveTime = 80;
          float scale = 0.5F + rand.nextFloat() / 5.0F;
-         float scaleTickAdding = scale / livetime;
-         GUNParticle spelll = new GUNParticle(
+         float scaleTickAdding = scale / liveTime;
+         GUNParticle spell = new GUNParticle(
             res,
             0.15F,
             0.0F,
-            livetime,
+            liveTime,
             210,
             worldIn,
             d0,
@@ -293,15 +299,17 @@ public class TideBeacon extends Block implements IBlockHardBreak {
             true,
             0
          );
-         spelll.alpha = 1.0F;
-         spelll.alphaTickAdding = -0.0125F;
-         spelll.scaleTickAdding = scaleTickAdding;
-         spelll.alphaGlowing = true;
-         spelll.isPushedByLiquids = false;
-         worldIn.spawnEntity(spelll);
+         spell.alpha = 1.0F;
+         spell.alphaTickAdding = -0.0125F;
+         spell.scaleTickAdding = scaleTickAdding;
+         spell.alphaGlowing = true;
+         spell.isPushedByLiquids = false;
+         worldIn.spawnEntity(spell);
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
       return world.provider.getDimension() == 103
          ? DimensionAquatica.getBlockFogColor(world, pos, state, entity, originalColor, partialTicks)

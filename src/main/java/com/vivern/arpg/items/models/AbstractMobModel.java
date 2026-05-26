@@ -17,6 +17,7 @@ public abstract class AbstractMobModel extends ModelBase {
    public static float lbY = 0.0F;
    public static boolean disabledLight = false;
 
+   @Override
    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
       int anim1 = 0;
       int anim2 = 0;

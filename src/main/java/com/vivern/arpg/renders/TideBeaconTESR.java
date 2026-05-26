@@ -18,6 +18,7 @@ public class TideBeaconTESR extends TileEntitySpecialRenderer<TileNexusBeacon> {
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/tide_beacon_model_tex.png");
    public static ResourceLocation texDried = new ResourceLocation("arpg:textures/tide_beacon_dried_tex.png");
 
+   @Override
    public void render(TileNexusBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);

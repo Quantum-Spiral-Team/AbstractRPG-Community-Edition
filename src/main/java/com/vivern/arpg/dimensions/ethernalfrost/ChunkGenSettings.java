@@ -621,6 +621,7 @@ public class ChunkGenSettings {
    }
 
    public static class Serializer implements JsonDeserializer<Factory>, JsonSerializer<Factory> {
+      @Override
       public Factory deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
          JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
          Factory chunkGenSettings$factory = new Factory();
@@ -721,6 +722,7 @@ public class ChunkGenSettings {
          return chunkGenSettings$factory;
       }
 
+      @Override
       public JsonElement serialize(Factory p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
          JsonObject jsonobject = new JsonObject();
          jsonobject.addProperty("coordinateScale", p_serialize_1_.coordinateScale);

@@ -1,5 +1,6 @@
 package com.vivern.arpg.blocks;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.container.GUIDebugColorBlock;
 import com.vivern.arpg.container.GuiHandler;
 import java.util.Random;
@@ -23,15 +24,17 @@ public class DebugColorBlock extends Block {
       this.setCreativeTab(CreativeTabs.REDSTONE);
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return 0;
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
       if (worldIn.isRemote) {
-         GuiHandler.displayGui(player, new GUIDebugColorBlock(pos));
+         player.openGui(AbstractRPG.instance, GuiHandler.DEBUG_COLOR_GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
       }
 
       return true;

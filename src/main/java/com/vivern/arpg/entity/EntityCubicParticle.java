@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class EntityCubicParticle extends EntityThrowable {
    public float scale;
    public float gravity;
@@ -76,10 +75,12 @@ public class EntityCubicParticle extends EntityThrowable {
       this.setVelocity(speedx, speedy, speedz);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return this.gravity;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.scale < this.maxsize && this.ticksExisted > 1) {
@@ -95,6 +96,7 @@ public class EntityCubicParticle extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (this.collide
          && this.ticksExisted > 1

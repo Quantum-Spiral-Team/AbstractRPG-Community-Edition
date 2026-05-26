@@ -114,6 +114,7 @@ public class WandColdShoot extends StandardBullet {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {

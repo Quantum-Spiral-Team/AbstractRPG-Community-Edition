@@ -36,15 +36,18 @@ public class Crystallizer extends Block {
       this.setHarvestLevel("pickaxe", 0);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -81,6 +84,7 @@ public class Crystallizer extends Block {
       }
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
       if (worldIn.getTileEntity(pos) instanceof TileCrystallizer) {
@@ -103,15 +107,18 @@ public class Crystallizer extends Block {
       return (TileCrystallizer)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileCrystallizer createTileEntity(World world, IBlockState blockState) {
       return new TileCrystallizer();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }

@@ -36,6 +36,7 @@ public class BrownSlime extends BlockBlockHard {
       return Items.SLIME_BALL;
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return 9;
    }
@@ -46,6 +47,7 @@ public class BrownSlime extends BlockBlockHard {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
       if (entityIn.isSneaking()) {
          super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
@@ -54,6 +56,7 @@ public class BrownSlime extends BlockBlockHard {
       }
    }
 
+   @Override
    public void onLanded(World worldIn, Entity entityIn) {
       if (entityIn.isSneaking()) {
          if (!(entityIn instanceof EntityLivingBase)) {
@@ -69,6 +72,7 @@ public class BrownSlime extends BlockBlockHard {
       }
    }
 
+   @Override
    public void onEntityWalk(World world, BlockPos pos, Entity entityIn) {
       if (Math.abs(entityIn.motionY) < 0.1 && !entityIn.isSneaking()) {
          double d0 = 0.4 + Math.abs(entityIn.motionY) * 0.2;
@@ -83,6 +87,7 @@ public class BrownSlime extends BlockBlockHard {
       super.onEntityWalk(world, pos, entityIn);
    }
 
+   @Override
    public boolean isStickyBlock(IBlockState state) {
       return true;
    }

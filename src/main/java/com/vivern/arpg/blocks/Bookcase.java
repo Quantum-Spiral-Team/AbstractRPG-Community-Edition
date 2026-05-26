@@ -1,6 +1,8 @@
 package com.vivern.arpg.blocks;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.container.GUIBookOfElements;
+import com.vivern.arpg.container.GuiHandler;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.tileentity.IManaBuffer;
@@ -44,6 +46,7 @@ public class Bookcase extends Block {
       this.setHarvestLevel(toolClass, harvestLvl);
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -51,11 +54,11 @@ public class Bookcase extends Block {
          TileEntity tile = worldIn.getTileEntity(pos);
          if (tile instanceof TileBookcase) {
             TileBookcase tileBookcase = (TileBookcase)tile;
-            ItemStack inhand = player.getHeldItem(hand);
-            if (inhand.isEmpty()) {
+            ItemStack handStack = player.getHeldItem(hand);
+            if (handStack.isEmpty()) {
                if (!player.isSneaking()) {
-                  if (worldIn.isRemote && player instanceof EntityPlayerSP && tileBookcase.hasBooks()) {
-                     Minecraft.getMinecraft().displayGuiScreen(new GUIBookOfElements(tileBookcase.stacks));
+                  if (worldIn.isRemote && tileBookcase.hasBooks()) {
+                     player.openGui(AbstractRPG.instance, GuiHandler.BOOK_OF_ELEMENTS_GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
                   }
 
                   return true;
@@ -64,7 +67,7 @@ public class Bookcase extends Block {
                if (!worldIn.isRemote) {
                   for (int i = 2; i >= 0; i--) {
                      if (tileBookcase.booksGems[i] != 50) {
-                        ItemStack itemStack = ((ItemStack)tileBookcase.stacks.get(i)).copy();
+                        ItemStack itemStack = tileBookcase.stacks.get(i).copy();
                         EntityItem entityItem = new EntityItem(worldIn, player.posX, player.posY, player.posZ, itemStack);
                         entityItem.setNoPickupDelay();
                         worldIn.spawnEntity(entityItem);
@@ -85,6 +88,7 @@ public class Bookcase extends Block {
       return false;
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       TileEntity tile = world.getTileEntity(pos);
       if (tile instanceof TileBookcase) {
@@ -101,15 +105,18 @@ public class Bookcase extends Block {
       }
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       IBlockState state = world.getBlockState(pos);
-      return ((EnumFacing)state.getValue(FACING)).getAxis() != side.getAxis();
+      return state.getValue(FACING).getAxis() != side.getAxis();
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileBookcase createTileEntity(World world, IBlockState blockState) {
       TileBookcase tileBookcase = new TileBookcase();
@@ -117,14 +124,17 @@ public class Bookcase extends Block {
       return tileBookcase;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       EnumFacing enumfacing = EnumFacing.byIndex(meta);
       if (enumfacing.getAxis() == Axis.Y) {
@@ -134,18 +144,22 @@ public class Bookcase extends Block {
       return this.getDefaultState().withProperty(FACING, enumfacing);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }

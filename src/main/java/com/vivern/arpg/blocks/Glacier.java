@@ -24,14 +24,17 @@ public class Glacier extends Block implements IBlockHardBreak {
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }
 
+   @Override
    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
       return true;
    }
 
+   @Override
    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
       worldIn.setBlockState(pos, Blocks.FLOWING_WATER.getStateFromMeta(2));
    }

@@ -37,6 +37,7 @@ public class SurvivorLootSpawner extends EntityThrowable {
       super(world, x, y, z);
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 1000) {
@@ -70,10 +71,12 @@ public class SurvivorLootSpawner extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.004F;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -117,6 +120,7 @@ public class SurvivorLootSpawner extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit == null
          && this.world

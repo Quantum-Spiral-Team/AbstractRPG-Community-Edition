@@ -79,6 +79,7 @@ public class EntityAIGrapBite extends AbstractMob.AbstractAI {
       return amount;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
@@ -97,6 +98,7 @@ public class EntityAIGrapBite extends AbstractMob.AbstractAI {
       this.currentDamage = 0.0F;
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase attackTarg = this.entity.getAttackTarget();
       this.attackTimer--;

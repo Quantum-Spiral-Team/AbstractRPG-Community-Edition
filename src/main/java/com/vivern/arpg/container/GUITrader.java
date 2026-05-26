@@ -69,6 +69,7 @@ public class GUITrader extends GuiContainer {
       }
    }
 
+   @Override
    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
       GlStateManager.color(1.0F, 1.0F, 1.0F);
       int i = (this.width - 212) / 2;
@@ -151,6 +152,7 @@ public class GUITrader extends GuiContainer {
       RenderHelper.enableStandardItemLighting();
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
@@ -182,6 +184,7 @@ public class GUITrader extends GuiContainer {
       this.normalizeColor();
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       super.mouseClicked(mouseX, mouseY, mouseButton);
       int mx = mouseX - (this.width - 212) / 2;
@@ -234,6 +237,7 @@ public class GUITrader extends GuiContainer {
       }
    }
 
+   @Override
    public void updateScreen() {
       if (this.isPressedNow) {
          this.ticksFastBuy++;
@@ -252,6 +256,7 @@ public class GUITrader extends GuiContainer {
       this.fastBuyCooldown = Math.max(Math.round(7.0F - this.ticksFastBuy / 25.0F * 6.0F), 0);
    }
 
+   @Override
    protected void mouseReleased(int mouseX, int mouseY, int state) {
       this.isPressedNow = false;
       this.ticksFastBuy = 0;
@@ -259,6 +264,7 @@ public class GUITrader extends GuiContainer {
       super.mouseReleased(mouseX, mouseY, state);
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }

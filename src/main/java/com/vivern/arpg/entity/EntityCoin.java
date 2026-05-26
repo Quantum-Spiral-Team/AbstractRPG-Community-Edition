@@ -67,13 +67,16 @@ public class EntityCoin extends Entity {
       }
    }
 
+   @Override
    public double getYOffset() {
       return 0.15;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound nbt) {
       if (nbt.hasKey("store")) {
          this.store = nbt.getInteger("store");
@@ -84,11 +87,13 @@ public class EntityCoin extends Entity {
       }
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound nbt) {
       nbt.setInteger("store", this.store);
       nbt.setInteger("ticks", this.ticks);
    }
 
+   @Override
    public void onEntityUpdate() {
       if (this.world.isRemote) {
          if (this.t1r > 0) {
@@ -176,6 +181,7 @@ public class EntityCoin extends Entity {
       return 1.0F - (float)Math.sin(this.t3b / 9.5F) / 2.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       this.ticks++;
@@ -214,6 +220,7 @@ public class EntityCoin extends Entity {
       }
    }
 
+   @Override
    public void onCollideWithPlayer(EntityPlayer entityIn) {
       if (this.store != 0 && this.ticksExisted > 15 && !entityIn.world.isRemote && entityIn.isEntityAlive()) {
          this.world.setEntityState(this, (byte)0);
@@ -222,6 +229,7 @@ public class EntityCoin extends Entity {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 0) {

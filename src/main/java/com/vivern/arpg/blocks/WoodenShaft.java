@@ -45,6 +45,7 @@ public class WoodenShaft extends Block {
       this.setHarvestLevel("axe", 0);
    }
 
+   @Override
    public void addCollisionBoxToList(
       IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState
    ) {
@@ -69,14 +70,17 @@ public class WoodenShaft extends Block {
       }
    }
 
+   @Override
    public boolean isFullBlock(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return side == EnumFacing.UP || side == EnumFacing.DOWN && (Boolean)base_state.getValue(DOWN);
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       boolean west = worldIn.getBlockState(pos.west()).getBlock() == this;
       boolean east = worldIn.getBlockState(pos.east()).getBlock() == this;
@@ -92,14 +96,17 @@ public class WoodenShaft extends Block {
          .withProperty(DOWN, down);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return true;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       boolean n = (Boolean)state.getValue(NORTH);
       boolean e = (Boolean)state.getValue(EAST);
@@ -119,35 +126,43 @@ public class WoodenShaft extends Block {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState();
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return 0;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, UPPER, DOWN});
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       boolean west = worldIn.getBlockState(pos.west()).getBlock() == this;
       boolean east = worldIn.getBlockState(pos.east()).getBlock() == this;

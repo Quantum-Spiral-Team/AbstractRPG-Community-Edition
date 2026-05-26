@@ -18,10 +18,12 @@ public class EntityAIEasyRunaway extends EntityAIBase {
       this.hpProportion = hpProportion;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null && this.entity.getHealth() < this.entity.getMaxHealth() * this.hpProportion && this.enable;
    }
 
+   @Override
    public void updateTask() {
       Vec3d vec = this.entity.getAttackTarget().getPositionVector().add(0.0, this.entity.getAttackTarget().height / 2.0F, 0.0);
       SuperKnockback.applyMove(this.entity, this.speed, vec.x, vec.y, vec.z);

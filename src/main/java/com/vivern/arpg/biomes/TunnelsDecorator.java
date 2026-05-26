@@ -20,6 +20,7 @@ class TunnelsDecorator extends BiomeDecorator {
    public WorldGenSpread brownmushrooms = new WorldGenSpread(Blocks.BROWN_MUSHROOM, 17, 4, 4, null, false);
    public WorldGenSpread redmushrooms = new WorldGenSpread(Blocks.RED_MUSHROOM, 12, 4, 4, null, false);
 
+   @Override
    public void decorate(World world, Random rand, Biome biome, BlockPos pos) {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");

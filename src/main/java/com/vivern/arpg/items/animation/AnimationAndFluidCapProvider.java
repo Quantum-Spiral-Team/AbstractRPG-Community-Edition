@@ -24,6 +24,7 @@ public class AnimationAndFluidCapProvider extends AnimationCapabilityProvider im
       this.capacity = capacity;
    }
 
+   @Override
    @Nonnull
    public ItemStack getContainer() {
       return this.container;
@@ -45,10 +46,12 @@ public class AnimationAndFluidCapProvider extends AnimationCapabilityProvider im
       this.container.getTagCompound().setTag("Fluid", fluidTag);
    }
 
+   @Override
    public IFluidTankProperties[] getTankProperties() {
       return new FluidTankProperties[]{new FluidTankProperties(this.getFluid(), this.capacity)};
    }
 
+   @Override
    public int fill(FluidStack resource, boolean doFill) {
       if (this.container.getCount() == 1 && resource != null && resource.amount > 0 && this.canFillFluidType(resource)) {
          FluidStack contained = this.getFluid();
@@ -77,12 +80,14 @@ public class AnimationAndFluidCapProvider extends AnimationCapabilityProvider im
       }
    }
 
+   @Override
    public FluidStack drain(FluidStack resource, boolean doDrain) {
       return this.container.getCount() == 1 && resource != null && resource.amount > 0 && resource.isFluidEqual(this.getFluid())
          ? this.drain(resource.amount, doDrain)
          : null;
    }
 
+   @Override
    public FluidStack drain(int maxDrain, boolean doDrain) {
       if (this.container.getCount() == 1 && maxDrain > 0) {
          FluidStack contained = this.getFluid();

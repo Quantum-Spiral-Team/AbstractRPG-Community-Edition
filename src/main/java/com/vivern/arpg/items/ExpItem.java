@@ -71,22 +71,24 @@ public class ExpItem extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
+   @SuppressWarnings({"deprecation", "unchecked"})
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
       RayTraceResult raytraceresult = this.rayTrace(world, player, false);
-      if (raytraceresult == null) {
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      } else if (raytraceresult.typeOfHit != Type.BLOCK) {
-         return new ActionResult(EnumActionResult.PASS, itemstack);
+      if (raytraceresult.typeOfHit != Type.BLOCK) {
+         return new ActionResult<>(EnumActionResult.PASS, itemstack);
       } else {
          BlockPos pos = raytraceresult.getBlockPos();
          BlockPos posup = pos.up();
-         if (!itemstack.hasDisplayName() && !world.isRemote) {
-         }
+//         if (!itemstack.hasDisplayName() && !world.isRemote) {
+            //????
+//         }
 
-         if (!world.isRemote && player.isSneaking()) {
-         }
+//         if (!world.isRemote && player.isSneaking()) {
+            //????
+//         }
 
          if (!world.isRemote) {
             if (itemstack.hasDisplayName()) {
@@ -96,7 +98,7 @@ public class ExpItem extends Item {
                      String dn = Debugger.string;
 
                      try {
-                        Class clazz = Class.forName(dn);
+                        Class<?> clazz = Class.forName(dn);
                         System.out.println("FINDED : |" + dn + "|");
                         Field[] fields = clazz.getDeclaredFields();
                         System.out.println("FIELDS:");
@@ -132,12 +134,12 @@ public class ExpItem extends Item {
                         }
 
                         System.out.println("CONSTRUCTORS:");
-                        Constructor[] cons = clazz.getConstructors();
+                        Constructor<?>[] constructors = clazz.getConstructors();
 
-                        for (Constructor cntr : cons) {
-                           System.out.println((cntr.isAccessible() ? "public " : " ") + cntr.getName() + " (");
+                        for (Constructor<?> constructor : constructors) {
+                           System.out.println((constructor.isAccessible() ? "public " : " ") + constructor.getName() + " (");
 
-                           for (Parameter par : cntr.getParameters()) {
+                           for (Parameter par : constructor.getParameters()) {
                               System.out.println(", " + par.getType().getName() + " " + par.getName());
                            }
 
@@ -153,21 +155,21 @@ public class ExpItem extends Item {
                   } else if ("assemblytable".equals(itemstack.getDisplayName())) {
                      if (player.isSneaking()) {
                         TileEntity tile = world.getTileEntity(pos);
-                        if (tile != null && tile instanceof TileAssemblyTable) {
+                        if (tile instanceof TileAssemblyTable) {
                            try {
                               TileAssemblyTable assemblytable = (TileAssemblyTable)tile;
-                              String text = "addRecipe(";
+                              StringBuilder text = new StringBuilder("addRecipe(");
                               if (!assemblytable.getStackInSlot(14).isEmpty()) {
-                                 text = text + Ingridient.getIngridient(assemblytable.getStackInSlot(14)).toString() + ", ";
-                                 text = text + assemblytable.electricStorage.getEnergyStored() + ", ";
-                                 text = text + Ingridient.getIngridient(assemblytable.getStackInSlot(15)).toString() + ", ";
-                                 text = text + ", ";
+                                 text.append(Ingridient.getIngridient(assemblytable.getStackInSlot(14)).toString()).append(", ");
+                                 text.append(assemblytable.electricStorage.getEnergyStored()).append(", ");
+                                 text.append(Ingridient.getIngridient(assemblytable.getStackInSlot(15)).toString()).append(", ");
+                                 text.append(", ");
 
                                  for (int i = 0; i < 9; i++) {
                                     if (i == 8) {
-                                       text = text + Ingridient.getIngridient(assemblytable.getStackInSlot(i)).toString();
+                                       text.append(Ingridient.getIngridient(assemblytable.getStackInSlot(i)).toString());
                                     } else {
-                                       text = text + Ingridient.getIngridient(assemblytable.getStackInSlot(i)).toString() + ", ";
+                                       text.append(Ingridient.getIngridient(assemblytable.getStackInSlot(i)).toString()).append(", ");
                                     }
                                  }
 
@@ -179,20 +181,20 @@ public class ExpItem extends Item {
                                     }
 
                                     if (ix == 9) {
-                                       text = text + ", ";
+                                       text.append(", ");
                                     }
 
-                                    text = text + "new AugmentCost(" + AUGMENT + ", " + Ingridient.getIngridient(st).toString() + ")";
+                                    text.append("new AugmentCost(").append(AUGMENT).append(", ").append(Ingridient.getIngridient(st).toString()).append(")");
                                     if (ix < 13 && !assemblytable.getStackInSlot(ix + 1).isEmpty()) {
-                                       text = text + ", ";
+                                       text.append(", ");
                                     }
                                  }
                               }
 
-                              text = text + ");";
+                              text.append(");");
                               System.out.print("\n");
                               System.out.print(text);
-                           } catch (Exception var33) {
+                           } catch (Exception ignored) {
                            }
                         }
                      }
@@ -211,11 +213,11 @@ public class ExpItem extends Item {
                   } else if ("spellforge".equals(itemstack.getDisplayName())) {
                      if (player.isSneaking()) {
                         TileEntity tile = world.getTileEntity(pos);
-                        if (tile != null && tile instanceof TileEntityChest) {
+                        if (tile instanceof TileEntityChest) {
                            try {
                               TileEntityChest chest = (TileEntityChest)tile;
-                              String text = "addRecipe(, ";
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(17)).toString() + ", ";
+                              StringBuilder text = new StringBuilder("addRecipe(, ");
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(17)).toString()).append(", ");
                               int[] array = new int[12];
 
                               for (int j = 0; j < 3; j++) {
@@ -229,43 +231,43 @@ public class ExpItem extends Item {
                               }
 
                               for (int ixx = 0; ixx < 12; ixx++) {
-                                 text = text + array[ixx] + ", ";
+                                 text.append(array[ixx]).append(", ");
                               }
 
                               if (!chest.getStackInSlot(22).isEmpty()) {
                                  int shardFallback = chest.getStackInSlot(22).getMetadata();
-                                 text = text + "ShardType." + ShardType.byId(shardFallback).name.toUpperCase() + ", ";
+                                 text.append("ShardType.").append(ShardType.byId(shardFallback).name.toUpperCase()).append(", ");
                               } else {
-                                 text = text + "null, ";
+                                 text.append("null, ");
                               }
 
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(5)).toString() + ", ";
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(6)).toString() + ", ";
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(7)).toString() + ", ";
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(14)).toString() + ", ";
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(15)).toString() + ", ";
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(16)).toString() + ", ";
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(23)).toString() + ", ";
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(24)).toString() + ", ";
-                              text = text + Ingridient.getIngridient(chest.getStackInSlot(25)).toString();
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(5)).toString()).append(", ");
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(6)).toString()).append(", ");
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(7)).toString()).append(", ");
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(14)).toString()).append(", ");
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(15)).toString()).append(", ");
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(16)).toString()).append(", ");
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(23)).toString()).append(", ");
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(24)).toString()).append(", ");
+                              text.append(Ingridient.getIngridient(chest.getStackInSlot(25)).toString());
                               ItemStack roll = chest.getStackInSlot(4);
                               if (!roll.isEmpty()) {
                                  Spell[] spells = NBTHelper.readSpellsFromNbt(roll);
                                  if (spells != null) {
-                                    for (int ixx = 0; ixx < spells.length; ixx++) {
-                                       if (spells[ixx] != null) {
-                                          text = text + ", Spell." + spells[ixx].name.toUpperCase();
-                                       }
-                                    }
+                                     for (Spell spell : spells) {
+                                         if (spell != null) {
+                                             text.append(", Spell.").append(spell.name.toUpperCase());
+                                         }
+                                     }
                                  }
                               }
 
                               if (chest.getStackInSlot(13).isEmpty()) {
-                                 text = text + ");";
+                                 text.append(");");
                                  System.out.print("\n");
                                  System.out.print(text);
                               } else {
-                                 text = text + ")";
+                                 text.append(")");
                                  System.out.print("\n");
                                  System.out.print(text);
                                  System.out.print("\n");
@@ -281,7 +283,7 @@ public class ExpItem extends Item {
                   } else if ("mixer".equals(itemstack.getDisplayName())) {
                      if (player.isSneaking()) {
                         TileEntity tile = world.getTileEntity(pos);
-                        if (tile != null && tile instanceof TileIndustrialMixer) {
+                        if (tile instanceof TileIndustrialMixer) {
                            try {
                               TileIndustrialMixer mixer = (TileIndustrialMixer)tile;
                               String text = "addRecipe(";
@@ -336,14 +338,14 @@ public class ExpItem extends Item {
                               text = text + ";";
                               System.out.print(text);
                               System.out.print("\n");
-                           } catch (Exception var30) {
+                           } catch (Exception ignored) {
                            }
                         }
                      }
                   } else if ("nethermelter".equals(itemstack.getDisplayName())) {
                      if (player.isSneaking()) {
                         TileEntity tile = world.getTileEntity(pos);
-                        if (tile != null && tile instanceof TileNetherMelter) {
+                        if (tile instanceof TileNetherMelter) {
                            try {
                               TileNetherMelter melter = (TileNetherMelter)tile;
                               String textx = "addRecipe(";
@@ -359,14 +361,14 @@ public class ExpItem extends Item {
                               textx = textx + ");";
                               System.out.print(textx);
                               System.out.print("\n");
-                           } catch (Exception var29) {
+                           } catch (Exception ignored) {
                            }
                         }
                      }
                   } else if ("alchemiclab".equals(itemstack.getDisplayName())) {
                      if (player.isSneaking()) {
                         TileEntity tile = world.getTileEntity(pos);
-                        if (tile != null && tile instanceof TileAlchemicLab) {
+                        if (tile instanceof TileAlchemicLab) {
                            try {
                               TileAlchemicLab lab = (TileAlchemicLab)tile;
                               String textx = "addRecipe(, ";
@@ -404,7 +406,7 @@ public class ExpItem extends Item {
                               textx = textx + ";";
                               System.out.print(textx);
                               System.out.print("\n");
-                           } catch (Exception var28) {
+                           } catch (Exception ignored) {
                            }
                         }
                      }
@@ -438,7 +440,7 @@ public class ExpItem extends Item {
                   } else if ("sieve".equals(itemstack.getDisplayName())) {
                      if (player.isSneaking()) {
                         TileEntity tile = world.getTileEntity(pos);
-                        if (tile != null && tile instanceof TileEntityChest) {
+                        if (tile instanceof TileEntityChest) {
                            TileEntityChest chest = (TileEntityChest)tile;
                            if (!chest.getStackInSlot(0).isEmpty()) {
                               String textxx = "addRecipe(";
@@ -478,7 +480,7 @@ public class ExpItem extends Item {
                   } else if ("manabuffer".equals(itemstack.getDisplayName())) {
                      if (player.isSneaking()) {
                         TileEntity tile = world.getTileEntity(pos);
-                        if (tile != null && tile instanceof IManaBuffer) {
+                        if (tile instanceof IManaBuffer) {
                            ManaBuffer.Calibration calibration = ManaBuffer.getCalibrationAt(player.world, pos);
                            ManaBuffer manabuffer = ((IManaBuffer)tile).getManaBuffer();
                            System.out.println(manabuffer.initialAttraction + calibration.attraction);
@@ -489,7 +491,7 @@ public class ExpItem extends Item {
                   }
                } else if (player.isSneaking()) {
                   TileEntity tile = world.getTileEntity(pos);
-                  if (tile != null && tile instanceof TileEntityChest) {
+                  if (tile instanceof TileEntityChest) {
                      TileEntityChest chest = (TileEntityChest)tile;
                      if (!chest.getStackInSlot(12).isEmpty()) {
                         ItemStack[] stacks = new ItemStack[]{
@@ -534,32 +536,32 @@ public class ExpItem extends Item {
                player.sendMessage(new TextComponentString(I18n.translateToLocal("debug.reload_resourcepacks.message")));
             }
 
-            if (itemstack.getDisplayName() != null && itemstack.getDisplayName().length() == 1) {
+             itemstack.getDisplayName();
+             if (itemstack.getDisplayName().length() == 1) {
                char cha = itemstack.getDisplayName().charAt(0);
                System.out.println((int)cha);
             }
          }
 
-         return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+         return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
       }
    }
 
    public void fillWithLoot(EntityPlayer player, String lootTable, TileEntityLockableLoot tile) {
-      if (lootTable != null && player.world instanceof WorldServer) {
+      if (player.world instanceof WorldServer) {
          WorldServer server = (WorldServer)player.world;
          ResourceLocation resourceLocation = new ResourceLocation("chests", lootTable);
          LootTableManager ltm = new LootTableManager(new File(CreateItemFile.mainPatch + "loot_tables"));
          LootTable loottable = ltm.getLootTableFromLocation(resourceLocation);
          Random random = new Random();
          Builder lootcontext$builder = new Builder(server);
-         if (player != null) {
-            lootcontext$builder.withLuck(player.getLuck()).withPlayer(player);
-         }
+         lootcontext$builder.withLuck(player.getLuck()).withPlayer(player);
 
          loottable.fillInventory(tile, random, lootcontext$builder.build());
       }
    }
 
+   @Override
    public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
       if ("testmoney".equals(itemstack.getDisplayName()) && target instanceof AbstractMob) {
          AbstractMob mob = (AbstractMob)target;
@@ -584,7 +586,7 @@ public class ExpItem extends Item {
       }
    }
 
-   public static final void lightAbsorbing(World world, BlockPos posup) {
+   public static void lightAbsorbing(World world, BlockPos posup) {
       List<LoadedRGBChunk> customList = new ArrayList<>();
       customList.add(StaticRGBLight.getActualLoadedRGBChunk(posup.getX(), posup.getZ()));
       customList.add(StaticRGBLight.getActualLoadedRGBChunk(posup.getX() + 16, posup.getZ()));
@@ -654,9 +656,7 @@ public class ExpItem extends Item {
                         int offsY = fY + face.getYOffset();
                         int offsZ = fZ + face.getZOffset();
                         Debugger.startPROFILING();
-                        LoadedRGBChunk chunk2 = face != EnumFacing.UP && face != EnumFacing.DOWN
-                           ? StaticRGBLight.getActualLoadedRGBChunk(customList, offsX, offsZ)
-                           : chunk;
+                        LoadedRGBChunk chunk2 = StaticRGBLight.getActualLoadedRGBChunk(customList, offsX, offsZ);
                         Debugger.endPROFILING(5);
                         if (chunk2 != null) {
                            Debugger.startPROFILING();
@@ -718,7 +718,7 @@ public class ExpItem extends Item {
       }
    }
 
-   public static final void lightAbsorbingO(World world, BlockPos posup) {
+   public static void lightAbsorbingO(World world, BlockPos posup) {
       int xin = posup.getX();
       int yin = posup.getY();
       int zin = posup.getZ();
@@ -969,7 +969,7 @@ public class ExpItem extends Item {
       }
    }
 
-   public static final int blockToInchunkCoords(int xz) {
+   public static int blockToInchunkCoords(int xz) {
       if (xz > 0) {
          return xz % 16;
       } else if (xz == 0) {

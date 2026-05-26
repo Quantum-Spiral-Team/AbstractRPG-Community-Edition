@@ -19,6 +19,7 @@ public class KeyBindFixed extends KeyBinding {
       return this.keyIndex;
    }
 
+   @Override
    public void setKeyCode(int keyCode) {
       this.keyIndex = keyCode;
       if (keyCode == Minecraft.getMinecraft().gameSettings.keyBindAttack.getKeyCode()) {
@@ -28,6 +29,7 @@ public class KeyBindFixed extends KeyBinding {
       }
    }
 
+   @Override
    public String getDisplayName() {
       return this.getKeyCode() == 0
          ? this.getKeyModifier().getLocalizedComboName(this.keyIndex)

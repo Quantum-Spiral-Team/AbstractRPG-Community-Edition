@@ -87,6 +87,7 @@ public interface IWeapon {
       return parameters.getEnchantedI("reload", reloading);
    }
 
+   @SideOnly(Side.CLIENT)
    default float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;
    }
@@ -141,14 +142,14 @@ public interface IWeapon {
 
    default boolean initiateReload(ItemStack itemstack, EntityPlayer player, Item itemAmmo, int maxAmmo) {
       WeaponHandleType weaponHandleType = this.getWeaponHandleType();
-      boolean hascooldown = false;
+      boolean hasCooldown;
       if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
-         hascooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+         hasCooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
       } else {
-         hascooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
+         hasCooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
       }
 
-      if (!hascooldown) {
+      if (!hasCooldown) {
          NBTHelper.GiveNBTint(itemstack, 0, "ammo");
          if (NBTHelper.GetNBTint(itemstack, "ammo") == 0) {
             if (player.inventory.hasItemStack(new ItemStack(itemAmmo))) {
@@ -168,7 +169,7 @@ public interface IWeapon {
 
    default boolean initiateReload(ItemStack itemstack, EntityPlayer player, Item itemAmmo, int maxAmmo, Item toReturn) {
       WeaponHandleType weaponHandleType = this.getWeaponHandleType();
-      boolean hascooldown = false;
+      boolean hascooldown;
       if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
          hascooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
       } else {
@@ -201,7 +202,7 @@ public interface IWeapon {
 
    default boolean initiateBulletReload(ItemStack itemstack, EntityPlayer player, Item itemClip, int maxAmmo, boolean returnEmptyClip) {
       WeaponHandleType weaponHandleType = this.getWeaponHandleType();
-      boolean hascooldown = false;
+      boolean hascooldown;
       if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
          hascooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
       } else {
@@ -225,7 +226,7 @@ public interface IWeapon {
                String nbtname = NBTHelper.GetNBTstring(clipstack, "bullet");
                NBTHelper.GiveNBTstring(itemstack, nbtname, "bullet");
                NBTHelper.SetNBTstring(itemstack, nbtname, "bullet");
-               if (!((ItemStack)player.inventory.mainInventory.get(clipstackIndex)).isEmpty()) {
+               if (!player.inventory.mainInventory.get(clipstackIndex).isEmpty()) {
                   ItemStackHelper.getAndSplit(player.inventory.mainInventory, clipstackIndex, 1);
                }
 
@@ -252,7 +253,7 @@ public interface IWeapon {
 
    default boolean initiateBulletReload(ItemStack itemstack, EntityPlayer player, ItemStack itemClip, int maxAmmo, boolean returnEmptyClip) {
       WeaponHandleType weaponHandleType = this.getWeaponHandleType();
-      boolean hascooldown = false;
+      boolean hascooldown;
       if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
          hascooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
       } else {
@@ -267,7 +268,7 @@ public interface IWeapon {
                return false;
             }
 
-            ItemStack clipstack = (ItemStack)player.inventory.mainInventory.get(clipstackIndex);
+            ItemStack clipstack = player.inventory.mainInventory.get(clipstackIndex);
             if (clipstack.isEmpty()) {
                return false;
             }
@@ -300,31 +301,31 @@ public interface IWeapon {
 
    default boolean initiateRocketReload(ItemStack itemstack, EntityPlayer player, int maxAmmo) {
       WeaponHandleType weaponHandleType = this.getWeaponHandleType();
-      boolean hascooldown = false;
+      boolean hasCooldown;
       if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
-         hascooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+         hasCooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
       } else {
-         hascooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
+         hasCooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
       }
 
-      if (!hascooldown) {
+      if (!hasCooldown) {
          NBTHelper.GiveNBTint(itemstack, 0, "ammo");
          if (NBTHelper.GetNBTint(itemstack, "ammo") == 0) {
             List<Integer> rocketslots = FindAmmo.getFirstRocket(player.inventory, maxAmmo);
             if (rocketslots != null) {
-               ItemStack stack = (ItemStack)player.inventory.mainInventory.get(rocketslots.get(0));
+               ItemStack stack = player.inventory.mainInventory.get(rocketslots.get(0));
                ItemRocket itemrocket = (ItemRocket)stack.getItem();
                String nbtname = itemrocket.NBTname;
                NBTHelper.GiveNBTstring(itemstack, nbtname, "rocket");
                NBTHelper.SetNBTstring(itemstack, nbtname, "rocket");
-               int countdeleted = 0;
+               int countDeleted = 0;
 
-               for (int sloti : rocketslots) {
-                  ItemStack st = (ItemStack)player.inventory.mainInventory.get(sloti);
-                  int remove = Math.min(st.getCount(), maxAmmo - countdeleted);
-                  ItemStackHelper.getAndSplit(player.inventory.mainInventory, sloti, remove);
-                  countdeleted += remove;
-                  if (countdeleted >= maxAmmo) {
+               for (int slot : rocketslots) {
+                  ItemStack st = player.inventory.mainInventory.get(slot);
+                  int remove = Math.min(st.getCount(), maxAmmo - countDeleted);
+                  ItemStackHelper.getAndSplit(player.inventory.mainInventory, slot, remove);
+                  countDeleted += remove;
+                  if (countDeleted >= maxAmmo) {
                      break;
                   }
                }
@@ -344,14 +345,14 @@ public interface IWeapon {
 
    default boolean initiateMetadataReload(ItemStack itemstack, EntityPlayer player, ItemStack ammostack, int maxAmmo, @Nullable ItemStack toReturn) {
       WeaponHandleType weaponHandleType = this.getWeaponHandleType();
-      boolean hascooldown = false;
+      boolean hasCooldown;
       if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
-         hascooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+         hasCooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
       } else {
-         hascooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
+         hasCooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
       }
 
-      if (!hascooldown) {
+      if (!hasCooldown) {
          NBTHelper.GiveNBTint(itemstack, 0, "ammo");
          if (NBTHelper.GetNBTint(itemstack, "ammo") == 0) {
             if (player.inventory.hasItemStack(ammostack)) {
@@ -359,10 +360,10 @@ public interface IWeapon {
                this.startReload(itemstack);
                NBTHelper.SetNBTint(itemstack, maxAmmo, "ammo");
                if (toReturn != null) {
-                  ItemStack newstack = toReturn.copy();
-                  if (!player.addItemStackToInventory(newstack)) {
+                  ItemStack newStack = toReturn.copy();
+                  if (!player.addItemStackToInventory(newStack)) {
                      player.world
-                        .spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, newstack));
+                        .spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, newStack));
                   }
                }
 
@@ -377,8 +378,8 @@ public interface IWeapon {
       return false;
    }
 
-   default void addAmmo(int currentammo, ItemStack itemstack, int amount) {
-      NBTHelper.SetNBTint(itemstack, Math.max(currentammo + amount, 0), "ammo");
+   default void addAmmo(int currentAmmo, ItemStack itemstack, int amount) {
+      NBTHelper.SetNBTint(itemstack, Math.max(currentAmmo + amount, 0), "ammo");
    }
 
    WeaponHandleType getWeaponHandleType();
@@ -404,7 +405,7 @@ public interface IWeapon {
    }
 
    static boolean canShoot(ItemStack itemstack) {
-      return itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("iw_usable") ? itemstack.getTagCompound().getBoolean("iw_usable") : true;
+      return !itemstack.hasTagCompound() || !itemstack.getTagCompound().hasKey("iw_usable") || itemstack.getTagCompound().getBoolean("iw_usable");
    }
 
    default boolean getCanShoot(ItemStack itemstack, Entity entity) {
@@ -419,11 +420,8 @@ public interface IWeapon {
                Multimap<String, AttributeModifier> map = mainH.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
 
                for (Entry<String, AttributeModifier> entry : map.entries()) {
-                  if (SharedMonsterAttributes.ATTACK_DAMAGE.getName().equals(entry.getKey())) {
-                     return false;
-                  }
-
-                  if (SharedMonsterAttributes.ATTACK_SPEED.getName().equals(entry.getKey())) {
+                  if (SharedMonsterAttributes.ATTACK_DAMAGE.getName().equals(entry.getKey())
+                     || SharedMonsterAttributes.ATTACK_SPEED.getName().equals(entry.getKey())) {
                      return false;
                   }
                }
@@ -432,51 +430,28 @@ public interface IWeapon {
             switch (this.getWeaponHandleType(itemstack)) {
                case TWO_HANDED:
                   if (mainH == itemstack) {
-                     if (!offH.isEmpty() && !(offH.getItem() instanceof IWeapon)) {
-                        return false;
-                     }
-
-                     return true;
-                  } else if (offH == itemstack) {
-                     if (mainH.isEmpty()) {
-                        return true;
-                     }
-
-                     return false;
+                      return offH.isEmpty() || offH.getItem() instanceof IWeapon;
+                  } else {
+                      return mainH.isEmpty();
                   }
                case ONE_HANDED:
-                  if (mainH == itemstack) {
-                     return true;
-                  } else if (offH == itemstack) {
-                     if (mainH.getItem() instanceof IWeapon) {
-                        if (((IWeapon)mainH.getItem()).getWeaponHandleType(mainH) == WeaponHandleType.TWO_HANDED) {
-                           return false;
-                        }
+                   if (mainH != itemstack && mainH.getItem() instanceof IWeapon) {
+                       return ((IWeapon) mainH.getItem()).getWeaponHandleType(mainH) != WeaponHandleType.TWO_HANDED;
+                   }
+                   return true;
+                case SEMI_ONE_HANDED:
+                   if (mainH != itemstack) {
+                       if (mainH.getItem() instanceof IWeapon) {
+                           if (((IWeapon) mainH.getItem()).getWeaponHandleType(mainH) == WeaponHandleType.TWO_HANDED) {
+                               return false;
+                           }
 
-                        return true;
-                     }
+                           return ((IWeapon) mainH.getItem()).getWeaponHandleType(mainH) != WeaponHandleType.SEMI_ONE_HANDED;
+                       }
 
-                     return true;
-                  }
-               case SEMI_ONE_HANDED:
-                  if (mainH == itemstack) {
-                     return true;
-                  } else if (offH == itemstack) {
-                     if (mainH.getItem() instanceof IWeapon) {
-                        if (((IWeapon)mainH.getItem()).getWeaponHandleType(mainH) == WeaponHandleType.TWO_HANDED) {
-                           return false;
-                        }
-
-                        if (((IWeapon)mainH.getItem()).getWeaponHandleType(mainH) == WeaponHandleType.SEMI_ONE_HANDED) {
-                           return false;
-                        }
-
-                        return true;
-                     }
-
-                     return true;
-                  }
-               default:
+                   }
+                   return true;
+                default:
                   return false;
             }
          }
@@ -872,7 +847,7 @@ public interface IWeapon {
             if (angle < 80.0F) {
                isCritical = true;
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-               damage += parameters.getF("critical_damage");
+               damage += parameters.getFloat("critical_damage");
             }
 
             IAttributeInstance entityAttribute = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
@@ -1106,14 +1081,16 @@ public interface IWeapon {
       return angle < shieldAngle;
    }
 
+   @SideOnly(Side.CLIENT)
    default void guiClick(ItemStack itemstack, EntityLivingBase player, int mouseX, int mouseY, int mouseButton) {
    }
 
+   @SideOnly(Side.CLIENT)
    default void receiveClientString(ItemStack itemstack, EntityLivingBase player, String string) {
    }
 
    // FIX: Fix issues related to `numberValue`
-   static Predicate<EntityLivingBase> getSummonerFilter(ItemStack itemstack, int filterMode, String filterParamString, boolean inverted) {
+   static @Nullable Predicate<EntityLivingBase> getSummonerFilter(ItemStack itemstack, int filterMode, String filterParamString, boolean inverted) {
       boolean percent = false;
       float numberValue = 0;
       filterParamString = filterParamString.toLowerCase();
@@ -1145,119 +1122,99 @@ public interface IWeapon {
       if (inverted) {
          if (filterMode == 1) {
             final String finalString = filterParamString;
-            filter = new Predicate<EntityLivingBase>() {
-               public boolean apply(EntityLivingBase input) {
-                  String entityname = EntityList.getEntityString(input).toLowerCase();
-                  return entityname != null && !entityname.isEmpty() ? !entityname.contains(finalString) : false;
-               }
+            filter = input -> {
+               String entityName = EntityList.getEntityString(input).toLowerCase();
+               return !entityName.isEmpty() && !entityName.contains(finalString);
             };
          } else if (filterMode == 2) {
             final String finalString = filterParamString;
-            filter = new Predicate<EntityLivingBase>() {
-               public boolean apply(EntityLivingBase input) {
-                  String entityname = input.getName().toLowerCase();
-                  return entityname != null && !entityname.isEmpty() ? !entityname.contains(finalString) : false;
-               }
+            filter = input -> {
+               String entityName = input.getName().toLowerCase();
+               return !entityName.isEmpty() && !entityName.contains(finalString);
             };
          } else if (filterMode == 3) {
             final boolean finalpercent = percent;
             float finalNumberValue = numberValue;
-            filter = new Predicate<EntityLivingBase>() {
-               public boolean apply(EntityLivingBase input) {
-                  return finalpercent ? input.getHealth() / input.getMaxHealth() >= finalNumberValue / 100.0F : input.getHealth() >= finalNumberValue;
-               }
-            };
+            filter = input ->
+                    finalpercent ? input.getHealth() / input.getMaxHealth() >= finalNumberValue / 100.0F : input.getHealth() >= finalNumberValue;
          } else if (filterMode == 4) {
             final float finalValue = numberValue;
-            filter = new Predicate<EntityLivingBase>() {
-               public boolean apply(EntityLivingBase input) {
-                  if (input instanceof AbstractMob) {
-                     AbstractMob inmob = (AbstractMob)input;
-                     return inmob.getLeadershipNeed() > finalValue;
-                  } else {
-                     return 0.0F > finalValue;
-                  }
+            filter = input -> {
+               if (input instanceof AbstractMob) {
+                  AbstractMob mob = (AbstractMob)input;
+                  return mob.getLeadershipNeed() > finalValue;
+               } else {
+                  return 0.0F > finalValue;
                }
             };
          } else if (filterMode == 5) {
             final String finalString = filterParamString;
-            filter = new Predicate<EntityLivingBase>() {
-               public boolean apply(EntityLivingBase input) {
-                  String team = Team.getTeamFor(input);
-                  return team.isEmpty() ? true : !team.contains(finalString);
-               }
+            filter = input -> {
+               String team = Team.getTeamFor(input);
+               return team.isEmpty() || !team.contains(finalString);
             };
          }
       } else if (filterMode == 1) {
          final String finalString = filterParamString;
-         filter = new Predicate<EntityLivingBase>() {
-            public boolean apply(EntityLivingBase input) {
-               String entityname = EntityList.getEntityString(input).toLowerCase();
-               return entityname != null && !entityname.isEmpty() ? entityname.contains(finalString) : false;
-            }
+         filter = input -> {
+            String entityName = EntityList.getEntityString(input).toLowerCase();
+            return !entityName.isEmpty() && entityName.contains(finalString);
          };
       } else if (filterMode == 2) {
          final String finalString = filterParamString;
-         filter = new Predicate<EntityLivingBase>() {
-            public boolean apply(EntityLivingBase input) {
-               String entityname = input.getName().toLowerCase();
-               return entityname != null && !entityname.isEmpty() ? entityname.contains(finalString) : false;
-            }
+         filter = input -> {
+            String entityName = input.getName().toLowerCase();
+            return !entityName.isEmpty() && entityName.contains(finalString);
          };
       } else if (filterMode == 3) {
          final boolean finalpercent = percent;
          float finalNumberValue1 = numberValue;
-         filter = new Predicate<EntityLivingBase>() {
-            public boolean apply(EntityLivingBase input) {
-               return finalpercent ? input.getHealth() / input.getMaxHealth() < finalNumberValue1 / 100.0F : input.getHealth() < finalNumberValue1;
-            }
-         };
+         filter = input ->
+                 finalpercent ? input.getHealth() / input.getMaxHealth() < finalNumberValue1 / 100.0F : input.getHealth() < finalNumberValue1;
       } else if (filterMode == 4) {
          final float finalValue = numberValue;
-         filter = new Predicate<EntityLivingBase>() {
-            public boolean apply(EntityLivingBase input) {
-               if (input instanceof AbstractMob) {
-                  AbstractMob inmob = (AbstractMob)input;
-                  return inmob.getLeadershipNeed() < finalValue;
-               } else {
-                  return true;
-               }
+         filter = input -> {
+            if (input instanceof AbstractMob) {
+               AbstractMob inmob = (AbstractMob)input;
+               return inmob.getLeadershipNeed() < finalValue;
+            } else {
+               return true;
             }
          };
       } else if (filterMode == 5) {
          final String finalString = filterParamString;
-         filter = new Predicate<EntityLivingBase>() {
-            public boolean apply(EntityLivingBase input) {
-               String team = Team.getTeamFor(input);
-               return team.isEmpty() ? false : team.contains(finalString);
-            }
+         filter = input -> {
+            String team = Team.getTeamFor(input);
+            return !team.isEmpty() && team.contains(finalString);
          };
       }
 
       return filter;
    }
 
+   @SideOnly(Side.CLIENT)
    static boolean showDescription() {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
    default WeaponParameters setDefaultDescription(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-      tooltip.add("пїЅ7Damage: " + parameters.getF("damage") + parameters.getF("damage_ench") * EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+      tooltip.add("\u00A77Damage: " + parameters.getFloat("damage") + parameters.getFloat("damage_ench") * EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
       tooltip.add(
-         "пїЅ7Knockback: " + parameters.getF("knockback") + parameters.getF("knockback_ench") * EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)
+         "\u00A77Knockback: " + parameters.getFloat("knockback") + parameters.getFloat("knockback_ench") * EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)
       );
-      tooltip.add("пїЅ7Cooldown: " + this.getCooldownTime(stack));
+      tooltip.add("\u00A77Cooldown: " + this.getCooldownTime(stack));
       int reload = this.getReloadTime(stack);
       if (reload > 0) {
-         tooltip.add("пїЅ7Reload time: " + reload);
+         tooltip.add("\u00A77Reload time: " + reload);
       }
 
       Ln.translate("description_" + stack.getItem().getRegistryName().getPath());
       return parameters;
    }
 
-   public static class MeleeAttackResult {
+   class MeleeAttackResult {
       @Nullable
       public Vec3d position;
       @Nullable
@@ -1285,7 +1242,7 @@ public interface IWeapon {
       }
    }
 
-   public static enum WeaponHandleType {
+   enum WeaponHandleType {
       TWO_HANDED("two handed"),
       ONE_HANDED("one handed"),
       SEMI_ONE_HANDED("semi one handed"),
@@ -1293,7 +1250,7 @@ public interface IWeapon {
 
       private final String name;
 
-      private WeaponHandleType(String name) {
+      WeaponHandleType(String name) {
          this.name = name;
       }
 

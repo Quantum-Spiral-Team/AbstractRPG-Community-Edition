@@ -86,6 +86,7 @@ public class ToxicSwamp extends BiomeControlled {
       public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXIC_TALLGRASS, 48, 9, 4);
       public WorldGenGroundFoliage toxiBULB = new WorldGenGroundFoliage(BlocksRegister.TOXIBULB, 6, 7, 3);
 
+      @Override
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

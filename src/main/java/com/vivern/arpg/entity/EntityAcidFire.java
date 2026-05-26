@@ -146,6 +146,7 @@ public class EntityAcidFire extends StandardBullet {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -265,6 +266,7 @@ public class EntityAcidFire extends StandardBullet {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       Vec3d subtraction = this.pos1.subtract(this.pos2);

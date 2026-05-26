@@ -33,15 +33,18 @@ public class ContainerNetherMelter extends Container {
       }
    }
 
+   @Override
    public void addListener(IContainerListener listener) {
       super.addListener(listener);
       listener.sendAllWindowProperties(this, this.tileInventory);
    }
 
+   @Override
    public boolean canInteractWith(EntityPlayer playerIn) {
       return this.tileInventory.isUsableByPlayer(playerIn);
    }
 
+   @Override
    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
       ItemStack itemstack = ItemStack.EMPTY;
       Slot slot = (Slot)this.inventorySlots.get(index);

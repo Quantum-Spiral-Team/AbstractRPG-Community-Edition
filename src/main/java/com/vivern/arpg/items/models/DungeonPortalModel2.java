@@ -45,6 +45,7 @@ public class DungeonPortalModel2 extends ModelBase {
       this.shape1_5.addBox(-8.0F, 0.0F, -8.0F, 16, 32, 16, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1_7.render(f5);
       this.shape1_3.render(f5);

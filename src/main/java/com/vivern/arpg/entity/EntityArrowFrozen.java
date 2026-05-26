@@ -57,6 +57,7 @@ public class EntityArrowFrozen extends AbstractArrow {
       return Sounds.arrow_frozen;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_FROZEN);
    }

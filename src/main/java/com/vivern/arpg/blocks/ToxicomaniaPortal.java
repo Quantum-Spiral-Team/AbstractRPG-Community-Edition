@@ -44,6 +44,7 @@ public class ToxicomaniaPortal extends Block {
       this.setDefaultState(this.getDefaultState().withProperty(ROTATE, EnumAxis.X));
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (DimensionsRegister.canPortalsBreak) {
          Block block1 = worldIn.getBlockState(pos.up()).getBlock();
@@ -70,6 +71,7 @@ public class ToxicomaniaPortal extends Block {
       return block == this || block == BlocksRegister.TOXIC_PORTAL_FRAME;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextInt(50) == 0) {
@@ -86,27 +88,33 @@ public class ToxicomaniaPortal extends Block {
       }
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return 0;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       if (entityIn != null
          && entityIn instanceof EntityPlayer
@@ -129,19 +137,23 @@ public class ToxicomaniaPortal extends Block {
       return (TileToxicPortal)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileToxicPortal createTileEntity(World world, IBlockState blockState) {
       return new TileToxicPortal();
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       switch (meta) {
          case 0:
@@ -153,6 +165,7 @@ public class ToxicomaniaPortal extends Block {
       }
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((EnumAxis)state.getValue(ROTATE)) {
@@ -166,14 +179,17 @@ public class ToxicomaniaPortal extends Block {
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{ROTATE});
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getStateFromMeta(meta).withProperty(ROTATE, EnumAxis.fromFacingAxis(placer.getHorizontalFacing().getOpposite().getAxis()));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return rot != Rotation.NONE && rot != Rotation.CLOCKWISE_180
          ? state.withProperty(ROTATE, state.getValue(ROTATE) == EnumAxis.Z ? EnumAxis.X : EnumAxis.Z)

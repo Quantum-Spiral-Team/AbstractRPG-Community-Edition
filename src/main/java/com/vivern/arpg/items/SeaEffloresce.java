@@ -28,6 +28,7 @@ public class SeaEffloresce extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -37,14 +38,17 @@ public class SeaEffloresce extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -78,13 +82,13 @@ public class SeaEffloresce extends ItemWeapon {
                   player.rotationPitch,
                   player.rotationYaw,
                   0.0F,
-                  parameters.getF("velocity"),
+                  parameters.getFloat("velocity"),
                   parameters.getEnchantedF("inaccuracy", acc),
                   -0.3F,
                   0.5F,
                   0.2F
                );
-               projectile.livetime = parameters.getI("livetime");
+               projectile.livetime = parameters.getInt("livetime");
                world.spawnEntity(projectile);
                if (!player.capabilities.isCreativeMode) {
                   Mana.changeMana(player, -manacost);

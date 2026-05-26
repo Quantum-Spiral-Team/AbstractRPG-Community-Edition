@@ -28,15 +28,18 @@ public class BlockNiveoliteGame extends BlockBlockHard {
       this.setOpacity(0);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileNexusNiveolite createTileEntity(World world, IBlockState blockState) {
       return new TileNexusNiveolite();
    }
 
+   @Override
    public void breakBlock(World world, BlockPos pos, IBlockState state) {
       TileEntity tile = world.getTileEntity(pos);
       if (tile instanceof TileNexusNiveolite) {
@@ -49,10 +52,12 @@ public class BlockNiveoliteGame extends BlockBlockHard {
       super.breakBlock(world, pos, state);
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return false;
    }
 
+   @Override
    public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune) {
       TileEntity tile = world.getTileEntity(pos);
       if (tile instanceof TileNexusNiveolite) {
@@ -65,6 +70,7 @@ public class BlockNiveoliteGame extends BlockBlockHard {
       super.dropBlockAsItemWithChance(world, pos, state, chance, fortune);
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -87,6 +93,7 @@ public class BlockNiveoliteGame extends BlockBlockHard {
       return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }

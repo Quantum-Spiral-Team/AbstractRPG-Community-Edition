@@ -1,6 +1,7 @@
 package com.vivern.arpg.entity;
 
 import baubles.api.BaublesApi;
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.GetMOP;
@@ -69,9 +70,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public abstract class EntityMagicUI extends Entity implements IEntitySynchronize {
    public static ResourceLocation texMapRunes1 = new ResourceLocation("arpg:textures/seals/runes1.png");
    public static ResourceLocation texMapRunes2 = new ResourceLocation("arpg:textures/seals/runes2.png");
@@ -158,6 +157,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
    }
 
+   @Override
    public SoundCategory getSoundCategory() {
       return SoundCategory.NEUTRAL;
    }
@@ -284,41 +284,51 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       this.velocityChanged = true;
    }
 
+   @Override
    public boolean isPushedByWater() {
       return false;
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }
 
+   @Override
    public boolean canBePushed() {
       return false;
    }
 
+   @Override
    public boolean isBurning() {
       return false;
    }
 
+   @Override
    public void setFire(int seconds) {
    }
 
+   @Override
    public boolean isGlowing() {
       return false;
    }
 
+   @Override
    public Entity changeDimension(int dimensionIn) {
       return this;
    }
 
+   @Override
    public Entity changeDimension(int dimensionIn, ITeleporter teleporter) {
       return this;
    }
 
+   @Override
    public int getPortalCooldown() {
       return 999;
    }
 
+   @Override
    public double getYOffset() {
       return this.height / 2.0F;
    }
@@ -372,6 +382,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       this.linkedEntitymuis.removeAll(UNlinkedEntitymuis);
    }
 
+   @Override
    public void onUpdate() {
       float frontOffset = 0.01F;
       this.lastTickPosX = this.posX;
@@ -607,9 +618,11 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
    public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("linked")) {
          this.postReadNbtlist = compound.getTagList("linked", 10);
@@ -634,6 +647,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       NBTTagList linked = new NBTTagList();
 
@@ -898,7 +912,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       for (int i = 0; i < count; i++) {
          int lt = moveToOrigin ? (int)Math.min(Math.sqrt(this.getDistanceSq(this.origin)) * 10.0, 80.0) : 20 + this.rand.nextInt(20);
          float scl = 0.075F + this.rand.nextFloat() * 0.05F;
-         GUNParticle spelll = new GUNParticle(
+         GUNParticle spell = new GUNParticle(
             texStar,
             scl,
             0.0F,
@@ -917,13 +931,13 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
             true,
             0
          );
-         spelll.scaleTickAdding = scl * -0.8F / lt;
-         spelll.alphaGlowing = true;
+         spell.scaleTickAdding = scl * -0.8F / lt;
+         spell.alphaGlowing = true;
          if (moveToOrigin) {
-            spelll.tracker = tracker;
+            spell.tracker = tracker;
          }
 
-         this.world.spawnEntity(spelll);
+         this.world.spawnEntity(spell);
       }
    }
 
@@ -1015,6 +1029,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          return true;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1126,6 +1141,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1168,6 +1184,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          return Math.max(chaos - 0.1F, 0.0F);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1219,6 +1236,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1261,6 +1279,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.shouldRenderDecor && this.origin != null) {
@@ -1391,6 +1410,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          this.world.setEntityState(this, (byte)(this.amount < 1.0F ? 5 : (this.amount > 2.0F ? 7 : 6)));
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 5) {
@@ -1406,6 +1426,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1509,6 +1530,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.type != null || this.gettingTex) {
@@ -1583,6 +1605,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          return false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1658,6 +1681,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1709,6 +1733,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1734,6 +1759,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          super(worldIn, origin);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1809,6 +1835,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public void handleStatusUpdate(byte id) {
          if (id == 5) {
@@ -1910,6 +1937,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          return this.tickrate;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -1983,6 +2011,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          super.perform(entityBy, activatingEntity, mana);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -2010,6 +2039,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          super.cast(entityBy, activatingEntity, mana);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -2093,6 +2123,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -2178,6 +2209,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          return false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -2225,6 +2257,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          return Math.min(chaos + 0.15F, 1.0F);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -2282,6 +2315,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          super.perform(entityBy, activatingEntity, mana);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -2402,6 +2436,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       public void cast(EntityMagicUI entityBy, Entity activatingEntity, ManaProvider mana) {
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.seal != null) {
@@ -2482,6 +2517,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.seal != null) {
@@ -2557,6 +2593,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          return Math.max(chaos - 0.13F, 0.0F);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -2671,6 +2708,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          super.perform(entityBy, activatingEntity, mana);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {
@@ -2693,6 +2731,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          super(worldIn, origin);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void renderAsEntity(double x, double y, double z, float entityYaw, float partialTicks, RenderManager renderManager) {
          if (this.inSelection) {

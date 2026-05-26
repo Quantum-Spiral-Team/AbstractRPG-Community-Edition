@@ -60,6 +60,7 @@ public class EntityAIHunt extends EntityAIBase {
       return this;
    }
 
+   @Override
    public boolean shouldExecute() {
       EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
       if (entitylivingbase == null) {
@@ -81,6 +82,7 @@ public class EntityAIHunt extends EntityAIBase {
       }
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
       if (entitylivingbase == null) {
@@ -95,10 +97,12 @@ public class EntityAIHunt extends EntityAIBase {
       }
    }
 
+   @Override
    public void startExecuting() {
       this.delayCounter = 0;
    }
 
+   @Override
    public void resetTask() {
       EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
       if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative())) {
@@ -108,6 +112,7 @@ public class EntityAIHunt extends EntityAIBase {
       this.attacker.getNavigator().clearPath();
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
       this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);

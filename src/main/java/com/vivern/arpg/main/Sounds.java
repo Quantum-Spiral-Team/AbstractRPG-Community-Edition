@@ -1,6 +1,8 @@
 package com.vivern.arpg.main;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -645,10 +647,8 @@ public class Sounds {
                event.setRegistryName(field.getName());
                ForgeRegistries.SOUND_EVENTS.register(event);
                field.set(SoundEvent.class, event);
-            } catch (IllegalArgumentException var7) {
+            } catch (IllegalArgumentException | IllegalAccessException var7) {
                var7.printStackTrace();
-            } catch (IllegalAccessException var8) {
-               var8.printStackTrace();
             }
          }
       }

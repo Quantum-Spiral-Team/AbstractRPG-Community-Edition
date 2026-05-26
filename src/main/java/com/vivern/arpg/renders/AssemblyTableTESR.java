@@ -15,6 +15,7 @@ public class AssemblyTableTESR extends TileEntitySpecialRenderer<TileAssemblyTab
    public static AssemblyTableModel model = new AssemblyTableModel();
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/assembly_table_model_tex.png");
 
+   @Override
    public void render(@Nullable TileAssemblyTable te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       float blockRotation = 0.0F;
       if (te != null) {

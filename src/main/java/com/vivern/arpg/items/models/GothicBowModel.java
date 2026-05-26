@@ -76,6 +76,7 @@ public class GothicBowModel extends ModelBase {
       this.shapeDOWN2a.addChild(this.shapeDOWN3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shapeUP1.rotateAngleX = GetMOP.partial(0.227591F, 0.13665928F, f);
       this.shapeUP2a.rotateAngleX = GetMOP.partial(-0.86516F, -0.4553564F, f);

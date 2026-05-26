@@ -8,6 +8,7 @@ import net.minecraft.world.gen.structure.template.Template.BlockInfo;
 public class ReplaceOnlyReplaceable implements ITemplateProcessor {
    public static ReplaceOnlyReplaceable instance = new ReplaceOnlyReplaceable();
 
+   @Override
    public BlockInfo processBlock(World worldIn, BlockPos pos, BlockInfo blockInfoIn) {
       return !worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos) ? null : blockInfoIn;
    }

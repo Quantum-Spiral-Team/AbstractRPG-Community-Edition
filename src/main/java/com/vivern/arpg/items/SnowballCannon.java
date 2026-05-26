@@ -40,6 +40,7 @@ public class SnowballCannon extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -49,10 +50,12 @@ public class SnowballCannon extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return oldStack.getItem() != newStack.getItem();
    }
@@ -68,6 +71,7 @@ public class SnowballCannon extends ItemWeapon {
       Booom.power = 0.25F + param / 3.5F;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -115,7 +119,7 @@ public class SnowballCannon extends ItemWeapon {
                            player.rotationPitch - 3.5F,
                            player.rotationYaw,
                            0.2F,
-                           parameters.getF("velocity"),
+                           parameters.getFloat("velocity"),
                            parameters.getEnchantedF("inaccuracy", acc),
                            -0.25F,
                            0.5F,
@@ -147,7 +151,7 @@ public class SnowballCannon extends ItemWeapon {
                         player.addStat(StatList.getObjectUseStats(this));
                         IWeapon.fireBomEffect(this, player, world, 1);
                         Weapons.setPlayerAnimationOnServer(player, 5, hand);
-                        int shots = parameters.getI("shots_special");
+                        int shots = parameters.getInt("shots_special");
 
                         for (int ss = 0; ss < shots; ss++) {
                            CannonSnowball bullet = new CannonSnowball(world, player, itemstack);
@@ -158,7 +162,7 @@ public class SnowballCannon extends ItemWeapon {
                               player.rotationPitch - 3.5F,
                               player.rotationYaw,
                               0.2F,
-                              parameters.getF("velocity"),
+                              parameters.getFloat("velocity"),
                               parameters.getEnchantedF("inaccuracy_special", acc),
                               -0.25F,
                               0.5F,
@@ -203,11 +207,13 @@ public class SnowballCannon extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

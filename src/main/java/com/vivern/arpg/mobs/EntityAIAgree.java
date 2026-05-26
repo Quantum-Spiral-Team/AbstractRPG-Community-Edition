@@ -52,6 +52,7 @@ public class EntityAIAgree<T extends EntityLivingBase> extends EntityAITarget {
       this.sorter = new net.minecraft.entity.ai.EntityAINearestAttackableTarget.Sorter(creature);
       this.setMutexBits(1);
       this.targetEntitySelector = new Predicate<T>() {
+         @Override
          public boolean apply(@Nullable T p_apply_1_) {
             if (p_apply_1_ == null) {
                return false;
@@ -66,6 +67,7 @@ public class EntityAIAgree<T extends EntityLivingBase> extends EntityAITarget {
       };
    }
 
+   @Override
    public boolean shouldExecute() {
       if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0) {
          return false;
@@ -101,6 +103,7 @@ public class EntityAIAgree<T extends EntityLivingBase> extends EntityAITarget {
       return this.taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance * this.verticalZone, targetDistance);
    }
 
+   @Override
    public void startExecuting() {
       this.taskOwner.setAttackTarget(this.targetEntity);
       super.startExecuting();
@@ -113,6 +116,7 @@ public class EntityAIAgree<T extends EntityLivingBase> extends EntityAITarget {
          this.entity = entityIn;
       }
 
+      @Override
       public int compare(Entity p_compare_1_, Entity p_compare_2_) {
          double d0 = this.entity.getDistanceSq(p_compare_1_);
          double d1 = this.entity.getDistanceSq(p_compare_2_);

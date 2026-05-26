@@ -61,6 +61,7 @@ public class NailGunModel extends ModelBase {
       this.shape_4.addBox(0.0F, 0.0F, 0.0F, 5, 5, 4, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape_2.render(f5);
       this.shape_6.render(f5);

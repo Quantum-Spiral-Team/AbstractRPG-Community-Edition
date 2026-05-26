@@ -51,6 +51,7 @@ public class ChestDoubleLockModelLAR extends ModelChest {
       this.chestKnob.addChild(this.chestKno_2);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.chestLid.render(f5);
       this.chestKnob.render(f5);

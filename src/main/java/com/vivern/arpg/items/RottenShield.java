@@ -29,6 +29,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class RottenShield extends ItemWeapon implements IItemAttacked {
    public RottenShield() {
@@ -39,6 +41,7 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -48,14 +51,17 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (NBTHelper.GetNBTint(stack, "blocking") > 0) {
@@ -77,6 +83,7 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
       return multimap;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -103,14 +110,14 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
                         0.95F + itemRand.nextFloat() / 10.0F
                      );
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
-                     NBTHelper.SetNBTint(itemstack, parameters.getI("max_hits"), "blocking");
+                     NBTHelper.SetNBTint(itemstack, parameters.getInt("max_hits"), "blocking");
                      player.addExhaustion(parameters.getEnchantedF("exhaustion_on_use", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack)));
                   } else if (player.ticksExisted % 7 == 0) {
                      Weapons.setPlayerAnimationOnServer(player, 18, player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
                   }
                }
             } else if (blocks > 0) {
-               float starvedCooldownMultiplier = parameters.getF("starved_cooldown_multiplier");
+               float starvedCooldownMultiplier = parameters.getFloat("starved_cooldown_multiplier");
                float foodToStarve = parameters.getEnchantedF("food_level_to_starve", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
                NBTHelper.SetNBTint(itemstack, 0, "blocking");
                player.getCooldownTracker()
@@ -127,7 +134,7 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
       if (NBTHelper.GetNBTint(stack, "blocking") > 0) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
          float damageBlocks = parameters.getEnchantedF("damage_reduce", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
-         float starvedCooldownMultiplier = parameters.getF("starved_cooldown_multiplier");
+         float starvedCooldownMultiplier = parameters.getFloat("starved_cooldown_multiplier");
          float foodToStarve = parameters.getEnchantedF("food_level_to_starve", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack));
          Entity attacker = source.getImmediateSource() == null ? source.getTrueSource() : source.getImmediateSource();
          if (!IWeapon.checkShieldAngle(stack, player, source)) {
@@ -155,7 +162,7 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
                         player,
                         attacker,
                         parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack)),
-                        parameters.getF("self_knockback")
+                        parameters.getFloat("self_knockback")
                      );
                      float eatChance = parameters.getEnchantedF("eat_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, stack));
                      if (itemRand.nextFloat() < eatChance && player.isPotionActive(MobEffects.HUNGER)) {
@@ -179,7 +186,7 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
                               attacker.posY,
                               attacker.posZ,
                               2,
-                              parameters.getF("heart_health"),
+                              parameters.getFloat("heart_health"),
                               true,
                               4.0F,
                               player
@@ -237,13 +244,15 @@ public class RottenShield extends ItemWeapon implements IItemAttacked {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getI("max_hits"), 0.0F, 1.0F
+         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getInt("max_hits"), 0.0F, 1.0F
       );
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "blocking") > 0;

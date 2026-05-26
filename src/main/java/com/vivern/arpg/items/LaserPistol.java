@@ -35,6 +35,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 
 public class LaserPistol extends ItemWeapon {
@@ -49,10 +51,12 @@ public class LaserPistol extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 6.0F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -62,14 +66,17 @@ public class LaserPistol extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
@@ -81,10 +88,10 @@ public class LaserPistol extends ItemWeapon {
          boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
          EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
          boolean b1 = true;
-         if (hand != null && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)) {
+         if (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND) {
             if (ammo > 0 && this.isReloaded(itemstack)) {
                if (!player.getCooldownTracker().hasCooldown(this)) {
-                  float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getF("rapid_multiplier");
+                  float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getFloat("rapid_multiplier");
                   float size = parameters.getEnchantedF("damage_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                   double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                   b1 = false;
@@ -184,7 +191,7 @@ public class LaserPistol extends ItemWeapon {
                         NBTHelper.AddNBTint(itemstack, -1, "animSend");
                      }
 
-                     float siz = size + parameters.getF("damage_radius");
+                     float siz = size + parameters.getFloat("damage_radius");
                      AxisAlignedBB aabb = new AxisAlignedBB(
                         vec.x - siz,
                         vec.y - siz,
@@ -259,6 +266,7 @@ public class LaserPistol extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       GUNParticle bigsmoke = new GUNParticle(
@@ -393,11 +401,13 @@ public class LaserPistol extends ItemWeapon {
       return WeaponParameters.getWeaponParameters(this).getEnchantedI("clipsize", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack));
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / this.getMaxAmmo(itemstack), 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

@@ -32,6 +32,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fluids.IFluidBlock;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -1333,6 +1335,7 @@ public class GetMOP {
       return previousValue + (value - previousValue) * partialTicks;
    }
 
+   @SideOnly(Side.CLIENT)
    public static float partial(float value, float previousValue) {
       return partial(value, previousValue, Minecraft.getMinecraft().getRenderPartialTicks());
    }
@@ -1341,6 +1344,7 @@ public class GetMOP {
       return previousValue + (value - previousValue) * partialTicks;
    }
 
+   @SideOnly(Side.CLIENT)
    public static double partial(double value, double previousValue) {
       return partial(value, previousValue, Minecraft.getMinecraft().getRenderPartialTicks());
    }

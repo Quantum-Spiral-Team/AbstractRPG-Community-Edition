@@ -62,10 +62,12 @@ public class EntityThrowedReaper extends EntityThrowable {
       this.setSize(1.0F, 1.0F);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.001F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 340) {
@@ -141,6 +143,7 @@ public class EntityThrowedReaper extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -242,10 +245,12 @@ public class EntityThrowedReaper extends EntityThrowable {
       }
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return true;
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (!this.repulse(result.entityHit)
@@ -311,6 +316,7 @@ public class EntityThrowedReaper extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       Vec3d subtraction = this.pos1.subtract(this.pos2);

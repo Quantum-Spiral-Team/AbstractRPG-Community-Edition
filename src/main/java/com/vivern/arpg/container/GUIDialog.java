@@ -17,6 +17,7 @@ public class GUIDialog extends GuiScreen {
       this.npc = npc;
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       int mx = mouseX - (this.width - 212) / 2;
       int my = mouseY - (this.height - 256) / 2;
@@ -28,6 +29,7 @@ public class GUIDialog extends GuiScreen {
       }
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }

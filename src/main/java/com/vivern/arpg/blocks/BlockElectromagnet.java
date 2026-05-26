@@ -115,6 +115,7 @@ public class BlockElectromagnet extends Block {
       this.setDefaultState(this.getDefaultState().withProperty(TYPE, 0));
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -137,15 +138,18 @@ public class BlockElectromagnet extends Block {
       return (TileElectromagnet)world.getTileEntity(position);
    }
 
+   @Override
    @Nullable
    public TileElectromagnet createTileEntity(World world, IBlockState blockState) {
       return new TileElectromagnet();
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       this.getTileEntity(worldIn, pos).initMagnet();
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
@@ -170,14 +174,17 @@ public class BlockElectromagnet extends Block {
       }
    }
 
+   @Override
    public boolean isFullBlock(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return false;
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       BlockPos wb = pos.west();
       BlockPos eb = pos.east();
@@ -199,14 +206,17 @@ public class BlockElectromagnet extends Block {
          .withProperty(DOWN, down);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return true;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return this.getAABB(blockState);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return this.getAABB(this.getActualState(state, source, pos));
    }
@@ -315,35 +325,43 @@ public class BlockElectromagnet extends Block {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(TYPE, meta);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(TYPE);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, UPPER, DOWN, TYPE});
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       BlockPos wb = pos.west();
       BlockPos eb = pos.east();

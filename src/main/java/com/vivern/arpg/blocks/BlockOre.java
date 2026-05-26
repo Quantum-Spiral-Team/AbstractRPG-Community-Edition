@@ -39,6 +39,7 @@ public class BlockOre extends Block {
       this.maxXP = maxXP;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return this.layer;
@@ -54,6 +55,7 @@ public class BlockOre extends Block {
       return this;
    }
 
+   @Override
    public Block setSoundType(SoundType sound) {
       return super.setSoundType(sound);
    }
@@ -62,14 +64,17 @@ public class BlockOre extends Block {
       this.drops = drops;
    }
 
+   @Override
    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }
 
+   @Override
    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
       if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
          List<ItemStack> stacksd = new ArrayList<>();
@@ -88,6 +93,7 @@ public class BlockOre extends Block {
       }
    }
 
+   @Override
    public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
       Random rand = world instanceof World ? ((World)world).rand : RANDOM;
       return MathHelper.getInt(rand, this.minXP, this.maxXP);

@@ -178,6 +178,7 @@ public class CrystalSphereModel3 extends ModelBase {
       this.shape1_1.addChild(this.shape1_9);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f == 0.0F) {
          float lbX = OpenGlHelper.lastBrightnessX;

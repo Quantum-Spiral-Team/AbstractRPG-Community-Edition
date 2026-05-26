@@ -101,10 +101,12 @@ public class RustedPipe extends BlockBlockHard {
       return false;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return side == EnumFacing.UP || side == EnumFacing.DOWN;
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       BlockPos wb = pos.west();
       BlockPos eb = pos.east();
@@ -261,22 +263,27 @@ public class RustedPipe extends BlockBlockHard {
       return false;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState();
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return 0;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, UPPER, DOWN});
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       BlockPos wb = pos.west();
       BlockPos eb = pos.east();

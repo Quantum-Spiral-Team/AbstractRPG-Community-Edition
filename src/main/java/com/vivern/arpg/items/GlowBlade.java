@@ -34,6 +34,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GlowBlade extends ItemWeapon {
    static ResourceLocation texture = new ResourceLocation("arpg:textures/generic_beam3.png");
@@ -47,10 +49,12 @@ public class GlowBlade extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
@@ -67,7 +71,7 @@ public class GlowBlade extends ItemWeapon {
          int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
          int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
          if (player.getHeldItemMainhand() == itemstack && damage < this.getMaxDamage() && !hascooldown) {
-            NBTHelper.GiveNBTboolean(itemstack, false, "aiming");
+            NBTHelper.giveNBTboolean(itemstack, false, "aiming");
             if (click) {
                this.sweep(player, EnumHand.MAIN_HAND, itemstack);
                NBTHelper.SetNBTboolean(itemstack, false, "aiming");
@@ -260,6 +264,7 @@ public class GlowBlade extends ItemWeapon {
       player.getCooldownTracker().setCooldown(this, this.getCooldownTime(stack) - (int)((attackspeed - 4.0) * 3.0));
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (c == 0.0) {
@@ -323,6 +328,7 @@ public class GlowBlade extends ItemWeapon {
       return 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;

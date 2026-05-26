@@ -38,6 +38,7 @@ public class SpineSegmentModel extends ModelBase {
       this.shape1.addChild(this.shape4);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       float lbX = OpenGlHelper.lastBrightnessX;
       float lbY = OpenGlHelper.lastBrightnessY;
@@ -60,6 +61,7 @@ public class SpineSegmentModel extends ModelBase {
       modelRenderer.rotateAngleZ = z;
    }
 
+   @Override
    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
       this.shape1.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
       this.shape1.rotateAngleX = headPitch * (float) (Math.PI / 180.0) + 0.17F;

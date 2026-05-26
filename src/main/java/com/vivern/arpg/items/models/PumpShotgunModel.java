@@ -44,6 +44,7 @@ public class PumpShotgunModel extends ModelBase {
       this.shape1.addChild(this.shapescope);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       this.pump.offsetZ = (GetMOP.getFromTo(f1, 0.3F, 0.53F) - GetMOP.getFromTo(f1, 0.55F, 0.78F)) * 3.5F;

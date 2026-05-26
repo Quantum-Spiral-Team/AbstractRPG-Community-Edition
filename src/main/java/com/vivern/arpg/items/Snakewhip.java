@@ -22,6 +22,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Snakewhip extends Whip {
    public static ResourceLocation slimesplash = new ResourceLocation("arpg:textures/slimesplash.png");
@@ -114,7 +116,7 @@ public class Snakewhip extends Whip {
    public void onSpecAttackDamage(Entity entity, Vec3d pos, IWeapon iweapon, ItemStack itemstack, EntityPlayer player, EnumHand hand, float damage) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int time = parameters.getEnchantedI("slime_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack));
-      int power = parameters.getI("slime_power");
+      int power = parameters.getInt("slime_power");
       Weapons.setPotionIfEntityLB(entity, PotionEffects.SLIME, time, power);
    }
 
@@ -128,7 +130,7 @@ public class Snakewhip extends Whip {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
             int timemin = parameters.getEnchantedI("toxin_time_min", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack));
             int timemax = parameters.getEnchantedI("toxin_time_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack));
-            int power = parameters.getI("toxin_power");
+            int power = parameters.getInt("toxin_power");
             PotionEffect eff = new PotionEffect(PotionEffects.TOXIN, timemin + itemRand.nextInt(timemax - timemin + 1), power);
             livingBase.addPotionEffect(eff);
          }
@@ -137,6 +139,7 @@ public class Snakewhip extends Whip {
       return super.attackEntityMelee(entity, stack, player, hand, isCritical);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (a >= 2.0) {

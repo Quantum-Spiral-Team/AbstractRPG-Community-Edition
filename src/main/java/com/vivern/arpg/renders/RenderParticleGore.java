@@ -19,6 +19,7 @@ public class RenderParticleGore<T extends ParticleGore> extends Render<ParticleG
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(ParticleGore entity, double x, double y, double z, float entityYaw, float partialTicks) {
       float lbX = OpenGlHelper.lastBrightnessX;
       float lbY = OpenGlHelper.lastBrightnessY;
@@ -97,11 +98,13 @@ public class RenderParticleGore<T extends ParticleGore> extends Render<ParticleG
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(ParticleGore entity) {
       return entity.texture;
    }
 
    public static class ParticleGoreFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderParticleGore(manager);
       }

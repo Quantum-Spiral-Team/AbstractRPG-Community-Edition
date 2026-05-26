@@ -31,9 +31,11 @@ public class Moonshroom extends AbstractMob {
       this.canDropLoot = true;
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
+   @Override
    public boolean canBreatheUnderwater() {
       return true;
    }
@@ -68,6 +70,7 @@ public class Moonshroom extends AbstractMob {
       }
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(0, new EntityAIEasyRunaway(this, 0.03F, 0.3F));
       this.tasks.addTask(1, new EntityAIFlying(this, 120, 10.0F, 0.02F, false));

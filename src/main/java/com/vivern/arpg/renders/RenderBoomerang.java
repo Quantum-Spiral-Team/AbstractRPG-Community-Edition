@@ -25,6 +25,7 @@ public class RenderBoomerang<T extends Entity> extends Render<T> {
       this.itemRenderer = Minecraft.getMinecraft().getRenderItem();
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y, (float)z);
@@ -53,6 +54,7 @@ public class RenderBoomerang<T extends Entity> extends Render<T> {
       return new ItemStack(this.item);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(Entity entity) {
       return TextureMap.LOCATION_BLOCKS_TEXTURE;
    }

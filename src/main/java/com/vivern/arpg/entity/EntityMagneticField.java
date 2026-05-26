@@ -28,6 +28,7 @@ public class EntityMagneticField extends Entity implements IEntitySynchronize {
       this.fieldSize = (int)z;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       this.motionX = 0.0;
@@ -336,21 +337,26 @@ public class EntityMagneticField extends Entity implements IEntitySynchronize {
       return en != null && en instanceof TileElectromagnet ? consumePower == 0 || ((TileElectromagnet)en).consumePower(consumePower) : false;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    public boolean canBePushed() {
       return false;
    }
 
+   @Override
    public boolean isPushedByWater() {
       return false;
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("power")) {
          this.power = compound.getInteger("power");
@@ -361,6 +367,7 @@ public class EntityMagneticField extends Entity implements IEntitySynchronize {
       }
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       compound.setInteger("power", this.power);
       compound.setInteger("maxpower", this.maximumPower);

@@ -35,6 +35,7 @@ public class PoisonRiver extends Biome {
       public WorldGenSpread logs = new WorldGenSpread(BlocksRegister.TOXIBERRY_LOG, 7, 5, 1, BlocksRegister.TOXIC_DIRT, true);
       public WorldGenSpread slimeglobs = new WorldGenSpread(BlocksRegister.SLIME_GLOB, 15, 6, 3, BlocksRegister.TOXIC_DIRT, true);
 
+      @Override
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

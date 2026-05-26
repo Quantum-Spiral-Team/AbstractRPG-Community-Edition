@@ -43,6 +43,7 @@ public class VoidGuardPartModel extends ModelBase {
       this.shape1.addChild(this.shape3);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
@@ -59,6 +60,7 @@ public class VoidGuardPartModel extends ModelBase {
       modelRenderer.rotateAngleZ = z;
    }
 
+   @Override
    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
       this.shape1.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
       this.shape1.rotateAngleX = headPitch * (float) (Math.PI / 180.0);

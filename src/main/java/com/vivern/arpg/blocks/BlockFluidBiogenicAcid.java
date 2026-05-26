@@ -39,11 +39,13 @@ public class BlockFluidBiogenicAcid extends BlockFluidClassic {
       this.setTickRate(5);
    }
 
+   @Override
    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
       super.onBlockAdded(world, pos, state);
       this.mergerFluids(pos, world);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
       super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
       this.mergerFluids(pos, world);
@@ -87,6 +89,7 @@ public class BlockFluidBiogenicAcid extends BlockFluidClassic {
       }
    }
 
+   @Override
    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
       super.randomTick(worldIn, pos, state, random);
       if ((Integer)state.getValue(LEVEL) == 0) {
@@ -121,6 +124,7 @@ public class BlockFluidBiogenicAcid extends BlockFluidClassic {
       }
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       if (entityIn.ticksExisted % 10 == 0) {
@@ -155,6 +159,7 @@ public class BlockFluidBiogenicAcid extends BlockFluidClassic {
       }
    }
 
+   @Override
    @Nullable
    public PathNodeType getAiPathNodeType(IBlockState state, IBlockAccess world, BlockPos pos, @Nullable EntityLiving entity) {
       return entity != null && entity.isEntityInvulnerable(DamageSource.WITHER) ? PathNodeType.WATER : PathNodeType.LAVA;

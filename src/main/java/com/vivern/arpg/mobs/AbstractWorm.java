@@ -4,6 +4,9 @@ import com.vivern.arpg.main.GetMOP;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
@@ -37,6 +40,7 @@ public abstract class AbstractWorm extends AbstractMob {
       this(world, sizeWidth, sizeHeight, false, 0, null);
    }
 
+   @Override
    public boolean hasNoGravity() {
       return true;
    }
@@ -69,6 +73,7 @@ public abstract class AbstractWorm extends AbstractMob {
       super.readEntityFromNBT(compound);
    }
 
+   @Override
    @Nullable
    public AbstractWorm getOwnerIfSegment() {
       return this.isSubMob ? this.headEntity : null;
@@ -82,6 +87,7 @@ public abstract class AbstractWorm extends AbstractMob {
       return 1.0F;
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
@@ -106,6 +112,7 @@ public abstract class AbstractWorm extends AbstractMob {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -119,6 +126,7 @@ public abstract class AbstractWorm extends AbstractMob {
       super.handleStatusUpdate(id);
    }
 
+   @Override
    protected boolean canDespawn() {
       return this.isSubMob ? false : super.canDespawn();
    }

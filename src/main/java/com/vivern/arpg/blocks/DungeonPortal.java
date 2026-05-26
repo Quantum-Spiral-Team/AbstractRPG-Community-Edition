@@ -34,6 +34,7 @@ public class DungeonPortal extends Block {
       this.setLightOpacity(0);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (DimensionsRegister.canPortalsBreak) {
          Block block3 = worldIn.getBlockState(pos.south()).getBlock();
@@ -52,6 +53,7 @@ public class DungeonPortal extends Block {
       return block == this || block == BlocksRegister.DUNGEON_PORTAL_FRAME;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextInt(150) == 0) {
@@ -68,27 +70,33 @@ public class DungeonPortal extends Block {
       }
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return 0;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       if (entityIn != null
          && entityIn instanceof EntityPlayer
@@ -111,15 +119,18 @@ public class DungeonPortal extends Block {
       return (TileDungeonPortal)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileDungeonPortal createTileEntity(World world, IBlockState blockState) {
       return new TileDungeonPortal();
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }

@@ -45,6 +45,7 @@ public class BurningFrost extends Block {
    private final Map<Block, Integer> encouragements = Maps.newIdentityHashMap();
    private final Map<Block, Integer> flammabilities = Maps.newIdentityHashMap();
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return !worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)
             && !Blocks.FIRE.canCatchFire(worldIn, pos.down(), EnumFacing.UP)
@@ -98,6 +99,7 @@ public class BurningFrost extends Block {
       }
    }
 
+   @Override
    public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entityIn) {
       if (!world.isRemote && entityIn instanceof EntityLivingBase) {
          EntityLivingBase base = (EntityLivingBase)entityIn;
@@ -105,27 +107,33 @@ public class BurningFrost extends Block {
       }
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return 0;
    }
 
+   @Override
    public int tickRate(World worldIn) {
       return 30;
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (worldIn.getGameRules().getBoolean("doFireTick")) {
          if (!worldIn.isAreaLoaded(pos, 2)) {
@@ -236,6 +244,7 @@ public class BurningFrost extends Block {
          || worldIn.isRainingAt(pos.south());
    }
 
+   @Override
    public boolean requiresUpdates() {
       return false;
    }
@@ -296,6 +305,7 @@ public class BurningFrost extends Block {
       }
    }
 
+   @Override
    public boolean isCollidable() {
       return false;
    }
@@ -305,17 +315,20 @@ public class BurningFrost extends Block {
       return this.canCatchFire(worldIn, pos, EnumFacing.UP);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       IBlockState state2 = worldIn.getBlockState(pos.down());
       return state2.isTopSolid() || this.canNeighborCatchFire(worldIn, pos);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!worldIn.getBlockState(pos.down()).isTopSolid() && !this.canNeighborCatchFire(worldIn, pos)) {
          worldIn.setBlockToAir(pos);
       }
    }
 
+   @Override
    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
       boolean canbreak = DimensionsRegister.canPortalsBreak;
       DimensionsRegister.canPortalsBreak = false;
@@ -329,10 +342,12 @@ public class BurningFrost extends Block {
       }
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return MapColor.DIAMOND;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextInt(24) == 0) {
@@ -404,19 +419,23 @@ public class BurningFrost extends Block {
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(AGE, meta);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(AGE);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{AGE, NORTH, EAST, SOUTH, WEST, UPPER});
    }
@@ -426,6 +445,7 @@ public class BurningFrost extends Block {
       return face == EnumFacing.UP && block == BlocksRegister.CLEAN_ICE ? true : this.getFlammability(block) > 0;
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }

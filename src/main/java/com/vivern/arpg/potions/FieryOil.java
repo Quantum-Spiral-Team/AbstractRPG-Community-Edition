@@ -7,6 +7,8 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FieryOil extends Potion {
    protected FieryOil(boolean isBadEffectIn, int liquidColorIn) {
@@ -16,15 +18,19 @@ public class FieryOil extends Potion {
       this.setIconIndex(8, 1);
    }
 
+   @Override
    public double getAttributeModifierAmount(int amplifier, AttributeModifier modifier) {
       return 1.0F / ((amplifier + 0.5F) / 2.0F + 0.75F) - 1.0F;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasStatusIcon() {
       Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
       return true;
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
       double damageRadius = 4.0 + amplifier;
       AxisAlignedBB axisalignedbb = entityLivingBase.getEntityBoundingBox()
@@ -40,6 +46,7 @@ public class FieryOil extends Potion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

@@ -179,6 +179,7 @@ public class XmassLauncherModel extends ModelBase {
       this.shape6.addChild(this.shape6A);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       float ft0 = GetMOP.getFromTo(f, 0.0F, 0.1F);

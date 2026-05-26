@@ -24,10 +24,12 @@ public class DeepRock extends Block implements IBlockHardBreak {
       return BlocksRegister.HR_DUNGEON_STONES;
    }
 
+   @Override
    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
       return true;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }

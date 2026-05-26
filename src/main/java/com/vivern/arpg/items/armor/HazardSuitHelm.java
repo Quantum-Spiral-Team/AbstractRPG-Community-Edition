@@ -32,6 +32,7 @@ public class HazardSuitHelm extends AbstractArmor {
       return true;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (entityIn.ticksExisted % 40 == 0 && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
@@ -96,6 +97,7 @@ public class HazardSuitHelm extends AbstractArmor {
       }
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       if (equipmentSlot == this.armorType) {
@@ -126,6 +128,7 @@ public class HazardSuitHelm extends AbstractArmor {
       return multimap;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
       if (itemStack != ItemStack.EMPTY) {
@@ -144,6 +147,7 @@ public class HazardSuitHelm extends AbstractArmor {
       }
    }
 
+   @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return armortexture;
    }
@@ -153,6 +157,7 @@ public class HazardSuitHelm extends AbstractArmor {
          super(EntityEquipmentSlot.FEET, "hazard_suit_boots", 2000, 5);
       }
 
+      @Override
       public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
          Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
          if (equipmentSlot == this.armorType) {
@@ -187,6 +192,7 @@ public class HazardSuitHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -205,6 +211,7 @@ public class HazardSuitHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return HazardSuitHelm.armortexture;
       }
@@ -220,6 +227,7 @@ public class HazardSuitHelm extends AbstractArmor {
          super(EntityEquipmentSlot.CHEST, "hazard_suit_chestplate", 2300, 5);
       }
 
+      @Override
       public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
          Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
          if (equipmentSlot == this.armorType) {
@@ -258,6 +266,7 @@ public class HazardSuitHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -276,6 +285,7 @@ public class HazardSuitHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return HazardSuitHelm.armortexture;
       }
@@ -286,6 +296,7 @@ public class HazardSuitHelm extends AbstractArmor {
          super(EntityEquipmentSlot.LEGS, "hazard_suit_leggins", 2100, 5);
       }
 
+      @Override
       public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
          Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
          if (equipmentSlot == this.armorType) {
@@ -320,6 +331,7 @@ public class HazardSuitHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -338,6 +350,7 @@ public class HazardSuitHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return HazardSuitHelm.armortexture;
       }

@@ -25,6 +25,7 @@ import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 
 public class BristlingVillage {
    public static Predicate<IBlockState> BLOCKS_TO_COLLIDE = new Predicate<IBlockState>() {
+      @Override
       public boolean apply(IBlockState input) {
          if (input.getBlock() == BlocksRegister.CONIFER_PLANKS) {
             return true;

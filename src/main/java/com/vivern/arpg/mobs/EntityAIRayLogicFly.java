@@ -14,6 +14,7 @@ public class EntityAIRayLogicFly extends EntityAIBase {
    public EntityCreature entity;
    public LogicRay logicRay;
    public Predicate raysuccess = new Predicate<Entity>() {
+      @Override
       public boolean apply(@Nullable Entity en) {
          return en == null ? false : en instanceof EntityPlayer;
       }
@@ -23,16 +24,19 @@ public class EntityAIRayLogicFly extends EntityAIBase {
    public EntityAIRayLogicFly(EntityCreature entity) {
       this.entity = entity;
       this.rayignore = new Predicate<Entity>() {
+         @Override
          public boolean apply(@Nullable Entity en) {
             return en == null ? true : !(en instanceof EntityPlayer);
          }
       };
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public void updateTask() {
       if (this.logicRay == null) {
          this.logicRay = new LogicRay(
@@ -55,11 +59,13 @@ public class EntityAIRayLogicFly extends EntityAIBase {
 
             if (this.entity.ticksExisted % 15 == 0) {
                this.raysuccess = new Predicate<Entity>() {
+                  @Override
                   public boolean apply(@Nullable Entity en) {
                      return en == null ? false : en == EntityAIRayLogicFly.this.entity.getAttackTarget();
                   }
                };
                this.rayignore = new Predicate<Entity>() {
+                  @Override
                   public boolean apply(@Nullable Entity en) {
                      return en == null ? true : en != EntityAIRayLogicFly.this.entity.getAttackTarget();
                   }

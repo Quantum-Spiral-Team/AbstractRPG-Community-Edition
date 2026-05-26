@@ -106,6 +106,7 @@ public class PlasmaRailgunModel extends ModelBase {
       this.setRotateAngle(this.rod, (float) (-Math.PI / 2), 0.0F, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.roddd_3.offsetX, this.roddd_3.offsetY, this.roddd_3.offsetZ);

@@ -20,6 +20,7 @@ public class SnowIce extends Block implements IBlockHardBreak {
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }

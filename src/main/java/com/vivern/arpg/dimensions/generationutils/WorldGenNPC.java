@@ -29,6 +29,7 @@ public class WorldGenNPC implements IWorldGenerator {
       this.underground = underground;
    }
 
+   @Override
    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       int dim = world.provider.getDimension();
       if (dim == this.dimension) {
@@ -46,11 +47,11 @@ public class WorldGenNPC implements IWorldGenerator {
                      GetMOP.BlockTraceResult result = GetMOP.blockTrace(world, startpos, EnumFacing.UP, start - end, GetMOP.AIR_BLOCKS);
                      if (result != null && !world.getBlockState(result.pos.down()).getMaterial().isLiquid()) {
                         GenerationHelper.placeStruct(world, result.pos, random, this.structureName, 5, -1, random.nextInt(4), null);
-                        Entity entity = this.NPCentry.newInstance(world);
+                        Entity entity = this.NPCentry.newInstance(world); // P:TODO entity is null and NPCEntry is null
                         entity.setPosition(result.pos.getX() + 0.5, result.pos.getY(), result.pos.getZ() + 0.5);
                         world.spawnEntity(entity);
                         if (entity instanceof EntityLiving) {
-                           ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null);
+                           ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
                            ((EntityLiving)entity).enablePersistence();
                         }
                      }

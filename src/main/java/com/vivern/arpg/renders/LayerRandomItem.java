@@ -21,6 +21,7 @@ public class LayerRandomItem implements LayerRenderer<EntityLivingBase> {
       this.inverseLayers = inverseLayers;
    }
 
+   @Override
    public void doRenderLayer(
       EntityLivingBase entitylivingbaseIn,
       float limbSwing,
@@ -42,6 +43,7 @@ public class LayerRandomItem implements LayerRenderer<EntityLivingBase> {
       GlStateManager.popMatrix();
    }
 
+   @Override
    public boolean shouldCombineTextures() {
       return false;
    }

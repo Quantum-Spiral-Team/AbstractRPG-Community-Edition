@@ -13,6 +13,7 @@ import net.minecraft.util.math.Vec3d;
 public class EntityAIRayLogicJump extends EntityAIBase {
    public EntityCreature entity;
    public Predicate ignoreblocks = new Predicate<IBlockState>() {
+      @Override
       public boolean apply(@Nullable IBlockState block) {
          return false;
       }
@@ -22,10 +23,12 @@ public class EntityAIRayLogicJump extends EntityAIBase {
       this.entity = entity;
    }
 
+   @Override
    public boolean shouldExecute() {
       return true;
    }
 
+   @Override
    public void updateTask() {
       if (this.entity.ticksExisted % 20 == 0) {
          Vec3d fromPos = this.entity.getPositionEyes(1.0F);

@@ -1,5 +1,6 @@
 package com.vivern.arpg.main;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.entity.EntityCubicParticle;
 import com.vivern.arpg.entity.GunPEmitter;
 import com.vivern.arpg.entity.INailer;
@@ -18,6 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -58,43 +62,43 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderLivingEvent.Pre;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import org.lwjgl.opengl.GL11;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
 public class DeathEffects {
-   public static final ResourceLocation textur = new ResourceLocation("arpg:textures/freezing.png");
+   public static final ResourceLocation freezing = new ResourceLocation("arpg:textures/freezing.png");
    public static final ResourceLocation snowflake2 = new ResourceLocation("arpg:textures/snowflake2.png");
-   public static final ResourceLocation icecube = new ResourceLocation("arpg:textures/ice_cube.png");
+   public static final ResourceLocation ice_cube = new ResourceLocation("arpg:textures/ice_cube.png");
    public static final ResourceLocation snowflake3 = new ResourceLocation("arpg:textures/snowflake3.png");
    public static final ResourceLocation minisand1 = new ResourceLocation("arpg:textures/minisand1.png");
    public static final ResourceLocation minisand2 = new ResourceLocation("arpg:textures/minisand2.png");
    public static final ResourceLocation minisand3 = new ResourceLocation("arpg:textures/minisand3.png");
-   public static final ResourceLocation acidbubble = new ResourceLocation("arpg:textures/de_acid_bubble.png");
-   public static final ResourceLocation shockbeam = new ResourceLocation("arpg:textures/shock.png");
-   public static final ResourceLocation electr = new ResourceLocation("arpg:textures/blueexplode2.png");
-   public static final ResourceLocation deelectric = new ResourceLocation("arpg:textures/blueexplode4.png");
+   public static final ResourceLocation de_acid_bubble = new ResourceLocation("arpg:textures/de_acid_bubble.png");
+   public static final ResourceLocation shock = new ResourceLocation("arpg:textures/shock.png");
+   public static final ResourceLocation blueexplode2 = new ResourceLocation("arpg:textures/blueexplode2.png");
+   public static final ResourceLocation blueexplode4 = new ResourceLocation("arpg:textures/blueexplode4.png");
    public static final ResourceLocation gore = new ResourceLocation("arpg:textures/gore.png");
    public static final ResourceLocation drop = new ResourceLocation("arpg:textures/normaldrop.png");
    public static ResourceLocation blood = new ResourceLocation("arpg:textures/blood.png");
    public static List<EntityLivingBase> listEFFECTshock = new ArrayList<>();
-   public static Map<Class, ModelBase> mainModels = new HashMap<>();
-   public static Map<Class, ResourceLocation> mainTextures = new HashMap<>();
-   public static Random rand = new Random();
+   @SideOnly(Side.CLIENT)
+   public static Map<Class<?>, ModelBase> mainModels = new HashMap<>();
+   @SideOnly(Side.CLIENT)
+   public static Map<Class<?>, ResourceLocation> mainTextures = new HashMap<>();
+   private static final Random RANDOM = new Random();
+   @SideOnly(Side.CLIENT)
    public static ModelBase playerModel = new ModelPlayer(0.0F, false);
    public static DeathEffect DE_ICING = new DeathEffect() {
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
+      public void onRenderLivingPre(RenderLivingEvent.Pre<? extends EntityLivingBase> event, EntityLivingBase entity) {
          ModelBase model = event.getRenderer().getMainModel();
          GlStateManager.pushMatrix();
          GL11.glDepthMask(false);
          GL11.glEnable(3042);
          Color.doRender(
-            entity, event.getX(), event.getY(), event.getZ(), entity.rotationYaw, event.getPartialRenderTick(), model, DeathEffects.textur, 0.0F, false
+            entity, event.getX(), event.getY(), event.getZ(), entity.rotationYaw, event.getPartialRenderTick(), model, DeathEffects.freezing, 0.0F, false
          );
          GL11.glDisable(3042);
          GL11.glDepthMask(true);
@@ -102,14 +106,15 @@ public class DeathEffects {
          GlStateManager.popMatrix();
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
-         if (base.deathTime == 1) {
-            world.playSound((EntityPlayer)null, x, y, z, Sounds.de_icing, SoundCategory.HOSTILE, 0.8F + DeathEffects.rand.nextFloat() / 5.0F, 1.1F);
+      public void onLivingUpdate(World world, LivingEvent.LivingUpdateEvent event, EntityLivingBase living, double x, double y, double z) {
+         if (living.deathTime == 1) {
+            world.playSound(null, x, y, z, Sounds.de_icing, SoundCategory.HOSTILE, 0.8F + RANDOM.nextFloat() / 5.0F, 1.1F);
          }
 
-         if (base.deathTime == 19) {
-            for (int i = 0; i < Math.min(base.getMaxHealth() / 5.0F, 10.0F); i++) {
+         if (living.deathTime == 19) {
+            for (int i = 0; i < Math.min(living.getMaxHealth() / 5.0F, 10.0F); i++) {
                GunPEmitter emi = new GunPEmitter(
                   DeathEffects.snowflake2,
                   0.3F,
@@ -120,9 +125,9 @@ public class DeathEffects {
                   x,
                   y,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 4.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 4.0F + 0.3F,
-                  (float)DeathEffects.rand.nextGaussian() / 4.0F,
+                  (float)RANDOM.nextGaussian() / 4.0F,
+                  (float)RANDOM.nextGaussian() / 4.0F + 0.3F,
+                  (float)RANDOM.nextGaussian() / 4.0F,
                   1.0F,
                   1.0F,
                   1.0F,
@@ -145,27 +150,27 @@ public class DeathEffects {
                world.spawnEntity(emi);
             }
 
-            for (int i = 0; i < Math.min(base.getMaxHealth() / 2.0F, 15.0F); i++) {
+            for (int i = 0; i < Math.min(living.getMaxHealth() / 2.0F, 15.0F); i++) {
                Entity spel = new EntityCubicParticle(
-                  DeathEffects.icecube,
+                  DeathEffects.ice_cube,
                   0.02F,
                   0.02F,
-                  20 + DeathEffects.rand.nextInt(10),
-                  90 + DeathEffects.rand.nextInt(9),
+                  20 + RANDOM.nextInt(10),
+                  90 + RANDOM.nextInt(9),
                   world,
                   x,
                   y + 0.5,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 9.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 9.0F + 0.3F,
-                  (float)DeathEffects.rand.nextGaussian() / 9.0F,
+                  (float)RANDOM.nextGaussian() / 9.0F,
+                  (float)RANDOM.nextGaussian() / 9.0F + 0.3F,
+                  (float)RANDOM.nextGaussian() / 9.0F,
                   1.0F,
                   1.0F,
                   1.0F,
                   true,
-                  DeathEffects.rand.nextFloat(),
-                  DeathEffects.rand.nextFloat(),
-                  DeathEffects.rand.nextFloat(),
+                  RANDOM.nextFloat(),
+                  RANDOM.nextFloat(),
+                  RANDOM.nextFloat(),
                   0.05F,
                   true,
                   -3.0E-4F
@@ -175,20 +180,20 @@ public class DeathEffects {
                   DeathEffects.snowflake3,
                   0.57F,
                   0.005F,
-                  20 + DeathEffects.rand.nextInt(10),
+                  20 + RANDOM.nextInt(10),
                   240,
                   world,
                   x,
                   y + 0.8,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 20.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 20.0F + 0.1F,
-                  (float)DeathEffects.rand.nextGaussian() / 20.0F,
+                  (float)RANDOM.nextGaussian() / 20.0F,
+                  (float)RANDOM.nextGaussian() / 20.0F + 0.1F,
+                  (float)RANDOM.nextGaussian() / 20.0F,
                   1.0F,
                   1.0F,
-                  0.9F + (float)DeathEffects.rand.nextGaussian() / 10.0F,
+                  0.9F + (float)RANDOM.nextGaussian() / 10.0F,
                   false,
-                  DeathEffects.rand.nextInt(360)
+                  RANDOM.nextInt(360)
                );
                world.spawnEntity(spelll);
             }
@@ -196,19 +201,20 @@ public class DeathEffects {
       }
    };
    public static DeathEffect DE_SAND = new DeathEffect() {
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
+      public void onRenderLivingPre(RenderLivingEvent.Pre<? extends EntityLivingBase> event, EntityLivingBase living) {
          ModelBase model = event.getRenderer().getMainModel();
          GlStateManager.pushMatrix();
          Color.doRender(
-            entity,
+                 living,
             event.getX(),
             event.getY(),
             event.getZ(),
-            entity.rotationYaw,
+            living.rotationYaw,
             event.getPartialRenderTick(),
             model,
-            ClientProxy.sand.get(entity.deathTime - 1),
+            ClientProxy.sand.get(living.deathTime - 1),
             0.0F,
             false
          );
@@ -216,31 +222,32 @@ public class DeathEffects {
          GlStateManager.popMatrix();
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
+      public void onLivingUpdate(World world, LivingEvent.LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             world.playSound(
-               (EntityPlayer)null,
-               x,
-               y,
-               z,
-               Sounds.de_sand,
-               SoundCategory.AMBIENT,
-               0.8F + DeathEffects.rand.nextFloat() / 5.0F,
-               0.9F + DeathEffects.rand.nextFloat() / 5.0F
+                    null,
+                    x,
+                    y,
+                    z,
+                    Sounds.de_sand,
+                    SoundCategory.AMBIENT,
+                    0.8F + RANDOM.nextFloat() / 5.0F,
+                    0.9F + RANDOM.nextFloat() / 5.0F
             );
          }
 
          AxisAlignedBB aabb = base.getEntityBoundingBox();
-         double rY = aabb.minY + (aabb.maxY - aabb.minY) * DeathEffects.rand.nextDouble();
-         double rZ = aabb.minZ + (aabb.maxZ - aabb.minZ) * DeathEffects.rand.nextDouble();
-         double rX = aabb.minX + (aabb.maxX - aabb.minX) * DeathEffects.rand.nextDouble();
+         double rY = aabb.minY + (aabb.maxY - aabb.minY) * RANDOM.nextDouble();
+         double rZ = aabb.minZ + (aabb.maxZ - aabb.minZ) * RANDOM.nextDouble();
+         double rX = aabb.minX + (aabb.maxX - aabb.minX) * RANDOM.nextDouble();
          ResourceLocation sandptex = DeathEffects.minisand1;
          float scale = 0.04F;
-         if (DeathEffects.rand.nextFloat() > 0.8) {
+         if (RANDOM.nextFloat() > 0.8) {
             sandptex = DeathEffects.minisand2;
             scale = 0.06F;
-         } else if (DeathEffects.rand.nextFloat() > 0.7) {
+         } else if (RANDOM.nextFloat() > 0.7) {
             sandptex = DeathEffects.minisand3;
             scale = 0.09F;
          }
@@ -249,20 +256,20 @@ public class DeathEffects {
             sandptex,
             scale,
             0.01F,
-            30 + DeathEffects.rand.nextInt(15),
+            30 + RANDOM.nextInt(15),
             -1,
             world,
             rX,
             rY,
             rZ,
-            (float)DeathEffects.rand.nextGaussian() / 30.0F,
-            (float)DeathEffects.rand.nextGaussian() / 30.0F,
-            (float)DeathEffects.rand.nextGaussian() / 30.0F,
+            (float)RANDOM.nextGaussian() / 30.0F,
+            (float)RANDOM.nextGaussian() / 30.0F,
+            (float)RANDOM.nextGaussian() / 30.0F,
             1.0F,
             1.0F,
-            0.9F + (float)DeathEffects.rand.nextGaussian() / 10.0F,
+            0.9F + (float)RANDOM.nextGaussian() / 10.0F,
             false,
-            DeathEffects.rand.nextInt(360),
+            RANDOM.nextInt(360),
             true,
             1.1F
          );
@@ -270,8 +277,9 @@ public class DeathEffects {
       }
    };
    public static DeathEffect DE_COLOREDACID = new DeathEffect() {
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
+      public void onRenderLivingPre(RenderLivingEvent.Pre<? extends EntityLivingBase> event, EntityLivingBase entity) {
          int mobdeathtime = entity.deathTime;
          ModelBase model = event.getRenderer().getMainModel();
          GlStateManager.pushMatrix();
@@ -284,7 +292,7 @@ public class DeathEffects {
          );
          int id = entity.getEntityId();
          GlStateManager.pushMatrix();
-         GlStateManager.rotate(mobdeathtime / 2, (float)Math.sin(id), (float)Math.sin(id + 20) / 3.0F, (float)Math.sin(id + 13));
+         GlStateManager.rotate((float) mobdeathtime / 2, (float)Math.sin(id), (float)Math.sin(id + 20) / 3.0F, (float)Math.sin(id + 13));
          GlStateManager.translate(0.0F, -mobdeathtime / 30.0F, 0.0F);
          Color.doRender(
             entity,
@@ -305,18 +313,19 @@ public class DeathEffects {
          GlStateManager.popMatrix();
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
+      public void onLivingUpdate(World world, LivingEvent.LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             world.playSound(
-               (EntityPlayer)null,
-               x,
-               y,
-               z,
-               Sounds.de_acid,
-               SoundCategory.AMBIENT,
-               0.8F + DeathEffects.rand.nextFloat() / 5.0F,
-               0.9F + DeathEffects.rand.nextFloat() / 5.0F
+                    null,
+                    x,
+                    y,
+                    z,
+                    Sounds.de_acid,
+                    SoundCategory.AMBIENT,
+                    0.8F + RANDOM.nextFloat() / 5.0F,
+                    0.9F + RANDOM.nextFloat() / 5.0F
             );
          }
 
@@ -324,23 +333,23 @@ public class DeathEffects {
          float gr = (float)base.getEntityAttribute(PropertiesRegistry.ENTITY_COLOR_GREEN_MAX).getAttributeValue();
          float bl = (float)base.getEntityAttribute(PropertiesRegistry.ENTITY_COLOR_BLUE_MAX).getAttributeValue();
          Entity acidp = new GUNParticle(
-            DeathEffects.acidbubble,
-            0.04F + DeathEffects.rand.nextFloat() / 20.0F,
+            DeathEffects.de_acid_bubble,
+            0.04F + RANDOM.nextFloat() / 20.0F,
             -0.01F,
-            30 + DeathEffects.rand.nextInt(25),
+            30 + RANDOM.nextInt(25),
             -1,
             world,
             x,
             y,
             z,
-            (float)DeathEffects.rand.nextGaussian() / 30.0F,
-            (float)DeathEffects.rand.nextGaussian() / 30.0F,
-            (float)DeathEffects.rand.nextGaussian() / 30.0F,
-            re + (float)DeathEffects.rand.nextGaussian() / 10.0F,
-            gr + (float)DeathEffects.rand.nextGaussian() / 10.0F,
-            bl + (float)DeathEffects.rand.nextGaussian() / 10.0F,
+            (float)RANDOM.nextGaussian() / 30.0F,
+            (float)RANDOM.nextGaussian() / 30.0F,
+            (float)RANDOM.nextGaussian() / 30.0F,
+            re + (float)RANDOM.nextGaussian() / 10.0F,
+            gr + (float)RANDOM.nextGaussian() / 10.0F,
+            bl + (float)RANDOM.nextGaussian() / 10.0F,
             true,
-            DeathEffects.rand.nextInt(360),
+            RANDOM.nextInt(360),
             false,
             1.1F
          );
@@ -348,63 +357,68 @@ public class DeathEffects {
       }
    };
    public static DeathEffect DE_DISMEMBER = new DeathEffect() {
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
+      public void onRenderLivingPre(RenderLivingEvent.Pre<? extends EntityLivingBase> event, EntityLivingBase entity) {
          event.setCanceled(true);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
+      public void onLivingUpdate(World world, LivingEvent.LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             BloodType bloodtype = DeathEffects.getBloodType(base);
             world.playSound(
-               (EntityPlayer)null,
-               x,
-               y,
-               z,
-               bloodtype.dismemberSound,
-               SoundCategory.NEUTRAL,
-               0.8F + DeathEffects.rand.nextFloat() / 5.0F,
-               0.9F + DeathEffects.rand.nextFloat() / 5.0F
+                    null,
+                    x,
+                    y,
+                    z,
+                    bloodtype.dismemberSound,
+                    SoundCategory.NEUTRAL,
+                    0.8F + RANDOM.nextFloat() / 5.0F,
+                    0.9F + RANDOM.nextFloat() / 5.0F
             );
             float motionX = (float)base.motionX;
             float motionY = (float)base.motionY;
             float motionZ = (float)base.motionZ;
-            DeathEffects.spawnGore(base);
+
+            if (world.isRemote) {
+               spawnGore(world, base);
+            }
 
             for (int i = 0; i < Math.min(base.getMaxHealth() / 8.0F, 8.0F); i++) {
-               EntityCubicParticle spel = new EntityCubicParticle(
+               EntityCubicParticle spell = new EntityCubicParticle(
                   DeathEffects.gore,
                   0.01F + base.height / 100.0F,
                   0.02F,
-                  20 + DeathEffects.rand.nextInt(10),
-                  bloodtype.isGlowing ? 240 : 40 + DeathEffects.rand.nextInt(9),
+                  20 + RANDOM.nextInt(10),
+                  bloodtype.isGlowing ? 240 : 40 + RANDOM.nextInt(9),
                   world,
                   x,
                   y + 0.5,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 13.0F + motionX,
-                  (float)DeathEffects.rand.nextGaussian() / 25.0F + 0.2F + motionY,
-                  (float)DeathEffects.rand.nextGaussian() / 13.0F + motionZ,
+                  (float)RANDOM.nextGaussian() / 13.0F + motionX,
+                  (float)RANDOM.nextGaussian() / 25.0F + 0.2F + motionY,
+                  (float)RANDOM.nextGaussian() / 13.0F + motionZ,
                   bloodtype.red,
                   bloodtype.green,
                   bloodtype.blue,
                   bloodtype.isAdditiveBlend,
-                  DeathEffects.rand.nextFloat(),
-                  DeathEffects.rand.nextFloat(),
-                  DeathEffects.rand.nextFloat(),
+                  RANDOM.nextFloat(),
+                  RANDOM.nextFloat(),
+                  RANDOM.nextFloat(),
                   0.05F,
                   true,
                   -3.0E-4F
                );
-               spel.alphaGlowing = bloodtype.isAdditiveBlend;
-               world.spawnEntity(spel);
+               spell.alphaGlowing = bloodtype.isAdditiveBlend;
+               world.spawnEntity(spell);
             }
 
             for (int i = 0; i < Math.min(base.getMaxHealth() / 2.0F, 15.0F); i++) {
                GUNParticle sp = new GUNParticle(
                   DeathEffects.drop,
-                  0.07F + DeathEffects.rand.nextFloat() / 20.0F,
+                  0.07F + RANDOM.nextFloat() / 20.0F,
                   0.02F,
                   50,
                   bloodtype.isGlowing ? 240 : -1,
@@ -412,22 +426,22 @@ public class DeathEffects {
                   x,
                   y + 0.5,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 11.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 14.0F + 0.3F,
-                  (float)DeathEffects.rand.nextGaussian() / 11.0F,
+                  (float)RANDOM.nextGaussian() / 11.0F,
+                  (float)RANDOM.nextGaussian() / 14.0F + 0.3F,
+                  (float)RANDOM.nextGaussian() / 11.0F,
                   bloodtype.red,
                   bloodtype.green,
                   bloodtype.blue,
                   false,
-                  DeathEffects.rand.nextInt(360),
+                  RANDOM.nextInt(360),
                   true,
                   5.0F
                );
                sp.dropMode = true;
                sp.alphaGlowing = bloodtype.isAdditiveBlend;
                base.world.spawnEntity(sp);
-               int livt = 50 + DeathEffects.rand.nextInt(50);
-               float scalmax = 0.35F + DeathEffects.rand.nextFloat() / 4.0F;
+               int livt = 50 + RANDOM.nextInt(50);
+               float scalmax = 0.35F + RANDOM.nextFloat() / 4.0F;
                GUNParticle spelll = new GUNParticle(
                   DeathEffects.blood,
                   0.15F,
@@ -438,14 +452,14 @@ public class DeathEffects {
                   x,
                   y + 0.8,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 20.0F + motionX / 2.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 22.0F + 0.1F + motionY / 2.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 20.0F + motionZ / 2.0F,
+                  (float)RANDOM.nextGaussian() / 20.0F + motionX / 2.0F,
+                  (float)RANDOM.nextGaussian() / 22.0F + 0.1F + motionY / 2.0F,
+                  (float)RANDOM.nextGaussian() / 20.0F + motionZ / 2.0F,
                   bloodtype.red,
                   bloodtype.green,
                   bloodtype.blue,
                   true,
-                  DeathEffects.rand.nextInt(360),
+                  RANDOM.nextInt(360),
                   true,
                   5.0F
                );
@@ -465,9 +479,10 @@ public class DeathEffects {
       }
    };
    public static DeathEffect DE_ELECTRIC = new DeathEffect() {
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
-         RenderLivingBase rend = event.getRenderer();
+      public void onRenderLivingPre(RenderLivingEvent.Pre<? extends EntityLivingBase> event, EntityLivingBase entity) {
+         RenderLivingBase<? extends EntityLivingBase> rend = event.getRenderer();
          ModelBase model = rend.getMainModel();
          ResourceLocation retex = null;
 
@@ -500,15 +515,25 @@ public class DeathEffects {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
+      public void onLivingUpdate(World world, LivingEvent.LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
-            world.playSound((EntityPlayer)null, x, y, z, Sounds.de_electric, SoundCategory.NEUTRAL, 0.8F + DeathEffects.rand.nextFloat() / 5.0F, 1.1F);
+            world.playSound(
+                    null,
+                    x,
+                    y,
+                    z,
+                    Sounds.de_electric,
+                    SoundCategory.NEUTRAL,
+                    0.8F + RANDOM.nextFloat() / 5.0F,
+                    1.1F
+            );
          }
 
          if (base.deathTime < 18 && base.deathTime > 1) {
             GUNParticle bigboom = new GUNParticle(
-               DeathEffects.deelectric,
+               DeathEffects.blueexplode4,
                base.height,
                0.0F,
                1,
@@ -524,7 +549,7 @@ public class DeathEffects {
                1.0F,
                1.0F,
                true,
-               DeathEffects.rand.nextInt(360)
+               RANDOM.nextInt(360)
             );
             world.spawnEntity(bigboom);
          }
@@ -537,22 +562,22 @@ public class DeathEffects {
                   DeathEffects.gore,
                   0.01F + base.height / 100.0F,
                   0.02F,
-                  20 + DeathEffects.rand.nextInt(10),
-                  40 + DeathEffects.rand.nextInt(9),
+                  20 + RANDOM.nextInt(10),
+                  40 + RANDOM.nextInt(9),
                   world,
                   x,
                   y + 0.5,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 13.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 25.0F + 0.2F,
-                  (float)DeathEffects.rand.nextGaussian() / 13.0F,
+                  (float)RANDOM.nextGaussian() / 13.0F,
+                  (float)RANDOM.nextGaussian() / 25.0F + 0.2F,
+                  (float)RANDOM.nextGaussian() / 13.0F,
                   (float)color.x,
                   (float)color.y,
                   (float)color.z,
                   false,
-                  DeathEffects.rand.nextFloat(),
-                  DeathEffects.rand.nextFloat(),
-                  DeathEffects.rand.nextFloat(),
+                  RANDOM.nextFloat(),
+                  RANDOM.nextFloat(),
+                  RANDOM.nextFloat(),
                   0.05F,
                   true,
                   -3.0E-4F
@@ -563,7 +588,7 @@ public class DeathEffects {
             for (int i = 0; i < Math.min(base.getMaxHealth() / 2.0F, 15.0F); i++) {
                GUNParticle sp = new GUNParticle(
                   DeathEffects.drop,
-                  0.07F + DeathEffects.rand.nextFloat() / 20.0F,
+                  0.07F + RANDOM.nextFloat() / 20.0F,
                   0.02F,
                   50,
                   -1,
@@ -571,14 +596,14 @@ public class DeathEffects {
                   x,
                   y + 0.5,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 14.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 14.0F + 0.3F,
-                  (float)DeathEffects.rand.nextGaussian() / 14.0F,
+                  (float)RANDOM.nextGaussian() / 14.0F,
+                  (float)RANDOM.nextGaussian() / 14.0F + 0.3F,
+                  (float)RANDOM.nextGaussian() / 14.0F,
                   (float)color.x,
                   (float)color.y,
                   (float)color.z,
                   false,
-                  (int)Math.round(DeathEffects.rand.nextGaussian() * 20.0),
+                  (int)Math.round(RANDOM.nextGaussian() * 20.0),
                   true,
                   5.0F
                );
@@ -588,20 +613,20 @@ public class DeathEffects {
                   DeathEffects.snowflake3,
                   0.57F,
                   0.005F,
-                  20 + DeathEffects.rand.nextInt(10),
+                  20 + RANDOM.nextInt(10),
                   -1,
                   world,
                   x,
                   y + 0.8,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 20.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 22.0F + 0.1F,
-                  (float)DeathEffects.rand.nextGaussian() / 20.0F,
+                  (float)RANDOM.nextGaussian() / 20.0F,
+                  (float)RANDOM.nextGaussian() / 22.0F + 0.1F,
+                  (float)RANDOM.nextGaussian() / 20.0F,
                   (float)color.x,
                   (float)color.y,
                   (float)color.z,
                   false,
-                  DeathEffects.rand.nextInt(360)
+                  RANDOM.nextInt(360)
                );
                world.spawnEntity(spelll);
             }
@@ -609,8 +634,9 @@ public class DeathEffects {
       }
    };
    public static DeathEffect DE_FIRE = new DeathEffect() {
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
+      public void onRenderLivingPre(RenderLivingEvent.Pre<? extends EntityLivingBase> event, EntityLivingBase entity) {
          ModelBase model = event.getRenderer().getMainModel();
          GlStateManager.pushMatrix();
          GL11.glEnable(3042);
@@ -635,18 +661,19 @@ public class DeathEffects {
          GlStateManager.popMatrix();
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
+      public void onLivingUpdate(World world, LivingEvent.LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             world.playSound(
-               (EntityPlayer)null,
-               x,
-               y,
-               z,
-               Sounds.de_fire,
-               SoundCategory.AMBIENT,
-               0.8F + DeathEffects.rand.nextFloat() / 5.0F,
-               0.9F + DeathEffects.rand.nextFloat() / 5.0F
+                    null,
+                    x,
+                    y,
+                    z,
+                    Sounds.de_fire,
+                    SoundCategory.AMBIENT,
+                    0.8F + RANDOM.nextFloat() / 5.0F,
+                    0.9F + RANDOM.nextFloat() / 5.0F
             );
          }
 
@@ -654,25 +681,25 @@ public class DeathEffects {
             AxisAlignedBB aabb = base.getEntityBoundingBox();
 
             for (int i = 0; i < Math.min(base.width + base.height, 10.0F); i++) {
-               double rY = aabb.minY + (aabb.maxY - aabb.minY) * DeathEffects.rand.nextDouble();
-               double rZ = aabb.minZ + (aabb.maxZ - aabb.minZ) * DeathEffects.rand.nextDouble();
-               double rX = aabb.minX + (aabb.maxX - aabb.minX) * DeathEffects.rand.nextDouble();
-               if (DeathEffects.rand.nextFloat() < 0.7) {
+               double rY = aabb.minY + (aabb.maxY - aabb.minY) * RANDOM.nextDouble();
+               double rZ = aabb.minZ + (aabb.maxZ - aabb.minZ) * RANDOM.nextDouble();
+               double rX = aabb.minX + (aabb.maxX - aabb.minX) * RANDOM.nextDouble();
+               if (RANDOM.nextFloat() < 0.7) {
                   SparkleSubparticle part = new SparkleSubparticle(
                      rX,
                      rY,
                      rZ,
-                     0.02F + DeathEffects.rand.nextFloat() * 0.01F,
-                     90 + DeathEffects.rand.nextInt(40) + (DeathEffects.rand.nextFloat() < 0.15 ? DeathEffects.rand.nextInt(70) + 40 : 0),
-                     (float)(0.01 * DeathEffects.rand.nextGaussian()),
-                     (float)(0.01 * DeathEffects.rand.nextGaussian() + 0.01),
-                     (float)(0.01 * DeathEffects.rand.nextGaussian()),
+                     0.02F + RANDOM.nextFloat() * 0.01F,
+                     90 + RANDOM.nextInt(40) + (RANDOM.nextFloat() < 0.15 ? RANDOM.nextInt(70) + 40 : 0),
+                     (float)(0.01 * RANDOM.nextGaussian()),
+                     (float)(0.01 * RANDOM.nextGaussian() + 0.01),
+                     (float)(0.01 * RANDOM.nextGaussian()),
                      0.0F
                   );
                   SparkleSubparticle.particles.add(part);
                } else {
                   SparkleSubparticle part = new SparkleSubparticle(
-                     rX, rY, rZ, 0.02F + DeathEffects.rand.nextFloat() * 0.01F, 80 + DeathEffects.rand.nextInt(20), 0.0F, -0.02F, 0.0F, 0.1F
+                     rX, rY, rZ, 0.02F + RANDOM.nextFloat() * 0.01F, 80 + RANDOM.nextInt(20), 0.0F, -0.02F, 0.0F, 0.1F
                   );
                   SparkleSubparticle.particles.add(part);
                }
@@ -681,9 +708,10 @@ public class DeathEffects {
       }
    };
    public static DeathEffect DE_CUT = new DeathEffect() {
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onRenderLivingPre(Pre event, EntityLivingBase entity) {
-         RenderLivingBase rend = event.getRenderer();
+      public void onRenderLivingPre(RenderLivingEvent.Pre<? extends EntityLivingBase> event, EntityLivingBase entity) {
+         RenderLivingBase<? extends EntityLivingBase> rend = event.getRenderer();
          int randomId = entity.getUniqueID().hashCode();
          float modelHeight = entity.height * 9.0F;
          boolean head = randomId % 2 == 0;
@@ -744,31 +772,32 @@ public class DeathEffects {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
-      public void onLivingUpdate(World world, LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
+      public void onLivingUpdate(World world, LivingEvent.LivingUpdateEvent event, EntityLivingBase base, double x, double y, double z) {
          if (base.deathTime == 1) {
             int randomId = base.getUniqueID().hashCode();
             boolean head = randomId % 2 == 0;
             head = DeathEffects.spawnCutParts(base, head);
             BloodType bloodtype = DeathEffects.getBloodType(base);
             world.playSound(
-               (EntityPlayer)null,
-               x,
-               y,
-               z,
-               bloodtype.cutSound,
-               SoundCategory.NEUTRAL,
-               0.9F + DeathEffects.rand.nextFloat() / 5.0F,
-               0.9F + DeathEffects.rand.nextFloat() / 5.0F
+                    null,
+                    x,
+                    y,
+                    z,
+                    bloodtype.cutSound,
+                    SoundCategory.NEUTRAL,
+                    0.9F + RANDOM.nextFloat() / 5.0F,
+                    0.9F + RANDOM.nextFloat() / 5.0F
             );
-            float motionX = (float)base.motionX / (head ? 6.0F : 2.0F) + (float)DeathEffects.rand.nextGaussian() / 20.0F;
-            float motionY = (float)base.motionY / (head ? 6.0F : 2.0F) + (float)DeathEffects.rand.nextGaussian() / 25.0F + 0.3F;
-            float motionZ = (float)base.motionZ / (head ? 6.0F : 2.0F) + (float)DeathEffects.rand.nextGaussian() / 20.0F;
+            float motionX = (float)base.motionX / (head ? 6.0F : 2.0F) + (float)RANDOM.nextGaussian() / 20.0F;
+            float motionY = (float)base.motionY / (head ? 6.0F : 2.0F) + (float)RANDOM.nextGaussian() / 25.0F + 0.3F;
+            float motionZ = (float)base.motionZ / (head ? 6.0F : 2.0F) + (float)RANDOM.nextGaussian() / 20.0F;
 
             for (int i = 0; i < Math.min(base.getMaxHealth() / 3.0F, 15.0F); i++) {
                GUNParticle sp = new GUNParticle(
                   DeathEffects.drop,
-                  0.07F + DeathEffects.rand.nextFloat() / 20.0F,
+                  0.07F + RANDOM.nextFloat() / 20.0F,
                   0.02F,
                   50,
                   bloodtype.isGlowing ? 240 : -1,
@@ -776,22 +805,22 @@ public class DeathEffects {
                   x,
                   y + 0.5,
                   z,
-                  (float)DeathEffects.rand.nextGaussian() / 11.0F,
-                  (float)DeathEffects.rand.nextGaussian() / 14.0F + 0.3F,
-                  (float)DeathEffects.rand.nextGaussian() / 11.0F,
+                  (float)RANDOM.nextGaussian() / 11.0F,
+                  (float)RANDOM.nextGaussian() / 14.0F + 0.3F,
+                  (float)RANDOM.nextGaussian() / 11.0F,
                   bloodtype.red,
                   bloodtype.green,
                   bloodtype.blue,
                   false,
-                  DeathEffects.rand.nextInt(360),
+                  RANDOM.nextInt(360),
                   true,
                   5.0F
                );
                sp.dropMode = true;
                sp.alphaGlowing = bloodtype.isAdditiveBlend;
                base.world.spawnEntity(sp);
-               int livt = 50 + DeathEffects.rand.nextInt(50);
-               float scalmax = 0.35F + DeathEffects.rand.nextFloat() / 4.0F;
+               int livt = 50 + RANDOM.nextInt(50);
+               float scalmax = 0.35F + RANDOM.nextFloat() / 4.0F;
                GUNParticle spelll = new GUNParticle(
                   DeathEffects.blood,
                   0.15F,
@@ -809,7 +838,7 @@ public class DeathEffects {
                   bloodtype.green,
                   bloodtype.blue,
                   true,
-                  DeathEffects.rand.nextInt(360),
+                  RANDOM.nextInt(360),
                   true,
                   5.0F
                );
@@ -869,7 +898,7 @@ public class DeathEffects {
    public static void applyDeathEffect(Entity entity, DeathEffect effect, float chance) {
       if (entity instanceof EntityLivingBase) {
          EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
-         if (entitylivingbase.getHealth() <= 0.0F && rand.nextFloat() < chance && entitylivingbase.deathTime < 1) {
+         if (entitylivingbase.getHealth() <= 0.0F && RANDOM.nextFloat() < chance && entitylivingbase.deathTime < 1) {
             applyDeathEffect(entitylivingbase, effect);
          }
       }
@@ -878,107 +907,102 @@ public class DeathEffects {
    public static void applyDeathEffect(Entity entity, DeathEffect effect) {
       if (!entity.world.isRemote) {
          PacketDEToClients packet = new PacketDEToClients();
-         packet.writeargs(entity.getEntityId(), effect.id);
+         packet.writeArgs(entity.getEntityId(), effect.id);
          PacketHandler.sendToAllAround(packet, entity.world, entity.posX, entity.posY, entity.posZ, 64.0);
       }
    }
 
-   public static void spawnGore(EntityLivingBase entity) {
-      World world = entity.getEntityWorld();
-      if (world.isRemote) {
-         boolean pl = entity instanceof EntityPlayer;
-         ModelBase model = pl ? playerModel : mainModels.get(entity.getClass());
-         ResourceLocation res = pl ? new NetworkPlayerInfo(((EntityPlayer)entity).getGameProfile()).getLocationSkin() : mainTextures.get(entity.getClass());
-         double range = entity.height + 0.7;
-         List<Entity> listnails = world.getEntitiesWithinAABB(
-            Entity.class,
-            new AxisAlignedBB(
-               entity.posX + range,
-               entity.posY + range,
-               entity.posZ + range,
-               entity.posX - range,
-               entity.posY - range,
-               entity.posZ - range
-            ),
-            new Predicate<Entity>() {
-               public boolean apply(@Nullable Entity e) {
-                  return e == null ? false : e instanceof INailer;
-               }
-            }
-         );
-         if (res == null || model == null) {
-            Render rend = (Render)Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity.getClass());
-            boolean nullmodel = (model == null || model.boxList == null || model.boxList.isEmpty()) && rend instanceof RenderLivingBase;
-            if (rend != null) {
-               if (res == null) {
-                  for (Method metod : rend.getClass().getDeclaredMethods()) {
-                     if (metod.getReturnType() == ResourceLocation.class) {
-                        metod.setAccessible(true);
+   @SideOnly(Side.CLIENT)
+   public static void spawnGore(World world, EntityLivingBase entity) {
+      boolean pl = entity instanceof EntityPlayer;
+      ModelBase model = pl ? playerModel : mainModels.get(entity.getClass());
+      ResourceLocation res = pl ? new NetworkPlayerInfo(((EntityPlayer)entity).getGameProfile()).getLocationSkin() : mainTextures.get(entity.getClass());
+      double range = entity.height + 0.7;
+      List<Entity> listNailers = world.getEntitiesWithinAABB(
+         Entity.class,
+         new AxisAlignedBB(
+            entity.posX + range,
+            entity.posY + range,
+            entity.posZ + range,
+            entity.posX - range,
+            entity.posY - range,
+            entity.posZ - range
+         ),
+         e -> e instanceof INailer
+      );
+      if (res == null || model == null) {
+         Render<?> rend = Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity.getClass());
+         boolean nullModel = (model == null || model.boxList == null || model.boxList.isEmpty()) && rend instanceof RenderLivingBase;
+         if (rend != null) {
+            if (res == null) {
+               for (Method method : rend.getClass().getDeclaredMethods()) {
+                  if (method.getReturnType() == ResourceLocation.class) {
+                     method.setAccessible(true);
 
-                        try {
-                           ResourceLocation resour = (ResourceLocation)metod.invoke(rend, entity);
-                           if (resour != null) {
-                              res = resour;
-                           }
-                        } catch (Exception var21) {
-                           var21.printStackTrace();
+                     try {
+                        ResourceLocation resour = (ResourceLocation) method.invoke(rend, entity);
+                        if (resour != null) {
+                           res = resour;
                         }
+                     } catch (Exception var21) {
+                        var21.printStackTrace();
                      }
                   }
                }
+            }
 
-               if (nullmodel) {
-                  model = ((RenderLivingBase)rend).getMainModel();
-               }
+            if (nullModel) {
+               model = ((RenderLivingBase<?>) rend).getMainModel();
             }
          }
+      }
 
-         if (model != null && res != null) {
-            List<ModelRenderer> list = model.boxList;
-            if (list != null) {
-               for (ModelRenderer box : list) {
-                  AxisAlignedBB aabb = entity.getEntityBoundingBox();
-                  double x = (aabb.maxX - aabb.minX) * rand.nextFloat() + aabb.minX;
-                  double y = (aabb.maxY - aabb.minY) * rand.nextFloat() + aabb.minY;
-                  double z = (aabb.maxZ - aabb.minZ) * rand.nextFloat() + aabb.minZ;
-                  ParticleGore particle = new ParticleGore(
-                     world,
-                     res,
-                     0.0F,
-                     0.04F,
-                     150,
-                     box,
-                     x,
-                     y,
-                     z,
-                     rand.nextGaussian() / 13.0 + entity.motionX * 1.3,
-                     rand.nextGaussian() / 13.0 + 0.2F + (entity.onGround ? 0.0 : entity.motionY),
-                     rand.nextGaussian() / 13.0 + entity.motionZ * 1.3
-                  );
-                  boolean rotate = true;
-                  particle.rotateX = (float)rand.nextGaussian() * 45.0F;
-                  particle.rotateY = (float)rand.nextGaussian() * 45.0F;
-                  particle.rotateZ = (float)rand.nextGaussian() * 45.0F;
-                  world.spawnEntity(particle);
-                  if (!listnails.isEmpty() && rand.nextFloat() < 0.8F) {
-                     Entity sh = listnails.get(rand.nextInt(listnails.size()));
-                     if (((INailer)sh).canPrickParticle()) {
-                        rotate = false;
-                        particle.setNailer(sh);
-                     }
+      if (model != null && res != null) {
+         List<ModelRenderer> list = model.boxList;
+         if (list != null) {
+            for (ModelRenderer box : list) {
+               AxisAlignedBB aabb = entity.getEntityBoundingBox();
+               double x = (aabb.maxX - aabb.minX) * RANDOM.nextFloat() + aabb.minX;
+               double y = (aabb.maxY - aabb.minY) * RANDOM.nextFloat() + aabb.minY;
+               double z = (aabb.maxZ - aabb.minZ) * RANDOM.nextFloat() + aabb.minZ;
+               ParticleGore particle = new ParticleGore(
+                  world,
+                  res,
+                  0.0F,
+                  0.04F,
+                  150,
+                  box,
+                  x,
+                  y,
+                  z,
+                  RANDOM.nextGaussian() / 13.0 + entity.motionX * 1.3,
+                  RANDOM.nextGaussian() / 13.0 + 0.2F + (entity.onGround ? 0.0 : entity.motionY),
+                  RANDOM.nextGaussian() / 13.0 + entity.motionZ * 1.3
+               );
+               boolean rotate = true;
+               particle.rotateX = (float) RANDOM.nextGaussian() * 45.0F;
+               particle.rotateY = (float) RANDOM.nextGaussian() * 45.0F;
+               particle.rotateZ = (float) RANDOM.nextGaussian() * 45.0F;
+               world.spawnEntity(particle);
+               if (!listNailers.isEmpty() && RANDOM.nextFloat() < 0.8F) {
+                  Entity sh = listNailers.get(RANDOM.nextInt(listNailers.size()));
+                  if (((INailer)sh).canPrickParticle()) {
+                     rotate = false;
+                     particle.setNailer(sh);
                   }
+               }
 
-                  if (rotate) {
-                     particle.rotateXspeed = (float)rand.nextGaussian();
-                     particle.rotateYspeed = (float)rand.nextGaussian();
-                     particle.rotateZspeed = (float)rand.nextGaussian();
-                  }
+               if (rotate) {
+                  particle.rotateXspeed = (float) RANDOM.nextGaussian();
+                  particle.rotateYspeed = (float) RANDOM.nextGaussian();
+                  particle.rotateZspeed = (float) RANDOM.nextGaussian();
                }
             }
          }
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static List<ModelRenderer> findModelHeads(Entity entity, ModelBase model) {
       Map<ModelRenderer, Float> map = new HashMap<>();
       model.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, entity);
@@ -999,6 +1023,7 @@ public class DeathEffects {
       return list;
    }
 
+   @SideOnly(Side.CLIENT)
    public static List<ModelRenderer> findModelNoLegs(Entity entity, ModelBase model) {
       float upperHeight = 10000.0F;
       float downHeight = -10000.0F;
@@ -1025,6 +1050,7 @@ public class DeathEffects {
       return list;
    }
 
+   @SideOnly(Side.CLIENT)
    public static boolean spawnCutParts(EntityLivingBase entity, boolean type) {
       World world = entity.getEntityWorld();
       if (world.isRemote) {
@@ -1042,14 +1068,10 @@ public class DeathEffects {
                entity.posY - range,
                entity.posZ - range
             ),
-            new Predicate<Entity>() {
-               public boolean apply(@Nullable Entity e) {
-                  return e == null ? false : e instanceof INailer;
-               }
-            }
+            e -> e instanceof INailer
          );
          if (res == null || model == null) {
-            Render rend = (Render)Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity.getClass());
+            Render rend = Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity.getClass());
             boolean nullmodel = (model == null || model.boxList == null || model.boxList.isEmpty()) && rend instanceof RenderLivingBase;
             if (rend != null) {
                if (res == null) {
@@ -1082,7 +1104,7 @@ public class DeathEffects {
                type = true;
             }
 
-            if (list != null && !list.isEmpty()) {
+            if (!list.isEmpty()) {
                if (type) {
                   for (ModelRenderer box : list) {
                      double x = entity.posX;
@@ -1098,17 +1120,17 @@ public class DeathEffects {
                         x,
                         y,
                         z,
-                        rand.nextGaussian() / 13.0 + entity.motionX * 0.5,
-                        rand.nextGaussian() / 13.0 + 0.4F + (entity.onGround ? 0.0 : entity.motionY),
-                        rand.nextGaussian() / 13.0 + entity.motionZ * 0.5
+                        RANDOM.nextGaussian() / 13.0 + entity.motionX * 0.5,
+                        RANDOM.nextGaussian() / 13.0 + 0.4F + (entity.onGround ? 0.0 : entity.motionY),
+                        RANDOM.nextGaussian() / 13.0 + entity.motionZ * 0.5
                      );
                      boolean rotate = true;
-                     particle.rotateX = (float)rand.nextGaussian() * 45.0F;
-                     particle.rotateY = (float)rand.nextGaussian() * 45.0F;
-                     particle.rotateZ = (float)rand.nextGaussian() * 45.0F;
+                     particle.rotateX = (float) RANDOM.nextGaussian() * 45.0F;
+                     particle.rotateY = (float) RANDOM.nextGaussian() * 45.0F;
+                     particle.rotateZ = (float) RANDOM.nextGaussian() * 45.0F;
                      world.spawnEntity(particle);
-                     if (!listnails.isEmpty() && rand.nextFloat() < 0.8F) {
-                        Entity sh = listnails.get(rand.nextInt(listnails.size()));
+                     if (!listnails.isEmpty() && RANDOM.nextFloat() < 0.8F) {
+                        Entity sh = listnails.get(RANDOM.nextInt(listnails.size()));
                         if (((INailer)sh).canPrickParticle()) {
                            rotate = false;
                            particle.setNailer(sh);
@@ -1116,16 +1138,16 @@ public class DeathEffects {
                      }
 
                      if (rotate) {
-                        particle.rotateXspeed = (float)rand.nextGaussian();
-                        particle.rotateYspeed = (float)rand.nextGaussian();
-                        particle.rotateZspeed = (float)rand.nextGaussian();
+                        particle.rotateXspeed = (float) RANDOM.nextGaussian();
+                        particle.rotateYspeed = (float) RANDOM.nextGaussian();
+                        particle.rotateZspeed = (float) RANDOM.nextGaussian();
                      }
                   }
                } else {
                   AxisAlignedBB aabb = entity.getEntityBoundingBox();
-                  double xx = (aabb.maxX - aabb.minX) * rand.nextFloat() + aabb.minX;
-                  double yx = entity.posY + entity.height / 2.0F + entity.height * rand.nextFloat() / 2.0F;
-                  double zx = (aabb.maxZ - aabb.minZ) * rand.nextFloat() + aabb.minZ;
+                  double xx = (aabb.maxX - aabb.minX) * RANDOM.nextFloat() + aabb.minX;
+                  double yx = entity.posY + entity.height / 2.0F + entity.height * RANDOM.nextFloat() / 2.0F;
+                  double zx = (aabb.maxZ - aabb.minZ) * RANDOM.nextFloat() + aabb.minZ;
                   ParticleGore particlex = new ParticleGore(
                      world,
                      res,
@@ -1136,18 +1158,18 @@ public class DeathEffects {
                      xx,
                      yx,
                      zx,
-                     rand.nextGaussian() / 13.0 + entity.motionX * 0.4,
-                     rand.nextGaussian() / 13.0 + 0.5 + (entity.onGround ? 0.0 : entity.motionY),
-                     rand.nextGaussian() / 13.0 + entity.motionZ * 0.4
+                     RANDOM.nextGaussian() / 13.0 + entity.motionX * 0.4,
+                     RANDOM.nextGaussian() / 13.0 + 0.5 + (entity.onGround ? 0.0 : entity.motionY),
+                     RANDOM.nextGaussian() / 13.0 + entity.motionZ * 0.4
                   );
                   boolean rotatex = true;
-                  particlex.rotateX = (float)rand.nextGaussian() * 25.0F + 180.0F;
-                  particlex.rotateY = (float)rand.nextGaussian() * 25.0F;
-                  particlex.rotateZ = (float)rand.nextGaussian() * 25.0F;
+                  particlex.rotateX = (float) RANDOM.nextGaussian() * 25.0F + 180.0F;
+                  particlex.rotateY = (float) RANDOM.nextGaussian() * 25.0F;
+                  particlex.rotateZ = (float) RANDOM.nextGaussian() * 25.0F;
                   particlex.renderCutList = list;
                   world.spawnEntity(particlex);
-                  if (!listnails.isEmpty() && rand.nextFloat() < 0.8F) {
-                     Entity sh = listnails.get(rand.nextInt(listnails.size()));
+                  if (!listnails.isEmpty() && RANDOM.nextFloat() < 0.8F) {
+                     Entity sh = listnails.get(RANDOM.nextInt(listnails.size()));
                      if (((INailer)sh).canPrickParticle()) {
                         rotatex = false;
                         particlex.setNailer(sh);
@@ -1155,9 +1177,9 @@ public class DeathEffects {
                   }
 
                   if (rotatex) {
-                     particlex.rotateXspeed = (float)rand.nextGaussian();
-                     particlex.rotateYspeed = (float)rand.nextGaussian();
-                     particlex.rotateZspeed = (float)rand.nextGaussian();
+                     particlex.rotateXspeed = (float) RANDOM.nextGaussian();
+                     particlex.rotateYspeed = (float) RANDOM.nextGaussian();
+                     particlex.rotateZspeed = (float) RANDOM.nextGaussian();
                   }
                }
             }
@@ -1167,6 +1189,7 @@ public class DeathEffects {
       return type;
    }
 
+   @SideOnly(Side.CLIENT)
    public static void initMainTextures() {
       for (Class<? extends Entity> entity : Minecraft.getMinecraft().getRenderManager().entityRenderMap.keySet()) {
          Render rend = (Render)Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity);
@@ -1188,12 +1211,14 @@ public class DeathEffects {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static void tryAddtoMainModels(Class entityclass, ModelBase model) {
       if (!mainModels.containsKey(entityclass)) {
          mainModels.put(entityclass, model);
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static void tryAddMainTexture(Class entityclass, ResourceLocation tex) {
       if (!mainTextures.containsKey(entityclass)) {
          mainTextures.put(entityclass, tex);
@@ -1263,6 +1288,7 @@ public class DeathEffects {
       return prevYawOffset + partialTicks * f;
    }
 
+   @SideOnly(Side.CLIENT)
    protected static void renderModel(
       EntityLivingBase entitylivingbaseIn,
       float limbSwing,
@@ -1276,6 +1302,7 @@ public class DeathEffects {
       mainModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
    }
 
+   @SideOnly(Side.CLIENT)
    protected static void renderLivingAt(EntityLivingBase entityLivingBaseIn, double x, double y, double z) {
       GlStateManager.translate((float)x, (float)y, (float)z);
    }
@@ -1288,6 +1315,7 @@ public class DeathEffects {
       return livingBase.getSwingProgress(partialTickTime);
    }
 
+   @SideOnly(Side.CLIENT)
    protected static void applyRotations(EntityLivingBase entityLiving, float ageInTicks, float rotationYaw, float partialTicks) {
       GlStateManager.rotate(180.0F - rotationYaw, 0.0F, 1.0F, 0.0F);
       if (entityLiving.deathTime > 0) {
@@ -1309,6 +1337,7 @@ public class DeathEffects {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static float prepareScale(EntityLivingBase entitylivingbaseIn, float partialTicks) {
       GlStateManager.enableRescaleNormal();
       GlStateManager.scale(-1.0F, -1.0F, 1.0F);

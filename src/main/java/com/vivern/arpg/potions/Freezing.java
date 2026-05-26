@@ -13,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -119,11 +118,11 @@ public class Freezing extends AdvancedPotion {
    }
 
    public static boolean tryPlaySound(Entity entity) {
-      return entity instanceof EntityLivingBase ? tryPlaySound((EntityLivingBase)entity, forTestSound) : false;
+      return entity instanceof EntityLivingBase && tryPlaySound((EntityLivingBase) entity, forTestSound);
    }
 
    public static boolean tryPlaySound(Entity entity, PotionEffect lasteffect) {
-      return entity instanceof EntityLivingBase ? tryPlaySound((EntityLivingBase)entity, lasteffect) : false;
+      return entity instanceof EntityLivingBase && tryPlaySound((EntityLivingBase) entity, lasteffect);
    }
 
    public static boolean onKeysChange(EntityLivingBase player, int nextKeys) {
@@ -165,19 +164,17 @@ public class Freezing extends AdvancedPotion {
    }
 
    @Override
-   public boolean hasStatusIcon() {
-      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
-      return true;
-   }
-
    public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
       entityLivingBase.motionY -= 0.02;
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }
 
+   @SuppressWarnings("unchecked")
+   @SideOnly(Side.CLIENT)
    @Override
    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
       if (canImmobilizeEntity(entityOnEffect, effect)) {
@@ -194,6 +191,7 @@ public class Freezing extends AdvancedPotion {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void renderFirstperson(EntityPlayer player, PotionEffect effect, RenderHandEvent event) {
       float add = canImmobilizeEntity(player, effect) ? 0.3F : 0.0F;

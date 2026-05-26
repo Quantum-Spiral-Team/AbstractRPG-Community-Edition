@@ -32,19 +32,24 @@ public class TopazCrystal extends Block {
       this.setHarvestLevel("pickaxe", 1);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return ALL_AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return ALL_AABB;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.4F) {
          TileTopazCrystal tile = this.getTileEntity(worldIn, pos);
@@ -82,15 +87,18 @@ public class TopazCrystal extends Block {
       return (TileTopazCrystal)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileTopazCrystal createTileEntity(World world, IBlockState blockState) {
       return new TileTopazCrystal();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }

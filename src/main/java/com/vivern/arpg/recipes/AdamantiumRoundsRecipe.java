@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
+   @Override
    public boolean matches(InventoryCrafting inv, World worldIn) {
       if (inv.getStackInSlot(4).getItem() == ItemsRegister.ADAMANTIUM_NUGGET) {
          Item item1 = inv.getStackInSlot(1).getItem();
@@ -25,6 +26,7 @@ public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
       return false;
    }
 
+   @Override
    public ItemStack getCraftingResult(InventoryCrafting inv) {
       Item item1 = inv.getStackInSlot(1).getItem();
       if (item1 instanceof ItemBullet) {
@@ -38,10 +40,12 @@ public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
       }
    }
 
+   @Override
    public boolean canFit(int width, int height) {
       return width + height == 6;
    }
 
+   @Override
    public ItemStack getRecipeOutput() {
       return new ItemStack(ItemsRegister.ADAMANTIUM_ROUNDS);
    }

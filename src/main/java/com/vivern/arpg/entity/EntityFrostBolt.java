@@ -55,10 +55,12 @@ public class EntityFrostBolt extends EntityThrowable {
       this.magicPower = power;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 140) {
@@ -78,6 +80,7 @@ public class EntityFrostBolt extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -161,6 +164,7 @@ public class EntityFrostBolt extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {

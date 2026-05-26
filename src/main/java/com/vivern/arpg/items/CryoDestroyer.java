@@ -56,10 +56,12 @@ public class CryoDestroyer extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 3.5F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -69,14 +71,17 @@ public class CryoDestroyer extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
       return new AnimationCapabilityProvider();
    }
@@ -104,24 +109,25 @@ public class CryoDestroyer extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
       if (state == 1) {
          int cooldown = this.getCooldownTime(itemstack);
-         Flicks.instance.setClientAnimation(player, slot, EnumFlick.SHOOT, 0, cooldown, -1, cooldown);
-         FlickInertia flickInertia = Flicks.instance.getOrCreateFlickInertia(player, slot, EnumFlick.INFO, -127, 127, -7, -100, 0);
+         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.SHOOT, 0, cooldown, -1, cooldown);
+         FlickInertia flickInertia = Flicks.INSTANCE.getOrCreateFlickInertia(player, slot, EnumFlick.INFO, -127, 127, -7, -100, 0);
          flickInertia.valueTarget = (int)Math.min(flickInertia.value + 40.0F + itemRand.nextInt(60), 127.0F);
          flickInertia.hasTarget = true;
       }
 
       if (state == 2) {
-         FlickInertia flickInertia = Flicks.instance.getOrCreateFlickInertia(player, slot, EnumFlick.INFO, -127, 127, -7, -100, 0);
+         FlickInertia flickInertia = Flicks.INSTANCE.getOrCreateFlickInertia(player, slot, EnumFlick.INFO, -127, 127, -7, -100, 0);
          flickInertia.valueTarget = -107 + itemRand.nextInt(40);
          flickInertia.hasTarget = true;
       }
 
       if (state == 3) {
-         Flicks.instance.setClientAnimation(player, slot, EnumFlick.RELOAD, 0, 50, -1, 50);
+         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.RELOAD, 0, 50, -1, 50);
       }
    }
 
@@ -178,6 +184,7 @@ public class CryoDestroyer extends ItemWeapon {
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -351,11 +358,13 @@ public class CryoDestroyer extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;
@@ -388,6 +397,7 @@ public class CryoDestroyer extends ItemWeapon {
       return 2;
    }
 
+   @Override
    public float getDestroySpeed(ItemStack stack, IBlockState state) {
       return 0.0F;
    }

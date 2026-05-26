@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public class CalibrationBundleTESR extends TileEntitySpecialRenderer<TileCalibrationBundle> {
+   @Override
    public void render(TileCalibrationBundle te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(x, y + 0.5, z);

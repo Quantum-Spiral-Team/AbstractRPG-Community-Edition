@@ -35,6 +35,7 @@ public class EntityPart extends AbstractMob implements IEntitySynchronize {
       this(worldIn, owner, "", 0.25F, 0.25F);
    }
 
+   @Override
    public boolean canBreatheUnderwater() {
       return true;
    }
@@ -48,16 +49,20 @@ public class EntityPart extends AbstractMob implements IEntitySynchronize {
       }
    }
 
+   @Override
    protected void collideWithEntity(Entity entityIn) {
    }
 
+   @Override
    protected void collideWithNearbyEntities() {
    }
 
+   @Override
    public float getEyeHeight() {
       return this.height * 0.5F;
    }
 
+   @Override
    public void addPotionEffect(PotionEffect potioneffectIn) {
       if (this.checkDead()) {
          this.owner.getMob().addPotionEffect(potioneffectIn);
@@ -69,10 +74,12 @@ public class EntityPart extends AbstractMob implements IEntitySynchronize {
       return this.checkDead() ? this.owner.attackEntityFromPart(this, source, amount) : false;
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return true;
    }
@@ -102,10 +109,12 @@ public class EntityPart extends AbstractMob implements IEntitySynchronize {
       }
    }
 
+   @Override
    public ItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
       return ItemStack.EMPTY;
    }
 
+   @Override
    public EnumHandSide getPrimaryHand() {
       return EnumHandSide.RIGHT;
    }

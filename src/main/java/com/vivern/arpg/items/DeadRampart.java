@@ -33,10 +33,12 @@ public class DeadRampart extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return false;
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemstack) {
       Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot, itemstack);
       float power = NBTHelper.GetNBTint(itemstack, "stength");
@@ -55,6 +57,7 @@ public class DeadRampart extends Item {
       return multimap;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (entityIn instanceof EntityPlayer) {
          NBTHelper.GiveNBTint(itemstack, 0, "stength");

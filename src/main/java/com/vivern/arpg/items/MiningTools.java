@@ -632,11 +632,13 @@ public class MiningTools {
          return new AnimationAndFluidCapProvider(stack, this.mbCapacity);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public int maxFluidForDescription() {
          return this.mbCapacity;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
          if (state == 1) {
@@ -803,6 +805,7 @@ public class MiningTools {
          this.electricNeed = electricNeed;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
          super.onStateReceived(player, itemstack, state, slot);
@@ -842,6 +845,7 @@ public class MiningTools {
          this.electricNeed = electricNeed;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
          super.onStateReceived(player, itemstack, state, slot);
@@ -1104,6 +1108,7 @@ public class MiningTools {
          return new AnimationAndFluidCapProvider(stack, this.mbCapacity);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
          super.onStateReceived(player, itemstack, state, slot);
@@ -1125,6 +1130,7 @@ public class MiningTools {
          return true;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public int maxFluidForDescription() {
          return this.mbCapacity;
@@ -1179,6 +1185,7 @@ public class MiningTools {
          return new AnimationAndFluidCapProvider(stack, this.mbCapacity);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
          super.onStateReceived(player, itemstack, state, slot);
@@ -1201,6 +1208,7 @@ public class MiningTools {
          return true;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public int maxFluidForDescription() {
          return this.mbCapacity;
@@ -1349,6 +1357,7 @@ public class MiningTools {
       public SoundEvent oneshotSound = Sounds.tools_laser_oneshot;
       public boolean canImpactGlass = false;
       public Predicate<? super IBlockState> filterGlass = new Predicate<IBlockState>() {
+         @Override
          public boolean apply(IBlockState input) {
             return input.getLightOpacity() == 0 && (input.getMaterial() == Material.GLASS || input.getMaterial() == Material.ICE);
          }
@@ -1381,6 +1390,7 @@ public class MiningTools {
          }
       }
 
+      @Override
       public float getXpRepairRatio(ItemStack stack) {
          return 7.0F;
       }
@@ -1417,6 +1427,7 @@ public class MiningTools {
          return 10.0F;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
          Entity entity = world.getEntityByID((int)d1);
@@ -1649,6 +1660,7 @@ public class MiningTools {
       public void onHitBlock(RayTraceResult result, ItemStack itemstack, World world, EntityPlayer player, int mode, int speed, int itemSlot) {
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
          super.onStateReceived(player, itemstack, state, slot);

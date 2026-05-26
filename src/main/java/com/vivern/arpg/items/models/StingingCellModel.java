@@ -67,6 +67,7 @@ public class StingingCellModel extends ModelBase {
       this.setRotateAngle(this.tentsss_3, 0.0F, (float) (Math.PI / 4), 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f1 == 0.0F) {
          this.tents.render(f5);

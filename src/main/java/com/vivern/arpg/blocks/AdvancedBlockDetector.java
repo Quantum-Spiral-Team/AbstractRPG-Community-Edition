@@ -49,15 +49,18 @@ public class AdvancedBlockDetector extends Block {
       return (TileAdvancedBlockDetector)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileAdvancedBlockDetector createTileEntity(World world, IBlockState blockState) {
       return new TileAdvancedBlockDetector();
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -105,15 +108,18 @@ public class AdvancedBlockDetector extends Block {
       return false;
    }
 
+   @Override
    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
       super.onNeighborChange(world, pos, neighbor);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       BlockPos offset = pos.offset(((EnumFacing)state.getValue(FACING)).getOpposite());
       worldIn.neighborChanged(offset, worldIn.getBlockState(offset).getBlock(), pos);
    }
 
+   @Override
    public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
       if (blockState.getValue(FACING) == side) {
          TileAdvancedBlockDetector tile = (TileAdvancedBlockDetector)blockAccess.getTileEntity(pos);
@@ -150,42 +156,52 @@ public class AdvancedBlockDetector extends Block {
       return 0;
    }
 
+   @Override
    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
       return blockState.getWeakPower(blockAccess, pos, side);
    }
 
+   @Override
    public boolean canProvidePower(IBlockState state) {
       return true;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }

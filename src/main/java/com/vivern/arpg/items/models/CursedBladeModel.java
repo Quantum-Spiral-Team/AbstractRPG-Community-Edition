@@ -208,6 +208,7 @@ public class CursedBladeModel extends ModelBase {
       this.shape_1.addChild(this.shape_5);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape_28.offsetX, this.shape_28.offsetY, this.shape_28.offsetZ);

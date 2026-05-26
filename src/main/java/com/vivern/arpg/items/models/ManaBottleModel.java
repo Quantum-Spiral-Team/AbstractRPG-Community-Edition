@@ -71,6 +71,7 @@ public class ManaBottleModel extends ModelBase {
       this.shapeBcap.addBox(-1.5F, 0.0F, -1.5F, 3, 3, 3, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f == 0.0F) {
          this.shapeA3.render(f5);

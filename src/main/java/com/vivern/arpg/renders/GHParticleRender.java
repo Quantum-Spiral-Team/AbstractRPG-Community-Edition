@@ -20,6 +20,7 @@ public class GHParticleRender<T extends GraplingHookParticle> extends Render<Gra
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(GraplingHookParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (entity.entityOn != null) {
          Vec3d rvePos = MyRenderHelper.getRenderViewEntityPosition(partialTicks);
@@ -124,6 +125,7 @@ public class GHParticleRender<T extends GraplingHookParticle> extends Render<Gra
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(GraplingHookParticle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }

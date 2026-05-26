@@ -73,6 +73,7 @@ public class Render2D<T extends Entity> extends Render<T> {
       this.useColor = r != 1.0F || g != 1.0F || b != 1.0F;
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)x, (float)y + entity.getYOffset(), (float)z);
@@ -152,6 +153,7 @@ public class Render2D<T extends Entity> extends Render<T> {
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(Entity entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }

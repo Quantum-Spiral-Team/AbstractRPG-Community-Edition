@@ -52,6 +52,7 @@ public class CrystalSphereTESR extends TileEntitySpecialRenderer<TileCrystalSphe
    public static ResourceLocation live_vines2 = new ResourceLocation("arpg:textures/live_vines2.png");
    public static ResourceLocation live_sphere_over = new ResourceLocation("arpg:textures/live_sphere_over.png");
 
+   @Override
    public void render(TileCrystalSphere te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       double eyeY;
       ShardType shard;

@@ -184,6 +184,7 @@ public class ModelsToxicomaniaMob {
          this.shape6.addChild(this.flame2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          GlStateManager.pushMatrix();
          GlStateManager.translate(0.0F, 1.2F, 0.0F);
@@ -463,6 +464,7 @@ public class ModelsToxicomaniaMob {
          this.shape6.addChild(this.shape7);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          GlStateManager.pushMatrix();
          GlStateManager.translate(0.0F, 1.2F, 0.0F);
@@ -607,6 +609,7 @@ public class ModelsToxicomaniaMob {
          this.bipedHead.render(f5);
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.bipedHead.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
          this.bipedHead.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
@@ -679,6 +682,7 @@ public class ModelsToxicomaniaMob {
          this.shape1.addChild(this.shape2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          float shape1scale = 1.0F;
          int deathTime = 0;
@@ -931,6 +935,7 @@ public class ModelsToxicomaniaMob {
          this.shape4.addBox(-4.0F, 0.0F, -1.0F, 4, 0, 2, 0.0F);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          GlStateManager.pushMatrix();
          GlStateManager.translate(0.0, 1.4, 0.0);
@@ -1082,6 +1087,7 @@ public class ModelsToxicomaniaMob {
          this.bipedHead.addChild(this.bipedHead2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          int an1 = 0;
          if (entity instanceof AbstractMob) {
@@ -1157,6 +1163,7 @@ public class ModelsToxicomaniaMob {
          this.head1.addChild(this.head3);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          f5 *= 1.7F;
          this.setRotationAngles(f, f1, f2, f3, f4 + 80.0F, f5, entity);
@@ -1175,6 +1182,7 @@ public class ModelsToxicomaniaMob {
          modelRenderer.rotateAngleZ = z;
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.body2.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0) * 0.9F;
          this.body3.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0) * 0.1F;
@@ -1893,6 +1901,7 @@ public class ModelsToxicomaniaMob {
          this.body1.render(f5);
       }
 
+      @Override
       public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
          this.head.rotateAngleZ = netHeadYaw * (float) (Math.PI / 180.0);
          this.head.rotateAngleX = headPitch * (float) (Math.PI / 180.0) - 2.003289F;

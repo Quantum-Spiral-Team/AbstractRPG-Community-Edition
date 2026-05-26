@@ -26,6 +26,7 @@ public class RunicMirrorTESR extends TileEntitySpecialRenderer<TileRunicMirror> 
    public static ResourceLocation beam_mirror_3 = new ResourceLocation("arpg:textures/beam_mirror_3.png");
    public static ResourceLocation beam_mirror_cap = new ResourceLocation("arpg:textures/beam_mirror_cap.png");
 
+   @Override
    public void render(TileRunicMirror te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);

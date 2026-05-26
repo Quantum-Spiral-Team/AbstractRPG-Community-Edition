@@ -20,6 +20,7 @@ public class EntityArrowModern extends AbstractArrow {
       super(worldIn, shooter);
    }
 
+   @Override
    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
       super.shoot(x, y, z, velocity * 1.3F, inaccuracy / 2.0F);
    }
@@ -29,6 +30,7 @@ public class EntityArrowModern extends AbstractArrow {
       return Sounds.arrow_modern;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_MODERN);
    }

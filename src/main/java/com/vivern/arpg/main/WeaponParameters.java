@@ -10,7 +10,7 @@ import net.minecraft.potion.PotionEffect;
 
 public class WeaponParameters {
    public static WeaponParameters EMPTY = new WeaponParameters("empty");
-   public static Map<String, WeaponParameters> registry = new HashMap<>();
+   public static final Map<String, WeaponParameters> REGISTRY = new HashMap<>();
    private final Map<String, Float> parameters = new HashMap<>();
    public String name;
    public static final float AUTO = -8.792019E7F;
@@ -100,11 +100,11 @@ public class WeaponParameters {
       return this.parameters.containsKey(key);
    }
 
-   public float getF(String key) {
+   public float getFloat(String key) {
       return this.parameters.getOrDefault(key, 0.0F);
    }
 
-   public int getI(String key) {
+   public int getInt(String key) {
       return (int)this.parameters.getOrDefault(key, 0.0F).floatValue();
    }
 
@@ -147,7 +147,7 @@ public class WeaponParameters {
 
    public static WeaponParameters newparam(String name) {
       WeaponParameters weaponParameters = new WeaponParameters(name);
-      registry.put(name, weaponParameters);
+      REGISTRY.put(name, weaponParameters);
       return weaponParameters;
    }
 
@@ -156,7 +156,7 @@ public class WeaponParameters {
    }
 
    public static WeaponParameters getWeaponParameters(String name) {
-      return registry.getOrDefault(name, EMPTY);
+      return REGISTRY.getOrDefault(name, EMPTY);
    }
 
    public static void registerAll() {

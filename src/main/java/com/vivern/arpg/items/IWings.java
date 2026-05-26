@@ -5,33 +5,27 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.Arrays;
+
 public interface IWings {
    String[] itemsNoCompatibleNames = new String[]{"minecraft:elytra"};
 
    int getMaxFlyTime(ItemStack var1);
 
    static boolean isEquippableWithChestplate(Item chestplate) {
-      String itemname = chestplate.getRegistryName().toString();
-
-      for (String name : itemsNoCompatibleNames) {
-         if (name.equals(itemname)) {
-            return false;
-         }
-      }
-
-      return true;
+      return !Arrays.asList(itemsNoCompatibleNames).contains(chestplate.getRegistryName());
    }
 
    static void chestplateReturnToInv(EntityPlayer player) {
-      if (!isEquippableWithChestplate(((ItemStack)player.inventory.armorInventory.get(2)).getItem())) {
-         ItemStack transpstack = (ItemStack)player.inventory.armorInventory.get(2);
+      if (!isEquippableWithChestplate(player.inventory.armorInventory.get(2).getItem())) {
+         ItemStack transpStack = player.inventory.armorInventory.get(2);
          int empty = player.inventory.getFirstEmptyStack();
          player.inventory.armorInventory.set(2, ItemStack.EMPTY);
          if (empty != -1) {
-            player.inventory.setInventorySlotContents(empty, transpstack);
+            player.inventory.setInventorySlotContents(empty, transpStack);
          } else if (!player.world.isRemote) {
             player.world
-               .spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, transpstack));
+               .spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, transpStack));
          }
       }
    }

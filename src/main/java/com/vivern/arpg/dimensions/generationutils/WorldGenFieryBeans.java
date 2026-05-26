@@ -14,6 +14,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class WorldGenFieryBeans implements IWorldGenerator {
+   @Override
    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       int dim = world.provider.getDimension();
       if ((dim == 0 || dim == 103) && random.nextFloat() < (dim == 0 ? 0.06F : 0.04F)) {

@@ -45,21 +45,26 @@ public class NexusCap extends AbstractMob {
       this.soul = null;
    }
 
+   @Override
    protected boolean canDespawn() {
       return false;
    }
 
+   @Override
    public boolean canBePushed() {
       return false;
    }
 
+   @Override
    public boolean isPushedByWater() {
       return false;
    }
 
+   @Override
    public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
    }
 
+   @Override
    public void removeTrackingPlayer(EntityPlayerMP player) {
       super.removeTrackingPlayer(player);
       PacketNexusInfoToClients packet = new PacketNexusInfoToClients();
@@ -67,6 +72,7 @@ public class NexusCap extends AbstractMob {
       PacketHandler.sendTo(packet, player);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       compound.setInteger("nexusPosX", this.nexus.getPos().getX());
       compound.setInteger("nexusPosY", this.nexus.getPos().getY());
@@ -75,6 +81,7 @@ public class NexusCap extends AbstractMob {
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("nexusPosX") && compound.hasKey("nexusPosY") && compound.hasKey("nexusPosZ")) {
          this.nexusPos = new BlockPos(compound.getInteger("nexusPosX"), compound.getInteger("nexusPosY"), compound.getInteger("nexusPosZ"));
@@ -125,6 +132,7 @@ public class NexusCap extends AbstractMob {
       }
    }
 
+   @Override
    public void heal(float healAmount) {
       super.heal(healAmount);
       if (this.nexus != null) {
@@ -132,10 +140,12 @@ public class NexusCap extends AbstractMob {
       }
    }
 
+   @Override
    protected float getJumpUpwardsMotion() {
       return 0.0F;
    }
 
+   @Override
    public boolean canBreatheUnderwater() {
       return true;
    }

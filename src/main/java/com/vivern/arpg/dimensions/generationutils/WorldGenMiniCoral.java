@@ -53,6 +53,7 @@ public class WorldGenMiniCoral extends WorldGenerator {
       return this;
    }
 
+   @Override
    public boolean generate(World worldIn, Random rand, BlockPos position) {
       if (this.corallimorpha) {
          for (int i = 0; i < this.samples; i++) {

@@ -85,6 +85,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
       }
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -98,6 +99,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
@@ -107,6 +109,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
       return Math.min(partial / 5.0F + 0.2F * this.bubbleSize, this.bubbleSize);
    }
 
+   @Override
    public void onUpdate() {
       if (this.ticksExisted < 2 || this.ticksExisted % 40 == 0) {
          IEntitySynchronize.sendSynchronize(this, 64.0, this.bubbleSize, 0.0, 0.0, 0.0);
@@ -305,6 +308,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          this.onImpact(result.entityHit, false);
@@ -400,8 +404,8 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
             float radiusSq = siz * siz;
             int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, this.weaponstack);
             boolean silktouch = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, this.weaponstack) > 0;
-            int harvestlvl = parameters.getI("harvest_lvl");
-            float hardnessBreaks = parameters.getF("hardness_breaks");
+            int harvestlvl = parameters.getInt("harvest_lvl");
+            float hardnessBreaks = parameters.getFloat("hardness_breaks");
 
             for (BlockPos blockpos : GetMOP.getBlockPosesCollidesAABB(this.world, aabb.grow(2.0), false)) {
                if (blockpos.distanceSqToCenter(this.posX, hposY, this.posZ) < radiusSq
@@ -429,6 +433,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
       }
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }

@@ -43,10 +43,12 @@ public class ContainerMyWorkbench extends Container {
       }
    }
 
+   @Override
    public void onCraftMatrixChanged(IInventory inventoryIn) {
       this.slotChangedCraftingGrid(this.world, this.player, this.craftMatrix, this.craftResult);
    }
 
+   @Override
    public void onContainerClosed(EntityPlayer playerIn) {
       super.onContainerClosed(playerIn);
       if (!this.world.isRemote) {
@@ -54,12 +56,14 @@ public class ContainerMyWorkbench extends Container {
       }
    }
 
+   @Override
    public boolean canInteractWith(EntityPlayer playerIn) {
       return !(this.world.getBlockState(this.pos).getBlock() instanceof BlockBlockCraftingTable)
          ? false
          : playerIn.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5) <= 64.0;
    }
 
+   @Override
    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
       ItemStack itemstack = ItemStack.EMPTY;
       Slot slot = (Slot)this.inventorySlots.get(index);
@@ -104,6 +108,7 @@ public class ContainerMyWorkbench extends Container {
       return itemstack;
    }
 
+   @Override
    public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
       return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
    }

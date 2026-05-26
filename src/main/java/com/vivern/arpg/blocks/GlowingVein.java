@@ -34,15 +34,18 @@ public class GlowingVein extends Block implements IBlockHardBreak {
       return (TileGlowingVein)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileGlowingVein createTileEntity(World world, IBlockState blockState) {
       return new TileGlowingVein();
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }

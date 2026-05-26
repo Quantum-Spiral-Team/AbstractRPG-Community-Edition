@@ -34,6 +34,7 @@ public class DirtyBeach extends Biome {
       public WorldGenBlockBlob JUNK_GENERATOR = new WorldGenBlockBlob(BlocksRegister.JUNK, 0);
       public WorldGenToxicBarrels barrels = new WorldGenToxicBarrels(14, 8, 1);
 
+      @Override
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

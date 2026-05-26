@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 public class TileAbsorptionTotem extends TileEntity implements IManaBuffer, ITickable, IMagicVision {
    public ManaBuffer manaBuffer = new ManaBuffer(this, this, 10.0F, 3, -0.25F, 0.1F);
 
+   @Override
    public void update() {
       this.manaBuffer.updateManaBuffer(this.world, this.pos);
       if ((this.world.getWorldTime() + 2L) % ManaBuffer.TICKRATE == 0L
@@ -68,32 +69,38 @@ public class TileAbsorptionTotem extends TileEntity implements IManaBuffer, ITic
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);

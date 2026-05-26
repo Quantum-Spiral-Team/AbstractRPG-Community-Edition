@@ -37,22 +37,27 @@ public class ThistleThorn extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public int getMaxItemUseDuration(ItemStack itemstack) {
       return 72000;
    }
 
+   @Override
    public EnumAction getItemUseAction(ItemStack stack) {
       return EnumAction.BOW;
    }
 
+   @Override
    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
       return true;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return false;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!worldIn.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -69,8 +74,8 @@ public class ThistleThorn extends ItemWeapon {
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             boolean spec = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0;
             NBTHelper.GiveNBTint(itemstack, 0, "charge");
-            NBTHelper.GiveNBTboolean(itemstack, false, "powered");
-            NBTHelper.GiveNBTboolean(itemstack, false, "using");
+            NBTHelper.giveNBTboolean(itemstack, false, "powered");
+            NBTHelper.giveNBTboolean(itemstack, false, "using");
             int charge = NBTHelper.GetNBTint(itemstack, "charge");
             if (charge > (spec ? 5 : 4)) {
                NBTHelper.SetNBTboolean(itemstack, true, "powered");
@@ -197,6 +202,7 @@ public class ThistleThorn extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       float rr = 0.95F;
@@ -282,6 +288,7 @@ public class ThistleThorn extends ItemWeapon {
       return 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.0F;

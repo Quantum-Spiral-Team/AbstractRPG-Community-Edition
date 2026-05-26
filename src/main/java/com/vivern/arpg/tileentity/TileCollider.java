@@ -201,6 +201,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
       }
    }
 
+   @Override
    public void update() {
       if (this.beam1 != null && !this.updateBeam(this.beam1)) {
          this.beam1 = null;
@@ -331,10 +332,12 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
    public void onContentsChanged(FluidStorage thisstorage, boolean fluidTypeChanges) {
    }
 
+   @Override
    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
       return capability == CapabilityEnergy.ENERGY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
    }
 
+   @Override
    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
       EnumFacing blockfacing = (EnumFacing)this.getWorld().getBlockState(this.getPos()).getValue(BlockCollider.FACING);
       if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null) {
@@ -392,42 +395,50 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public int getSizeInventory() {
       return 5;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.containItemStacks) {
          if (!itemstack.isEmpty()) {
@@ -438,18 +449,22 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
       return true;
    }
 
+   @Override
    public ItemStack getStackInSlot(int index) {
       return (ItemStack)this.containItemStacks.get(index);
    }
 
+   @Override
    public ItemStack decrStackSize(int index, int count) {
       return ItemStackHelper.getAndSplit(this.containItemStacks, index, count);
    }
 
+   @Override
    public ItemStack removeStackFromSlot(int index) {
       return ItemStackHelper.getAndRemove(this.containItemStacks, index);
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       ItemStack itemstack = (ItemStack)this.containItemStacks.get(index);
       if (!stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack)) {
@@ -464,18 +479,22 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
       }
    }
 
+   @Override
    public String getName() {
       return "tile_collider";
    }
 
+   @Override
    public boolean hasCustomName() {
       return false;
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
       return this.world.getTileEntity(this.pos) != this
          ? false
@@ -483,29 +502,36 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
             <= 64.0;
    }
 
+   @Override
    public void openInventory(EntityPlayer player) {
    }
 
+   @Override
    public void closeInventory(EntityPlayer player) {
    }
 
+   @Override
    public boolean isItemValidForSlot(int index, ItemStack stack) {
       return true;
    }
 
+   @Override
    public int[] getSlotsForFace(EnumFacing side) {
       EnumFacing blockfacing = ((EnumFacing)this.getWorld().getBlockState(this.getPos()).getValue(BlockCollider.FACING)).getOpposite();
       return side != EnumFacing.DOWN && side != EnumFacing.UP && side != blockfacing ? SLOTS_SIDES : SLOTS_BOTTOM_TOP_BACK;
    }
 
+   @Override
    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
       return this.isItemValidForSlot(index, itemStackIn);
    }
 
+   @Override
    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
       return true;
    }
 
+   @Override
    public int getField(int id) {
       switch (id) {
          case 0:
@@ -521,6 +547,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
       }
    }
 
+   @Override
    public void setField(int id, int value) {
       switch (id) {
          case 0:
@@ -531,18 +558,22 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
       }
    }
 
+   @Override
    public int getFieldCount() {
       return 4;
    }
 
+   @Override
    public void clear() {
       this.containItemStacks.clear();
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       return new ContainerAlchemicLab(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.collider";
    }

@@ -58,6 +58,7 @@ public class SpellForgeTESR extends TileEntitySpecialRenderer<TileSpellForge> {
       ShaderMain.ForgeShader.stop();
    }
 
+   @Override
    public void render(TileSpellForge te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(x + 0.5, y + 0.5, z + 0.5);

@@ -46,10 +46,12 @@ public class SharkRocket extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.001F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 200) {
@@ -78,6 +80,7 @@ public class SharkRocket extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit) && Weapons.canDealDamageTo(result.entityHit)) {
@@ -123,6 +126,7 @@ public class SharkRocket extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       if (this.ticksExisted == 2) {
@@ -182,6 +186,7 @@ public class SharkRocket extends EntityThrowable {
          .spawnParticle(EnumParticleTypes.FLAME, this.posX, this.posY, this.posZ, gaussianX, gaussianY, gaussianZ, new int[0]);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 4) {

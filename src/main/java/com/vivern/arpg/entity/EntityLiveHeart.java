@@ -77,6 +77,7 @@ public class EntityLiveHeart extends Entity {
       }
    }
 
+   @Override
    @Nullable
    public net.minecraft.scoreboard.Team getTeam() {
       return this.team.isEmpty() ? null : Team.getTeamObjectFromString(this.world, this.team);
@@ -88,17 +89,21 @@ public class EntityLiveHeart extends Entity {
       }
    }
 
+   @Override
    public boolean isGlowing() {
       return true;
    }
 
+   @Override
    public double getYOffset() {
       return 0.15;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound nbt) {
       if (nbt.hasKey("health")) {
          this.health = nbt.getFloat("health");
@@ -113,12 +118,14 @@ public class EntityLiveHeart extends Entity {
       }
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound nbt) {
       nbt.setFloat("health", this.health);
       nbt.setInteger("ticks", this.ticks);
       nbt.setString("team", this.team);
    }
 
+   @Override
    public void onEntityUpdate() {
       if (this.world.isRemote) {
          if (this.t1r > 0) {
@@ -202,6 +209,7 @@ public class EntityLiveHeart extends Entity {
       return 1.0F - (float)Math.sin(this.t3b / 9.5F) / 2.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       this.ticks++;
@@ -266,6 +274,7 @@ public class EntityLiveHeart extends Entity {
       }
    }
 
+   @Override
    public void onCollideWithPlayer(EntityPlayer entityIn) {
       if (this.health != 0.0F
          && this.ticksExisted > 15
@@ -279,6 +288,7 @@ public class EntityLiveHeart extends Entity {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == -5) {

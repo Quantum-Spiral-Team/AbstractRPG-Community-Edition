@@ -21,6 +21,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
    public BaubleType btype;
@@ -121,6 +123,8 @@ public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       for (String s : this.text) {
          tooltip.add(s);

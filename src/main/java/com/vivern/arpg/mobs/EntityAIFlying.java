@@ -30,12 +30,14 @@ public class EntityAIFlying extends EntityAIBase {
       this.vec = entity.getPositionVector();
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null
          ? this.entity.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue() <= this.entity.getDistance(this.entity.getAttackTarget())
          : true;
    }
 
+   @Override
    public void updateTask() {
       if (this.entity.ticksExisted % this.frequency == 0) {
          this.vec = GetMOP.findRandPosNearEntity(this.entity, this.radius);

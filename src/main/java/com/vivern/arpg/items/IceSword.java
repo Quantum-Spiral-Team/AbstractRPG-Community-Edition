@@ -41,14 +41,17 @@ public class IceSword extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -67,7 +70,7 @@ public class IceSword extends ItemWeapon {
 
             if (hand != null) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               if (IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, itemRand.nextFloat() < parameters.getF("freeze_chance")).success) {
+               if (IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, itemRand.nextFloat() < parameters.getFloat("freeze_chance")).success) {
                   world.playSound(
                      (EntityPlayer)null,
                      player.posX,
@@ -98,7 +101,7 @@ public class IceSword extends ItemWeapon {
                   .setCooldown(
                      (Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack))
                   );
-               if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && itemRand.nextFloat() < parameters.getF("special_shot_chance")) {
+               if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && itemRand.nextFloat() < parameters.getFloat("special_shot_chance")) {
                   EntityLivingBase entityLivingBase = GetMOP.findNearestEnemy(
                      world,
                      player,

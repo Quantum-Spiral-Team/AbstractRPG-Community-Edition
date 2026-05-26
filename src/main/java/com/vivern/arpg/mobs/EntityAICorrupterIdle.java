@@ -24,19 +24,23 @@ public class EntityAICorrupterIdle extends EntityAIBase {
       this.rand = mob.getRNG();
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() == null;
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return this.shouldExecute();
    }
 
+   @Override
    public void resetTask() {
       super.resetTask();
       this.entity.resetActiveHand();
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
       if (entitylivingbase == null) {

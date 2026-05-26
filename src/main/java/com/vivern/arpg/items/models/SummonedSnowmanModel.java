@@ -56,6 +56,7 @@ public class SummonedSnowmanModel extends ModelBase {
       this.leftHand.addChild(this.shape6);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
       this.head.render(f5);
@@ -65,6 +66,7 @@ public class SummonedSnowmanModel extends ModelBase {
       this.rightHand.render(f5);
    }
 
+   @Override
    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
       super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
       this.head.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);

@@ -45,6 +45,7 @@ public class IndustrialMixerModel extends ModelBase {
       this.rotor1.addChild(this.rotor2);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.rotor1.rotateAngleY = f;
       this.rotor3.rotateAngleY = -f * 0.8F;

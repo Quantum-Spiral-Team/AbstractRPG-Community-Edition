@@ -42,10 +42,13 @@ public class EntityArcaneExplode extends Entity {
       super(worldIn);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean isInRangeToRenderDist(double distance) {
       return false;
    }
 
+   @Override
    public void onUpdate() {
       if (this.spawnparticle && this.world.isRemote) {
          this.spawnparticle = false;
@@ -89,6 +92,7 @@ public class EntityArcaneExplode extends Entity {
       super.onUpdate();
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 9) {
@@ -163,9 +167,11 @@ public class EntityArcaneExplode extends Entity {
       }
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       compound.setFloat("damage", this.damage);
       compound.setFloat("knockback", this.knockback);
@@ -178,6 +184,7 @@ public class EntityArcaneExplode extends Entity {
       compound.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("damage")) {
          this.damage = compound.getFloat("damage");

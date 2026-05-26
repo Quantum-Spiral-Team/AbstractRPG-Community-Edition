@@ -39,6 +39,7 @@ public class ItemSpellRoll extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -58,6 +59,7 @@ public class ItemSpellRoll extends ItemWeapon {
       Booom.power = 0.18F / param;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          boolean isInUse = false;
@@ -256,6 +258,7 @@ public class ItemSpellRoll extends ItemWeapon {
       return WeaponHandleType.ONE_HANDED;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       super.addInformation(stack, worldIn, tooltip, flagIn);

@@ -23,6 +23,7 @@ public class IslandRiver extends Biome {
       this.fillerBlock = Blocks.SANDSTONE.getDefaultState();
    }
 
+   @Override
    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
       AquaticaChunkGenerator.generateBiomeTerrain(this, worldIn, rand, chunkPrimerIn, x, z, noiseVal);
    }

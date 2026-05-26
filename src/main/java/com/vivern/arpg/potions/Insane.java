@@ -11,6 +11,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Insane extends Potion {
    protected Insane(boolean isBadEffectIn, int liquidColorIn) {
@@ -20,11 +22,14 @@ public class Insane extends Potion {
       this.setIconIndex(21, 1);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasStatusIcon() {
       Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
       return true;
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
       if (entityLivingBase instanceof EntityCreature) {
          EntityCreature creature = (EntityCreature)entityLivingBase;
@@ -63,6 +68,7 @@ public class Insane extends Potion {
       }
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return duration % 10 == 0;
    }

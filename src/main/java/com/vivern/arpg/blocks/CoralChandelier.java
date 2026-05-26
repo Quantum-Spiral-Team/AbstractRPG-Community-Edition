@@ -63,25 +63,29 @@ public class CoralChandelier extends BlockUnderwater {
       return BlockRenderLayer.CUTOUT;
    }
 
-    public IBlockState getStateFromMeta(int meta) {
-        if (meta == 1) {
-            return this.getDefaultState().withProperty(ROTATE, FrozenChandelier.EnumAxis.Z);
-        }
-        return this.getDefaultState().withProperty(ROTATE, FrozenChandelier.EnumAxis.X);
-    }
-
-   public int getMetaFromState(IBlockState state) {
-      int i = 0;
-      if (state.getValue(ROTATE) == FrozenChandelier.EnumAxis.Z) {
-         i = 1;
-      }
-      return i;
+   @Override
+   public IBlockState getStateFromMeta(int meta) {
+       if (meta == 1) {
+           return this.getDefaultState().withProperty(ROTATE, FrozenChandelier.EnumAxis.Z);
+       }
+       return this.getDefaultState().withProperty(ROTATE, FrozenChandelier.EnumAxis.X);
    }
 
+   @Override
+   public int getMetaFromState(IBlockState state) {
+       int i = 0;
+       if (state.getValue(ROTATE) == FrozenChandelier.EnumAxis.Z) {
+          i = 1;
+       }
+       return i;
+   }
+
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, ROTATE, LEVEL, WET);
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       items.add(new ItemStack(this, 1, 0));
    }
@@ -91,11 +95,13 @@ public class CoralChandelier extends BlockUnderwater {
       return this.getStateFromMeta(meta).withProperty(ROTATE, FrozenChandelier.EnumAxis.fromFacingAxis(placer.getHorizontalFacing().getOpposite().getAxis()));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(ROTATE, rot != Rotation.NONE && rot != Rotation.CLOCKWISE_180 ? FrozenChandelier.EnumAxis.Z : FrozenChandelier.EnumAxis.X);
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       FrozenChandelier.EnumAxis enumaxis = stateIn.getValue(ROTATE);
       if (rand.nextFloat() < 0.19F) {
@@ -153,6 +159,7 @@ public class CoralChandelier extends BlockUnderwater {
       worldIn.spawnEntity(spell);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
       return world.provider.getDimension() == 103

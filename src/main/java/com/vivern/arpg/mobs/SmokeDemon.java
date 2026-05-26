@@ -32,6 +32,7 @@ public class SmokeDemon extends AbstractMob {
       this.setDropMoney(-4, 5, 1.0F);
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
@@ -68,6 +69,7 @@ public class SmokeDemon extends AbstractMob {
       this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAIFlying(this, 30, 5.0F, 0.3F, false));
       this.tasks.addTask(2, new EntityAIFlyingWorm(this, 70, 12.0F, 0.2F, 4.0F, 2.0F, 2.0F, 0.6F, 1.15F, true));

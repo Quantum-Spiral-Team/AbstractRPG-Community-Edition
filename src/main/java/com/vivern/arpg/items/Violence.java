@@ -48,6 +48,7 @@ public class Violence extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -57,10 +58,12 @@ public class Violence extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -76,6 +79,7 @@ public class Violence extends ItemWeapon {
       Booom.power = 0.25F;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       GUNParticle particle = new GUNParticle(texture, 0.1F, 0.0F, 10, 230, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 0.2F, 0.8F, true, 0);
@@ -117,6 +121,7 @@ public class Violence extends ItemWeapon {
       world.spawnEntity(particle);
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -161,7 +166,7 @@ public class Violence extends ItemWeapon {
                            entityLivingBase,
                            PotionEffects.DEMONIC_BURN,
                            (float)parameters.getEnchantedI("hit_potion_time_add", witchery),
-                           (float)parameters.getI("hit_potion_power_mult"),
+                           (float)parameters.getInt("hit_potion_power_mult"),
                            Weapons.EnumPotionMix.WITH_MAXIMUM,
                            Weapons.EnumPotionMix.WITH_MAXIMUM,
                            Weapons.EnumMathOperation.PLUS,
@@ -192,7 +197,7 @@ public class Violence extends ItemWeapon {
                      }
                   }
 
-                  NBTHelper.SetNBTint(itemstack, parameters.getI("hit_cooldown"), "hitcooldown");
+                  NBTHelper.SetNBTint(itemstack, parameters.getInt("hit_cooldown"), "hitcooldown");
                   IWeapon.fireBomEffect(this, player, world, 0);
                   IWeapon.fireEffect(
                      this, player, world, 64.0, castpoint.x, castpoint.y + 0.1, castpoint.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
@@ -217,7 +222,7 @@ public class Violence extends ItemWeapon {
                         player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                         player.addStat(StatList.getObjectUseStats(this));
                         int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
-                        int amount = parameters.getI("shots") + itemRand.nextInt(parameters.getEnchantedI("shots_random_bonus", reuse));
+                        int amount = parameters.getInt("shots") + itemRand.nextInt(parameters.getEnchantedI("shots_random_bonus", reuse));
                         Vec3d vec0 = GetMOP.posRayTrace(parameters.getEnchantedF("range", ran), 1.0F, player, 0.9F, 0.7F);
                         if (vec0 != null) {
                            for (int i = 0; i < amount; i++) {
@@ -244,7 +249,7 @@ public class Violence extends ItemWeapon {
 
                               ViolenceShoot shoot = new ViolenceShoot(world, player, itemstack, power);
                               shoot.setPosition(vec2.x, vec2.y, vec2.z);
-                              SuperKnockback.applyMove(shoot, -parameters.getF("velocity"), vec0.x, vec0.y, vec0.z);
+                              SuperKnockback.applyMove(shoot, -parameters.getFloat("velocity"), vec0.x, vec0.y, vec0.z);
                               world.spawnEntity(shoot);
                            }
 
@@ -281,13 +286,15 @@ public class Violence extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp(
-         NBTHelper.GetNBTint(itemstack, "hitcooldown") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getF("hit_cooldown"), 0.0F, 1.0F
+         NBTHelper.GetNBTint(itemstack, "hitcooldown") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getFloat("hit_cooldown"), 0.0F, 1.0F
       );
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "hitcooldown") > 0;

@@ -27,6 +27,8 @@ import com.vivern.arpg.renders.ParticleTracker;
 import com.vivern.arpg.tileentity.TileSpellForge;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -60,75 +62,76 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemGrenade extends ItemWeapon {
-   public static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
-   public static ResourceLocation flame = new ResourceLocation("arpg:textures/flame_big.png");
-   public static ResourceLocation snow = new ResourceLocation("arpg:textures/snowflake3.png");
-   public static ResourceLocation largecloud = new ResourceLocation("arpg:textures/largecloud.png");
-   public static ResourceLocation star = new ResourceLocation("arpg:textures/star.png");
-   public static ResourceLocation firecircle = new ResourceLocation("arpg:textures/fire_circle.png");
-   public static ResourceLocation oildrop = new ResourceLocation("arpg:textures/oildrop.png");
-   public static ResourceLocation slimesplash = new ResourceLocation("arpg:textures/slimesplash.png");
-   public static ResourceLocation snow5 = new ResourceLocation("arpg:textures/snowflake5.png");
-   public static ResourceLocation shadow_round64x = new ResourceLocation("arpg:textures/shadow_round64x.png");
-   public static ResourceLocation void_explode = new ResourceLocation("arpg:textures/void_explode.png");
-   public static ResourceLocation lightning1 = new ResourceLocation("arpg:textures/lightning1.png");
-   public static ResourceLocation whirl = new ResourceLocation("arpg:textures/whirl.png");
-   public static HashMap<Byte, ItemGrenade> registry = new HashMap<>();
+   public static final ResourceLocation LARGE_SMOKE = new ResourceLocation("arpg:textures/largesmoke.png");
+   public static final ResourceLocation FLAME = new ResourceLocation("arpg:textures/flame_big.png");
+   public static final ResourceLocation SNOW = new ResourceLocation("arpg:textures/snowflake3.png");
+   public static final ResourceLocation LARGE_CLOUD = new ResourceLocation("arpg:textures/largecloud.png");
+   public static final ResourceLocation STAR = new ResourceLocation("arpg:textures/star.png");
+   public static final ResourceLocation FIRE_CIRCLE = new ResourceLocation("arpg:textures/fire_circle.png");
+   public static final ResourceLocation OIL_DROP = new ResourceLocation("arpg:textures/oildrop.png");
+   public static final ResourceLocation SLIME_SPLASH = new ResourceLocation("arpg:textures/slimesplash.png");
+   public static final ResourceLocation SNOW_FLAKE = new ResourceLocation("arpg:textures/snowflake5.png");
+   public static final ResourceLocation SHADOW_ROUND = new ResourceLocation("arpg:textures/shadow_round64x.png");
+   public static final ResourceLocation VOID_EXPLODE = new ResourceLocation("arpg:textures/void_explode.png");
+   public static final ResourceLocation LIGHTNING = new ResourceLocation("arpg:textures/lightning1.png");
+   public static final ResourceLocation WHIRL = new ResourceLocation("arpg:textures/whirl.png");
+   public static final Map<Byte, ItemGrenade> REGISTRY = new HashMap<>();
    public int burntime = -1;
    public boolean beacon = false;
    public boolean ench = false;
-   public byte id = 0;
-   public static GrenadeModel mainModel = new GrenadeModel();
-   public ResourceLocation texture;
+   public final byte id;
+   public static final GrenadeModel GRENADE_MODEL = new GrenadeModel();
+   public final ResourceLocation texture;
 
-   public ItemGrenade(String name, int maxstacksize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
+   public ItemGrenade(String name, int maxStackSize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
       this.setRegistryName(name);
       this.setCreativeTab(CreativeTabs.COMBAT);
       this.setTranslationKey(name);
-      this.setMaxStackSize(maxstacksize);
+      this.setMaxStackSize(maxStackSize);
       this.id = id;
       this.texture = texture;
-      registry.put(id, this);
+      REGISTRY.put(id, this);
    }
 
-   public float damage() {
-      return WeaponParameters.getWeaponParameters(this).getF("damage");
+   public float getDamage() {
+      return WeaponParameters.getWeaponParameters(this).getFloat("damage");
    }
 
-   public float knockback() {
-      return WeaponParameters.getWeaponParameters(this).getF("knockback");
+   public float getKnockback() {
+      return WeaponParameters.getWeaponParameters(this).getFloat("knockback");
    }
 
-   public int firstExplodeDelay() {
-      return WeaponParameters.getWeaponParameters(this).getI("first_explode_delay");
+   public int getFirstExplodeDelay() {
+      return WeaponParameters.getWeaponParameters(this).getInt("first_explode_delay");
    }
 
-   public float damageRadius() {
-      return WeaponParameters.getWeaponParameters(this).getF("damage_radius");
+   public float getDamageRadius() {
+      return WeaponParameters.getWeaponParameters(this).getFloat("damage_radius");
    }
 
    public boolean doWaterMoveHook() {
       return false;
    }
 
-   public int waterParticlesHookAdding() {
+   public int getWaterParticlesHookAdding() {
       return 0;
    }
 
-   public void modifySpeedInWater(EntityGrenade grenade) {
-   }
+   public void modifySpeedInWater(EntityGrenade grenade) {}
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public void onUpdate(ItemStack stack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(stack, entityIn);
          if (IWeapon.canShoot(stack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-            if (!hascooldown
+            boolean hasCooldown = player.getCooldownTracker().hasCooldown(this);
+            if (!hasCooldown
                && (
                   Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack
                      || Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && player.getHeldItemOffhand() == stack
@@ -150,7 +153,7 @@ public class ItemGrenade extends ItemWeapon {
 
    public void playThrowSound(World world, EntityPlayer player) {
       world.playSound(
-         (EntityPlayer)null,
+         null,
          player.posX,
          player.posY,
          player.posZ,
@@ -166,13 +169,15 @@ public class ItemGrenade extends ItemWeapon {
       return this;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasEffect(ItemStack stack) {
-      return this.ench ? this.ench : super.hasEffect(stack);
+      return this.ench || super.hasEffect(stack);
    }
 
    public void onProjectileUpdate(EntityGrenade projectile) {
       if (!projectile.world.isRemote
-         && projectile.flyingTime > projectile.grenade.firstExplodeDelay() - projectile.impacts * projectile.grenade.firstExplodeDelay() / 5
+         && projectile.flyingTime > projectile.grenade.getFirstExplodeDelay() - projectile.impacts * projectile.grenade.getFirstExplodeDelay() / 5
          && !projectile.isDead) {
          projectile.grenade
             .explode(
@@ -192,7 +197,7 @@ public class ItemGrenade extends ItemWeapon {
       World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
    ) {
       if (!world.isRemote) {
-         double damageRadius = this.damageRadius();
+         double damageRadius = this.getDamageRadius();
          AxisAlignedBB axisalignedbb = new AxisAlignedBB(
             x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
          );
@@ -204,11 +209,11 @@ public class ItemGrenade extends ItemWeapon {
                if (Team.checkIsOpponent(player, entity)) {
                   Weapons.dealDamage(
                      new WeaponDamage(stack, player, projectile, true, false, new Vec3d(x, y, z), WeaponDamage.explode),
-                     this.damage(),
+                     this.getDamage(),
                      player,
                      entity,
                      true,
-                     this.knockback(),
+                     this.getKnockback(),
                      x,
                      y,
                      z
@@ -217,11 +222,11 @@ public class ItemGrenade extends ItemWeapon {
                } else {
                   Weapons.dealDamage(
                      new WeaponDamage(stack, player, projectile, true, false, new Vec3d(x, y, z), WeaponDamage.explode),
-                     this.damage() * 0.7F,
+                     this.getDamage() * 0.7F,
                      player,
                      entity,
                      true,
-                     this.knockback(),
+                     this.getKnockback(),
                      x,
                      y,
                      z
@@ -241,8 +246,8 @@ public class ItemGrenade extends ItemWeapon {
          world.playSound(x, y, z, Sounds.explode3, SoundCategory.PLAYERS, 1.3F, 0.85F + itemRand.nextFloat() / 5.0F, false);
 
          for (int ss = 0; ss < 7; ss++) {
-            GUNParticle bigsmoke = new GUNParticle(
-               largesmoke,
+            GUNParticle bigSmoke = new GUNParticle(
+               LARGE_SMOKE,
                0.8F + itemRand.nextFloat() / 2.0F,
                -0.001F,
                40,
@@ -260,14 +265,14 @@ public class ItemGrenade extends ItemWeapon {
                true,
                itemRand.nextInt(360)
             );
-            bigsmoke.alphaTickAdding = -0.01F;
-            world.spawnEntity(bigsmoke);
+            bigSmoke.alphaTickAdding = -0.01F;
+            world.spawnEntity(bigSmoke);
          }
 
          for (int ss = 0; ss < 13; ss++) {
             int lt = 14 + itemRand.nextInt(8);
             GUNParticle fire = new GUNParticle(
-               flame,
+               FLAME,
                0.4F + itemRand.nextFloat() * 1.6F,
                -0.003F,
                lt,
@@ -316,9 +321,8 @@ public class ItemGrenade extends ItemWeapon {
       }
 
       if (result != null
-         && result.entityHit != null
-         && result.entityHit instanceof EntityLivingBase
-         && result.entityHit != projectile.getThrower()) {
+              && result.entityHit instanceof EntityLivingBase
+              && result.entityHit != projectile.getThrower()) {
          projectile.slowdown(0.5);
       }
    }
@@ -341,11 +345,11 @@ public class ItemGrenade extends ItemWeapon {
 
       GlStateManager.disableCull();
       Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-      mainModel.hideAll();
-      mainModel.shapemain.isHidden = false;
-      mainModel.pin.isHidden = false;
-      mainModel.shapestick.isHidden = false;
-      mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+      GRENADE_MODEL.hideAll();
+      GRENADE_MODEL.shapemain.isHidden = false;
+      GRENADE_MODEL.pin.isHidden = false;
+      GRENADE_MODEL.shapestick.isHidden = false;
+      GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
       GlStateManager.enableCull();
       GlStateManager.popMatrix();
    }
@@ -358,7 +362,7 @@ public class ItemGrenade extends ItemWeapon {
    @Override
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      return parameters.getI("cooldown");
+      return parameters.getInt("cooldown");
    }
 
    @Override
@@ -366,30 +370,28 @@ public class ItemGrenade extends ItemWeapon {
       return WeaponHandleType.ONE_HANDED;
    }
 
+   //TODO
    public boolean isFirst(EntityPlayer player, ItemStack itemstack) {
       InventoryPlayer inventory = player.inventory;
 
       for (int i = 0; i < inventory.getSizeInventory(); i++) {
          if (inventory.getStackInSlot(i).getItem() instanceof ItemGrenade) {
-            if (inventory.getStackInSlot(i) == itemstack) {
-               return true;
-            }
-
-            return false;
+             return inventory.getStackInSlot(i) == itemstack;
          }
       }
 
       return false;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasSpecialDescription() {
       return false;
    }
 
    public static class Bomb extends ItemGrenade {
-      public Bomb(String name, int maxstacksize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
-         super(name, maxstacksize, id, firstExplodeDelay, damage, knockback, texture);
+      public Bomb(String name, int maxStackSize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
+         super(name, maxStackSize, id, firstExplodeDelay, damage, knockback, texture);
       }
 
       @Override
@@ -397,7 +399,7 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          if (!world.isRemote) {
-            world.newExplosion(player, x, y, z, WeaponParameters.getWeaponParameters(this).getF("explosion_size"), false, true);
+            world.newExplosion(player, x, y, z, WeaponParameters.getWeaponParameters(this).getFloat("explosion_size"), false, true);
             if (projectile != null) {
                projectile.setDead();
             }
@@ -423,18 +425,18 @@ public class ItemGrenade extends ItemWeapon {
 
          GlStateManager.disableCull();
          Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-         mainModel.hideAll();
-         mainModel.shapecubeup.isHidden = false;
-         mainModel.shapecubedown.isHidden = false;
-         mainModel.big.isHidden = false;
-         mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+         GRENADE_MODEL.hideAll();
+         GRENADE_MODEL.shapecubeup.isHidden = false;
+         GRENADE_MODEL.shapecubedown.isHidden = false;
+         GRENADE_MODEL.big.isHidden = false;
+         GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
          GlStateManager.enableCull();
          GlStateManager.popMatrix();
       }
    }
 
-   public static class Cryogrenade extends ItemGrenade {
-      public Cryogrenade(String name, int maxstacksize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
+   public static class CryoGrenade extends ItemGrenade {
+      public CryoGrenade(String name, int maxstacksize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
          super(name, maxstacksize, id, firstExplodeDelay, damage, knockback, texture);
       }
 
@@ -443,7 +445,7 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          if (!world.isRemote) {
-            double damageRadius = this.damageRadius();
+            double damageRadius = this.getDamageRadius();
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
             );
@@ -457,47 +459,47 @@ public class ItemGrenade extends ItemWeapon {
                   if (Team.checkIsOpponent(player, entity)) {
                      Weapons.dealDamage(
                         new WeaponDamage(stack, player, projectile, true, false, new Vec3d(x, y, z), WeaponDamage.frost),
-                        this.damage(),
+                        this.getDamage(),
                         player,
                         entity,
                         true,
-                        this.knockback(),
+                        this.getKnockback(),
                         x,
                         y,
                         z
                      );
                      entity.hurtResistantTime = 0;
-                     PotionEffect lastdebaff = Weapons.mixPotion(
+                     PotionEffect lastDebaff = Weapons.mixPotion(
                         entity,
                         PotionEffects.FREEZING,
-                        (float)parameters.getI("potion_time_add"),
-                        (float)parameters.getI("potion_power_add"),
+                        (float)parameters.getInt("potion_time_add"),
+                        (float)parameters.getInt("potion_power_add"),
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumMathOperation.PLUS,
                         Weapons.EnumMathOperation.PLUS,
-                        parameters.getI("potion_time_max"),
-                        parameters.getI("potion_power_max")
+                        parameters.getInt("potion_time_max"),
+                        parameters.getInt("potion_power_max")
                      );
                      if (itemRand.nextFloat() < 0.5 && sounds > 0) {
-                        Freezing.tryPlaySound(entity, lastdebaff);
+                        Freezing.tryPlaySound(entity, lastDebaff);
                         sounds--;
                      }
                   } else {
-                     PotionEffect lastdebaff = Weapons.mixPotion(
+                     PotionEffect lastDebaff = Weapons.mixPotion(
                         entity,
                         PotionEffects.FREEZING,
-                        (float)parameters.getI("friendlyfire_potion_time_add"),
-                        (float)parameters.getI("friendlyfire_potion_power_add"),
+                        (float)parameters.getInt("friendlyfire_potion_time_add"),
+                        (float)parameters.getInt("friendlyfire_potion_power_add"),
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumPotionMix.WITH_MAXIMUM,
                         Weapons.EnumMathOperation.PLUS,
                         Weapons.EnumMathOperation.PLUS,
-                        parameters.getI("friendlyfire_potion_time_max"),
-                        parameters.getI("friendlyfire_potion_power_max")
+                        parameters.getInt("friendlyfire_potion_time_max"),
+                        parameters.getInt("friendlyfire_potion_power_max")
                      );
                      if (itemRand.nextFloat() < 0.5 && sounds > 0) {
-                        Freezing.tryPlaySound(entity, lastdebaff);
+                        Freezing.tryPlaySound(entity, lastDebaff);
                         sounds--;
                      }
                   }
@@ -518,8 +520,8 @@ public class ItemGrenade extends ItemWeapon {
 
             for (int ss = 0; ss < 20; ss++) {
                int lt = 30 + itemRand.nextInt(20);
-               GUNParticle bigsmoke = new GUNParticle(
-                  largecloud,
+               GUNParticle bigSmoke = new GUNParticle(
+                       LARGE_CLOUD,
                   0.6F + Math.abs((float)itemRand.nextGaussian()),
                   -0.005F,
                   lt,
@@ -537,9 +539,9 @@ public class ItemGrenade extends ItemWeapon {
                   true,
                   itemRand.nextInt(360)
                );
-               bigsmoke.alphaGlowing = true;
-               bigsmoke.alphaTickAdding = -1.0F / lt;
-               world.spawnEntity(bigsmoke);
+               bigSmoke.alphaGlowing = true;
+               bigSmoke.alphaTickAdding = -1.0F / lt;
+               world.spawnEntity(bigSmoke);
             }
 
             for (int ss = 0; ss < 19; ss++) {
@@ -550,8 +552,8 @@ public class ItemGrenade extends ItemWeapon {
                if (!world.getBlockState(pos).isOpaqueCube()) {
                   int lt = 60 + itemRand.nextInt(40);
                   float scl = 0.07F + itemRand.nextFloat() * 0.1F;
-                  GUNParticle bigsmoke = new GUNParticle(
-                     star,
+                  GUNParticle bigSmoke = new GUNParticle(
+                          STAR,
                      scl,
                      0.0F,
                      lt,
@@ -569,27 +571,27 @@ public class ItemGrenade extends ItemWeapon {
                      false,
                      itemRand.nextInt(360)
                   );
-                  bigsmoke.scaleTickAdding = -scl / (lt + 20);
-                  world.spawnEntity(bigsmoke);
+                  bigSmoke.scaleTickAdding = -scl / (lt + 20);
+                  world.spawnEntity(bigSmoke);
                }
             }
 
             int countOfParticles = 13;
-            float R = (float)((0.08 + itemRand.nextGaussian() / 50.0) * 3.0);
+            float r = (float)((0.08 + itemRand.nextGaussian() / 50.0) * 3.0);
 
             for (int i = 0; i < countOfParticles; i++) {
                float rand1 = itemRand.nextFloat() * 2.0F - 1.0F;
                float rand2 = itemRand.nextFloat() * 2.0F - 1.0F;
-               float X = rand1 * R;
-               float new_R = (float)Math.sqrt(R * R - X * X);
-               float Y = rand2 * new_R;
-               float Z = (float)Math.sqrt(new_R * new_R - Y * Y);
+               float newX = rand1 * r;
+               float newR = (float)Math.sqrt(r * r - newX * newX);
+               float newY = rand2 * newR;
+               float newZ = (float)Math.sqrt(newR * newR - newY * newY);
                if (itemRand.nextBoolean()) {
-                  Z *= -1.0F;
+                  newZ *= -1.0F;
                }
 
                GUNParticle particle = new GUNParticle(
-                  snow,
+                       SNOW,
                   0.35F + (float)itemRand.nextGaussian() / 30.0F,
                   0.01F,
                   22 + itemRand.nextInt(10),
@@ -598,9 +600,9 @@ public class ItemGrenade extends ItemWeapon {
                   x,
                   y,
                   z,
-                  X,
-                  Y,
-                  Z,
+                  newX,
+                  newY,
+                  newZ,
                   0.75F + itemRand.nextFloat() / 10.0F,
                   0.9F,
                   1.0F,
@@ -620,8 +622,7 @@ public class ItemGrenade extends ItemWeapon {
                   z + itemRand.nextGaussian(),
                   itemRand.nextGaussian() / 15.0,
                   itemRand.nextGaussian() / 15.0,
-                  itemRand.nextGaussian() / 15.0,
-                  new int[0]
+                  itemRand.nextGaussian() / 15.0
                );
             }
          }
@@ -646,29 +647,29 @@ public class ItemGrenade extends ItemWeapon {
 
          GlStateManager.disableCull();
          Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-         mainModel.hideAll();
-         mainModel.shapemain.isHidden = false;
-         mainModel.stickdiag1.isHidden = false;
-         mainModel.stickdiag2.isHidden = false;
-         mainModel.stickdiag3.isHidden = false;
-         mainModel.stickdiag4.isHidden = false;
-         mainModel.shapedown2.isHidden = false;
-         mainModel.shapeup2.isHidden = false;
-         mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+         GRENADE_MODEL.hideAll();
+         GRENADE_MODEL.shapemain.isHidden = false;
+         GRENADE_MODEL.stickdiag1.isHidden = false;
+         GRENADE_MODEL.stickdiag2.isHidden = false;
+         GRENADE_MODEL.stickdiag3.isHidden = false;
+         GRENADE_MODEL.stickdiag4.isHidden = false;
+         GRENADE_MODEL.shapedown2.isHidden = false;
+         GRENADE_MODEL.shapeup2.isHidden = false;
+         GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
          GlStateManager.enableCull();
          GlStateManager.popMatrix();
       }
    }
 
    public static class GasGrenade extends ItemGrenade {
-      public GasGrenade(String name, int maxstacksize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
-         super(name, maxstacksize, id, firstExplodeDelay, damage, knockback, texture);
+      public GasGrenade(String name, int maxStackSize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
+         super(name, maxStackSize, id, firstExplodeDelay, damage, knockback, texture);
       }
 
       @Override
       public void onProjectileUpdate(EntityGrenade projectile) {
          if (projectile.ticksExisted % 12 == 0
-            && projectile.flyingTime > projectile.grenade.firstExplodeDelay() - projectile.impacts * 20
+            && projectile.flyingTime > projectile.grenade.getFirstExplodeDelay() - projectile.impacts * 20
             && !projectile.isDead) {
             this.gas(
                projectile.world, projectile.getThrower(), projectile.posX, projectile.posY, projectile.posZ, projectile
@@ -676,8 +677,8 @@ public class ItemGrenade extends ItemWeapon {
          }
 
          if (projectile.world.isRemote && projectile.explodes > 0 && projectile.ticksExisted % 4 == 0) {
-            GUNParticle bigsmoke = new GUNParticle(
-               largecloud,
+            GUNParticle bigSmoke = new GUNParticle(
+                    LARGE_CLOUD,
                1.5F + (float)itemRand.nextGaussian() / 3.0F,
                3.0E-4F * (itemRand.nextFloat() - 0.5F),
                65 + (int)Debugger.floats[0],
@@ -695,16 +696,16 @@ public class ItemGrenade extends ItemWeapon {
                true,
                itemRand.nextInt(360)
             );
-            bigsmoke.tracker = ChlorineCloud.trssh;
-            bigsmoke.alpha = 0.0F;
-            projectile.world.spawnEntity(bigsmoke);
+            bigSmoke.tracker = ChlorineCloud.trssh;
+            bigSmoke.alpha = 0.0F;
+            projectile.world.spawnEntity(bigSmoke);
          }
       }
 
       public void gas(World world, @Nullable EntityLivingBase player, double x, double y, double z, EntityGrenade projectile) {
          if (!world.isRemote) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            double damageRadius = this.damageRadius() + (projectile != null ? Math.min(projectile.explodes, parameters.getI("grow_limit")) : 0);
+            double damageRadius = this.getDamageRadius() + Math.min(projectile.explodes, parameters.getInt("grow_limit"));
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
             );
@@ -714,14 +715,14 @@ public class ItemGrenade extends ItemWeapon {
                   Weapons.mixPotion(
                      entity,
                      PotionEffects.CHLORITE,
-                     (float)parameters.getI("potion_time_add"),
-                     (float)parameters.getI("potion_power_add"),
+                     (float)parameters.getInt("potion_time_add"),
+                     (float)parameters.getInt("potion_power_add"),
                      Weapons.EnumPotionMix.WITH_MAXIMUM,
                      Weapons.EnumPotionMix.WITH_MAXIMUM,
                      Weapons.EnumMathOperation.PLUS,
                      Weapons.EnumMathOperation.PLUS,
-                     parameters.getI("potion_time_max"),
-                     parameters.getI("potion_power_max")
+                     parameters.getInt("potion_time_max"),
+                     parameters.getInt("potion_power_max")
                   );
                   if (entity.isBurning()) {
                      this.explode(world, projectile.getThrower(), x, y, z, null, projectile);
@@ -739,11 +740,9 @@ public class ItemGrenade extends ItemWeapon {
                }
             }
 
-            if (projectile != null) {
-               projectile.explodes++;
-               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).getI("max_explosions")) {
-                  projectile.setDead();
-               }
+            projectile.explodes++;
+            if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).getInt("max_explosions")) {
+               projectile.setDead();
             }
          } else {
             projectile.explodes++;
@@ -758,8 +757,7 @@ public class ItemGrenade extends ItemWeapon {
                      z,
                      itemRand.nextGaussian() / 15.0,
                      itemRand.nextGaussian() / 25.0,
-                     itemRand.nextGaussian() / 15.0,
-                     new int[0]
+                     itemRand.nextGaussian() / 15.0
                   );
                }
             }
@@ -771,7 +769,7 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         double damageRadius = this.damageRadius() + (projectile != null ? Math.min(projectile.explodes, parameters.getI("grow_limit")) : 0);
+         double damageRadius = this.getDamageRadius() + (projectile != null ? Math.min(projectile.explodes, parameters.getInt("grow_limit")) : 0);
          if (!world.isRemote) {
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
@@ -784,11 +782,11 @@ public class ItemGrenade extends ItemWeapon {
                   if (Team.checkIsOpponent(player, entity)) {
                      Weapons.dealDamage(
                         new WeaponDamage(stack, player, projectile, true, false, null, WeaponDamage.explode),
-                        this.damage(),
+                        this.getDamage(),
                         player,
                         entity,
                         true,
-                        this.knockback(),
+                        this.getKnockback(),
                         x,
                         y,
                         z
@@ -798,11 +796,11 @@ public class ItemGrenade extends ItemWeapon {
                   } else {
                      Weapons.dealDamage(
                         new WeaponDamage(stack, player, projectile, true, false, null, WeaponDamage.explode),
-                        this.damage() * 0.7F,
+                        this.getDamage() * 0.7F,
                         player,
                         entity,
                         true,
-                        this.knockback(),
+                        this.getKnockback(),
                         x,
                         y,
                         z
@@ -823,22 +821,22 @@ public class ItemGrenade extends ItemWeapon {
             }
          } else {
             world.playSound(x, y, z, Sounds.explode7, SoundCategory.PLAYERS, 1.7F, 0.85F + itemRand.nextFloat() / 5.0F, false);
-            float gausMult = (float)(0.06 * damageRadius);
-            AxisAlignedBB axisalignedbbx = new AxisAlignedBB(
+            float gasMult = (float)(0.06 * damageRadius);
+            AxisAlignedBB aabb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
             );
-            List<GUNParticle> listx = world.getEntitiesWithinAABB(GUNParticle.class, axisalignedbbx);
-            if (!listx.isEmpty()) {
-               for (GUNParticle entityx : listx) {
-                  if (entityx.texture == largecloud && entityx.light == 111) {
-                     entityx.setDead();
+            List<GUNParticle> particles = world.getEntitiesWithinAABB(GUNParticle.class, aabb);
+            if (!particles.isEmpty()) {
+               for (GUNParticle particle : particles) {
+                  if (particle.texture == LARGE_CLOUD && particle.light == 111) {
+                     particle.setDead();
                   }
                }
             }
 
             for (int ss = 0; ss < 7; ss++) {
-               GUNParticle bigsmoke = new GUNParticle(
-                  largesmoke,
+               GUNParticle bigSmoke = new GUNParticle(
+                       LARGE_SMOKE,
                   0.8F + itemRand.nextFloat() / 2.0F,
                   -0.001F,
                   40,
@@ -847,23 +845,23 @@ public class ItemGrenade extends ItemWeapon {
                   x,
                   y,
                   z,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  (float)itemRand.nextGaussian() * gausMult,
+                  (float)itemRand.nextGaussian() * gasMult,
+                  (float)itemRand.nextGaussian() * gasMult,
+                  (float)itemRand.nextGaussian() * gasMult,
                   1.0F,
                   1.0F,
                   1.0F,
                   true,
                   itemRand.nextInt(360)
                );
-               bigsmoke.alphaTickAdding = -0.01F;
-               world.spawnEntity(bigsmoke);
+               bigSmoke.alphaTickAdding = -0.01F;
+               world.spawnEntity(bigSmoke);
             }
 
             for (int ss = 0; ss < 13.0 + damageRadius; ss++) {
                int lt = 14 + itemRand.nextInt(8);
                GUNParticle fire = new GUNParticle(
-                  flame,
+                       FLAME,
                   0.4F + itemRand.nextFloat() * 1.6F,
                   -0.003F,
                   lt,
@@ -872,9 +870,9 @@ public class ItemGrenade extends ItemWeapon {
                   x,
                   y,
                   z,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  (float)itemRand.nextGaussian() * gausMult,
-                  (float)itemRand.nextGaussian() * gausMult,
+                  (float)itemRand.nextGaussian() * gasMult,
+                  (float)itemRand.nextGaussian() * gasMult,
+                  (float)itemRand.nextGaussian() * gasMult,
                   1.0F - itemRand.nextFloat() * 0.2F,
                   1.0F - itemRand.nextFloat() * 0.2F,
                   0.7F,
@@ -893,10 +891,9 @@ public class ItemGrenade extends ItemWeapon {
                   x + itemRand.nextGaussian(),
                   y + itemRand.nextGaussian(),
                   z + itemRand.nextGaussian(),
-                  itemRand.nextGaussian() * gausMult,
-                  itemRand.nextGaussian() * gausMult,
-                  itemRand.nextGaussian() * gausMult,
-                  new int[0]
+                  itemRand.nextGaussian() * gasMult,
+                  itemRand.nextGaussian() * gasMult,
+                  itemRand.nextGaussian() * gasMult
                );
             }
          }
@@ -922,13 +919,13 @@ public class ItemGrenade extends ItemWeapon {
 
             GlStateManager.disableCull();
             Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-            mainModel.hideAll();
-            mainModel.shapemain.isHidden = false;
-            mainModel.shapeup2.isHidden = false;
-            mainModel.shapedown2.isHidden = false;
-            mainModel.pinhandle1.isHidden = false;
-            mainModel.pinhandle2.isHidden = false;
-            mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+            GRENADE_MODEL.hideAll();
+            GRENADE_MODEL.shapemain.isHidden = false;
+            GRENADE_MODEL.shapeup2.isHidden = false;
+            GRENADE_MODEL.shapedown2.isHidden = false;
+            GRENADE_MODEL.pinhandle1.isHidden = false;
+            GRENADE_MODEL.pinhandle2.isHidden = false;
+            GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
             GlStateManager.enableCull();
             GlStateManager.popMatrix();
          }
@@ -946,9 +943,8 @@ public class ItemGrenade extends ItemWeapon {
          }
 
          if (result != null
-            && result.entityHit != null
-            && result.entityHit instanceof EntityLivingBase
-            && result.entityHit != projectile.getThrower()) {
+                 && result.entityHit instanceof EntityLivingBase
+                 && result.entityHit != projectile.getThrower()) {
             projectile.slowdown(bouncePower);
          }
       }
@@ -977,10 +973,10 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         float damageRadius = parameters.getF("damage_radius");
-         float gravity1 = parameters.getF("gravity");
-         float gravity2 = parameters.getF("friendlyfire_gravity");
-         int livetime = parameters.getI("livetime");
+         float damageRadius = parameters.getFloat("damage_radius");
+         float gravity1 = parameters.getFloat("gravity");
+         float gravity2 = parameters.getFloat("friendlyfire_gravity");
+         int liveTime = parameters.getInt("livetime");
          if (!world.isRemote) {
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
@@ -1002,15 +998,15 @@ public class ItemGrenade extends ItemWeapon {
 
             if (projectile != null) {
                projectile.explodes++;
-               if (projectile.explodes >= livetime) {
+               if (projectile.explodes >= liveTime) {
                   projectile.setDead();
                } else if (projectile.explodes >= 1) {
                   projectile.motionX /= 2.0;
                   projectile.motionY /= 2.0;
                   projectile.motionZ /= 2.0;
                   projectile.setNoGravity(true);
-                  Vec3d posvec = projectile.getPositionVector();
-                  if (!GetMOP.thereIsNoBlockCollidesBetween(world, posvec, posvec.add(0.0, -0.45, 0.0), null, false)) {
+                  Vec3d posVec = projectile.getPositionVector();
+                  if (!GetMOP.thereIsNoBlockCollidesBetween(world, posVec, posVec.add(0.0, -0.45, 0.0), null, false)) {
                      projectile.motionY += 0.15;
                   }
                }
@@ -1032,7 +1028,7 @@ public class ItemGrenade extends ItemWeapon {
             float scl = 0.05F + itemRand.nextFloat() * 0.05F;
             int lt = 60 + itemRand.nextInt(10);
             GUNParticle part = new GUNParticle(
-               star,
+                    STAR,
                scl,
                0.0F,
                lt,
@@ -1056,7 +1052,7 @@ public class ItemGrenade extends ItemWeapon {
             if (projectile.ticksExisted % 20 == 0) {
                float scale = itemRand.nextFloat() * 1.5F + 4.5F;
                GUNParticle partx = new GUNParticle(
-                  whirl, scale, 0.0F, 50, 210, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 0.8F, 1.0F, true, itemRand.nextInt(360)
+                       WHIRL, scale, 0.0F, 50, 210, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 0.8F, 1.0F, true, itemRand.nextInt(360)
                );
                partx.tracker = tms;
                partx.rotationPitchYaw = new Vec2f(90.0F + (float)itemRand.nextGaussian(), itemRand.nextInt(360));
@@ -1144,12 +1140,12 @@ public class ItemGrenade extends ItemWeapon {
             GlStateManager.disableCull();
             GlStateManager.enableBlend();
             Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-            mainModel.hideAll();
-            mainModel.shapemain.isHidden = false;
-            mainModel.pin.isHidden = false;
-            mainModel.shapeup2.isHidden = false;
-            mainModel.shapedown2.isHidden = false;
-            mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+            GRENADE_MODEL.hideAll();
+            GRENADE_MODEL.shapemain.isHidden = false;
+            GRENADE_MODEL.pin.isHidden = false;
+            GRENADE_MODEL.shapeup2.isHidden = false;
+            GRENADE_MODEL.shapedown2.isHidden = false;
+            GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
             GlStateManager.disableBlend();
             GlStateManager.enableCull();
          }
@@ -1168,7 +1164,7 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          if (!world.isRemote) {
-            double damageRadius = this.damageRadius();
+            double damageRadius = this.getDamageRadius();
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
             );
@@ -1181,11 +1177,11 @@ public class ItemGrenade extends ItemWeapon {
                      if (Team.checkIsOpponent(player, entity)) {
                         Weapons.dealDamage(
                            new WeaponDamage(stack, player, projectile, true, false, new Vec3d(x, y, z), WeaponDamage.explode),
-                           this.damage(),
+                           this.getDamage(),
                            player,
                            entity,
                            true,
-                           this.knockback(),
+                           this.getKnockback(),
                            x,
                            y,
                            z
@@ -1194,11 +1190,11 @@ public class ItemGrenade extends ItemWeapon {
                      } else {
                         Weapons.dealDamage(
                            new WeaponDamage(stack, player, projectile, true, false, new Vec3d(x, y, z), WeaponDamage.explode),
-                           this.damage() * 0.7F,
+                           this.getDamage() * 0.7F,
                            player,
                            entity,
                            true,
-                           this.knockback(),
+                           this.getKnockback(),
                            x,
                            y,
                            z
@@ -1217,9 +1213,9 @@ public class ItemGrenade extends ItemWeapon {
 
             if (projectile != null) {
                projectile.explodes++;
-               projectile.flyingTime = this.firstExplodeDelay() - 18 + projectile.explodes;
+               projectile.flyingTime = this.getFirstExplodeDelay() - 18 + projectile.explodes;
                projectile.impacts = 0;
-               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).getI("max_explosions")) {
+               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).getInt("max_explosions")) {
                   projectile.setDead();
                }
             }
@@ -1229,7 +1225,7 @@ public class ItemGrenade extends ItemWeapon {
             for (int ss = 0; ss < 10; ss++) {
                int lt = 8 + itemRand.nextInt(7);
                GUNParticle fire = new GUNParticle(
-                  flame,
+                       FLAME,
                   0.1F + (float)itemRand.nextGaussian() / 6.0F,
                   -0.003F,
                   lt,
@@ -1257,7 +1253,7 @@ public class ItemGrenade extends ItemWeapon {
                float fsize = (float)(2.0 + itemRand.nextGaussian() / 6.0);
                int lt = 4 + itemRand.nextInt(3);
                GUNParticle part = new GUNParticle(
-                  firecircle,
+                       FIRE_CIRCLE,
                   0.4F,
                   0.0F,
                   lt,
@@ -1286,7 +1282,7 @@ public class ItemGrenade extends ItemWeapon {
             float fsize = (float)(2.0 + itemRand.nextGaussian() / 6.0);
             int lt = 4 + itemRand.nextInt(3);
             GUNParticle part = new GUNParticle(
-               firecircle,
+                    FIRE_CIRCLE,
                0.4F,
                0.0F,
                lt,
@@ -1331,20 +1327,20 @@ public class ItemGrenade extends ItemWeapon {
 
          GlStateManager.disableCull();
          Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-         mainModel.hideAll();
-         mainModel.shapemain.isHidden = false;
+         GRENADE_MODEL.hideAll();
+         GRENADE_MODEL.shapemain.isHidden = false;
          AbstractMobModel.light(200, false);
-         mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+         GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
          AbstractMobModel.returnlight();
-         mainModel.shapemain.isHidden = true;
-         mainModel.stick1.isHidden = false;
-         mainModel.stick2.isHidden = false;
-         mainModel.stick3.isHidden = false;
-         mainModel.stick4.isHidden = false;
-         mainModel.big.isHidden = false;
-         mainModel.shapedown2.isHidden = false;
-         mainModel.shapeup2.isHidden = false;
-         mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+         GRENADE_MODEL.shapemain.isHidden = true;
+         GRENADE_MODEL.stick1.isHidden = false;
+         GRENADE_MODEL.stick2.isHidden = false;
+         GRENADE_MODEL.stick3.isHidden = false;
+         GRENADE_MODEL.stick4.isHidden = false;
+         GRENADE_MODEL.big.isHidden = false;
+         GRENADE_MODEL.shapedown2.isHidden = false;
+         GRENADE_MODEL.shapeup2.isHidden = false;
+         GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
          GlStateManager.enableCull();
          GlStateManager.popMatrix();
       }
@@ -1372,9 +1368,8 @@ public class ItemGrenade extends ItemWeapon {
          }
 
          if (result != null
-            && result.entityHit != null
-            && result.entityHit instanceof EntityLivingBase
-            && result.entityHit != projectile.getThrower()) {
+                 && result.entityHit instanceof EntityLivingBase
+                 && result.entityHit != projectile.getThrower()) {
             projectile.slowdown(0.9);
             if (!projectile.world.isRemote && projectile.explodes == 0) {
                this.explode(
@@ -1392,11 +1387,6 @@ public class ItemGrenade extends ItemWeapon {
       }
    }
 
-   /**
-    *
-    * MolotovпїЅocktail R.I.P. ...
-    *
-    */
    public static class MolotovCocktail extends ItemGrenade {
       public MolotovCocktail(String name, int maxstacksize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
          super(name, maxstacksize, id, firstExplodeDelay, damage, knockback, texture);
@@ -1405,7 +1395,7 @@ public class ItemGrenade extends ItemWeapon {
       @Override
       public void onProjectileUpdate(EntityGrenade projectile) {
          if (!projectile.world.isRemote) {
-            if (projectile.flyingTime > projectile.grenade.firstExplodeDelay() && !projectile.isDead) {
+            if (projectile.flyingTime > projectile.grenade.getFirstExplodeDelay() && !projectile.isDead) {
                projectile.grenade
                   .explode(
                      projectile.world,
@@ -1429,14 +1419,14 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          if (!world.isRemote) {
-            double damageRadius = this.damageRadius() + (projectile != null ? projectile.explodes : 0);
+            double damageRadius = this.getDamageRadius() + (projectile != null ? projectile.explodes : 0);
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
             );
             List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(projectile, axisalignedbb);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int fire1 = parameters.getI("fire");
-            int fire2 = parameters.getI("friendlyfire_fire");
+            int fire1 = parameters.getInt("fire");
+            int fire2 = parameters.getInt("friendlyfire_fire");
             if (!list.isEmpty()) {
                for (Entity entity : list) {
                   if (Team.checkIsOpponent(player, entity)) {
@@ -1451,8 +1441,8 @@ public class ItemGrenade extends ItemWeapon {
                MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z), MathHelper.floor(damageRadius)
             )) {
                if (itemRand.nextFloat() < 0.4) {
-                  boolean isnotl = !world.getBlockState(pos).getMaterial().isLiquid();
-                  if (isnotl && world.getBlockState(pos).getBlock().isReplaceable(world, pos) && Blocks.FIRE.canPlaceBlockAt(world, pos)) {
+                  boolean notLiquid = !world.getBlockState(pos).getMaterial().isLiquid();
+                  if (notLiquid && world.getBlockState(pos).getBlock().isReplaceable(world, pos) && Blocks.FIRE.canPlaceBlockAt(world, pos)) {
                      world.setBlockState(pos, Blocks.FIRE.getDefaultState());
                   }
                }
@@ -1460,8 +1450,8 @@ public class ItemGrenade extends ItemWeapon {
 
             if (projectile != null) {
                projectile.explodes++;
-               projectile.flyingTime = this.firstExplodeDelay() - 15;
-               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).getI("max_explosions")) {
+               projectile.flyingTime = this.getFirstExplodeDelay() - 15;
+               if (projectile.explodes >= WeaponParameters.getWeaponParameters(this).getInt("max_explosions")) {
                   projectile.setDead();
                }
             }
@@ -1493,8 +1483,7 @@ public class ItemGrenade extends ItemWeapon {
                      z,
                      itemRand.nextGaussian() / 15.0,
                      itemRand.nextGaussian() / 25.0,
-                     itemRand.nextGaussian() / 15.0,
-                     new int[0]
+                     itemRand.nextGaussian() / 15.0
                   );
                }
 
@@ -1551,12 +1540,12 @@ public class ItemGrenade extends ItemWeapon {
 
             GlStateManager.disableCull();
             Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-            mainModel.hideAll();
-            mainModel.shapemain.isHidden = false;
-            mainModel.shapeup2.isHidden = false;
-            mainModel.shapestick.isHidden = false;
+            GRENADE_MODEL.hideAll();
+            GRENADE_MODEL.shapemain.isHidden = false;
+            GRENADE_MODEL.shapeup2.isHidden = false;
+            GRENADE_MODEL.shapestick.isHidden = false;
             AbstractMobModel.light(60, true);
-            mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+            GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
             AbstractMobModel.returnlight();
             GlStateManager.enableCull();
             GlStateManager.popMatrix();
@@ -1586,9 +1575,8 @@ public class ItemGrenade extends ItemWeapon {
          }
 
          if (result != null
-            && result.entityHit != null
-            && result.entityHit instanceof EntityLivingBase
-            && result.entityHit != projectile.getThrower()) {
+                 && result.entityHit instanceof EntityLivingBase
+                 && result.entityHit != projectile.getThrower()) {
             projectile.slowdown(0.1);
             if (!projectile.world.isRemote && projectile.explodes == 0) {
                this.explode(
@@ -1616,7 +1604,7 @@ public class ItemGrenade extends ItemWeapon {
          World world, @Nullable EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable EntityGrenade projectile
       ) {
          if (!world.isRemote) {
-            double damageRadius = this.damageRadius();
+            double damageRadius = this.getDamageRadius();
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(
                x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius
             );
@@ -1628,11 +1616,11 @@ public class ItemGrenade extends ItemWeapon {
                for (Entity entity : list) {
                   Weapons.dealDamage(
                      new WeaponDamage(stack, player, projectile, true, false, new Vec3d(x, y, z), WeaponDamage.shards),
-                     this.damage(),
+                     this.getDamage(),
                      player,
                      entity,
                      true,
-                     this.knockback(),
+                     this.getKnockback(),
                      x,
                      y,
                      z
@@ -1641,14 +1629,14 @@ public class ItemGrenade extends ItemWeapon {
                   Weapons.mixPotion(
                      entity,
                      PotionEffects.FIERYOIL,
-                     (float)parameters.getI("potion_time"),
-                     (float)parameters.getI("potion_power_add"),
+                     (float)parameters.getInt("potion_time"),
+                     (float)parameters.getInt("potion_power_add"),
                      Weapons.EnumPotionMix.GREATEST,
                      Weapons.EnumPotionMix.WITH_MAXIMUM,
                      Weapons.EnumMathOperation.NONE,
                      Weapons.EnumMathOperation.PLUS,
                      0,
-                     parameters.getI("potion_power_max")
+                     parameters.getInt("potion_power_max")
                   );
                }
             }
@@ -1662,8 +1650,8 @@ public class ItemGrenade extends ItemWeapon {
 
             for (int ss = 0; ss < 20; ss++) {
                int lt = 30 + itemRand.nextInt(20);
-               GUNParticle bigsmoke = new GUNParticle(
-                  oildrop,
+               GUNParticle bigSmoke = new GUNParticle(
+                       OIL_DROP,
                   0.1F + itemRand.nextFloat() * 0.1F,
                   0.025F,
                   lt,
@@ -1683,15 +1671,15 @@ public class ItemGrenade extends ItemWeapon {
                   true,
                   2.0F
                );
-               bigsmoke.dropMode = true;
-               world.spawnEntity(bigsmoke);
+               bigSmoke.dropMode = true;
+               world.spawnEntity(bigSmoke);
             }
 
             for (int ss = 0; ss < 7; ss++) {
-               float fsize = (float)(3.0 + itemRand.nextGaussian() / 5.0);
+               float size = (float)(3.0 + itemRand.nextGaussian() / 5.0);
                int lt = 10 + itemRand.nextInt(8);
                GUNParticle part = new GUNParticle(
-                  slimesplash,
+                       SLIME_SPLASH,
                   0.4F,
                   0.0F,
                   lt,
@@ -1709,7 +1697,7 @@ public class ItemGrenade extends ItemWeapon {
                   true,
                   itemRand.nextInt(360)
                );
-               part.scaleTickAdding = fsize / lt;
+               part.scaleTickAdding = size / lt;
                part.alphaTickAdding = -0.8F / lt;
                part.randomDeath = false;
                part.rotationPitchYaw = new Vec2f(itemRand.nextFloat() * 360.0F, itemRand.nextFloat() * 360.0F);
@@ -1771,9 +1759,8 @@ public class ItemGrenade extends ItemWeapon {
          }
 
          if (result != null
-            && result.entityHit != null
-            && result.entityHit instanceof EntityLivingBase
-            && result.entityHit != projectile.getThrower()) {
+                 && result.entityHit instanceof EntityLivingBase
+                 && result.entityHit != projectile.getThrower()) {
             projectile.slowdown(0.1);
             if (!projectile.world.isRemote) {
                this.explode(
@@ -1809,19 +1796,19 @@ public class ItemGrenade extends ItemWeapon {
 
          GlStateManager.disableCull();
          Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-         mainModel.hideAll();
-         mainModel.big.isHidden = false;
-         mainModel.shapestick.isHidden = false;
-         mainModel.shapeup2.isHidden = false;
-         mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+         GRENADE_MODEL.hideAll();
+         GRENADE_MODEL.big.isHidden = false;
+         GRENADE_MODEL.shapestick.isHidden = false;
+         GRENADE_MODEL.shapeup2.isHidden = false;
+         GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
          GlStateManager.enableCull();
          GlStateManager.popMatrix();
       }
    }
 
    public static class SeaGrenade extends ItemGrenade {
-      public SeaGrenade(String name, int maxstacksize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
-         super(name, maxstacksize, id, firstExplodeDelay, damage, knockback, texture);
+      public SeaGrenade(String name, int maxStackSize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
+         super(name, maxStackSize, id, firstExplodeDelay, damage, knockback, texture);
       }
 
       @Override
@@ -1830,7 +1817,7 @@ public class ItemGrenade extends ItemWeapon {
       }
 
       @Override
-      public int waterParticlesHookAdding() {
+      public int getWaterParticlesHookAdding() {
          return 2;
       }
 
@@ -1848,13 +1835,13 @@ public class ItemGrenade extends ItemWeapon {
       ) {
          if (!world.isRemote) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float damageRadius = parameters.getF("damage_radius");
-            int blockDestroyRadius = parameters.getI("destroy_radius");
-            int bombs = parameters.getI("bombs");
-            int minExplodeDelay = parameters.getI("min_bomb_explode_delay");
-            float bombDamage = parameters.getF("bomb_damage");
-            float bombSpeed = parameters.getF("bomb_speed");
-            HostileProjectiles.SeaBomb.explodeSeabomb(world, damageRadius, blockDestroyRadius, itemRand, new Vec3d(x, y, z), player, this.damage(), true);
+            float damageRadius = parameters.getFloat("damage_radius");
+            int blockDestroyRadius = parameters.getInt("destroy_radius");
+            int bombs = parameters.getInt("bombs");
+            int minExplodeDelay = parameters.getInt("min_bomb_explode_delay");
+            float bombDamage = parameters.getFloat("bomb_damage");
+            float bombSpeed = parameters.getFloat("bomb_speed");
+            HostileProjectiles.SeaBomb.explodeSeabomb(world, damageRadius, blockDestroyRadius, itemRand, new Vec3d(x, y, z), player, this.getDamage(), true);
 
             for (int i = 0; i < bombs; i++) {
                HostileProjectiles.SeaBomb bomb = new HostileProjectiles.SeaBomb(world, x, y, z);
@@ -1872,8 +1859,7 @@ public class ItemGrenade extends ItemWeapon {
                   );
                   RayTraceResult rayTraceResult = GetMOP.fixedRayTraceBlocks(world, player, 0.1, true, start, end, false, true, false);
                   boolean hitEntity = rayTraceResult != null
-                     && rayTraceResult.entityHit != null
-                     && Team.checkIsOpponent(player, rayTraceResult.entityHit);
+                          && Team.checkIsOpponent(player, rayTraceResult.entityHit);
                   if ((!success || hitEntity) && (rayTraceResult == null || rayTraceResult.typeOfHit != Type.BLOCK)) {
                      bomb.setPosition(start.x, start.y, start.z);
                      SuperKnockback.setMove(bomb, -bombSpeed, end.x, end.y, end.z);
@@ -1925,25 +1911,25 @@ public class ItemGrenade extends ItemWeapon {
 
          GlStateManager.disableCull();
          Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-         mainModel.hideAll();
-         mainModel.big.isHidden = false;
-         mainModel.stick1.isHidden = false;
-         mainModel.stick2.isHidden = false;
-         mainModel.stick3.isHidden = false;
-         mainModel.stick4.isHidden = false;
-         mainModel.shapedown2.isHidden = false;
-         mainModel.shapeup2.isHidden = false;
-         mainModel.shapedown.isHidden = false;
-         mainModel.shapeup.isHidden = false;
-         mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+         GRENADE_MODEL.hideAll();
+         GRENADE_MODEL.big.isHidden = false;
+         GRENADE_MODEL.stick1.isHidden = false;
+         GRENADE_MODEL.stick2.isHidden = false;
+         GRENADE_MODEL.stick3.isHidden = false;
+         GRENADE_MODEL.stick4.isHidden = false;
+         GRENADE_MODEL.shapedown2.isHidden = false;
+         GRENADE_MODEL.shapeup2.isHidden = false;
+         GRENADE_MODEL.shapedown.isHidden = false;
+         GRENADE_MODEL.shapeup.isHidden = false;
+         GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
          GlStateManager.enableCull();
          GlStateManager.popMatrix();
       }
    }
 
    public static class SnowGrenade extends ItemGrenade {
-      public SnowGrenade(String name, int maxstacksize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
-         super(name, maxstacksize, id, firstExplodeDelay, damage, knockback, texture);
+      public SnowGrenade(String name, int maxStackSize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
+         super(name, maxStackSize, id, firstExplodeDelay, damage, knockback, texture);
       }
 
       @Override
@@ -1957,21 +1943,21 @@ public class ItemGrenade extends ItemWeapon {
                != null) {
                for (EnumFacing f : EnumFacing.VALUES) {
                   posv = posv.add(f.getXOffset() * 2, f.getYOffset() * 2, f.getZOffset() * 2);
-                  BlockPos posf = new BlockPos(posv.x, posv.y, posv.z);
-                  if (world.getBlockState(posf).getCollisionBoundingBox(world, posf) == null) {
+                  BlockPos pos = new BlockPos(posv.x, posv.y, posv.z);
+                  if (world.getBlockState(pos).getCollisionBoundingBox(world, pos) == null) {
                      break;
                   }
                }
             }
 
-            int snowcount = WeaponParameters.getWeaponParameters(this).getI("falling_snow_count");
-            float snowspeed = WeaponParameters.getWeaponParameters(this).getI("falling_snow_speed");
-            int imax = Math.max(snowcount, 80);
+            int snowCount = WeaponParameters.getWeaponParameters(this).getInt("falling_snow_count");
+            float snowSpeed = WeaponParameters.getWeaponParameters(this).getInt("falling_snow_speed");
+            int imax = Math.max(snowCount, 80);
             int v = 0;
 
             for (int i = 0; i < imax; i++) {
                Vec3d speedVec = new Vec3d(
-                  (itemRand.nextFloat() - 0.5) * snowspeed, (itemRand.nextFloat() - 0.5) * snowspeed, (itemRand.nextFloat() - 0.5) * snowspeed
+                  (itemRand.nextFloat() - 0.5) * snowSpeed, (itemRand.nextFloat() - 0.5) * snowSpeed, (itemRand.nextFloat() - 0.5) * snowSpeed
                );
                BlockPos poss = new BlockPos(
                   posv.x + speedVec.x, posv.y + speedVec.y, posv.z + speedVec.z
@@ -1991,17 +1977,17 @@ public class ItemGrenade extends ItemWeapon {
                   afb.shouldDropItem = false;
                   world.spawnEntity(afb);
                   afb.velocityChanged = true;
-                  if (++v > snowcount) {
+                  if (++v > snowCount) {
                      break;
                   }
                }
             }
 
             for (BlockPos pos : GetMOP.getPosesInsideSphere(
-               MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z), (int)this.damageRadius()
+               MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z), (int)this.getDamageRadius()
             )) {
-               boolean isnotl = !world.getBlockState(pos).getMaterial().isLiquid();
-               if (isnotl && world.getBlockState(pos).getBlock().isReplaceable(world, pos)) {
+               boolean notLiquid = !world.getBlockState(pos).getMaterial().isLiquid();
+               if (notLiquid && world.getBlockState(pos).getBlock().isReplaceable(world, pos)) {
                   IBlockState dn = world.getBlockState(pos.down());
                   if (Blocks.SNOW_LAYER.canPlaceBlockAt(world, pos)
                      && dn.getBlock() != Blocks.SNOW_LAYER
@@ -2021,8 +2007,8 @@ public class ItemGrenade extends ItemWeapon {
 
             for (int ss = 0; ss < 20; ss++) {
                int lt = 20 + itemRand.nextInt(20);
-               GUNParticle bigsmoke = new GUNParticle(
-                  snow5,
+               GUNParticle bigSmoke = new GUNParticle(
+                       SNOW_FLAKE,
                   0.1F + itemRand.nextFloat() * 0.05F,
                   0.01F,
                   lt,
@@ -2040,8 +2026,8 @@ public class ItemGrenade extends ItemWeapon {
                   true,
                   itemRand.nextInt(360)
                );
-               bigsmoke.alphaTickAdding = -1.0F / lt;
-               world.spawnEntity(bigsmoke);
+               bigSmoke.alphaTickAdding = -1.0F / lt;
+               world.spawnEntity(bigSmoke);
             }
 
             int countOfParticles = 23;
@@ -2050,16 +2036,16 @@ public class ItemGrenade extends ItemWeapon {
             for (int ix = 0; ix < countOfParticles; ix++) {
                float rand1 = itemRand.nextFloat() * 2.0F - 1.0F;
                float rand2 = itemRand.nextFloat() * 2.0F - 1.0F;
-               float X = rand1 * R;
-               float new_R = (float)Math.sqrt(R * R - X * X);
-               float Y = rand2 * new_R;
-               float Z = (float)Math.sqrt(new_R * new_R - Y * Y);
+               float newX = rand1 * R;
+               float newR = (float)Math.sqrt(R * R - newX * newX);
+               float newY = rand2 * newR;
+               float newZ = (float)Math.sqrt(newR * newR - newY * newY);
                if (itemRand.nextBoolean()) {
-                  Z *= -1.0F;
+                  newZ *= -1.0F;
                }
 
                GUNParticle particle = new GUNParticle(
-                  snow,
+                       SNOW,
                   0.35F + (float)itemRand.nextGaussian() / 30.0F,
                   0.015F,
                   35 + itemRand.nextInt(20),
@@ -2068,9 +2054,9 @@ public class ItemGrenade extends ItemWeapon {
                   x,
                   y,
                   z,
-                  X,
-                  Y,
-                  Z,
+                  newX,
+                  newY,
+                  newZ,
                   0.8F + itemRand.nextFloat() / 10.0F,
                   0.9F,
                   1.0F,
@@ -2090,8 +2076,7 @@ public class ItemGrenade extends ItemWeapon {
                   z,
                   itemRand.nextGaussian() / 13.0,
                   itemRand.nextGaussian() / 13.0,
-                  itemRand.nextGaussian() / 13.0,
-                  new int[0]
+                  itemRand.nextGaussian() / 13.0
                );
                world.spawnParticle(
                   EnumParticleTypes.SNOWBALL,
@@ -2100,8 +2085,7 @@ public class ItemGrenade extends ItemWeapon {
                   z + itemRand.nextFloat() - 0.5,
                   itemRand.nextGaussian() / 7.0,
                   itemRand.nextGaussian() / 7.0,
-                  itemRand.nextGaussian() / 7.0,
-                  new int[0]
+                  itemRand.nextGaussian() / 7.0
                );
             }
          }
@@ -2126,29 +2110,29 @@ public class ItemGrenade extends ItemWeapon {
 
          GlStateManager.disableCull();
          Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-         mainModel.hideAll();
-         mainModel.shapemain.isHidden = false;
-         mainModel.big.isHidden = false;
-         mainModel.shapedown.isHidden = false;
-         mainModel.shapeup.isHidden = false;
-         mainModel.shapedown2.isHidden = false;
-         mainModel.shapeup2.isHidden = false;
-         mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+         GRENADE_MODEL.hideAll();
+         GRENADE_MODEL.shapemain.isHidden = false;
+         GRENADE_MODEL.big.isHidden = false;
+         GRENADE_MODEL.shapedown.isHidden = false;
+         GRENADE_MODEL.shapeup.isHidden = false;
+         GRENADE_MODEL.shapedown2.isHidden = false;
+         GRENADE_MODEL.shapeup2.isHidden = false;
+         GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
          GlStateManager.enableCull();
          GlStateManager.popMatrix();
       }
    }
 
    public static class WatchingGrenade extends ItemGrenade {
-      public static ParticleTracker.TrackerSmoothShowHide blackPortal_tssh = new ParticleTracker.TrackerSmoothShowHide(
+      public static final ParticleTracker.TrackerSmoothShowHide blackPortalTssh = new ParticleTracker.TrackerSmoothShowHide(
          null,
          new Vec3d[]{
             new Vec3d(0.0, 6.0, 0.1), new Vec3d(6.0, 8.0, -0.03), new Vec3d(8.0, 10.0, 0.03), new Vec3d(13.0, 15.0, 0.03), new Vec3d(15.0, 22.0, -0.101)
          }
       );
 
-      public WatchingGrenade(String name, int maxstacksize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
-         super(name, maxstacksize, id, firstExplodeDelay, damage, knockback, texture);
+      public WatchingGrenade(String name, int maxStackSize, byte id, int firstExplodeDelay, float damage, float knockback, ResourceLocation texture) {
+         super(name, maxStackSize, id, firstExplodeDelay, damage, knockback, texture);
       }
 
       @Override
@@ -2157,7 +2141,7 @@ public class ItemGrenade extends ItemWeapon {
       }
 
       @Override
-      public int waterParticlesHookAdding() {
+      public int getWaterParticlesHookAdding() {
          return 4;
       }
 
@@ -2188,10 +2172,10 @@ public class ItemGrenade extends ItemWeapon {
                }
             }
 
-            mob.livetime = WeaponParameters.getWeaponParameters(this).getI("watcher_livetime");
+            mob.livetime = WeaponParameters.getWeaponParameters(this).getInt("watcher_livetime");
             mob.rotationYaw = itemRand.nextInt(360) - 180;
             mob.isAgressive = true;
-            mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(WeaponParameters.getWeaponParameters(this).getF("damage"));
+            mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(WeaponParameters.getWeaponParameters(this).getFloat("damage"));
             if (projectile != null) {
                projectile.setDead();
             }
@@ -2212,18 +2196,18 @@ public class ItemGrenade extends ItemWeapon {
             }
 
             GUNParticle part = new GUNParticle(
-               shadow_round64x, 0.01F, 0.0F, 22, 0, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, false, itemRand.nextInt(360)
+                    SHADOW_ROUND, 0.01F, 0.0F, 22, 0, world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, false, itemRand.nextInt(360)
             );
-            part.tracker = blackPortal_tssh;
+            part.tracker = blackPortalTssh;
             part.randomDeath = false;
             part.isPushedByLiquids = false;
             world.spawnEntity(part);
-            float fsize = 1.5F + itemRand.nextFloat() * 0.5F;
+            float size = 1.5F + itemRand.nextFloat() * 0.5F;
             int lt = 4 + itemRand.nextInt(3);
             GUNParticle partx = new GUNParticle(
-               void_explode, 0.4F, 0.0F, lt, 240, world, x, y, z, 0.0F, 0.0F, 0.0F, 0.5F, 0.8F, 1.0F, true, itemRand.nextInt(360)
+                    VOID_EXPLODE, 0.4F, 0.0F, lt, 240, world, x, y, z, 0.0F, 0.0F, 0.0F, 0.5F, 0.8F, 1.0F, true, itemRand.nextInt(360)
             );
-            partx.scaleTickAdding = fsize / lt;
+            partx.scaleTickAdding = size / lt;
             partx.alphaGlowing = true;
             partx.alphaTickAdding = -0.9F / lt;
             partx.randomDeath = false;
@@ -2231,13 +2215,13 @@ public class ItemGrenade extends ItemWeapon {
             world.spawnEntity(partx);
 
             for (int i = 0; i < 10; i++) {
-               Vec3d motionvec = new Vec3d(itemRand.nextGaussian(), itemRand.nextGaussian(), itemRand.nextGaussian());
-               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(motionvec);
+               Vec3d motionVec = new Vec3d(itemRand.nextGaussian(), itemRand.nextGaussian(), itemRand.nextGaussian());
+               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(motionVec);
                int ltx = i < 5 ? 3 + itemRand.nextInt(3) : 10 + itemRand.nextInt(30);
                float scl = 0.5F + itemRand.nextFloat() * 0.5F;
-               Vec3d posAdd = motionvec.normalize().scale(scl / 2.0F);
-               GUNParticle partxx = new GUNParticle(
-                  lightning1,
+               Vec3d posAdd = motionVec.normalize().scale(scl / 2.0F);
+               GUNParticle particle = new GUNParticle(
+                       LIGHTNING,
                   scl,
                   0.0F,
                   ltx + 4,
@@ -2255,16 +2239,16 @@ public class ItemGrenade extends ItemWeapon {
                   true,
                   (int)(-pitchYaw.x + 270.0)
                );
-               partxx.randomDeath = false;
-               partxx.alphaGlowing = true;
-               partxx.rotationPitchYaw = new Vec2f(0.0F, (float)pitchYaw.y + 90.0F);
-               partxx.isPushedByLiquids = false;
+               particle.randomDeath = false;
+               particle.alphaGlowing = true;
+               particle.rotationPitchYaw = new Vec2f(0.0F, (float)pitchYaw.y + 90.0F);
+               particle.isPushedByLiquids = false;
                if (i >= 5) {
-                  partxx.alpha = -ltx / 2.0F;
-                  partxx.alphaTickAdding = 0.5F;
+                  particle.alpha = -ltx / 2.0F;
+                  particle.alphaTickAdding = 0.5F;
                }
 
-               world.spawnEntity(partxx);
+               world.spawnEntity(particle);
             }
          }
       }
@@ -2288,19 +2272,19 @@ public class ItemGrenade extends ItemWeapon {
 
          GlStateManager.disableCull();
          Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
-         mainModel.hideAll();
-         mainModel.shapemain.isHidden = false;
-         mainModel.shapecubeup.isHidden = false;
+         GRENADE_MODEL.hideAll();
+         GRENADE_MODEL.shapemain.isHidden = false;
+         GRENADE_MODEL.shapecubeup.isHidden = false;
          AbstractMobModel.light(200, false);
-         mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+         GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
          AbstractMobModel.returnlight();
-         mainModel.shapemain.isHidden = true;
-         mainModel.shapecubeup.isHidden = true;
-         mainModel.big.isHidden = false;
-         mainModel.pinhandle2.isHidden = false;
-         mainModel.shapecubedown.isHidden = false;
-         mainModel.shapedown.isHidden = false;
-         mainModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+         GRENADE_MODEL.shapemain.isHidden = true;
+         GRENADE_MODEL.shapecubeup.isHidden = true;
+         GRENADE_MODEL.big.isHidden = false;
+         GRENADE_MODEL.pinhandle2.isHidden = false;
+         GRENADE_MODEL.shapecubedown.isHidden = false;
+         GRENADE_MODEL.shapedown.isHidden = false;
+         GRENADE_MODEL.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
          GlStateManager.enableCull();
          GlStateManager.popMatrix();
       }

@@ -54,6 +54,7 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
       return this.hardres;
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       int i = 0;
       if (random.nextFloat() < 0.5F) {
@@ -81,10 +82,12 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
       }
    }
 
+   @Override
    public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
       return this.xpDropMin + RANDOM.nextInt(this.xpDropAdd + fortune);
    }
@@ -97,15 +100,18 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
       return (TileMonsterSpawner)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileMonsterSpawner createTileEntity(World world, IBlockState blockState) {
       return new TileMonsterSpawner();
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (this == BlocksRegister.FROZEN_SPAWNER) {

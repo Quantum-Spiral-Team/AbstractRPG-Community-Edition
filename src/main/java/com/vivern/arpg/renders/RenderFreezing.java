@@ -16,6 +16,7 @@ public class RenderFreezing extends RenderLiving<EntityLiving> {
       super(rendermanagerIn, modelbaseIn, 0.0F);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntityLiving entity) {
       return textur;
    }

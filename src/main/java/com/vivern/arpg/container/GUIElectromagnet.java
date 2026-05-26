@@ -23,6 +23,7 @@ public class GUIElectromagnet extends GuiScreen {
       this.tile = tile;
    }
 
+   @Override
    public void updateScreen() {
       super.updateScreen();
       if (this.tile != null) {
@@ -30,6 +31,7 @@ public class GUIElectromagnet extends GuiScreen {
       }
    }
 
+   @Override
    public void initGui() {
       super.initGui();
       this.guiLeft = (this.width - this.xSize) / 2;
@@ -44,6 +46,7 @@ public class GUIElectromagnet extends GuiScreen {
       return pointX >= rectX - 1 && pointX < rectX + rectWidth + 1 && pointY >= rectY - 1 && pointY < rectY + rectHeight + 1;
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
@@ -174,12 +177,14 @@ public class GUIElectromagnet extends GuiScreen {
       }
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       if (keyCode == 1 || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
          this.mc.player.closeScreen();
       }
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }

@@ -6,6 +6,9 @@ import com.vivern.arpg.tileentity.TileVoidCrystal;
 import com.google.common.base.Predicate;
 import java.util.List;
 import java.util.Random;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -38,6 +41,7 @@ public class VoidCrystal extends BlockSpawner {
       return false;
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       entityIn.attackEntityFrom(DamageSource.OUT_OF_WORLD, 2.0F);
    }
@@ -47,6 +51,7 @@ public class VoidCrystal extends BlockSpawner {
       return false;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return false;
    }
@@ -61,6 +66,7 @@ public class VoidCrystal extends BlockSpawner {
       return AABB;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void randomDisplayTick(IBlockState stateIn, World world, BlockPos pos, Random rand) {
       for (int i = 0; i < 2; i++) {
@@ -77,6 +83,7 @@ public class VoidCrystal extends BlockSpawner {
       }
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
@@ -98,6 +105,7 @@ public class VoidCrystal extends BlockSpawner {
       }
    }
 
+   @Override
    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
       if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
          List<ItemStack> drops = this.getDrops(worldIn, pos, state, fortune);
@@ -126,10 +134,12 @@ public class VoidCrystal extends BlockSpawner {
       return TileVoidCrystal.class;
    }
 
+   @Override
    public TileVoidCrystal getTileEntity(IBlockAccess world, BlockPos position) {
       return (TileVoidCrystal)world.getTileEntity(position);
    }
 
+   @Override
    @Nullable
    public TileVoidCrystal createTileEntity(World world, IBlockState blockState) {
       return new TileVoidCrystal();

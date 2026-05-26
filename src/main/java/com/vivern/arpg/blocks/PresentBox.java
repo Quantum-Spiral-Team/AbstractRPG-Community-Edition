@@ -41,6 +41,7 @@ public class PresentBox extends Block {
       this.setHarvestLevel("shears", 0);
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof IInventory) {
@@ -51,12 +52,14 @@ public class PresentBox extends Block {
       super.breakBlock(worldIn, pos, state);
    }
 
+   @Override
    public IBlockState getStateForPlacement(
       World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand
    ) {
       return this.getDefaultState().withProperty(TEXTYPE, RANDOM.nextInt(6));
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -72,10 +75,12 @@ public class PresentBox extends Block {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return AABB;
    }
@@ -88,31 +93,38 @@ public class PresentBox extends Block {
       return (TilePresentBox)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TilePresentBox createTileEntity(World world, IBlockState blockState) {
       return new TilePresentBox((Integer)blockState.getValue(TEXTYPE));
    }
 
+   @Override
    public boolean hasComparatorInputOverride(IBlockState state) {
       return true;
    }
 
+   @Override
    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
       return Container.calcRedstone(worldIn.getTileEntity(pos));
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
@@ -136,14 +148,17 @@ public class PresentBox extends Block {
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(TEXTYPE, meta);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(TEXTYPE);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{TEXTYPE});
    }

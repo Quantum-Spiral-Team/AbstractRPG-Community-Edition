@@ -17,22 +17,27 @@ public class CommandSwarmPoints extends CommandBase {
    public static final String NAME = "swarmpoints";
    public static final String USAGE = "/swarmpoints add integer_value | /swarmpoints set integer_value | /swarmpoints player_name add integer_value | /swarmpoints player_name set integer_value";
 
+   @Override
    public String getName() {
       return "swarmpoints";
    }
 
+   @Override
    public String getUsage(ICommandSender sender) {
       return "/swarmpoints add integer_value | /swarmpoints set integer_value | /swarmpoints player_name add integer_value | /swarmpoints player_name set integer_value";
    }
 
+   @Override
    public int getRequiredPermissionLevel() {
       return 2;
    }
 
+   @Override
    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
       return args.length == 0 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : getListOfStringsMatchingLastWord(args, new String[]{"set", "add"});
    }
 
+   @Override
    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException, NumberFormatException {
       EntityPlayer senderPlayer = null;
       Entity entity = getEntity(server, sender, args[0]);

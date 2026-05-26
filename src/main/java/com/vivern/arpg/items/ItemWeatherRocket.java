@@ -43,6 +43,7 @@ public class ItemWeatherRocket extends ItemItem {
       }
    }
 
+   @Override
    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
       if (!worldIn.isRemote) {
          ItemStack itemstack = player.getHeldItem(hand);

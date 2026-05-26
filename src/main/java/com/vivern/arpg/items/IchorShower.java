@@ -29,6 +29,7 @@ public class IchorShower extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -38,14 +39,17 @@ public class IchorShower extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -59,33 +63,33 @@ public class IchorShower extends ItemWeapon {
             float manacost = parameters.getEnchantedF("manacost", sor);
             if (click && player.getHeldItemMainhand() == itemstack && Mana.getMana(player) > manacost && !player.getCooldownTracker().hasCooldown(this)) {
                world.playSound(
-                  (EntityPlayer)null,
-                  player.posX,
-                  player.posY,
-                  player.posZ,
-                  Sounds.ichorsteam,
-                  SoundCategory.AMBIENT,
-                  0.8F,
-                  0.4F / (itemRand.nextFloat() * 0.4F + 0.8F)
+                       null,
+                       player.posX,
+                       player.posY,
+                       player.posZ,
+                       Sounds.ichorsteam,
+                       SoundCategory.AMBIENT,
+                       0.8F,
+                       0.4F / (itemRand.nextFloat() * 0.4F + 0.8F)
                );
                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                player.addStat(StatList.getObjectUseStats(this));
                Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
-               EntityIchor entit = new EntityIchor(world, player, itemstack, power);
+               EntityIchor entityIchor = new EntityIchor(world, player, itemstack, power);
                Weapons.shoot(
-                  entit,
+                  entityIchor,
                   EnumHand.MAIN_HAND,
                   player,
                   player.rotationPitch - 8.0F,
                   player.rotationYaw,
                   0.0F,
-                  parameters.getF("velocity"),
+                  parameters.getFloat("velocity"),
                   parameters.getEnchantedF("inaccuracy", acc),
                   -0.3F,
                   0.4F,
                   0.2F
                );
-               world.spawnEntity(entit);
+               world.spawnEntity(entityIchor);
                if (!player.capabilities.isCreativeMode) {
                   Mana.changeMana(player, -manacost);
                   Mana.setManaSpeed(player, 0.001F);
@@ -113,8 +117,4 @@ public class IchorShower extends ItemWeapon {
       return WeaponHandleType.TWO_HANDED;
    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
 }

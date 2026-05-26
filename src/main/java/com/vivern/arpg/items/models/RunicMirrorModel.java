@@ -54,6 +54,7 @@ public class RunicMirrorModel extends ModelBase {
       this.stick.addChild(this.frameright);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.stick.rotateAngleY = f;
       this.mirror.rotateAngleY = f;

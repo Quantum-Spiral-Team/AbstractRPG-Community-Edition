@@ -50,6 +50,7 @@ public class Submachine extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -59,14 +60,17 @@ public class Submachine extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -118,7 +122,7 @@ public class Submachine extends ItemWeapon {
                      player.addStat(StatList.getObjectUseStats(this));
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Weapons.setPlayerAnimationOnServer(player, 5, hand);
-                     int addheat = parameters.getI("heat_per_shoot");
+                     int addheat = parameters.getInt("heat_per_shoot");
                      NBTHelper.AddNBTint(itemstack, addheat, "heat");
                      if (addheat + heat >= 2000) {
                         world.playSound(
@@ -174,10 +178,10 @@ public class Submachine extends ItemWeapon {
                      }
 
                      float wdamage = parameters.getEnchantedF("damage", might)
-                        + damageadd * parameters.getF("bullet_damage")
-                        + heat * parameters.getF("per_heat_damage");
+                        + damageadd * parameters.getFloat("bullet_damage")
+                        + heat * parameters.getFloat("per_heat_damage");
                      float wknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack))
-                        + knockbackadd * parameters.getF("bullet_knockback");
+                        + knockbackadd * parameters.getFloat("bullet_knockback");
                      if (!list.isEmpty()) {
                         for (Entity entity : list) {
                            if (Team.checkIsOpponent(player, entity)) {
@@ -246,6 +250,7 @@ public class Submachine extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       boolean collidesWithAny = d3 == 3.0 || d3 == 2.0;
@@ -328,11 +333,13 @@ public class Submachine extends ItemWeapon {
       Booom.power = 0.28F;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;
@@ -350,7 +357,7 @@ public class Submachine extends ItemWeapon {
       return parameters.getEnchantedI("cooldown", rapidity)
          - (
             EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0
-               ? Math.round(Math.max(NBTHelper.GetNBTint(itemstack, "heat") * parameters.getF("special_heat_overclock") - 1.0F, 0.0F))
+               ? Math.round(Math.max(NBTHelper.GetNBTint(itemstack, "heat") * parameters.getFloat("special_heat_overclock") - 1.0F, 0.0F))
                : 0
          );
    }

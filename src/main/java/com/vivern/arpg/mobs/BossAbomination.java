@@ -99,6 +99,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
       return DeathEffects.ABOMINATION_BLOOD;
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       compound.setFloat("damagetosplit", this.damagToSplit);
       compound.setInteger("lumpkills", this.lumpKills);
@@ -110,6 +111,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("damagetosplit")) {
          this.damagToSplit = compound.getFloat("damagetosplit");
@@ -152,6 +154,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
       super.readFromNBT(compound);
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
@@ -164,6 +167,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
       }
    }
 
+   @Override
    public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
       if (!this.summonning) {
          super.knockBack(entityIn, strength, xRatio, zRatio);
@@ -407,6 +411,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
       this.lumped = false;
    }
 
+   @Override
    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
       Potion potion = potioneffectIn.getPotion();
       if (potion == MobEffects.POISON) {
@@ -418,6 +423,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
       }
    }
 
+   @Override
    public boolean canBreatheUnderwater() {
       return true;
    }
@@ -498,6 +504,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
       }
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(0, new EntityAISwimming(this));
       this.tasks.addTask(1, new EntityAIMoveThroughWalls(this, 30, 0.31F, 64.0F, 60, 50.0F));
@@ -533,10 +540,12 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
          this.entity = entity;
       }
 
+      @Override
       public boolean shouldExecute() {
          return true;
       }
 
+      @Override
       public void updateTask() {
          EntityLivingBase attackTarg = this.entity.getAttackTarget();
          this.cooldown--;

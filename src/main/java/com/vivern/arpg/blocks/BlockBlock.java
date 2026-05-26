@@ -49,10 +49,12 @@ public class BlockBlock extends Block {
       return this;
    }
 
+   @Override
    public float getSlipperiness(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
       return this.blockSlipperiness;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return this.packedLightmapCoords == -1 ? super.getPackedLightmapCoords(state, source, pos) : this.packedLightmapCoords;
@@ -64,6 +66,7 @@ public class BlockBlock extends Block {
       return this;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return this.layer;
@@ -84,10 +87,12 @@ public class BlockBlock extends Block {
       return this;
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return this.offsets;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return this.opaque;
    }
@@ -116,10 +121,12 @@ public class BlockBlock extends Block {
       return this;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return this.aabbSEL;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return this.aabbCOL;
    }
@@ -149,14 +156,17 @@ public class BlockBlock extends Block {
       return this;
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return this.vasePlace && worldIn.isAirBlock(pos.down()) ? false : super.canPlaceBlockAt(worldIn, pos);
    }
 
+   @Override
    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
       return this.replaceableOreGen;
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       if (this.dropped != null) {
          Item dr = Item.getByNameOrId(this.dropped);
@@ -166,10 +176,12 @@ public class BlockBlock extends Block {
       }
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return this.fullcub;
    }
 
+   @Override
    public boolean isFullBlock(IBlockState state) {
       return this.fullbloc;
    }

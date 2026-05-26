@@ -14,6 +14,7 @@ public class WrapperNetherMelter implements IRecipeWrapper {
       this.recipe = recipe;
    }
 
+   @Override
    public void getIngredients(IIngredients ingredients) {
       ingredients.setInputs(VanillaTypes.ITEM, this.recipe.exportInputsAsList());
       ingredients.setOutputs(VanillaTypes.ITEM, this.recipe.exportOutputAsList());

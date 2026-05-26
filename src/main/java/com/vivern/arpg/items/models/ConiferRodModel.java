@@ -51,6 +51,7 @@ public class ConiferRodModel extends ModelBase {
       this.setRotateAngle(this.con2, (float) (-Math.PI * 2.0 / 3.0), -0.22759093F, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.con4.offsetX, this.con4.offsetY, this.con4.offsetZ);

@@ -19,6 +19,7 @@ public class FrozenTileRoof extends Block implements IBlockHardBreak {
       this.setHarvestLevel("pickaxe", BlocksRegister.HR_FROZEN_ROOF.lvl);
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }

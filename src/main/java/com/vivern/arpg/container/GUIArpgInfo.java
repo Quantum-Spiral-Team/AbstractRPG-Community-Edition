@@ -24,10 +24,12 @@ public class GUIArpgInfo extends GuiScreen {
       this.player = player;
    }
 
+   @Override
    public void updateScreen() {
       super.updateScreen();
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       if (this.mc != null) {
          int mX = mouseX - (this.width - 256) / 2;
@@ -54,6 +56,7 @@ public class GUIArpgInfo extends GuiScreen {
       }
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       super.mouseClicked(mouseX, mouseY, mouseButton);
       int mX = mouseX - (this.width - 256) / 2;
@@ -67,10 +70,12 @@ public class GUIArpgInfo extends GuiScreen {
       }
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       super.keyTyped(typedChar, keyCode);
       if (this.mc != null && (keyCode == 1 || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode))) {

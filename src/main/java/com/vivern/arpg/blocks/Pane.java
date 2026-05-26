@@ -67,6 +67,7 @@ public class Pane extends Block {
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }
 
+   @Override
    public void addCollisionBoxToList(
       IBlockState state,
       World worldIn,
@@ -102,6 +103,7 @@ public class Pane extends Block {
       return 1 << p_185729_0_.getHorizontalIndex();
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       state = this.getActualState(state, source, pos);
       return AABB_BY_INDEX[getBoundingBoxIndex(state)];
@@ -128,6 +130,7 @@ public class Pane extends Block {
       return i;
    }
 
+   @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return state.withProperty(NORTH, this.canPaneConnectTo(worldIn, pos, EnumFacing.NORTH))
          .withProperty(SOUTH, this.canPaneConnectTo(worldIn, pos, EnumFacing.SOUTH))
@@ -135,14 +138,17 @@ public class Pane extends Block {
          .withProperty(EAST, this.canPaneConnectTo(worldIn, pos, EnumFacing.EAST));
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return !this.canDrop ? Items.AIR : super.getItemDropped(state, rand, fortune);
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
@@ -152,6 +158,7 @@ public class Pane extends Block {
       return this;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
       return blockAccess.getBlockState(pos.offset(side)).getBlock() == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
@@ -180,19 +187,23 @@ public class Pane extends Block {
          || p_193394_0_ == Blocks.BARRIER;
    }
 
+   @Override
    protected boolean canSilkHarvest() {
       return true;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT_MIPPED;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return 0;
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       switch (rot) {
          case CLOCKWISE_180:
@@ -215,6 +226,7 @@ public class Pane extends Block {
       }
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       switch (mirrorIn) {
          case LEFT_RIGHT:
@@ -226,10 +238,12 @@ public class Pane extends Block {
       }
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, WEST, SOUTH});
    }
 
+   @Override
    public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing) {
       BlockPos offset = pos.offset(facing);
       return this.attachesTo(world, world.getBlockState(offset), offset, facing.getOpposite());
@@ -241,6 +255,7 @@ public class Pane extends Block {
       return state.getBlock().canBeConnectedTo(world, other, dir.getOpposite()) || this.attachesTo(world, state, other, dir.getOpposite());
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE_THIN : BlockFaceShape.CENTER_SMALL;
    }

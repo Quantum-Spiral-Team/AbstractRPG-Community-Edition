@@ -22,6 +22,7 @@ public class ToxicPortalFrame extends Block {
       this.setSoundType(SoundType.ANVIL);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
       if (flag) {
@@ -79,6 +80,7 @@ public class ToxicPortalFrame extends Block {
       }
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }

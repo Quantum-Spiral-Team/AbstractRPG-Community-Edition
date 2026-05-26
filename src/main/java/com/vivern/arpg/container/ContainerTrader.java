@@ -21,6 +21,7 @@ public class ContainerTrader extends Container {
       }
    }
 
+   @Override
    public boolean canInteractWith(EntityPlayer playerIn) {
       return playerIn.isEntityAlive();
    }

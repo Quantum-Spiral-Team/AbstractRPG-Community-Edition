@@ -29,6 +29,7 @@ public class EmeraldEye extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
       ItemStack itemstack = playerIn.getHeldItem(handIn);
       RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
@@ -72,7 +73,7 @@ public class EmeraldEye extends Item {
                          0.9F + itemRand.nextFloat() / 5.0F
                  );
              } else if (tile instanceof TileRunicMirror) {
-                 NBTHelper.GiveNBTboolean(itemstack, true, firstClickedName);
+                 NBTHelper.giveNBTboolean(itemstack, true, firstClickedName);
                  NBTHelper.SetNBTboolean(itemstack, true, firstClickedName);
                  NBTHelper.GiveNBTBlockPos(itemstack, blockpos, "from");
                  NBTHelper.SetNBTBlockPos(itemstack, blockpos, "from");

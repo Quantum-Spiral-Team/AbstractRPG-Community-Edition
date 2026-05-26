@@ -68,10 +68,12 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
       this.magicPower = power;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.world.isRemote && this.firstUpdate1) {
@@ -102,16 +104,16 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
                true
             );
             if (entity != null) {
-               double multMotion = parameters.getF("friction");
+               double multMotion = parameters.getFloat("friction");
                this.motionX *= multMotion;
                this.motionY *= multMotion;
                this.motionZ *= multMotion;
                SuperKnockback.applyMove(
-                  this, -parameters.getF("follow_power_entity"), entity.posX, entity.posY + entity.height / 2.0F, entity.posZ
+                  this, -parameters.getFloat("follow_power_entity"), entity.posX, entity.posY + entity.height / 2.0F, entity.posZ
                );
             } else if (this.followPoint != null) {
                SuperKnockback.applyMove(
-                  this, -parameters.getF("follow_power_point"), this.followPoint.x, this.followPoint.y, this.followPoint.z
+                  this, -parameters.getFloat("follow_power_point"), this.followPoint.x, this.followPoint.y, this.followPoint.z
                );
             }
          }
@@ -160,6 +162,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -279,6 +282,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.impacted) {
          if (result.entityHit != null) {

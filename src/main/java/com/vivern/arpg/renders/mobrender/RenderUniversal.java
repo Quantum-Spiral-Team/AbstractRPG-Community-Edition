@@ -159,6 +159,7 @@ public class RenderUniversal extends RenderLiving<EntityLiving> {
       }
    }
 
+   @Override
    public void doRender(EntityLiving entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (this.noinverseLayers) {
          super.doRender(entity, x, y, z, entityYaw, partialTicks);
@@ -199,6 +200,7 @@ public class RenderUniversal extends RenderLiving<EntityLiving> {
       return new UniversalFactory(model, mobTexture, shadowSize, useIRender, entry);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull EntityLiving entity) {
       return this.lightLayerMode ? this.entry.lightLayerTexture : this.mobTexture;
@@ -237,6 +239,7 @@ public class RenderUniversal extends RenderLiving<EntityLiving> {
          return this;
       }
 
+      @Override
       public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
          return new RenderUniversal(
             manager, this.model, this.mobTexture, this.shadowSize, this.layerHeldItem, this.layerArmor, this.layerrandItem, this.useIRender, this.entry

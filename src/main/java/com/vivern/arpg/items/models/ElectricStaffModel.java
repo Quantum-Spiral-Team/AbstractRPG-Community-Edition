@@ -46,6 +46,7 @@ public class ElectricStaffModel extends ModelBase {
       this.setRotateAngle(this.stonee, 1.5934856F, 0.7740535F, -0.8196066F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.parts.offsetX, this.parts.offsetY, this.parts.offsetZ);

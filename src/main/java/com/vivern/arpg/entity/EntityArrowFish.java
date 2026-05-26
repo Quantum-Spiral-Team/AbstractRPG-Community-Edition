@@ -36,6 +36,7 @@ public class EntityArrowFish extends AbstractArrow {
       this.livetimeAir = 600;
    }
 
+   @Override
    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
       this.starterSpeed = velocity * 0.7F;
       super.shoot(x, y, z, velocity, inaccuracy);
@@ -100,6 +101,7 @@ public class EntityArrowFish extends AbstractArrow {
       }
    }
 
+   @Override
    public boolean hasNoGravity() {
       return super.hasNoGravity() || this.watered;
    }
@@ -109,14 +111,17 @@ public class EntityArrowFish extends AbstractArrow {
       return Sounds.arrow_fish;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_FISH);
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 9) {

@@ -22,15 +22,19 @@ public class FreezingParticle extends Entity {
       this.entityON = entityON;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 
+   @Override
    public void onUpdate() {
       if (this.ticksExisted > 1) {
          this.setDead();

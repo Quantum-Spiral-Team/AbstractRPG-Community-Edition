@@ -55,6 +55,7 @@ public class WorldGenAncientRuins extends WorldGenerator {
       this.columnHeightMax = columnHeightMax;
    }
 
+   @Override
    public boolean generate(World world, Random rand, BlockPos position) {
       this.sizelast = this.ruinsSizeMin + rand.nextInt(this.ruinsSizeMax - this.ruinsSizeMin + 1);
       int bricksHeight = this.bricksHeightMin + rand.nextInt(this.bricksHeightMax - this.bricksHeightMin + 1);

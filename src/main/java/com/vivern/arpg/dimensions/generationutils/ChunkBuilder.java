@@ -91,6 +91,7 @@ public class ChunkBuilder implements IBlockAccess {
       this.setBlockState(pos, newState);
    }
 
+   @Override
    public IBlockState getBlockState(BlockPos pos) {
       if (pos.getY() >= 0 && pos.getY() <= 255) {
          if (pos.getX() >= this.minPosX
@@ -123,6 +124,7 @@ public class ChunkBuilder implements IBlockAccess {
       return Blocks.AIR.getDefaultState();
    }
 
+   @Override
    public boolean isAirBlock(BlockPos pos) {
       return this.getBlockState(pos).getMaterial() == Material.AIR;
    }
@@ -144,30 +146,36 @@ public class ChunkBuilder implements IBlockAccess {
       }
    }
 
+   @Override
    @Nullable
    public TileEntity getTileEntity(BlockPos pos) {
       return null;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getCombinedLight(BlockPos pos, int lightValue) {
       return 0;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public Biome getBiome(BlockPos pos) {
       return Biomes.VOID;
    }
 
+   @Override
    public int getStrongPower(BlockPos pos, EnumFacing direction) {
       return this.getBlockState(pos).getStrongPower(this, pos, direction);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public WorldType getWorldType() {
       return WorldType.DEFAULT;
    }
 
+   @Override
    public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default) {
       return this.getBlockState(pos).isSideSolid(this, pos, side);
    }

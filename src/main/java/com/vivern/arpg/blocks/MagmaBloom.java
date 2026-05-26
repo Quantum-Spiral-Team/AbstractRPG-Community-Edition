@@ -50,12 +50,14 @@ public class MagmaBloom extends Block implements IGrowable {
       this.setTickRandomly(true);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       IBlockState st = worldIn.getBlockState(pos.down());
       Block block = st.getBlock();
-      return block != Blocks.LAVA && block != Blocks.FLOWING_LAVA ? false : (Integer)st.getValue(BlockLiquid.LEVEL) <= 1;
+      return (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) && st.getValue(BlockLiquid.LEVEL) <= 1;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
       if (!this.canPlaceBlockAt(worldIn, pos)) {
@@ -64,33 +66,40 @@ public class MagmaBloom extends Block implements IGrowable {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB[state.getValue(AGE)];
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote && rand.nextFloat() < 0.2F) {
          this.grow(worldIn, rand, pos, state);
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -103,18 +112,22 @@ public class MagmaBloom extends Block implements IGrowable {
       }
    }
 
+   @Override
    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
       return true;
    }
 
+   @Override
    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
       return false;
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return EnumOffsetType.XYZ;
    }
 
+   @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       EnumOffsetType block$enumoffsettype = this.getOffsetType();
       if (block$enumoffsettype == EnumOffsetType.NONE) {
@@ -127,8 +140,9 @@ public class MagmaBloom extends Block implements IGrowable {
       }
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-      if ((Integer)state.getValue(AGE) == 2) {
+      if (state.getValue(AGE) == 2) {
          int count = RANDOM.nextInt(3);
          if (count > 0) {
             drops.add(new ItemStack(ItemsRegister.LIQUID_FIRE, count));
@@ -138,10 +152,11 @@ public class MagmaBloom extends Block implements IGrowable {
       }
    }
 
+   @Override
    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
       if (rand.nextFloat() < 0.4) {
          if (this.canPlaceBlockAt(worldIn, pos)) {
-            worldIn.setBlockState(pos, state.withProperty(AGE, Math.min((Integer)state.getValue(AGE) + 1, 2)));
+            worldIn.setBlockState(pos, state.withProperty(AGE, Math.min(state.getValue(AGE) + 1, 2)));
          } else {
             this.dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
@@ -149,6 +164,7 @@ public class MagmaBloom extends Block implements IGrowable {
       }
    }
 
+   @Override
    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
       if (!world.isRemote) {
          player.setFire(5);
@@ -157,11 +173,13 @@ public class MagmaBloom extends Block implements IGrowable {
       return super.removedByPlayer(state, world, pos, player, willHarvest);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       double d0 = pos.getX();
       double d1 = pos.getY();
       double d2 = pos.getZ();
-      int age = (Integer)stateIn.getValue(AGE);
+      int age = stateIn.getValue(AGE);
       if (rand.nextInt(10 - age * 2) == 0) {
          Vec3d offset = this.getOffset(stateIn, worldIn, pos);
          double xx = d0 + offset.x + 0.5;
@@ -193,15 +211,18 @@ public class MagmaBloom extends Block implements IGrowable {
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(AGE, meta);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(AGE);
+      return state.getValue(AGE);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{AGE});
+      return new BlockStateContainer(this, AGE);
    }
 }

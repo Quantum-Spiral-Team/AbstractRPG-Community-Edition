@@ -19,6 +19,7 @@ public class MovingSoundEntity extends MovingSound {
       this.pitch = pitch;
    }
 
+   @Override
    public void update() {
       if (!this.entity.isDead) {
          this.xPosF = (float)this.entity.posX;

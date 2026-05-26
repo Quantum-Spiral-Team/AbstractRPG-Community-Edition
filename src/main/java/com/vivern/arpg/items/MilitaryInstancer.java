@@ -24,6 +24,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MilitaryInstancer extends Instancer {
    public static ResourceLocation toxic_spell = new ResourceLocation("arpg:textures/toxic_spell.png");
@@ -101,6 +103,7 @@ public class MilitaryInstancer extends Instancer {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       super.effect(player, world, x, y, z, a, b, c, d1, d2, d3);

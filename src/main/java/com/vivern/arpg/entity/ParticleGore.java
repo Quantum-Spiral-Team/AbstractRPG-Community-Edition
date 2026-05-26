@@ -15,11 +15,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class ParticleGore extends Entity {
    public float scale;
    public float gravity;
-   public int livetime = 1;
+   public int livetime;
    public ResourceLocation texture;
    public float rotateX;
    public float rotateY;
@@ -64,14 +63,17 @@ public class ParticleGore extends Entity {
       this.setVelocity(speedx, speedy, speedz);
    }
 
+   @Override
    protected boolean canTriggerWalking() {
       return false;
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return this.world.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.WATER, this);
    }
 
+   @Override
    public boolean canBeAttackedWithItem() {
       return false;
    }
@@ -82,6 +84,7 @@ public class ParticleGore extends Entity {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       this.prevPosX = this.posX;
@@ -177,12 +180,15 @@ public class ParticleGore extends Entity {
       this.rotateZ = this.rotateZ + this.rotateZspeed;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
    }
 }

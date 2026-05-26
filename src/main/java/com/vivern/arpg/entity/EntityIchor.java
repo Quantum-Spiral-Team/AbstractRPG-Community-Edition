@@ -57,6 +57,7 @@ public class EntityIchor extends StandardBullet {
       // B: скорее всего это сделано, чтобы убрать действие entityInit() из StandardBullet, но это не точно
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -112,6 +113,7 @@ public class EntityIchor extends StandardBullet {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       float gaussianX = (float)(this.rand.nextGaussian() / 40.0 + this.motionX / 10.0);

@@ -18,12 +18,14 @@ public class GUIDisenchantmentTable extends GuiContainer {
       this.tileinv = iInv;
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
       this.renderHoveredToolTip(mouseX, mouseY);
    }
 
+   @Override
    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
       String s = this.tileinv.getDisplayName().getUnformattedText();
       this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
@@ -38,6 +40,7 @@ public class GUIDisenchantmentTable extends GuiContainer {
       }
    }
 
+   @Override
    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
       int i = (this.width - this.xSize) / 2;

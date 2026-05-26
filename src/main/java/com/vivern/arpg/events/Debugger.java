@@ -128,7 +128,7 @@ public class Debugger {
       return debugColors.containsKey(name) ? debugColors.get(name) : zero4f;
    }
 
-   public static final void startPROFILING(int number) {
+   public static void startPROFILING(int number) {
       if (profilerBounderMode) {
          if (bounder[number] < boundValue) {
             profTimes[number] = System.nanoTime();
@@ -138,11 +138,11 @@ public class Debugger {
       }
    }
 
-   public static final void startPROFILING() {
+   public static void startPROFILING() {
       profTimes[0] = System.nanoTime();
    }
 
-   public static final void endPROFILING(int number) {
+   public static void endPROFILING(int number) {
       if (profilerBounderMode) {
          if (bounder[number] < boundValue) {
             System.out.println("TIME " + number + " : " + (System.nanoTime() - profTimes[number]));

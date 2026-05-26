@@ -30,36 +30,44 @@ public class Glowbush extends Block {
       this.lightValue = 4;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return 15728880;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return EnumOffsetType.XYZ;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public int quantityDropped(Random random) {
       return 0;
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return super.canPlaceBlockAt(worldIn, pos) && canStayAtPos(worldIn, pos);
    }
@@ -69,12 +77,14 @@ public class Glowbush extends Block {
       return blockd == BlocksRegister.FULMINIFLORA;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (!canStayAtPos(worldIn, pos)) {
          worldIn.destroyBlock(pos, true);
       }
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }

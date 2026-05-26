@@ -35,6 +35,7 @@ public class SlimeShotgun extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -44,10 +45,12 @@ public class SlimeShotgun extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -63,6 +66,7 @@ public class SlimeShotgun extends ItemWeapon {
       Booom.power = 0.06F * param + (param > 6 ? 0.3F * (param - 6) : 0.0F);
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -90,8 +94,8 @@ public class SlimeShotgun extends ItemWeapon {
                      player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                      player.addStat(StatList.getObjectUseStats(this));
                      Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
-                     int shots = parameters.getI("shots");
-                     shots += (int)(NBTHelper.GetNBTint(itemstack, "charge") * parameters.getF("charge_to_shots"));
+                     int shots = parameters.getInt("shots");
+                     shots += (int)(NBTHelper.GetNBTint(itemstack, "charge") * parameters.getFloat("charge_to_shots"));
                      IWeapon.fireBomEffect(this, player, world, shots);
 
                      for (int ss = 0; ss < shots; ss++) {
@@ -103,7 +107,7 @@ public class SlimeShotgun extends ItemWeapon {
                            player.rotationPitch,
                            player.rotationYaw,
                            0.2F,
-                           parameters.getF("velocity"),
+                           parameters.getFloat("velocity"),
                            parameters.getEnchantedF("inaccuracy", acc),
                            -0.13F,
                            0.5F,
@@ -113,7 +117,7 @@ public class SlimeShotgun extends ItemWeapon {
                      }
 
                      if (!player.capabilities.isCreativeMode) {
-                        if (itemRand.nextFloat() > reuse * parameters.getF("reus_ammo_save_chance")) {
+                        if (itemRand.nextFloat() > reuse * parameters.getFloat("reus_ammo_save_chance")) {
                            this.addAmmo(ammo, itemstack, -1);
                         }
 
@@ -137,7 +141,7 @@ public class SlimeShotgun extends ItemWeapon {
                }
             } else if (!click && player.getHeldItemMainhand() == itemstack && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
                NBTHelper.GiveNBTint(itemstack, 0, "charge");
-               if (NBTHelper.GetNBTint(itemstack, "charge") < parameters.getF("max_charge")) {
+               if (NBTHelper.GetNBTint(itemstack, "charge") < parameters.getFloat("max_charge")) {
                   NBTHelper.AddNBTint(itemstack, 1, "charge");
                }
             }
@@ -145,11 +149,13 @@ public class SlimeShotgun extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

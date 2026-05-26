@@ -28,10 +28,12 @@ public class ContainerMechanic extends Container {
       this.addSlotToContainer(new Slot(iInventory, 0, 80, 53));
    }
 
+   @Override
    public boolean canInteractWith(EntityPlayer playerIn) {
       return playerIn.isEntityAlive();
    }
 
+   @Override
    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
       ItemStack itemstack = ItemStack.EMPTY;
       Slot slot = (Slot)this.inventorySlots.get(index);

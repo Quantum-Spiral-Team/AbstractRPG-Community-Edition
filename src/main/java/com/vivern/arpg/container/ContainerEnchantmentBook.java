@@ -24,10 +24,12 @@ public class ContainerEnchantmentBook extends Container {
       }
    }
 
+   @Override
    public boolean canInteractWith(EntityPlayer playerIn) {
       return this.inventory.isUsableByPlayer(playerIn);
    }
 
+   @Override
    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
       ItemStack itemstack = ItemStack.EMPTY;
       Slot slot = (Slot)this.inventorySlots.get(index);

@@ -38,6 +38,7 @@ public class WorldGenMushroomSpawner implements IWorldGenerator {
       this.chance = chance;
    }
 
+   @Override
    public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       if (this.dimension == world.provider.getDimension() && rand.nextFloat() < this.chance * 4.0F) {
          Biome biome = world.getBiome(new BlockPos(chunkX * 16 + 8, 64, chunkZ * 16 + 8));

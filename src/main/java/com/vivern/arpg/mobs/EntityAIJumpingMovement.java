@@ -25,6 +25,7 @@ public class EntityAIJumpingMovement extends EntityAIBase {
       this.entity = entity;
    }
 
+   @Override
    public boolean shouldExecute() {
       return true;
    }
@@ -35,6 +36,7 @@ public class EntityAIJumpingMovement extends EntityAIBase {
       return this;
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase attackTarg = this.entity.getAttackTarget();
       if (attackTarg != null) {

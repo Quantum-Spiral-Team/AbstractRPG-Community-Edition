@@ -39,6 +39,7 @@ public class LoppyToxiberry extends Block implements IShearable {
       this.setLightLevel(0.45F);
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return ItemsRegister.GLOWING_TOXIBERRY;
    }
@@ -47,6 +48,7 @@ public class LoppyToxiberry extends Block implements IShearable {
       return block == BlocksRegister.LOPPY_TOXIBERRY || block == BlocksRegister.LOPPY_TOXISTEM;
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (worldIn.isAirBlock(pos.down())) {
          if (!this.isBerry(worldIn.getBlockState(pos.up()).getBlock())) {
@@ -73,14 +75,17 @@ public class LoppyToxiberry extends Block implements IShearable {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       if (worldIn.getBlockState(pos).getMaterial().isLiquid()) {
          return false;
@@ -90,6 +95,7 @@ public class LoppyToxiberry extends Block implements IShearable {
       }
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
       this.checkAndDropBlock(worldIn, pos, state);
@@ -119,27 +125,33 @@ public class LoppyToxiberry extends Block implements IShearable {
       return false;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
       return true;
    }
 
+   @Override
    public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
       return NonNullList.withSize(1, new ItemStack(this, 1));
    }

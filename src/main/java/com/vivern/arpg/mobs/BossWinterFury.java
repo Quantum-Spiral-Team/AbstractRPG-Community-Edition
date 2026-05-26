@@ -29,6 +29,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.BossInfo.Color;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BossWinterFury extends AbstractBoss {
    public float rotateDirectPitch = 0.0F;
@@ -116,6 +118,7 @@ public class BossWinterFury extends AbstractBoss {
       }
    }
 
+   @Override
    public float getEyeHeight() {
       return this.height * 0.55F;
    }
@@ -144,6 +147,7 @@ public class BossWinterFury extends AbstractBoss {
       }
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
@@ -328,6 +332,7 @@ public class BossWinterFury extends AbstractBoss {
       return b;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void handleStatusUpdate(byte id) {
       super.handleStatusUpdate(id);
@@ -478,10 +483,12 @@ public class BossWinterFury extends AbstractBoss {
       }
    }
 
+   @Override
    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
       return this.burnMode && potioneffectIn.getPotion() == PotionEffects.FROSTBURN ? false : super.isPotionApplicable(potioneffectIn);
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAIDragon(this, 140, 15.0F, 5, true, 8.0F, 2.0F, false));
       this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));

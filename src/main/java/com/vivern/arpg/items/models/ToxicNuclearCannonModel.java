@@ -41,6 +41,7 @@ public class ToxicNuclearCannonModel extends ModelBase {
       this.shapegrid1.addBox(-1.0F, -1.0F, -1.0F, 2, 2, 4, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shapegrid2.offsetX, this.shapegrid2.offsetY, this.shapegrid2.offsetZ);

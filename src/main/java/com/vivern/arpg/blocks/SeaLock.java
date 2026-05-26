@@ -29,12 +29,14 @@ public class SeaLock extends Block {
       this.setCreativeTab(CreativeTabs.REDSTONE);
    }
 
+   @Override
    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
       TileCombinationLock tile = this.getTileEntity(worldIn, pos);
       tile.setupQuestion(RANDOM);
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -76,10 +78,12 @@ public class SeaLock extends Block {
       return (TileCombinationLock)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileCombinationLock createTileEntity(World world, IBlockState blockState) {
       return new TileCombinationLock();

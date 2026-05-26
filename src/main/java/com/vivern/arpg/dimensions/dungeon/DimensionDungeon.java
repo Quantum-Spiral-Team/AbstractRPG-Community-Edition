@@ -232,23 +232,28 @@ public class DimensionDungeon extends WorldProvider {
       }
    }
 
+   @Override
    public DimensionType getDimensionType() {
       return DimensionsRegister.DUNGEON;
    }
 
+   @Override
    public IChunkGenerator createChunkGenerator() {
       return new DungeonChunkGenerator(this.world, this.world.getSeed());
    }
 
+   @Override
    protected void init() {
       this.hasSkyLight = true;
       this.biomeProvider = new BiomeProviderDungeon(this.world.getSeed());
    }
 
+   @Override
    public boolean isSurfaceWorld() {
       return false;
    }
 
+   @Override
    public boolean canBlockFreeze(BlockPos pos, boolean byWater) {
       return this.canBlockFreezes(this.world, pos, byWater);
    }
@@ -385,6 +390,7 @@ public class DimensionDungeon extends WorldProvider {
       return list;
    }
 
+   @Override
    public int getRespawnDimension(EntityPlayerMP player) {
       BlockPos blockpos = player.getBedLocation(102);
       if (blockpos == null) {
@@ -395,10 +401,12 @@ public class DimensionDungeon extends WorldProvider {
       }
    }
 
+   @Override
    public boolean canRespawnHere() {
       return false;
    }
 
+   @Override
    public WorldSleepResult canSleepAt(EntityPlayer player, BlockPos pos) {
       return WorldSleepResult.ALLOW;
    }

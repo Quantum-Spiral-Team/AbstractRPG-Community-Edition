@@ -28,22 +28,27 @@ public class LivingSponge extends Block {
       this.setDefaultState(this.getDefaultState().withProperty(HOLE, false));
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return meta == 1 ? this.getDefaultState().withProperty(HOLE, true) : this.getDefaultState().withProperty(HOLE, false);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return state.getValue(HOLE) ? 1 : 0;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{HOLE});
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return placer.isSneaking() ? this.getStateFromMeta(1) : this.getStateFromMeta(0);
    }

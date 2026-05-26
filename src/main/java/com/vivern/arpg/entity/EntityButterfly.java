@@ -43,10 +43,12 @@ public class EntityButterfly extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 6) {
@@ -59,6 +61,7 @@ public class EntityButterfly extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8) {
@@ -86,6 +89,7 @@ public class EntityButterfly extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       double damageRadius = 1.0;
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()

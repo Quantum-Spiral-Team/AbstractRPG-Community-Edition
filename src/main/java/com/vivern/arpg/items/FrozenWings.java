@@ -103,17 +103,17 @@ public class FrozenWings extends AbstractWings implements IAttributedBauble, IRe
    }
 
    @Override
-   public double getMaxUpwardMotion(ItemStack itemstack) {
+   public double getMaxUpwardMotion(ItemStack stack) {
       return 0.6;
    }
 
    @Override
-   public double getUpwardMotionAdd(ItemStack itemstack) {
+   public double getUpwardMotionAdd(ItemStack stack) {
       return 0.1;
    }
 
    @Override
-   public double getFallingMotionAdd(ItemStack itemstack) {
+   public double getFallingMotionAdd(ItemStack stack) {
       return 0.3;
    }
 
@@ -123,13 +123,14 @@ public class FrozenWings extends AbstractWings implements IAttributedBauble, IRe
    }
 
    @Override
-   public double getFallingMotionSlowdown(ItemStack itemstack) {
+   public double getFallingMotionSlowdown(ItemStack stack) {
       return 0.85;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
-   public void startElytraSound(EntityPlayerSP player) {
-      Minecraft.getMinecraft().getSoundHandler().playSound(new FrozenWingsSound(player));
+   protected MovingSound getWingsSound(EntityPlayer player) {
+      return new FrozenWingsSound(player);
    }
 
    @Override
@@ -167,18 +168,19 @@ public class FrozenWings extends AbstractWings implements IAttributedBauble, IRe
 
    @SideOnly(Side.CLIENT)
    public class FrozenWingsSound extends MovingSound {
-      private final EntityPlayerSP player;
+      private final EntityPlayer player;
       private int time;
       Random rand = new Random();
 
-      public FrozenWingsSound(EntityPlayerSP p_i47113_1_) {
+      public FrozenWingsSound(EntityPlayer player) {
          super(Sounds.frozen_wings_flying, SoundCategory.PLAYERS);
-         this.player = p_i47113_1_;
+         this.player = player;
          this.repeat = true;
          this.repeatDelay = 0;
          this.volume = 0.1F;
       }
 
+      @Override
       public void update() {
          this.time++;
          if (!this.player.isDead && (this.time <= 20 || this.player.isElytraFlying())) {

@@ -60,6 +60,7 @@ public class WorldGenMoltenSpikes implements IWorldGenerator {
       }
    }
 
+   @Override
    public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       if (-1 == world.provider.getDimension()) {
          for (int i = 0; i < 2; i++) {

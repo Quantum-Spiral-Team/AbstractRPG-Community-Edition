@@ -48,6 +48,7 @@ public class CustomMobProjectile extends EntityThrowable {
       this.mobInterf = mobInterf;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -60,18 +61,22 @@ public class CustomMobProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    public boolean isInWater() {
       return this.noWaterBubble ? false : this.inWater;
    }
 
+   @Override
    public boolean isPushedByWater() {
       return this.isPushedByLiquids;
    }
 
+   @Override
    protected float getGravityVelocity() {
       return this.grav;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.mobInterf != null) {
@@ -81,6 +86,7 @@ public class CustomMobProjectile extends EntityThrowable {
       this.world.setEntityState(this, (byte)9);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 8 && this.mobInterf != null) {
@@ -96,6 +102,7 @@ public class CustomMobProjectile extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (this.mobInterf != null) {
          this.mobInterf.onImpact(this, result);

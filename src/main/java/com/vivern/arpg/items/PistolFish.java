@@ -40,6 +40,7 @@ public class PistolFish extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -49,14 +50,17 @@ public class PistolFish extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!worldIn.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -110,7 +114,7 @@ public class PistolFish extends ItemWeapon {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getF("velocity"),
+                        parameters.getFloat("velocity"),
                         parameters.getEnchantedF("inaccuracy", acc),
                         -0.1F,
                         0.4F,
@@ -139,7 +143,7 @@ public class PistolFish extends ItemWeapon {
                                     Vec3d pos3 = pos2.subtract(pos1);
                                     double dist = Math.sqrt(pos3.x * pos3.x + pos3.z * pos3.z);
                                     SuperKnockback.setMove(
-                                       projectile2, -parameters.getF("velocity"), pos2.x, pos2.y + dist * 0.1, pos2.z
+                                       projectile2, -parameters.getFloat("velocity"), pos2.x, pos2.y + dist * 0.1, pos2.z
                                     );
                                     projectile2.livetime = parameters.getEnchantedI(
                                        "livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack)
@@ -190,11 +194,13 @@ public class PistolFish extends ItemWeapon {
       Booom.power = 0.22F;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

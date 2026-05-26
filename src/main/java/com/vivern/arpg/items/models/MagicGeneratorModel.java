@@ -49,6 +49,7 @@ public class MagicGeneratorModel extends ModelBase {
       this.coilInside.addBox(-2.0F, 0.0F, -2.0F, 4, 4, 4, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f == 1.0F) {
          this.shape3.render(f5);

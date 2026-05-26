@@ -105,6 +105,7 @@ public class SandScepterModel extends ModelBase {
       this.shape1_8.addBox(0.5F, -0.5F, -0.5F, 1, 1, 1, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1_5.render(f5);
       this.shape1_6.render(f5);

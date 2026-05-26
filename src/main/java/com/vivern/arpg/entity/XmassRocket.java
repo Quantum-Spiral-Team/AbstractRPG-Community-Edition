@@ -60,6 +60,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
       this.weaponstack = itemstack;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -72,10 +73,12 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.01F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 300) {
@@ -111,7 +114,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
          }
       } else if (this.explodeInstantly && this.ticksExisted > 3) {
          float damage = this.getDamage();
-         this.expl(null, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getF("damage_explode_mult"));
+         this.expl(null, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getFloat("damage_explode_mult"));
          this.world
             .playSound(
                (EntityPlayer)null,
@@ -354,6 +357,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
       return parameters.getEnchantedF("damage", might);
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
@@ -373,7 +377,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
             );
             result.entityHit.hurtResistantTime = 0;
             DeathEffects.applyDeathEffect(result.entityHit, DeathEffects.DE_DISMEMBER, 0.35F);
-            this.expl(result.entityHit, damage * parameters.getF("damage_explode_mult"));
+            this.expl(result.entityHit, damage * parameters.getFloat("damage_explode_mult"));
             this.world
                .playSound(
                   (EntityPlayer)null,
@@ -407,7 +411,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
             );
          if (!this.world.isRemote) {
             float damage = this.getDamage();
-            this.expl(result.entityHit, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getF("damage_explode_mult"));
+            this.expl(result.entityHit, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getFloat("damage_explode_mult"));
             if (result.hitVec != null) {
                IEntitySynchronize.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z

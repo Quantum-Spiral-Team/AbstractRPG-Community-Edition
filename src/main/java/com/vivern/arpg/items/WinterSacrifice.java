@@ -27,6 +27,7 @@ public class WinterSacrifice extends Item {
       this.setMaxStackSize(16);
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
@@ -72,7 +73,7 @@ public class WinterSacrifice extends Item {
          }
 
          if (player instanceof EntityPlayerSP) {
-            ((EntityPlayerSP)player).sendChatMessage("Fail! пїЅhe sky should not be blocked");
+            ((EntityPlayerSP)player).sendChatMessage("Fail! \u00A7he sky should not be blocked");
          }
 
          return new ActionResult(EnumActionResult.FAIL, itemstack);

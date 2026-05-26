@@ -37,30 +37,37 @@ public class GemsparkBlock extends BlockFalling {
       this.setLightLevel(0.35F);
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isTopSolid(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return side == EnumFacing.DOWN;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
       if (!entityIn.isImmuneToFire() && entityIn instanceof EntityLivingBase && !EnchantmentHelper.hasFrostWalkerEnchantment((EntityLivingBase)entityIn)) {
          entityIn.attackEntityFrom(DamageSource.MAGIC, 1.0F);
@@ -69,19 +76,23 @@ public class GemsparkBlock extends BlockFalling {
       super.onEntityWalk(worldIn, pos, entityIn);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return 15728880;
    }
 
+   @Override
    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
       return face.getAxis() != Axis.Y;
    }
 
+   @Override
    public int tickRate(World worldIn) {
       return 10;
    }
 
+   @Override
    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
       super.updateTick(world, pos, state, rand);
       if (!world.isRemote) {
@@ -129,6 +140,7 @@ public class GemsparkBlock extends BlockFalling {
       }
    }
 
+   @Override
    public PathNodeType getAiPathNodeType(IBlockState state, IBlockAccess world, BlockPos pos) {
       return PathNodeType.DAMAGE_OTHER;
    }

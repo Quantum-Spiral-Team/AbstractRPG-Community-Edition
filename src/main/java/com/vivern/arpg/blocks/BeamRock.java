@@ -42,11 +42,13 @@ public class BeamRock extends BlockRotatedPillar implements IBlockHardBreak {
       return BlocksRegister.HR_STORMBRASS_ROCKS;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return 15728880;
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
       switch (meta) {
@@ -66,6 +68,7 @@ public class BeamRock extends BlockRotatedPillar implements IBlockHardBreak {
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((EnumAxis)state.getValue(LOG_AXIS)) {
@@ -82,22 +85,27 @@ public class BeamRock extends BlockRotatedPillar implements IBlockHardBreak {
       return i;
    }
 
+   @Override
    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
       return super.removedByPlayer(state, world, pos, player, willHarvest);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return MapColor.OBSIDIAN;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       switch (rot) {
          case COUNTERCLOCKWISE_90:

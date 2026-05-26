@@ -10,6 +10,7 @@ public class TilePortal extends TileEntity {
    public BlockPos linkedPortal = null;
    public int dimensionToTeleport;
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("mainBlockposX") && compound.hasKey("mainBlockposY") && compound.hasKey("mainBlockposZ")) {
          this.mainBlockPosition = new BlockPos(
@@ -34,6 +35,7 @@ public class TilePortal extends TileEntity {
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       if (this.mainBlockPosition != null) {
          compound.setInteger("mainBlockposX", this.mainBlockPosition.getX());

@@ -46,14 +46,17 @@ public class StaticLance extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return false;
    }
@@ -63,6 +66,7 @@ public class StaticLance extends ItemWeapon {
       return false;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (world.isRemote && Debugger.floats[0] != 0.0F) {
          NBTHelper.SetNBTint(itemstack, (int)Debugger.floats[0], "boomcooldown");
@@ -178,7 +182,7 @@ public class StaticLance extends ItemWeapon {
                      );
                      List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
                      double power = Math.min(
-                        (double)parameters.getF("special_max_power"),
+                        (double)parameters.getFloat("special_max_power"),
                         EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 ? Math.abs(player.motionY) : 0.0
                      );
                      if (!list.isEmpty()) {
@@ -189,7 +193,7 @@ public class StaticLance extends ItemWeapon {
                                  (float)(
                                     player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()
                                        + parameters.getEnchantedF("blow_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack))
-                                       + power * parameters.getF("special_damage")
+                                       + power * parameters.getFloat("special_damage")
                                  ),
                                  player,
                                  entity,
@@ -242,6 +246,7 @@ public class StaticLance extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       GUNParticle bigsmoke1 = new GUNParticle(
@@ -304,11 +309,13 @@ public class StaticLance extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "boomcooldown") > 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);

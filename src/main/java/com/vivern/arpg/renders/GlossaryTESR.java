@@ -20,6 +20,7 @@ public class GlossaryTESR extends TileEntitySpecialRenderer<TileGlossary> {
    public static GlossaryModel model = new GlossaryModel();
    public static ResourceLocation texture = new ResourceLocation("arpg:textures/glossary_model_tex.png");
 
+   @Override
    public void render(TileGlossary te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.enableDepth();
       GlStateManager.depthFunc(515);

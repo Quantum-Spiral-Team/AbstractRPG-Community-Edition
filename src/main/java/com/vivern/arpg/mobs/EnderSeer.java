@@ -25,17 +25,21 @@ public class EnderSeer extends EntityMob {
       this.setNoGravity(true);
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
+   @Override
    protected boolean canDespawn() {
       return this.getAttackTarget() == null || this.getDistance(this.getAttackTarget()) > 100.0F;
    }
 
+   @Override
    protected float getSoundVolume() {
       return 15.0F;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote) {
@@ -43,6 +47,7 @@ public class EnderSeer extends EntityMob {
       }
    }
 
+   @Override
    protected void applyEntityAttributes() {
       super.applyEntityAttributes();
       this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(150.0);
@@ -54,18 +59,22 @@ public class EnderSeer extends EntityMob {
       this.getEntityAttribute(PropertiesRegistry.ARMOR_PROTECTION).setBaseValue(3.0);
    }
 
+   @Override
    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
       return Sounds.ender_seer_hurt;
    }
 
+   @Override
    protected SoundEvent getDeathSound() {
       return Sounds.ender_seer_dead;
    }
 
+   @Override
    protected SoundEvent getAmbientSound() {
       return Sounds.ender_seer_living;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       super.handleStatusUpdate(id);
@@ -110,6 +119,7 @@ public class EnderSeer extends EntityMob {
       }
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAIFlying(this, 150, 25.0F, 0.02F, false));
       this.tasks.addTask(2, new EntityAIEnderSeerAttack(this));

@@ -12,6 +12,9 @@ import com.vivern.arpg.weather.TimeOfDayProvider;
 import com.vivern.arpg.weather.WorldEvent;
 import com.vivern.arpg.weather.WorldEventsHandler;
 import java.util.Random;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -79,22 +82,30 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
    public Aurora aurora = new Aurora(this, 2, 8000, 12000, 0.025F);
    public WorldEventsHandler worldEventsHandler = new WorldEventsHandler(this, this.snowfall, this.hail, this.aurora);
 
+   @Override
    public void getLightmapColors(float partialTicks, float sunBrightness, float skyLight, float blockLight, float[] colors) {
       timeOfDayProvider.setLightmapColors(6, this.getWorldTime(), partialTicks, sunBrightness, skyLight, blockLight, colors);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
       return null;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public IRenderHandler getSkyRenderer() {
       return skyRender;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public IRenderHandler getWeatherRenderer() {
       return this.worldEventsHandler;
    }
 
+   @Override
    public void updateWeather() {
       this.worldEventsHandler.onUpdate();
    }
@@ -111,9 +122,9 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
 
    public static boolean isAuroraNow(World world) {
       if (world.provider instanceof AbstractWorldProvider) {
-         AbstractWorldProvider worldProvider = (AbstractWorldProvider)world.provider;
-         if (worldProvider.getWorldEventsHandler() != null) {
-            for (WorldEvent worldEvent : worldProvider.getWorldEventsHandler().events) {
+         AbstractWorldProvider provider = (AbstractWorldProvider)world.provider;
+         if (provider.getWorldEventsHandler() != null) {
+            for (WorldEvent worldEvent : provider.getWorldEventsHandler().events) {
                if (worldEvent instanceof Aurora) {
                   return worldEvent.isStarted;
                }
@@ -139,10 +150,12 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
       return false;
    }
 
+   @Override
    public DimensionType getDimensionType() {
       return DimensionsRegister.ETHERNAL_FROST;
    }
 
+   @Override
    public IChunkGenerator createChunkGenerator() {
       return new EthernalFrostChunkGenerator(this.world, this.world.getSeed());
    }
@@ -154,70 +167,48 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
       this.biomeProvider = new BiomeProviderFrost(this.world.getSeed());
    }
 
+   @Override
    public boolean canRespawnHere() {
       return true;
    }
 
+   @Override
    public boolean canBlockFreeze(BlockPos pos, boolean byWater) {
-      return this.canBlockFreezes(this.world, pos, byWater);
-   }
-
-   public boolean canBlockFreezes(World world, BlockPos pos, boolean noWaterAdj) {
-      Biome biome = world.getBiome(pos);
+      Biome biome = this.world.getBiome(pos);
       float f = biome.getTemperature(pos);
-      if (f >= 0.15F) {
-         return false;
-      } else {
-         if (pos.getY() >= 0 && pos.getY() < 256 && world.getLightFor(EnumSkyBlock.BLOCK, pos) < 10) {
-            IBlockState iblockstate1 = world.getBlockState(pos);
-            Block block = iblockstate1.getBlock();
-            if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
-               if (!noWaterAdj) {
-                  return true;
-               }
-
-               return true;
-            }
-         }
-
-         return false;
+      if (f >= 0.15F && pos.getY() >= 0 && pos.getY() < 256 && this.world.getLightFor(EnumSkyBlock.BLOCK, pos) < 10) {
+         IBlockState state = this.world.getBlockState(pos);
+         Block block = state.getBlock();
+         return block == Blocks.WATER || block == Blocks.FLOWING_WATER;
       }
+      return false;
    }
 
+   // B: Random??
    public static void setupRandomSpawner(@Nullable World world, @Nullable TileEntity tile, EnumEverfrostSpawner type, Random rand) {
       if (world == null && tile != null) {
          world = tile.getWorld();
       }
 
-      if (tile != null && tile instanceof TileMonsterSpawner && world != null) {
-         TileMonsterSpawner spawner = (TileMonsterSpawner)tile;
-         if (type == EnumEverfrostSpawner.ICE_CASTLE_PARAPET) {
-            SpawnerTuners.ICECASTLEPARAPET.setupSpawner(world, spawner, world.rand);
-         }
-
-         if (type == EnumEverfrostSpawner.ICE_CASTLE) {
-            SpawnerTuners.ICECASTLE.setupSpawner(world, spawner, world.rand);
-         }
-
-         if (type == EnumEverfrostSpawner.MOUND) {
-            SpawnerTuners.MOUND.setupSpawner(world, spawner, world.rand);
-         }
-
-         if (type == EnumEverfrostSpawner.STRUCTURES) {
-            SpawnerTuners.EVERFROST_STRUCTURES.setupSpawner(world, spawner, world.rand);
-         }
-
-         if (type == EnumEverfrostSpawner.GRAVE) {
-            SpawnerTuners.EVERFROST_GRAVE.setupSpawner(world, spawner, world.rand);
-         }
-
-         if (type == EnumEverfrostSpawner.NIVEOUS_HALL) {
-            SpawnerTuners.NIVEOUSHALL.setupSpawner(world, spawner, world.rand);
+      if (tile instanceof TileMonsterSpawner) {
+         switch (type) {
+            case ICE_CASTLE_PARAPET:
+               SpawnerTuners.ICECASTLEPARAPET.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+            case ICE_CASTLE:
+               SpawnerTuners.ICECASTLE.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+            case MOUND:
+               SpawnerTuners.MOUND.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+            case STRUCTURES:
+               SpawnerTuners.EVERFROST_STRUCTURES.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+            case GRAVE:
+               SpawnerTuners.EVERFROST_GRAVE.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+            case NIVEOUS_HALL:
+               SpawnerTuners.NIVEOUSHALL.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
          }
       }
    }
 
-   public static enum EnumEverfrostSpawner {
+   public enum EnumEverfrostSpawner {
       ICE_CASTLE,
       ICE_CASTLE_PARAPET,
       MOUND,

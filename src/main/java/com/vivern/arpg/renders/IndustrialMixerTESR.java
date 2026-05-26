@@ -16,6 +16,7 @@ public class IndustrialMixerTESR extends TileEntitySpecialRenderer<TileIndustria
    public static IndustrialMixerModel model = new IndustrialMixerModel();
    public static ResourceLocation tex = new ResourceLocation("arpg:textures/industrial_mixer_model_tex.png");
 
+   @Override
    public void render(@Nullable TileIndustrialMixer te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       float rotorRotation = 0.0F;
       float blockRotation = 0.0F;

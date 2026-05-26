@@ -1,6 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.arpgamemodes.SurvivorGamestyleWatcher;
+import com.vivern.arpg.arpgamemodes.SurvivorGameStyleWatcher;
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
 import com.vivern.arpg.weather.WorldEvent;
 import com.google.common.base.Predicate;
@@ -107,8 +107,8 @@ public class MobReactor {
             && !this.biomeLogic.apply(playerSpawnOn.world.getBiome(playerSpawnOn.getPosition()))) {
             return false;
          } else if (this.survivorGamestyleLevel > 0
-            && SurvivorGamestyleWatcher.currentWatcher != null
-            && SurvivorGamestyleWatcher.currentWatcher.LEVEL < this.survivorGamestyleLevel) {
+            && SurvivorGameStyleWatcher.currentWatcher != null
+            && SurvivorGameStyleWatcher.currentWatcher.LEVEL < this.survivorGamestyleLevel) {
             return false;
          } else {
             if (this.worldEventsSpawnLogic != WorldEventsSpawnLogic.NOT_AFFECT) {

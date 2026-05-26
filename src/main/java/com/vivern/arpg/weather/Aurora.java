@@ -18,6 +18,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Aurora extends WorldEvent {
    public NoiseGeneratorPerlin perlin1 = new NoiseGeneratorPerlin(new Random(1L), 2);
@@ -53,6 +55,7 @@ public class Aurora extends WorldEvent {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       super.render(partialTicks, world, mc);

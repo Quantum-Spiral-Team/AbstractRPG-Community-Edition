@@ -68,6 +68,7 @@ public class GhostSwordModel extends ModelBase {
       this.blade.addBox(-0.5F, -8.0F, -1.5F, 1, 8, 3, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape_1.offsetX, this.shape_1.offsetY, this.shape_1.offsetZ);

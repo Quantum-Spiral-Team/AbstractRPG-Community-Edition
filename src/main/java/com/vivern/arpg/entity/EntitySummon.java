@@ -51,6 +51,7 @@ public class EntitySummon extends EntityThrowable {
       this.weaponstack = itemstack;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 3) {
@@ -93,6 +94,7 @@ public class EntitySummon extends EntityThrowable {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void onEntityUpdate() {
       GUNParticle fire = new GUNParticle(
@@ -119,10 +121,12 @@ public class EntitySummon extends EntityThrowable {
       this.world.spawnEntity(fire);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.07F;
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (!this.world.isRemote) {
          if (this.getThrower() instanceof EntityPlayer && this.getThrower() != null) {
@@ -178,6 +182,7 @@ public class EntitySummon extends EntityThrowable {
       }
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
    }
 }

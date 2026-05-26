@@ -5,6 +5,8 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class InstantAgree extends Potion {
    protected InstantAgree(boolean isBadEffectIn, int liquidColorIn) {
@@ -13,14 +15,18 @@ public class InstantAgree extends Potion {
       this.setPotionName("Instant_Agree");
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasStatusIcon() {
       return false;
    }
 
+   @Override
    public boolean isInstant() {
       return true;
    }
 
+   @Override
    public void affectEntity(Entity source, Entity indirectSource, EntityLivingBase entityLivingBase, int amplifier, double health) {
       if (entityLivingBase instanceof EntityCreature && indirectSource != null && indirectSource instanceof EntityLivingBase) {
          EntityCreature creature = (EntityCreature)entityLivingBase;

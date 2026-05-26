@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class StarLanternTESR extends TileEntitySpecialRenderer<TileStarLantern> {
+   @Override
    public void render(TileStarLantern te, double xx, double yy, double zz, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(xx, yy, zz);

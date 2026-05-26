@@ -128,11 +128,13 @@ public class SummonedSnowman extends EntitySummoned {
       this.getEntityAttribute(PropertiesRegistry.MELEE_KNOCKBACK).setBaseValue(enchImpulse);
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new EntityAISwimming(this));
       this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));
    }
 
+   @Override
    public void onDeath(DamageSource cause) {
       super.onDeath(cause);
       int enchReuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack);

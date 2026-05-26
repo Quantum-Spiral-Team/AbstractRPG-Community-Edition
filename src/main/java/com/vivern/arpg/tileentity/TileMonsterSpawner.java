@@ -82,6 +82,7 @@ public class TileMonsterSpawner extends TileEntity implements ITickable {
       return this;
    }
 
+   @Override
    public void update() {
       this.spawnDelay--;
       if (this.spawnDelay <= 0 && this.isActive) {
@@ -259,6 +260,7 @@ public class TileMonsterSpawner extends TileEntity implements ITickable {
       return pos.getY();
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       super.readFromNBT(compound);
       if (compound.hasKey("spawnDelay")) {
@@ -338,6 +340,7 @@ public class TileMonsterSpawner extends TileEntity implements ITickable {
       }
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       super.writeToNBT(compound);
       compound.setInteger("spawnDelay", this.spawnDelay);

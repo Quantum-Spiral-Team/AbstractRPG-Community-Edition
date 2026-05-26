@@ -26,6 +26,7 @@ public class BlockWeaponSpawner extends Block {
       this.setCreativeTab(CreativeTabs.REDSTONE);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
       if (worldIn.getTileEntity(pos) instanceof TileWeaponSpawner) {
@@ -40,6 +41,7 @@ public class BlockWeaponSpawner extends Block {
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -63,15 +65,18 @@ public class BlockWeaponSpawner extends Block {
       return (TileWeaponSpawner)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileWeaponSpawner createTileEntity(World world, IBlockState blockState) {
       return new TileWeaponSpawner();
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof TileWeaponSpawner) {
@@ -82,10 +87,12 @@ public class BlockWeaponSpawner extends Block {
       super.breakBlock(worldIn, pos, state);
    }
 
+   @Override
    public boolean hasComparatorInputOverride(IBlockState state) {
       return true;
    }
 
+   @Override
    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
       return Container.calcRedstone(worldIn.getTileEntity(pos));
    }

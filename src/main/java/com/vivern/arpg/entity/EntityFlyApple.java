@@ -26,6 +26,7 @@ public class EntityFlyApple extends EntityThrowable {
       super(world, x, y, z);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 3) {
@@ -33,6 +34,7 @@ public class EntityFlyApple extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       int i = 4;
       AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().expand(4.0, 4.0, 4.0).offset(-2.0, -2.0, -2.0);

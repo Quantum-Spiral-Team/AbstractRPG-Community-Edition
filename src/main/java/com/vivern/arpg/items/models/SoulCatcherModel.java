@@ -152,6 +152,7 @@ public class SoulCatcherModel extends ModelBase {
       this.horn_3.addChild(this.horn_4);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shape1.rotateAngleX = 0.63739425F + f * 0.017453F;
       this.shape1.render(f5);

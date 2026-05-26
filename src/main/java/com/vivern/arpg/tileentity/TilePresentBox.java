@@ -27,12 +27,14 @@ public class TilePresentBox extends TileEntityLockableLoot {
       this.texture = texture;
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       compound.setBoolean("opened", this.opened);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       if (compound.hasKey("opened")) {
@@ -40,6 +42,7 @@ public class TilePresentBox extends TileEntityLockableLoot {
       }
    }
 
+   @Override
    public void openInventory(EntityPlayer player) {
       if (!player.isSpectator() && !this.opened) {
          this.opened = true;
@@ -56,6 +59,7 @@ public class TilePresentBox extends TileEntityLockableLoot {
       }
    }
 
+   @Override
    public void closeInventory(EntityPlayer player) {
       if (!player.isSpectator()) {
          this.opened = false;
@@ -72,10 +76,12 @@ public class TilePresentBox extends TileEntityLockableLoot {
       }
    }
 
+   @Override
    public int getSizeInventory() {
       return 9;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.stacks) {
          if (!itemstack.isEmpty()) {
@@ -97,6 +103,7 @@ public class TilePresentBox extends TileEntityLockableLoot {
       return -1;
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       super.readFromNBT(compound);
       this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
@@ -109,6 +116,7 @@ public class TilePresentBox extends TileEntityLockableLoot {
       }
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       super.writeToNBT(compound);
       if (!this.checkLootAndWrite(compound)) {
@@ -122,23 +130,28 @@ public class TilePresentBox extends TileEntityLockableLoot {
       return compound;
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public String getName() {
       return "tile_present_box";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       this.fillWithLoot(playerIn);
       return new Container9(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "minecraft:dispenser";
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.stacks;
    }

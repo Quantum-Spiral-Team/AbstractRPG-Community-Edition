@@ -223,20 +223,24 @@ public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMul
       );
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean isInRangeToRender3d(double x, double y, double z) {
       return true;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean isInRangeToRenderDist(double distance) {
       return true;
    }
 
+   @Override
    public float getEyeHeight() {
       return this.height * 0.5F;
    }
 
+   @Override
    protected boolean canDespawn() {
       return false;
    }
@@ -407,14 +411,17 @@ public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMul
       this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.02F;
    }
 
+   @Override
    public boolean canBreatheUnderwater() {
       return true;
    }
 
+   @Override
    protected PathNavigate createNavigator(World worldIn) {
       return new PathNavigateSwimmer(this, worldIn);
    }
 
+   @Override
    public void travel(float strafe, float vertical, float forward) {
       if (this.isServerWorld() && this.isInWater()) {
          this.moveRelative(strafe, vertical, forward, 0.1F);
@@ -427,6 +434,7 @@ public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMul
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void setVelocity(double x, double y, double z) {
       this.motionX = x;
@@ -487,6 +495,7 @@ public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMul
       }
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks
          .addTask(
@@ -557,14 +566,17 @@ public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMul
          this.createNewVector();
       }
 
+      @Override
       public boolean shouldExecute() {
          return this.entity.isInWater() && (!this.isIdle || this.entity.getAttackTarget() == null);
       }
 
+      @Override
       public boolean shouldContinueExecuting() {
          return this.entity.isInWater() && (!this.isIdle || this.entity.getAttackTarget() == null);
       }
 
+      @Override
       public void updateTask() {
          if (this.timeFollow > 0) {
             this.timeFollow--;

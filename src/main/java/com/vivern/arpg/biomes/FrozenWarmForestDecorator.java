@@ -26,6 +26,7 @@ class FrozenWarmForestDecorator extends BiomeDecorator {
    public WorldGenGroundFoliage willow = new WorldGenGroundFoliage(BlocksRegister.WINTER_WILLOW, 22, 6, 2);
    public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.FROSTED_WEED, 32, 6, 2);
 
+   @Override
    public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");

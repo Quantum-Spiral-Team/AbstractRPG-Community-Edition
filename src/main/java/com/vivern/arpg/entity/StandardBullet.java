@@ -62,6 +62,7 @@ public class StandardBullet extends Entity implements IProjectile, IFixedTracker
       return this.canCollideWithBlocks();
    }
 
+   @Override
    protected void entityInit() {
       this.dataManager.register(RED, 1.0F);
       this.dataManager.register(GREEN, 1.0F);
@@ -86,6 +87,7 @@ public class StandardBullet extends Entity implements IProjectile, IFixedTracker
       return (Float)this.dataManager.get(BLUE);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean isInRangeToRenderDist(double distance) {
       double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0;
@@ -109,6 +111,7 @@ public class StandardBullet extends Entity implements IProjectile, IFixedTracker
       }
    }
 
+   @Override
    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
       float f = MathHelper.sqrt(x * x + y * y + z * z);
       x /= f;
@@ -130,6 +133,7 @@ public class StandardBullet extends Entity implements IProjectile, IFixedTracker
       this.prevRotationPitch = this.rotationPitch;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void setVelocity(double x, double y, double z) {
       this.motionX = x;
@@ -144,6 +148,7 @@ public class StandardBullet extends Entity implements IProjectile, IFixedTracker
       }
    }
 
+   @Override
    public void onUpdate() {
       this.lastTickPosX = this.posX;
       this.lastTickPosY = this.posY;
@@ -288,6 +293,7 @@ public class StandardBullet extends Entity implements IProjectile, IFixedTracker
    public void onImpact(RayTraceResult result) {
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       if ((this.throwerName == null || this.throwerName.isEmpty()) && this.thrower instanceof EntityPlayer) {
          this.throwerName = this.thrower.getName();
@@ -296,6 +302,7 @@ public class StandardBullet extends Entity implements IProjectile, IFixedTracker
       compound.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       this.thrower = null;
       this.throwerName = compound.getString("ownerName");

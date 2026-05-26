@@ -34,6 +34,7 @@ public class SnowcoatHelm extends AbstractArmor {
    public SnowcoatHelm() {
       super(EntityEquipmentSlot.HEAD, "snowcoat_armor_helmet", 800, 6);
       this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
+         @Override
          @SideOnly(Side.CLIENT)
          public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
             return NBTHelper.GetNBTint(stack, "colorid");
@@ -68,6 +69,7 @@ public class SnowcoatHelm extends AbstractArmor {
       return multimap;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
       if (itemStack != ItemStack.EMPTY) {
@@ -86,6 +88,7 @@ public class SnowcoatHelm extends AbstractArmor {
       }
    }
 
+   @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
       return armortextures[MathHelper.clamp(NBTHelper.GetNBTint(stack, "colorid"), 0, 2)];
    }
@@ -94,6 +97,7 @@ public class SnowcoatHelm extends AbstractArmor {
       public SnowcoatBoots() {
          super(EntityEquipmentSlot.FEET, "snowcoat_armor_boots", 900, 6);
          this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
+            @Override
             @SideOnly(Side.CLIENT)
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
                return NBTHelper.GetNBTint(stack, "colorid");
@@ -125,6 +129,7 @@ public class SnowcoatHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -143,6 +148,7 @@ public class SnowcoatHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return SnowcoatHelm.armortextures[MathHelper.clamp(NBTHelper.GetNBTint(stack, "colorid"), 0, 2)];
       }
@@ -154,6 +160,7 @@ public class SnowcoatHelm extends AbstractArmor {
       public SnowcoatChestplate() {
          super(EntityEquipmentSlot.CHEST, "snowcoat_armor_chestplate", 1100, 6);
          this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
+            @Override
             @SideOnly(Side.CLIENT)
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
                return NBTHelper.GetNBTint(stack, "colorid");
@@ -189,6 +196,7 @@ public class SnowcoatHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -207,6 +215,7 @@ public class SnowcoatHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return SnowcoatHelm.armortextures[MathHelper.clamp(NBTHelper.GetNBTint(stack, "colorid"), 0, 2)];
       }
@@ -215,6 +224,7 @@ public class SnowcoatHelm extends AbstractArmor {
    public static class SnowcoatDye extends Impl<IRecipe> implements IRecipe {
       public static ResourceLocation name = new ResourceLocation("arpg:snowcoat_dye_recipe");
 
+      @Override
       public boolean matches(InventoryCrafting inv, World worldIn) {
          ItemStack coat = null;
          ItemStack dye = null;
@@ -246,6 +256,7 @@ public class SnowcoatHelm extends AbstractArmor {
          return coat != null && dye != null;
       }
 
+      @Override
       public ItemStack getCraftingResult(InventoryCrafting inv) {
          ItemStack coat = null;
          ItemStack dye = null;
@@ -282,10 +293,12 @@ public class SnowcoatHelm extends AbstractArmor {
          return newcoat;
       }
 
+      @Override
       public boolean canFit(int width, int height) {
          return width + height == 3;
       }
 
+      @Override
       public ItemStack getRecipeOutput() {
          return ItemStack.EMPTY;
       }
@@ -297,6 +310,7 @@ public class SnowcoatHelm extends AbstractArmor {
       public SnowcoatLeggins() {
          super(EntityEquipmentSlot.LEGS, "snowcoat_armor_leggins", 1000, 6);
          this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
+            @Override
             @SideOnly(Side.CLIENT)
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
                return NBTHelper.GetNBTint(stack, "colorid");
@@ -328,6 +342,7 @@ public class SnowcoatHelm extends AbstractArmor {
          return multimap;
       }
 
+      @Override
       @SideOnly(Side.CLIENT)
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (itemStack != ItemStack.EMPTY) {
@@ -346,6 +361,7 @@ public class SnowcoatHelm extends AbstractArmor {
          }
       }
 
+      @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
          return SnowcoatHelm.armortextures[MathHelper.clamp(NBTHelper.GetNBTint(stack, "colorid"), 0, 2)];
       }

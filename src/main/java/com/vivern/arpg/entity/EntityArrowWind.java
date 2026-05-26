@@ -37,6 +37,7 @@ public class EntityArrowWind extends AbstractArrow {
       super(worldIn, shooter);
    }
 
+   @Override
    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
       super.shoot(x, y, z, velocity, inaccuracy / 3.0F);
    }
@@ -126,6 +127,7 @@ public class EntityArrowWind extends AbstractArrow {
       return Sounds.arrow_wind;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_WIND);
    }

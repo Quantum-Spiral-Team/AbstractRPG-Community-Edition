@@ -20,6 +20,7 @@ public class EverfrostRiver extends Biome {
       this.decorator = new EverfrostRiverDecorator();
    }
 
+   @Override
    public void decorate(World worldIn, Random rand, BlockPos pos) {
       super.decorate(worldIn, rand, pos);
       if (rand.nextFloat() < 0.04F) {
@@ -35,6 +36,7 @@ public class EverfrostRiver extends Biome {
       public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.FROSTED_WEED, 32, 6, 4);
       public WorldGenGroundFoliage magicflower = new WorldGenGroundFoliage(BlocksRegister.ICE_FLOWER, 20, 5, 3);
 
+      @Override
       public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
          if (this.decorating) {
             throw new RuntimeException("Already decorating");

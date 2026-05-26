@@ -202,6 +202,7 @@ public class DungeonMobsPack {
          return DeathEffects.WORM_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.66F;
       }
@@ -371,9 +372,11 @@ public class DungeonMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -437,6 +440,7 @@ public class DungeonMobsPack {
          }
       }
 
+      @Override
       public void onLivingUpdate() {
          super.onLivingUpdate();
          if (!this.onGround && this.motionY < 0.0) {
@@ -444,6 +448,7 @@ public class DungeonMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          EntityAIFloatingSkeleton ai = new EntityAIFloatingSkeleton(this, 160, 32.0F, 20, true, 11.0F, 5.0F, 1.75F, 0.1F, true, true);
@@ -490,14 +495,17 @@ public class DungeonMobsPack {
          return DeathEffects.WORM_RED_BLOOD;
       }
 
+      @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          return potioneffectIn.getPotion() == MobEffects.BLINDNESS ? false : super.isPotionApplicable(potioneffectIn);
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.2F;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(2, new EntityAIRush(this, false, true, false));
@@ -550,10 +558,12 @@ public class DungeonMobsPack {
          return DeathEffects.WORM_RED_BLOOD;
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.7F;
       }
 
+      @Override
       protected float updateDistance(float p_110146_1_, float p_110146_2_) {
          float maxadd = 2.0F;
          float f = MathHelper.wrapDegrees(p_110146_1_ - this.renderYawOffset);
@@ -579,6 +589,7 @@ public class DungeonMobsPack {
          return p_110146_2_;
       }
 
+      @Override
       public int getHorizontalFaceSpeed() {
          return 2;
       }
@@ -750,6 +761,7 @@ public class DungeonMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -773,6 +785,7 @@ public class DungeonMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          EntityAIAttackSweep sw = new EntityAIAttackSweep(this, 60, 2.0F, 2.5F, 2.5F, 23).setTriggerOnStart().setBreakBlocks(15.0F);
          sw.swoshSound = null;
@@ -872,6 +885,7 @@ public class DungeonMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAISegmAABBAttack(this, 30, 0.4F));
          if (!this.isSubMob) {
@@ -914,14 +928,17 @@ public class DungeonMobsPack {
       protected void playStepSound(BlockPos pos, Block blockIn) {
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
          super.fall(distance - 4.0F, damageMultiplier * 0.4F);
       }
 
+      @Override
       public float getEyeHeight() {
          return this.height * 0.75F;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(0, new EntityAISwimming(this));
          this.tasks.addTask(1, new EntityAIPanic(this, 1.0));
@@ -981,10 +998,12 @@ public class DungeonMobsPack {
          return larvas.size() > larvasMaxCount;
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.1F;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1101,6 +1120,7 @@ public class DungeonMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1133,6 +1153,7 @@ public class DungeonMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.aiFlyingRandom = new EntityAIFlyingKeepDistToTarget(this, 60, 32.0F, 0.08F, 32.0F, 10.0F, 0.0F, 1.05F);
          this.aiFlyingFollow = new EntityAICorrupter(this, 50, 38.0F, 10, false, 4.0F, 4.0F);
@@ -1517,6 +1538,7 @@ public class DungeonMobsPack {
          }
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1558,6 +1580,7 @@ public class DungeonMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.rushAi = new EntityAIRush(this, true, true, false);
          this.rushAi.enable = false;
@@ -1626,10 +1649,12 @@ public class DungeonMobsPack {
          return inits;
       }
 
+      @Override
       public void onLivingUpdate() {
          super.onLivingUpdate();
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAISegmAABBAttack(this, 30, 0.3F));
          if (!this.isSubMob) {
@@ -1683,6 +1708,7 @@ public class DungeonMobsPack {
          return this.isSubMob ? null : Sounds.underworld_digger_death;
       }
 
+      @Override
       protected float getSoundVolume() {
          return 2.75F;
       }
@@ -1772,6 +1798,7 @@ public class DungeonMobsPack {
          return super.attackEntityFrom(source, amount);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
@@ -1837,10 +1864,12 @@ public class DungeonMobsPack {
          return inits;
       }
 
+      @Override
       public void onLivingUpdate() {
          super.onLivingUpdate();
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAISegmAABBAttack(this, 50, 0.65F));
          if (!this.isSubMob) {
@@ -1884,6 +1913,7 @@ public class DungeonMobsPack {
          return DeathEffects.WORM_BLOOD;
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
       }
 
@@ -1895,6 +1925,7 @@ public class DungeonMobsPack {
          this.motionZ = this.motionZ * this.friction;
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks.addTask(1, new EntityAIRayLogicFly(this));
          this.tasks.addTask(2, new EntityAIAABBAttack(this, 20, 0.1F));
@@ -1944,6 +1975,7 @@ public class DungeonMobsPack {
          return DeathEffects.WEAVER_BLOOD;
       }
 
+      @Override
       public float getCollisionBorderSize() {
          return 0.35F;
       }
@@ -2013,10 +2045,12 @@ public class DungeonMobsPack {
          }
       }
 
+      @Override
       public void fall(float distance, float damageMultiplier) {
          super.fall(distance, damageMultiplier * 0.7F);
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void handleStatusUpdate(byte id) {
          if (id == 7) {
@@ -2056,14 +2090,17 @@ public class DungeonMobsPack {
          super.handleStatusUpdate(id);
       }
 
+      @Override
       public void setInWeb() {
          this.fallDistance = 0.0F;
       }
 
+      @Override
       public EnumCreatureAttribute getCreatureAttribute() {
          return EnumCreatureAttribute.ARTHROPOD;
       }
 
+      @Override
       protected void initEntityAI() {
          this.ai = new EntityAIGlyphid(this);
          this.tasks.addTask(1, this.ai);

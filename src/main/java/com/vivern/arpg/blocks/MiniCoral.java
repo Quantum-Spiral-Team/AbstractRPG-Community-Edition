@@ -285,6 +285,7 @@ public class MiniCoral extends Block implements IBlockHardBreak {
       return this.getDefaultState().withProperty(FACING, facing).withProperty(LEVEL, 0).withProperty(WET, this.isInWater(worldIn, pos));
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
       if (world.provider.getDimension() == DimensionsRegister.AQUATICA_ID) {

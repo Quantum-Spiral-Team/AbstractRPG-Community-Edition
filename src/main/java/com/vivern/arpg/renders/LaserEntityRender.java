@@ -23,6 +23,7 @@ public class LaserEntityRender<T extends EntityLaserParticle> extends Render<Ent
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(EntityLaserParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       double dist = entity.distance;
       GlStateManager.pushMatrix();
@@ -99,6 +100,7 @@ public class LaserEntityRender<T extends EntityLaserParticle> extends Render<Ent
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(EntityLaserParticle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }

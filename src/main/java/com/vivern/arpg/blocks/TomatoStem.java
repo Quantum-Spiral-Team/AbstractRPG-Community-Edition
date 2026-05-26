@@ -46,6 +46,7 @@ public class TomatoStem extends PlantWithStages {
       return FARMLAND_OFFSET;
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       entityIn.motionX *= 0.8;

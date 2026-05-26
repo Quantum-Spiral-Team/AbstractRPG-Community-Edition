@@ -30,49 +30,60 @@ public class BonesPile extends Block {
       this.setSoundType(SoundTypeCrunchy.CRUNCHY);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (worldIn.isAirBlock(pos.down())) {
          worldIn.destroyBlock(pos, true);
       }
    }
 
+   @Override
    public boolean canPlaceBlockAt(World world, BlockPos pos) {
       return world.isSideSolid(pos.down(), EnumFacing.UP) ? super.canPlaceBlockAt(world, pos) : false;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
       return Items.BONE;
    }
 
+   @Override
    public int quantityDropped(IBlockState state, int fortune, Random random) {
       return fortune > 0 ? 2 : random.nextInt(2) + 1;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       return false;
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return EnumOffsetType.XZ;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }

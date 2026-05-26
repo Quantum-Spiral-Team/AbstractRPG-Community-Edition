@@ -42,6 +42,7 @@ public class BlockFluidCryon extends BlockFluidClassic {
       this.setRenderLayer(BlockRenderLayer.CUTOUT);
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       if (!worldIn.isRemote) {
@@ -49,6 +50,7 @@ public class BlockFluidCryon extends BlockFluidClassic {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       double d0 = pos.getX();
@@ -117,16 +119,19 @@ public class BlockFluidCryon extends BlockFluidClassic {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
       return 13107400;
    }
 
+   @Override
    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
       super.onBlockAdded(world, pos, state);
       this.mergerFluids(pos, world);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
       super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
       this.mergerFluids(pos, world);
@@ -155,6 +160,7 @@ public class BlockFluidCryon extends BlockFluidClassic {
       }
    }
 
+   @Override
    @Nullable
    public PathNodeType getAiPathNodeType(IBlockState state, IBlockAccess world, BlockPos pos, @Nullable EntityLiving entity) {
       return entity != null && !entity.isPotionApplicable(effectForAi) ? PathNodeType.WATER : PathNodeType.LAVA;

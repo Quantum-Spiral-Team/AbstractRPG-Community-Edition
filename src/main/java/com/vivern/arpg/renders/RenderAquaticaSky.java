@@ -25,6 +25,8 @@ import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+// Страшно, очень страшно. Если бы мы знали что это, но мы не знаем что это
+// TODO optimize
 public class RenderAquaticaSky extends IRenderHandler {
    public static ResourceLocation mountain = new ResourceLocation("arpg:textures/sky_frozen_mountains.png");
    public static ResourceLocation MOON_BLUE_TEXTURES = new ResourceLocation("arpg:textures/moon_aquatica_1.png");
@@ -45,6 +47,8 @@ public class RenderAquaticaSky extends IRenderHandler {
       this.timeOfDayProvider = timeOfDayProvider;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       AbstractWorldProvider.disableFarplane();
       if (this.starGLCallList < 0) {

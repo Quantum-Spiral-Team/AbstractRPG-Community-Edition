@@ -23,6 +23,9 @@ import com.google.common.base.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -131,8 +134,8 @@ public class ItemBullet extends Item {
       registerBullet(((ItemBullet)ItemsRegister.BULLET_DIVING).setId(17));
 
       for (ItemBullet bullet : bulletsRegister) {
-         bullet.damage = WeaponParameters.getWeaponParameters(bullet).getF("damage");
-         bullet.knockback = WeaponParameters.getWeaponParameters(bullet).getF("knockback");
+         bullet.damage = WeaponParameters.getWeaponParameters(bullet).getFloat("damage");
+         bullet.knockback = WeaponParameters.getWeaponParameters(bullet).getFloat("knockback");
       }
    }
 
@@ -360,12 +363,14 @@ public class ItemBullet extends Item {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-      tooltip.add("пїЅ7" + Ln.translate("damage") + ": " + parameters.getF("damage"));
-      tooltip.add("пїЅ7" + Ln.translate("knockback") + ": " + parameters.getF("knockback"));
+      tooltip.add("\u00A77" + Ln.translate("damage") + ": " + parameters.getFloat("damage"));
+      tooltip.add("\u00A77" + Ln.translate("knockback") + ": " + parameters.getFloat("knockback"));
       String name = this.getRegistryName().getPath();
-      tooltip.add("пїЅf" + Ln.translate("description." + name));
+      tooltip.add("\u00A7f" + Ln.translate("description." + name));
    }
 
    public static class BulletCoral extends ItemBullet {
@@ -384,7 +389,7 @@ public class ItemBullet extends Item {
       @Override
       public boolean onImpact(World world, EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable Entity projectile) {
          if (!world.isRemote) {
-            float damagePolyp = WeaponParameters.getWeaponParameters(this).getF("damage_polyp");
+            float damagePolyp = WeaponParameters.getWeaponParameters(this).getFloat("damage_polyp");
             CoralPolyp polyp = new CoralPolyp(world, player, damagePolyp);
             polyp.setPosition(x, y, z);
             world.spawnEntity(polyp);
@@ -428,8 +433,8 @@ public class ItemBullet extends Item {
             : (EntityLivingBase) GetMOP.findNearestEntityWithinAABB(world, EntityLivingBase.class, new AxisAlignedBB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5), vec1);
          sendEffectPacket(world, 64.0, x, y, z, x, y, z, seed, impacted == null ? -1.0 : impacted.getEntityId(), 0.0, 2);
          if (!world.isRemote) {
-            float damageCrystals = WeaponParameters.getWeaponParameters(this).getF("damage_crystals");
-            int amountCrystals = WeaponParameters.getWeaponParameters(this).getI("amount_crystals");
+            float damageCrystals = WeaponParameters.getWeaponParameters(this).getFloat("damage_crystals");
+            int amountCrystals = WeaponParameters.getWeaponParameters(this).getInt("amount_crystals");
 
             for (int i = 0; i < amountCrystals; i++) {
                Vec3d vec = GetMOP.rotatedPosRayTrace(
@@ -570,6 +575,7 @@ public class ItemBullet extends Item {
          }
 
          Predicate<? super Entity> filterEntityToIgnore = new Predicate<Entity>() {
+            @Override
             public boolean apply(Entity input) {
                return input == entityIgnore || !Team.checkIsOpponent(player, input);
             }
@@ -806,7 +812,7 @@ public class ItemBullet extends Item {
 
       @Override
       public void onDamageCause(World world, EntityLivingBase damaget, EntityLivingBase player, @Nullable Entity projectile) {
-         float damageBonus = WeaponParameters.getWeaponParameters(this).getF("damage_bonus");
+         float damageBonus = WeaponParameters.getWeaponParameters(this).getFloat("damage_bonus");
          if (damaget.isBurning()) {
             damaget.hurtResistantTime = 0;
             Weapons.dealDamage(new WeaponDamage(null, player, projectile, false, false, projectile, WeaponDamage.fire), damageBonus, player, damaget, true);
@@ -913,7 +919,7 @@ public class ItemBullet extends Item {
                      false
                   )
             )) {
-            float damageThunder = WeaponParameters.getWeaponParameters(this).getF("damage_thunder");
+            float damageThunder = WeaponParameters.getWeaponParameters(this).getFloat("damage_thunder");
             Weapons.dealDamage(
                new WeaponDamage(null, player, projectile, false, false, from, WeaponDamage.electric), damageThunder, player, entitylivingbase, true
             );

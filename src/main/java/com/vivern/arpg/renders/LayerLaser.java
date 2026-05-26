@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class LayerLaser implements LayerRenderer<EntityLivingBase> {
+   @Override
    public void doRenderLayer(
       EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale
    ) {
@@ -29,6 +30,7 @@ public class LayerLaser implements LayerRenderer<EntityLivingBase> {
       GlStateManager.popMatrix();
    }
 
+   @Override
    public boolean shouldCombineTextures() {
       return false;
    }

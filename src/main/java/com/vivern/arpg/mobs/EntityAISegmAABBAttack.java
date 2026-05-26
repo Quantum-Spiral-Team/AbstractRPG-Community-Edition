@@ -17,10 +17,12 @@ public class EntityAISegmAABBAttack extends EntityAIBase {
       this.grow = grow;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public void updateTask() {
       AbstractMob owner = this.entity.getOwnerIfSegment();
       if (owner != null) {

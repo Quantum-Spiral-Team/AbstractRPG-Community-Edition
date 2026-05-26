@@ -24,6 +24,7 @@ public class BurningFrostIgniter extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
       pos = pos.offset(facing);
       ItemStack itemstack = player.getHeldItem(hand);

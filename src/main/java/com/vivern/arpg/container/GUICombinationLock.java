@@ -18,6 +18,7 @@ public class GUICombinationLock extends GuiScreen {
       this.tile = tile;
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
@@ -55,6 +56,7 @@ public class GUICombinationLock extends GuiScreen {
       GL11.glDisable(3042);
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       int i = (this.width - 256) / 2;
       int j = (this.height - 212) / 2;
@@ -70,6 +72,7 @@ public class GUICombinationLock extends GuiScreen {
       PacketHandler.NETWORK.sendToServer(packet);
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }

@@ -27,6 +27,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings("deprecation")
 public class Corallimorpha extends Block implements IBlockHardBreak {
@@ -56,6 +58,7 @@ public class Corallimorpha extends Block implements IBlockHardBreak {
       return BlocksRegister.HR_CORALS;
    }
 
+   @Override
    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
       int flag = world.isRemote ? 10 : 2;
       return this.isAroundWater(world, pos)
@@ -63,6 +66,7 @@ public class Corallimorpha extends Block implements IBlockHardBreak {
          : world.setBlockState(pos, Blocks.AIR.getDefaultState(), flag);
    }
 
+   @Override
    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
       return false;
    }
@@ -83,7 +87,6 @@ public class Corallimorpha extends Block implements IBlockHardBreak {
       super.neighborChanged(state, world, pos, blockIn, fromPos);
    }
 
-   // B: упростил логику, а то "чем дальше в лес if else if else"
    public boolean isInWater(World worldIn, BlockPos pos) {
       for (EnumFacing facing : EnumFacing.VALUES) {
          IBlockState state = worldIn.getBlockState(pos.offset(facing));
@@ -119,7 +122,6 @@ public class Corallimorpha extends Block implements IBlockHardBreak {
       return EnumOffsetType.XYZ;
    }
 
-   // B: упростил немного
    @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       EnumFacing.Axis axis = state.getValue(FACING).getAxis();
@@ -227,6 +229,7 @@ public class Corallimorpha extends Block implements IBlockHardBreak {
       return this.getDefaultState().withProperty(FACING, facing).withProperty(LEVEL, 0).withProperty(WET, this.isInWater(worldIn, pos));
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
       return world.provider.getDimension() == 103

@@ -91,18 +91,22 @@ public class EntityAIFloatingSkeleton extends EntityAIBase {
       return this;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null && this.enable;
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return (this.shouldExecute() || !this.entity.getNavigator().noPath()) && this.enable;
    }
 
+   @Override
    public void startExecuting() {
       super.startExecuting();
    }
 
+   @Override
    public void resetTask() {
       super.resetTask();
       this.entity.resetActiveHand();
@@ -130,6 +134,7 @@ public class EntityAIFloatingSkeleton extends EntityAIBase {
       return false;
    }
 
+   @Override
    public void updateTask() {
       EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
       boolean vlChange = false;

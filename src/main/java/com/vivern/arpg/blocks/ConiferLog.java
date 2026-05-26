@@ -36,14 +36,17 @@ public class ConiferLog extends BlockRotatedPillar implements IBlockHardBreak {
       this.setSoundType(SoundType.WOOD);
    }
 
+   @Override
    public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
       return true;
    }
 
+   @Override
    public boolean isWood(IBlockAccess world, BlockPos pos) {
       return true;
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       int i = 4;
       int j = 5;
@@ -57,6 +60,7 @@ public class ConiferLog extends BlockRotatedPillar implements IBlockHardBreak {
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
       switch (meta) {
@@ -76,6 +80,7 @@ public class ConiferLog extends BlockRotatedPillar implements IBlockHardBreak {
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((EnumAxis)state.getValue(LOG_AXIS)) {
@@ -92,26 +97,32 @@ public class ConiferLog extends BlockRotatedPillar implements IBlockHardBreak {
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return MapColor.BROWN;
    }
 
+   @Override
    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
       items.add(new ItemStack(this, 1, 0));
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
    }
 
+   @Override
    protected ItemStack getSilkTouchDrop(IBlockState state) {
       return new ItemStack(Item.getItemFromBlock(this));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       switch (rot) {
          case COUNTERCLOCKWISE_90:

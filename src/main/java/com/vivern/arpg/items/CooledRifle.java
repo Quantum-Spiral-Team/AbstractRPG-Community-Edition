@@ -49,10 +49,12 @@ public class CooledRifle extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 4.0F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -62,10 +64,12 @@ public class CooledRifle extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -75,6 +79,7 @@ public class CooledRifle extends ItemWeapon {
       return NBTHelper.GetNBTint(itemstack, "reload_time") < 1;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -115,7 +120,7 @@ public class CooledRifle extends ItemWeapon {
                         player.rotationPitch - 3.0F,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getF("velocity"),
+                        parameters.getFloat("velocity"),
                         parameters.getEnchantedF("inaccuracy_shotgun", acc),
                         -0.2F,
                         0.5F,
@@ -202,11 +207,11 @@ public class CooledRifle extends ItemWeapon {
                               if (Team.checkIsOpponent(player, entity)) {
                                  Weapons.dealDamage(
                                     new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                    parameters.getEnchantedF("damage", might) + damageadd * parameters.getF("bullet_damage"),
+                                    parameters.getEnchantedF("damage", might) + damageadd * parameters.getFloat("bullet_damage"),
                                     player,
                                     entity,
                                     true,
-                                    parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
+                                    parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getFloat("bullet_knockback"),
                                     player.posX,
                                     player.posY,
                                     player.posZ
@@ -253,7 +258,7 @@ public class CooledRifle extends ItemWeapon {
                         1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 0.2F
                      );
                      Weapons.setPlayerAnimationOnServer(player, 28, EnumHand.MAIN_HAND);
-                     NBTHelper.GiveNBTboolean(itemstack, false, "shotgun");
+                     NBTHelper.giveNBTboolean(itemstack, false, "shotgun");
                      this.loadShotgun(itemstack, player, new ItemStack(ItemsRegister.BUCKSHOT, 1), 1, false);
                   }
                }
@@ -293,6 +298,7 @@ public class CooledRifle extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Vec3d from = new Vec3d(x, y, z);
@@ -333,11 +339,13 @@ public class CooledRifle extends ItemWeapon {
       Booom.power = 0.19F;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

@@ -1458,6 +1458,7 @@ public class ModelsAquaticaMobs {
          this.tentShock1.addChild(this.tentShockGlow2);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          GlStateManager.pushMatrix();
          if (this.mode == 0) {
@@ -2151,6 +2152,7 @@ public class ModelsAquaticaMobs {
          this.head.addChild(this.head3);
       }
 
+      @Override
       public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
          this.body1.render(f5);
       }

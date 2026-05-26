@@ -44,35 +44,42 @@ public class BossSpine extends EntityMob {
       return number < this.poslist.size() ? this.poslist.get(number) : this.getPositionVector();
    }
 
+   @Override
    public boolean isNonBoss() {
       return false;
    }
 
+   @Override
    public void addTrackingPlayer(EntityPlayerMP player) {
       super.addTrackingPlayer(player);
       this.bossInfo.addPlayer(player);
    }
 
+   @Override
    public void removeTrackingPlayer(EntityPlayerMP player) {
       super.removeTrackingPlayer(player);
       this.bossInfo.removePlayer(player);
    }
 
+   @Override
    protected void updateAITasks() {
       super.updateAITasks();
       this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
    }
 
+   @Override
    public boolean canBreatheUnderwater() {
       return true;
    }
 
+   @Override
    public void addPotionEffect(PotionEffect potioneffectIn) {
       if (potioneffectIn.getPotion() != PotionEffects.FREEZING) {
          super.addPotionEffect(potioneffectIn);
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(new Vec3d(-this.motionX, -this.motionY, -this.motionZ));
@@ -139,9 +146,11 @@ public class BossSpine extends EntityMob {
       }
    }
 
+   @Override
    public void fall(float distance, float damageMultiplier) {
    }
 
+   @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       if (source == DamageSource.IN_WALL || source == DamageSource.CRAMMING || source == DamageSource.CACTUS) {
          return false;
@@ -152,6 +161,7 @@ public class BossSpine extends EntityMob {
       }
    }
 
+   @Override
    protected void applyEntityAttributes() {
       super.applyEntityAttributes();
       this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(450.0);
@@ -162,14 +172,17 @@ public class BossSpine extends EntityMob {
       this.getEntityAttribute(PropertiesRegistry.ARMOR_PROTECTION).setBaseValue(5.0);
    }
 
+   @Override
    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
       return Sounds.spine_hurt;
    }
 
+   @Override
    protected SoundEvent getDeathSound() {
       return Sounds.spine_dead;
    }
 
+   @Override
    public void onLivingUpdate() {
       if (this.world.isRemote) {
          for (int i = 0; i < 2; i++) {
@@ -190,11 +203,13 @@ public class BossSpine extends EntityMob {
       super.onLivingUpdate();
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       super.handleStatusUpdate(id);
    }
 
+   @Override
    protected void initEntityAI() {
       this.tasks.addTask(1, new BossAISpine(this));
    }

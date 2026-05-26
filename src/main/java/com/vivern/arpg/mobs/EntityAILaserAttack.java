@@ -24,22 +24,27 @@ public class EntityAILaserAttack extends EntityAIBase {
       this.attackDist = dist;
    }
 
+   @Override
    public boolean shouldExecute() {
       EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
       return entitylivingbase != null && entitylivingbase.isEntityAlive() && this.entity.getDistance(entitylivingbase) <= this.attackDist;
    }
 
+   @Override
    public void startExecuting() {
    }
 
+   @Override
    public boolean shouldContinueExecuting() {
       return this.shouldExecute();
    }
 
+   @Override
    public void resetTask() {
       this.delay = this.maxDelay;
    }
 
+   @Override
    public void updateTask() {
       this.delay--;
       if (this.delay < 1) {

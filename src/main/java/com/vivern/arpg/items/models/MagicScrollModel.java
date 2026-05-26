@@ -46,6 +46,7 @@ public class MagicScrollModel extends ModelBase {
       this.shape4.addChild(this.shape5);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(0.0F, f * 4.0F, 0.0F);

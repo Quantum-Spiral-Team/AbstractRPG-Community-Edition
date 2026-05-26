@@ -39,10 +39,12 @@ public class ArthrostelechaLog extends BlockRotatedPillar implements IBlockHardB
       return BlocksRegister.HR_STORM_FOLIAGE;
    }
 
+   @Override
    public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
       return true;
    }
 
+   @Override
    public boolean isWood(IBlockAccess world, BlockPos pos) {
       return true;
    }
@@ -55,6 +57,7 @@ public class ArthrostelechaLog extends BlockRotatedPillar implements IBlockHardB
       return block == BlocksRegister.ARTHROSTELECHA_LOG_PINK || block == BlocksRegister.ARTHROSTELECHA_LOG_BRASS;
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       int i = 4;
       int j = 5;
@@ -68,6 +71,7 @@ public class ArthrostelechaLog extends BlockRotatedPillar implements IBlockHardB
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
       switch (meta) {
@@ -87,6 +91,7 @@ public class ArthrostelechaLog extends BlockRotatedPillar implements IBlockHardB
       return iblockstate;
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
       switch ((EnumAxis)state.getValue(LOG_AXIS)) {
@@ -103,18 +108,22 @@ public class ArthrostelechaLog extends BlockRotatedPillar implements IBlockHardB
       return i;
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
    }
 
+   @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       return MapColor.BROWN;
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       switch (rot) {
          case COUNTERCLOCKWISE_90:

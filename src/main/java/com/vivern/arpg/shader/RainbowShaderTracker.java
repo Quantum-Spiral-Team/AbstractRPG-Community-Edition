@@ -20,9 +20,10 @@ import org.lwjgl.opengl.ARBShaderObjects;
 @EventBusSubscriber(
    modid = "arpg"
 )
-@SideOnly(Side.CLIENT)
 public class RainbowShaderTracker {
-   static Minecraft mc = Minecraft.getMinecraft();
+   @SideOnly(Side.CLIENT)
+   private static Minecraft mc = Minecraft.getMinecraft();
+   @SideOnly(Side.CLIENT)
    public static Framebuffer fbuffer = new Framebuffer(mc.displayWidth, mc.displayHeight, true);
 
    @SubscribeEvent

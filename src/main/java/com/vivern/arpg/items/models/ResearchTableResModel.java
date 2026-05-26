@@ -65,6 +65,7 @@ public class ResearchTableResModel extends ModelBase {
       this.shapeLa.addChild(this.shapeL);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shapeF1.render(f5);
       this.shapeBlank1.render(f5);

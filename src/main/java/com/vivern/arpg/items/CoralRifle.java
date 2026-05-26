@@ -40,6 +40,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -49,10 +50,12 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -68,6 +71,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
       Booom.power = 0.27F;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -104,7 +108,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getF("velocity"),
+                        parameters.getFloat("velocity"),
                         parameters.getEnchantedF("inaccuracy", acc),
                         -0.1F,
                         0.5F,
@@ -135,7 +139,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
                   );
                   Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                   if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
-                     NBTHelper.GiveNBTboolean(itemstack, true, "polyps");
+                     NBTHelper.giveNBTboolean(itemstack, true, "polyps");
                      NBTHelper.SetNBTboolean(itemstack, true, "polyps");
                   }
                }
@@ -144,11 +148,13 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;
@@ -182,7 +188,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
          EntityLiving entityLiving = (EntityLiving)source.getTrueSource();
          if (entityLiving.getDistance(player) < 5.0F) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-            int maxi = parameters.getI("polyps");
+            int maxi = parameters.getInt("polyps");
 
             for (int i = 0; i < maxi; i++) {
                CoralPolyp polyp = new CoralPolyp(

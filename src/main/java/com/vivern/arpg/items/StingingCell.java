@@ -27,14 +27,17 @@ public class StingingCell extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -61,11 +64,11 @@ public class StingingCell extends ItemWeapon {
                );
                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                player.addStat(StatList.getObjectUseStats(this));
-               int shots = parameters.getI("shots");
+               int shots = parameters.getInt("shots");
 
                for (int i = 0; i < shots; i++) {
                   StingingCellEntity projectile = new StingingCellEntity(world, player, itemstack, power);
-                  projectile.livetime = parameters.getI("livetime");
+                  projectile.livetime = parameters.getInt("livetime");
                   Weapons.shoot(
                      projectile,
                      EnumHand.MAIN_HAND,
@@ -73,7 +76,7 @@ public class StingingCell extends ItemWeapon {
                      player.rotationPitch,
                      player.rotationYaw,
                      0.0F,
-                     parameters.getF("velocity"),
+                     parameters.getFloat("velocity"),
                      parameters.getEnchantedF("inaccuracy", acc),
                      -0.35F,
                      0.75F,

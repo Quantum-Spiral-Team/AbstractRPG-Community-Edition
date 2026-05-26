@@ -39,6 +39,7 @@ public class GUIElementDistributor extends GuiContainer {
       this.tileEntity = furnaceInv;
    }
 
+   @Override
    public void updateScreen() {
       for (int i = 0; i < this.textFieldElements.length; i++) {
          this.textFieldElements[i].updateCursorCounter();
@@ -160,6 +161,7 @@ public class GUIElementDistributor extends GuiContainer {
       }
    }
 
+   @Override
    public void initGui() {
       super.initGui();
 
@@ -177,6 +179,7 @@ public class GUIElementDistributor extends GuiContainer {
       this.textFieldPurity.setMaxStringLength(16);
    }
 
+   @Override
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       this.textFieldPurity.textboxKeyTyped(typedChar, keyCode);
 
@@ -236,6 +239,7 @@ public class GUIElementDistributor extends GuiContainer {
       }
    }
 
+   @Override
    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       int absX = mouseX - this.getGuiLeft();
       int absY = mouseY - this.getGuiTop();
@@ -286,15 +290,18 @@ public class GUIElementDistributor extends GuiContainer {
       PacketHandler.NETWORK.sendToServer(packet);
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
       this.renderHoveredToolTip(mouseX, mouseY);
    }
 
+   @Override
    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
    }
 
+   @Override
    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
       this.mc.getTextureManager().bindTexture(GUI_TEXTURES);

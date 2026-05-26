@@ -53,6 +53,7 @@ public abstract class AbstractMiningTool extends ItemWeapon {
       this.toolsSet = toolsSet;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -62,14 +63,17 @@ public abstract class AbstractMiningTool extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
       return new AnimationCapabilityProvider();
    }
@@ -177,16 +181,17 @@ public abstract class AbstractMiningTool extends ItemWeapon {
       return this.toolsSet.averageDigSpeed * (1.0F + 0.1F * EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, itemstack));
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (world.isRemote) {
          if (entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (this.hasSpeed()) {
-               if (Flicks.instance.confirmPack(player).get(itemSlot, EnumFlick.SHOOT) == null) {
-                  Flicks.instance.setClientAnimation(player, itemSlot, EnumFlick.SHOOT, 0, Integer.MAX_VALUE, 0, 0);
+               if (Flicks.INSTANCE.confirmPack(player).get(itemSlot, EnumFlick.SHOOT) == null) {
+                  Flicks.INSTANCE.setClientAnimation(player, itemSlot, EnumFlick.SHOOT, 0, Integer.MAX_VALUE, 0, 0);
                } else {
                   int speed = NBTHelper.GetNBTint(itemstack, "speed");
-                  Flicks.instance.setTendency(player, itemSlot, EnumFlick.SHOOT, Math.min(speed, (int)this.gatMaxSpeed(itemstack, player) + 10));
+                  Flicks.INSTANCE.setTendency(player, itemSlot, EnumFlick.SHOOT, Math.min(speed, (int)this.gatMaxSpeed(itemstack, player) + 10));
                }
             }
 
@@ -214,7 +219,7 @@ public abstract class AbstractMiningTool extends ItemWeapon {
                if (this.hasEngineTremor() && this.canMining(itemstack, world, playerx)) {
                   setFalseTremor = false;
                   if (!NBTHelper.GetNBTboolean(itemstack, "tremor")) {
-                     NBTHelper.GiveNBTboolean(itemstack, true, "tremor");
+                     NBTHelper.giveNBTboolean(itemstack, true, "tremor");
                      NBTHelper.SetNBTboolean(itemstack, true, "tremor");
                      IWeapon.sendIWeaponState(itemstack, playerx, 3, itemSlot, EnumHand.MAIN_HAND);
                   }
@@ -276,6 +281,7 @@ public abstract class AbstractMiningTool extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
       if (state >= 20) {
@@ -289,11 +295,13 @@ public abstract class AbstractMiningTool extends ItemWeapon {
 
    public abstract String getNameForMode(int var1);
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return this.itemNeed != null;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / this.chargesPerItem, 0.0F, 1.0F);
@@ -321,6 +329,7 @@ public abstract class AbstractMiningTool extends ItemWeapon {
       return 2;
    }
 
+   @Override
    public float getDestroySpeed(ItemStack stack, IBlockState state) {
       return 0.0F;
    }

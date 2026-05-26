@@ -35,11 +35,13 @@ public class BlockEtheriteInvocator extends Block implements IBlockHardBreak {
       return BlocksRegister.HR_ZARPION_ROCKS;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
@@ -48,6 +50,7 @@ public class BlockEtheriteInvocator extends Block implements IBlockHardBreak {
       return (TileEtheriteInvocator)world.getTileEntity(position);
    }
 
+   @Override
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -61,19 +64,23 @@ public class BlockEtheriteInvocator extends Block implements IBlockHardBreak {
       return true;
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileEtheriteInvocator createTileEntity(World world, IBlockState blockState) {
       return new TileEtheriteInvocator();
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }

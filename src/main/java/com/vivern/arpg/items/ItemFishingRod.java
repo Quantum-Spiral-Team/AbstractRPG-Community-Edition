@@ -44,6 +44,7 @@ public class ItemFishingRod extends Item {
       this.setMaxDamage(100);
       this.setMaxStackSize(1);
       this.addPropertyOverride(new ResourceLocation("rtype"), new IItemPropertyGetter() {
+         @Override
          @SideOnly(Side.CLIENT)
          public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
             if (NBTHelper.GetNBTboolean(stack, "hasHook")) {
@@ -55,10 +56,12 @@ public class ItemFishingRod extends Item {
       });
    }
 
+   @Override
    public int getMaxItemUseDuration(ItemStack stack) {
       return 72000;
    }
 
+   @Override
    public EnumAction getItemUseAction(ItemStack stack) {
       return EnumAction.BOW;
    }
@@ -74,12 +77,14 @@ public class ItemFishingRod extends Item {
       return rluck;
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.setActiveHand(hand);
       return new ActionResult(EnumActionResult.SUCCESS, itemstack);
    }
 
+   @Override
    public void onPlayerStoppedUsing(ItemStack itemstack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
       if (entityLiving instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityLiving;
@@ -147,6 +152,7 @@ public class ItemFishingRod extends Item {
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
       if (entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
@@ -154,9 +160,9 @@ public class ItemFishingRod extends Item {
          World world = player.getEntityWorld();
          boolean click = Mouse.isButtonDown(1);
          Item itemIn = itemstack.getItem();
-         NBTHelper.GiveNBTboolean(itemstack, true, "hasHook");
-         NBTHelper.GiveNBTboolean(itemstack, false, "destroy");
-         NBTHelper.GiveNBTboolean(itemstack, false, "pecked");
+         NBTHelper.giveNBTboolean(itemstack, true, "hasHook");
+         NBTHelper.giveNBTboolean(itemstack, false, "destroy");
+         NBTHelper.giveNBTboolean(itemstack, false, "pecked");
          NBTHelper.GiveNBTint(itemstack, 0, "use");
          NBTHelper.GiveNBTstring(itemstack, "", "bait");
          if (NBTHelper.GetNBTint(itemstack, "use") > 0) {

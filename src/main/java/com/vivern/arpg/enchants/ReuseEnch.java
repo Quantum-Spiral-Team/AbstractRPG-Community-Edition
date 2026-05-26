@@ -14,18 +14,22 @@ public class ReuseEnch extends Enchantment {
       EnchantmentInit.ENCHANTMENTSLIST.add(this);
    }
 
+   @Override
    public int getMinEnchantability(int enchantmentLevel) {
       return 20 + (enchantmentLevel - 1) * 10;
    }
 
+   @Override
    public int getMaxEnchantability(int enchantmentLevel) {
       return 60;
    }
 
+   @Override
    public int getMaxLevel() {
       return 2;
    }
 
+   @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack) {
       return stack.getItem() instanceof IWeapon;
    }

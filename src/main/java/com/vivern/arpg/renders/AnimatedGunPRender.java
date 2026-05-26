@@ -20,6 +20,7 @@ public class AnimatedGunPRender<T extends AnimatedGParticle> extends Render<Anim
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(AnimatedGParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       float time = entity.animCounter / entity.animDelay;
       if (!entity.disableOnEnd || time < entity.framecount) {
@@ -111,11 +112,13 @@ public class AnimatedGunPRender<T extends AnimatedGParticle> extends Render<Anim
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(AnimatedGParticle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
 
    public static class AnimGUNPFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new AnimatedGunPRender(manager);
       }

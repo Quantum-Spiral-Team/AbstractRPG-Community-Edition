@@ -17,6 +17,7 @@ public class RenderBigLightningStrike<T extends BigLightningStrike> extends Rend
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(BigLightningStrike entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       if (entity.mainSegment != null) {
@@ -27,11 +28,13 @@ public class RenderBigLightningStrike<T extends BigLightningStrike> extends Rend
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(BigLightningStrike entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
 
    public static class BigLightningStrikeFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new RenderBigLightningStrike(manager);
       }

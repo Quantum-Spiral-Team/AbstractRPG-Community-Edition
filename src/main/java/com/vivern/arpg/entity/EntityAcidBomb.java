@@ -68,14 +68,17 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
       this.power = power;
    }
 
+   @Override
    protected boolean canTriggerWalking() {
       return false;
    }
 
+   @Override
    public boolean canBeCollidedWith() {
       return !this.isDead;
    }
 
+   @Override
    public void onUpdate() {
       this.prevPosX = this.posX;
       this.prevPosY = this.posY;
@@ -352,11 +355,13 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
       }
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       compound.setShort("Fuse", (short)this.fuse);
       compound.setFloat("power", this.power);
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("Fuse")) {
          this.fuse = compound.getShort("Fuse");
@@ -372,10 +377,12 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
       return this.tntPlacedBy;
    }
 
+   @Override
    public float getEyeHeight() {
       return 0.0F;
    }
 
+   @Override
    protected void entityInit() {
    }
 
@@ -399,6 +406,7 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
          this.thrower = thrower;
       }
 
+      @Override
       public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
          float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
          float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -411,14 +419,17 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
          }
       }
 
+      @Override
       public boolean handleWaterMovement() {
          return false;
       }
 
+      @Override
       protected float getGravityVelocity() {
          return 0.015F;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted > 25) {
@@ -426,11 +437,13 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
          }
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          compound.setFloat("damage", this.damage);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("damage")) {
@@ -438,6 +451,7 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
          }
       }
 
+      @Override
       protected void onImpact(RayTraceResult result) {
          if (result.entityHit != null) {
             if (!this.world.isRemote && !(result.entityHit instanceof AcidBombBlob)) {

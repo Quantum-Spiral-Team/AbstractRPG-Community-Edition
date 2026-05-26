@@ -81,6 +81,7 @@ public class StaffOfWitherdryModel extends ModelBase {
       this.light3.addBox(-1.0F, -5.0F, -1.0F, 2, 5, 2, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.staf.offsetX, this.staf.offsetY, this.staf.offsetZ);

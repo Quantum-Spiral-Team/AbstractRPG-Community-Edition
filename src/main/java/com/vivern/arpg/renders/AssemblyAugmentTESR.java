@@ -28,6 +28,7 @@ public class AssemblyAugmentTESR extends TileEntitySpecialRenderer<TileAssemblyA
    public static ResourceLocation tex_weld = new ResourceLocation("arpg:textures/weld_augment_model_tex.png");
    public static ResourceLocation tex_plasma = new ResourceLocation("arpg:textures/plasma_augment_model_tex.png");
 
+   @Override
    public void render(@Nullable TileAssemblyAugment te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       float blockRotation = 0.0F;
       ResourceLocation tex = tex_press;

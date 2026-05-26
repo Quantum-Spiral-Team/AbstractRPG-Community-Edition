@@ -38,6 +38,7 @@ public class CustomArrowFactory implements IRenderFactory {
       return this;
    }
 
+   @Override
    public Render createRenderFor(RenderManager manager) {
       return new RenderCustomArrow(manager, this.tex, this.scale, this.light, this.tilt, this.horizontalShake, this.blend);
    }

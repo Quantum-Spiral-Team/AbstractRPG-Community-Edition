@@ -18,6 +18,7 @@ public class TeleporterUniversal extends Teleporter {
       this.z = z;
    }
 
+   @Override
    public void placeInPortal(Entity entity, float rotationYaw) {
       entity.setPosition(this.x, this.y, this.z);
    }

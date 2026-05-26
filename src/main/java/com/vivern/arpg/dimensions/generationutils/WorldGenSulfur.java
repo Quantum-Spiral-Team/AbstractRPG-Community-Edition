@@ -64,6 +64,7 @@ public class WorldGenSulfur implements IWorldGenerator {
       this(oreState, oreState2, chanceToAir, new int[]{dimension}, blocksToReplace, blockAmountMin, blockAmountMax, chancesToSpawn, minHeight, maxHeight);
    }
 
+   @Override
    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
       int dim = world.provider.getDimension();
 

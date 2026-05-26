@@ -19,6 +19,7 @@ public class Antipotion extends Item {
       this.setTranslationKey("antipotion");
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       player.curePotionEffects(new ItemStack(Items.MILK_BUCKET));

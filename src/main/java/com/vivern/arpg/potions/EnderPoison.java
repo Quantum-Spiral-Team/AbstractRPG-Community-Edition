@@ -20,6 +20,7 @@ public class EnderPoison extends AdvancedPotion {
       this.setIconIndex(13, 1);
    }
 
+   @Override
    public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
       if (!entityOnEffect.world.isRemote && entityOnEffect.ticksExisted % Math.max(20 - amplifier, 2) == 0) {
          double d0 = entityOnEffect.posX;
@@ -63,6 +64,7 @@ public class EnderPoison extends AdvancedPotion {
       return super.isPotionApplicable(entityOnEffect, effect);
    }
 
+   @Override
    public boolean isReady(int duration, int amplifier) {
       return true;
    }

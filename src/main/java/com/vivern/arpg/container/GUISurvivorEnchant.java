@@ -1,6 +1,6 @@
 package com.vivern.arpg.container;
 
-import com.vivern.arpg.arpgamemodes.SurvivorGamestyleWatcher;
+import com.vivern.arpg.arpgamemodes.SurvivorGameStyleWatcher;
 import com.vivern.arpg.main.EnchantmentInit;
 import com.vivern.arpg.main.Vec2i;
 import com.vivern.arpg.network.PacketDoSomethingToServer;
@@ -27,7 +27,7 @@ public class GUISurvivorEnchant extends GuiScreen {
       this.enchantmentsCost = new int[enchantments.length];
 
       for (int i = 0; i < enchantments.length; i++) {
-         this.enchantmentsCost[i] = SurvivorGamestyleWatcher.howMuchLevelsNeedToEnchant(player.getHeldItemMainhand(), enchantments[i]);
+         this.enchantmentsCost[i] = SurvivorGameStyleWatcher.howMuchLevelsNeedToEnchant(player.getHeldItemMainhand(), enchantments[i]);
       }
    }
 
@@ -56,6 +56,7 @@ public class GUISurvivorEnchant extends GuiScreen {
       }
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -98,6 +99,7 @@ public class GUISurvivorEnchant extends GuiScreen {
       }
    }
 
+   @Override
    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       super.mouseClicked(mouseX, mouseY, mouseButton);
       int i = this.width / 2;
@@ -113,7 +115,7 @@ public class GUISurvivorEnchant extends GuiScreen {
          Vec2i vec = enchantCoordinates(enchantment);
          if (mouseX >= i + currentTranslation && mouseX < i + currentTranslation + oneLength && mouseY >= j - space && mouseY < j - space + oneLength) {
             PacketDoSomethingToServer packet = new PacketDoSomethingToServer();
-            packet.writeargs(j2, 0.0, 0.0, 0.0, 0.0, 0.0, 9);
+            packet.writeArgs(j2, 0.0, 0.0, 0.0, 0.0, 0.0, 9);
             PacketHandler.NETWORK.sendToServer(packet);
             this.mc.displayGuiScreen((GuiScreen)null);
             if (this.mc.currentScreen == null) {
@@ -128,7 +130,7 @@ public class GUISurvivorEnchant extends GuiScreen {
 
       if (mouseX >= this.width - 64 && mouseX < this.width - 64 + 32 && mouseY >= 32 && mouseY < 64) {
          PacketDoSomethingToServer packet = new PacketDoSomethingToServer();
-         packet.writeargs(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 9);
+         packet.writeArgs(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 9);
          PacketHandler.NETWORK.sendToServer(packet);
          this.mc.displayGuiScreen((GuiScreen)null);
          if (this.mc.currentScreen == null) {

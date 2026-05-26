@@ -24,7 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BioCell extends BlockBlockHard {
-   public static final ResourceLocation texbubble = new ResourceLocation("arpg:textures/blob.png");
+   private static final ResourceLocation TEXTURE_BUBBLE = new ResourceLocation("arpg:textures/blob.png");
    public static AxisAlignedBB AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 2.0, 0.9375);
 
    public BioCell() {
@@ -41,10 +41,12 @@ public class BioCell extends BlockBlockHard {
       return (TileBioCell)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileBioCell createTileEntity(World world, IBlockState blockState) {
       TileBioCell t = new TileBioCell();
@@ -58,6 +60,9 @@ public class BioCell extends BlockBlockHard {
       return BlockRenderLayer.TRANSLUCENT;
    }
 
+   @SuppressWarnings("deprecation")
+   @SideOnly(Side.CLIENT)
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
@@ -77,31 +82,34 @@ public class BioCell extends BlockBlockHard {
       return AABB;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.8F) {
          GUNParticle spelll = new GUNParticle(
-            texbubble,
-            0.04F + rand.nextFloat() * 0.015F,
-            -0.0012F,
-            63,
-            180,
-            worldIn,
-            pos.getX() + 0.125F + rand.nextFloat() * 0.75F,
-            pos.getY() + 0.1875F,
-            pos.getZ() + 0.125F + rand.nextFloat() * 0.75F,
-            0.0F,
-            0.0F,
-            0.0F,
-            0.6F,
-            1.0F,
-            0.5F,
-            true,
-            0
+                 TEXTURE_BUBBLE,
+                 0.04F + rand.nextFloat() * 0.015F,
+                 -0.0012F,
+                 63,
+                 180,
+                 worldIn,
+                 pos.getX() + 0.125F + rand.nextFloat() * 0.75F,
+                 pos.getY() + 0.1875F,
+                 pos.getZ() + 0.125F + rand.nextFloat() * 0.75F,
+                 0.0F,
+                 0.0F,
+                 0.0F,
+                 0.6F,
+                 1.0F,
+                 0.5F,
+                 true,
+                 0
          );
          worldIn.spawnEntity(spelll);
       }
    }
 
+   @Override
    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
       if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
          if (RANDOM.nextFloat() < 0.25) {
@@ -136,6 +144,7 @@ public class BioCell extends BlockBlockHard {
       return BlocksRegister.HR_WOLFRAM_AND_BIOCELLS.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
    }
 
+   @Override
    public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
       return MathHelper.getInt(RANDOM, 5, 18);
    }

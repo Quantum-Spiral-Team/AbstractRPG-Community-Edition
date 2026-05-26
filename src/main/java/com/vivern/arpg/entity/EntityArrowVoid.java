@@ -69,10 +69,12 @@ public class EntityArrowVoid extends AbstractArrow {
       return null;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_VOID);
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }

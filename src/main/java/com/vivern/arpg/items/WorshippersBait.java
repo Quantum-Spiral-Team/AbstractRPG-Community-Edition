@@ -28,10 +28,12 @@ public class WorshippersBait extends Item {
       this.setMaxStackSize(16);
    }
 
+   @Override
    public int getEntityLifespan(ItemStack itemStack, World world) {
       return 600;
    }
 
+   @Override
    public boolean onEntityItemUpdate(EntityItem entityItem) {
       if (entityItem.dimension == 103 && entityItem.ticksExisted % 18 == 0 && !entityItem.world.isRemote) {
          if (krakenOffsets.isEmpty()) {

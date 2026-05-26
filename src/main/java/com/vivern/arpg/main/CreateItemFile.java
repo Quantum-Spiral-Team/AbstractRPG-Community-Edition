@@ -35,6 +35,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
    modid = "arpg"
@@ -48,7 +50,7 @@ public class CreateItemFile {
    public static Random random = new Random();
    public static BackpropNetwork network;
 
-   public static void ResLocationCreate(Item item) {
+   public static void resLocationCreate(Item item) {
       if (enable) {
          String itemname = item.getTranslationKey().replaceFirst("item.", "");
          String relativePath = mainPatch + "models/item/" + itemname + ".json";
@@ -96,7 +98,7 @@ public class CreateItemFile {
       if (enable) {
          if (type != 3) {
             String itemname = block.getTranslationKey().replaceFirst("tile.", "");
-            ResLocationCreate(
+            resLocationCreate(
                mainPatch + "blockstates/" + itemname + ".json",
                "{\r\n  \"forge_marker\": 1,\r\n  \"defaults\": {\r\n\t\r\n  },\r\n  \"variants\": {\r\n    \r\n    \"growed=false\": { \"model\": \"arpg:"
                   + itemname
@@ -105,13 +107,13 @@ public class CreateItemFile {
                   + "1\"}\r\n\t\r\n  }\r\n}\r\n"
             );
             if (type == 1) {
-               ResLocationCreate(
+               resLocationCreate(
                   mainPatch + "models/block/" + itemname + "0.json",
                   "{\r\n    \"parent\": \"block/tinted_cross\",\r\n    \"textures\": {\r\n        \"cross\": \"arpg:customplants/"
                      + itemname
                      + "0\"\r\n    }\r\n}\r\n"
                );
-               ResLocationCreate(
+               resLocationCreate(
                   mainPatch + "models/block/" + itemname + "1.json",
                   "{\r\n    \"parent\": \"block/tinted_cross\",\r\n    \"textures\": {\r\n        \"cross\": \"arpg:customplants/"
                      + itemname
@@ -120,13 +122,13 @@ public class CreateItemFile {
             }
 
             if (type == 2) {
-               ResLocationCreate(
+               resLocationCreate(
                   mainPatch + "models/block/" + itemname + "0.json",
                   "{\r\n    \"parent\": \"arpg:block/big_cross\",\r\n    \"textures\": {\r\n        \"cross\": \"arpg:customplants/"
                      + itemname
                      + "0\"\r\n    }\r\n}\r\n"
                );
-               ResLocationCreate(
+               resLocationCreate(
                   mainPatch + "models/block/" + itemname + "1.json",
                   "{\r\n    \"parent\": \"arpg:block/big_cross\",\r\n    \"textures\": {\r\n        \"cross\": \"arpg:customplants/"
                      + itemname
@@ -134,11 +136,11 @@ public class CreateItemFile {
                );
             }
 
-            ResLocationCreate(
+            resLocationCreate(
                mainPatch + "models/item/" + itemname + ".json",
                "{\r\n  \"parent\": \"item/generated\",\r\n  \"textures\": {\r\n    \"layer0\": \"arpg:customplants/" + itemname + "1\"\r\n  }\r\n}"
             );
-            ResLocationCreate(
+            resLocationCreate(
                mainPatch + "models/item/" + itemname + "_seed.json",
                "{\r\n  \"parent\": \"item/generated\",\r\n  \"textures\": {\r\n    \"layer0\": \"arpg:customplants/" + itemname + "_seed\"\r\n  }\r\n}"
             );
@@ -146,25 +148,25 @@ public class CreateItemFile {
       }
    }
 
-   public static void ResLocationCreate(Block block) {
+   public static void resLocationCreate(Block block) {
       if (enable) {
          String itemname = block.getTranslationKey().replaceFirst("tile.", "");
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "blockstates/" + itemname + ".json",
             "{\r\n    \"variants\": {\r\n        \"normal\": { \"model\": \"arpg:" + itemname + "\" }\r\n    }\r\n}"
          );
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "models/block/" + itemname + ".json",
             "{\r\n    \"parent\": \"block/cube_all\",\r\n    \"textures\": {\r\n        \"all\": \"arpg:" + itemname + "\"\r\n    }\r\n}\r\n"
          );
-         ResLocationCreate(mainPatch + "models/item/" + itemname + ".json", "{\r\n    \"parent\": \"arpg:block/" + itemname + "\"\r\n}");
+         resLocationCreate(mainPatch + "models/item/" + itemname + ".json", "{\r\n    \"parent\": \"arpg:block/" + itemname + "\"\r\n}");
       }
    }
 
-   public static void ResLocationCreateColumn(Block block, String top, String side) {
+   public static void resLocationCreateColumn(Block block, String top, String side) {
       if (enable) {
          String itemname = block.getTranslationKey().replaceFirst("tile.", "");
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "blockstates/" + itemname + ".json",
             "{\r\n    \"forge_marker\": 1,\r\n    \"defaults\":\r\n    {\r\n        \"transform\": \"forge:default-block\",\r\n        \"model\": \"cube_column\",\r\n        \"textures\": {\"end\": \"arpg:"
                + top
@@ -175,10 +177,10 @@ public class CreateItemFile {
       }
    }
 
-   public static void ResLocationCreateStairs(Block block, String texture) {
+   public static void resLocationCreateStairs(Block block, String texture) {
       if (enable) {
          String itemname = block.getTranslationKey().replaceFirst("tile.", "");
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "blockstates/" + itemname + ".json",
             "{\r\n  \"forge_marker\": 1,\r\n  \"defaults\": {\r\n    \"textures\": {\r\n      \"bottom\": \"arpg:"
                + texture
@@ -193,10 +195,10 @@ public class CreateItemFile {
       }
    }
 
-   public static void ResLocationCreatePilaster(Block block, String top, String side, String particle) {
+   public static void resLocationCreatePilaster(Block block, String top, String side, String particle) {
       if (enable) {
          String itemname = block.getTranslationKey().replaceFirst("tile.", "");
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "blockstates/" + itemname + ".json",
             "{\r\n  \"forge_marker\": 1,\r\n  \"defaults\": {\r\n    \"textures\": {\r\n      \"down\": \"arpg:"
                + top
@@ -214,7 +216,7 @@ public class CreateItemFile {
                + particle
                + "\"\r\n    }\r\n  },\r\n  \"variants\": {\r\n    \"facing=up\": { \"model\": \"arpg:pilaster\" },\r\n\t\"facing=down\": { \"model\": \"arpg:pilaster_up\" },\r\n    \"facing=east\": { \"model\": \"arpg:pilaster_east\" },\r\n    \"facing=south\": { \"model\": \"arpg:pilaster_south\" },\r\n    \"facing=west\": { \"model\": \"arpg:pilaster_west\" },\r\n    \"facing=north\": { \"model\": \"arpg:pilaster_north\" }\r\n  }\r\n}\r\n"
          );
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "models/item/" + itemname + ".json",
             "{\r\n    \"parent\": \"arpg:block/pilaster\",\r\n\t\"textures\": {\r\n      \"down\": \"arpg:"
                + top
@@ -233,40 +235,40 @@ public class CreateItemFile {
       }
    }
 
-   public static void ResLocationCreateTintedCross(Block block) {
+   public static void resLocationCreateTintedCross(Block block) {
       if (enable) {
          String itemname = block.getTranslationKey().replaceFirst("tile.", "");
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "blockstates/" + itemname + ".json",
             "{\r\n    \"variants\": {\r\n        \"normal\": { \"model\": \"arpg:" + itemname + "\" }\r\n    }\r\n}"
          );
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "models/block/" + itemname + ".json",
             "{\r\n    \"parent\": \"block/tinted_cross\",\r\n    \"textures\": {\r\n        \"cross\": \"arpg:" + itemname + "\"\r\n    }\r\n}\r\n"
          );
-         ResLocationCreate(mainPatch + "models/item/" + itemname + ".json", "{\r\n    \"parent\": \"arpg:block/" + itemname + "\"\r\n}");
+         resLocationCreate(mainPatch + "models/item/" + itemname + ".json", "{\r\n    \"parent\": \"arpg:block/" + itemname + "\"\r\n}");
       }
    }
 
-   public static void ResLocationCreateFixedBigCross(Block block) {
+   public static void resLocationCreateFixedBigCross(Block block) {
       if (enable) {
          String itemname = block.getTranslationKey().replaceFirst("tile.", "");
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "blockstates/" + itemname + ".json",
             "{\r\n    \"variants\": {\r\n        \"normal\": { \"model\": \"arpg:" + itemname + "\" }\r\n    }\r\n}"
          );
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "models/block/" + itemname + ".json",
             "{\r\n    \"parent\": \"arpg:fixed_big_cross\",\r\n    \"textures\": {\r\n        \"all\": \"arpg:" + itemname + "\"\r\n    }\r\n}\r\n"
          );
-         ResLocationCreate(mainPatch + "models/item/" + itemname + ".json", "{\r\n    \"parent\": \"arpg:block/" + itemname + "\"\r\n}");
+         resLocationCreate(mainPatch + "models/item/" + itemname + ".json", "{\r\n    \"parent\": \"arpg:block/" + itemname + "\"\r\n}");
       }
    }
 
-   public static void RotatedBlockResLocationCreate(Block block) {
+   public static void rotatedBlockResLocationCreate(Block block) {
       if (enable) {
          String itemname = block.getTranslationKey().replaceFirst("tile.", "");
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "blockstates/" + itemname + ".json",
             "{\r\n  \"forge_marker\": 1,\r\n  \"defaults\": {\r\n    \"textures\": {\r\n      \"0\": \"arpg:"
                + itemname
@@ -284,13 +286,13 @@ public class CreateItemFile {
                + itemname
                + "\", \"y\": 270 }\r\n  }\r\n}\r\n"
          );
-         ResLocationCreate(mainPatch + "models/item/" + itemname + ".json", "{\r\n    \"parent\": \"arpg:block/" + itemname + "\"\r\n}");
+         resLocationCreate(mainPatch + "models/item/" + itemname + ".json", "{\r\n    \"parent\": \"arpg:block/" + itemname + "\"\r\n}");
       }
    }
 
-   public static void ResLocationCreateStalact(String blockname, String secname) {
+   public static void resLocationCreateStalact(String blockname, String secname) {
       if (enable) {
-         ResLocationCreate(
+         resLocationCreate(
             mainPatch + "blockstates/" + blockname + ".json",
             "{\r\n    \"variants\": {\r\n        \"variant=s1\": { \"model\": \"arpg:stalacts/"
                + secname
@@ -306,7 +308,7 @@ public class CreateItemFile {
          );
 
          for (int ii = 1; ii < 6; ii++) {
-            ResLocationCreate(
+            resLocationCreate(
                mainPatch + "models/block/stalacts/" + secname + ii + ".json",
                "{\r\n    \"parent\": \"block/tinted_cross\",\r\n    \"textures\": {\r\n        \"cross\": \"arpg:stalacts/"
                   + secname
@@ -315,11 +317,11 @@ public class CreateItemFile {
             );
          }
 
-         ResLocationCreate(mainPatch + "models/item/" + blockname + ".json", "{\r\n    \"parent\": \"arpg:block/stalacts/" + secname + "1\"\r\n}");
+         resLocationCreate(mainPatch + "models/item/" + blockname + ".json", "{\r\n    \"parent\": \"arpg:block/stalacts/" + secname + "1\"\r\n}");
       }
    }
 
-   public static void ResLocationCreate(String relativePath, String text) {
+   public static void resLocationCreate(String relativePath, String text) {
       if (enable) {
          File file = new File(relativePath);
 
@@ -338,7 +340,7 @@ public class CreateItemFile {
       }
    }
 
-   public static void ResLocationCreateCalibration(Item item) {
+   public static void resLocationCreateCalibration(Item item) {
       if (enable) {
          String itemname = item.getTranslationKey().replaceFirst("item.", "");
          String relativePath = mainPatch + "models/item/" + itemname + ".json";
@@ -375,7 +377,7 @@ public class CreateItemFile {
       }
    }
 
-   public static void ResLocationCreateSpeleothem(String name) {
+   public static void resLocationCreateSpeleothem(String name) {
       if (enable) {
          for (int x = 0; x < 5; x++) {
             for (int y = 0; y < 5; y++) {
@@ -551,7 +553,7 @@ public class CreateItemFile {
                + "\",\r\n        \"count\": "
                + output.getCount()
                + "\r\n    }\r\n}";
-            ResLocationCreate(mainPatch + "recipes/" + output.getItem().getRegistryName().getPath() + ".json", finaltext);
+            resLocationCreate(mainPatch + "recipes/" + output.getItem().getRegistryName().getPath() + ".json", finaltext);
          }
       }
    }
@@ -1275,6 +1277,7 @@ public class CreateItemFile {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static ItemCameraTransforms readJsonItemCameraTransforms(String itemname) {
       try {
          File file2 = new File(mainPatch + "models/item/" + itemname + ".json");
@@ -1311,14 +1314,14 @@ public class CreateItemFile {
          Object obj = field.get(null);
          if (obj instanceof Gson) {
             Gson gsonn = (Gson)obj;
-            ItemCameraTransforms cameraTransforms = (ItemCameraTransforms)JsonUtils.gsonDeserialize(gsonn, jsonString, ItemCameraTransforms.class);
+            ItemCameraTransforms cameraTransforms = JsonUtils.gsonDeserialize(gsonn, jsonString, ItemCameraTransforms.class);
             if (cameraTransforms == null) {
                throw new JsonException("gsonDeserialize is failed");
             }
 
             return cameraTransforms;
          }
-      } catch (Exception var12) {
+      } catch (Exception ignored) {
       }
 
       return null;

@@ -113,6 +113,7 @@ public class Template2 {
 
    private void takeEntitiesFromWorld(World worldIn, BlockPos startPos, BlockPos endPos) {
       List<Entity> list = worldIn.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(startPos, endPos), new Predicate<Entity>() {
+         @Override
          public boolean apply(@Nullable Entity p_apply_1_) {
             return !(p_apply_1_ instanceof EntityPlayer);
          }
@@ -316,6 +317,7 @@ public class Template2 {
 
    public static void registerFixes(DataFixer fixer) {
       fixer.registerWalker(FixTypes.STRUCTURE, new IDataWalker() {
+         @Override
          public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
             if (compound.hasKey("entities", 9)) {
                NBTTagList nbttaglist = compound.getTagList("entities", 10);

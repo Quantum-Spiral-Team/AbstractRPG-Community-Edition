@@ -46,6 +46,7 @@ public class ColdSoul extends AdvancedPotion {
       }
    }
 
+   @Override
    public double getAttributeModifierAmount(int amplifier, AttributeModifier modifier) {
       return -(-1.0 / (amplifier + 1.7) + 0.9);
    }

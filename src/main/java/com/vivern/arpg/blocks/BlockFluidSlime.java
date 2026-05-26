@@ -35,6 +35,7 @@ public class BlockFluidSlime extends BlockFluidClassic {
       this.setRegistryName("fluid_slime_block");
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       if (entityIn instanceof EntityLivingBase && entityIn.ticksExisted % 10 == 0) {
@@ -47,6 +48,7 @@ public class BlockFluidSlime extends BlockFluidClassic {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       double d0 = pos.getX();
@@ -125,11 +127,13 @@ public class BlockFluidSlime extends BlockFluidClassic {
       }
    }
 
+   @Override
    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
       super.onBlockAdded(world, pos, state);
       this.mergerFluids(pos, world);
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
       super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
       this.mergerFluids(pos, world);

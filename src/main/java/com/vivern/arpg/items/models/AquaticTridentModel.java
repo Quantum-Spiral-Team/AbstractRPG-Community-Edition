@@ -102,6 +102,7 @@ public class AquaticTridentModel extends ModelBase {
       this.setRotateAngle(this.shell, 0.22759093F, 0.27314404F, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.staf.offsetX, this.staf.offsetY, this.staf.offsetZ);

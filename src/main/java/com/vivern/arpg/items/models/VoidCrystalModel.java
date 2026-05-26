@@ -52,6 +52,7 @@ public class VoidCrystalModel extends ModelBase {
       this.shape2.addBox(-1.0F, 0.0F, -1.0F, 2, 13, 2, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       AbstractMobModel.light(180, false);
       Random rand = new Random((long)f);

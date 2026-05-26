@@ -28,6 +28,7 @@ public class StormledgePortalTESR extends TileEntitySpecialRenderer<TileStormled
    private static FloatBuffer MULT_MATRIX = GLAllocation.createDirectFloatBuffer(16);
    private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
+   @Override
    public void render(TileStormledgePortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.disableLighting();
       RANDOM.setSeed(31100L);

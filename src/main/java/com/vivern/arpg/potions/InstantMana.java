@@ -2,6 +2,8 @@ package com.vivern.arpg.potions;
 
 import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.main.Mana;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -18,15 +20,19 @@ public class InstantMana extends Potion {
       this.setIconIndex(10, 1);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasStatusIcon() {
       Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
       return true;
    }
 
+   @Override
    public boolean isInstant() {
       return true;
    }
 
+   @Override
    public void affectEntity(@Nullable Entity source, @Nullable Entity indirectSource, EntityLivingBase entityLivingBaseIn, int amplifier, double health) {
       if (entityLivingBaseIn instanceof EntityPlayer) {
          int amount = (amplifier + 1) * 10;

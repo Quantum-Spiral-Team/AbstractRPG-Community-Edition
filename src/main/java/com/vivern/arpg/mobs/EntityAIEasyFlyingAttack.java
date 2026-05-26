@@ -22,10 +22,12 @@ public class EntityAIEasyFlyingAttack extends EntityAIBase {
       this.friction = friction;
    }
 
+   @Override
    public boolean shouldExecute() {
       return this.entity.getAttackTarget() != null;
    }
 
+   @Override
    public void updateTask() {
       if (this.entity.getAttackTarget() != null) {
          Vec3d vec = this.entity.getAttackTarget().getPositionVector().add(0.0, this.entity.getAttackTarget().height / 2.0F, 0.0);

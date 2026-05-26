@@ -49,6 +49,7 @@ public class AdamantiumRevolver extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -58,14 +59,17 @@ public class AdamantiumRevolver extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -157,11 +161,11 @@ public class AdamantiumRevolver extends ItemWeapon {
                            if (Team.checkIsOpponent(player, entity)) {
                               if (Weapons.dealDamage(
                                  new WeaponDamage(itemstack, player, null, false, true, player, WeaponDamage.bullet),
-                                 parameters.getEnchantedF("damage", might) + damageadd * parameters.getF("bullet_damage"),
+                                 parameters.getEnchantedF("damage", might) + damageadd * parameters.getFloat("bullet_damage"),
                                  player,
                                  entity,
                                  true,
-                                 parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getF("bullet_knockback"),
+                                 parameters.getEnchantedF("knockback", impulse) + knockbackadd * parameters.getFloat("bullet_knockback"),
                                  player.posX,
                                  player.posY,
                                  player.posZ
@@ -180,8 +184,8 @@ public class AdamantiumRevolver extends ItemWeapon {
                                        vec.x,
                                        vec.y,
                                        vec.z,
-                                       parameters.getI("hearts"),
-                                       parameters.getF("hearts_health"),
+                                       parameters.getInt("hearts"),
+                                       parameters.getFloat("hearts_health"),
                                        true,
                                        4.0F,
                                        player
@@ -246,6 +250,7 @@ public class AdamantiumRevolver extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       Vec3d from = new Vec3d(x, y, z);
@@ -283,11 +288,13 @@ public class AdamantiumRevolver extends ItemWeapon {
       Booom.power = 0.34F;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return true;

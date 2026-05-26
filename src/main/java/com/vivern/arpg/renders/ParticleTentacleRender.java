@@ -20,6 +20,7 @@ public class ParticleTentacleRender<T extends ParticleTentacle> extends Render<P
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(ParticleTentacle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       GlStateManager.pushMatrix();
       this.bindTexture(entity.texture);
@@ -94,11 +95,13 @@ public class ParticleTentacleRender<T extends ParticleTentacle> extends Render<P
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(ParticleTentacle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }
 
    public static class ParticleTentacleFactory implements IRenderFactory {
+      @Override
       public Render createRenderFor(RenderManager manager) {
          return new ParticleTentacleRender(manager);
       }

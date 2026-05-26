@@ -14,6 +14,7 @@ public class RenderShard<T extends EntityShard> extends Render<T> {
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (entity != null && entity.shardType != null) {
          entity.shardType.renderShardEntity(entity, x, y, z, entityYaw, partialTicks, this.renderManager);
@@ -21,6 +22,7 @@ public class RenderShard<T extends EntityShard> extends Render<T> {
       }
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(T entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }

@@ -1,6 +1,8 @@
 package com.vivern.arpg.main;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.entity.BetweenParticle;
+import com.vivern.arpg.items.ItemBullet;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.shader.ShaderMain;
 import java.util.ArrayList;
@@ -10,8 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
@@ -20,10 +20,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.ColorHandlerEvent.Item;
-import net.minecraftforge.client.event.RenderLivingEvent.Post;
-import net.minecraftforge.client.event.RenderLivingEvent.Pre;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -31,9 +29,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class Color {
    static List<EntityLivingBase> list = new ArrayList<>();
    private static final ResourceLocation textur = new ResourceLocation("arpg:textures/freezing.png");
@@ -50,28 +46,62 @@ public class Color {
    private static final ResourceLocation gore = new ResourceLocation("arpg:textures/gore.png");
    private static final ResourceLocation drop = new ResourceLocation("arpg:textures/normaldrop.png");
    private static ResourceLocation blood = new ResourceLocation("arpg:textures/blood.png");
-   static Random rand = new Random();
+   private static final Random RANDOM = new Random();
+
+   private static final int[] GEM_COLORS = {
+           0x8AF2E0, // 0: red 0.54, green 0.95, blue 0.88
+           0xE60D1A, // 1: red 0.9,  green 0.05, blue 0.1
+           0x0D0DE6, // 2: red 0.05, green 0.05, blue 0.9
+           0x0DE633, // 3: red 0.05, green 0.9,  blue 0.2
+           0xE6D94D, // 4: red 0.9,  green 0.85, blue 0.3
+           0x6614D9, // 5: red 0.4,  green 0.08, blue 0.85
+           0xE680A6, // 6: red 0.9,  green 0.5,  blue 0.65
+           0xE6E8D9  // 7: red 0.9,  green 0.91, blue 0.85
+   };
 
    @SubscribeEvent
-   public static void onItemColor(Item event) {
-      ModelLoader.setCustomModelResourceLocation(
-         ItemsRegister.GEOMANTIC_CRYSTAL, 0, new ModelResourceLocation(ItemsRegister.GEOMANTIC_CRYSTAL.getRegistryName(), "inventory")
-      );
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.GEOMANTIC_CRYSTAL, new net.minecraft.item.Item[]{ItemsRegister.GEOMANTIC_CRYSTAL});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.ADAMANTIUM_ROUNDS, new net.minecraft.item.Item[]{ItemsRegister.ADAMANTIUM_ROUNDS});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.BUCKSHOT, new net.minecraft.item.Item[]{ItemsRegister.BUCKSHOT});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.ELEMENTS_BOOK, new net.minecraft.item.Item[]{ItemsRegister.ELEMENTS_BOOK});
-      event.getItemColors().registerItemColorHandler((IItemColor)ItemsRegister.HYDRAULIC_SHOTGUN_CLIP, new net.minecraft.item.Item[]{ItemsRegister.HYDRAULIC_SHOTGUN_CLIP});
+   public static void onItemColor(ColorHandlerEvent.Item event) {
+
+      event.getItemColors().registerItemColorHandler((stack, tintIndex) ->
+              tintIndex == 0 ? NBTHelper.GetNBTint(stack, "color") : NBTHelper.GetNBTint(stack, "colorover"),
+              ItemsRegister.GEOMANTIC_CRYSTAL);
+
+      event.getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+         ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
+         return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
+      }, ItemsRegister.ADAMANTIUM_ROUNDS);
+
+      event.getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+         ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
+         return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
+      }, ItemsRegister.BUCKSHOT);
+
+      event.getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+         if (tintIndex == 0) return 0xFFFFFF;
+
+         int gem = NBTHelper.GetNBTint(stack, "gem");
+
+         if (gem >= 0 && gem < GEM_COLORS.length) {
+            return GEM_COLORS[gem];
+         }
+
+         return 0xFFFFFF;
+      }, ItemsRegister.ELEMENTS_BOOK);
+
+      event.getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+         ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
+         return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
+      }, ItemsRegister.HYDRAULIC_SHOTGUN_CLIP);
    }
 
    @SubscribeEvent
-   public static void onRenderLivingPre(Pre event) {
+   public static void onRenderLivingPre(RenderLivingEvent.Pre<EntityLivingBase> event) {
       EntityLivingBase entity = event.getEntity();
-      int mobdeathtime = entity.deathTime;
-      if (mobdeathtime > 0) {
-         for (DeathEffect deffect : DeathEffect.registry.values()) {
-            if (deffect.exist(entity)) {
-               deffect.onRenderLivingPre(event, entity);
+      int mobDeathTime = entity.deathTime;
+      if (mobDeathTime > 0) {
+         for (DeathEffect deathEffect : DeathEffect.REGISTRY) {
+            if (deathEffect.exist(entity)) {
+               deathEffect.onRenderLivingPre(event, entity);
             }
          }
       } else if (DeathEffects.getlistEFFECTshock().contains(entity)) {
@@ -86,26 +116,25 @@ public class Color {
    }
 
    @SubscribeEvent
-   public static void onRenderLivingPost(Post event) {
+   public static void onRenderLivingPost(RenderLivingEvent.Post<EntityLivingBase> event) {
       float partialTicks = event.getPartialRenderTick();
       EntityLivingBase entity = event.getEntity();
       EntityPlayer player = Minecraft.getMinecraft().player;
-      double x = entity.prevPosX
-         - player.prevPosX
-         + (entity.posX - player.posX)
-         - (entity.prevPosX - player.prevPosX) * partialTicks;
-      double y = entity.prevPosY
-         - player.prevPosY
-         + (entity.posY - player.posY)
-         - (entity.prevPosY - player.prevPosY) * partialTicks;
-      double z = entity.prevPosZ
-         - player.prevPosZ
-         + (entity.posZ - player.posZ)
-         - (entity.prevPosZ - player.prevPosZ) * partialTicks;
+      //why unused ??
+//      double x = entity.prevPosX
+//         - player.prevPosX
+//         + (entity.posX - player.posX)
+//         - (entity.prevPosX - player.prevPosX) * partialTicks;
+//      double y = entity.prevPosY
+//         - player.prevPosY
+//         + (entity.posY - player.posY)
+//         - (entity.prevPosY - player.prevPosY) * partialTicks;
+//      double z = entity.prevPosZ
+//         - player.prevPosZ
+//         + (entity.posZ - player.posZ)
+//         - (entity.prevPosZ - player.prevPosZ) * partialTicks;
       float entityYaw = entity.rotationYaw;
-      float limbSwing = entity.limbSwing;
-      float limbSwingAmount = entity.limbSwingAmount;
-      if (list.contains(event.getEntity()) && event.getRenderer().getMainModel() != null) {
+      if (list.contains(event.getEntity())) {
          ModelBase model = event.getRenderer().getMainModel();
          GlStateManager.pushMatrix();
          GL11.glDepthMask(false);
@@ -129,29 +158,30 @@ public class Color {
       double z = base.posZ;
       World world = base.getEntityWorld();
       if (DeathEffects.getlistEFFECTshock().contains(base)) {
-         GUNParticle bigboom = new GUNParticle(
-            electr, base.height, 0.0F, 2, 240, world, x, y + base.height / 2.0F, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, rand.nextInt(360)
+         GUNParticle bigBoom = new GUNParticle(
+            electr, base.height, 0.0F, 2, 240, world, x, y + base.height / 2.0F, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, RANDOM.nextInt(360)
          );
-         world.spawnEntity(bigboom);
+         world.spawnEntity(bigBoom);
          if (AnimationTimer.normaltick % 2 == 0) {
             DeathEffects.getlistEFFECTshock().remove(base);
          }
       }
 
       if (base.deathTime > 0) {
-         for (DeathEffect deffect : DeathEffect.registry.values()) {
-            deffect.removeAllUnused();
-            if (deffect.exist(base)) {
-               deffect.onLivingUpdate(world, event, base, x, y, z);
+         for (DeathEffect deathEffect : DeathEffect.REGISTRY) {
+            deathEffect.removeAllUnused();
+            if (deathEffect.exist(base)) {
+               deathEffect.onLivingUpdate(world, event, base, x, y, z);
             }
 
             if (base.deathTime >= 20) {
-               deffect.remove(base);
+               deathEffect.remove(base);
             }
          }
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static void doRender(
       EntityLivingBase entity,
       double x,
@@ -164,7 +194,6 @@ public class Color {
       float maxangle,
       boolean electric
    ) {
-      boolean renderOutlines = false;
       GlStateManager.pushMatrix();
       GlStateManager.disableCull();
       mainModel.swingProgress = getSwingProgress(entity, partialTicks);
@@ -241,8 +270,7 @@ public class Color {
          renderModel(entity, f6, f5, f8, f2, f7, f4, mainModel);
          GlStateManager.depthMask(true);
          GlStateManager.disableRescaleNormal();
-      } catch (Exception var26) {
-      }
+      } catch (Exception ignored) {}
 
       GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
       GlStateManager.enableTexture2D();
@@ -265,6 +293,7 @@ public class Color {
       return prevYawOffset + partialTicks * f;
    }
 
+   @SideOnly(Side.CLIENT)
    protected static void renderModel(
       EntityLivingBase entitylivingbaseIn,
       float limbSwing,
@@ -278,6 +307,7 @@ public class Color {
       mainModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
    }
 
+   @SideOnly(Side.CLIENT)
    protected static void renderLivingAt(EntityLivingBase entityLivingBaseIn, double x, double y, double z) {
       GlStateManager.translate((float)x, (float)y, (float)z);
    }
@@ -290,6 +320,7 @@ public class Color {
       return livingBase.getSwingProgress(partialTickTime);
    }
 
+   @SideOnly(Side.CLIENT)
    protected static void applyRotations(EntityLivingBase entityLiving, float ageInTicks, float rotationYaw, float partialTicks, float maxangle) {
       GlStateManager.rotate(180.0F - rotationYaw, 0.0F, 1.0F, 0.0F);
       if (entityLiving.deathTime > 0) {
@@ -302,15 +333,15 @@ public class Color {
          GlStateManager.rotate(f * maxangle, 0.0F, 0.0F, 1.0F);
       } else {
          String s = TextFormatting.getTextWithoutFormattingCodes(entityLiving.getName());
-         if (s != null
-            && ("Dinnerbone".equals(s) || "Grumm".equals(s))
-            && (!(entityLiving instanceof EntityPlayer) || ((EntityPlayer)entityLiving).isWearing(EnumPlayerModelParts.CAPE))) {
+         if (("Dinnerbone".equals(s) || "Grumm".equals(s))
+                 && (!(entityLiving instanceof EntityPlayer) || ((EntityPlayer) entityLiving).isWearing(EnumPlayerModelParts.CAPE))) {
             GlStateManager.translate(0.0F, entityLiving.height + 0.1F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
          }
       }
    }
 
+   @SideOnly(Side.CLIENT)
    public static float prepareScale(EntityLivingBase entitylivingbaseIn, float partialTicks) {
       GlStateManager.enableRescaleNormal();
       GlStateManager.scale(-1.0F, -1.0F, 1.0F);

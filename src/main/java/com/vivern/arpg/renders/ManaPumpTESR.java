@@ -35,6 +35,7 @@ public class ManaPumpTESR extends TileEntitySpecialRenderer<TileManaPump> {
       }
    }
 
+   @Override
    public void render(TileManaPump te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       GlStateManager.pushMatrix();
       GlStateManager.enableBlend();

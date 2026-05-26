@@ -29,6 +29,7 @@ public class Container9 extends Container {
       }
    }
 
+   @Override
    public boolean canInteractWith(EntityPlayer playerIn) {
       if (this.containerInventory.isUsableByPlayer(playerIn)) {
          this.containerInventory.openInventory(playerIn);
@@ -38,6 +39,7 @@ public class Container9 extends Container {
       }
    }
 
+   @Override
    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
       ItemStack itemstack = ItemStack.EMPTY;
       Slot slot = (Slot)this.inventorySlots.get(index);
@@ -68,6 +70,7 @@ public class Container9 extends Container {
       return itemstack;
    }
 
+   @Override
    public void onContainerClosed(EntityPlayer playerIn) {
       this.containerInventory.closeInventory(playerIn);
       super.onContainerClosed(playerIn);

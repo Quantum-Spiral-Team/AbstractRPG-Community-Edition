@@ -104,6 +104,7 @@ class CoralsDecorator extends BiomeDecorator {
       return count;
    }
 
+   @Override
    public void decorate(World world, Random random, Biome biome, BlockPos decpos) {
       if (this.decorating) {
          throw new RuntimeException("Already decorating");

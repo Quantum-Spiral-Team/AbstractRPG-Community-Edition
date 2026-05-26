@@ -112,6 +112,7 @@ public class CrystalSphereModel2 extends ModelBase {
       this.shapeOver_1.addBox(4.0F, -4.0F, -4.0F, 1, 8, 8, 0.1F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f == 0.0F) {
          this.shape1_3.render(f5);

@@ -68,7 +68,7 @@ public abstract class AbstractArrow extends EntityArrow {
 
    public double getItemArrowDamage(World worldIn) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.itemArrow);
-      return parameters.getF("damage");
+      return parameters.getFloat("damage");
    }
 
    public abstract SoundEvent getHitSound();
@@ -81,6 +81,7 @@ public abstract class AbstractArrow extends EntityArrow {
       return basepitch;
    }
 
+   @Override
    public void playSound(SoundEvent soundIn, float volume, float pitch) {
       if (soundIn == SoundEvents.ENTITY_ARROW_HIT) {
          soundIn = this.getHitSound();
@@ -89,10 +90,12 @@ public abstract class AbstractArrow extends EntityArrow {
       super.playSound(soundIn, this.getHitSoundVolume(volume), this.getHitSoundPitch(pitch));
    }
 
+   @Override
    protected void entityInit() {
       super.entityInit();
    }
 
+   @Override
    public void shoot(@Nullable Entity shooter, float pitch, float yaw, float p_184547_4_, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(yaw * (float) (Math.PI / 180.0)) * MathHelper.cos(pitch * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin(pitch * (float) (Math.PI / 180.0));
@@ -134,6 +137,7 @@ public abstract class AbstractArrow extends EntityArrow {
       }
    }
 
+   @Override
    public void onHit(RayTraceResult raytraceResultIn) {
       Entity entity = raytraceResultIn.entityHit;
       this.world.setEntityState(this, (byte)8);
@@ -247,6 +251,7 @@ public abstract class AbstractArrow extends EntityArrow {
       this.ticksAir = 0;
    }
 
+   @Override
    public void onUpdate() {
       if (this.doWaterMoveHook() && !this.inGround && this.inWater) {
          this.waterMoveHook = true;
@@ -294,6 +299,7 @@ public abstract class AbstractArrow extends EntityArrow {
       }
    }
 
+   @Override
    public boolean isInWater() {
       return this.waterMoveHook ? false : super.isInWater();
    }
@@ -301,27 +307,33 @@ public abstract class AbstractArrow extends EntityArrow {
    public void spawnArrowParticles(int particleCount) {
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       super.writeEntityToNBT(compound);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       super.readEntityFromNBT(compound);
    }
 
+   @Override
    public void arrowHit(EntityLivingBase living) {
       super.arrowHit(living);
    }
 
+   @Override
    public void setKnockbackStrength(int knockbackStrengthIn) {
       this.knockbackStrength = knockbackStrengthIn;
    }
 
+   @Override
    public void setDamage(double damageIn) {
       this.bowDamage = damageIn;
       super.setDamage(damageIn);
    }
 
+   @Override
    public double getDamage() {
       return this.bowDamage;
    }

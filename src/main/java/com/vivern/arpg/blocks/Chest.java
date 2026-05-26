@@ -49,6 +49,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+//TODO optimize
 public class Chest extends BlockContainer {
    public static final PropertyDirection FACING = BlockHorizontal.FACING;
    protected static final AxisAlignedBB NORTH_CHEST_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0, 0.9375, 0.875, 0.9375);
@@ -99,23 +100,29 @@ public class Chest extends BlockContainer {
       }
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public boolean hasCustomBreakingProgress(IBlockState state) {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public EnumBlockRenderType getRenderType(IBlockState state) {
       return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       if (source.getBlockState(pos.north()).getBlock() == this) {
          return NORTH_CHEST_AABB;
@@ -128,6 +135,7 @@ public class Chest extends BlockContainer {
       }
    }
 
+   @Override
    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
       this.checkForSurroundingChests(worldIn, pos, state);
 
@@ -140,10 +148,12 @@ public class Chest extends BlockContainer {
       }
    }
 
+   @Override
    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
       return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
    }
 
+   @Override
    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       EnumFacing enumfacing = EnumFacing.byHorizontalIndex(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5) & 3).getOpposite();
       state = state.withProperty(FACING, enumfacing);
@@ -185,10 +195,9 @@ public class Chest extends BlockContainer {
       }
    }
 
+   //TODO
    public IBlockState checkForSurroundingChests(World worldIn, BlockPos pos, IBlockState state) {
-      if (worldIn.isRemote) {
-         return state;
-      } else {
+      if (!worldIn.isRemote) {
          IBlockState iblockstate = worldIn.getBlockState(pos.north());
          IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
          IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
@@ -204,9 +213,9 @@ public class Chest extends BlockContainer {
                enumfacing = EnumFacing.SOUTH;
                EnumFacing enumfacing2;
                if (iblockstate2.getBlock() == this) {
-                  enumfacing2 = (EnumFacing)iblockstate2.getValue(FACING);
+                  enumfacing2 = iblockstate2.getValue(FACING);
                } else {
-                  enumfacing2 = (EnumFacing)iblockstate3.getValue(FACING);
+                  enumfacing2 = iblockstate3.getValue(FACING);
                }
 
                if (enumfacing2 == EnumFacing.NORTH) {
@@ -228,9 +237,9 @@ public class Chest extends BlockContainer {
             enumfacing = EnumFacing.EAST;
             EnumFacing enumfacing1;
             if (iblockstate.getBlock() == this) {
-               enumfacing1 = (EnumFacing)iblockstate.getValue(FACING);
+               enumfacing1 = iblockstate.getValue(FACING);
             } else {
-               enumfacing1 = (EnumFacing)iblockstate1.getValue(FACING);
+               enumfacing1 = iblockstate1.getValue(FACING);
             }
 
             if (enumfacing1 == EnumFacing.WEST) {
@@ -248,8 +257,8 @@ public class Chest extends BlockContainer {
 
          state = state.withProperty(FACING, enumfacing);
          worldIn.setBlockState(pos, state, 3);
-         return state;
       }
+      return state;
    }
 
    public IBlockState correctFacing(World worldIn, BlockPos pos, IBlockState state) {
@@ -291,6 +300,7 @@ public class Chest extends BlockContainer {
       }
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       int i = 0;
       BlockPos blockpos = pos.west();
@@ -346,6 +356,7 @@ public class Chest extends BlockContainer {
       }
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
       TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -354,6 +365,7 @@ public class Chest extends BlockContainer {
       }
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof IInventory) {
@@ -364,6 +376,7 @@ public class Chest extends BlockContainer {
       super.breakBlock(worldIn, pos, state);
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -427,6 +440,7 @@ public class Chest extends BlockContainer {
       }
    }
 
+   @Override
    public TileEntity createNewTileEntity(World worldIn, int meta) {
       TileChest tchest = new TileChest();
       tchest.type = this.chestType;
@@ -457,14 +471,17 @@ public class Chest extends BlockContainer {
       return false;
    }
 
+   @Override
    public boolean hasComparatorInputOverride(IBlockState state) {
       return true;
    }
 
+   @Override
    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
       return Container.calcRedstoneFromInventory(this.getLockableContainer(worldIn, pos));
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       EnumFacing enumfacing = EnumFacing.byIndex(meta);
       if (enumfacing.getAxis() == Axis.Y) {
@@ -474,26 +491,32 @@ public class Chest extends BlockContainer {
       return this.getDefaultState().withProperty(FACING, enumfacing);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return ((EnumFacing)state.getValue(FACING)).getIndex();
    }
 
+   @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{FACING});
    }
 
+   @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
       return BlockFaceShape.UNDEFINED;
    }
 
+   @Override
    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
       return !this.isDoubleChest(world, pos) && super.rotateBlock(world, pos, axis);
    }

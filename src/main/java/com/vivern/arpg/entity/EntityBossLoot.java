@@ -36,6 +36,7 @@ public class EntityBossLoot extends EntityItem {
       this.setGlowing(true);
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       super.writeEntityToNBT(compound);
       compound.setDouble("homeX", this.homeX);
@@ -43,6 +44,7 @@ public class EntityBossLoot extends EntityItem {
       compound.setBoolean("hasHomePosition", this.hasHomePosition);
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       super.readEntityFromNBT(compound);
       if (compound.hasKey("homeX")) {
@@ -58,11 +60,14 @@ public class EntityBossLoot extends EntityItem {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public boolean isInRangeToRenderDist(double distance) {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public AxisAlignedBB getRenderBoundingBox() {
       return this.getEntityBoundingBox().grow(64.0);
    }
@@ -73,10 +78,12 @@ public class EntityBossLoot extends EntityItem {
       this.homeZ = this.posZ;
    }
 
+   @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       return false;
    }
 
+   @Override
    public void onUpdate() {
       this.motionX = MathHelper.clamp(this.motionX, -1.0, 1.0);
       this.motionY = MathHelper.clamp(this.motionY, -1.0, 1.0);
@@ -114,6 +121,7 @@ public class EntityBossLoot extends EntityItem {
       }
    }
 
+   @Override
    public Entity changeDimension(int dimensionIn, ITeleporter teleporter) {
       return null;
    }

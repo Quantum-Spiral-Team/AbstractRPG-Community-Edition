@@ -18,6 +18,7 @@ public class WorldGenArthroheliaFlower extends WorldGenerator {
    public Block core;
    public int hatType;
 
+   @Override
    public boolean generate(World world, Random rand, BlockPos position) {
       int radiusX = 4;
       int radiusZ = 4;

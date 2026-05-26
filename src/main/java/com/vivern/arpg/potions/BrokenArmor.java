@@ -13,6 +13,8 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BrokenArmor extends AdvancedPotion {
    public static final ResourceLocation textur1 = new ResourceLocation("arpg:textures/cracks.png");
@@ -30,10 +32,12 @@ public class BrokenArmor extends AdvancedPotion {
       this.shouldRender = true;
    }
 
+   @Override
    public double getAttributeModifierAmount(int amplifier, AttributeModifier modifier) {
       return modifier.getAmount() * (1.0 - 1.0 / (amplifier + 1.5));
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
       ResourceLocation tex = textur1;

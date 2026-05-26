@@ -45,14 +45,17 @@ public class Buzdygan extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
       return new AnimationCapabilityProvider();
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
@@ -79,13 +82,15 @@ public class Buzdygan extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
       if (state == 0) {
-         Flicks.instance.setClientAnimation(player, slot, EnumFlick.SPIN, 0, maxAngle, angleAdd, 0);
+         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.SPIN, 0, maxAngle, angleAdd, 0);
       }
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -96,7 +101,7 @@ public class Buzdygan extends ItemWeapon {
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             EnumHand hand = null;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int maxrunes = parameters.getI("max_charges");
+            int maxrunes = parameters.getInt("max_charges");
             if (player.getHeldItemMainhand() == itemstack) {
                hand = EnumHand.MAIN_HAND;
                click1 = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
@@ -118,7 +123,7 @@ public class Buzdygan extends ItemWeapon {
                if (!active) {
                   if (runes >= maxrunes && click2 && !hascooldown) {
                      itemstack.damageItem(4, player);
-                     NBTHelper.GiveNBTboolean(itemstack, true, "active");
+                     NBTHelper.giveNBTboolean(itemstack, true, "active");
                      NBTHelper.SetNBTboolean(itemstack, true, "active");
                      IWeapon.sendIWeaponState(itemstack, player, 0, itemSlot, hand);
                   } else if (delay <= 0 && click1 && !hascooldown) {
@@ -177,9 +182,9 @@ public class Buzdygan extends ItemWeapon {
                   }
                } else if (runes > 0.0F) {
                   if (!hascooldown) {
-                     NBTHelper.AddNBTfloat(itemstack, parameters.getF("charge_decrement"), "runes");
+                     NBTHelper.AddNBTfloat(itemstack, parameters.getFloat("charge_decrement"), "runes");
                      player.addExhaustion(0.02F);
-                     player.getCooldownTracker().setCooldown(this, parameters.getI("charged_hit_delay"));
+                     player.getCooldownTracker().setCooldown(this, parameters.getInt("charged_hit_delay"));
                      world.playSound(
                         (EntityPlayer)null,
                         player.posX,
@@ -198,7 +203,7 @@ public class Buzdygan extends ItemWeapon {
                      int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
                      double length = parameters.getEnchantedF("charged_length", range);
                      double size = parameters.getEnchantedF("charged_size", range);
-                     double slowdown = parameters.getF("charged_slowdown");
+                     double slowdown = parameters.getFloat("charged_slowdown");
                      float cdamage = parameters.getEnchantedF("charged_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
                      float cknockback = parameters.getEnchantedF("charged_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
                      Vec3d vec3d = player.getPositionEyes(1.0F);
@@ -231,7 +236,7 @@ public class Buzdygan extends ItemWeapon {
                               entity.motionY *= slowdown;
                               entity.motionZ *= slowdown;
                               Weapons.setPotionIfEntityLB(
-                                 entity, MobEffects.SLOWNESS, parameters.getEnchantedI("slowness_time", witchery), parameters.getI("slowness_power")
+                                 entity, MobEffects.SLOWNESS, parameters.getEnchantedI("slowness_time", witchery), parameters.getInt("slowness_power")
                               );
                            }
                         }
@@ -254,13 +259,13 @@ public class Buzdygan extends ItemWeapon {
          entity,
          PotionEffects.BROKEN_ARMOR,
          (float)parameters.getEnchantedI("brokenarmor_time", witchery),
-         (float)parameters.getI("brokenarmor_power_add"),
+         (float)parameters.getInt("brokenarmor_power_add"),
          Weapons.EnumPotionMix.GREATEST,
          Weapons.EnumPotionMix.WITH_MAXIMUM,
          Weapons.EnumMathOperation.NONE,
          Weapons.EnumMathOperation.PLUS,
          parameters.getEnchantedI("brokenarmor_time", witchery),
-         parameters.getI("brokenarmor_power_max")
+         parameters.getInt("brokenarmor_power_max")
       );
       return super.attackEntityMelee(entity, stack, player, hand, isCritical);
    }

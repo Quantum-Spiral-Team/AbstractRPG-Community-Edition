@@ -40,6 +40,7 @@ public class SpellForgeBlock extends Block {
       this.setCreativeTab(CreativeTabs.DECORATIONS);
    }
 
+   @Override
    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof IInventory) {
@@ -50,14 +51,17 @@ public class SpellForgeBlock extends Block {
       super.breakBlock(worldIn, pos, state);
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return AABB;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
@@ -70,15 +74,18 @@ public class SpellForgeBlock extends Block {
       return (TileSpellForge)world.getTileEntity(position);
    }
 
+   @Override
    public boolean hasTileEntity(IBlockState blockState) {
       return true;
    }
 
+   @Override
    @Nullable
    public TileSpellForge createTileEntity(World world, IBlockState blockState) {
       return new TileSpellForge();
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -151,6 +158,7 @@ public class SpellForgeBlock extends Block {
       }
    }
 
+   @Override
    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
       TileSpellForge tile = this.getTileEntity(worldIn, pos);
       if (tile != null) {

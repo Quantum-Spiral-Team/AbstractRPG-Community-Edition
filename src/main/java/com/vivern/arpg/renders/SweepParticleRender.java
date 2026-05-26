@@ -22,6 +22,7 @@ public class SweepParticleRender<T extends SweepParticle> extends Render<SweepPa
       super(renderManagerIn);
    }
 
+   @Override
    public void doRender(SweepParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
       if (entity.ticksExisted >= entity.schedule) {
          GlStateManager.pushMatrix();
@@ -86,6 +87,7 @@ public class SweepParticleRender<T extends SweepParticle> extends Render<SweepPa
       super.doRender(entity, x, y, z, entityYaw, partialTicks);
    }
 
+   @Override
    protected ResourceLocation getEntityTexture(SweepParticle entity) {
       return TextureMap.LOCATION_MISSING_TEXTURE;
    }

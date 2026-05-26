@@ -229,6 +229,7 @@ public class StingerModel extends ModelBase {
       this.bolt2mid.addBox(-0.5F, -0.5F, -3.0F, 1, 1, 1, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f1 < 1.0F) {
          this.bolt1main.render(f5);

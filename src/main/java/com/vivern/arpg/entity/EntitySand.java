@@ -62,6 +62,7 @@ public class EntitySand extends EntityThrowable {
       this.magicPower = power;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -74,16 +75,19 @@ public class EntitySand extends EntityThrowable {
       }
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.01F;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote && this.ticksExisted > this.livetime) {
@@ -174,7 +178,7 @@ public class EntitySand extends EntityThrowable {
          || material == Material.CLOTH
          || material == Material.CARPET) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-         float hardnessBreaks = parameters.getF("hardness_breaks");
+         float hardnessBreaks = parameters.getFloat("hardness_breaks");
          if (Weapons.easyBreakBlockFor(this.world, hardnessBreaks, pos, blockState)) {
             if (blockState.isFullBlock()) {
                return 1;
@@ -187,6 +191,7 @@ public class EntitySand extends EntityThrowable {
       return 0;
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
       float frictionMultipl = 1.1F;
@@ -231,7 +236,7 @@ public class EntitySand extends EntityThrowable {
 
          if (!this.world.isRemote && !this.blockcollided) {
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            float chargeFullness = this.crystalCharge / parameters.getF("max_crystal_charge");
+            float chargeFullness = this.crystalCharge / parameters.getFloat("max_crystal_charge");
             if (this.rand.nextFloat() < 0.5F + chargeFullness * 0.5F) {
                BlockPos blockpos = result.getBlockPos();
                IBlockState blockState = this.world.getBlockState(blockpos);

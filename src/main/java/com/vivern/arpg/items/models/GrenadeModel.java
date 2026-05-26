@@ -99,6 +99,7 @@ public class GrenadeModel extends ModelBase {
       this.shapecubedown.addBox(-1.0F, 2.5F, -1.0F, 2, 2, 2, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shapemain.render(f5);
       this.shapestick.render(f5);

@@ -4,6 +4,9 @@ import com.vivern.arpg.weather.TimeOfDayProvider;
 import com.vivern.arpg.weather.WorldEvent;
 import com.vivern.arpg.weather.WorldEventsHandler;
 import java.lang.reflect.Field;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -23,6 +26,8 @@ public abstract class AbstractWorldProvider extends WorldProvider {
    static Field fieldfarPlaneDistance;
    static boolean lastFailed;
    static IRenderHandler pcaleholder = new IRenderHandler() {
+      @SideOnly(Side.CLIENT)
+      @Override
       public void render(float partialTicks, WorldClient world, Minecraft mc) {
       }
    };
@@ -48,6 +53,8 @@ public abstract class AbstractWorldProvider extends WorldProvider {
       }
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public IRenderHandler getCloudRenderer() {
       return pcaleholder;
    }
@@ -59,6 +66,7 @@ public abstract class AbstractWorldProvider extends WorldProvider {
       }
    }
 
+   @Override
    public void onWorldSave() {
       NBTTagCompound nbttagcompound = new NBTTagCompound();
       if (this.getWorldEventsHandler() != null) {
@@ -70,6 +78,7 @@ public abstract class AbstractWorldProvider extends WorldProvider {
       this.world.getWorldInfo().setDimensionData(this.world.provider.getDimension(), nbttagcompound);
    }
 
+   @Override
    public void init() {
       if (this.getWorldEventsHandler() != null) {
          NBTTagCompound nbttagcompound = this.world.getWorldInfo().getDimensionData(this.world.provider.getDimension());
@@ -104,10 +113,12 @@ public abstract class AbstractWorldProvider extends WorldProvider {
       }
    }
 
+   @Override
    public boolean canDoRainSnowIce(Chunk chunk) {
       return false;
    }
 
+   @Override
    public void calculateInitialWeather() {
    }
 
@@ -123,7 +134,7 @@ public abstract class AbstractWorldProvider extends WorldProvider {
 
    public boolean isWorldEventStarted(int index) {
       WorldEventsHandler worldEventsHandler = this.getWorldEventsHandler();
-      return worldEventsHandler != null && index >= 0 && index < worldEventsHandler.events.length ? worldEventsHandler.events[index].isStarted : false;
+      return worldEventsHandler != null && index >= 0 && index < worldEventsHandler.events.length && worldEventsHandler.events[index].isStarted;
    }
 
    public static int rgba(int decimalColorRgb, float alpha) {

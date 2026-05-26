@@ -80,6 +80,7 @@ public class HeadShooterModel extends ModelBase {
       this.shape5.addBox(-1.0F, -0.5F, 0.0F, 2, 4, 2, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.shape2.offsetX, this.shape2.offsetY, this.shape2.offsetZ);

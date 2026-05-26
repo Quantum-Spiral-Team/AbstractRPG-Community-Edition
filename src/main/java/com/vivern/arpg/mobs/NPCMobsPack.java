@@ -282,6 +282,7 @@ public class NPCMobsPack {
          this.comfortabilityPointsMax = 8;
       }
 
+      @Override
       protected void entityInit() {
          super.entityInit();
          this.dataManager.register(VARIANT, 0);
@@ -295,15 +296,18 @@ public class NPCMobsPack {
          this.dataManager.set(VARIANT, variant);
       }
 
+      @Override
       public double getYOffset() {
          return this.isRiding() ? -0.45 : super.getYOffset();
       }
 
+      @Override
       public void writeEntityToNBT(NBTTagCompound compound) {
          compound.setInteger("variant", this.getVARIANT());
          super.writeEntityToNBT(compound);
       }
 
+      @Override
       public void readEntityFromNBT(NBTTagCompound compound) {
          if (compound.hasKey("variant")) {
             this.setVARIANT(compound.getInteger("variant"));
@@ -465,6 +469,7 @@ public class NPCMobsPack {
          return super.onInitialSpawn(difficulty, livingdata);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks
             .addTask(
@@ -568,10 +573,12 @@ public class NPCMobsPack {
          }
       }
 
+      @Override
       public double getYOffset() {
          return this.isRiding() ? -0.45 : super.getYOffset();
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks
             .addTask(
@@ -594,64 +601,80 @@ public class NPCMobsPack {
          this.tasks.addTask(8, new EntityAILookIdle(this));
       }
 
+      @Override
       public int getSizeInventory() {
          return 1;
       }
 
+      @Override
       public boolean isEmpty() {
          return this.containedItemStack.isEmpty();
       }
 
+      @Override
       public ItemStack getStackInSlot(int index) {
          return this.containedItemStack;
       }
 
+      @Override
       public ItemStack decrStackSize(int index, int count) {
          return this.containedItemStack.splitStack(count);
       }
 
+      @Override
       public ItemStack removeStackFromSlot(int index) {
          ItemStack stack = this.containedItemStack;
          this.containedItemStack = ItemStack.EMPTY;
          return stack;
       }
 
+      @Override
       public void setInventorySlotContents(int index, ItemStack stack) {
          this.containedItemStack = stack;
       }
 
+      @Override
       public int getInventoryStackLimit() {
          return 1;
       }
 
+      @Override
       public void markDirty() {
       }
 
+      @Override
       public boolean isUsableByPlayer(EntityPlayer player) {
          return player.getDistanceSq(this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5) <= 64.0;
       }
 
+      @Override
       public void openInventory(EntityPlayer player) {
       }
 
+      @Override
       public void closeInventory(EntityPlayer player) {
       }
 
+      @Override
       public boolean isItemValidForSlot(int index, ItemStack stack) {
          return true;
       }
 
+      @Override
       public int getField(int id) {
          return 0;
       }
 
+      @Override
       public void setField(int id, int value) {
       }
 
+      @Override
       public int getFieldCount() {
          return 0;
       }
 
+      @Override
       public void clear() {
          this.containedItemStack = ItemStack.EMPTY;
       }
@@ -667,6 +690,7 @@ public class NPCMobsPack {
          this.comfortabilityPointsMax = 6;
       }
 
+      @Override
       public double getYOffset() {
          return this.isRiding() ? -0.45 : super.getYOffset();
       }
@@ -776,6 +800,7 @@ public class NPCMobsPack {
          return super.onInitialSpawn(difficulty, livingdata);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks
             .addTask(
@@ -914,6 +939,7 @@ public class NPCMobsPack {
          }
       }
 
+      @Override
       public boolean attackEntityFrom(DamageSource source, float amount) {
          this.removeComfortPoint((int)amount);
          return super.attackEntityFrom(source, amount);
@@ -924,6 +950,7 @@ public class NPCMobsPack {
          return page * 5 + num < this.trades.size() ? this.trades.get(page * 5 + num) : null;
       }
 
+      @Override
       public boolean processInteract(EntityPlayer player, EnumHand hand) {
          if (!this.world.isRemote && !this.trades.isEmpty()) {
             this.synchronizeTrades(player);
@@ -934,6 +961,7 @@ public class NPCMobsPack {
          return true;
       }
 
+      @Override
       public void onUpdate() {
          super.onUpdate();
          if (this.ticksExisted % (20.0F - this.reputation) * 2.0F == 0.0F) {
@@ -988,18 +1016,22 @@ public class NPCMobsPack {
          this.getEntityAttribute(PropertiesRegistry.MELEE_KNOCKBACK).setBaseValue(knockback);
       }
 
+      @Override
       protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
          return this.hurtSound;
       }
 
+      @Override
       protected SoundEvent getDeathSound() {
          return this.deathSound;
       }
 
+      @Override
       protected SoundEvent getAmbientSound() {
          return this.livingSound;
       }
 
+      @Override
       protected void playStepSound(BlockPos pos, Block blockIn) {
          if (this.stepSound != null) {
             this.playSound(this.stepSound, 0.15F, 1.0F);
@@ -1008,11 +1040,13 @@ public class NPCMobsPack {
          }
       }
 
+      @Override
       protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
          this.dropFewItems(wasRecentlyHit, lootingModifier);
          this.dropEquipment(wasRecentlyHit, lootingModifier);
       }
 
+      @Override
       public NBTTagCompound writeToNBT(NBTTagCompound compound) {
          super.writeToNBT(compound);
          int num = 0;
@@ -1029,6 +1063,7 @@ public class NPCMobsPack {
          return compound;
       }
 
+      @Override
       public void readFromNBT(NBTTagCompound compound) {
          super.readFromNBT(compound);
          int num = 0;
@@ -1065,11 +1100,13 @@ public class NPCMobsPack {
          }
       }
 
+      @Override
       public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
          this.setHealth((float)this.maxHealth);
          return super.onInitialSpawn(difficulty, livingdata);
       }
 
+      @Override
       protected void applyEntityAttributes() {
          super.applyEntityAttributes();
          this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
@@ -1092,6 +1129,7 @@ public class NPCMobsPack {
          this.comfortabilityPointsMax = 10;
       }
 
+      @Override
       public double getYOffset() {
          return this.isRiding() ? -0.45 : super.getYOffset();
       }
@@ -1137,6 +1175,7 @@ public class NPCMobsPack {
          return super.onInitialSpawn(difficulty, livingdata);
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks
             .addTask(
@@ -1193,6 +1232,7 @@ public class NPCMobsPack {
          return this.isEnslaved ? false : super.processInteract(player, hand);
       }
 
+      @Override
       public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
          if (!player.world.isRemote
             && this.isEnslaved
@@ -1208,6 +1248,7 @@ public class NPCMobsPack {
          }
       }
 
+      @Override
       protected boolean isMovementBlocked() {
          return this.isEnslaved || super.isMovementBlocked();
       }
@@ -1275,6 +1316,7 @@ public class NPCMobsPack {
          }
       }
 
+      @Override
       public double getYOffset() {
          return this.isRiding() ? -0.45 : super.getYOffset();
       }
@@ -1296,6 +1338,8 @@ public class NPCMobsPack {
          return super.onInitialSpawn(difficulty, livingdata);
       }
 
+      @SideOnly(Side.CLIENT)
+      @Override
       public void handleStatusUpdate(byte id) {
          super.handleStatusUpdate(id);
          if (id == 8) {
@@ -1321,6 +1365,7 @@ public class NPCMobsPack {
          }
       }
 
+      @Override
       protected void initEntityAI() {
          this.tasks
             .addTask(

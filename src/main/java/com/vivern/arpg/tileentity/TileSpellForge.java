@@ -131,6 +131,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
       return 0.0F;
    }
 
+   @Override
    public int getSizeInventory() {
       return 9;
    }
@@ -139,6 +140,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
       return 0;
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       super.setInventorySlotContents(index, stack);
       this.destabilize();
@@ -370,6 +372,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
       }
    }
 
+   @Override
    public void update() {
       if (this.currentForging != null) {
          this.currentForging.update(this);
@@ -485,7 +488,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
          if (this.currentForging == null) {
             if (this.checkForgeBlocked()) {
                if (entityHits instanceof EntityPlayerMP) {
-                  entityHits.sendMessage(new TextComponentString("пїЅ4This spell forge is blocked"));
+                  entityHits.sendMessage(new TextComponentString("\u00A74This spell forge is blocked"));
                }
 
                return false;
@@ -557,6 +560,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
       return null;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.stacks) {
          if (!itemstack.isEmpty()) {
@@ -629,55 +633,66 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
       return compound;
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);
       return new SPacketUpdateTileEntity(this.pos, 1, compound);
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public String getName() {
       return "tile_spell_forge";
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       this.fillWithLoot(playerIn);
       return new Container9(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "minecraft:dispenser";
    }
 
+   @Override
    protected NonNullList<ItemStack> getItems() {
       return this.stacks;
    }

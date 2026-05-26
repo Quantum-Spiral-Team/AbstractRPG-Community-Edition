@@ -52,6 +52,7 @@ public class StaffFireballEntity extends EntityThrowable {
       this.magicPower = power;
    }
 
+   @Override
    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
       float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
       float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
@@ -64,6 +65,7 @@ public class StaffFireballEntity extends EntityThrowable {
       }
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted > 60) {
@@ -73,10 +75,12 @@ public class StaffFireballEntity extends EntityThrowable {
       this.world.setEntityState(this, (byte)8);
    }
 
+   @Override
    protected float getGravityVelocity() {
       return 0.004F;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -170,6 +174,7 @@ public class StaffFireballEntity extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       if (result.entityHit != null) {
          if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
@@ -194,7 +199,7 @@ public class StaffFireballEntity extends EntityThrowable {
          List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this.thrower, axisalignedbb);
          if (!list.isEmpty()) {
             for (Entity entity : list) {
-               float friendlyfire = Team.checkIsOpponent(this.thrower, entity) ? 1.0F : parameters.getF("friendlyfire");
+               float friendlyfire = Team.checkIsOpponent(this.thrower, entity) ? 1.0F : parameters.getFloat("friendlyfire");
                int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
                int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
                int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, this.weaponstack);
@@ -222,7 +227,7 @@ public class StaffFireballEntity extends EntityThrowable {
 
          if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
             Explosion explosion = new Explosion(
-               this.world, null, this.posX, this.posY, this.posZ, parameters.getF("special_explosion_size"), false, true
+               this.world, null, this.posX, this.posY, this.posZ, parameters.getFloat("special_explosion_size"), false, true
             );
             explosion.doExplosionA();
             explosion.doExplosionB(false);

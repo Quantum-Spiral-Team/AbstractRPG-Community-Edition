@@ -5,6 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CryonedBlock extends Entity {
    public AxisAlignedBB hitboxToRender;
@@ -22,9 +24,12 @@ public class CryonedBlock extends Entity {
       this.setPosition(pos.getX() + 0.5 - 0.005, pos.getY() - 0.005, pos.getZ() + 0.5 - 0.005);
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public AxisAlignedBB getRenderBoundingBox() {
       return this.hitboxToRender == null ? super.getRenderBoundingBox() : this.hitboxToRender;
    }
@@ -41,6 +46,7 @@ public class CryonedBlock extends Entity {
       this.hitboxToRender = aabb;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote) {
@@ -56,9 +62,11 @@ public class CryonedBlock extends Entity {
       }
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 }

@@ -38,6 +38,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Voltrident extends ItemWeapon {
    public static ShardType shardneed = ShardType.ELECTRIC;
@@ -53,6 +55,7 @@ public class Voltrident extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -62,14 +65,17 @@ public class Voltrident extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemstack) {
       Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
       int spec = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack);
@@ -83,6 +89,7 @@ public class Voltrident extends ItemWeapon {
       return multimap;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       int voltage = NBTHelper.GetNBTint(itemstack, "voltage");
       if (voltage > 0) {
@@ -96,7 +103,7 @@ public class Voltrident extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.experienceLevel > level_stop_at) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-               Weapons.addOrRemoveExperience(player, -parameters.getI("xp_decrease"));
+               Weapons.addOrRemoveExperience(player, -parameters.getInt("xp_decrease"));
             } else {
                NBTHelper.SetNBTint(itemstack, -1, "level_stop_at");
                world.playSound(
@@ -130,7 +137,7 @@ public class Voltrident extends ItemWeapon {
             }
 
             if (mana > manacost && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
-               NBTHelper.GiveNBTboolean(itemstack, false, "side");
+               NBTHelper.giveNBTboolean(itemstack, false, "side");
                NBTHelper.GiveNBTint(itemstack, 0, "voltage");
                boolean spendMana = true;
                double edist = parameters.getEnchantedF("distance", range);
@@ -161,7 +168,7 @@ public class Voltrident extends ItemWeapon {
                   vec.z + damageRadius
                );
                List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
-               int voltage_to_overkill = parameters.getI("voltage_to_overkill");
+               int voltage_to_overkill = parameters.getInt("voltage_to_overkill");
                if (!world.isRemote && !list.isEmpty()) {
                   for (Entity entity : list) {
                      if (Team.checkIsOpponent(player, entity)) {
@@ -372,6 +379,7 @@ public class Voltrident extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (c == 10.0) {

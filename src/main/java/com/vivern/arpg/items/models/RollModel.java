@@ -28,6 +28,7 @@ public class RollModel extends ModelBase {
       this.setRotateAngle(this.paper, 0.18203785F, 0.0F, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.staf2.offsetX = -12.8F + 12.8F * f;
       GlStateManager.pushMatrix();

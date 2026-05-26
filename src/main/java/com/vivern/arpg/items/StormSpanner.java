@@ -25,6 +25,7 @@ public class StormSpanner extends Item {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
       ItemStack itemstack = player.getHeldItem(hand);
       RayTraceResult raytraceresult = this.rayTrace(world, player, false);

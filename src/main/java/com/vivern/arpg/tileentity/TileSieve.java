@@ -40,6 +40,7 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
       ITileEntitySynchronize.sendSynchronize(this, 32.0, this.sievePower);
    }
 
+   @Override
    public void update() {
       this.prevSievePower = this.sievePower;
       this.prevTimeExisted = this.timeExisted;
@@ -139,6 +140,7 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
       }
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       compound.setInteger("sievePower", this.sievePower);
       if (this.input != null) {
@@ -151,6 +153,7 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("sievePower")) {
          this.sievePower = compound.getInteger("sievePower");
@@ -183,22 +186,26 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
       compound.setBoolean("rotated", this.rotated);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);

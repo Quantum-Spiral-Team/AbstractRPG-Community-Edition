@@ -80,6 +80,7 @@ public class PlantWithStages extends Block implements IGrowable {
       super(material);
    }
 
+   @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
       return super.canPlaceBlockAt(worldIn, pos) && this.canStayAtPos(worldIn, pos);
    }
@@ -97,6 +98,7 @@ public class PlantWithStages extends Block implements IGrowable {
       return false;
    }
 
+   @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
       if (!this.canStayAtPos(worldIn, pos)) {
@@ -105,33 +107,40 @@ public class PlantWithStages extends Block implements IGrowable {
       }
    }
 
+   @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
       return this.COLLISION_BOXES[state.getValue(AGE)];
    }
 
+   @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
       return NULL_AABB;
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public BlockRenderLayer getRenderLayer() {
       return BlockRenderLayer.CUTOUT;
    }
 
+   @Override
    public boolean isOpaqueCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return false;
    }
 
+   @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
       if (!worldIn.isRemote) {
          this.grow(worldIn, rand, pos, state);
       }
    }
 
+   @Override
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
@@ -144,18 +153,22 @@ public class PlantWithStages extends Block implements IGrowable {
       }
    }
 
+   @Override
    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
       return true;
    }
 
+   @Override
    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
       return this.canUseBonemeal;
    }
 
+   @Override
    public EnumOffsetType getOffsetType() {
       return EnumOffsetType.XYZ;
    }
 
+   @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
       EnumOffsetType block$enumoffsettype = this.getOffsetType();
       if (block$enumoffsettype == EnumOffsetType.NONE) {
@@ -170,6 +183,7 @@ public class PlantWithStages extends Block implements IGrowable {
       }
    }
 
+   @Override
    public void getDrops(NonNullList<ItemStack> lastdrops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       if (this.drops != null && (Integer)state.getValue(AGE) >= this.maxStage) {
          String[] lootTypes = this.drops.split(" ");
@@ -185,6 +199,7 @@ public class PlantWithStages extends Block implements IGrowable {
       }
    }
 
+   @Override
    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
       if (rand.nextFloat() < this.growChance) {
          if (this.canStayAtPos(worldIn, pos)) {
@@ -196,14 +211,17 @@ public class PlantWithStages extends Block implements IGrowable {
       }
    }
 
+   @Override
    public IBlockState getStateFromMeta(int meta) {
       return this.getDefaultState().withProperty(AGE, meta);
    }
 
+   @Override
    public int getMetaFromState(IBlockState state) {
       return (Integer)state.getValue(AGE);
    }
 
+   @Override
    protected BlockStateContainer createBlockState() {
       return new BlockStateContainer(this, new IProperty[]{AGE});
    }

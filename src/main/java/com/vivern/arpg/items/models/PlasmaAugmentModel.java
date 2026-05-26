@@ -75,6 +75,7 @@ public class PlasmaAugmentModel extends ModelBase {
       this.manA.addChild(this.manB);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (Minecraft.getMinecraft().gameSettings.particleSetting == 2) {
          this.plasma1.isHidden = f < 1.0F;

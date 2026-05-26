@@ -20,10 +20,12 @@ public class Dolerite extends Block implements IBlockHardBreak {
       this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
    }
 
+   @Override
    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
       return true;
    }
 
+   @Override
    public boolean isFullCube(IBlockState state) {
       return true;
    }

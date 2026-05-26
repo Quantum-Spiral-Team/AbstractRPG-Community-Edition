@@ -15,6 +15,7 @@ public class WorldGenShrubFixed extends WorldGenerator {
       this.leavesMetadata = leaves;
    }
 
+   @Override
    public boolean generate(World worldIn, Random rand, BlockPos position) {
       IBlockState state = worldIn.getBlockState(position.down());
       this.setBlockAndNotifyAdequately(worldIn, position, this.woodMetadata);

@@ -40,10 +40,12 @@ public class BlockFluidSulfuricGas extends BlockFluidClassic {
       this.setRegistryName("fluid_sulfuric_gas_block");
    }
 
+   @Override
    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
       return true;
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       Vec3d vec = this.getFlowVector(worldIn, pos).scale(0.02);
@@ -59,6 +61,8 @@ public class BlockFluidSulfuricGas extends BlockFluidClassic {
       applySulfuricGasPotions(entityIn);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       double d0 = pos.getX();
       double d1 = pos.getY();
@@ -102,10 +106,10 @@ public class BlockFluidSulfuricGas extends BlockFluidClassic {
             return;
          }
 
-         PotionEffect baff = new PotionEffect(MobEffects.NAUSEA, 100);
-         base.addPotionEffect(baff);
-         PotionEffect baff2 = new PotionEffect(MobEffects.POISON, 160);
-         base.addPotionEffect(baff2);
+         PotionEffect buff = new PotionEffect(MobEffects.NAUSEA, 100);
+         base.addPotionEffect(buff);
+         PotionEffect buff2 = new PotionEffect(MobEffects.POISON, 160);
+         base.addPotionEffect(buff2);
          if (base.getHealth() <= 1.0F) {
             base.attackEntityFrom(DamageSource.DROWN, 1.0F);
          }
@@ -113,6 +117,7 @@ public class BlockFluidSulfuricGas extends BlockFluidClassic {
    }
 
    @SideOnly(Side.CLIENT)
+   @Override
    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d vec, float partialTicks) {
       float filled = this.getFilledPercentage(world, pos);
       boolean is = filled < 0.0F ? vec.y > pos.getY() + filled + 1.0F : vec.y < pos.getY() + filled;
@@ -125,6 +130,7 @@ public class BlockFluidSulfuricGas extends BlockFluidClassic {
       }
    }
 
+   @Override
    @Nullable
    public PathNodeType getAiPathNodeType(IBlockState state, IBlockAccess world, BlockPos pos, @Nullable EntityLiving entity) {
       return PathNodeType.DAMAGE_OTHER;

@@ -55,6 +55,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -64,14 +65,17 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
@@ -84,10 +88,10 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
          this.decreaseReload(itemstack, player);
          boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
          NBTHelper.GiveNBTint(itemstack, 0, "hadrons");
-         NBTHelper.GiveNBTboolean(itemstack, false, "beam");
+         NBTHelper.giveNBTboolean(itemstack, false, "beam");
          NBTHelper.GiveNBTint(itemstack, 0, "capturetime");
          NBTHelper.GiveNBTint(itemstack, 0, "laserdelay");
-         NBTHelper.GiveNBTboolean(itemstack, false, "sensor");
+         NBTHelper.giveNBTboolean(itemstack, false, "sensor");
          boolean beam = NBTHelper.GetNBTboolean(itemstack, "beam");
          boolean shootbeam = false;
          int capturetime = NBTHelper.GetNBTint(itemstack, "capturetime");
@@ -112,7 +116,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                }
 
                int hadron_price = parameters.getEnchantedI("hadron_price", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-               int hadrons_to_laser = parameters.getI("hadrons_to_laser");
+               int hadrons_to_laser = parameters.getInt("hadrons_to_laser");
                int points = NBTHelper.GetNBTint(itemstack, "hadrons") + bons * hadron_price;
                if (points > hadrons_to_laser) {
                   if (!NBTHelper.GetNBTboolean(itemstack, "sensor")) {
@@ -134,7 +138,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
             }
 
             if (capturetime <= 0 && !beam && !hascooldown && click2) {
-               int captureTimeTo = parameters.getI("capture_time");
+               int captureTimeTo = parameters.getInt("capture_time");
                player.getCooldownTracker().setCooldown(this, captureTimeTo);
                NBTHelper.SetNBTint(itemstack, captureTimeTo, "capturetime");
                world.playSound(
@@ -167,7 +171,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
 
                int hadron_price = parameters.getEnchantedI("hadron_price", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
                int hadron_points_max = parameters.getEnchantedI("hadron_points_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-               int hadrons_to_laser = parameters.getI("hadrons_to_laser");
+               int hadrons_to_laser = parameters.getInt("hadrons_to_laser");
                NBTHelper.SetNBTint(itemstack, Math.min(hadr + bonsx * hadron_price, hadron_points_max), "hadrons");
                if (capturetime == 1) {
                   NBTHelper.SetNBTint(itemstack, 0, "laserdelay");
@@ -208,7 +212,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                         player.rotationPitch,
                         player.rotationYaw,
                         0.0F,
-                        parameters.getF("velocity"),
+                        parameters.getFloat("velocity"),
                         parameters.getEnchantedF("inaccuracy", acc),
                         -0.05F,
                         0.5F,
@@ -445,6 +449,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (player.ticksExisted % 3 == 0) {
@@ -641,6 +646,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       return WeaponHandleType.TWO_HANDED;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getZoom(ItemStack itemstack, EntityPlayer player) {
       return 0.55F;
@@ -661,15 +667,17 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       return true;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "hadrons") > 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int hadrons_to_laser = parameters.getI("hadrons_to_laser");
+      int hadrons_to_laser = parameters.getInt("hadrons_to_laser");
       int hadronss = NBTHelper.GetNBTint(itemstack, "hadrons");
       return MathHelper.clamp((float)hadronss / hadrons_to_laser, 0.0F, 1.0F);
    }

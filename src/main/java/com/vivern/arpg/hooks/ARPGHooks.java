@@ -161,6 +161,7 @@ public class ARPGHooks {
       return ReturnSolve.no();
    }
 
+   @SideOnly(Side.CLIENT)
    private static ItemTransformVec3f getTransformsVec3f(ItemCameraTransforms transforms, TransformType type) {
       if (cameraTransforms == null || AnimationTimer.normaltick % 10 == 0) {
          EntityPlayer player = Minecraft.getMinecraft().player;

@@ -14,6 +14,8 @@ import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 public class Storm extends WorldEvent implements IVoxelCloudInfo {
@@ -39,11 +41,13 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
       return 5000 + this.worldProvider.getWorld().rand.nextInt(5000);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
       super.render(partialTicks, world, mc);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void renderClouds(float partialTicks, WorldClient world, Minecraft mc) {
       if (this.voxelCloudField == null) {
@@ -54,6 +58,7 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
       this.voxelCloudField.render(partialTicks, world, mc);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void stopRenderClouds() {
       this.voxelCloudField = null;

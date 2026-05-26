@@ -31,14 +31,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Arrows {
    public static IBehaviorDispenseItem ARROWS_DISPENSE = new BehaviorArrowsDispense();
 
    public abstract static class AbstractItemArrow extends ItemArrow {
+      @SideOnly(Side.CLIENT)
+      @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-         tooltip.add(TextFormatting.GRAY + Ln.translate("damage") + ": " + parameters.getF("damage"));
+         tooltip.add(TextFormatting.GRAY + Ln.translate("damage") + ": " + parameters.getFloat("damage"));
          String name = this.getRegistryName().getPath();
          tooltip.add(TextFormatting.WHITE + Ln.translate("description." + name));
       }
@@ -52,12 +56,14 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowBengal entityarrow = new EntityArrowBengal(worldIn, shooter);
          entityarrow.itemArrow = this;
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -71,12 +77,14 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowBouncing entityarrow = new EntityArrowBouncing(worldIn, shooter);
          entityarrow.itemArrow = this;
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -90,6 +98,7 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowFirejet entityarrow = new EntityArrowFirejet(worldIn, shooter);
          entityarrow.itemArrow = this;
@@ -98,6 +107,7 @@ public class Arrows {
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -111,12 +121,14 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowFish entityarrow = new EntityArrowFish(worldIn, shooter);
          entityarrow.itemArrow = this;
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -130,22 +142,25 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowFrozen entityarrow = new EntityArrowFrozen(worldIn, shooter);
          entityarrow.itemArrow = this;
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
 
+      @SideOnly(Side.CLIENT)
       @Override
       public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-         tooltip.add("пїЅ7" + Ln.translate("damage") + ": " + parameters.getF("damage"));
+         tooltip.add("\u00A77" + Ln.translate("damage") + ": " + parameters.getFloat("damage"));
          String name = this.getRegistryName().getPath();
-         tooltip.add("пїЅf" + Ln.translate("description." + name));
+         tooltip.add("\u00A7f" + Ln.translate("description." + name));
       }
    }
 
@@ -157,12 +172,14 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowMithril entityarrow = new EntityArrowMithril(worldIn, shooter);
          entityarrow.itemArrow = this;
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -176,12 +193,14 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowModern entityarrow = new EntityArrowModern(worldIn, shooter);
          entityarrow.itemArrow = this;
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -195,12 +214,14 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowShell entityarrow = new EntityArrowShell(worldIn, shooter);
          entityarrow.itemArrow = this;
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -214,6 +235,7 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowTwin entityarrow = new EntityArrowTwin(worldIn, shooter);
          entityarrow.createTwin = true;
@@ -222,6 +244,7 @@ public class Arrows {
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -235,6 +258,7 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowVicious entityarrow = new EntityArrowVicious(worldIn, shooter);
          entityarrow.itemArrow = this;
@@ -242,6 +266,7 @@ public class Arrows {
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -255,12 +280,14 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, new BehaviorArrowsDispense(0.0F));
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowVoid entityarrow = new EntityArrowVoid(worldIn, shooter);
          entityarrow.itemArrow = this;
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -274,12 +301,14 @@ public class Arrows {
          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, Arrows.ARROWS_DISPENSE);
       }
 
+      @Override
       public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
          EntityArrowWind entityarrow = new EntityArrowWind(worldIn, shooter);
          entityarrow.itemArrow = this;
          return entityarrow;
       }
 
+      @Override
       public boolean isInfinite(ItemStack stack, ItemStack bow, EntityPlayer player) {
          return false;
       }
@@ -296,6 +325,7 @@ public class Arrows {
          this.upwardMotion = upwardMotion;
       }
 
+      @Override
       public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
          if (stack.getItem() instanceof ItemArrow) {
             World world = source.getWorld();
@@ -318,6 +348,7 @@ public class Arrows {
          return stack;
       }
 
+      @Override
       protected void playDispenseSound(IBlockSource source) {
          source.getWorld().playEvent(1002, source.getBlockPos(), 0);
       }

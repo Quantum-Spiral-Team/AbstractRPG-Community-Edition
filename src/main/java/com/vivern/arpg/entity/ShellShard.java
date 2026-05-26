@@ -54,6 +54,7 @@ public class ShellShard extends AbstractArrow {
       this.motionY -= 0.004;
    }
 
+   @Override
    public boolean hasNoGravity() {
       return this.inWater || super.hasNoGravity();
    }
@@ -96,7 +97,7 @@ public class ShellShard extends AbstractArrow {
 
    @Override
    public double getItemArrowDamage(World worldIn) {
-      return WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_SHELL).getF("shard_damage");
+      return WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_SHELL).getFloat("shard_damage");
    }
 
    @Override
@@ -104,6 +105,7 @@ public class ShellShard extends AbstractArrow {
       return Sounds.seashell;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return ItemStack.EMPTY;
    }

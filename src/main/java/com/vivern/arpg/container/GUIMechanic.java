@@ -43,6 +43,7 @@ public class GUIMechanic extends GuiContainer {
       this.fontRenderer.drawString(string, xx, y, 0);
    }
 
+   @Override
    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
       GlStateManager.color(1.0F, 1.0F, 1.0F);
       int i = (this.width - this.xSize) / 2;
@@ -86,6 +87,7 @@ public class GUIMechanic extends GuiContainer {
       RenderHelper.enableStandardItemLighting();
    }
 
+   @Override
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
@@ -117,6 +119,7 @@ public class GUIMechanic extends GuiContainer {
       GlStateManager.color(1.0F, 1.0F, 1.0F);
    }
 
+   @Override
    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
       super.mouseClicked(mouseX, mouseY, mouseButton);
       int mx = mouseX - (this.width - this.xSize) / 2;
@@ -129,6 +132,7 @@ public class GUIMechanic extends GuiContainer {
       }
    }
 
+   @Override
    public boolean doesGuiPauseGame() {
       return false;
    }

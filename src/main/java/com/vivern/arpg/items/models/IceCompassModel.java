@@ -49,6 +49,7 @@ public class IceCompassModel extends ModelBase {
       this.gear4.addBox(-2.0F, 0.0F, -2.0F, 4, 0, 4, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       float angle = f * 0.017453F;

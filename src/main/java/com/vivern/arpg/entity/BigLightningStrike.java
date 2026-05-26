@@ -38,10 +38,13 @@ public class BigLightningStrike extends Entity {
       this.strikerand = new Random(this.getEntityId());
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public boolean isInRangeToRenderDist(double distance) {
       return distance < 65536.0;
    }
 
+   @Override
    protected void entityInit() {
       this.dataManager.register(SEGMENT_LENGTH, 6.0F);
       this.dataManager.register(SEGMENT_WIDTH, 1.0F);
@@ -60,12 +63,14 @@ public class BigLightningStrike extends Entity {
       return (Float)this.dataManager.get(SEGMENT_WIDTH);
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
       if (compound.hasKey("deadd")) {
          this.deadd = compound.getBoolean("deadd");
       }
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       compound.setBoolean("deadd", true);
    }
@@ -74,6 +79,7 @@ public class BigLightningStrike extends Entity {
       return 50;
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.deadd) {
@@ -110,6 +116,7 @@ public class BigLightningStrike extends Entity {
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 11 && Minecraft.getMinecraft().player != null) {
@@ -140,21 +147,27 @@ public class BigLightningStrike extends Entity {
       }
    }
 
+   @Override
    public void move(MoverType type, double x, double y, double z) {
    }
 
+   @Override
    public boolean handleWaterMovement() {
       return false;
    }
 
+   @Override
    public boolean isOverWater() {
       return false;
    }
 
+   @Override
    protected boolean pushOutOfBlocks(double x, double y, double z) {
       return false;
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public AxisAlignedBB getRenderBoundingBox() {
       return this.renderbb == null ? super.getRenderBoundingBox() : this.renderbb;
    }

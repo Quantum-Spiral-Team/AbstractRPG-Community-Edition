@@ -25,6 +25,7 @@ public class GemStaffModel extends ModelBase {
       this.setRotateAngle(this.gem, -0.5462881F, 0.5462881F, -0.5009095F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.pushMatrix();
       GlStateManager.translate(this.staf.offsetX, this.staf.offsetY, this.staf.offsetZ);

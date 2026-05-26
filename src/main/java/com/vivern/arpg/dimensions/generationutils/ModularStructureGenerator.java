@@ -207,6 +207,7 @@ public class ModularStructureGenerator extends WorldGenAdvanced {
       }
    }
 
+   @Override
    public boolean generate(World worldIn, Random rand, BlockPos position) {
       this.generationMap = new HashMap<>();
       this.collisionList = new ArrayList<>();
@@ -369,6 +370,7 @@ public class ModularStructureGenerator extends WorldGenAdvanced {
          }
       }
 
+      @Override
       public int compareTo(ModularGenerationList other) {
          return other.queuePosition - this.queuePosition;
       }

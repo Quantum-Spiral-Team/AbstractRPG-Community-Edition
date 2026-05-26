@@ -21,6 +21,7 @@ public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
    public static StormBigChestModel modelBigStorm = new StormBigChestModel();
    public static ResourceLocation TEXTURE = new ResourceLocation("arpg:textures/arpg_chest_tex.png");
 
+   @Override
    public void render(TileARPGChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       EnumChest chestType = te == null ? reservedChestType : te.type;
       this.render(te, x, y, z, partialTicks, destroyStage, alpha, chestType);

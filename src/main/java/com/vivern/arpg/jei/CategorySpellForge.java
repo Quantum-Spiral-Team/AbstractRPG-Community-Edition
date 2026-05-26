@@ -24,22 +24,27 @@ public class CategorySpellForge implements IRecipeCategory<WrapperSpellForge> {
       }
    }
 
+   @Override
    public String getUid() {
       return "arpg:spell_forge";
    }
 
+   @Override
    public String getTitle() {
       return "Spell Forge";
    }
 
+   @Override
    public String getModName() {
       return "arpg";
    }
 
+   @Override
    public IDrawable getBackground() {
       return this.background;
    }
 
+   @Override
    public void setRecipe(IRecipeLayout recipeLayout, WrapperSpellForge recipeWrapper, IIngredients ingredients) {
       IGuiItemStackGroup isg = recipeLayout.getItemStacks();
 

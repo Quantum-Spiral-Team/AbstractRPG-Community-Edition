@@ -17,12 +17,14 @@ public class RenderMoonshroom extends RenderLiving<Moonshroom> {
       super(manager, new MoonshroomModel(), 0.3F);
    }
 
+   @Override
    @Nonnull
    protected ResourceLocation getEntityTexture(@Nonnull Moonshroom entity) {
       return this.mobTexture;
    }
 
    public static class MoonshroomFactory implements IRenderFactory<Moonshroom> {
+      @Override
       public Render<? super Moonshroom> createRenderFor(RenderManager manager) {
          return new RenderMoonshroom(manager);
       }

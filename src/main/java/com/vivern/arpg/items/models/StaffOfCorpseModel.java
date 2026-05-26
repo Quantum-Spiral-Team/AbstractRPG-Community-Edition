@@ -95,6 +95,7 @@ public class StaffOfCorpseModel extends ModelBase {
       this.staf2.addBox(-1.0F, -8.0F, -1.0F, 2, 12, 2, 0.0F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.skull1.render(f5);
       GlStateManager.pushMatrix();

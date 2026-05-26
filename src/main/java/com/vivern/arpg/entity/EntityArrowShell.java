@@ -98,6 +98,7 @@ public class EntityArrowShell extends AbstractArrow {
       return Sounds.arrow_shell;
    }
 
+   @Override
    protected ItemStack getArrowStack() {
       return new ItemStack(ItemsRegister.ARROW_SHELL);
    }

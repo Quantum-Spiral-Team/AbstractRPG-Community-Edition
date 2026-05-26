@@ -29,6 +29,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings("ConstantConditions")
 public class AquaticBow extends AbstractBow {
@@ -61,6 +63,7 @@ public class AquaticBow extends AbstractBow {
       super("aquatic_bow", 5000, 4.5F, 1.85F, 25, 6, 8.0F, 2.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void bom(int param) {
       if (param >= 0) {
@@ -105,7 +108,7 @@ public class AquaticBow extends AbstractBow {
       boolean specialAttack = NBTHelper.GetNBTboolean(itemstack, "specattack");
       if (specialAttack || click2 && player.getHeldItemMainhand() == itemstack) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-         NBTHelper.GiveNBTboolean(itemstack, false, "specattack");
+         NBTHelper.giveNBTboolean(itemstack, false, "specattack");
          int pulling = NBTHelper.GetNBTint(itemstack, "pulling");
          if (!specialAttack) {
             NBTHelper.SetNBTboolean(itemstack, true, "specattack");
@@ -136,18 +139,18 @@ public class AquaticBow extends AbstractBow {
                      player.rotationPitch,
                      player.rotationYaw,
                      0.0F,
-                     parameters.getF("waterblast_velocity"),
+                     parameters.getFloat("waterblast_velocity"),
                      parameters.getEnchantedF("waterblast_inaccuracy", acc)
                   );
                   projectile.damage = parameters.getEnchantedF("waterblast_damage", might);
                   world.spawnEntity(projectile);
                   Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                   ItemArrow itemarrow = (ItemArrow)ammo.getItem();
-                  int amountSpin = Math.min(ammo.getCount(), parameters.getI("arrows_spin"));
+                  int amountSpin = Math.min(ammo.getCount(), parameters.getInt("arrows_spin"));
 
                   for (int i = 0; i < amountSpin; i++) {
                      EntityArrow entityarrow = itemarrow.createArrow(world, ammo, player);
-                     entityarrow.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getF("waterblast_velocity"), 0.0F);
+                     entityarrow.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("waterblast_velocity"), 0.0F);
                      this.setDamageToArrow(entityarrow, ammo, world, player, itemstack, pulling, 0.0F, false);
                      int k = GetMOP.floatToIntWithChance(
                         parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack)), itemRand
@@ -162,7 +165,7 @@ public class AquaticBow extends AbstractBow {
 
                      world.spawnEntity(entityarrow);
                      EntityInfluence.addEntityInfluence(
-                        entityarrow, new EntityInfluenceFollowRotate(false, projectile, i, parameters.getF("angle_between_arrows")), 64.0
+                        entityarrow, new EntityInfluenceFollowRotate(false, projectile, i, parameters.getFloat("angle_between_arrows")), 64.0
                      );
                   }
 
@@ -207,7 +210,7 @@ public class AquaticBow extends AbstractBow {
    @Override
    public int getCooldownTime(ItemStack itemstack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      int maxPullTime = parameters.getI("max_pull_time");
+      int maxPullTime = parameters.getInt("max_pull_time");
       boolean specialAttack = NBTHelper.GetNBTboolean(itemstack, "specattack");
       int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
       if (specialAttack) {

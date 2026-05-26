@@ -73,4 +73,5 @@ public class AbstractRPG {
    static {
       FluidRegistry.enableUniversalBucket();
    }
+   
 }

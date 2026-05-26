@@ -21,6 +21,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class RestlessSkull extends ItemWeapon {
    public RestlessSkull() {
@@ -31,6 +33,7 @@ public class RestlessSkull extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -40,20 +43,24 @@ public class RestlessSkull extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack stack) {
       int charges = NBTHelper.GetNBTint(stack, "charges");
       return charges > 0;
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack stack) {
       float maxcharges = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) > 0 ? 50.0F : 20.0F;
@@ -61,6 +68,7 @@ public class RestlessSkull extends ItemWeapon {
       return charges / maxcharges;
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote) {
          this.setCanShoot(itemstack, entityIn);
@@ -72,9 +80,9 @@ public class RestlessSkull extends ItemWeapon {
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             float power = Mana.getMagicPowerMax(player);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
-            NBTHelper.GiveNBTboolean(itemstack, false, "challengeblock");
-            NBTHelper.GiveNBTboolean(itemstack, false, "challengemob");
-            NBTHelper.GiveNBTboolean(itemstack, false, "challengeflame");
+            NBTHelper.giveNBTboolean(itemstack, false, "challengeblock");
+            NBTHelper.giveNBTboolean(itemstack, false, "challengemob");
+            NBTHelper.giveNBTboolean(itemstack, false, "challengeflame");
             NBTHelper.GiveNBTint(itemstack, 0, "charges");
             boolean challengeblock = NBTHelper.GetNBTboolean(itemstack, "challengeblock");
             boolean challengemob = NBTHelper.GetNBTboolean(itemstack, "challengemob");

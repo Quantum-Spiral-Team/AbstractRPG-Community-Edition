@@ -40,15 +40,19 @@ public class BlockFluidNaturalGas extends BlockFluidClassic {
       this.setRegistryName("fluid_natural_gas_block");
    }
 
+   @Override
    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
       return true;
    }
 
+   @Override
    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
       super.onEntityCollision(worldIn, pos, state, entityIn);
       applyNaturalGasPotions(entityIn);
    }
 
+   @SideOnly(Side.CLIENT)
+   @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       double d0 = pos.getX();
       double d1 = pos.getY();
@@ -58,7 +62,7 @@ public class BlockFluidNaturalGas extends BlockFluidClassic {
          double yy = d1 + rand.nextFloat();
          double zz = d2 + rand.nextFloat();
          int lt = 55 + rand.nextInt(25);
-         GUNParticle spelll = new GUNParticle(
+         GUNParticle spell = new GUNParticle(
             res,
             0.3F + rand.nextFloat() / 4.0F,
             -4.0E-4F,
@@ -77,11 +81,11 @@ public class BlockFluidNaturalGas extends BlockFluidClassic {
             true,
             rand.nextInt(360)
          );
-         spelll.alpha = 0.0F;
-         spelll.scaleTickAdding = 0.001F;
-         spelll.isPushedByLiquids = false;
-         spelll.tracker = ssh;
-         worldIn.spawnEntity(spelll);
+         spell.alpha = 0.0F;
+         spell.scaleTickAdding = 0.001F;
+         spell.isPushedByLiquids = false;
+         spell.tracker = ssh;
+         worldIn.spawnEntity(spell);
       }
    }
 
@@ -92,14 +96,15 @@ public class BlockFluidNaturalGas extends BlockFluidClassic {
             return;
          }
 
-         PotionEffect baff = new PotionEffect(MobEffects.NAUSEA, 300);
-         base.addPotionEffect(baff);
+         PotionEffect buff = new PotionEffect(MobEffects.NAUSEA, 300);
+         base.addPotionEffect(buff);
          if (base.getHealth() <= 1.0F) {
             base.attackEntityFrom(DamageSource.DROWN, 1.0F);
          }
       }
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d vec, float partialTicks) {
       float filled = this.getFilledPercentage(world, pos);
@@ -113,6 +118,7 @@ public class BlockFluidNaturalGas extends BlockFluidClassic {
       }
    }
 
+   @Override
    @Nullable
    public PathNodeType getAiPathNodeType(IBlockState state, IBlockAccess world, BlockPos pos, @Nullable EntityLiving entity) {
       return PathNodeType.DAMAGE_OTHER;

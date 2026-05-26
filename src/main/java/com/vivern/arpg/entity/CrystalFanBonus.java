@@ -37,23 +37,28 @@ public class CrystalFanBonus extends Entity {
       this.velocityChanged = true;
    }
 
+   @Override
    public double getYOffset() {
       return 0.45;
    }
 
+   @Override
    protected void entityInit() {
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBox(Entity entityIn) {
       return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
    }
 
+   @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox() {
       return this.getEntityBoundingBox();
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
       if (this.ticksExisted == 2) {
@@ -99,6 +104,7 @@ public class CrystalFanBonus extends Entity {
       }
    }
 
+   @Override
    public void onCollideWithPlayer(EntityPlayer player) {
       if (this.ticksExisted > 15 && !player.world.isRemote) {
          ItemStack stack = player.getHeldItemMainhand();
@@ -110,12 +116,15 @@ public class CrystalFanBonus extends Entity {
       }
    }
 
+   @Override
    protected void readEntityFromNBT(NBTTagCompound compound) {
    }
 
+   @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 0) {

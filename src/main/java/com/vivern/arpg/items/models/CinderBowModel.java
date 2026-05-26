@@ -103,6 +103,7 @@ public class CinderBowModel extends ModelBase {
       this.shapeUP1.addChild(this.shapeUP2);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.shapeUP1.rotateAngleX = GetMOP.partial(-0.318697F, -0.18203785F, f);
       this.shapeUP2.rotateAngleX = this.shapeUP1.rotateAngleX;

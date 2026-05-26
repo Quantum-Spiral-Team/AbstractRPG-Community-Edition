@@ -56,6 +56,7 @@ public class GrenadeLauncherModel extends ModelBase {
       this.shape1.addChild(this.ammo);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       GlStateManager.disableCull();
       this.shape1.rotateAngleX = (GetMOP.getFromTo(f1, 0.085F, 0.185F) - GetMOP.getFromTo(f1, 0.75F, 0.9F)) * 0.78F;

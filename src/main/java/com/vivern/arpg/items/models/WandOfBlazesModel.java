@@ -53,6 +53,7 @@ public class WandOfBlazesModel extends ModelBase {
       this.setRotateAngle(this.staf7, 0.091106184F, -2.959555F, -0.13665928F);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       this.setRotateAngle(this.core, AnimationTimer.rainbow1 * 0.28F, AnimationTimer.tick * 0.089F, AnimationTimer.rainbow2 * 0.11F);
       float lbX = OpenGlHelper.lastBrightnessX;

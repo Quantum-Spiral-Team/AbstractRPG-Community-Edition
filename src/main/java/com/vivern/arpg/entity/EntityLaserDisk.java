@@ -25,6 +25,7 @@ public class EntityLaserDisk extends EntityThrowable {
       super(world, x, y, z);
    }
 
+   @Override
    @SideOnly(Side.CLIENT)
    public void handleStatusUpdate(byte id) {
       if (id == 5) {
@@ -32,6 +33,7 @@ public class EntityLaserDisk extends EntityThrowable {
       }
    }
 
+   @Override
    protected void onImpact(RayTraceResult result) {
       double damageRadius = 3.0;
       int i = 2;

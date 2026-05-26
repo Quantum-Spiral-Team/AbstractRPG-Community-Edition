@@ -58,14 +58,17 @@ public class EntitySummoned extends EntityCreature {
       this.setDead();
    }
 
+   @Override
    protected boolean canDespawn() {
       return false;
    }
 
+   @Override
    public SoundCategory getSoundCategory() {
       return SoundCategory.NEUTRAL;
    }
 
+   @Override
    public void onLivingUpdate() {
       this.updateArmSwingProgress();
       float f = this.getBrightness();
@@ -76,18 +79,22 @@ public class EntitySummoned extends EntityCreature {
       super.onLivingUpdate();
    }
 
+   @Override
    public void onUpdate() {
       super.onUpdate();
    }
 
+   @Override
    protected SoundEvent getSwimSound() {
       return SoundEvents.ENTITY_GENERIC_SWIM;
    }
 
+   @Override
    protected SoundEvent getSplashSound() {
       return SoundEvents.ENTITY_GENERIC_SPLASH;
    }
 
+   @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       if (source == DamageSource.IN_WALL) {
          return false;
@@ -96,18 +103,22 @@ public class EntitySummoned extends EntityCreature {
       }
    }
 
+   @Override
    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
       return SoundEvents.ENTITY_GENERIC_HURT;
    }
 
+   @Override
    protected SoundEvent getDeathSound() {
       return SoundEvents.ENTITY_GENERIC_DEATH;
    }
 
+   @Override
    protected SoundEvent getFallSound(int heightIn) {
       return heightIn > 4 ? SoundEvents.ENTITY_GENERIC_BIG_FALL : SoundEvents.ENTITY_GENERIC_SMALL_FALL;
    }
 
+   @Override
    public boolean attackEntityAsMob(Entity entityIn) {
       float f = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
       int i = 0;
@@ -157,6 +168,7 @@ public class EntitySummoned extends EntityCreature {
       return flag;
    }
 
+   @Override
    public float getBlockPathWeight(BlockPos pos) {
       return 0.5F - this.world.getLightBrightness(pos);
    }
@@ -165,24 +177,29 @@ public class EntitySummoned extends EntityCreature {
       return false;
    }
 
+   @Override
    public boolean getCanSpawnHere() {
       return super.getCanSpawnHere();
    }
 
+   @Override
    protected void applyEntityAttributes() {
       super.applyEntityAttributes();
       this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
    }
 
+   @Override
    protected boolean canDropLoot() {
       return true;
    }
 
+   @Override
    protected void entityInit() {
       super.entityInit();
       this.dataManager.register(OWNER_UNIQUE_ID, Optional.absent());
    }
 
+   @Override
    public void writeEntityToNBT(NBTTagCompound compound) {
       super.writeEntityToNBT(compound);
       if (this.getOwnerId() == null) {
@@ -203,6 +220,7 @@ public class EntitySummoned extends EntityCreature {
       this.owner = player;
    }
 
+   @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       super.readEntityFromNBT(compound);
       String s;

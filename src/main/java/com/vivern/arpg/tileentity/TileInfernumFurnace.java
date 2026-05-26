@@ -31,10 +31,12 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
    public float progressPerTick = 0.15F;
    public float costToRecipe = 10.0F;
 
+   @Override
    public int getSizeInventory() {
       return 2;
    }
 
+   @Override
    public boolean isEmpty() {
       for (ItemStack itemstack : this.furnaceItemStacks) {
          if (!itemstack.isEmpty()) {
@@ -45,18 +47,22 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
       return true;
    }
 
+   @Override
    public ItemStack getStackInSlot(int index) {
       return (ItemStack)this.furnaceItemStacks.get(MathHelper.clamp(index, 0, 1));
    }
 
+   @Override
    public ItemStack decrStackSize(int index, int count) {
       return ItemStackHelper.getAndSplit(this.furnaceItemStacks, index, count);
    }
 
+   @Override
    public ItemStack removeStackFromSlot(int index) {
       return ItemStackHelper.getAndRemove(this.furnaceItemStacks, index);
    }
 
+   @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
       ItemStack itemstack = (ItemStack)this.furnaceItemStacks.get(index);
       boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
@@ -71,18 +77,22 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
       }
    }
 
+   @Override
    public String getName() {
       return "tile_infernum_furnace";
    }
 
+   @Override
    public boolean hasCustomName() {
       return false;
    }
 
+   @Override
    public int getInventoryStackLimit() {
       return 64;
    }
 
+   @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
       return this.world.getTileEntity(this.pos) != this
          ? false
@@ -90,28 +100,35 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
             <= 64.0;
    }
 
+   @Override
    public void openInventory(EntityPlayer player) {
    }
 
+   @Override
    public void closeInventory(EntityPlayer player) {
    }
 
+   @Override
    public boolean isItemValidForSlot(int index, ItemStack stack) {
       return index == 0;
    }
 
+   @Override
    public int[] getSlotsForFace(EnumFacing side) {
       return side == EnumFacing.DOWN ? SLOTS_BOTTOM : SLOTS_TOP_SIDES;
    }
 
+   @Override
    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
       return this.isItemValidForSlot(index, itemStackIn);
    }
 
+   @Override
    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
       return true;
    }
 
+   @Override
    public int getField(int id) {
       switch (id) {
          case 0:
@@ -131,6 +148,7 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
       }
    }
 
+   @Override
    public void setField(int id, int value) {
       switch (id) {
          case 0:
@@ -149,18 +167,22 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
       }
    }
 
+   @Override
    public int getFieldCount() {
       return 5;
    }
 
+   @Override
    public void clear() {
       this.furnaceItemStacks.clear();
    }
 
+   @Override
    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
       return new ContainerInfernumFurnace(playerInventory, this);
    }
 
+   @Override
    public String getGuiID() {
       return "arpg.infernum_furnace";
    }
@@ -180,6 +202,7 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
       }
    }
 
+   @Override
    public void update() {
       this.manaBuffer.updateManaBuffer(this.world, this.pos);
       if (!this.world.isRemote) {
@@ -249,32 +272,38 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
       return super.writeToNBT(compound);
    }
 
+   @Override
    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
       this.write(compound);
       return super.writeToNBT(compound);
    }
 
+   @Override
    public void readFromNBT(NBTTagCompound compound) {
       this.read(compound);
       super.readFromNBT(compound);
    }
 
+   @Override
    public NBTTagCompound getUpdateTag() {
       NBTTagCompound compound = super.getUpdateTag();
       this.write(compound);
       return compound;
    }
 
+   @Override
    public void handleUpdateTag(NBTTagCompound compound) {
       this.read(compound);
       super.handleUpdateTag(compound);
    }
 
+   @Override
    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
       NBTTagCompound compound = packet.getNbtCompound();
       this.read(compound);
    }
 
+   @Override
    public SPacketUpdateTileEntity getUpdatePacket() {
       NBTTagCompound compound = new NBTTagCompound();
       this.write(compound);

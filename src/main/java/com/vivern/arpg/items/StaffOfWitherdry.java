@@ -39,6 +39,7 @@ public class StaffOfWitherdry extends ItemWeapon {
    public static ResourceLocation flamethrow = new ResourceLocation("arpg:textures/flamethrow.png");
    public static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
    public static Predicate<EntityLivingBase> BURNING_ENTITIES = new Predicate<EntityLivingBase>() {
+      @Override
       public boolean apply(EntityLivingBase input) {
          return input.isBurning();
       }
@@ -56,10 +57,12 @@ public class StaffOfWitherdry extends ItemWeapon {
       this.setMaxStackSize(1);
    }
 
+   @Override
    public float getXpRepairRatio(ItemStack stack) {
       return 14.0F;
    }
 
+   @Override
    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
       return true;
    }
@@ -69,10 +72,12 @@ public class StaffOfWitherdry extends ItemWeapon {
       return false;
    }
 
+   @Override
    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
       return false;
    }
 
+   @Override
    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
       return slotChanged;
    }
@@ -107,6 +112,7 @@ public class StaffOfWitherdry extends ItemWeapon {
       }
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
    }
@@ -116,6 +122,7 @@ public class StaffOfWitherdry extends ItemWeapon {
          .getEnchantedI("maxfire_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
    }
 
+   @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (world.isRemote) {
          int fire = NBTHelper.GetNBTint(itemstack, "fire");
@@ -368,7 +375,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                            ShootOfWitherdry shoot = new ShootOfWitherdry(world, player, itemstack, power);
                            shoot.setPosition(shootPoint.x, shootPoint.y, shootPoint.z);
                            shoot.shoot(
-                              player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getF("velocity"), parameters.getEnchantedF("inaccuracy", acc)
+                              player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc)
                            );
                            shoot.livetime = (int)fireExponent;
                            world.spawnEntity(shoot);
@@ -440,11 +447,13 @@ public class StaffOfWitherdry extends ItemWeapon {
          .getEnchantedI("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public float getAdditionalDurabilityBar(ItemStack itemstack) {
       return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "charge") / maxcharge(itemstack), 0.0F, 1.0F);
    }
 
+   @SideOnly(Side.CLIENT)
    @Override
    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
       return NBTHelper.GetNBTint(itemstack, "charge") > 0;

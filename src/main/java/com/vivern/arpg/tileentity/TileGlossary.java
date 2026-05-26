@@ -115,6 +115,7 @@ public class TileGlossary extends TileEntity implements ITickable {
       return false;
    }
 
+   @Override
    public void update() {
       if (this.world.isRemote) {
          this.prevanimationPapers = this.animationPapers;

@@ -79,6 +79,7 @@ public class CooledRifleModel extends ModelBase {
       this.ammo1.addChild(this.ammo1a);
    }
 
+   @Override
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       if (f1 == 1.0F) {
          f1 = 0.0F;

@@ -23,10 +23,12 @@ public class BlockElectricSieve extends BlockSieve {
       this.setSoundType(SoundType.METAL);
    }
 
+   @Override
    public TileElectricSieve getTileEntity(IBlockAccess world, BlockPos position) {
       return (TileElectricSieve)world.getTileEntity(position);
    }
 
+   @Override
    @Nullable
    public TileElectricSieve createTileEntity(World world, IBlockState blockState) {
       return new TileElectricSieve();
