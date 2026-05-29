@@ -62,7 +62,7 @@ public class JungleChestplate extends ItemArmor {
       if (armorSlot != EntityEquipmentSlot.CHEST) {
          return null;
       } else if (itemStack != ItemStack.EMPTY) {
-         ModelBiped whm = ClientProxy.magicHoodie;
+         ModelBiped whm = (ModelBiped) Armors.ArmorModels.MAGIC_HOODIE.getModel();
          whm.isSneak = entityLiving.isSneaking();
          whm.isRiding = entityLiving.isRiding();
          whm.isChild = entityLiving.isChild();

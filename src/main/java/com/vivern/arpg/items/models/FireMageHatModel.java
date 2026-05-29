@@ -50,6 +50,14 @@ public class FireMageHatModel extends ModelBiped {
       this.bipedHead.addChild(this.cubea1);
       this.bipedHead.addChild(this.cubea2);
       this.bipedHead.addChild(this.cubea3);
+
+      this.bipedBody.showModel = false;
+      this.bipedHead.showModel = false;
+      this.bipedHeadwear.showModel = false;
+      this.bipedLeftArm.showModel = false;
+      this.bipedRightArm.showModel = false;
+      this.bipedLeftLeg.showModel = false;
+      this.bipedRightLeg.showModel = false;
    }
 
    @Override

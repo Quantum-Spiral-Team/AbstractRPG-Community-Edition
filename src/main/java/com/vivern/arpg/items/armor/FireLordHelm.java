@@ -2,7 +2,6 @@ package com.vivern.arpg.items.armor;
 
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.proxy.ClientProxy;
 import com.google.common.collect.Multimap;
 import java.util.UUID;
 import net.minecraft.block.BlockDispenser;
@@ -24,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FireLordHelm extends ItemArmor {
-   private static final UUID[] ARMOR_MODIFIERSG = new UUID[]{
+   private static final UUID[] ARMOR_MODIFIERS = new UUID[]{
       UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
       UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
       UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
@@ -50,19 +49,19 @@ public class FireLordHelm extends ItemArmor {
       if (equipmentSlot == this.armorType) {
          multimap.put(
             SharedMonsterAttributes.ARMOR.getName(),
-            new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor modifier", this.damageReduceAmount, 0)
+            new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor modifier", this.damageReduceAmount, 0)
          );
          multimap.put(
             SharedMonsterAttributes.MAX_HEALTH.getName(),
-            new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor health", 2.0, 0)
+            new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor health", 2.0, 0)
          );
          multimap.put(
             SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(),
-            new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor knockback resistance", 0.1, 0)
+            new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor knockback resistance", 0.1, 0)
          );
          multimap.put(
             SharedMonsterAttributes.MOVEMENT_SPEED.getName(),
-            new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor move speed", -0.05, 2)
+            new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor move speed", -0.05, 2)
          );
       }
 
@@ -95,7 +94,7 @@ public class FireLordHelm extends ItemArmor {
       if (armorSlot != EntityEquipmentSlot.HEAD) {
          return null;
       } else if (itemStack != ItemStack.EMPTY) {
-         ModelBiped whm = ClientProxy.fireLordHelmModel;
+         ModelBiped whm = (ModelBiped) Armors.ArmorModels.FIRE_LORD_HELMET.getModel();
          whm.isSneak = entityLiving.isSneaking();
          whm.isRiding = entityLiving.isRiding();
          whm.isChild = entityLiving.isChild();
@@ -107,7 +106,7 @@ public class FireLordHelm extends ItemArmor {
 
    @Override
    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-      if (type == "overlay") {
+      if (type.equals("overlay")) {
          return null;
       } else {
          return slot == EntityEquipmentSlot.HEAD ? "arpg:textures/firelord_armor_model_tex1.png" : null;

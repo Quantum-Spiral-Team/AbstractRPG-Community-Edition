@@ -4,7 +4,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class QuadroBeltModel extends ModelBiped {
+public class QuadrocopterBeltModel extends ModelBiped {
    public ModelRenderer shape15;
    public ModelRenderer shape15_1;
    public ModelRenderer shape15_2;
@@ -47,7 +47,7 @@ public class QuadroBeltModel extends ModelBiped {
    public ModelRenderer batteryR2;
    public ModelRenderer batteryR3;
 
-   public QuadroBeltModel() {
+   public QuadrocopterBeltModel() {
       this.textureWidth = 32;
       this.textureHeight = 16;
       this.Aturbine4 = new ModelRenderer(this, 10, 13);
@@ -236,6 +236,14 @@ public class QuadroBeltModel extends ModelBiped {
       this.bipedBody.addChild(this.batteryR1);
       this.bipedBody.addChild(this.batteryR2);
       this.bipedBody.addChild(this.batteryR3);
+
+      this.bipedBody.showModel = false;
+      this.bipedHead.showModel = false;
+      this.bipedHeadwear.showModel = false;
+      this.bipedLeftArm.showModel = false;
+      this.bipedRightArm.showModel = false;
+      this.bipedLeftLeg.showModel = false;
+      this.bipedRightLeg.showModel = false;
    }
 
    @Override

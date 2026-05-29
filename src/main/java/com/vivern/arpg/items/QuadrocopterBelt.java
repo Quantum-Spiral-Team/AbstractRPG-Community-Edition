@@ -3,14 +3,14 @@ package com.vivern.arpg.items;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.items.models.QuadroBeltModel;
+import com.vivern.arpg.items.armor.Armors;
+import com.vivern.arpg.items.models.QuadrocopterBeltModel;
 import com.vivern.arpg.items.models.QuadroBeltModel2;
 import com.vivern.arpg.main.FindAmmo;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Keys;
 import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.proxy.ClientProxy;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.Minecraft;
@@ -363,7 +363,7 @@ public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBaubl
    @Override
    public @Nullable ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
       if (itemStack != ItemStack.EMPTY) {
-         QuadroBeltModel qmodel = ClientProxy.quadroBeltModel;
+         QuadrocopterBeltModel qmodel = (QuadrocopterBeltModel) Armors.ArmorModels.QUADROCOPTER_BELT.getModel();
          qmodel.bipedBody.showModel = armorSlot == EntityEquipmentSlot.LEGS;
          qmodel.isSneak = entityLiving.isSneaking();
          qmodel.isRiding = entityLiving.isRiding();

@@ -96,7 +96,7 @@ public class FireMageHelm extends ItemArmor {
       if (armorSlot != EntityEquipmentSlot.HEAD) {
          return null;
       } else if (itemStack != ItemStack.EMPTY) {
-         ModelBiped whm = ClientProxy.fireMageHatModel;
+         ModelBiped whm = (ModelBiped) Armors.ArmorModels.FIRE_MAGE_HAT.getModel();
          whm.isSneak = entityLiving.isSneaking();
          whm.isRiding = entityLiving.isRiding();
          whm.isChild = entityLiving.isChild();

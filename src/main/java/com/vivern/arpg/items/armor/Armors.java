@@ -1,14 +1,6 @@
 package com.vivern.arpg.items.armor;
 
-import com.vivern.arpg.items.models.AdamantiumArmorModel;
-import com.vivern.arpg.items.models.CoralArmorModel;
-import com.vivern.arpg.items.models.CrystalMantleModel;
-import com.vivern.arpg.items.models.HazardSuitModel;
-import com.vivern.arpg.items.models.IceHelmetModel;
-import com.vivern.arpg.items.models.NorthernArmorModel;
-import com.vivern.arpg.items.models.SnowcoatArmorModel;
-import com.vivern.arpg.items.models.ThundererArmorModel;
-import com.vivern.arpg.items.models.ToxiniumArmorModel;
+import com.vivern.arpg.items.models.*;
 import com.vivern.arpg.entity.EntityFiremageSetBonus;
 import com.vivern.arpg.main.DeathEffects;
 import com.vivern.arpg.main.GetMOP;
@@ -21,12 +13,11 @@ import com.vivern.arpg.main.WeaponDamage;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
-import com.vivern.arpg.proxy.ClientProxy;
+
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,7 +25,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -61,13 +51,13 @@ public class Armors {
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
-            ModelBiped whm = ClientProxy.fireLordHelmModel;
+            ModelBiped whm = (ModelBiped) ArmorModels.FIRE_LORD_HELMET.getModel();
             whm.isSneak = entityLiving.isSneaking();
             whm.isRiding = entityLiving.isRiding();
             whm.isChild = entityLiving.isChild();
             return whm;
          } else if (armorSlot == EntityEquipmentSlot.CHEST) {
-            ModelBiped whm = ClientProxy.fireLordChestModel;
+            ModelBiped whm = (ModelBiped) ArmorModels.FIRE_LORD_CHESTPLATE.getModel();
             whm.isSneak = entityLiving.isSneaking();
             whm.isRiding = entityLiving.isRiding();
             whm.isChild = entityLiving.isChild();
@@ -88,77 +78,75 @@ public class Armors {
          }
       }
    };
+
    public static AbstractArmorSet northernSET = new AbstractArmorSet("northern_armor", "helmet") {
       @SideOnly(Side.CLIENT)
-      public NorthernArmorModel armormodel = new NorthernArmorModel();
-      public String armortexture = "arpg:textures/northern_armor_model_tex.png";
-
-      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
-         this.armormodel.setModelAttributes(model);
-         this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
-         this.armormodel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         this.armormodel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         return this.armormodel;
+         NorthernArmorModel armorModel = (NorthernArmorModel) ArmorModels.NORTHERN.getModel();
+
+         armorModel.setModelAttributes(model);
+         armorModel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
+         armorModel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         armorModel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         return armorModel;
       }
 
       @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot armorSlot, String type) {
-         return this.armortexture;
+          return "arpg:textures/northern_armor_model_tex.png";
       }
    };
-   public static AbstractArmorSet hazardSET = new AbstractArmorSet("hazard_suit", "helmet") {
-      @SideOnly(Side.CLIENT)
-      public HazardSuitModel armormodel = new HazardSuitModel();
-      public String armortexture = "arpg:textures/hazard_suit_model_tex.png";
 
+   public static AbstractArmorSet hazardSET = new AbstractArmorSet("hazard_suit", "helmet") {
       @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
-         this.armormodel.setModelAttributes(model);
-         this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
-         this.armormodel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         this.armormodel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         return this.armormodel;
+         HazardSuitModel armorModel = (HazardSuitModel) ArmorModels.HAZARD_SUIT.getModel();
+
+         armorModel.setModelAttributes(model);
+         armorModel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
+         armorModel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         armorModel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         return armorModel;
       }
 
       @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot armorSlot, String type) {
-         return this.armortexture;
+         return "arpg:textures/hazard_suit_model_tex.png";
       }
 
       @Override
       public float onHurtWithItem(
-         ARPGArmor item, float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source, EntityEquipmentSlot armorSlot
+         ARPGArmor item, float hurtDamage, ItemStack stack, EntityPlayer player, DamageSource source, EntityEquipmentSlot armorSlot
       ) {
          if (armorSlot == EntityEquipmentSlot.LEGS && source == DamageSource.FALL && isCharged(stack)) {
-            return Math.max(hurtdamage - 8.0F, 0.0F);
+            return Math.max(hurtDamage - 8.0F, 0.0F);
          } else {
             return armorSlot == EntityEquipmentSlot.FEET && source == DamageSource.HOT_FLOOR && isCharged(stack)
-               ? Math.max(hurtdamage - 8.0F, 0.0F)
-               : hurtdamage;
+               ? Math.max(hurtDamage - 8.0F, 0.0F)
+               : hurtDamage;
          }
       }
 
       @Override
       public void onUpdateFullset(ARPGArmor item, ItemStack itemstack, World world, EntityLivingBase entity, int itemSlot, boolean isSelected) {
          if (entity.ticksExisted % 40 == 0) {
-            Collection<PotionEffect> collection = entity.getActivePotionEffects();
+            Collection<PotionEffect> effects = entity.getActivePotionEffects();
             Potion potion = null;
             int amp = 0;
 
-            for (PotionEffect effect : collection) {
+            for (PotionEffect effect : effects) {
                if (effect.getPotion().isBadEffect()) {
                   potion = effect.getPotion();
                   amp = effect.getAmplifier();
@@ -187,6 +175,7 @@ public class Armors {
          }
       }
    };
+
    public static AbstractArmorSet slimeSET = new AbstractArmorSet("slime", "helmet") {
       @SideOnly(Side.CLIENT)
       @Override
@@ -199,17 +188,18 @@ public class Armors {
          return armorSlot == EntityEquipmentSlot.LEGS ? "arpg:textures/slime_armor_2.png" : "arpg:textures/slime_armor_1.png";
       }
    };
+
    public static AbstractArmorSet firemageSET = new AbstractArmorSet("firemage", "hat") {
       @Override
       public void onUpdateFullset(ARPGArmor item, ItemStack itemstack, World world, EntityLivingBase player, int itemSlot, boolean isSelected) {
          player.extinguish();
          if (!world.isRemote && player.ticksExisted % 100 == 0) {
             float power = player instanceof EntityPlayer ? Mana.getMagicPowerMax((EntityPlayer)player) : 1.0F;
-            EntityFiremageSetBonus entit = new EntityFiremageSetBonus(player.world, player);
-            entit.shoot(player, player.rotationPitch, player.rotationYaw, 0.5F, 0.001F, 3.8F);
-            entit.setPosition(player.posX, player.posY + 1.0, player.posZ);
-            entit.magicPower = power;
-            world.spawnEntity(entit);
+            EntityFiremageSetBonus entity = new EntityFiremageSetBonus(player.world, player);
+            entity.shoot(player, player.rotationPitch, player.rotationYaw, 0.5F, 0.001F, 3.8F);
+            entity.setPosition(player.posX, player.posY + 1.0, player.posZ);
+            entity.magicPower = power;
+            world.spawnEntity(entity);
          }
       }
 
@@ -217,17 +207,17 @@ public class Armors {
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
-            ModelBiped whm = ClientProxy.fireMageHatModel;
-            whm.isSneak = entityLiving.isSneaking();
-            whm.isRiding = entityLiving.isRiding();
-            whm.isChild = entityLiving.isChild();
-            return whm;
+            ModelBiped hateModel = (ModelBiped) ArmorModels.FIRE_MAGE_HAT.getModel();
+            hateModel.isSneak = entityLiving.isSneaking();
+            hateModel.isRiding = entityLiving.isRiding();
+            hateModel.isChild = entityLiving.isChild();
+            return hateModel;
          } else if (armorSlot == EntityEquipmentSlot.CHEST) {
-            ModelBiped whm = ClientProxy.magicHoodie;
-            whm.isSneak = entityLiving.isSneaking();
-            whm.isRiding = entityLiving.isRiding();
-            whm.isChild = entityLiving.isChild();
-            return whm;
+            ModelBiped hoodieModel = (ModelBiped) ArmorModels.MAGIC_HOODIE.getModel();
+            hoodieModel.isSneak = entityLiving.isSneaking();
+            hoodieModel.isRiding = entityLiving.isRiding();
+            hoodieModel.isChild = entityLiving.isChild();
+            return hoodieModel;
          } else {
             return null;
          }
@@ -242,10 +232,8 @@ public class Armors {
          }
       }
    };
-   public static AbstractArmorSet iceSET = new AbstractArmorSet("ice_armor", "helmet") {
-      @SideOnly(Side.CLIENT)
-      public IceHelmetModel icemodel = new IceHelmetModel();
 
+   public static AbstractArmorSet iceSET = new AbstractArmorSet("ice_armor", "helmet") {
       @Override
       public float onHurtWithItem(
          ARPGArmor item, float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source, EntityEquipmentSlot armorSlot
@@ -302,9 +290,10 @@ public class Armors {
       @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
+         IceHelmetModel helmetModel = (IceHelmetModel) ArmorModels.ICE_HELMET.getModel();
          if (armorSlot == EntityEquipmentSlot.HEAD) {
-            this.icemodel.setModelAttributes(model);
-            return this.icemodel;
+            helmetModel.setModelAttributes(model);
+            return helmetModel;
          } else {
             return null;
          }
@@ -315,12 +304,13 @@ public class Armors {
          return armorSlot == EntityEquipmentSlot.LEGS ? "arpg:textures/ice_armor_2.png" : "arpg:textures/ice_armor_1.png";
       }
    };
+
    public static AbstractArmorSet wizardSET = new AbstractArmorSet("wizard", "hat") {
       @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
          if (armorSlot == EntityEquipmentSlot.HEAD) {
-            ModelBiped whm = ClientProxy.wizardHatModel;
+            ModelBiped whm = (ModelBiped) ArmorModels.WIZARD_HAT.getModel();
             whm.isSneak = entityLiving.isSneaking();
             whm.isRiding = entityLiving.isRiding();
             whm.isChild = entityLiving.isChild();
@@ -337,57 +327,56 @@ public class Armors {
          } else if (armorSlot != EntityEquipmentSlot.HEAD) {
             return "arpg:textures/wizard_armor2.png";
          } else {
-            return type == "overlay" ? null : "arpg:textures/wizard_hat_model_tex.png";
+            return type.equals("overlay") ? null : "arpg:textures/wizard_hat_model_tex.png";
          }
       }
    };
+
    public static AbstractArmorSet adamantiumSET = new AbstractArmorSet("adamantium_armor", "helmet") {
       @SideOnly(Side.CLIENT)
-      public AdamantiumArmorModel armormodel = new AdamantiumArmorModel();
-      public String armortexture = "arpg:textures/adamantium_armor_model_tex.png";
-
-      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
-         this.armormodel.setModelAttributes(model);
-         this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
-         this.armormodel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         this.armormodel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         return this.armormodel;
+         AdamantiumArmorModel armorModel = (AdamantiumArmorModel) ArmorModels.ADAMANTIUM.getModel();
+
+         armorModel.setModelAttributes(model);
+         armorModel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
+         armorModel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         armorModel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         return armorModel;
       }
 
       @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot armorSlot, String type) {
-         return this.armortexture;
+         return "arpg:textures/adamantium_armor_model_tex.png";
       }
    };
-   public static AbstractArmorSet toxiniumSET = new AbstractArmorSet("toxinium", "helmet") {
-      public ToxiniumArmorModel armormodel = new ToxiniumArmorModel();
-      public String armortexture = "arpg:textures/toxinium_armor_model_tex.png";
 
+   public static AbstractArmorSet toxiniumSET = new AbstractArmorSet("toxinium", "helmet") {
       @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
-         this.armormodel.setModelAttributes(model);
-         this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
-         this.armormodel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         this.armormodel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         return this.armormodel;
+         ToxiniumArmorModel armorModel =  (ToxiniumArmorModel) ArmorModels.TOXINIUM.getModel();
+
+         armorModel.setModelAttributes(model);
+         armorModel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
+         armorModel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         armorModel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         return armorModel;
       }
 
       @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot armorSlot, String type) {
-         return this.armortexture;
+         return "arpg:textures/toxinium_armor_model_tex.png";
       }
 
       @Override
@@ -454,145 +443,141 @@ public class Armors {
          }
       }
    };
+
    public static AbstractArmorSet coralSET = new AbstractArmorSet("coral_armor", "helmet") {
       @SideOnly(Side.CLIENT)
-      public CoralArmorModel armormodel = new CoralArmorModel();
-      public String armortexture = "arpg:textures/coral_armor_model_tex.png";
-
-      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
-         this.armormodel.setModelAttributes(model);
-         this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
-         this.armormodel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         this.armormodel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         return this.armormodel;
+         CoralArmorModel armorModel = (CoralArmorModel) ArmorModels.CORAL.getModel();
+
+         armorModel.setModelAttributes(model);
+         armorModel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
+         armorModel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         armorModel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         return armorModel;
       }
 
       @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot armorSlot, String type) {
-         return this.armortexture;
+         return "arpg:textures/coral_armor_model_tex.png";
       }
    };
+
    public static AbstractArmorSet crystalSET = new AbstractArmorSet("crystal_mantle", "helmet") {
       @SideOnly(Side.CLIENT)
-      public CrystalMantleModel armormodel = new CrystalMantleModel();
-      public String armortexture = "arpg:textures/crystal_mantle_model_tex.png";
-
-      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
-         this.armormodel.setModelAttributes(model);
-         this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
-         this.armormodel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         this.armormodel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         return this.armormodel;
+         CrystalMantleModel mantleModel = (CrystalMantleModel) ArmorModels.CRYSTAL_MANTLE.getModel();
+
+         mantleModel.setModelAttributes(model);
+         mantleModel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
+         mantleModel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         mantleModel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         mantleModel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         mantleModel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         mantleModel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         mantleModel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         mantleModel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         return mantleModel;
       }
 
       @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot armorSlot, String type) {
-         return this.armortexture;
+         return "arpg:textures/crystal_mantle_model_tex.png";
       }
    };
-   public static AbstractArmorSet snowCoatSET = new AbstractArmorSet("snowcoat_armor", "helmet") {
-      @SideOnly(Side.CLIENT)
-      public SnowcoatArmorModel armormodel = new SnowcoatArmorModel();
-      public String[] armortextures = new String[]{
-         "arpg:textures/snowcoat_armor_model_tex.png", "arpg:textures/snowcoat_armor_model_tex_blue.png", "arpg:textures/snowcoat_armor_model_tex_white.png"
-      };
 
+   public static AbstractArmorSet snowCoatSET = new AbstractArmorSet("snowcoat_armor", "helmet") {
       @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
-         this.armormodel.setModelAttributes(model);
-         this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
-         this.armormodel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         this.armormodel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         return this.armormodel;
+         SnowcoatArmorModel armorModel = (SnowcoatArmorModel) ArmorModels.SNOWCOAT.getModel();
+
+         armorModel.setModelAttributes(model);
+         armorModel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
+         armorModel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         armorModel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         return armorModel;
       }
 
       @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot armorSlot, String type) {
-         return this.armortextures[MathHelper.clamp(NBTHelper.GetNBTint(stack, "colorid"), 0, 2)];
+         String[] armorTextures = new String[]{
+                 "arpg:textures/snowcoat_armor_model_tex.png",
+                 "arpg:textures/snowcoat_armor_model_tex_blue.png",
+                 "arpg:textures/snowcoat_armor_model_tex_white.png"
+         };
+         return armorTextures[MathHelper.clamp(NBTHelper.GetNBTint(stack, "colorid"), 0, 2)];
       }
 
       @Override
       public void constructItem(ARPGArmor item) {
-         item.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
-            @Override
-            @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-               return NBTHelper.GetNBTint(stack, "colorid");
-            }
-         });
+         item.addPropertyOverride(new ResourceLocation("type"), (stack, world, entity) -> NBTHelper.GetNBTint(stack, "colorid"));
       }
    };
+
    public static AbstractArmorSet thundererSET = new AbstractArmorSet("thunderer_armor", "helmet") {
       @SideOnly(Side.CLIENT)
-      public ThundererArmorModel armormodel = new ThundererArmorModel();
-      public String armortexture = "arpg:textures/thunderer_armor_model_tex.png";
-
-      @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
-         this.armormodel.setModelAttributes(model);
-         this.armormodel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
-         this.armormodel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
-         this.armormodel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
-         this.armormodel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         this.armormodel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
-         return this.armormodel;
+         ThundererArmorModel armorModel = (ThundererArmorModel) ArmorModels.THUNDERER.getModel();
+
+         armorModel.setModelAttributes(model);
+         armorModel.helm.showModel = armorSlot == EntityEquipmentSlot.HEAD;
+         armorModel.chest.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.leftarm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+         armorModel.rightleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.leftleg.showModel = armorSlot == EntityEquipmentSlot.LEGS;
+         armorModel.rightboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         armorModel.leftboot.showModel = armorSlot == EntityEquipmentSlot.FEET;
+         return armorModel;
       }
 
       @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot armorSlot, String type) {
-         return this.armortexture;
+         return "arpg:textures/thunderer_armor_model_tex.png";
       }
    };
-   public static AbstractArmorSet SET = new AbstractArmorSet("northern_armor", "helmet") {
-      @SideOnly(Side.CLIENT)
-      public HazardSuitModel armormodel = new HazardSuitModel();
-      public String armortexture = "arpg:textures/hazard_suit_model_tex.png";
 
+   public static AbstractArmorSet SET = new AbstractArmorSet("northern_armor", "helmet") {
       @SideOnly(Side.CLIENT)
       @Override
       public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
+         HazardSuitModel armorModel = (HazardSuitModel) ArmorModels.HAZARD_SUIT.getModel();
+         armorModel.setModelAttributes(model);
+
          if (armorSlot == EntityEquipmentSlot.HEAD) {
+            armorModel.helm.showModel = true;
+         } else if (armorSlot == EntityEquipmentSlot.CHEST) {
+            armorModel.chest.showModel = true;
+            armorModel.rightarm.showModel = true;
+            armorModel.leftarm.showModel = true;
+            armorModel.pipeGLOW.showModel = true;
+         } else if (armorSlot == EntityEquipmentSlot.LEGS) {
+            armorModel.rightleg.showModel = true;
+            armorModel.leftleg.showModel = true;
+         } else if (armorSlot == EntityEquipmentSlot.FEET) {
+            armorModel.rightboot.showModel = true;
+            armorModel.leftboot.showModel = true;
          }
 
-         if (armorSlot == EntityEquipmentSlot.CHEST) {
-         }
-
-         if (armorSlot == EntityEquipmentSlot.LEGS) {
-         }
-
-         if (armorSlot == EntityEquipmentSlot.FEET) {
-         }
-
-         return null;
+         return armorModel;
       }
 
       @Override
       public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot armorSlot, String type) {
-         return this.armortexture;
+         return "arpg:textures/hazard_suit_model_tex.png";
       }
    };
 
@@ -706,6 +691,38 @@ public class Armors {
          .modif(0, 0.7, PropertiesRegistry.MANA_SPEED_MAX)
          .modif(0, 0.4, PropertiesRegistry.MAGIC_POWER_MAX)
          .createArmorItems();
+   }
+
+   @SideOnly(Side.CLIENT)
+   public enum ArmorModels {
+      NORTHERN(new NorthernArmorModel()),
+      FIRE_LORD_HELMET(new FireLordHelmModel()),
+      FIRE_LORD_CHESTPLATE(new FireLordChestModel()),
+      HAZARD_SUIT(new HazardSuitModel()),
+      MAGIC_HOODIE(new MagicHoodie()),
+      FIRE_MAGE_HAT(new  FireMageHatModel()),
+      WIZARD_HAT(new WizardHatModel()),
+      PHOENIX_GHOST(new PhoenixGhostModel()),
+      QUADROCOPTER_BELT(new QuadrocopterBeltModel()),
+      ICE_HELMET(new IceHelmetModel()),
+      ADAMANTIUM(new AdamantiumArmorModel()),
+      TOXINIUM(new ToxiniumArmorModel()),
+      CORAL(new CoralArmorModel()),
+      CRYSTAL_MANTLE(new CrystalMantleModel()),
+      SNOWCOAT(new SnowcoatArmorModel()),
+      THUNDERER(new ThundererArmorModel()),
+      JUNGLE_HELMET(new JungleHelmetModel()),
+      ;
+
+      private final ModelBase model;
+
+      ArmorModels(ModelBase model) {
+         this.model = model;
+      }
+
+      public ModelBase getModel() {
+         return model;
+      }
    }
 
    static {

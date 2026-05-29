@@ -1,5 +1,6 @@
 package com.vivern.arpg.main;
 
+import com.vivern.arpg.Tags;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
@@ -9,13 +10,14 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @EventBusSubscriber(
-   modid = "arpg"
+   modid = Tags.MOD_ID
 )
 public class JumpBonusTracker {
+
    @SubscribeEvent
    public static void onLivingJump(LivingJumpEvent event) {
-      EntityLivingBase var10000 = event.getEntityLiving();
-      var10000.motionY = var10000.motionY + event.getEntityLiving().getEntityAttribute(PropertiesRegistry.JUMP_HEIGHT).getAttributeValue();
+      EntityLivingBase entityLiving = event.getEntityLiving();
+      entityLiving.motionY = entityLiving.motionY + event.getEntityLiving().getEntityAttribute(PropertiesRegistry.JUMP_HEIGHT).getAttributeValue();
    }
 
    @SubscribeEvent

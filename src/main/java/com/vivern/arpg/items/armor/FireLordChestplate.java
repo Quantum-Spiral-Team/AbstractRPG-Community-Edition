@@ -70,7 +70,7 @@ public class FireLordChestplate extends ItemArmor {
       if (armorSlot != EntityEquipmentSlot.CHEST) {
          return null;
       } else if (itemStack != ItemStack.EMPTY) {
-         ModelBiped whm = ClientProxy.fireLordChestModel;
+         ModelBiped whm = (ModelBiped) Armors.ArmorModels.FIRE_LORD_CHESTPLATE.getModel();
          whm.isSneak = entityLiving.isSneaking();
          whm.isRiding = entityLiving.isRiding();
          whm.isChild = entityLiving.isChild();

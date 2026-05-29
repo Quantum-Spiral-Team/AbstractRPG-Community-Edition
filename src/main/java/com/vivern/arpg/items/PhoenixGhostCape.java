@@ -5,6 +5,7 @@ import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
 import com.vivern.arpg.Tags;
+import com.vivern.arpg.items.armor.Armors;
 import com.vivern.arpg.items.models.PhoenixGhostCapeModel;
 import com.vivern.arpg.items.models.PhoenixGhostModel;
 import com.vivern.arpg.main.ItemsRegister;
@@ -336,7 +337,7 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
       ItemStack stack = BaublesApi.getBaubles(e.getEntityPlayer()).getStackInSlot(5);
       if (stack.getItem() == ItemsRegister.PHOENIX_GHOST_CAPE && stack.getItemDamage() != 0 && stack.getItemDamage() != 10) {
          e.setCanceled(true);
-         PhoenixGhostModel model = ClientProxy.phoenixGhostModel;
+         PhoenixGhostModel model = (PhoenixGhostModel) Armors.ArmorModels.PHOENIX_GHOST.getModel();
          ResourceLocation textur = new NetworkPlayerInfo(Minecraft.getMinecraft().player.getGameProfile()).getLocationSkin();
          EntityPlayer entity = e.getEntityPlayer();
          int ticks = entity.ticksExisted;

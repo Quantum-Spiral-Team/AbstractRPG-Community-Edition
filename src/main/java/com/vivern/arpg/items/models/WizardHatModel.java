@@ -26,6 +26,14 @@ public class WizardHatModel extends ModelBiped {
       this.bipedHead.addChild(this.hat1);
       this.bipedHead.addChild(this.hat2);
       this.bipedHead.addChild(this.hat3);
+
+      this.bipedBody.showModel = false;
+      this.bipedHead.showModel = false;
+      this.bipedHeadwear.showModel = false;
+      this.bipedLeftArm.showModel = false;
+      this.bipedRightArm.showModel = false;
+      this.bipedLeftLeg.showModel = false;
+      this.bipedRightLeg.showModel = false;
    }
 
    @Override

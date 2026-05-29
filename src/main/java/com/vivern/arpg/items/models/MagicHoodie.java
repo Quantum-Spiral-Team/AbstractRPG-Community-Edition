@@ -21,6 +21,14 @@ public class MagicHoodie extends ModelBiped {
       this.setRotateAngle(this.hoodie1, 0.0F, 0.18203785F, -1.6929693F);
       this.bipedBody.addChild(this.hoodie1);
       this.bipedBody.addChild(this.hoodie2);
+
+      this.bipedBody.showModel = false;
+      this.bipedHead.showModel = false;
+      this.bipedHeadwear.showModel = false;
+      this.bipedLeftArm.showModel = false;
+      this.bipedRightArm.showModel = false;
+      this.bipedLeftLeg.showModel = false;
+      this.bipedRightLeg.showModel = false;
    }
 
    @Override

@@ -33,7 +33,6 @@ public class JungleHelm extends ItemArmor {
    public static ArmorMaterial jungle_mt = EnumHelper.addArmorMaterial(
       "arpg:jungle_mt", "arpg:jungle_tx", 9, new int[]{3, 5, 3, 2}, 7, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F
    );
-   public static JungleHelmetModel modelh = new JungleHelmetModel();
 
    public JungleHelm() {
       super(jungle_mt, 0, EntityEquipmentSlot.HEAD);
@@ -83,13 +82,15 @@ public class JungleHelm extends ItemArmor {
    @Override
    @SideOnly(Side.CLIENT)
    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
+      JungleHelmetModel helmetModel = (JungleHelmetModel) Armors.ArmorModels.JUNGLE_HELMET.getModel();
+
       if (armorSlot != EntityEquipmentSlot.HEAD) {
          return null;
       } else if (itemStack != ItemStack.EMPTY) {
-         modelh.isSneak = entityLiving.isSneaking();
-         modelh.isRiding = entityLiving.isRiding();
-         modelh.isChild = entityLiving.isChild();
-         return modelh;
+         helmetModel.isSneak = entityLiving.isSneaking();
+         helmetModel.isRiding = entityLiving.isRiding();
+         helmetModel.isChild = entityLiving.isChild();
+         return helmetModel;
       } else {
          return null;
       }

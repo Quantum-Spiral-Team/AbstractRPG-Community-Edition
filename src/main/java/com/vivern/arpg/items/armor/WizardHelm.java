@@ -70,7 +70,7 @@ public class WizardHelm extends ItemArmor {
       if (armorSlot != EntityEquipmentSlot.HEAD) {
          return null;
       } else if (itemStack != ItemStack.EMPTY) {
-         ModelBiped whm = ClientProxy.wizardHatModel;
+         ModelBiped whm = (ModelBiped) Armors.ArmorModels.WIZARD_HAT.getModel();
          whm.isSneak = entityLiving.isSneaking();
          whm.isRiding = entityLiving.isRiding();
          whm.isChild = entityLiving.isChild();

@@ -99,6 +99,16 @@ public class HazardSuitModel extends ModelBiped {
       this.chest.addChild(this.pipe_1);
       this.helm.addChild(this.helmGLOW);
       this.chest.addChild(this.pipe_3);
+
+      this.helm.showModel = false;
+      this.chest.showModel = false;
+      this.rightarm.showModel = false;
+      this.leftarm.showModel = false;
+      this.rightleg.showModel = false;
+      this.leftleg.showModel = false;
+      this.rightboot.showModel = false;
+      this.leftboot.showModel = false;
+      this.pipeGLOW.showModel = false;
    }
 
    @Override
