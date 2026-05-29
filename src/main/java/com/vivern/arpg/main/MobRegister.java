@@ -128,21 +128,18 @@ public class MobRegister {
       DungeonMobsPack.init();
       event.getRegistry()
          .registerAll(
-            new EntityEntry[]{
-               SUMMONED_BLAZE,
-               GNATER,
-               WHITE_SLIME,
-               TROGLODYTE,
-               MOONSHROOM,
-               SMOKEDEMON,
-               SUMMONED_SNOWMAN,
-               BOSS_SPINE,
-               BOSS_SPINE_SEGMENT,
-               BOSS_SPINE_MINION,
-               SNOWCLOD,
-               NEXUS_CAP
-            }
-         );
+                 SUMMONED_BLAZE,
+                 GNATER,
+                 WHITE_SLIME,
+                 TROGLODYTE,
+                 MOONSHROOM,
+                 SMOKEDEMON,
+                 SUMMONED_SNOWMAN,
+                 BOSS_SPINE,
+                 BOSS_SPINE_SEGMENT,
+                 BOSS_SPINE_MINION,
+                 SNOWCLOD,
+                 NEXUS_CAP);
 
       for (EntityEntry entry : toregister) {
          event.getRegistry().register(entry);

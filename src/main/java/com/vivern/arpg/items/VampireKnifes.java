@@ -63,7 +63,7 @@ public class VampireKnifes extends Item {
          if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             if (damage <= itemIn.getMaxDamage() - 1) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -81,7 +81,7 @@ public class VampireKnifes extends Item {
                itemstack.setItemDamage(0);
                player.getCooldownTracker().setCooldown(this, 45 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 5);
                world.playSound(
-                  (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.vampireknifes, SoundCategory.NEUTRAL, 0.7F, 1.0F
+                       null, player.posX, player.posY, player.posZ, Sounds.vampireknifes, SoundCategory.NEUTRAL, 0.7F, 1.0F
                );
             }
 
@@ -97,7 +97,7 @@ public class VampireKnifes extends Item {
                   player.rotationYaw,
                   0.0F,
                   1.1F,
-                  0.9F - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack) / 5
+                  0.9F - (float) EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack) / 5
                );
                world.spawnEntity(apple);
             }

@@ -115,7 +115,7 @@ public class AquaticaPortal extends Block {
          && !entityIn.isBeingRidden()
          && entityIn.isNonBoss()
          && entityIn.getEntityBoundingBox().intersects(state.getBoundingBox(worldIn, pos).offset(pos))) {
-         ((EntityPlayer)entityIn).timeUntilPortal = 100;
+         entityIn.timeUntilPortal = 100;
          DimensionsRegister.teleporterAQUATICA.teleport((EntityPlayer)entityIn, pos);
       }
    }

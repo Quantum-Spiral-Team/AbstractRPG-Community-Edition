@@ -2,19 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.items.animation.EnumFlick;
 import com.vivern.arpg.items.animation.Flicks;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.BulletParticle;
 import com.google.common.collect.Multimap;
 import java.util.List;
@@ -138,7 +126,7 @@ public class AdamantiumMinigun extends ItemWeapon {
 
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);
             int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
@@ -149,12 +137,12 @@ public class AdamantiumMinigun extends ItemWeapon {
             boolean isInHand = player.getHeldItemMainhand() == itemstack;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
             if (heat >= 0) {
-               if (isInHand && reuse > 0 && Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && player.isSneaking() && !hascooldown) {
+               if (isInHand && reuse > 0 && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && player.isSneaking() && !hascooldown) {
                   NBTHelper.giveNBTboolean(itemstack, false, "coolingMode");
                   NBTHelper.SetNBTboolean(itemstack, !coolingMode, "coolingMode");
                   player.getCooldownTracker().setCooldown(this, 8);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -186,7 +174,7 @@ public class AdamantiumMinigun extends ItemWeapon {
                         }
 
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -205,7 +193,7 @@ public class AdamantiumMinigun extends ItemWeapon {
                         } else {
                            NBTHelper.SetNBTint(itemstack, -heat, "heat");
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -246,7 +234,7 @@ public class AdamantiumMinigun extends ItemWeapon {
                         if (world.collidesWithAnyBlock(aabb)) {
                            collidesWithAny = true;
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               vec.x,
                               vec.y,
                               vec.z,
@@ -263,7 +251,7 @@ public class AdamantiumMinigun extends ItemWeapon {
                               if (Team.checkIsOpponent(player, entity)) {
                                  if (!playedSound) {
                                     world.playSound(
-                                       (EntityPlayer)null,
+                                            null,
                                        vec.x,
                                        vec.y,
                                        vec.z,
@@ -312,14 +300,14 @@ public class AdamantiumMinigun extends ItemWeapon {
                            vec.x,
                            vec.y,
                            vec.z,
-                           (double)c,
+                                c,
                            dustState == null ? -1.0 : Block.getStateId(dustState),
                            collidesWithAny ? 1.0 : 0.0
                         );
                      }
                   } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.ADAMANTIUM_MINIGUN_CLIP, maxammo, true)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -348,13 +336,13 @@ public class AdamantiumMinigun extends ItemWeapon {
                      NBTHelper.AddNBTint(itemstack, -1, "atdelay");
                   }
 
-                  if (delay <= 0 && Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && !hascooldown) {
+                  if (delay <= 0 && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && !hascooldown) {
                      NBTHelper.SetNBTint(itemstack, 6, "atdelay");
                      Weapons.setPlayerAnimationOnServer(player, 24, EnumHand.MAIN_HAND);
                      double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
                      player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -375,7 +363,7 @@ public class AdamantiumMinigun extends ItemWeapon {
 
                      if (IWeapon.doMeleeSwordAttack(this, itemstack, player, EnumHand.MAIN_HAND, heat < -100).success) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -387,7 +375,7 @@ public class AdamantiumMinigun extends ItemWeapon {
                         NBTHelper.SetNBTint(itemstack, Math.min(heat + (20 - reuse * 6), 0), "heat");
                      } else {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,

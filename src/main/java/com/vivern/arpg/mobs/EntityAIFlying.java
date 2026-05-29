@@ -32,9 +32,7 @@ public class EntityAIFlying extends EntityAIBase {
 
    @Override
    public boolean shouldExecute() {
-      return this.entity.getAttackTarget() != null
-         ? this.entity.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue() <= this.entity.getDistance(this.entity.getAttackTarget())
-         : true;
+      return this.entity.getAttackTarget() == null || this.entity.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue() <= this.entity.getDistance(this.entity.getAttackTarget());
    }
 
    @Override

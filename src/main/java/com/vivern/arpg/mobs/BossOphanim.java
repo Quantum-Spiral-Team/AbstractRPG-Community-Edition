@@ -3,7 +3,7 @@ package com.vivern.arpg.mobs;
 import com.vivern.arpg.items.models.LaserModel;
 import com.vivern.arpg.entity.EntityPart;
 import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.entity.IMultipartMob;
 import com.vivern.arpg.entity.LightningStrike;
 import com.vivern.arpg.main.BloodType;
@@ -46,7 +46,7 @@ import net.minecraft.world.BossInfo.Color;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMultipartMob {
+public class BossOphanim extends AbstractBoss implements ISynchronizedEntity, IMultipartMob {
    public static ResourceLocation generic_beam2 = new ResourceLocation("arpg:textures/generic_beam2.png");
    public static ResourceLocation star2 = new ResourceLocation("arpg:textures/star2.png");
    public float circlesRotation = 0.0F;
@@ -306,7 +306,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
          this.circlesHealth[num] = this.circlesHealth[num] - damage;
          if (damage > 0.0F) {
             this.playHurtSound(source);
-            IEntitySynchronize.sendSynchronize(this, 128.0, num);
+            ISynchronizedEntity.sendSynchronize(this, 128.0, num);
          }
 
          if (this.circlesHealth[num] <= 0.0F) {
@@ -445,7 +445,7 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
             );
          }
 
-         IEntitySynchronize.sendSynchronize(this, 128.0, this.laserRotationPitch, this.laserRotationYaw, this.laserTimer);
+         ISynchronizedEntity.sendSynchronize(this, 128.0, this.laserRotationPitch, this.laserRotationYaw, this.laserTimer);
          if (this.laserTimer < 60) {
             Vec3d vec3d = this.getPositionEyes(1.0F);
             Vec3d vec3d1 = GetMOP.pitchYawToVec3D(this.laserRotationPitch, this.laserRotationYaw);
@@ -489,12 +489,12 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
 
       if (!this.world.isRemote) {
          if (this.ticksExisted < 3 || this.ticksExisted % 60 == 0 || this.circlesSpeedChanged) {
-            IEntitySynchronize.sendSynchronize(this, 128.0, this.circlesRotation, this.circlesSpeed);
+            ISynchronizedEntity.sendSynchronize(this, 128.0, this.circlesRotation, this.circlesSpeed);
             this.circlesSpeedChanged = false;
          }
 
          if (this.circlesHealth != null && (this.ticksExisted >= 3 && this.ticksExisted < 6 || this.ticksExisted % 98 == 0)) {
-            IEntitySynchronize.sendSynchronize(this, 128.0, this.circlesHealth[0], this.circlesHealth[1], this.circlesHealth[2], this.circlesHealth[3]);
+            ISynchronizedEntity.sendSynchronize(this, 128.0, this.circlesHealth[0], this.circlesHealth[1], this.circlesHealth[2], this.circlesHealth[3]);
          }
 
          this.handlePartsCircle();
@@ -806,10 +806,10 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
       float dist3 = 2.8F;
       float dist2 = 2.1F;
       float dist1 = 1.5F;
-      float angle1 = 360 / count1;
-      float angle2 = 360 / count2;
-      float angle3 = 360 / count3;
-      float angle4 = 360 / count4;
+      float angle1 = (float) 360 / count1;
+      float angle2 = (float) 360 / count2;
+      float angle3 = (float) 360 / count3;
+      float angle4 = (float) 360 / count4;
       if (this.spawnParts) {
          this.partsCircle1 = new EntityPart[count1];
          this.partsCircle2 = new EntityPart[count2];
@@ -1002,13 +1002,11 @@ public class BossOphanim extends AbstractBoss implements IEntitySynchronize, IMu
    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
       Potion potion = potioneffectIn.getPotion();
       return potion != PotionEffects.BLOOD_THIRST
-            && potion != PotionEffects.BERSERK
-            && potion != MobEffects.WEAKNESS
-            && potion != MobEffects.POISON
-            && potion != MobEffects.REGENERATION
-            && potion != MobEffects.INSTANT_HEALTH
-         ? super.isPotionApplicable(potioneffectIn)
-         : false;
+              && potion != PotionEffects.BERSERK
+              && potion != MobEffects.WEAKNESS
+              && potion != MobEffects.POISON
+              && potion != MobEffects.REGENERATION
+              && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
    }
 
    @Override

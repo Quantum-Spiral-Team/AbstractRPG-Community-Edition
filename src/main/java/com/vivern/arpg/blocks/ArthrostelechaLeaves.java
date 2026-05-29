@@ -95,7 +95,7 @@ public class ArthrostelechaLeaves extends Block implements IShearable {
 
    @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-      if (!worldIn.isRemote && (Boolean)state.getValue(CHECK_DECAY) && (Boolean)state.getValue(DECAYABLE)) {
+      if (!worldIn.isRemote && state.getValue(CHECK_DECAY) && state.getValue(DECAYABLE)) {
          int i = 4;
          int j = 5;
          int k = pos.getX();
@@ -252,9 +252,9 @@ public class ArthrostelechaLeaves extends Block implements IShearable {
    public int getMetaFromState(IBlockState state) {
       if (!(Boolean)state.getValue(DECAYABLE) && !(Boolean)state.getValue(CHECK_DECAY)) {
          return 0;
-      } else if (!(Boolean)state.getValue(DECAYABLE) && (Boolean)state.getValue(CHECK_DECAY)) {
+      } else if (!(Boolean)state.getValue(DECAYABLE) && state.getValue(CHECK_DECAY)) {
          return 2;
-      } else if ((Boolean)state.getValue(DECAYABLE) && (Boolean)state.getValue(CHECK_DECAY)) {
+      } else if (state.getValue(DECAYABLE) && state.getValue(CHECK_DECAY)) {
          return 4;
       } else {
          return state.getValue(DECAYABLE) && !state.getValue(CHECK_DECAY) ? 8 : 0;

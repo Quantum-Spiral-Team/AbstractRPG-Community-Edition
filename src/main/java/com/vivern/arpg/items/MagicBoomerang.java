@@ -1,13 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityBoomerangMagic;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -79,9 +73,9 @@ public class MagicBoomerang extends ItemWeapon {
             float manacost = parameters.getEnchantedF("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, stack));
             if (Mana.getMana(player) >= manacost) {
                EnumHand hand = null;
-               if (Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
+               if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
                   hand = EnumHand.MAIN_HAND;
-               } else if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && player.getHeldItemOffhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
+               } else if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && player.getHeldItemOffhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
                   hand = EnumHand.OFF_HAND;
                }
 
@@ -90,7 +84,7 @@ public class MagicBoomerang extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, 400);
                   player.addStat(StatList.getObjectUseStats(this));
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

@@ -2,18 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import com.google.common.collect.Multimap;
 import java.util.ArrayList;
@@ -107,7 +96,7 @@ public class Voltrident extends ItemWeapon {
             } else {
                NBTHelper.SetNBTint(itemstack, -1, "level_stop_at");
                world.playSound(
-                  (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.ae_unpower, SoundCategory.AMBIENT, 1.0F, 1.0F
+                       null, player.posX, player.posY, player.posZ, Sounds.ae_unpower, SoundCategory.AMBIENT, 1.0F, 1.0F
                );
             }
          }
@@ -117,7 +106,7 @@ public class Voltrident extends ItemWeapon {
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
          Item itemIn = itemstack.getItem();
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
          float mana = Mana.getMana(player);
          float power = Mana.getMagicPowerMax(player);
          int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
@@ -143,7 +132,7 @@ public class Voltrident extends ItemWeapon {
                double edist = parameters.getEnchantedF("distance", range);
                Vec3d vec = GetMOP.posRayTrace(edist, 1.0F, player, 0.4, 0.3);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -188,7 +177,7 @@ public class Voltrident extends ItemWeapon {
                            if (entitylivingbase.deathTime > 0) {
                               NBTHelper.AddNBTint(itemstack, 6, "voltage");
                               world.playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  player.posX,
                                  player.posY,
                                  player.posZ,
@@ -274,7 +263,7 @@ public class Voltrident extends ItemWeapon {
                               );
                               overkill = entitylivingbasex;
                               world.playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  entitylivingbasex.posX,
                                  entitylivingbasex.posY,
                                  entitylivingbasex.posZ,
@@ -366,11 +355,11 @@ public class Voltrident extends ItemWeapon {
                   player.posY,
                   player.posZ
                );
-            } else if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && level_stop_at == -1) {
+            } else if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && level_stop_at == -1) {
                int levelStopAtNew = CrystalStar.getLevelToStopEmpower(player, itemstack);
                if (levelStopAtNew != -1) {
                   world.playSound(
-                     (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.ae_power, SoundCategory.AMBIENT, 1.0F, 1.0F
+                          null, player.posX, player.posY, player.posZ, Sounds.ae_power, SoundCategory.AMBIENT, 1.0F, 1.0F
                   );
                   NBTHelper.SetNBTint(itemstack, levelStopAtNew, "level_stop_at");
                }

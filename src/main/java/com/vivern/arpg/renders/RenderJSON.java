@@ -55,10 +55,10 @@ public class RenderJSON<T extends Entity> extends Render<T> {
       bufferbuilder.begin(7, DefaultVertexFormats.ITEM);
 
       for (EnumFacing enumfacing : EnumFacing.values()) {
-         this.renderQuads(bufferbuilder, model.getQuads((IBlockState)null, enumfacing, 0L), color);
+         this.renderQuads(bufferbuilder, model.getQuads(null, enumfacing, 0L), color);
       }
 
-      this.renderQuads(bufferbuilder, model.getQuads((IBlockState)null, (EnumFacing)null, 0L), color);
+      this.renderQuads(bufferbuilder, model.getQuads(null, null, 0L), color);
       tessellator.draw();
    }
 

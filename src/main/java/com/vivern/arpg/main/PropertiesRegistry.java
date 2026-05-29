@@ -3,6 +3,8 @@ package com.vivern.arpg.main;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import java.util.UUID;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -18,14 +20,11 @@ import net.minecraftforge.event.entity.player.PlayerEvent.Clone;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
 public class PropertiesRegistry {
    public static final IAttribute MANA_MAX = new RangedAttribute(null, "arpg.mana", 20.0, 0.0, 10000.0).setShouldWatch(true);
    public static final DataParameter<Float> MANA = EntityDataManager.createKey(EntityPlayer.class, DataSerializers.FLOAT);
-   public static final IAttribute MANASPEED_MAX = new RangedAttribute(null, "arpg.manaspeed", 0.2, 0.0, 10000.0).setShouldWatch(true);
-   public static final DataParameter<Float> MANASPEED = EntityDataManager.createKey(EntityPlayer.class, DataSerializers.FLOAT);
+   public static final IAttribute MANA_SPEED_MAX = new RangedAttribute(null, "arpg.mana_speed", 0.2, 0.0, 10000.0).setShouldWatch(true);
+   public static final DataParameter<Float> MANA_SPEED = EntityDataManager.createKey(EntityPlayer.class, DataSerializers.FLOAT);
    public static final IAttribute ENTITY_COLOR_RED_MAX = new RangedAttribute(null, "arpg.color_red", 1.0, 0.0, 1.0).setShouldWatch(true);
    public static final IAttribute ENTITY_COLOR_GREEN_MAX = new RangedAttribute(null, "arpg.color_green", 1.0, 0.0, 1.0).setShouldWatch(true);
    public static final IAttribute ENTITY_COLOR_BLUE_MAX = new RangedAttribute(null, "arpg.color_blue", 1.0, 0.0, 1.0).setShouldWatch(true);
@@ -49,52 +48,44 @@ public class PropertiesRegistry {
    public static final DataParameter<Integer> ANIMATIONS = EntityDataManager.createKey(EntityPlayer.class, DataSerializers.VARINT);
    public static final DataParameter<Integer> SWARM_POINTS = EntityDataManager.createKey(EntityPlayer.class, DataSerializers.VARINT);
 
-   @SubscribeEvent
-   public static void onPlayerConstructing(EntityConstructing event) {
-      if (event.getEntity() instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)event.getEntity();
-         player.getAttributeMap().registerAttribute(MANA_MAX);
-         player.getAttributeMap().registerAttribute(MANASPEED_MAX);
-         player.getAttributeMap().registerAttribute(LEADERSHIP);
-         player.getAttributeMap().registerAttribute(AIRBORNE_MOBILITY);
-         player.getDataManager().register(MANA, (float)MANA_MAX.getDefaultValue());
-         player.getDataManager().register(MANASPEED, (float)MANASPEED_MAX.getDefaultValue());
-         player.getDataManager().register(VESSEL_A_ENERGY, 0.0F);
-         player.getDataManager().register(VESSEL_B_ENERGY, 0.0F);
-         player.getDataManager().register(VESSEL_C_ENERGY, 0.0F);
-         player.getDataManager().register(VESSEL_A_TYPE, "");
-         player.getDataManager().register(VESSEL_B_TYPE, "");
-         player.getDataManager().register(VESSEL_C_TYPE, "");
-         player.getDataManager().register(FLYING, false);
-         player.getDataManager().register(ANIMATIONS, 0);
-         player.getDataManager().register(KEYS_PRESSED, 0);
-         player.getDataManager().register(COINS, 0);
-         player.getDataManager().register(RADIATION, 0);
-         player.getDataManager().register(SWARM_POINTS, 0);
-         player.getAttributeMap().registerAttribute(MAGIC_POWER_MAX);
-         updatePlayerPermanentAttributes(player);
-      }
+   public static void onPlayerConstructing(EntityPlayer player) {
+      player.getAttributeMap().registerAttribute(MANA_MAX);
+      player.getAttributeMap().registerAttribute(MANA_SPEED_MAX);
+      player.getAttributeMap().registerAttribute(LEADERSHIP);
+      player.getAttributeMap().registerAttribute(AIRBORNE_MOBILITY);
+      player.getDataManager().register(MANA, (float)MANA_MAX.getDefaultValue());
+      player.getDataManager().register(MANA_SPEED, (float) MANA_SPEED_MAX.getDefaultValue());
+      player.getDataManager().register(VESSEL_A_ENERGY, 0.0F);
+      player.getDataManager().register(VESSEL_B_ENERGY, 0.0F);
+      player.getDataManager().register(VESSEL_C_ENERGY, 0.0F);
+      player.getDataManager().register(VESSEL_A_TYPE, "");
+      player.getDataManager().register(VESSEL_B_TYPE, "");
+      player.getDataManager().register(VESSEL_C_TYPE, "");
+      player.getDataManager().register(FLYING, false);
+      player.getDataManager().register(ANIMATIONS, 0);
+      player.getDataManager().register(KEYS_PRESSED, 0);
+      player.getDataManager().register(COINS, 0);
+      player.getDataManager().register(RADIATION, 0);
+      player.getDataManager().register(SWARM_POINTS, 0);
+      player.getAttributeMap().registerAttribute(MAGIC_POWER_MAX);
+      updatePlayerPermanentAttributes(player);
    }
 
-   @SubscribeEvent
-   public static void onEntityLivingConstructing(EntityConstructing event) {
-      if (event.getEntity() instanceof EntityLivingBase) {
-         EntityLivingBase base = (EntityLivingBase)event.getEntity();
-         base.getAttributeMap().registerAttribute(ENTITY_COLOR_RED_MAX);
-         base.getAttributeMap().registerAttribute(ENTITY_COLOR_GREEN_MAX);
-         base.getAttributeMap().registerAttribute(ENTITY_COLOR_BLUE_MAX);
-         base.getAttributeMap().registerAttribute(ARMOR_PROTECTION);
-         base.getAttributeMap().registerAttribute(JUMP_HEIGHT);
-         base.getAttributeMap().registerAttribute(MELEE_KNOCKBACK);
-         base.getAttributeMap().registerAttribute(VAMPIRISM);
-      }
+   public static void onEntityConstructing(EntityLivingBase entity) {
+      entity.getAttributeMap().registerAttribute(ENTITY_COLOR_RED_MAX);
+      entity.getAttributeMap().registerAttribute(ENTITY_COLOR_GREEN_MAX);
+      entity.getAttributeMap().registerAttribute(ENTITY_COLOR_BLUE_MAX);
+      entity.getAttributeMap().registerAttribute(ARMOR_PROTECTION);
+      entity.getAttributeMap().registerAttribute(JUMP_HEIGHT);
+      entity.getAttributeMap().registerAttribute(MELEE_KNOCKBACK);
+      entity.getAttributeMap().registerAttribute(VAMPIRISM);
    }
 
    public static void onPlayerClone(Clone event) {
-      EntityPlayer originalplayer = event.getOriginal();
-      EntityPlayer newplayer = event.getEntityPlayer();
-      PermanentAttributes attributes = getPlayerPermanentAttributes(originalplayer);
-      setPlayerPermanentAttributes(newplayer, attributes);
+      EntityPlayer original = event.getOriginal();
+      EntityPlayer clone = event.getEntityPlayer();
+      PermanentAttributes attributes = getPlayerPermanentAttributes(original);
+      setPlayerPermanentAttributes(clone, attributes);
    }
 
    public static PermanentAttributes getPlayerPermanentAttributes(EntityPlayer player) {

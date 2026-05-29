@@ -13,7 +13,7 @@ public class ManaOil extends AdvancedPotion {
       this.setPotionName("Mana_Oil");
       this.setIconIndex(36, 1);
       this.registerPotionAttributeModifier(PropertiesRegistry.MAGIC_POWER_MAX, MathHelper.getRandomUUID().toString(), -0.9F, 1);
-      this.registerPotionAttributeModifier(PropertiesRegistry.MANASPEED_MAX, MathHelper.getRandomUUID().toString(), 0.5, 0);
+      this.registerPotionAttributeModifier(PropertiesRegistry.MANA_SPEED_MAX, MathHelper.getRandomUUID().toString(), 0.5, 0);
       this.registerPotionAttributeModifier(PropertiesRegistry.ENTITY_COLOR_RED_MAX, MathHelper.getRandomUUID().toString(), -0.22000003F, 1);
       this.registerPotionAttributeModifier(PropertiesRegistry.ENTITY_COLOR_GREEN_MAX, MathHelper.getRandomUUID().toString(), -0.33999997F, 1);
       this.registerPotionAttributeModifier(PropertiesRegistry.ENTITY_COLOR_BLUE_MAX, MathHelper.getRandomUUID().toString(), -0.100000024F, 1);

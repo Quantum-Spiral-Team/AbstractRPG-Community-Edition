@@ -76,7 +76,7 @@ public class ItemTurret extends Item {
             itemstack.shrink(1);
             player.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   turret.posX,
                   turret.posY,
                   turret.posZ,

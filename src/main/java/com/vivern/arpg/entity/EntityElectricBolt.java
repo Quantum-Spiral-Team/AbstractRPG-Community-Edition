@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityElectricBolt extends EntityThrowable implements IEntitySynchronize {
+public class EntityElectricBolt extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    public float magicPower = 1.0F;
    public Vec3d pos1 = this.getPositionVector();
@@ -174,7 +174,7 @@ public class EntityElectricBolt extends EntityThrowable implements IEntitySynchr
                }
             }
 
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
             this.world
                .playSound(
                   this.posX,
@@ -194,7 +194,7 @@ public class EntityElectricBolt extends EntityThrowable implements IEntitySynchr
             .getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos())
          != null) {
          if (result.hitVec != null) {
-            IEntitySynchronize.sendSynchronize(
+            ISynchronizedEntity.sendSynchronize(
                this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, 0.0, 0.0, 0.0
             );
          }

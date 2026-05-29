@@ -44,8 +44,8 @@ public class VortexInABottle extends Item implements IBauble, IRenderBauble {
             .render(
                player,
                1.0F,
-               (float)(1.0 - Math.sin(player.ticksExisted / 60) / 2.0),
-               (float)(1.0 - Math.sin(player.ticksExisted / 47) / 2.0),
+               (float)(1.0 - Math.sin((double) player.ticksExisted / 60) / 2.0),
+               (float)(1.0 - Math.sin((double) player.ticksExisted / 47) / 2.0),
                2.0F,
                1.0F,
                0.065F
@@ -58,8 +58,8 @@ public class VortexInABottle extends Item implements IBauble, IRenderBauble {
             .render(
                player,
                1.0F,
-               (float)(1.0 - Math.sin(player.ticksExisted / 60) / 2.0),
-               (float)(1.0 - Math.sin(player.ticksExisted / 47) / 2.0),
+               (float)(1.0 - Math.sin((double) player.ticksExisted / 60) / 2.0),
+               (float)(1.0 - Math.sin((double) player.ticksExisted / 47) / 2.0),
                1.0F,
                1.0F,
                0.065F
@@ -123,7 +123,7 @@ public class VortexInABottle extends Item implements IBauble, IRenderBauble {
       );
       world.spawnEntity(bigboom);
       world.playSound(
-         (EntityPlayer)null,
+              null,
          player.posX,
          player.posY,
          player.posZ,

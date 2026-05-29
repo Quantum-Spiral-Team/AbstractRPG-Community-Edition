@@ -31,7 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityMagicRocket extends EntityThrowable implements IEntitySynchronize, IRenderOptions {
+public class EntityMagicRocket extends EntityThrowable implements ISynchronizedEntity, IRenderOptions {
    public final ItemStack weaponstack;
    public float magicPower = 1.0F;
    public int disableMagic = 0;
@@ -238,7 +238,7 @@ public class EntityMagicRocket extends EntityThrowable implements IEntitySynchro
             result.entityHit.hurtResistantTime = 0;
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -247,7 +247,7 @@ public class EntityMagicRocket extends EntityThrowable implements IEntitySynchro
                   0.8F,
                   0.9F + this.rand.nextFloat() / 5.0F
                );
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
             this.setDead();
          }
       } else if (this.world
@@ -257,7 +257,7 @@ public class EntityMagicRocket extends EntityThrowable implements IEntitySynchro
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -268,7 +268,7 @@ public class EntityMagicRocket extends EntityThrowable implements IEntitySynchro
             );
          if (!this.world.isRemote) {
             if (result.hitVec != null) {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, 0.0, 0.0, 0.0
                );
             }

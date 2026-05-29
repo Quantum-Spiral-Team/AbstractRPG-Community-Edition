@@ -61,7 +61,7 @@ public class TileBunkerDoor extends TileEntity implements ITickable {
    }
 
    public void resetAndStart(boolean triggeredByOtherDoor) {
-      EnumFacing face = (EnumFacing)this.world.getBlockState(this.pos).getValue(BlockBunkerDoor.FACING);
+      EnumFacing face = this.world.getBlockState(this.pos).getValue(BlockBunkerDoor.FACING);
       this.relativeCurrentPos = BlockPos.ORIGIN.offset(face);
       this.started = true;
       this.ticks = 0;
@@ -76,7 +76,7 @@ public class TileBunkerDoor extends TileEntity implements ITickable {
             this.ticks = 0;
             ArrayList<BlockPos> posesFromMove = new ArrayList<>();
             ArrayList<BlockPos> posesToMove = new ArrayList<>();
-            EnumFacing face = (EnumFacing)this.world.getBlockState(this.pos).getValue(BlockBunkerDoor.FACING);
+            EnumFacing face = this.world.getBlockState(this.pos).getValue(BlockBunkerDoor.FACING);
             BlockPos currentPos = this.pos.add(this.relativeCurrentPos);
             if (!this.world.getBlockState(currentPos.offset(face)).isOpaqueCube()) {
                this.started = false;
@@ -143,17 +143,15 @@ public class TileBunkerDoor extends TileEntity implements ITickable {
    }
 
    public boolean isAccessBlock(IBlockState block, BlockPos pos) {
-      return block.getBlock() != BlocksRegister.RUST_METAL
-            && block.getBlock() != BlocksRegister.RUSTED_PIPE
-            && block.getBlock() != BlocksRegister.RUST_ARMATURE
-            && block.getBlock() != BlocksRegister.RUST_LAMP
-            && block.getBlock() != BlocksRegister.DARK_RUST_METALL
-            && block.getBlock() != BlocksRegister.LAB_PLATING
-            && block.getBlock() != BlocksRegister.SCRAP_ELECTRONICS
-            && block.getBlock() != Blocks.IRON_BLOCK
-            && block.getBlock() != Blocks.IRON_BARS
-         ? Weapons.easyBreakBlockFor(this.world, 12.0F, pos, block)
-         : true;
+      return block.getBlock() == BlocksRegister.RUST_METAL
+              || block.getBlock() == BlocksRegister.RUSTED_PIPE
+              || block.getBlock() == BlocksRegister.RUST_ARMATURE
+              || block.getBlock() == BlocksRegister.RUST_LAMP
+              || block.getBlock() == BlocksRegister.DARK_RUST_METALL
+              || block.getBlock() == BlocksRegister.LAB_PLATING
+              || block.getBlock() == BlocksRegister.SCRAP_ELECTRONICS
+              || block.getBlock() == Blocks.IRON_BLOCK
+              || block.getBlock() == Blocks.IRON_BARS || Weapons.easyBreakBlockFor(this.world, 12.0F, pos, block);
    }
 
    public void initPoses(ArrayList<BlockPos> poses, BlockPos center, Axis axis) {

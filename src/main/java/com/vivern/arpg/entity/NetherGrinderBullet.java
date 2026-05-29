@@ -27,7 +27,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class NetherGrinderBullet extends StandardBullet implements IRepulsable, IEntitySynchronize, RenderModule.IRenderModuleMulticolored {
+public class NetherGrinderBullet extends StandardBullet implements IRepulsable, ISynchronizedEntity, RenderModule.IRenderModuleMulticolored {
    public final ItemStack weaponstack;
    public ItemBullet bullet;
    public int inwalltime = 0;
@@ -118,7 +118,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
          Weapons.setAcceleration(entityHit);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -137,7 +137,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
          Weapons.setAcceleration(entityHit);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -153,7 +153,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
          entityHit.setDead();
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -176,7 +176,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
          Weapons.setAcceleration(entityHit);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -191,7 +191,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
       } else {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -210,7 +210,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
    public void onImpact(RayTraceResult result) {
       if (this.bullet != null && !this.bulletCollided) {
          this.bulletCollided = this.bullet
-            .onImpact(this.world, (EntityPlayer)this.getThrower(), this.posX, this.posY, this.posZ, result, this);
+            .onImpact(this.world, this.getThrower(), this.posX, this.posY, this.posZ, result, this);
       }
 
       if (result.entityHit != null) {
@@ -239,7 +239,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
             if (result.entityHit instanceof EntityLivingBase) {
                EntityLivingBase entitylivingbase = (EntityLivingBase)result.entityHit;
                if (this.bullet != null) {
-                  this.bullet.onDamageCause(this.world, entitylivingbase, (EntityPlayer)this.getThrower(), this);
+                  this.bullet.onDamageCause(this.world, entitylivingbase, this.getThrower(), this);
                }
 
                if (entitylivingbase.getHealth() <= 0.0F && this.rand.nextFloat() < 0.15) {
@@ -249,7 +249,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -258,7 +258,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
                   0.8F,
                   0.9F + this.rand.nextFloat() / 5.0F
                );
-            IEntitySynchronize.sendSynchronize(
+            ISynchronizedEntity.sendSynchronize(
                this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, -1.0
             );
             this.setDead();
@@ -270,7 +270,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -283,7 +283,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
             if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
                this.inwalltime++;
                if (this.inwalltime > 1) {
-                  IEntitySynchronize.sendSynchronize(
+                  ISynchronizedEntity.sendSynchronize(
                      this,
                      64.0,
                      result.hitVec.x,
@@ -294,7 +294,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
                   this.setDead();
                }
             } else {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   64.0,
                   result.hitVec.x,

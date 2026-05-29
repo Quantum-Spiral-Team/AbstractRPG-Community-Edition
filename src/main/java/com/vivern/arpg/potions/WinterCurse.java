@@ -92,7 +92,7 @@ public class WinterCurse extends AdvancedPotion {
          event.getEntityLiving().world.spawnEntity(mob);
          mob.onInitialSpawn();
          mob.canDropLoot = true;
-         EntityLivingBase boss = (EntityLivingBase)event.getEntityLiving()
+         EntityLivingBase boss = event.getEntityLiving()
             .world
             .findNearestEntityWithinAABB(BossWinterFury.class, event.getEntityLiving().getEntityBoundingBox().grow(64.0), event.getEntityLiving());
          if (boss != null && boss instanceof BossWinterFury) {

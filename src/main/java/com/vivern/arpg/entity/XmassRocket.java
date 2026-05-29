@@ -32,7 +32,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 
-public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
+public class XmassRocket extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    static ResourceLocation sparkle3 = new ResourceLocation("arpg:textures/sparkle3.png");
    public static ResourceLocation star2 = new ResourceLocation("arpg:textures/star2.png");
@@ -117,7 +117,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
          this.expl(null, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getFloat("damage_explode_mult"));
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -126,7 +126,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
                1.4F,
                0.9F + this.rand.nextFloat() / 5.0F
             );
-         IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 1.0);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 1.0);
          this.spawnBalls(true);
          this.setDead();
       }
@@ -380,7 +380,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
             this.expl(result.entityHit, damage * parameters.getFloat("damage_explode_mult"));
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -389,7 +389,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
                   1.4F,
                   0.9F + this.rand.nextFloat() / 5.0F
                );
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ);
             this.spawnBalls(false);
             this.setDead();
          }
@@ -400,7 +400,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -413,7 +413,7 @@ public class XmassRocket extends EntityThrowable implements IEntitySynchronize {
             float damage = this.getDamage();
             this.expl(result.entityHit, damage * WeaponParameters.getWeaponParameters(this.weaponstack.getItem()).getFloat("damage_explode_mult"));
             if (result.hitVec != null) {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z
                );
             }

@@ -76,15 +76,15 @@ public class StandardBullet extends Entity implements IProjectile, IFixedTracker
    }
 
    public float getRED() {
-      return (Float)this.dataManager.get(RED);
+      return this.dataManager.get(RED);
    }
 
    public float getGREEN() {
-      return (Float)this.dataManager.get(GREEN);
+      return this.dataManager.get(GREEN);
    }
 
    public float getBLUE() {
-      return (Float)this.dataManager.get(BLUE);
+      return this.dataManager.get(BLUE);
    }
 
    @Override
@@ -167,20 +167,19 @@ public class StandardBullet extends Entity implements IProjectile, IFixedTracker
       double d0 = Double.MAX_VALUE;
       RayTraceResult savedResult = null;
 
-      for (int i = 0; i < list.size(); i++) {
-         Entity entity1 = list.get(i);
-         if (entity1.canBeCollidedWith() && entity1 != this.ignoreEntity && entity1 != this.getThrower()) {
-            AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(this.width + entity1.getCollisionBorderSize());
-            RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
-            if (raytraceresult1 != null) {
-               double d1 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
-               if (d1 < d0) {
-                  entity = entity1;
-                  savedResult = raytraceresult1;
-                  d0 = d1;
-               }
-            }
-         }
+      for (Entity entity1 : list) {
+          if (entity1.canBeCollidedWith() && entity1 != this.ignoreEntity && entity1 != this.getThrower()) {
+              AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(this.width + entity1.getCollisionBorderSize());
+              RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
+              if (raytraceresult1 != null) {
+                  double d1 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
+                  if (d1 < d0) {
+                      entity = entity1;
+                      savedResult = raytraceresult1;
+                      d0 = d1;
+                  }
+              }
+          }
       }
 
       if (entity != null) {

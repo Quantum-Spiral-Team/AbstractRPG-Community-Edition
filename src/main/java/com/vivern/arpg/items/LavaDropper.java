@@ -1,13 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.LavaDropperShoot;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -55,8 +49,8 @@ public class LavaDropper extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
@@ -67,7 +61,7 @@ public class LavaDropper extends ItemWeapon {
             float manacost = parameters.getEnchantedF("manacost", sor);
             if (click && player.getHeldItemMainhand() == itemstack && mana > manacost && !hascooldown) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -104,7 +98,7 @@ public class LavaDropper extends ItemWeapon {
 
             if (click2 && player.getHeldItemOffhand() == itemstack && mana > manacost && !hascooldown2) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

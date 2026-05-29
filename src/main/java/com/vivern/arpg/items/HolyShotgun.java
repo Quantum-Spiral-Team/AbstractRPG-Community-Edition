@@ -1,18 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.BulletParticle;
 import java.util.List;
@@ -73,8 +61,8 @@ public class HolyShotgun extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
@@ -88,7 +76,7 @@ public class HolyShotgun extends ItemWeapon {
                if (ammo <= 0 || !this.isReloaded(itemstack)) {
                   if (this.initiateBulletReload(itemstack, player, new ItemStack(ItemsRegister.BUCKSHOT, 2), maxammo, false)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -112,7 +100,7 @@ public class HolyShotgun extends ItemWeapon {
                   }
 
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -160,7 +148,7 @@ public class HolyShotgun extends ItemWeapon {
                      List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
                      if (world.collidesWithAnyBlock(aabb)) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            vec.x,
                            vec.y,
                            vec.z,
@@ -219,12 +207,12 @@ public class HolyShotgun extends ItemWeapon {
                      player,
                      world,
                      64.0,
-                     (double)player.getEntityId(),
-                     (double)seed,
-                     (double)acc,
-                     (double)amount,
-                     (double)c,
-                     (double)impacts,
+                          player.getEntityId(),
+                          seed,
+                          acc,
+                          amount,
+                          c,
+                          impacts,
                      edist,
                      0.0,
                      0.0

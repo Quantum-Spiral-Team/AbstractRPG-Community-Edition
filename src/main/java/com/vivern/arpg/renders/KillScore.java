@@ -2,7 +2,7 @@ package com.vivern.arpg.renders;
 
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.network.PacketDoSomethingToClients;
+import com.vivern.arpg.network.packet.PacketDoSomethingToClients;
 import java.util.ArrayList;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.EntityLiving;
@@ -146,14 +146,14 @@ public class KillScore {
          int offsetX = -10;
          int offsetY = 10;
          String text1 = "kills: " + kills;
-         fontRenderer.drawStringWithShadow(text1, offsetX + screenWidth / 2 - fontRenderer.getStringWidth(text1) - margin, offsetY, 11781046);
+         fontRenderer.drawStringWithShadow(text1, offsetX + (float) screenWidth / 2 - fontRenderer.getStringWidth(text1) - margin, offsetY, 11781046);
          String text2 = "elites: " + eliteKills;
-         fontRenderer.drawStringWithShadow(text2, offsetX + screenWidth / 2, offsetY, 11781046);
+         fontRenderer.drawStringWithShadow(text2, offsetX + (float) screenWidth / 2, offsetY, 11781046);
          String text3 = "DPS: " + ManaBar.asString(averageSmallDPS);
-         fontRenderer.drawStringWithShadow(text3, offsetX + screenWidth / 2 + fontRenderer.getStringWidth(text2) + margin, offsetY, 11781046);
+         fontRenderer.drawStringWithShadow(text3, offsetX + (float) screenWidth / 2 + fontRenderer.getStringWidth(text2) + margin, offsetY, 11781046);
          String text4 = "average DPS: " + ManaBar.asString(averageDPS);
          fontRenderer.drawStringWithShadow(
-            text4, offsetX + screenWidth / 2 + fontRenderer.getStringWidth(text2) + margin + fontRenderer.getStringWidth(text3) + margin, offsetY, 11781046
+            text4, offsetX + (float) screenWidth / 2 + fontRenderer.getStringWidth(text2) + margin + fontRenderer.getStringWidth(text3) + margin, offsetY, 11781046
          );
       }
    }

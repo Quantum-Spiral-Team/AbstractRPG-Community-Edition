@@ -30,7 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 
-public class EntityFrostfireExplosive extends Entity implements IEntitySynchronize {
+public class EntityFrostfireExplosive extends Entity implements ISynchronizedEntity {
    @Nullable
    public EntityLivingBase tntPlacedBy;
    public int fuse = 80;
@@ -298,12 +298,12 @@ public class EntityFrostfireExplosive extends Entity implements IEntitySynchroni
                }
 
                if (this.rand.nextFloat() < 0.6 && entity instanceof EntityLivingBase && ((EntityLivingBase)entity).getHealth() <= 0.0F) {
-                  DeathEffects.applyDeathEffect((EntityLivingBase)entity, DeathEffects.DE_ICING);
+                  DeathEffects.applyDeathEffect(entity, DeathEffects.DE_ICING);
                }
             }
          }
 
-         IEntitySynchronize.sendSynchronize(
+         ISynchronizedEntity.sendSynchronize(
             this, 64.0, this.posX, this.posY + this.height / 2.0F, this.posZ, 0.0, 0.0, this.power
          );
       }
@@ -350,7 +350,7 @@ public class EntityFrostfireExplosive extends Entity implements IEntitySynchroni
                expl.motionZ = this.rand.nextGaussian() / 4.0;
                this.world.spawnEntity(expl);
                expl.velocityChanged = true;
-               IEntitySynchronize.sendSynchronize(expl, 64.0, 0.0, 0.0, 0.0, this.width * 0.5F, this.height * 0.5F, 0.0);
+               ISynchronizedEntity.sendSynchronize(expl, 64.0, 0.0, 0.0, 0.0, this.width * 0.5F, this.height * 0.5F, 0.0);
             }
          }
       }

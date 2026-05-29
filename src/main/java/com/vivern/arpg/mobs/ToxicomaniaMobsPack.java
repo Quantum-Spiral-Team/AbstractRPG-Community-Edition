@@ -6,7 +6,7 @@ import com.vivern.arpg.items.Wrench;
 import com.vivern.arpg.items.models.ModelsToxicomaniaMob;
 import com.vivern.arpg.items.models.SummonedSnowmanModel;
 import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.BloodType;
 import com.vivern.arpg.main.DeathEffects;
@@ -262,7 +262,7 @@ public class ToxicomaniaMobsPack {
 
       @Override
       public boolean attackEntityFrom(DamageSource source, float amount) {
-         return source.getTrueSource() != null && source.getTrueSource() instanceof BossAbomination ? false : super.attackEntityFrom(source, amount);
+         return (source.getTrueSource() == null || !(source.getTrueSource() instanceof BossAbomination)) && super.attackEntityFrom(source, amount);
       }
 
       @Override
@@ -357,7 +357,7 @@ public class ToxicomaniaMobsPack {
          }
 
          if (this.world.isRemote && this.boss == null) {
-            AbstractMob ba = (AbstractMob)this.world.findNearestEntityWithinAABB(BossAbomination.class, this.getEntityBoundingBox().grow(8.0), this);
+            AbstractMob ba = this.world.findNearestEntityWithinAABB(BossAbomination.class, this.getEntityBoundingBox().grow(8.0), this);
             if (ba instanceof BossAbomination) {
                this.boss = (BossAbomination)ba;
             }
@@ -371,9 +371,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION && potion != PotionEffects.CHLORITE
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION && potion != PotionEffects.CHLORITE && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -652,9 +650,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -833,7 +829,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -913,12 +909,7 @@ public class ToxicomaniaMobsPack {
    }
 
    public static class FlowerSpider extends AbstractMob {
-      public static Predicate<Block> blocks = new Predicate<Block>() {
-         @Override
-         public boolean apply(Block input) {
-            return input == BlocksRegister.MUTATED_FLOWER_PINK;
-         }
-      };
+      public static Predicate<Block> blocks = input -> input == BlocksRegister.MUTATED_FLOWER_PINK;
 
       public FlowerSpider(World world) {
          super(world, 0.95F, 0.7F);
@@ -949,7 +940,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)
@@ -1277,7 +1268,7 @@ public class ToxicomaniaMobsPack {
          } else if (source == DamageSource.IN_WALL) {
             return false;
          } else if (!this.isSubMob) {
-            return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+            return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
          } else if (this.owner != null) {
             this.world.setEntityState(this, (byte)2);
             boolean att = this.owner.attackEntityFrom(source, amount);
@@ -1373,7 +1364,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -1448,9 +1439,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -1523,7 +1512,7 @@ public class ToxicomaniaMobsPack {
          } else if (potion == PotionEffects.CHLORITE) {
             return false;
          } else {
-            return potion == PotionEffects.SLIME ? false : super.isPotionApplicable(potioneffectIn);
+            return potion != PotionEffects.SLIME && super.isPotionApplicable(potioneffectIn);
          }
       }
 
@@ -1623,7 +1612,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -2173,7 +2162,7 @@ public class ToxicomaniaMobsPack {
          if (potioneffectIn.getPotion() == MobEffects.POISON) {
             return false;
          } else {
-            return potioneffectIn.getPotion() == PotionEffects.TOXIN && potioneffectIn.getAmplifier() < 2 ? false : super.isPotionApplicable(potioneffectIn);
+            return (potioneffectIn.getPotion() != PotionEffects.TOXIN || potioneffectIn.getAmplifier() >= 2) && super.isPotionApplicable(potioneffectIn);
          }
       }
 
@@ -2289,9 +2278,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -2369,7 +2356,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -2458,7 +2445,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -2512,7 +2499,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -2566,7 +2553,7 @@ public class ToxicomaniaMobsPack {
                mob.motionY = this.rand.nextFloat() / 22.0F;
                mob.motionZ = (this.rand.nextFloat() - 0.5F) / 13.0F;
                this.world.spawnEntity(mob);
-               mob.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(mob)), (IEntityLivingData)null);
+               mob.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(mob)), null);
                mob.team = this.team;
                mob.isAgressive = this.isAgressive;
                mob.canDropLoot = this.canDropLoot;
@@ -2618,7 +2605,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -2709,7 +2696,7 @@ public class ToxicomaniaMobsPack {
       }
    }
 
-   public static class Turret extends AbstractMob implements IEntitySynchronize, IWrenchUser {
+   public static class Turret extends AbstractMob implements ISynchronizedEntity, IWrenchUser {
       public float previousDeployStage = 0.0F;
       public float deployStage = 0.0F;
       public int shouldSend = 0;
@@ -2848,7 +2835,7 @@ public class ToxicomaniaMobsPack {
                   this.playSound(Sounds.vampireknifes, 0.5F, 1.0F + this.rand.nextFloat() / 5.0F);
                   movewrench = false;
                   moveBulletsToHand(player, EnumHand.MAIN_HAND, this.bullets);
-                  IEntitySynchronize.sendSynchronize(
+                  ISynchronizedEntity.sendSynchronize(
                      this,
                      32.0,
                      this.deployStage,
@@ -2962,7 +2949,7 @@ public class ToxicomaniaMobsPack {
             this.previousDeployStage = this.deployStage;
             if (this.autoDeploy && (this.deployStage < 1.0F || this.ticksExisted % 21 == 0)) {
                this.deployStage += 0.02F;
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   32.0,
                   this.deployStage,
@@ -2976,7 +2963,7 @@ public class ToxicomaniaMobsPack {
 
             if (this.shouldSend > 0) {
                this.shouldSend--;
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   32.0,
                   this.deployStage,
@@ -3068,9 +3055,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+         return potion != PotionEffects.TOXIN && potion != MobEffects.POISON && potion != MobEffects.REGENERATION && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -3084,7 +3069,7 @@ public class ToxicomaniaMobsPack {
             this.world.spawnEntity(entity);
             if (!this.infinityAmmo) {
                this.ammo--;
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 32.0, this.deployStage, this.previousDeployStage, this.ammo, this.bullets == null ? 0.0 : this.bullets.id, 0.0, 0.0
                );
             }
@@ -3184,7 +3169,7 @@ public class ToxicomaniaMobsPack {
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
-         return potion == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override

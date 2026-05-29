@@ -30,7 +30,7 @@ public class FiberBandage extends Item {
       Weapons.setPotionIfEntityLB(player, PotionEffects.FIBER_BANDAGING, 12000, 0);
       itemstack.shrink(1);
       world.playSound(
-         (EntityPlayer)null,
+              null,
          player.posX,
          player.posY,
          player.posZ,

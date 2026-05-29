@@ -63,7 +63,7 @@ public class PyrocrystallineConverter extends Block {
    ) {
       if (!worldIn.isRemote) {
          TilePyrocrystallineConverter tile = this.getTileEntity(worldIn, pos);
-         worldIn.playSound((EntityPlayer)null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
+         worldIn.playSound(null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
          if (tile != null) {
             player.openGui(AbstractRPG.instance, 8, worldIn, pos.getX(), pos.getY(), pos.getZ());
             return true;
@@ -134,7 +134,7 @@ public class PyrocrystallineConverter extends Block {
    }
 
    public static BlockPos getOffsetBlock(World world, BlockPos pos) {
-      return pos.offset((EnumFacing)world.getBlockState(pos).getValue(FACING), 2);
+      return pos.offset(world.getBlockState(pos).getValue(FACING), 2);
    }
 
    @Override
@@ -149,17 +149,17 @@ public class PyrocrystallineConverter extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

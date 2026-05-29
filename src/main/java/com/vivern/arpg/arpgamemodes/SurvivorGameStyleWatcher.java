@@ -11,17 +11,7 @@ import com.vivern.arpg.items.IEnergyItem;
 import com.vivern.arpg.items.ItemLootCase;
 import com.vivern.arpg.entity.SurvivorLootSpawner;
 import com.vivern.arpg.loot.Treasure;
-import com.vivern.arpg.main.Coins;
-import com.vivern.arpg.main.DimensionsRegister;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.MobReactor;
-import com.vivern.arpg.main.MobSpawn;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.MobSpawnEnder;
 import com.vivern.arpg.mobs.MobSpawnEverfrost;
@@ -29,7 +19,7 @@ import com.vivern.arpg.mobs.MobSpawnNether;
 import com.vivern.arpg.mobs.MobSpawnOverworld;
 import com.vivern.arpg.mobs.NPCMobsPack;
 import com.vivern.arpg.mobs.OtherMobsPack;
-import com.vivern.arpg.network.PacketDoSomethingToClients;
+import com.vivern.arpg.network.packet.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
 
 import java.util.*;
@@ -232,16 +222,16 @@ public class SurvivorGameStyleWatcher {
 
       if (!this.portalPlaced && world.getWorldTime() % 23L == 0L) {
          for (EntityPlayer player : world.playerEntities) {
-            BlockPos randpos = new BlockPos(
+            BlockPos randPos = new BlockPos(
                (rand.nextDouble() - 0.5) * 40.0 + player.posX, 255.0, (rand.nextDouble() - 0.5) * 40.0 + player.posZ
             );
             if (this.STAGE == 1) {
-               if (setNetherPortal(world, randpos)) {
+               if (setNetherPortal(world, randPos)) {
                   this.portalPlaced = true;
                }
             } else {
                ARPGTeleporter teleport = DimensionsRegister.getTeleporterToDimension(this.stageDimension(this.STAGE));
-               if (teleport != null && teleport.tryPlacePortal(world, randpos, rand.nextFloat() < 0.5F, world.provider.getDimension()) != null) {
+               if (teleport != null && teleport.tryPlacePortal(world, randPos, rand.nextFloat() < 0.5F, world.provider.getDimension()) != null) {
                   this.portalPlaced = true;
                }
             }
@@ -261,10 +251,10 @@ public class SurvivorGameStyleWatcher {
       }
 
       if (rand.nextFloat() < 0.0025F && player.dimension == this.stageDimension(this.STAGE) && (this.LOOT_SPAWNERS > 0 || this.START_CHESTS > 0)) {
-         BlockPos spawnpos = this.getLootSpawnerSpawnPos(player, 128);
-         if (spawnpos != null) {
+         BlockPos spawnPos = this.getLootSpawnerSpawnPos(player, 128);
+         if (spawnPos != null) {
             SurvivorLootSpawner lootSpawner = new SurvivorLootSpawner(
-               player.world, spawnpos.getX() + 0.5, spawnpos.getY(), spawnpos.getZ() + 0.5
+               player.world, spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5
             );
             if (rand.nextFloat() < 0.55F && this.START_CHESTS <= 0) {
                lootSpawner.TRADES = this.getRandomLootTrades();
@@ -287,29 +277,29 @@ public class SurvivorGameStyleWatcher {
          }
       }
 
-      if (Keys.isKeyPressed(player, Keys.USE) && player instanceof EntityPlayerMP && !player.getCooldownTracker().hasCooldown(Items.ENCHANTED_BOOK)) {
+      if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.USE) && player instanceof EntityPlayerMP && !player.getCooldownTracker().hasCooldown(Items.ENCHANTED_BOOK)) {
          PacketDoSomethingToClients packet = new PacketDoSomethingToClients();
-         int fullseed = this.enchSeed + this.totalEnchants;
-         packet.writeargs(fullseed, 0.0, 0.0, 0.0, 0.0, 0.0, 9);
-         PacketHandler.sendTo(packet, (EntityPlayerMP)player);
+         int fullSeed = this.enchSeed + this.totalEnchants;
+         packet.writeArgs(fullSeed, 0.0, 0.0, 0.0, 0.0, 0.0, 9);
+         PacketHandler.sendTo(packet, (EntityPlayerMP) player);
          player.getCooldownTracker().setCooldown(Items.ENCHANTED_BOOK, 20);
       }
    }
 
    public static int howMuchLevelsNeedToEnchant(ItemStack stack, Enchantment enchantment) {
-      int haslvl = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-      if (haslvl >= enchantment.getMaxLevel()) {
+      int actualLvl = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
+      if (actualLvl >= enchantment.getMaxLevel()) {
          return -1;
-      } else if (haslvl == 0) {
+      } else if (actualLvl == 0) {
          if (enchantment == EnchantmentInit.SPECIAL) {
             return 3;
          } else {
             return enchantment != EnchantmentInit.REUSE && enchantment != EnchantmentInit.RAPIDITY ? 1 : 2;
          }
       } else if (enchantment == EnchantmentInit.REUSE || enchantment == EnchantmentInit.RAPIDITY) {
-         return 2 + haslvl;
+         return 2 + actualLvl;
       } else {
-         return enchantment != EnchantmentInit.RELOADING && enchantment != EnchantmentInit.ACCURACY ? Math.min(haslvl, 5) : Math.min(1 + haslvl, 5);
+         return enchantment != EnchantmentInit.RELOADING && enchantment != EnchantmentInit.ACCURACY ? Math.min(actualLvl, 5) : Math.min(1 + actualLvl, 5);
       }
    }
 

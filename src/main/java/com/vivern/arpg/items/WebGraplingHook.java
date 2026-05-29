@@ -1,12 +1,9 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.GraplingHookParticle;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.network.PacketGrapplingHookToClients;
+import com.vivern.arpg.hooks.ARPGHooks;
+import com.vivern.arpg.main.*;
+import com.vivern.arpg.network.packet.PacketGrapplingHookToClients;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,9 +41,9 @@ public class WebGraplingHook extends GraplingHook {
       if (!world.isRemote && entityIn.isEntityAlive() && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
-         boolean click = Keys.isKeyPressed(player, Keys.GRAPLINGHOOK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.HOOK);
          Item itemIn = itemstack.getItem();
-         boolean reset = Keys.isKeyPressed(player, Keys.JUMP);
+         boolean reset = ARPGHooks.isJumping.get(player);
          if (entityIn.ticksExisted < 2) {
             NBTHelper.SetNBTboolean(itemstack, false, "graped1");
             NBTHelper.SetNBTboolean(itemstack, false, "graped2");
@@ -207,7 +204,7 @@ public class WebGraplingHook extends GraplingHook {
 
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,

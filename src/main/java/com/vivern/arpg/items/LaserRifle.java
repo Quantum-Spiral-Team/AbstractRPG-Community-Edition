@@ -1,17 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityLaserParticle;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
 import java.util.Random;
@@ -78,7 +68,7 @@ public class LaserRifle extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             float acclvl = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             float mightlvl = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
             int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
@@ -102,7 +92,7 @@ public class LaserRifle extends ItemWeapon {
                      }
 
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -151,9 +141,9 @@ public class LaserRifle extends ItemWeapon {
                         player,
                         world,
                         64.0,
-                        (double)player.getEntityId(),
-                        (double)pit,
-                        (double)yaw,
+                             player.getEntityId(),
+                             pit,
+                             yaw,
                         vec.x,
                         vec.y,
                         vec.z,
@@ -171,7 +161,7 @@ public class LaserRifle extends ItemWeapon {
                      new ItemStack(ItemsRegister.ION_BATTERY, 1, 0)
                   )) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

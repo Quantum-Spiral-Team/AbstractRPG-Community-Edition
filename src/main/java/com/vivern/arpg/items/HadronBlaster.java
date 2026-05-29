@@ -3,18 +3,7 @@ package com.vivern.arpg.items;
 import com.vivern.arpg.items.models.LaserModel;
 import com.vivern.arpg.entity.EntityStreamLaserP;
 import com.vivern.arpg.entity.HadronBlasterShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.TEISRGuns;
@@ -81,8 +70,8 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+         boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
          int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
          int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
          this.decreaseReload(itemstack, player);
@@ -121,7 +110,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                if (points > hadrons_to_laser) {
                   if (!NBTHelper.GetNBTboolean(itemstack, "sensor")) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -142,7 +131,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                player.getCooldownTracker().setCooldown(this, captureTimeTo);
                NBTHelper.SetNBTint(itemstack, captureTimeTo, "capturetime");
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -186,7 +175,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                if (!beam) {
                   if (!world.isRemote && click && RF >= RFtoShoot) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -224,7 +213,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                   if (lazerdel < 16) {
                      if (lazerdel == 1) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -238,7 +227,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
 
                      if (lazerdel == 15) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -264,7 +253,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                         if (hadronss <= 0) {
                            NBTHelper.SetNBTboolean(itemstack, false, "beam");
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -279,7 +268,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                         shootbeam = true;
                         if (player.ticksExisted % 3 == 0) {
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -352,7 +341,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                      boolean soundAndPlasma = itemRand.nextFloat() < 0.3;
                      if (soundAndPlasma) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            vec.x,
                            vec.y,
                            vec.z,
@@ -415,7 +404,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
                } else if (lazerdel > 0) {
                   if (lazerdel > 14) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -453,7 +442,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
    @Override
    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
       if (player.ticksExisted % 3 == 0) {
-         world.playSound((EntityPlayer)null, x, y, z, Sounds.hadron_blaster_beam, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
+         world.playSound(null, x, y, z, Sounds.hadron_blaster_beam, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
       }
 
       this.particlesEffect(player, world, x, y, z, a, b, c, 0.0, 0.0, 0.0, itemRand.nextFloat() < 0.3);
@@ -554,7 +543,7 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
       bigsmoke2.scaleTickAdding = -scl / lt;
       world.spawnEntity(bigsmoke2);
       if (b1) {
-         world.playSound((EntityPlayer)null, x, y, z, Sounds.hadron_blaster_impact, SoundCategory.AMBIENT, 0.5F, 0.9F + itemRand.nextFloat() / 4.0F);
+         world.playSound(null, x, y, z, Sounds.hadron_blaster_impact, SoundCategory.AMBIENT, 0.5F, 0.9F + itemRand.nextFloat() / 4.0F);
          AnimatedGParticle anim = new AnimatedGParticle(
             hadronblast,
             2.2F,

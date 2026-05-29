@@ -58,10 +58,10 @@ public class CodeMonke {
       if (file.exists()) {
          for (File fileIn : file.listFiles()) {
             if (fileIn.isFile() && fileIn.getAbsolutePath().endsWith(".nbt")) {
-               System.out.println();
+               
                System.out.println(fileIn.getAbsolutePath());
                String structure = getfilename(fileIn.getAbsolutePath());
-               System.out.println();
+               
                System.out.println(structure);
                NBTTagCompound templateNBT = readTemplate(new ResourceLocation("arpg:" + structure));
 
@@ -175,9 +175,9 @@ public class CodeMonke {
             int i = 0;
 
             for (String strLine = br.readLine(); strLine != null; strLine = br.readLine()) {
-               if (i < finded.x || i > finded.y) {
+               if (i < finded.getX() || i > finded.getY()) {
                   sb.append(strLine).append("\r\n");
-               } else if (i == finded.y) {
+               } else if (i == finded.getX()) {
                   sb.append(replaceTo);
                }
 

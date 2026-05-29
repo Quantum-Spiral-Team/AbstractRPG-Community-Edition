@@ -143,7 +143,7 @@ public class ItemMagicScroll extends ItemWeapon {
          @Override
          public void onSpellImpact(ItemStack itemstack, World world, Vec3d position, EntityPlayer player) {
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                position.x,
                position.y,
                position.z,
@@ -431,7 +431,7 @@ public class ItemMagicScroll extends ItemWeapon {
 
                if (Mana.getMana(player) > fmanacost && !cooldown && click) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -462,7 +462,7 @@ public class ItemMagicScroll extends ItemWeapon {
                         vec0.x,
                         vec0.y,
                         vec0.z,
-                        (double)this.effectType,
+                             this.effectType,
                         0.0,
                         0.0
                      );
@@ -470,7 +470,7 @@ public class ItemMagicScroll extends ItemWeapon {
 
                   if (this.projectile) {
                      EntityMagicRocket projectile = new EntityMagicRocket(world, player, itemstack, power);
-                     projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.95F, 2 / (acc + 1));
+                     projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.95F, (float) 2 / (acc + 1));
                      world.spawnEntity(projectile);
                   } else {
                      double edist = this.distance * (1.0F + acc * 0.1F);
@@ -489,7 +489,7 @@ public class ItemMagicScroll extends ItemWeapon {
                            vec.x,
                            vec.y,
                            vec.z,
-                           (double)this.effectType,
+                                this.effectType,
                            0.0,
                            0.0
                         );

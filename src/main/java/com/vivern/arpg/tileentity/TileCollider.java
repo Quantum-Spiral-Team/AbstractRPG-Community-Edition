@@ -4,7 +4,7 @@ import com.vivern.arpg.blocks.BlockCollider;
 import com.vivern.arpg.blocks.ColliderPipe;
 import com.vivern.arpg.container.ContainerAlchemicLab;
 import com.vivern.arpg.entity.EntityMagneticField;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.OreDicHelper;
@@ -130,7 +130,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
    }
 
    public boolean consumePower(int amount) {
-      return this.electricStorage.extractEnergy(amount, true) >= amount ? this.electricStorage.extractEnergy(amount, false) >= amount : false;
+      return this.electricStorage.extractEnergy(amount, true) >= amount && this.electricStorage.extractEnergy(amount, false) >= amount;
    }
 
    @Override
@@ -296,7 +296,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
                float speedAdd = Math.min(Math.min(field.power / 5000.0F, 1.0F), 80.0F - beam.speed);
                field.power = field.power - Math.round(speedAdd * 5000.0F);
                beam.speed = beam.speed + Math.min(Math.min(speedAdd / beam.mass, 1.0F), 80.0F - beam.speed);
-               IEntitySynchronize.sendSynchronize(field, 64.0, field.power, field.maximumPower, field.fieldSize, 0.0, 0.0, 0.0);
+               ISynchronizedEntity.sendSynchronize(field, 64.0, field.power, field.maximumPower, field.fieldSize, 0.0, 0.0, 0.0);
             }
          }
 
@@ -339,7 +339,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
 
    @Override
    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-      EnumFacing blockfacing = (EnumFacing)this.getWorld().getBlockState(this.getPos()).getValue(BlockCollider.FACING);
+      EnumFacing blockfacing = this.getWorld().getBlockState(this.getPos()).getValue(BlockCollider.FACING);
       if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null) {
          return (T)(facing != EnumFacing.UP && facing != EnumFacing.DOWN && facing != blockfacing.getOpposite() ? this.tank1 : this.tank2);
       } else {
@@ -451,7 +451,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
 
    @Override
    public ItemStack getStackInSlot(int index) {
-      return (ItemStack)this.containItemStacks.get(index);
+      return this.containItemStacks.get(index);
    }
 
    @Override
@@ -466,7 +466,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
 
    @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
-      ItemStack itemstack = (ItemStack)this.containItemStacks.get(index);
+      ItemStack itemstack = this.containItemStacks.get(index);
       if (!stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack)) {
          boolean var5 = true;
       } else {
@@ -496,10 +496,8 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
 
    @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
-      return this.world.getTileEntity(this.pos) != this
-         ? false
-         : player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
-            <= 64.0;
+      return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
+              <= 64.0;
    }
 
    @Override
@@ -517,7 +515,7 @@ public class TileCollider extends TileEntityLockable implements ITickable, IFill
 
    @Override
    public int[] getSlotsForFace(EnumFacing side) {
-      EnumFacing blockfacing = ((EnumFacing)this.getWorld().getBlockState(this.getPos()).getValue(BlockCollider.FACING)).getOpposite();
+      EnumFacing blockfacing = this.getWorld().getBlockState(this.getPos()).getValue(BlockCollider.FACING).getOpposite();
       return side != EnumFacing.DOWN && side != EnumFacing.UP && side != blockfacing ? SLOTS_SIDES : SLOTS_BOTTOM_TOP_BACK;
    }
 

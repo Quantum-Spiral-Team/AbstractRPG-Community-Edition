@@ -14,7 +14,7 @@ public interface IModelRegisterCallback {
       if (this instanceof Item) {
          ModelLoader.setCustomModelResourceLocation((Item)this, 0, new ModelResourceLocation(((Item)this).getRegistryName(), "inventory"));
       } else if (this instanceof Block) {
-         ModelResourceLocation mrl = (ModelResourceLocation)new DefaultStateMapper()
+         ModelResourceLocation mrl = new DefaultStateMapper()
             .putStateModelLocations(((Block)this).getDefaultState().getBlock())
             .get(((Block)this).getDefaultState());
          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock((Block)this), 0, mrl);

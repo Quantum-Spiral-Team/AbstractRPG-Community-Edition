@@ -63,7 +63,7 @@ public class SpellsRedactors {
                }
 
                Vec2i vert = writeGraph.vertexes[i];
-               System.out.print("new Vec2i(" + vert.x + ", " + vert.y + ")");
+               System.out.print("new Vec2i(" + vert.getX() + ", " + vert.getY() + ")");
             }
 
             System.out.print(")");
@@ -76,7 +76,7 @@ public class SpellsRedactors {
                }
 
                Vec2i link = writeGraph.links[i];
-               System.out.print("new Vec2i(" + link.x + ", " + link.y + ")");
+               System.out.print("new Vec2i(" + link.getX() + ", " + link.getY() + ")");
             }
 
             System.out.print(").calculateAvoidMatrix(50, 75, avoidRadiusAdd);");
@@ -96,7 +96,7 @@ public class SpellsRedactors {
          writeGraph.addLinks();
       } else {
          WriteGraph old = writeGraph;
-         writeGraph = new WriteGraph((Vec2i[])ArrayUtils.add(old.vertexes == null ? new Vec2i[0] : old.vertexes, new Vec2i(x, y)));
+         writeGraph = new WriteGraph(ArrayUtils.add(old.vertexes == null ? new Vec2i[0] : old.vertexes, new Vec2i(x, y)));
          writeGraph.addLinks(old.links == null ? new Vec2i[0] : old.links);
          writeGraphStack.add(old);
       }
@@ -109,7 +109,7 @@ public class SpellsRedactors {
       } else {
          WriteGraph old = writeGraph;
          writeGraph = new WriteGraph(old.vertexes == null ? new Vec2i[0] : old.vertexes);
-         writeGraph.addLinks((Vec2i[])ArrayUtils.add(old.links == null ? new Vec2i[0] : old.links, new Vec2i(id1, id2)));
+         writeGraph.addLinks(ArrayUtils.add(old.links == null ? new Vec2i[0] : old.links, new Vec2i(id1, id2)));
          writeGraphStack.add(old);
       }
    }
@@ -117,7 +117,7 @@ public class SpellsRedactors {
    public static int getIdAt(int x, int y, int approximation) {
       for (int i = 0; i < writeGraph.vertexes.length; i++) {
          Vec2i vert = writeGraph.vertexes[i];
-         if (GetMOP.approximatelyEqual(vert.x, x, approximation) && GetMOP.approximatelyEqual(vert.y, y, approximation)) {
+         if (GetMOP.approximatelyEqual(vert.getX(), x, approximation) && GetMOP.approximatelyEqual(vert.getY(), y, approximation)) {
             return i;
          }
       }

@@ -82,19 +82,19 @@ public class Pane extends Block {
       }
 
       addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[0]);
-      if ((Boolean)state.getValue(NORTH)) {
+      if (state.getValue(NORTH)) {
          addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.NORTH)]);
       }
 
-      if ((Boolean)state.getValue(SOUTH)) {
+      if (state.getValue(SOUTH)) {
          addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.SOUTH)]);
       }
 
-      if ((Boolean)state.getValue(EAST)) {
+      if (state.getValue(EAST)) {
          addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.EAST)]);
       }
 
-      if ((Boolean)state.getValue(WEST)) {
+      if (state.getValue(WEST)) {
          addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.WEST)]);
       }
    }
@@ -111,19 +111,19 @@ public class Pane extends Block {
 
    private static int getBoundingBoxIndex(IBlockState state) {
       int i = 0;
-      if ((Boolean)state.getValue(NORTH)) {
+      if (state.getValue(NORTH)) {
          i |= getBoundingBoxIndex(EnumFacing.NORTH);
       }
 
-      if ((Boolean)state.getValue(EAST)) {
+      if (state.getValue(EAST)) {
          i |= getBoundingBoxIndex(EnumFacing.EAST);
       }
 
-      if ((Boolean)state.getValue(SOUTH)) {
+      if (state.getValue(SOUTH)) {
          i |= getBoundingBoxIndex(EnumFacing.SOUTH);
       }
 
-      if ((Boolean)state.getValue(WEST)) {
+      if (state.getValue(WEST)) {
          i |= getBoundingBoxIndex(EnumFacing.WEST);
       }
 
@@ -161,7 +161,7 @@ public class Pane extends Block {
    @Override
    @SideOnly(Side.CLIENT)
    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-      return blockAccess.getBlockState(pos.offset(side)).getBlock() == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+      return blockAccess.getBlockState(pos.offset(side)).getBlock() != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
    }
 
    public final boolean attachesTo(IBlockAccess p_193393_1_, IBlockState state, BlockPos pos, EnumFacing facing) {

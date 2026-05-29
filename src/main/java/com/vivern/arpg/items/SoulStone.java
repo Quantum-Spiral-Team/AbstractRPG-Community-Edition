@@ -111,7 +111,7 @@ public class SoulStone extends ItemWeapon {
 
          attacker.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                attacker.posX,
                attacker.posY,
                attacker.posZ,

@@ -3,7 +3,7 @@ package com.vivern.arpg.container;
 import com.vivern.arpg.main.Coins;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTileClickToServer;
+import com.vivern.arpg.network.packet.PacketTileClickToServer;
 import com.vivern.arpg.tileentity.TileBank;
 import java.io.IOException;
 import net.minecraft.client.Minecraft;
@@ -156,7 +156,7 @@ public class GUIBank extends GuiScreen {
    public void sendCoinsMoved() {
       if (this.coinsMoved != 0) {
          PacketTileClickToServer packet = new PacketTileClickToServer();
-         packet.writeints(
+         packet.writeInts(
             this.tile.getPos().getX(),
             this.tile.getPos().getY(),
             this.tile.getPos().getZ(),

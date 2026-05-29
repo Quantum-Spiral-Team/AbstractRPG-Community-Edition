@@ -7,8 +7,8 @@ import net.minecraft.util.math.MathHelper;
 @Immutable
 public class Vec2i implements Comparable<Vec2i> {
    public static final Vec2i NULL_VECTOR = new Vec2i(0, 0);
-   public final int x;
-   public final int y;
+   private final int x;
+   private final int y;
 
    public Vec2i(int xIn, int yIn) {
       this.x = xIn;
@@ -20,14 +20,14 @@ public class Vec2i implements Comparable<Vec2i> {
    }
 
    @Override
-   public boolean equals(Object p_equals_1_) {
-      if (this == p_equals_1_) {
+   public boolean equals(Object object) {
+      if (this == object) {
          return true;
-      } else if (!(p_equals_1_ instanceof Vec2i)) {
+      } else if (!(object instanceof Vec2i)) {
          return false;
       } else {
-         Vec2i vec2i = (Vec2i)p_equals_1_;
-         return this.getX() != vec2i.getX() ? false : this.getY() == vec2i.getY();
+         Vec2i vec2i = (Vec2i)object;
+         return this.getX() == vec2i.getX() && this.getY() == vec2i.getY();
       }
    }
 
@@ -37,8 +37,8 @@ public class Vec2i implements Comparable<Vec2i> {
    }
 
    @Override
-   public int compareTo(Vec2i p_compareTo_1_) {
-      return this.getY() == p_compareTo_1_.getY() ? this.getX() - p_compareTo_1_.getX() : this.getY() - p_compareTo_1_.getY();
+   public int compareTo(Vec2i comparedVec) {
+      return this.getY() == comparedVec.getY() ? this.getX() - comparedVec.getX() : this.getY() - comparedVec.getY();
    }
 
    public int getX() {

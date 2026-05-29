@@ -113,7 +113,7 @@ public class EntityAIAttackSweep extends AbstractMob.AbstractAI {
             this.entity
                .world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.entity.posX,
                   this.entity.posY,
                   this.entity.posZ,
@@ -172,7 +172,7 @@ public class EntityAIAttackSweep extends AbstractMob.AbstractAI {
                   this.entity
                      .world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         this.entity.posX,
                         this.entity.posY,
                         this.entity.posZ,
@@ -209,7 +209,7 @@ public class EntityAIAttackSweep extends AbstractMob.AbstractAI {
       List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
       if (this.hitSound != null) {
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             this.entity.posX,
             this.entity.posY,
             this.entity.posZ,

@@ -138,7 +138,7 @@ public class FishingHook extends EntityThrowable {
                            && this.bait != null) {
                            this.world
                               .playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  this.thrower.posX,
                                  this.thrower.posY,
                                  this.thrower.posZ,
@@ -171,7 +171,7 @@ public class FishingHook extends EntityThrowable {
                         if (this.ticksExisted % 12 == 0) {
                            this.world
                               .playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  this.thrower.posX,
                                  this.thrower.posY,
                                  this.thrower.posZ,
@@ -191,7 +191,7 @@ public class FishingHook extends EntityThrowable {
                            NBTHelper.SetNBTboolean(this.rodstack, false, "pecked");
                            this.world
                               .playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  this.thrower.posX,
                                  this.thrower.posY,
                                  this.thrower.posZ,

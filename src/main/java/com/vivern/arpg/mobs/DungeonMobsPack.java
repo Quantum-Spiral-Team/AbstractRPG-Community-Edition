@@ -4,7 +4,7 @@ import com.vivern.arpg.items.models.ModelsDungeonMob;
 import com.vivern.arpg.entity.AbstractGlyphid;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.CrystalFanShoot;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.main.BloodType;
 import com.vivern.arpg.main.DeathEffects;
 import com.vivern.arpg.main.GetMOP;
@@ -497,7 +497,7 @@ public class DungeonMobsPack {
 
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-         return potioneffectIn.getPotion() == MobEffects.BLINDNESS ? false : super.isPotionApplicable(potioneffectIn);
+         return potioneffectIn.getPotion() != MobEffects.BLINDNESS && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -520,7 +520,7 @@ public class DungeonMobsPack {
       }
    }
 
-   public static class Devourer extends AbstractMob implements IEntitySynchronize {
+   public static class Devourer extends AbstractMob implements ISynchronizedEntity {
       public int tailattackTimer = 0;
       public int tailattackDelay = 0;
       public int maxtailattackDelay = 50;
@@ -646,7 +646,7 @@ public class DungeonMobsPack {
                if (res != null && res.getBlockPos() != null && res.hitVec != null) {
                   IBlockState state = this.world.getBlockState(res.getBlockPos());
                   if (state.getMaterial() != Material.AIR) {
-                     IEntitySynchronize.sendSynchronize(
+                     ISynchronizedEntity.sendSynchronize(
                         this,
                         64.0,
                         res.hitVec.x,
@@ -689,7 +689,7 @@ public class DungeonMobsPack {
                   if (res != null && res.getBlockPos() != null && res.hitVec != null) {
                      IBlockState state = this.world.getBlockState(res.getBlockPos());
                      if (state.getMaterial() != Material.AIR) {
-                        IEntitySynchronize.sendSynchronize(
+                        ISynchronizedEntity.sendSynchronize(
                            this,
                            64.0,
                            res.hitVec.x,
@@ -875,7 +875,7 @@ public class DungeonMobsPack {
                this.destroyTimer--;
                Vec3d posv = this.poslist.get(3);
                if (posv != null) {
-                  for (BlockPos pos : GetMOP.getBlockPosesCollidesAABB(this.world, GetMOP.newAABB(posv, (double)(this.width / 2.0F)), false)) {
+                  for (BlockPos pos : GetMOP.getBlockPosesCollidesAABB(this.world, GetMOP.newAABB(posv, this.width / 2.0F), false)) {
                      if (Weapons.easyBreakBlockFor(this.world, 15.0F, pos)) {
                         this.world.destroyBlock(pos, this.rand.nextFloat() < 0.1);
                      }
@@ -1170,7 +1170,7 @@ public class DungeonMobsPack {
       }
    }
 
-   public static class ShadowMage extends AbstractMob implements IEntitySynchronize {
+   public static class ShadowMage extends AbstractMob implements ISynchronizedEntity {
       public static ResourceLocation circle3 = new ResourceLocation("arpg:textures/circle3.png");
       public static ResourceLocation generic_beam6 = new ResourceLocation("arpg:textures/generic_beam6.png");
       public int teleportCooldownMax = 70;
@@ -1374,7 +1374,7 @@ public class DungeonMobsPack {
 
                      if (!this.spellPoses.isEmpty()) {
                         for (Vec3d pos : this.spellPoses) {
-                           IEntitySynchronize.sendSynchronize(this, 64.0, pos.x, pos.y, pos.z, -999.0);
+                           ISynchronizedEntity.sendSynchronize(this, 64.0, pos.x, pos.y, pos.z, -999.0);
                         }
                      }
                   }
@@ -1413,7 +1413,7 @@ public class DungeonMobsPack {
             if (flag) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.prevPosX,
                      this.prevPosY,
                      this.prevPosZ,
@@ -1486,9 +1486,9 @@ public class DungeonMobsPack {
                }
             }
 
-            IEntitySynchronize.sendSynchronize(this, 64.0, pos.x, pos.y, pos.z, yy);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, pos.x, pos.y, pos.z, yy);
          } else {
-            IEntitySynchronize.sendSynchronize(this, 64.0, pos.x, pos.y + 0.0625, pos.z);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, pos.x, pos.y + 0.0625, pos.z);
          }
       }
 

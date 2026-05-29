@@ -142,7 +142,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -211,7 +211,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
          if (this.prickedEntity != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -235,7 +235,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
          this.timeInGround++;
       }
 
-      if (this.ticksExisted > 300 && !this.prickedToWall || this.ticksExisted > 300) {
+      if (this.ticksExisted > 300) {
          this.setDead();
       }
 
@@ -304,7 +304,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
          entityHit.setDead();
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -318,7 +318,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
          entityHit.setDead();
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -337,7 +337,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
          Weapons.setAcceleration(entityHit);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -360,7 +360,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
          Weapons.setAcceleration(entityHit);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -373,7 +373,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
       } else if (rep == 7) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -391,7 +391,7 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
          this.motionZ *= -1.0;
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

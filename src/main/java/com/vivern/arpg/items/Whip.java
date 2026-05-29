@@ -2,17 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.items.animation.EnumFlick;
 import com.vivern.arpg.items.animation.Flicks;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
@@ -111,11 +101,11 @@ public class Whip extends ItemWeapon {
             if (player.getHeldItemMainhand() == itemstack) {
                hand = EnumHand.MAIN_HAND;
                cooldown = player.getCooldownTracker().getCooldown(this, 0.0F);
-               keypressed = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+               keypressed = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             } else if (player.getHeldItemOffhand() == itemstack) {
                hand = EnumHand.OFF_HAND;
                cooldown = player.getCooldownTracker().getCooldown(ItemsRegister.EXP, 0.0F);
-               keypressed = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+               keypressed = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             }
 
             NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
@@ -133,7 +123,7 @@ public class Whip extends ItemWeapon {
                   int specAttackReady = NBTHelper.GetNBTint(itemstack, "sa_ready");
                   if (keypressed && specAttackReady == 2) {
                      Vec3d hitVec = this.specAttack(this, itemstack, player, hand);
-                     player.getCooldownTracker().setCooldown((Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), 7);
+                     player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, 7);
                      NBTHelper.SetNBTint(itemstack, 0, "sa_ready");
                      IWeapon.sendIWeaponState(itemstack, player, 2, itemSlot, hand);
                      Weapons.setPlayerAnimationOnServer(player, 36, hand);
@@ -148,11 +138,11 @@ public class Whip extends ItemWeapon {
                   NBTHelper.SetNBTint(itemstack, 11, "atdelay");
                   double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
                   int cooldownModified = this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack));
-                  player.getCooldownTracker().setCooldown((Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), cooldownModified);
+                  player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, cooldownModified);
                   IWeapon.sendIWeaponState(itemstack, player, 1, itemSlot, hand);
                   Weapons.setPlayerAnimationOnServer(player, getPlayerAnimationByCooldown(cooldownModified), hand);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -171,7 +161,7 @@ public class Whip extends ItemWeapon {
                   RayTraceResult resultHit = world.rayTraceBlocks(vec3dEyes, vec3dEnd, false, true, false);
                   Vec3d vec3dHit = resultHit == null ? vec3dEnd : resultHit.hitVec;
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      vec3dHit.x,
                      vec3dHit.y,
                      vec3dHit.z,
@@ -307,7 +297,7 @@ public class Whip extends ItemWeapon {
    ) {
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -334,8 +324,8 @@ public class Whip extends ItemWeapon {
          scaledVec.y,
          scaledVec.z,
          hand == EnumHand.MAIN_HAND ? 2.0 : 3.0,
-         (double)player.rotationPitch,
-         (double)player.rotationYaw,
+              player.rotationPitch,
+              player.rotationYaw,
          0.0,
          0.0,
          0.0

@@ -38,7 +38,7 @@ public class ItemMobEgg extends ItemItem {
 
    protected double getYOffset(World p_190909_1_, BlockPos p_190909_2_) {
       AxisAlignedBB axisalignedbb = new AxisAlignedBB(p_190909_2_).expand(0.0, -1.0, 0.0);
-      List<AxisAlignedBB> list = p_190909_1_.getCollisionBoxes((Entity)null, axisalignedbb);
+      List<AxisAlignedBB> list = p_190909_1_.getCollisionBoxes(null, axisalignedbb);
       if (list.isEmpty()) {
          return 0.0;
       } else {

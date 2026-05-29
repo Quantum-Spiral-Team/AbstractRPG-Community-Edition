@@ -1,15 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityLaserParticle;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.SweepParticle;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
@@ -59,10 +51,10 @@ public class GlowBlade extends ItemWeapon {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
          int damage = itemstack.getItemDamage();
          boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
          float mana = Mana.getMana(player);
          float spee = Mana.getManaSpeed(player);
          float power = Mana.getMagicPowerMax(player);
@@ -85,7 +77,7 @@ public class GlowBlade extends ItemWeapon {
                }
 
                worldIn.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -118,9 +110,9 @@ public class GlowBlade extends ItemWeapon {
                   vec.x,
                   vec.y,
                   vec.z,
-                  (double)player.rotationPitch,
-                  (double)player.rotationYaw,
-                  (double)horizoffset,
+                       player.rotationPitch,
+                       player.rotationYaw,
+                       horizoffset,
                   player.posX,
                   player.posY,
                   player.posZ
@@ -173,7 +165,7 @@ public class GlowBlade extends ItemWeapon {
          vec.x,
          vec.y,
          vec.z,
-         (double)(itemRand.nextBoolean() ? 180 - itemRand.nextInt(40) : itemRand.nextInt(40)),
+              itemRand.nextBoolean() ? 180 - itemRand.nextInt(40) : itemRand.nextInt(40),
          0.0,
          0.0,
          0.0,
@@ -183,7 +175,7 @@ public class GlowBlade extends ItemWeapon {
       if (!list.isEmpty()) {
          stack.damageItem(1, player);
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -196,7 +188,7 @@ public class GlowBlade extends ItemWeapon {
          if (player.isInWater() && itemRand.nextFloat() < 0.2F) {
             crit = 4.0F;
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                player.posX,
                player.posY,
                player.posZ,
@@ -250,7 +242,7 @@ public class GlowBlade extends ItemWeapon {
          entityAttributek.removeModifier(modifierk);
       } else {
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,

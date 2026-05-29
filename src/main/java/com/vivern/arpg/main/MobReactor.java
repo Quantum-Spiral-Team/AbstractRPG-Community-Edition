@@ -287,7 +287,7 @@ public class MobReactor {
          return true;
       } else {
          boolean isLight = world.getLightFromNeighbors(pos.up()) >= 2;
-         return this.darkLightLogic == GroupSpawnLight.LIGHT ? isLight : !isLight;
+         return (this.darkLightLogic == GroupSpawnLight.LIGHT) == isLight;
       }
    }
 

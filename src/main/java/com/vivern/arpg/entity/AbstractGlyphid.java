@@ -71,15 +71,13 @@ public abstract class AbstractGlyphid extends AbstractMob implements EntityFlyin
    public boolean hasCollision(World world, BlockPos pos) {
       IBlockState state = world.getBlockState(pos);
       PathNodeType nodetype = state.getBlock().getAiPathNodeType(state, world, pos, this);
-      return nodetype != PathNodeType.DAMAGE_FIRE && nodetype != PathNodeType.LAVA ? state.getCollisionBoundingBox(world, pos) != null : false;
+      return nodetype != PathNodeType.DAMAGE_FIRE && nodetype != PathNodeType.LAVA && state.getCollisionBoundingBox(world, pos) != null;
    }
 
    public boolean isPassable(World world, BlockPos pos) {
       IBlockState state = world.getBlockState(pos);
       PathNodeType nodetype = state.getBlock().getAiPathNodeType(state, world, pos, this);
-      return nodetype != PathNodeType.DAMAGE_FIRE && nodetype != PathNodeType.DAMAGE_OTHER && nodetype != PathNodeType.LAVA
-         ? state.getCollisionBoundingBox(world, pos) == null
-         : false;
+      return nodetype != PathNodeType.DAMAGE_FIRE && nodetype != PathNodeType.DAMAGE_OTHER && nodetype != PathNodeType.LAVA && state.getCollisionBoundingBox(world, pos) == null;
    }
 
    public static float addRenderValue(float a, float target, float amount) {

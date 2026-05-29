@@ -83,7 +83,7 @@ public class BlockOre extends Block {
             stacksd.add(odrop.getStackDropped(worldIn, pos, state, fortune, RANDOM));
          }
 
-         chance = ForgeEventFactory.fireBlockHarvesting(stacksd, worldIn, pos, state, fortune, chance, false, (EntityPlayer)this.harvesters.get());
+         chance = ForgeEventFactory.fireBlockHarvesting(stacksd, worldIn, pos, state, fortune, chance, false, this.harvesters.get());
 
          for (ItemStack drop : stacksd) {
             if (worldIn.rand.nextFloat() <= chance) {

@@ -65,12 +65,12 @@ public class IceSpikes extends Block {
             return;
          }
 
-         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+         EnumFacing enumfacing = state.getValue(FACING);
          entityIn.attackEntityFrom(new WeaponDamage(null, null, null, false, false, pos.offset(enumfacing.getOpposite()), WeaponDamage.pierce), 6.7F);
          entityIn.hurtResistantTime = 0;
          worldIn.setBlockToAir(pos);
          worldIn.playSound(
-            (EntityPlayer)null,
+                 null,
             pos.getX(),
             pos.getY(),
             pos.getZ(),
@@ -94,7 +94,7 @@ public class IceSpikes extends Block {
 
    @Override
    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-      if (!worldIn.isRemote && (Boolean)state.getValue(NOTPERMANENT) && worldIn.getLightFor(EnumSkyBlock.SKY, pos) > 0 && rand.nextFloat() < 0.4F) {
+      if (!worldIn.isRemote && state.getValue(NOTPERMANENT) && worldIn.getLightFor(EnumSkyBlock.SKY, pos) > 0 && rand.nextFloat() < 0.4F) {
          worldIn.setBlockToAir(pos);
       }
    }
@@ -118,7 +118,7 @@ public class IceSpikes extends Block {
       if ((facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) && canPlaceOn(worldIn, blockpos)) {
          return true;
       } else {
-         return facing != EnumFacing.UP && facing != EnumFacing.DOWN ? !isExceptBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID : false;
+         return facing != EnumFacing.UP && facing != EnumFacing.DOWN && !isExceptBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID;
       }
    }
 
@@ -141,7 +141,7 @@ public class IceSpikes extends Block {
       if (!this.checkForDrop(worldIn, pos, state)) {
          return true;
       } else {
-         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+         EnumFacing enumfacing = state.getValue(FACING);
          Axis enumfacing$axis = enumfacing.getAxis();
          EnumFacing enumfacing1 = enumfacing.getOpposite();
          BlockPos blockpos = pos.offset(enumfacing1);
@@ -163,7 +163,7 @@ public class IceSpikes extends Block {
    }
 
    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-      if (state.getBlock() == this && canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING))) {
+      if (state.getBlock() == this && canPlaceAt(worldIn, pos, state.getValue(FACING))) {
          return true;
       } else {
          if (worldIn.getBlockState(pos).getBlock() == this) {
@@ -177,7 +177,7 @@ public class IceSpikes extends Block {
 
    @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             return M_EAST_AABB;
          case WEST:
@@ -246,7 +246,7 @@ public class IceSpikes extends Block {
    @Override
    public int getMetaFromState(IBlockState state) {
       int permanent = state.getValue(NOTPERMANENT) ? 6 : 0;
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             return 1 + permanent;
          case WEST:
@@ -264,12 +264,12 @@ public class IceSpikes extends Block {
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

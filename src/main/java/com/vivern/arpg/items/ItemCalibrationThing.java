@@ -80,12 +80,7 @@ public class ItemCalibrationThing extends Item {
    public int modelOption;
    public int maximalRandomValue;
    public int randomDisplayType;
-   public static Predicate<IBlockState> BUNDLES = new Predicate<IBlockState>() {
-      @Override
-      public boolean apply(IBlockState input) {
-         return input.getBlock() == BlocksRegister.BLOCK_CALIBRATION_BUNDLE;
-      }
-   };
+   public static Predicate<IBlockState> BUNDLES = input -> input.getBlock() == BlocksRegister.BLOCK_CALIBRATION_BUNDLE;
 
    public ItemCalibrationThing(
       String name, float attraction, float range, float speed, boolean canAcceptPassword, float hitboxPixelRadius, float hitboxPixelHeight

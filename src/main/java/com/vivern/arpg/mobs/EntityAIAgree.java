@@ -32,7 +32,7 @@ public class EntityAIAgree<T extends EntityLivingBase> extends EntityAITarget {
    }
 
    public EntityAIAgree(AbstractMob creature, Class<T> classTarget, boolean checkSight, boolean onlyNearby, double verticalZone) {
-      this(creature, classTarget, 10, checkSight, onlyNearby, (Predicate<? super T>)null, verticalZone);
+      this(creature, classTarget, 10, checkSight, onlyNearby, null, verticalZone);
    }
 
    public EntityAIAgree(
@@ -51,18 +51,15 @@ public class EntityAIAgree<T extends EntityLivingBase> extends EntityAITarget {
       this.verticalZone = verticalZone;
       this.sorter = new net.minecraft.entity.ai.EntityAINearestAttackableTarget.Sorter(creature);
       this.setMutexBits(1);
-      this.targetEntitySelector = new Predicate<T>() {
-         @Override
-         public boolean apply(@Nullable T p_apply_1_) {
-            if (p_apply_1_ == null) {
-               return false;
-            } else if (targetSelector != null && !targetSelector.apply(p_apply_1_)) {
-               return false;
-            } else if (EntityAIAgree.this.mob.owner != null && !Team.checkIsOpponent(EntityAIAgree.this.mob, p_apply_1_)) {
-               return false;
-            } else {
-               return !EntitySelectors.NOT_SPECTATING.apply(p_apply_1_) ? false : EntityAIAgree.this.isSuitableTarget(p_apply_1_, false);
-            }
+      this.targetEntitySelector = (Predicate<T>) entity -> {
+         if (entity == null) {
+            return false;
+         } else if (targetSelector != null && !targetSelector.apply(entity)) {
+            return false;
+         } else if (EntityAIAgree.this.mob.owner != null && !Team.checkIsOpponent(EntityAIAgree.this.mob, entity)) {
+            return false;
+         } else {
+            return EntitySelectors.NOT_SPECTATING.apply(entity) && EntityAIAgree.this.isSuitableTarget(entity, false);
          }
       };
    }

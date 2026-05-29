@@ -52,7 +52,7 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
 
    public int addItemStack(ItemStack stack) {
       for (int i = 0; i < this.stacks.size(); i++) {
-         if (((ItemStack)this.stacks.get(i)).isEmpty()) {
+         if (this.stacks.get(i).isEmpty()) {
             this.setInventorySlotContents(i, stack);
             return i;
          }
@@ -62,13 +62,13 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
    }
 
    public boolean consumePower(int amount) {
-      return this.electricStorage.extractEnergy(amount, true) >= amount ? this.electricStorage.extractEnergy(amount, false) >= amount : false;
+      return this.electricStorage.extractEnergy(amount, true) >= amount && this.electricStorage.extractEnergy(amount, false) >= amount;
    }
 
    @Override
    public void update() {
       if (!this.world.isRemote) {
-         ItemStack stack = (ItemStack)this.stacks.get(0);
+         ItemStack stack = this.stacks.get(0);
          boolean send = true;
          if (stack.getItem() instanceof IEnergyItem && this.electricStorage.getEnergyStored() > 0) {
             IEnergyItem energyItem = (IEnergyItem)stack.getItem();
@@ -98,7 +98,7 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
    }
 
    public boolean isItemFullcharged() {
-      ItemStack stack = (ItemStack)this.stacks.get(0);
+      ItemStack stack = this.stacks.get(0);
       if (stack.getItem() instanceof IEnergyItem) {
          IEnergyItem energyItem = (IEnergyItem)stack.getItem();
          return energyItem.getEnergyStored(stack) >= energyItem.getMaxEnergyStored(stack);
@@ -203,11 +203,11 @@ public class TileItemCharger extends TileEntityLockableLoot implements ITickable
          case 0:
             return this.electricStorage.getEnergyStored();
          case 1:
-            if (((ItemStack)this.stacks.get(0)).getItem() instanceof IEnergyItem) {
+            if (this.stacks.get(0).getItem() instanceof IEnergyItem) {
                return Math.round(
                   100.0F
-                     * NBTHelper.GetNBTint((ItemStack)this.stacks.get(0), "rf")
-                     / ((IEnergyItem)((ItemStack)this.stacks.get(0)).getItem()).getMaxEnergyStored((ItemStack)this.stacks.get(0))
+                     * NBTHelper.GetNBTint(this.stacks.get(0), "rf")
+                     / ((IEnergyItem) this.stacks.get(0).getItem()).getMaxEnergyStored(this.stacks.get(0))
                );
             }
          default:

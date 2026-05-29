@@ -3,7 +3,7 @@ package com.vivern.arpg.mobs;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.network.PacketDoSomethingToClients;
+import com.vivern.arpg.network.packet.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
 import java.util.List;
 import net.minecraft.entity.Entity;
@@ -140,7 +140,7 @@ public class EntityAIArcAttack extends EntityAIBase {
 
                this.entity.world.setEntityState(this.entity, this.sendbyteId);
                PacketDoSomethingToClients packet = new PacketDoSomethingToClients();
-               packet.writeargs(this.entity.getEntityId(), this.Yoffset, target.getEntityId(), this.beamSize, this.beamTex, 0.0, 5);
+               packet.writeArgs(this.entity.getEntityId(), this.Yoffset, target.getEntityId(), this.beamSize, this.beamTex, 0.0, 5);
                PacketHandler.sendToAllAround(
                   packet, this.entity.world, this.entity.posX, this.entity.posY, this.entity.posZ, 48.0
                );

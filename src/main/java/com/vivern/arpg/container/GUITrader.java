@@ -3,7 +3,7 @@ package com.vivern.arpg.container;
 import com.vivern.arpg.main.Coins;
 import com.vivern.arpg.mobs.NPCMobsPack;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTraderClickToServer;
+import com.vivern.arpg.network.packet.PacketTraderClickToServer;
 import java.io.IOException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -230,7 +230,7 @@ public class GUITrader extends GuiContainer {
 
    public void sendTradeToServer(int mx, int my, int mouseButton) {
       PacketTraderClickToServer packet = new PacketTraderClickToServer();
-      packet.writeints(this.npc.getEntityId(), mx, my, mouseButton, this.page);
+      packet.writeInts(this.npc.getEntityId(), mx, my, mouseButton, this.page);
       PacketHandler.NETWORK.sendToServer(packet);
       if (Minecraft.getMinecraft().player != null) {
          this.npc.guiclick(Minecraft.getMinecraft().player, mx, my, mouseButton, this.page);

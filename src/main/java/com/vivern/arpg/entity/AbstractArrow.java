@@ -132,7 +132,7 @@ public abstract class AbstractArrow extends EntityArrow {
                this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ
             );
             int i = MathHelper.ceil(f * finalDamagePerSpeed);
-            return (float)Math.min(finalDamagePerSpeed, (double)i);
+            return (float)Math.min(finalDamagePerSpeed, i);
          }
       }
    }
@@ -301,7 +301,7 @@ public abstract class AbstractArrow extends EntityArrow {
 
    @Override
    public boolean isInWater() {
-      return this.waterMoveHook ? false : super.isInWater();
+      return !this.waterMoveHook && super.isInWater();
    }
 
    public void spawnArrowParticles(int particleCount) {

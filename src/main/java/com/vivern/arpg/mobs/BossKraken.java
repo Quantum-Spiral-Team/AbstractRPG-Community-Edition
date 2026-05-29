@@ -1,7 +1,7 @@
 package com.vivern.arpg.mobs;
 
 import com.vivern.arpg.entity.EntityPart;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.entity.IMultipartMob;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.BloodType;
@@ -36,7 +36,7 @@ import net.minecraft.world.BossInfo.Color;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMultipartMob {
+public class BossKraken extends AbstractBoss implements ISynchronizedEntity, IMultipartMob {
    public static float motionMaxSpeed = 1.0F;
    public static float speedIncrease = 0.04F;
    public boolean move = false;
@@ -217,9 +217,9 @@ public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMul
 
    public Vec3d getTentaclesAlign(float partialTicks) {
       return new Vec3d(
-         GetMOP.partial(this.tentaclesAlignX, this.prevtentaclesAlignX, (double)partialTicks),
-         GetMOP.partial(this.tentaclesAlignY, this.prevtentaclesAlignY, (double)partialTicks),
-         GetMOP.partial(this.tentaclesAlignZ, this.prevtentaclesAlignZ, (double)partialTicks)
+         GetMOP.partial(this.tentaclesAlignX, this.prevtentaclesAlignX, partialTicks),
+         GetMOP.partial(this.tentaclesAlignY, this.prevtentaclesAlignY, partialTicks),
+         GetMOP.partial(this.tentaclesAlignZ, this.prevtentaclesAlignZ, partialTicks)
       );
    }
 
@@ -270,7 +270,7 @@ public class BossKraken extends AbstractBoss implements IEntitySynchronize, IMul
          if (facing != EnumFacing.DOWN) {
             BlockPos poss = pos.offset(facing);
             IBlockState state2 = world.getBlockState(poss);
-            if (state2.getBlock() == Blocks.WATER && (Integer)state2.getValue(BlockStaticLiquid.LEVEL) == 0) {
+            if (state2.getBlock() == Blocks.WATER && state2.getValue(BlockStaticLiquid.LEVEL) == 0) {
                return true;
             }
          }

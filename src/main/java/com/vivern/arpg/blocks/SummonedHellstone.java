@@ -59,7 +59,7 @@ public class SummonedHellstone extends Block {
    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
       super.updateTick(world, pos, state, rand);
       if (!world.isRemote) {
-         int expireInt = (Integer)state.getValue(EXPIRE);
+         int expireInt = state.getValue(EXPIRE);
          if (expireInt < EXPIRE_MAX) {
             world.setBlockState(pos, state.withProperty(EXPIRE, expireInt + 1));
          } else {
@@ -72,7 +72,7 @@ public class SummonedHellstone extends Block {
    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
       super.onEntityWalk(worldIn, pos, entityIn);
       IBlockState state = worldIn.getBlockState(pos);
-      int expireInt = (Integer)state.getValue(EXPIRE);
+      int expireInt = state.getValue(EXPIRE);
       if (expireInt > 0) {
          worldIn.setBlockState(pos, state.withProperty(EXPIRE, 0));
       }
@@ -95,7 +95,7 @@ public class SummonedHellstone extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(EXPIRE);
+      return state.getValue(EXPIRE);
    }
 
    @Override

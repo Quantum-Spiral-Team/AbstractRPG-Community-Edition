@@ -75,7 +75,7 @@ public class AlchemicVaporizer extends Block {
    ) {
       if (!worldIn.isRemote) {
          TileAlchemicVaporizer tile = this.getTileEntity(worldIn, pos);
-         worldIn.playSound((EntityPlayer)null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
+         worldIn.playSound(null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
          if (tile != null) {
             player.openGui(AbstractRPG.instance, 3, worldIn, pos.getX(), pos.getY(), pos.getZ());
             return true;

@@ -1,19 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityLiveHeart;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.BulletParticle;
 import java.util.List;
 import net.minecraft.block.Block;
@@ -75,8 +63,8 @@ public class AdamantiumRevolver extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
             int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);
@@ -104,7 +92,7 @@ public class AdamantiumRevolver extends ItemWeapon {
                      }
 
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -113,7 +101,7 @@ public class AdamantiumRevolver extends ItemWeapon {
                         0.9F,
                         0.9F + itemRand.nextFloat() / 5.0F
                      );
-                     player.getCooldownTracker().setCooldown((Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), this.getCooldownTime(itemstack));
+                     player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getCooldownTime(itemstack));
                      player.addStat(StatList.getObjectUseStats(this));
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Weapons.setPlayerAnimationOnServer(player, 5, hand);
@@ -144,7 +132,7 @@ public class AdamantiumRevolver extends ItemWeapon {
                      if (world.collidesWithAnyBlock(aabb)) {
                         collidesWithAny = true;
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            vec.x,
                            vec.y,
                            vec.z,
@@ -227,14 +215,14 @@ public class AdamantiumRevolver extends ItemWeapon {
                         vec.x,
                         vec.y,
                         vec.z,
-                        (double)c,
+                             c,
                         dustState == null ? -1.0 : Block.getStateId(dustState),
                         collidesWithAny ? 1.0 : 0.0
                      );
                   }
                } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.ADAMANTIUM_ROUNDS, maxammo, false)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

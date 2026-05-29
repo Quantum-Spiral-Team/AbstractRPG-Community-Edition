@@ -53,7 +53,7 @@ public class VirulentRod extends Item {
                boss.summonning = true;
                boss.summonY = pos3.getY();
                world.spawnEntity(boss);
-               boss.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(boss)), (IEntityLivingData)null);
+               boss.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(boss)), null);
                boss.canDropLoot = true;
                itemstack.shrink(1);
                return new ActionResult(EnumActionResult.SUCCESS, itemstack);

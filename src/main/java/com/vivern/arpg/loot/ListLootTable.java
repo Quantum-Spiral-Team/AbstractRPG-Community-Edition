@@ -50,7 +50,7 @@ public class ListLootTable {
    }
 
    public static boolean test() {
-      LootTableManager loottablemanager = new LootTableManager((File)null);
+      LootTableManager loottablemanager = new LootTableManager(null);
 
       for (ResourceLocation resourcelocation : READ_ONLY_LOOT_TABLES) {
          if (loottablemanager.getLootTableFromLocation(resourcelocation) == LootTable.EMPTY_LOOT_TABLE) {

@@ -2,8 +2,8 @@ package com.vivern.arpg.entity;
 
 import com.vivern.arpg.main.Coins;
 import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.network.PacketCoinToClient;
-import com.vivern.arpg.network.PacketCoinToServer;
+import com.vivern.arpg.network.packet.PacketCoinToClient;
+import com.vivern.arpg.network.packet.PacketCoinToServer;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.block.state.IBlockState;
@@ -62,7 +62,7 @@ public class EntityCoin extends Entity {
    public void getStoreFromServer() {
       if (this.world.isRemote) {
          PacketCoinToServer packet = new PacketCoinToServer();
-         packet.writeints(this.getEntityId());
+         packet.writeInts(this.getEntityId());
          PacketHandler.NETWORK.sendToServer(packet);
       }
    }

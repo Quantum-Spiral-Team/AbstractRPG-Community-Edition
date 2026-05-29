@@ -29,12 +29,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PalmFruitBunch extends Block {
-   public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
-      @Override
-      public boolean apply(@Nullable EnumFacing p_apply_1_) {
-         return p_apply_1_ != EnumFacing.DOWN && p_apply_1_ != EnumFacing.UP;
-      }
-   });
+   public static final PropertyDirection FACING = PropertyDirection.create("facing", facing -> facing != EnumFacing.DOWN && facing != EnumFacing.UP);
    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 0.875, 0.875);
 
    public PalmFruitBunch() {
@@ -73,7 +68,7 @@ public class PalmFruitBunch extends Block {
       if (!this.checkForDrop(worldIn, pos, state)) {
          return true;
       } else {
-         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+         EnumFacing enumfacing = state.getValue(FACING);
          Axis enumfacing$axis = enumfacing.getAxis();
          EnumFacing enumfacing1 = enumfacing.getOpposite();
          BlockPos blockpos = pos.offset(enumfacing1);
@@ -97,9 +92,7 @@ public class PalmFruitBunch extends Block {
    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
       BlockPos blockpos = pos.offset(facing.getOpposite());
       IBlockState iblockstate = worldIn.getBlockState(blockpos);
-      return facing != EnumFacing.UP && facing != EnumFacing.DOWN
-         ? iblockstate.getMaterial() == Material.WOOD || iblockstate.getBlock() instanceof PalmLeaves
-         : false;
+      return facing != EnumFacing.UP && facing != EnumFacing.DOWN && (iblockstate.getMaterial() == Material.WOOD || iblockstate.getBlock() instanceof PalmLeaves);
    }
 
    @Override
@@ -116,7 +109,7 @@ public class PalmFruitBunch extends Block {
    }
 
    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-      if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING))) {
+      if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, state.getValue(FACING))) {
          return true;
       } else {
          if (worldIn.getBlockState(pos).getBlock() == this) {
@@ -180,7 +173,7 @@ public class PalmFruitBunch extends Block {
    @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             i |= 1;
             break;
@@ -202,12 +195,12 @@ public class PalmFruitBunch extends Block {
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

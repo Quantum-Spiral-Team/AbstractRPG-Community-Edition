@@ -98,7 +98,7 @@ public abstract class AbstractWorm extends AbstractMob {
       } else if (source == DamageSource.IN_WALL) {
          return false;
       } else if (!this.isSubMob) {
-         return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+         return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
       } else if (this.headEntity != null) {
          this.world.setEntityState(this, (byte)2);
          boolean att = this.headEntity.attackEntityFrom(source, amount);
@@ -128,7 +128,7 @@ public abstract class AbstractWorm extends AbstractMob {
 
    @Override
    protected boolean canDespawn() {
-      return this.isSubMob ? false : super.canDespawn();
+      return !this.isSubMob && super.canDespawn();
    }
 
    @Override

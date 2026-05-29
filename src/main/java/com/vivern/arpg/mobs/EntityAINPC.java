@@ -156,7 +156,7 @@ public class EntityAINPC extends EntityAIBase {
 
       public int getTableComfort(World world, BlockPos chairPos, EntityAINPC ai) {
          if (world.getBlockState(chairPos).getBlock() instanceof Chair) {
-            EnumFacing f = (EnumFacing)world.getBlockState(chairPos).getValue(Chair.FACING);
+            EnumFacing f = world.getBlockState(chairPos).getValue(Chair.FACING);
             BlockPos pos = chairPos.offset(f);
             IBlockState st = world.getBlockState(pos);
             if (st.getBlock() instanceof Table) {

@@ -1,12 +1,9 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.GraplingHookParticle;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.network.PacketGrapplingHookToClients;
+import com.vivern.arpg.hooks.ARPGHooks;
+import com.vivern.arpg.main.*;
+import com.vivern.arpg.network.packet.PacketGrapplingHookToClients;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -46,12 +43,12 @@ public class GraplingHook extends Item {
       if (!world.isRemote && entityIn.isEntityAlive() && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
-         boolean click = Keys.isKeyPressed(player, Keys.GRAPLINGHOOK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.HOOK);
          Item itemIn = itemstack.getItem();
          double xpos = NBTHelper.GetNBTdouble(itemstack, "pointX");
          double ypos = NBTHelper.GetNBTdouble(itemstack, "pointY");
          double zpos = NBTHelper.GetNBTdouble(itemstack, "pointZ");
-         boolean reset = Keys.isKeyPressed(player, Keys.JUMP);
+         boolean reset = ARPGHooks.isJumping.get(player);
          if (entityIn.ticksExisted < 2) {
             NBTHelper.SetNBTboolean(itemstack, false, "graped");
          }
@@ -162,7 +159,7 @@ public class GraplingHook extends Item {
    public void onThrow(EntityPlayer player, ItemStack itemstack) {
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -180,7 +177,7 @@ public class GraplingHook extends Item {
 
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,

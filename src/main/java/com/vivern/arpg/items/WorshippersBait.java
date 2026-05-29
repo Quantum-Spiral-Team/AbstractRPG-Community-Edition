@@ -59,7 +59,7 @@ public class WorshippersBait extends Item {
                      BossKraken boss = new BossKraken(entityItem.world);
                      boss.setPosition(xzxpos.getX(), y, xzxpos.getZ());
                      entityItem.world.spawnEntity(boss);
-                     boss.onInitialSpawn(entityItem.world.getDifficultyForLocation(new BlockPos(boss)), (IEntityLivingData)null);
+                     boss.onInitialSpawn(entityItem.world.getDifficultyForLocation(new BlockPos(boss)), null);
                      boss.canDropLoot = true;
                      entityItem.world
                         .playSound(

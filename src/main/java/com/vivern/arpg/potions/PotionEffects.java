@@ -50,7 +50,7 @@ public class PotionEffects {
       .registerPotionAttributeModifier(PropertiesRegistry.ENTITY_COLOR_RED_MAX, MathHelper.getRandomUUID().toString(), -0.35F, 2);
    public static final Potion INSTANT_MANA = new InstantMana(false, 39167);
    public static final Potion MANA_REGENERATION = new ManaRegeneration(false, 8550911)
-      .registerPotionAttributeModifier(PropertiesRegistry.MANASPEED_MAX, MathHelper.getRandomUUID().toString(), 0.15F, 0);
+      .registerPotionAttributeModifier(PropertiesRegistry.MANA_SPEED_MAX, MathHelper.getRandomUUID().toString(), 0.15F, 0);
    public static final Potion MAGIC_POWER = new MagicPower(false, 8192255)
       .registerPotionAttributeModifier(PropertiesRegistry.MAGIC_POWER_MAX, MathHelper.getRandomUUID().toString(), 0.2F, 0);
    public static final Potion FIRE_AURA = new FireAura(false, 16756992);
@@ -85,273 +85,273 @@ public class PotionEffects {
    public static final Potion STUN = new Stun(18);
    public static final Potion FIBER_BANDAGING = new FiberBandaging(19);
    public static final Potion FREEZE_IMMUNITY = new FreezeImmunity(20);
-   public static final PotionType ICHOR_POTIONTYPE_MAIN = (PotionType)new PotionType("Ichor_Curse", new PotionEffect[]{new PotionEffect(ICHOR_CURSE, 1000)})
+   public static final PotionType ICHOR_POTIONTYPE_MAIN = new PotionType("Ichor_Curse", new PotionEffect[]{new PotionEffect(ICHOR_CURSE, 1000)})
       .setRegistryName("ichor_potion");
-   public static final PotionType ICHOR_POTIONTYPE_LONG = (PotionType)new PotionType("Ichor_Curse", new PotionEffect[]{new PotionEffect(ICHOR_CURSE, 2000)})
+   public static final PotionType ICHOR_POTIONTYPE_LONG = new PotionType("Ichor_Curse", new PotionEffect[]{new PotionEffect(ICHOR_CURSE, 2000)})
       .setRegistryName("ichor_long_potion");
-   public static final PotionType FREEZING_POTIONTYPE_MAIN = (PotionType)new PotionType("Freezing", new PotionEffect[]{new PotionEffect(FREEZING, 200, 1)})
+   public static final PotionType FREEZING_POTIONTYPE_MAIN = new PotionType("Freezing", new PotionEffect[]{new PotionEffect(FREEZING, 200, 1)})
       .setRegistryName("freezing_potion");
-   public static final PotionType FREEZING_POTIONTYPE_STRONG = (PotionType)new PotionType("Freezing", new PotionEffect[]{new PotionEffect(FREEZING, 200, 3)})
+   public static final PotionType FREEZING_POTIONTYPE_STRONG = new PotionType("Freezing", new PotionEffect[]{new PotionEffect(FREEZING, 200, 3)})
       .setRegistryName("freezing_strong_potion");
-   public static final PotionType FREEZING_POTIONTYPE_VERYSTRONG = (PotionType)new PotionType(
+   public static final PotionType FREEZING_POTIONTYPE_VERYSTRONG = new PotionType(
          "Freezing", new PotionEffect[]{new PotionEffect(FREEZING, 200, 5)}
       )
       .setRegistryName("freezing_verystrong_potion");
-   public static final PotionType WAVING_POTIONTYPE_MAIN = (PotionType)new PotionType("Waving", new PotionEffect[]{new PotionEffect(WAVING, 1300)})
+   public static final PotionType WAVING_POTIONTYPE_MAIN = new PotionType("Waving", new PotionEffect[]{new PotionEffect(WAVING, 1300)})
       .setRegistryName("waving_potion");
-   public static final PotionType WAVING_POTIONTYPE_LONG = (PotionType)new PotionType("Waving", new PotionEffect[]{new PotionEffect(WAVING, 2500)})
+   public static final PotionType WAVING_POTIONTYPE_LONG = new PotionType("Waving", new PotionEffect[]{new PotionEffect(WAVING, 2500)})
       .setRegistryName("waving_long_potion");
-   public static final PotionType WAVING_POTIONTYPE_STRONG = (PotionType)new PotionType("Waving", new PotionEffect[]{new PotionEffect(WAVING, 900, 1)})
+   public static final PotionType WAVING_POTIONTYPE_STRONG = new PotionType("Waving", new PotionEffect[]{new PotionEffect(WAVING, 900, 1)})
       .setRegistryName("waving_strong_potion");
-   public static final PotionType WAVING_POTIONTYPE_VERYSTRONG = (PotionType)new PotionType("Waving", new PotionEffect[]{new PotionEffect(WAVING, 700, 2)})
+   public static final PotionType WAVING_POTIONTYPE_VERYSTRONG = new PotionType("Waving", new PotionEffect[]{new PotionEffect(WAVING, 700, 2)})
       .setRegistryName("waving_verystrong_potion");
-   public static final PotionType RAINBOW_POTIONTYPE_MAIN = (PotionType)new PotionType("Rainbow", new PotionEffect[]{new PotionEffect(RAINBOW, 1100)})
+   public static final PotionType RAINBOW_POTIONTYPE_MAIN = new PotionType("Rainbow", new PotionEffect[]{new PotionEffect(RAINBOW, 1100)})
       .setRegistryName("rainbow_potion");
-   public static final PotionType LENSBLUR_POTIONTYPE_MAIN = (PotionType)new PotionType("Lensblur", new PotionEffect[]{new PotionEffect(LENSBLUR, 950)})
+   public static final PotionType LENSBLUR_POTIONTYPE_MAIN = new PotionType("Lensblur", new PotionEffect[]{new PotionEffect(LENSBLUR, 950)})
       .setRegistryName("lensblur_potion");
-   public static final PotionType SHOCK_POTIONTYPE_MAIN = (PotionType)new PotionType("Shock", new PotionEffect[]{new PotionEffect(SHOCK, 500)})
+   public static final PotionType SHOCK_POTIONTYPE_MAIN = new PotionType("Shock", new PotionEffect[]{new PotionEffect(SHOCK, 500)})
       .setRegistryName("shock_potion");
-   public static final PotionType SHOCK_POTIONTYPE_STRONG = (PotionType)new PotionType("Shock", new PotionEffect[]{new PotionEffect(SHOCK, 250, 1)})
+   public static final PotionType SHOCK_POTIONTYPE_STRONG = new PotionType("Shock", new PotionEffect[]{new PotionEffect(SHOCK, 250, 1)})
       .setRegistryName("shock_strong_potion");
-   public static final PotionType SLIME_POTIONTYPE_MAIN = (PotionType)new PotionType("Slime", new PotionEffect[]{new PotionEffect(SLIME, 750)})
+   public static final PotionType SLIME_POTIONTYPE_MAIN = new PotionType("Slime", new PotionEffect[]{new PotionEffect(SLIME, 750)})
       .setRegistryName("slime_potion");
-   public static final PotionType SLIME_POTIONTYPE_STRONG = (PotionType)new PotionType("Slime", new PotionEffect[]{new PotionEffect(SLIME, 450, 1)})
+   public static final PotionType SLIME_POTIONTYPE_STRONG = new PotionType("Slime", new PotionEffect[]{new PotionEffect(SLIME, 450, 1)})
       .setRegistryName("slime_strong_potion");
-   public static final PotionType SLIME_POTIONTYPE_LONG = (PotionType)new PotionType("Slime", new PotionEffect[]{new PotionEffect(SLIME, 1250)})
+   public static final PotionType SLIME_POTIONTYPE_LONG = new PotionType("Slime", new PotionEffect[]{new PotionEffect(SLIME, 1250)})
       .setRegistryName("slime_long_potion");
-   public static final PotionType FIERYOIL_POTIONTYPE_MAIN = (PotionType)new PotionType("Fiery_Oil", new PotionEffect[]{new PotionEffect(FIERYOIL, 550)})
+   public static final PotionType FIERYOIL_POTIONTYPE_MAIN = new PotionType("Fiery_Oil", new PotionEffect[]{new PotionEffect(FIERYOIL, 550)})
       .setRegistryName("fieryoil_potion");
-   public static final PotionType FIERYOIL_POTIONTYPE_LONG = (PotionType)new PotionType("Fiery_Oil", new PotionEffect[]{new PotionEffect(FIERYOIL, 950)})
+   public static final PotionType FIERYOIL_POTIONTYPE_LONG = new PotionType("Fiery_Oil", new PotionEffect[]{new PotionEffect(FIERYOIL, 950)})
       .setRegistryName("fieryoil_long_potion");
-   public static final PotionType FIERYOIL_POTIONTYPE_STRONG = (PotionType)new PotionType("Fiery_Oil", new PotionEffect[]{new PotionEffect(FIERYOIL, 400, 1)})
+   public static final PotionType FIERYOIL_POTIONTYPE_STRONG = new PotionType("Fiery_Oil", new PotionEffect[]{new PotionEffect(FIERYOIL, 400, 1)})
       .setRegistryName("fieryoil_strong_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_MAIN = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1)}
       )
       .setRegistryName("instant_mana_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_STRONG = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_STRONG = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 1)}
       )
       .setRegistryName("instant_mana_strong_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_VERYSTRONG = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_VERYSTRONG = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 2)}
       )
       .setRegistryName("instant_mana_verystrong_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_GREAT = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_GREAT = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 3)}
       )
       .setRegistryName("instant_mana_great_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_POWERFUL = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_POWERFUL = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 4)}
       )
       .setRegistryName("instant_mana_powerful_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_MIGHTY = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_MIGHTY = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 5)}
       )
       .setRegistryName("instant_mana_mighty_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_IMPERIOUS = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_IMPERIOUS = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 6)}
       )
       .setRegistryName("instant_mana_imperious_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_MAGNIFICENT = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_MAGNIFICENT = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 7)}
       )
       .setRegistryName("instant_mana_magnificent_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_UNBELIEVABLE = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_UNBELIEVABLE = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 8)}
       )
       .setRegistryName("instant_mana_unbelievable_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_CELESTIAL = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_CELESTIAL = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 9)}
       )
       .setRegistryName("instant_mana_celestial_potion");
-   public static final PotionType INSTANT_MANA_POTIONTYPE_UNIMAGINABLE = (PotionType)new PotionType(
+   public static final PotionType INSTANT_MANA_POTIONTYPE_UNIMAGINABLE = new PotionType(
          "Instant_Mana", new PotionEffect[]{new PotionEffect(INSTANT_MANA, 1, 10)}
       )
       .setRegistryName("instant_mana_unimaginable_potion");
-   public static final PotionType MANA_REGENERATION_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType MANA_REGENERATION_POTIONTYPE_MAIN = new PotionType(
          "Mana_Regeneration", new PotionEffect[]{new PotionEffect(MANA_REGENERATION, 3550)}
       )
       .setRegistryName("manaregen_potion");
-   public static final PotionType MANA_REGENERATION_POTIONTYPE_STRONG = (PotionType)new PotionType(
+   public static final PotionType MANA_REGENERATION_POTIONTYPE_STRONG = new PotionType(
          "Mana_Regeneration", new PotionEffect[]{new PotionEffect(MANA_REGENERATION, 2550, 1)}
       )
       .setRegistryName("manaregen_strong_potion");
-   public static final PotionType MANA_REGENERATION_POTIONTYPE_LONG = (PotionType)new PotionType(
+   public static final PotionType MANA_REGENERATION_POTIONTYPE_LONG = new PotionType(
          "Mana_Regeneration", new PotionEffect[]{new PotionEffect(MANA_REGENERATION, 5250)}
       )
       .setRegistryName("manaregen_long_potion");
-   public static final PotionType MAGIC_POWER_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType MAGIC_POWER_POTIONTYPE_MAIN = new PotionType(
          "Magic_Power", new PotionEffect[]{new PotionEffect(MAGIC_POWER, 3300)}
       )
       .setRegistryName("wizardry_potion");
-   public static final PotionType MAGIC_POWER_POTIONTYPE_STRONG = (PotionType)new PotionType(
+   public static final PotionType MAGIC_POWER_POTIONTYPE_STRONG = new PotionType(
          "Magic_Power", new PotionEffect[]{new PotionEffect(MAGIC_POWER, 2000, 1)}
       )
       .setRegistryName("wizardry_strong_potion");
-   public static final PotionType MAGIC_POWER_POTIONTYPE_LONG = (PotionType)new PotionType(
+   public static final PotionType MAGIC_POWER_POTIONTYPE_LONG = new PotionType(
          "Magic_Power", new PotionEffect[]{new PotionEffect(MAGIC_POWER, 4500)}
       )
       .setRegistryName("wizardry_long_potion");
-   public static final PotionType FIRE_AURA_POTIONTYPE_MAIN = (PotionType)new PotionType("Fire_Aura", new PotionEffect[]{new PotionEffect(FIRE_AURA, 1500)})
+   public static final PotionType FIRE_AURA_POTIONTYPE_MAIN = new PotionType("Fire_Aura", new PotionEffect[]{new PotionEffect(FIRE_AURA, 1500)})
       .setRegistryName("fire_aura_potion");
-   public static final PotionType FIRE_AURA_POTIONTYPE_LONG = (PotionType)new PotionType("Fire_Aura", new PotionEffect[]{new PotionEffect(FIRE_AURA, 2500)})
+   public static final PotionType FIRE_AURA_POTIONTYPE_LONG = new PotionType("Fire_Aura", new PotionEffect[]{new PotionEffect(FIRE_AURA, 2500)})
       .setRegistryName("fire_aura_long_potion");
-   public static final PotionType FIRE_AURA_POTIONTYPE_STRONG = (PotionType)new PotionType(
+   public static final PotionType FIRE_AURA_POTIONTYPE_STRONG = new PotionType(
          "Fire_Aura", new PotionEffect[]{new PotionEffect(FIRE_AURA, 1000, 1)}
       )
       .setRegistryName("fire_aura_strong_potion");
-   public static final PotionType ENDER_POISON_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType ENDER_POISON_POTIONTYPE_MAIN = new PotionType(
          "Ender_Poison", new PotionEffect[]{new PotionEffect(ENDER_POISON, 200)}
       )
       .setRegistryName("ender_poison_potion");
-   public static final PotionType INCORPOREITY_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType INCORPOREITY_POTIONTYPE_MAIN = new PotionType(
          "Incorporeity", new PotionEffect[]{new PotionEffect(INCORPOREITY, 1000)}
       )
       .setRegistryName("ethereal_potion");
-   public static final PotionType INCORPOREITY_POTIONTYPE_LONG = (PotionType)new PotionType(
+   public static final PotionType INCORPOREITY_POTIONTYPE_LONG = new PotionType(
          "Incorporeity", new PotionEffect[]{new PotionEffect(INCORPOREITY, 2500)}
       )
       .setRegistryName("ethereal_long_potion");
-   public static final PotionType INCORPOREITY_POTIONTYPE_STRONG = (PotionType)new PotionType(
+   public static final PotionType INCORPOREITY_POTIONTYPE_STRONG = new PotionType(
          "Incorporeity", new PotionEffect[]{new PotionEffect(INCORPOREITY, 800, 1)}
       )
       .setRegistryName("ethereal_strong_potion");
-   public static final PotionType TOXIN_POTIONTYPE_MAIN = (PotionType)new PotionType("Toxin", new PotionEffect[]{new PotionEffect(TOXIN, 800)})
+   public static final PotionType TOXIN_POTIONTYPE_MAIN = new PotionType("Toxin", new PotionEffect[]{new PotionEffect(TOXIN, 800)})
       .setRegistryName("toxin_potion");
-   public static final PotionType TOXIN_POTIONTYPE_LONG = (PotionType)new PotionType("Toxin", new PotionEffect[]{new PotionEffect(TOXIN, 1500)})
+   public static final PotionType TOXIN_POTIONTYPE_LONG = new PotionType("Toxin", new PotionEffect[]{new PotionEffect(TOXIN, 1500)})
       .setRegistryName("toxin_long_potion");
-   public static final PotionType TOXIN_POTIONTYPE_STRONG = (PotionType)new PotionType("Toxin", new PotionEffect[]{new PotionEffect(TOXIN, 400, 1)})
+   public static final PotionType TOXIN_POTIONTYPE_STRONG = new PotionType("Toxin", new PotionEffect[]{new PotionEffect(TOXIN, 400, 1)})
       .setRegistryName("toxin_strong_potion");
-   public static final PotionType ELECTRIFICATION_POTIONTYPE_POSITIVE = (PotionType)new PotionType(
+   public static final PotionType ELECTRIFICATION_POTIONTYPE_POSITIVE = new PotionType(
          "Electrification", new PotionEffect[]{new PotionEffect(ELECTRIFICATION, 500, 3)}
       )
       .setRegistryName("electrification_pos_potion");
-   public static final PotionType ELECTRIFICATION_POTIONTYPE_NEGATIVE = (PotionType)new PotionType(
+   public static final PotionType ELECTRIFICATION_POTIONTYPE_NEGATIVE = new PotionType(
          "Electrification", new PotionEffect[]{new PotionEffect(ELECTRIFICATION, 500, 4)}
       )
       .setRegistryName("electrification_neg_potion");
-   public static final PotionType WALKING_BOMB_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType WALKING_BOMB_POTIONTYPE_MAIN = new PotionType(
          "Walking_Bomb", new PotionEffect[]{new PotionEffect(WALKING_BOMB, 400)}
       )
       .setRegistryName("walking_bomb_potion");
-   public static final PotionType WALKING_BOMB_POTIONTYPE_STRONG = (PotionType)new PotionType(
+   public static final PotionType WALKING_BOMB_POTIONTYPE_STRONG = new PotionType(
          "Walking_Bomb", new PotionEffect[]{new PotionEffect(WALKING_BOMB, 400, 1)}
       )
       .setRegistryName("walking_bomb_strong_potion");
-   public static final PotionType BERSERK_POTIONTYPE_MAIN = (PotionType)new PotionType("Berserk", new PotionEffect[]{new PotionEffect(BERSERK, 2000)})
+   public static final PotionType BERSERK_POTIONTYPE_MAIN = new PotionType("Berserk", new PotionEffect[]{new PotionEffect(BERSERK, 2000)})
       .setRegistryName("berserk_potion");
-   public static final PotionType BERSERK_POTIONTYPE_LONG = (PotionType)new PotionType("Berserk", new PotionEffect[]{new PotionEffect(BERSERK, 3500)})
+   public static final PotionType BERSERK_POTIONTYPE_LONG = new PotionType("Berserk", new PotionEffect[]{new PotionEffect(BERSERK, 3500)})
       .setRegistryName("berserk_long_potion");
-   public static final PotionType BERSERK_POTIONTYPE_STRONG = (PotionType)new PotionType("Berserk", new PotionEffect[]{new PotionEffect(BERSERK, 1000, 1)})
+   public static final PotionType BERSERK_POTIONTYPE_STRONG = new PotionType("Berserk", new PotionEffect[]{new PotionEffect(BERSERK, 1000, 1)})
       .setRegistryName("berserk_strong_potion");
-   public static final PotionType BLOOD_THIRST_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType BLOOD_THIRST_POTIONTYPE_MAIN = new PotionType(
          "Blood_Thirst", new PotionEffect[]{new PotionEffect(BLOOD_THIRST, 1000)}
       )
       .setRegistryName("blood_thirst_potion");
-   public static final PotionType DEMONIC_BURN_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType DEMONIC_BURN_POTIONTYPE_MAIN = new PotionType(
          "Demonic_Burn", new PotionEffect[]{new PotionEffect(DEMONIC_BURN, 1000)}
       )
       .setRegistryName("demonic_burn_potion");
-   public static final PotionType SPIKED_POTIONTYPE_MAIN = (PotionType)new PotionType("Spiked", new PotionEffect[]{new PotionEffect(SPIKED, 450, 5)})
+   public static final PotionType SPIKED_POTIONTYPE_MAIN = new PotionType("Spiked", new PotionEffect[]{new PotionEffect(SPIKED, 450, 5)})
       .setRegistryName("spiked_potion");
-   public static final PotionType INSANE_POTIONTYPE_LOW = (PotionType)new PotionType("Insane", new PotionEffect[]{new PotionEffect(INSANE, 2000)})
+   public static final PotionType INSANE_POTIONTYPE_LOW = new PotionType("Insane", new PotionEffect[]{new PotionEffect(INSANE, 2000)})
       .setRegistryName("insane_potion");
-   public static final PotionType INSANE_POTIONTYPE_STRONG = (PotionType)new PotionType("Insane", new PotionEffect[]{new PotionEffect(INSANE, 2000, 1)})
+   public static final PotionType INSANE_POTIONTYPE_STRONG = new PotionType("Insane", new PotionEffect[]{new PotionEffect(INSANE, 2000, 1)})
       .setRegistryName("insane_potion_strong");
-   public static final PotionType INSANE_POTIONTYPE_IDENTIC = (PotionType)new PotionType("Insane", new PotionEffect[]{new PotionEffect(INSANE, 2000, 2)})
+   public static final PotionType INSANE_POTIONTYPE_IDENTIC = new PotionType("Insane", new PotionEffect[]{new PotionEffect(INSANE, 2000, 2)})
       .setRegistryName("insane_potion_identic");
-   public static final PotionType INSANE_POTIONTYPE_KILLALL = (PotionType)new PotionType("Insane", new PotionEffect[]{new PotionEffect(INSANE, 2000, 3)})
+   public static final PotionType INSANE_POTIONTYPE_KILLALL = new PotionType("Insane", new PotionEffect[]{new PotionEffect(INSANE, 2000, 3)})
       .setRegistryName("insane_potion_killall");
-   public static final PotionType INSTANT_AGREE_POTIONTYPE = (PotionType)new PotionType("Instant_Agree", new PotionEffect[]{new PotionEffect(INSTANT_AGREE)})
+   public static final PotionType INSTANT_AGREE_POTIONTYPE = new PotionType("Instant_Agree", new PotionEffect[]{new PotionEffect(INSTANT_AGREE)})
       .setRegistryName("instant_agree");
-   public static final PotionType FROSTBURN_POTIONTYPE_MAIN = (PotionType)new PotionType("FrostBurn", new PotionEffect[]{new PotionEffect(FROSTBURN, 400)})
+   public static final PotionType FROSTBURN_POTIONTYPE_MAIN = new PotionType("FrostBurn", new PotionEffect[]{new PotionEffect(FROSTBURN, 400)})
       .setRegistryName("frostburn_potion");
-   public static final PotionType CHLORITE_POTIONTYPE_MAIN = (PotionType)new PotionType("Chlorite", new PotionEffect[]{new PotionEffect(CHLORITE, 5000, 10)})
+   public static final PotionType CHLORITE_POTIONTYPE_MAIN = new PotionType("Chlorite", new PotionEffect[]{new PotionEffect(CHLORITE, 5000, 10)})
       .setRegistryName("hydrogen_chlorite_potion");
-   public static final PotionType RAD_REDUCT_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType RAD_REDUCT_POTIONTYPE_MAIN = new PotionType(
          "Rad_Reduction", new PotionEffect[]{new PotionEffect(RAD_REDUCTION, 300)}
       )
       .setRegistryName("rad_reduction_potion");
-   public static final PotionType WINTER_CURSE_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType WINTER_CURSE_POTIONTYPE_MAIN = new PotionType(
          "Winter_Curse", new PotionEffect[]{new PotionEffect(WINTER_CURSE, 99000)}
       )
       .setRegistryName("winter_curse_potion");
-   public static final PotionType HUNGER_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType HUNGER_POTIONTYPE_MAIN = new PotionType(
          "Hunger", new PotionEffect[]{new PotionEffect(MobEffects.HUNGER, 1000)}
       )
       .setRegistryName("hunger_potion");
-   public static final PotionType WITHER_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType WITHER_POTIONTYPE_MAIN = new PotionType(
          "Wither", new PotionEffect[]{new PotionEffect(MobEffects.WITHER, 360)}
       )
       .setRegistryName("wither_potion");
-   public static final PotionType TENACITY_POTIONTYPE_MAIN = (PotionType)new PotionType("Tenacity", new PotionEffect[]{new PotionEffect(TENACITY, 3600)})
+   public static final PotionType TENACITY_POTIONTYPE_MAIN = new PotionType("Tenacity", new PotionEffect[]{new PotionEffect(TENACITY, 3600)})
       .setRegistryName("tenacity_potion");
-   public static final PotionType TENACITY_POTIONTYPE_LONG = (PotionType)new PotionType("Tenacity", new PotionEffect[]{new PotionEffect(TENACITY, 9600)})
+   public static final PotionType TENACITY_POTIONTYPE_LONG = new PotionType("Tenacity", new PotionEffect[]{new PotionEffect(TENACITY, 9600)})
       .setRegistryName("tenacity_long_potion");
-   public static final PotionType TENACITY_POTIONTYPE_STRONG = (PotionType)new PotionType("Tenacity", new PotionEffect[]{new PotionEffect(TENACITY, 1560, 1)})
+   public static final PotionType TENACITY_POTIONTYPE_STRONG = new PotionType("Tenacity", new PotionEffect[]{new PotionEffect(TENACITY, 1560, 1)})
       .setRegistryName("tenacity_strong_potion");
-   public static final PotionType TENACITY_POTIONTYPE_VERYSTRONG = (PotionType)new PotionType(
+   public static final PotionType TENACITY_POTIONTYPE_VERYSTRONG = new PotionType(
          "Tenacity", new PotionEffect[]{new PotionEffect(TENACITY, 1200, 2)}
       )
       .setRegistryName("tenacity_verystrong_potion");
-   public static final PotionType TENACITY_POTIONTYPE_GREAT = (PotionType)new PotionType("Tenacity", new PotionEffect[]{new PotionEffect(TENACITY, 1000, 3)})
+   public static final PotionType TENACITY_POTIONTYPE_GREAT = new PotionType("Tenacity", new PotionEffect[]{new PotionEffect(TENACITY, 1000, 3)})
       .setRegistryName("tenacity_great_potion");
-   public static final PotionType BROKEN_ARMOR_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType BROKEN_ARMOR_POTIONTYPE_MAIN = new PotionType(
          "Broken_Armor", new PotionEffect[]{new PotionEffect(BROKEN_ARMOR, 3600)}
       )
       .setRegistryName("broken_armor_potion");
-   public static final PotionType BROKEN_ARMOR_POTIONTYPE_LONG = (PotionType)new PotionType(
+   public static final PotionType BROKEN_ARMOR_POTIONTYPE_LONG = new PotionType(
          "Broken_Armor", new PotionEffect[]{new PotionEffect(BROKEN_ARMOR, 9600)}
       )
       .setRegistryName("broken_armor_long_potion");
-   public static final PotionType BROKEN_ARMOR_POTIONTYPE_STRONG = (PotionType)new PotionType(
+   public static final PotionType BROKEN_ARMOR_POTIONTYPE_STRONG = new PotionType(
          "Broken_Armor", new PotionEffect[]{new PotionEffect(BROKEN_ARMOR, 1560, 1)}
       )
       .setRegistryName("broken_armor_strong_potion");
-   public static final PotionType BROKEN_ARMOR_POTIONTYPE_VERYSTRONG = (PotionType)new PotionType(
+   public static final PotionType BROKEN_ARMOR_POTIONTYPE_VERYSTRONG = new PotionType(
          "Broken_Armor", new PotionEffect[]{new PotionEffect(BROKEN_ARMOR, 1200, 2)}
       )
       .setRegistryName("broken_armor_verystrong_potion");
-   public static final PotionType SIREN_SONG_POTIONTYPE_MAIN = (PotionType)new PotionType("Siren_Song", new PotionEffect[]{new PotionEffect(SIREN_SONG, 500)})
+   public static final PotionType SIREN_SONG_POTIONTYPE_MAIN = new PotionType("Siren_Song", new PotionEffect[]{new PotionEffect(SIREN_SONG, 500)})
       .setRegistryName("siren_song_potion");
-   public static final PotionType SWIMMING_POTIONTYPE_MAIN = (PotionType)new PotionType("Swimming", new PotionEffect[]{new PotionEffect(SWIMMING, 4000)})
+   public static final PotionType SWIMMING_POTIONTYPE_MAIN = new PotionType("Swimming", new PotionEffect[]{new PotionEffect(SWIMMING, 4000)})
       .setRegistryName("swimming_potion");
-   public static final PotionType MANA_OIL_POTIONTYPE_MAIN = (PotionType)new PotionType("Mana_Oil", new PotionEffect[]{new PotionEffect(MANA_OIL, 160)})
+   public static final PotionType MANA_OIL_POTIONTYPE_MAIN = new PotionType("Mana_Oil", new PotionEffect[]{new PotionEffect(MANA_OIL, 160)})
       .setRegistryName("mana_oil_potion");
-   public static final PotionType HEALTH_DEGRADATION_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType HEALTH_DEGRADATION_POTIONTYPE_MAIN = new PotionType(
          "Health_Degradation", new PotionEffect[]{new PotionEffect(HEALTH_DEGRADATION, 640)}
       )
       .setRegistryName("health_degradation_potion");
-   public static final PotionType HEALTH_DEGRADATION_POTIONTYPE_LONG = (PotionType)new PotionType(
+   public static final PotionType HEALTH_DEGRADATION_POTIONTYPE_LONG = new PotionType(
          "Health_Degradation", new PotionEffect[]{new PotionEffect(HEALTH_DEGRADATION, 2000)}
       )
       .setRegistryName("health_degradation_long_potion");
-   public static final PotionType HEALTH_DEGRADATION_POTIONTYPE_STRONG = (PotionType)new PotionType(
+   public static final PotionType HEALTH_DEGRADATION_POTIONTYPE_STRONG = new PotionType(
          "Health_Degradation", new PotionEffect[]{new PotionEffect(HEALTH_DEGRADATION, 400, 1)}
       )
       .setRegistryName("health_degradation_strong_potion");
-   public static final PotionType HEALTH_BOOST_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType HEALTH_BOOST_POTIONTYPE_MAIN = new PotionType(
          "Health_Boost", new PotionEffect[]{new PotionEffect(MobEffects.HEALTH_BOOST, 3600)}
       )
       .setRegistryName("health_boost_potion");
-   public static final PotionType HEALTH_BOOST_POTIONTYPE_LONG = (PotionType)new PotionType(
+   public static final PotionType HEALTH_BOOST_POTIONTYPE_LONG = new PotionType(
          "Health_Boost", new PotionEffect[]{new PotionEffect(MobEffects.HEALTH_BOOST, 9600)}
       )
       .setRegistryName("health_boost_long_potion");
-   public static final PotionType HEALTH_BOOST_POTIONTYPE_STRONG = (PotionType)new PotionType(
+   public static final PotionType HEALTH_BOOST_POTIONTYPE_STRONG = new PotionType(
          "Health_Boost", new PotionEffect[]{new PotionEffect(MobEffects.HEALTH_BOOST, 1800, 1)}
       )
       .setRegistryName("health_boost_strong_potion");
-   public static final PotionType FREEZE_IMMUNITY_POTIONTYPE_MAIN = (PotionType)new PotionType(
+   public static final PotionType FREEZE_IMMUNITY_POTIONTYPE_MAIN = new PotionType(
          "Freeze_Immunity", new PotionEffect[]{new PotionEffect(FREEZE_IMMUNITY, 3600)}
       )
       .setRegistryName("Freeze_immunity_potion");
-   public static final PotionType WATER_BREATHING_POTIONTYPE_VERYLONG = (PotionType)new PotionType(
+   public static final PotionType WATER_BREATHING_POTIONTYPE_VERYLONG = new PotionType(
          "water_breathing", new PotionEffect[]{new PotionEffect(MobEffects.WATER_BREATHING, 24000)}
       )
       .setRegistryName("water_breathing_verylong_potion");
-   public static final PotionType NIGHT_VISION_POTIONTYPE_VERYLONG = (PotionType)new PotionType(
+   public static final PotionType NIGHT_VISION_POTIONTYPE_VERYLONG = new PotionType(
          "night_vision", new PotionEffect[]{new PotionEffect(MobEffects.NIGHT_VISION, 24000)}
       )
       .setRegistryName("night_vision_verylong_potion");
@@ -520,7 +520,7 @@ public class PotionEffects {
          lores.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("potion.whenDrank"));
 
          for (Tuple<String, AttributeModifier> tuple : list1) {
-            AttributeModifier attributemodifier2 = (AttributeModifier)tuple.getSecond();
+            AttributeModifier attributemodifier2 = tuple.getSecond();
             double d0 = attributemodifier2.getAmount();
             double d1;
             if (attributemodifier2.getOperation() != 1 && attributemodifier2.getOperation() != 2) {
@@ -534,7 +534,7 @@ public class PotionEffects {
                   TextFormatting.BLUE
                      + I18n.translateToLocalFormatted(
                         "attribute.modifier.plus." + attributemodifier2.getOperation(),
-                        new Object[]{ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + (String)tuple.getFirst())}
+                        new Object[]{ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + tuple.getFirst())}
                      )
                );
             } else if (d0 < 0.0) {
@@ -543,7 +543,7 @@ public class PotionEffects {
                   TextFormatting.RED
                      + I18n.translateToLocalFormatted(
                         "attribute.modifier.take." + attributemodifier2.getOperation(),
-                        new Object[]{ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + (String)tuple.getFirst())}
+                        new Object[]{ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + tuple.getFirst())}
                      )
                );
             }

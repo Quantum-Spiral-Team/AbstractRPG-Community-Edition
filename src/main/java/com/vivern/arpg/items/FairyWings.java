@@ -51,9 +51,7 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
 
    @Override
    public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
-      return player instanceof EntityPlayer
-         ? IWings.isEquippableWithChestplate(((ItemStack)((EntityPlayer)player).inventory.armorInventory.get(2)).getItem())
-         : false;
+      return player instanceof EntityPlayer && IWings.isEquippableWithChestplate(((EntityPlayer) player).inventory.armorInventory.get(2).getItem());
    }
 
    @Override
@@ -121,7 +119,7 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
          IWings.chestplateReturnToInv(player);
          boolean clickdoublejump = PlayerButtonTracker.getDoubleJump(player);
          int damage = itemstack.getItemDamage();
-         boolean flying = (Boolean)player.getDataManager().get(PropertiesRegistry.FLYING);
+         boolean flying = player.getDataManager().get(PropertiesRegistry.FLYING);
          boolean cool = player.getCooldownTracker().hasCooldown(itemIn);
          boolean clickforw = GameSettings.isKeyDown(Keys.FORWARD);
          boolean clicksprint = GameSettings.isKeyDown(Keys.SPRINT);
@@ -167,7 +165,7 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
                         if (!player.world.isRemote) {
                            player.world
                               .playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  player.posX,
                                  player.posY,
                                  player.posZ,
@@ -192,7 +190,7 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
                         if (!player.world.isRemote) {
                            player.world
                               .playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  player.posX,
                                  player.posY,
                                  player.posZ,
@@ -237,7 +235,7 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
                      if (!player.world.isRemote) {
                         player.world
                            .playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,

@@ -44,7 +44,7 @@ public class FinWings extends AbstractWings implements IAttributedBauble, IRende
    @Override
    public void onFlyingTick(ItemStack itemstack, EntityPlayer player, boolean likeElytra) {
       super.onFlyingTick(itemstack, player, likeElytra);
-      if (player.isInWater() && Keys.isKeyPressed(player, Keys.FORWARD)) {
+      if (player.isInWater() && player.moveForward > 0.0F) {
          Vec3d vec = GetMOP.pitchYawToVec3D(player.rotationPitch, player.rotationYaw);
          double sped = 0.1;
          player.motionX = player.motionX + vec.x * sped;

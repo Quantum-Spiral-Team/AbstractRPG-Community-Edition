@@ -81,7 +81,7 @@ public class OrbOfDestroy extends Item implements IBauble, IAttributedBauble, II
          Mana.setManaSpeed(playerattacker, 0.001F);
          playerattacker.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                target.posX,
                target.posY,
                target.posZ,

@@ -1,15 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.BubbleFishShoot;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -93,7 +85,7 @@ public class BubbleFish extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             float mana = Mana.getMana(player);
             float spee = Mana.getManaSpeed(player);
             int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
@@ -121,7 +113,7 @@ public class BubbleFish extends ItemWeapon {
 
                      int shots = GetMOP.floatToIntWithChance(parameters.getEnchantedF("shots", rapidity), itemRand);
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -162,7 +154,7 @@ public class BubbleFish extends ItemWeapon {
                   }
                } else if (this.initiateReload(itemstack, player, ItemsRegister.FISH_FEED, maxammo)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

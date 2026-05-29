@@ -202,7 +202,7 @@ public class Chest extends BlockContainer {
          IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
          IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
          IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
-         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+         EnumFacing enumfacing = state.getValue(FACING);
          if (iblockstate.getBlock() != this && iblockstate1.getBlock() != this) {
             boolean flag = iblockstate.isFullBlock();
             boolean flag1 = iblockstate1.isFullBlock();
@@ -283,7 +283,7 @@ public class Chest extends BlockContainer {
       if (enumfacing != null) {
          return state.withProperty(FACING, enumfacing.getOpposite());
       } else {
-         EnumFacing enumfacing2 = (EnumFacing)state.getValue(FACING);
+         EnumFacing enumfacing2 = state.getValue(FACING);
          if (worldIn.getBlockState(pos.offset(enumfacing2)).isFullBlock()) {
             enumfacing2 = enumfacing2.getOpposite();
          }
@@ -493,17 +493,17 @@ public class Chest extends BlockContainer {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

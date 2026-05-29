@@ -31,7 +31,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.BlockPos.PooledMutableBlockPos;
 
-public class TileNexusWinterAltar extends TileNexus implements IVialElementsAccepter, IMagicVision, ITileEntitySynchronize {
+public class TileNexusWinterAltar extends TileNexus implements IVialElementsAccepter, IMagicVision, ITileEntitySynchronized {
    public static ResourceLocation circle_aurora = new ResourceLocation("arpg:textures/circle_aurora.png");
    public static float maxElementCount = 16.0F;
    public float elementCollected;
@@ -125,7 +125,7 @@ public class TileNexusWinterAltar extends TileNexus implements IVialElementsAcce
                this.resourceComplete = 0;
                this.resourceItem = 0;
                this.world
-                  .playSound((EntityPlayer)null, this.getPos(), Sounds.magic_k, SoundCategory.BLOCKS, 1.0F, 0.8F + this.rand.nextFloat() * 0.2F);
+                  .playSound(null, this.getPos(), Sounds.magic_k, SoundCategory.BLOCKS, 1.0F, 0.8F + this.rand.nextFloat() * 0.2F);
             }
          }
 
@@ -197,9 +197,9 @@ public class TileNexusWinterAltar extends TileNexus implements IVialElementsAcce
                   this.resourceItem = can;
                   this.world
                      .playSound(
-                        (EntityPlayer)null, this.getPos(), Sounds.winter_altar_craft, SoundCategory.BLOCKS, 1.0F, 0.9F + this.rand.nextFloat() * 0.2F
+                             null, this.getPos(), Sounds.winter_altar_craft, SoundCategory.BLOCKS, 1.0F, 0.9F + this.rand.nextFloat() * 0.2F
                      );
-                  ITileEntitySynchronize.sendSynchronize(this, 64.0, 1.0);
+                  ITileEntitySynchronized.sendSynchronize(this, 64.0, 1.0);
                }
             }
          } else {
@@ -303,7 +303,7 @@ public class TileNexusWinterAltar extends TileNexus implements IVialElementsAcce
       super.startInvasion(team);
       if (this.invasionStarted) {
          this.sendNexusMessageToAllAround("The aurora light becomes powerful");
-         ITileEntitySynchronize.sendSynchronize(this, 64.0, 1.0);
+         ITileEntitySynchronized.sendSynchronize(this, 64.0, 1.0);
       }
    }
 
@@ -339,7 +339,7 @@ public class TileNexusWinterAltar extends TileNexus implements IVialElementsAcce
       this.resourceItem = 0;
       this.resourceComplete = 0;
       super.onInvasionEnd(success);
-      ITileEntitySynchronize.sendSynchronize(this, 64.0, 0.0);
+      ITileEntitySynchronized.sendSynchronize(this, 64.0, 0.0);
    }
 
    @Override

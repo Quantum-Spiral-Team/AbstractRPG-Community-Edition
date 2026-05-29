@@ -134,7 +134,7 @@ public class BubbleFishShoot extends EntityThrowable {
             Weapons.setPotionIfEntityLB(result.entityHit, parameters.getPotion("slime", PotionEffects.SLIME, witchery));
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -153,7 +153,7 @@ public class BubbleFishShoot extends EntityThrowable {
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

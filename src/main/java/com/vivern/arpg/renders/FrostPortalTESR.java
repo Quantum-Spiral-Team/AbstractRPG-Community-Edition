@@ -158,9 +158,9 @@ public class FrostPortalTESR extends TileEntitySpecialRenderer<TileEntityFrostPo
    }
 
    private FloatBuffer getBuffer(float p_147525_1_, float p_147525_2_, float p_147525_3_, float p_147525_4_) {
-      ((Buffer)this.buffer).clear();
+      this.buffer.clear();
       this.buffer.put(p_147525_1_).put(p_147525_2_).put(p_147525_3_).put(p_147525_4_);
-      ((Buffer)this.buffer).flip();
+      this.buffer.flip();
       return this.buffer;
    }
 }

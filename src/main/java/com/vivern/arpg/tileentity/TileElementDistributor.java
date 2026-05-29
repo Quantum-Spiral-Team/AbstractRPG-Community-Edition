@@ -24,7 +24,7 @@ public class TileElementDistributor extends TileEntityLockableLoot implements Ti
    public static void fillNextStacks() {
       CreativeTabs.SEARCH.displayAllRelevantItems(nextStacks);
 
-      while (ItemsElements.getAllElements((ItemStack)nextStacks.get(0)) != ItemsElements.EMPTY_ELEMENTS) {
+      while (ItemsElements.getAllElements(nextStacks.get(0)) != ItemsElements.EMPTY_ELEMENTS) {
          nextStacks.remove(0);
          if (nextStacks.isEmpty()) {
             return;
@@ -36,7 +36,7 @@ public class TileElementDistributor extends TileEntityLockableLoot implements Ti
       if (nextStacks != null) {
          if (useMeta) {
             for (int i = 0; i < nextStacks.size(); i++) {
-               ItemStack stackIn = (ItemStack)nextStacks.get(i);
+               ItemStack stackIn = nextStacks.get(i);
                if (stackIn.getItem() == itemStack.getItem() && stackIn.getMetadata() == itemStack.getMetadata()) {
                   nextStacks.remove(i);
                   return;
@@ -66,7 +66,7 @@ public class TileElementDistributor extends TileEntityLockableLoot implements Ti
 
             this.clear();
             if (nextStacks != null && nextStacks.size() > 0) {
-               nextDisplayed = (ItemStack)nextStacks.get(0);
+               nextDisplayed = nextStacks.get(0);
             }
          } else if (mouseButton == 4) {
             this.optionUseMetadata = !this.optionUseMetadata;
@@ -77,7 +77,7 @@ public class TileElementDistributor extends TileEntityLockableLoot implements Ti
             }
 
             if (nextStacks != null && nextStacks.size() > 0) {
-               this.setInventorySlotContents(0, ((ItemStack)nextStacks.get(0)).copy());
+               this.setInventorySlotContents(0, nextStacks.get(0).copy());
             }
          } else if (mouseButton == 6) {
             this.optionUseMetadata = true;
@@ -107,7 +107,7 @@ public class TileElementDistributor extends TileEntityLockableLoot implements Ti
 
    public int addItemStack(ItemStack stack) {
       for (int i = 0; i < this.stacks.size(); i++) {
-         if (((ItemStack)this.stacks.get(i)).isEmpty()) {
+         if (this.stacks.get(i).isEmpty()) {
             this.setInventorySlotContents(i, stack);
             return i;
          }

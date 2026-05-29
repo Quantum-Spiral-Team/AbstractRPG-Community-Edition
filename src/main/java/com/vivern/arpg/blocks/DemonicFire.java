@@ -117,7 +117,7 @@ public class DemonicFire extends Block {
             if (item.getItem().getItem() == Items.ENCHANTED_BOOK) {
                int powder = getBookPowderCount(item.getItem());
                world.playSound(
-                  (EntityPlayer)null, item.getPosition(), Sounds.burn, SoundCategory.BLOCKS, 0.8F, 0.9F + world.rand.nextFloat() / 5.0F
+                       null, item.getPosition(), Sounds.burn, SoundCategory.BLOCKS, 0.8F, 0.9F + world.rand.nextFloat() / 5.0F
                );
                item.setDead();
                EntityItem dust = new EntityItem(
@@ -216,7 +216,7 @@ public class DemonicFire extends Block {
 
          Block block = worldIn.getBlockState(pos.down()).getBlock();
          boolean flag = block == Blocks.SOUL_SAND;
-         int i = (Integer)state.getValue(AGE);
+         int i = state.getValue(AGE);
          if (!flag && worldIn.isRaining() && this.canDie(worldIn, pos) && rand.nextFloat() < 0.2F + i * 0.03F) {
             worldIn.setBlockToAir(pos);
          } else {
@@ -486,7 +486,7 @@ public class DemonicFire extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(AGE);
+      return state.getValue(AGE);
    }
 
    @Override

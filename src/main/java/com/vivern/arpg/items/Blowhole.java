@@ -1,14 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.BlowholeShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -82,8 +75,8 @@ public class Blowhole extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             int special = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack);
@@ -100,7 +93,7 @@ public class Blowhole extends ItemWeapon {
                   if (ammo > 0 && this.isReloaded(itemstack)) {
                      if (charge == 4) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -115,7 +108,7 @@ public class Blowhole extends ItemWeapon {
                      if (charge > 7 && charge % 9 == 0) {
                         Weapons.setPlayerAnimationOnServer(player, anotherHandEmpty ? 11 : 10, hand);
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -127,7 +120,7 @@ public class Blowhole extends ItemWeapon {
                      }
                   } else if (this.initiateReload(itemstack, player, ItemsRegister.BLOWHOLE_PELLETS, maxammo)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -143,7 +136,7 @@ public class Blowhole extends ItemWeapon {
                   charge = Math.min(charge, maxcharge);
                   if (!player.getCooldownTracker().hasCooldown(this)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

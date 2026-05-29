@@ -197,7 +197,7 @@ public class TRRenderer {
             double uadd = this.texturesAmount > 1 ? rand.nextInt(this.texturesAmount) * (onepixelX * this.texWidth) : 0.0;
             double animAdd = this.animationDelay == 0
                ? 0.0
-               : onepixelY * this.texHeight * ((this.time() + rand.nextInt(999999)) / this.animationDelay % this.animationCycle);
+               : onepixelY * this.texHeight * ((double) (this.time() + rand.nextInt(999999)) / this.animationDelay % this.animationCycle);
             float yColorDiffuse = GetMOP.getFromTo(posy + yadd, -ccolorDiffuseRange, ccolorDiffuseRange);
             float unyColorDiffuse = 1.0F - yColorDiffuse;
             float r = (unyColorDiffuse + (float)this.diffuseColor.x * yColorDiffuse) * (1.0F - this.randomBrightness * rand.nextFloat());
@@ -295,7 +295,7 @@ public class TRRenderer {
          float halfH = this.texHeight / 2.0F * fullness;
          double u = onepixelX * this.texx;
          double v = onepixelY * this.texy;
-         double animAdd = this.animationDelay == 0 ? 0.0 : onepixelY * this.texHeight * (this.time() / this.animationDelay % this.animationCycle);
+         double animAdd = this.animationDelay == 0 ? 0.0 : onepixelY * this.texHeight * ((double) this.time() / this.animationDelay % this.animationCycle);
          this.renderStyle.preRender();
          float ccolorDiffuseRange = 87.0F / renderTFR.scale;
          float yColorDiffuse1;
@@ -491,7 +491,7 @@ public class TRRenderer {
          float halfH = this.texHeight / 2.0F * fullness;
          double u = onepixelX * this.texx;
          double v = onepixelY * this.texy;
-         double animAdd = this.animationDelay == 0 ? 0.0 : onepixelY * this.texHeight * (this.time() / this.animationDelay % this.animationCycle);
+         double animAdd = this.animationDelay == 0 ? 0.0 : onepixelY * this.texHeight * ((double) this.time() / this.animationDelay % this.animationCycle);
          this.renderStyle.preRender();
          GlStateManager.color(1.0F, 1.0F, 1.0F, MathHelper.sin(this.time() / this.glimmerPeriod) / 2.0F + 0.5F);
          Tessellator tessellator = Tessellator.getInstance();

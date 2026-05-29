@@ -2,18 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,18 +116,17 @@ public class Charger extends ItemWeapon {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
          float rapidMult = 1.0F + rapidity * parameters.getFloat("rapid_multiplier");
          float manacost = parameters.getEnchantedF("manacost", sor) * rapidMult;
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+         boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
          EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-         Item cooldownItem = (Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP);
+         Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP;
          boolean b1 = true;
-         if (hand != null
-            && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)
-            && mana > manacost
-            && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
+         if ((click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)
+                 && mana > manacost
+                 && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
             Vec3d vec = GetMOP.posRayTrace(parameters.getEnchantedF("distance", range), 1.0F, player, 0.08, 0.08);
             world.playSound(
-               (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.charger, SoundCategory.AMBIENT, 0.8F, 1.0F
+                    null, player.posX, player.posY, player.posZ, Sounds.charger, SoundCategory.AMBIENT, 0.8F, 1.0F
             );
             b1 = false;
             double damageRadius = 0.3;
@@ -172,9 +160,6 @@ public class Charger extends ItemWeapon {
 
                         for (int ss = 0; ss < parameters.getEnchantedF("targets", spec); ss++) {
                            EntityLivingBase livb = this.nextTarget(vect, world, player, targs, nextTargetRadius);
-                           if (livb == null) {
-                              break;
-                           }
 
                            targs.add(livb);
                            Vec3d newvec = livb.getPositionVector().add(0.0, livb.height / 2.0F + itemRand.nextGaussian() / 20.0, 0.0);
@@ -358,8 +343,4 @@ public class Charger extends ItemWeapon {
       return WeaponHandleType.SEMI_ONE_HANDED;
    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
 }

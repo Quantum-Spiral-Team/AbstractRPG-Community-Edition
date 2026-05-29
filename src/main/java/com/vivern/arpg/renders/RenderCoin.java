@@ -82,7 +82,7 @@ public class RenderCoin<T extends EntityCoin> extends Render<T> {
 
    public void renderItem(ItemStack stack, TransformType cameraTransformType, float r, float g, float b, float translate) {
       if (!stack.isEmpty()) {
-         IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(stack, (World)null, (EntityLivingBase)null);
+         IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(stack, null, null);
          this.renderItemModel(stack, ibakedmodel, cameraTransformType, false, r, g, b, translate);
       }
    }
@@ -164,10 +164,10 @@ public class RenderCoin<T extends EntityCoin> extends Render<T> {
       bufferbuilder.begin(7, DefaultVertexFormats.ITEM);
 
       for (EnumFacing enumfacing : EnumFacing.values()) {
-         this.itemRenderer.renderQuads(bufferbuilder, model.getQuads((IBlockState)null, enumfacing, 0L), color, stack);
+         this.itemRenderer.renderQuads(bufferbuilder, model.getQuads(null, enumfacing, 0L), color, stack);
       }
 
-      this.itemRenderer.renderQuads(bufferbuilder, model.getQuads((IBlockState)null, (EnumFacing)null, 0L), color, stack);
+      this.itemRenderer.renderQuads(bufferbuilder, model.getQuads(null, null, 0L), color, stack);
       tessellator.draw();
    }
 

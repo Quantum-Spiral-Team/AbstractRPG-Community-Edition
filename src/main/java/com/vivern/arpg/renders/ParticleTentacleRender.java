@@ -57,7 +57,7 @@ public class ParticleTentacleRender<T extends ParticleTentacle> extends Render<P
 
       GlStateManager.color(entity.Red, entity.Green, entity.Blue, entity.alpha);
       if (entity.tracker != null) {
-         entity.tracker.render((T)entity, x, y, z, entityYaw, partialTicks);
+         entity.tracker.render(entity, x, y, z, entityYaw, partialTicks);
       }
 
       Vec3d[] segmentsPoses = RenderTentacles.getTentacleSegmenstPositions(

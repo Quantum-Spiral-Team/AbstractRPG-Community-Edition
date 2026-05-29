@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 
 public class KeyBindFixed extends KeyBinding {
-   int keyIndex = 0;
+   int keyIndex;
 
    public KeyBindFixed(String description, int keyCode, String category) {
       super(description, keyCode == Minecraft.getMinecraft().gameSettings.keyBindAttack.getKeyCode() ? 0 : keyCode, category);

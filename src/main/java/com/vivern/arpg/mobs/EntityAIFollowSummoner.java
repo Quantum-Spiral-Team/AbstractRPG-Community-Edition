@@ -33,13 +33,13 @@ public class EntityAIFollowSummoner extends EntityAIBase {
       } else if (this.minion.owner.isSpectator()) {
          return false;
       } else {
-         return this.minion.isStaying ? false : !(this.minion.getDistanceSq(this.minion.owner) < this.minion.ownerFollowDistanceSq);
+         return !this.minion.isStaying && !(this.minion.getDistanceSq(this.minion.owner) < this.minion.ownerFollowDistanceSq);
       }
    }
 
    @Override
    public boolean shouldContinueExecuting() {
-      return this.minion.owner != null && !(this.minion.getDistanceSq(this.minion.owner) < 16.0) ? !this.minion.isStaying : false;
+      return this.minion.owner != null && !(this.minion.getDistanceSq(this.minion.owner) < 16.0) && !this.minion.isStaying;
    }
 
    @Override

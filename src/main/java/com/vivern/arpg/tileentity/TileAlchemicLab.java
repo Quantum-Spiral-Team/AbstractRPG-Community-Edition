@@ -97,7 +97,7 @@ public class TileAlchemicLab extends TileEntityLockable implements IManaBuffer, 
             for (AlchemicLabRecipe recipe : AlchemicLabRecipesRegister.allRecipes) {
                if (this.brewProgress >= recipe.ticksToBrew && this.getManaBuffer().getManaStored() >= recipe.manacost && recipe.tryCraft(this)) {
                   this.world
-                     .playSound((EntityPlayer)null, this.getPos(), Sounds.alchemic_craft, SoundCategory.BLOCKS, 1.0F, 0.9F + rand.nextFloat() / 5.0F);
+                     .playSound(null, this.getPos(), Sounds.alchemic_craft, SoundCategory.BLOCKS, 1.0F, 0.9F + rand.nextFloat() / 5.0F);
                   this.brewProgress = 0.0F;
                   this.getManaBuffer().addMana(-recipe.manacost);
                   this.checkStart();
@@ -111,7 +111,7 @@ public class TileAlchemicLab extends TileEntityLockable implements IManaBuffer, 
       this.ticksExisted++;
       if (this.ticksExisted % 15 == 0) {
          if (this.started) {
-            this.world.playSound((EntityPlayer)null, this.getPos(), Sounds.alchemic_brewing, SoundCategory.BLOCKS, 0.9F, 1.0F);
+            this.world.playSound(null, this.getPos(), Sounds.alchemic_brewing, SoundCategory.BLOCKS, 0.9F, 1.0F);
          } else if (!this.world.isRemote) {
             this.checkStart();
          }
@@ -169,7 +169,7 @@ public class TileAlchemicLab extends TileEntityLockable implements IManaBuffer, 
       byte var4 = 0;
       if (var4 < recipe) {
          int i = var2[var4];
-         if (!((ItemStack)this.containItemStacks.get(i)).isEmpty()) {
+         if (!this.containItemStacks.get(i).isEmpty()) {
          }
 
          noempty = true;
@@ -281,7 +281,7 @@ public class TileAlchemicLab extends TileEntityLockable implements IManaBuffer, 
 
    @Override
    public ItemStack getStackInSlot(int index) {
-      return (ItemStack)this.containItemStacks.get(index);
+      return this.containItemStacks.get(index);
    }
 
    @Override
@@ -296,7 +296,7 @@ public class TileAlchemicLab extends TileEntityLockable implements IManaBuffer, 
 
    @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
-      ItemStack itemstack = (ItemStack)this.containItemStacks.get(index);
+      ItemStack itemstack = this.containItemStacks.get(index);
       boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
       this.containItemStacks.set(index, stack);
       if (stack.getCount() > this.getInventoryStackLimit()) {
@@ -328,10 +328,8 @@ public class TileAlchemicLab extends TileEntityLockable implements IManaBuffer, 
 
    @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
-      return this.world.getTileEntity(this.pos) != this
-         ? false
-         : player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
-            <= 64.0;
+      return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
+              <= 64.0;
    }
 
    @Override

@@ -69,7 +69,7 @@ public class Retort extends Block {
             return true;
          }
       } else if (stack.isEmpty() && !world.isRemote) {
-         BlockPos posoff = pos.offset(((EnumFacing)state.getValue(FACING)).getOpposite());
+         BlockPos posoff = pos.offset(state.getValue(FACING).getOpposite());
          TileEntity tileEntity = world.getTileEntity(pos);
          if (tileEntity != null && tileEntity instanceof TileRetort) {
             ((TileRetort)tileEntity).startRefining(posoff);
@@ -126,17 +126,17 @@ public class Retort extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

@@ -54,7 +54,7 @@ public class BlockFluidManaOil extends BlockFluidClassic {
       double d0 = pos.getX();
       double d1 = pos.getY();
       double d2 = pos.getZ();
-      int i = (Integer)stateIn.getValue(LEVEL);
+      int i = stateIn.getValue(LEVEL);
       if (i > 0 && i < 8 && rand.nextInt(64) == 0) {
          worldIn.playSound(
             d0 + 0.5, d1 + 0.5, d2 + 0.5, Sounds.slime_fluid, SoundCategory.BLOCKS, rand.nextFloat() * 0.25F + 0.75F, rand.nextFloat() + 0.5F, false
@@ -148,7 +148,7 @@ public class BlockFluidManaOil extends BlockFluidClassic {
    }
 
    private void mergerFluids(BlockPos pos, World world) {
-      int i = (Integer)world.getBlockState(pos).getValue(LEVEL);
+      int i = world.getBlockState(pos).getValue(LEVEL);
       boolean full = i == 0;
       if (!world.isRemote) {
          for (EnumFacing facing : EnumFacing.values()) {

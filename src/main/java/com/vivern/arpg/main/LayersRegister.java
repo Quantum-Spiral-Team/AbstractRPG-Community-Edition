@@ -11,7 +11,7 @@ public class LayersRegister {
    }
 
    private static void setLayer(LayerRenderer layer) {
-      ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default")).addLayer(layer);
-      ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim")).addLayer(layer);
+      Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default").addLayer(layer);
+      Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim").addLayer(layer);
    }
 }

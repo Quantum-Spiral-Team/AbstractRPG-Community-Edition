@@ -44,7 +44,7 @@ public class MilitaryInstancer extends Instancer {
             if (healthRatio < 1.0F && itemRand.nextFloat() > 0.9 * healthRatio) {
                player.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      entity.posX,
                      entity.posY,
                      entity.posZ,
@@ -94,7 +94,7 @@ public class MilitaryInstancer extends Instancer {
                entity.hurtResistantTime = 0;
                entity.attackEntityFrom(new WeaponDamage(stack, player, null, false, false, null, WeaponDamage.radiation), entity.getHealth() * 4.0F);
                DeathEffects.applyDeathEffect(entity, DeathEffects.DE_DISMEMBER);
-               IWeapon.fireEffect(this, player, player.world, 64.0, (double)entity.getEntityId(), 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+               IWeapon.fireEffect(this, player, player.world, 64.0, entity.getEntityId(), 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
                return false;
             }
          }

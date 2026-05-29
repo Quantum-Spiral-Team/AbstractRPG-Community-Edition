@@ -2,15 +2,8 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.DragonFireworkEntity;
 import com.vivern.arpg.entity.FireworkEntity;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
+
 import java.util.ArrayList;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -77,7 +70,7 @@ public class FireworkLauncher extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
@@ -114,7 +107,7 @@ public class FireworkLauncher extends ItemWeapon {
                            IWeapon.fireBomEffect(this, player, world, 20);
                            Weapons.setPlayerAnimationOnServer(player, 12, EnumHand.MAIN_HAND);
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -152,7 +145,7 @@ public class FireworkLauncher extends ItemWeapon {
                            );
                            world.spawnEntity(dragon);
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -178,7 +171,7 @@ public class FireworkLauncher extends ItemWeapon {
 
                         if (this.initiateReload(itemstack, player, ammotype, maxammo)) {
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,

@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.dimensions.dungeon.DimensionDungeon;
 import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.network.PacketDoSomethingToClients;
+import com.vivern.arpg.network.packet.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.tileentity.TileDungeonLadder;
 import java.util.List;
@@ -132,7 +132,7 @@ public class DungeonFloorLadder extends Block {
             this.teleport(player, pos);
             if (player instanceof EntityPlayerMP) {
                PacketDoSomethingToClients pack = new PacketDoSomethingToClients();
-               pack.writeargs(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8);
+               pack.writeArgs(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8);
                PacketHandler.sendTo(pack, (EntityPlayerMP)player);
             }
          }

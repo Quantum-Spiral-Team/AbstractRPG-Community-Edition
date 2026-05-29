@@ -101,7 +101,7 @@ public class PresentBox extends Block {
    @Override
    @Nullable
    public TilePresentBox createTileEntity(World world, IBlockState blockState) {
-      return new TilePresentBox((Integer)blockState.getValue(TEXTYPE));
+      return new TilePresentBox(blockState.getValue(TEXTYPE));
    }
 
    @Override
@@ -155,7 +155,7 @@ public class PresentBox extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(TEXTYPE);
+      return state.getValue(TEXTYPE);
    }
 
    @Override

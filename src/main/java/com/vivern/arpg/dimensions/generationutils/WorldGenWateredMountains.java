@@ -38,7 +38,7 @@ public class WorldGenWateredMountains extends WorldGenerator {
       int allheight = position.getY() + this.height + this.height / 6;
       int currentradius = this.startradius;
       float radiusAddChance = 1.0F / this.height * (this.maxradius - this.startradius);
-      float radiusRemoveChance = 1.0F / (this.height / 6) * (this.maxradius - this.startradius);
+      float radiusRemoveChance = 1.0F / ((float) this.height / 6) * (this.maxradius - this.startradius);
       int displace = 0;
 
       for (int i = position.getY(); i < allheight; i++) {
@@ -46,7 +46,7 @@ public class WorldGenWateredMountains extends WorldGenerator {
             for (int zz = -currentradius; zz <= currentradius; zz++) {
                double dist = Math.sqrt(xx * xx + zz * zz);
                double nvalue = this.noise.getValue((position.getX() + xx + displace) / 3.0, (position.getZ() + zz + displace) / 3.0);
-               if (nvalue * this.mult1 + 5.0 > (dist - currentradius / 2) * this.mult2) {
+               if (nvalue * this.mult1 + 5.0 > (dist - (double) currentradius / 2) * this.mult2) {
                   worldIn.setBlockState(new BlockPos(position.getX() + xx, i, position.getZ() + zz), this.stone);
                }
             }

@@ -1,12 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.CrystalFanShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -46,7 +41,7 @@ public class CrystalFan extends ItemWeapon {
             World world = player.getEntityWorld();
             Item itemIn = itemstack.getItem();
             EnumHand hand = player.getActiveHand();
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             float power = Mana.getMagicPowerMax(player);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
@@ -57,7 +52,7 @@ public class CrystalFan extends ItemWeapon {
                if (charge >= (spec ? 16 : 8) && !powerOn) {
                   NBTHelper.SetNBTboolean(itemstack, true, "power");
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -73,7 +68,7 @@ public class CrystalFan extends ItemWeapon {
                if (Mana.getMana(player) > 0.7F - sor / 7.0F && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
                   if (powerOn) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -96,7 +91,7 @@ public class CrystalFan extends ItemWeapon {
                      NBTHelper.GiveNBTint(itemstack, 0, "charge");
                      NBTHelper.giveNBTboolean(itemstack, false, "power");
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

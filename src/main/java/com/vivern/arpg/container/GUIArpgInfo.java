@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+
+import com.vivern.arpg.AbstractRPG;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -11,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class GUIArpgInfo extends GuiScreen {
    private static final ResourceLocation GUI_TEXTURES = new ResourceLocation("arpg:textures/arpg_info.png");
@@ -19,6 +22,7 @@ public class GUIArpgInfo extends GuiScreen {
    private static int displX = 37;
    public boolean updated = false;
    public static int kk = 0;
+   private static final Logger LOGGER = AbstractRPG.getLogger(GUIArpgInfo.class.getSimpleName());
 
    public GUIArpgInfo(EntityPlayer player) {
       this.player = player;
@@ -138,7 +142,7 @@ public class GUIArpgInfo extends GuiScreen {
                URI uri = new URI(this.link);
                this.openWebLink(uri);
             } catch (URISyntaxException var2) {
-               LogManager.getLogger().error("Can't open url for {}", this.link, var2);
+               LOGGER.error("Can't open url for {}", this.link, var2);
             }
          }
       }
@@ -150,7 +154,7 @@ public class GUIArpgInfo extends GuiScreen {
             oclass.getMethod("browse", URI.class).invoke(object, url);
          } catch (Throwable var4) {
             Throwable throwable = var4.getCause();
-            LogManager.getLogger().error("Couldn't open link: {}", throwable == null ? "<UNKNOWN>" : throwable.getMessage());
+            LOGGER.error("Couldn't open link: {}", throwable == null ? "<UNKNOWN>" : throwable.getMessage());
          }
       }
    }

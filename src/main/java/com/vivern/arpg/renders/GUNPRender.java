@@ -74,7 +74,7 @@ public class GUNPRender<T extends GUNParticle> extends Render<GUNParticle> {
 
       GlStateManager.color(entity.Red, entity.Green, entity.Blue, entity.alpha);
       if (entity.tracker != null) {
-         entity.tracker.render((T)entity, x, y, z, entityYaw, partialTicks);
+         entity.tracker.render(entity, x, y, z, entityYaw, partialTicks);
       }
 
       Tessellator tessellator = Tessellator.getInstance();

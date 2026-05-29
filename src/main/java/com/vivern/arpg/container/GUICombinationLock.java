@@ -1,7 +1,7 @@
 package com.vivern.arpg.container;
 
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTileClickToServer;
+import com.vivern.arpg.network.packet.PacketTileClickToServer;
 import com.vivern.arpg.tileentity.TileCombinationLock;
 import java.io.IOException;
 import net.minecraft.client.gui.GuiScreen;
@@ -61,7 +61,7 @@ public class GUICombinationLock extends GuiScreen {
       int i = (this.width - 256) / 2;
       int j = (this.height - 212) / 2;
       PacketTileClickToServer packet = new PacketTileClickToServer();
-      packet.writeints(
+      packet.writeInts(
          this.tile.getPos().getX(),
          this.tile.getPos().getY(),
          this.tile.getPos().getZ(),

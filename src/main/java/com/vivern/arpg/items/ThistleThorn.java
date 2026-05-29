@@ -2,12 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityThistleThorn;
 import com.vivern.arpg.entity.GunPEmitter;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -68,7 +63,7 @@ public class ThistleThorn extends ItemWeapon {
             Item itemIn = itemstack.getItem();
             EnumHand hand = player.getActiveHand();
             boolean click = Mouse.isButtonDown(1);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             float power = Mana.getMagicPowerMax(player);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
@@ -86,7 +81,7 @@ public class ThistleThorn extends ItemWeapon {
                if (!player.getCooldownTracker().hasCooldown(itemIn)) {
                   if (click) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -99,7 +94,7 @@ public class ThistleThorn extends ItemWeapon {
                      player.addStat(StatList.getObjectUseStats(this));
                      this.bom(false);
                      EntityThistleThorn projectile = new EntityThistleThorn(world, player, itemstack, power);
-                     projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.0F, 2 / (acc + 1));
+                     projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.0F, (float) 2 / (acc + 1));
                      projectile.setPosition(player.posX, player.posY + player.getEyeHeight() - 0.15, player.posZ);
                      world.spawnEntity(projectile);
                      if (!player.capabilities.isCreativeMode) {
@@ -117,8 +112,8 @@ public class ThistleThorn extends ItemWeapon {
                            result.hitVec.x,
                            result.hitVec.y,
                            result.hitVec.z,
-                           (double)player.rotationPitch,
-                           (double)player.rotationYaw,
+                                player.rotationPitch,
+                                player.rotationYaw,
                            0.0,
                            0.0,
                            0.0,
@@ -127,7 +122,7 @@ public class ThistleThorn extends ItemWeapon {
                      }
                   } else if (click2 && NBTHelper.GetNBTboolean(itemstack, "powered")) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -154,9 +149,9 @@ public class ThistleThorn extends ItemWeapon {
                      projectile2.charged = true;
                      projectile3.canMultiple = true;
                      projectile3.charged = true;
-                     projectile1.shoot(player, player.rotationPitch, player.rotationYaw - 10.0F, 0.0F, 1.0F, 2 / (acc + 1));
-                     projectile2.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.0F, 2 / (acc + 1));
-                     projectile3.shoot(player, player.rotationPitch, player.rotationYaw + 10.0F, 0.0F, 1.0F, 2 / (acc + 1));
+                     projectile1.shoot(player, player.rotationPitch, player.rotationYaw - 10.0F, 0.0F, 1.0F, (float) 2 / (acc + 1));
+                     projectile2.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.0F, (float) 2 / (acc + 1));
+                     projectile3.shoot(player, player.rotationPitch, player.rotationYaw + 10.0F, 0.0F, 1.0F, (float) 2 / (acc + 1));
                      projectile1.setPosition(player.posX, player.posY + player.getEyeHeight() - 0.15, player.posZ);
                      projectile2.setPosition(player.posX, player.posY + player.getEyeHeight() - 0.15, player.posZ);
                      projectile3.setPosition(player.posX, player.posY + player.getEyeHeight() - 0.15, player.posZ);
@@ -186,8 +181,8 @@ public class ThistleThorn extends ItemWeapon {
                         player.posX,
                         player.posY,
                         player.posZ,
-                        (double)player.rotationPitch,
-                        (double)player.rotationYaw,
+                             player.rotationPitch,
+                             player.rotationYaw,
                         1.0,
                         0.0,
                         0.0,

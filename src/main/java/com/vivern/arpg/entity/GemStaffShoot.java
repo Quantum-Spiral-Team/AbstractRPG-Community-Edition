@@ -180,7 +180,7 @@ public class GemStaffShoot extends EntityThrowable implements IRenderOptions {
                result.entityHit.hurtResistantTime = 0;
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -212,7 +212,7 @@ public class GemStaffShoot extends EntityThrowable implements IRenderOptions {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,

@@ -3,6 +3,7 @@ package com.vivern.arpg.items;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
+import com.vivern.arpg.hooks.ARPGHooks;
 import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.items.models.BeltsModel;
 import com.vivern.arpg.main.GetMOP;
@@ -56,7 +57,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
 
    @Override
    public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
-      return player instanceof EntityPlayer ? !((EntityPlayer)player).getCooldownTracker().hasCooldown(this) : true;
+      return !(player instanceof EntityPlayer) || !((EntityPlayer) player).getCooldownTracker().hasCooldown(this);
    }
 
    public boolean canRecharge(EntityPlayer player) {
@@ -81,7 +82,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
             NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
          }
 
-         if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+         if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && player.isSprinting() && !player.isElytraFlying()) {
             Vec2f dashVec = this.getNormalizedVectorOfDash(player);
             if (dashVec != null) {
                this.doSimpleDash(player, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -91,7 +92,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                player.addExhaustion(this.exhaustion);
                player.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -192,10 +193,10 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
       float velocitythis = 1.0F;
       float velocity = 0.0F;
       int angle = 0;
-      boolean FORWARD = Keys.isKeyPressed(player, Keys.FORWARD);
-      boolean BACK = Keys.isKeyPressed(player, Keys.BACK);
-      boolean LEFT = Keys.isKeyPressed(player, Keys.LEFT);
-      boolean RIGHT = Keys.isKeyPressed(player, Keys.RIGHT);
+      boolean FORWARD = player.moveForward > 0.0F;
+      boolean BACK = player.moveForward < 0.0F;
+      boolean LEFT = player.moveStrafing > 0.0F;
+      boolean RIGHT = player.moveStrafing < 0.0F;
       if (FORWARD) {
          velocity = velocitythis;
       }
@@ -215,34 +216,20 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          velocity = velocitythis;
       }
 
-      if (LEFT && RIGHT) {
-         angle = 0;
-         velocity = 0.0F;
-      }
-
-      if (FORWARD && BACK) {
-         angle = 0;
-         velocity = 0.0F;
-      }
-
-      if (RIGHT && FORWARD) {
+       if (RIGHT && FORWARD) {
          angle = 45;
-         velocity = velocitythis;
       }
 
       if (LEFT && FORWARD) {
          angle = -45;
-         velocity = velocitythis;
       }
 
       if (RIGHT && BACK) {
          angle = 135;
-         velocity = velocitythis;
       }
 
       if (LEFT && BACK) {
          angle = -135;
-         velocity = velocitythis;
       }
 
       if (velocity != 0.0F) {
@@ -260,62 +247,48 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
 
    @Nullable
    public Vec3d getNormalized3dVectorOfDash(EntityPlayer player) {
-      float velocitythis = 1.0F;
+      float actualVelocity = 1.0F;
       float velocity = 0.0F;
       int angle = 0;
-      boolean FORWARD = Keys.isKeyPressed(player, Keys.FORWARD);
-      boolean BACK = Keys.isKeyPressed(player, Keys.BACK);
-      boolean LEFT = Keys.isKeyPressed(player, Keys.LEFT);
-      boolean RIGHT = Keys.isKeyPressed(player, Keys.RIGHT);
+      boolean FORWARD = player.moveForward > 0.0F;
+      boolean BACK = player.moveForward < 0.0F;
+      boolean LEFT = player.moveStrafing > 0.0F;
+      boolean RIGHT = player.moveStrafing < 0.0F;
       boolean SHIFT = player.isSneaking();
-      boolean JUMP = Keys.isKeyPressed(player, Keys.JUMP);
+      boolean JUMP = ARPGHooks.isJumping.get(player);
       if (FORWARD) {
-         velocity = velocitythis;
+         velocity = actualVelocity;
       }
 
       if (BACK) {
-         velocity = velocitythis;
+         velocity = actualVelocity;
          angle = 180;
       }
 
       if (RIGHT) {
          angle = 90;
-         velocity = velocitythis;
+         velocity = actualVelocity;
       }
 
       if (LEFT) {
          angle = -90;
-         velocity = velocitythis;
-      }
-
-      if (LEFT && RIGHT) {
-         angle = 0;
-         velocity = 0.0F;
-      }
-
-      if (FORWARD && BACK) {
-         angle = 0;
-         velocity = 0.0F;
+         velocity = actualVelocity;
       }
 
       if (RIGHT && FORWARD) {
-         angle = 45;
-         velocity = velocitythis;
+        angle = 45;
       }
 
       if (LEFT && FORWARD) {
          angle = -45;
-         velocity = velocitythis;
       }
 
       if (RIGHT && BACK) {
          angle = 135;
-         velocity = velocitythis;
       }
 
       if (LEFT && BACK) {
          angle = -135;
-         velocity = velocitythis;
       }
 
       if (velocity != 0.0F && !SHIFT && !JUMP) {
@@ -326,15 +299,13 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          x /= f;
          z /= f;
          return new Vec3d(x, 0.0, z);
-      } else if (velocity == 0.0F || !SHIFT && !JUMP) {
-         if (velocity == 0.0F && (SHIFT || JUMP)) {
+      } else if (velocity == 0.0F) {
+         if (SHIFT || JUMP) {
             if (SHIFT) {
                return new Vec3d(0.0, -1.0, 0.0);
             }
 
-            if (JUMP) {
-               return new Vec3d(0.0, 1.0, 0.0);
-            }
+            return new Vec3d(0.0, 1.0, 0.0);
          }
 
          return null;
@@ -476,7 +447,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
                player.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -487,7 +458,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   );
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && player.isSprinting() && !player.isElytraFlying()) {
                Vec2f dashVec = this.getNormalizedVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -497,7 +468,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   player.addExhaustion(this.exhaustion);
                   player.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -589,7 +560,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && player.isSprinting() && !player.isElytraFlying()) {
                Vec2f dashVec = this.getNormalizedVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -599,7 +570,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   player.addExhaustion(this.exhaustion);
                   player.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -694,7 +665,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
                player.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -705,7 +676,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   );
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && player.isSprinting() && !player.isElytraFlying()) {
                Vec2f dashVec = this.getNormalizedVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -715,7 +686,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   player.addExhaustion(this.exhaustion);
                   player.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -798,7 +769,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
                player.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -809,7 +780,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   );
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && player.isSprinting() && !player.isElytraFlying()) {
                if (player.isInWater()) {
                   Vec3d dashVec = this.getNormalized3dVectorOfDash(player);
                   if (dashVec != null) {
@@ -819,7 +790,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                      player.addExhaustion(this.exhaustion);
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -840,7 +811,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                      player.addExhaustion(this.exhaustion);
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -930,7 +901,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && player.isSprinting() && !player.isElytraFlying()) {
                Vec2f dashVec = this.getNormalizedVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, new Vec3d(dashVec.x, 0.0, dashVec.y), this.dashVelocity);
@@ -939,7 +910,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   player.addExhaustion(this.exhaustion);
                   player.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -975,12 +946,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
          this.canDoVerticalDash = true;
       }
 
-      @Override
-      public int getCooldown(ItemStack itemStack, EntityLivingBase player, float velocity) {
-         return 6;
-      }
-
-      @Override
+       @Override
       public int getRechargeTime(ItemStack itemStack, EntityLivingBase player, float velocity) {
          return 15;
       }
@@ -1015,7 +981,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                NBTHelper.SetNBTint(itemstack, maxCharges, "charges");
                player.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -1026,7 +992,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   );
             }
 
-            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && Keys.isKeyPressed(player, Keys.SPRINT) && !player.isElytraFlying()) {
+            if (this.checkAndUpdateBeltCooldown(itemstack) && charges > 0 && player.isSprinting() && !player.isElytraFlying()) {
                Vec3d dashVec = this.getNormalized3dVectorOfDash(player);
                if (dashVec != null) {
                   this.doAdvancedDash(player, itemstack, dashVec, this.dashVelocity);
@@ -1035,7 +1001,7 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
                   player.addExhaustion(this.exhaustion);
                   player.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

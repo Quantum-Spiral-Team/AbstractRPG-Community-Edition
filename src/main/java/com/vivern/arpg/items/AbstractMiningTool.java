@@ -2,15 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.items.animation.EnumFlick;
 import com.vivern.arpg.items.animation.Flicks;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Ln;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -156,13 +148,17 @@ public abstract class AbstractMiningTool extends ItemWeapon {
    }
 
    public boolean canMining(ItemStack itemstack, World world, EntityPlayer player) {
-      if (this.itemNeed == null || NBTHelper.GetNBTint(itemstack, "ammo") > 0 && this.isReloaded(itemstack)) {
-         return this.electricNeed != 0 && this.asEnergyItem().extractEnergyFromItem(itemstack, this.electricNeed, true) < this.electricNeed
-            ? false
-            : this.manaNeed == 0.0F || Mana.getMana(player) > Math.max(this.manaNeed, 1.0F);
-      } else {
-         return false;
-      }
+      boolean hasAmmoOrNoNeed = (this.itemNeed == null) ||
+              (NBTHelper.GetNBTint(itemstack, "ammo") > 0 && this.isReloaded(itemstack));
+
+      if (!hasAmmoOrNoNeed) return false;
+
+      boolean hasEnergy = (this.electricNeed == 0) ||
+              (this.asEnergyItem().extractEnergyFromItem(itemstack, this.electricNeed, true) >= this.electricNeed);
+
+      boolean hasMana = (this.manaNeed == 0.0F) || (Mana.getMana(player) > Math.max(this.manaNeed, 1.0F));
+
+      return hasEnergy && hasMana;
    }
 
    public boolean hasSpeed() {
@@ -198,7 +194,7 @@ public abstract class AbstractMiningTool extends ItemWeapon {
             if (IWeapon.canShoot(itemstack)
                && player.getHeldItemMainhand() == itemstack
                && !player.getCooldownTracker().hasCooldown(this)
-               && Keys.isKeyPressed(player, Keys.PRIMARYATTACK)
+               && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY)
                && this.canMining(itemstack, world, player)) {
                this.onUpdateMining(itemstack, world, player, NBTHelper.GetNBTint(itemstack, "mode"), NBTHelper.GetNBTint(itemstack, "speed"), itemSlot);
             }
@@ -211,8 +207,8 @@ public abstract class AbstractMiningTool extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer playerx = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, playerx);
-            boolean click = Keys.isKeyPressed(playerx, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(playerx, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(playerx, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(playerx, ServerKeyTracker.Keys.SECONDARY);
             if (playerx.getHeldItemMainhand() == itemstack) {
                int mode = NBTHelper.GetNBTint(itemstack, "mode");
                this.inUpdate(itemstack, world, playerx, mode, speed, itemSlot);
@@ -238,7 +234,7 @@ public abstract class AbstractMiningTool extends ItemWeapon {
                         }
                      } else if (this.itemNeed != null && this.initiateReload(itemstack, playerx, this.itemNeed, this.chargesPerItem)) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            playerx.posX,
                            playerx.posY,
                            playerx.posZ,
@@ -257,7 +253,7 @@ public abstract class AbstractMiningTool extends ItemWeapon {
                      playerx.getCooldownTracker().setCooldown(this, 20 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * 5);
                      Weapons.setPlayerAnimationOnServer(playerx, 28, EnumHand.MAIN_HAND);
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         playerx.posX,
                         playerx.posY,
                         playerx.posZ,
@@ -336,10 +332,8 @@ public abstract class AbstractMiningTool extends ItemWeapon {
 
    @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-      return enchantment.type != EnumEnchantmentType.DIGGER
-            && enchantment.type != EnumEnchantmentType.BREAKABLE
-            && enchantment.type != EnchantmentInit.enchantmentTypeWeapon
-         ? super.canApplyAtEnchantingTable(stack, enchantment)
-         : true;
+      return enchantment.type == EnumEnchantmentType.DIGGER
+              || enchantment.type == EnumEnchantmentType.BREAKABLE
+              || enchantment.type == EnchantmentInit.enchantmentTypeWeapon || super.canApplyAtEnchantingTable(stack, enchantment);
    }
 }

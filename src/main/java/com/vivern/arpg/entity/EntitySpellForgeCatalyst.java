@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchronize {
+public class EntitySpellForgeCatalyst extends Entity implements ISynchronizedEntity {
    private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntitySpellForgeCatalyst.class, DataSerializers.ITEM_STACK);
    public int age;
    public int health;
@@ -60,7 +60,7 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
    public void addHeat(int add) {
       if (!this.world.isRemote) {
          this.heat = MathHelper.clamp(this.heat + add, 0, 800);
-         IEntitySynchronize.sendSynchronize(this, 64.0, this.heat);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, this.heat);
       }
    }
 
@@ -160,7 +160,7 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
                this.posX, (this.getEntityBoundingBox().minY + this.getEntityBoundingBox().maxY) / 2.0, this.posZ
             );
             if (this.fromPliers && this.ticksExisted < 3) {
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.heat, 1.0);
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.heat, 1.0);
             }
          }
 
@@ -336,7 +336,7 @@ public class EntitySpellForgeCatalyst extends Entity implements IEntitySynchroni
    }
 
    public ItemStack getItem() {
-      return (ItemStack)this.getDataManager().get(ITEM);
+      return this.getDataManager().get(ITEM);
    }
 
    public void setItem(ItemStack stack) {

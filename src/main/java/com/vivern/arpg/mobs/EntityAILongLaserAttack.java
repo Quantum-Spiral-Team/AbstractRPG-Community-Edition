@@ -35,7 +35,7 @@ public class EntityAILongLaserAttack extends EntityAIBase {
          Vec3d vec3d1 = this.entity.getLook(1.0F);
          Vec3d vec3d2 = vec3d.add(vec3d1.x * this.dist, vec3d1.y * this.dist, vec3d1.z * this.dist);
          RayTraceResult raytraceresult = this.entity.world.rayTraceBlocks(vec3d, vec3d2, false, true, false);
-         return raytraceresult == null ? false : raytraceresult.typeOfHit != Type.BLOCK && this.entity.getAttackTarget() != null;
+         return raytraceresult != null && raytraceresult.typeOfHit != Type.BLOCK && this.entity.getAttackTarget() != null;
       } else {
          return this.entity.getAttackTarget() != null
             && this.entity.getDistance(this.entity.getAttackTarget()) < this.entity.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue();

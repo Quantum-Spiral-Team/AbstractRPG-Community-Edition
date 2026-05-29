@@ -78,7 +78,7 @@ public class BogFlower extends ItemWeapon {
          if (!player.getCooldownTracker().hasCooldown(itemIn) && player.getActiveItemStack() == itemstack && mana > 10.0F - sor * 1.2F && click && charges >= rel) {
             NBTHelper.AddNBTint(itemstack, -rel, "charges");
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                player.posX,
                player.posY,
                player.posZ,

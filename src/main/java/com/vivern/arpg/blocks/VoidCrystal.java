@@ -90,8 +90,8 @@ public class VoidCrystal extends BlockSpawner {
 
    public static void spawnAsEntityVC(World worldIn, BlockPos pos, ItemStack stack) {
       if (!worldIn.isRemote && !stack.isEmpty() && worldIn.getGameRules().getBoolean("doTileDrops") && !worldIn.restoringBlockSnapshots) {
-         if ((Boolean)captureDrops.get()) {
-            ((NonNullList)capturedDrops.get()).add(stack);
+         if (captureDrops.get()) {
+            capturedDrops.get().add(stack);
             return;
          }
 
@@ -109,7 +109,7 @@ public class VoidCrystal extends BlockSpawner {
    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
       if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
          List<ItemStack> drops = this.getDrops(worldIn, pos, state, fortune);
-         chance = ForgeEventFactory.fireBlockHarvesting(drops, worldIn, pos, state, fortune, chance, false, (EntityPlayer)this.harvesters.get());
+         chance = ForgeEventFactory.fireBlockHarvesting(drops, worldIn, pos, state, fortune, chance, false, this.harvesters.get());
 
          for (ItemStack drop : drops) {
             if (worldIn.rand.nextFloat() <= chance) {

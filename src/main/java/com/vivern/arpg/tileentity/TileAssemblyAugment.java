@@ -23,7 +23,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 
-public class TileAssemblyAugment extends TileEntity implements ITickable, ITileEntitySynchronize {
+public class TileAssemblyAugment extends TileEntity implements ITickable, ITileEntitySynchronized {
    static ResourceLocation sparkle3 = new ResourceLocation("arpg:textures/sparkle3.png");
    static ResourceLocation star3 = new ResourceLocation("arpg:textures/star3.png");
    static ResourceLocation plasma_cloud = new ResourceLocation("arpg:textures/plasma_cloud.png");
@@ -94,7 +94,7 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
                float ft1 = GetMOP.getFromTo((float)this.workTime, 0.0F, (float)this.maxworkTime);
                if (ft1 > 0.25F && ft1 < 0.8F) {
                   IBlockState blockStatex = this.getWorld().getBlockState(this.getPos());
-                  EnumFacing facing = (EnumFacing)blockStatex.getValue(AssemblyTable.FACING);
+                  EnumFacing facing = blockStatex.getValue(AssemblyTable.FACING);
                   if (facing != null) {
                      Random rand = TileAssemblyTable.rand;
                      Vec3d partpos = this.calculateWeldParticlePos(facing);
@@ -173,7 +173,7 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
                float one = 1.0F / plasmaToolAnglesB.length;
                if (Minecraft.getMinecraft().gameSettings.particleSetting < 2 && this.plasmaToolOpening >= 1.0F && ft1 > one) {
                   IBlockState blockStatex = this.getWorld().getBlockState(this.getPos());
-                  EnumFacing facing = (EnumFacing)blockStatex.getValue(AssemblyTable.FACING);
+                  EnumFacing facing = blockStatex.getValue(AssemblyTable.FACING);
                   if (facing != null) {
                      Random randx = TileAssemblyTable.rand;
                      Vec3d partposx = this.calculatePlasmaParticlePos(facing);
@@ -332,7 +332,7 @@ public class TileAssemblyAugment extends TileEntity implements ITickable, ITileE
    }
 
    public void startWorkingOnServer(int allMaxWorkTime) {
-      ITileEntitySynchronize.sendSynchronize(this, 64.0, allMaxWorkTime);
+      ITileEntitySynchronized.sendSynchronize(this, 64.0, allMaxWorkTime);
    }
 
    public Vec3d calculateWeldParticlePos(EnumFacing blockfacing) {

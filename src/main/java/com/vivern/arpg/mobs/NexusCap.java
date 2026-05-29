@@ -1,7 +1,7 @@
 package com.vivern.arpg.mobs;
 
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketNexusInfoToClients;
+import com.vivern.arpg.network.packet.PacketNexusInfoToClients;
 import com.vivern.arpg.tileentity.TileNexus;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -68,7 +68,7 @@ public class NexusCap extends AbstractMob {
    public void removeTrackingPlayer(EntityPlayerMP player) {
       super.removeTrackingPlayer(player);
       PacketNexusInfoToClients packet = new PacketNexusInfoToClients();
-      packet.writeargs(0.0F, 0.0F, (short)0, (short)0, false);
+      packet.writeArgs(0.0F, 0.0F, (short)0, (short)0, false);
       PacketHandler.sendTo(packet, player);
    }
 

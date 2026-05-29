@@ -111,7 +111,7 @@ public class AnimatedGParticle extends GUNParticle {
    public void onUpdate() {
       super.onUpdate();
       if (this.useNormalTime) {
-         float time = this.animCounter / this.animDelay;
+         float time = (float) this.animCounter / this.animDelay;
          if (time < this.stopOnFrame) {
             this.animCounter++;
          }

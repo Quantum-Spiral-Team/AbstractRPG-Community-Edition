@@ -61,7 +61,7 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
 
    @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      int i = (Integer)state.getValue(VARIANT);
+      int i = state.getValue(VARIANT);
       if (i < 5) {
          return AABB_STAY;
       } else if (i < 7 || i == 9) {
@@ -73,7 +73,7 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
 
    @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      int i = (Integer)blockState.getValue(VARIANT);
+      int i = blockState.getValue(VARIANT);
       if (i < 5) {
          return AABB_STAY;
       } else if (i < 7 || i == 9) {
@@ -113,7 +113,7 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
    }
 
    public ItemStack getItemStack(IBlockState state) {
-      int variant = (Integer)state.getValue(VARIANT);
+      int variant = state.getValue(VARIANT);
       ItemStack stack = new ItemStack(this);
       NBTHelper.GiveNBTint(stack, variant, "type");
       NBTHelper.SetNBTint(stack, variant, "type");
@@ -163,7 +163,7 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(VARIANT);
+      return state.getValue(VARIANT);
    }
 
    @Override

@@ -62,7 +62,7 @@ public class BossSpineSegment extends EntityMob {
 
          return att;
       } else {
-         return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+         return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
       }
    }
 

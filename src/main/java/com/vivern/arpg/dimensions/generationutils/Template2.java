@@ -92,9 +92,9 @@ public class Template2 {
                   nbttagcompound.removeTag("z");
                   list1.add(new BlockInfo(blockpos3, iblockstate, nbttagcompound));
                } else if (!iblockstate.isFullBlock() && !iblockstate.isFullCube()) {
-                  list2.add(new BlockInfo(blockpos3, iblockstate, (NBTTagCompound)null));
+                  list2.add(new BlockInfo(blockpos3, iblockstate, null));
                } else {
-                  list.add(new BlockInfo(blockpos3, iblockstate, (NBTTagCompound)null));
+                  list.add(new BlockInfo(blockpos3, iblockstate, null));
                }
             }
          }
@@ -112,12 +112,7 @@ public class Template2 {
    }
 
    private void takeEntitiesFromWorld(World worldIn, BlockPos startPos, BlockPos endPos) {
-      List<Entity> list = worldIn.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(startPos, endPos), new Predicate<Entity>() {
-         @Override
-         public boolean apply(@Nullable Entity p_apply_1_) {
-            return !(p_apply_1_ instanceof EntityPlayer);
-         }
-      });
+      List<Entity> list = worldIn.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(startPos, endPos), entity -> !(entity instanceof EntityPlayer));
       this.entities.clear();
 
       for (Entity entity : list) {
@@ -316,33 +311,30 @@ public class Template2 {
    }
 
    public static void registerFixes(DataFixer fixer) {
-      fixer.registerWalker(FixTypes.STRUCTURE, new IDataWalker() {
-         @Override
-         public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
-            if (compound.hasKey("entities", 9)) {
-               NBTTagList nbttaglist = compound.getTagList("entities", 10);
+      fixer.registerWalker(FixTypes.STRUCTURE, (fixer1, compound, versionIn) -> {
+         if (compound.hasKey("entities", 9)) {
+            NBTTagList nbttaglist = compound.getTagList("entities", 10);
 
-               for (int i = 0; i < nbttaglist.tagCount(); i++) {
-                  NBTTagCompound nbttagcompound = (NBTTagCompound)nbttaglist.get(i);
-                  if (nbttagcompound.hasKey("nbt", 10)) {
-                     nbttagcompound.setTag("nbt", fixer.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("nbt"), versionIn));
-                  }
+            for (int i = 0; i < nbttaglist.tagCount(); i++) {
+               NBTTagCompound nbttagcompound = (NBTTagCompound)nbttaglist.get(i);
+               if (nbttagcompound.hasKey("nbt", 10)) {
+                  nbttagcompound.setTag("nbt", fixer1.process(FixTypes.ENTITY, nbttagcompound.getCompoundTag("nbt"), versionIn));
                }
             }
-
-            if (compound.hasKey("blocks", 9)) {
-               NBTTagList nbttaglist1 = compound.getTagList("blocks", 10);
-
-               for (int j = 0; j < nbttaglist1.tagCount(); j++) {
-                  NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist1.get(j);
-                  if (nbttagcompound1.hasKey("nbt", 10)) {
-                     nbttagcompound1.setTag("nbt", fixer.process(FixTypes.BLOCK_ENTITY, nbttagcompound1.getCompoundTag("nbt"), versionIn));
-                  }
-               }
-            }
-
-            return compound;
          }
+
+         if (compound.hasKey("blocks", 9)) {
+            NBTTagList nbttaglist1 = compound.getTagList("blocks", 10);
+
+            for (int j = 0; j < nbttaglist1.tagCount(); j++) {
+               NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist1.get(j);
+               if (nbttagcompound1.hasKey("nbt", 10)) {
+                  nbttagcompound1.setTag("nbt", fixer1.process(FixTypes.BLOCK_ENTITY, nbttagcompound1.getCompoundTag("nbt"), versionIn));
+               }
+            }
+         }
+
+         return compound;
       });
    }
 
@@ -484,7 +476,7 @@ public class Template2 {
 
       @Nullable
       public IBlockState stateFor(int id) {
-         IBlockState iblockstate = (IBlockState)this.ids.getByValue(id);
+         IBlockState iblockstate = this.ids.getByValue(id);
          return iblockstate == null ? DEFAULT_BLOCK_STATE : iblockstate;
       }
 

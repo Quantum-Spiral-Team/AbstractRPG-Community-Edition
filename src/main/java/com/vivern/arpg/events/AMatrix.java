@@ -35,18 +35,12 @@ public class AMatrix {
    }
 
    public void printMatrix() {
-      System.out.println("");
-      System.out.println("");
 
       for (int si = 0; si < this.strings; si++) {
          for (int ci = 0; ci < this.columns; ci++) {
             System.out.print(this.get(si, ci) + "   ");
          }
-
-         System.out.println("");
       }
 
-      System.out.println("");
-      System.out.println("");
    }
 }

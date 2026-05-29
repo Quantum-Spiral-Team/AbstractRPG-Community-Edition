@@ -125,7 +125,7 @@ public class OreDicHelper {
    }
 
    public static boolean hasOreName(ItemStack stack) {
-      return !stack.isEmpty() ? OreDictionary.getOreIDs(stack).length > 0 : false;
+      return !stack.isEmpty() && OreDictionary.getOreIDs(stack).length > 0;
    }
 
    public static boolean itemStringOredigMatches(ItemStack st1, String name) {
@@ -190,7 +190,7 @@ public class OreDicHelper {
       NonNullList<ItemStack> ores = OreDictionary.getOres(oredigName);
       int amount = ores.size();
       int current = (int)(Minecraft.getSystemTime() / 1000L % amount);
-      ItemStack ore = (ItemStack)ores.get(current);
+      ItemStack ore = ores.get(current);
       return !ore.isEmpty() ? new ItemStack(ore.getItem(), stackCount, ore.getMetadata(), ore.getTagCompound()) : ItemStack.EMPTY;
    }
 

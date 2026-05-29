@@ -1,12 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -49,7 +43,7 @@ public class SkullCrasher extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
             int delay = NBTHelper.GetNBTint(itemstack, "atdelay");
@@ -70,7 +64,7 @@ public class SkullCrasher extends ItemWeapon {
                      )
                    {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -81,7 +75,7 @@ public class SkullCrasher extends ItemWeapon {
                      );
                      if (!player.onGround && player.motionY < -0.02) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -93,7 +87,7 @@ public class SkullCrasher extends ItemWeapon {
                      }
                   } else {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

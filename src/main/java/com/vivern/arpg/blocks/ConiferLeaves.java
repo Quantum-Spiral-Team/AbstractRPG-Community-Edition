@@ -119,9 +119,9 @@ public class ConiferLeaves extends BlockLeaves {
    public int getMetaFromState(IBlockState state) {
       if (!(Boolean)state.getValue(DECAYABLE) && !(Boolean)state.getValue(CHECK_DECAY)) {
          return 0;
-      } else if (!(Boolean)state.getValue(DECAYABLE) && (Boolean)state.getValue(CHECK_DECAY)) {
+      } else if (!(Boolean)state.getValue(DECAYABLE) && state.getValue(CHECK_DECAY)) {
          return 2;
-      } else if ((Boolean)state.getValue(DECAYABLE) && (Boolean)state.getValue(CHECK_DECAY)) {
+      } else if (state.getValue(DECAYABLE) && state.getValue(CHECK_DECAY)) {
          return 4;
       } else {
          return state.getValue(DECAYABLE) && !state.getValue(CHECK_DECAY) ? 8 : 0;

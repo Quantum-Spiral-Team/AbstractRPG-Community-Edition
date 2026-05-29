@@ -50,16 +50,16 @@ public class ModelRendererGlow extends ModelRenderer {
             if (this.rotationPointX == 0.0F && this.rotationPointY == 0.0F && this.rotationPointZ == 0.0F) {
                this.callListRender();
                if (this.childModels != null) {
-                  for (int k = 0; k < this.childModels.size(); k++) {
-                     ((ModelRenderer)this.childModels.get(k)).render(scale);
+                  for (ModelRenderer childModel : this.childModels) {
+                      childModel.render(scale);
                   }
                }
             } else {
                GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
                this.callListRender();
                if (this.childModels != null) {
-                  for (int j = 0; j < this.childModels.size(); j++) {
-                     ((ModelRenderer)this.childModels.get(j)).render(scale);
+                  for (ModelRenderer childModel : this.childModels) {
+                      childModel.render(scale);
                   }
                }
 
@@ -82,8 +82,8 @@ public class ModelRendererGlow extends ModelRenderer {
 
             this.callListRender();
             if (this.childModels != null) {
-               for (int i = 0; i < this.childModels.size(); i++) {
-                  ((ModelRenderer)this.childModels.get(i)).render(scale);
+               for (ModelRenderer childModel : this.childModels) {
+                   childModel.render(scale);
                }
             }
 
@@ -179,8 +179,8 @@ public class ModelRendererGlow extends ModelRenderer {
       GlStateManager.glNewList(this.displayList2, 4864);
       BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
 
-      for (int i = 0; i < this.cubeList.size(); i++) {
-         ((ModelBox)this.cubeList.get(i)).render(bufferbuilder, scale);
+      for (ModelBox modelBox : this.cubeList) {
+          modelBox.render(bufferbuilder, scale);
       }
 
       GlStateManager.glEndList();

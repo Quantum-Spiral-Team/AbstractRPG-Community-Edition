@@ -157,7 +157,7 @@ public class BossSpine extends EntityMob {
       } else if (this.deads <= 20) {
          return false;
       } else {
-         return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+         return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
       }
    }
 

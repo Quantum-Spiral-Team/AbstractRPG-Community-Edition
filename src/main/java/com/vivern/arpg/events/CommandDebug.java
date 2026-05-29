@@ -7,6 +7,8 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 
+import java.util.Arrays;
+
 public class CommandDebug extends CommandBase {
    public static final String NAME = "debugvar";
    public static final String USAGE = "/debugvar integer_number float_value";
@@ -78,7 +80,7 @@ public class CommandDebug extends CommandBase {
                      + " "
                      + Debugger.floats[10]
                );
-            System.out.println(Debugger.floats);
+            System.out.println(Arrays.toString(Debugger.floats));
          }
       }
    }

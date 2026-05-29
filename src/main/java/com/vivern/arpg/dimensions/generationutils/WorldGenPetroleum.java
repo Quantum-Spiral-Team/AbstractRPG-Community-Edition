@@ -106,7 +106,7 @@ public class WorldGenPetroleum implements IWorldGenerator {
          int z = chunkZ * 16 + random.nextInt(16);
          int height = GetMOP.getTrueHeight(world, new BlockPos(x, 255, z)).getY();
          int radius = this.radiusMin + random.nextInt(this.radiusMax - this.radiusMin + 1);
-         double finalHeight = radius > height - radius ? height / 2 : GetMOP.partial((float)(height - radius), (float)radius, random.nextFloat());
+         double finalHeight = radius > height - radius ? (double) height / 2 : GetMOP.partial((float)(height - radius), (float)radius, random.nextFloat());
          BlockPos poss = new BlockPos(x, finalHeight, z);
          IBlockState centerState = world.getBlockState(poss);
          if (!centerState.getMaterial().isLiquid() && centerState.getMaterial() != Material.AIR) {
@@ -257,6 +257,6 @@ public class WorldGenPetroleum implements IWorldGenerator {
    }
 
    public static boolean isSoft(IBlockState state, Block toGen, Block gas) {
-      return state.getBlock() != toGen && state.getBlock() != gas ? !state.isFullCube() : false;
+      return state.getBlock() != toGen && state.getBlock() != gas && !state.isFullCube();
    }
 }

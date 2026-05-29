@@ -1,14 +1,9 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.SuperKnockback;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketWhipToClients;
+import com.vivern.arpg.network.packet.PacketWhipToClients;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.WhipParticle;
 import net.minecraft.creativetab.CreativeTabs;
@@ -54,8 +49,8 @@ public class FireWhip extends ItemWeapon {
             EntityPlayer player = (EntityPlayer)entityIn;
             boolean hasCooldown = player.getCooldownTracker().hasCooldown(this);
             boolean hasExpCooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
-            boolean primaryClick = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean secondaryClick = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean primaryClick = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean secondaryClick = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int damage = itemstack.getItemDamage();
             Vec3d vec = GetMOP.rotatedPosRayTrace(1.0, 1.0F, player, 0.2, 0.2, 40.0F, player.rotationYaw + 25.0F);
             double startX = vec.x;

@@ -89,7 +89,7 @@ public class InvasionInfo {
             16.0F,
             currentInfo.colorFont
          );
-         fontRenderer.drawStringWithShadow(unlocalizedwave + wave, i / 2 + 55, 16.0F, currentInfo.colorFont);
+         fontRenderer.drawStringWithShadow(unlocalizedwave + wave, (float) i / 2 + 55, 16.0F, currentInfo.colorFont);
          if (finalwaveAnim > 0) {
             GlStateManager.pushMatrix();
             float fromto = GetMOP.getFromTo((float)finalwaveAnim, 120.0F, 161.0F);

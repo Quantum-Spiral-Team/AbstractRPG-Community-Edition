@@ -55,7 +55,7 @@ public class ModelledPartickleRender<T extends ModelledPartickle> extends Render
 
       GlStateManager.color(entity.Red, entity.Green, entity.Blue, entity.alpha);
       if (entity.tracker != null) {
-         entity.tracker.render((T)entity, x, y, z, entityYaw, partialTicks);
+         entity.tracker.render(entity, x, y, z, entityYaw, partialTicks);
       }
 
       if (entity.isEntityLiving) {

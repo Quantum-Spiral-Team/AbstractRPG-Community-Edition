@@ -577,18 +577,18 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
          if (entityxxxxx.impacted && entityxxxxx.impactPos != null && player != null) {
             if (entityxxxxx.impactEntity != null) {
                x = entityxxxxx.impactPos.x
-                  + GetMOP.partial(entityxxxxx.impactEntity.posX, entityxxxxx.impactEntity.prevPosX, (double)partialTicks)
-                  - GetMOP.partial(player.posX, player.prevPosX, (double)partialTicks);
+                  + GetMOP.partial(entityxxxxx.impactEntity.posX, entityxxxxx.impactEntity.prevPosX, partialTicks)
+                  - GetMOP.partial(player.posX, player.prevPosX, partialTicks);
                y = entityxxxxx.impactPos.y
-                  + GetMOP.partial(entityxxxxx.impactEntity.posY, entityxxxxx.impactEntity.prevPosY, (double)partialTicks)
-                  - GetMOP.partial(player.posY, player.prevPosY, (double)partialTicks);
+                  + GetMOP.partial(entityxxxxx.impactEntity.posY, entityxxxxx.impactEntity.prevPosY, partialTicks)
+                  - GetMOP.partial(player.posY, player.prevPosY, partialTicks);
                z = entityxxxxx.impactPos.z
-                  + GetMOP.partial(entityxxxxx.impactEntity.posZ, entityxxxxx.impactEntity.prevPosZ, (double)partialTicks)
-                  - GetMOP.partial(player.posZ, player.prevPosZ, (double)partialTicks);
+                  + GetMOP.partial(entityxxxxx.impactEntity.posZ, entityxxxxx.impactEntity.prevPosZ, partialTicks)
+                  - GetMOP.partial(player.posZ, player.prevPosZ, partialTicks);
             } else {
-               x = entityxxxxx.impactPos.x - GetMOP.partial(player.posX, player.prevPosX, (double)partialTicks);
-               y = entityxxxxx.impactPos.y - GetMOP.partial(player.posY, player.prevPosY, (double)partialTicks);
-               z = entityxxxxx.impactPos.z - GetMOP.partial(player.posZ, player.prevPosZ, (double)partialTicks);
+               x = entityxxxxx.impactPos.x - GetMOP.partial(player.posX, player.prevPosX, partialTicks);
+               y = entityxxxxx.impactPos.y - GetMOP.partial(player.posY, player.prevPosY, partialTicks);
+               z = entityxxxxx.impactPos.z - GetMOP.partial(player.posZ, player.prevPosZ, partialTicks);
             }
          }
 
@@ -951,12 +951,12 @@ public class RenderSpecial<T extends Entity> extends Render<Entity> {
                Vec3d point2 = entityxxxxxx.segmentPoses[i];
                Vec3d point1Prev = entityxxxxxx.segmentPosesPrev[i + 1];
                Vec3d point2Prev = entityxxxxxx.segmentPosesPrev[i];
-               double pX1 = GetMOP.partial(point1.x, point1Prev.x, (double)partialTicks);
-               double pY1 = GetMOP.partial(point1.y, point1Prev.y, (double)partialTicks);
-               double pZ1 = GetMOP.partial(point1.z, point1Prev.z, (double)partialTicks);
-               double pX2 = GetMOP.partial(point2.x, point2Prev.x, (double)partialTicks);
-               double pY2 = GetMOP.partial(point2.y, point2Prev.y, (double)partialTicks);
-               double pZ2 = GetMOP.partial(point2.z, point2Prev.z, (double)partialTicks);
+               double pX1 = GetMOP.partial(point1.x, point1Prev.x, partialTicks);
+               double pY1 = GetMOP.partial(point1.y, point1Prev.y, partialTicks);
+               double pZ1 = GetMOP.partial(point1.z, point1Prev.z, partialTicks);
+               double pX2 = GetMOP.partial(point2.x, point2Prev.x, partialTicks);
+               double pY2 = GetMOP.partial(point2.y, point2Prev.y, partialTicks);
+               double pZ2 = GetMOP.partial(point2.z, point2Prev.z, partialTicks);
                float mx = (float)(pX1 - pX2);
                float mz = (float)(pZ1 - pZ2);
                float my = (float)(pY2 - pY1);

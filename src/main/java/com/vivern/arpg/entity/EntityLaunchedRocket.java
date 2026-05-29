@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityLaunchedRocket extends EntityThrowable implements IRenderOptions, IEntitySynchronize {
+public class EntityLaunchedRocket extends EntityThrowable implements IRenderOptions, ISynchronizedEntity {
    public final ItemStack weaponstack;
    public ItemRocket rocket = null;
    public boolean grenade = false;
@@ -105,7 +105,7 @@ public class EntityLaunchedRocket extends EntityThrowable implements IRenderOpti
       }
 
       if (this.gravityChanged && !this.world.isRemote) {
-         IEntitySynchronize.sendSynchronize(this, 64.0, this.gravity);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, this.gravity);
          this.gravityChanged = false;
       }
 

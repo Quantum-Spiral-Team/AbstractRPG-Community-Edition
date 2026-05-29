@@ -1,19 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.HostileProjectiles;
 import com.vivern.arpg.renders.BulletParticle;
 import java.util.List;
@@ -86,8 +73,8 @@ public class CooledRifle extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
             int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);
@@ -96,7 +83,7 @@ public class CooledRifle extends ItemWeapon {
             if (player.getHeldItemMainhand() == itemstack) {
                if (click2 && NBTHelper.GetNBTboolean(itemstack, "shotgun") && this.isReloaded(itemstack)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -150,7 +137,7 @@ public class CooledRifle extends ItemWeapon {
                         }
 
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -191,7 +178,7 @@ public class CooledRifle extends ItemWeapon {
                         if (world.collidesWithAnyBlock(aabb)) {
                            collidesWithAny = true;
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               vec.x,
                               vec.y,
                               vec.z,
@@ -241,14 +228,14 @@ public class CooledRifle extends ItemWeapon {
                            vec.x,
                            vec.y,
                            vec.z,
-                           (double)c,
+                                c,
                            dustState == null ? -1.0 : Block.getStateId(dustState),
                            collidesWithAny ? 1.0 : 0.0
                         );
                      }
                   } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.COOLED_RIFLE_CLIP, maxammo, true)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -273,7 +260,7 @@ public class CooledRifle extends ItemWeapon {
          if (clipstackIndex < 0) {
             return false;
          } else {
-            ItemStack clipstack = (ItemStack)player.inventory.mainInventory.get(clipstackIndex);
+            ItemStack clipstack = player.inventory.mainInventory.get(clipstackIndex);
             if (clipstack.isEmpty()) {
                return false;
             } else {

@@ -10,8 +10,8 @@ import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.main.Spell;
 import com.vivern.arpg.main.Vec2i;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTFRPuzzleToServer;
-import com.vivern.arpg.network.PacketTileClickToServer;
+import com.vivern.arpg.network.packet.PacketTFRPuzzleToServer;
+import com.vivern.arpg.network.packet.PacketTileClickToServer;
 import com.vivern.arpg.recipes.ExploringField;
 import com.vivern.arpg.recipes.Phenomenons;
 import com.vivern.arpg.recipes.SpellsRedactors;
@@ -20,7 +20,7 @@ import com.vivern.arpg.recipes.TerraformingResearchPuzzle;
 import com.vivern.arpg.recipes.WriteGraph;
 import com.vivern.arpg.renders.ManaBar;
 import com.vivern.arpg.renders.RenderTerraformingResearch;
-import com.vivern.arpg.tileentity.ITileEntitySynchronize;
+import com.vivern.arpg.tileentity.ITileEntitySynchronized;
 import com.vivern.arpg.tileentity.TileResearchTable;
 import com.vivern.arpg.tileentity.WriteBlank;
 import java.io.File;
@@ -225,10 +225,15 @@ public class GUIResearchTable extends GuiContainer {
                      int amount = amounts[ixxx];
                      if (amount > 0) {
                         ShardType shardType = ShardType.byId(ixxx);
-                        this.fontRenderer
-                           .drawString(
-                              amount + "%", mouseX + 20, mouseY + 3 + var23, ColorConverters.RGBtoDecimal(shardType.colorR, shardType.colorG, shardType.colorB)
+                        if (shardType != null) {
+                           this.fontRenderer.drawString(
+                                   amount + "%",
+                                   mouseX + 20,
+                                   mouseY + 3 + var23,
+                                   ColorConverters.RGBtoDecimal(shardType.colorR, shardType.colorG, shardType.colorB)
                            );
+                        }
+
                         var23 += 12;
                      }
                   }
@@ -250,7 +255,7 @@ public class GUIResearchTable extends GuiContainer {
             }
          }
 
-         if (this.spellsKnown.size() == 0) {
+         if (this.spellsKnown.isEmpty()) {
             String text = "You don't know any spells";
             this.fontRenderer.drawString(text, 112 - this.fontRenderer.getStringWidth(text) / 2, 147, 9186606);
          }
@@ -572,8 +577,8 @@ public class GUIResearchTable extends GuiContainer {
             if (puzzle.selected != null
                && puzzle.selected.phenomenon != null
                && (puzzle.movingOrbs > 0 || puzzle.canMove(puzzle.selected.phenomenon.posX, puzzle.selected.phenomenon.posY))) {
-               float relativeMouseX = boardPos[0] - (puzzleRender.cellWidth * puzzle.selected.phenomenon.posX + puzzleRender.cellWidth / 2);
-               float relativeMouseY = boardPos[1] - (puzzleRender.cellHeight * puzzle.selected.phenomenon.posY + puzzleRender.cellHeight / 2);
+               float relativeMouseX = boardPos[0] - (puzzleRender.cellWidth * puzzle.selected.phenomenon.posX + (float) puzzleRender.cellWidth / 2);
+               float relativeMouseY = boardPos[1] - (puzzleRender.cellHeight * puzzle.selected.phenomenon.posY + (float) puzzleRender.cellHeight / 2);
                if (relativeMouseY >= -7.0F && relativeMouseY <= 7.0F) {
                   if (relativeMouseX >= 22.0F && relativeMouseX <= 54.0F) {
                      this.puzzleCommand = new TerraformingPlayerCommand(TerraformingPlayerCommand.TRPlayerCommandType.MOVE_SELECTED, cellPos[0], cellPos[1], 1);
@@ -603,31 +608,28 @@ public class GUIResearchTable extends GuiContainer {
                boolean boardSelect = true;
                TerraformingResearchPuzzle.TerraformingResearchCell cell = puzzle.board[cellPos[0]][cellPos[1]];
                if (cell.orb != 0 && (cell.surfaceTerrain != null || cell.surfaceAtmosphere != null || cell.surfaceCreature != null)) {
-                  float relativeMouseXx = boardPos[0] - (puzzleRender.cellWidth * cellPos[0] + puzzleRender.cellWidth / 2);
-                  float relativeMouseYx = boardPos[1] - (puzzleRender.cellHeight * cellPos[1] + puzzleRender.cellHeight / 2);
+                  float relativeMouseXx = boardPos[0] - (puzzleRender.cellWidth * cellPos[0] + (float) puzzleRender.cellWidth / 2);
+                  float relativeMouseYx = boardPos[1] - (puzzleRender.cellHeight * cellPos[1] + (float) puzzleRender.cellHeight / 2);
                   if (relativeMouseXx <= 10.0F && relativeMouseXx >= -10.0F && relativeMouseYx <= 10.0F && relativeMouseYx >= -10.0F) {
-                     TerraformingPlayerCommand command = new TerraformingPlayerCommand(
-                        TerraformingPlayerCommand.TRPlayerCommandType.GET_ORB, cellPos[0], cellPos[1], 0
-                     );
-                     this.puzzleCommand = command;
+                     this.puzzleCommand = new TerraformingPlayerCommand(
+                             TerraformingPlayerCommand.TRPlayerCommandType.GET_ORB, cellPos[0], cellPos[1], 0
+                     );;
                      boardSelect = false;
                   }
                }
 
                if (boardSelect) {
-                  TerraformingPlayerCommand command = new TerraformingPlayerCommand(
-                     TerraformingPlayerCommand.TRPlayerCommandType.BOARD_SELECT, cellPos[0], cellPos[1], 0
-                  );
-                  this.puzzleCommand = command;
+                  this.puzzleCommand = new TerraformingPlayerCommand(
+                          TerraformingPlayerCommand.TRPlayerCommandType.BOARD_SELECT, cellPos[0], cellPos[1], 0
+                  );;
                }
             }
          }
 
          if (splitNoPressed && mouseX > 217 && mouseY > 9 && mouseX < 247 && mouseY < 99) {
-            int xcell = (mouseX - 217) / 15;
-            int ycell = (mouseY - 9) / 15;
-            int cellx = ycell * 2 + xcell;
-            this.dragAndDropInventoryCell = cellx;
+            int cellX = (mouseX - 217) / 15;
+            int cellY = (mouseY - 9) / 15;
+            this.dragAndDropInventoryCell = cellY * 2 + cellX;
             int invI = 0;
 
             for (int e = 1; e <= 12; e++) {
@@ -644,7 +646,7 @@ public class GUIResearchTable extends GuiContainer {
 
          if (mouseX > 235 && mouseY > 174 && mouseX < 249 && mouseY < 188) {
             PacketTileClickToServer packet = new PacketTileClickToServer();
-            packet.writeints(
+            packet.writeInts(
                this.tile.getPos().getX(),
                this.tile.getPos().getY(),
                this.tile.getPos().getZ(),
@@ -663,14 +665,12 @@ public class GUIResearchTable extends GuiContainer {
             if (this.tile.blanks[newSelection] != null) {
                this.changeSelectedBlank(newSelection);
             } else {
-               WriteBlank.WriteBlankSpell[] newblanks = new WriteBlank.WriteBlankSpell[this.tile.blanks.length + 1];
+               WriteBlank.WriteBlankSpell[] newBlanks = new WriteBlank.WriteBlankSpell[this.tile.blanks.length + 1];
 
-               for (int i = 0; i < this.tile.blanks.length; i++) {
-                  newblanks[i] = this.tile.blanks[i];
-               }
+               System.arraycopy(this.tile.blanks, 0, newBlanks, 0, this.tile.blanks.length);
 
-               newblanks[newSelection] = new WriteBlank.WriteBlankSpell(50, 75);
-               this.tile.blanks = newblanks;
+               newBlanks[newSelection] = new WriteBlank.WriteBlankSpell(50, 75);
+               this.tile.blanks = newBlanks;
                this.changeSelectedBlank(newSelection);
             }
          }
@@ -702,13 +702,13 @@ public class GUIResearchTable extends GuiContainer {
                }
             }
 
-            ITileEntitySynchronize.sendDataToServer(this.tileinv.getField(0), this.tileinv.getField(1), this.tileinv.getField(2), spellsIds);
+            ITileEntitySynchronized.sendDataToServer(this.tileinv.getField(0), this.tileinv.getField(1), this.tileinv.getField(2), spellsIds);
             this.createWriteBlanks(true);
          }
 
          if (this.toSort != null && !this.toSort.isEmpty() && mouseX > 23 && mouseY >= 29 && mouseY <= 45) {
             int mx = (mouseX - 23) / 11;
-            if (mx >= 0 && mx < this.toSort.size()) {
+            if (mx < this.toSort.size()) {
                AnalyzedSpell anSpell = this.toSort.get(mx);
                if (anSpell != null && anSpell.spell != null) {
                   this.currentWritePattern = anSpell.spell;
@@ -737,8 +737,8 @@ public class GUIResearchTable extends GuiContainer {
          }
       }
 
-      for (int i = 0; i < this.distortedBlanks.length; i++) {
-         this.distortedBlanks[i].distortDirection(dirX, dirY, length);
+      for (DistortedBlank distortedBlank : this.distortedBlanks) {
+          distortedBlank.distortDirection(dirX, dirY, length);
       }
    }
 
@@ -752,13 +752,13 @@ public class GUIResearchTable extends GuiContainer {
          }
       }
 
-      for (int i = 0; i < this.distortedBlanks.length; i++) {
-         this.distortedBlanks[i].spot(x, y, radius);
+      for (DistortedBlank distortedBlank : this.distortedBlanks) {
+          distortedBlank.spot(x, y, radius);
       }
    }
 
    public int getImagesGeneratedCount() {
-      return (int)Math.max(Debugger.floats[5], 1.0F);
+      return (int) Math.max(Debugger.floats[5], 1.0F);
    }
 
    public void handleSaveDistorted(boolean wasted) {
@@ -768,16 +768,16 @@ public class GUIResearchTable extends GuiContainer {
       }
 
       if (this.distortedBlanks != null) {
-         for (int i = 0; i < this.distortedBlanks.length; i++) {
-            String namefolder = wasted ? Debugger.string + "_w" : Debugger.string;
-            File file = new File("/Users/Vivern/Desktop/Modding/dataset/" + namefolder);
-            if (!file.exists()) {
-               file.mkdirs();
-            }
+         for (DistortedBlank distortedBlank : this.distortedBlanks) {
+             String namefolder = wasted ? Debugger.string + "_w" : Debugger.string;
+             File file = new File("/Users/Vivern/Desktop/Modding/dataset/" + namefolder);
+             if (!file.exists()) {
+                 file.mkdirs();
+             }
 
-            String relativePath = "/Users/Vivern/Desktop/Modding/dataset/" + namefolder + "/" + dataset_save_number + ".png";
-            CreateItemFile.saveWriteBlankToFile(relativePath, this.distortedBlanks[i].blank);
-            dataset_save_number++;
+             String relativePath = "/Users/Vivern/Desktop/Modding/dataset/" + namefolder + "/" + dataset_save_number + ".png";
+             CreateItemFile.saveWriteBlankToFile(relativePath, distortedBlank.blank);
+             dataset_save_number++;
          }
       }
    }
@@ -875,7 +875,7 @@ public class GUIResearchTable extends GuiContainer {
             this.inkConsumed += 2;
             blank.spot(interpMouseX - 87, interpMouseY - 65, spotRadius);
             if (this.inkConsumed >= 35) {
-               ITileEntitySynchronize.sendDataToServer(this.tileinv.getField(0), this.tileinv.getField(1), this.tileinv.getField(2));
+               ITileEntitySynchronized.sendDataToServer(this.tileinv.getField(0), this.tileinv.getField(1), this.tileinv.getField(2));
                this.inkConsumed = 0;
             }
          }
@@ -908,10 +908,9 @@ public class GUIResearchTable extends GuiContainer {
          for (int e = 1; e <= 12; e++) {
             if (puzzle.inventory[e] > 0) {
                if (invI == this.dragAndDropInventoryCell) {
-                  TerraformingPlayerCommand command = new TerraformingPlayerCommand(
-                     TerraformingPlayerCommand.TRPlayerCommandType.PLACE_FROM_INVENTORY, pos[0], pos[1], e
-                  );
-                  this.puzzleCommand = command;
+                  this.puzzleCommand = new TerraformingPlayerCommand(
+                          TerraformingPlayerCommand.TRPlayerCommandType.PLACE_FROM_INVENTORY, pos[0], pos[1], e
+                  );;
                   break;
                }
 
@@ -931,7 +930,7 @@ public class GUIResearchTable extends GuiContainer {
    public void changeSelectedBlank(int newSelection) {
       if (this.tile.blanks.length > this.blankSelected) {
          WriteBlank.WriteBlankSpell blank = this.tile.blanks[this.blankSelected];
-         if (this.toSort != null && !this.toSort.isEmpty() && !this.analyzedSpells.isEmpty() && this.analyzedSpells != null) {
+         if (this.toSort != null && !this.toSort.isEmpty() && !this.analyzedSpells.isEmpty()) {
             Spell spell = this.toSort.get(0).spell;
             AnalyzedSpell analyzedSpell = this.analyzedSpells.get(spell);
             if (analyzedSpell.fullness == spell.configuration.countOfAll && analyzedSpell.dirt <= maxWriteDirtAllowed()) {
@@ -973,7 +972,7 @@ public class GUIResearchTable extends GuiContainer {
             puzzle.update(this.puzzleCommand);
             if (this.puzzleCommand != null) {
                PacketTFRPuzzleToServer packet = new PacketTFRPuzzleToServer();
-               packet.writeints(this.tileinv.getField(0), this.tileinv.getField(1), this.tileinv.getField(2), this.puzzleCommand);
+               packet.writeInts(this.tileinv.getField(0), this.tileinv.getField(1), this.tileinv.getField(2), this.puzzleCommand);
                PacketHandler.NETWORK.sendToServer(packet);
                this.puzzleCommand = null;
             }
@@ -992,7 +991,7 @@ public class GUIResearchTable extends GuiContainer {
 
          if (this.tile.blanks != null && this.blankSelected < this.tile.blanks.length && this.blankSelected >= 0) {
             WriteBlank blank = this.tile.blanks[this.blankSelected];
-            if (blank != null && this.spellsKnown.size() > 0) {
+            if (blank != null && !this.spellsKnown.isEmpty()) {
                Spell nextAnalyzeSpell = this.spellsKnown.get(this.nextAnalyzeId);
                if (nextAnalyzeSpell != null && nextAnalyzeSpell.configuration != null) {
                   AnalyzedSpell analyzedSpell = nextAnalyzeSpell.getAnalyzed(blank);
@@ -1047,9 +1046,9 @@ public class GUIResearchTable extends GuiContainer {
 
    public void drawGraph(WriteGraph graph, int x, int y) {
       for (Vec2i link : graph.links) {
-         Vec2i vert1 = graph.vertexes[link.x];
-         Vec2i vert2 = graph.vertexes[link.y];
-         this.drawLine(vert1.x + x, vert1.y + y, vert2.x + x, vert2.y + y, 0.0F, 1.0F, 1.0F);
+         Vec2i vert1 = graph.vertexes[link.getX()];
+         Vec2i vert2 = graph.vertexes[link.getY()];
+         this.drawLine(vert1.getX() + x, vert1.getY() + y, vert2.getX() + x, vert2.getY() + y, 0.0F, 1.0F, 1.0F);
       }
 
       this.mc.getTextureManager().bindTexture(TEXTURE_WRITING);
@@ -1057,7 +1056,7 @@ public class GUIResearchTable extends GuiContainer {
 
       for (Vec2i vertex : graph.vertexes) {
          drawModalRectWithCustomSizedTexture2(
-            vertex.x + x - 3.75F, vertex.y + y - 3.75F, 113.0F, (AnimationTimer.tick / 10 + i) % 11 * 7.5F, 7.5F, 7.5F, 128.0F, 128.0F
+            vertex.getX() + x - 3.75F, vertex.getY() + y - 3.75F, 113.0F, ((float) AnimationTimer.tick / 10 + i) % 11 * 7.5F, 7.5F, 7.5F, 128.0F, 128.0F
          );
          if (i % 2 == 0) {
             i += 7;

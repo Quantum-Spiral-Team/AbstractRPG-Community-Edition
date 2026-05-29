@@ -3,7 +3,7 @@ package com.vivern.arpg.container;
 import com.vivern.arpg.arpgamemodes.SurvivorGameStyleWatcher;
 import com.vivern.arpg.main.EnchantmentInit;
 import com.vivern.arpg.main.Vec2i;
-import com.vivern.arpg.network.PacketDoSomethingToServer;
+import com.vivern.arpg.network.packet.PacketDoSomethingToServer;
 import com.vivern.arpg.network.PacketHandler;
 import java.io.IOException;
 import net.minecraft.client.gui.GuiScreen;
@@ -72,7 +72,7 @@ public class GUISurvivorEnchant extends GuiScreen {
          this.mc.getTextureManager().bindTexture(GUI_TEXTURES);
          Enchantment enchantment = this.enchantments[j2];
          Vec2i vec = enchantCoordinates(enchantment);
-         this.drawTexturedModalRect(i + currentTranslation, j - space, vec.x, vec.y, oneLength, oneLength);
+         this.drawTexturedModalRect(i + currentTranslation, j - space, vec.getX(), vec.getY(), oneLength, oneLength);
          if (this.enchantmentsCost[j2] >= 0) {
             boolean green = this.player.experienceLevel >= this.enchantmentsCost[j2];
             this.drawTexturedModalRect(i + currentTranslation + 14, j - space + 51, 240, green ? 0 : 13, 13, 13);
@@ -117,7 +117,7 @@ public class GUISurvivorEnchant extends GuiScreen {
             PacketDoSomethingToServer packet = new PacketDoSomethingToServer();
             packet.writeArgs(j2, 0.0, 0.0, 0.0, 0.0, 0.0, 9);
             PacketHandler.NETWORK.sendToServer(packet);
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
             if (this.mc.currentScreen == null) {
                this.mc.setIngameFocus();
             }
@@ -132,7 +132,7 @@ public class GUISurvivorEnchant extends GuiScreen {
          PacketDoSomethingToServer packet = new PacketDoSomethingToServer();
          packet.writeArgs(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 9);
          PacketHandler.NETWORK.sendToServer(packet);
-         this.mc.displayGuiScreen((GuiScreen)null);
+         this.mc.displayGuiScreen(null);
          if (this.mc.currentScreen == null) {
             this.mc.setIngameFocus();
          }

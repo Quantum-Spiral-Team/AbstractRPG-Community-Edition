@@ -9,7 +9,7 @@ import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.CrystalFanShoot;
 import com.vivern.arpg.entity.EntityCubicParticle;
 import com.vivern.arpg.entity.EntityElectricBolt;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.entity.StandardBullet;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.Booom;
@@ -565,7 +565,7 @@ public class HostileProjectiles {
       }
 
       public int getColor() {
-         return (Integer)this.dataManager.get(COLOR);
+         return this.dataManager.get(COLOR);
       }
 
       private void setFixedColor(int p_191507_1_) {
@@ -581,7 +581,7 @@ public class HostileProjectiles {
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          if (this.potion != PotionTypes.EMPTY && this.potion != null) {
-            compound.setString("Potion", ((ResourceLocation)PotionType.REGISTRY.getNameForObject(this.potion)).toString());
+            compound.setString("Potion", PotionType.REGISTRY.getNameForObject(this.potion).toString());
          }
 
          if (this.fixedColor) {
@@ -782,7 +782,7 @@ public class HostileProjectiles {
       }
 
       public int getColor() {
-         return (Integer)this.dataManager.get(COLOR);
+         return this.dataManager.get(COLOR);
       }
 
       private void setFixedColor(int p_191507_1_) {
@@ -798,7 +798,7 @@ public class HostileProjectiles {
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          if (this.potion != PotionTypes.EMPTY && this.potion != null) {
-            compound.setString("Potion", ((ResourceLocation)PotionType.REGISTRY.getNameForObject(this.potion)).toString());
+            compound.setString("Potion", PotionType.REGISTRY.getNameForObject(this.potion).toString());
          }
 
          if (this.fixedColor) {
@@ -1024,7 +1024,7 @@ public class HostileProjectiles {
       }
 
       public int getColor() {
-         return (Integer)this.dataManager.get(COLOR);
+         return this.dataManager.get(COLOR);
       }
 
       private void setFixedColor(int p_191507_1_) {
@@ -1040,7 +1040,7 @@ public class HostileProjectiles {
       public void writeEntityToNBT(NBTTagCompound compound) {
          super.writeEntityToNBT(compound);
          if (this.potion != PotionTypes.EMPTY && this.potion != null) {
-            compound.setString("Potion", ((ResourceLocation)PotionType.REGISTRY.getNameForObject(this.potion)).toString());
+            compound.setString("Potion", PotionType.REGISTRY.getNameForObject(this.potion).toString());
          }
 
          if (this.fixedColor) {
@@ -1180,7 +1180,7 @@ public class HostileProjectiles {
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -1407,7 +1407,7 @@ public class HostileProjectiles {
                entitylivingbase.addPotionEffect(new PotionEffect(PotionEffects.SLIME, 260, 1));
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -1426,7 +1426,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -1537,7 +1537,7 @@ public class HostileProjectiles {
                result.entityHit.hurtResistantTime = 0;
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -1555,7 +1555,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -1571,7 +1571,7 @@ public class HostileProjectiles {
       }
    }
 
-   public static class BulletCooled extends StandardBullet implements IEntitySynchronize {
+   public static class BulletCooled extends StandardBullet implements ISynchronizedEntity {
       public static ResourceLocation texture = new ResourceLocation("arpg:textures/generic_beam2.png");
       public static ResourceLocation sparkle2 = new ResourceLocation("arpg:textures/sparkle2.png");
       public static ResourceLocation snowflake5 = new ResourceLocation("arpg:textures/snowflake5.png");
@@ -1625,7 +1625,7 @@ public class HostileProjectiles {
          if (this.bullet != null) {
             this.bullet.onProjectileUpdate(this);
             if (!this.world.isRemote && (this.ticksExisted <= 2 || this.ticksExisted % 10 == 0)) {
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.bullet.id);
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.bullet.id);
             }
          }
       }
@@ -1753,7 +1753,7 @@ public class HostileProjectiles {
                   result.entityHit.hurtResistantTime = 0;
                   this.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         this.posX,
                         this.posY,
                         this.posZ,
@@ -1763,7 +1763,7 @@ public class HostileProjectiles {
                         0.9F + this.rand.nextFloat() / 5.0F
                      );
                   Vec3d vec1 = GetMOP.getNearestPointInAABBtoPoint(this.getPositionVector(), result.entityHit.getEntityBoundingBox());
-                  IEntitySynchronize.sendSynchronize(this, 64.0, vec1.x, vec1.y, vec1.z);
+                  ISynchronizedEntity.sendSynchronize(this, 64.0, vec1.x, vec1.y, vec1.z);
                   this.setDead();
                   DeathEffects.applyDeathEffect(result.entityHit, DeathEffects.DE_DISMEMBER, 0.1F);
                }
@@ -1774,7 +1774,7 @@ public class HostileProjectiles {
                != null) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -1783,7 +1783,7 @@ public class HostileProjectiles {
                      0.8F,
                      0.9F + this.rand.nextFloat() / 5.0F
                   );
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z
                );
                this.setDead();
@@ -1825,7 +1825,7 @@ public class HostileProjectiles {
       }
    }
 
-   public static class CircleBlast extends EntityThrowable implements IEntitySynchronize {
+   public static class CircleBlast extends EntityThrowable implements ISynchronizedEntity {
       public float damage = 0.0F;
       public float knockback = 0.0F;
       public float maxradius = 0.0F;
@@ -1932,7 +1932,7 @@ public class HostileProjectiles {
             }
 
             if (this.ticksExisted < 3 || this.ticksExisted % 20 == 0) {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   this.maxradius + 64.0F,
                   this.radius,
@@ -1951,7 +1951,7 @@ public class HostileProjectiles {
                double lowradiusSq = this.lowRadius * this.lowRadius;
                Vec3d center = this.getPositionVector();
 
-               for (Entity entity : GetMOP.getEntitiesInAABBof(this.world, center, (double)this.radius, this)) {
+               for (Entity entity : GetMOP.getEntitiesInAABBof(this.world, center, this.radius, this)) {
                   double distSq = this.getDistanceSq(entity);
                   if (distSq <= radiusSq
                      && distSq >= lowradiusSq
@@ -2100,7 +2100,7 @@ public class HostileProjectiles {
                );
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -2119,7 +2119,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -2272,7 +2272,7 @@ public class HostileProjectiles {
                   entitylivingbase.addPotionEffect(new PotionEffect(PotionEffects.TOXIN, 50));
                   this.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         this.posX,
                         this.posY,
                         this.posZ,
@@ -2290,7 +2290,7 @@ public class HostileProjectiles {
                entitylivingbase.addPotionEffect(new PotionEffect(PotionEffects.TOXIN, 50));
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -2309,7 +2309,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -2544,7 +2544,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -2762,7 +2762,7 @@ public class HostileProjectiles {
 
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -3258,7 +3258,7 @@ public class HostileProjectiles {
                result.entityHit.hurtResistantTime = 0;
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -3277,7 +3277,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -3406,7 +3406,7 @@ public class HostileProjectiles {
                result.entityHit.hurtResistantTime = 0;
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -3425,7 +3425,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -3442,7 +3442,7 @@ public class HostileProjectiles {
       }
    }
 
-   public static class KrakenShockbolt extends EntityThrowable implements IEntitySynchronize {
+   public static class KrakenShockbolt extends EntityThrowable implements ISynchronizedEntity {
       public static ResourceLocation hadronblast = new ResourceLocation("arpg:textures/hadron_blast.png");
       public static ResourceLocation circle2 = new ResourceLocation("arpg:textures/circle2.png");
       public static ResourceLocation lightning4 = new ResourceLocation("arpg:textures/lightning4.png");
@@ -3618,7 +3618,7 @@ public class HostileProjectiles {
                   result.entityHit.hurtResistantTime = 0;
                   this.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         this.posX,
                         this.posY,
                         this.posZ,
@@ -3637,7 +3637,7 @@ public class HostileProjectiles {
                != null) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -3654,7 +3654,7 @@ public class HostileProjectiles {
       public void startExplosion(Entity by) {
          if (!this.world.isRemote && this.explodeTimer < 0) {
             this.explodeTimer = 3;
-            IEntitySynchronize.sendSynchronize(
+            ISynchronizedEntity.sendSynchronize(
                this,
                64.0,
                this.posX,
@@ -3701,7 +3701,7 @@ public class HostileProjectiles {
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -3860,7 +3860,7 @@ public class HostileProjectiles {
 
                   this.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         this.posX,
                         this.posY,
                         this.posZ,
@@ -3880,7 +3880,7 @@ public class HostileProjectiles {
                != null) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -4031,7 +4031,7 @@ public class HostileProjectiles {
                Weapons.setPotionIfEntityLB(result.entityHit, MobEffects.NAUSEA, 100, 0);
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -4050,7 +4050,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -4191,7 +4191,7 @@ public class HostileProjectiles {
                );
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -4210,7 +4210,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -4474,7 +4474,7 @@ public class HostileProjectiles {
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -4686,7 +4686,7 @@ public class HostileProjectiles {
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -4806,19 +4806,19 @@ public class HostileProjectiles {
       }
 
       public float getSCALE() {
-         return (Float)this.dataManager.get(SCALE);
+         return this.dataManager.get(SCALE);
       }
 
       public float getRED() {
-         return (Float)this.dataManager.get(RED);
+         return this.dataManager.get(RED);
       }
 
       public float getGREEN() {
-         return (Float)this.dataManager.get(GREEN);
+         return this.dataManager.get(GREEN);
       }
 
       public float getBLUE() {
-         return (Float)this.dataManager.get(BLUE);
+         return this.dataManager.get(BLUE);
       }
 
       @Override
@@ -4829,7 +4829,7 @@ public class HostileProjectiles {
          }
 
          float reduction = MathHelper.clamp(
-            1.0F / (ticks - 2.0F - ((Integer)this.dataManager.get(LIVETIMEMAX)).intValue()) * 2.0F + 1.0F, 0.0F, 1.0F
+            1.0F / (ticks - 2.0F - this.dataManager.get(LIVETIMEMAX).intValue()) * 2.0F + 1.0F, 0.0F, 1.0F
          );
          return new Vec3d(this.getRED() * reduction, this.getGREEN() * reduction, this.getBLUE() * reduction);
       }
@@ -5023,7 +5023,7 @@ public class HostileProjectiles {
       }
    }
 
-   public static class PlasmaRing extends EntityThrowable implements IEntitySynchronize {
+   public static class PlasmaRing extends EntityThrowable implements ISynchronizedEntity {
       public float damage = 0.0F;
       public int type = 0;
       public float radius = 0.0F;
@@ -5103,7 +5103,7 @@ public class HostileProjectiles {
          if (!this.world.isRemote) {
             if (this.ticksExisted <= 2 || this.ticksExisted % 40 == 0) {
                this.world.setEntityState(this, (byte)(this.type + 8));
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.radius);
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.radius);
             }
 
             Vec3d normal = this.getVectorForRotation(this.rotationPitch, this.rotationYaw);
@@ -5189,7 +5189,7 @@ public class HostileProjectiles {
                != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -5362,7 +5362,7 @@ public class HostileProjectiles {
 
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -6015,7 +6015,7 @@ public class HostileProjectiles {
                   result.entityHit.hurtResistantTime = 0;
                   this.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         this.posX,
                         this.posY,
                         this.posZ,
@@ -6034,7 +6034,7 @@ public class HostileProjectiles {
                != null) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -6160,7 +6160,7 @@ public class HostileProjectiles {
          this.motionY /= 3.0;
          this.motionZ /= 3.0;
          float kb = (float)this.getDistance(movex, movey, movez) / 2.0F;
-         SuperKnockback.applyMove(this, (float)(-Math.min((double)kb, 0.4)), movex, movey, movez);
+         SuperKnockback.applyMove(this, (float)(-Math.min(kb, 0.4)), movex, movey, movez);
       }
 
       @Override
@@ -6322,7 +6322,7 @@ public class HostileProjectiles {
                );
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -6341,7 +6341,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -6947,7 +6947,7 @@ public class HostileProjectiles {
                result.entityHit.hurtResistantTime = 0;
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -6966,7 +6966,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -6983,7 +6983,7 @@ public class HostileProjectiles {
       }
    }
 
-   public static class WatcherLaser extends EntityThrowable implements IEntitySynchronize {
+   public static class WatcherLaser extends EntityThrowable implements ISynchronizedEntity {
       static ResourceLocation texturexpl = new ResourceLocation("arpg:textures/blueexplode3.png");
       public float damage = 0.0F;
       public static ParticleTracker.TrackerSmoothShowHide trackerssh = new ParticleTracker.TrackerSmoothShowHide(
@@ -7083,7 +7083,7 @@ public class HostileProjectiles {
                   result.entityHit.hurtResistantTime = 0;
                   this.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         this.posX,
                         this.posY,
                         this.posZ,
@@ -7094,9 +7094,9 @@ public class HostileProjectiles {
                      );
                   if (result.entityHit.getEntityBoundingBox() != null) {
                      Vec3d vec = GetMOP.getNearestPointInAABBtoPoint(this.getPositionVector(), result.entityHit.getEntityBoundingBox());
-                     IEntitySynchronize.sendSynchronize(this, 64.0, vec.x, vec.y, vec.z);
+                     ISynchronizedEntity.sendSynchronize(this, 64.0, vec.x, vec.y, vec.z);
                   } else {
-                     IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ);
+                     ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ);
                   }
 
                   this.setDead();
@@ -7108,7 +7108,7 @@ public class HostileProjectiles {
                != null) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -7119,7 +7119,7 @@ public class HostileProjectiles {
                   );
                if (!this.world.isRemote) {
                   if (result.hitVec != null) {
-                     IEntitySynchronize.sendSynchronize(
+                     ISynchronizedEntity.sendSynchronize(
                         this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z
                      );
                   }
@@ -7471,7 +7471,7 @@ public class HostileProjectiles {
                result.entityHit.hurtResistantTime = 0;
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -7776,7 +7776,7 @@ public class HostileProjectiles {
                Weapons.setPotionIfEntityLB(result.entityHit, new PotionEffect(MobEffects.MINING_FATIGUE, 300, 1));
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -7795,7 +7795,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -7944,7 +7944,7 @@ public class HostileProjectiles {
                Weapons.setPotionIfEntityLB(result.entityHit, new PotionEffect(PotionEffects.SHOCK, 80));
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -7963,7 +7963,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -8102,7 +8102,7 @@ public class HostileProjectiles {
                Weapons.setPotionIfEntityLB(result.entityHit, new PotionEffect(MobEffects.WEAKNESS, 50, 1));
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -8121,7 +8121,7 @@ public class HostileProjectiles {
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,

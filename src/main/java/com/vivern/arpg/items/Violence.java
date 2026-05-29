@@ -1,18 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.ViolenceShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.creativetab.CreativeTabs;
@@ -131,8 +120,8 @@ public class Violence extends ItemWeapon {
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             int ran = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
             float power = Mana.getMagicPowerMax(player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int hit = NBTHelper.GetNBTint(itemstack, "hit");
             int hitcooldown = NBTHelper.GetNBTint(itemstack, "hitcooldown");
             if (hit > 0) {
@@ -147,7 +136,7 @@ public class Violence extends ItemWeapon {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                if (hit == 1) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -158,7 +147,7 @@ public class Violence extends ItemWeapon {
                   );
                   int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
                   Vec3d castpoint = player.getPositionVector().add(GetMOP.yawToVec3D(player.rotationYaw).scale(0.64));
-                  AxisAlignedBB aabb = GetMOP.newAABB(castpoint, (double)parameters.getEnchantedF("hit_radius", ran));
+                  AxisAlignedBB aabb = GetMOP.newAABB(castpoint, parameters.getEnchantedF("hit_radius", ran));
 
                   for (EntityLivingBase entityLivingBase : world.getEntitiesWithinAABB(EntityLivingBase.class, aabb)) {
                      if (Team.checkIsOpponent(player, entityLivingBase)) {
@@ -210,7 +199,7 @@ public class Violence extends ItemWeapon {
                      if (Mana.getMana(player) > manacost) {
                         Weapons.setPlayerAnimationOnServer(player, 14, EnumHand.MAIN_HAND);
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -266,7 +255,7 @@ public class Violence extends ItemWeapon {
                      player.getCooldownTracker().setCooldown(this, 30);
                      Weapons.setPlayerAnimationOnServer(player, 21, EnumHand.MAIN_HAND);
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

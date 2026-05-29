@@ -332,7 +332,7 @@ public class ZarpionIntricacyGenerator {
 
          if (!world.collidesWithAnyBlock(npc.getEntityBoundingBox())) {
             world.spawnEntity(npc);
-            npc.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(npc)), (IEntityLivingData)null);
+            npc.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(npc)), null);
             npc.enablePersistence();
             world.setBlockState(
                new BlockPos(npc.posX + 2.0, this.centerPos.getY() + 2, npc.posZ + 2.0),
@@ -403,7 +403,7 @@ public class ZarpionIntricacyGenerator {
       if (x < 0 || x >= max) {
          return false;
       } else {
-         return y >= 0 && y < max ? array[x][y] : false;
+         return y >= 0 && y < max && array[x][y];
       }
    }
 
@@ -446,7 +446,7 @@ public class ZarpionIntricacyGenerator {
       if (sum8 > 3) {
          return false;
       } else {
-         return sum42 == 1 && sum4 != 3 ? true : self;
+         return sum42 == 1 && sum4 != 3 || self;
       }
    }
 

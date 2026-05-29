@@ -90,7 +90,7 @@ public class ChristmasBalls extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(COLORTYPE);
+      return state.getValue(COLORTYPE);
    }
 
    @Override

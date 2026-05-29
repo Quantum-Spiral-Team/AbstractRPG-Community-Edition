@@ -35,7 +35,7 @@ public class Swarmeter extends Item {
             message = message + " | ticks%: " + st % spawn.getSwarmFrequency();
          }
 
-         ((EntityPlayerMP)player).sendMessage(new TextComponentString(message));
+         player.sendMessage(new TextComponentString(message));
       }
 
       return new ActionResult(EnumActionResult.SUCCESS, player.getHeldItem(handIn));

@@ -6,6 +6,8 @@ import com.vivern.arpg.main.Vec2i;
 import com.vivern.arpg.tileentity.WriteBlank;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.Arrays;
+
 public class WriteGraph {
    public Vec2i[] vertexes;
    public Vec2i[] links;
@@ -17,9 +19,7 @@ public class WriteGraph {
       this.vertexes = vertexes;
       this.sizes = new int[vertexes.length];
 
-      for (int i = 0; i < this.sizes.length; i++) {
-         this.sizes[i] = defaultRadius();
-      }
+      Arrays.fill(this.sizes, defaultRadius());
    }
 
    public WriteGraph addLinks(Vec2i... links) {
@@ -42,17 +42,17 @@ public class WriteGraph {
       this.avoid = new boolean[width][height];
 
       for (Vec2i link : this.links) {
-         Vec2i vert1 = this.vertexes[link.x];
-         Vec2i vert2 = this.vertexes[link.y];
-         int siz1 = this.sizes[link.x];
-         int siz2 = this.sizes[link.y];
-         setTrueInLine(this.avoid, width, height, vert1.x, vert1.y, vert2.x, vert2.y, siz1 + radiusAdd, siz2 + radiusAdd);
+         Vec2i vert1 = this.vertexes[link.getX()];
+         Vec2i vert2 = this.vertexes[link.getY()];
+         int siz1 = this.sizes[link.getX()];
+         int siz2 = this.sizes[link.getY()];
+         setTrueInLine(this.avoid, width, height, vert1.getX(), vert1.getY(), vert2.getX(), vert2.getY(), siz1 + radiusAdd, siz2 + radiusAdd);
       }
 
       for (int i = 0; i < this.vertexes.length; i++) {
          Vec2i vertex = this.vertexes[i];
          int size = this.sizes[i];
-         setTrueInRound(this.avoid, width, height, vertex.x, vertex.y, size + radiusAdd);
+         setTrueInRound(this.avoid, width, height, vertex.getX(), vertex.getY(), size + radiusAdd);
       }
 
       return this;
@@ -62,11 +62,11 @@ public class WriteGraph {
       int l = 0;
 
       for (Vec2i link : this.links) {
-         Vec2i vert1 = this.vertexes[link.x];
-         Vec2i vert2 = this.vertexes[link.y];
-         int siz1 = this.sizes[link.x];
-         int siz2 = this.sizes[link.y];
-         boolean b1 = blank.hasBlackLine(vert1.x, vert1.y, vert2.x, vert2.y, siz1, siz2);
+         Vec2i vert1 = this.vertexes[link.getX()];
+         Vec2i vert2 = this.vertexes[link.getY()];
+         int siz1 = this.sizes[link.getX()];
+         int siz2 = this.sizes[link.getY()];
+         boolean b1 = blank.hasBlackLine(vert1.getX(), vert1.getY(), vert2.getX(), vert2.getY(), siz1, siz2);
          if (b1) {
             l++;
          }
@@ -75,7 +75,7 @@ public class WriteGraph {
       for (int i = 0; i < this.vertexes.length; i++) {
          Vec2i vertex = this.vertexes[i];
          int size = this.sizes[i];
-         if (blank.hasBlackInRound(vertex.x, vertex.y, size)) {
+         if (blank.hasBlackInRound(vertex.getX(), vertex.getY(), size)) {
             l++;
          }
       }
@@ -215,7 +215,7 @@ public class WriteGraph {
    }
 
    public static void printCircle(int x, int y, int radius, int points) {
-      System.out.println();
+      
       float angle = 360.0F / points;
 
       for (int i = 0; i < points; i++) {
@@ -229,7 +229,7 @@ public class WriteGraph {
          }
       }
 
-      System.out.println();
+      
    }
 
    public static int defaultRadius() {
@@ -240,17 +240,17 @@ public class WriteGraph {
       boolean[][] array = new boolean[blank.sizeX][blank.sizeY];
 
       for (Vec2i link : this.links) {
-         Vec2i vert1 = this.vertexes[link.x];
-         Vec2i vert2 = this.vertexes[link.y];
-         int siz1 = this.sizes[link.x];
-         int siz2 = this.sizes[link.y];
-         setTrueInLine(array, blank.sizeX, blank.sizeY, vert1.x, vert1.y, vert2.x, vert2.y, siz1, siz2);
+         Vec2i vert1 = this.vertexes[link.getX()];
+         Vec2i vert2 = this.vertexes[link.getY()];
+         int siz1 = this.sizes[link.getX()];
+         int siz2 = this.sizes[link.getY()];
+         setTrueInLine(array, blank.sizeX, blank.sizeY, vert1.getX(), vert1.getY(), vert2.getX(), vert2.getY(), siz1, siz2);
       }
 
       for (int i = 0; i < this.vertexes.length; i++) {
          Vec2i vertex = this.vertexes[i];
          int size = this.sizes[i];
-         setTrueInRound(array, blank.sizeX, blank.sizeY, vertex.x, vertex.y, size);
+         setTrueInRound(array, blank.sizeX, blank.sizeY, vertex.getX(), vertex.getY(), size);
       }
 
       if (win) {

@@ -3,7 +3,7 @@ package com.vivern.arpg.weather;
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketWorldEventToClients;
+import com.vivern.arpg.network.packet.PacketWorldEventToClients;
 import java.util.Collection;
 import java.util.Random;
 import net.minecraft.block.material.Material;
@@ -60,7 +60,7 @@ public class WorldEvent extends IRenderHandler {
       if (this.delayToPacket >= 0) {
          if (this.delayToPacket % 20 == 0) {
             PacketWorldEventToClients packet = new PacketWorldEventToClients();
-            packet.writeargs(this.index, (byte)3);
+            packet.writeArgs(this.index, (byte)3);
             PacketHandler.sendToDimension(packet, this.worldProvider.getDimension());
          }
 
@@ -87,7 +87,7 @@ public class WorldEvent extends IRenderHandler {
       this.livetime = this.livetimeMin + this.worldProvider.getWorld().rand.nextInt(var10003 + 1);
       if (!this.worldProvider.getWorld().isRemote) {
          PacketWorldEventToClients packet = new PacketWorldEventToClients();
-         packet.writeargs(this.index, (byte)1);
+         packet.writeArgs(this.index, (byte)1);
          PacketHandler.sendToDimension(packet, this.worldProvider.getDimension());
       }
    }
@@ -97,7 +97,7 @@ public class WorldEvent extends IRenderHandler {
       this.currentCooldown = (int)(this.getCooldown() * WorldEventsHandler.timeOverclock);
       if (!this.worldProvider.getWorld().isRemote) {
          PacketWorldEventToClients packet = new PacketWorldEventToClients();
-         packet.writeargs(this.index, (byte)0);
+         packet.writeArgs(this.index, (byte)0);
          PacketHandler.sendToDimension(packet, this.worldProvider.getDimension());
       }
    }

@@ -70,7 +70,7 @@ public class FireworkEntity extends EntityThrowable {
    }
 
    public int getFireworkSize() {
-      return (Integer)this.dataManager.get(FIREWORK_SIZE);
+      return this.dataManager.get(FIREWORK_SIZE);
    }
 
    public void setFireworkSize(int value) {

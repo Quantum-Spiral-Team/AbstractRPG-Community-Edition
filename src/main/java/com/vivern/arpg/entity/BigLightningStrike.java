@@ -56,11 +56,11 @@ public class BigLightningStrike extends Entity {
    }
 
    public float getSegmentLength() {
-      return (Float)this.dataManager.get(SEGMENT_LENGTH);
+      return this.dataManager.get(SEGMENT_LENGTH);
    }
 
    public float getSegmentWidth() {
-      return (Float)this.dataManager.get(SEGMENT_WIDTH);
+      return this.dataManager.get(SEGMENT_WIDTH);
    }
 
    @Override

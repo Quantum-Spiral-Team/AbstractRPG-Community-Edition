@@ -289,7 +289,7 @@ public class SirenSanctuary {
          eightSum++;
       }
 
-      return eightSum != 1 && (this.mazeMode || eightSum != 6) ? this.mainArray[coord1][coord2] : true;
+      return eightSum == 1 || (!this.mazeMode && eightSum == 6) || this.mainArray[coord1][coord2];
    }
 
    public byte processRemoveMuchStone(int coord1, int coord2) {

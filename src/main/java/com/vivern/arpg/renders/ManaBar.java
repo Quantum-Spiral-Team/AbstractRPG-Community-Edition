@@ -148,18 +148,18 @@ public class ManaBar {
                   float progress = MathHelper.clamp(
                      spellForgeDisplayed.currentForging.hammerCompleteness / spellForgeDisplayed.currentForging.hitsNeed, 0.0F, 1.0F
                   );
-                  drawCustomSizedTexturedRect(i / 2 - 128, 10 + Yadd, 256, 256, 0, 0, 256, 24);
-                  drawCustomSizedTexturedRect(i / 2 - 117, 15 + Yadd, 256, 256, 11, 24, (int)(234.0F * progress), 10);
+                  drawCustomSizedTexturedRect((double) i / 2 - 128, 10 + Yadd, 256, 256, 0, 0, 256, 24);
+                  drawCustomSizedTexturedRect((double) i / 2 - 117, 15 + Yadd, 256, 256, 11, 24, (int)(234.0F * progress), 10);
                   if (spellForgeDisplayed.currentForging.canAcceptSpells) {
                      float progress2 = spellForgeDisplayed.currentForging.fullComplete
                         ? 1.0F
                         : MathHelper.clamp(1.0F - spellForgeDisplayed.currentForging.ticks / 160.0F, 0.0F, 1.0F);
                      drawCustomSizedTexturedRect(
-                        i / 2 - 104, 30 + Yadd, 256, 256, 24, spellForgeDisplayed.currentForging.fullComplete ? 36 : 34, (int)(208.0F * progress2), 2
+                        (double) i / 2 - 104, 30 + Yadd, 256, 256, 24, spellForgeDisplayed.currentForging.fullComplete ? 36 : 34, (int)(208.0F * progress2), 2
                      );
-                     drawCustomSizedTexturedRect(i / 2 - 148, 10 + Yadd, 256, 256, spellForgeDisplayed.currentForging.fullComplete ? 40 : 20, 40, 20, 20);
+                     drawCustomSizedTexturedRect((double) i / 2 - 148, 10 + Yadd, 256, 256, spellForgeDisplayed.currentForging.fullComplete ? 40 : 20, 40, 20, 20);
                   } else if (progress < 1.0F) {
-                     drawCustomSizedTexturedRect(i / 2 - 148, 10 + Yadd, 256, 256, 0, 40, 20, 20);
+                     drawCustomSizedTexturedRect((double) i / 2 - 148, 10 + Yadd, 256, 256, 0, 40, 20, 20);
                   }
                }
             } else if (shownSpellForge > 0) {
@@ -205,7 +205,7 @@ public class ManaBar {
          if (ARPGHooks.moveSlot != player.inventory.currentItem) {
             this.mc.getTextureManager().bindTexture(HotbarSlot);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            drawCustomSizedTexturedRect(i / 2 - 91 + ARPGHooks.moveSlot * 20, f - 22, 22, 22, 0.0);
+            drawCustomSizedTexturedRect((double) i / 2 - 91 + ARPGHooks.moveSlot * 20, f - 22, 22, 22, 0.0);
          }
 
          GlStateManager.enableRescaleNormal();
@@ -214,7 +214,7 @@ public class ManaBar {
          RenderHelper.enableGUIStandardItemLighting();
 
          for (int l = 0; l < 9; l++) {
-            ItemStack stw = (ItemStack)player.inventory.mainInventory.get(l);
+            ItemStack stw = player.inventory.mainInventory.get(l);
             Item itw = stw.getItem();
             if (itw instanceof IWeapon) {
                int i1 = i / 2 - 90 + l * 20 + 2;
@@ -306,8 +306,8 @@ public class ManaBar {
             if (amount > 0.0F) {
                renderManaDown = true;
                this.mc.getTextureManager().bindTexture(EnergyRunes);
-               drawCustomSizedTexturedRect(i / 2 + currentTranslation, f + ypos, 12, 156, 0, 12 * s, 12, 12);
-               this.mc.fontRenderer.drawStringWithShadow(asString(amount), i / 2 + currentTranslation + 8, f + ypos2, 16777215);
+               drawCustomSizedTexturedRect((double) i / 2 + currentTranslation, f + ypos, 12, 156, 0, 12 * s, 12, 12);
+               this.mc.fontRenderer.drawStringWithShadow(asString(amount), (float) i / 2 + currentTranslation + 8, f + ypos2, 16777215);
                currentTranslation += oneLength + space;
             }
          }
@@ -318,10 +318,10 @@ public class ManaBar {
             float manaMax = savedMagicVision[13];
             float manaProgress = mana / manaMax;
             this.mc.getTextureManager().bindTexture(BarsManaVision);
-            drawCustomSizedTexturedRect(i / 2 - 32, f + ypos + down, 64, 64, 0, 10, 64, 10);
-            drawCustomSizedTexturedRect(i / 2 - 32, f + ypos + down, 64, 64, 0, 0, Math.round(64.0F * manaProgress), 10);
+            drawCustomSizedTexturedRect((double) i / 2 - 32, f + ypos + down, 64, 64, 0, 10, 64, 10);
+            drawCustomSizedTexturedRect((double) i / 2 - 32, f + ypos + down, 64, 64, 0, 0, Math.round(64.0F * manaProgress), 10);
             String manastring = asString(mana) + "/" + asString(manaMax);
-            this.mc.fontRenderer.drawStringWithShadow(manastring, i / 2 - this.mc.fontRenderer.getStringWidth(manastring) / 2, f + ypos + down + 8, 12378879);
+            this.mc.fontRenderer.drawStringWithShadow(manastring, (float) i / 2 - (float) this.mc.fontRenderer.getStringWidth(manastring) / 2, f + ypos + down + 8, 12378879);
          }
       }
    }

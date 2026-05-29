@@ -158,7 +158,7 @@ public class BlockBlock extends Block {
 
    @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      return this.vasePlace && worldIn.isAirBlock(pos.down()) ? false : super.canPlaceBlockAt(worldIn, pos);
+      return (!this.vasePlace || !worldIn.isAirBlock(pos.down())) && super.canPlaceBlockAt(worldIn, pos);
    }
 
    @Override

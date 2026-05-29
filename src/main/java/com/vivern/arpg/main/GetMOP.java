@@ -167,7 +167,7 @@ public class GetMOP {
    ) {
       RayTraceResult result = rayTraceBlocks(world, from, to, filter, stopOnLiquid, true, false);
 
-      if (result == null || result.typeOfHit == RayTraceResult.Type.MISS) {
+      if (result == null || result.typeOfHit == Type.MISS) {
          return true;
       }
 
@@ -694,7 +694,7 @@ public class GetMOP {
          if (shouldCollide(world, pos, state, filter, stopOnLiquid, ignoreNoBox)) {
             return state.collisionRayTrace(world, pos, start, end);
          } else {
-            lastResult = new RayTraceResult(RayTraceResult.Type.MISS, start, facing, pos);
+            lastResult = new RayTraceResult(Type.MISS, start, facing, pos);
          }
       }
 
@@ -791,7 +791,7 @@ public class GetMOP {
          }
 
          if (isFull) {
-            return new RayTraceResult(RayTraceResult.Type.BLOCK, hitVec, EnumFacing.UP, pos.toImmutable());
+            return new RayTraceResult(Type.BLOCK, hitVec, EnumFacing.UP, pos.toImmutable());
          }
       }
       return null;
@@ -1621,7 +1621,7 @@ public class GetMOP {
 
       RayTraceResult res = world.rayTraceBlocks(startPos, endPos, useLiquids, false, true);
 
-      return res != null ? res : new RayTraceResult(RayTraceResult.Type.MISS, endPos, null, new BlockPos(endPos));
+      return res != null ? res : new RayTraceResult(Type.MISS, endPos, null, new BlockPos(endPos));
    }
 
    @Nullable
@@ -1647,13 +1647,13 @@ public class GetMOP {
    }
 
    public static int byWeight(Random rand, int... weights) {
-      int summ = 0;
+      int sum = 0;
 
-      for (int i = 0; i < weights.length; i++) {
-         summ += weights[i];
+      for (int weight : weights) {
+          sum += weight;
       }
 
-      return byWeight(summ, rand, weights);
+      return byWeight(sum, rand, weights);
    }
 
    public static int byWeight(int summ, Random rand, int... weights) {

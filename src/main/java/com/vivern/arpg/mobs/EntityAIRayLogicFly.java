@@ -13,22 +13,12 @@ import net.minecraft.util.math.Vec3d;
 public class EntityAIRayLogicFly extends EntityAIBase {
    public EntityCreature entity;
    public LogicRay logicRay;
-   public Predicate raysuccess = new Predicate<Entity>() {
-      @Override
-      public boolean apply(@Nullable Entity en) {
-         return en == null ? false : en instanceof EntityPlayer;
-      }
-   };
+   public Predicate raysuccess = (Predicate<Entity>) en -> en instanceof EntityPlayer;
    public Predicate rayignore;
 
    public EntityAIRayLogicFly(EntityCreature entity) {
       this.entity = entity;
-      this.rayignore = new Predicate<Entity>() {
-         @Override
-         public boolean apply(@Nullable Entity en) {
-            return en == null ? true : !(en instanceof EntityPlayer);
-         }
-      };
+      this.rayignore = (Predicate<Entity>) en -> !(en instanceof EntityPlayer);
    }
 
    @Override
@@ -58,18 +48,8 @@ public class EntityAIRayLogicFly extends EntityAIBase {
             }
 
             if (this.entity.ticksExisted % 15 == 0) {
-               this.raysuccess = new Predicate<Entity>() {
-                  @Override
-                  public boolean apply(@Nullable Entity en) {
-                     return en == null ? false : en == EntityAIRayLogicFly.this.entity.getAttackTarget();
-                  }
-               };
-               this.rayignore = new Predicate<Entity>() {
-                  @Override
-                  public boolean apply(@Nullable Entity en) {
-                     return en == null ? true : en != EntityAIRayLogicFly.this.entity.getAttackTarget();
-                  }
-               };
+               this.raysuccess = (Predicate<Entity>) en -> en != null && en == EntityAIRayLogicFly.this.entity.getAttackTarget();
+               this.rayignore = (Predicate<Entity>) en -> en == null || en != EntityAIRayLogicFly.this.entity.getAttackTarget();
                this.logicRay.checkShortRay(this.entity.world, this.entity.getAttackTarget(), this.raysuccess, this.rayignore, false);
             }
 

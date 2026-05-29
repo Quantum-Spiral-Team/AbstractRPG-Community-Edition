@@ -135,9 +135,9 @@ public abstract class ChestLock {
       public BlockModel(boolean verticalSides) {
          this.textureWidth = 16;
          this.textureHeight = 16;
-         this.shape1 = (ModelRenderer)(verticalSides
+         this.shape1 = verticalSides
             ? new ModelRenderer(this, 0, 0)
-            : new ModelRendererLimited(this, 0, 0, true, true, false, false, true, true));
+            : new ModelRendererLimited(this, 0, 0, true, true, false, false, true, true);
          this.shape1.setRotationPoint(8.0F, 8.0F, 8.0F);
          this.shape1.addBox(-8.0F, -8.0F, -8.0F, 16, 16, 16, 0.0F);
       }

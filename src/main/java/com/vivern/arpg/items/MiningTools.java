@@ -1356,12 +1356,7 @@ public class MiningTools {
       public SoundEvent startSound = Sounds.tools_laser_start;
       public SoundEvent oneshotSound = Sounds.tools_laser_oneshot;
       public boolean canImpactGlass = false;
-      public Predicate<? super IBlockState> filterGlass = new Predicate<IBlockState>() {
-         @Override
-         public boolean apply(IBlockState input) {
-            return input.getLightOpacity() == 0 && (input.getMaterial() == Material.GLASS || input.getMaterial() == Material.ICE);
-         }
-      };
+      public Predicate<? super IBlockState> filterGlass = (Predicate<IBlockState>) input -> input.getLightOpacity() == 0 && (input.getMaterial() == Material.GLASS || input.getMaterial() == Material.ICE);
       static MiningLaserModel model = new MiningLaserModel();
       public static float oneshotDamageMult = 8.0F;
       static ResourceLocation plasma_a = new ResourceLocation("arpg:textures/plasma_a.png");
@@ -1564,10 +1559,10 @@ public class MiningTools {
                      vec.x,
                      vec.y,
                      vec.z,
-                     (double)player.rotationPitch,
-                     (double)player.rotationYaw,
+                          player.rotationPitch,
+                          player.rotationYaw,
                      hit ? mode + 20 : mode,
-                     (double)player.getEntityId(),
+                          player.getEntityId(),
                      0.0,
                      0.0
                   );
@@ -1641,7 +1636,7 @@ public class MiningTools {
 
             if (speed == 0) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

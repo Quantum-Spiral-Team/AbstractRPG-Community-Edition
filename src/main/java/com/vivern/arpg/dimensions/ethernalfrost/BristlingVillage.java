@@ -24,21 +24,18 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 
 public class BristlingVillage {
-   public static Predicate<IBlockState> BLOCKS_TO_COLLIDE = new Predicate<IBlockState>() {
-      @Override
-      public boolean apply(IBlockState input) {
-         if (input.getBlock() == BlocksRegister.CONIFER_PLANKS) {
-            return true;
-         } else {
-            return input.getMaterial() == Material.SNOW
-               ? input.isFullBlock()
-               : input.getMaterial() != Material.AIR
-                  && input.getMaterial() != Material.LEAVES
-                  && input.getMaterial() != Material.PLANTS
-                  && input.getMaterial() != Material.CACTUS
-                  && input.getMaterial() != Material.VINE
-                  && input.getMaterial() != Material.WOOD;
-         }
+   public static Predicate<IBlockState> BLOCKS_TO_COLLIDE = input -> {
+      if (input.getBlock() == BlocksRegister.CONIFER_PLANKS) {
+         return true;
+      } else {
+         return input.getMaterial() == Material.SNOW
+            ? input.isFullBlock()
+            : input.getMaterial() != Material.AIR
+               && input.getMaterial() != Material.LEAVES
+               && input.getMaterial() != Material.PLANTS
+               && input.getMaterial() != Material.CACTUS
+               && input.getMaterial() != Material.VINE
+               && input.getMaterial() != Material.WOOD;
       }
    };
    public ArrayList<StructPos> structuresSpawned = new ArrayList<>();
@@ -273,7 +270,7 @@ public class BristlingVillage {
 
          if (!this.world.collidesWithAnyBlock(var20.getEntityBoundingBox())) {
             AnvilChunkLoader.spawnEntity(var20, this.world);
-            var20.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(var20)), (IEntityLivingData)null);
+            var20.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(var20)), null);
             var20.enablePersistence();
          }
       }

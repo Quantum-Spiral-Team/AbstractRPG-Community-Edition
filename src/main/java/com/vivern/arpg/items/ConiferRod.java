@@ -1,14 +1,7 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.AbstractRPG;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.google.common.base.Predicate;
 import java.util.ArrayList;
@@ -67,8 +60,8 @@ public class ConiferRod extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             float mana = Mana.getMana(player);
             float spee = Mana.getManaSpeed(player);
             float power = Mana.getMagicPowerMax(player);
@@ -96,7 +89,7 @@ public class ConiferRod extends ItemWeapon {
                      player.addStat(StatList.getObjectUseStats(this));
                      Weapons.setPlayerAnimationOnServer(player, 14, EnumHand.MAIN_HAND);
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

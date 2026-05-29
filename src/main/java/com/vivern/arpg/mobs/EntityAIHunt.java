@@ -90,10 +90,8 @@ public class EntityAIHunt extends EntityAIBase {
       } else if (!entitylivingbase.isEntityAlive()) {
          return false;
       } else {
-         return !this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase))
-            ? false
-            : !(entitylivingbase instanceof EntityPlayer)
-               || !((EntityPlayer)entitylivingbase).isSpectator() && !((EntityPlayer)entitylivingbase).isCreative();
+         return this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase)) && (!(entitylivingbase instanceof EntityPlayer)
+                 || !((EntityPlayer) entitylivingbase).isSpectator() && !((EntityPlayer) entitylivingbase).isCreative());
       }
    }
 
@@ -106,7 +104,7 @@ public class EntityAIHunt extends EntityAIBase {
    public void resetTask() {
       EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
       if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative())) {
-         this.attacker.setAttackTarget((EntityLivingBase)null);
+         this.attacker.setAttackTarget(null);
       }
 
       this.attacker.getNavigator().clearPath();

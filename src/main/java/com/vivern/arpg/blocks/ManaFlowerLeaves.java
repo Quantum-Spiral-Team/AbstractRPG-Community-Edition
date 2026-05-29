@@ -135,7 +135,7 @@ public class ManaFlowerLeaves extends Block implements IPlantable {
       public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
          if (rand.nextFloat() < this.growChance) {
             if (this.canStayAtPos(worldIn, pos)) {
-               int agehas = (Integer)state.getValue(AGE);
+               int agehas = state.getValue(AGE);
                if (agehas < this.maxStage) {
                   worldIn.setBlockState(pos, state.withProperty(AGE, Math.min(agehas + 1, this.maxStage)));
                } else {

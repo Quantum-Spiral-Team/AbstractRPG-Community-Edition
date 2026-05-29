@@ -116,7 +116,7 @@ public class EntitySnowflakeShuriken extends EntityThrowable {
             result.entityHit.hurtResistantTime = 0;
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -136,7 +136,7 @@ public class EntitySnowflakeShuriken extends EntityThrowable {
          && !this.world.isRemote) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

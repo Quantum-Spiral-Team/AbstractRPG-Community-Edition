@@ -195,7 +195,7 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
          }
 
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -241,7 +241,7 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
          }
 
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,

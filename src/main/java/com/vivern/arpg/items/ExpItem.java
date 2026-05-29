@@ -31,6 +31,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -236,7 +237,7 @@ public class ExpItem extends Item {
 
                               if (!chest.getStackInSlot(22).isEmpty()) {
                                  int shardFallback = chest.getStackInSlot(22).getMetadata();
-                                 text.append("ShardType.").append(ShardType.byId(shardFallback).name.toUpperCase()).append(", ");
+                                 text.append("ShardType.").append(ShardType.byId(shardFallback).name.toUpperCase(Locale.ROOT)).append(", ");
                               } else {
                                  text.append("null, ");
                               }
@@ -256,7 +257,7 @@ public class ExpItem extends Item {
                                  if (spells != null) {
                                      for (Spell spell : spells) {
                                          if (spell != null) {
-                                             text.append(", Spell.").append(spell.name.toUpperCase());
+                                             text.append(", Spell.").append(spell.name.toUpperCase(Locale.ROOT));
                                          }
                                      }
                                  }

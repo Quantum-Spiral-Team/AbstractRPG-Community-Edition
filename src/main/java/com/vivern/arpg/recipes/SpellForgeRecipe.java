@@ -33,11 +33,11 @@ public class SpellForgeRecipe {
       this.hitsNeed = hitsNeed;
       this.arrayelementsCost = array12elementsCost;
 
-      for (int i = 0; i < array12elementsCost.length; i++) {
-         if (array12elementsCost[i] > 0) {
-            this.useEnergy = true;
-            break;
-         }
+      for (int j : array12elementsCost) {
+          if (j > 0) {
+              this.useEnergy = true;
+              break;
+          }
       }
    }
 
@@ -73,16 +73,16 @@ public class SpellForgeRecipe {
       NonNullList<ItemStack> stacks = sforge.stacks;
 
       for (int ix = 0; ix < stacks.size(); ix++) {
-         ItemStack have = (ItemStack)stacks.get(ix);
-         if (!((Ingridient)this.recipe.get(ix)).isStackAllowed(have)) {
+         ItemStack have = stacks.get(ix);
+         if (!this.recipe.get(ix).isStackAllowed(have)) {
             return false;
          }
       }
 
       if (shouldComplete) {
          for (int ixx = 0; ixx < stacks.size(); ixx++) {
-            ItemStack have = (ItemStack)stacks.get(ixx);
-            Ingridient need = (Ingridient)this.recipe.get(ixx);
+            ItemStack have = stacks.get(ixx);
+            Ingridient need = this.recipe.get(ixx);
             int size = have.getCount() - need.getCount();
             ItemStack result = size > 0 ? new ItemStack(have.getItem(), size, have.getMetadata(), have.getTagCompound()) : ItemStack.EMPTY;
             sforge.stacks.set(ixx, result);
@@ -101,13 +101,13 @@ public class SpellForgeRecipe {
    @Nullable
    public ShardType getRandomWeightedShardType(Random rand) {
       if (this.useEnergy) {
-         float summ = 0.0F;
+         float sum = 0.0F;
 
-         for (int i = 0; i < this.arrayelementsCost.length; i++) {
-            summ += this.arrayelementsCost[i];
+         for (int j : this.arrayelementsCost) {
+             sum += j;
          }
 
-         float r = rand.nextFloat() * summ;
+         float r = rand.nextFloat() * sum;
          float all = 0.0F;
 
          for (int i = 0; i < this.arrayelementsCost.length; i++) {
@@ -125,10 +125,10 @@ public class SpellForgeRecipe {
    public List<ItemStack> exportInputsAsList() {
       List<ItemStack> list = new ArrayList<>();
 
-      for (int i = 0; i < this.recipe.size(); i++) {
-         if (this.recipe.get(i) != Ingridient.EMPTY) {
-            list.add(((Ingridient)this.recipe.get(i)).createStack());
-         }
+      for (Ingridient ingridient : this.recipe) {
+          if (ingridient != Ingridient.EMPTY) {
+              list.add(ingridient.createStack());
+          }
       }
 
       if (this.catalyst != null) {

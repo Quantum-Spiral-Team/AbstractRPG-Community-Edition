@@ -53,11 +53,11 @@ public class Garland extends Block {
    }
 
    public AxisAlignedBB getAABB(IBlockState state) {
-      boolean n = (Boolean)state.getValue(NORTH);
-      boolean e = (Boolean)state.getValue(EAST);
-      boolean s = (Boolean)state.getValue(SOUTH);
-      boolean w = (Boolean)state.getValue(WEST);
-      boolean vertical = (Boolean)state.getValue(VERTICAL);
+      boolean n = state.getValue(NORTH);
+      boolean e = state.getValue(EAST);
+      boolean s = state.getValue(SOUTH);
+      boolean w = state.getValue(WEST);
+      boolean vertical = state.getValue(VERTICAL);
       if (vertical) {
          if (n) {
             return e ? UPPERLARGE_AABB : SN_AABB;
@@ -77,7 +77,7 @@ public class Garland extends Block {
 
    @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      if ((Boolean)state.getValue(VERTICAL)) {
+      if (state.getValue(VERTICAL)) {
          boolean west = worldIn.getBlockState(pos.west()).getBlock() == this;
          boolean east = west || worldIn.getBlockState(pos.east()).getBlock() == this;
          boolean south = worldIn.getBlockState(pos.south()).getBlock() == this;

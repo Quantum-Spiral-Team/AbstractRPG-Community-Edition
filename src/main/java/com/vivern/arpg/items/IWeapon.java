@@ -14,13 +14,14 @@ import com.vivern.arpg.main.WeaponParameters;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketItemBoomToClient;
-import com.vivern.arpg.network.PacketWeaponEffectToClients;
-import com.vivern.arpg.network.PacketWeaponStateToClients;
+import com.vivern.arpg.network.packet.PacketItemBoomToClient;
+import com.vivern.arpg.network.packet.PacketWeaponEffectToClients;
+import com.vivern.arpg.network.packet.PacketWeaponStateToClients;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Multimap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map.Entry;
 
 import net.minecraft.util.math.MathHelper;
@@ -218,7 +219,7 @@ public interface IWeapon {
                   return false;
                }
 
-               ItemStack clipstack = (ItemStack)player.inventory.mainInventory.get(clipstackIndex);
+               ItemStack clipstack = player.inventory.mainInventory.get(clipstackIndex);
                if (clipstack.isEmpty()) {
                   return false;
                }
@@ -477,7 +478,7 @@ public interface IWeapon {
    ) {
       if (!world.isRemote) {
          PacketWeaponEffectToClients packet = new PacketWeaponEffectToClients();
-         packet.writeargs(x, y, z, a, b, c, d1, d2, d3, Item.getIdFromItem(thisItem));
+         packet.writeArgs(x, y, z, a, b, c, d1, d2, d3, Item.getIdFromItem(thisItem));
          PacketHandler.sendToAllAround(packet, world, player.posX, player.posY, player.posZ, distance);
       }
    }
@@ -500,7 +501,7 @@ public interface IWeapon {
    ) {
       if (!world.isRemote) {
          PacketWeaponEffectToClients packet = new PacketWeaponEffectToClients();
-         packet.writeargs(x, y, z, a, b, c, d1, d2, d3, Item.getIdFromItem(thisItem));
+         packet.writeArgs(x, y, z, a, b, c, d1, d2, d3, Item.getIdFromItem(thisItem));
          PacketHandler.sendToAllAroundExcluding(packet, world, player.posX, player.posY, player.posZ, distance, excludingplayer);
       }
    }
@@ -522,7 +523,7 @@ public interface IWeapon {
    ) {
       if (!world.isRemote) {
          PacketWeaponEffectToClients packet = new PacketWeaponEffectToClients();
-         packet.writeargs(x, y, z, a, b, c, d1, d2, d3, Item.getIdFromItem(thisItem));
+         packet.writeArgs(x, y, z, a, b, c, d1, d2, d3, Item.getIdFromItem(thisItem));
          PacketHandler.sendToAllAround(
             packet, world, senderForPosition.posX, senderForPosition.posY, senderForPosition.posZ, distance
          );
@@ -540,7 +541,7 @@ public interface IWeapon {
    static void sendIWeaponState(ItemStack itemStack, EntityPlayer player, int state_byte, int slot, EnumHand hand) {
       if (!player.world.isRemote) {
          PacketWeaponStateToClients packet = new PacketWeaponStateToClients();
-         packet.writeargs((byte)state_byte, player.getEntityId(), hand == EnumHand.MAIN_HAND ? slot : 40);
+         packet.writeArgs((byte)state_byte, player.getEntityId(), hand == EnumHand.MAIN_HAND ? slot : 40);
          PacketHandler.sendToAllAround(packet, player.world, player.posX, player.posY, player.posZ, 64.0);
       }
    }
@@ -1093,7 +1094,7 @@ public interface IWeapon {
    static @Nullable Predicate<EntityLivingBase> getSummonerFilter(ItemStack itemstack, int filterMode, String filterParamString, boolean inverted) {
       boolean percent = false;
       float numberValue = 0;
-      filterParamString = filterParamString.toLowerCase();
+      filterParamString = filterParamString.toLowerCase(Locale.ROOT);
       if (filterMode == 3 || filterMode == 4) {
          boolean floatt = false;
          if (filterParamString.contains("%")) {
@@ -1123,13 +1124,13 @@ public interface IWeapon {
          if (filterMode == 1) {
             final String finalString = filterParamString;
             filter = input -> {
-               String entityName = EntityList.getEntityString(input).toLowerCase();
+               String entityName = EntityList.getEntityString(input).toLowerCase(Locale.ROOT);
                return !entityName.isEmpty() && !entityName.contains(finalString);
             };
          } else if (filterMode == 2) {
             final String finalString = filterParamString;
             filter = input -> {
-               String entityName = input.getName().toLowerCase();
+               String entityName = input.getName().toLowerCase(Locale.ROOT);
                return !entityName.isEmpty() && !entityName.contains(finalString);
             };
          } else if (filterMode == 3) {
@@ -1157,13 +1158,13 @@ public interface IWeapon {
       } else if (filterMode == 1) {
          final String finalString = filterParamString;
          filter = input -> {
-            String entityName = EntityList.getEntityString(input).toLowerCase();
+            String entityName = EntityList.getEntityString(input).toLowerCase(Locale.ROOT);
             return !entityName.isEmpty() && entityName.contains(finalString);
          };
       } else if (filterMode == 2) {
          final String finalString = filterParamString;
          filter = input -> {
-            String entityName = input.getName().toLowerCase();
+            String entityName = input.getName().toLowerCase(Locale.ROOT);
             return !entityName.isEmpty() && entityName.contains(finalString);
          };
       } else if (filterMode == 3) {
@@ -1259,18 +1260,19 @@ public interface IWeapon {
          return this.name;
       }
 
-      public static WeaponHandleType fromName(String name) {
-         switch (name) {
-            case "two handed":
-               return TWO_HANDED;
-            case "one handed":
-               return ONE_HANDED;
-            case "semi one handed":
-               return SEMI_ONE_HANDED;
-            default:
-               return NONE;
-         }
-      }
+      // Unused and doesn't make sense
+//      public static WeaponHandleType fromName(String name) {
+//         switch (name.toLowerCase().replace(" ", "")) {
+//            case "twohanded":
+//               return TWO_HANDED;
+//            case "onehanded":
+//               return ONE_HANDED;
+//            case "semionehanded":
+//               return SEMI_ONE_HANDED;
+//            default:
+//               return NONE;
+//         }
+//      }
 
       public String getName() {
          return this.name;

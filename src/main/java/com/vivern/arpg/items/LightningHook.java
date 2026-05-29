@@ -37,7 +37,7 @@ public class LightningHook extends GraplingHook {
    public void onThrow(EntityPlayer player, ItemStack itemstack) {
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -81,7 +81,7 @@ public class LightningHook extends GraplingHook {
       player.world.spawnEntity(bigsmoke);
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,

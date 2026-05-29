@@ -24,6 +24,8 @@ import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.proxy.ClientProxy;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
@@ -82,11 +84,12 @@ public class Armors {
          } else if (armorSlot != EntityEquipmentSlot.HEAD) {
             return "arpg:textures/firelord_armor_model_tex1.png";
          } else {
-            return type == "overlay" ? null : "arpg:textures/firelord_armor_model_tex1.png";
+            return type.equals("overlay") ? null : "arpg:textures/firelord_armor_model_tex1.png";
          }
       }
    };
    public static AbstractArmorSet northernSET = new AbstractArmorSet("northern_armor", "helmet") {
+      @SideOnly(Side.CLIENT)
       public NorthernArmorModel armormodel = new NorthernArmorModel();
       public String armortexture = "arpg:textures/northern_armor_model_tex.png";
 
@@ -111,6 +114,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet hazardSET = new AbstractArmorSet("hazard_suit", "helmet") {
+      @SideOnly(Side.CLIENT)
       public HazardSuitModel armormodel = new HazardSuitModel();
       public String armortexture = "arpg:textures/hazard_suit_model_tex.png";
 
@@ -239,6 +243,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet iceSET = new AbstractArmorSet("ice_armor", "helmet") {
+      @SideOnly(Side.CLIENT)
       public IceHelmetModel icemodel = new IceHelmetModel();
 
       @Override
@@ -337,6 +342,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet adamantiumSET = new AbstractArmorSet("adamantium_armor", "helmet") {
+      @SideOnly(Side.CLIENT)
       public AdamantiumArmorModel armormodel = new AdamantiumArmorModel();
       public String armortexture = "arpg:textures/adamantium_armor_model_tex.png";
 
@@ -388,7 +394,7 @@ public class Armors {
       public void onUpdateWearing(ARPGArmor item, ItemStack itemstack, World world, EntityLivingBase entity, int itemSlot, boolean isSelected) {
          if (entity.ticksExisted % 40 == 0 && entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entity;
-            if (player.inventory.armorInventory.get(3) == itemstack && isCharged((ItemStack)player.inventory.armorInventory.get(3))) {
+            if (player.inventory.armorInventory.get(3) == itemstack && isCharged(player.inventory.armorInventory.get(3))) {
                Weapons.mixPotion(
                   player,
                   PotionEffects.TOXIN,
@@ -401,12 +407,12 @@ public class Armors {
                   0,
                   0
                );
-               if (((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.TOXINIUM_CHEST
-                  && isCharged((ItemStack)player.inventory.armorInventory.get(2))
-                  && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.TOXINIUM_LEGS
-                  && isCharged((ItemStack)player.inventory.armorInventory.get(1))
-                  && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.TOXINIUM_BOOTS
-                  && isCharged((ItemStack)player.inventory.armorInventory.get(0))) {
+               if (player.inventory.armorInventory.get(2).getItem() == ItemsRegister.TOXINIUM_CHEST
+                  && isCharged(player.inventory.armorInventory.get(2))
+                  && player.inventory.armorInventory.get(1).getItem() == ItemsRegister.TOXINIUM_LEGS
+                  && isCharged(player.inventory.armorInventory.get(1))
+                  && player.inventory.armorInventory.get(0).getItem() == ItemsRegister.TOXINIUM_BOOTS
+                  && isCharged(player.inventory.armorInventory.get(0))) {
                   Weapons.mixPotion(
                      player,
                      PotionEffects.CHLORITE,
@@ -449,6 +455,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet coralSET = new AbstractArmorSet("coral_armor", "helmet") {
+      @SideOnly(Side.CLIENT)
       public CoralArmorModel armormodel = new CoralArmorModel();
       public String armortexture = "arpg:textures/coral_armor_model_tex.png";
 
@@ -473,6 +480,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet crystalSET = new AbstractArmorSet("crystal_mantle", "helmet") {
+      @SideOnly(Side.CLIENT)
       public CrystalMantleModel armormodel = new CrystalMantleModel();
       public String armortexture = "arpg:textures/crystal_mantle_model_tex.png";
 
@@ -497,6 +505,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet snowCoatSET = new AbstractArmorSet("snowcoat_armor", "helmet") {
+      @SideOnly(Side.CLIENT)
       public SnowcoatArmorModel armormodel = new SnowcoatArmorModel();
       public String[] armortextures = new String[]{
          "arpg:textures/snowcoat_armor_model_tex.png", "arpg:textures/snowcoat_armor_model_tex_blue.png", "arpg:textures/snowcoat_armor_model_tex_white.png"
@@ -534,6 +543,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet thundererSET = new AbstractArmorSet("thunderer_armor", "helmet") {
+      @SideOnly(Side.CLIENT)
       public ThundererArmorModel armormodel = new ThundererArmorModel();
       public String armortexture = "arpg:textures/thunderer_armor_model_tex.png";
 
@@ -558,6 +568,7 @@ public class Armors {
       }
    };
    public static AbstractArmorSet SET = new AbstractArmorSet("northern_armor", "helmet") {
+      @SideOnly(Side.CLIENT)
       public HazardSuitModel armormodel = new HazardSuitModel();
       public String armortexture = "arpg:textures/hazard_suit_model_tex.png";
 
@@ -595,7 +606,7 @@ public class Armors {
       wizardSET.setParameters(400, 16, AbstractArmorSet.EnumArmorRepairRatio.EXPENSIVE)
          .modif(0, 13.0, SharedMonsterAttributes.ARMOR)
          .modif(0, 19.0, PropertiesRegistry.MANA_MAX)
-         .modif(0, 0.4, PropertiesRegistry.MANASPEED_MAX)
+         .modif(0, 0.4, PropertiesRegistry.MANA_SPEED_MAX)
          .modif(0, 0.4, PropertiesRegistry.MAGIC_POWER_MAX)
          .createArmorItems();
       firelordSET.setParameters(3000, 7, AbstractArmorSet.EnumArmorRepairRatio.CHEAP)
@@ -609,7 +620,7 @@ public class Armors {
          .modif(0, 12.0, SharedMonsterAttributes.ARMOR)
          .modif(0, 2.0, PropertiesRegistry.ARMOR_PROTECTION)
          .modif(0, 28.0, PropertiesRegistry.MANA_MAX)
-         .modif(0, 0.4, PropertiesRegistry.MANASPEED_MAX)
+         .modif(0, 0.4, PropertiesRegistry.MANA_SPEED_MAX)
          .modif(0, 0.4, PropertiesRegistry.MAGIC_POWER_MAX)
          .createArmorItems();
       iceSET.setParameters(1300, 10, AbstractArmorSet.EnumArmorRepairRatio.NORMAL)
@@ -632,7 +643,7 @@ public class Armors {
          .modif(0, 10.0, SharedMonsterAttributes.ARMOR)
          .modif(0, 2.0, PropertiesRegistry.ARMOR_PROTECTION)
          .modif(0, 36.0, PropertiesRegistry.MANA_MAX)
-         .modif(0, 0.6, PropertiesRegistry.MANASPEED_MAX)
+         .modif(0, 0.6, PropertiesRegistry.MANA_SPEED_MAX)
          .modif(0, 0.5, PropertiesRegistry.MAGIC_POWER_MAX)
          .createArmorItems();
       toxiniumSET.setParameters(5000, 1, AbstractArmorSet.EnumArmorRepairRatio.CHEAP)
@@ -650,7 +661,7 @@ public class Armors {
          .modif(0, 6.0, PropertiesRegistry.ARMOR_PROTECTION)
          .modif(0, 6.0, SharedMonsterAttributes.MAX_HEALTH)
          .modif(0, 45.0, PropertiesRegistry.MANA_MAX)
-         .modif(0, 0.5, PropertiesRegistry.MANASPEED_MAX)
+         .modif(0, 0.5, PropertiesRegistry.MANA_SPEED_MAX)
          .modif(0, 0.45, PropertiesRegistry.MAGIC_POWER_MAX)
          .modif(0, 0.08, SharedMonsterAttributes.MOVEMENT_SPEED)
          .setElectric(250000, 5000)
@@ -668,7 +679,7 @@ public class Armors {
          .modif(0, 8.0, PropertiesRegistry.ARMOR_PROTECTION)
          .modif(0, 10.0, SharedMonsterAttributes.MAX_HEALTH)
          .modif(0, 54.0, PropertiesRegistry.MANA_MAX)
-         .modif(0, 0.7, PropertiesRegistry.MANASPEED_MAX)
+         .modif(0, 0.7, PropertiesRegistry.MANA_SPEED_MAX)
          .modif(0, 0.4, PropertiesRegistry.MAGIC_POWER_MAX)
          .modif(0, 0.1, SharedMonsterAttributes.MOVEMENT_SPEED)
          .createArmorItems();
@@ -677,7 +688,7 @@ public class Armors {
          .modif(0, 11.0, PropertiesRegistry.ARMOR_PROTECTION)
          .modif(0, 14.0, SharedMonsterAttributes.MAX_HEALTH)
          .modif(0, 64.0, PropertiesRegistry.MANA_MAX)
-         .modif(0, 0.7, PropertiesRegistry.MANASPEED_MAX)
+         .modif(0, 0.7, PropertiesRegistry.MANA_SPEED_MAX)
          .modif(0, 0.4, PropertiesRegistry.MAGIC_POWER_MAX)
          .modif(0, 0.16, SharedMonsterAttributes.MOVEMENT_SPEED)
          .modif(0, 0.4, EntityPlayer.SWIM_SPEED)
@@ -692,7 +703,7 @@ public class Armors {
          .modif(2, 0.3, SharedMonsterAttributes.ATTACK_DAMAGE)
          .modif(0, 1.0, SharedMonsterAttributes.KNOCKBACK_RESISTANCE)
          .modif(0, 75.0, PropertiesRegistry.MANA_MAX)
-         .modif(0, 0.7, PropertiesRegistry.MANASPEED_MAX)
+         .modif(0, 0.7, PropertiesRegistry.MANA_SPEED_MAX)
          .modif(0, 0.4, PropertiesRegistry.MAGIC_POWER_MAX)
          .createArmorItems();
    }

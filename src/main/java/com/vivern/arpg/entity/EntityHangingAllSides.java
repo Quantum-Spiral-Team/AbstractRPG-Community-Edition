@@ -28,13 +28,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.Validate;
 
-public class EntityHangingAllSides extends EntityHanging implements IEntitySynchronize {
-   private static final Predicate<Entity> IS_HANGING_ENTITY = new Predicate<Entity>() {
-      @Override
-      public boolean apply(@Nullable Entity p_apply_1_) {
-         return p_apply_1_ instanceof EntityHanging;
-      }
-   };
+public class EntityHangingAllSides extends EntityHanging implements ISynchronizedEntity {
+   private static final Predicate<Entity> IS_HANGING_ENTITY = entity -> entity instanceof EntityHanging;
    private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntityHangingAllSides.class, DataSerializers.ITEM_STACK);
    private static final DataParameter<Integer> ROTATION = EntityDataManager.createKey(EntityHangingAllSides.class, DataSerializers.VARINT);
    private float itemDropChance = 1.0F;
@@ -45,6 +40,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
    public SoundEvent addItemSound = SoundEvents.ENTITY_ITEMFRAME_ADD_ITEM;
    public int type;
 
+   @SuppressWarnings("unused")
    public EntityHangingAllSides(World worldIn) {
       super(worldIn);
    }
@@ -73,7 +69,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote && (this.ticksExisted < 2 || this.ticksExisted % 50 == 0)) {
-         IEntitySynchronize.sendSynchronize(
+         ISynchronizedEntity.sendSynchronize(
             this,
             24.0,
             this.hangingPosition.getX(),
@@ -167,20 +163,13 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
          return false;
       } else {
          BlockPos blockpos = this.hangingPosition.offset(this.facingDirection.getOpposite());
-         return !this.world.isSideSolid(blockpos, this.facingDirection)
-            ? false
-            : this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox(), IS_HANGING_ENTITY).isEmpty();
+         return this.world.isSideSolid(blockpos, this.facingDirection) && this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox(), IS_HANGING_ENTITY).isEmpty();
       }
    }
 
    @Override
    public float getEyeHeight() {
       return this.height / 2.0F;
-   }
-
-   @Override
-   public float getCollisionBorderSize() {
-      return 0.0F;
    }
 
    @Override
@@ -252,7 +241,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
    }
 
    public ItemStack getDisplayedItem() {
-      return (ItemStack)this.getDataManager().get(ITEM);
+      return this.getDataManager().get(ITEM);
    }
 
    public void setDisplayedItem(ItemStack stack) {
@@ -277,7 +266,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
    }
 
    public int getRotation() {
-      return (Integer)this.getDataManager().get(ROTATION);
+      return this.getDataManager().get(ROTATION);
    }
 
    public void setItemRotation(int rotationIn) {
@@ -310,7 +299,7 @@ public class EntityHangingAllSides extends EntityHanging implements IEntitySynch
    @Override
    public void readEntityFromNBT(NBTTagCompound compound) {
       NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
-      if (nbttagcompound != null && !nbttagcompound.isEmpty()) {
+      if (!nbttagcompound.isEmpty()) {
          this.setDisplayedItemWithUpdate(new ItemStack(nbttagcompound), false);
          this.setRotation(compound.getByte("ItemRotation"), false);
          if (compound.hasKey("ItemDropChance", 99)) {

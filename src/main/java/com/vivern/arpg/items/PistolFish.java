@@ -1,16 +1,8 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.PistolFishStrike;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
+
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -69,8 +61,8 @@ public class PistolFish extends ItemWeapon {
             int damage = itemstack.getItemDamage();
             World world = player.getEntityWorld();
             Item itemIn = itemstack.getItem();
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             this.decreaseReload(itemstack, player);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(itemIn);
@@ -84,7 +76,7 @@ public class PistolFish extends ItemWeapon {
                if (ammo > 0 && this.isReloaded(itemstack)) {
                   if ((!hascooldown || hand != EnumHand.MAIN_HAND) && (!hascooldown2 || hand != EnumHand.OFF_HAND)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -93,7 +85,7 @@ public class PistolFish extends ItemWeapon {
                         0.9F,
                         0.9F + itemRand.nextFloat() / 5.0F
                      );
-                     player.getCooldownTracker().setCooldown((Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), this.getCooldownTime(itemstack));
+                     player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getCooldownTime(itemstack));
                      player.addStat(StatList.getObjectUseStats(this));
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Weapons.setPlayerAnimationOnServer(player, 5, hand);
@@ -150,7 +142,7 @@ public class PistolFish extends ItemWeapon {
                                     );
                                     world.spawnEntity(projectile2);
                                     world.playSound(
-                                       (EntityPlayer)null,
+                                            null,
                                        player.posX,
                                        player.posY,
                                        player.posZ,
@@ -168,7 +160,7 @@ public class PistolFish extends ItemWeapon {
                   }
                } else if (this.initiateReload(itemstack, player, ItemsRegister.FISH_FEED, maxammo)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

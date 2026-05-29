@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class LightningStrike extends Entity implements IEntitySynchronize {
+public class LightningStrike extends Entity implements ISynchronizedEntity {
    public static ResourceLocation texture = new ResourceLocation("arpg:textures/lightning1.png");
    public List<Vec3d> points = new ArrayList<>();
    public Vec3d mainPoint = null;
@@ -98,7 +98,7 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
                this.world, this.thrower, this.raySize, false, this.mainPoint, nextMain, false, true, false
             );
             if (result != null && result.hitVec != null) {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   64.0,
                   this.mainPoint.x,
@@ -109,7 +109,7 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
                   result.hitVec.z
                );
             } else {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   64.0,
                   this.mainPoint.x,
@@ -164,7 +164,7 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
                }
 
                if (resultx != null && resultx.hitVec != null) {
-                  IEntitySynchronize.sendSynchronize(
+                  ISynchronizedEntity.sendSynchronize(
                      this,
                      64.0,
                      vec.x,
@@ -175,7 +175,7 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
                      resultx.hitVec.z
                   );
                } else {
-                  IEntitySynchronize.sendSynchronize(
+                  ISynchronizedEntity.sendSynchronize(
                      this, 64.0, vec.x, vec.y, vec.z, next.x, next.y, next.z
                   );
                }
@@ -212,7 +212,7 @@ public class LightningStrike extends Entity implements IEntitySynchronize {
    }
 
    public Vec3d nextMainStrike(Vec3d vec) {
-      float displMult = this.length / this.maxLength;
+      float displMult = (float) this.length / this.maxLength;
       float powerMult = 1.0F + this.homingPowerAdd * (this.maxLength - this.length);
       Vec3d ret = new Vec3d(
          vec.x + this.rand.nextGaussian() * displMult,

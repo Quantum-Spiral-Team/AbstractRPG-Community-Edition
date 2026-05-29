@@ -23,7 +23,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynchronize {
+public class EntityMinigunIcicle extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    public int livetime = 10;
    ResourceLocation snow = new ResourceLocation("arpg:textures/shards.png");
@@ -161,7 +161,7 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
             result.entityHit.hurtResistantTime = 0;
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -170,7 +170,7 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
                   0.8F,
                   0.9F + this.rand.nextFloat() / 5.0F
                );
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
             this.setDead();
          }
       } else if (this.world
@@ -180,7 +180,7 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -191,7 +191,7 @@ public class EntityMinigunIcicle extends EntityThrowable implements IEntitySynch
             );
          if (!this.world.isRemote) {
             if (result.hitVec != null) {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, 0.0, 0.0, 0.0
                );
             }

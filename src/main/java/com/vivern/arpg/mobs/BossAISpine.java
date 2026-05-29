@@ -71,7 +71,7 @@ public class BossAISpine extends EntityAIBase {
             this.entity.posY + agrr,
             this.entity.posZ + agrr
          );
-         EntityLivingBase targpl = (EntityLivingBase)this.entity.world.findNearestEntityWithinAABB(EntityPlayer.class, agraabb, this.entity);
+         EntityLivingBase targpl = this.entity.world.findNearestEntityWithinAABB(EntityPlayer.class, agraabb, this.entity);
          this.entity.setAttackTarget(targpl);
       }
 

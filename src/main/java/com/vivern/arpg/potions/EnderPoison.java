@@ -38,7 +38,7 @@ public class EnderPoison extends AdvancedPotion {
             }
 
             if (entityOnEffect.attemptTeleport(d3, d4, d5)) {
-               entityOnEffect.world.playSound((EntityPlayer)null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+               entityOnEffect.world.playSound(null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
                entityOnEffect.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
                break;
             }

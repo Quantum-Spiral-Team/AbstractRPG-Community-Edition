@@ -52,7 +52,7 @@ public class LooseSnow extends BlockFalling {
    @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      int i = (Integer)blockState.getValue(LAYERS);
+      int i = blockState.getValue(LAYERS);
       AxisAlignedBB axisalignedbb = blockState.getBoundingBox(worldIn, pos);
       return i == 8
          ? SNOW_AABB[8]
@@ -73,7 +73,7 @@ public class LooseSnow extends BlockFalling {
 
    @Override
    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-      return (Integer)worldIn.getBlockState(pos).getValue(LAYERS) < 5;
+      return worldIn.getBlockState(pos).getValue(LAYERS) < 5;
    }
 
    @Override
@@ -93,7 +93,7 @@ public class LooseSnow extends BlockFalling {
 
    @Override
    public boolean isFullCube(IBlockState state) {
-      return (Integer)state.getValue(LAYERS) == 8;
+      return state.getValue(LAYERS) == 8;
    }
 
    @Override
@@ -113,7 +113,7 @@ public class LooseSnow extends BlockFalling {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(LAYERS);
+      return state.getValue(LAYERS);
    }
 
    @Override
@@ -126,7 +126,7 @@ public class LooseSnow extends BlockFalling {
       if (replaced.getBlock() == BlocksRegister.LOOSE_SNOW) {
          worldIn.setBlockState(
             pos,
-            placed.withProperty(LAYERS, Math.min(8, (Integer)replaced.getValue(LAYERS) + (Integer)placed.getValue(LAYERS)))
+            placed.withProperty(LAYERS, Math.min(8, replaced.getValue(LAYERS) + placed.getValue(LAYERS)))
                .withProperty(ISFALLING, false)
          );
       } else {
@@ -143,7 +143,7 @@ public class LooseSnow extends BlockFalling {
 
    private void checkFallable(World worldIn, BlockPos pos) {
       if (worldIn.getBlockState(pos.down()).getBlock() == BlocksRegister.LOOSE_SNOW
-            && (Integer)worldIn.getBlockState(pos.down()).getValue(LAYERS) < 8
+            && worldIn.getBlockState(pos.down()).getValue(LAYERS) < 8
          || (worldIn.isAirBlock(pos.down()) || canFallThrough(worldIn.getBlockState(pos.down()))) && pos.getY() >= 0) {
          int i = 32;
          if (fallInstantly || !worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32))) {
@@ -180,7 +180,7 @@ public class LooseSnow extends BlockFalling {
 
    @Override
    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-      return side == EnumFacing.DOWN || (Integer)state.getValue(LAYERS) == 8;
+      return side == EnumFacing.DOWN || state.getValue(LAYERS) == 8;
    }
 
    @Override

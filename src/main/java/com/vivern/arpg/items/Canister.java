@@ -2,6 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.Keys;
+import com.vivern.arpg.main.ServerKeyTracker;
 import com.vivern.arpg.main.Weapons;
 import java.util.List;
 import net.minecraft.block.Block;
@@ -67,22 +68,22 @@ public class Canister extends ItemFluidContainer {
       if (block instanceof IFluidBlock) {
          return new FluidBlockWrapper((IFluidBlock)block, world, pos);
       } else {
-         return (IFluidHandler)(block instanceof BlockLiquid ? new BlockLiquidWrapper((BlockLiquid)block, world, pos) : new BlockWrapper(block, world, pos));
+         return block instanceof BlockLiquid ? new BlockLiquidWrapper((BlockLiquid)block, world, pos) : new BlockWrapper(block, world, pos);
       }
    }
 
    public void placeLiquid(World world, ItemStack itemstack, BlockPos pos, EntityPlayer player, FluidStack fluidStack) {
       FluidActionResult result = FluidUtil.tryPlaceFluid(player, world, pos, itemstack, fluidStack);
       SoundEvent soundevent = fluidStack.getFluid().getEmptySound(fluidStack);
-      world.playSound((EntityPlayer)null, pos.getX(), pos.getY(), pos.getZ(), soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+      world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
    }
 
    @Override
    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
       if (!world.isRemote && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+         boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
          if (this.tryFillFuelTool(itemstack, world, player, click2)) {
             player.getCooldownTracker().setCooldown(this, 5);
             return;
@@ -91,14 +92,14 @@ public class Canister extends ItemFluidContainer {
          if (player.getHeldItemMainhand() == itemstack && (click || click2) && !player.getCooldownTracker().hasCooldown(this)) {
             boolean worldMode = !player.isSneaking();
             RayTraceResult result = GetMOP.rayTrace(world, player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue(), player, false);
-            if (worldMode && result != null && result.hitVec != null) {
+            if (worldMode && result.hitVec != null) {
                RayTraceResult resultLiquids = GetMOP.rayTraceLiquids(world, player.getPositionEyes(1.0F), result.hitVec);
                if (resultLiquids != null) {
                   result = resultLiquids;
                }
             }
 
-            if (result != null && result.getBlockPos() != null && result.sideHit != null) {
+            if (result.sideHit != null) {
                boolean isreplaceable = world.getBlockState(result.getBlockPos()).getBlock().isReplaceable(world, result.getBlockPos());
                BlockPos blockpos1 = (!isreplaceable || result.sideHit != EnumFacing.UP) && worldMode
                   ? result.getBlockPos().offset(result.sideHit)
@@ -111,18 +112,18 @@ public class Canister extends ItemFluidContainer {
                            this.placeLiquid(world, itemstack, blockpos1, player, fluidStack);
                            itemstack.getTagCompound().removeTag("Fluid");
                         }
-                     } else if (click2) {
+                     } else {
                         FluidStack fluidStack = FluidUtil.getFluidContained(itemstack);
                         if (fluidStack == null || fluidStack.amount == 0) {
                            FluidActionResult filledResult = FluidUtil.tryPickUpFluid(itemstack, player, world, blockpos1, result.sideHit);
-                           if (filledResult != null && filledResult.result.getTagCompound() != null) {
+                           if (filledResult.result.getTagCompound() != null) {
                               itemstack.setTagCompound(filledResult.result.getTagCompound().copy());
                            }
                         }
                      }
                   } else if (click) {
                      this.onUseOnTile(player, itemstack, world, blockpos1, result.sideHit, true);
-                  } else if (click2) {
+                  } else {
                      this.onUseOnTile(player, itemstack, world, blockpos1, result.sideHit, false);
                   }
 
@@ -137,7 +138,7 @@ public class Canister extends ItemFluidContainer {
       if (player.getHeldItemOffhand() == itemstack && click2 && !player.getCooldownTracker().hasCooldown(this)) {
          ItemStack toolstack = player.getHeldItemMainhand();
          if (toolstack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-            IFluidHandlerItem capFluidHandlerTool = (IFluidHandlerItem)toolstack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+            IFluidHandlerItem capFluidHandlerTool = toolstack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
             FluidStack fluidStack = FluidUtil.getFluidContained(itemstack);
             if (fluidStack != null && fluidStack.getFluid() != null && fluidStack.amount > 0) {
                int MBfilled = capFluidHandlerTool.fill(fluidStack, true);
@@ -150,7 +151,7 @@ public class Canister extends ItemFluidContainer {
 
                SoundEvent soundevent = fluidStack.getFluid().getEmptySound(fluidStack);
                world.playSound(
-                  (EntityPlayer)null, player.posX, player.posY, player.posZ, soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F
+                       null, player.posX, player.posY, player.posZ, soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F
                );
                Weapons.setPlayerAnimationOnServer(player, 1, EnumHand.OFF_HAND);
                return true;
@@ -164,7 +165,7 @@ public class Canister extends ItemFluidContainer {
    public void onUseOnTile(EntityPlayer player, ItemStack itemstack, World world, BlockPos pos, EnumFacing facing, boolean fillTile) {
       TileEntity tileEntity = world.getTileEntity(pos);
       if (tileEntity != null && tileEntity.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
-         IFluidHandler handler = (IFluidHandler)tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
+         IFluidHandler handler = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
          if (handler == null) {
             return;
          }
@@ -183,7 +184,7 @@ public class Canister extends ItemFluidContainer {
                   newFluid.amount = fluidInCanisteramount - filled;
                   newFluid.writeToNBT(itemstack.getTagCompound().getCompoundTag("Fluid"));
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -210,7 +211,7 @@ public class Canister extends ItemFluidContainer {
 
                      itemstack.getTagCompound().setTag("Fluid", fluidTAG);
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

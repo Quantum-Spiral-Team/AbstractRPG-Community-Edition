@@ -31,7 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityTimelessSword extends Entity implements IEntitySynchronize {
+public class EntityTimelessSword extends Entity implements ISynchronizedEntity {
    public EntityPlayer player;
    public ItemStack weaponstack;
    public Vec3d to;
@@ -98,7 +98,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
    public void onUpdate() {
       super.onUpdate();
       if (!this.world.isRemote && this.to != null && this.ticksExisted <= 1) {
-         IEntitySynchronize.sendSynchronize(
+         ISynchronizedEntity.sendSynchronize(
             this, 64.0, this.yaw, this.pitch, this.rotation, this.to.x, this.to.y, this.to.z
          );
       }
@@ -171,12 +171,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
       float pitch,
       float rotation
    ) {
-      Predicate<Entity> filterEntityToIgnore = new Predicate<Entity>() {
-         @Override
-         public boolean apply(Entity input) {
-            return !Team.checkIsOpponent(input, player);
-         }
-      };
+      Predicate<Entity> filterEntityToIgnore = input -> !Team.checkIsOpponent(input, player);
       World world = player.world;
       float sweepingAdd = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING, stack) / 5.0F;
       Vec3d vec = GetMOP.logicRayTrace(world, from, to, filterEntityToIgnore, 0.9 + sweepingAdd, 0.4, false);
@@ -193,7 +188,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
       boolean ret = false;
       if (!list.isEmpty()) {
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             vec.x,
             vec.y,
             vec.z,
@@ -204,7 +199,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
          );
          if (crit) {
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                vec.x,
                vec.y,
                vec.z,
@@ -249,7 +244,7 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
          }
       } else {
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             vec.x,
             vec.y,
             vec.z,
@@ -268,9 +263,9 @@ public class EntityTimelessSword extends Entity implements IEntitySynchronize {
          vec.x,
          vec.y,
          vec.z,
-         (double)rotation,
-         (double)pitch,
-         (double)yaw,
+              rotation,
+              pitch,
+              yaw,
          0.0,
          0.0,
          0.0

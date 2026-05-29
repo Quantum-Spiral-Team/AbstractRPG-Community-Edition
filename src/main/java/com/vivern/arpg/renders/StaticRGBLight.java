@@ -552,9 +552,9 @@ public class StaticRGBLight extends Thread {
                         chunk.arrXYZ[bkcoordBlue] = 0L;
                         Debugger.startPROFILING(5);
                         if (lightt != 0) {
-                           chunk.setLight(bkcoordRed, (long)(lightt & 15), (long)((lightt & 61440) >>> 12));
-                           chunk.setLight(bkcoordGreen, (long)((lightt & 240) >>> 4), (long)((lightt & 983040) >>> 16));
-                           chunk.setLight(bkcoordBlue, (long)((lightt & 3840) >>> 8), (long)((lightt & 15728640) >>> 20));
+                           chunk.setLight(bkcoordRed, lightt & 15, (lightt & 61440) >>> 12);
+                           chunk.setLight(bkcoordGreen, (lightt & 240) >>> 4, (lightt & 983040) >>> 16);
+                           chunk.setLight(bkcoordBlue, (lightt & 3840) >>> 8, (lightt & 15728640) >>> 20);
                         }
 
                         Debugger.endPROFILINGandADD(5);

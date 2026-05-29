@@ -32,7 +32,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
+public class EntitySeaEffloresce extends Entity implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    public float magicPower = 1.0F;
    public EntityLivingBase thrower;
@@ -143,7 +143,7 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
          }
 
          if (this.thrower != null && this.ticksExisted < 3) {
-            IEntitySynchronize.sendSynchronize(this, 48.0, this.thrower.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0);
+            ISynchronizedEntity.sendSynchronize(this, 48.0, this.thrower.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0);
          }
 
          if (this.ticksExisted > this.livetime) {
@@ -251,7 +251,7 @@ public class EntitySeaEffloresce extends Entity implements IEntitySynchronize {
             if (hasattack) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,

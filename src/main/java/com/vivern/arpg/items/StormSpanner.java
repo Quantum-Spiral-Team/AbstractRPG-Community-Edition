@@ -42,7 +42,7 @@ public class StormSpanner extends Item {
                IBlockState st = BlocksRegister.BEAM_ROCK.getStateFromMeta(1);
                world.setBlockState(pos, st);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   pos,
                   BlocksRegister.BEAM_ROCK.getSoundType(st, world, pos, player).getPlaceSound(),
                   SoundCategory.BLOCKS,
@@ -56,7 +56,7 @@ public class StormSpanner extends Item {
                IBlockState st = BlocksRegister.STORM_CONDUCTOR.getStateFromMeta(0);
                world.setBlockState(pos, st);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   pos,
                   BlocksRegister.STORM_CONDUCTOR.getSoundType(st, world, pos, player).getPlaceSound(),
                   SoundCategory.BLOCKS,

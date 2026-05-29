@@ -1,15 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.items.models.AbstractMobModel;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
@@ -127,7 +119,7 @@ public abstract class AbstractBow extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             NBTHelper.GiveNBTint(itemstack, 0, "pulling");
             int pulling = NBTHelper.GetNBTint(itemstack, "pulling");
             if (this.inUpdate(itemstack, world, entityIn, itemSlot, isSelected, removePull) && player.getHeldItemMainhand() == itemstack) {
@@ -337,15 +329,9 @@ public abstract class AbstractBow extends ItemWeapon {
                   }
                   return true;
                case SEMI_ONE_HANDED:
-                  if (mainH != itemstack) {
-                      if (mainH.getItem() instanceof IWeapon) {
-                          if (((IWeapon) mainH.getItem()).getWeaponHandleType() == WeaponHandleType.TWO_HANDED) {
-                              return false;
-                          }
-
-                          return ((IWeapon) mainH.getItem()).getWeaponHandleType() != WeaponHandleType.SEMI_ONE_HANDED;
-                      }
-
+                  if (mainH != itemstack && mainH.getItem() instanceof IWeapon) {
+                     WeaponHandleType type = ((IWeapon) mainH.getItem()).getWeaponHandleType();
+                     return type != WeaponHandleType.TWO_HANDED && type != WeaponHandleType.SEMI_ONE_HANDED;
                   }
                   return true;
                default:

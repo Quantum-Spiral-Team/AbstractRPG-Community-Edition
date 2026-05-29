@@ -1,12 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityRestlessSkull;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
@@ -74,8 +69,8 @@ public class RestlessSkull extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             float power = Mana.getMagicPowerMax(player);
@@ -107,7 +102,7 @@ public class RestlessSkull extends ItemWeapon {
                if (Mana.getMana(player) > 1.8F - sor / 3.1F && !player.getCooldownTracker().hasCooldown(this)) {
                   if (click) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -120,7 +115,7 @@ public class RestlessSkull extends ItemWeapon {
                      player.addStat(StatList.getObjectUseStats(this));
                      Weapons.setPlayerAnimationOnServer(player, 13, EnumHand.MAIN_HAND);
                      EntityRestlessSkull projectile = new EntityRestlessSkull(world, player, itemstack, power);
-                     projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.65F, 2 / (acc + 1));
+                     projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.65F, (float) 2 / (acc + 1));
                      if (itemRand.nextFloat() < 0.3 + reuse / 3.0F) {
                         projectile.flaming = true;
                      }
@@ -133,7 +128,7 @@ public class RestlessSkull extends ItemWeapon {
                      }
                   } else if (click2 && charges > 0) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -146,7 +141,7 @@ public class RestlessSkull extends ItemWeapon {
                      player.addStat(StatList.getObjectUseStats(this));
                      Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                      EntityRestlessSkull projectilex = new EntityRestlessSkull(world, player, itemstack, power);
-                     projectilex.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.65F, 2 / (acc + 1));
+                     projectilex.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.65F, (float) 2 / (acc + 1));
                      projectilex.powered = true;
                      projectilex.active = true;
                      world.spawnEntity(projectilex);
@@ -167,7 +162,7 @@ public class RestlessSkull extends ItemWeapon {
                   NBTHelper.SetNBTboolean(itemstack, false, "challengeflame");
                   NBTHelper.SetNBTint(itemstack, MathHelper.clamp(charges + 10, 0, maxcharges), "charges");
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

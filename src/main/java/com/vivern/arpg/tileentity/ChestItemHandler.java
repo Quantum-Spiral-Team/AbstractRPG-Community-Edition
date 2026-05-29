@@ -151,7 +151,7 @@ public class ChestItemHandler extends WeakReference<TileChest> implements IItemH
       boolean accessingUpperChest = slot < 27;
       int targetSlot = accessingUpperChest ? slot : slot - 27;
       TileChest chest = this.getChest(accessingUpperChest);
-      return chest != null ? chest.getSingleChestHandler().isItemValid(targetSlot, stack) : true;
+      return chest == null || chest.getSingleChestHandler().isItemValid(targetSlot, stack);
    }
 
    @Override

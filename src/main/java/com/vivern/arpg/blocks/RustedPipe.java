@@ -144,12 +144,12 @@ public class RustedPipe extends BlockBlockHard {
    }
 
    public AxisAlignedBB getAABB(IBlockState state) {
-      boolean n = (Boolean)state.getValue(NORTH);
-      boolean e = (Boolean)state.getValue(EAST);
-      boolean s = (Boolean)state.getValue(SOUTH);
-      boolean w = (Boolean)state.getValue(WEST);
-      boolean u = (Boolean)state.getValue(UPPER);
-      boolean d = (Boolean)state.getValue(DOWN);
+      boolean n = state.getValue(NORTH);
+      boolean e = state.getValue(EAST);
+      boolean s = state.getValue(SOUTH);
+      boolean w = state.getValue(WEST);
+      boolean u = state.getValue(UPPER);
+      boolean d = state.getValue(DOWN);
       if (n) {
          if (s) {
             if (w) {

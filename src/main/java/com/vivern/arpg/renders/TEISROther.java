@@ -464,11 +464,11 @@ public class TEISROther extends TileEntityItemStackRenderer {
          float frame;
          if (modifier == 1) {
             Minecraft.getMinecraft().getTextureManager().bindTexture(beaker_fluid_unstable_top);
-            frame = AnimationTimer.tick / 4 % 32;
+            frame = (float) AnimationTimer.tick / 4 % 32;
             oneY = 0.03125F;
          } else {
             Minecraft.getMinecraft().getTextureManager().bindTexture(beaker_fluid_etheric_top);
-            frame = AnimationTimer.tick / 8 % 32;
+            frame = (float) AnimationTimer.tick / 8 % 32;
             oneY = 0.03125F;
          }
 
@@ -809,10 +809,10 @@ public class TEISROther extends TileEntityItemStackRenderer {
       bufferbuilder.begin(7, DefaultVertexFormats.ITEM);
 
       for (EnumFacing enumfacing : EnumFacing.values()) {
-         renderItem.renderQuads(bufferbuilder, model.getQuads((IBlockState)null, enumfacing, 0L), color, stack);
+         renderItem.renderQuads(bufferbuilder, model.getQuads(null, enumfacing, 0L), color, stack);
       }
 
-      renderItem.renderQuads(bufferbuilder, model.getQuads((IBlockState)null, (EnumFacing)null, 0L), color, stack);
+      renderItem.renderQuads(bufferbuilder, model.getQuads(null, null, 0L), color, stack);
       tessellator.draw();
    }
 

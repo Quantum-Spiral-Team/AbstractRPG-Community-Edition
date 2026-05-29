@@ -4,16 +4,7 @@ import com.vivern.arpg.items.animation.EnumFlick;
 import com.vivern.arpg.items.animation.FlickInertia;
 import com.vivern.arpg.items.animation.Flicks;
 import com.vivern.arpg.entity.CryoDestroyerSpray;
-import com.vivern.arpg.main.BlockBreaking;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.ArrayList;
@@ -191,8 +182,8 @@ public class CryoDestroyer extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             float acclvl = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             if ((click || click2) && player.getHeldItemMainhand() == itemstack) {
@@ -207,9 +198,9 @@ public class CryoDestroyer extends ItemWeapon {
                         RayTraceResult result = GetMOP.fixedRayTraceBlocks(
                            world, player, 5.0 + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack) * 0.6, 0.4, true, false, true, false
                         );
-                        BlockPos destroyPos = result.getBlockPos() == null ? new BlockPos(result.hitVec) : result.getBlockPos();
+                        BlockPos destroyPos = result.getBlockPos();
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            destroyPos.getX() + 0.5,
                            destroyPos.getY() + 0.5,
                            destroyPos.getZ() + 0.5,
@@ -267,7 +258,7 @@ public class CryoDestroyer extends ItemWeapon {
                         if (player.ticksExisted % 4 == 0) {
                            Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -305,7 +296,7 @@ public class CryoDestroyer extends ItemWeapon {
                   }
                } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYOGEN_CELL, maxammo, ItemsRegister.EMPTY_CELL)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -322,7 +313,7 @@ public class CryoDestroyer extends ItemWeapon {
       } else if (IWeapon.canShoot(itemstack) && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
          int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
          if (click2 && player.getHeldItemMainhand() == itemstack && ammo > 0 && this.isReloaded(itemstack) && !player.getCooldownTracker().hasCooldown(this)) {
             GUNParticle bigsmoke = new GUNParticle(
                largecloud,
@@ -404,10 +395,8 @@ public class CryoDestroyer extends ItemWeapon {
 
    @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-      return enchantment.type != EnumEnchantmentType.DIGGER
-            && enchantment.type != EnumEnchantmentType.BREAKABLE
-            && enchantment.type != EnchantmentInit.enchantmentTypeWeapon
-         ? super.canApplyAtEnchantingTable(stack, enchantment)
-         : true;
+      return enchantment.type == EnumEnchantmentType.DIGGER
+              || enchantment.type == EnumEnchantmentType.BREAKABLE
+              || enchantment.type == EnchantmentInit.enchantmentTypeWeapon || super.canApplyAtEnchantingTable(stack, enchantment);
    }
 }

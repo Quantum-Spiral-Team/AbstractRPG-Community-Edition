@@ -67,7 +67,7 @@ public class AlchemicLab extends Block implements IMagicUI {
    public void open(World world, EntityPlayer player, BlockPos pos, Entity entity) {
       if (!world.isRemote && IMagicUI.checkNoNearOpened(world, pos, null, 2)) {
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             pos.getX(),
             pos.getY(),
             pos.getZ(),
@@ -132,7 +132,7 @@ public class AlchemicLab extends Block implements IMagicUI {
    ) {
       if (!worldIn.isRemote) {
          TileAlchemicLab tile = this.getTileEntity(worldIn, pos);
-         worldIn.playSound((EntityPlayer)null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
+         worldIn.playSound(null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
          if (tile != null) {
             player.openGui(AbstractRPG.instance, 2, worldIn, pos.getX(), pos.getY(), pos.getZ());
             return true;

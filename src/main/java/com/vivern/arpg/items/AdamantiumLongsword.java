@@ -1,6 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.main.Keys;
+import com.vivern.arpg.main.ServerKeyTracker;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Weapons;
 import net.minecraft.creativetab.CreativeTabs;
@@ -39,8 +40,8 @@ public class AdamantiumLongsword extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             EnumHand hand = null;
             if (click && player.getHeldItemMainhand() == itemstack && !hascooldown) {
@@ -52,7 +53,7 @@ public class AdamantiumLongsword extends ItemWeapon {
             if (hand != null) {
                if (IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, false).success) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -63,7 +64,7 @@ public class AdamantiumLongsword extends ItemWeapon {
                   );
                } else {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

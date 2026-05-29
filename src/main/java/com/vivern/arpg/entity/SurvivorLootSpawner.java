@@ -208,7 +208,7 @@ public class SurvivorLootSpawner extends EntityThrowable {
 
          NPCMobsPack.NpcMerchant merchant = new NPCMobsPack.NpcMerchant(this.world);
          merchant.setPosition(center.getX() + 0.5, center.getY() + 1.1, center.getZ() + 0.5);
-         merchant.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(merchant)), (IEntityLivingData)null);
+         merchant.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(merchant)), null);
          merchant.trades = this.TRADES;
          merchant.setEntityInvulnerable(true);
          this.world.spawnEntity(merchant);

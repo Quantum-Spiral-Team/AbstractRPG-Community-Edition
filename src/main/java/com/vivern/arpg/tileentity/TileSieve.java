@@ -19,7 +19,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 
-public class TileSieve extends TileEntity implements ITickable, ITileEntitySynchronize {
+public class TileSieve extends TileEntity implements ITickable, ITileEntitySynchronized {
    public int prevSievePower;
    public int sievePower;
    public double prevTimeExisted;
@@ -37,7 +37,7 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
          this.sievePower = maximum;
       }
 
-      ITileEntitySynchronize.sendSynchronize(this, 32.0, this.sievePower);
+      ITileEntitySynchronized.sendSynchronize(this, 32.0, this.sievePower);
    }
 
    @Override
@@ -67,7 +67,7 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
                         this.input = splitted;
                         this.currentRecipe = recipe;
                         this.ticksSieved = 0.0F;
-                        ITileEntitySynchronize.sendSynchronize(this, 64.0, 1.0, Item.getIdFromItem(this.input.getItem()));
+                        ITileEntitySynchronized.sendSynchronize(this, 64.0, 1.0, Item.getIdFromItem(this.input.getItem()));
                         break;
                      }
                   }
@@ -76,7 +76,7 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
                this.ticksSieved = this.ticksSieved + this.sievePower / 40.0F;
                if (this.ticksSieved > this.currentRecipe.timeToCraft) {
                   for (int i = 0; i < this.currentRecipe.output.size(); i++) {
-                     Ingridient ingredientOut = (Ingridient)this.currentRecipe.output.get(i);
+                     Ingridient ingredientOut = this.currentRecipe.output.get(i);
                      if (GetMOP.rand.nextFloat() < this.currentRecipe.chances[i]) {
                         ItemStack out = ingredientOut.createStack();
                         if (!OreDicHelper.isMissing(out.getItem())) {
@@ -97,13 +97,13 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
                   this.input = null;
                   this.currentRecipe = null;
                   this.ticksSieved = 0.0F;
-                  ITileEntitySynchronize.sendSynchronize(this, 64.0, 0.0, 0.0);
+                  ITileEntitySynchronized.sendSynchronize(this, 64.0, 0.0, 0.0);
                }
 
                if (this.currentRecipe != null && GetMOP.rand.nextFloat() < 0.05F + limitedPower * 0.001F) {
                   this.world
                      .playSound(
-                        (EntityPlayer)null, this.getPos(), this.currentRecipe.sound, SoundCategory.BLOCKS, 0.5F, 0.9F + GetMOP.rand.nextFloat() * 0.2F
+                             null, this.getPos(), this.currentRecipe.sound, SoundCategory.BLOCKS, 0.5F, 0.9F + GetMOP.rand.nextFloat() * 0.2F
                      );
                }
             }
@@ -118,7 +118,7 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
 
    public float getSieveOffset(float partialTicks) {
       double spower = GetMOP.partial((float)this.sievePower, (float)this.prevSievePower, partialTicks);
-      double time = GetMOP.partial(this.timeExisted, this.prevTimeExisted, (double)partialTicks);
+      double time = GetMOP.partial(this.timeExisted, this.prevTimeExisted, partialTicks);
       double maxoffset = GetMOP.getFromTo(spower, 0.0, 60.0) * 2.0 * 0.0625;
       double offset = Math.sin(time * 2.0) * maxoffset;
       return (float)offset;
@@ -166,7 +166,7 @@ public class TileSieve extends TileEntity implements ITickable, ITileEntitySynch
          if (recipe != null) {
             this.currentRecipe = recipe;
             this.ticksSieved = 0.0F;
-            ITileEntitySynchronize.sendSynchronize(this, 64.0, 1.0, Item.getIdFromItem(this.input.getItem()));
+            ITileEntitySynchronized.sendSynchronize(this, 64.0, 1.0, Item.getIdFromItem(this.input.getItem()));
          } else {
             this.input = null;
          }

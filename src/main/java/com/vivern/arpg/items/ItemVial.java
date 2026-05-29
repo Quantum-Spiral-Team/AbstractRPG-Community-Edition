@@ -36,12 +36,7 @@ import net.minecraft.world.World;
 
 public class ItemVial extends Item {
    public ShardType shardType;
-   public static Predicate<IBlockState> VIALS = new Predicate<IBlockState>() {
-      @Override
-      public boolean apply(IBlockState input) {
-         return input.getBlock() == BlocksRegister.BLOCK_VIAL;
-      }
-   };
+   public static Predicate<IBlockState> VIALS = input -> input.getBlock() == BlocksRegister.BLOCK_VIAL;
 
    public ItemVial(int shard) {
       if (shard == -1) {
@@ -107,7 +102,7 @@ public class ItemVial extends Item {
                         itemstack.shrink(1);
                         Weapons.setPlayerAnimationOnServer(playerIn, 14, handIn);
                         worldIn.playSound(
-                           (EntityPlayer)null,
+                                null,
                            playerIn.posX,
                            playerIn.posY,
                            playerIn.posZ,
@@ -133,7 +128,7 @@ public class ItemVial extends Item {
                      itemstack.shrink(1);
                      Weapons.setPlayerAnimationOnServer(playerIn, 14, handIn);
                      worldIn.playSound(
-                        (EntityPlayer)null,
+                             null,
                         playerIn.posX,
                         playerIn.posY,
                         playerIn.posZ,

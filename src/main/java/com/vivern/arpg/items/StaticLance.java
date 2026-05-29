@@ -1,15 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
@@ -76,8 +68,8 @@ public class StaticLance extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int damage = itemstack.getItemDamage();
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
@@ -114,7 +106,7 @@ public class StaticLance extends ItemWeapon {
                   int knockback = EnchantmentHelper.getEnchantmentLevel(Enchantments.KNOCKBACK, itemstack);
                   if (IWeapon.doMeleeSpearAttack(this, itemstack, player, hand, false).success) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -125,7 +117,7 @@ public class StaticLance extends ItemWeapon {
                      );
                   } else {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -162,7 +154,7 @@ public class StaticLance extends ItemWeapon {
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Vec3d vec = result.hitVec;
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         vec.x,
                         vec.y,
                         vec.z,
@@ -182,7 +174,7 @@ public class StaticLance extends ItemWeapon {
                      );
                      List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
                      double power = Math.min(
-                        (double)parameters.getFloat("special_max_power"),
+                             parameters.getFloat("special_max_power"),
                         EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 ? Math.abs(player.motionY) : 0.0
                      );
                      if (!list.isEmpty()) {
@@ -230,7 +222,7 @@ public class StaticLance extends ItemWeapon {
                      IWeapon.fireEffect(this, player, world, 64.0, vec.x, vec.y, vec.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
                   } else if (blowdelay == 1) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

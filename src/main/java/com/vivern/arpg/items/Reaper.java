@@ -1,11 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityThrowedReaper;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -91,7 +87,7 @@ public class Reaper extends ItemWeapon {
       if (ch > 0.0F || dd > 0.0F) {
          player.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                entity.posX,
                entity.posY,
                entity.posZ,
@@ -122,8 +118,8 @@ public class Reaper extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             NBTHelper.giveNBTboolean(itemstack, false, "throwed");
             if (!player.getCooldownTracker().hasCooldown(this)) {
                NBTHelper.SetNBTboolean(itemstack, false, "throwed");
@@ -132,7 +128,7 @@ public class Reaper extends ItemWeapon {
             if (player.getHeldItemMainhand() == itemstack && !player.getCooldownTracker().hasCooldown(this)) {
                if (click2) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -156,7 +152,7 @@ public class Reaper extends ItemWeapon {
                      player.rotationYaw,
                      0.2F,
                      1.4F,
-                     0.5F - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack) / 7
+                     0.5F - (float) EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack) / 7
                   );
                   world.spawnEntity(treaper);
                } else if (click && !NBTHelper.GetNBTboolean(itemstack, "throwed")) {
@@ -177,7 +173,7 @@ public class Reaper extends ItemWeapon {
                      )
                      .success) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -188,7 +184,7 @@ public class Reaper extends ItemWeapon {
                      );
                   } else {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

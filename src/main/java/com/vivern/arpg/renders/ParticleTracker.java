@@ -453,7 +453,7 @@ public class ParticleTracker<T extends Entity> {
       @Override
       public void update(GUNParticle entity) {
          if (entity.world.getWorldTime() != insuranceWorldTime && rand.nextFloat() < this.chance) {
-            List<Entity> list = GetMOP.getEntitiesInAABBof(entity.world, entity, (double)this.findRadius, entity);
+            List<Entity> list = GetMOP.getEntitiesInAABBof(entity.world, entity, this.findRadius, entity);
             GUNParticle other = null;
 
             for (Entity e : list) {
@@ -783,14 +783,14 @@ public class ParticleTracker<T extends Entity> {
                Vec3d point = this.positions[i];
                Vec3d prevpoint = this.positions[i - 1];
                if (Debugger.floats[0] == 0.0F) {
-                  entity.posX = GetMOP.partial(point.x, prevpoint.x, (double)ft1);
-                  entity.posY = GetMOP.partial(point.y, prevpoint.y, (double)ft1);
-                  entity.posZ = GetMOP.partial(point.z, prevpoint.z, (double)ft1);
+                  entity.posX = GetMOP.partial(point.x, prevpoint.x, ft1);
+                  entity.posY = GetMOP.partial(point.y, prevpoint.y, ft1);
+                  entity.posZ = GetMOP.partial(point.z, prevpoint.z, ft1);
                } else {
                   entity.setPosition(
-                     GetMOP.partial(point.x, prevpoint.x, (double)ft1),
-                     GetMOP.partial(point.y, prevpoint.y, (double)ft1),
-                     GetMOP.partial(point.z, prevpoint.z, (double)ft1)
+                     GetMOP.partial(point.x, prevpoint.x, ft1),
+                     GetMOP.partial(point.y, prevpoint.y, ft1),
+                     GetMOP.partial(point.z, prevpoint.z, ft1)
                   );
                }
             }

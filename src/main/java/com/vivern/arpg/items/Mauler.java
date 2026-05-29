@@ -37,7 +37,7 @@ public class Mauler extends Whip {
    ) {
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -63,8 +63,8 @@ public class Mauler extends Whip {
          scaledVec.y,
          scaledVec.z,
          hand == EnumHand.MAIN_HAND ? 2.0 : 3.0,
-         (double)player.rotationPitch,
-         (double)player.rotationYaw,
+              player.rotationPitch,
+              player.rotationYaw,
          0.0,
          0.0,
          0.0

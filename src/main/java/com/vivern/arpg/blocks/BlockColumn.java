@@ -53,7 +53,7 @@ public class BlockColumn extends BlockBlock {
    @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      switch ((EnumAxis)state.getValue(AXIS)) {
+      switch (state.getValue(AXIS)) {
          case X:
             i = 4;
             break;
@@ -82,7 +82,7 @@ public class BlockColumn extends BlockBlock {
       switch (rot) {
          case COUNTERCLOCKWISE_90:
          case CLOCKWISE_90:
-            switch ((EnumAxis)state.getValue(AXIS)) {
+            switch (state.getValue(AXIS)) {
                case X:
                   return state.withProperty(AXIS, EnumAxis.Z);
                case Z:

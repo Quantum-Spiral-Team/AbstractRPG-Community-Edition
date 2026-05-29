@@ -174,7 +174,7 @@ public class LavaDropperShoot extends EntityThrowable {
             this.tryPlaceLava(result);
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -193,7 +193,7 @@ public class LavaDropperShoot extends EntityThrowable {
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

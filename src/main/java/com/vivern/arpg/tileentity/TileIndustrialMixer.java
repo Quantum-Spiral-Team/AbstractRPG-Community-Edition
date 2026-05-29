@@ -32,7 +32,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
-public class TileIndustrialMixer extends TileEntityLockable implements ITickable, ISidedInventory, IFillDrain, ITileEntitySynchronize {
+public class TileIndustrialMixer extends TileEntityLockable implements ITickable, ISidedInventory, IFillDrain, ITileEntitySynchronized {
    public static final int[] SLOTS_TOP = new int[]{0, 1, 2};
    public static final int[] SLOTS_BOTTOM = new int[]{3, 4, 5};
    public static final int[] SLOTS_OTHER = new int[]{6, 7};
@@ -89,7 +89,7 @@ public class TileIndustrialMixer extends TileEntityLockable implements ITickable
                   }
 
                   if (this.ticksExisted % 10 == 0) {
-                     this.world.playSound((EntityPlayer)null, this.getPos(), Sounds.industrial_mixer, SoundCategory.BLOCKS, 0.9F, 1.0F);
+                     this.world.playSound(null, this.getPos(), Sounds.industrial_mixer, SoundCategory.BLOCKS, 0.9F, 1.0F);
                   }
                }
             } else {
@@ -136,12 +136,12 @@ public class TileIndustrialMixer extends TileEntityLockable implements ITickable
                if (!this.started) {
                   this.world
                      .playSound(
-                        (EntityPlayer)null, this.getPos(), Sounds.industrial_mixer_start, SoundCategory.BLOCKS, 1.0F, 0.9F + rand.nextFloat() / 5.0F
+                             null, this.getPos(), Sounds.industrial_mixer_start, SoundCategory.BLOCKS, 1.0F, 0.9F + rand.nextFloat() / 5.0F
                      );
                }
 
                this.started = true;
-               ITileEntitySynchronize.sendSynchronize(this, 64.0, 1.0);
+               ITileEntitySynchronized.sendSynchronize(this, 64.0, 1.0);
                this.ticksToRecipe = recipe.ticksToBrew;
                this.currentRFtotick = recipe.rfToAll / recipe.ticksToBrew;
                return;
@@ -150,11 +150,11 @@ public class TileIndustrialMixer extends TileEntityLockable implements ITickable
       }
 
       this.started = false;
-      ITileEntitySynchronize.sendSynchronize(this, 64.0, 0.0);
+      ITileEntitySynchronized.sendSynchronize(this, 64.0, 0.0);
    }
 
    public FluidStorage getTankForSide(EnumFacing facing) {
-      EnumFacing blockFacing = (EnumFacing)this.world.getBlockState(this.getPos()).getValue(IndustrialMixer.FACING);
+      EnumFacing blockFacing = this.world.getBlockState(this.getPos()).getValue(IndustrialMixer.FACING);
       if (facing.getHorizontalIndex() == GetMOP.next(EnumFacing.WEST.getHorizontalIndex(), blockFacing.getHorizontalIndex(), 4)) {
          return this.tank1;
       } else if (facing.getHorizontalIndex() == GetMOP.next(EnumFacing.NORTH.getHorizontalIndex(), blockFacing.getHorizontalIndex(), 4)) {
@@ -185,7 +185,7 @@ public class TileIndustrialMixer extends TileEntityLockable implements ITickable
 
          return (T)this.itemHandlers[facing.getIndex()];
       } else {
-         return (T)super.getCapability(capability, facing);
+         return super.getCapability(capability, facing);
       }
    }
 
@@ -222,7 +222,7 @@ public class TileIndustrialMixer extends TileEntityLockable implements ITickable
 
    @Override
    public ItemStack getStackInSlot(int index) {
-      return (ItemStack)this.containItemStacks.get(index);
+      return this.containItemStacks.get(index);
    }
 
    @Override
@@ -237,7 +237,7 @@ public class TileIndustrialMixer extends TileEntityLockable implements ITickable
 
    @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
-      ItemStack itemstack = (ItemStack)this.containItemStacks.get(index);
+      ItemStack itemstack = this.containItemStacks.get(index);
       boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
       this.containItemStacks.set(index, stack);
       if (stack.getCount() > this.getInventoryStackLimit()) {
@@ -269,10 +269,8 @@ public class TileIndustrialMixer extends TileEntityLockable implements ITickable
 
    @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
-      return this.world.getTileEntity(this.pos) != this
-         ? false
-         : player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
-            <= 64.0;
+      return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
+              <= 64.0;
    }
 
    @Override

@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityRestlessSkull extends EntityThrowable implements IEntitySynchronize {
+public class EntityRestlessSkull extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    public float magicPower = 1.0F;
    public int ticksNoCollide = 0;
@@ -248,7 +248,7 @@ public class EntityRestlessSkull extends EntityThrowable implements IEntitySynch
                         if (this.attacks >= 2) {
                            this.world
                               .playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  this.posX,
                                  this.posY,
                                  this.posZ,
@@ -257,7 +257,7 @@ public class EntityRestlessSkull extends EntityThrowable implements IEntitySynch
                                  0.7F,
                                  0.9F + this.rand.nextFloat() / 5.0F
                               );
-                           IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
+                           ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
                            this.setDead();
                         }
                      } else {
@@ -274,7 +274,7 @@ public class EntityRestlessSkull extends EntityThrowable implements IEntitySynch
                   if (!this.powered) {
                      this.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            this.posX,
                            this.posY,
                            this.posZ,
@@ -283,14 +283,14 @@ public class EntityRestlessSkull extends EntityThrowable implements IEntitySynch
                            0.7F,
                            0.9F + this.rand.nextFloat() / 5.0F
                         );
-                     IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
+                     ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
                      this.setDead();
                   }
                }
             } else {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -328,7 +328,7 @@ public class EntityRestlessSkull extends EntityThrowable implements IEntitySynch
             != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -357,7 +357,7 @@ public class EntityRestlessSkull extends EntityThrowable implements IEntitySynch
             && !this.world.isRemote
             && this.impacts > 1 + 2 * EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack)) {
             if (result.hitVec != null) {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, 0.0, 0.0, 0.0
                );
             }

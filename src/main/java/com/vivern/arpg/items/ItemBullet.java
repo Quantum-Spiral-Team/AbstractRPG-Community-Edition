@@ -12,7 +12,7 @@ import com.vivern.arpg.main.Team;
 import com.vivern.arpg.main.WeaponDamage;
 import com.vivern.arpg.main.WeaponParameters;
 import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.network.PacketBulletEffectToClients;
+import com.vivern.arpg.network.packet.PacketBulletEffectToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
@@ -212,7 +212,7 @@ public class ItemBullet extends Item {
                Vec3d vect = GetMOP.rotatedPosRayTrace(
                   2.5,
                        newvec,
-                  (EntityLivingBase)(impacted != null && impacted instanceof EntityLivingBase ? (EntityLivingBase)impacted : player),
+                       impacted != null && impacted instanceof EntityLivingBase ? (EntityLivingBase)impacted : player,
                   0.35,
                   0.3,
                   rand.nextInt(360) - 180,
@@ -358,7 +358,7 @@ public class ItemBullet extends Item {
    ) {
       if (!world.isRemote) {
          PacketBulletEffectToClients packet = new PacketBulletEffectToClients();
-         packet.writeargs(x, y, z, a, b, c, id);
+         packet.writeArgs(x, y, z, a, b, c, id);
          PacketHandler.sendToAllAround(packet, world, sendX, sendY, sendZ, distance);
       }
    }
@@ -520,7 +520,7 @@ public class ItemBullet extends Item {
       public boolean onImpact(World world, EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable Entity projectile) {
          float fixRadius = 0.4F;
          List<EntityLivingBase> listResultFix = GetMOP.getHostilesInAABBto(world, new Vec3d(x, y, z), fixRadius, fixRadius, player);
-         Entity entityIgnore = (Entity)(listResultFix.isEmpty() ? player : (Entity)listResultFix.get(0));
+         Entity entityIgnore = listResultFix.isEmpty() ? player : listResultFix.get(0);
          List<EntityLivingBase> list = GetMOP.getHostilesInAABBto(world, new Vec3d(x, y, z), 4.0, 4.0, player);
          if (!list.isEmpty()) {
             for (int i = 0; i < 3; i++) {
@@ -574,12 +574,7 @@ public class ItemBullet extends Item {
             vec2 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
          }
 
-         Predicate<? super Entity> filterEntityToIgnore = new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity input) {
-               return input == entityIgnore || !Team.checkIsOpponent(player, input);
-            }
-         };
+         Predicate<? super Entity> filterEntityToIgnore = (Predicate<Entity>) input -> input == entityIgnore || !Team.checkIsOpponent(player, input);
          Vec3d vec = GetMOP.findEndCoordOnPath(vec1, vec2, world, filterEntityToIgnore, 0.2, 0.2);
          double damageRadius = 0.25;
          AxisAlignedBB aabb = new AxisAlignedBB(
@@ -898,7 +893,7 @@ public class ItemBullet extends Item {
             damaget.posY + damageRadius,
             damaget.posZ + damageRadius
          );
-         EntityLivingBase entitylivingbase = (EntityLivingBase)world.findNearestEntityWithinAABB(EntityLivingBase.class, aabb, damaget);
+         EntityLivingBase entitylivingbase = world.findNearestEntityWithinAABB(EntityLivingBase.class, aabb, damaget);
          Vec3d from = new Vec3d(damaget.posX, damaget.posY + damaget.height / 2.0F, damaget.posZ);
          if (Team.checkIsOpponent(player, entitylivingbase)
             && (
@@ -925,7 +920,7 @@ public class ItemBullet extends Item {
             );
             entitylivingbase.hurtResistantTime = 0;
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                damaget.posX,
                damaget.posY,
                damaget.posZ,

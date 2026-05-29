@@ -52,7 +52,7 @@ public class BlockPlacer extends Block {
    @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
-      boolean flag1 = (Boolean)state.getValue(TRIGGERED);
+      boolean flag1 = state.getValue(TRIGGERED);
       if (flag && !flag1) {
          worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
          NBTTagCompound tag = new NBTTagCompound();
@@ -96,7 +96,7 @@ public class BlockPlacer extends Block {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof TileBlockPlacer) {
          TileBlockPlacer tileBlockPlacer = (TileBlockPlacer)tileentity;
-         BlockPos offset = pos.offset((EnumFacing)state.getValue(FACING));
+         BlockPos offset = pos.offset(state.getValue(FACING));
          if (worldIn.isAirBlock(offset) || worldIn.getBlockState(offset).getBlock().isReplaceable(worldIn, offset)) {
             int stackid = tileBlockPlacer.getRandStackId();
             if (stackid >= 0) {
@@ -198,8 +198,8 @@ public class BlockPlacer extends Block {
    @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      i |= ((EnumFacing)state.getValue(FACING)).getIndex();
-      if ((Boolean)state.getValue(TRIGGERED)) {
+      i |= state.getValue(FACING).getIndex();
+      if (state.getValue(TRIGGERED)) {
          i |= 8;
       }
 
@@ -208,12 +208,12 @@ public class BlockPlacer extends Block {
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

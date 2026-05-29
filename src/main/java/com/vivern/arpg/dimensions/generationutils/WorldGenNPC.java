@@ -74,7 +74,7 @@ public class WorldGenNPC implements IWorldGenerator {
                   entity.setPosition(result.pos.getX() + 0.5, result.pos.getY() + 1, result.pos.getZ() + 0.5);
                   world.spawnEntity(entity);
                   if (entity instanceof EntityLiving) {
-                     ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null);
+                     ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
                      ((EntityLiving)entity).enablePersistence();
                   }
                }

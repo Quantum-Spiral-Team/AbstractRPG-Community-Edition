@@ -61,7 +61,7 @@ public class Glossary extends Block {
    @Nullable
    public TileGlossary createTileEntity(World world, IBlockState blockState) {
       TileGlossary tile = new TileGlossary();
-      tile.rotation = ((EnumFacing)blockState.getValue(FACING)).getHorizontalIndex();
+      tile.rotation = blockState.getValue(FACING).getHorizontalIndex();
       return tile;
    }
 
@@ -92,17 +92,17 @@ public class Glossary extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

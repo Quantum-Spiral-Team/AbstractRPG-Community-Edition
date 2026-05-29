@@ -3,7 +3,7 @@ package com.vivern.arpg.main;
 import com.vivern.arpg.entity.EntityShard;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketSmallSomethingToClients;
+import com.vivern.arpg.network.packet.PacketSmallSomethingToClients;
 import com.vivern.arpg.renders.ManaBar;
 import java.util.Random;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -121,41 +121,41 @@ public class Shards {
 
    public static ShardType getShardTypeInVessel(EntityPlayer player, int number_1a_2b_3c) {
       if (number_1a_2b_3c == 1) {
-         return ShardType.byName((String)player.getDataManager().get(PropertiesRegistry.VESSEL_A_TYPE));
+         return ShardType.byName(player.getDataManager().get(PropertiesRegistry.VESSEL_A_TYPE));
       } else if (number_1a_2b_3c == 2) {
-         return ShardType.byName((String)player.getDataManager().get(PropertiesRegistry.VESSEL_B_TYPE));
+         return ShardType.byName(player.getDataManager().get(PropertiesRegistry.VESSEL_B_TYPE));
       } else {
-         return number_1a_2b_3c == 3 ? ShardType.byName((String)player.getDataManager().get(PropertiesRegistry.VESSEL_C_TYPE)) : null;
+         return number_1a_2b_3c == 3 ? ShardType.byName(player.getDataManager().get(PropertiesRegistry.VESSEL_C_TYPE)) : null;
       }
    }
 
    public static ShardType getShardTypeInVesselNonull(EntityPlayer player, int number_1a_2b_3c) {
       if (number_1a_2b_3c == 1) {
-         return ShardType.byName((String)player.getDataManager().get(PropertiesRegistry.VESSEL_A_TYPE));
+         return ShardType.byName(player.getDataManager().get(PropertiesRegistry.VESSEL_A_TYPE));
       } else if (number_1a_2b_3c == 2) {
-         return ShardType.byName((String)player.getDataManager().get(PropertiesRegistry.VESSEL_B_TYPE));
+         return ShardType.byName(player.getDataManager().get(PropertiesRegistry.VESSEL_B_TYPE));
       } else {
-         return number_1a_2b_3c == 3 ? ShardType.byName((String)player.getDataManager().get(PropertiesRegistry.VESSEL_C_TYPE)) : ShardType.FIRE;
+         return number_1a_2b_3c == 3 ? ShardType.byName(player.getDataManager().get(PropertiesRegistry.VESSEL_C_TYPE)) : ShardType.FIRE;
       }
    }
 
    public static String getShardTypeInVesselAsString(EntityPlayer player, int number_1a_2b_3c) {
       if (number_1a_2b_3c == 1) {
-         return (String)player.getDataManager().get(PropertiesRegistry.VESSEL_A_TYPE);
+         return player.getDataManager().get(PropertiesRegistry.VESSEL_A_TYPE);
       } else if (number_1a_2b_3c == 2) {
-         return (String)player.getDataManager().get(PropertiesRegistry.VESSEL_B_TYPE);
+         return player.getDataManager().get(PropertiesRegistry.VESSEL_B_TYPE);
       } else {
-         return number_1a_2b_3c == 3 ? (String)player.getDataManager().get(PropertiesRegistry.VESSEL_C_TYPE) : "";
+         return number_1a_2b_3c == 3 ? player.getDataManager().get(PropertiesRegistry.VESSEL_C_TYPE) : "";
       }
    }
 
    public static float getEnergyInVessel(EntityPlayer player, int number_1a_2b_3c) {
       if (number_1a_2b_3c == 1) {
-         return (Float)player.getDataManager().get(PropertiesRegistry.VESSEL_A_ENERGY);
+         return player.getDataManager().get(PropertiesRegistry.VESSEL_A_ENERGY);
       } else if (number_1a_2b_3c == 2) {
-         return (Float)player.getDataManager().get(PropertiesRegistry.VESSEL_B_ENERGY);
+         return player.getDataManager().get(PropertiesRegistry.VESSEL_B_ENERGY);
       } else {
-         return number_1a_2b_3c == 3 ? (Float)player.getDataManager().get(PropertiesRegistry.VESSEL_C_ENERGY) : 0.0F;
+         return number_1a_2b_3c == 3 ? player.getDataManager().get(PropertiesRegistry.VESSEL_C_ENERGY) : 0.0F;
       }
    }
 
@@ -172,7 +172,7 @@ public class Shards {
             setEnergyToVessel(player, MathHelper.clamp(energy + value, 0.0F, 100.0F), i);
             if (player instanceof EntityPlayerMP) {
                PacketSmallSomethingToClients packet = new PacketSmallSomethingToClients();
-               packet.writeargs(1, i);
+               packet.writeArgs(1, i);
                PacketHandler.sendTo(packet, (EntityPlayerMP)player);
             }
 

@@ -91,11 +91,11 @@ public class TileWeaponSpawner extends TileEntityLockableLoot implements ITickab
 
             if (this.spawnempty()) {
                if (this.randomOneSecondItem) {
-                  this.spawn[0] = ((ItemStack)this.stacks.get(0)).copy();
-                  this.spawn[1] = ((ItemStack)this.stacks.get(rand.nextInt(4) + 1)).copy();
+                  this.spawn[0] = this.stacks.get(0).copy();
+                  this.spawn[1] = this.stacks.get(rand.nextInt(4) + 1).copy();
                } else {
                   for (int i = 0; i < 5; i++) {
-                     ItemStack stack = (ItemStack)this.stacks.get(i);
+                     ItemStack stack = this.stacks.get(i);
                      if (!stack.isEmpty()) {
                         this.spawn[i] = stack.copy();
                      }

@@ -53,11 +53,11 @@ public class TilePuzzle extends TileEntity implements TileEntityClicked {
             if (!this.puzzlePlate[mouseX][mouseY].filled && this.canFit(mouseX, mouseY)) {
                this.placeToPuzzleSlot(mouseX, mouseY);
                this.world
-                  .playSound((EntityPlayer)null, this.pos, Sounds.puzzle_place, SoundCategory.BLOCKS, 0.3F, 0.85F + rand.nextFloat() / 4.0F);
+                  .playSound(null, this.pos, Sounds.puzzle_place, SoundCategory.BLOCKS, 0.3F, 0.85F + rand.nextFloat() / 4.0F);
             } else if (this.puzzlePlate[mouseX][mouseY].center) {
                this.removeFromPuzzleSlot(mouseX, mouseY);
                this.world
-                  .playSound((EntityPlayer)null, this.pos, Sounds.puzzle_remove, SoundCategory.BLOCKS, 0.3F, 0.85F + rand.nextFloat() / 4.0F);
+                  .playSound(null, this.pos, Sounds.puzzle_remove, SoundCategory.BLOCKS, 0.3F, 0.85F + rand.nextFloat() / 4.0F);
             }
 
             BlockPuzzle.trySendPacketUpdate(this.world, this.getPos(), this, 8);
@@ -74,7 +74,7 @@ public class TilePuzzle extends TileEntity implements TileEntityClicked {
                }
 
                this.world
-                  .playSound((EntityPlayer)null, this.pos, Sounds.puzzle_remove, SoundCategory.BLOCKS, 0.3F, 0.85F + rand.nextFloat() / 4.0F);
+                  .playSound(null, this.pos, Sounds.puzzle_remove, SoundCategory.BLOCKS, 0.3F, 0.85F + rand.nextFloat() / 4.0F);
                BlockPuzzle.trySendPacketUpdate(this.world, this.getPos(), this, 8);
             }
 
@@ -96,7 +96,7 @@ public class TilePuzzle extends TileEntity implements TileEntityClicked {
 
                this.causesRedstone = true;
                this.world
-                  .playSound((EntityPlayer)null, this.pos, Sounds.puzzle_unlock, SoundCategory.BLOCKS, 0.9F, 0.9F + rand.nextFloat() / 5.0F);
+                  .playSound(null, this.pos, Sounds.puzzle_unlock, SoundCategory.BLOCKS, 0.9F, 0.9F + rand.nextFloat() / 5.0F);
                this.world.notifyNeighborsOfStateChange(this.pos, BlocksRegister.PUZZLE, false);
             }
          }

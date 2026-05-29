@@ -62,7 +62,7 @@ public class Sunrise extends Item {
          float spee = Mana.getManaSpeed(player);
          if (player.getActiveItemStack() == itemstack && mana > 1.1F && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                player.posX,
                player.posY,
                player.posZ,

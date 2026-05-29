@@ -165,7 +165,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
       ContextOverworld ctx = new ContextOverworld(
          this.minLimitPerlinNoise, this.maxLimitPerlinNoise, this.mainPerlinNoise, this.surfaceNoise, this.scaleNoise, this.depthNoise, this.forestNoise
       );
-      ctx = (ContextOverworld)TerrainGen.getModdedNoiseGenerators(worldIn, this.rand, ctx);
+      ctx = TerrainGen.getModdedNoiseGenerators(worldIn, this.rand, ctx);
       this.minLimitPerlinNoise = ctx.getLPerlin1();
       this.maxLimitPerlinNoise = ctx.getLPerlin2();
       this.mainPerlinNoise = ctx.getPerlin();
@@ -733,7 +733,7 @@ public class ToxicomaniaChunkGenerator implements IChunkGenerator {
                         IBlockState state2 = world.getBlockState(fpos.up(2));
                         boolean b1 = false;
                         if (state2.getBlock() == blockstalact) {
-                           int stat = (Integer)state2.getValue(BlockSpeleothem.TYPE);
+                           int stat = state2.getValue(BlockSpeleothem.TYPE);
                            if (stat == 0 && rand.nextFloat() < 0.4) {
                               world.setBlockState(fpos.up(), blockstalact.getDefaultState().withProperty(BlockSpeleothem.TYPE, 4), 2);
                            } else if (stat == 1 && rand.nextFloat() < 0.4) {

@@ -31,7 +31,7 @@ public class TileBlockPlacer extends TileEntityLockableLoot {
             k = 0;
          }
 
-         if (!((ItemStack)this.stacks.get(k)).isEmpty() && this.canItemBePlaced(((ItemStack)this.stacks.get(k)).getItem())) {
+         if (!this.stacks.get(k).isEmpty() && this.canItemBePlaced(this.stacks.get(k).getItem())) {
             return k;
          }
 
@@ -58,7 +58,7 @@ public class TileBlockPlacer extends TileEntityLockableLoot {
 
    public int addItemStack(ItemStack stack) {
       for (int i = 0; i < this.stacks.size(); i++) {
-         if (((ItemStack)this.stacks.get(i)).isEmpty()) {
+         if (this.stacks.get(i).isEmpty()) {
             this.setInventorySlotContents(i, stack);
             return i;
          }

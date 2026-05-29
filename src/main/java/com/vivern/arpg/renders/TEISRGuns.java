@@ -443,7 +443,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 4.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.2F, 0.58F + f4, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -488,7 +488,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.75 + Math.sin(timer / 100) / 4.0), (float)(0.75 + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color((float)(0.75 + Math.sin((double) timer / 100) / 4.0), (float)(0.75 + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.elfocus.render(null, 1.0F, (chargex + partialTicks) * 15.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -537,7 +537,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(1.0F, 1.0F, (float)(0.75 + Math.sin(timer / 100) / 4.0), 1.0F);
+               GlStateManager.color(1.0F, 1.0F, (float)(0.75 + Math.sin((double) timer / 100) / 4.0), 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.stinger.render(null, 1.0F, amm, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -630,7 +630,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GL11.glEnable(3042);
                float uncharge = 1.0F - chargeFullness;
-               GlStateManager.color(1.0F, 1.0F * uncharge, (float)(0.75 + Math.sin(timer / 100) / 4.0) * uncharge, 1.0F);
+               GlStateManager.color(1.0F, uncharge, (float)(0.75 + Math.sin((double) timer / 100) / 4.0) * uncharge, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.sandscepter.render(null, chargeFullness, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -711,7 +711,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.75 + Math.sin(timer / 100) / 4.0), (float)(0.75 + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color((float)(0.75 + Math.sin((double) timer / 100) / 4.0), (float)(0.75 + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.fireballstaff.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -750,7 +750,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.electricstaff.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -789,7 +789,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 0.5F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 0.5F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.slimeshotgun.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -828,7 +828,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(1.0F, (float)(0.65F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.65F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.moltgreataxe.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -867,7 +867,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(1.0F, (float)(0.65F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.65F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.nethergrinder.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -907,7 +907,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.snowballcannon.render(null, 1.0F, df1, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -946,7 +946,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.45F + Math.sin(timer / 100) / 7.0), 0.2F, (float)(0.85F + Math.sin(timer / 78) / 4.0), 1.0F);
+               GlStateManager.color((float)(0.45F + Math.sin((double) (double) timer / 100) / 7.0), 0.2F, (float)(0.85F + Math.sin((double) timer / 78) / 4.0), 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.cursedblade.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -985,7 +985,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.45F + Math.sin(timer / 100) / 7.0), 0.2F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.45F + Math.sin((double) timer / 100) / 7.0), 0.2F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.gravelurker.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1024,7 +1024,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.45F + Math.sin(timer / 100) / 7.0), 0.2F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.45F + Math.sin((double) timer / 100) / 7.0), 0.2F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.reaper.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1063,7 +1063,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.65F + Math.sin(timer / 100) / 7.0), 1.0F, (float)(0.55F + Math.sin(timer / 78) / 4.0), 1.0F);
+               GlStateManager.color((float)(0.65F + Math.sin((double) timer / 100) / 7.0), 1.0F, (float)(0.55F + Math.sin((double) timer / 78) / 4.0), 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.ghostsword.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1102,7 +1102,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.65F + Math.sin(timer / 100) / 7.0), 1.0F, (float)(0.55F + Math.sin(timer / 78) / 4.0), 1.0F);
+               GlStateManager.color((float)(0.65F + Math.sin((double) timer / 100) / 7.0), 1.0F, (float)(0.55F + Math.sin((double) timer / 78) / 4.0), 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.corpsestaff.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1179,7 +1179,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.cryogun.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1218,7 +1218,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.charger.render(null, 1.0F, -timer * 2, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1259,7 +1259,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.25F, (float)(0.7F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.25F, (float)(0.7F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.icicleminigun.render(null, 1.0F, anim1, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1298,7 +1298,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.staticlance.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1337,7 +1337,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(1.0F, (float)(0.65F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.65F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.wandofblazes.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1376,7 +1376,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.coniferrod.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1415,7 +1415,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.plasmarailgun.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1454,7 +1454,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.plasmarifle.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1493,7 +1493,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.holoshield.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1558,7 +1558,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(1.0F, 0.2F + (float)(Math.sin(timer / 100) / 4.0), 0.2F, 1.0F);
+               GlStateManager.color(1.0F, 0.2F + (float)(Math.sin((double) timer / 100) / 4.0), 0.2F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.headshooter.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1598,7 +1598,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.5F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.5F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.plasmapistol.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1675,7 +1675,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.5F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.5F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.pistolfish.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1714,7 +1714,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.5F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.5F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.bubblefish.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1753,7 +1753,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.75 + Math.sin(timer / 100) / 4.0), (float)(0.75 + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color((float)(0.75 + Math.sin((double) timer / 100) / 4.0), (float)(0.75 + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.lavadropper.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -1831,7 +1831,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.plasmaaccelerator
@@ -1881,7 +1881,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.vacuumgun.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -2011,7 +2011,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.wandofcold.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -2050,7 +2050,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.icebeam.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -2089,7 +2089,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 2.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(1.0F - f4, 0.5F + f4, 0.3F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2130,7 +2130,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.enableBlend();
                float f3 = 0.5F;
                GlStateManager.color(
-                  0.4F + AnimationTimer.rainbow2 / 34.0F, (float)(0.48F + Math.sin(timer / 100) / 4.0), 0.6F + AnimationTimer.rainbow1 / 34.0F, 1.0F
+                  0.4F + AnimationTimer.rainbow2 / 34.0F, (float)(0.48F + Math.sin((double) timer / 100) / 4.0), 0.6F + AnimationTimer.rainbow1 / 34.0F, 1.0F
                );
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2180,7 +2180,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 5.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 5.0);
                GlStateManager.color(0.9F - f4, 0.8F + f4, 0.3F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2220,7 +2220,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 4.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.7F - f4, 0.8F - f4 / 2.0F, 0.55F + f4, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2260,7 +2260,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 2.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(1.0F - f4, 0.5F + f4, 0.3F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2300,7 +2300,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 2.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(0.4F, 0.6F + f4, 0.5F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2340,7 +2340,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 2.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(0.85F - f4, 0.8F + f4, 0.3F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2381,7 +2381,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 2.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(0.95F - f4, 0.75F + f4, 0.6F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2454,9 +2454,9 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.enableBlend();
                float f3 = 0.5F;
                if (!powered) {
-                  GlStateManager.color(0.95F, 1.0F, (float)(0.25 + Math.sin(timer / 100) / 5.0), 1.0F);
+                  GlStateManager.color(0.95F, 1.0F, (float)(0.25 + Math.sin((double) timer / 100) / 5.0), 1.0F);
                } else {
-                  GlStateManager.color(0.75F, (float)(0.28F + Math.sin(timer / 100) / 5.0), 1.0F, 1.0F);
+                  GlStateManager.color(0.75F, (float)(0.28F + Math.sin((double) timer / 100) / 5.0), 1.0F, 1.0F);
                }
 
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
@@ -2500,7 +2500,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.5F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.5F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.restlessSkullModel.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -2539,7 +2539,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 4.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.1F, 0.5F + f4, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2579,7 +2579,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 4.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.4F, 0.7F + f4, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2619,7 +2619,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 4.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.1F, 0.7F + f4, 0.9F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -2659,7 +2659,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.4F + AnimationTimer.rainbow1 / 34.0F, (float)(0.75 + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.4F + AnimationTimer.rainbow1 / 34.0F, (float)(0.75 + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.coralRifleModel.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -2714,7 +2714,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(1.0F, (float)(0.75 + Math.sin(timer / 100) / 4.0), 0.1F + AnimationTimer.rainbow1 / 34.0F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.75 + Math.sin((double) timer / 100) / 4.0), 0.1F + AnimationTimer.rainbow1 / 34.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.hadronBlasterModel.render(null, lazerF, captureF, rotatF, coreF, 1.0F, 1.0F);
@@ -2884,7 +2884,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(1.0F, (float)(0.45F + Math.sin(timer / 100) / 4.0), 0.45F + AnimationTimer.rainbow1 / 34.0F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.45F + Math.sin((double) timer / 100) / 4.0), 0.45F + AnimationTimer.rainbow1 / 34.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.rocketLauncherModel.render(null, NBTHelper.GetNBTfloat(Itemstack, "angle"), reloadValue, modeF, ammo, color, 1.0F);
@@ -2952,7 +2952,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
             float one = 0.125F;
             float two = 0.25F;
             float texX = indx % 4 * two;
-            float texY = indx / 4 * one;
+            float texY = (float) indx / 4 * one;
             GL11.glDisable(2896);
             GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
             GlStateManager.enableBlend();
@@ -3100,7 +3100,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1, f2, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               GlStateManager.color(1.0F, (float)(0.65F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.65F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                chainMaceModel.render(null, !throwed ? 0.0F : -1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F);
@@ -3149,7 +3149,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1, f2, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                chainMaceModel.render(null, !throwedx ? 0.0F : -1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F);
@@ -3206,7 +3206,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1, f2, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               float f4 = (float)Math.sin(timer / 110);
+               float f4 = (float)Math.sin((double) timer / 110);
                GlStateManager.color(0.1F + f4 * 0.6F, 0.7F - f4 * 0.3F, 0.9F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -3254,7 +3254,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 2.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(1.0F - f4, 0.1F, 0.1F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -3294,7 +3294,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 2.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(1.0F - f4, 0.1F, 0.1F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -3334,7 +3334,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.enderProtectorModel.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -3373,7 +3373,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.dragonTailModel.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -3414,7 +3414,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.dragonShellModel.render(null, fsh, f1sh, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -3453,7 +3453,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.winterBreathModel.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -3492,7 +3492,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 2.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(0.8F - f4, 0.8F + f4, 0.3F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -3545,7 +3545,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 4.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.5F + f4, 1.0F - f4, 0.55F - f4 / 2.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -3612,7 +3612,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 2.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(0.8F - f4, 0.8F + f1, 0.2F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -3652,7 +3652,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(1.0F, (float)(0.65F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.65F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.hellmarkModel.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -3701,7 +3701,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 4.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.4F + AnimationTimer.rainbow1 / 34.0F, 0.7F + f4, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -3793,7 +3793,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color(1.0F, 0.4F + AnimationTimer.rainbow1 / 44.0F, (float)(0.65F + Math.sin(timer / 100) / 4.0), 1.0F);
+               GlStateManager.color(1.0F, 0.4F + AnimationTimer.rainbow1 / 44.0F, (float)(0.65F + Math.sin((double) timer / 100) / 4.0), 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.crystalCutterModel.render(null, 1.0F, ammo, anim / 10.0F, 1.0F, 1.0F, 1.0F);
@@ -3840,7 +3840,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               GlStateManager.color((float)(0.55F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
+               GlStateManager.color((float)(0.55F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.plasmaMinigunModel.render(null, 1.0F, animDeploy, animRotate, 1.0F, 1.0F, 1.0F);
@@ -3905,7 +3905,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3 = 0.5F;
-               float f4 = (float)(Math.sin(timer / 100) / 4.0);
+               float f4 = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.4F + AnimationTimer.rainbow1 / 34.0F, 0.7F + f4, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -4112,7 +4112,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               float f4x = (float)(Math.sin(timer / 100) / 2.0);
+               float f4x = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(0.9F - f4x, 0.5F + f4x, 0.45F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -4149,7 +4149,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
             GlStateManager.translate(f1x, f2x, 0.0F);
             GlStateManager.matrixMode(5888);
             GlStateManager.enableBlend();
-            GlStateManager.color(0.1F, (float)(0.25 + Math.sin(timer / 140) / 5.0), 1.0F, 1.0F);
+            GlStateManager.color(0.1F, (float)(0.25 + Math.sin((double) timer / 140) / 5.0), 1.0F, 1.0F);
             GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
             Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
             Minecraft.getMinecraft().renderEngine.bindTexture(this.texEnch2);
@@ -4281,7 +4281,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.winterInstancerModel.render(null, animReady, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -4323,7 +4323,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               float f4x = (float)(Math.sin(timer / 100) / 2.0);
+               float f4x = (float)(Math.sin((double) timer / 100) / 2.0);
                GlStateManager.color(1.0F - f4x, 0.5F + f4x, 0.3F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -4366,7 +4366,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               float f4x = (float)(Math.sin(timer / 100) / 4.0);
+               float f4x = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.4F + AnimationTimer.rainbow1 / 34.0F, 0.7F + f4x, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -4405,7 +4405,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               GlStateManager.color(1.0F, 0.2F, 0.8F + (float)(Math.sin(timer / 100) / 4.0), 1.0F);
+               GlStateManager.color(1.0F, 0.2F, 0.8F + (float)(Math.sin((double) timer / 100) / 4.0), 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.violenceModel.render(null, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -4444,7 +4444,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3x = 0.5F;
-               GlStateManager.color(1.0F, (float)(0.65F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.65F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.staffOfWitherdryModel.render(null, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -4520,7 +4520,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               float ttt = MathHelper.sin(timer / 120) / 4.0F + 0.25F;
+               float ttt = MathHelper.sin((float) timer / 120) / 4.0F + 0.25F;
                GlStateManager.color(0.5F - ttt, 0.85F - ttt, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -4621,7 +4621,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                Minecraft.getMinecraft().renderEngine.bindTexture(this.texEnch4);
-               GlStateManager.color(1.0F, (float)(0.65F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.65F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F);
                this.cinderBowModel.render(null, progress, 1.0F, 0.0F, 0.0F, 0.0F, 1.0F);
                GlStateManager.matrixMode(5890);
                GlStateManager.loadIdentity();
@@ -4668,7 +4668,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.gothicBowModel.render(null, progress, 1.0F, 0.0F, 0.0F, 0.0F, 1.0F);
@@ -4714,7 +4714,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3x = 0.5F;
-               GlStateManager.color(0.3F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.cooledRifleModel.render(null, 1.0F, reloadValue, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -4762,7 +4762,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               float f4x = (float)(Math.sin(timer / 100) / 4.0);
+               float f4x = (float)(Math.sin((double) timer / 100) / 4.0);
                float nonBlueMult = specialAttack <= 0 ? 1.0F : 1.0F - progress;
                GlStateManager.color((0.4F + AnimationTimer.rainbow1 / 34.0F) * nonBlueMult, (0.7F + f4x) * nonBlueMult, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
@@ -4862,11 +4862,11 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                float f2x;
                if (!coolingMode) {
                   f2x = fx * 0.01F;
-                  float f4x = (float)(Math.sin(timer / 100) / 2.0);
+                  float f4x = (float)(Math.sin((double) timer / 100) / 2.0);
                   GlStateManager.color(1.0F - f4x, 0.1F, 0.1F, 1.0F);
                } else {
                   f2x = fx * 0.005F;
-                  float f4x = (float)(Math.sin(timer / 100) / 3.0);
+                  float f4x = (float)(Math.sin((double) timer / 100) / 3.0);
                   GlStateManager.color(1.0F - f4x, 0.75F - f4x, 0.85F - f4x, 1.0F);
                }
 
@@ -4948,7 +4948,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3x = 0.5F;
-               GlStateManager.color(0.3F, 1.0F, (float)(0.78F + Math.sin(timer / 100) / 4.0), 1.0F);
+               GlStateManager.color(0.3F, 1.0F, (float)(0.78F + Math.sin((double) timer / 100) / 4.0), 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.buzdyganModel.render(null, runes, 1.0F, anim1xxx, 1.0F, 1.0F, 1.0F);
@@ -5031,7 +5031,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               GlStateManager.color(1.0F, (float)(0.65F + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F);
+               GlStateManager.color(1.0F, (float)(0.65F + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.whipModel.shapeGem.isHidden = true;
@@ -5074,7 +5074,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               GlStateManager.color(0.3F, (float)(0.75 + Math.sin(timer / 100) / 4.0), 0.4F, 1.0F);
+               GlStateManager.color(0.3F, (float)(0.75 + Math.sin((double) timer / 100) / 4.0), 0.4F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.whipModel.shapeGem.isHidden = true;
@@ -5117,7 +5117,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.enableBlend();
                float f3x = 0.5F;
                GlStateManager.color(
-                  0.4F + AnimationTimer.rainbow2 / 34.0F, (float)(0.48F + Math.sin(timer / 100) / 4.0), 0.6F + AnimationTimer.rainbow1 / 34.0F, 1.0F
+                  0.4F + AnimationTimer.rainbow2 / 34.0F, (float)(0.48F + Math.sin((double) timer / 100) / 4.0), 0.6F + AnimationTimer.rainbow1 / 34.0F, 1.0F
                );
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -5160,7 +5160,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
                float f3x = 0.5F;
-               GlStateManager.color(0.2F, (float)(0.62F + Math.sin(timer / 100) / 4.0), 1.0F, 1.0F);
+               GlStateManager.color(0.2F, (float)(0.62F + Math.sin((double) timer / 100) / 4.0), 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
                this.cryoDestroyerModel.render(null, 1.0F, anim1xxxx, anim2xxx, anim3x, 1.0F, 1.0F);
@@ -5207,7 +5207,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                GlStateManager.translate(f1x, f2x, 0.0F);
                GlStateManager.matrixMode(5888);
                GlStateManager.enableBlend();
-               float f4x = (float)(Math.sin(timer / 100) / 4.0);
+               float f4x = (float)(Math.sin((double) timer / 100) / 4.0);
                GlStateManager.color(0.4F + AnimationTimer.rainbow1 / 34.0F, 0.7F + f4x, 1.0F, 1.0F);
                GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);
                Minecraft.getMinecraft().entityRenderer.setupFogColor(true);

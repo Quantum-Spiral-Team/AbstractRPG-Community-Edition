@@ -5,7 +5,7 @@ import com.vivern.arpg.main.ArmorProtectionTracker;
 import com.vivern.arpg.main.Catalyst;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.network.PacketAdvPotionToClients;
+import com.vivern.arpg.network.packet.PacketAdvPotionToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.renders.KillScore;
 import java.util.ArrayList;
@@ -284,7 +284,7 @@ public class AdvancedPotion extends Potion {
             }
          }
 
-         packet.writeargs(itemstack, potionIndex, duration, amplifier, entity.getEntityId());
+         packet.writeArgs(itemstack, potionIndex, duration, amplifier, entity.getEntityId());
          PacketHandler.sendToAllAround(packet, entity.world, entity.posX, entity.posY, entity.posZ, dist);
       }
    }

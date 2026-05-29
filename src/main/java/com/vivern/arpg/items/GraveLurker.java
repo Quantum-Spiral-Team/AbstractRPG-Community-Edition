@@ -1,14 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.GraveLurkerProjectile;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -58,15 +51,15 @@ public class GraveLurker extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             float mana = Mana.getMana(player);
             float spee = Mana.getManaSpeed(player);
             float power = Mana.getMagicPowerMax(player);
             int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
-            if (player.getHeldItemMainhand() == itemstack && mana > 3.0F - sor / 2 && click && !player.getCooldownTracker().hasCooldown(this)) {
-               boolean iscritt = false;
+            if (player.getHeldItemMainhand() == itemstack && mana > 3.0F - (float) sor / 2 && click && !player.getCooldownTracker().hasCooldown(this)) {
+               boolean iscritt;
                if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
                   iscritt = NBTHelper.GetNBTboolean(itemstack, "crit");
                } else {
@@ -79,7 +72,7 @@ public class GraveLurker extends ItemWeapon {
                Weapons.setPlayerAnimationOnServer(player, 13, EnumHand.MAIN_HAND);
                if (!iscritt) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -93,7 +86,7 @@ public class GraveLurker extends ItemWeapon {
                   world.spawnEntity(projectile);
                } else {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -109,7 +102,7 @@ public class GraveLurker extends ItemWeapon {
                }
 
                if (!player.capabilities.isCreativeMode) {
-                  Mana.changeMana(player, -3.0F + sor / 2);
+                  Mana.changeMana(player, -3.0F + (float) sor / 2);
                   Mana.setManaSpeed(player, 0.001F);
                   itemstack.damageItem(1, player);
                }

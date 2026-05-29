@@ -231,7 +231,7 @@ public class AzureOreShoot extends EntityThrowable {
             result.entityHit.hurtResistantTime = 0;
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -250,7 +250,7 @@ public class AzureOreShoot extends EntityThrowable {
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

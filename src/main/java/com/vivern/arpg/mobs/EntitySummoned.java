@@ -99,7 +99,7 @@ public class EntitySummoned extends EntityCreature {
       if (source == DamageSource.IN_WALL) {
          return false;
       } else {
-         return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+         return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
       }
    }
 

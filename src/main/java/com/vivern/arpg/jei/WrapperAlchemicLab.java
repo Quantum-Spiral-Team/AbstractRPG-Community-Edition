@@ -71,9 +71,9 @@ public class WrapperAlchemicLab implements IRecipeWrapper {
 
    public ItemStack getInOrEmpty(boolean input, int index) {
       if (input) {
-         return index < this.recipe.recipe.size() ? ((Ingridient)this.recipe.recipe.get(index)).createStackForJeiInput() : ItemStack.EMPTY;
+         return index < this.recipe.recipe.size() ? this.recipe.recipe.get(index).createStackForJeiInput() : ItemStack.EMPTY;
       } else {
-         return index < this.recipe.output.size() ? ((Ingridient)this.recipe.output.get(index)).createStack() : ItemStack.EMPTY;
+         return index < this.recipe.output.size() ? this.recipe.output.get(index).createStack() : ItemStack.EMPTY;
       }
    }
 }

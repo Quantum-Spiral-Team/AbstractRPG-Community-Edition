@@ -5,10 +5,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import com.vivern.arpg.AbstractRPG;
 import net.minecraft.block.Block;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLeashKnot;
@@ -50,6 +51,7 @@ import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.Packet;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketEntityEffect;
 import net.minecraft.network.play.server.SPacketEntityEquipment;
@@ -78,7 +80,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class MyEntityTrackerEntry extends EntityTrackerEntry {
-   public static final Logger LOGGER = LogManager.getLogger();
+   public static final Logger LOGGER = AbstractRPG.getLogger(MyEntityTrackerEntry.class.getSimpleName());
    public final Entity trackedEntity;
    public final int range;
    public int maxRange;
@@ -398,17 +400,17 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
 
    @Override
    public void updatePlayerEntities(List<EntityPlayer> players) {
-      for (int i = 0; i < players.size(); i++) {
-         this.updatePlayerEntity((EntityPlayerMP)players.get(i));
+      for (EntityPlayer player : players) {
+          this.updatePlayerEntity((EntityPlayerMP) player);
       }
    }
 
-   private net.minecraft.network.Packet<?> createSpawnPacket() {
+   private Packet<?> createSpawnPacket() {
       if (this.trackedEntity.isDead) {
          LOGGER.warn("Fetching addPacket for removed entity");
       }
 
-      net.minecraft.network.Packet pkt = FMLNetworkHandler.getEntitySpawningPacket(this.trackedEntity);
+      Packet<?> pkt = FMLNetworkHandler.getEntitySpawningPacket(this.trackedEntity);
       if (pkt != null) {
          return pkt;
       } else if (this.trackedEntity instanceof EntityPlayerMP) {
@@ -452,7 +454,7 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
          return new SPacketSpawnObject(this.trackedEntity, 76);
       } else if (this.trackedEntity instanceof EntityFireball) {
          EntityFireball entityfireball = (EntityFireball)this.trackedEntity;
-         SPacketSpawnObject spacketspawnobject = null;
+         SPacketSpawnObject spacketspawnobject;
          int i = 63;
          if (this.trackedEntity instanceof EntitySmallFireball) {
             i = 64;
@@ -567,16 +569,13 @@ public class MyEntityTrackerEntry extends EntityTrackerEntry {
          CrashReport crashreport = CrashReport.makeCrashReport(var15, "Adding entity to track");
          CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity To Track");
          crashreportcategory.addCrashSection("Tracking range", trackingRange + " blocks");
-         crashreportcategory.addDetail("Update interval", new ICrashReportDetail<String>() {
-            @Override
-            public String call() throws Exception {
-               String s = "Once per " + updateFrequency + " ticks";
-               if (updateFrequency == Integer.MAX_VALUE) {
-                  s = "Maximum (" + s + ")";
-               }
-
-               return s;
+         crashreportcategory.addDetail("Update interval", () -> {
+            String s = "Once per " + updateFrequency + " ticks";
+            if (updateFrequency == Integer.MAX_VALUE) {
+               s = "Maximum (" + s + ")";
             }
+
+            return s;
          });
          entityIn.addEntityCrashInfo(crashreportcategory);
 

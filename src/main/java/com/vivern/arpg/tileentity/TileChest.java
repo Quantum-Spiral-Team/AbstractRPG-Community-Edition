@@ -353,7 +353,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
 
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                d1,
                j + 0.5,
                d2,
@@ -390,7 +390,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   d3,
                   j + 0.5,
                   d0,
@@ -441,7 +441,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
 
    @Override
    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-      return this.isLocked() ? false : super.hasCapability(capability, facing);
+      return !this.isLocked() && super.hasCapability(capability, facing);
    }
 
    @Override
@@ -457,11 +457,11 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
          }
       }
 
-      return (T)super.getCapability(capability, facing);
+      return super.getCapability(capability, facing);
    }
 
    public IItemHandler getSingleChestHandler() {
-      return (IItemHandler)super.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+      return super.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
    }
 
    @Override

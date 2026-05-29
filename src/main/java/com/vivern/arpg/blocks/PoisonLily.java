@@ -65,7 +65,7 @@ public class PoisonLily extends Block {
 
    @Override
    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      return worldIn.getBlockState(pos).getMaterial().isLiquid() ? false : this.canBlockStay(worldIn, pos);
+      return !worldIn.getBlockState(pos).getMaterial().isLiquid() && this.canBlockStay(worldIn, pos);
    }
 
    @Override
@@ -85,7 +85,7 @@ public class PoisonLily extends Block {
       if (pos.getY() >= 0 && pos.getY() < 256) {
          IBlockState iblockstate = worldIn.getBlockState(pos.down());
          Material material = iblockstate.getMaterial();
-         return iblockstate.getBlock() == BlocksRegister.FLUID_POISON && (Integer)iblockstate.getValue(BlockLiquid.LEVEL) == 0;
+         return iblockstate.getBlock() == BlocksRegister.FLUID_POISON && iblockstate.getValue(BlockLiquid.LEVEL) == 0;
       } else {
          return false;
       }

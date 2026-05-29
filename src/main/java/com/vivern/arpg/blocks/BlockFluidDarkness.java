@@ -51,7 +51,7 @@ public class BlockFluidDarkness extends BlockFluidClassic {
          if (health > 1.0F) {
             ((EntityLivingBase)entityIn).setHealth(health - 0.4F);
          } else {
-            ((EntityLivingBase)entityIn).attackEntityFrom(DamageSource.OUT_OF_WORLD, 5.0F);
+            entityIn.attackEntityFrom(DamageSource.OUT_OF_WORLD, 5.0F);
          }
       }
 
@@ -113,7 +113,7 @@ public class BlockFluidDarkness extends BlockFluidClassic {
    }
 
    private void mergerFluids(BlockPos pos, World world) {
-      int i = (Integer)world.getBlockState(pos).getValue(LEVEL);
+      int i = world.getBlockState(pos).getValue(LEVEL);
       boolean full = i == 0;
       if (!world.isRemote) {
          for (EnumFacing facing : EnumFacing.values()) {

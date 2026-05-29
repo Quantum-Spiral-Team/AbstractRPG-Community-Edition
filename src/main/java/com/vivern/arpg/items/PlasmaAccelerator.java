@@ -1,13 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.PlasmaAcceleratorShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -57,7 +51,7 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
@@ -75,7 +69,7 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
                if (player.ticksExisted % 15 == 0 && !hascooldown) {
                   if (charge > -25 && charge < -10) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -89,7 +83,7 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
 
                   if (charge <= -25) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -107,7 +101,7 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
                   if (!hascooldown) {
                      if (charge == 0) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -121,7 +115,7 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
 
                      if (charge == -cooldowntime || charge == -cooldowntime * 2 || special > 0 && charge == -cooldowntime * 3) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -147,7 +141,7 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
                      }
 
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

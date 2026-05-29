@@ -18,9 +18,7 @@ public class EnergyCost {
       if (Shards.getShardTypeInVessel(player, 1) == this.type && Shards.getEnergyInVessel(player, 1) >= this.amount) {
          return true;
       } else {
-         return Shards.getShardTypeInVessel(player, 2) == this.type && Shards.getEnergyInVessel(player, 2) >= this.amount
-            ? true
-            : Shards.getShardTypeInVessel(player, 3) == this.type && Shards.getEnergyInVessel(player, 3) >= this.amount;
+         return Shards.getShardTypeInVessel(player, 2) == this.type && Shards.getEnergyInVessel(player, 2) >= this.amount || Shards.getShardTypeInVessel(player, 3) == this.type && Shards.getEnergyInVessel(player, 3) >= this.amount;
       }
    }
 

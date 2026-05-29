@@ -274,19 +274,19 @@ public abstract class Seal {
       public boolean evil(World world, double x, double y, double z, float power, float range, float chaos, Vec3d flowVector, boolean mighty) {
          BlockPos randpos = this.calculateRandpos(world, x, y, z, power, range, chaos, flowVector);
          if (power >= 1.0F && Blocks.FIRE.canPlaceBlockAt(world, randpos) && world.isAirBlock(randpos)) {
-            world.playSound((EntityPlayer)null, randpos, Sounds.fire, SoundCategory.BLOCKS, range * 0.3F, rand.nextFloat() * 0.4F + 0.8F);
+            world.playSound(null, randpos, Sounds.fire, SoundCategory.BLOCKS, range * 0.3F, rand.nextFloat() * 0.4F + 0.8F);
             world.setBlockState(randpos, Blocks.FIRE.getDefaultState(), 11);
             return true;
          } else {
             boolean fires = false;
             if (power >= 3.0F) {
-               for (Entity entity : GetMOP.getEntitiesInAABBof(world, randpos, (double)(range / 2.0F), null)) {
+               for (Entity entity : GetMOP.getEntitiesInAABBof(world, randpos, range / 2.0F, null)) {
                   entity.setFire((int)power);
                   entity.attackEntityFrom(DamageSource.IN_FIRE, power);
                   fires = true;
                }
             } else if (power >= 2.0F) {
-               for (Entity entity : GetMOP.getEntitiesInAABBof(world, randpos, (double)(range / 2.0F), null)) {
+               for (Entity entity : GetMOP.getEntitiesInAABBof(world, randpos, range / 2.0F, null)) {
                   entity.setFire((int)power);
                   fires = true;
                }

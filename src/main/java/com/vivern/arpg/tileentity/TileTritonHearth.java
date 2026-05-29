@@ -24,7 +24,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class TileTritonHearth extends TileEntity implements IMagicVision, ITickable, IVialElementsAccepter, IManaBuffer, ITileEntitySynchronize {
+public class TileTritonHearth extends TileEntity implements IMagicVision, ITickable, IVialElementsAccepter, IManaBuffer, ITileEntitySynchronized {
    public static float maxElementCount = 64.0F;
    public static int workTicksMax = 60;
    public float elementCollected;
@@ -63,7 +63,7 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
       if (!this.world.isRemote) {
          if (this.hasMaterials) {
             IBlockState state = this.world.getBlockState(this.pos);
-            boolean wet = state.getBlock() == BlocksRegister.TRITON_HEARTH ? (Boolean)state.getValue(TritonHearth.WET) : false;
+            boolean wet = state.getBlock() == BlocksRegister.TRITON_HEARTH ? state.getValue(TritonHearth.WET) : false;
             if (this.workTicks > (wet ? workTicksMax : workTicksMax * 1.5F)) {
                this.workTicks = 0;
                this.hasMaterials = false;
@@ -77,17 +77,17 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
                         new ItemStack(ItemsRegister.AQUATIC_INGOT)
                      )
                   );
-               ITileEntitySynchronize.sendSynchronize(this, 48.0, 1.0);
+               ITileEntitySynchronized.sendSynchronize(this, 48.0, 1.0);
                this.world
                   .playSound(
-                     (EntityPlayer)null, this.getPos(), Sounds.triton_hearth_end, SoundCategory.BLOCKS, 0.6F, 0.9F + GetMOP.rand.nextFloat() * 0.2F
+                          null, this.getPos(), Sounds.triton_hearth_end, SoundCategory.BLOCKS, 0.6F, 0.9F + GetMOP.rand.nextFloat() * 0.2F
                   );
             } else {
                this.workTicks++;
             }
          } else if (this.workTicks > 20) {
             IBlockState state = this.world.getBlockState(this.pos);
-            this.checkMaterials(state.getBlock() == BlocksRegister.TRITON_HEARTH ? (Boolean)state.getValue(TritonHearth.WET) : false);
+            this.checkMaterials(state.getBlock() == BlocksRegister.TRITON_HEARTH ? state.getValue(TritonHearth.WET) : false);
             this.workTicks = 0;
          } else {
             this.workTicks++;
@@ -132,7 +132,7 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
                   this.hasMaterials = true;
                   this.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         this.getPos(),
                         Sounds.triton_hearth_start,
                         SoundCategory.BLOCKS,
@@ -142,7 +142,7 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
                   this.getManaBuffer().addMana(-manaNeed);
                   this.addElementEnergy(ShardType.WATER, -2.0F);
                   PacketHandler.trySendPacketUpdate(this.world, this.getPos(), this, 64.0);
-                  ITileEntitySynchronize.sendSynchronize(this, 48.0, 1.0);
+                  ITileEntitySynchronized.sendSynchronize(this, 48.0, 1.0);
                }
             }
          }

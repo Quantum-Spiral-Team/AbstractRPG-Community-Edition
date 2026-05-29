@@ -30,12 +30,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GreenGlowingMushroom extends Block {
-   public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
-      @Override
-      public boolean apply(@Nullable EnumFacing p_apply_1_) {
-         return p_apply_1_ != EnumFacing.DOWN;
-      }
-   });
+   public static final PropertyDirection FACING = PropertyDirection.create("facing", facing -> facing != EnumFacing.DOWN);
    public static final PropertyInteger MTYPE = PropertyInteger.create("mtype", 0, 2);
    protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.3, 0.0, 0.3, 0.7, 0.7, 0.7);
    protected static final AxisAlignedBB M_NORTH_AABB = new AxisAlignedBB(0.25, 0.2, 0.6, 0.75, 0.9, 1.0);
@@ -101,7 +96,7 @@ public class GreenGlowingMushroom extends Block {
       if (facing.equals(EnumFacing.UP) && canPlaceOn(worldIn, blockpos)) {
          return true;
       } else {
-         return facing != EnumFacing.UP && facing != EnumFacing.DOWN ? !isExceptBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID : false;
+         return facing != EnumFacing.UP && facing != EnumFacing.DOWN && !isExceptBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID;
       }
    }
 
@@ -124,7 +119,7 @@ public class GreenGlowingMushroom extends Block {
       if (!this.checkForDrop(worldIn, pos, state)) {
          return true;
       } else {
-         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+         EnumFacing enumfacing = state.getValue(FACING);
          Axis enumfacing$axis = enumfacing.getAxis();
          EnumFacing enumfacing1 = enumfacing.getOpposite();
          BlockPos blockpos = pos.offset(enumfacing1);
@@ -146,7 +141,7 @@ public class GreenGlowingMushroom extends Block {
    }
 
    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-      if (state.getBlock() == this && canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING))) {
+      if (state.getBlock() == this && canPlaceAt(worldIn, pos, state.getValue(FACING))) {
          return true;
       } else {
          if (worldIn.getBlockState(pos).getBlock() == this) {
@@ -160,7 +155,7 @@ public class GreenGlowingMushroom extends Block {
 
    @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             return M_EAST_AABB;
          case WEST:
@@ -272,7 +267,7 @@ public class GreenGlowingMushroom extends Block {
             i += 10;
       }
 
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             i++;
             break;
@@ -294,12 +289,12 @@ public class GreenGlowingMushroom extends Block {
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

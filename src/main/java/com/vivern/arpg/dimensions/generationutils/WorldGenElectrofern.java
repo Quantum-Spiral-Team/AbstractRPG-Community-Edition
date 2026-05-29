@@ -308,6 +308,6 @@ public class WorldGenElectrofern extends WorldGenerator {
    }
 
    public boolean shouldRotate(EnumFacing mainDirection, EnumFacing leafDirection) {
-      return mainDirection.getAxis() == Axis.Z && leafDirection.getAxis() == Axis.X ? true : mainDirection.getAxis() == Axis.X;
+      return mainDirection.getAxis() == Axis.Z && leafDirection.getAxis() == Axis.X || mainDirection.getAxis() == Axis.X;
    }
 }

@@ -173,7 +173,7 @@ public class GraveLurkerProjectile extends EntityThrowable {
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -192,7 +192,7 @@ public class GraveLurkerProjectile extends EntityThrowable {
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

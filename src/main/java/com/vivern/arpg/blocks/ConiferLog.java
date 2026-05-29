@@ -83,7 +83,7 @@ public class ConiferLog extends BlockRotatedPillar implements IBlockHardBreak {
    @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      switch ((EnumAxis)state.getValue(LOG_AXIS)) {
+      switch (state.getValue(LOG_AXIS)) {
          case X:
             i = 4;
             break;
@@ -127,7 +127,7 @@ public class ConiferLog extends BlockRotatedPillar implements IBlockHardBreak {
       switch (rot) {
          case COUNTERCLOCKWISE_90:
          case CLOCKWISE_90:
-            switch ((EnumAxis)state.getValue(LOG_AXIS)) {
+            switch (state.getValue(LOG_AXIS)) {
                case X:
                   return state.withProperty(LOG_AXIS, EnumAxis.Z);
                case Z:

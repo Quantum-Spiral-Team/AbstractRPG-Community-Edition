@@ -40,9 +40,7 @@ public class BlockFluidLarvaWater extends BlockFluidClassic {
    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
       BlockPos posoff = pos.offset(side);
       IBlockState neighbor = world.getBlockState(posoff);
-      return neighbor.getBlock() instanceof IUnderwater && world.getBlockState(posoff.up()).getMaterial() == state.getMaterial()
-         ? false
-         : super.shouldSideBeRendered(state, world, pos, side);
+      return (!(neighbor.getBlock() instanceof IUnderwater) || world.getBlockState(posoff.up()).getMaterial() != state.getMaterial()) && super.shouldSideBeRendered(state, world, pos, side);
    }
 
    @Override
@@ -52,7 +50,7 @@ public class BlockFluidLarvaWater extends BlockFluidClassic {
          if (entityIn.ticksExisted % 20 == 0 && !worldIn.isRemote && RANDOM.nextInt(3) == 0) {
             float health = ((EntityLivingBase)entityIn).getHealth();
             if (health + 0.5 < ((EntityLivingBase)entityIn).getMaxHealth()) {
-               ((EntityLivingBase)entityIn).attackEntityFrom(DamageSource.CRAMMING, 2.0F);
+               entityIn.attackEntityFrom(DamageSource.CRAMMING, 2.0F);
                worldIn.playSound(
                   null, pos, Sounds.larva_water_attack, SoundCategory.BLOCKS, RANDOM.nextFloat() * 0.25F + 0.55F, RANDOM.nextFloat() * 0.4F + 0.8F
                );
@@ -142,7 +140,7 @@ public class BlockFluidLarvaWater extends BlockFluidClassic {
       double d0 = pos.getX();
       double d1 = pos.getY();
       double d2 = pos.getZ();
-      int i = (Integer)stateIn.getValue(LEVEL);
+      int i = stateIn.getValue(LEVEL);
       if (i > 0 && i < 8) {
          if (rand.nextInt(64) == 0) {
             worldIn.playSound(
@@ -235,7 +233,7 @@ public class BlockFluidLarvaWater extends BlockFluidClassic {
    }
 
    private void mergerFluids(BlockPos pos, World world) {
-      int i = (Integer)world.getBlockState(pos).getValue(LEVEL);
+      int i = world.getBlockState(pos).getValue(LEVEL);
       boolean full = i == 0;
       if (!world.isRemote) {
          for (EnumFacing facing : EnumFacing.values()) {

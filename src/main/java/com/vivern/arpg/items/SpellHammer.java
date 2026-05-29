@@ -1,13 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.tileentity.TileSpellForge;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -91,7 +84,7 @@ public class SpellHammer extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
             int delay = NBTHelper.GetNBTint(itemstack, "atdelay");
@@ -119,7 +112,7 @@ public class SpellHammer extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
                   IWeapon.fireBomEffect(this, player, world, 0);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -141,7 +134,7 @@ public class SpellHammer extends ItemWeapon {
                         TileSpellForge spellForge = (TileSpellForge)tileEntity;
                         if (spellForge.onHammerHit(itemstack, player)) {
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -152,7 +145,7 @@ public class SpellHammer extends ItemWeapon {
                            );
                         } else {
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -172,7 +165,7 @@ public class SpellHammer extends ItemWeapon {
                   if (doMobAttack) {
                      if (IWeapon.doMeleeHammerAttack(this, itemstack, player, EnumHand.MAIN_HAND, false, 45, 7).success) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -184,7 +177,7 @@ public class SpellHammer extends ItemWeapon {
                         IWeapon.fireBomEffect(this, player, world, 2);
                      } else {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,

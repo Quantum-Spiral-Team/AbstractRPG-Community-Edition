@@ -1,7 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.AbstractRPG;
-import com.vivern.arpg.container.GUIBookOfElements;
 import com.vivern.arpg.container.GuiHandler;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.network.PacketHandler;
@@ -14,8 +13,6 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -99,7 +96,7 @@ public class Bookcase extends Block {
             System.out.println("for");
             if (tileBookcase.booksGems[i] != 50) {
                System.out.println("add");
-               drops.add(((ItemStack)tileBookcase.stacks.get(i)).copy());
+               drops.add(tileBookcase.stacks.get(i).copy());
             }
          }
       }
@@ -120,7 +117,7 @@ public class Bookcase extends Block {
    @Nullable
    public TileBookcase createTileEntity(World world, IBlockState blockState) {
       TileBookcase tileBookcase = new TileBookcase();
-      tileBookcase.rotation = ((EnumFacing)blockState.getValue(FACING)).getHorizontalIndex();
+      tileBookcase.rotation = blockState.getValue(FACING).getHorizontalIndex();
       return tileBookcase;
    }
 
@@ -146,7 +143,7 @@ public class Bookcase extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override

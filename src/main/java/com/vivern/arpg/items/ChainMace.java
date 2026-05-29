@@ -3,16 +3,7 @@ package com.vivern.arpg.items;
 import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.entity.EntityChainMace;
 import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.HostileProjectiles;
 import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
@@ -99,8 +90,8 @@ public class ChainMace extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int damage = itemstack.getItemDamage();
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             boolean shouldStop = true;
@@ -138,7 +129,7 @@ public class ChainMace extends ItemWeapon {
                         player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
                         entity.world
                            .playSound(
-                              (EntityPlayer)null,
+                                   null,
                               entity.posX,
                               entity.posY,
                               entity.posZ,
@@ -216,7 +207,7 @@ public class ChainMace extends ItemWeapon {
       NBTHelper.SetNBTboolean(stack, false, "spinned");
       entity.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             entity.posX,
             entity.posY,
             entity.posZ,
@@ -263,7 +254,7 @@ public class ChainMace extends ItemWeapon {
       NBTHelper.SetNBTint(itemstack, entity.getEntityId(), "entityId");
       entity.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             entity.posX,
             entity.posY,
             entity.posZ,
@@ -284,7 +275,7 @@ public class ChainMace extends ItemWeapon {
                && entity.soundCooldown <= 0) {
                entity.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      entity.posX,
                      entity.posY,
                      entity.posZ,
@@ -308,7 +299,7 @@ public class ChainMace extends ItemWeapon {
             != null) {
          entity.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                entity.posX,
                entity.posY,
                entity.posZ,
@@ -365,7 +356,7 @@ public class ChainMace extends ItemWeapon {
                if (entity.ticksExisted % (this.soundFrequency + (int)Debugger.floats[9]) == 0) {
                   entity.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         entity.posX,
                         entity.posY,
                         entity.posZ,
@@ -763,7 +754,7 @@ public class ChainMace extends ItemWeapon {
 
          entity.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                entity.posX,
                entity.posY,
                entity.posZ,
@@ -829,7 +820,7 @@ public class ChainMace extends ItemWeapon {
                      NBTHelper.AddNBTint(entity.weaponstack, -1, "kills");
                      entity.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            entity.posX,
                            entity.posY,
                            entity.posZ,
@@ -875,7 +866,7 @@ public class ChainMace extends ItemWeapon {
             if (kills < 16 && kills + addkills >= 16) {
                entity.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      entity.posX,
                      entity.posY,
                      entity.posZ,

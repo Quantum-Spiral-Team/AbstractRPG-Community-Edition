@@ -1,18 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.BulletParticle;
 import java.util.List;
@@ -77,7 +65,7 @@ public class ToxiniumShotgun extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
@@ -101,7 +89,7 @@ public class ToxiniumShotgun extends ItemWeapon {
                      }
 
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -148,7 +136,7 @@ public class ToxiniumShotgun extends ItemWeapon {
                         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
                         if (world.collidesWithAnyBlock(aabb)) {
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               vec.x,
                               vec.y,
                               vec.z,
@@ -220,20 +208,20 @@ public class ToxiniumShotgun extends ItemWeapon {
                         player,
                         world,
                         64.0,
-                        (double)player.getEntityId(),
-                        (double)seed,
+                             player.getEntityId(),
+                             seed,
                         edist,
-                        (double)amount,
-                        (double)c,
-                        (double)impacts,
-                        (double)inaccuracy,
+                             amount,
+                             c,
+                             impacts,
+                             inaccuracy,
                         0.0,
                         0.0
                      );
                   }
                } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.TOXINIUM_SHOTGUN_CLIP, maxammo, true)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

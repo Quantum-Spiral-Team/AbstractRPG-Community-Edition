@@ -60,7 +60,7 @@ public class EntityWeatherRocket extends StandardBullet implements RenderModule.
 
    @Override
    public void rewriteModuleParameters(RenderModule module) {
-      int index = (Integer)this.dataManager.get(TEXTURE_ID);
+      int index = this.dataManager.get(TEXTURE_ID);
       if (index >= 0 && index < ItemWeatherRocket.rocketTextures.size()) {
          module.tex = ItemWeatherRocket.rocketTextures.get(index);
       }

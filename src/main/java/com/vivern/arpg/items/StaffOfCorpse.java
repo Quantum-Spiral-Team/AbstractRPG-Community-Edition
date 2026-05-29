@@ -90,13 +90,13 @@ public class StaffOfCorpse extends Item {
          int spec = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack);
          int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
          NBTHelper.GiveNBTint(itemstack, 0, "charge");
-         if (player.getActiveItemStack() == itemstack && mana > 0.2F - sor / 30 && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
+         if (player.getActiveItemStack() == itemstack && mana > 0.2F - (float) sor / 30 && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             NBTHelper.AddNBTint(itemstack, 1, "charge");
             Vec3d vec = GetMOP.posRayTrace(20.0, 1.0F, player, 0.05, 0.05);
             int charge = NBTHelper.GetNBTint(itemstack, "charge");
             if (charge == -27) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -114,7 +114,7 @@ public class StaffOfCorpse extends Item {
                      player.getCooldownTracker().setCooldown(this, (40 - rapidity * 5) * (spec > 0 ? 5 : 1));
                      player.addStat(StatList.getObjectUseStats(this));
                   } else {
-                     double damageRadius = charge / 6 + 1;
+                     double damageRadius = (double) charge / 6 + 1;
                      AxisAlignedBB aabb = new AxisAlignedBB(
                         vec.x - damageRadius,
                         vec.y - damageRadius,
@@ -147,7 +147,7 @@ public class StaffOfCorpse extends Item {
                      }
 
                      if (!player.capabilities.isCreativeMode) {
-                        Mana.changeMana(player, -0.2F + sor / 30);
+                        Mana.changeMana(player, -0.2F + (float) sor / 30);
                         Mana.setManaSpeed(player, 0.001F);
                      }
                   }
@@ -185,7 +185,7 @@ public class StaffOfCorpse extends Item {
                      world,
                      player,
                      this.start,
-                     0.07F + charge / 280,
+                     0.07F + (float) charge / 280,
                      156 + charge * 3,
                      1.0F,
                      1.0F,

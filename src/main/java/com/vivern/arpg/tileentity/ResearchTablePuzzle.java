@@ -167,9 +167,9 @@ public class ResearchTablePuzzle {
       if (this.rand.nextFloat() < 0.33F) {
          return new RTPElementCross(this.chipX, this.chipY);
       } else {
-         return (RTPElement)(this.rand.nextFloat() < 0.5F
+         return this.rand.nextFloat() < 0.5F
             ? new RTPElementQuad(this.chipX, this.chipY)
-            : new RTPElementLine(this.chipX, this.chipY));
+            : new RTPElementLine(this.chipX, this.chipY);
       }
    }
 
@@ -246,7 +246,7 @@ public class ResearchTablePuzzle {
 
    public boolean isPassable(int posX, int posY) {
       if (posX >= 0 && posX < this.sizeX && posY >= 0 && posY < this.sizeY) {
-         return this.board[posX][posY] == null ? true : this.board[posX][posY].canWalkthrough();
+         return this.board[posX][posY] == null || this.board[posX][posY].canWalkthrough();
       } else {
          return false;
       }
@@ -254,7 +254,7 @@ public class ResearchTablePuzzle {
 
    public boolean canPlaceBlock(int posX, int posY) {
       if (posX >= 0 && posX < this.sizeX && posY >= 0 && posY < this.sizeY) {
-         return this.board[posX][posY] == null ? true : this.board[posX][posY].canBeBlocked(this.difficulty);
+         return this.board[posX][posY] == null || this.board[posX][posY].canBeBlocked(this.difficulty);
       } else {
          return false;
       }

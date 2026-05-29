@@ -78,7 +78,7 @@ public class AdvancedBlockDetector extends Block {
          }
 
          if (playerIn.getHeldItem(hand).isEmpty() && playerIn.isSneaking()) {
-            BlockPos offset = pos.offset((EnumFacing)state.getValue(FACING));
+            BlockPos offset = pos.offset(state.getValue(FACING));
             tile.setState(worldIn.getBlockState(offset));
             playerIn.swingArm(hand);
             worldIn.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 0.7F, 1.15F);
@@ -115,7 +115,7 @@ public class AdvancedBlockDetector extends Block {
 
    @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      BlockPos offset = pos.offset(((EnumFacing)state.getValue(FACING)).getOpposite());
+      BlockPos offset = pos.offset(state.getValue(FACING).getOpposite());
       worldIn.neighborChanged(offset, worldIn.getBlockState(offset).getBlock(), pos);
    }
 
@@ -188,17 +188,17 @@ public class AdvancedBlockDetector extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

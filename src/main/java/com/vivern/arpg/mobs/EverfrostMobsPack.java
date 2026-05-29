@@ -4,7 +4,7 @@ import com.vivern.arpg.items.models.FrostModel;
 import com.vivern.arpg.items.models.ModelsEverfrostMob;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.CannonSnowball;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.BloodType;
@@ -258,7 +258,7 @@ public class EverfrostMobsPack {
 
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-         return potioneffectIn.getPotion() == PotionEffects.WINTER_CURSE ? false : super.isPotionApplicable(potioneffectIn);
+         return potioneffectIn.getPotion() != PotionEffects.WINTER_CURSE && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -275,7 +275,7 @@ public class EverfrostMobsPack {
       }
    }
 
-   public static class AurorasPhantasm extends AbstractMob implements IEntitySynchronize {
+   public static class AurorasPhantasm extends AbstractMob implements ISynchronizedEntity {
       static ResourceLocation texture = new ResourceLocation("arpg:textures/star2.png");
       static ResourceLocation texturelaser = new ResourceLocation("arpg:textures/phantasm_beam.png");
       static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largecloud.png");
@@ -321,7 +321,7 @@ public class EverfrostMobsPack {
 
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-         return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
+         return potioneffectIn.getPotion() != PotionEffects.FREEZING && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -432,7 +432,7 @@ public class EverfrostMobsPack {
             this.world.spawnEntity(plasma);
          }
 
-         IEntitySynchronize.sendSynchronize(this, 64.0, vec.x, vec.y, vec.z);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, vec.x, vec.y, vec.z);
       }
 
       @Override
@@ -518,9 +518,9 @@ public class EverfrostMobsPack {
                this.motionZ *= 0.4;
                float ft1 = GetMOP.getFromTo((float)this.laserAttackTick, 0.0F, (float)this.laserAttackTickMax);
                Vec3d laserPos = new Vec3d(
-                  GetMOP.partial(this.laserTarget2.x, this.laserTarget1.x, (double)ft1),
-                  GetMOP.partial(this.laserTarget2.y, this.laserTarget1.y, (double)ft1),
-                  GetMOP.partial(this.laserTarget2.z, this.laserTarget1.z, (double)ft1)
+                  GetMOP.partial(this.laserTarget2.x, this.laserTarget1.x, ft1),
+                  GetMOP.partial(this.laserTarget2.y, this.laserTarget1.y, ft1),
+                  GetMOP.partial(this.laserTarget2.z, this.laserTarget1.z, ft1)
                );
                if (this.getAttackTarget() != null && this.getEntitySenses().canSee(this.getAttackTarget())) {
                   Vec3d centerThis = GetMOP.entityCenterPos(this);
@@ -662,7 +662,7 @@ public class EverfrostMobsPack {
 
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-         return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
+         return potioneffectIn.getPotion() != PotionEffects.FREEZING && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -920,7 +920,7 @@ public class EverfrostMobsPack {
 
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-         return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
+         return potioneffectIn.getPotion() != PotionEffects.FREEZING && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -1116,7 +1116,7 @@ public class EverfrostMobsPack {
       }
    }
 
-   public static class HailWraith extends AbstractMob implements IEntitySynchronize {
+   public static class HailWraith extends AbstractMob implements ISynchronizedEntity {
       public static ResourceLocation texture = new ResourceLocation("arpg:textures/lightning3.png");
       int zapCooldown = 0;
 
@@ -1211,7 +1211,7 @@ public class EverfrostMobsPack {
                && this.zapCooldown <= 0
                && GetMOP.thereIsNoBlockCollidesBetween(this.world, GetMOP.entityCenterPos(this), GetMOP.entityCenterPos(attarg), null, true)) {
                this.zapCooldown = 60;
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   32.0,
                   this.posX,
@@ -1269,7 +1269,7 @@ public class EverfrostMobsPack {
 
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-         return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
+         return potioneffectIn.getPotion() != PotionEffects.FREEZING && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -1429,7 +1429,7 @@ public class EverfrostMobsPack {
 
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-         return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
+         return potioneffectIn.getPotion() != PotionEffects.FREEZING && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -1502,7 +1502,7 @@ public class EverfrostMobsPack {
          } else if (potioneffectIn.getPotion() == PotionEffects.WINTER_CURSE) {
             return false;
          } else {
-            return potioneffectIn.getPotion() == PotionEffects.FROSTBURN ? false : super.isPotionApplicable(potioneffectIn);
+            return potioneffectIn.getPotion() != PotionEffects.FROSTBURN && super.isPotionApplicable(potioneffectIn);
          }
       }
 
@@ -1727,7 +1727,7 @@ public class EverfrostMobsPack {
          if (potioneffectIn.getPotion() == PotionEffects.FREEZING) {
             return false;
          } else {
-            return potioneffectIn.getPotion() == PotionEffects.WINTER_CURSE ? false : super.isPotionApplicable(potioneffectIn);
+            return potioneffectIn.getPotion() != PotionEffects.WINTER_CURSE && super.isPotionApplicable(potioneffectIn);
          }
       }
 
@@ -2299,7 +2299,7 @@ public class EverfrostMobsPack {
 
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-         return potioneffectIn.getPotion() == PotionEffects.FREEZING ? false : super.isPotionApplicable(potioneffectIn);
+         return potioneffectIn.getPotion() != PotionEffects.FREEZING && super.isPotionApplicable(potioneffectIn);
       }
 
       @Nullable

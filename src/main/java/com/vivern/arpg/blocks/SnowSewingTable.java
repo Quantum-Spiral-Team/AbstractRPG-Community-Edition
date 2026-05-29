@@ -72,7 +72,7 @@ public class SnowSewingTable extends Block {
    @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       Random rand = RANDOM;
-      int damage = (Integer)state.getValue(DAMAGE);
+      int damage = state.getValue(DAMAGE);
       if (damage == 0) {
          super.getDrops(drops, world, pos, state, fortune);
       } else {
@@ -97,7 +97,7 @@ public class SnowSewingTable extends Block {
    }
 
    public void deactivateAndDamage(World world, BlockPos pos, IBlockState state) {
-      int damage = (Integer)state.getValue(DAMAGE);
+      int damage = state.getValue(DAMAGE);
       if (RANDOM.nextFloat() < 0.8) {
          if (damage < 3) {
             world.setBlockState(pos, state.withProperty(READY, false).withProperty(DAMAGE, damage + 1));
@@ -114,10 +114,10 @@ public class SnowSewingTable extends Block {
    public boolean onBlockActivated(
       World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
-      if (!world.isRemote && hand == EnumHand.MAIN_HAND && (Boolean)state.getValue(READY)) {
+      if (!world.isRemote && hand == EnumHand.MAIN_HAND && state.getValue(READY)) {
          IBlockState stateup = world.getBlockState(pos.up());
          Block block = stateup.getBlock();
-         if (block == Blocks.SNOW || block == Blocks.SNOW_LAYER && (Integer)stateup.getValue(BlockSnow.LAYERS) > 5) {
+         if (block == Blocks.SNOW || block == Blocks.SNOW_LAYER && stateup.getValue(BlockSnow.LAYERS) > 5) {
             world.setBlockState(pos.up(), Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, 5));
             world.playSound(null, pos, Sounds.sewing, SoundCategory.BLOCKS, 0.7F, 0.85F + RANDOM.nextFloat() * 0.3F);
             return true;
@@ -125,7 +125,7 @@ public class SnowSewingTable extends Block {
 
          if (block == Blocks.SNOW_LAYER) {
             if (RANDOM.nextFloat() < 0.9) {
-               int l = (Integer)stateup.getValue(BlockSnow.LAYERS);
+               int l = stateup.getValue(BlockSnow.LAYERS);
                if (l > 1) {
                   world.setBlockState(pos.up(), Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, l - 1));
                } else {
@@ -147,7 +147,7 @@ public class SnowSewingTable extends Block {
 
          if (block == BlocksRegister.LOOSE_SNOW) {
             if (RANDOM.nextFloat() < 0.9) {
-               int l = (Integer)stateup.getValue(LooseSnow.LAYERS);
+               int l = stateup.getValue(LooseSnow.LAYERS);
                if (l > 1) {
                   world.setBlockState(pos.up(), BlocksRegister.LOOSE_SNOW.getDefaultState().withProperty(LooseSnow.LAYERS, l - 1));
                } else {
@@ -186,7 +186,7 @@ public class SnowSewingTable extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(DAMAGE) + (state.getValue(READY) ? 4 : 0);
+      return state.getValue(DAMAGE) + (state.getValue(READY) ? 4 : 0);
    }
 
    @Override

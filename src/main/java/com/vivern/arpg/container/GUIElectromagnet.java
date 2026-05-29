@@ -1,7 +1,7 @@
 package com.vivern.arpg.container;
 
 import com.vivern.arpg.main.FluidsRegister;
-import com.vivern.arpg.network.PacketNeedTileSendToServer;
+import com.vivern.arpg.network.packet.PacketNeedTileSendToServer;
 import com.vivern.arpg.renders.RenderFluidHelper;
 import com.vivern.arpg.tileentity.TileElectromagnet;
 import java.io.IOException;

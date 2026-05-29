@@ -25,11 +25,11 @@ public class EntityAIAttackOtherTeam<T extends EntityLivingBase> extends EntityA
    }
 
    public EntityAIAttackOtherTeam(EntityCreature creature, Class<T> classTarget, boolean checkSight, boolean onlyNearby) {
-      this(creature, classTarget, 10, checkSight, onlyNearby, (Predicate<? super T>)null);
+      this(creature, classTarget, 10, checkSight, onlyNearby, null);
    }
 
    public EntityAIAttackOtherTeam(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight) {
-      this(creature, classTarget, chance, checkSight, false, (Predicate<? super T>)null);
+      this(creature, classTarget, chance, checkSight, false, null);
    }
 
    public EntityAIAttackOtherTeam(
@@ -40,16 +40,13 @@ public class EntityAIAttackOtherTeam<T extends EntityLivingBase> extends EntityA
       this.targetChance = chance;
       this.sorter = new net.minecraft.entity.ai.EntityAINearestAttackableTarget.Sorter(creature);
       this.setMutexBits(1);
-      this.targetEntitySelector = new Predicate<T>() {
-         @Override
-         public boolean apply(@Nullable T p_apply_1_) {
-            if (p_apply_1_ == null) {
-               return false;
-            } else if (targetSelector != null && !targetSelector.apply(p_apply_1_)) {
-               return false;
-            } else {
-               return !EntitySelectors.NOT_SPECTATING.apply(p_apply_1_) ? false : EntityAIAttackOtherTeam.this.isSuitableTarget(p_apply_1_, false);
-            }
+      this.targetEntitySelector = (Predicate<T>) entity -> {
+         if (entity == null) {
+            return false;
+         } else if (targetSelector != null && !targetSelector.apply(entity)) {
+            return false;
+         } else {
+            return EntitySelectors.NOT_SPECTATING.apply(entity) && EntityAIAttackOtherTeam.this.isSuitableTarget(entity, false);
          }
       };
    }

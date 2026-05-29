@@ -2,8 +2,8 @@ package com.vivern.arpg.container;
 
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketIWeaponGuiClickToServer;
-import com.vivern.arpg.network.PacketIWeaponStringToServer;
+import com.vivern.arpg.network.packet.PacketIWeaponGuiClickToServer;
+import com.vivern.arpg.network.packet.PacketIWeaponStringToServer;
 import java.io.IOException;
 import java.util.ArrayList;
 import net.minecraft.client.gui.GuiScreen;
@@ -151,7 +151,7 @@ public class GUISummon extends GuiScreen {
       int mx = mouseX - (this.width - this.xSize) / 2;
       int my = mouseY - (this.height - this.ySize) / 2;
       PacketIWeaponGuiClickToServer packet = new PacketIWeaponGuiClickToServer();
-      packet.writeints(mx, my, mouseButton);
+      packet.writeInts(mx, my, mouseButton);
       PacketHandler.NETWORK.sendToServer(packet);
       if (this.filterMinionEdit.getVisible()) {
          this.filterMinionEdit.mouseClicked(mouseX, mouseY, mouseButton);

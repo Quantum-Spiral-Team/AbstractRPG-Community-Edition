@@ -30,7 +30,7 @@ public class TileBookcase extends TileEntity {
 
    public boolean hasBooks() {
       for (int i = 0; i < 3; i++) {
-         if (!((ItemStack)this.stacks.get(i)).isEmpty()) {
+         if (!this.stacks.get(i).isEmpty()) {
             return true;
          }
       }
@@ -43,7 +43,7 @@ public class TileBookcase extends TileEntity {
       ArrayList<ItemStack> stacksInBooks = new ArrayList<>();
 
       for (int i = 0; i < 3; i++) {
-         ItemStack book = (ItemStack)this.stacks.get(i);
+         ItemStack book = this.stacks.get(i);
          if (!book.isEmpty()) {
             NBTTagList tagList = NBTHelper.GetNbtTagList(book, "pages", 10);
             if (!tagList.isEmpty()) {
@@ -102,7 +102,7 @@ public class TileBookcase extends TileEntity {
       compound.setInteger("gemsAndVariant", gemsAndVariant);
 
       for (int i = 0; i < 3; i++) {
-         ItemStack stack = (ItemStack)this.stacks.get(i);
+         ItemStack stack = this.stacks.get(i);
          if (!stack.isEmpty() && stack.hasTagCompound()) {
             NBTTagCompound tag = stack.getTagCompound().copy();
             tag.removeTag("gem");

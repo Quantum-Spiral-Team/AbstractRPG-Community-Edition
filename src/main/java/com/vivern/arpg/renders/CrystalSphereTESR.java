@@ -133,7 +133,7 @@ public class CrystalSphereTESR extends TileEntitySpecialRenderer<TileCrystalSphe
    public static class RenderShardsEffect {
       public void renderIn(ShardType shard, @Nullable TileCrystalSphere te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
          int tick = AnimationTimer.tick % 16000;
-         float time = tick / 2;
+         float time = (float) tick / 2;
          if (shard == ShardType.FIRE) {
             GlStateManager.depthMask(false);
             GL11.glDisable(2896);
@@ -379,31 +379,27 @@ public class CrystalSphereTESR extends TileEntitySpecialRenderer<TileCrystalSphe
             float upfromCenter = 0.0F;
             float downfromCenter = 0.0F;
             float width = 0.18F + Debugger.floats[4];
-            float time2 = tick / 4;
+            float time2 = (float) tick / 4;
             Vec3d vec = GetMOP.vec3DToPitchYaw(new Vec3d(x, y, z));
 
-            for (int i = 0; i < 1; i++) {
-               GlStateManager.pushMatrix();
-               Tessellator tessellatorx = Tessellator.getInstance();
-               BufferBuilder bufferbuilderx = tessellatorx.getBuffer();
-               bufferbuilderx.begin(7, DefaultVertexFormats.POSITION_TEX);
-               float ad2 = 0.14F;
-               RenderManager renderm = Minecraft.getMinecraft().getRenderManager();
-               if (renderm != null) {
-                  float vewX = renderm.playerViewX / 90.0F;
-                  upfromCenter = -0.15F * vewX;
-                  downfromCenter = 0.15F * vewX;
-                  GlStateManager.rotate(renderm.playerViewY + Debugger.floats[5], 0.0F, 1.0F, 0.0F);
-               }
+            GlStateManager.pushMatrix();
+            Tessellator tessellatorx = Tessellator.getInstance();
+            BufferBuilder bufferbuilderx = tessellatorx.getBuffer();
+            bufferbuilderx.begin(7, DefaultVertexFormats.POSITION_TEX);
+            float ad2 = 0.14F;
+            RenderManager renderm = Minecraft.getMinecraft().getRenderManager();
+            float vewX = renderm.playerViewX / 90.0F;
+            upfromCenter = -0.15F * vewX;
+            downfromCenter = 0.15F * vewX;
+            GlStateManager.rotate(renderm.playerViewY + Debugger.floats[5], 0.0F, 1.0F, 0.0F);
 
-               int anplus = i * 22;
-               bufferbuilderx.pos(-width, height + downAll, downfromCenter).tex(0.0, 0.032258064F + time2 / 31.0F + anplus).endVertex();
-               bufferbuilderx.pos(-width, downAll, upfromCenter).tex(0.0, 0.0F + time2 / 31.0F + anplus).endVertex();
-               bufferbuilderx.pos(width, downAll, upfromCenter).tex(1.0, 0.0F + time2 / 31.0F + anplus).endVertex();
-               bufferbuilderx.pos(width, height + downAll, downfromCenter).tex(1.0, 0.032258064F + time2 / 31.0F + anplus).endVertex();
-               tessellatorx.draw();
-               GlStateManager.popMatrix();
-            }
+            bufferbuilderx.pos(-width, height + downAll, downfromCenter).tex(0.0, 0.032258064F + time2 / 31.0F).endVertex();
+            bufferbuilderx.pos(-width, downAll, upfromCenter).tex(0.0, 0.0F + time2 / 31.0F).endVertex();
+            bufferbuilderx.pos(width, downAll, upfromCenter).tex(1.0, 0.0F + time2 / 31.0F).endVertex();
+            bufferbuilderx.pos(width, height + downAll, downfromCenter).tex(1.0, 0.032258064F + time2 / 31.0F).endVertex();
+            tessellatorx.draw();
+            GlStateManager.popMatrix();
+
 
             GL11.glEnable(2896);
             GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -421,7 +417,7 @@ public class CrystalSphereTESR extends TileEntitySpecialRenderer<TileCrystalSphe
             float upfromCenter = 0.0F;
             float downfromCenter = 0.0F;
             float width = 0.18F + Debugger.floats[4];
-            float time2 = tick / 6;
+            float time2 = (float) tick / 6;
             Vec3d vec = GetMOP.vec3DToPitchYaw(new Vec3d(x, y, z));
 
             for (int i = 0; i < 1; i++) {

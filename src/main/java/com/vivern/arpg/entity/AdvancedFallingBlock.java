@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.network.PacketFallingBlockToClients;
+import com.vivern.arpg.network.packet.PacketFallingBlockToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.google.common.collect.Lists;
 import java.util.List;
@@ -75,7 +75,7 @@ public class AdvancedFallingBlock extends Entity {
 
    @SideOnly(Side.CLIENT)
    public BlockPos getOrigin() {
-      return (BlockPos)this.dataManager.get(ORIGIN);
+      return this.dataManager.get(ORIGIN);
    }
 
    @Override
@@ -219,7 +219,7 @@ public class AdvancedFallingBlock extends Entity {
             }
 
             if (flag && this.rand.nextFloat() < 0.05F + i * 0.05) {
-               int j = (Integer)this.fallTile.getValue(BlockAnvil.DAMAGE);
+               int j = this.fallTile.getValue(BlockAnvil.DAMAGE);
                if (++j > 2) {
                   this.dontSetBlock = true;
                } else {
@@ -236,7 +236,7 @@ public class AdvancedFallingBlock extends Entity {
    @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.AIR;
-      ResourceLocation resourcelocation = (ResourceLocation)Block.REGISTRY.getNameForObject(block);
+      ResourceLocation resourcelocation = Block.REGISTRY.getNameForObject(block);
       compound.setString("Block", resourcelocation == null ? "" : resourcelocation.toString());
       compound.setByte("Data", (byte)block.getMetaFromState(this.fallTile));
       compound.setInteger("Time", this.fallTime);

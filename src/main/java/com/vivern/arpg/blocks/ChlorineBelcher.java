@@ -48,7 +48,7 @@ public class ChlorineBelcher extends BlockBlockHard {
          && RANDOM.nextFloat() < 0.9
          && world.isAnyPlayerWithinRangeAt(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16.0)) {
          world.playSound(null, pos, Sounds.chlorine_belcher, SoundCategory.BLOCKS, 0.7F, 0.85F + world.rand.nextFloat() / 4.0F);
-         EnumFacing f = (EnumFacing)state.getValue(FACING);
+         EnumFacing f = state.getValue(FACING);
          ChlorineCloud cloud = new ChlorineCloud(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
          cloud.motionX = f.getXOffset() / 5.0 + RANDOM.nextGaussian() / 12.0;
          cloud.motionY = f.getYOffset() / 5.0 + RANDOM.nextGaussian() / 12.0;
@@ -91,7 +91,7 @@ public class ChlorineBelcher extends BlockBlockHard {
 
    @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      EnumFacing face = (EnumFacing)state.getValue(FACING);
+      EnumFacing face = state.getValue(FACING);
       long i = MathHelper.getCoordinateRandom(pos.getX(), 0, pos.getZ());
       if (face.getAxis() == Axis.X) {
          return new Vec3d(
@@ -112,7 +112,7 @@ public class ChlorineBelcher extends BlockBlockHard {
 
    @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             return EAST_AABB;
          case WEST:
@@ -130,7 +130,7 @@ public class ChlorineBelcher extends BlockBlockHard {
 
    @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      switch ((EnumFacing)blockState.getValue(FACING)) {
+      switch (blockState.getValue(FACING)) {
          case EAST:
             return EAST_AABB;
          case WEST:
@@ -163,17 +163,17 @@ public class ChlorineBelcher extends BlockBlockHard {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

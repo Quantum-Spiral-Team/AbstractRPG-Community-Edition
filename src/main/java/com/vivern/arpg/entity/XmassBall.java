@@ -201,7 +201,7 @@ public class XmassBall extends EntityThrowable {
 
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

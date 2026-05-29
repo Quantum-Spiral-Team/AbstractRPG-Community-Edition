@@ -77,7 +77,7 @@ public class HailWeather extends WeatherPhenomenon {
             light,
             world,
             x + this.rand.nextInt(4),
-            Math.min(playerY + 30.0, (double)height),
+            Math.min(playerY + 30.0, height),
             z + this.rand.nextInt(4),
             (float)(this.rand.nextGaussian() / 30.0),
             -0.15F,

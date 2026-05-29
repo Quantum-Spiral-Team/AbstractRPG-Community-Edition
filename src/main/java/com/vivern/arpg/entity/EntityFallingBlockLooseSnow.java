@@ -72,7 +72,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
 
    @SideOnly(Side.CLIENT)
    public BlockPos getOrigin() {
-      return (BlockPos)this.dataManager.get(ORIGIN);
+      return this.dataManager.get(ORIGIN);
    }
 
    @Override
@@ -125,7 +125,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
                this.setDead();
                if (!this.dontSetBlock) {
                   if (this.world.getBlockState(blockpos1.down()).getBlock() != BlocksRegister.LOOSE_SNOW) {
-                     if (this.world.mayPlace(block, blockpos1, true, EnumFacing.UP, (Entity)null)
+                     if (this.world.mayPlace(block, blockpos1, true, EnumFacing.UP, null)
                         && !BlockFalling.canFallThrough(this.world.getBlockState(blockpos1.down()))
                         && this.world.setBlockState(blockpos1, this.fallTile, 3)) {
                         if (block instanceof BlockFalling) {
@@ -179,7 +179,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
             }
 
             if (flag && this.rand.nextFloat() < 0.05F + i * 0.05) {
-               int j = (Integer)this.fallTile.getValue(BlockAnvil.DAMAGE);
+               int j = this.fallTile.getValue(BlockAnvil.DAMAGE);
                if (++j > 2) {
                   this.dontSetBlock = true;
                } else {
@@ -196,7 +196,7 @@ public class EntityFallingBlockLooseSnow extends Entity {
    @Override
    protected void writeEntityToNBT(NBTTagCompound compound) {
       Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.AIR;
-      ResourceLocation resourcelocation = (ResourceLocation)Block.REGISTRY.getNameForObject(block);
+      ResourceLocation resourcelocation = Block.REGISTRY.getNameForObject(block);
       compound.setString("Block", resourcelocation == null ? "" : resourcelocation.toString());
       compound.setByte("Data", (byte)block.getMetaFromState(this.fallTile));
       compound.setInteger("Time", this.fallTime);

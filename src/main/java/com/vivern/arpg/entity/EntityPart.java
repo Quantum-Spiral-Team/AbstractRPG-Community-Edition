@@ -9,7 +9,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.world.World;
 
-public class EntityPart extends AbstractMob implements IEntitySynchronize {
+public class EntityPart extends AbstractMob implements ISynchronizedEntity {
    public IMultipartMob owner;
    public int randSendTiming;
 
@@ -71,7 +71,7 @@ public class EntityPart extends AbstractMob implements IEntitySynchronize {
 
    @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
-      return this.checkDead() ? this.owner.attackEntityFromPart(this, source, amount) : false;
+      return this.checkDead() && this.owner.attackEntityFromPart(this, source, amount);
    }
 
    @Override
@@ -90,7 +90,7 @@ public class EntityPart extends AbstractMob implements IEntitySynchronize {
       super.onUpdate();
       if (!this.world.isRemote && this.checkDead()) {
          if (this.ticksExisted < 2 || this.ticksExisted % 45 == this.randSendTiming) {
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.width, this.height, this.posX, this.posY, this.posZ);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.width, this.height, this.posX, this.posY, this.posZ);
             this.team = this.owner.getTeamString();
          }
 

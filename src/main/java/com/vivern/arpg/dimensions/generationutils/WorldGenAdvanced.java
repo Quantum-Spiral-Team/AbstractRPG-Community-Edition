@@ -16,7 +16,7 @@ public abstract class WorldGenAdvanced extends WorldGenerator {
          this.builder.setBlockState(pos, newState, flags);
       }
 
-      return this.world != null ? this.world.setBlockState(pos, newState, flags) : false;
+      return this.world != null && this.world.setBlockState(pos, newState, flags);
    }
 
    public boolean setBlockState(BlockPos pos, IBlockState state) {
@@ -35,7 +35,7 @@ public abstract class WorldGenAdvanced extends WorldGenerator {
       if (this.builder != null) {
          return this.builder.isAirBlock(pos);
       } else {
-         return this.world != null ? this.world.isAirBlock(pos) : false;
+         return this.world != null && this.world.isAirBlock(pos);
       }
    }
 
@@ -43,7 +43,7 @@ public abstract class WorldGenAdvanced extends WorldGenerator {
       if (this.builder != null) {
          return this.builder.getBlockState(pos).getBlock().isReplaceable(this.builder, pos);
       } else {
-         return this.world != null ? GenerationHelper.isReplaceable(this.world, pos) : false;
+         return this.world != null && GenerationHelper.isReplaceable(this.world, pos);
       }
    }
 
@@ -60,7 +60,7 @@ public abstract class WorldGenAdvanced extends WorldGenerator {
    }
 
    public IBlockAccess getAccess() {
-      return (IBlockAccess)(this.builder != null ? this.builder : this.world);
+      return this.builder != null ? this.builder : this.world;
    }
 
    public long getWorldSeed() {

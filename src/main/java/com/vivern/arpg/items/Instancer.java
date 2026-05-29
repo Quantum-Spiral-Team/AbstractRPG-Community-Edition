@@ -1,17 +1,10 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.NPCMobsPack;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketSmallSomethingToClients;
+import com.vivern.arpg.network.packet.PacketSmallSomethingToClients;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ModelledPartickle;
 import com.vivern.arpg.renders.ParticleTracker;
@@ -113,7 +106,7 @@ public class Instancer extends ItemWeapon {
          Entity entity = world.getEntityByID((int)x);
          Entity entityplayer = world.getEntityByID((int)z);
          if (entityplayer instanceof EntityPlayer) {
-            Render render = (Render)Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity.getClass());
+            Render render = Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity.getClass());
             if (render != null && render instanceof RenderLivingBase) {
                ModelBase model = ((RenderLivingBase)render).getMainModel();
                if (model != null) {
@@ -358,8 +351,8 @@ public class Instancer extends ItemWeapon {
          if (entityIn.ticksExisted % 2 == 0 && entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entityIn;
             if (player.getHeldItemMainhand() == itemstack && NBTHelper.GetNBTint(itemstack, "ready") >= 10) {
-               boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-               boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+               boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+               boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
                if (click) {
                   this.spawnPartickles(world, player, true);
                } else if (click2) {
@@ -371,8 +364,8 @@ public class Instancer extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             if (!itemstack.hasTagCompound() || !itemstack.getTagCompound().hasKey("mobs")) {
                NBTTagCompound itemCompound = new NBTTagCompound();
                NBTTagList taglistt = new NBTTagList();
@@ -398,7 +391,7 @@ public class Instancer extends ItemWeapon {
                      if (ready == 0) {
                         sendAnim = true;
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -412,7 +405,7 @@ public class Instancer extends ItemWeapon {
                      NBTHelper.AddNBTint(itemstack, 1, "ready");
                      if (ready == 14) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -421,7 +414,7 @@ public class Instancer extends ItemWeapon {
                            0.9F,
                            1.0F
                         );
-                        IWeapon.fireEffect(this, player, world, 16.0, (double)player.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+                        IWeapon.fireEffect(this, player, world, 16.0, player.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
                      }
                   }
 
@@ -432,7 +425,7 @@ public class Instancer extends ItemWeapon {
                   NBTHelper.AddNBTint(itemstack, -1, "ready");
                   if (ready == 15) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -476,7 +469,7 @@ public class Instancer extends ItemWeapon {
                                     NBTHelper.GiveNBTint(itemstack, 0, "leadershipHold");
                                     NBTHelper.AddNBTint(itemstack, -leadershipNeed, "leadershipHold");
                                     world.playSound(
-                                       (EntityPlayer)null,
+                                            null,
                                        mob.posX,
                                        mob.posY,
                                        mob.posZ,
@@ -490,9 +483,9 @@ public class Instancer extends ItemWeapon {
                                        player,
                                        world,
                                        64.0,
-                                       (double)mob.width,
+                                            mob.width,
                                        2.0,
-                                       (double)mob.height,
+                                            mob.height,
                                        mob.posX,
                                        mob.posY,
                                        mob.posZ,
@@ -583,13 +576,13 @@ public class Instancer extends ItemWeapon {
       mobtag.setInteger("leadership", leadershipNeed);
       NBTTagList taglist = itemstack.getTagCompound().getTagList("mobs", 10);
       taglist.appendTag(mobtag);
-      IWeapon.fireEffect(this, player, mob.world, 64.0, (double)mob.getEntityId(), 1.0, (double)player.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+      IWeapon.fireEffect(this, player, mob.world, 64.0, mob.getEntityId(), 1.0, player.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       mob.setDead();
       NBTHelper.GiveNBTint(itemstack, 0, "leadershipHold");
       NBTHelper.AddNBTint(itemstack, leadershipNeed, "leadershipHold");
       mob.world
          .playSound(
-            (EntityPlayer)null, mob.posX, mob.posY, mob.posZ, Sounds.instancer_capture, SoundCategory.AMBIENT, 0.9F, 1.0F
+                 null, mob.posX, mob.posY, mob.posZ, Sounds.instancer_capture, SoundCategory.AMBIENT, 0.9F, 1.0F
          );
       if (!player.isCreative()) {
          itemstack.damageItem(1, player);
@@ -672,7 +665,7 @@ public class Instancer extends ItemWeapon {
    public void sendNewLeadership(World world, EntityPlayer player, int leadershipAll) {
       if (player instanceof EntityPlayerMP) {
          PacketSmallSomethingToClients packet = new PacketSmallSomethingToClients();
-         packet.writeargs(2, leadershipAll);
+         packet.writeArgs(2, leadershipAll);
          PacketHandler.sendTo(packet, (EntityPlayerMP)player);
       }
    }
@@ -746,12 +739,12 @@ public class Instancer extends ItemWeapon {
                int ready = NBTHelper.GetNBTint(stack, "ready");
                if (ready > 13) {
                   if (this.deploy) {
-                     if (Keys.isKeyPressed(this.entity, Keys.PRIMARYATTACK)) {
+                     if (ServerKeyTracker.isKeyPressed(this.entity, ServerKeyTracker.Keys.PRIMARY)) {
                         this.volume = 1.0F;
-                     } else if (Keys.isKeyPressed(this.entity, Keys.SECONDARYATTACK)) {
+                     } else if (ServerKeyTracker.isKeyPressed(this.entity, ServerKeyTracker.Keys.SECONDARY)) {
                         this.volume = 0.0F;
                      }
-                  } else if (Keys.isKeyPressed(this.entity, Keys.SECONDARYATTACK) && !Keys.isKeyPressed(this.entity, Keys.PRIMARYATTACK)) {
+                  } else if (ServerKeyTracker.isKeyPressed(this.entity, ServerKeyTracker.Keys.SECONDARY) && !ServerKeyTracker.isKeyPressed(this.entity, ServerKeyTracker.Keys.PRIMARY)) {
                      this.volume = 1.0F;
                   } else {
                      this.volume = 0.0F;

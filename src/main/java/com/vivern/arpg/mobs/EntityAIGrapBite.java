@@ -2,7 +2,7 @@ package com.vivern.arpg.mobs;
 
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.network.PacketEntityPositionToClients;
+import com.vivern.arpg.network.packet.PacketEntityPositionToClients;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;

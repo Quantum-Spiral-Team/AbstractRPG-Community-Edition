@@ -1,15 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.CeratargetShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -69,7 +61,7 @@ public class Ceratarget extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             float mana = Mana.getMana(player);
             float spee = Mana.getManaSpeed(player);
             float power = Mana.getMagicPowerMax(player);
@@ -135,7 +127,7 @@ public class Ceratarget extends ItemWeapon {
                   }
                }
 
-               if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
+               if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
                   AxisAlignedBB aabb = player.getEntityBoundingBox().grow(48.0);
 
                   for (CeratargetShoot shoot : world.getEntitiesWithinAABB(CeratargetShoot.class, aabb)) {

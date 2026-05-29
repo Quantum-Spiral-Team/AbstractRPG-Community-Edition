@@ -1,9 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
+import com.vivern.arpg.main.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -38,7 +35,7 @@ public class Wrench extends ItemWeapon {
    public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
       if (!world.isRemote && entity instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entity;
-         if (player.getHeldItemMainhand() == stack && Keys.isKeyPressed(player, Keys.SECONDARYATTACK)) {
+         if (player.getHeldItemMainhand() == stack && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY)) {
             Vec3d vec3d = player.getPositionEyes(1.0F);
             Vec3d vec3d1 = player.getLook(1.0F);
             Vec3d vec3d2 = vec3d.add(vec3d1.x * 3.0, vec3d1.y * 3.0, vec3d1.z * 3.0);

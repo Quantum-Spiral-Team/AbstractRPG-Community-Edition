@@ -211,16 +211,16 @@ public class TileCombinationLock extends TileEntity implements TileEntityClicked
             this.result = el;
             if (el == this.question) {
                this.world
-                  .playSound((EntityPlayer)null, this.pos, Sounds.sealock_win, SoundCategory.BLOCKS, 0.5F, 0.85F + rand.nextFloat() / 4.0F);
+                  .playSound(null, this.pos, Sounds.sealock_win, SoundCategory.BLOCKS, 0.5F, 0.85F + rand.nextFloat() / 4.0F);
             } else {
                this.world
-                  .playSound((EntityPlayer)null, this.pos, Sounds.alchemic_craft, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
+                  .playSound(null, this.pos, Sounds.alchemic_craft, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
             }
 
             SeaLock.trySendPacketUpdate(this.world, this.getPos(), this, 8);
          } else {
             this.world
-               .playSound((EntityPlayer)null, this.pos, Sounds.item_misc_e, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
+               .playSound(null, this.pos, Sounds.item_misc_e, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
             boolean send = this.result != null;
             this.result = null;
             if (send) {
@@ -235,7 +235,7 @@ public class TileCombinationLock extends TileEntity implements TileEntityClicked
             SeaElement el = this.unlocked.get(framenumber);
             this.select(el);
             this.world
-               .playSound((EntityPlayer)null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
+               .playSound(null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
             SeaLock.trySendPacketUpdate(this.world, this.getPos(), this, 8);
          }
       }
@@ -244,21 +244,21 @@ public class TileCombinationLock extends TileEntity implements TileEntityClicked
          if (mouseX > 80 && mouseX < 113) {
             this.select(seaweed);
             this.world
-               .playSound((EntityPlayer)null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
+               .playSound(null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
             SeaLock.trySendPacketUpdate(this.world, this.getPos(), this, 8);
          }
 
          if (mouseX > 112 && mouseX < 145) {
             this.select(cell);
             this.world
-               .playSound((EntityPlayer)null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
+               .playSound(null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
             SeaLock.trySendPacketUpdate(this.world, this.getPos(), this, 8);
          }
 
          if (mouseX > 144 && mouseX < 177) {
             this.select(stone);
             this.world
-               .playSound((EntityPlayer)null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
+               .playSound(null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
             SeaLock.trySendPacketUpdate(this.world, this.getPos(), this, 8);
          }
       }
@@ -266,7 +266,7 @@ public class TileCombinationLock extends TileEntity implements TileEntityClicked
       if (mouseY > 94 && mouseY < 127 && mouseX > 112 && mouseX < 145) {
          this.select(this.result);
          this.world
-            .playSound((EntityPlayer)null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
+            .playSound(null, this.pos, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.4F, 0.85F + rand.nextFloat() / 4.0F);
          SeaLock.trySendPacketUpdate(this.world, this.getPos(), this, 8);
       }
    }

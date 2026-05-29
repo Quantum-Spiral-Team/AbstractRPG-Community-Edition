@@ -1,11 +1,7 @@
 package com.vivern.arpg.main;
 
-import baubles.api.BaublesApi;
-import com.vivern.arpg.items.IWeapon;
-import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketKeysToServer;
-import com.vivern.arpg.potions.Freezing;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -19,152 +15,51 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 //TODO довести до ума настройки клавиш
+@SideOnly(Side.CLIENT)
 public class Keys implements IKeyConflictContext {
-   private static int clientLastKeys = 0;
    //private static final String catergory = "Arpg keys"; TODO UNUSED
-   public static final KeyBinding FORWARD = new KeyBinding("keys.forward", 17, "Arpg keys");
-   public static final KeyBinding RIGHT = new KeyBinding("keys.right", 32, "Arpg keys");
-   public static final KeyBinding LEFT = new KeyBinding("keys.left", 30, "Arpg keys");
-   public static final KeyBinding BACK = new KeyBinding("keys.back", 31, "Arpg keys");
-   public static final KeyBinding JUMP = new KeyBinding("keys.jump", 57, "Arpg keys");
-   public static final KeyBinding SPRINT = new KeyBinding("keys.sprint", 29, "Arpg keys");
-   public static final KeyBindFixed PRIMARYATTACK = new KeyBindFixed("keys.primaryattack", 1, "Arpg keys");
-   public static final KeyBinding SECONDARYATTACK = new KeyBinding("keys.secondaryattack", 34, "Arpg keys");
+   private static final GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
+   public static final KeyBinding FORWARD = gameSettings.keyBindForward;
+   public static final KeyBinding RIGHT = gameSettings.keyBindRight;
+   public static final KeyBinding LEFT = gameSettings.keyBindLeft;
+   public static final KeyBinding BACK = gameSettings.keyBindBack;
+   public static final KeyBinding JUMP = gameSettings.keyBindJump;
+   public static final KeyBinding SPRINT = gameSettings.keyBindSprint;
+   public static final KeyBinding PRIMARYATTACK = gameSettings.keyBindAttack;
+   public static final KeyBinding SECONDARYATTACK = gameSettings.keyBindUseItem;
    public static final KeyBinding HEADABILITY = new KeyBinding("keys.headability", 34, "Arpg keys");
+   public static final KeyBinding GRENADE = new KeyBinding("keys.grenade", 34, "Arpg keys");
    public static final KeyBinding SCOPE = new KeyBinding("keys.scope", 3, "Arpg keys");
    public static final KeyBinding GRAPLINGHOOK = new KeyBinding("keys.hook", 19, "Arpg keys");
-   public static final KeyBinding USE = new KeyBinding("keys.use", 1, "Arpg keys");
-   public static final KeyBinding GRENADE = new KeyBinding("keys.grenade", 34, "Arpg keys");
-   public static final Keys keyConflictContext = new Keys();
+   public static final KeyBinding USE = gameSettings.keyBindUseItem;
+   public static final Keys KEY_CONFLICT_CONTEXT = new Keys();
 
    public static void register() {
-      setRegister(FORWARD);
-      setRegister(RIGHT);
-      setRegister(LEFT);
-      setRegister(BACK);
-      setRegister(JUMP);
-      setRegister(SPRINT);
-      setRegister(PRIMARYATTACK);
-      setRegister(SECONDARYATTACK);
       setRegister(HEADABILITY);
       setRegister(SCOPE);
       setRegister(GRAPLINGHOOK);
-      setRegister(USE);
       setRegister(GRENADE);
-      PRIMARYATTACK.setKeyConflictContext(keyConflictContext);
-      SECONDARYATTACK.setKeyConflictContext(keyConflictContext);
-      FORWARD.setKeyConflictContext(keyConflictContext);
-      RIGHT.setKeyConflictContext(keyConflictContext);
-      LEFT.setKeyConflictContext(keyConflictContext);
-      BACK.setKeyConflictContext(keyConflictContext);
-      JUMP.setKeyConflictContext(keyConflictContext);
-      SPRINT.setKeyConflictContext(keyConflictContext);
-      HEADABILITY.setKeyConflictContext(keyConflictContext);
-      SCOPE.setKeyConflictContext(keyConflictContext);
-      GRAPLINGHOOK.setKeyConflictContext(keyConflictContext);
-      USE.setKeyConflictContext(keyConflictContext);
-      GRENADE.setKeyConflictContext(keyConflictContext);
+      HEADABILITY.setKeyConflictContext(KEY_CONFLICT_CONTEXT);
+      SCOPE.setKeyConflictContext(KEY_CONFLICT_CONTEXT);
+      GRAPLINGHOOK.setKeyConflictContext(KEY_CONFLICT_CONTEXT);
+      USE.setKeyConflictContext(KEY_CONFLICT_CONTEXT);
+      GRENADE.setKeyConflictContext(KEY_CONFLICT_CONTEXT);
    }
 
    private static void setRegister(KeyBinding binding) {
       ClientRegistry.registerKeyBinding(binding);
    }
 
+   /**
+    * @deprecated use {@link ServerKeyTracker#isKeyDown} on server and {@link KeyBinding#isKeyDown()} on client
+    */
+   @Deprecated
    public static boolean isKeyDown(KeyBinding key) {
       int i = key == PRIMARYATTACK ? ((KeyBindFixed)key).getKeyIndex() : key.getKeyCode();
       if (i != 0 && i < 256) {
          return i < 0 ? Mouse.isButtonDown(i + 100) : Keyboard.isKeyDown(i);
       } else {
          return false;
-      }
-   }
-
-   @SideOnly(Side.CLIENT)
-   public static void onUpdate(EntityPlayer player) {
-      if (player != null) {
-         int newKeys = getKeysPacked();
-         if (newKeys != clientLastKeys) {
-            PacketKeysToServer packet = new PacketKeysToServer();
-            packet.writeint(newKeys);
-            PacketHandler.NETWORK.sendToServer(packet);
-            Freezing.onKeysChange(player, newKeys);
-         }
-
-         clientLastKeys = newKeys;
-      }
-   }
-
-   public static int getKeysPacked() {
-      int keys = 0;
-      if (Minecraft.getMinecraft().currentScreen != null) {
-         return keys;
-      } else {
-         if (isKeyDown(FORWARD)) {
-            keys |= 1;
-         }
-
-         if (isKeyDown(RIGHT)) {
-            keys |= 2;
-         }
-
-         if (isKeyDown(LEFT)) {
-            keys |= 4;
-         }
-
-         if (isKeyDown(BACK)) {
-            keys |= 8;
-         }
-
-         if (isKeyDown(JUMP)) {
-            keys |= 16;
-         }
-
-         if (isKeyDown(SPRINT)) {
-            keys |= 32;
-         }
-
-         if (Mouse.isButtonDown(0)) {
-            keys |= 64;
-         }
-
-         if (Mouse.isButtonDown(1)) {
-            keys |= 128;
-         }
-
-         if (isKeyDown(HEADABILITY)) {
-            keys |= 256;
-         }
-
-         if (isKeyDown(SCOPE)) {
-            keys |= 512;
-         }
-
-         if (isKeyDown(GRAPLINGHOOK)) {
-            keys |= 1024;
-         }
-
-         if (isKeyDown(USE)) {
-            keys |= 8192;
-         }
-
-         if (isKeyDown(GRENADE)) {
-            keys |= 16384;
-         }
-
-         if (Minecraft.getMinecraft().player != null) {
-            if (PlayerButtonTracker.getDoubleJump(Minecraft.getMinecraft().player)) {
-               keys |= 2048;
-            }
-
-            ItemStack current = Minecraft.getMinecraft().player.getHeldItemMainhand();
-            IWeapon iw = current.getItem() instanceof IWeapon ? (IWeapon)current.getItem() : null;
-            boolean aimLens = BaublesApi.isBaubleEquipped(Minecraft.getMinecraft().player, ItemsRegister.AIM_LENS) > -1;
-            if (PlayerButtonTracker.getScopeActive(Minecraft.getMinecraft().player, iw != null && iw.hasZoom(current) || aimLens)) {
-               keys |= 4096;
-            }
-         }
-
-         return keys;
       }
    }
 
@@ -198,6 +93,10 @@ public class Keys implements IKeyConflictContext {
       }
    }
 
+   /**
+    * @deprecated use {@link ServerKeyTracker#isKeyPressed} on server and {@link KeyBinding#isPressed()} on client
+    */
+   @Deprecated
    public static boolean isKeyPressed(EntityPlayer player, KeyBinding key) {
       if (key == PRIMARYATTACK || key == SECONDARYATTACK) {
          if (player.isHandActive()) {

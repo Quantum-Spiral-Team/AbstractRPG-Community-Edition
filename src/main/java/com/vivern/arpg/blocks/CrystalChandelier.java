@@ -86,7 +86,7 @@ public class CrystalChandelier extends Block {
    @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      switch ((FrozenChandelier.EnumAxis)state.getValue(ROTATE)) {
+      switch (state.getValue(ROTATE)) {
          case X:
             i = 0;
             break;
@@ -120,7 +120,7 @@ public class CrystalChandelier extends Block {
    @Override
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-      FrozenChandelier.EnumAxis enumaxis = (FrozenChandelier.EnumAxis)stateIn.getValue(ROTATE);
+      FrozenChandelier.EnumAxis enumaxis = stateIn.getValue(ROTATE);
       if (rand.nextFloat() < 0.06F) {
          this.spawnpart(worldIn, pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5, rand);
       }

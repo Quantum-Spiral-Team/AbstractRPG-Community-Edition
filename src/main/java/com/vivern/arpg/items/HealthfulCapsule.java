@@ -33,7 +33,7 @@ public class HealthfulCapsule extends Item {
 
       itemstack.shrink(1);
       world.playSound(
-         (EntityPlayer)null,
+              null,
          player.posX,
          player.posY,
          player.posZ,

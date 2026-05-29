@@ -1,11 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntitySnowflakeShuriken;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -55,9 +51,9 @@ public class SnowflakeShuriken extends ItemWeapon {
          if (IWeapon.canShoot(stack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             EnumHand hand = null;
-            if (Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
+            if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
                hand = EnumHand.MAIN_HAND;
-            } else if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK)
+            } else if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY)
                && player.getHeldItemOffhand() == stack
                && !player.getCooldownTracker().hasCooldown(ItemsRegister.EXP)) {
                hand = EnumHand.OFF_HAND;
@@ -66,10 +62,10 @@ public class SnowflakeShuriken extends ItemWeapon {
             if (hand != null) {
                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                Weapons.setPlayerAnimationOnServer(player, 1, hand);
-               player.getCooldownTracker().setCooldown((Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), this.getCooldownTime(stack));
+               player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getCooldownTime(stack));
                player.addStat(StatList.getObjectUseStats(this));
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

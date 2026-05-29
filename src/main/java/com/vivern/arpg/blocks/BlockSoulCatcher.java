@@ -62,7 +62,7 @@ public class BlockSoulCatcher extends Block {
          if (tile != null) {
             if (stack.getItem() == ItemsRegister.SOUL_STONE && SoulStone.getSoul(stack) == 0 && tile.isEmpty()) {
                tile.setInventorySlotContents(0, stack.splitStack(1));
-               worldIn.playSound((EntityPlayer)null, pos, Sounds.item_misc_d, SoundCategory.PLAYERS, 0.5F, 0.7F + RANDOM.nextFloat() / 5.0F);
+               worldIn.playSound(null, pos, Sounds.item_misc_d, SoundCategory.PLAYERS, 0.5F, 0.7F + RANDOM.nextFloat() / 5.0F);
                return true;
             }
 
@@ -72,7 +72,7 @@ public class BlockSoulCatcher extends Block {
                   new EntityItem(worldIn, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, stackintile.copy())
                );
                tile.setInventorySlotContents(0, ItemStack.EMPTY);
-               worldIn.playSound((EntityPlayer)null, pos, Sounds.item_misc_d, SoundCategory.PLAYERS, 0.5F, 0.8F + RANDOM.nextFloat() / 5.0F);
+               worldIn.playSound(null, pos, Sounds.item_misc_d, SoundCategory.PLAYERS, 0.5F, 0.8F + RANDOM.nextFloat() / 5.0F);
                return true;
             }
          }

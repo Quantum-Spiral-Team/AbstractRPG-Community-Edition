@@ -22,176 +22,164 @@ import net.minecraft.world.gen.structure.template.Template.BlockInfo;
 
 public class ChestReplacersFrozen {
    public static ArrayList<BlockPos> posesToSetPuzzle = new ArrayList<>();
-   public static ITemplateProcessor replacerMound = new ITemplateProcessor() {
-      @Override
-      public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
-         if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
-            GenerationHelper.setChestWithLoot(
-               world, pos, EnumChest.FROZEN, ListLootTable.CHESTS_MOUND, (EnumFacing)blockInfoIn.blockState.getValue(BlockChest.FACING)
-            );
-            if (world.rand.nextFloat() < 0.3) {
-               ChestReplacersFrozen.posesToSetPuzzle.add(pos);
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
-            DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.MOUND, world.rand);
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.PUZZLE) {
-            world.setBlockState(pos, BlocksRegister.PUZZLE.getDefaultState());
-            TilePuzzle puzzle = (TilePuzzle)world.getTileEntity(pos);
-            puzzle.setupPuzzle(5);
-            return null;
-         } else {
-            return blockInfoIn;
+   public static ITemplateProcessor replacerMound = (world, pos, blockInfoIn) -> {
+      if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
+         GenerationHelper.setChestWithLoot(
+            world, pos, EnumChest.FROZEN, ListLootTable.CHESTS_MOUND, blockInfoIn.blockState.getValue(BlockChest.FACING)
+         );
+         if (world.rand.nextFloat() < 0.3) {
+            ChestReplacersFrozen.posesToSetPuzzle.add(pos);
          }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
+         world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
+         DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.MOUND, world.rand);
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.PUZZLE) {
+         world.setBlockState(pos, BlocksRegister.PUZZLE.getDefaultState());
+         TilePuzzle puzzle = (TilePuzzle)world.getTileEntity(pos);
+         puzzle.setupPuzzle(5);
+         return null;
+      } else {
+         return blockInfoIn;
       }
    };
-   public static ITemplateProcessor replacerIceCastle = new ITemplateProcessor() {
-      @Override
-      public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
-         if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            if (world.rand.nextFloat() < 0.6) {
-               world.setBlockToAir(pos);
-            } else {
-               IceCastle.placeSpawner(world, pos, false, world.rand);
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
-            if (world.rand.nextFloat() < 0.25) {
-               world.setBlockToAir(pos);
-            } else {
-               IceCastle.placeChest(world, pos, world.rand, blockInfoIn.blockState, false);
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.TRAPPED_CHEST) {
-            if (world.rand.nextFloat() < 0.05) {
-               world.setBlockToAir(pos);
-            } else {
-               IceCastle.placeChest(world, pos, world.rand, blockInfoIn.blockState, true);
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_PILLAR) {
-            if (world.rand.nextFloat() < 0.05) {
-               world.setBlockToAir(pos);
-            } else {
-               IceCastle.placeSpawner(world, pos, false, world.rand);
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_STAIRS) {
-            IceCastle.placeSpawner(world, pos, true, world.rand);
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.DIAMOND_ORE) {
-            if (world.rand.nextFloat() < 0.15) {
-               world.setBlockToAir(pos);
-            } else if (world.rand.nextFloat() < 0.35) {
-               IceCastle.placeChest(world, pos, world.rand, null, world.rand.nextFloat() < 0.15);
-            } else {
-               IceCastle.placeSpawner(world, pos, false, world.rand);
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.GOLD_ORE) {
-            if (world.rand.nextFloat() < 0.3) {
-               world.setBlockToAir(pos);
-            } else if (world.rand.nextFloat() < 0.5) {
-               IceCastle.placeChest(world, pos, world.rand, null, world.rand.nextFloat() < 0.25);
-            } else {
-               IceCastle.placeSpawner(world, pos, false, world.rand);
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.IRON_ORE) {
-            if (world.rand.nextFloat() < 0.7) {
-               world.setBlockToAir(pos);
-            } else if (world.rand.nextFloat() < 0.35) {
-               IceCastle.placeChest(world, pos, world.rand, null, false);
-            } else {
-               IceCastle.placeSpawner(world, pos, false, world.rand);
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_SLAB) {
-            if (world.rand.nextFloat() < 0.35) {
-               world.setBlockToAir(pos);
-            } else if (world.rand.nextFloat() < 0.3) {
-               world.setBlockState(pos, BlocksRegister.FROZEN_TREASURE_BARREL.getDefaultState());
-            } else if (world.rand.nextFloat() < 0.5) {
-               world.setBlockState(pos, BlocksRegister.ICE_SPIKES.getDefaultState());
-            } else {
-               world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState());
-            }
-
-            return null;
+   public static ITemplateProcessor replacerIceCastle = (world, pos, blockInfoIn) -> {
+      if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
+         if (world.rand.nextFloat() < 0.6) {
+            world.setBlockToAir(pos);
          } else {
-            return blockInfoIn;
+            IceCastle.placeSpawner(world, pos, false, world.rand);
          }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
+         if (world.rand.nextFloat() < 0.25) {
+            world.setBlockToAir(pos);
+         } else {
+            IceCastle.placeChest(world, pos, world.rand, blockInfoIn.blockState, false);
+         }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.TRAPPED_CHEST) {
+         if (world.rand.nextFloat() < 0.05) {
+            world.setBlockToAir(pos);
+         } else {
+            IceCastle.placeChest(world, pos, world.rand, blockInfoIn.blockState, true);
+         }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_PILLAR) {
+         if (world.rand.nextFloat() < 0.05) {
+            world.setBlockToAir(pos);
+         } else {
+            IceCastle.placeSpawner(world, pos, false, world.rand);
+         }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_STAIRS) {
+         IceCastle.placeSpawner(world, pos, true, world.rand);
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.DIAMOND_ORE) {
+         if (world.rand.nextFloat() < 0.15) {
+            world.setBlockToAir(pos);
+         } else if (world.rand.nextFloat() < 0.35) {
+            IceCastle.placeChest(world, pos, world.rand, null, world.rand.nextFloat() < 0.15);
+         } else {
+            IceCastle.placeSpawner(world, pos, false, world.rand);
+         }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.GOLD_ORE) {
+         if (world.rand.nextFloat() < 0.3) {
+            world.setBlockToAir(pos);
+         } else if (world.rand.nextFloat() < 0.5) {
+            IceCastle.placeChest(world, pos, world.rand, null, world.rand.nextFloat() < 0.25);
+         } else {
+            IceCastle.placeSpawner(world, pos, false, world.rand);
+         }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.IRON_ORE) {
+         if (world.rand.nextFloat() < 0.7) {
+            world.setBlockToAir(pos);
+         } else if (world.rand.nextFloat() < 0.35) {
+            IceCastle.placeChest(world, pos, world.rand, null, false);
+         } else {
+            IceCastle.placeSpawner(world, pos, false, world.rand);
+         }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_SLAB) {
+         if (world.rand.nextFloat() < 0.35) {
+            world.setBlockToAir(pos);
+         } else if (world.rand.nextFloat() < 0.3) {
+            world.setBlockState(pos, BlocksRegister.FROZEN_TREASURE_BARREL.getDefaultState());
+         } else if (world.rand.nextFloat() < 0.5) {
+            world.setBlockState(pos, BlocksRegister.ICE_SPIKES.getDefaultState());
+         } else {
+            world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState());
+         }
+
+         return null;
+      } else {
+         return blockInfoIn;
       }
    };
-   public static ITemplateProcessor replacerStructures = new ITemplateProcessor() {
-      @Override
-      public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
-         if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_SLAB) {
-            if (world.rand.nextFloat() < 0.35) {
-               world.setBlockToAir(pos);
-            } else if (world.rand.nextFloat() < 0.3) {
-               world.setBlockState(pos, BlocksRegister.FROZEN_TREASURE_BARREL.getDefaultState());
-            } else if (world.rand.nextFloat() < 0.5) {
-               world.setBlockState(pos, BlocksRegister.ICE_SPIKES.getDefaultState());
-            } else {
-               world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState());
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
-            GenerationHelper.setChestWithLoot(
-               world,
-               pos,
-               EnumChest.FROZEN,
-               ListLootTable.CHESTS_FROZEN_STRUCTURES,
-               (EnumFacing)blockInfoIn.blockState.getValue(BlockChest.FACING)
-            );
-            if (world.rand.nextFloat() < 0.2) {
-               ChestReplacersFrozen.posesToSetPuzzle.add(pos);
-            }
-
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
-            DimensionEthernalFrost.setupRandomSpawner(
-               world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.STRUCTURES, world.rand
-            );
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.PUZZLE) {
-            world.setBlockState(pos, BlocksRegister.PUZZLE.getDefaultState());
-            TilePuzzle puzzle = (TilePuzzle)world.getTileEntity(pos);
-            puzzle.setupPuzzle(5);
-            return null;
+   public static ITemplateProcessor replacerStructures = (world, pos, blockInfoIn) -> {
+      if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_SLAB) {
+         if (world.rand.nextFloat() < 0.35) {
+            world.setBlockToAir(pos);
+         } else if (world.rand.nextFloat() < 0.3) {
+            world.setBlockState(pos, BlocksRegister.FROZEN_TREASURE_BARREL.getDefaultState());
+         } else if (world.rand.nextFloat() < 0.5) {
+            world.setBlockState(pos, BlocksRegister.ICE_SPIKES.getDefaultState());
          } else {
-            return blockInfoIn;
+            world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState());
          }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
+         GenerationHelper.setChestWithLoot(
+            world,
+            pos,
+            EnumChest.FROZEN,
+            ListLootTable.CHESTS_FROZEN_STRUCTURES,
+                 blockInfoIn.blockState.getValue(BlockChest.FACING)
+         );
+         if (world.rand.nextFloat() < 0.2) {
+            ChestReplacersFrozen.posesToSetPuzzle.add(pos);
+         }
+
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
+         world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
+         DimensionEthernalFrost.setupRandomSpawner(
+            world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.STRUCTURES, world.rand
+         );
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.PUZZLE) {
+         world.setBlockState(pos, BlocksRegister.PUZZLE.getDefaultState());
+         TilePuzzle puzzle = (TilePuzzle)world.getTileEntity(pos);
+         puzzle.setupPuzzle(5);
+         return null;
+      } else {
+         return blockInfoIn;
       }
    };
-   public static ITemplateProcessor replacerGrave = new ITemplateProcessor() {
-      @Override
-      public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
-         if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
-            GenerationHelper.setChestWithLoot(
-               world, pos, EnumChest.FROZEN, ListLootTable.CHESTS_FROZEN_GRAVE, (EnumFacing)blockInfoIn.blockState.getValue(BlockChest.FACING)
-            );
-            return null;
-         } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
-            world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
-            DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.GRAVE, world.rand);
-            return null;
-         } else {
-            return blockInfoIn;
-         }
+   public static ITemplateProcessor replacerGrave = (world, pos, blockInfoIn) -> {
+      if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
+         GenerationHelper.setChestWithLoot(
+            world, pos, EnumChest.FROZEN, ListLootTable.CHESTS_FROZEN_GRAVE, blockInfoIn.blockState.getValue(BlockChest.FACING)
+         );
+         return null;
+      } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
+         world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
+         DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.GRAVE, world.rand);
+         return null;
+      } else {
+         return blockInfoIn;
       }
    };
    public static PresentBoxReplacer replacerPresentBox = new PresentBoxReplacer();

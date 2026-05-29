@@ -200,7 +200,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -234,7 +234,7 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

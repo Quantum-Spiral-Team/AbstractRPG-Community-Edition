@@ -1,14 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityLaunchedRocket;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
 import net.minecraft.creativetab.CreativeTabs;
@@ -90,7 +83,7 @@ public class EnderProtector extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
@@ -98,7 +91,7 @@ public class EnderProtector extends ItemWeapon {
                if (ammo > 0 && this.isReloaded(itemstack)) {
                   if (!player.getCooldownTracker().hasCooldown(this)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -159,15 +152,15 @@ public class EnderProtector extends ItemWeapon {
                         rocketPos.x,
                         rocketPos.y,
                         rocketPos.z,
-                        (double)f1,
-                        (double)f,
+                             f1,
+                             f,
                         0.0,
                         0.0,
                         0.0,
                         0.0
                      );
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         rocketPos.x,
                         rocketPos.y,
                         rocketPos.z,
@@ -183,7 +176,7 @@ public class EnderProtector extends ItemWeapon {
                   }
                } else if (this.initiateRocketReload(itemstack, player, maxammo)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

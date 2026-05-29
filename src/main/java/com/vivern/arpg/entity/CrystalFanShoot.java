@@ -92,7 +92,7 @@ public class CrystalFanShoot extends EntityThrowable {
       if (this.powerOn && this.ticksExisted == this.randomSound) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

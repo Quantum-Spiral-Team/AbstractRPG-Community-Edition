@@ -64,7 +64,7 @@ public class ElementFocus extends Item {
 
    @SideOnly(Side.CLIENT)
    private void bom(World worldIn, EntityPlayer player, SoundEvent sound) {
-      worldIn.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, sound, SoundCategory.AMBIENT, 1.0F, 1.0F);
+      worldIn.playSound(null, player.posX, player.posY, player.posZ, sound, SoundCategory.AMBIENT, 1.0F, 1.0F);
       Booom.lastTick = 5;
       Booom.frequency = -0.6F;
       Booom.x = 1.0F;

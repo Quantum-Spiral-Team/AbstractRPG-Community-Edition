@@ -89,7 +89,7 @@ public class BlockAssemblyAugment extends Block {
       IBlockState next = state;
 
       for (int i = 0; i < 36; i++) {
-         nextpos = nextpos.offset((EnumFacing)next.getValue(FACING));
+         nextpos = nextpos.offset(next.getValue(FACING));
          next = world.getBlockState(nextpos);
          if (world.getTileEntity(nextpos) instanceof TileAssemblyTable) {
             TileAssemblyTable tile = (TileAssemblyTable)world.getTileEntity(nextpos);
@@ -109,7 +109,7 @@ public class BlockAssemblyAugment extends Block {
       IBlockState next = state;
 
       for (int i = 0; i < 36; i++) {
-         nextpos = nextpos.offset((EnumFacing)next.getValue(FACING));
+         nextpos = nextpos.offset(next.getValue(FACING));
          next = world.getBlockState(nextpos);
          if (world.getTileEntity(nextpos) instanceof TileAssemblyTable) {
             ((TileAssemblyTable)world.getTileEntity(nextpos)).onAugmentsChange();
@@ -136,17 +136,17 @@ public class BlockAssemblyAugment extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override
@@ -159,7 +159,7 @@ public class BlockAssemblyAugment extends Block {
       if (this.useBBOne) {
          return this.AABB[0];
       } else {
-         return this.AABB == null ? FULL_BLOCK_AABB : this.AABB[((EnumFacing)state.getValue(FACING)).getIndex() - 2];
+         return this.AABB == null ? FULL_BLOCK_AABB : this.AABB[state.getValue(FACING).getIndex() - 2];
       }
    }
 
@@ -168,7 +168,7 @@ public class BlockAssemblyAugment extends Block {
       if (this.useBBOne) {
          return this.AABB[0];
       } else {
-         return this.AABB == null ? FULL_BLOCK_AABB : this.AABB[((EnumFacing)blockState.getValue(FACING)).getIndex() - 2];
+         return this.AABB == null ? FULL_BLOCK_AABB : this.AABB[blockState.getValue(FACING).getIndex() - 2];
       }
    }
 

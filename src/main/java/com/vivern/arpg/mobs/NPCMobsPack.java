@@ -4,7 +4,7 @@ import com.vivern.arpg.items.Buckshot;
 import com.vivern.arpg.items.models.MerchantModel;
 import com.vivern.arpg.items.models.ModelsOtherMob;
 import com.vivern.arpg.items.models.ModelsStormledgeMob;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.Coins;
 import com.vivern.arpg.main.FindAmmo;
@@ -15,7 +15,7 @@ import com.vivern.arpg.main.ParticleFastSummon;
 import com.vivern.arpg.main.PropertiesRegistry;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTradesToClient;
+import com.vivern.arpg.network.packet.PacketTradesToClient;
 import com.vivern.arpg.renders.mobrender.IMultitexture;
 import com.vivern.arpg.tileentity.IManaBuffer;
 import com.vivern.arpg.tileentity.TileBookcase;
@@ -67,169 +67,122 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 public class NPCMobsPack {
    public static final ItemStack EM = ItemStack.EMPTY;
-   public static EntityAINPC.IBlockAiRequirement furnaces = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == Blocks.FURNACE || bl == Blocks.LIT_FURNACE;
-      }
+   public static EntityAINPC.IBlockAiRequirement furnaces = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == Blocks.FURNACE || bl == Blocks.LIT_FURNACE;
    };
-   public static EntityAINPC.IBlockAiRequirement craftables = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == Blocks.CRAFTING_TABLE;
-      }
+   public static EntityAINPC.IBlockAiRequirement craftables = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == Blocks.CRAFTING_TABLE;
    };
-   public static EntityAINPC.IBlockAiRequirement anvils = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == Blocks.ANVIL;
-      }
+   public static EntityAINPC.IBlockAiRequirement anvils = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == Blocks.ANVIL;
    };
-   public static EntityAINPC.IBlockAiRequirement water = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == Blocks.WATER || bl == Blocks.FLOWING_WATER;
-      }
+   public static EntityAINPC.IBlockAiRequirement water = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == Blocks.WATER || bl == Blocks.FLOWING_WATER;
    };
-   public static EntityAINPC.IBlockAiRequirement spellforge = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == BlocksRegister.SPELL_FORGE;
-      }
+   public static EntityAINPC.IBlockAiRequirement spellforge = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == BlocksRegister.SPELL_FORGE;
    };
-   public static EntityAINPC.IBlockAiRequirement manaContainer = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
+   public static EntityAINPC.IBlockAiRequirement manaContainer = (world, blockstate, pos) -> {
+      TileEntity tile = world.getTileEntity(pos);
+      return tile instanceof IManaBuffer;
+   };
+   public static EntityAINPC.IBlockAiRequirement books = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      if (bl == Blocks.BOOKSHELF) {
+         return true;
+      } else {
          TileEntity tile = world.getTileEntity(pos);
-         return tile != null && tile instanceof IManaBuffer;
-      }
-   };
-   public static EntityAINPC.IBlockAiRequirement books = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         if (bl == Blocks.BOOKSHELF) {
-            return true;
-         } else {
-            TileEntity tile = world.getTileEntity(pos);
-            if (tile != null && tile instanceof TileBookcase) {
-               TileBookcase bookcase = (TileBookcase)tile;
-               if (bookcase.hasBooks()) {
-                  return true;
-               }
-            }
-
-            return false;
-         }
-      }
-   };
-   public static EntityAINPC.IBlockAiRequirement cauldrons = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == Blocks.CAULDRON || bl == BlocksRegister.SPLITTER;
-      }
-   };
-   public static EntityAINPC.IBlockAiRequirement potionBrewery = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == Blocks.BREWING_STAND;
-      }
-   };
-   public static EntityAINPC.IBlockAiRequirement enchantTable = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == Blocks.ENCHANTING_TABLE;
-      }
-   };
-   public static EntityAINPC.IBlockAiRequirement redstone = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == Blocks.REDSTONE_WIRE
-            || bl == Blocks.REDSTONE_TORCH
-            || bl == Blocks.REDSTONE_LAMP
-            || bl == Blocks.REDSTONE_BLOCK
-            || bl == Blocks.REDSTONE_ORE
-            || bl == Blocks.UNLIT_REDSTONE_TORCH
-            || bl == Blocks.POWERED_COMPARATOR
-            || bl == Blocks.UNPOWERED_COMPARATOR
-            || bl == Blocks.POWERED_REPEATER
-            || bl == Blocks.UNPOWERED_REPEATER
-            || bl == Blocks.DISPENSER
-            || bl == Blocks.DROPPER
-            || bl == Blocks.OBSERVER
-            || bl == Blocks.ACTIVATOR_RAIL
-            || bl == Blocks.DETECTOR_RAIL
-            || bl == Blocks.GOLDEN_RAIL
-            || bl == Blocks.PISTON
-            || bl == Blocks.STICKY_PISTON;
-      }
-   };
-   public static EntityAINPC.IBlockAiRequirement industrialBlock = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         TileEntity tile = world.getTileEntity(pos);
-         if (tile != null) {
-            for (EnumFacing face : EnumFacing.VALUES) {
-               if (tile.hasCapability(CapabilityEnergy.ENERGY, face)) {
-                  return true;
-               }
-            }
+         if (tile instanceof TileBookcase) {
+            TileBookcase bookcase = (TileBookcase)tile;
+            return bookcase.hasBooks();
          }
 
          return false;
       }
    };
-   public static EntityAINPC.IBlockAiRequirement industrialMachinery = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         TileEntity tile = world.getTileEntity(pos);
-         boolean hasEnergy = false;
-         if (tile != null) {
-            for (EnumFacing face : EnumFacing.VALUES) {
-               if (tile.hasCapability(CapabilityEnergy.ENERGY, face)) {
-                  hasEnergy = true;
-                  break;
-               }
+   public static EntityAINPC.IBlockAiRequirement cauldrons = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == Blocks.CAULDRON || bl == BlocksRegister.SPLITTER;
+   };
+   public static EntityAINPC.IBlockAiRequirement potionBrewery = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == Blocks.BREWING_STAND;
+   };
+   public static EntityAINPC.IBlockAiRequirement enchantTable = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == Blocks.ENCHANTING_TABLE;
+   };
+   public static EntityAINPC.IBlockAiRequirement redstone = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == Blocks.REDSTONE_WIRE
+         || bl == Blocks.REDSTONE_TORCH
+         || bl == Blocks.REDSTONE_LAMP
+         || bl == Blocks.REDSTONE_BLOCK
+         || bl == Blocks.REDSTONE_ORE
+         || bl == Blocks.UNLIT_REDSTONE_TORCH
+         || bl == Blocks.POWERED_COMPARATOR
+         || bl == Blocks.UNPOWERED_COMPARATOR
+         || bl == Blocks.POWERED_REPEATER
+         || bl == Blocks.UNPOWERED_REPEATER
+         || bl == Blocks.DISPENSER
+         || bl == Blocks.DROPPER
+         || bl == Blocks.OBSERVER
+         || bl == Blocks.ACTIVATOR_RAIL
+         || bl == Blocks.DETECTOR_RAIL
+         || bl == Blocks.GOLDEN_RAIL
+         || bl == Blocks.PISTON
+         || bl == Blocks.STICKY_PISTON;
+   };
+   public static EntityAINPC.IBlockAiRequirement industrialBlock = (world, blockstate, pos) -> {
+      TileEntity tile = world.getTileEntity(pos);
+      if (tile != null) {
+         for (EnumFacing face : EnumFacing.VALUES) {
+            if (tile.hasCapability(CapabilityEnergy.ENERGY, face)) {
+               return true;
             }
+         }
+      }
 
-            if (hasEnergy) {
-               for (EnumFacing facex : EnumFacing.VALUES) {
-                  if (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facex)) {
-                     return true;
-                  }
-               }
+      return false;
+   };
+   public static EntityAINPC.IBlockAiRequirement industrialMachinery = (world, blockstate, pos) -> {
+      TileEntity tile = world.getTileEntity(pos);
+      boolean hasEnergy = false;
+      if (tile != null) {
+         for (EnumFacing face : EnumFacing.VALUES) {
+            if (tile.hasCapability(CapabilityEnergy.ENERGY, face)) {
+               hasEnergy = true;
+               break;
             }
          }
 
-         return false;
-      }
-   };
-   public static EntityAINPC.IBlockAiRequirement xmas = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         if (bl == BlocksRegister.CHRISTMAS_BALLS) {
-            return true;
-         } else {
-            return bl == BlocksRegister.GARLAND ? true : bl == BlocksRegister.STAR_LANTERN;
+         if (hasEnergy) {
+            for (EnumFacing facex : EnumFacing.VALUES) {
+               if (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facex)) {
+                  return true;
+               }
+            }
          }
       }
+
+      return false;
    };
-   public static EntityAINPC.IBlockAiRequirement presentBox = new EntityAINPC.IBlockAiRequirement() {
-      @Override
-      public boolean allowed(World world, IBlockState blockstate, BlockPos pos) {
-         Block bl = blockstate.getBlock();
-         return bl == BlocksRegister.PRESENT_BOX;
+   public static EntityAINPC.IBlockAiRequirement xmas = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      if (bl == BlocksRegister.CHRISTMAS_BALLS) {
+         return true;
+      } else {
+         return bl == BlocksRegister.GARLAND || bl == BlocksRegister.STAR_LANTERN;
       }
+   };
+   public static EntityAINPC.IBlockAiRequirement presentBox = (world, blockstate, pos) -> {
+      Block bl = blockstate.getBlock();
+      return bl == BlocksRegister.PRESENT_BOX;
    };
 
    public static void init() {
@@ -289,7 +242,7 @@ public class NPCMobsPack {
       }
 
       public int getVARIANT() {
-         return (Integer)this.dataManager.get(VARIANT);
+         return this.dataManager.get(VARIANT);
       }
 
       public void setVARIANT(int variant) {
@@ -548,7 +501,7 @@ public class NPCMobsPack {
       @Override
       public boolean processInteract(EntityPlayer player, EnumHand hand) {
          if (!this.world.isRemote && !player.isSpectator()) {
-            IEntitySynchronize.sendSynchronize(this, 8.0, this.getComfortability());
+            ISynchronizedEntity.sendSynchronize(this, 8.0, this.getComfortability());
             player.openGui(AbstractRPG.instance, 17, this.world, this.getEntityId(), 0, 0);
          }
 
@@ -821,7 +774,7 @@ public class NPCMobsPack {
       }
    }
 
-   public abstract static class NpcTrader extends EntityCreature implements IEntitySynchronize, IMultitexture {
+   public abstract static class NpcTrader extends EntityCreature implements ISynchronizedEntity, IMultitexture {
       public double maxHealth;
       public double followRange;
       public double damage;
@@ -954,7 +907,7 @@ public class NPCMobsPack {
       public boolean processInteract(EntityPlayer player, EnumHand hand) {
          if (!this.world.isRemote && !this.trades.isEmpty()) {
             this.synchronizeTrades(player);
-            IEntitySynchronize.sendSynchronize(this, 8.0, this.getComfortability());
+            ISynchronizedEntity.sendSynchronize(this, 8.0, this.getComfortability());
             player.openGui(AbstractRPG.instance, 6, this.world, this.getEntityId(), 0, 0);
          }
 
@@ -1229,7 +1182,7 @@ public class NPCMobsPack {
 
       @Override
       public boolean processInteract(EntityPlayer player, EnumHand hand) {
-         return this.isEnslaved ? false : super.processInteract(player, hand);
+         return !this.isEnslaved && super.processInteract(player, hand);
       }
 
       @Override
@@ -1453,7 +1406,7 @@ public class NPCMobsPack {
                   }
 
                   for (int[] ints : removes) {
-                     ItemStack stack = (ItemStack)player.inventory.mainInventory.get(ints[0]);
+                     ItemStack stack = player.inventory.mainInventory.get(ints[0]);
                      stack.setCount(stack.getCount() - ints[1]);
                   }
                }
@@ -1489,7 +1442,7 @@ public class NPCMobsPack {
          int buylength = this.buy.length;
 
          for (int i = 0; i < inventory.size(); i++) {
-            ItemStack hasInInv = ((ItemStack)inventory.get(i)).copy();
+            ItemStack hasInInv = inventory.get(i).copy();
 
             for (int b = 0; b < buylength; b++) {
                if (!buy2[b].isEmpty() && this.stacksMathes(hasInInv, buy2[b])) {
@@ -1524,7 +1477,7 @@ public class NPCMobsPack {
             }
          }
 
-         return this.useMeta && have.getMetadata() != need.getMetadata() ? false : have.getItem() == need.getItem();
+         return (!this.useMeta || have.getMetadata() == need.getMetadata()) && have.getItem() == need.getItem();
       }
 
       public ItemStack[] copyOfBuy() {
@@ -1668,7 +1621,7 @@ public class NPCMobsPack {
       @Deprecated
       public boolean nbtMathes(ItemStack have, ItemStack need) {
          boolean b = have.hasTagCompound();
-         return b != need.hasTagCompound() ? false : !b || have.getTagCompound().equals(need.getTagCompound());
+         return b == need.hasTagCompound() && (!b || have.getTagCompound().equals(need.getTagCompound()));
       }
    }
 }

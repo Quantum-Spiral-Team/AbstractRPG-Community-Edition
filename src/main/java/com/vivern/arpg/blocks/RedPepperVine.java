@@ -108,14 +108,14 @@ public class RedPepperVine extends Block implements IGrowable {
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
       if (!worldIn.isRemote) {
-         if (player.getHeldItem(hand).isEmpty() && (Boolean)state.getValue(FRUITAGE)) {
+         if (player.getHeldItem(hand).isEmpty() && state.getValue(FRUITAGE)) {
             int count = RANDOM.nextInt(3) + 1 + (RANDOM.nextFloat() < 0.25F ? 1 : 0);
 
             for (int i = 0; i < count; i++) {
                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.REDPEPPER));
             }
 
-            worldIn.playSound((EntityPlayer)null, pos, Sounds.fruit_pickup, SoundCategory.BLOCKS, 0.6F, 0.9F + RANDOM.nextFloat() / 5.0F);
+            worldIn.playSound(null, pos, Sounds.fruit_pickup, SoundCategory.BLOCKS, 0.6F, 0.9F + RANDOM.nextFloat() / 5.0F);
             worldIn.setBlockState(pos, state.withProperty(FRUITAGE, false));
          } else if (OreDicHelper.itemStringOredigMatches(player.getHeldItem(hand), OreDicHelper.DUSTCHARCOAL)
             || OreDicHelper.itemStringOredigMatches(player.getHeldItem(hand), OreDicHelper.DUSTCOAL)) {
@@ -144,7 +144,7 @@ public class RedPepperVine extends Block implements IGrowable {
    @Override
    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
       drops.add(new ItemStack(this));
-      if ((Boolean)state.getValue(FRUITAGE)) {
+      if (state.getValue(FRUITAGE)) {
          int count = RANDOM.nextInt(3) + 1 + (RANDOM.nextFloat() < 0.25F ? 1 : 0);
          drops.add(new ItemStack(ItemsRegister.REDPEPPER, count));
       }

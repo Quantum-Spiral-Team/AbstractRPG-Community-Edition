@@ -8,7 +8,7 @@ import com.vivern.arpg.main.OreDicHelper;
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.main.Spell;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTFRPuzzleToClients;
+import com.vivern.arpg.network.packet.PacketTFRPuzzleToClients;
 import com.vivern.arpg.recipes.ExploringField;
 import com.vivern.arpg.recipes.TFRTutorial;
 import com.vivern.arpg.recipes.TerraformingPlayerCommand;
@@ -33,7 +33,7 @@ import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 
-public class TileResearchTable extends TileEntityLockableLoot implements TileEntityClicked, ITileEntitySynchronize, ITickable {
+public class TileResearchTable extends TileEntityLockableLoot implements TileEntityClicked, ITileEntitySynchronized, ITickable {
    public NonNullList<ItemStack> stacks = NonNullList.withSize(4, ItemStack.EMPTY);
    public float[] theoreticElements = new float[12];
    public float[] appointedElements = new float[12];
@@ -207,7 +207,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
                this.tfrPuzzle = new TerraformingResearchPuzzle(10 + (int)Debugger.floats[5], 10 + (int)Debugger.floats[6]);
                this.tfrPuzzle.whatResearchKey = key;
                this.tfrPuzzle.whatResearchBitshift = bitshift;
-               this.tfrPuzzle.generate((key << 8 | bitshift) ^ this.world.getSeed(), ExploringField.generateExploringField(exploringNbtTag));
+               this.tfrPuzzle.generate(((long) key << 8 | bitshift) ^ this.world.getSeed(), ExploringField.generateExploringField(exploringNbtTag));
                this.tfrPuzzle.researchingPlayer = player;
             }
          }
@@ -285,10 +285,8 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
 
    public static boolean checkInventoryForRollResources(IInventory inventory) {
       return inventory.getStackInSlot(2).isEmpty()
-            && OreDicHelper.itemStringOredigMatches(inventory.getStackInSlot(0), "stickWood")
-            && OreDicHelper.itemStringOredigMatches(inventory.getStackInSlot(1), "paper")
-         ? checkInkInSlot(inventory)
-         : false;
+              && OreDicHelper.itemStringOredigMatches(inventory.getStackInSlot(0), "stickWood")
+              && OreDicHelper.itemStringOredigMatches(inventory.getStackInSlot(1), "paper") && checkInkInSlot(inventory);
    }
 
    public static boolean checkInkInSlot(IInventory inventory) {
@@ -977,7 +975,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
 
       @Override
       public boolean equals(Object obj) {
-         return obj instanceof CellPos ? this.equals((CellPos)obj) : false;
+         return obj instanceof CellPos && this.equals((CellPos) obj);
       }
 
       public boolean equals(CellPos obj) {
@@ -1111,7 +1109,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
 
       public boolean canStand(CellPos position, Phenomenon phenomenon) {
          HypothesisCell cellTo = this.getCell(position);
-         return cellTo != null ? cellTo.canStand(phenomenon) : false;
+         return cellTo != null && cellTo.canStand(phenomenon);
       }
 
       public boolean movePhenomenon(
@@ -1352,9 +1350,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
       }
 
       public boolean contains(CellPos pos) {
-         return pos.posHoriz >= 0 && pos.posVert >= 0 && pos.posHoriz < this.sizeHoriz && pos.posVert < this.sizeVert
-            ? this.cells[pos.posHoriz][pos.posVert]
-            : false;
+         return pos.posHoriz >= 0 && pos.posVert >= 0 && pos.posHoriz < this.sizeHoriz && pos.posVert < this.sizeVert && this.cells[pos.posHoriz][pos.posVert];
       }
 
       public void combineWithAND(MoveLayout other, HypothesisBoard board) {

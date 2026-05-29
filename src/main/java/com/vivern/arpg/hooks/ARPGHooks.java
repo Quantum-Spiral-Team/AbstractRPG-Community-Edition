@@ -127,6 +127,8 @@ public class ARPGHooks {
 
    @SideOnly(Side.CLIENT) @FieldLens public static FieldAccessor<SoundHandler, SoundManager> sndManager;
 
+   @FieldLens public static FieldAccessor<EntityLivingBase, Boolean> isJumping;
+
    @SideOnly(Side.CLIENT)
    @Hook
    @OnBegin
@@ -517,7 +519,7 @@ public class ARPGHooks {
       if (state.getMaterial().isLiquid()) {
          float height = 0.0F;
          if (state.getBlock() instanceof BlockLiquid) {
-            height = BlockLiquid.getLiquidHeightPercent((Integer) state.getValue(BlockLiquid.LEVEL)) - 0.11111111F;
+            height = BlockLiquid.getLiquidHeightPercent(state.getValue(BlockLiquid.LEVEL)) - 0.11111111F;
          }
 
          float f1 = pos.getY() + 1 - height;
@@ -1107,7 +1109,7 @@ public class ARPGHooks {
          }
       }
 
-      List<BakedQuad> list1 = modelIn.getQuads(stateIn, (EnumFacing) null, rand);
+      List<BakedQuad> list1 = modelIn.getQuads(stateIn, null, rand);
       if (!list1.isEmpty()) {
          LoadedRGBChunk loadedrgb = StaticRGBLight.getActualLoadedRGBChunk(posIn.getX(), posIn.getZ());
          if (loadedrgb != null) {
@@ -1161,7 +1163,7 @@ public class ARPGHooks {
       for (int j = list.size(); i < j; i++) {
          BakedQuad bakedquad = list.get(i);
          if (ownBrightness) {
-            fillQuadBounds(stateIn, bakedquad.getVertexData(), bakedquad.getFace(), (float[]) null, bitSet);
+            fillQuadBounds(stateIn, bakedquad.getVertexData(), bakedquad.getFace(), null, bitSet);
             BlockPos blockpos = bitSet.get(0) ? posIn.offset(bakedquad.getFace()) : posIn;
             brightnessIn = stateIn.getPackedLightmapCoords(blockAccessIn, blockpos);
             brightnessX = ColorConverters.UnpackLightmapCoordsX(brightnessIn);
@@ -1286,7 +1288,7 @@ public class ARPGHooks {
          }
       }
 
-      List<BakedQuad> list1 = modelIn.getQuads(stateIn, (EnumFacing) null, rand);
+      List<BakedQuad> list1 = modelIn.getQuads(stateIn, null, rand);
       if (!list1.isEmpty()) {
          renderQuadsSmooth(worldIn, lig, nbColors, stateIn, posIn, buffer, list1, afloat, bitset,
                  blockmodelrenderer$ambientocclusionface);
@@ -1507,7 +1509,7 @@ public class ARPGHooks {
          }
       }
 
-      List<BakedQuad> list1 = modelIn.getQuads(stateIn, (EnumFacing) null, rand);
+      List<BakedQuad> list1 = modelIn.getQuads(stateIn, null, rand);
       if (!list1.isEmpty()) {
          renderQuadsMaxSmooth(worldIn, lig, nbColors, nbOpacity, stateIn, posIn, buffer, list1, afloat, bitset,
                  blockmodelrenderer$ambientocclusionface);

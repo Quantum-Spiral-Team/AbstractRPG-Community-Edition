@@ -30,11 +30,6 @@ import org.lwjgl.input.Keyboard;
 
 public abstract class ItemWeapon extends Item implements IWeapon {
    @SideOnly(Side.CLIENT)
-   public static ArrayList<MovingSoundWeapon> loopedSoundsPlayed = new ArrayList<>();
-   @SideOnly(Side.CLIENT)
-   public static Predicate<? super MovingSoundWeapon> loopedSoundsRemover = snd -> snd.isDonePlaying();
-
-   @SideOnly(Side.CLIENT)
    public boolean hasSpecialDescription() {
       return true;
    }
@@ -120,35 +115,6 @@ public abstract class ItemWeapon extends Item implements IWeapon {
    }
 
    @SideOnly(Side.CLIENT)
-   public void playOrContinueLoopSound(
-      EntityLivingBase entity,
-      SoundEvent soundEvent,
-      SoundCategory category,
-      float volume,
-      float pitch,
-      int playtime,
-      int startTime,
-      int endTime,
-      float startPitch,
-      float endPitch
-   ) {
-      loopedSoundsPlayed.removeIf(loopedSoundsRemover);
-
-      for (MovingSoundWeapon soundhas : loopedSoundsPlayed) {
-         if (soundhas.soundEvent == soundEvent && soundhas.entity == entity) {
-            soundhas.endDate = entity.world.getTotalWorldTime() + playtime;
-            return;
-         }
-      }
-
-      MovingSoundWeapon sound = new MovingSoundWeapon(
-         entity, this, soundEvent, category, volume, pitch, playtime, startTime, endTime, startPitch, endPitch
-      );
-      Minecraft.getMinecraft().getSoundHandler().playSound(sound);
-      loopedSoundsPlayed.add(sound);
-   }
-
-   @SideOnly(Side.CLIENT)
    public int maxFluidForDescription() {
       return 0;
    }
@@ -161,5 +127,44 @@ public abstract class ItemWeapon extends Item implements IWeapon {
    @Override
    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
       return enchantment.type == EnchantmentInit.enchantmentTypeWeapon;
+   }
+
+   @SideOnly(Side.CLIENT)
+   public void playOrContinueLoopSound(
+      EntityLivingBase entity,
+      SoundEvent soundEvent,
+      SoundCategory category,
+      float volume,
+      float pitch,
+      int playtime,
+      int startTime,
+      int endTime,
+      float startPitch,
+      float endPitch
+   ) {
+      if (entity.world.isRemote) {
+         ClientSoundData.playClientSound(entity, this, soundEvent, category, volume, pitch, playtime, startTime, endTime, startPitch, endPitch);
+      }
+   }
+
+   @SideOnly(Side.CLIENT)
+   public static class ClientSoundData {
+      public static ArrayList<MovingSoundWeapon> loopedSoundsPlayed = new ArrayList<>();
+      public static Predicate<? super MovingSoundWeapon> loopedSoundsRemover = snd -> snd.isDonePlaying();
+
+      public static void playClientSound(EntityLivingBase entity, ItemWeapon item, SoundEvent soundEvent, SoundCategory category, float volume, float pitch, int playtime, int startTime, int endTime, float startPitch, float endPitch) {
+         loopedSoundsPlayed.removeIf(loopedSoundsRemover);
+
+         for (MovingSoundWeapon soundWeapon : loopedSoundsPlayed) {
+            if (soundWeapon.soundEvent == soundEvent && soundWeapon.entity == entity) {
+               soundWeapon.endDate = entity.world.getTotalWorldTime() + playtime;
+               return;
+            }
+         }
+
+         MovingSoundWeapon sound = new MovingSoundWeapon(entity, item, soundEvent, category, volume, pitch, playtime, startTime, endTime, startPitch, endPitch);
+         net.minecraft.client.Minecraft.getMinecraft().getSoundHandler().playSound(sound);
+         loopedSoundsPlayed.add(sound);
+      }
    }
 }

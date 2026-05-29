@@ -1,11 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -60,7 +55,7 @@ public class DragonTail extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int damage = itemstack.getItemDamage();
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
@@ -97,7 +92,7 @@ public class DragonTail extends ItemWeapon {
                      )
                      .success) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -108,7 +103,7 @@ public class DragonTail extends ItemWeapon {
                      );
                   } else {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -173,7 +168,7 @@ public class DragonTail extends ItemWeapon {
             NBTHelper.SetNBTint(stack, 0, "charge");
             entity.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   entity.posX,
                   entity.posY,
                   entity.posZ,

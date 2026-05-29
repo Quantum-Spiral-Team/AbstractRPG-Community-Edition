@@ -262,7 +262,7 @@ public class ModularStructureGenerator extends WorldGenAdvanced {
             }
          }
 
-         return module.chance != 1.0F ? this.rand.nextFloat() > module.chance : false;
+         return module.chance != 1.0F && this.rand.nextFloat() > module.chance;
       }
    }
 

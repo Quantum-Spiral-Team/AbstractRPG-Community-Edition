@@ -51,7 +51,7 @@ public class Shock extends Potion {
       entityLivingBase.motionZ /= 1.5;
       double damageRadius = 4.0;
       world.playSound(
-         (EntityPlayer)null,
+              null,
          entityLivingBase.posX,
          entityLivingBase.posY,
          entityLivingBase.posZ,

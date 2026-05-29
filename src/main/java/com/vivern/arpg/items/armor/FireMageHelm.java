@@ -62,7 +62,7 @@ public class FireMageHelm extends ItemArmor {
          );
          multimap.put(PropertiesRegistry.MANA_MAX.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor mana", 8.0, 0));
          multimap.put(
-            PropertiesRegistry.MANASPEED_MAX.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor manaregen", 0.1, 0)
+            PropertiesRegistry.MANA_SPEED_MAX.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor manaregen", 0.1, 0)
          );
       }
 
@@ -75,10 +75,10 @@ public class FireMageHelm extends ItemArmor {
          EntityPlayer player = (EntityPlayer)entityIn;
          World world = player.getEntityWorld();
          float power = Mana.getMagicPowerMax(player);
-         if (((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.FIRE_MAGE_HELM
-            && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.FIRE_MAGE_CHEST
-            && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.FIRE_MAGE_LEGS
-            && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.FIRE_MAGE_BOOTS) {
+         if (player.inventory.armorInventory.get(3).getItem() == ItemsRegister.FIRE_MAGE_HELM
+            && player.inventory.armorInventory.get(2).getItem() == ItemsRegister.FIRE_MAGE_CHEST
+            && player.inventory.armorInventory.get(1).getItem() == ItemsRegister.FIRE_MAGE_LEGS
+            && player.inventory.armorInventory.get(0).getItem() == ItemsRegister.FIRE_MAGE_BOOTS) {
             player.extinguish();
             if (!worldIn.isRemote && entityIn.ticksExisted % 100 == 0) {
                EntityFiremageSetBonus entit = new EntityFiremageSetBonus(player.world, player);

@@ -67,7 +67,7 @@ public class DecorativeChain extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(TYPE);
+      return state.getValue(TYPE);
    }
 
    @Override

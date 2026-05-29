@@ -2,18 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.blocks.IceSpikes;
 import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
@@ -90,7 +79,7 @@ public class IceBeam extends ItemWeapon {
          World world = player.getEntityWorld();
          Item itemIn = itemstack.getItem();
          EnumHand hand = player.getActiveHand();
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
          float mana = Mana.getMana(player);
          float spee = Mana.getManaSpeed(player);
          float power = Mana.getMagicPowerMax(player);
@@ -107,7 +96,7 @@ public class IceBeam extends ItemWeapon {
             double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
             Vec3d vec = GetMOP.posRayTrace(edist, 1.0F, player, 0.3, 0.2);
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                player.posX,
                player.posY,
                player.posZ,

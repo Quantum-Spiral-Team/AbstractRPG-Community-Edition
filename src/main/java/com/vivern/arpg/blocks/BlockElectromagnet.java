@@ -222,12 +222,12 @@ public class BlockElectromagnet extends Block {
    }
 
    public AxisAlignedBB getAABB(IBlockState state) {
-      boolean n = (Boolean)state.getValue(NORTH);
-      boolean e = (Boolean)state.getValue(EAST);
-      boolean s = (Boolean)state.getValue(SOUTH);
-      boolean w = (Boolean)state.getValue(WEST);
-      boolean u = (Boolean)state.getValue(UPPER);
-      boolean d = (Boolean)state.getValue(DOWN);
+      boolean n = state.getValue(NORTH);
+      boolean e = state.getValue(EAST);
+      boolean s = state.getValue(SOUTH);
+      boolean w = state.getValue(WEST);
+      boolean u = state.getValue(UPPER);
+      boolean d = state.getValue(DOWN);
       if (n) {
          if (s) {
             if (w) {
@@ -348,7 +348,7 @@ public class BlockElectromagnet extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(TYPE);
+      return state.getValue(TYPE);
    }
 
    @Override

@@ -76,7 +76,7 @@ public class ItemAmmoClip extends Item {
                if (count >= this.maxAmmoStore) {
                   player.inventory.clearMatchingItems(key, -1, this.maxAmmoStore, null);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

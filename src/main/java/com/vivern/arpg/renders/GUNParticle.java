@@ -197,7 +197,7 @@ public class GUNParticle extends EntityThrowable {
 
    @Override
    public boolean isInWater() {
-      return this.noWaterBubble ? false : this.inWater;
+      return !this.noWaterBubble && this.inWater;
    }
 
    @Override

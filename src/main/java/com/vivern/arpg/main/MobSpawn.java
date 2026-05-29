@@ -55,37 +55,17 @@ public abstract class MobSpawn {
    public int lowestCost = Integer.MAX_VALUE;
    public int highestCost = 0;
    public boolean inSurvivorMode = false;
-   public static Predicate<Block> toxic = new Predicate<Block>() {
-      @Override
-      public boolean apply(Block input) {
-         return input == BlocksRegister.TOXIC_DIRT
-            || input == BlocksRegister.TOXIC_GRASS
-            || input == BlocksRegister.SLUDGE
-            || input == BlocksRegister.RADIOACTIVE_COBBLESTONE
-            || input == BlocksRegister.RADIOACTIVE_STONE
-            || input == BlocksRegister.JUNK
-            || input == BlocksRegister.SCRAP
-            || input == BlocksRegister.BRICK_SHARDS;
-      }
-   };
-   public static Predicate<Block> toxicflower = new Predicate<Block>() {
-      @Override
-      public boolean apply(Block input) {
-         return input == BlocksRegister.MUTATED_FLOWER_PINK || input == BlocksRegister.MUTATED_FLOWER_RED;
-      }
-   };
-   public static Predicate<Block> slime = new Predicate<Block>() {
-      @Override
-      public boolean apply(Block input) {
-         return input == BlocksRegister.BROWN_SLIME || input == Blocks.SLIME_BLOCK;
-      }
-   };
-   public static Predicate<Block> bunker = new Predicate<Block>() {
-      @Override
-      public boolean apply(Block input) {
-         return input == BlocksRegister.RUST_METAL || input == BlocksRegister.RUST_ARMATURE || input == BlocksRegister.DARK_RUST_METALL;
-      }
-   };
+   public static Predicate<Block> toxic = input -> input == BlocksRegister.TOXIC_DIRT
+      || input == BlocksRegister.TOXIC_GRASS
+      || input == BlocksRegister.SLUDGE
+      || input == BlocksRegister.RADIOACTIVE_COBBLESTONE
+      || input == BlocksRegister.RADIOACTIVE_STONE
+      || input == BlocksRegister.JUNK
+      || input == BlocksRegister.SCRAP
+      || input == BlocksRegister.BRICK_SHARDS;
+   public static Predicate<Block> toxicflower = input -> input == BlocksRegister.MUTATED_FLOWER_PINK || input == BlocksRegister.MUTATED_FLOWER_RED;
+   public static Predicate<Block> slime = input -> input == BlocksRegister.BROWN_SLIME || input == Blocks.SLIME_BLOCK;
+   public static Predicate<Block> bunker = input -> input == BlocksRegister.RUST_METAL || input == BlocksRegister.RUST_ARMATURE || input == BlocksRegister.DARK_RUST_METALL;
 
    public MobSpawn(int dimension) {
       this.dimension = dimension;
@@ -537,7 +517,7 @@ public abstract class MobSpawn {
 
    public void spawnEntityNaturally(World world, EntityLiving mob) {
       world.spawnEntity(mob);
-      mob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mob)), (IEntityLivingData)null);
+      mob.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(mob)), null);
       if (mob instanceof AbstractMob) {
          ((AbstractMob)mob).canDropLoot = true;
       }

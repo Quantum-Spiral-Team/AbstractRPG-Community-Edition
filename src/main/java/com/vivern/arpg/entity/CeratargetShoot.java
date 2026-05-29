@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class CeratargetShoot extends EntityThrowable implements IEntitySynchronize {
+public class CeratargetShoot extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    public float magicPower = 1.0F;
    static ResourceLocation sparkle4 = new ResourceLocation("arpg:textures/sparkle4.png");
@@ -240,7 +240,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
       if (!this.world.isRemote) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -309,7 +309,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
                   point.y - result.entityHit.posY,
                   point.z - result.entityHit.posZ
                );
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   64.0,
                   this.impactPos.x,
@@ -324,7 +324,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
                this.motionZ = 0.0;
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -342,7 +342,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
             != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -354,7 +354,7 @@ public class CeratargetShoot extends EntityThrowable implements IEntitySynchroni
             if (!this.world.isRemote) {
                this.impacted = true;
                this.impactPos = result.hitVec;
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 64.0, this.impactPos.x, this.impactPos.y, this.impactPos.z, 0.0, 0.0, 0.0
                );
                this.motionX = 0.0;

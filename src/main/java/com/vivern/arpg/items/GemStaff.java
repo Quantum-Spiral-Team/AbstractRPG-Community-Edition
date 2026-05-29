@@ -1,14 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.GemStaffShoot;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -71,21 +64,20 @@ public class GemStaff extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             float power = Mana.getMagicPowerMax(player);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             int type = NBTHelper.GetNBTint(itemstack, "type");
             WeaponParameters parameters = getWeaponParameter(type);
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-            Item cooldownItem = (Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP);
-            if (hand != null
-               && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)
-               && Mana.getMana(player) > parameters.getEnchantedF("manacost", sor)
-               && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
+            Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP;
+            if ((click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)
+                    && Mana.getMana(player) > parameters.getEnchantedF("manacost", sor)
+                    && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

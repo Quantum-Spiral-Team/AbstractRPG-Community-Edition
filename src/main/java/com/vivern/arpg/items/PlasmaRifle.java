@@ -1,16 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.PlasmaRifleBall;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.Stun;
 import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.GUNParticle;
@@ -226,7 +217,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
@@ -235,7 +226,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
             int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
             if (player.getHeldItemMainhand() == itemstack) {
                int heat = NBTHelper.GetNBTint(itemstack, "heat");
-               if (Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && heat >= parameters.getInt("heat_max") && !hascooldown) {
+               if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && heat >= parameters.getInt("heat_max") && !hascooldown) {
                   int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
                   int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
                   int impulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack);
@@ -243,7 +234,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                   IWeapon.fireBomEffect(this, player, world, 1);
                   Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -299,7 +290,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                   if (this.getEnergyStored(itemstack) >= RFtoShoot && !hascooldown) {
                      boolean powered = NBTHelper.GetNBTboolean(itemstack, "fast");
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -330,7 +321,7 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
                         NBTHelper.SetNBTint(itemstack, Math.min(heat + heatadd, max), "heat");
                         if (heat < max && heat + heatadd >= max) {
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,

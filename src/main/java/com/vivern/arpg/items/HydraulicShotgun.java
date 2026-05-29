@@ -2,19 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.items.animation.EnumFlick;
 import com.vivern.arpg.items.animation.Flicks;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.BulletParticle;
 import java.util.List;
 import java.util.Random;
@@ -99,7 +87,7 @@ public class HydraulicShotgun extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
@@ -134,7 +122,7 @@ public class HydraulicShotgun extends ItemWeapon {
                      }
 
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -149,7 +137,7 @@ public class HydraulicShotgun extends ItemWeapon {
                      Weapons.setPlayerAnimationOnServer(player, currentShot == 1 ? 3 : 13, EnumHand.MAIN_HAND);
                      if (currentShot == 1) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -197,7 +185,7 @@ public class HydraulicShotgun extends ItemWeapon {
                         if (world.collidesWithAnyBlock(aabb)) {
                            if (itemRand.nextFloat() < 0.5F) {
                               world.playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  vec.x,
                                  vec.y,
                                  vec.z,
@@ -246,12 +234,12 @@ public class HydraulicShotgun extends ItemWeapon {
                         player,
                         world,
                         64.0,
-                        (double)player.getEntityId(),
-                        (double)seed,
-                        (double)acc,
-                        (double)amount,
-                        (double)c,
-                        (double)impacts,
+                             player.getEntityId(),
+                             seed,
+                             acc,
+                             amount,
+                             c,
+                             impacts,
                         edist,
                         0.0,
                         0.0
@@ -259,7 +247,7 @@ public class HydraulicShotgun extends ItemWeapon {
                   }
                } else if (this.initiateBulletReload(itemstack, player, new ItemStack(ItemsRegister.HYDRAULIC_SHOTGUN_CLIP, 1), maxammo, true)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

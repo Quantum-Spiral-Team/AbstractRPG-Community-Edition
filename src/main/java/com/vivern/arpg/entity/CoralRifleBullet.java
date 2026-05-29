@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class CoralRifleBullet extends StandardBullet implements IEntitySynchronize, RenderModule.IRenderModuleMulticolored {
+public class CoralRifleBullet extends StandardBullet implements ISynchronizedEntity, RenderModule.IRenderModuleMulticolored {
    public final ItemStack weaponstack;
    public boolean bulletCollided = false;
    public ItemBullet bullet;
@@ -167,7 +167,7 @@ public class CoralRifleBullet extends StandardBullet implements IEntitySynchroni
    public void onImpact(RayTraceResult result) {
       if (this.bullet != null && !this.bulletCollided) {
          this.bulletCollided = this.bullet
-            .onImpact(this.world, (EntityPlayer)this.getThrower(), this.posX, this.posY, this.posZ, result, this);
+            .onImpact(this.world, this.getThrower(), this.posX, this.posY, this.posZ, result, this);
       }
 
       if (result.entityHit != null) {
@@ -192,7 +192,7 @@ public class CoralRifleBullet extends StandardBullet implements IEntitySynchroni
             if (result.entityHit instanceof EntityLivingBase) {
                EntityLivingBase entitylivingbase = (EntityLivingBase)result.entityHit;
                if (this.bullet != null) {
-                  this.bullet.onDamageCause(this.world, entitylivingbase, (EntityPlayer)this.getThrower(), this);
+                  this.bullet.onDamageCause(this.world, entitylivingbase, this.getThrower(), this);
                }
 
                if (entitylivingbase.getHealth() <= 0.0F && this.rand.nextFloat() < 0.1) {
@@ -202,7 +202,7 @@ public class CoralRifleBullet extends StandardBullet implements IEntitySynchroni
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -211,7 +211,7 @@ public class CoralRifleBullet extends StandardBullet implements IEntitySynchroni
                   0.8F,
                   0.9F + this.rand.nextFloat() / 5.0F
                );
-            IEntitySynchronize.sendSynchronize(
+            ISynchronizedEntity.sendSynchronize(
                this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, -1.0
             );
             this.setDead();
@@ -223,7 +223,7 @@ public class CoralRifleBullet extends StandardBullet implements IEntitySynchroni
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -234,7 +234,7 @@ public class CoralRifleBullet extends StandardBullet implements IEntitySynchroni
             );
          if (!this.world.isRemote) {
             if (result.hitVec != null) {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, 0.0, 0.0, 0.0
                );
             }

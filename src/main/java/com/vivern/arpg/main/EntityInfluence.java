@@ -1,7 +1,7 @@
 package com.vivern.arpg.main;
 
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketInfluenceToClients;
+import com.vivern.arpg.network.packet.PacketInfluenceToClients;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -46,7 +46,7 @@ public abstract class EntityInfluence {
             entitiesWithInfluenceServer.put(entity, influence);
             if (influence.synchronizeToClients) {
                PacketInfluenceToClients packet = new PacketInfluenceToClients();
-               packet.writeargs(influence.id, entity.getEntityId());
+               packet.writeArgs(influence.id, entity.getEntityId());
                PacketHandler.sendToAllAround(packet, entity.world, entity.posX, entity.posY, entity.posZ, senddistance);
             }
          }

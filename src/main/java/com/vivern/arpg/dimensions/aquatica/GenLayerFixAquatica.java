@@ -1,5 +1,6 @@
 package com.vivern.arpg.dimensions.aquatica;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.main.BiomesRegister;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.WorldType;
@@ -334,7 +335,7 @@ public class GenLayerFixAquatica {
    }
 
    public static class GenLayerHills extends GenLayer {
-      private static final Logger LOGGER = LogManager.getLogger();
+      private static final Logger LOGGER = AbstractRPG.getLogger(GenLayer.class.getName() + "/" + GenLayerHills.class.getSimpleName());
       private final GenLayer riverLayer;
 
       public GenLayerHills(long p_i45479_1_, GenLayer p_i45479_3_, GenLayer p_i45479_4_) {
@@ -856,14 +857,12 @@ public class GenLayerFixAquatica {
       }
 
       private boolean isJungleCompatible(int p_151631_1_) {
-         return Biome.getBiome(p_151631_1_) != null && Biome.getBiome(p_151631_1_).getBiomeClass() == BiomeJungle.class
-            ? true
-            : p_151631_1_ == Biome.getIdForBiome(Biomes.JUNGLE_EDGE)
-               || p_151631_1_ == Biome.getIdForBiome(Biomes.JUNGLE)
-               || p_151631_1_ == Biome.getIdForBiome(Biomes.JUNGLE_HILLS)
-               || p_151631_1_ == Biome.getIdForBiome(Biomes.FOREST)
-               || p_151631_1_ == Biome.getIdForBiome(Biomes.TAIGA)
-               || isBiomeOceanic(p_151631_1_);
+         return Biome.getBiome(p_151631_1_) != null && Biome.getBiome(p_151631_1_).getBiomeClass() == BiomeJungle.class || p_151631_1_ == Biome.getIdForBiome(Biomes.JUNGLE_EDGE)
+                 || p_151631_1_ == Biome.getIdForBiome(Biomes.JUNGLE)
+                 || p_151631_1_ == Biome.getIdForBiome(Biomes.JUNGLE_HILLS)
+                 || p_151631_1_ == Biome.getIdForBiome(Biomes.FOREST)
+                 || p_151631_1_ == Biome.getIdForBiome(Biomes.TAIGA)
+                 || isBiomeOceanic(p_151631_1_);
       }
 
       private boolean isMesa(int p_151633_1_) {

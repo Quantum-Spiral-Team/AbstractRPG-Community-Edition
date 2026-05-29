@@ -1,18 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.BulletParticle;
 import java.util.List;
 import java.util.Random;
@@ -72,14 +60,14 @@ public class PumpShotgun extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             this.decreaseReload(itemstack, player);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
             boolean mainhand = click && player.getHeldItemMainhand() == itemstack;
-            boolean offhand = Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && player.getHeldItemOffhand() == itemstack;
+            boolean offhand = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && player.getHeldItemOffhand() == itemstack;
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
             if (mainhand || offhand) {
                if (ammo > 0 && this.isReloaded(itemstack)) {
@@ -95,7 +83,7 @@ public class PumpShotgun extends ItemWeapon {
                      }
 
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -144,7 +132,7 @@ public class PumpShotgun extends ItemWeapon {
                         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, aabb);
                         if (world.collidesWithAnyBlock(aabb)) {
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               vec.x,
                               vec.y,
                               vec.z,
@@ -191,12 +179,12 @@ public class PumpShotgun extends ItemWeapon {
                         player,
                         world,
                         64.0,
-                        (double)player.getEntityId(),
-                        (double)seed,
-                        (double)acc,
-                        (double)amount,
-                        (double)c,
-                        (double)impacts,
+                             player.getEntityId(),
+                             seed,
+                             acc,
+                             amount,
+                             c,
+                             impacts,
                         mainhand ? 1.0 : 0.0,
                         0.0,
                         0.0
@@ -204,7 +192,7 @@ public class PumpShotgun extends ItemWeapon {
                   }
                } else if (this.initiateBulletReload(itemstack, player, new ItemStack(ItemsRegister.BUCKSHOT, 1), maxammo, false)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

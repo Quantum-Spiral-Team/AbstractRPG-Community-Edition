@@ -1,13 +1,13 @@
 package com.vivern.arpg.neural;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Network implements Serializable {
-   private Layer[] layers;
+   private final Layer[] layers;
 
    public Network(Layer[] layers) {
       if (layers != null && layers.length != 0) {
@@ -44,10 +44,9 @@ public class Network implements Serializable {
    public float[] computeOutput(float[] input) {
       if (input != null && input.length == this.getInputSize()) {
          float[] output = input;
-         int size = this.layers.length;
 
-         for (int i = 0; i < size; i++) {
-            output = this.layers[i].computeOutput(output);
+         for (Layer layer : this.layers) {
+             output = layer.computeOutput(output);
          }
 
          return output;
@@ -61,7 +60,7 @@ public class Network implements Serializable {
          throw new IllegalArgumentException();
       } else {
          try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName));
+            ObjectOutputStream outputStream = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName)));
             outputStream.writeObject(this);
             outputStream.close();
          } catch (Exception var3) {
@@ -77,7 +76,7 @@ public class Network implements Serializable {
          Object network = null;
 
          try {
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName));
+            ObjectInputStream inputStream = new ObjectInputStream(Files.newInputStream(Paths.get(fileName)));
             network = inputStream.readObject();
             inputStream.close();
          } catch (Exception var3) {

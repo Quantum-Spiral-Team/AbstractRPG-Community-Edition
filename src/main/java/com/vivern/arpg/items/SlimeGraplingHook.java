@@ -37,7 +37,7 @@ public class SlimeGraplingHook extends GraplingHook {
 
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,

@@ -56,7 +56,7 @@ public class ElectricAcidRadiationPotion extends Item {
          boolean click = Mouse.isButtonDown(1);
          if (player.getHeldItemMainhand() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                player.posX,
                player.posY,
                player.posZ,

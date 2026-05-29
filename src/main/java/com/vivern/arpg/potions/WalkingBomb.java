@@ -127,7 +127,7 @@ public class WalkingBomb extends AdvancedPotion {
       double z = entityOnEffect.posZ;
       double damageRadius = 3.5 + effect.getAmplifier();
       entityOnEffect.world
-         .playSound((EntityPlayer)null, x, y, z, Sounds.walking_bomb_explode, SoundCategory.NEUTRAL, 1.2F, 0.8F + rand.nextFloat() / 5.0F);
+         .playSound(null, x, y, z, Sounds.walking_bomb_explode, SoundCategory.NEUTRAL, 1.2F, 0.8F + rand.nextFloat() / 5.0F);
       AxisAlignedBB axisalignedbb = entityOnEffect.getEntityBoundingBox()
          .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
          .offset(-damageRadius, -damageRadius, -damageRadius);

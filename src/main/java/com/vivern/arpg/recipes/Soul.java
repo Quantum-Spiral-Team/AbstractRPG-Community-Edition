@@ -2,6 +2,8 @@ package com.vivern.arpg.recipes;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Locale;
+
 import org.jetbrains.annotations.Nullable;
 
 public class Soul {
@@ -45,7 +47,7 @@ public class Soul {
    }
 
    public boolean canCatchWithPower(int catchPower) {
-      return this == WORSHIPPING ? catchPower >= 1 : true;
+      return this != WORSHIPPING || catchPower >= 1;
    }
 
    public static void registerSoul() throws IllegalArgumentException, IllegalAccessException {
@@ -54,7 +56,7 @@ public class Soul {
       for (Field field : fields) {
          if (field.getType() == Soul.class) {
             Soul soul = (Soul)field.get(null);
-            soul.name = field.getName().toLowerCase();
+            soul.name = field.getName().toLowerCase(Locale.ROOT);
             soulRegistry.put(soul.id, soul);
          }
       }

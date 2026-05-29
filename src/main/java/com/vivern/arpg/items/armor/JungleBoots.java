@@ -47,7 +47,7 @@ public class JungleBoots extends ItemArmor {
             new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor attackspeed", 0.1, 0)
          );
          multimap.put(
-            PropertiesRegistry.MANASPEED_MAX.getName(),
+            PropertiesRegistry.MANA_SPEED_MAX.getName(),
             new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor manaregen", 0.03, 0)
          );
       }

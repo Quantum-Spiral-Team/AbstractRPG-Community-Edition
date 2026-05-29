@@ -1,18 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.BulletParticle;
 import com.vivern.arpg.renders.SparkleSubparticle;
 import java.util.List;
@@ -82,8 +70,8 @@ public class Submachine extends ItemWeapon {
 
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
@@ -109,7 +97,7 @@ public class Submachine extends ItemWeapon {
                      }
 
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -118,7 +106,7 @@ public class Submachine extends ItemWeapon {
                         0.9F,
                         0.9F + itemRand.nextFloat() / 5.0F
                      );
-                     player.getCooldownTracker().setCooldown((Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), this.getCooldownTime(itemstack));
+                     player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getCooldownTime(itemstack));
                      player.addStat(StatList.getObjectUseStats(this));
                      IWeapon.fireBomEffect(this, player, world, 0);
                      Weapons.setPlayerAnimationOnServer(player, 5, hand);
@@ -126,7 +114,7 @@ public class Submachine extends ItemWeapon {
                      NBTHelper.AddNBTint(itemstack, addheat, "heat");
                      if (addheat + heat >= 2000) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -166,7 +154,7 @@ public class Submachine extends ItemWeapon {
                      if (world.collidesWithAnyBlock(aabb)) {
                         collidesWithAny = true;
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            vec.x,
                            vec.y,
                            vec.z,
@@ -227,14 +215,14 @@ public class Submachine extends ItemWeapon {
                         vec.x,
                         vec.y,
                         vec.z,
-                        (double)c,
+                             c,
                         dustState == null ? -1.0 : Block.getStateId(dustState),
                         collidesWithAny ? (isFired ? 3 : 2) : (isFired ? 1 : 0)
                      );
                   }
                } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.SUBMACHINE_CLIP, maxammo, true)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

@@ -7,9 +7,11 @@ import com.vivern.arpg.items.armor.IItemHurted;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Mana;
 import com.vivern.arpg.main.PropertiesRegistry;
+import com.vivern.arpg.main.ServerKeyTracker;
 import com.vivern.arpg.potions.AdvancedPotion;
 import com.vivern.arpg.renders.KillScore;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -17,10 +19,13 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.Random;
 
@@ -168,4 +173,27 @@ public class Events {
 
       event.setAmount(damage);
    }
+
+   @SubscribeEvent
+   public static void onPlayerConstructing(EntityEvent.EntityConstructing event) {
+      Entity entity = event.getEntity();
+      if (entity instanceof EntityPlayer) {
+         PropertiesRegistry.onPlayerConstructing((EntityPlayer) entity);
+      } else if (entity instanceof EntityLivingBase) {
+         PropertiesRegistry.onEntityConstructing((EntityLivingBase) entity);
+      }
+   }
+
+   @SubscribeEvent
+   public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+      ServerKeyTracker.clearPlayer(event.player);
+   }
+
+   @SubscribeEvent
+   public static void onServerTick(TickEvent.ServerTickEvent event) {
+      if (event.phase == TickEvent.Phase.END) {
+         ServerKeyTracker.resetTick();
+      }
+   }
+
 }

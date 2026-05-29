@@ -53,7 +53,7 @@ public class EntityGrenade extends EntityThrowable {
 
    @Override
    public boolean isInWater() {
-      return this.waterMoveHook ? false : super.isInWater();
+      return !this.waterMoveHook && super.isInWater();
    }
 
    @Override

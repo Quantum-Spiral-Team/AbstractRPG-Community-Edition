@@ -1,14 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Shards;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.ManaBar;
 import com.vivern.arpg.tileentity.IVialElementsAccepter;
 import com.vivern.arpg.tileentity.TileSplitter;
@@ -103,15 +95,15 @@ public class SpellRod extends ItemWeapon {
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             float power = Mana.getMagicPowerMax(player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             if (player.getHeldItemMainhand() == itemstack && (click || click2) && !player.getCooldownTracker().hasCooldown(this)) {
                if (player.isSneaking() && click) {
                   NBTHelper.GiveNBTint(itemstack, 0, "vessel");
                   NBTHelper.SetNBTint(itemstack, GetMOP.next(NBTHelper.GetNBTint(itemstack, "vessel"), 1, 4), "vessel");
                   player.getCooldownTracker().setCooldown(this, 8);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -158,9 +150,9 @@ public class SpellRod extends ItemWeapon {
                                     result.hitVec.x,
                                     result.hitVec.y,
                                     result.hitVec.z,
-                                    (double)shardType.id,
+                                         shardType.id,
                                     0.0,
-                                    (double)player.getEntityId(),
+                                         player.getEntityId(),
                                     0.0,
                                     0.0,
                                     0.0
@@ -210,9 +202,9 @@ public class SpellRod extends ItemWeapon {
                                     result.hitVec.x,
                                     result.hitVec.y,
                                     result.hitVec.z,
-                                    (double)shardType.id,
+                                         shardType.id,
                                     1.0,
-                                    (double)player.getEntityId(),
+                                         player.getEntityId(),
                                     0.0,
                                     0.0,
                                     0.0

@@ -41,21 +41,19 @@ public class WorldEventsHandler extends IRenderHandler {
    }
 
    public void writeToNbt(NBTTagCompound compound) {
-      for (int i = 0; i < this.events.length; i++) {
-         WorldEvent event = this.events[i];
-         NBTTagCompound eventTag = new NBTTagCompound();
-         event.writeToNbt(eventTag);
-         compound.setTag("" + event.index, eventTag);
+      for (WorldEvent event : this.events) {
+          NBTTagCompound eventTag = new NBTTagCompound();
+          event.writeToNbt(eventTag);
+          compound.setTag("" + event.index, eventTag);
       }
    }
 
    public void readFromNbt(NBTTagCompound compound) {
-      for (int i = 0; i < this.events.length; i++) {
-         WorldEvent event = this.events[i];
-         if (compound.hasKey("" + event.index)) {
-            NBTTagCompound eventTag = compound.getCompoundTag("" + event.index);
-            event.readFromNbt(eventTag);
-         }
+      for (WorldEvent event : this.events) {
+          if (compound.hasKey("" + event.index)) {
+              NBTTagCompound eventTag = compound.getCompoundTag("" + event.index);
+              event.readFromNbt(eventTag);
+          }
       }
    }
 
@@ -78,31 +76,28 @@ public class WorldEventsHandler extends IRenderHandler {
    @SideOnly(Side.CLIENT)
    @Override
    public void render(float partialTicks, WorldClient world, Minecraft mc) {
-      for (int i = 0; i < this.events.length; i++) {
-         WorldEvent event = this.events[i];
-         if (event.isStarted || event.showness > 0.0F) {
-            event.render(partialTicks, world, mc);
-         }
+      for (WorldEvent event : this.events) {
+          if (event.isStarted || event.showness > 0.0F) {
+              event.render(partialTicks, world, mc);
+          }
       }
    }
 
    public void renderClouds(float partialTicks, WorldClient world, Minecraft mc) {
-      for (int i = 0; i < this.events.length; i++) {
-         WorldEvent event = this.events[i];
-         if (event.isStarted || event.showness > 0.0F) {
-            event.renderClouds(partialTicks, world, mc);
-         }
+      for (WorldEvent event : this.events) {
+          if (event.isStarted || event.showness > 0.0F) {
+              event.renderClouds(partialTicks, world, mc);
+          }
       }
    }
 
    public void onUpdate() {
-      for (int i = 0; i < this.events.length; i++) {
-         WorldEvent event = this.events[i];
-         if (event.isStarted) {
-            event.onUpdate();
-         } else if (event.currentCooldown > 0) {
-            event.currentCooldown--;
-         }
+      for (WorldEvent event : this.events) {
+          if (event.isStarted) {
+              event.onUpdate();
+          } else if (event.currentCooldown > 0) {
+              event.currentCooldown--;
+          }
       }
 
       if (this.worldProvider.getWorldTime() % startCheckDelay == 0L) {
@@ -117,12 +112,11 @@ public class WorldEventsHandler extends IRenderHandler {
                      && this.worldProvider.getWorld().rand.nextFloat() < event.chanceToStart) {
                   boolean can = true;
 
-                  for (int j = 0; j < this.events.length; j++) {
-                     WorldEvent event2 = this.events[j];
-                     if (event2.isStarted && !event.canOverlapWith(event2)) {
-                        can = false;
-                        break;
-                     }
+                  for (WorldEvent event2 : this.events) {
+                      if (event2.isStarted && !event.canOverlapWith(event2)) {
+                          can = false;
+                          break;
+                      }
                   }
 
                   if (can) {
@@ -137,11 +131,10 @@ public class WorldEventsHandler extends IRenderHandler {
    }
 
    public void onUpdateClient(EntityPlayer player) {
-      for (int i = 0; i < this.events.length; i++) {
-         WorldEvent event = this.events[i];
-         if (event.isStarted || event.showness > 0.0F) {
-            event.onUpdateClient(player);
-         }
+      for (WorldEvent event : this.events) {
+          if (event.isStarted || event.showness > 0.0F) {
+              event.onUpdateClient(player);
+          }
       }
    }
 
@@ -233,19 +226,12 @@ public class WorldEventsHandler extends IRenderHandler {
                   }
 
                   int highstPosY = lowestPosY + range + heightAdd;
-                  int i3 = precipHeight;
-                  if (precipHeight < l) {
-                     i3 = l;
-                  }
+                  int i3 = Math.max(precipHeight, l);
 
                   if (lowestPosY != highstPosY) {
-                     random.setSeed(l1 * l1 * 3121 + l1 * 45238971 ^ k1 * k1 * 418711 + k1 * 13761);
+                     random.setSeed((long) l1 * l1 * 3121 + l1 * 45238971L ^ (long) k1 * k1 * 418711 + k1 * 13761L);
                      blockpos$mutableblockpos.setPos(l1, lowestPosY, k1);
                      if (j1 != 1) {
-                        if (j1 >= 0) {
-                           tessellator.draw();
-                        }
-
                         j1 = 1;
                         mc.getTextureManager().bindTexture(rainTexture);
                         bufferbuilder.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);

@@ -149,7 +149,7 @@ public class BlockBreaking {
       } else if ("shovel".equals(tool)) {
          return Items.DIAMOND_SHOVEL.getDestroySpeed(ghostShovel, state) > 1.0F;
       } else {
-         return "shears".equals(tool) ? Items.SHEARS.getDestroySpeed(ghostShears, state) > 1.0F : false;
+         return "shears".equals(tool) && Items.SHEARS.getDestroySpeed(ghostShears, state) > 1.0F;
       }
    }
 

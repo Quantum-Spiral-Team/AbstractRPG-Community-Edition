@@ -3,18 +3,10 @@ package com.vivern.arpg.entity;
 import baubles.api.BaublesApi;
 import com.vivern.arpg.Tags;
 import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.IMagicUI;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.AbstractRPG;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.network.PacketMUIClickToServer;
-import com.vivern.arpg.network.PacketMUIOpenToServer;
+import com.vivern.arpg.network.packet.PacketMUIClickToServer;
+import com.vivern.arpg.network.packet.PacketMUIOpenToServer;
 import com.vivern.arpg.recipes.MUIParameters;
 import com.vivern.arpg.recipes.ManaProvider;
 import com.vivern.arpg.recipes.Seal;
@@ -71,7 +63,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
-public abstract class EntityMagicUI extends Entity implements IEntitySynchronize {
+public abstract class EntityMagicUI extends Entity implements ISynchronizedEntity {
    public static ResourceLocation texMapRunes1 = new ResourceLocation("arpg:textures/seals/runes1.png");
    public static ResourceLocation texMapRunes2 = new ResourceLocation("arpg:textures/seals/runes2.png");
    public static ResourceLocation texStar = new ResourceLocation("arpg:textures/magic_rocket.png");
@@ -180,10 +172,11 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
    }
 
    @SubscribeEvent
+   @SideOnly(Side.CLIENT)
    public static void clientTick(ClientTickEvent event) {
       EntityPlayer player = Minecraft.getMinecraft().player;
       if (player != null) {
-         boolean key = Keys.isKeyPressed(player, Keys.USE);
+         boolean key = Keys.USE.isKeyDown();
 
          for (Entity entity : player.world.loadedEntityList) {
             if (player.getDistanceSq(entity) <= 64.0
@@ -256,7 +249,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
    }
 
    public void onDataSend(double anyVarToSend) {
-      IEntitySynchronize.sendSynchronize(this, 64.0, this.origin.getX(), this.origin.getY(), this.origin.getZ());
+      ISynchronizedEntity.sendSynchronize(this, 64.0, this.origin.getX(), this.origin.getY(), this.origin.getZ());
    }
 
    public EntityMagicUI setDisplace(float d) {
@@ -266,7 +259,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
 
    public void setRemoved() {
       this.removing = true;
-      IEntitySynchronize.sendSynchronize(this, 64.0, -2.0);
+      ISynchronizedEntity.sendSynchronize(this, 64.0, -2.0);
    }
 
    public void flyAround(float radius, float speed, float yUp) {
@@ -280,7 +273,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       this.motionY /= 3.0;
       this.motionZ /= 3.0;
       float kb = (float)this.getDistance(movex, movey, movez) / 2.0F;
-      SuperKnockback.applyMove(this, (float)(-Math.min((double)kb, 0.4)), movex, movey, movez);
+      SuperKnockback.applyMove(this, (float)(-Math.min(kb, 0.4)), movex, movey, movez);
       this.velocityChanged = true;
    }
 
@@ -339,7 +332,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
             EntityMagicUI mui = (EntityMagicUI)entity;
             if (!mui.linkedEntitymuis.contains(this)) {
                mui.linkedEntitymuis.add(this);
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   32.0,
                   mui.posX,
@@ -365,7 +358,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       for (EntityMagicUI linked : this.linkedEntitymuis) {
          if (this.getDistanceSq(linked) > 0.6400000000000001) {
             UNlinkedEntitymuis.add(linked);
-            IEntitySynchronize.sendSynchronize(
+            ISynchronizedEntity.sendSynchronize(
                this,
                32.0,
                linked.posX,
@@ -411,13 +404,13 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          }
 
          if (this.ticksExisted < 2 || this.ticksExisted % 40 == 0) {
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.facing == null ? -1.0 : this.facing.getIndex(), this.rotationOnFloor);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.facing == null ? -1.0 : this.facing.getIndex(), this.rotationOnFloor);
          }
 
          if (this.grabDistance > 0.0F && this.lastPressingPlayer != null) {
             this.timeGrabbed++;
             double blockReachDist = this.grabDistance + 0.25;
-            if (Keys.isKeyPressed(this.lastPressingPlayer, Keys.USE)) {
+            if (ServerKeyTracker.isKeyPressed(this.lastPressingPlayer, ServerKeyTracker.Keys.USE)) {
                if (this.timeGrabbed > 6) {
                   Vec3d vec = this.lastPressingPlayer
                      .getPositionEyes(1.0F)
@@ -475,9 +468,9 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
                   }
 
                   if (prevrotationOnFloor != this.rotationOnFloor) {
-                     IEntitySynchronize.sendSynchronize(this, 64.0, res.sideHit.getIndex(), this.rotationOnFloor);
+                     ISynchronizedEntity.sendSynchronize(this, 64.0, res.sideHit.getIndex(), this.rotationOnFloor);
                   } else if (this.facing != res.sideHit) {
-                     IEntitySynchronize.sendSynchronize(this, 64.0, res.sideHit.getIndex());
+                     ISynchronizedEntity.sendSynchronize(this, 64.0, res.sideHit.getIndex());
                   }
 
                   this.facing = res.sideHit;
@@ -507,7 +500,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
                }
 
                if (this.facing != res.sideHit) {
-                  IEntitySynchronize.sendSynchronize(this, 64.0, res.sideHit.getIndex());
+                  ISynchronizedEntity.sendSynchronize(this, 64.0, res.sideHit.getIndex());
                }
 
                this.facing = res.sideHit;
@@ -539,19 +532,18 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
 
       this.pressedLastTick = this.isPressedNow;
-      if (this.lastPressingPlayer == null || !Keys.isKeyPressed(this.lastPressingPlayer, Keys.USE)) {
+      if (!ServerKeyTracker.isKeyPressed(this.lastPressingPlayer, ServerKeyTracker.Keys.USE)) {
          this.isPressedNow = false;
       }
    }
 
-   public boolean onPressTick(EntityPlayer player) {
-      this.isPressedNow = Keys.isKeyPressed(player, Keys.USE);
+   public void onPressTick(EntityPlayer player) {
+      this.isPressedNow = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.USE);
       this.lastPressingPlayer = player;
       if (!this.pressedLastTick) {
          this.onPressStart(player);
       }
 
-      return false;
    }
 
    public void onPressEnd() {
@@ -1336,7 +1328,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
 
       @Override
-      public boolean onPressTick(EntityPlayer player) {
+      public void onPressTick(EntityPlayer player) {
          if (this.ticksExisted > 15) {
             if (!this.removing) {
                this.playSound(Sounds.mui_close, 0.8F, 0.85F + this.rand.nextFloat() * 0.3F);
@@ -1345,7 +1337,6 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
             this.setRemoved();
          }
 
-         return true;
       }
 
       @Override
@@ -1378,22 +1369,20 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
 
       @Override
-      public boolean onPressTick(EntityPlayer player) {
+      public void onPressTick(EntityPlayer player) {
          if (this.origin != null && !this.world.isRemote) {
             Block block = this.world.getBlockState(this.origin).getBlock();
             if (block instanceof IMagicUI) {
                ((IMagicUI)block).acceptMana(this.world, player, this.amount, this.origin, null);
-               return true;
+               return;
             }
 
             TileEntity tile = this.world.getTileEntity(this.origin);
             if (tile instanceof IMagicUI) {
                ((IMagicUI)tile).acceptMana(this.world, player, this.amount, this.origin, null);
-               return true;
             }
          }
 
-         return false;
       }
 
       @Override
@@ -1495,7 +1484,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
 
       @Override
-      public boolean onPressTick(EntityPlayer player) {
+      public void onPressTick(EntityPlayer player) {
          if (this.origin != null && !this.world.isRemote && this.ticksExisted > 10 && this.type != null) {
             IMagicUI mui = getMUIinPos(this.world, this.origin);
             mui.acceptElementEnergy(this.world, player, this.type, this.pressTick / 25.0F * this.amount, this.origin, null);
@@ -1504,7 +1493,6 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
             }
          }
 
-         return false;
       }
 
       @Override
@@ -1852,7 +1840,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
 
       @Override
-      public boolean onPressTick(EntityPlayer player) {
+      public void onPressTick(EntityPlayer player) {
          if (this.origin != null && !this.world.isRemote && this.ticksExisted > 10) {
             if (this.active) {
                this.returnTick++;
@@ -1870,7 +1858,6 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
             }
          }
 
-         return false;
       }
    }
 
@@ -1965,7 +1952,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
          if (this.origin != null) {
             TileEntity tile = this.world.getTileEntity(this.origin);
             if (tile instanceof IManaBuffer) {
-               return (IManaBuffer)tile;
+               return tile;
             }
          }
 
@@ -2162,7 +2149,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
 
       @Override
-      public boolean onPressTick(EntityPlayer player) {
+      public void onPressTick(EntityPlayer player) {
          if (this.ticksExisted > 15 && !this.removing) {
             this.setRemoved();
             if (!this.world.isRemote && this.listNext != null && this.listToRemove != null) {
@@ -2176,7 +2163,6 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
             }
          }
 
-         return true;
       }
    }
 
@@ -2305,7 +2291,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
                      // FIX: Hardcode `f` variable
                      // float f = state.getValue(pr) ? 0.6F : 0.5F;
                      float f = 0.5F;
-                     this.world.playSound((EntityPlayer)null, this.origin, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 0.3F, f);
+                     this.world.playSound(null, this.origin, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 0.3F, f);
                      this.world.notifyNeighborsOfStateChange(this.origin, state.getBlock(), false);
                   }
                }
@@ -2373,7 +2359,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       public void onUpdate() {
          super.onUpdate();
          if (!this.world.isRemote && this.seal != null && (this.ticksExisted < 2 || this.ticksExisted % 50 == 0)) {
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.seal.id + 6);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.seal.id + 6);
          }
       }
 
@@ -2474,7 +2460,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       }
 
       @Override
-      public boolean onPressTick(EntityPlayer player) {
+      public void onPressTick(EntityPlayer player) {
          if (this.origin != null && !this.world.isRemote && this.ticksExisted > 10) {
             Block block = this.world.getBlockState(this.origin).getBlock();
             if (block instanceof IMagicUI) {
@@ -2484,7 +2470,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
 
                ((IMagicUI)block).acceptSeal(this.world, player, this.seal, this.origin, null);
                this.setRemoved();
-               return true;
+               return;
             }
 
             TileEntity tile = this.world.getTileEntity(this.origin);
@@ -2495,11 +2481,9 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
 
                ((IMagicUI)tile).acceptSeal(this.world, player, this.seal, this.origin, null);
                this.setRemoved();
-               return true;
             }
          }
 
-         return false;
       }
 
       @Override
@@ -2629,7 +2613,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
       protected void readEntityFromNBT(NBTTagCompound compound) {
          super.readEntityFromNBT(compound);
          if (compound.hasKey("lastSound")) {
-            this.lastPlayedSound = (SoundEvent)SoundEvent.REGISTRY.getObjectById(compound.getInteger("lastSound"));
+            this.lastPlayedSound = SoundEvent.REGISTRY.getObjectById(compound.getInteger("lastSound"));
          }
       }
 
@@ -2660,13 +2644,13 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
                   soundevent = block.getSoundType().getPlaceSound();
                } else if (objct instanceof String) {
                   String str = (String)objct;
-                  SoundEvent event = (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(str));
+                  SoundEvent event = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(str));
                   if (event != null) {
                      soundevent = event;
                   }
                } else if (objct instanceof ResourceLocation) {
                   ResourceLocation res = (ResourceLocation)objct;
-                  SoundEvent event = (SoundEvent)ForgeRegistries.SOUND_EVENTS.getValue(res);
+                  SoundEvent event = ForgeRegistries.SOUND_EVENTS.getValue(res);
                   if (event != null) {
                      soundevent = event;
                   }
@@ -2675,7 +2659,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
                if (soundevent != null) {
                   this.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         this.posX,
                         this.posY,
                         this.posZ,
@@ -2692,7 +2676,7 @@ public abstract class EntityMagicUI extends Entity implements IEntitySynchronize
             if (!played) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,

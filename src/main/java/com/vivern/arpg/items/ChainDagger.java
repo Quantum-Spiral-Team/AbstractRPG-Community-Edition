@@ -128,7 +128,7 @@ public class ChainDagger extends Item {
                      NBTHelper.SetNBTboolean(itemstack, false, "throwed");
                      SuperKnockback.applyKnockback(
                         entitylivingbase,
-                        -(0.8F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack) / 3),
+                        -(0.8F + (float) EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack) / 3),
                         player.posX,
                         player.posY,
                         player.posZ
@@ -190,7 +190,7 @@ public class ChainDagger extends Item {
    public void onThrow(EntityPlayer player, ItemStack itemstack) {
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -208,7 +208,7 @@ public class ChainDagger extends Item {
 
       player.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,

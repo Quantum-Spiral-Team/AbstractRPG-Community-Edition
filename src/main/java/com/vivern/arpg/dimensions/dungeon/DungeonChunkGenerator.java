@@ -206,7 +206,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
       ContextOverworld ctx = new ContextOverworld(
          this.minLimitPerlinNoise, this.maxLimitPerlinNoise, this.mainPerlinNoise, this.surfaceNoise, this.scaleNoise, this.depthNoise, this.forestNoise
       );
-      ctx = (ContextOverworld)TerrainGen.getModdedNoiseGenerators(worldIn, this.rand, ctx);
+      ctx = TerrainGen.getModdedNoiseGenerators(worldIn, this.rand, ctx);
       this.minLimitPerlinNoise = ctx.getLPerlin1();
       this.maxLimitPerlinNoise = ctx.getLPerlin2();
       this.mainPerlinNoise = ctx.getPerlin();
@@ -563,7 +563,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
                         finalposx,
                         EnumChest.ROTTEN,
                         ListLootTable.CHESTS_DUNGEON_MINESHAFT,
-                        (EnumFacing)this.world.getBlockState(finalposx).getValue(BlockEnderChest.FACING)
+                             this.world.getBlockState(finalposx).getValue(BlockEnderChest.FACING)
                      );
                   }
                }
@@ -702,7 +702,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
             int up2 = 13 + valuescale;
             int down2 = 4 + valuescale;
             int rr1a = (int)Math.round(value2 - valueabs2 * down2);
-            int rr2a = (int)Math.min(Math.round(value2 + valueabs2 * up2), (long)(waterlvl + 1));
+            int rr2a = (int)Math.min(Math.round(value2 + valueabs2 * up2), waterlvl + 1);
 
             for (int rrxx = rr1a; rrxx < rr2a; rrxx++) {
                if (chunkprimer.getBlockState(ii, MathHelper.clamp(rrxx, 2, 253), ss).getBlock() != Blocks.WATER) {
@@ -1214,7 +1214,7 @@ public class DungeonChunkGenerator implements IChunkGenerator {
       } else if (p_175793_1_.getBlock() == Blocks.CLAY) {
          return true;
       } else {
-         return p_175793_1_.getBlock() == Blocks.GRAVEL ? true : p_175793_1_.getBlock() instanceof BlockSpeleothem;
+         return p_175793_1_.getBlock() == Blocks.GRAVEL || p_175793_1_.getBlock() instanceof BlockSpeleothem;
       }
    }
 

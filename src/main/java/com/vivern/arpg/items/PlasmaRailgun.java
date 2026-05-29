@@ -1,14 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.PlasmaRailgunShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -61,7 +54,7 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             this.decreaseReload(itemstack, player);
@@ -74,7 +67,7 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
                   if (!hascooldown && this.getEnergyStored(itemstack) >= RFtoShoot) {
                      Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -112,7 +105,7 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
                   }
                } else if (this.initiateReload(itemstack, player, ItemsRegister.PLASMA_RAILGUN_BOLTS, maxammo)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

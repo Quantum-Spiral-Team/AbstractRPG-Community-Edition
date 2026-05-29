@@ -60,7 +60,7 @@ public class SharkCannon extends Item {
          if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             if (damage <= itemIn.getMaxDamage() - 1) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -78,7 +78,7 @@ public class SharkCannon extends Item {
                itemstack.setItemDamage(0);
                player.getCooldownTracker().setCooldown(this, 80);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

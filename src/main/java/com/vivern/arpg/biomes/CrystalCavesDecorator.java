@@ -109,7 +109,7 @@ class CrystalCavesDecorator extends BiomeDecorator {
                            IBlockState state2 = world.getBlockState(fpos.up(2));
                            boolean b1 = false;
                            if (state2.getBlock() instanceof BlockSpeleothem) {
-                              int stat = (Integer)state2.getValue(BlockSpeleothem.TYPE);
+                              int stat = state2.getValue(BlockSpeleothem.TYPE);
                               if (stat == 0 && rand.nextFloat() < 0.3) {
                                  this.setStalact(world, fpos.up(), 4, blockstalact, rand);
                               } else if (stat == 1 && rand.nextFloat() < 0.3) {

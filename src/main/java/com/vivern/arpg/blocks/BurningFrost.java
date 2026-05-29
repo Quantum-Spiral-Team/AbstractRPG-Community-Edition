@@ -146,7 +146,7 @@ public class BurningFrost extends Block {
 
          Block block = worldIn.getBlockState(pos.down()).getBlock();
          boolean flag = block == BlocksRegister.CLEAN_ICE;
-         int i = (Integer)state.getValue(AGE);
+         int i = state.getValue(AGE);
          if (!flag && worldIn.isRaining() && this.canDie(worldIn, pos) && rand.nextFloat() < 0.2F + i * 0.03F) {
             worldIn.setBlockToAir(pos);
          } else {
@@ -432,7 +432,7 @@ public class BurningFrost extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(AGE);
+      return state.getValue(AGE);
    }
 
    @Override
@@ -442,7 +442,7 @@ public class BurningFrost extends Block {
 
    public boolean canCatchFire(IBlockAccess world, BlockPos pos, EnumFacing face) {
       Block block = world.getBlockState(pos).getBlock();
-      return face == EnumFacing.UP && block == BlocksRegister.CLEAN_ICE ? true : this.getFlammability(block) > 0;
+      return face == EnumFacing.UP && block == BlocksRegister.CLEAN_ICE || this.getFlammability(block) > 0;
    }
 
    @Override

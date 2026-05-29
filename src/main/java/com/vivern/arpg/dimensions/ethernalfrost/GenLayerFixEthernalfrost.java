@@ -40,7 +40,7 @@ public class GenLayerFixEthernalfrost {
       Biome[] biomes = new Biome[]{BiomesRegister.FROZEN_FOREST};
       Biome[] rivers = new Biome[]{BiomesRegister.EVERFROST_RIVER};
       Biome[] avoids = new Biome[]{BiomesRegister.FROZEN_LAKE, BiomesRegister.FROZEN_BEACH};
-      avoids = (Biome[])ArrayUtils.addAll(avoids, BiomesRegister.FROZEN_MOUNTAINS);
+      avoids = ArrayUtils.addAll(avoids, BiomesRegister.FROZEN_MOUNTAINS);
       genlayer = new GenLayerFixToxic.GenLayerRiverMixAdvanced(100L, genlayer, riversmooth, biomes, rivers, avoids);
       genlayer = new GenLayerVoronoiZoom(10L, genlayer);
       GenLayer var19 = new GenLayerVoronoiZoom(10L, genlayer);

@@ -13,25 +13,23 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.Collections;
+
 @EventBusSubscriber(
    modid = "arpg"
 )
 public class RecipesRegister {
    @SubscribeEvent
    public static void registerRecipes(Register<IRecipe> event) {
-      IRecipe rRecipe = new MoltenGreataxeOil();
-      rRecipe.setRegistryName(MoltenGreataxeOil.name);
-      event.getRegistry().register(rRecipe);
+      event.getRegistry().register(new MoltenGreataxeOil().setRegistryName(MoltenGreataxeOil.name));
       event.getRegistry().register(new SnowcoatHelm.SnowcoatDye().setRegistryName(SnowcoatHelm.SnowcoatDye.name));
    }
 
    public static IRecipe getShapelessRecipe(ResourceLocation name, ResourceLocation group, @Nonnull ItemStack output, Ingredient... params) {
       NonNullList<Ingredient> lst = NonNullList.create();
 
-      for (Ingredient i : params) {
-         lst.add(i);
-      }
+      Collections.addAll(lst, params);
 
-      return (IRecipe)new ShapelessRecipes(group == null ? "" : group.toString(), output, lst).setRegistryName(name);
+      return new ShapelessRecipes(group == null ? "" : group.toString(), output, lst).setRegistryName(name);
    }
 }

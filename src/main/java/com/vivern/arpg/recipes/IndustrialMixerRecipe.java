@@ -507,10 +507,10 @@ public class IndustrialMixerRecipe {
    public List<ItemStack> exportInputsAsList() {
       List<ItemStack> list = new ArrayList<>();
 
-      for (int i = 0; i < this.recipe.size(); i++) {
-         if (this.recipe.get(i) != Ingridient.EMPTY) {
-            list.add(((Ingridient)this.recipe.get(i)).createStack());
-         }
+      for (Ingridient ingridient : this.recipe) {
+          if (ingridient != Ingridient.EMPTY) {
+              list.add(ingridient.createStack());
+          }
       }
 
       return list;
@@ -519,10 +519,10 @@ public class IndustrialMixerRecipe {
    public List<ItemStack> exportOutputAsList() {
       List<ItemStack> list = new ArrayList<>();
 
-      for (int i = 0; i < this.output.size(); i++) {
-         if (this.output.get(i) != Ingridient.EMPTY) {
-            list.add(((Ingridient)this.output.get(i)).createStack());
-         }
+      for (Ingridient ingridient : this.output) {
+          if (ingridient != Ingridient.EMPTY) {
+              list.add(ingridient.createStack());
+          }
       }
 
       return list;

@@ -94,7 +94,7 @@ public class CursedBlade extends ItemWeapon {
             if (!list.isEmpty()) {
                stack.damageItem(1, player);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -107,7 +107,7 @@ public class CursedBlade extends ItemWeapon {
                if (itemRand.nextFloat() < 0.33) {
                   crit = 11.0F;
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -168,7 +168,7 @@ public class CursedBlade extends ItemWeapon {
                }
             } else {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

@@ -62,7 +62,7 @@ public class AssemblyAugmentTESR extends TileEntitySpecialRenderer<TileAssemblyA
             plasmaRenders = te.plasmaToolOpening;
          }
 
-         EnumFacing facing = (EnumFacing)blockState.getValue(AssemblyTable.FACING);
+         EnumFacing facing = blockState.getValue(AssemblyTable.FACING);
          if (facing != null) {
             blockRotation = facing.getHorizontalAngle();
          }

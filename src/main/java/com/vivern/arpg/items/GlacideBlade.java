@@ -1,10 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -52,8 +48,8 @@ public class GlacideBlade extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             EnumHand hand = null;
             if (click && player.getHeldItemMainhand() == itemstack && !hascooldown) {
@@ -65,7 +61,7 @@ public class GlacideBlade extends ItemWeapon {
             if (hand != null) {
                MeleeAttackResult meleeAttackResult = IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, false);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

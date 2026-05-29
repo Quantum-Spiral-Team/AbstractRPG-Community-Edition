@@ -100,7 +100,7 @@ public class MortuorusChunkGenerator implements IChunkGenerator {
       ContextOverworld ctx = new ContextOverworld(
          this.minLimitPerlinNoise, this.maxLimitPerlinNoise, this.mainPerlinNoise, this.surfaceNoise, this.scaleNoise, this.depthNoise, this.forestNoise
       );
-      ctx = (ContextOverworld)TerrainGen.getModdedNoiseGenerators(worldIn, this.rand, ctx);
+      ctx = TerrainGen.getModdedNoiseGenerators(worldIn, this.rand, ctx);
       this.minLimitPerlinNoise = ctx.getLPerlin1();
       this.maxLimitPerlinNoise = ctx.getLPerlin2();
       this.mainPerlinNoise = ctx.getPerlin();

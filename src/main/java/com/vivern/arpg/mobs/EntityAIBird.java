@@ -148,7 +148,7 @@ public class EntityAIBird extends AbstractMob.AbstractAI {
    public boolean onGround(World world, double x, double y, double z) {
       Vec3d vewc = new Vec3d(x, y, z);
       RayTraceResult res = world.rayTraceBlocks(vewc, vewc.add(0.0, -4.0, 0.0), false);
-      return res == null ? false : res.typeOfHit == Type.BLOCK;
+      return res != null && res.typeOfHit == Type.BLOCK;
    }
 
    public Vec3d rotateVecAroundAxis(Vec3d vector, Vec3d axisVector, float angle) {
@@ -488,7 +488,7 @@ public class EntityAIBird extends AbstractMob.AbstractAI {
          vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
       );
       RayTraceResult raytraceresult = entity.world
-         .rayTraceBlocks(vec3d, vec3d2, attacktarget == null ? true : !attacktarget.isInWater(), true, false);
+         .rayTraceBlocks(vec3d, vec3d2, attacktarget == null || !attacktarget.isInWater(), true, false);
       if (raytraceresult != null) {
          vec3d2 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
       }
@@ -576,10 +576,8 @@ public class EntityAIBird extends AbstractMob.AbstractAI {
 
          if (!this.canPenalize) {
             this.path = this.entity.getNavigator().getPathToEntityLiving(entitylivingbase);
-            return this.path != null
-               ? true
-               : this.getAttackReachSqr(entitylivingbase)
-                  >= this.entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
+            return this.path != null || this.getAttackReachSqr(entitylivingbase)
+                    >= this.entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
          } else if (--this.delayCounter <= 0) {
             this.path = this.entity.getNavigator().getPathToEntityLiving(entitylivingbase);
             this.delayCounter = 4 + this.entity.getRNG().nextInt(7);
@@ -599,17 +597,15 @@ public class EntityAIBird extends AbstractMob.AbstractAI {
       } else if (!this.longMemory) {
          return !this.entity.getNavigator().noPath();
       } else {
-         return !this.entity.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase))
-            ? false
-            : !(entitylivingbase instanceof EntityPlayer)
-               || !((EntityPlayer)entitylivingbase).isSpectator() && !((EntityPlayer)entitylivingbase).isCreative();
+         return this.entity.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase)) && (!(entitylivingbase instanceof EntityPlayer)
+                 || !((EntityPlayer) entitylivingbase).isSpectator() && !((EntityPlayer) entitylivingbase).isCreative());
       }
    }
 
    public void resetRush() {
       EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
       if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative())) {
-         this.entity.setAttackTarget((EntityLivingBase)null);
+         this.entity.setAttackTarget(null);
       }
 
       this.entity.getNavigator().clearPath();

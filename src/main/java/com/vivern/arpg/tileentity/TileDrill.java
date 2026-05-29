@@ -32,7 +32,7 @@ public class TileDrill extends TileEntity implements ITickable {
    }
 
    public boolean consumePower(int amount) {
-      return this.electricStorage.extractEnergy(amount, true) >= amount ? this.electricStorage.extractEnergy(amount, false) >= amount : false;
+      return this.electricStorage.extractEnergy(amount, true) >= amount && this.electricStorage.extractEnergy(amount, false) >= amount;
    }
 
    @Override
@@ -40,7 +40,7 @@ public class TileDrill extends TileEntity implements ITickable {
       if (!this.world.isRemote) {
          if (this.redstone == 0) {
             BlockPos posoffset = this.getPos()
-               .offset((EnumFacing)this.world.getBlockState(this.getPos()).getValue(BlockDrill.FACING));
+               .offset(this.world.getBlockState(this.getPos()).getValue(BlockDrill.FACING));
             IBlockState state = this.world.getBlockState(posoffset);
             float hard = state.getBlockHardness(this.world, posoffset);
             int rftick = (int)MathHelper.clamp(hard / 5.0F, 1.0F, 20.0F);

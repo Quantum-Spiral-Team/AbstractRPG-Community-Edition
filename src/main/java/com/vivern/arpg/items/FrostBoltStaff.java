@@ -70,7 +70,7 @@ public class FrostBoltStaff extends Item {
          int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
          if (player.getActiveItemStack() == itemstack && mana > 5.5F - sor * 0.8F && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                player.posX,
                player.posY,
                player.posZ,

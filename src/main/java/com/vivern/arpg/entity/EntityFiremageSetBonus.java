@@ -77,7 +77,7 @@ public class EntityFiremageSetBonus extends EntityThrowable {
       this.motionY /= 3.0;
       this.motionZ /= 3.0;
       float kb = (float)this.getDistance(movex, movey, movez) / 2.0F;
-      SuperKnockback.applyKnockback(this, (float)(-Math.min((double)kb, 0.4)), movex, movey, movez);
+      SuperKnockback.applyKnockback(this, (float)(-Math.min(kb, 0.4)), movex, movey, movez);
       this.world.setEntityState(this, (byte)8);
    }
 

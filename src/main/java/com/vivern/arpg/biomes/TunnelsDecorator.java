@@ -93,7 +93,7 @@ class TunnelsDecorator extends BiomeDecorator {
                            IBlockState state2 = world.getBlockState(fpos.up(2));
                            boolean b1 = false;
                            if (state2.getBlock() == blockstalact) {
-                              int stat = (Integer)state2.getValue(BlockSpeleothem.TYPE);
+                              int stat = state2.getValue(BlockSpeleothem.TYPE);
                               if (stat == 0 && rand.nextFloat() < 0.4) {
                                  world.setBlockState(fpos.up(), blockstalact.getDefaultState().withProperty(BlockSpeleothem.TYPE, 4), 2);
                               } else if (stat == 1 && rand.nextFloat() < 0.4) {

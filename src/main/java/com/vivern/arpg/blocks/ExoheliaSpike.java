@@ -67,8 +67,8 @@ public class ExoheliaSpike extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      EnumFacing facing = (EnumFacing)state.getValue(FACING);
-      boolean rotated = (Boolean)state.getValue(ROTATED);
+      EnumFacing facing = state.getValue(FACING);
+      boolean rotated = state.getValue(ROTATED);
       return facing.getIndex() + (rotated ? 6 : 0);
    }
 

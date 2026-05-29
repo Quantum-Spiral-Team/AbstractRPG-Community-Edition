@@ -39,7 +39,7 @@ public class SpellForgeTESR extends TileEntitySpecialRenderer<TileSpellForge> {
       ARBShaderObjects.glUniform1fARB(ShaderMain.ForgeShader.getUniform("time"), AnimationTimer.tick / 40.0F);
       ARBShaderObjects.glUniform1fARB(ShaderMain.ForgeShader.getUniform("power"), power);
       if (!stack.isEmpty()) {
-         IBakedModel ibakedmodel = renderItem.getItemModelWithOverrides(stack, (World)null, (EntityLivingBase)null);
+         IBakedModel ibakedmodel = renderItem.getItemModelWithOverrides(stack, null, null);
          Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
          GlStateManager.enableBlend();
          if (Debugger.floats[8] > 0.0F) {
@@ -72,7 +72,7 @@ public class SpellForgeTESR extends TileEntitySpecialRenderer<TileSpellForge> {
       int stacksAmount = 0;
 
       for (int cell = 0; cell < 9; cell++) {
-         ItemStack stack0 = (ItemStack)te.stacks.get(cell);
+         ItemStack stack0 = te.stacks.get(cell);
          if (!stack0.isEmpty()) {
             stacksAmount++;
          }
@@ -94,7 +94,7 @@ public class SpellForgeTESR extends TileEntitySpecialRenderer<TileSpellForge> {
       stacksAmount = 0;
 
       for (int cellx = 0; cellx < 9; cellx++) {
-         ItemStack stack0 = (ItemStack)te.stacks.get(cellx);
+         ItemStack stack0 = te.stacks.get(cellx);
          if (!stack0.isEmpty()) {
             float animTtemForged = GetMOP.partial(te.animItemsForged[stacksAmount], te.prevanimItemsForged[stacksAmount], partialTicks);
             float completeRadiusAdd = 0.0F;

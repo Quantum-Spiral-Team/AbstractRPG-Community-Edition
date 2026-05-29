@@ -108,7 +108,7 @@ public class StormledgePortal extends Block {
          && !entityIn.isBeingRidden()
          && entityIn.isNonBoss()
          && entityIn.getEntityBoundingBox().intersects(state.getBoundingBox(worldIn, pos).offset(pos))) {
-         ((EntityPlayer)entityIn).timeUntilPortal = 100;
+         entityIn.timeUntilPortal = 100;
          DimensionsRegister.teleporterSTORMLEDGE.teleport((EntityPlayer)entityIn, pos);
       }
    }

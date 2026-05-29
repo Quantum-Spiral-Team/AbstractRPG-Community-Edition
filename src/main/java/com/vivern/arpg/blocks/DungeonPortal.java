@@ -106,7 +106,7 @@ public class DungeonPortal extends Block {
          && !entityIn.isBeingRidden()
          && entityIn.isNonBoss()
          && entityIn.getEntityBoundingBox().intersects(state.getBoundingBox(worldIn, pos).offset(pos))) {
-         ((EntityPlayer)entityIn).timeUntilPortal = 100;
+         entityIn.timeUntilPortal = 100;
          DimensionsRegister.teleporterDUNGEON.teleport((EntityPlayer)entityIn, pos);
       }
    }

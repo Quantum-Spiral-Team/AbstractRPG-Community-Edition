@@ -22,7 +22,7 @@ public class IndustrialMixerTESR extends TileEntitySpecialRenderer<TileIndustria
       float blockRotation = 0.0F;
       if (te != null) {
          rotorRotation = GetMOP.partial(te.clientRotorRotation, te.prevclientRotorRotation, partialTicks);
-         EnumFacing facing = (EnumFacing)te.getWorld().getBlockState(te.getPos()).getValue(IndustrialMixer.FACING);
+         EnumFacing facing = te.getWorld().getBlockState(te.getPos()).getValue(IndustrialMixer.FACING);
          if (facing != null) {
             blockRotation = facing.getHorizontalAngle();
          }

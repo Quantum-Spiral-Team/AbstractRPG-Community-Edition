@@ -3,7 +3,7 @@ package com.vivern.arpg.tileentity;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.NoiseGenerator3D;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketManaBufferToClients;
+import com.vivern.arpg.network.packet.PacketManaBufferToClients;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
 import java.util.ArrayList;
@@ -254,7 +254,7 @@ public class ManaBuffer {
    private static void sendManaToClients(World world, BlockPos pos, ManaBuffer buffer, int distance) {
       if (!world.isRemote) {
          PacketManaBufferToClients packet = new PacketManaBufferToClients();
-         packet.writeargs(pos.getX(), pos.getY(), pos.getZ(), buffer.getManaStored());
+         packet.writeArgs(pos.getX(), pos.getY(), pos.getZ(), buffer.getManaStored());
          PacketHandler.sendToAllAround(packet, world, pos.getX(), pos.getY(), pos.getZ(), distance);
       }
    }

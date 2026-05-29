@@ -8,7 +8,7 @@ import com.vivern.arpg.items.IWeapon;
 import com.vivern.arpg.entity.StandardBullet;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.HostileProjectiles;
-import com.vivern.arpg.network.PacketAnimationsToClients;
+import com.vivern.arpg.network.packet.PacketAnimationsToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.potions.Frostburn;
 import com.vivern.arpg.potions.PotionEffects;
@@ -141,7 +141,7 @@ public class Weapons {
    }
 
    public static float getPlayerAnimationValue(EntityPlayer player, EnumHand hand, float partialTicks) {
-      int an = (Integer)player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
+      int an = player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
       int leftIdBinar = -16777216;
       int leftAnimBinar = 16711680;
       int rightIdBinar = 65280;
@@ -160,7 +160,7 @@ public class Weapons {
    }
 
    public static int getPlayerAnimationId(Entity player, EnumHand hand) {
-      int an = (Integer)player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
+      int an = player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
       int leftIdBinar = -16777216;
       int rightIdBinar = 65280;
       int id = an & (hand == EnumHand.MAIN_HAND ? rightIdBinar : leftIdBinar);
@@ -174,7 +174,7 @@ public class Weapons {
    }
 
    public static void decrementPlayerAnimation(EntityPlayer player) {
-      int an = (Integer)player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
+      int an = player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
       int leftAnimBinar = 16711680;
       int rightAnimBinar = 255;
       int noBinar = -16711936;
@@ -202,14 +202,14 @@ public class Weapons {
 
    public static void setPlayerAnimationOnClient(EntityPlayer player, int id, EnumHand hand) {
       if (hand == EnumHand.MAIN_HAND) {
-         int animateData = (Integer)player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
+         int animateData = player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
          PlayerAnimation animation = animationsRegister.getOrDefault((byte)id, PlayerAnimations.DEFAULT);
          byte lastId = (byte)((animateData & 0xFF00) >>> 8);
          int lastValue = animateData & 0xFF;
          byte cascade = animation.cascadeAnimation(lastId, lastValue);
          if (cascade != id) {
             id = cascade;
-            animation = animationsRegister.getOrDefault((byte)cascade, PlayerAnimations.DEFAULT);
+            animation = animationsRegister.getOrDefault(cascade, PlayerAnimations.DEFAULT);
          }
 
          int animationLen = animation.animationLength;
@@ -221,7 +221,7 @@ public class Weapons {
       }
 
       if (hand == EnumHand.OFF_HAND) {
-         int animateData = (Integer)player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
+         int animateData = player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
          int animationValue = animationsRegister.getOrDefault((byte)id, PlayerAnimations.DEFAULT).animationLength;
          int a1 = animationValue << 16;
          int a2 = animateData & 65535;
@@ -290,9 +290,7 @@ public class Weapons {
 
    public static boolean easyBreakBlockFor(World world, float hardnessBreaks, BlockPos pos, IBlockState block) {
       float blockhard = block.getBlock().getBlockHardness(block, world, pos);
-      return blockhard >= 0.0F && (blockhard <= hardnessBreaks || block.getBlock().isReplaceable(world, pos))
-         ? !(block.getBlock() instanceof BlockLiquid) && !(block.getBlock() instanceof IFluidBlock)
-         : false;
+      return blockhard >= 0.0F && (blockhard <= hardnessBreaks || block.getBlock().isReplaceable(world, pos)) && !(block.getBlock() instanceof BlockLiquid) && !(block.getBlock() instanceof IFluidBlock);
    }
 
    public static int getEntityRepulseType(Entity entity) {
@@ -358,21 +356,21 @@ public class Weapons {
             world.setBlockState(pos, Blocks.NETHERRACK.getDefaultState());
             return true;
          } else if (block == BlocksRegister.FLUID_SLIME) {
-            if ((Integer)state.getValue(BlockLiquid.LEVEL) == 0) {
+            if (state.getValue(BlockLiquid.LEVEL) == 0) {
                world.setBlockState(pos, BlocksRegister.BROWN_SLIME.getDefaultState());
             } else {
                world.setBlockState(pos, BlocksRegister.SLIME_GLOB.getDefaultState());
             }
 
             return true;
-         } else if (block == BlocksRegister.ICE_SPIKES && (Boolean)state.getValue(IceSpikes.NOTPERMANENT)) {
+         } else if (block == BlocksRegister.ICE_SPIKES && state.getValue(IceSpikes.NOTPERMANENT)) {
             world.setBlockState(pos, state.withProperty(IceSpikes.NOTPERMANENT, false));
             return true;
          } else {
             return false;
          }
       } else {
-         if ((Integer)state.getValue(BlockLiquid.LEVEL) == 0) {
+         if (state.getValue(BlockLiquid.LEVEL) == 0) {
             world.setBlockState(pos, Blocks.OBSIDIAN.getDefaultState());
          } else {
             world.setBlockState(pos, Blocks.COBBLESTONE.getDefaultState());
@@ -476,7 +474,7 @@ public class Weapons {
       if (target instanceof EntityItem) {
          return false;
       } else {
-         return target instanceof EntityXPOrb ? false : !(target instanceof HostileProjectiles.Plasma);
+         return !(target instanceof EntityXPOrb) && !(target instanceof HostileProjectiles.Plasma);
       }
    }
 
@@ -710,7 +708,7 @@ public class Weapons {
       Block block = iblockstate.getBlock();
       if (block == Blocks.FIRE) {
          world.setBlockToAir(pos);
-         world.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 1.0F);
+         world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 1.0F);
          return true;
       } else if (block == Blocks.FARMLAND) {
          world.setBlockState(pos, iblockstate.withProperty(BlockFarmland.MOISTURE, 7), 2);
@@ -728,13 +726,13 @@ public class Weapons {
       } else if (block != Blocks.LAVA && block != Blocks.FLOWING_LAVA) {
          return false;
       } else {
-         if ((Integer)iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
+         if (iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
             world.setBlockState(pos, Blocks.OBSIDIAN.getDefaultState());
          } else {
             world.setBlockState(pos, Blocks.COBBLESTONE.getDefaultState());
          }
 
-         world.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.6F, 1.0F);
+         world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.6F, 1.0F);
          return true;
       }
    }
@@ -757,7 +755,7 @@ public class Weapons {
          || block == BlocksRegister.MAGMA_BLOOM) {
          return true;
       } else {
-         return block instanceof IFluidBlock ? ((IFluidBlock)block).getFluid().getTemperature() >= 1000 : false;
+         return block instanceof IFluidBlock && ((IFluidBlock) block).getFluid().getTemperature() >= 1000;
       }
    }
 
@@ -871,9 +869,9 @@ public class Weapons {
       float ff1 = MathHelper.sin(-yaw1 * (float) (Math.PI / 180.0) - (float) Math.PI);
       Vec3d offset = new Vec3d(-ff1 * shoulders, 0.0, -ff * shoulders);
       Vec3d posvec = new Vec3d(
-         GetMOP.partial(player.posX, player.prevPosX, (double)partialTicks),
-         GetMOP.partial(player.posY, player.prevPosY, (double)partialTicks),
-         GetMOP.partial(player.posZ, player.prevPosZ, (double)partialTicks)
+         GetMOP.partial(player.posX, player.prevPosX, partialTicks),
+         GetMOP.partial(player.posY, player.prevPosY, partialTicks),
+         GetMOP.partial(player.posZ, player.prevPosZ, partialTicks)
       );
       float pitchUp = GetMOP.partial(player.rotationPitch, player.prevRotationPitch, partialTicks) - 90.0F;
       Vec3d lookUp = GetMOP.pitchYawToVec3D(pitchUp, yaw).scale(yoffset);

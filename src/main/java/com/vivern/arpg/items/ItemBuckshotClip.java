@@ -60,7 +60,7 @@ public class ItemBuckshotClip extends Item {
          if (buckshotHas != null) {
             removeBuckshots(player.inventory, buckshotHas, this.maxAmmoStore);
             world.playSound(
-               (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.vampireknifes, SoundCategory.PLAYERS, 0.5F, 1.0F
+                    null, player.posX, player.posY, player.posZ, Sounds.vampireknifes, SoundCategory.PLAYERS, 0.5F, 1.0F
             );
             ItemStack newstack = new ItemStack(this);
             NBTHelper.GiveNBTstring(newstack, buckshotHas, "bullet");

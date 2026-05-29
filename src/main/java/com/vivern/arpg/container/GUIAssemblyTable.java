@@ -1,7 +1,7 @@
 package com.vivern.arpg.container;
 
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTileClickToServer;
+import com.vivern.arpg.network.packet.PacketTileClickToServer;
 import java.io.IOException;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -26,7 +26,7 @@ public class GUIAssemblyTable extends GuiContainer {
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       if (Character.isDigit(typedChar) || keyCode == 14) {
          PacketTileClickToServer packet = new PacketTileClickToServer();
-         packet.writeints(
+         packet.writeInts(
             this.tileinv.getField(10),
             this.tileinv.getField(11),
             this.tileinv.getField(12),
@@ -37,7 +37,7 @@ public class GUIAssemblyTable extends GuiContainer {
          PacketHandler.NETWORK.sendToServer(packet);
       } else if (typedChar == 'j') {
          PacketTileClickToServer packet = new PacketTileClickToServer();
-         packet.writeints(this.tileinv.getField(10), this.tileinv.getField(11), this.tileinv.getField(12), 0, 2, 10);
+         packet.writeInts(this.tileinv.getField(10), this.tileinv.getField(11), this.tileinv.getField(12), 0, 2, 10);
          PacketHandler.NETWORK.sendToServer(packet);
       } else {
          super.keyTyped(typedChar, keyCode);
@@ -77,7 +77,7 @@ public class GUIAssemblyTable extends GuiContainer {
       int i = (this.width - this.xSize) / 2;
       int j = (this.height - this.ySize) / 2;
       PacketTileClickToServer packet = new PacketTileClickToServer();
-      packet.writeints(this.tileinv.getField(10), this.tileinv.getField(11), this.tileinv.getField(12), mouseX - i, mouseY - j, mouseButton);
+      packet.writeInts(this.tileinv.getField(10), this.tileinv.getField(11), this.tileinv.getField(12), mouseX - i, mouseY - j, mouseButton);
       PacketHandler.NETWORK.sendToServer(packet);
    }
 

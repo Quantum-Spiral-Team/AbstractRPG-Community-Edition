@@ -53,7 +53,7 @@ public class TileNetherMelter extends TileEntityLockable implements IManaBuffer,
 
    @Override
    public ItemStack getStackInSlot(int index) {
-      return (ItemStack)this.furnaceItemStacks.get(index);
+      return this.furnaceItemStacks.get(index);
    }
 
    @Override
@@ -68,7 +68,7 @@ public class TileNetherMelter extends TileEntityLockable implements IManaBuffer,
 
    @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
-      ItemStack itemstack = (ItemStack)this.furnaceItemStacks.get(index);
+      ItemStack itemstack = this.furnaceItemStacks.get(index);
       boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
       this.furnaceItemStacks.set(index, stack);
       if (stack.getCount() > this.getInventoryStackLimit()) {
@@ -100,10 +100,8 @@ public class TileNetherMelter extends TileEntityLockable implements IManaBuffer,
 
    @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
-      return this.world.getTileEntity(this.pos) != this
-         ? false
-         : player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
-            <= 64.0;
+      return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
+              <= 64.0;
    }
 
    @Override
@@ -116,7 +114,7 @@ public class TileNetherMelter extends TileEntityLockable implements IManaBuffer,
 
    @Override
    public boolean isItemValidForSlot(int index, ItemStack stack) {
-      return index > 4 ? false : index < 8;
+      return index <= 4 && index < 8;
    }
 
    @Override
@@ -209,7 +207,7 @@ public class TileNetherMelter extends TileEntityLockable implements IManaBuffer,
                this.getManaBuffer().addMana(-cost);
                NetherMelter.trySendPacketUpdate(this.world, this.getPos(), this);
                if (this.ticksExisted % 76 == 0) {
-                  this.world.playSound((EntityPlayer)null, this.getPos(), Sounds.nether_melter, SoundCategory.BLOCKS, 0.9F, 1.0F);
+                  this.world.playSound(null, this.getPos(), Sounds.nether_melter, SoundCategory.BLOCKS, 0.9F, 1.0F);
                }
             } else {
                for (NetherMelterRecipe recipe : NetherMelterRecipesRegister.allRecipes) {
@@ -234,7 +232,7 @@ public class TileNetherMelter extends TileEntityLockable implements IManaBuffer,
       byte var4 = 0;
       if (var4 < recipe) {
          int i = var2[var4];
-         if (!((ItemStack)this.furnaceItemStacks.get(i)).isEmpty()) {
+         if (!this.furnaceItemStacks.get(i).isEmpty()) {
          }
 
          noempty = true;

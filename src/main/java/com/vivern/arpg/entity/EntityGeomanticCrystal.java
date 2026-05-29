@@ -3,7 +3,7 @@ package com.vivern.arpg.entity;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.network.PacketDoSomethingToClients;
+import com.vivern.arpg.network.packet.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.state.IBlockState;
@@ -49,7 +49,7 @@ public class EntityGeomanticCrystal extends Entity {
    public void sendUpdateColor(World world) {
       if (!world.isRemote) {
          PacketDoSomethingToClients packet = new PacketDoSomethingToClients();
-         packet.writeargs(
+         packet.writeArgs(
             NBTHelper.GetNBTint(this.stackIn, "color"),
             NBTHelper.GetNBTint(this.stackIn, "colorover"),
             NBTHelper.GetNBTint(this.stackIn, "type"),

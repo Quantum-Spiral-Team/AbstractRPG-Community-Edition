@@ -72,36 +72,35 @@ public class SparkleSubparticle {
          bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
          int size = particles.size();
 
-         for (int s = 0; s < size; s++) {
-            SparkleSubparticle part = particles.get(s);
-            if (part != null) {
-               double d0 = part.posX - cameraX + part.moveX * pt;
-               double d1 = part.posY - cameraY + part.moveY * pt;
-               double d2 = part.posZ - cameraZ + part.moveZ * pt;
-               double dist = Math.sqrt(d0 * d0 + d2 * d2);
-               float colorR = 1.0F - GetMOP.getFromTo(part.color, 0.7F, 1.0F);
-               float colorG = 1.0F - GetMOP.getFromTo(part.color, 0.45F, 0.8F);
-               float colorB = 0.95F - GetMOP.getFromTo(part.color, 0.0F, 0.55F) * 0.95F;
-               float unit = part.size;
-               float unit1X = (float)(-(d2 / dist)) * part.size;
-               float unit1Z = (float)(d0 / dist) * part.size;
-               float unit2X = -unit1X;
-               float unit2Z = -unit1Z;
-               bufferbuilder.pos(d0 + unit1X, d1 - unit, d2 + unit1Z).color(colorR, colorG, colorB, 1.0F).endVertex();
-               bufferbuilder.pos(d0 + unit1X, d1 + unit, d2 + unit1Z).color(colorR, colorG, colorB, 1.0F).endVertex();
-               bufferbuilder.pos(d0 + unit2X, d1 + unit, d2 + unit2Z).color(colorR, colorG, colorB, 1.0F).endVertex();
-               bufferbuilder.pos(d0 + unit2X, d1 - unit, d2 + unit2Z).color(colorR, colorG, colorB, 1.0F).endVertex();
-               if (AnimationTimer.normaltick <= part.timebound) {
-                  part.posX = part.posX + part.moveX;
-                  part.posY = part.posY + part.moveY;
-                  part.posZ = part.posZ + part.moveZ;
-                  part.moveX = part.moveX + ((rand.nextFloat() - 0.5F) * 0.003F + Weather.getWindX(part.posX, part.posZ) * 0.012F);
-                  part.moveY = part.moveY + ((rand.nextFloat() - 0.4F) * 0.003F + Weather.getWindY(part.posX, part.posZ) * 0.012F);
-                  part.moveZ = part.moveZ + ((rand.nextFloat() - 0.5F) * 0.003F + Weather.getWindZ(part.posX, part.posZ) * 0.012F);
-                  part.color += 0.008F;
-                  part.size = (float)(part.size * 0.999);
-               }
-            }
+         for (SparkleSubparticle part : particles) {
+             if (part != null) {
+                 double d0 = part.posX - cameraX + part.moveX * pt;
+                 double d1 = part.posY - cameraY + part.moveY * pt;
+                 double d2 = part.posZ - cameraZ + part.moveZ * pt;
+                 double dist = Math.sqrt(d0 * d0 + d2 * d2);
+                 float colorR = 1.0F - GetMOP.getFromTo(part.color, 0.7F, 1.0F);
+                 float colorG = 1.0F - GetMOP.getFromTo(part.color, 0.45F, 0.8F);
+                 float colorB = 0.95F - GetMOP.getFromTo(part.color, 0.0F, 0.55F) * 0.95F;
+                 float unit = part.size;
+                 float unit1X = (float) (-(d2 / dist)) * part.size;
+                 float unit1Z = (float) (d0 / dist) * part.size;
+                 float unit2X = -unit1X;
+                 float unit2Z = -unit1Z;
+                 bufferbuilder.pos(d0 + unit1X, d1 - unit, d2 + unit1Z).color(colorR, colorG, colorB, 1.0F).endVertex();
+                 bufferbuilder.pos(d0 + unit1X, d1 + unit, d2 + unit1Z).color(colorR, colorG, colorB, 1.0F).endVertex();
+                 bufferbuilder.pos(d0 + unit2X, d1 + unit, d2 + unit2Z).color(colorR, colorG, colorB, 1.0F).endVertex();
+                 bufferbuilder.pos(d0 + unit2X, d1 - unit, d2 + unit2Z).color(colorR, colorG, colorB, 1.0F).endVertex();
+                 if (AnimationTimer.normaltick <= part.timebound) {
+                     part.posX = part.posX + part.moveX;
+                     part.posY = part.posY + part.moveY;
+                     part.posZ = part.posZ + part.moveZ;
+                     part.moveX = part.moveX + ((rand.nextFloat() - 0.5F) * 0.003F + Weather.getWindX(part.posX, part.posZ) * 0.012F);
+                     part.moveY = part.moveY + ((rand.nextFloat() - 0.4F) * 0.003F + Weather.getWindY(part.posX, part.posZ) * 0.012F);
+                     part.moveZ = part.moveZ + ((rand.nextFloat() - 0.5F) * 0.003F + Weather.getWindZ(part.posX, part.posZ) * 0.012F);
+                     part.color += 0.008F;
+                     part.size = (float) (part.size * 0.999);
+                 }
+             }
          }
 
          tessellator.draw();

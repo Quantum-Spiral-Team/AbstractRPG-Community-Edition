@@ -485,7 +485,7 @@ public class BossWinterFury extends AbstractBoss {
 
    @Override
    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-      return this.burnMode && potioneffectIn.getPotion() == PotionEffects.FROSTBURN ? false : super.isPotionApplicable(potioneffectIn);
+      return (!this.burnMode || potioneffectIn.getPotion() != PotionEffects.FROSTBURN) && super.isPotionApplicable(potioneffectIn);
    }
 
    @Override

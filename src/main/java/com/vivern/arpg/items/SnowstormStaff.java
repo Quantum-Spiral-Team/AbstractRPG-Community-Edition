@@ -79,7 +79,7 @@ public class SnowstormStaff extends Item {
             && itemstack.getItemDamage() < itemIn.getMaxDamage()) {
             if (itemstack.getItemDamage() == 1) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

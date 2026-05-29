@@ -52,7 +52,7 @@ public class TEISRBlocks extends TileEntityItemStackRenderer {
          Block block = ((ItemBlock)item).getBlock();
          GlStateManager.pushMatrix();
          if (block == BlocksRegister.ASSEMBLY_TABLE) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileAssemblyTable.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
@@ -84,70 +84,70 @@ public class TEISRBlocks extends TileEntityItemStackRenderer {
                id = 5;
             }
 
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileAssemblyAugment.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, id, 1.0F);
          }
 
          if (block == BlocksRegister.SHIMMERING_BEASTBLOOM) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileShimmeringBeastbloom.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.BIO_CELL) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileBioCell.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.GLOSSARY) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileGlossary.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.TIDE_BEACON) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileNexusBeacon.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.TRITON_HEARTH) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileTritonHearth.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.TRITON_HEARTH) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileTritonHearth.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.VOID_CRYSTAL_BLOCK) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileVoidCrystal.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.RUNIC_MIRROR) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileRunicMirror.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.INDUSTRIAL_MIXER) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileIndustrialMixer.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
@@ -159,7 +159,7 @@ public class TEISRBlocks extends TileEntityItemStackRenderer {
             ShardType type = blockEntityTag != null && blockEntityTag.hasKey("type")
                ? ShardType.byName(blockEntityTag.getString("type"))
                : ShardType.FIRE;
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileCrystalSphere.class);
             TESRrenderer.render(null, stored, type.id, 0.0, partialTicks, -1, 1.0F);
@@ -169,54 +169,54 @@ public class TEISRBlocks extends TileEntityItemStackRenderer {
             NBTTagCompound blockEntityTag = NBTHelper.GetNBTtag(itemstack, "BlockEntityTag");
             float max = blockEntityTag != null && blockEntityTag.hasKey("max") ? blockEntityTag.getFloat("max") : 0.0F;
             float stored = blockEntityTag != null && blockEntityTag.hasKey("manaStored") ? blockEntityTag.getFloat("manaStored") : 0.0F;
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileManaBottle.class);
             TESRrenderer.render(null, max, stored, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.SOUL_CATCHER) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileSoulCatcher.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.MANA_PUMP) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileManaPump.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.SIEVE) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance.renderers.get(TileSieve.class);
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileSieve.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.ELECTRIC_SIEVE) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileElectricSieve.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.BLOCK_NIVEOLITE_GAME) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileNexusNiveolite.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.PRESENT_BOX) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TilePresentBox.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.ITEM_CHARGER) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileItemCharger.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
@@ -225,28 +225,28 @@ public class TEISRBlocks extends TileEntityItemStackRenderer {
          if (item instanceof ItemARPGChest) {
             ItemARPGChest chest = (ItemARPGChest)item;
             ARPGChestTESR.reservedChestType = chest.chestType;
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileARPGChest.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.MAGIC_GENERATOR) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileMagicGenerator.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.BLOCK_ETHERITE_INVOCATOR) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileEtheriteInvocator.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
          }
 
          if (block == BlocksRegister.TEAM_BANNER) {
-            TileEntitySpecialRenderer TESRrenderer = (TileEntitySpecialRenderer)TileEntityRendererDispatcher.instance
+            TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance
                .renderers
                .get(TileTeamBanner.class);
             TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);

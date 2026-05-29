@@ -51,9 +51,7 @@ public class BlockStalactiteBase extends Block {
       } else if (this.type == 2) {
          return side == EnumFacing.UP;
       } else if (this.type == 3) {
-         return side == EnumFacing.DOWN && !worldIn.isAirBlock(pos.down())
-            ? true
-            : side == EnumFacing.UP && !worldIn.isAirBlock(pos.up());
+         return side == EnumFacing.DOWN && !worldIn.isAirBlock(pos.down()) || side == EnumFacing.UP && !worldIn.isAirBlock(pos.up());
       } else {
          return false;
       }
@@ -110,7 +108,7 @@ public class BlockStalactiteBase extends Block {
 
    @Override
    public int damageDropped(IBlockState state) {
-      return ((EnumType)state.getValue(VARIANT)).getMetadata();
+      return state.getValue(VARIANT).getMetadata();
    }
 
    @Override
@@ -120,12 +118,12 @@ public class BlockStalactiteBase extends Block {
 
    @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      return ((EnumType)state.getValue(VARIANT)).getMapColor();
+      return state.getValue(VARIANT).getMapColor();
    }
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumType)state.getValue(VARIANT)).getMetadata();
+      return state.getValue(VARIANT).getMetadata();
    }
 
    @Override

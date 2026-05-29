@@ -62,8 +62,8 @@ public class AssemblyTableRecipe {
          NonNullList<ItemStack> stacks = tile.stacks;
 
          for (int i = 0; i < 9; i++) {
-            ItemStack have = (ItemStack)stacks.get(i);
-            if (!((Ingridient)this.recipe.get(i)).isStackAllowed(have)) {
+            ItemStack have = stacks.get(i);
+            if (!this.recipe.get(i).isStackAllowed(have)) {
                return false;
             }
          }
@@ -102,8 +102,8 @@ public class AssemblyTableRecipe {
             return true;
          } else {
             for (int ix = 0; ix < 9; ix++) {
-               ItemStack have = (ItemStack)stacks.get(ix);
-               Ingridient need = (Ingridient)this.recipe.get(ix);
+               ItemStack have = stacks.get(ix);
+               Ingridient need = this.recipe.get(ix);
                int size = have.getCount() - need.getCount();
                ItemStack result = size > 0 ? new ItemStack(have.getItem(), size, have.getMetadata(), have.getTagCompound()) : ItemStack.EMPTY;
                tile.stacks.set(ix, result);
@@ -171,8 +171,8 @@ public class AssemblyTableRecipe {
          NonNullList<ItemStack> stacks = tile.stacks;
 
          for (int i = 0; i < 9; i++) {
-            ItemStack have = (ItemStack)stacks.get(i);
-            if (!((Ingridient)this.recipe.get(i)).isStackAllowed(have)) {
+            ItemStack have = stacks.get(i);
+            if (!this.recipe.get(i).isStackAllowed(have)) {
                return false;
             }
          }
@@ -202,7 +202,7 @@ public class AssemblyTableRecipe {
          return false;
       }
 
-      return have == null || need == null || need.ingridient == null ? false : need.ingridient.isStackAllowed(have);
+      return have != null && need != null && need.ingridient != null && need.ingridient.isStackAllowed(have);
    }
 
    public boolean canOutput(ItemStack st1, ItemStack st2, int invStackLimit) {
@@ -217,7 +217,7 @@ public class AssemblyTableRecipe {
          return false;
       } else {
          boolean b = st1.hasTagCompound();
-         return b != st2.hasTagCompound() ? false : !b || st1.getTagCompound().equals(st2.getTagCompound());
+         return b == st2.hasTagCompound() && (!b || st1.getTagCompound().equals(st2.getTagCompound()));
       }
    }
 
@@ -228,16 +228,16 @@ public class AssemblyTableRecipe {
    public List<ItemStack> exportInputsAsList() {
       List<ItemStack> list = new ArrayList<>();
 
-      for (int i = 0; i < this.recipe.size(); i++) {
-         if (this.recipe.get(i) != Ingridient.EMPTY) {
-            list.add(((Ingridient)this.recipe.get(i)).createStack());
-         }
+      for (Ingridient ingridient : this.recipe) {
+          if (ingridient != Ingridient.EMPTY) {
+              list.add(ingridient.createStack());
+          }
       }
 
-      for (int ix = 0; ix < this.augmentsRecipe.size(); ix++) {
-         if (this.augmentsRecipe.get(ix) != null && this.augmentsRecipe.get(ix).ingridient != Ingridient.EMPTY) {
-            list.add(this.augmentsRecipe.get(ix).ingridient.createStack());
-         }
+      for (AugmentCost augmentCost : this.augmentsRecipe) {
+          if (augmentCost != null && augmentCost.ingridient != Ingridient.EMPTY) {
+              list.add(augmentCost.ingridient.createStack());
+          }
       }
 
       return list;

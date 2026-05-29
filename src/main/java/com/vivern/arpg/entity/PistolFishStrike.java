@@ -176,7 +176,7 @@ public class PistolFishStrike extends EntityThrowable {
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -195,7 +195,7 @@ public class PistolFishStrike extends EntityThrowable {
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

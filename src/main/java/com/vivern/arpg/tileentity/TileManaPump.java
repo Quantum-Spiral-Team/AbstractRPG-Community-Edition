@@ -9,7 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
-public class TileManaPump extends TileEntity implements ITickable, ITileEntitySynchronize {
+public class TileManaPump extends TileEntity implements ITickable, ITileEntitySynchronized {
    public EnumFacing facing;
    public float lastFlow;
    public float flow;
@@ -50,7 +50,7 @@ public class TileManaPump extends TileEntity implements ITickable, ITileEntitySy
 
          if (lastUpdateChanges != this.lastFlow) {
             this.lastFlow = lastUpdateChanges;
-            ITileEntitySynchronize.sendSynchronize(this, 48.0, this.lastFlow);
+            ITileEntitySynchronized.sendSynchronize(this, 48.0, this.lastFlow);
          }
       }
    }

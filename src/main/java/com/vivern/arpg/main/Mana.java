@@ -47,7 +47,7 @@ public class Mana {
    public static long radTime = 0L;
 
    public static float getMana(EntityPlayer player) {
-      return (Float)player.getDataManager().get(PropertiesRegistry.MANA);
+      return player.getDataManager().get(PropertiesRegistry.MANA);
    }
 
    public static float getManaMax(EntityPlayer player) {
@@ -60,13 +60,13 @@ public class Mana {
    }
 
    public static void changeMana(EntityPlayer player, float value) {
-      player.getDataManager().set(PropertiesRegistry.MANA, (Float)player.getDataManager().get(PropertiesRegistry.MANA) + value);
+      player.getDataManager().set(PropertiesRegistry.MANA, player.getDataManager().get(PropertiesRegistry.MANA) + value);
       player.getEntityData().setFloat("arpg.mana", getMana(player));
-      player.getDataManager().set(PropertiesRegistry.MANASPEED, 0.001F);
+      player.getDataManager().set(PropertiesRegistry.MANA_SPEED, 0.001F);
    }
 
    public static void giveMana(EntityPlayer player, float value) {
-      player.getDataManager().set(PropertiesRegistry.MANA, (Float)player.getDataManager().get(PropertiesRegistry.MANA) + value);
+      player.getDataManager().set(PropertiesRegistry.MANA, player.getDataManager().get(PropertiesRegistry.MANA) + value);
    }
 
    private static void saveManaToNBT(EntityPlayer player) {
@@ -104,38 +104,38 @@ public class Mana {
       saveManaSpeedToNBT(event.player);
       Shards.saveShardsToNBT(event.player);
       Coins.saveCoinsToNBT(event.player);
-      event.player.getEntityData().setBoolean("wflying", (Boolean)event.player.getDataManager().get(PropertiesRegistry.FLYING));
-      event.player.getEntityData().setInteger("arpg.radiation", (Integer)event.player.getDataManager().get(PropertiesRegistry.RADIATION));
-      event.player.getEntityData().setInteger("arpg.swarm_points", (Integer)event.player.getDataManager().get(PropertiesRegistry.SWARM_POINTS));
+      event.player.getEntityData().setBoolean("wflying", event.player.getDataManager().get(PropertiesRegistry.FLYING));
+      event.player.getEntityData().setInteger("arpg.radiation", event.player.getDataManager().get(PropertiesRegistry.RADIATION));
+      event.player.getEntityData().setInteger("arpg.swarm_points", event.player.getDataManager().get(PropertiesRegistry.SWARM_POINTS));
    }
 
    public static float getManaSpeed(EntityPlayer player) {
-      return (Float)player.getDataManager().get(PropertiesRegistry.MANASPEED);
+      return player.getDataManager().get(PropertiesRegistry.MANA_SPEED);
    }
 
    public static float getManaSpeedMax(EntityPlayer player) {
-      return (float)player.getEntityAttribute(PropertiesRegistry.MANASPEED_MAX).getAttributeValue();
+      return (float)player.getEntityAttribute(PropertiesRegistry.MANA_SPEED_MAX).getAttributeValue();
    }
 
    public static void changeManaSpeed(EntityPlayer player, float value) {
-      player.getDataManager().set(PropertiesRegistry.MANASPEED, (Float)player.getDataManager().get(PropertiesRegistry.MANASPEED) + value);
+      player.getDataManager().set(PropertiesRegistry.MANA_SPEED, player.getDataManager().get(PropertiesRegistry.MANA_SPEED) + value);
    }
 
    public static void multipleManaSpeed(EntityPlayer player, float value, float plus) {
       player.getDataManager()
-         .set(PropertiesRegistry.MANASPEED, (Float)player.getDataManager().get(PropertiesRegistry.MANASPEED) * value + plus);
+         .set(PropertiesRegistry.MANA_SPEED, player.getDataManager().get(PropertiesRegistry.MANA_SPEED) * value + plus);
    }
 
    public static void setManaSpeed(EntityPlayer player, float value) {
-      player.getDataManager().set(PropertiesRegistry.MANASPEED, value);
+      player.getDataManager().set(PropertiesRegistry.MANA_SPEED, value);
    }
 
    private static void saveManaSpeedToNBT(EntityPlayer player) {
-      player.getEntityData().setFloat("arpg.manaspeed", getManaSpeed(player));
+      player.getEntityData().setFloat("arpg.mana_speed", getManaSpeed(player));
    }
 
    private static float loadManaSpeedFromNBT(EntityPlayer player) {
-      return player.getEntityData().hasKey("arpg.manaspeed") ? player.getEntityData().getFloat("arpg.manaspeed") : getManaSpeedMax(player);
+      return player.getEntityData().hasKey("arpg.mana_speed") ? player.getEntityData().getFloat("arpg.mana_speed") : getManaSpeedMax(player);
    }
 
    public static int getSwarmTicks(EntityPlayer player) {
@@ -257,7 +257,6 @@ public class Mana {
             MobSpawn.onPlayerUpdate(world, player);
          }
 
-         Keys.onUpdate(player);
          JumpBonusTracker.airbornMovement(player);
          Debugger.checkChest(player);
       }
@@ -323,7 +322,7 @@ public class Mana {
    }
 
    public static int getRad(EntityPlayer player) {
-      return (Integer)player.getDataManager().get(PropertiesRegistry.RADIATION);
+      return player.getDataManager().get(PropertiesRegistry.RADIATION);
    }
 
    public static void addRad(EntityPlayer player, int add, boolean fromOutside) {
@@ -382,7 +381,7 @@ public class Mana {
    }
 
    public static int getSwarmPoints(EntityPlayer player) {
-      return (Integer)player.getDataManager().get(PropertiesRegistry.SWARM_POINTS);
+      return player.getDataManager().get(PropertiesRegistry.SWARM_POINTS);
    }
 
    public static void addSwarmPoints(EntityPlayer player, int add) {

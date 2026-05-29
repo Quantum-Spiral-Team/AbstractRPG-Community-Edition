@@ -125,7 +125,7 @@ public class SparklingNecklace extends Item implements IBauble, IAttributedBaubl
 
             player.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

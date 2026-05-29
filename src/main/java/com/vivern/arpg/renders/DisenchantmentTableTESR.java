@@ -40,7 +40,7 @@ public class DisenchantmentTableTESR extends TileEntitySpecialRenderer<TileDisen
       this.bindTexture(TEXTURE);
       float f5 = te.bookSpreadPrev + (te.bookSpread - te.bookSpreadPrev) * partialTicks;
       GlStateManager.enableCull();
-      modelBook.render((Entity)null, 0.0F, 0.0F, 0.0F, f5, 0.0F, 0.0625F);
+      modelBook.render(null, 0.0F, 0.0F, 0.0F, f5, 0.0F, 0.0625F);
       GlStateManager.popMatrix();
       RenderHelper.disableStandardItemLighting();
       GlStateManager.disableTexture2D();

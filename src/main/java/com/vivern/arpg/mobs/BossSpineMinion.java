@@ -56,7 +56,7 @@ public class BossSpineMinion extends EntityMob {
    @Override
    public boolean attackEntityFrom(DamageSource source, float amount) {
       if (source != DamageSource.IN_WALL && source != DamageSource.CRAMMING && source != DamageSource.CACTUS) {
-         return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+         return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
       } else {
          return false;
       }

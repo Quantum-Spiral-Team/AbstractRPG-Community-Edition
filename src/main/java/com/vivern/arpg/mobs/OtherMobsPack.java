@@ -208,7 +208,7 @@ public class OtherMobsPack {
                this.owner = player;
                this.team = Team.getTeamFor(player);
                this.navigator.clearPath();
-               this.setAttackTarget((EntityLivingBase)null);
+               this.setAttackTarget(null);
                this.world.setEntityState(this, (byte)7);
             }
          }
@@ -291,7 +291,7 @@ public class OtherMobsPack {
          if (nodetype == PathNodeType.DAMAGE_FIRE || nodetype == PathNodeType.LAVA) {
             return true;
          } else {
-            return nodetype == PathNodeType.DAMAGE_OTHER ? false : state.getCollisionBoundingBox(world, pos) == null;
+            return nodetype != PathNodeType.DAMAGE_OTHER && state.getCollisionBoundingBox(world, pos) == null;
          }
       }
 
@@ -687,7 +687,7 @@ public class OtherMobsPack {
 
       @Override
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-         return potioneffectIn.getPotion() == PotionEffects.DEMONIC_BURN ? false : super.isPotionApplicable(potioneffectIn);
+         return potioneffectIn.getPotion() != PotionEffects.DEMONIC_BURN && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -1762,7 +1762,7 @@ public class OtherMobsPack {
             entitypotion.shoot(d1, d2 + f * 0.2F, d3, 1.15F, 6.0F);
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -1866,7 +1866,7 @@ public class OtherMobsPack {
                this.owner = player;
                this.team = Team.getTeamFor(player);
                this.navigator.clearPath();
-               this.setAttackTarget((EntityLivingBase)null);
+               this.setAttackTarget(null);
                this.world.setEntityState(this, (byte)7);
             }
          }
@@ -2072,7 +2072,7 @@ public class OtherMobsPack {
          } else if (source == DamageSource.IN_WALL) {
             return false;
          } else if (!this.isSubMob) {
-            return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+            return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
          } else if (this.headEntity != null) {
             this.world.setEntityState(this, (byte)2);
             boolean att = this.headEntity.attackEntityFrom(source, amount);
@@ -2159,7 +2159,7 @@ public class OtherMobsPack {
                   }
                } else {
                   if (this.headEntityID != null) {
-                     Entity entit = (VoidGuard)getEntityByUUID(this.world, this.headEntityID);
+                     Entity entit = getEntityByUUID(this.world, this.headEntityID);
                      if (entit instanceof VoidGuard) {
                         this.headEntity = (VoidGuard)entit;
                      }

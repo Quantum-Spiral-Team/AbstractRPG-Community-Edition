@@ -268,7 +268,7 @@ public class ChunkGenSettingsAqua {
             return new Factory();
          } else {
             try {
-               return (Factory)JsonUtils.gsonDeserialize(JSON_ADAPTER, p_177865_0_, Factory.class);
+               return JsonUtils.gsonDeserialize(JSON_ADAPTER, p_177865_0_, Factory.class);
             } catch (Exception var2) {
                return new Factory();
             }
@@ -609,7 +609,7 @@ public class ChunkGenSettingsAqua {
             } else if (this.useVillages != chunkGenSettings$factory.useVillages) {
                return false;
             } else {
-               return this.useWaterLakes != chunkGenSettings$factory.useWaterLakes ? false : this.waterLakeChance == chunkGenSettings$factory.waterLakeChance;
+               return this.useWaterLakes == chunkGenSettings$factory.useWaterLakes && this.waterLakeChance == chunkGenSettings$factory.waterLakeChance;
             }
          } else {
             return false;

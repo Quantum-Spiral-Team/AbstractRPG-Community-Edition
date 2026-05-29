@@ -25,7 +25,7 @@ public class ChestReplacerToxic implements ITemplateProcessor {
    public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
       if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
          GenerationHelper.setChestWithLoot(
-            world, pos, EnumChest.TOXIC, ListLootTable.CHESTS_TOXIC_COMMON, (EnumFacing)blockInfoIn.blockState.getValue(BlockChest.FACING)
+            world, pos, EnumChest.TOXIC, ListLootTable.CHESTS_TOXIC_COMMON, blockInfoIn.blockState.getValue(BlockChest.FACING)
          );
          return null;
       } else {
@@ -54,7 +54,7 @@ public class ChestReplacerToxic implements ITemplateProcessor {
                   pos,
                   EnumChest.RUSTED,
                   ListLootTable.CHESTS_RUSTED_BUNKER,
-                  (EnumFacing)blockInfoIn.blockState.getValue(BlockChest.FACING)
+                       blockInfoIn.blockState.getValue(BlockChest.FACING)
                );
             }
 
@@ -86,7 +86,7 @@ public class ChestReplacerToxic implements ITemplateProcessor {
                   pos,
                   EnumChest.RUSTED,
                   ListLootTable.CHESTS_RUSTED_LAB,
-                  (EnumFacing)blockInfoIn.blockState.getValue(BlockChest.FACING)
+                       blockInfoIn.blockState.getValue(BlockChest.FACING)
                );
             }
 

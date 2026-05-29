@@ -2,7 +2,7 @@ package com.vivern.arpg.mobs;
 
 import com.vivern.arpg.items.models.ModelsStormledgeMob;
 import com.vivern.arpg.entity.BetweenParticle;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.main.BloodType;
 import com.vivern.arpg.main.DeathEffects;
 import com.vivern.arpg.main.GetMOP;
@@ -359,13 +359,11 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)
@@ -546,13 +544,11 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)
@@ -667,13 +663,11 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)
@@ -807,13 +801,11 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @Override
@@ -865,7 +857,7 @@ public class StormledgeMobsPack {
 
       @Override
       public boolean attackEntityFrom(DamageSource source, float amount) {
-         return source == DamageSource.IN_WALL ? false : super.attackEntityFrom(source, amount);
+         return source != DamageSource.IN_WALL && super.attackEntityFrom(source, amount);
       }
 
       @Override
@@ -919,7 +911,7 @@ public class StormledgeMobsPack {
 
       @Override
       protected boolean canDespawn() {
-         return this.despawnIfNoBoss ? false : super.canDespawn();
+         return !this.despawnIfNoBoss && super.canDespawn();
       }
 
       @Override
@@ -1015,13 +1007,11 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)
@@ -1184,13 +1174,11 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)
@@ -1348,13 +1336,11 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)
@@ -1534,14 +1520,12 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.SHOCK
-               && potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BLOOD_THIRST
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)
@@ -1749,13 +1733,11 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)
@@ -1789,7 +1771,7 @@ public class StormledgeMobsPack {
       }
    }
 
-   public static class Zarpion extends AbstractMob implements IEntitySynchronize {
+   public static class Zarpion extends AbstractMob implements ISynchronizedEntity {
       public static ResourceLocation texture = new ResourceLocation("arpg:textures/voltrident_beam.png");
       public int WEAPON = 0;
       public float shieldPower = 0.0F;
@@ -1952,7 +1934,7 @@ public class StormledgeMobsPack {
 
                if (this.arcCooldown <= 0 && this.ticksExisted % 5 == 0) {
                   if (d0 < 16.0 && cansee && this.arcTime < 120) {
-                     IEntitySynchronize.sendSynchronize(
+                     ISynchronizedEntity.sendSynchronize(
                         this,
                         32.0,
                         this.posX,
@@ -2027,13 +2009,11 @@ public class StormledgeMobsPack {
       public boolean isPotionApplicable(PotionEffect potioneffectIn) {
          Potion potion = potioneffectIn.getPotion();
          return potion != PotionEffects.BLOOD_THIRST
-               && potion != PotionEffects.BERSERK
-               && potion != MobEffects.WEAKNESS
-               && potion != MobEffects.POISON
-               && potion != MobEffects.REGENERATION
-               && potion != MobEffects.INSTANT_HEALTH
-            ? super.isPotionApplicable(potioneffectIn)
-            : false;
+                 && potion != PotionEffects.BERSERK
+                 && potion != MobEffects.WEAKNESS
+                 && potion != MobEffects.POISON
+                 && potion != MobEffects.REGENERATION
+                 && potion != MobEffects.INSTANT_HEALTH && super.isPotionApplicable(potioneffectIn);
       }
 
       @SideOnly(Side.CLIENT)

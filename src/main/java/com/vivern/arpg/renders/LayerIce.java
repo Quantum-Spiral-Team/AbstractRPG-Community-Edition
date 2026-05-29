@@ -50,7 +50,7 @@ public class LayerIce implements LayerRenderer<EntityLivingBase> {
             ModelRenderer modelrenderer = this.renderer.getMainModel().getRandomModelBox(random);
             if (modelrenderer.cubeList.size() > 0) {
                GlStateManager.pushMatrix();
-               ModelBox modelbox = (ModelBox)modelrenderer.cubeList.get(random.nextInt(modelrenderer.cubeList.size()));
+               ModelBox modelbox = modelrenderer.cubeList.get(random.nextInt(modelrenderer.cubeList.size()));
                modelrenderer.postRender(0.0625F);
                float f = random.nextFloat();
                float f1 = random.nextFloat();

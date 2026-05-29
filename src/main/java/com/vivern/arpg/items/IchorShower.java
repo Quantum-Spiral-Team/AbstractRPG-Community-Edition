@@ -1,13 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityIchor;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -58,10 +52,10 @@ public class IchorShower extends ItemWeapon {
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             float power = Mana.getMagicPowerMax(player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchantedF("manacost", sor);
-            if (click && player.getHeldItemMainhand() == itemstack && Mana.getMana(player) > manacost && !player.getCooldownTracker().hasCooldown(this)) {
+            float manaCost = parameters.getEnchantedF("manacost", sor);
+            if (click && player.getHeldItemMainhand() == itemstack && Mana.getMana(player) > manaCost && !player.getCooldownTracker().hasCooldown(this)) {
                world.playSound(
                        null,
                        player.posX,
@@ -91,7 +85,7 @@ public class IchorShower extends ItemWeapon {
                );
                world.spawnEntity(entityIchor);
                if (!player.capabilities.isCreativeMode) {
-                  Mana.changeMana(player, -manacost);
+                  Mana.changeMana(player, -manaCost);
                   Mana.setManaSpeed(player, 0.001F);
                   itemstack.damageItem(1, player);
                }

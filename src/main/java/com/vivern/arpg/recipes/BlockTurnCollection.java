@@ -51,8 +51,8 @@ public class BlockTurnCollection {
    public static int byWeight(Random rand, ArrayList<BlockShardTypeTurn> list) {
       int summ = 0;
 
-      for (int i = 0; i < list.size(); i++) {
-         summ += list.get(i).weight;
+      for (BlockShardTypeTurn blockShardTypeTurn : list) {
+          summ += blockShardTypeTurn.weight;
       }
 
       return byWeight(summ, rand, list);

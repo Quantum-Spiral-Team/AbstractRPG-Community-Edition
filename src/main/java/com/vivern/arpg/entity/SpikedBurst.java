@@ -123,7 +123,7 @@ public class SpikedBurst extends EntityThrowable {
             result.entityHit.hurtResistantTime = 0;
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -142,7 +142,7 @@ public class SpikedBurst extends EntityThrowable {
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

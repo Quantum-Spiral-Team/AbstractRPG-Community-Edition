@@ -2,7 +2,7 @@ package com.vivern.arpg.container;
 
 import com.vivern.arpg.main.ItemsElements;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTileClickToServer;
+import com.vivern.arpg.network.packet.PacketTileClickToServer;
 import com.vivern.arpg.tileentity.TileElementDistributor;
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,8 +41,8 @@ public class GUIElementDistributor extends GuiContainer {
 
    @Override
    public void updateScreen() {
-      for (int i = 0; i < this.textFieldElements.length; i++) {
-         this.textFieldElements[i].updateCursorCounter();
+      for (GuiTextField textFieldElement : this.textFieldElements) {
+          textFieldElement.updateCursorCounter();
       }
 
       this.textFieldPurity.updateCursorCounter();
@@ -183,22 +183,21 @@ public class GUIElementDistributor extends GuiContainer {
    protected void keyTyped(char typedChar, int keyCode) throws IOException {
       this.textFieldPurity.textboxKeyTyped(typedChar, keyCode);
 
-      for (int i = 0; i < this.textFieldElements.length; i++) {
-         this.textFieldElements[i].textboxKeyTyped(typedChar, keyCode);
+      for (GuiTextField textFieldElement : this.textFieldElements) {
+          textFieldElement.textboxKeyTyped(typedChar, keyCode);
       }
 
       super.keyTyped(typedChar, keyCode);
    }
 
-   @Nullable
-   public float[] getTextFieldData() {
+   public float @Nullable [] getTextFieldData() {
       try {
          float[] floats = new float[13];
 
          for (int i = 0; i < 12; i++) {
             String text = this.textFieldElements[i].getText();
             text = text.replace(" ", "");
-            if (text.length() == 0) {
+            if (text.isEmpty()) {
                floats[i] = 0.0F;
             } else {
                text = text.replace(',', '.');
@@ -209,7 +208,7 @@ public class GUIElementDistributor extends GuiContainer {
 
          String text2 = this.textFieldPurity.getText();
          text2 = text2.replace(" ", "");
-         if (text2.length() == 0) {
+         if (text2.isEmpty()) {
             floats[12] = 0.0F;
          } else {
             text2 = text2.replace(',', '.');
@@ -224,18 +223,18 @@ public class GUIElementDistributor extends GuiContainer {
 
    public static void writeElementsOfItemToFile(Item item, int meta, float purity, boolean useMetadata, String filename, boolean canRewrite, float[] elements) {
       String name = item.getRegistryName().toString();
-      String toAdd = name + " " + meta + " " + purity + " " + useMetadata;
+      StringBuilder toAdd = new StringBuilder(name + " " + meta + " " + purity + " " + useMetadata);
 
       for (int i = 0; i < 12; i++) {
-         toAdd = toAdd + " " + elements[i];
+         toAdd.append(" ").append(elements[i]);
       }
 
       ItemsElements.ItemElementsFileEntry elementsFileEntry = findExistedElementsInFiles(item, meta);
       if (elementsFileEntry == null) {
-         addLineToFile(toAdd + '\n', filename);
+         addLineToFile(toAdd.toString() + '\n', filename);
       } else if (canRewrite) {
          System.out.println("replaced line: " + elementsFileEntry.fileLine);
-         replaceLineInFile(toAdd + '\n', elementsFileEntry.fileLine, elementsFileEntry.file);
+         replaceLineInFile(toAdd.toString() + '\n', elementsFileEntry.fileLine, elementsFileEntry.file);
       }
    }
 
@@ -254,8 +253,8 @@ public class GUIElementDistributor extends GuiContainer {
                );
                this.sendPacket(mouseX, mouseY, 3, elementDistributor.getPos());
 
-               for (int t = 0; t < this.textFieldElements.length; t++) {
-                  this.textFieldElements[t].setText("");
+               for (GuiTextField textFieldElement : this.textFieldElements) {
+                   textFieldElement.setText("");
                }
             } else {
                System.out.println("Text fields data uncorrect!");
@@ -277,8 +276,8 @@ public class GUIElementDistributor extends GuiContainer {
 
       this.textFieldPurity.mouseClicked(mouseX, mouseY, mouseButton);
 
-      for (int i = 0; i < this.textFieldElements.length; i++) {
-         this.textFieldElements[i].mouseClicked(mouseX, mouseY, mouseButton);
+      for (GuiTextField textFieldElement : this.textFieldElements) {
+          textFieldElement.mouseClicked(mouseX, mouseY, mouseButton);
       }
 
       super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -286,7 +285,7 @@ public class GUIElementDistributor extends GuiContainer {
 
    public void sendPacket(int mouseX, int mouseY, int mouseButton, BlockPos pos) {
       PacketTileClickToServer packet = new PacketTileClickToServer();
-      packet.writeints(pos.getX(), pos.getY(), pos.getZ(), mouseX, mouseY, mouseButton);
+      packet.writeInts(pos.getX(), pos.getY(), pos.getZ(), mouseX, mouseY, mouseButton);
       PacketHandler.NETWORK.sendToServer(packet);
    }
 
@@ -295,10 +294,6 @@ public class GUIElementDistributor extends GuiContainer {
       this.drawDefaultBackground();
       super.drawScreen(mouseX, mouseY, partialTicks);
       this.renderHoveredToolTip(mouseX, mouseY);
-   }
-
-   @Override
-   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
    }
 
    @Override
@@ -315,8 +310,8 @@ public class GUIElementDistributor extends GuiContainer {
 
       this.textFieldPurity.drawTextBox();
 
-      for (int t = 0; t < this.textFieldElements.length; t++) {
-         this.textFieldElements[t].drawTextBox();
+      for (GuiTextField textFieldElement : this.textFieldElements) {
+          textFieldElement.drawTextBox();
       }
 
       if (TileElementDistributor.nextDisplayed != null && !TileElementDistributor.nextDisplayed.isEmpty()) {

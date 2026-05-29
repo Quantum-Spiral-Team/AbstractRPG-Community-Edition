@@ -57,9 +57,9 @@ public class TomatoStem extends PlantWithStages {
    public boolean onBlockActivated(
       World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
    ) {
-      if (!worldIn.isRemote && player.getHeldItem(hand).isEmpty() && (Integer)state.getValue(AGE) == 4) {
+      if (!worldIn.isRemote && player.getHeldItem(hand).isEmpty() && state.getValue(AGE) == 4) {
          spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CHERRY_TOMATO));
-         worldIn.playSound((EntityPlayer)null, pos, Sounds.fruit_pickup, SoundCategory.BLOCKS, 0.6F, 0.9F + RANDOM.nextFloat() / 5.0F);
+         worldIn.playSound(null, pos, Sounds.fruit_pickup, SoundCategory.BLOCKS, 0.6F, 0.9F + RANDOM.nextFloat() / 5.0F);
          worldIn.setBlockState(pos, state.withProperty(AGE, RANDOM.nextFloat() < 0.75F ? 2 : 3));
          return true;
       } else {

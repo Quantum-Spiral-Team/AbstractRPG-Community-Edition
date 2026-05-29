@@ -24,7 +24,7 @@ public class WrapperSieve implements IRecipeWrapper {
       if (input && index == 0) {
          return this.recipe.input.createStackForJeiInput();
       } else {
-         return index < this.recipe.output.size() ? ((Ingridient)this.recipe.output.get(index)).createStack() : ItemStack.EMPTY;
+         return index < this.recipe.output.size() ? this.recipe.output.get(index).createStack() : ItemStack.EMPTY;
       }
    }
 

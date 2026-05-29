@@ -1,18 +1,10 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.EntityInfluence;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.HostileProjectiles;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -66,6 +58,9 @@ public class AquaticBow extends AbstractBow {
    @SideOnly(Side.CLIENT)
    @Override
    public void bom(int param) {
+      Minecraft mc = Minecraft.getMinecraft();
+      EntityPlayerSP player = mc.player;
+      SoundHandler soundHandler = mc.getSoundHandler();
       if (param >= 0) {
          Booom.lastTick = 16;
          Booom.frequency = -0.196F;
@@ -74,37 +69,37 @@ public class AquaticBow extends AbstractBow {
          Booom.z = (itemRand.nextFloat() - 0.5F) * 0.5F;
          Booom.power = 0.15F * (param / 10.0F);
          if (this.clientPullSound != null) {
-            if (Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(this.clientPullSound)) {
-               Minecraft.getMinecraft().getSoundHandler().stopSound(this.clientPullSound);
+            if (soundHandler.isSoundPlaying(this.clientPullSound)) {
+               soundHandler.stopSound(this.clientPullSound);
             }
 
             this.clientPullSound = null;
          }
       } else if (param == -2) {
          if (this.clientPullSound != null) {
-            if (Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(this.clientPullSound)) {
-               Minecraft.getMinecraft().getSoundHandler().stopSound(this.clientPullSound);
+            if (soundHandler.isSoundPlaying(this.clientPullSound)) {
+               soundHandler.stopSound(this.clientPullSound);
             }
 
             this.clientPullSound = null;
          }
-      } else if (param == -1 && Minecraft.getMinecraft().player != null) {
+      } else if (param == -1 && player != null) {
          this.clientPullSound = new MovingSoundEntity(
-            Minecraft.getMinecraft().player, this.getPullSound(), SoundCategory.PLAYERS, 1.0F, this.pullSoundPitch, false
+                 player, this.getPullSound(), SoundCategory.PLAYERS, 1.0F, this.pullSoundPitch, false
          );
-         Minecraft.getMinecraft().getSoundHandler().playSound(this.clientPullSound);
-      } else if (param == -3 && Minecraft.getMinecraft().player != null) {
+         soundHandler.playSound(this.clientPullSound);
+      } else if (param == -3 && player != null) {
          this.clientPullSound = new MovingSoundEntity(
-            Minecraft.getMinecraft().player, Sounds.aquatic_bow_charge, SoundCategory.PLAYERS, 1.0F, this.pullSoundPitch, false
+            player, Sounds.aquatic_bow_charge, SoundCategory.PLAYERS, 1.0F, this.pullSoundPitch, false
          );
-         Minecraft.getMinecraft().getSoundHandler().playSound(this.clientPullSound);
+         soundHandler.playSound(this.clientPullSound);
       }
    }
 
    @Override
    public boolean inUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected, boolean[] removePull) {
       EntityPlayer player = (EntityPlayer)entityIn;
-      boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+      boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
       boolean specialAttack = NBTHelper.GetNBTboolean(itemstack, "specattack");
       if (specialAttack || click2 && player.getHeldItemMainhand() == itemstack) {
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());

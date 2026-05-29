@@ -2,16 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.items.animation.EnumFlick;
 import com.vivern.arpg.items.animation.Flicks;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
@@ -104,12 +95,12 @@ public class Buzdygan extends ItemWeapon {
             int maxrunes = parameters.getInt("max_charges");
             if (player.getHeldItemMainhand() == itemstack) {
                hand = EnumHand.MAIN_HAND;
-               click1 = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-               click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+               click1 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+               click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             } else if (player.getHeldItemOffhand() == itemstack) {
                hand = EnumHand.OFF_HAND;
-               click2 = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-               click1 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+               click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+               click1 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             }
 
             int delay = NBTHelper.GetNBTint(itemstack, "atdelay");
@@ -150,7 +141,7 @@ public class Buzdygan extends ItemWeapon {
                   if (delay == 1) {
                      if (IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, false).success) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -167,7 +158,7 @@ public class Buzdygan extends ItemWeapon {
                         IWeapon.fireBomEffect(this, player, world, 1);
                      } else {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -186,7 +177,7 @@ public class Buzdygan extends ItemWeapon {
                      player.addExhaustion(0.02F);
                      player.getCooldownTracker().setCooldown(this, parameters.getInt("charged_hit_delay"));
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

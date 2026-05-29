@@ -278,8 +278,8 @@ public class ItemsElements {
          if (recipe.output.size() == 1 || recipe.output.size() == 2) {
             writeGeneratedForList(
                recipe.exportInputsAsList(),
-               ((Ingridient)recipe.output.get(0)).createStack(),
-               recipe.output.size() == 2 ? ((Ingridient)recipe.output.get(1)).createStack() : null
+               recipe.output.get(0).createStack(),
+               recipe.output.size() == 2 ? recipe.output.get(1).createStack() : null
             );
          }
       }
@@ -289,15 +289,15 @@ public class ItemsElements {
             if (recipex.costfluidname == null || recipex.costfluidname.isEmpty()) {
                writeGeneratedForList(
                   recipex.exportInputsAsList(),
-                  ((Ingridient)recipex.output.get(0)).createStack(),
-                  recipex.output.size() == 2 ? ((Ingridient)recipex.output.get(1)).createStack() : null
+                  recipex.output.get(0).createStack(),
+                  recipex.output.size() == 2 ? recipex.output.get(1).createStack() : null
                );
             } else if (FluidRegistry.getFluid(recipex.costfluidname) != null && recipex.amountexist == 0) {
                writeGeneratedForListAndLiquid(
                   recipex.exportInputsAsList(),
                   new FluidStack(FluidRegistry.getFluid(recipex.costfluidname), recipex.amountcost),
-                  ((Ingridient)recipex.output.get(0)).createStack(),
-                  recipex.output.size() == 2 ? ((Ingridient)recipex.output.get(1)).createStack() : null
+                  recipex.output.get(0).createStack(),
+                  recipex.output.size() == 2 ? recipex.output.get(1).createStack() : null
                );
             }
          }
@@ -310,15 +310,15 @@ public class ItemsElements {
                   writeGeneratedForListAndLiquid(
                      recipexx.exportInputsAsList(),
                      new FluidStack(FluidRegistry.getFluid(recipexx.costfluidname1), recipexx.amountcost1),
-                     ((Ingridient)recipexx.output.get(0)).createStack(),
-                     recipexx.output.size() == 2 ? ((Ingridient)recipexx.output.get(1)).createStack() : null
+                     recipexx.output.get(0).createStack(),
+                     recipexx.output.size() == 2 ? recipexx.output.get(1).createStack() : null
                   );
                }
             } else if (recipexx.amountexist1 == 0 && recipexx.amountexist2 == 0 && recipexx.amountcost1 == 0 && recipexx.amountcost2 == 0) {
                writeGeneratedForList(
                   recipexx.exportInputsAsList(),
-                  ((Ingridient)recipexx.output.get(0)).createStack(),
-                  recipexx.output.size() == 2 ? ((Ingridient)recipexx.output.get(1)).createStack() : null
+                  recipexx.output.get(0).createStack(),
+                  recipexx.output.size() == 2 ? recipexx.output.get(1).createStack() : null
                );
             }
          }
@@ -427,16 +427,16 @@ public class ItemsElements {
 
       for (Ingredient ingridient : irecipe.getIngredients()) {
          ItemStack[] stacks = ingridient.getMatchingStacks();
-         if (stacks == null || stacks.length <= 0) {
+         if (stacks.length == 0) {
             return;
          }
 
-         for (int i = 0; i < stacks.length; i++) {
-            ElementsPack ingridientElements = getAllElements(stacks[i]);
-            if (ingridientElements.howMuchNotNull() > 0) {
-               addElementsToGeneratedPack(pack, ingridientElements, stacks[i].getCount());
-               break;
-            }
+         for (ItemStack stack : stacks) {
+             ElementsPack ingredientElements = getAllElements(stack);
+             if (ingredientElements.howMuchNotNull() > 0) {
+                 addElementsToGeneratedPack(pack, ingredientElements, stack.getCount());
+                 break;
+             }
          }
       }
 

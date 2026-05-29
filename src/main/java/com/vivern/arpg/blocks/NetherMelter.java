@@ -62,7 +62,7 @@ public class NetherMelter extends Block implements IMagicUI {
    public void open(World world, EntityPlayer player, BlockPos pos, Entity entity) {
       if (!world.isRemote && IMagicUI.checkNoNearOpened(world, pos, null, 2)) {
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             pos.getX(),
             pos.getY(),
             pos.getZ(),
@@ -166,17 +166,17 @@ public class NetherMelter extends Block implements IMagicUI {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

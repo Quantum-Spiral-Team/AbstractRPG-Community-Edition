@@ -27,12 +27,7 @@ public class RenderTerraformingResearch {
    public TFRSurfaceRenderInstance[][] terrainAnimations;
    public TFRSurfaceRenderInstance[][] atmosphereAnimations;
    public ArrayList<TerraformingResearchParticle> particles = new ArrayList<>();
-   public static Predicate<TerraformingResearchParticle> particlesDeleter = new Predicate<TerraformingResearchParticle>() {
-      @Override
-      public boolean apply(TerraformingResearchParticle input) {
-         return input.isDead;
-      }
-   };
+   public static Predicate<TerraformingResearchParticle> particlesDeleter = input -> input.isDead;
    public TRRenderer pointRenderer = new TRRenderer.TRRendererSprite(
       Phenomenons.tfr_sprites, 0, 0, 100, 50, 18, 18, Phenomenons.tfr_sprites_sizeX, Phenomenons.tfr_sprites_sizeY
    );
@@ -158,7 +153,7 @@ public class RenderTerraformingResearch {
       } else if (type == TerraformingResearchSurface.TRSurfaceType.TERRAIN) {
          return this.terrainAnimations[x][y].hasSomething();
       } else {
-         return type == TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE ? this.atmosphereAnimations[x][y].hasSomething() : false;
+         return type == TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE && this.atmosphereAnimations[x][y].hasSomething();
       }
    }
 
@@ -169,9 +164,7 @@ public class RenderTerraformingResearch {
       } else if (displaceX < -bound && !this.hasSomethingAt(arrayX - 1, arrayY, type)) {
          return false;
       } else {
-         return displaceY > bound && !this.hasSomethingAt(arrayX, arrayY + 1, type)
-            ? false
-            : !(displaceX < -bound) || this.hasSomethingAt(arrayX, arrayY - 1, type);
+         return (!(displaceY > bound) || this.hasSomethingAt(arrayX, arrayY + 1, type)) && (!(displaceX < -bound) || this.hasSomethingAt(arrayX, arrayY - 1, type));
       }
    }
 

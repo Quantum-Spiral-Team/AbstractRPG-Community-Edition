@@ -125,7 +125,7 @@ public enum EnumChest {
       } else if (this == CORAL) {
          return BlocksRegister.CHEST_CORAL;
       } else {
-         return (Block)(this == STORM ? BlocksRegister.CHEST_STORM : Blocks.CHEST);
+         return this == STORM ? BlocksRegister.CHEST_STORM : Blocks.CHEST;
       }
    }
 

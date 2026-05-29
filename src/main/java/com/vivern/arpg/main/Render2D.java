@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-@EventBusSubscriber({Side.CLIENT})
+@EventBusSubscriber(Side.CLIENT)
 public class Render2D<T extends Entity> extends Render<T> {
    protected final ResourceLocation texture;
    private float scaleX;

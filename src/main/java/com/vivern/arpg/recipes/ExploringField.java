@@ -6,8 +6,8 @@ import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.main.Spell;
-import com.vivern.arpg.network.PacketExploringToClient;
-import com.vivern.arpg.network.PacketExploringToServer;
+import com.vivern.arpg.network.packet.PacketExploringToClient;
+import com.vivern.arpg.network.packet.PacketExploringToServer;
 import com.vivern.arpg.network.PacketHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -236,9 +236,8 @@ public class ExploringField {
 
    public void click(int mouseX, int mouseY, int mouseButton) {
       if (mouseButton == 0) {
-         for (int i = 0; i < this.points.size(); i++) {
-            ExploringPoint point = this.points.get(i);
-            point.onClick(mouseX, mouseY, mouseButton, this.xDisplace);
+         for (ExploringPoint point : this.points) {
+             point.onClick(mouseX, mouseY, mouseButton, this.xDisplace);
          }
       }
    }
@@ -247,12 +246,11 @@ public class ExploringField {
    public String getText(int mouseX, int mouseY, NBTTagCompound playerTag) {
       ExploringPoint exploringNow = this.getExploringNow(playerTag);
 
-      for (int i = 0; i < this.points.size(); i++) {
-         ExploringPoint point = this.points.get(i);
-         String text = point.getText(mouseX, mouseY, this.xDisplace, point == exploringNow, exploringNow != null);
-         if (text != null) {
-            return text;
-         }
+      for (ExploringPoint point : this.points) {
+          String text = point.getText(mouseX, mouseY, this.xDisplace, point == exploringNow, exploringNow != null);
+          if (text != null) {
+              return text;
+          }
       }
 
       return null;
@@ -262,64 +260,62 @@ public class ExploringField {
    public void renderExploringField(GUIResearchTable gui, int renderx, int rendery, float partialTicks, NBTTagCompound playerTag) {
       ExploringPoint exploringNow = this.getExploringNow(playerTag);
 
-      for (int i = 0; i < this.points.size(); i++) {
-         ExploringPoint point = this.points.get(i);
-         int x = renderx + this.xDisplace + point.posX;
-         int y = rendery + point.posY;
-         ShardType shardType = ShardType.byId(point.rune);
-         float r = 1.0F;
-         float g = 1.0F;
-         float b = 1.0F;
-         if (shardType != null) {
-            r = shardType.colorR;
-            g = shardType.colorG;
-            b = shardType.colorB;
-         }
+      for (ExploringPoint point : this.points) {
+          int x = renderx + this.xDisplace + point.posX;
+          int y = rendery + point.posY;
+          ShardType shardType = ShardType.byId(point.rune);
+          float r = 1.0F;
+          float g = 1.0F;
+          float b = 1.0F;
+          if (shardType != null) {
+              r = shardType.colorR;
+              g = shardType.colorG;
+              b = shardType.colorB;
+          }
 
-         if (point.rune != 8) {
-            AbstractMobModel.alphaGlow();
-         }
+          if (point.rune != 8) {
+              AbstractMobModel.alphaGlow();
+          }
 
-         if (point.isOneRequirementExplored()) {
-            if (point.requirement != null) {
-               for (int j = 0; j < point.requirement.length; j++) {
-                  if (point.requirement[j].explored) {
-                     int rx = renderx + this.xDisplace + point.requirement[j].posX;
-                     int ry = rendery + point.requirement[j].posY;
-                     gui.drawLine(x + 9.5F, y + 9.5F, rx + 9.5F, ry + 9.5F, r, g, b);
+          if (point.isOneRequirementExplored()) {
+              if (point.requirement != null) {
+                  for (int j = 0; j < point.requirement.length; j++) {
+                      if (point.requirement[j].explored) {
+                          int rx = renderx + this.xDisplace + point.requirement[j].posX;
+                          int ry = rendery + point.requirement[j].posY;
+                          gui.drawLine(x + 9.5F, y + 9.5F, rx + 9.5F, ry + 9.5F, r, g, b);
+                      }
                   }
-               }
-            }
+              }
 
-            if (exploringNow == point) {
-               this.drawSelection(gui, x + 9.5F, y + 9.5F, r, g, b);
-            }
-         }
+              if (exploringNow == point) {
+                  this.drawSelection(gui, x + 9.5F, y + 9.5F, r, g, b);
+              }
+          }
 
-         if (point.rune != 8) {
-            AbstractMobModel.alphaGlowDisable();
-         }
+          if (point.rune != 8) {
+              AbstractMobModel.alphaGlowDisable();
+          }
       }
 
-      for (int i = 0; i < this.points.size(); i++) {
-         ExploringPoint pointx = this.points.get(i);
-         if (pointx.type == ExploringPointType.RUNE) {
-            int xx = renderx + this.xDisplace + pointx.posX;
-            int yx = rendery + pointx.posY;
-            gui.mc.getTextureManager().bindTexture(GUIResearchTable.TEXTURE_OVERLAY);
-            gui.drawTexturedModalRect(xx, yx, pointx.explored ? 237 : 218, 237, 19, 19);
-            Spell spel = Spell.spellsRegistry.get(pointx.rune);
-            if (spel != null) {
-               spel.renderRune(xx, yx, pointx.explored);
-            }
-         }
+      for (ExploringPoint pointx : this.points) {
+          if (pointx.type == ExploringPointType.RUNE) {
+              int xx = renderx + this.xDisplace + pointx.posX;
+              int yx = rendery + pointx.posY;
+              gui.mc.getTextureManager().bindTexture(GUIResearchTable.TEXTURE_OVERLAY);
+              gui.drawTexturedModalRect(xx, yx, pointx.explored ? 237 : 218, 237, 19, 19);
+              Spell spel = Spell.spellsRegistry.get(pointx.rune);
+              if (spel != null) {
+                  spel.renderRune(xx, yx, pointx.explored);
+              }
+          }
 
-         if (pointx.type == ExploringPointType.TUTORIAL || pointx.type == ExploringPointType.INTERMEDIATE) {
-            int xx = renderx + this.xDisplace + pointx.posX;
-            int yx = rendery + pointx.posY;
-            gui.mc.getTextureManager().bindTexture(GUIResearchTable.TEXTURE_OVERLAY);
-            gui.drawTexturedModalRect(xx, yx, (pointx.explored ? 161 : 104) + pointx.nbtBitshift % 3 * 19, 237, 19, 19);
-         }
+          if (pointx.type == ExploringPointType.TUTORIAL || pointx.type == ExploringPointType.INTERMEDIATE) {
+              int xx = renderx + this.xDisplace + pointx.posX;
+              int yx = rendery + pointx.posY;
+              gui.mc.getTextureManager().bindTexture(GUIResearchTable.TEXTURE_OVERLAY);
+              gui.drawTexturedModalRect(xx, yx, (pointx.explored ? 161 : 104) + pointx.nbtBitshift % 3 * 19, 237, 19, 19);
+          }
       }
    }
 
@@ -390,11 +386,10 @@ public class ExploringField {
             return null;
          }
 
-         for (int i = 0; i < this.points.size(); i++) {
-            ExploringPoint point = this.points.get(i);
-            if (point.nbtBitshift == shift && point.nbtKey == key) {
-               return point;
-            }
+         for (ExploringPoint point : this.points) {
+             if (point.nbtBitshift == shift && point.nbtKey == key) {
+                 return point;
+             }
          }
       }
 
@@ -403,11 +398,10 @@ public class ExploringField {
 
    @Nullable
    public ExploringPoint getExploringPoint(int nbtKey, int nbtBitshift) {
-      for (int i = 0; i < this.points.size(); i++) {
-         ExploringPoint point = this.points.get(i);
-         if (point.nbtBitshift == nbtBitshift && point.nbtKey == nbtKey) {
-            return point;
-         }
+      for (ExploringPoint point : this.points) {
+          if (point.nbtBitshift == nbtBitshift && point.nbtKey == nbtKey) {
+              return point;
+          }
       }
 
       return null;
@@ -437,7 +431,7 @@ public class ExploringField {
 
    public static void SendExploringInfoToClient(EntityPlayerMP player) {
       PacketExploringToClient packet = new PacketExploringToClient();
-      packet.writeargs(getExploringTagCompound(player));
+      packet.writeArgs(getExploringTagCompound(player));
       PacketHandler.sendTo(packet, player);
    }
 
@@ -515,8 +509,8 @@ public class ExploringField {
          if (this.requirement == null) {
             return true;
          } else {
-            for (int i = 0; i < this.requirement.length; i++) {
-               if (this.requirement[i] != null && this.requirement[i].explored) {
+            for (ExploringPoint exploringPoint : this.requirement) {
+               if (exploringPoint != null && exploringPoint.explored) {
                   return true;
                }
             }

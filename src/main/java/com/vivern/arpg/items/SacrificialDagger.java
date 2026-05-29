@@ -1,10 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,8 +38,8 @@ public class SacrificialDagger extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
             EnumHand hand = null;
@@ -57,7 +53,7 @@ public class SacrificialDagger extends ItemWeapon {
                MeleeAttackResult attackresult = IWeapon.doMeleeDaggerAttack(this, itemstack, player, hand, false);
                if (attackresult.success) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -80,7 +76,7 @@ public class SacrificialDagger extends ItemWeapon {
                   }
                } else {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -96,7 +92,7 @@ public class SacrificialDagger extends ItemWeapon {
                double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
                player.getCooldownTracker()
                   .setCooldown(
-                     (Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack))
+                          hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack))
                   );
             }
          }

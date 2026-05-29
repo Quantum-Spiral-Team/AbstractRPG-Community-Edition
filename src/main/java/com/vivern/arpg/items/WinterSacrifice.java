@@ -55,11 +55,11 @@ public class WinterSacrifice extends Item {
                boss.setPosition(pos3.getX() + 0.5, pos3.getY(), pos3.getZ() + 0.5);
                boss.setAttackTarget(player);
                world.spawnEntity(boss);
-               boss.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(boss)), (IEntityLivingData)null);
+               boss.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(boss)), null);
                boss.canDropLoot = true;
                itemstack.shrink(1);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

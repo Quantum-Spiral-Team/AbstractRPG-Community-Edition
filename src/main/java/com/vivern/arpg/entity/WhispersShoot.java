@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class WhispersShoot extends EntityThrowable implements IEntitySynchronize {
+public class WhispersShoot extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    public float cutterSize = 2.6F;
    public float cutterSizeRender = 2.0F;
@@ -105,7 +105,7 @@ public class WhispersShoot extends EntityThrowable implements IEntitySynchronize
          this.bladeNormal = GetMOP.rotateVecAroundAxis(
             GetMOP.pitchYawToVec3D(this.rotationPitch - 90.0F, -this.rotationYaw), look, (float)Math.toRadians(this.rotationRoll)
          );
-         IEntitySynchronize.sendSynchronize(this, 64.0, this.rotationRoll, this.cutterSize);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, this.rotationRoll, this.cutterSize);
          if (this.powered) {
             this.world.setEntityState(this, (byte)13);
          }
@@ -286,7 +286,7 @@ public class WhispersShoot extends EntityThrowable implements IEntitySynchronize
 
             if (this.lastBounces <= 0) {
                if (result != null && result.hitVec != null) {
-                  IEntitySynchronize.sendSynchronize(
+                  ISynchronizedEntity.sendSynchronize(
                      this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z
                   );
                }
@@ -309,7 +309,7 @@ public class WhispersShoot extends EntityThrowable implements IEntitySynchronize
                );
                result.entityHit.hurtResistantTime = 0;
                DeathEffects.applyDeathEffect(result.entityHit, DeathEffects.DE_CUT, 0.5F);
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ);
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ);
                this.world.setEntityState(this, (byte)11);
                this.setDead();
             }
@@ -319,7 +319,7 @@ public class WhispersShoot extends EntityThrowable implements IEntitySynchronize
                .getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos())
             != null) {
             if (result.hitVec != null) {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z
                );
             }

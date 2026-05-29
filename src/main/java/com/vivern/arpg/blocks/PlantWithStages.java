@@ -185,7 +185,7 @@ public class PlantWithStages extends Block implements IGrowable {
 
    @Override
    public void getDrops(NonNullList<ItemStack> lastdrops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-      if (this.drops != null && (Integer)state.getValue(AGE) >= this.maxStage) {
+      if (this.drops != null && state.getValue(AGE) >= this.maxStage) {
          String[] lootTypes = this.drops.split(" ");
 
          for (String lootType : lootTypes) {
@@ -203,7 +203,7 @@ public class PlantWithStages extends Block implements IGrowable {
    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
       if (rand.nextFloat() < this.growChance) {
          if (this.canStayAtPos(worldIn, pos)) {
-            worldIn.setBlockState(pos, state.withProperty(AGE, Math.min((Integer)state.getValue(AGE) + 1, this.maxStage)));
+            worldIn.setBlockState(pos, state.withProperty(AGE, Math.min(state.getValue(AGE) + 1, this.maxStage)));
          } else {
             this.dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
@@ -218,7 +218,7 @@ public class PlantWithStages extends Block implements IGrowable {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(AGE);
+      return state.getValue(AGE);
    }
 
    @Override

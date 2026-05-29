@@ -68,21 +68,21 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
 
    @Override
    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      int axis = (Integer)state.getValue(AXIS);
+      int axis = state.getValue(AXIS);
       if (axis == 1) {
          BlockPos poss = pos.offset(EnumFacing.EAST);
          BlockPos posn = pos.offset(EnumFacing.WEST);
          IBlockState stateP = worldIn.getBlockState(poss);
          IBlockState stateN = worldIn.getBlockState(posn);
-         return state.withProperty(FORWARD, stateP.getBlock() == this && (Integer)stateP.getValue(AXIS) != axis)
-            .withProperty(BACKWARD, stateN.getBlock() == this && (Integer)stateN.getValue(AXIS) != axis);
+         return state.withProperty(FORWARD, stateP.getBlock() == this && stateP.getValue(AXIS) != axis)
+            .withProperty(BACKWARD, stateN.getBlock() == this && stateN.getValue(AXIS) != axis);
       } else if (axis == 2) {
          BlockPos poss = pos.offset(EnumFacing.UP);
          BlockPos posn = pos.offset(EnumFacing.DOWN);
          IBlockState stateP = worldIn.getBlockState(poss);
          IBlockState stateN = worldIn.getBlockState(posn);
-         return state.withProperty(FORWARD, stateP.getBlock() == this && (Integer)stateP.getValue(AXIS) != axis)
-            .withProperty(BACKWARD, stateN.getBlock() == this && (Integer)stateN.getValue(AXIS) != axis);
+         return state.withProperty(FORWARD, stateP.getBlock() == this && stateP.getValue(AXIS) != axis)
+            .withProperty(BACKWARD, stateN.getBlock() == this && stateN.getValue(AXIS) != axis);
       } else if (axis != 3) {
          return state;
       } else {
@@ -90,8 +90,8 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
          BlockPos posn = pos.offset(EnumFacing.NORTH);
          IBlockState stateP = worldIn.getBlockState(poss);
          IBlockState stateN = worldIn.getBlockState(posn);
-         return state.withProperty(FORWARD, stateP.getBlock() == this && (Integer)stateP.getValue(AXIS) != axis)
-            .withProperty(BACKWARD, stateN.getBlock() == this && (Integer)stateN.getValue(AXIS) != axis);
+         return state.withProperty(FORWARD, stateP.getBlock() == this && stateP.getValue(AXIS) != axis)
+            .withProperty(BACKWARD, stateN.getBlock() == this && stateN.getValue(AXIS) != axis);
       }
    }
 
@@ -164,8 +164,8 @@ public class StormConductor extends BlockRotatedPillar implements IBlockHardBrea
    @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      boolean b1f = (Boolean)state.getValue(FORWARD);
-      boolean b1b = (Boolean)state.getValue(BACKWARD);
+      boolean b1f = state.getValue(FORWARD);
+      boolean b1b = state.getValue(BACKWARD);
       int i2 = 0;
       if (!b1f && !b1b) {
          i2 = 0;

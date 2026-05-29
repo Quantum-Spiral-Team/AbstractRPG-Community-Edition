@@ -293,7 +293,7 @@ public class PlayerAnimations {
    public void renderItemInFirstPerson(float partialTicks) {
       AbstractClientPlayer abstractclientplayer = this.mc.player;
       float f = abstractclientplayer.getSwingProgress(partialTicks);
-      EnumHand enumhand = (EnumHand)MoreObjects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND);
+      EnumHand enumhand = MoreObjects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND);
       float f1 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
       float f2 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;
       boolean flag = true;

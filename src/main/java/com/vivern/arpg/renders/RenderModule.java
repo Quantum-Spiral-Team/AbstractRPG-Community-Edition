@@ -126,7 +126,7 @@ public abstract class RenderModule {
 
       @Override
       public void render(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
-         float time = entity.ticksExisted / this.animDelay + this.animOffset;
+         float time = (float) entity.ticksExisted / this.animDelay + this.animOffset;
          if (this.randomizeLoop) {
             time += randomOffsets[entity.getEntityId() % 10];
          }
@@ -549,7 +549,7 @@ public abstract class RenderModule {
 
          Tessellator tessellator = Tessellator.getInstance();
          BufferBuilder bufferbuilder = tessellator.getBuffer();
-         float frame = entity.ticksExisted / this.animDelay % this.framecount;
+         float frame = (float) entity.ticksExisted / this.animDelay % this.framecount;
          float framesAmount = this.framecount;
          float one = 1.0F / framesAmount;
          float pixelsAll = this.pixelsTopView + this.pixelsFrontView;

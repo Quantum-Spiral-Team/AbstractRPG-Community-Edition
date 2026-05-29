@@ -171,9 +171,9 @@ public class VoxelCloudField {
          cameraZ = rvEntity.prevPosZ + (rvEntity.posZ - rvEntity.prevPosZ) * partialTicks;
       }
 
-      double fieldX = (int)cameraX / this.voxelSize * this.voxelSize;
+      double fieldX = cameraX / this.voxelSize * this.voxelSize;
       double fieldY = this.fieldRenderY;
-      double fieldZ = (int)cameraZ / this.voxelSize * this.voxelSize;
+      double fieldZ = cameraZ / this.voxelSize * this.voxelSize;
       if (Debugger.floats[3] == 0.0F && this.isFieldPosChanged(fieldX, fieldY, fieldZ)) {
          this.generateVoxels(fieldX, fieldY, fieldZ);
          this.bakeVoxels();
@@ -260,9 +260,9 @@ public class VoxelCloudField {
          cameraZ = rvEntity.prevPosZ + (rvEntity.posZ - rvEntity.prevPosZ) * partialTicks;
       }
 
-      double fieldX = (int)cameraX / this.voxelSize * this.voxelSize;
+      double fieldX = cameraX / this.voxelSize * this.voxelSize;
       double fieldY = this.fieldRenderY;
-      double fieldZ = (int)cameraZ / this.voxelSize * this.voxelSize;
+      double fieldZ = cameraZ / this.voxelSize * this.voxelSize;
       return new Vec3d(fieldX, fieldY, fieldZ);
    }
 

@@ -30,12 +30,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FieryBeanBlock extends Block {
-   public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
-      @Override
-      public boolean apply(@Nullable EnumFacing p_apply_1_) {
-         return p_apply_1_ != EnumFacing.DOWN && p_apply_1_ != EnumFacing.UP;
-      }
-   });
+   public static final PropertyDirection FACING = PropertyDirection.create("facing", facing -> facing != EnumFacing.DOWN && facing != EnumFacing.UP);
    public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 2);
    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 0.875, 0.875);
 
@@ -54,7 +49,7 @@ public class FieryBeanBlock extends Block {
    @Override
    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
       if (rand.nextFloat() < 0.5 && this.checkForDrop(world, pos, state)) {
-         world.setBlockState(pos, state.withProperty(AGE, Math.min((Integer)state.getValue(AGE) + 1, 2)));
+         world.setBlockState(pos, state.withProperty(AGE, Math.min(state.getValue(AGE) + 1, 2)));
       }
    }
 
@@ -83,7 +78,7 @@ public class FieryBeanBlock extends Block {
       if (!this.checkForDrop(worldIn, pos, state)) {
          return true;
       } else {
-         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+         EnumFacing enumfacing = state.getValue(FACING);
          Axis enumfacing$axis = enumfacing.getAxis();
          EnumFacing enumfacing1 = enumfacing.getOpposite();
          BlockPos blockpos = pos.offset(enumfacing1);
@@ -107,7 +102,7 @@ public class FieryBeanBlock extends Block {
    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
       BlockPos blockpos = pos.offset(facing.getOpposite());
       IBlockState iblockstate = worldIn.getBlockState(blockpos);
-      return facing != EnumFacing.UP && facing != EnumFacing.DOWN ? iblockstate.getBlock() == BlocksRegister.FIERY_BEAN_LOG : false;
+      return facing != EnumFacing.UP && facing != EnumFacing.DOWN && iblockstate.getBlock() == BlocksRegister.FIERY_BEAN_LOG;
    }
 
    @Override
@@ -121,7 +116,7 @@ public class FieryBeanBlock extends Block {
    }
 
    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-      if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING))) {
+      if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, state.getValue(FACING))) {
          return true;
       } else {
          if (worldIn.getBlockState(pos).getBlock() == this) {
@@ -168,18 +163,18 @@ public class FieryBeanBlock extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      int i = (Integer)state.getValue(AGE) * 4;
-      return ((EnumFacing)state.getValue(FACING)).getHorizontalIndex() + i;
+      int i = state.getValue(AGE) * 4;
+      return state.getValue(FACING).getHorizontalIndex() + i;
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

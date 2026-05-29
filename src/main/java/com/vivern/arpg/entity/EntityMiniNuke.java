@@ -29,7 +29,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityMiniNuke extends Entity implements IEntitySynchronize {
+public class EntityMiniNuke extends Entity implements ISynchronizedEntity {
    @Nullable
    public EntityLivingBase tntPlacedBy;
    public int fuse;
@@ -343,7 +343,7 @@ public class EntityMiniNuke extends Entity implements IEntitySynchronize {
       }
 
       if (!this.world.isRemote) {
-         IEntitySynchronize.sendSynchronize(
+         ISynchronizedEntity.sendSynchronize(
             this, 64.0, this.posX, this.posY + this.height / 2.0F, this.posZ, 0.0, 0.0, this.power
          );
       }

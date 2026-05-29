@@ -1,7 +1,7 @@
 package com.vivern.arpg.container;
 
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTileClickToServer;
+import com.vivern.arpg.network.packet.PacketTileClickToServer;
 import com.vivern.arpg.tileentity.TilePuzzle;
 import java.io.IOException;
 import net.minecraft.client.gui.GuiScreen;
@@ -116,7 +116,7 @@ public class GUIFrozenPuzzle extends GuiScreen {
       int x = mouseX - ((this.width - 144) / 2 + 16);
       int y = mouseY - ((this.height - 180) / 2 + 16);
       PacketTileClickToServer packet = new PacketTileClickToServer();
-      packet.writeints(
+      packet.writeInts(
          this.tile.getPos().getX(),
          this.tile.getPos().getY(),
          this.tile.getPos().getZ(),

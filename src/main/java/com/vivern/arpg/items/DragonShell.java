@@ -2,15 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.items.armor.IItemAttacked;
 import com.vivern.arpg.entity.StandardBullet;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import com.google.common.collect.Multimap;
 import java.util.List;
@@ -101,8 +93,8 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             float acclvl = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             NBTHelper.GiveNBTint(itemstack, 0, "blocking");
             NBTHelper.GiveNBTint(itemstack, itemRand.nextInt(9000), "eyerand");
@@ -112,7 +104,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                   WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                   if (blocks <= 0) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -189,7 +181,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                               }
 
                               world.playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  en.posX,
                                  en.posY,
                                  en.posZ,
@@ -265,7 +257,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                   if (blocking <= 0) {
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -278,7 +270,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                   } else {
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -443,7 +435,7 @@ public class DragonShell extends ItemWeapon implements IItemAttacked {
                }
 
                if (entityLiving.attemptTeleport(d3, d4, d5)) {
-                  worldIn.playSound((EntityPlayer)null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                  worldIn.playSound(null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
                   entityLiving.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
                   break;
                }

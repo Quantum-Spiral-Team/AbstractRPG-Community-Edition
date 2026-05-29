@@ -1,14 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.items.armor.IItemAttacked;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.google.common.collect.Multimap;
 import java.util.UUID;
 import net.minecraft.creativetab.CreativeTabs;
@@ -89,8 +82,8 @@ public class Carapace extends ItemWeapon implements IItemAttacked {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             NBTHelper.GiveNBTint(itemstack, 0, "blocking");
             NBTHelper.giveNBTboolean(itemstack, false, "water");
             NBTHelper.GiveNBTint(itemstack, 0, "tickusing");
@@ -101,7 +94,7 @@ public class Carapace extends ItemWeapon implements IItemAttacked {
                   WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                   if (blocks <= 0) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -122,7 +115,7 @@ public class Carapace extends ItemWeapon implements IItemAttacked {
                      if (NBTHelper.GetNBTint(itemstack, "tickusing")
                         == parameters.getEnchantedF("bonus_end_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack)) - 15.0F) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -195,7 +188,7 @@ public class Carapace extends ItemWeapon implements IItemAttacked {
                   if (blocking <= 0) {
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -209,7 +202,7 @@ public class Carapace extends ItemWeapon implements IItemAttacked {
                   } else {
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,

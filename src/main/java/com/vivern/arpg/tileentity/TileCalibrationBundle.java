@@ -251,7 +251,7 @@ public class TileCalibrationBundle extends TileEntity implements ISpellcastListe
       }
 
       public void writeToNbt(NBTTagCompound compound) {
-         ResourceLocation resourcelocation = (ResourceLocation)Item.REGISTRY.getNameForObject(this.item);
+         ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(this.item);
          compound.setString("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
          int allPoses = 0;
          int posx = MathHelper.clamp(this.posX, 0, 15);
@@ -300,7 +300,7 @@ public class TileCalibrationBundle extends TileEntity implements ISpellcastListe
       }
 
       public boolean isVoid() {
-         return this.password != null && this.password.length != 0 ? this.password[0] == Spell.VANITAS : false;
+         return this.password != null && this.password.length != 0 && this.password[0] == Spell.VANITAS;
       }
 
       @Nullable

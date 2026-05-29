@@ -5,20 +5,21 @@ import com.vivern.arpg.main.BloodType;
 import com.vivern.arpg.main.Coins;
 import com.vivern.arpg.main.DeathEffects;
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.main.Mana;
 import com.vivern.arpg.main.MobRegister;
 import com.vivern.arpg.main.MobSpawn;
 import com.vivern.arpg.main.PropertiesRegistry;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketSmallSomethingToClients;
+import com.vivern.arpg.network.packet.PacketSmallSomethingToClients;
 import com.vivern.arpg.recipes.Soul;
 import com.vivern.arpg.renders.LayerRandomItem;
 import com.vivern.arpg.renders.mobrender.IMultitexture;
 import com.vivern.arpg.renders.mobrender.InitMobRenders;
 import com.vivern.arpg.tileentity.TileMonsterSpawner;
 import com.vivern.arpg.tileentity.TileNexus;
+
+import java.util.Locale;
 import java.util.UUID;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
@@ -113,7 +114,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       EntityEntry ENTRY = EntityEntryBuilder.create()
             .entity(thismobClass)
             .name(name)
-            .id(name.toLowerCase().replace(" ", "_"), MobRegister.startid++)
+            .id(name.toLowerCase(Locale.ROOT).replace(" ", "_"), MobRegister.startid++)
             .egg(eggPrimary, eggSecondary)
             .tracker(trackerRange, updateFrequency, true)
             .build();
@@ -384,7 +385,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
          }
       }
 
-      return amount > 0.0F ? super.attackEntityFrom(source, amount) : false;
+      return amount > 0.0F && super.attackEntityFrom(source, amount);
    }
 
    @Override
@@ -528,7 +529,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
       if (this.owner != null && this.owner instanceof EntityPlayerMP) {
          int leadershipAll = calculateLeadership(this.world, this.owner);
          PacketSmallSomethingToClients packet = new PacketSmallSomethingToClients();
-         packet.writeargs(2, leadershipAll);
+         packet.writeArgs(2, leadershipAll);
          PacketHandler.sendTo(packet, (EntityPlayerMP) this.owner);
       }
    }
@@ -547,7 +548,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
    }
 
    public IEntityLivingData onInitialSpawn() {
-      return this.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(this)), (IEntityLivingData) null);
+      return this.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(this)), null);
    }
 
    @SideOnly(Side.CLIENT)
@@ -573,7 +574,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
          if (lastOwner instanceof EntityPlayerMP) {
             int leadershipAll = allLeadersh - this.getLeadershipNeed();
             PacketSmallSomethingToClients packet = new PacketSmallSomethingToClients();
-            packet.writeargs(2, leadershipAll);
+            packet.writeArgs(2, leadershipAll);
             PacketHandler.sendTo(packet, (EntityPlayerMP) lastOwner);
          }
       }
@@ -596,7 +597,7 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
 
    @Override
    protected boolean isMovementBlocked() {
-      return this.isStaying ? true : super.isMovementBlocked();
+      return this.isStaying || super.isMovementBlocked();
    }
 
    @Nullable
@@ -618,11 +619,11 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
             this.owner = player;
             this.team = playerteam;
             this.navigator.clearPath();
-            this.setAttackTarget((EntityLivingBase) null);
+            this.setAttackTarget(null);
             if (player instanceof EntityPlayerMP) {
                int leadershipAll = calculateLeadership(this.world, player);
                PacketSmallSomethingToClients packet = new PacketSmallSomethingToClients();
-               packet.writeargs(2, leadershipAll);
+               packet.writeArgs(2, leadershipAll);
                PacketHandler.sendTo(packet, (EntityPlayerMP) player);
             }
          } else if (player instanceof EntityPlayerMP) {

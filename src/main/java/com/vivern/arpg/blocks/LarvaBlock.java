@@ -40,7 +40,7 @@ public class LarvaBlock extends Block {
    }
 
    public void tryDisperse(IBlockState state, World world, BlockPos pos) {
-      int l = (Integer)state.getValue(LAYERS);
+      int l = state.getValue(LAYERS);
       if (l >= 2) {
          int ne = RANDOM.nextInt(4);
 
@@ -58,10 +58,10 @@ public class LarvaBlock extends Block {
    }
 
    public boolean tryFall(IBlockState state, World world, BlockPos pos) {
-      int l = (Integer)state.getValue(LAYERS);
+      int l = state.getValue(LAYERS);
       IBlockState statef = world.getBlockState(pos.down());
       if (statef.getBlock() == BlocksRegister.LARVA_BLOCK) {
-         int l2 = (Integer)statef.getValue(LAYERS);
+         int l2 = statef.getValue(LAYERS);
          int resultl1 = l - (3 - l2);
          if (resultl1 < 1) {
             world.setBlockToAir(pos);
@@ -104,13 +104,13 @@ public class LarvaBlock extends Block {
 
    @Override
    public boolean isTopSolid(IBlockState state) {
-      return (Integer)state.getValue(LAYERS) == 3;
+      return state.getValue(LAYERS) == 3;
    }
 
    @Override
    @Nullable
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      int i = (Integer)blockState.getValue(LAYERS);
+      int i = blockState.getValue(LAYERS);
       AxisAlignedBB axisalignedbb = blockState.getBoundingBox(worldIn, pos);
       return i == 3
          ? LARVA_AABB[3]
@@ -141,7 +141,7 @@ public class LarvaBlock extends Block {
 
    @Override
    public boolean isFullCube(IBlockState state) {
-      return (Integer)state.getValue(LAYERS) == 3;
+      return state.getValue(LAYERS) == 3;
    }
 
    @Override
@@ -161,7 +161,7 @@ public class LarvaBlock extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(LAYERS);
+      return state.getValue(LAYERS);
    }
 
    @Override

@@ -33,7 +33,7 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
-public class EntityAcidBomb extends Entity implements IEntitySynchronize {
+public class EntityAcidBomb extends Entity implements ISynchronizedEntity {
    @Nullable
    public EntityLivingBase tntPlacedBy;
    public int fuse = 80;
@@ -291,13 +291,13 @@ public class EntityAcidBomb extends Entity implements IEntitySynchronize {
                IAttributeInstance blue = ((EntityLivingBase)entity).getEntityAttribute(PropertiesRegistry.ENTITY_COLOR_BLUE_MAX);
                red.applyModifier(new AttributeModifier("acid.explode.red.modif", 0.5, 1));
                blue.applyModifier(new AttributeModifier("acid.explode.blue.modif", 0.5, 1));
-               DeathEffects.applyDeathEffect((EntityLivingBase)entity, DeathEffects.DE_COLOREDACID);
+               DeathEffects.applyDeathEffect(entity, DeathEffects.DE_COLOREDACID);
             }
          }
       }
 
       if (!this.world.isRemote) {
-         IEntitySynchronize.sendSynchronize(
+         ISynchronizedEntity.sendSynchronize(
             this, 64.0, this.posX, this.posY + this.height / 2.0F, this.posZ, 0.0, 0.0, this.power
          );
       }

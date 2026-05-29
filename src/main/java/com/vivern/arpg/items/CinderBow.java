@@ -1,13 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.EntityInfluence;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
+import com.vivern.arpg.main.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -84,7 +77,7 @@ public class CinderBow extends AbstractBow {
    public boolean inUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected, boolean[] removePull) {
       if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         if (player.getHeldItemMainhand() == itemstack && Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && Keys.isKeyPressed(player, Keys.SECONDARYATTACK)) {
+         if (player.getHeldItemMainhand() == itemstack && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY) && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY)) {
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             float manacost = WeaponParameters.getWeaponParameters(this).getEnchantedF("manacost", sor);
             if (Mana.getMana(player) > manacost) {

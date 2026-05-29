@@ -124,7 +124,7 @@ public class ToxicomaniaPortal extends Block {
          && !entityIn.isBeingRidden()
          && entityIn.isNonBoss()
          && entityIn.getEntityBoundingBox().intersects(state.getBoundingBox(worldIn, pos).offset(pos))) {
-         ((EntityPlayer)entityIn).timeUntilPortal = 100;
+         entityIn.timeUntilPortal = 100;
          DimensionsRegister.teleporterTOXICOMANIA.teleport((EntityPlayer)entityIn, pos);
       }
    }
@@ -168,7 +168,7 @@ public class ToxicomaniaPortal extends Block {
    @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      switch ((EnumAxis)state.getValue(ROTATE)) {
+      switch (state.getValue(ROTATE)) {
          case X:
             i = 0;
             break;

@@ -26,7 +26,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityChainMace extends Entity implements IEntitySynchronize, IProjectile {
+public class EntityChainMace extends Entity implements ISynchronizedEntity, IProjectile {
    public final ItemStack weaponstack;
    public ChainMace mace;
    public EntityPlayer thrower;
@@ -262,7 +262,7 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
       if (!this.world.isRemote) {
          if (this.thrower != null) {
             if (this.ticksExisted < 3) {
-               IEntitySynchronize.sendSynchronize(this, 48.0, this.thrower.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0);
+               ISynchronizedEntity.sendSynchronize(this, 48.0, this.thrower.getEntityId(), 0.0, 0.0, 0.0, 0.0, 0.0);
             }
 
             if (this.thrower.isDead && this.returnTime <= 0) {
@@ -295,37 +295,36 @@ public class EntityChainMace extends Entity implements IEntitySynchronize, IProj
             .getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(1.0));
          double d0 = 0.0;
 
-         for (int i = 0; i < list.size(); i++) {
-            Entity entity1 = list.get(i);
-            if (entity1.canBeCollidedWith()) {
-               AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(0.3F + this.getCollisionBorderSize());
-               if (vec3d.x >= axisalignedbb.minX
-                  && vec3d.x <= axisalignedbb.maxX
-                  && vec3d.y >= axisalignedbb.minY
-                  && vec3d.y <= axisalignedbb.maxY
-                  && vec3d.z >= axisalignedbb.minZ
-                  && vec3d.z <= axisalignedbb.maxZ) {
-                  float collBS = this.getCollisionBorderSize() + 0.1F;
-                  Vec3d decrVector = new Vec3d(
-                        vec3d.x - vec3d1.x, vec3d.y - vec3d1.y, vec3d.z - vec3d1.z
+         for (Entity entity1 : list) {
+             if (entity1.canBeCollidedWith()) {
+                 AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(0.3F + this.getCollisionBorderSize());
+                 if (vec3d.x >= axisalignedbb.minX
+                         && vec3d.x <= axisalignedbb.maxX
+                         && vec3d.y >= axisalignedbb.minY
+                         && vec3d.y <= axisalignedbb.maxY
+                         && vec3d.z >= axisalignedbb.minZ
+                         && vec3d.z <= axisalignedbb.maxZ) {
+                     float collBS = this.getCollisionBorderSize() + 0.1F;
+                     Vec3d decrVector = new Vec3d(
+                             vec3d.x - vec3d1.x, vec3d.y - vec3d1.y, vec3d.z - vec3d1.z
                      )
-                     .normalize();
-                  vec3d = new Vec3d(
-                     vec3d.x + decrVector.x * collBS,
-                     vec3d.y + decrVector.y * collBS,
-                     vec3d.z + decrVector.z * collBS
-                  );
-               }
+                             .normalize();
+                     vec3d = new Vec3d(
+                             vec3d.x + decrVector.x * collBS,
+                             vec3d.y + decrVector.y * collBS,
+                             vec3d.z + decrVector.z * collBS
+                     );
+                 }
 
-               RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
-               if (raytraceresult1 != null) {
-                  double d1 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
-                  if (d1 < d0 || d0 == 0.0) {
-                     entity = entity1;
-                     d0 = d1;
-                  }
-               }
-            }
+                 RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
+                 if (raytraceresult1 != null) {
+                     double d1 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
+                     if (d1 < d0 || d0 == 0.0) {
+                         entity = entity1;
+                         d0 = d1;
+                     }
+                 }
+             }
          }
 
          if (entity != null) {

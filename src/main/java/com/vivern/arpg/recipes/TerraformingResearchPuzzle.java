@@ -671,7 +671,7 @@ public class TerraformingResearchPuzzle {
                            this.researchingPlayer
                               .world
                               .playSound(
-                                 (EntityPlayer)null, this.researchingPlayer.getPosition(), SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.BLOCKS, 0.9F, 1.0F
+                                      null, this.researchingPlayer.getPosition(), SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.BLOCKS, 0.9F, 1.0F
                               );
                            this.ISWINNED = true;
                            System.out.println("WINNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
@@ -1671,7 +1671,7 @@ public class TerraformingResearchPuzzle {
          } else if (way == 2) {
             return this.wayDown;
          } else {
-            return way == 3 ? this.wayLeft : false;
+            return way == 3 && this.wayLeft;
          }
       }
 

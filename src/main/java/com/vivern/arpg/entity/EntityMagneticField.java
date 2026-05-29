@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityMagneticField extends Entity implements IEntitySynchronize {
+public class EntityMagneticField extends Entity implements ISynchronizedEntity {
    public int power = 0;
    public int maximumPower = 0;
    public int fieldSize = 0;
@@ -66,7 +66,7 @@ public class EntityMagneticField extends Entity implements IEntitySynchronize {
          }
 
          if (this.ticksExisted % 15 == 0) {
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.power, this.maximumPower, this.fieldSize, 0.0, 0.0, 0.0);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.power, this.maximumPower, this.fieldSize, 0.0, 0.0, 0.0);
             if (this.hasMagnetCircle) {
                this.hasMagnetCircle = false;
             } else {
@@ -334,7 +334,7 @@ public class EntityMagneticField extends Entity implements IEntitySynchronize {
 
    public boolean isMagnet(int consumePower, BlockPos pos) {
       TileEntity en = this.world.getTileEntity(pos);
-      return en != null && en instanceof TileElectromagnet ? consumePower == 0 || ((TileElectromagnet)en).consumePower(consumePower) : false;
+      return en != null && en instanceof TileElectromagnet && (consumePower == 0 || ((TileElectromagnet) en).consumePower(consumePower));
    }
 
    @Override

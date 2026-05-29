@@ -27,7 +27,7 @@ public class VarPlanks extends Block {
 
    @Override
    public int damageDropped(IBlockState state) {
-      return ((EnumType)state.getValue(VARIANT)).getMetadata();
+      return state.getValue(VARIANT).getMetadata();
    }
 
    @Override
@@ -44,12 +44,12 @@ public class VarPlanks extends Block {
 
    @Override
    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      return ((EnumType)state.getValue(VARIANT)).getMapColor();
+      return state.getValue(VARIANT).getMapColor();
    }
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumType)state.getValue(VARIANT)).getMetadata();
+      return state.getValue(VARIANT).getMetadata();
    }
 
    @Override

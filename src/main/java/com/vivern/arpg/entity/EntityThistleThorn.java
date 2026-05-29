@@ -195,7 +195,7 @@ public class EntityThistleThorn extends EntityThrowable {
                      int rz = lvl - eff.getAmplifier();
                      debaff.mapTeams = eff.mapTeams;
                      if (this.thrower instanceof EntityPlayer) {
-                        debaff.addToTeams(Team.getTeamFor((EntityPlayer)this.thrower), rz);
+                        debaff.addToTeams(Team.getTeamFor(this.thrower), rz);
                      }
 
                      entitylivingbase.addPotionEffect(debaff);
@@ -226,7 +226,7 @@ public class EntityThistleThorn extends EntityThrowable {
                   }
 
                   if (this.thrower instanceof EntityPlayer) {
-                     debaffx.addToTeams(Team.getTeamFor((EntityPlayer)this.thrower), 1);
+                     debaffx.addToTeams(Team.getTeamFor(this.thrower), 1);
                   }
 
                   entitylivingbase.addPotionEffect(debaffx);
@@ -253,7 +253,7 @@ public class EntityThistleThorn extends EntityThrowable {
             result.entityHit.hurtResistantTime = 0;
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -272,7 +272,7 @@ public class EntityThistleThorn extends EntityThrowable {
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

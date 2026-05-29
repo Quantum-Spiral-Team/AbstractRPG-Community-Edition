@@ -19,7 +19,7 @@ public class AssemblyTableTESR extends TileEntitySpecialRenderer<TileAssemblyTab
    public void render(@Nullable TileAssemblyTable te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
       float blockRotation = 0.0F;
       if (te != null) {
-         EnumFacing facing = (EnumFacing)te.getWorld().getBlockState(te.getPos()).getValue(AssemblyTable.FACING);
+         EnumFacing facing = te.getWorld().getBlockState(te.getPos()).getValue(AssemblyTable.FACING);
          if (facing != null) {
             blockRotation = facing.getHorizontalAngle();
          }

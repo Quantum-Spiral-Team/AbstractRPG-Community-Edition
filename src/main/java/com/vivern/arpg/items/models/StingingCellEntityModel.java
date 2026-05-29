@@ -77,7 +77,7 @@ public class StingingCellEntityModel extends ModelBase {
          GlStateManager.depthMask(false);
          GlStateManager.matrixMode(5890);
          GlStateManager.loadIdentity();
-         GlStateManager.translate(0.0F, AnimationTimer.normaltick / 4 / 16.0F, 0.0F);
+         GlStateManager.translate(0.0F, (float) AnimationTimer.normaltick / 4 / 16.0F, 0.0F);
          GlStateManager.matrixMode(5888);
          GlStateManager.enableBlend();
          GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ONE);

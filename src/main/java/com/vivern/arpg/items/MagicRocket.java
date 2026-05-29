@@ -1,15 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityMagicRocket;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
@@ -62,8 +54,8 @@ public class MagicRocket extends ItemWeapon {
       this.setCanShoot(itemstack, entityIn);
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+         boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
          int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
          int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
          float power = Mana.getMagicPowerMax(player);
@@ -91,7 +83,7 @@ public class MagicRocket extends ItemWeapon {
                      double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                      List<EntityLivingBase> list = GetMOP.mopRayTrace(edist, 1.0F, player, 0.2, 0.2);
                      if (!list.isEmpty() && list.get(0) != null) {
-                        rocket.specialTarget = (Entity)list.get(0);
+                        rocket.specialTarget = list.get(0);
                         rocket.useTarget = true;
                         if (world.isRemote) {
                            GUNParticle bigboom = new GUNParticle(
@@ -134,7 +126,7 @@ public class MagicRocket extends ItemWeapon {
                NBTHelper.GiveNBTint(itemstack, 0, "actualid");
                Weapons.setPlayerAnimationOnServer(player, 14, EnumHand.MAIN_HAND);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

@@ -156,24 +156,24 @@ public class NeuralHelper {
       ArrayList<Character> list = new ArrayList<>();
       boolean lastIsNumber = false;
 
-      for (int i = 0; i < chars.length; i++) {
-         if (!Character.isDigit(chars[i]) && chars[i] != '.') {
-            if (lastIsNumber) {
-               lastIsNumber = false;
-               list.add(numberEnding);
-            }
+      for (char aChar : chars) {
+          if (!Character.isDigit(aChar) && aChar != '.') {
+              if (lastIsNumber) {
+                  lastIsNumber = false;
+                  list.add(numberEnding);
+              }
 
-            if (chars[i] == '[') {
-               list.add('{');
-            } else if (chars[i] == ']') {
-               list.add('}');
-            } else {
-               list.add(chars[i]);
-            }
-         } else {
-            lastIsNumber = true;
-            list.add(chars[i]);
-         }
+              if (aChar == '[') {
+                  list.add('{');
+              } else if (aChar == ']') {
+                  list.add('}');
+              } else {
+                  list.add(aChar);
+              }
+          } else {
+              lastIsNumber = true;
+              list.add(aChar);
+          }
       }
 
       StringBuilder sb = new StringBuilder();

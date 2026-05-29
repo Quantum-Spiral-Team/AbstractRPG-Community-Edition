@@ -1,13 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityTimelessSword;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.SweepParticle;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
@@ -55,8 +49,8 @@ public class TimelessSword extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
             EnumHand hand = null;
@@ -84,7 +78,7 @@ public class TimelessSword extends ItemWeapon {
                      itemRand.nextFloat() < 0.2
                   )) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -140,9 +134,9 @@ public class TimelessSword extends ItemWeapon {
          vec.x,
          vec.y,
          vec.z,
-         (double)effectrotat,
-         (double)player.rotationPitch,
-         (double)player.rotationYaw,
+              effectrotat,
+              player.rotationPitch,
+              player.rotationYaw,
          0.0,
          0.0,
          0.0
@@ -152,7 +146,7 @@ public class TimelessSword extends ItemWeapon {
       if (itemRand.nextFloat() < 0.2) {
          crit = 4.0F;
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -182,7 +176,7 @@ public class TimelessSword extends ItemWeapon {
          esword.setPosition(pose.x, pose.y, pose.z);
          world.spawnEntity(esword);
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,

@@ -226,7 +226,7 @@ public class DungeonCavesMapGen extends MapGenBase {
                               double d9 = (j2 - 1 + 0.5 - p_180702_8_) / d3;
                               if (d9 > -0.7 && d10 * d10 + d9 * d9 + d8 * d8 < 1.0) {
                                  IBlockState iblockstate1 = p_180702_5_.getBlockState(j3, j2, i2);
-                                 IBlockState iblockstate2 = (IBlockState)MoreObjects.firstNonNull(p_180702_5_.getBlockState(j3, j2 + 1, i2), BLK_AIR);
+                                 IBlockState iblockstate2 = MoreObjects.firstNonNull(p_180702_5_.getBlockState(j3, j2 + 1, i2), BLK_AIR);
                                  if (this.isTopBlock(p_180702_5_, j3, j2, i2, p_180702_3_, p_180702_4_)) {
                                     flag1 = true;
                                  }
@@ -273,10 +273,8 @@ public class DungeonCavesMapGen extends MapGenBase {
       } else if (p_175793_1_.getBlock() == Blocks.MYCELIUM) {
          return true;
       } else {
-         return p_175793_1_.getBlock() == Blocks.SNOW_LAYER
-            ? true
-            : (p_175793_1_.getBlock() == Blocks.SAND || p_175793_1_.getBlock() == Blocks.GRAVEL)
-               && p_175793_2_.getMaterial() != Material.WATER;
+         return p_175793_1_.getBlock() == Blocks.SNOW_LAYER || (p_175793_1_.getBlock() == Blocks.SAND || p_175793_1_.getBlock() == Blocks.GRAVEL)
+                 && p_175793_2_.getMaterial() != Material.WATER;
       }
    }
 
@@ -316,7 +314,7 @@ public class DungeonCavesMapGen extends MapGenBase {
    }
 
    private boolean isExceptionBiome(Biome biome) {
-      return biome == Biomes.BEACH ? true : biome == Biomes.DESERT;
+      return biome == Biomes.BEACH || biome == Biomes.DESERT;
    }
 
    private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {

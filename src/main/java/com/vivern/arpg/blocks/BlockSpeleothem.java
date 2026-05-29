@@ -73,7 +73,7 @@ public class BlockSpeleothem extends Block {
    }
 
    public boolean canStay(World world, BlockPos pos, IBlockState state) {
-      int ths = (Integer)state.getValue(TYPE);
+      int ths = state.getValue(TYPE);
       if (ths == 0) {
          return world.isSideSolid(pos.up(), EnumFacing.DOWN);
       } else if (ths == 4) {
@@ -162,7 +162,7 @@ public class BlockSpeleothem extends Block {
 
    @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      int ths = (Integer)state.getValue(TYPE);
+      int ths = state.getValue(TYPE);
       if (ths == 0 || ths == 4) {
          return AABB_BIG;
       } else {
@@ -177,7 +177,7 @@ public class BlockSpeleothem extends Block {
    }
 
    public AxisAlignedBB getBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      int ths = (Integer)state.getValue(TYPE);
+      int ths = state.getValue(TYPE);
       if (ths == 0 || ths == 4) {
          return AABB_BIG;
       } else if (ths == 1 || ths == 3) {
@@ -202,7 +202,7 @@ public class BlockSpeleothem extends Block {
 
    @Override
    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      int ths = (Integer)state.getValue(TYPE);
+      int ths = state.getValue(TYPE);
       if (ths == 6) {
          long i = MathHelper.getCoordinateRandom(pos.getX(), pos.getY(), pos.getZ());
          return new Vec3d(
@@ -260,7 +260,7 @@ public class BlockSpeleothem extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return (Integer)state.getValue(TYPE);
+      return state.getValue(TYPE);
    }
 
    @Override
@@ -271,11 +271,11 @@ public class BlockSpeleothem extends Block {
    @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
       if (this.canStay(worldIn, pos, state)) {
-         int ths = (Integer)state.getValue(TYPE);
+         int ths = state.getValue(TYPE);
          if (fromPos.getY() > pos.getY()) {
             IBlockState stateup = worldIn.getBlockState(fromPos);
             if (stateup.getBlock() instanceof BlockSpeleothem) {
-               int up = (Integer)stateup.getValue(TYPE);
+               int up = stateup.getValue(TYPE);
                if (up == 3 || up == 8) {
                   worldIn.setBlockState(pos, state.withProperty(TYPE, 4));
                }
@@ -289,7 +289,7 @@ public class BlockSpeleothem extends Block {
          if (fromPos.getY() < pos.getY()) {
             IBlockState statedown = worldIn.getBlockState(fromPos);
             if (statedown.getBlock() instanceof BlockSpeleothem) {
-               int down = (Integer)statedown.getValue(TYPE);
+               int down = statedown.getValue(TYPE);
                if (down == 1 || down == 7) {
                   worldIn.setBlockState(pos, state.withProperty(TYPE, 0));
                }
@@ -345,7 +345,7 @@ public class BlockSpeleothem extends Block {
             return this.getDefaultState().withProperty(TYPE, 5);
          }
 
-         int up = (Integer)stateup.getValue(TYPE);
+         int up = stateup.getValue(TYPE);
          if (up == 0 || up == 5) {
             return this.getDefaultState().withProperty(TYPE, 7);
          }
@@ -358,7 +358,7 @@ public class BlockSpeleothem extends Block {
             return this.getDefaultState().withProperty(TYPE, 6);
          }
 
-         int down = (Integer)statedown.getValue(TYPE);
+         int down = statedown.getValue(TYPE);
          if (down == 4 || down == 6) {
             return this.getDefaultState().withProperty(TYPE, 8);
          }
@@ -368,7 +368,7 @@ public class BlockSpeleothem extends Block {
          }
       } else {
          if (stateup.getBlock() instanceof BlockSpeleothem) {
-            int upx = (Integer)stateup.getValue(TYPE);
+            int upx = stateup.getValue(TYPE);
             if (upx == 0 || upx == 5) {
                return this.getDefaultState().withProperty(TYPE, 7);
             }
@@ -379,7 +379,7 @@ public class BlockSpeleothem extends Block {
          }
 
          if (statedown.getBlock() instanceof BlockSpeleothem) {
-            int downx = (Integer)statedown.getValue(TYPE);
+            int downx = statedown.getValue(TYPE);
             if (downx != 4 && downx != 6) {
                if (downx != 3 && downx != 2 && downx != 8) {
                   return this.getDefaultState().withProperty(TYPE, 2);
@@ -397,7 +397,7 @@ public class BlockSpeleothem extends Block {
 
    @Override
    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-      int ths = (Integer)state.getValue(TYPE);
+      int ths = state.getValue(TYPE);
       if (ths == 2) {
          return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE_THIN : BlockFaceShape.CENTER_SMALL;
       } else if (ths != 1 && ths != 3) {

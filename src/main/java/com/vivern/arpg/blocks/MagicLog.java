@@ -60,7 +60,7 @@ public class MagicLog extends BlockRotatedPillar {
    @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      switch ((EnumAxis)state.getValue(LOG_AXIS)) {
+      switch (state.getValue(LOG_AXIS)) {
          case X:
             i = 4;
             break;
@@ -94,7 +94,7 @@ public class MagicLog extends BlockRotatedPillar {
       switch (rot) {
          case COUNTERCLOCKWISE_90:
          case CLOCKWISE_90:
-            switch ((EnumAxis)state.getValue(LOG_AXIS)) {
+            switch (state.getValue(LOG_AXIS)) {
                case X:
                   return state.withProperty(LOG_AXIS, EnumAxis.Z);
                case Z:

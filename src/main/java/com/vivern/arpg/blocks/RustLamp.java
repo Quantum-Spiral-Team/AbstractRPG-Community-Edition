@@ -66,7 +66,7 @@ public class RustLamp extends Block {
 
    @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             return EAST_AABB;
          case WEST:
@@ -84,7 +84,7 @@ public class RustLamp extends Block {
 
    @Override
    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      switch ((EnumFacing)blockState.getValue(FACING)) {
+      switch (blockState.getValue(FACING)) {
          case EAST:
             return EAST_AABB;
          case WEST:
@@ -119,17 +119,17 @@ public class RustLamp extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex() + (state.getValue(ON) ? 6 : 0);
+      return state.getValue(FACING).getIndex() + (state.getValue(ON) ? 6 : 0);
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

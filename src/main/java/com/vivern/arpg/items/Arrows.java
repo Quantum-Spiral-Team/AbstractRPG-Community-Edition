@@ -330,7 +330,7 @@ public class Arrows {
          if (stack.getItem() instanceof ItemArrow) {
             World world = source.getWorld();
             IPosition position = BlockDispenser.getDispensePosition(source);
-            EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+            EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
             EntityArrow projectile = ((ItemArrow)stack.getItem()).createArrow(world, stack, null);
             projectile.setPosition(position.getX(), position.getY(), position.getZ());
             projectile.shoot(

@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize {
+public class EntityArrowTwin extends AbstractArrow implements ISynchronizedEntity {
    public static ResourceLocation texture = new ResourceLocation("arpg:textures/lightning4.png");
    public boolean isMain = false;
    public EntityArrowTwin twin;
@@ -142,7 +142,7 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
 
             this.stuckedRotPitch = this.rotationPitch;
             this.stuckedRotYaw = this.rotationYaw;
-            IEntitySynchronize.sendSynchronize(
+            ISynchronizedEntity.sendSynchronize(
                this, 64.0, this.rotationPitch, this.rotationYaw, entityhit.getEntityId(), this.stuckedX, this.stuckedY, this.stuckedZ
             );
             this.stucked = true;
@@ -197,7 +197,7 @@ public class EntityArrowTwin extends AbstractArrow implements IEntitySynchronize
          if (!this.world.isRemote) {
             if (this.twin != null) {
                if (this.ticksExisted < 3 || this.ticksExisted % 20 == 0) {
-                  IEntitySynchronize.sendSynchronize(this, 64.0, this.twin.getEntityId());
+                  ISynchronizedEntity.sendSynchronize(this, 64.0, this.twin.getEntityId());
                }
 
                if (this.ticksExisted % 5 == 0) {

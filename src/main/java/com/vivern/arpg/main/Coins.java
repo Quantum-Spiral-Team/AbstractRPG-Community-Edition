@@ -27,7 +27,7 @@ public class Coins {
    }
 
    public static int getCoins(EntityPlayer player) {
-      return (Integer)player.getDataManager().get(PropertiesRegistry.COINS);
+      return player.getDataManager().get(PropertiesRegistry.COINS);
    }
 
    public static int addCoins(EntityPlayer player, int value) {

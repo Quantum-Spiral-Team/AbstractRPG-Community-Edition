@@ -1517,7 +1517,7 @@ bow_damage_velocity=The arrow's damage is multiplied by its velocity
 
 attribute.name.arpg.mana=Mana
 attribute.name.arpg.leadership=Leadership
-attribute.name.arpg.manaspeed=Mana Speed
+attribute.name.arpg.mana_speed=Mana Speed
 attribute.name.arpg.armor_protection=Armor Protection
 attribute.name.arpg.magic_power=Magic Power
 attribute.name.arpg.airborne_mobility=Airborne Mobility

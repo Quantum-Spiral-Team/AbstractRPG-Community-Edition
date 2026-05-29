@@ -185,13 +185,13 @@ public class CeratargetModel extends ModelBase {
 
          for (int i = 0; i < f2; i++) {
             if (i % 2 == 0) {
-               this.rocket1.offsetX = ft1 - 1.5F * (i / 2 % 3);
-               this.rocket1.offsetY = 1.5F * (i / 2 / 3);
+               this.rocket1.offsetX = ft1 - 1.5F * ((float) i / 2 % 3);
+               this.rocket1.offsetY = 1.5F * ((float) i / 2 / 3);
                this.rocket1.offsetZ = ft2;
                this.rocket1.render(f5);
             } else {
-               this.rocket3.offsetX = -ft1 + 1.5F * (i / 2 % 3);
-               this.rocket3.offsetY = 1.5F * (i / 2 / 3);
+               this.rocket3.offsetX = -ft1 + 1.5F * ((float) i / 2 % 3);
+               this.rocket3.offsetY = 1.5F * ((float) i / 2 / 3);
                this.rocket3.offsetZ = ft2;
                this.rocket3.render(f5);
             }

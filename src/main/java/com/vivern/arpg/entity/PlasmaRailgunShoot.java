@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PlasmaRailgunShoot extends StandardBullet implements IEntitySynchronize {
+public class PlasmaRailgunShoot extends StandardBullet implements ISynchronizedEntity {
    static ResourceLocation explode = new ResourceLocation("arpg:textures/blueexplode5.png");
    static ResourceLocation cloud = new ResourceLocation("arpg:textures/largecloud.png");
    static ResourceLocation blueexplode = new ResourceLocation("arpg:textures/blueexplode.png");
@@ -189,10 +189,10 @@ public class PlasmaRailgunShoot extends StandardBullet implements IEntitySynchro
                }
             }
 
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -209,7 +209,7 @@ public class PlasmaRailgunShoot extends StandardBullet implements IEntitySynchro
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -220,7 +220,7 @@ public class PlasmaRailgunShoot extends StandardBullet implements IEntitySynchro
             );
          if (!this.world.isRemote) {
             if (result.hitVec != null) {
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, 0.0, 0.0, 0.0
                );
             }

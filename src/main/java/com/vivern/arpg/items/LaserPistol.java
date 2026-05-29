@@ -1,17 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
@@ -84,8 +74,8 @@ public class LaserPistol extends ItemWeapon {
          this.decreaseReload(itemstack, player);
          int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
          WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-         boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+         boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
          EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
          boolean b1 = true;
          if (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND) {
@@ -169,7 +159,7 @@ public class LaserPistol extends ItemWeapon {
                   } else {
                      if (player.ticksExisted % 2 == 0) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -247,7 +237,7 @@ public class LaserPistol extends ItemWeapon {
                itemstack, player, new ItemStack(ItemsRegister.ION_BATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(ItemsRegister.ION_BATTERY, 1, 0)
             )) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -316,7 +306,7 @@ public class LaserPistol extends ItemWeapon {
             if (!worldIn.isRemote) {
                if (damage <= itemIn.getMaxDamage() - 1) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -337,7 +327,7 @@ public class LaserPistol extends ItemWeapon {
                   List<EntityLivingBase> list = worldIn.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
                   if (!list.isEmpty()) {
                      for (EntityLivingBase entitylivingbase : list) {
-                        if (entitylivingbase != (EntityLivingBase)entityIn) {
+                        if (entitylivingbase != entityIn) {
                            IAttributeInstance entityAttribute = entitylivingbase.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
                            double baseValue = entityAttribute.getBaseValue();
                            entityAttribute.setBaseValue(1.0);
@@ -358,7 +348,7 @@ public class LaserPistol extends ItemWeapon {
                   itemstack.setItemDamage(0);
                   player.getCooldownTracker().setCooldown(this, 40);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

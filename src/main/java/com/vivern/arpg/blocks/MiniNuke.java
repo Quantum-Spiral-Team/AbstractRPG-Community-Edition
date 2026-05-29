@@ -83,17 +83,17 @@ public class MiniNuke extends AbstractBomb {
 
    @Override
    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
-      this.explode(worldIn, pos, state, (EntityLivingBase)null);
+      this.explode(worldIn, pos, state, null);
    }
 
    public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {
-      if (!worldIn.isRemote && (Boolean)state.getValue(EXPLODE)) {
+      if (!worldIn.isRemote && state.getValue(EXPLODE)) {
          EntityMiniNuke entitytntprimed = new EntityMiniNuke(
             worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5F, igniter, basePower
          );
          worldIn.spawnEntity(entitytntprimed);
          worldIn.playSound(
-            (EntityPlayer)null,
+                 null,
             entitytntprimed.posX,
             entitytntprimed.posY,
             entitytntprimed.posZ,

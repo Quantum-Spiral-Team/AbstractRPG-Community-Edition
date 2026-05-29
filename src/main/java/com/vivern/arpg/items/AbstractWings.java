@@ -13,13 +13,12 @@ import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.PropertiesRegistry;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Weapons;
-import com.vivern.arpg.network.PacketBaublesNbtToClients;
+import com.vivern.arpg.network.packet.PacketBaublesNbtToClients;
 import java.util.List;
 import java.util.Random;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
@@ -194,7 +193,7 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
 
          if (flying) {
             this.onFlyingTick(itemstack, player, true);
-            if (Keys.isKeyPressed(player, Keys.BACK)) {
+            if (player.moveForward < 0.0F) {
                player.getDataManager().set(PropertiesRegistry.FLYING, false);
                bitstate |= 4;
             }

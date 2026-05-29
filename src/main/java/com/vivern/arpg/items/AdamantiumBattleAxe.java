@@ -1,12 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -78,7 +72,7 @@ public class AdamantiumBattleAxe extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
             int delay = NBTHelper.GetNBTint(itemstack, "atdelay");
@@ -94,7 +88,7 @@ public class AdamantiumBattleAxe extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
                } else if (delay <= 0
                   && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0
-                  && Keys.isKeyPressed(player, Keys.SECONDARYATTACK)
+                  && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY)
                   && !hascooldown) {
                   NBTHelper.SetNBTint(itemstack, 11, "atdelay");
                   NBTHelper.giveNBTboolean(itemstack, true, "specattack");
@@ -103,7 +97,7 @@ public class AdamantiumBattleAxe extends ItemWeapon {
                   double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
                   player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -119,7 +113,7 @@ public class AdamantiumBattleAxe extends ItemWeapon {
                   if (NBTHelper.GetNBTboolean(itemstack, "specattack")) {
                      if (doAlternativeHammerAttack(this, itemstack, player, EnumHand.MAIN_HAND, false, 70, 7).success) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -130,7 +124,7 @@ public class AdamantiumBattleAxe extends ItemWeapon {
                         );
                         IWeapon.fireBomEffect(this, player, world, 2);
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -141,7 +135,7 @@ public class AdamantiumBattleAxe extends ItemWeapon {
                         );
                      } else {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -158,7 +152,7 @@ public class AdamantiumBattleAxe extends ItemWeapon {
                   } else {
                      if (IWeapon.doMeleeHammerAttack(this, itemstack, player, EnumHand.MAIN_HAND, false, 70, 7).success) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -169,7 +163,7 @@ public class AdamantiumBattleAxe extends ItemWeapon {
                         );
                      } else {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,

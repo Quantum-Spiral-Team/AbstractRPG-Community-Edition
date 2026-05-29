@@ -91,7 +91,7 @@ public class LordOfPainSpike extends EntityThrowable implements INailer {
             if (!this.sound) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,

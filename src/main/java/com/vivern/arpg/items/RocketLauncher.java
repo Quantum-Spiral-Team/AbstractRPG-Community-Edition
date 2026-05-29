@@ -1,13 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityLaunchedRocket;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -60,8 +54,8 @@ public class RocketLauncher extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             this.decreaseReload(itemstack, player);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
@@ -109,7 +103,7 @@ public class RocketLauncher extends ItemWeapon {
                } else if (click2 && firemode < 1 && firemode > -2 && ammo >= 3) {
                   NBTHelper.SetNBTint(itemstack, 1, "firemode");
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -124,7 +118,7 @@ public class RocketLauncher extends ItemWeapon {
                   if (ammo > 0 && this.isReloaded(itemstack)) {
                      if (!hascooldown) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -163,7 +157,7 @@ public class RocketLauncher extends ItemWeapon {
                      }
                   } else if (this.initiateRocketReload(itemstack, player, maxammo)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -182,7 +176,7 @@ public class RocketLauncher extends ItemWeapon {
                      NBTHelper.SetNBTint(itemstack, -needfiremodeTick, "firemode");
                   } else if (!hascooldown) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

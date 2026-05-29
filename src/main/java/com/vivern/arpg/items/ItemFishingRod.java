@@ -101,7 +101,7 @@ public class ItemFishingRod extends Item {
             player.addStat(StatList.getObjectUseStats(this));
             if (NBTHelper.GetNBTboolean(itemstack, "hasHook")) {
                world.playSound(
-                  (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.fishing_throw, SoundCategory.AMBIENT, 0.8F, 1.0F
+                       null, player.posX, player.posY, player.posZ, Sounds.fishing_throw, SoundCategory.AMBIENT, 0.8F, 1.0F
                );
                NBTHelper.SetNBTboolean(itemstack, false, "hasHook");
                NBTHelper.SetNBTboolean(itemstack, false, "destroy");
@@ -125,7 +125,7 @@ public class ItemFishingRod extends Item {
                }
             } else if (!NBTHelper.GetNBTboolean(itemstack, "pecked")) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -138,7 +138,7 @@ public class ItemFishingRod extends Item {
             } else {
                NBTHelper.SetNBTint(itemstack, 3, "use");
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

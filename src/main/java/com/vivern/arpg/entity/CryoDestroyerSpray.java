@@ -30,7 +30,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class CryoDestroyerSpray extends EntityThrowable implements IEntitySynchronize {
+public class CryoDestroyerSpray extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    public static ResourceLocation frozen_circle = new ResourceLocation("arpg:textures/frozen_circle.png");
    public static ResourceLocation largecloud = new ResourceLocation("arpg:textures/largecloud.png");
@@ -182,7 +182,7 @@ public class CryoDestroyerSpray extends EntityThrowable implements IEntitySynchr
 
             if (result.hitVec != null && result.sideHit != null) {
                result = GetMOP.normalizeRayTraceResult(result, 0.06);
-               IEntitySynchronize.sendSynchronize(
+               ISynchronizedEntity.sendSynchronize(
                   this,
                   32.0,
                   result.hitVec.x,

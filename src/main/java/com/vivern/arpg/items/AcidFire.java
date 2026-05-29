@@ -1,15 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityAcidFire;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.TEISRGuns;
 import net.minecraft.creativetab.CreativeTabs;
@@ -68,8 +60,8 @@ public class AcidFire extends ItemWeapon {
             World world = player.getEntityWorld();
             Item itemIn = itemstack.getItem();
             EnumHand hand = player.getActiveHand();
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             float power = Mana.getMagicPowerMax(player);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
@@ -79,7 +71,7 @@ public class AcidFire extends ItemWeapon {
                if (Mana.getMana(player) > manacost && click) {
                   Weapons.setPlayerAnimationOnServer(player, 13, EnumHand.MAIN_HAND);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -126,7 +118,7 @@ public class AcidFire extends ItemWeapon {
                   player.getCooldownTracker().setCooldown(this, 20);
                   Weapons.setPlayerAnimationOnServer(player, 28, EnumHand.MAIN_HAND);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

@@ -49,7 +49,7 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
 
    @Override
    public ItemStack getStackInSlot(int index) {
-      return (ItemStack)this.furnaceItemStacks.get(MathHelper.clamp(index, 0, 1));
+      return this.furnaceItemStacks.get(MathHelper.clamp(index, 0, 1));
    }
 
    @Override
@@ -64,7 +64,7 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
 
    @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
-      ItemStack itemstack = (ItemStack)this.furnaceItemStacks.get(index);
+      ItemStack itemstack = this.furnaceItemStacks.get(index);
       boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
       this.furnaceItemStacks.set(index, stack);
       if (stack.getCount() > this.getInventoryStackLimit()) {
@@ -94,10 +94,8 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
 
    @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
-      return this.world.getTileEntity(this.pos) != this
-         ? false
-         : player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
-            <= 64.0;
+      return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
+              <= 64.0;
    }
 
    @Override
@@ -189,9 +187,9 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
 
    public void smeltItem() {
       if (this.canSmelt()) {
-         ItemStack itemstack = (ItemStack)this.furnaceItemStacks.get(0);
+         ItemStack itemstack = this.furnaceItemStacks.get(0);
          ItemStack itemstack1 = FurnaceRecipes.instance().getSmeltingResult(itemstack);
-         ItemStack itemstack2 = (ItemStack)this.furnaceItemStacks.get(1);
+         ItemStack itemstack2 = this.furnaceItemStacks.get(1);
          if (itemstack2.isEmpty()) {
             this.furnaceItemStacks.set(1, itemstack1.copy());
          } else if (itemstack2.getItem() == itemstack1.getItem()) {
@@ -222,23 +220,21 @@ public class TileInfernumFurnace extends TileEntityLockable implements IManaBuff
    }
 
    public boolean canSmelt() {
-      if (((ItemStack)this.furnaceItemStacks.get(0)).isEmpty()) {
+      if (this.furnaceItemStacks.get(0).isEmpty()) {
          return false;
       } else {
-         ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult((ItemStack)this.furnaceItemStacks.get(0));
+         ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
          if (itemstack.isEmpty()) {
             return false;
          } else {
-            ItemStack itemstack1 = (ItemStack)this.furnaceItemStacks.get(1);
+            ItemStack itemstack1 = this.furnaceItemStacks.get(1);
             if (itemstack1.isEmpty()) {
                return true;
             } else if (!itemstack1.isItemEqual(itemstack)) {
                return false;
             } else {
                return itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit()
-                     && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()
-                  ? true
-                  : itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize();
+                       && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize() || itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize();
             }
          }
       }

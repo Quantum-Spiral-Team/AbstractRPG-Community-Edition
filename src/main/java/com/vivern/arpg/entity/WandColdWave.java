@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class WandColdWave extends EntityThrowable implements IEntitySynchronize, RenderModule.IRenderModuleOverride {
+public class WandColdWave extends EntityThrowable implements ISynchronizedEntity, RenderModule.IRenderModuleOverride {
    public final ItemStack weaponstack;
    public float magicPower = 1.0F;
    public List<Entity> impacted = new ArrayList<>();
@@ -82,7 +82,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
    }
 
    public float getCutterSize() {
-      return (Float)this.dataManager.get(CUTTER_SIZE);
+      return this.dataManager.get(CUTTER_SIZE);
    }
 
    public void setCutterSize(float value) {
@@ -136,7 +136,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
          this.bladeNormal = GetMOP.rotateVecAroundAxis(
             GetMOP.pitchYawToVec3D(this.rotationPitch - 90.0F, -this.rotationYaw), look, (float)Math.toRadians(this.rotationRoll)
          );
-         IEntitySynchronize.sendSynchronize(this, 64.0, this.rotationRoll);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, this.rotationRoll);
       }
 
       if (!this.world.isRemote) {
@@ -368,7 +368,7 @@ public class WandColdWave extends EntityThrowable implements IEntitySynchronize,
                .getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos())
             != null) {
          if (result.hitVec != null) {
-            IEntitySynchronize.sendSynchronize(
+            ISynchronizedEntity.sendSynchronize(
                this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z
             );
          }

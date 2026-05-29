@@ -1,15 +1,8 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.CannonSnowball;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
+
 import java.util.ArrayList;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -78,8 +71,8 @@ public class SnowballCannon extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
@@ -91,14 +84,14 @@ public class SnowballCannon extends ItemWeapon {
 
             Item ammotype = FindAmmo.findModulate(player.inventory, ammolist);
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-            Item cooldownItem = (Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP);
+            Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP;
             if (ammotype != null && hand != null && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)) {
                if (ammo > 0 && this.isReloaded(itemstack)) {
                   if (!player.getCooldownTracker().hasCooldown(cooldownItem)) {
                      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                      if (ammotype == Items.SNOWBALL) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -137,7 +130,7 @@ public class SnowballCannon extends ItemWeapon {
                         }
                      } else if (ammotype == Item.getItemFromBlock(Blocks.SNOW)) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -189,7 +182,7 @@ public class SnowballCannon extends ItemWeapon {
                      NBTHelper.SetNBTint(itemstack, maxammo, "ammo");
                   } else if (this.isReloadNeed(itemstack)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

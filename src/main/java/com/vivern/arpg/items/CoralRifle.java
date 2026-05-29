@@ -3,15 +3,7 @@ package com.vivern.arpg.items;
 import com.vivern.arpg.items.armor.IItemAttacked;
 import com.vivern.arpg.entity.CoralPolyp;
 import com.vivern.arpg.entity.CoralRifleBullet;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -77,7 +69,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             this.decreaseReload(itemstack, player);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
@@ -87,7 +79,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
                   if (!player.getCooldownTracker().hasCooldown(this)) {
                      ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(itemstack, "bullet"));
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -128,7 +120,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
                   }
                } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.CORAL_RIFLE_CLIP, maxammo, true)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

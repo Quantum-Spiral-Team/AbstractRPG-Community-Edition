@@ -112,7 +112,7 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
          if (this.getChestStanding() != EnumChestStanding.RIGHT) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   d1,
                   j + 0.5,
                   d2,
@@ -143,7 +143,7 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
             if (this.getChestStanding() != EnumChestStanding.RIGHT) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      d3,
                      j + 0.5,
                      d0,

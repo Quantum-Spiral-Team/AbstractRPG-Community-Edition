@@ -1,10 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntitySpellForgeCatalyst;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,7 +34,7 @@ public class SpellPliers extends Item {
 
          if (entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             if ((player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack) && click && !player.getCooldownTracker().hasCooldown(this)) {
                RayTraceResult result = GetMOP.fixedRayTraceBlocks(
                   world, player, player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue(), 0.2F, false, false, true, true

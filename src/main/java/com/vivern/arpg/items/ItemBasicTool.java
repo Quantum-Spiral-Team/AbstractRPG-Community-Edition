@@ -143,7 +143,7 @@ public class ItemBasicTool extends ItemItem {
       if (tool == null || tool.isEmpty()) {
          return true;
       } else {
-         return lvl < 1 ? true : this.gethLevel(tool) >= lvl;
+         return lvl < 1 || this.gethLevel(tool) >= lvl;
       }
    }
 
@@ -208,7 +208,7 @@ public class ItemBasicTool extends ItemItem {
       } else if (toRepair.getItem() == repair.getItem()) {
          return true;
       } else {
-         return this.itemRepair == null ? false : repair.getItem() == this.itemRepair;
+         return this.itemRepair != null && repair.getItem() == this.itemRepair;
       }
    }
 

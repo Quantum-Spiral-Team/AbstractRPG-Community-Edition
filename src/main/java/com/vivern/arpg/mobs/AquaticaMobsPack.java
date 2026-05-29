@@ -7,7 +7,7 @@ import com.vivern.arpg.items.models.ModelsAquaticaMobs;
 import com.vivern.arpg.items.models.OceanSpiritModel;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.entity.EntityPart;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.entity.IMultipartMob;
 import com.vivern.arpg.entity.TrailParticle;
 import com.vivern.arpg.events.Debugger;
@@ -259,7 +259,7 @@ public class AquaticaMobsPack {
       );
    }
 
-   public static class Archelon extends AbstractMob implements IMultipartMob, IEntitySynchronize {
+   public static class Archelon extends AbstractMob implements IMultipartMob, ISynchronizedEntity {
       public EntityPart archelonHead;
       public ArchelonCreation archelonCreation;
       public boolean blocksDamage = true;
@@ -370,7 +370,7 @@ public class AquaticaMobsPack {
                .add(this.getVectorForRotation(this.rotationPitch * 0.8F, this.renderYawOffset + f2).scale(2.25 - 1.8F * headProtect))
                .add(0.0, 0.23, 0.0);
             this.archelonHead.setPosition(vec.x, vec.y, vec.z);
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.renderYawOffset);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.renderYawOffset);
          }
       }
 
@@ -409,7 +409,7 @@ public class AquaticaMobsPack {
             if (hurtdamage < 1.5) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -421,7 +421,7 @@ public class AquaticaMobsPack {
             } else {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -562,7 +562,7 @@ public class AquaticaMobsPack {
 
       @Override
       public boolean hasNoGravity() {
-         return this.parent != null && this.parent.isEntityAlive() ? true : super.hasNoGravity();
+         return this.parent != null && this.parent.isEntityAlive() || super.hasNoGravity();
       }
 
       @Override
@@ -1689,7 +1689,7 @@ public class AquaticaMobsPack {
       }
    }
 
-   public abstract static class KrakenTentacle extends AbstractMob implements IEntitySynchronize {
+   public abstract static class KrakenTentacle extends AbstractMob implements ISynchronizedEntity {
       public BossKraken kraken;
       public double maxLengthSq = 1444.0;
       public double reagreeDistSq = 784.0;
@@ -1744,7 +1744,7 @@ public class AquaticaMobsPack {
          super.onUpdate();
          if (this.kraken != null) {
             if (!this.world.isRemote && (this.ticksExisted % 40 == 0 || this.ticksExisted < 2)) {
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.kraken.getEntityId());
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.kraken.getEntityId());
                this.isAgressive = this.kraken.isAgressive;
                this.team = this.kraken.team;
                if (this.getAttackTarget() != null
@@ -1787,7 +1787,7 @@ public class AquaticaMobsPack {
 
       @Override
       public boolean attackEntityFrom(DamageSource source, float amount) {
-         return source != DamageSource.DROWN && source != DamageSource.IN_WALL ? super.attackEntityFrom(source, amount) : false;
+         return source != DamageSource.DROWN && source != DamageSource.IN_WALL && super.attackEntityFrom(source, amount);
       }
 
       @Override
@@ -2493,7 +2493,7 @@ public class AquaticaMobsPack {
                GL11.glDepthMask(false);
                Minecraft.getMinecraft().getTextureManager().bindTexture(textureForcefield);
                GlStateManager.translate(0.0F, 0.325F, 0.0F);
-               forcefieldModel.renderScaledtextureAnimated(3.0F, AnimationTimer.normaltick / 8);
+               forcefieldModel.renderScaledtextureAnimated(3.0F, (float) AnimationTimer.normaltick / 8);
                GL11.glDepthMask(true);
                AbstractMobModel.returnlight();
                AbstractMobModel.alphaGlowDisable();
@@ -2505,7 +2505,7 @@ public class AquaticaMobsPack {
       }
    }
 
-   public static class Mermaid extends AbstractMob implements IEntitySynchronize {
+   public static class Mermaid extends AbstractMob implements ISynchronizedEntity {
       public static ResourceLocation star2 = new ResourceLocation("arpg:textures/star2.png");
       public static ResourceLocation circle = new ResourceLocation("arpg:textures/circle.png");
       public static ResourceLocation circle2 = new ResourceLocation("arpg:textures/circle2.png");
@@ -2521,18 +2521,11 @@ public class AquaticaMobsPack {
       public EntityAIShootAndSwim shootswim = null;
       public EntityAIRush rush = null;
       public EntityAIAttackSweep tridentsweep = null;
-      public static Predicate<? super EntityLivingBase> targetEntitySelector = new Predicate<EntityLivingBase>() {
-         @Override
-         public boolean apply(EntityLivingBase input) {
-            if (input instanceof EntityPlayer) {
-               boolean med = BaublesApi.getBaublesHandler((EntityPlayer)input).getStackInSlot(0).getItem() == ItemsRegister.MERMAID_MEDALLION;
-               if (med) {
-                  return false;
-               }
-            }
-
-            return true;
+      public static Predicate<? super EntityLivingBase> targetEntitySelector = (Predicate<EntityLivingBase>) input -> {
+         if (input instanceof EntityPlayer) {
+            return !(BaublesApi.getBaublesHandler((EntityPlayer)input).getStackInSlot(0).getItem() == ItemsRegister.MERMAID_MEDALLION);
          }
+         return true;
       };
 
       public Mermaid(World world) {
@@ -2764,7 +2757,7 @@ public class AquaticaMobsPack {
                         this.spellhitActive = true;
                         this.spellhitCoolown = this.maxSpellhitCoolown;
                         this.spellhitReady = 0;
-                        IEntitySynchronize.sendSynchronize(
+                        ISynchronizedEntity.sendSynchronize(
                            this, 64.0, this.spellhitPos.x, this.spellhitPos.y, this.spellhitPos.z
                         );
                      }
@@ -2990,7 +2983,7 @@ public class AquaticaMobsPack {
       }
    }
 
-   public static class Needletooth extends AbstractMob implements IEntitySynchronize {
+   public static class Needletooth extends AbstractMob implements ISynchronizedEntity {
       public static ResourceLocation tex1 = new ResourceLocation("arpg:textures/needletooth_model_tex1.png");
       public static ResourceLocation tex2 = new ResourceLocation("arpg:textures/needletooth_model_tex2.png");
       public static ResourceLocation tex3 = new ResourceLocation("arpg:textures/needletooth_model_tex3.png");
@@ -3038,7 +3031,7 @@ public class AquaticaMobsPack {
          int airr = this.getAir();
          super.onUpdate();
          if (this.ticksExisted <= 2 || this.ticksExisted % 41 == 0) {
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.var2, 0.0, 0.0, 0.0, 0.0, 0.0);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.var2, 0.0, 0.0, 0.0, 0.0, 0.0);
          }
 
          if (this.world.isRemote) {
@@ -3192,7 +3185,7 @@ public class AquaticaMobsPack {
       }
    }
 
-   public static class OceanSpirit extends AbstractMob implements IEntitySynchronize {
+   public static class OceanSpirit extends AbstractMob implements ISynchronizedEntity {
       ResourceLocation texturelaser = new ResourceLocation("arpg:textures/water_beam.png");
       public int oceanShootDelay = 20;
       public int oceanShootDelayMax = 150;
@@ -3576,7 +3569,7 @@ public class AquaticaMobsPack {
       }
    }
 
-   public static class Polipoid extends AbstractMob implements IEntitySynchronize {
+   public static class Polipoid extends AbstractMob implements ISynchronizedEntity {
       public static float motionMaxSpeed = 1.0F;
       public static float speedIncrease = 0.05F;
       public int shootCooldown = 0;
@@ -3639,7 +3632,7 @@ public class AquaticaMobsPack {
                mob.team = this.team;
                mob.isAgressive = this.isAgressive;
                mob.canDropLoot = this.canDropLoot;
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.breeds);
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.breeds);
             }
          }
 
@@ -3677,7 +3670,7 @@ public class AquaticaMobsPack {
                   this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ
                );
          } else if (this.ticksExisted < 3 || this.ticksExisted % 43 == 0) {
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.breeds, 0.0, 0.0, 0.0, 0.0, 0.0);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.breeds, 0.0, 0.0, 0.0, 0.0, 0.0);
          }
 
          if (this.isEntityAlive() && !this.isInWater()) {
@@ -4332,7 +4325,7 @@ public class AquaticaMobsPack {
       }
    }
 
-   public static class Wizardfish extends AbstractMob implements IEntitySynchronize {
+   public static class Wizardfish extends AbstractMob implements ISynchronizedEntity {
       public int magicCooldown = 150;
       public static ResourceLocation tex1 = new ResourceLocation("arpg:textures/simple_magic_shoot.png");
       public int particklesTime = 0;
@@ -4489,28 +4482,28 @@ public class AquaticaMobsPack {
                            mob.addPotionEffect(new PotionEffect(MobEffects.SPEED, 700, 1));
                            this.magicCooldown = this.modifyMagicCooldown(150);
                            Vec3d col = ColorConverters.DecimaltoRGB(MobEffects.SPEED.getLiquidColor());
-                           IEntitySynchronize.sendSynchronize(
+                           ISynchronizedEntity.sendSynchronize(
                               this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z
                            );
                         } else if (this.rand.nextFloat() < 0.3 && mob.getAttackTarget() != null) {
                            mob.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 700));
                            this.magicCooldown = this.modifyMagicCooldown(130);
                            Vec3d col = ColorConverters.DecimaltoRGB(MobEffects.STRENGTH.getLiquidColor());
-                           IEntitySynchronize.sendSynchronize(
+                           ISynchronizedEntity.sendSynchronize(
                               this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z
                            );
                         } else if (this.rand.nextFloat() < 0.3 && mob.getHealth() + 20.0F < mob.getMaxHealth()) {
                            mob.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 900, 4));
                            this.magicCooldown = this.modifyMagicCooldown(160);
                            Vec3d col = ColorConverters.DecimaltoRGB(MobEffects.REGENERATION.getLiquidColor());
-                           IEntitySynchronize.sendSynchronize(
+                           ISynchronizedEntity.sendSynchronize(
                               this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z
                            );
                         } else {
                            mob.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 1));
                            this.magicCooldown = this.modifyMagicCooldown(100);
                            Vec3d col = ColorConverters.DecimaltoRGB(MobEffects.RESISTANCE.getLiquidColor());
-                           IEntitySynchronize.sendSynchronize(
+                           ISynchronizedEntity.sendSynchronize(
                               this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z
                            );
                         }
@@ -4518,22 +4511,22 @@ public class AquaticaMobsPack {
                         mob.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 1500));
                         this.magicCooldown = this.modifyMagicCooldown(100);
                         Vec3d col = ColorConverters.DecimaltoRGB(MobEffects.WATER_BREATHING.getLiquidColor());
-                        IEntitySynchronize.sendSynchronize(this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
+                        ISynchronizedEntity.sendSynchronize(this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
                      } else if (this.rand.nextFloat() < 0.3 && !mob.getNavigator().noPath()) {
                         mob.addPotionEffect(new PotionEffect(MobEffects.SPEED, 700));
                         this.magicCooldown = this.modifyMagicCooldown(150);
                         Vec3d col = ColorConverters.DecimaltoRGB(MobEffects.SPEED.getLiquidColor());
-                        IEntitySynchronize.sendSynchronize(this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
+                        ISynchronizedEntity.sendSynchronize(this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
                      } else if (this.rand.nextFloat() < 0.3 && mob.getAttackTarget() != null) {
                         mob.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 700));
                         this.magicCooldown = this.modifyMagicCooldown(130);
                         Vec3d col = ColorConverters.DecimaltoRGB(MobEffects.STRENGTH.getLiquidColor());
-                        IEntitySynchronize.sendSynchronize(this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
+                        ISynchronizedEntity.sendSynchronize(this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
                      } else {
                         mob.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 1));
                         this.magicCooldown = this.modifyMagicCooldown(100);
                         Vec3d col = ColorConverters.DecimaltoRGB(MobEffects.RESISTANCE.getLiquidColor());
-                        IEntitySynchronize.sendSynchronize(this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
+                        ISynchronizedEntity.sendSynchronize(this, 64.0, mob.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
                      }
                   } else {
                      this.magicCooldown = 15;
@@ -4545,7 +4538,7 @@ public class AquaticaMobsPack {
                this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 900, 4));
                this.magicCooldown = this.modifyMagicCooldown(160);
                Vec3d col = ColorConverters.DecimaltoRGB(MobEffects.REGENERATION.getLiquidColor());
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.getEntityId(), 0.0, 0.0, col.x, col.y, col.z);
             }
          }
 

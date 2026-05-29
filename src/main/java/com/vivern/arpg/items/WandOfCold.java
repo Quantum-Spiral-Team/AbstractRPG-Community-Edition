@@ -2,14 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.WandColdShoot;
 import com.vivern.arpg.entity.WandColdWave;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -82,8 +75,8 @@ public class WandOfCold extends ItemWeapon {
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             float power = Mana.getMagicPowerMax(player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
             float manacost = parameters.getEnchantedF("manacost", sor);
             NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
@@ -97,7 +90,7 @@ public class WandOfCold extends ItemWeapon {
                   NBTHelper.GiveNBTint(itemstack, 0, "charges");
                   Weapons.setPlayerAnimationOnServer(player, 26, EnumHand.MAIN_HAND);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -142,7 +135,7 @@ public class WandOfCold extends ItemWeapon {
                   player.addStat(StatList.getObjectUseStats(this));
                   IWeapon.fireBomEffect(this, player, world, 1);
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

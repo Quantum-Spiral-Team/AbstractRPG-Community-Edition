@@ -501,13 +501,13 @@ public class Phenomenons {
    public static int getInterflowId(Phenomenon... phenomenons) {
       int allbits = 0;
 
-      for (int i = 0; i < phenomenons.length; i++) {
-         int interflowBit = getInterflowBit(phenomenons[i].getId());
-         if ((allbits & interflowBit) > 0) {
-            return 0;
-         }
+      for (Phenomenon phenomenon : phenomenons) {
+          int interflowBit = getInterflowBit(phenomenon.getId());
+          if ((allbits & interflowBit) > 0) {
+              return 0;
+          }
 
-         allbits |= interflowBit;
+          allbits |= interflowBit;
       }
 
       return idByInterflowBit.getOrDefault(allbits, 0);
@@ -516,13 +516,13 @@ public class Phenomenons {
    public static int getInterflowId(int... phenomenonsIds) {
       int allbits = 0;
 
-      for (int i = 0; i < phenomenonsIds.length; i++) {
-         int interflowBit = getInterflowBit(phenomenonsIds[i]);
-         if ((allbits & interflowBit) > 0) {
-            return 0;
-         }
+      for (int phenomenonsId : phenomenonsIds) {
+          int interflowBit = getInterflowBit(phenomenonsId);
+          if ((allbits & interflowBit) > 0) {
+              return 0;
+          }
 
-         allbits |= interflowBit;
+          allbits |= interflowBit;
       }
 
       return idByInterflowBit.getOrDefault(allbits, 0);
@@ -721,7 +721,7 @@ public class Phenomenons {
       @Override
       public boolean use(TerraformingResearchPuzzle puzzle, int x, int y) {
          int idd = puzzle.board[x][y].phenomenon.getId();
-         return idd != 8 && idd != 11 ? puzzle.destroyPhenomenon(x, y) : false;
+         return idd != 8 && idd != 11 && puzzle.destroyPhenomenon(x, y);
       }
 
       @Override

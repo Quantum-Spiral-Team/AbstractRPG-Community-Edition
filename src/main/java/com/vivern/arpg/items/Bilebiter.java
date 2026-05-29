@@ -2,14 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.BilebiterHomingShoot;
 import com.vivern.arpg.entity.BilebiterShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -74,8 +67,8 @@ public class Bilebiter extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean clickcec = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean clickcec = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
@@ -127,7 +120,7 @@ public class Bilebiter extends ItemWeapon {
                if (ammo > 0 && this.isReloaded(itemstack)) {
                   if (!player.getCooldownTracker().hasCooldown(this)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -143,14 +136,14 @@ public class Bilebiter extends ItemWeapon {
                      BilebiterShoot acid = new BilebiterShoot(world, player, itemstack);
                      acid.shoot(player, player.rotationPitch, player.rotationYaw, 0.5F, 1.4F, 2.9F - acc / 1.15F);
                      world.spawnEntity(acid);
-                     if (!player.capabilities.isCreativeMode && itemRand.nextFloat() > reuse / 9) {
+                     if (!player.capabilities.isCreativeMode && itemRand.nextFloat() > (float) reuse / 9) {
                         this.addAmmo(ammo, itemstack, -1);
                         itemstack.damageItem(1, player);
                      }
                   }
                } else if (this.initiateReload(itemstack, player, ItemsRegister.BILEBITER_SPHERE, maxammo)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -182,7 +175,7 @@ public class Bilebiter extends ItemWeapon {
 
             if (player.getHeldItemMainhand() == itemstack && !player.getCooldownTracker().hasCooldown(this) && NBTHelper.GetNBTint(itemstack, "charge_secondary") < 0) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -195,10 +188,10 @@ public class Bilebiter extends ItemWeapon {
                player.addStat(StatList.getObjectUseStats(this));
                NBTHelper.AddNBTint(itemstack, 40, "charge_secondary");
                BilebiterHomingShoot acidd = new BilebiterHomingShoot(world, player, itemstack);
-               acidd.shoot(player, player.rotationPitch - 15.0F + itemRand.nextInt(25), player.rotationYaw - 70.0F, 0.5F, 1.1F, 3.7F - acc / 3);
+               acidd.shoot(player, player.rotationPitch - 15.0F + itemRand.nextInt(25), player.rotationYaw - 70.0F, 0.5F, 1.1F, 3.7F - (float) acc / 3);
                world.spawnEntity(acidd);
                BilebiterHomingShoot aciddd = new BilebiterHomingShoot(world, player, itemstack);
-               aciddd.shoot(player, player.rotationPitch - 15.0F + itemRand.nextInt(25), player.rotationYaw + 70.0F, 0.5F, 1.1F, 3.7F - acc / 3);
+               aciddd.shoot(player, player.rotationPitch - 15.0F + itemRand.nextInt(25), player.rotationYaw + 70.0F, 0.5F, 1.1F, 3.7F - (float) acc / 3);
                world.spawnEntity(aciddd);
                IWeapon.fireBomEffect(this, player, world, 0);
             }

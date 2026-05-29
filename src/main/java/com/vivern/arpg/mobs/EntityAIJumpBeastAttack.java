@@ -143,7 +143,7 @@ public class EntityAIJumpBeastAttack extends EntityAIBase {
       List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this.entity, aabb);
       if (this.soundOnFall != null) {
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             this.entity.posX,
             this.entity.posY,
             this.entity.posZ,

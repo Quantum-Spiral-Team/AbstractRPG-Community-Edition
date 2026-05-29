@@ -1,12 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Spell;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
 import com.vivern.arpg.renders.SparkleSubparticle;
@@ -72,7 +66,7 @@ public class ItemSpellRoll extends ItemWeapon {
             }
          } else if (entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             if (player.getHeldItemMainhand() == itemstack) {
                int casting = NBTHelper.GetNBTint(itemstack, "casting");
                if (casting <= 0) {
@@ -97,13 +91,13 @@ public class ItemSpellRoll extends ItemWeapon {
                         NBTHelper.GiveNBTint(itemstack, castTime, "casting");
                         NBTHelper.SetNBTint(itemstack, castTime, "casting");
                         world.playSound(
-                           (EntityPlayer)null, player.posX, player.posY, player.posZ, sound, SoundCategory.AMBIENT, 1.0F, 1.0F
+                                null, player.posX, player.posY, player.posZ, sound, SoundCategory.AMBIENT, 1.0F, 1.0F
                         );
                      } else {
                         if (using == 0) {
                            Weapons.setPlayerAnimationOnServer(player, 32, EnumHand.MAIN_HAND);
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -264,10 +258,10 @@ public class ItemSpellRoll extends ItemWeapon {
       super.addInformation(stack, worldIn, tooltip, flagIn);
       Spell[] spells = NBTHelper.readSpellsFromNbt(stack);
       if (spells != null) {
-         for (int i = 0; i < spells.length; i++) {
-            if (spells[i] != null) {
-               tooltip.add(spells[i].name);
-            }
+         for (Spell spell : spells) {
+             if (spell != null) {
+                 tooltip.add(spell.name);
+             }
          }
       }
    }

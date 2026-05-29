@@ -1,18 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.BulletParticle;
 import java.util.List;
 import net.minecraft.block.Block;
@@ -76,8 +64,8 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
@@ -114,7 +102,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                   if (deploy <= 0.0F) {
                      if (!hascooldown) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -133,7 +121,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                } else {
                   if (deploy >= 1.0F) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -153,7 +141,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                if (!click) {
                   if (speed >= maxSpeed) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -170,7 +158,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                   if (ammo > 0 && this.isReloaded(itemstack)) {
                      if (speed <= 0.0F) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -181,7 +169,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                         );
                      } else if (speed >= maxSpeed / 2.0F && player.ticksExisted % 20 == 0) {
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -206,7 +194,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                         }
 
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -268,7 +256,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                            if (world.collidesWithAnyBlock(aabb)) {
                               collidesWithAny = true;
                               world.playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  vec.x,
                                  vec.y,
                                  vec.z,
@@ -323,7 +311,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                               vec.x,
                               vec.y,
                               vec.z,
-                              (double)c,
+                                   c,
                               dustState == null ? -1.0 : Block.getStateId(dustState),
                               collidesWithAny ? turretMult : -turretMult
                            );
@@ -331,7 +319,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                      }
                   } else if (deploy <= 0.0F && this.initiateBulletReload(itemstack, player, ItemsRegister.PLASMA_MINIGUN_CLIP, maxammo, true)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

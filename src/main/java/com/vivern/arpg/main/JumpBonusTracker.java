@@ -33,7 +33,7 @@ public class JumpBonusTracker {
             return;
          }
 
-         int keys = (Integer)player.getDataManager().get(PropertiesRegistry.KEYS_PRESSED);
+         int keys = player.getDataManager().get(PropertiesRegistry.KEYS_PRESSED);
          boolean forw = Keys.unpackCheckKey(keys, Keys.FORWARD);
          boolean righ = Keys.unpackCheckKey(keys, Keys.RIGHT);
          boolean left = Keys.unpackCheckKey(keys, Keys.LEFT);

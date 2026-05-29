@@ -54,7 +54,7 @@ public class NBTHelper {
    }
 
    public static boolean GetNBTboolean(ItemStack itemstack, String name) {
-      return itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey(name) ? itemstack.getTagCompound().getBoolean(name) : false;
+      return itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey(name) && itemstack.getTagCompound().getBoolean(name);
    }
 
    public static void SetNBTboolean(ItemStack itemstack, boolean Value, String name) {

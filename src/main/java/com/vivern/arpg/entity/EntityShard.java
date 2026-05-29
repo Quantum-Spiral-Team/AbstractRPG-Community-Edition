@@ -163,11 +163,11 @@ public class EntityShard extends Entity {
          this.rotationZ = this.rotationZ + this.rotationZspeed;
       } else {
          if ((int)this.rotationZ % 180 != 0) {
-            this.rotationZ = ((int)this.rotationZ / 180 + 1) * 180;
+            this.rotationZ = (this.rotationZ / 180 + 1) * 180;
          }
 
          if ((int)this.rotationX % 90 != 0) {
-            this.rotationX = ((int)this.rotationX / 90 + 1) * 90;
+            this.rotationX = (this.rotationX / 90 + 1) * 90;
          }
 
          this.rotationYspeed = (float)(this.rotationYspeed * 0.9);

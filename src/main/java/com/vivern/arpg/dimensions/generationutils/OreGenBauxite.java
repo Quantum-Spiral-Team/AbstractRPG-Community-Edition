@@ -47,12 +47,7 @@ public class OreGenBauxite implements IWorldGenerator {
       this.minHeight = minHeight;
       this.maxHeight = maxHeight;
       this.oreState2 = oreState2;
-      ORE_BLOCKS = new Predicate<IBlockState>() {
-         @Override
-         public boolean apply(IBlockState input) {
-            return input.getBlock() == oreState.getBlock();
-         }
-      };
+      ORE_BLOCKS = input -> input.getBlock() == oreState.getBlock();
    }
 
    public OreGenBauxite(

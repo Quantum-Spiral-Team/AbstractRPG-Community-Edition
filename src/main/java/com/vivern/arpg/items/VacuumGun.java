@@ -1,14 +1,8 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.VacuumGunShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
+
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -64,16 +58,16 @@ public class VacuumGun extends ItemWeapon {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
-            boolean clickcec = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean clickcec = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
             if (click && player.getHeldItemMainhand() == itemstack) {
                if (ammo > 0 && this.isReloaded(itemstack)) {
                   if (!player.getCooldownTracker().hasCooldown(this)) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -110,7 +104,7 @@ public class VacuumGun extends ItemWeapon {
                   }
                } else if (this.initiateReload(itemstack, player, ItemsRegister.VACUUM_GUN_PELLETS, maxammo)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

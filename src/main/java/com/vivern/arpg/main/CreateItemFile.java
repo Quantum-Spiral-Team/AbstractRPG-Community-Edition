@@ -1,5 +1,6 @@
 package com.vivern.arpg.main;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.neural.BackpropNetwork;
 import com.vivern.arpg.neural.Layer;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Map.Entry;
 import javax.imageio.ImageIO;
@@ -39,7 +41,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(
-   modid = "arpg"
+   modid = Tags.MOD_ID
 )
 public class CreateItemFile {
    public static String mainPatch = "/Users/Vivern/Desktop/Modding/src/main/resources/assets/arpg/";
@@ -67,15 +69,15 @@ public class CreateItemFile {
             String text = "{\r\n  \"parent\": \"item/generated\",\r\n  \"textures\": {\r\n    \"layer0\": \"arpg:" + itemname + "\"\r\n  }\r\n}";
             writer.write(text);
             writer.flush();
-         } catch (IOException var19) {
+         } catch (IOException ignored) {
          }
       }
    }
 
    public static void ResLocationCreateHandheld(Item item) {
       if (enable) {
-         String itemname = item.getTranslationKey().replaceFirst("item.", "");
-         String relativePath = mainPatch + "models/item/" + itemname + ".json";
+         String itemName = item.getTranslationKey().replaceFirst("item.", "");
+         String relativePath = mainPatch + "models/item/" + itemName + ".json";
          File file = new File(relativePath);
 
          try {
@@ -86,7 +88,7 @@ public class CreateItemFile {
          }
 
          try (FileWriter writer = new FileWriter(file, false)) {
-            String text = "{\r\n  \"parent\": \"item/handheld\",\r\n  \"textures\": {\r\n    \"layer0\": \"arpg:" + itemname + "\"\r\n  }\r\n}";
+            String text = "{\r\n  \"parent\": \"item/handheld\",\r\n  \"textures\": {\r\n    \"layer0\": \"arpg:" + itemName + "\"\r\n  }\r\n}";
             writer.write(text);
             writer.flush();
          } catch (IOException var19) {
@@ -357,7 +359,7 @@ public class CreateItemFile {
             String text = "{\r\n    \"parent\": \"builtin/entity\",\r\n    \"display\": {\r\n        \"gui\": {\r\n            \"rotation\": [ 30, -45, 0 ],\r\n            \"translation\": [ 0, 3.5, 11.25 ],\r\n            \"scale\": [ 1.0, 1.0, 1.0 ]\r\n        },\r\n        \"ground\": {\r\n            \"rotation\": [ 0, 0, 0 ],\r\n            \"translation\": [ 4, 8, 4 ],\r\n            \"scale\": [ 0.5, 0.5, 0.5 ]\r\n        },\r\n        \"fixed\": {\r\n            \"rotation\": [ 0, 180, 0 ],\r\n            \"translation\": [ 0, 0, 0 ],\r\n            \"scale\": [ 1, 1, 1 ]\r\n        },\r\n        \"head\": {\r\n            \"rotation\": [ 0, 180, 0 ],\r\n            \"translation\": [ 0, 0, 0 ],\r\n            \"scale\": [ 1, 1, 1 ]\r\n        },\r\n        \"firstperson_righthand\": {\r\n            \"rotation\": [ 0, -90, -15 ],\r\n            \"translation\": [ 0, 3.5, 0 ],\r\n            \"scale\": [ 1, 1, 1 ]\r\n        },\r\n        \"thirdperson_righthand\": {\r\n            \"rotation\": [ 0, -90, 0 ],\r\n            \"translation\": [ -6, 10.0, 5.0 ],\r\n            \"scale\": [ 0.625, 0.625, 0.625 ]\r\n        }\r\n    },\r\n    \"overrides\": [\r\n        {\r\n            \"predicate\": {\r\n                \"blocking\": 1\r\n            },\r\n            \"model\": \"item/shield_blocking\"\r\n        }\r\n    ]\r\n}\r\n";
             writer.write(text);
             writer.flush();
-         } catch (IOException var19) {
+         } catch (IOException ignored) {
          }
       }
    }
@@ -661,9 +663,9 @@ public class CreateItemFile {
    public static void drawModelBox(
       ModelRenderer renderer, int sizeM, BufferedImage image, java.awt.Color colorInside, java.awt.Color colorBound, BufferedImage sample, Random rand
    ) {
-      int textureOffsetX = (Integer)ReflectionHelper.getPrivateValue(ModelRenderer.class, renderer, new String[]{"textureOffsetX"});
-      int textureOffsetY = (Integer)ReflectionHelper.getPrivateValue(ModelRenderer.class, renderer, new String[]{"textureOffsetY"});
-      ModelBox box = (ModelBox)renderer.cubeList.get(0);
+      int textureOffsetX = ReflectionHelper.getPrivateValue(ModelRenderer.class, renderer, new String[]{"textureOffsetX"});
+      int textureOffsetY = ReflectionHelper.getPrivateValue(ModelRenderer.class, renderer, new String[]{"textureOffsetY"});
+      ModelBox box = renderer.cubeList.get(0);
       int sizex = (int)(box.posX2 - box.posX1);
       int sizey = (int)(box.posY2 - box.posY1);
       int sizez = (int)(box.posZ2 - box.posZ1);
@@ -863,7 +865,7 @@ public class CreateItemFile {
    }
 
    public static java.awt.Color hex2Rgb(String colorStr) {
-      colorStr = colorStr.toUpperCase();
+      colorStr = colorStr.toUpperCase(Locale.ROOT);
       return new java.awt.Color(
          Integer.valueOf(colorStr.substring(0, 2), 16), Integer.valueOf(colorStr.substring(2, 4), 16), Integer.valueOf(colorStr.substring(4, 6), 16)
       );
@@ -885,9 +887,7 @@ public class CreateItemFile {
             }
          }
 
-         System.out.println("");
          System.out.println("^^^^^^^^^^^^^^^^^|||||||||||||||||||||||");
-         System.out.println("");
 
          for (Item itemx : Item.REGISTRY) {
             if (itemx instanceof ItemBlock
@@ -906,18 +906,18 @@ public class CreateItemFile {
    }
 
    public static String toUpperCaseFirst(String s1) {
-      String s2 = "";
-      s2 = s2 + s1.substring(0, 1).toUpperCase();
+      StringBuilder s2 = new StringBuilder();
+      s2.append(s1.substring(0, 1).toUpperCase(Locale.ROOT));
 
       for (int i = 1; i < s1.length(); i++) {
          if (" ".equals(s1.substring(i - 1, i))) {
-            s2 = s2 + s1.substring(i, i + 1).toUpperCase();
+            s2.append(s1.substring(i, i + 1).toUpperCase(Locale.ROOT));
          } else {
-            s2 = s2 + s1.substring(i, i + 1);
+            s2.append(s1.charAt(i));
          }
       }
 
-      return s2;
+      return s2.toString();
    }
 
    public static BufferedImage blackToColor(BufferedImage image, java.awt.Color color) {

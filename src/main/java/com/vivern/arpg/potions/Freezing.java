@@ -98,7 +98,7 @@ public class Freezing extends AdvancedPotion {
       if (!canImmobilizeEntity(entity, lasteffect) && canImmobilizeEntity(entity, neweff) && entity.isPotionApplicable(neweff)) {
          entity.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                entity.posX,
                entity.posY,
                entity.posZ,

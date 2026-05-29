@@ -2,7 +2,7 @@ package com.vivern.arpg.container;
 
 import com.vivern.arpg.mobs.NPCMobsPack;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketTraderClickToServer;
+import com.vivern.arpg.network.packet.PacketTraderClickToServer;
 import java.io.IOException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -22,7 +22,7 @@ public class GUIDialog extends GuiScreen {
       int mx = mouseX - (this.width - 212) / 2;
       int my = mouseY - (this.height - 256) / 2;
       PacketTraderClickToServer packet = new PacketTraderClickToServer();
-      packet.writeints(this.npc.getEntityId(), mx, my, mouseButton, -1);
+      packet.writeInts(this.npc.getEntityId(), mx, my, mouseButton, -1);
       PacketHandler.NETWORK.sendToServer(packet);
       if (Minecraft.getMinecraft().player != null) {
          this.npc.guiclick(Minecraft.getMinecraft().player, mx, my, mouseButton, -1);

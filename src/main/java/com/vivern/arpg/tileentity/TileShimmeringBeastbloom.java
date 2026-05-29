@@ -1,6 +1,6 @@
 package com.vivern.arpg.tileentity;
 
-import com.vivern.arpg.network.PacketNeedTileSendToServer;
+import com.vivern.arpg.network.packet.PacketNeedTileSendToServer;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;

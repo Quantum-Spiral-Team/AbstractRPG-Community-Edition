@@ -71,7 +71,7 @@ public abstract class Catalyst {
    public static void onLivingDeath(LivingDeathEvent event) {
       EntityLivingBase entityLiving = event.getEntityLiving();
       if (!entityLiving.world.isRemote) {
-         Class<? extends Entity> clazz = (Class<? extends Entity>)entityLiving.getClass();
+         Class<? extends Entity> clazz = entityLiving.getClass();
          if (CatalystKillEntity.allUsedClasses.contains(clazz)) {
             Entity trueSource = event.getSource().getTrueSource();
             if (trueSource instanceof EntityPlayer) {
@@ -91,7 +91,7 @@ public abstract class Catalyst {
    public static void onLivingDrops(LivingDropsEvent event) {
       EntityLivingBase entityLiving = event.getEntityLiving();
       if (!entityLiving.world.isRemote && !event.getDrops().isEmpty()) {
-         Class<? extends Entity> clazz = (Class<? extends Entity>)entityLiving.getClass();
+         Class<? extends Entity> clazz = entityLiving.getClass();
          if (CatalystDroppedLoot.allUsedClasses.contains(clazz)) {
             if (!(entityLiving instanceof EntityBlaze)
                || event.getSource().getImmediateSource() == null
@@ -256,7 +256,7 @@ public abstract class Catalyst {
 
       @Override
       public boolean isStackGood(ItemStack itemStack) {
-         return this.itemstacksAllowed.isStackFits(itemStack) ? getHex(itemStack, this.nameNbt) : false;
+         return this.itemstacksAllowed.isStackFits(itemStack) && getHex(itemStack, this.nameNbt);
       }
    }
 
@@ -279,9 +279,7 @@ public abstract class Catalyst {
 
       @Override
       public boolean isStackGood(ItemStack itemStack) {
-         return this.itemstacksAllowed != null && !this.itemstacksAllowed.isStackFits(itemStack)
-            ? false
-            : EnchantmentHelper.getEnchantmentLevel(this.enchantment, itemStack) >= this.minLevel;
+         return (this.itemstacksAllowed == null || this.itemstacksAllowed.isStackFits(itemStack)) && EnchantmentHelper.getEnchantmentLevel(this.enchantment, itemStack) >= this.minLevel;
       }
    }
 
@@ -294,10 +292,10 @@ public abstract class Catalyst {
 
       @Override
       public boolean isStackGood(ItemStack itemStack) {
-         for (int i = 0; i < this.items.length; i++) {
-            if (this.items[i] == itemStack.getItem()) {
-               return true;
-            }
+         for (Item item : this.items) {
+             if (item == itemStack.getItem()) {
+                 return true;
+             }
          }
 
          return false;
@@ -311,8 +309,8 @@ public abstract class Catalyst {
 
       @Override
       public void addAllGoodStacks(List<ItemStack> list) {
-         for (int i = 0; i < this.items.length; i++) {
-            list.add(new ItemStack(this.items[i]));
+         for (Item item : this.items) {
+             list.add(new ItemStack(item));
          }
       }
    }
@@ -333,7 +331,7 @@ public abstract class Catalyst {
 
       @Override
       public boolean isStackGood(ItemStack itemStack) {
-         return this.itemstacksAllowed.isStackFits(itemStack) ? getHex(itemStack, this.nameNbt) : false;
+         return this.itemstacksAllowed.isStackFits(itemStack) && getHex(itemStack, this.nameNbt);
       }
    }
 
@@ -378,7 +376,7 @@ public abstract class Catalyst {
 
       @Override
       public boolean isStackGood(ItemStack itemStack) {
-         return this.itemstacksAllowed.isStackFits(itemStack) ? getHex(itemStack, this.nameNbt) : false;
+         return this.itemstacksAllowed.isStackFits(itemStack) && getHex(itemStack, this.nameNbt);
       }
    }
 

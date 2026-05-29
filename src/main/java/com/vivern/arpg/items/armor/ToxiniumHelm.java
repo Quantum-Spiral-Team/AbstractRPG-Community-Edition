@@ -37,7 +37,7 @@ public class ToxiniumHelm extends AbstractArmor {
       if (entityIn.ticksExisted % 40 == 0 && entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
          World world = player.getEntityWorld();
-         if (player.inventory.armorInventory.get(3) == itemstack && isCharged((ItemStack)player.inventory.armorInventory.get(3))) {
+         if (player.inventory.armorInventory.get(3) == itemstack && isCharged(player.inventory.armorInventory.get(3))) {
             Weapons.mixPotion(
                player,
                PotionEffects.TOXIN,
@@ -50,12 +50,12 @@ public class ToxiniumHelm extends AbstractArmor {
                0,
                0
             );
-            if (((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.TOXINIUM_CHEST
-               && isCharged((ItemStack)player.inventory.armorInventory.get(2))
-               && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.TOXINIUM_LEGS
-               && isCharged((ItemStack)player.inventory.armorInventory.get(1))
-               && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.TOXINIUM_BOOTS
-               && isCharged((ItemStack)player.inventory.armorInventory.get(0))) {
+            if (player.inventory.armorInventory.get(2).getItem() == ItemsRegister.TOXINIUM_CHEST
+               && isCharged(player.inventory.armorInventory.get(2))
+               && player.inventory.armorInventory.get(1).getItem() == ItemsRegister.TOXINIUM_LEGS
+               && isCharged(player.inventory.armorInventory.get(1))
+               && player.inventory.armorInventory.get(0).getItem() == ItemsRegister.TOXINIUM_BOOTS
+               && isCharged(player.inventory.armorInventory.get(0))) {
                Weapons.mixPotion(
                   player,
                   PotionEffects.CHLORITE,

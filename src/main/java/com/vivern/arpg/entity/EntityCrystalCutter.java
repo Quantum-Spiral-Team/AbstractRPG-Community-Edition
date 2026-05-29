@@ -93,7 +93,7 @@ public class EntityCrystalCutter extends EntityThrowable {
       if (this.ticksExisted > this.livetime && !this.destroying) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -261,7 +261,7 @@ public class EntityCrystalCutter extends EntityThrowable {
                != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,

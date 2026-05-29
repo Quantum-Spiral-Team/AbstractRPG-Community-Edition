@@ -52,7 +52,7 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 
-public class TileSpellForge extends TileEntityLockableLoot implements IMagicVision, ITickable, ISpellcastListener, IVialElementsAccepter, ITileEntitySynchronize {
+public class TileSpellForge extends TileEntityLockableLoot implements IMagicVision, ITickable, ISpellcastListener, IVialElementsAccepter, ITileEntitySynchronized {
    public static ResourceLocation forge_hit = new ResourceLocation("arpg:textures/forge_hit.png");
    public static ResourceLocation forge_hit_a = new ResourceLocation("arpg:textures/forge_hit_a.png");
    public static ResourceLocation forge_hit_b = new ResourceLocation("arpg:textures/forge_hit_b.png");
@@ -498,7 +498,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
             firstHit = true;
          }
 
-         ITileEntitySynchronize.sendSynchronize(this, 48.0, 0.0);
+         ITileEntitySynchronized.sendSynchronize(this, 48.0, 0.0);
          if (this.currentForging != null && this.currentForging.recipe != null) {
             boolean canContinue = true;
             if (this.currentForging.recipe.catalyst != null) {
@@ -529,14 +529,14 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
                      if (this.currentForging.recipe.spells != null && this.currentForging.recipe.spells.length != 0) {
                         this.currentForging.canAcceptSpells = true;
                         this.currentForging.ticks = 0;
-                        ITileEntitySynchronize.sendSynchronize(this, 64.0, 2.0);
+                        ITileEntitySynchronized.sendSynchronize(this, 64.0, 2.0);
                      } else {
                         this.currentForging.trySetFullComplete(this);
                      }
                   }
                }
 
-               ITileEntitySynchronize.sendSynchronize(this, 64.0, this.currentForging.recipe.id, this.currentForging.hammerCompleteness);
+               ITileEntitySynchronized.sendSynchronize(this, 64.0, this.currentForging.recipe.id, this.currentForging.hammerCompleteness);
                return true;
             }
 
@@ -573,7 +573,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
 
    public int addItemStack(ItemStack stack) {
       for (int i = 0; i < this.stacks.size(); i++) {
-         if (((ItemStack)this.stacks.get(i)).isEmpty()) {
+         if (this.stacks.get(i).isEmpty()) {
             this.setInventorySlotContents(i, stack);
             return i;
          }
@@ -711,16 +711,16 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
             );
          this.currentForging = null;
          PacketHandler.trySendPacketUpdate(this.world, this.pos, this, 64.0);
-         ITileEntitySynchronize.sendSynchronize(this, 64.0, 1.0);
+         ITileEntitySynchronized.sendSynchronize(this, 64.0, 1.0);
       }
    }
 
    public void destabilize() {
       if (this.currentForging != null) {
          if (!this.world.isRemote) {
-            ITileEntitySynchronize.sendSynchronize(this, 64.0, 4.0);
+            ITileEntitySynchronized.sendSynchronize(this, 64.0, 4.0);
             this.world
-               .playSound((EntityPlayer)null, this.getPos(), Sounds.spell_forge_fail, SoundCategory.BLOCKS, 1.4F, 0.9F + rand.nextFloat() * 0.2F);
+               .playSound(null, this.getPos(), Sounds.spell_forge_fail, SoundCategory.BLOCKS, 1.4F, 0.9F + rand.nextFloat() * 0.2F);
 
             for (int i = 0; i < this.getSizeInventory(); i++) {
                ItemStack stack = this.decrStackSize(i, 1);
@@ -869,7 +869,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
             if (this.ticks == 0) {
                tileEntity.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      tileEntity.getPos(),
                      this.hitsNeed >= 3.0F ? Sounds.spell_forge_complete : Sounds.spell_forge_smallcomplete,
                      SoundCategory.BLOCKS,
@@ -1100,7 +1100,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
             if (this.recipe.catalyst == null) {
                this.fullComplete = true;
                this.ticks = 0;
-               ITileEntitySynchronize.sendSynchronize(tileEntity, 64.0, 3.0);
+               ITileEntitySynchronized.sendSynchronize(tileEntity, 64.0, 3.0);
                return true;
             }
 
@@ -1127,7 +1127,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
             if (canContinue) {
                this.fullComplete = true;
                this.ticks = 0;
-               ITileEntitySynchronize.sendSynchronize(tileEntity, 64.0, 3.0);
+               ITileEntitySynchronized.sendSynchronize(tileEntity, 64.0, 3.0);
                return true;
             }
          }

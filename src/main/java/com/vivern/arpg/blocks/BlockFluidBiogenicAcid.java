@@ -66,7 +66,7 @@ public class BlockFluidBiogenicAcid extends BlockFluidClassic {
       BlockPos randpos = pos.add(x, y, z);
       IBlockState randstate = worldIn.getBlockState(randpos);
       if (randstate.getBlock() == this) {
-         if ((Integer)randstate.getValue(LEVEL) != 0) {
+         if (randstate.getValue(LEVEL) != 0) {
             if (!(random.nextFloat() < 0.55) && worldIn.isAirBlock(pos.up())) {
                worldIn.setBlockState(pos, state.withProperty(LEVEL, 1));
             } else {
@@ -92,7 +92,7 @@ public class BlockFluidBiogenicAcid extends BlockFluidClassic {
    @Override
    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
       super.randomTick(worldIn, pos, state, random);
-      if ((Integer)state.getValue(LEVEL) == 0) {
+      if (state.getValue(LEVEL) == 0) {
          this.flownext(worldIn, pos, state, random);
       } else if (random.nextFloat() < 0.4) {
          int x = 0;
@@ -112,13 +112,13 @@ public class BlockFluidBiogenicAcid extends BlockFluidClassic {
             if (Weapons.easyBreakBlockFor(worldIn, 3.0F, randpos, randstate) && randstate.getMaterial() != Material.GLASS) {
                worldIn.setBlockToAir(randpos);
             }
-         } else if ((Integer)randstate.getValue(LEVEL) == 0) {
+         } else if (randstate.getValue(LEVEL) == 0) {
             this.flownext(worldIn, randpos, randstate, random);
          }
       } else {
          BlockPos newpos = pos.up();
          IBlockState newstate = worldIn.getBlockState(newpos);
-         if (newstate.getBlock() == this && (Integer)newstate.getValue(LEVEL) == 0) {
+         if (newstate.getBlock() == this && newstate.getValue(LEVEL) == 0) {
             this.flownext(worldIn, newpos, newstate, random);
          }
       }

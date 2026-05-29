@@ -1,16 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.ShootOfWitherdry;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
@@ -38,12 +29,7 @@ public class StaffOfWitherdry extends ItemWeapon {
    public static ResourceLocation flame_big = new ResourceLocation("arpg:textures/flame_big2.png");
    public static ResourceLocation flamethrow = new ResourceLocation("arpg:textures/flamethrow.png");
    public static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
-   public static Predicate<EntityLivingBase> BURNING_ENTITIES = new Predicate<EntityLivingBase>() {
-      @Override
-      public boolean apply(EntityLivingBase input) {
-         return input.isBurning();
-      }
-   };
+   public static Predicate<EntityLivingBase> BURNING_ENTITIES = input -> input.isBurning();
    public static ParticleTracker.TrackerSmoothShowHide tracker = new ParticleTracker.TrackerSmoothShowHide(
       new Vec3d[]{new Vec3d(5.0, 20.0, 0.066), new Vec3d(23.0, 38.0, -0.066)}, null
    );
@@ -230,8 +216,8 @@ public class StaffOfWitherdry extends ItemWeapon {
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             int ran = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
             float power = Mana.getMagicPowerMax(player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             int fire = NBTHelper.GetNBTint(itemstack, "fire");
             NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
             int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
@@ -314,7 +300,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                            if (fire == maxFire / 2) {
                               IWeapon.fireBomEffect(this, player, world, -1);
                               world.playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  player.posX,
                                  player.posY,
                                  player.posZ,
@@ -333,7 +319,7 @@ public class StaffOfWitherdry extends ItemWeapon {
 
                            if (fire == 0) {
                               world.playSound(
-                                 (EntityPlayer)null,
+                                      null,
                                  player.posX,
                                  player.posY,
                                  player.posZ,
@@ -345,7 +331,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                            } else if (fire > 5 && player.ticksExisted % 14 == 0) {
                               if (fire < maxFire / 2) {
                                  world.playSound(
-                                    (EntityPlayer)null,
+                                         null,
                                     player.posX,
                                     player.posY,
                                     player.posZ,
@@ -356,7 +342,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                                  );
                               } else if (fire > maxFire / 2) {
                                  world.playSound(
-                                    (EntityPlayer)null,
+                                         null,
                                     player.posX,
                                     player.posY,
                                     player.posZ,
@@ -392,7 +378,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                         NBTHelper.SetNBTint(itemstack, 5, "fdelay");
                         player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                         world.playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,

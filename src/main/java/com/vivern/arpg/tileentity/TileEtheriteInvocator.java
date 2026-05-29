@@ -50,7 +50,7 @@ public class TileEtheriteInvocator extends TileEntity implements ITickable {
                      if (celllsActive >= 4) {
                         this.invoke = true;
                         this.time = 0;
-                        this.world.playSound((EntityPlayer)null, this.getPos(), Sounds.ophanim_summon, SoundCategory.HOSTILE, 5.0F, 1.0F);
+                        this.world.playSound(null, this.getPos(), Sounds.ophanim_summon, SoundCategory.HOSTILE, 5.0F, 1.0F);
                         return true;
                      }
                   }
@@ -127,7 +127,7 @@ public class TileEtheriteInvocator extends TileEntity implements ITickable {
                            BossOphanim boss = new BossOphanim(this.world);
                            boss.setPosition(pos3.getX() + 0.5, pos3.getY(), pos3.getZ() + 0.5);
                            this.world.spawnEntity(boss);
-                           boss.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(boss)), (IEntityLivingData)null);
+                           boss.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(boss)), null);
                            boss.canDropLoot = true;
                            this.hasCell = false;
                            this.invoke = false;

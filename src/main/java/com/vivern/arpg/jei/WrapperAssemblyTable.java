@@ -49,7 +49,7 @@ public class WrapperAssemblyTable implements IRecipeWrapper {
 
    public ItemStack getInOrEmpty(boolean input, int index) {
       if (input) {
-         return index < this.recipe.recipe.size() ? ((Ingridient)this.recipe.recipe.get(index)).createStackForJeiInput() : ItemStack.EMPTY;
+         return index < this.recipe.recipe.size() ? this.recipe.recipe.get(index).createStackForJeiInput() : ItemStack.EMPTY;
       } else if (index == 0) {
          return this.recipe.craftresult.createStack();
       } else {

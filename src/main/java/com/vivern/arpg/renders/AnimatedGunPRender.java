@@ -22,7 +22,7 @@ public class AnimatedGunPRender<T extends AnimatedGParticle> extends Render<Anim
 
    @Override
    public void doRender(AnimatedGParticle entity, double x, double y, double z, float entityYaw, float partialTicks) {
-      float time = entity.animCounter / entity.animDelay;
+      float time = (float) entity.animCounter / entity.animDelay;
       if (!entity.disableOnEnd || time < entity.framecount) {
          GlStateManager.pushMatrix();
          GlStateManager.translate((float)x, (float)y, (float)z);
@@ -73,7 +73,7 @@ public class AnimatedGunPRender<T extends AnimatedGParticle> extends Render<Anim
 
          GlStateManager.color(entity.Red, entity.Green, entity.Blue, entity.alpha);
          if (entity.tracker != null) {
-            entity.tracker.render((T)entity, x, y, z, entityYaw, partialTicks);
+            entity.tracker.render(entity, x, y, z, entityYaw, partialTicks);
          }
 
          Tessellator tessellator = Tessellator.getInstance();

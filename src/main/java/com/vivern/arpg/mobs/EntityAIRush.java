@@ -77,11 +77,9 @@ public class EntityAIRush extends EntityAIBase {
 
          if (!this.canPenalize) {
             this.path = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
-            return this.path != null
-               ? true
-               : this.getAttackReachSqr(entitylivingbase)
-                  >= this.attacker
-                     .getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
+            return this.path != null || this.getAttackReachSqr(entitylivingbase)
+                    >= this.attacker
+                    .getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
          } else if (--this.delayCounter <= 0) {
             this.path = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
             this.delayCounter = 4 + this.attacker.getRNG().nextInt(7);
@@ -102,10 +100,8 @@ public class EntityAIRush extends EntityAIBase {
       } else if (!this.longMemory) {
          return !this.attacker.getNavigator().noPath();
       } else {
-         return !this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase))
-            ? false
-            : !(entitylivingbase instanceof EntityPlayer)
-               || !((EntityPlayer)entitylivingbase).isSpectator() && !((EntityPlayer)entitylivingbase).isCreative();
+         return this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase)) && (!(entitylivingbase instanceof EntityPlayer)
+                 || !((EntityPlayer) entitylivingbase).isSpectator() && !((EntityPlayer) entitylivingbase).isCreative());
       }
    }
 
@@ -119,7 +115,7 @@ public class EntityAIRush extends EntityAIBase {
    public void resetTask() {
       EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
       if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative())) {
-         this.attacker.setAttackTarget((EntityLivingBase)null);
+         this.attacker.setAttackTarget(null);
       }
 
       this.attacker.getNavigator().clearPath();

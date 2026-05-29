@@ -28,7 +28,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 
-public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInventory, ITileEntitySynchronize {
+public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInventory, ITileEntitySynchronized {
    public static ResourceLocation effectTex = new ResourceLocation("arpg:textures/generic_beam6.png");
    public static float maxdamage = 2.0F;
    public float damage = maxdamage;
@@ -39,12 +39,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
    public NonNullList<ItemStack> stack = NonNullList.withSize(1, ItemStack.EMPTY);
    public static final int[] SLOT = new int[]{0};
    public static Random rand = new Random();
-   public static Predicate<IBlockState> CATCHERS = new Predicate<IBlockState>() {
-      @Override
-      public boolean apply(IBlockState input) {
-         return input.getBlock() == BlocksRegister.SOUL_CATCHER;
-      }
-   };
+   public static Predicate<IBlockState> CATCHERS = input -> input.getBlock() == BlocksRegister.SOUL_CATCHER;
 
    @Override
    public void onClient(double... args) {
@@ -98,7 +93,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
             if (entityLivingBase != null && entityLivingBase.getHealth() > 0.0F) {
                if (Weapons.dealDamage(new WeaponDamage(null, null, null, false, false, thisvec, WeaponDamage.soul), this.damage, null, entityLivingBase, true)) {
                   if (this.damage > 0.1) {
-                     ITileEntitySynchronize.sendSynchronize(
+                     ITileEntitySynchronized.sendSynchronize(
                         this,
                         48.0,
                         entityLivingBase.posX,
@@ -115,7 +110,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
                         this.setInventorySlotContents(0, filledStone);
                         this.world
                            .playSound(
-                              (EntityPlayer)null,
+                                   null,
                               this.pos.getX() + 0.5,
                               this.pos.getY() + 0.5,
                               this.pos.getZ() + 0.5,
@@ -228,12 +223,12 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
 
    @Override
    public boolean isEmpty() {
-      return ((ItemStack)this.stack.get(0)).isEmpty();
+      return this.stack.get(0).isEmpty();
    }
 
    @Override
    public ItemStack getStackInSlot(int index) {
-      return (ItemStack)this.stack.get(index);
+      return this.stack.get(index);
    }
 
    @Override
@@ -310,11 +305,11 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
 
    @Override
    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-      return ((ItemStack)this.stack.get(0)).isEmpty() && this.isItemValidForSlot(index, itemStackIn) && direction != EnumFacing.DOWN;
+      return this.stack.get(0).isEmpty() && this.isItemValidForSlot(index, itemStackIn) && direction != EnumFacing.DOWN;
    }
 
    @Override
    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-      return SoulStone.getSoul((ItemStack)this.stack.get(0)) != 0 && direction == EnumFacing.DOWN;
+      return SoulStone.getSoul(this.stack.get(0)) != 0 && direction == EnumFacing.DOWN;
    }
 }

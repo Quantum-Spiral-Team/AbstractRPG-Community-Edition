@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchronize {
+public class HadronBlasterShoot extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    static ResourceLocation explode = new ResourceLocation("arpg:textures/sparkle5.png");
    static ResourceLocation cloud = new ResourceLocation("arpg:textures/circle.png");
@@ -270,7 +270,7 @@ public class HadronBlasterShoot extends EntityThrowable implements IEntitySynchr
       }
 
       if (!this.world.isRemote) {
-         IEntitySynchronize.sendSynchronize(this, 64.0, vect.x, vect.y, vect.z, 0.0, 0.0, 0.0);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, vect.x, vect.y, vect.z, 0.0, 0.0, 0.0);
          this.setDead();
       }
    }

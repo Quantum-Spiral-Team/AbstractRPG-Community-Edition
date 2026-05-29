@@ -492,7 +492,7 @@ public class ItemsRegister {
       )
       .setRender(1);
    public static final Item ANCIENT_ICE_SHARD = new BaublesPack.BaubleAttributed(
-         "ancient_ice_shard", CreativeTabs.COMBAT, PropertiesRegistry.MANASPEED_MAX, 0.2, 0, BaubleType.AMULET, "+0.2 Mana Regeneration"
+         "ancient_ice_shard", CreativeTabs.COMBAT, PropertiesRegistry.MANA_SPEED_MAX, 0.2, 0, BaubleType.AMULET, "+0.2 Mana Regeneration"
       )
       .setRender(1);
    public static final Item MANA_RUBBLE = new BaublesPack.BaubleAttributed(

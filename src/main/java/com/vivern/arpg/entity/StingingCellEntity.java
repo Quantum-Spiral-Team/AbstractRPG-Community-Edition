@@ -261,7 +261,7 @@ public class StingingCellEntity extends EntityThrowable {
       entity.hurtResistantTime = 0;
       this.world
          .playSound(
-            (EntityPlayer)null,
+                 null,
             this.posX,
             this.posY,
             this.posZ,
@@ -293,7 +293,7 @@ public class StingingCellEntity extends EntityThrowable {
          if (this.throwed) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -336,7 +336,7 @@ public class StingingCellEntity extends EntityThrowable {
             if (amount > 3.0F) {
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,

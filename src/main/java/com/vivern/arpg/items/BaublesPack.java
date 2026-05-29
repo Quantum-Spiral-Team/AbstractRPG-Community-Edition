@@ -14,20 +14,9 @@ import com.vivern.arpg.entity.EnigmateTwinsShoot;
 import com.vivern.arpg.entity.EntityCoin;
 import com.vivern.arpg.entity.EntityLiveHeart;
 import com.vivern.arpg.entity.ThornkeeperShoot;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.IAttributedBauble;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.ToxicomaniaMobsPack;
-import com.vivern.arpg.network.PacketDoSomethingToClients;
+import com.vivern.arpg.network.packet.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
@@ -289,7 +278,7 @@ public class BaublesPack {
             player.getCooldownTracker().setCooldown(stack.getItem(), 30);
             player.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -536,7 +525,7 @@ public class BaublesPack {
       public void onWornTick(ItemStack itemstack, EntityLivingBase entity) {
          if (!entity.world.isRemote && entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer)entity;
-            if (!player.getCooldownTracker().hasCooldown(this) && Keys.isKeyPressed(player, Keys.HEADABILITY)) {
+            if (!player.getCooldownTracker().hasCooldown(this) && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.ABILITY)) {
                double blockReachDistance = 12.0;
                Vec3d vec3d = entity.getPositionEyes(1.0F);
                Vec3d vec3d1 = GetMOP.pitchYawToVec3D(player.rotationPitch, player.rotationYaw);
@@ -544,7 +533,7 @@ public class BaublesPack {
                   vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
                );
                RayTraceResult res = fixedRayTraceBlocks(player.world, player, 0.8, 0.5, true, vec3d, vec3d2, false, true, false);
-               if (res != null && res.entityHit != null && res.entityHit instanceof EntityLiving) {
+               if (res.entityHit instanceof EntityLiving) {
                   EntityLiving entitylive = (EntityLiving)res.entityHit;
                   PotionEffect eff = entitylive.getActivePotionEffect(PotionEffects.FROSTBURN);
                   if (eff != null
@@ -554,7 +543,7 @@ public class BaublesPack {
                      entitylive.attackEntityFrom(DamageSource.causePlayerDamage(player), (eff.getAmplifier() + 1) * 21);
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -564,7 +553,7 @@ public class BaublesPack {
                            pit
                         );
                      PacketDoSomethingToClients packet = new PacketDoSomethingToClients();
-                     packet.writeargs(
+                     packet.writeArgs(
                         entitylive.posX,
                         entitylive.posY + entitylive.height / 2.0F,
                         entitylive.posZ,
@@ -588,7 +577,7 @@ public class BaublesPack {
                      );
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            entitylive.posX,
                            entitylive.posY,
                            entitylive.posZ,
@@ -867,7 +856,7 @@ public class BaublesPack {
                   playerattacker.world.spawnEntity(projectile);
                   playerattacker.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         pos.x,
                         pos.y,
                         pos.z,
@@ -1287,7 +1276,7 @@ public class BaublesPack {
          Multimap<String, AttributeModifier> multimap = HashMultimap.create();
          UUID uuid = UUID.fromString("CB2F4" + equipmentSlot + "D3-64" + equipmentSlot + "A-4F78-A497-9C56A33DB" + equipmentSlot + "BB");
          multimap.put(PropertiesRegistry.MANA_MAX.getName(), new AttributeModifier(uuid, "mana max modifier", 5.0, 0));
-         multimap.put(PropertiesRegistry.MANASPEED_MAX.getName(), new AttributeModifier(uuid, "manaspeed max modifier", 0.2, 0));
+         multimap.put(PropertiesRegistry.MANA_SPEED_MAX.getName(), new AttributeModifier(uuid, "manaspeed max modifier", 0.2, 0));
          return multimap;
       }
 
@@ -1339,7 +1328,7 @@ public class BaublesPack {
                   );
                if (!player.world.isRemote) {
                   PacketDoSomethingToClients packet = new PacketDoSomethingToClients();
-                  packet.writeargs(player.posX, player.posY + 0.3, player.posZ, 0.0, 0.0, 0.0, 4);
+                  packet.writeArgs(player.posX, player.posY + 0.3, player.posZ, 0.0, 0.0, 0.0, 4);
                   PacketHandler.sendToAllAround(packet, player.world, player.posX, player.posY, player.posZ, 32.0);
                }
             }
@@ -1509,7 +1498,7 @@ public class BaublesPack {
                   player.world.spawnEntity(shoot);
                   player.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -1619,7 +1608,7 @@ public class BaublesPack {
             player.getCooldownTracker().setCooldown(stack.getItem(), 30);
             player.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -1840,7 +1829,7 @@ public class BaublesPack {
             player.getCooldownTracker().setCooldown(stack.getItem(), 25);
             player.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -1925,7 +1914,7 @@ public class BaublesPack {
                itemstack.damageItem(1, entityIn);
                player.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -1936,7 +1925,7 @@ public class BaublesPack {
                   );
                if (!player.world.isRemote) {
                   PacketDoSomethingToClients packet = new PacketDoSomethingToClients();
-                  packet.writeargs(player.posX, player.posY + 0.3, player.posZ, 0.0, 0.0, 0.0, 4);
+                  packet.writeArgs(player.posX, player.posY + 0.3, player.posZ, 0.0, 0.0, 0.0, 4);
                   PacketHandler.sendToAllAround(packet, player.world, player.posX, player.posY, player.posZ, 32.0);
                }
             }
@@ -2037,7 +2026,7 @@ public class BaublesPack {
                   player.world.spawnEntity(shoot);
                   player.world
                      .playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,

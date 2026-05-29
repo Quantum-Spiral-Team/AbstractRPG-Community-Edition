@@ -1,15 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntitySand;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
@@ -71,7 +63,7 @@ public class ScepterOfSands extends ItemWeapon {
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
          int damage = itemstack.getItemDamage();
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
          float mana = Mana.getMana(player);
          NBTHelper.GiveNBTint(itemstack, 0, "crystal");
          int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
@@ -90,7 +82,7 @@ public class ScepterOfSands extends ItemWeapon {
                   NBTHelper.AddNBTint(itemstack, rapidOne, "crystal");
                   if (crystal < 64 && crystal + rapidOne >= 64) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -104,7 +96,7 @@ public class ScepterOfSands extends ItemWeapon {
 
                Weapons.setPlayerAnimationOnServer(player, 22, hand);
                world.playSound(
-                  (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.sand_scepter, SoundCategory.AMBIENT, 0.7F, 1.3F
+                       null, player.posX, player.posY, player.posZ, Sounds.sand_scepter, SoundCategory.AMBIENT, 0.7F, 1.3F
                );
                player.addStat(StatList.getObjectUseStats(this));
 

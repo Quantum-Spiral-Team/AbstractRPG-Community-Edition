@@ -38,7 +38,7 @@ public class CoralHelm extends AbstractArmor {
             PropertiesRegistry.MANA_MAX.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor mana", 15.0, 0)
          );
          multimap.put(
-            PropertiesRegistry.MANASPEED_MAX.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor manaregen", 0.2, 0)
+            PropertiesRegistry.MANA_SPEED_MAX.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor manaregen", 0.2, 0)
          );
          multimap.put(
             PropertiesRegistry.ARMOR_PROTECTION.getName(),
@@ -95,7 +95,7 @@ public class CoralHelm extends AbstractArmor {
                PropertiesRegistry.MANA_MAX.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor mana", 10.0, 0)
             );
             multimap.put(
-               PropertiesRegistry.MANASPEED_MAX.getName(),
+               PropertiesRegistry.MANA_SPEED_MAX.getName(),
                new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor manaregen", 0.1, 0)
             );
             multimap.put(
@@ -162,7 +162,7 @@ public class CoralHelm extends AbstractArmor {
                PropertiesRegistry.MANA_MAX.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor mana", 20.0, 0)
             );
             multimap.put(
-               PropertiesRegistry.MANASPEED_MAX.getName(),
+               PropertiesRegistry.MANA_SPEED_MAX.getName(),
                new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor manaregen", 0.1, 0)
             );
             multimap.put(
@@ -225,7 +225,7 @@ public class CoralHelm extends AbstractArmor {
                PropertiesRegistry.MANA_MAX.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor mana", 15.0, 0)
             );
             multimap.put(
-               PropertiesRegistry.MANASPEED_MAX.getName(),
+               PropertiesRegistry.MANA_SPEED_MAX.getName(),
                new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor manaregen", 0.1, 0)
             );
             multimap.put(

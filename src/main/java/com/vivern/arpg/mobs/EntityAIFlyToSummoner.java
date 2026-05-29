@@ -56,9 +56,7 @@ public class EntityAIFlyToSummoner extends EntityAIBase {
       if (this.summoned.isEntityInsideOpaqueBlock()) {
          return true;
       } else {
-         return this.summoned.getDistance(this.owner) < this.summoned.followPlayerMinRange && this.summoned.posY >= this.owner.posY
-            ? false
-            : this.summoned.allowedFollow;
+         return (!(this.summoned.getDistance(this.owner) < this.summoned.followPlayerMinRange) || !(this.summoned.posY >= this.owner.posY)) && this.summoned.allowedFollow;
       }
    }
 

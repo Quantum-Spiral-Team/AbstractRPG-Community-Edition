@@ -1,14 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.GUNParticle;
@@ -91,7 +83,7 @@ public class InfernalBlade extends ItemWeapon {
       }
 
       world.playSound(
-         (EntityPlayer)null,
+              null,
          entityExploded.posX,
          entityExploded.posY,
          entityExploded.posZ,
@@ -108,8 +100,8 @@ public class InfernalBlade extends ItemWeapon {
          entityExploded.posX,
          entityExploded.posY,
          entityExploded.posZ,
-         (double)entityExploded.width,
-         (double)entityExploded.height,
+              entityExploded.width,
+              entityExploded.height,
          0.0,
          0.0,
          0.0,
@@ -215,8 +207,8 @@ public class InfernalBlade extends ItemWeapon {
          this.setCanShoot(itemstack, entityIn);
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
             boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
             EnumHand hand = null;
@@ -230,7 +222,7 @@ public class InfernalBlade extends ItemWeapon {
                MeleeAttackResult result = IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, itemRand.nextFloat() < 0.2);
                if (result.success) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -248,7 +240,7 @@ public class InfernalBlade extends ItemWeapon {
                   }
                } else {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -264,7 +256,7 @@ public class InfernalBlade extends ItemWeapon {
                double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
                player.getCooldownTracker()
                   .setCooldown(
-                     (Item)(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP), this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack))
+                          hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack))
                   );
             }
          }

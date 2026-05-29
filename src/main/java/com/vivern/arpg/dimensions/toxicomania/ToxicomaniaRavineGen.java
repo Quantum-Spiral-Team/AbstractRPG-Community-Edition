@@ -196,7 +196,7 @@ public class ToxicomaniaRavineGen extends MapGenBase {
       } else if (biome == Biomes.DESERT) {
          return true;
       } else {
-         return biome == Biomes.MUSHROOM_ISLAND ? true : biome == Biomes.MUSHROOM_ISLAND_SHORE;
+         return biome == Biomes.MUSHROOM_ISLAND || biome == Biomes.MUSHROOM_ISLAND_SHORE;
       }
    }
 

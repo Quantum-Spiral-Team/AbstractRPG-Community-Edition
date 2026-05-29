@@ -23,7 +23,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public class TileRetort extends TileEntity implements ITickable, ITileEntitySynchronize {
+public class TileRetort extends TileEntity implements ITickable, ITileEntitySynchronized {
    public static Random rand = new Random();
    public static ResourceLocation star1 = new ResourceLocation("arpg:textures/forge_hit_a.png");
    public static ResourceLocation star2 = new ResourceLocation("arpg:textures/blueexplode3.png");
@@ -53,7 +53,7 @@ public class TileRetort extends TileEntity implements ITickable, ITileEntitySync
             if (!this.fluid.isEmpty) {
                byte idElementTransfused = this.fluid.transfuseTo(fluidIn);
                changed = true;
-               EnumFacing facing = (EnumFacing)this.world.getBlockState(this.pos).getValue(Retort.FACING);
+               EnumFacing facing = this.world.getBlockState(this.pos).getValue(Retort.FACING);
                if (idElementTransfused > 0) {
                   TileSplitter.spawnTentacleParticle(
                      this.world,
@@ -70,7 +70,7 @@ public class TileRetort extends TileEntity implements ITickable, ITileEntitySync
             byte idElementTransfused = fluidIn.transfuseTo(this.fluid);
             this.fluid.combineLays();
             changed = true;
-            EnumFacing facing = (EnumFacing)this.world.getBlockState(this.pos).getValue(Retort.FACING);
+            EnumFacing facing = this.world.getBlockState(this.pos).getValue(Retort.FACING);
             if (idElementTransfused > 0) {
                TileSplitter.spawnTentacleParticle(
                   this.world,
@@ -96,7 +96,7 @@ public class TileRetort extends TileEntity implements ITickable, ITileEntitySync
       if (args.length == 1) {
          this.refineInitiated = args[0] > 0.0;
          if (this.refineInitiated) {
-            EnumFacing facing = (EnumFacing)this.world.getBlockState(this.pos).getValue(Retort.FACING);
+            EnumFacing facing = this.world.getBlockState(this.pos).getValue(Retort.FACING);
             if (facing != null && this.fluid != null && !this.fluid.isEmpty) {
                ShardType shardType = ShardType.byId(this.fluid.elements[0]);
                facing = facing.getOpposite();
@@ -186,7 +186,7 @@ public class TileRetort extends TileEntity implements ITickable, ITileEntitySync
             this.refineInitiated = false;
             this.refineTick = 0;
          } else if (this.world.isRemote) {
-            EnumFacing facing = (EnumFacing)this.world.getBlockState(this.pos).getValue(Retort.FACING);
+            EnumFacing facing = this.world.getBlockState(this.pos).getValue(Retort.FACING);
             if (facing != null && this.fluid != null && !this.fluid.isEmpty) {
                facing = facing.getOpposite();
                ShardType shardType = ShardType.byId(this.fluid.elements[0]);
@@ -288,7 +288,7 @@ public class TileRetort extends TileEntity implements ITickable, ITileEntitySync
          this.refineInitiated = true;
          this.refineTick = 0;
          this.vialPosToRefine = vialPos;
-         ITileEntitySynchronize.sendSynchronize(this, 64.0, 1.0);
+         ITileEntitySynchronized.sendSynchronize(this, 64.0, 1.0);
       }
    }
 

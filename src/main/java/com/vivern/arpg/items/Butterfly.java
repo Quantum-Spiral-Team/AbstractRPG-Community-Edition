@@ -84,7 +84,7 @@ public class Butterfly extends ItemWeapon {
                player.addPotionEffect(baff);
                player.getCooldownTracker().setCooldown(this, 15);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -102,7 +102,7 @@ public class Butterfly extends ItemWeapon {
             if (selected && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
                if (mana > 0.5F) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,
@@ -152,7 +152,7 @@ public class Butterfly extends ItemWeapon {
       if (!list.isEmpty()) {
          stack.damageItem(1, player);
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -195,7 +195,7 @@ public class Butterfly extends ItemWeapon {
          }
       } else {
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,

@@ -49,12 +49,12 @@ public class WoodenShaft extends Block {
    public void addCollisionBoxToList(
       IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState
    ) {
-      boolean n = (Boolean)state.getValue(NORTH);
-      boolean e = (Boolean)state.getValue(EAST);
-      boolean s = (Boolean)state.getValue(SOUTH);
-      boolean w = (Boolean)state.getValue(WEST);
-      boolean u = (Boolean)state.getValue(UPPER);
-      boolean d = (Boolean)state.getValue(DOWN);
+      boolean n = state.getValue(NORTH);
+      boolean e = state.getValue(EAST);
+      boolean s = state.getValue(SOUTH);
+      boolean w = state.getValue(WEST);
+      boolean u = state.getValue(UPPER);
+      boolean d = state.getValue(DOWN);
       if (!n && !e && !s && !w && !u && !d) {
          addCollisionBoxToList(pos, entityBox, collidingBoxes, STANDING_AABB);
       } else if (d) {
@@ -77,7 +77,7 @@ public class WoodenShaft extends Block {
 
    @Override
    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-      return side == EnumFacing.UP || side == EnumFacing.DOWN && (Boolean)base_state.getValue(DOWN);
+      return side == EnumFacing.UP || side == EnumFacing.DOWN && base_state.getValue(DOWN);
    }
 
    @Override
@@ -108,11 +108,11 @@ public class WoodenShaft extends Block {
 
    @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      boolean n = (Boolean)state.getValue(NORTH);
-      boolean e = (Boolean)state.getValue(EAST);
-      boolean s = (Boolean)state.getValue(SOUTH);
-      boolean w = (Boolean)state.getValue(WEST);
-      boolean d = (Boolean)state.getValue(DOWN);
+      boolean n = state.getValue(NORTH);
+      boolean e = state.getValue(EAST);
+      boolean s = state.getValue(SOUTH);
+      boolean w = state.getValue(WEST);
+      boolean d = state.getValue(DOWN);
       if (!n && !e && !s && !w) {
          return STANDING_AABB;
       } else if ((s || n) && !w && !e && !d) {

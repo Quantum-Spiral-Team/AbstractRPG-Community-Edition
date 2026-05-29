@@ -1,18 +1,17 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.Tags;
 import com.vivern.arpg.entity.EntityCubicParticle;
 import com.vivern.arpg.entity.GunPEmitter;
 import com.vivern.arpg.entity.INailer;
 import com.vivern.arpg.entity.ParticleGore;
 import com.vivern.arpg.mobs.AbstractMob;
-import com.vivern.arpg.network.PacketDEToClients;
+import com.vivern.arpg.network.packet.PacketDEToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.proxy.ClientProxy;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.SparkleSubparticle;
 import com.vivern.arpg.shader.ShaderMain;
-import com.google.common.base.Predicate;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +21,6 @@ import java.util.Random;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelPlayer;
@@ -1192,7 +1190,7 @@ public class DeathEffects {
    @SideOnly(Side.CLIENT)
    public static void initMainTextures() {
       for (Class<? extends Entity> entity : Minecraft.getMinecraft().getRenderManager().entityRenderMap.keySet()) {
-         Render rend = (Render)Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity);
+         Render rend = Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity);
          if (rend != null) {
             for (Method metod : rend.getClass().getDeclaredMethods()) {
                if (metod.getReturnType() == ResourceLocation.class) {

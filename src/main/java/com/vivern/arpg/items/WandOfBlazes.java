@@ -76,7 +76,7 @@ public class WandOfBlazes extends ItemWeapon {
          boolean clickcec = GameSettings.isKeyDown(Keys.SECONDARYATTACK);
          if (player.getActiveItemStack() == itemstack && mana > 15.0F - sor * 2.5F && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                player.posX,
                player.posY,
                player.posZ,
@@ -127,7 +127,7 @@ public class WandOfBlazes extends ItemWeapon {
             player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
             player.addStat(StatList.getObjectUseStats(this));
             world.playSound(
-               (EntityPlayer)null,
+                    null,
                player.posX,
                player.posY,
                player.posZ,

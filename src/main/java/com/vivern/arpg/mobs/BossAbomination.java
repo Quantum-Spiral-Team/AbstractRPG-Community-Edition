@@ -1,6 +1,6 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.main.BloodType;
 import com.vivern.arpg.main.Booom;
 import com.vivern.arpg.main.DeathEffects;
@@ -42,7 +42,7 @@ import net.minecraft.world.BossInfo.Color;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BossAbomination extends AbstractBoss implements IEntitySynchronize {
+public class BossAbomination extends AbstractBoss implements ISynchronizedEntity {
    public float damagToSplit = 0.0F;
    public int lumpKills = 0;
    public boolean lumped = false;
@@ -185,12 +185,12 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
                this.motionY = 0.3;
                this.motionZ = 0.0;
                if (this.ticksExisted % 10 == 0) {
-                  IEntitySynchronize.sendSynchronize(this, 64.0, this.heating, this.summonY, 1.0, 0.0, 0.0, 0.0);
+                  ISynchronizedEntity.sendSynchronize(this, 64.0, this.heating, this.summonY, 1.0, 0.0, 0.0, 0.0);
                }
             } else {
                this.noClip = false;
                this.summonning = false;
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.heating, this.summonY, 0.0, 0.0, 0.0, 0.0);
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.heating, this.summonY, 0.0, 0.0, 0.0, 0.0);
             }
          }
 
@@ -222,7 +222,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
                   cannon.typeCannon = i;
                   cannon.team = this.team;
                   this.world.spawnEntity(cannon);
-                  cannon.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(cannon)), (IEntityLivingData)null);
+                  cannon.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(cannon)), null);
                }
             }
 
@@ -302,7 +302,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
                }
             }
 
-            IEntitySynchronize.sendSynchronize(this, 50.0, this.heating, 0.0, 0.0, 0.0, 0.0, 0.0);
+            ISynchronizedEntity.sendSynchronize(this, 50.0, this.heating, 0.0, 0.0, 0.0, 0.0, 0.0);
          }
       } else {
          if (this.getHealth() <= this.getMaxHealth() * 0.4) {
@@ -350,7 +350,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
             if (suc) {
                this.damagToSplit += amount;
                this.heating += (int)(amount * 2.0F);
-               IEntitySynchronize.sendSynchronize(this, 50.0, this.heating, 0.0, 0.0, 0.0, 0.0, 0.0);
+               ISynchronizedEntity.sendSynchronize(this, 50.0, this.heating, 0.0, 0.0, 0.0, 0.0, 0.0);
                if (this.getHealth() < this.getMaxHealth() * 0.5
                   && !this.lumped
                   && !this.noClip
@@ -363,7 +363,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
                      cannon.boss = this;
                      cannon.typeCannon = i;
                      this.world.spawnEntity(cannon);
-                     cannon.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(cannon)), (IEntityLivingData)null);
+                     cannon.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(cannon)), null);
                      cannon.team = this.team;
                      cannon.isAgressive = this.isAgressive;
                   }
@@ -384,7 +384,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
                   lump.motionY = this.rand.nextGaussian() / 17.0 + 0.4;
                   lump.motionZ = this.rand.nextGaussian() / 13.0;
                   this.world.spawnEntity(lump);
-                  lump.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(lump)), (IEntityLivingData)null);
+                  lump.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(lump)), null);
                   lump.team = this.team;
                   lump.isAgressive = this.isAgressive;
                }
@@ -419,7 +419,7 @@ public class BossAbomination extends AbstractBoss implements IEntitySynchronize 
       } else if (potion == PotionEffects.CHLORITE) {
          return false;
       } else {
-         return potion == PotionEffects.SLIME ? false : super.isPotionApplicable(potioneffectIn);
+         return potion != PotionEffects.SLIME && super.isPotionApplicable(potioneffectIn);
       }
    }
 

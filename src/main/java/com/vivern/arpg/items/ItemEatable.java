@@ -90,7 +90,7 @@ public class ItemEatable extends ItemFood {
          entityplayer.getFoodStats().addStats(this, stack);
          if (!this.drink) {
             worldIn.playSound(
-               (EntityPlayer)null,
+                    null,
                entityplayer.posX,
                entityplayer.posY,
                entityplayer.posZ,

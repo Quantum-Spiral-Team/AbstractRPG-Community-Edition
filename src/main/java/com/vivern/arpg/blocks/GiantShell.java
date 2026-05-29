@@ -93,7 +93,7 @@ public class GiantShell extends Block implements IHasSubtypes {
       for (EnumFacing facing : EnumFacing.VALUES) {
          BlockPos poss = pos.offset(facing);
          IBlockState state2 = world.getBlockState(poss);
-         if (state2.getBlock() == Blocks.WATER && (Integer)state2.getValue(BlockStaticLiquid.LEVEL) == 0) {
+         if (state2.getBlock() == Blocks.WATER && state2.getValue(BlockStaticLiquid.LEVEL) == 0) {
             if (++count >= 2) {
                return true;
             }

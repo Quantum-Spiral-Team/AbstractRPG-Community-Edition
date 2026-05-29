@@ -57,7 +57,7 @@ public class TritonHearth extends Block {
       if (tile instanceof TileTritonHearth) {
          IBlockState state = world.getBlockState(pos);
          TileTritonHearth tritonHearth = (TileTritonHearth)tile;
-         tritonHearth.checkMaterials((Boolean)state.getValue(WET));
+         tritonHearth.checkMaterials(state.getValue(WET));
       }
 
       super.onFallenUpon(world, pos, entityIn, fallDistance);

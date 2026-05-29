@@ -1,16 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.items.armor.IItemAttacked;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
@@ -105,8 +96,8 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
          if (IWeapon.canShoot(itemstack)) {
             EntityPlayer player = (EntityPlayer)entityIn;
             this.decreaseReload(itemstack, player);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             float acclvl = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             NBTHelper.GiveNBTint(itemstack, 0, "blocking");
             NBTHelper.GiveNBTint(itemstack, 0, "snow");
@@ -116,7 +107,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                   if (blocks <= 0) {
                      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -207,7 +198,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                   if (blocking <= 0) {
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -225,7 +216,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
 
                      player.world
                         .playSound(
-                           (EntityPlayer)null,
+                                null,
                            player.posX,
                            player.posY,
                            player.posZ,
@@ -319,7 +310,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
          IWeapon.fireEffect(this, player, world, 64.0, vec.x, vec.y, vec.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
          NBTHelper.SetNBTint(stack, 0, "snow");
          world.playSound(
-            (EntityPlayer)null,
+                 null,
             player.posX,
             player.posY,
             player.posZ,
@@ -356,14 +347,14 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
                               player.posY,
                               player.posZ,
                               1.0,
-                              (double)player.getEntityId(),
+                                   player.getEntityId(),
                               0.0,
                               0.0,
                               0.0,
                               0.0
                            );
                            world.playSound(
-                              (EntityPlayer)null,
+                                   null,
                               player.posX,
                               player.posY,
                               player.posZ,
@@ -391,7 +382,7 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
             player.posY,
             player.posZ,
             1.0,
-            (double)player.getEntityId(),
+                 player.getEntityId(),
             0.0,
             0.0,
             0.0,

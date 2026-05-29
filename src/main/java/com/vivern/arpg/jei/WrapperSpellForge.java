@@ -58,7 +58,7 @@ public class WrapperSpellForge implements IRecipeWrapper {
                idrawRunesMain[ix].draw(minecraft, currentTranslation, 87);
                String amountstring = ManaBar.asString(amount);
                minecraft.fontRenderer
-                  .drawString(amountstring, currentTranslation + 6 - minecraft.fontRenderer.getStringWidth(amountstring) / 2, 98.0F, 16777215, true);
+                  .drawString(amountstring, currentTranslation + 6 - (float) minecraft.fontRenderer.getStringWidth(amountstring) / 2, 98.0F, 16777215, true);
                currentTranslation += oneLength + space;
             }
          }
@@ -106,7 +106,7 @@ public class WrapperSpellForge implements IRecipeWrapper {
          if (index == 10 && this.recipe.catalyst != null) {
             return this.recipe.catalyst.getGoodStackForRender();
          } else {
-            return index < this.recipe.recipe.size() ? ((Ingridient)this.recipe.recipe.get(index)).createStackForJeiInput() : ItemStack.EMPTY;
+            return index < this.recipe.recipe.size() ? this.recipe.recipe.get(index).createStackForJeiInput() : ItemStack.EMPTY;
          }
       } else {
          return this.recipe.craftresult.createStack();

@@ -64,7 +64,7 @@ public class TileDisenchantmentTable extends TileEntityLockableLoot implements I
 
    public int addItemStack(ItemStack stack) {
       for (int i = 0; i < this.stacks.size(); i++) {
-         if (((ItemStack)this.stacks.get(i)).isEmpty()) {
+         if (this.stacks.get(i).isEmpty()) {
             this.setInventorySlotContents(i, stack);
             return i;
          }

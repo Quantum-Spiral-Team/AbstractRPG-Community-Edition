@@ -89,7 +89,7 @@ public class ShootOfWitherdry extends EntityThrowable {
    @SideOnly(Side.CLIENT)
    @Override
    public boolean isInRangeToRenderDist(double distance) {
-      return Debugger.floats[9] == 0.0F ? false : super.isInRangeToRenderDist(distance);
+      return Debugger.floats[9] != 0.0F && super.isInRangeToRenderDist(distance);
    }
 
    @Override

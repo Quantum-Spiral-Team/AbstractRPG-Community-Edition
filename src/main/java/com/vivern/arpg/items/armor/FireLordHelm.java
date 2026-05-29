@@ -74,10 +74,10 @@ public class FireLordHelm extends ItemArmor {
       if (entityIn instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer)entityIn;
          World world = player.getEntityWorld();
-         if (((ItemStack)player.inventory.armorInventory.get(3)).getItem() == ItemsRegister.FIRE_LORD_HELM
-            && ((ItemStack)player.inventory.armorInventory.get(2)).getItem() == ItemsRegister.FIRE_LORD_CHEST
-            && ((ItemStack)player.inventory.armorInventory.get(1)).getItem() == ItemsRegister.FIRE_LORD_LEGS
-            && ((ItemStack)player.inventory.armorInventory.get(0)).getItem() == ItemsRegister.FIRE_LORD_BOOTS) {
+         if (player.inventory.armorInventory.get(3).getItem() == ItemsRegister.FIRE_LORD_HELM
+            && player.inventory.armorInventory.get(2).getItem() == ItemsRegister.FIRE_LORD_CHEST
+            && player.inventory.armorInventory.get(1).getItem() == ItemsRegister.FIRE_LORD_LEGS
+            && player.inventory.armorInventory.get(0).getItem() == ItemsRegister.FIRE_LORD_BOOTS) {
             player.extinguish();
             if (player.ticksExisted % 60 == 0 && player.getHealth() < player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getAttributeValue() / 2.0
                )

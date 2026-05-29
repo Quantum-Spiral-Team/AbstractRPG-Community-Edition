@@ -124,7 +124,7 @@ public class EntityAIFloatingSkeleton extends EntityAIBase {
             .rayTraceBlocks(
                vec,
                vec.add(0.0, -this.levitateHeight - this.levitateStair, 0.0),
-               this.entity.getAttackTarget() == null ? true : !this.entity.getAttackTarget().isInWater()
+                    this.entity.getAttackTarget() == null || !this.entity.getAttackTarget().isInWater()
             );
          if (res != null && (res.typeOfHit == Type.BLOCK || res.typeOfHit == Type.ENTITY)) {
             return true;
@@ -330,7 +330,7 @@ public class EntityAIFloatingSkeleton extends EntityAIBase {
          vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance
       );
       RayTraceResult raytraceresult = entity.world
-         .rayTraceBlocks(vec3d, vec3d2, attacktarget == null ? true : !attacktarget.isInWater(), true, false);
+         .rayTraceBlocks(vec3d, vec3d2, attacktarget == null || !attacktarget.isInWater(), true, false);
       if (raytraceresult != null) {
          vec3d2 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
       }

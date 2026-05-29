@@ -30,7 +30,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 
-public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize {
+public class BlowholeShoot extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    public float bubbleSize = 0.25F;
    public boolean firstUpdate1 = true;
@@ -112,7 +112,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
    @Override
    public void onUpdate() {
       if (this.ticksExisted < 2 || this.ticksExisted % 40 == 0) {
-         IEntitySynchronize.sendSynchronize(this, 64.0, this.bubbleSize, 0.0, 0.0, 0.0);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, this.bubbleSize, 0.0, 0.0, 0.0);
       }
 
       super.onUpdate();
@@ -137,7 +137,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
       if (this.ticksExisted > 80) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -146,7 +146,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
                0.8F + this.bubbleSize / 5.0F,
                1.25F + this.rand.nextFloat() / 10.0F - this.bubbleSize / 5.0F
             );
-         IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY + this.height / 2.0F, this.posZ, 1.0);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY + this.height / 2.0F, this.posZ, 1.0);
          this.setDead();
       }
    }
@@ -271,11 +271,11 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
          );
          entity.hurtResistantTime = 0;
          if (this.bubbleSize < 0.8) {
-            IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY + this.height / 2.0F, this.posZ, 1.0);
+            ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY + this.height / 2.0F, this.posZ, 1.0);
             this.setDead();
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -288,11 +288,11 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
             this.impacts++;
             this.impacted.add(entity);
             if (this.impacts > 3) {
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY + this.height / 2.0F, this.posZ, 1.0);
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY + this.height / 2.0F, this.posZ, 1.0);
                this.setDead();
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -320,7 +320,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
          && !this.world.isRemote) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -330,7 +330,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
                1.25F + this.rand.nextFloat() / 10.0F - this.bubbleSize / 5.0F
             );
          if (result.hitVec != null) {
-            IEntitySynchronize.sendSynchronize(
+            ISynchronizedEntity.sendSynchronize(
                this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, 1.0, 0.0, 0.0
             );
          }
@@ -380,7 +380,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
             this.world.spawnEntity(plasma);
          }
 
-         IEntitySynchronize.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 1.0);
+         ISynchronizedEntity.sendSynchronize(this, 64.0, this.posX, this.posY, this.posZ, 1.0);
          float siz = this.getActualSize(this.ticksExisted, this.ticksExisted - 1, 0.0F) / 2.0F;
          AxisAlignedBB aabb = new AxisAlignedBB(
             this.posX - siz,
@@ -417,7 +417,7 @@ public class BlowholeShoot extends EntityThrowable implements IEntitySynchronize
 
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

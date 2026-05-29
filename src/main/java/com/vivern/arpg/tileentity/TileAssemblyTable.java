@@ -39,7 +39,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
-public class TileAssemblyTable extends TileEntityLockableLoot implements ITickable, TileEntityClicked, ITileEntitySynchronize, ISidedInventory {
+public class TileAssemblyTable extends TileEntityLockableLoot implements ITickable, TileEntityClicked, ITileEntitySynchronized, ISidedInventory {
    public static Random rand = new Random();
    public NonNullList<ItemStack> stacks = NonNullList.withSize(16, ItemStack.EMPTY);
    public static final int[] SLOTS_SIDES = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
@@ -115,7 +115,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
             for (AssemblyTableRecipe recipe : AssemblyTableRecipesRegister.allRecipes) {
                if (recipe.craftresult.isStackAllowed(this.getStackInSlot(14))) {
                   for (int i = 0; i < recipe.recipe.size(); i++) {
-                     this.setInventorySlotContents(i, ((Ingridient)recipe.recipe.get(i)).createStack());
+                     this.setInventorySlotContents(i, recipe.recipe.get(i).createStack());
                   }
 
                   if (recipe.craftresult2 != null && recipe.craftresult2 != Ingridient.EMPTY) {
@@ -278,7 +278,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
 
    public int addItemStack(ItemStack stack) {
       for (int i = 0; i < this.stacks.size(); i++) {
-         if (((ItemStack)this.stacks.get(i)).isEmpty()) {
+         if (this.stacks.get(i).isEmpty()) {
             this.setInventorySlotContents(i, stack);
             return i;
          }
@@ -331,7 +331,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
    }
 
    public boolean consumePower(int amount) {
-      return this.electricStorage.extractEnergy(amount, true) >= amount ? this.electricStorage.extractEnergy(amount, false) >= amount : false;
+      return this.electricStorage.extractEnergy(amount, true) >= amount && this.electricStorage.extractEnergy(amount, false) >= amount;
    }
 
    public boolean checkAndStartRecipe() {
@@ -389,11 +389,11 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
       } else {
          boolean isAnyoneWork = false;
 
-         for (int i = 0; i < this.animations.length; i++) {
-            this.animations[i].updateAnimation();
-            if (this.animations[i].isWorkingNow()) {
-               isAnyoneWork = true;
-            }
+         for (AssemblyTableModel.AssemblyManipulatorAnimation animation : this.animations) {
+             animation.updateAnimation();
+             if (animation.isWorkingNow()) {
+                 isAnyoneWork = true;
+             }
          }
 
          if (this.started) {
@@ -436,11 +436,11 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
             if (this.checkAndStartRecipe()) {
                AssemblyTable.trySendPacketUpdate(this.world, this.getPos(), this, 8);
                if (!this.started) {
-                  ITileEntitySynchronize.sendSynchronize(this, 64.0, 1.0);
+                  ITileEntitySynchronized.sendSynchronize(this, 64.0, 1.0);
                   this.started = true;
                }
             } else if (this.started) {
-               ITileEntitySynchronize.sendSynchronize(this, 64.0, 0.0);
+               ITileEntitySynchronized.sendSynchronize(this, 64.0, 0.0);
                this.started = false;
             }
          } else if (this.progress < this.currentMaxCraftTime) {
@@ -452,12 +452,12 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
                }
 
                if (!this.started) {
-                  ITileEntitySynchronize.sendSynchronize(this, 64.0, 1.0);
+                  ITileEntitySynchronized.sendSynchronize(this, 64.0, 1.0);
                   this.started = true;
                }
             } else {
                if (this.started) {
-                  ITileEntitySynchronize.sendSynchronize(this, 64.0, 0.0);
+                  ITileEntitySynchronized.sendSynchronize(this, 64.0, 0.0);
                   this.started = false;
                }
 
@@ -527,7 +527,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
                   IBlockState next = state;
 
                   for (int i = 0; i < 36; i++) {
-                     nextpos = nextpos.offset((EnumFacing)next.getValue(BlockAssemblyAugment.FACING));
+                     nextpos = nextpos.offset(next.getValue(BlockAssemblyAugment.FACING));
                      next = this.world.getBlockState(nextpos);
                      if (this.world.getTileEntity(nextpos) == this) {
                         if (state.getBlock() == BlocksRegister.TURNING_AUGMENT) {
@@ -583,7 +583,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
 
          return (T)this.itemHandlers[facing.getIndex()];
       } else {
-         return (T)super.getCapability(capability, facing);
+         return super.getCapability(capability, facing);
       }
    }
 
@@ -955,7 +955,7 @@ public class TileAssemblyTable extends TileEntityLockableLoot implements ITickab
 
    @Override
    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-      return direction == EnumFacing.UP ? false : !this.getStackInSlot(index).isEmpty() && ItemStack.areItemsEqual(this.getStackInSlot(index), itemStackIn);
+      return direction != EnumFacing.UP && !this.getStackInSlot(index).isEmpty() && ItemStack.areItemsEqual(this.getStackInSlot(index), itemStackIn);
    }
 
    @Override

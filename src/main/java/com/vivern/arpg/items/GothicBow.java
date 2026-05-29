@@ -1,14 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityMinigunIcicle;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.HostileProjectiles;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -50,7 +43,7 @@ public class GothicBow extends AbstractBow {
    @Override
    public boolean inUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected, boolean[] removePull) {
       EntityPlayer player = (EntityPlayer)entityIn;
-      boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+      boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       if (player.getHeldItemMainhand() == itemstack) {
          int ice = NBTHelper.GetNBTint(itemstack, "ice");

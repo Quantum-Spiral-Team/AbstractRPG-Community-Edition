@@ -158,7 +158,7 @@ public class IceCastle {
             pos,
             EnumChest.FROZEN,
             ListLootTable.CHESTS_ICE_CASTLE_RICH,
-            baseState == null ? EnumFacing.HORIZONTALS[random.nextInt(4)] : (EnumFacing)baseState.getValue(BlockChest.FACING),
+            baseState == null ? EnumFacing.HORIZONTALS[random.nextInt(4)] : baseState.getValue(BlockChest.FACING),
             ChestLock.WINTER_CURSE
          );
          ChestReplacersFrozen.posesToSetPuzzle.add(pos);
@@ -168,7 +168,7 @@ public class IceCastle {
             pos,
             EnumChest.FROZEN,
             ListLootTable.CHESTS_ICE_CASTLE,
-            baseState == null ? EnumFacing.HORIZONTALS[random.nextInt(4)] : (EnumFacing)baseState.getValue(BlockChest.FACING),
+            baseState == null ? EnumFacing.HORIZONTALS[random.nextInt(4)] : baseState.getValue(BlockChest.FACING),
             ChestLock.WINTER_CURSE
          );
       }

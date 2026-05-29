@@ -32,35 +32,25 @@ import net.minecraft.world.gen.structure.template.ITemplateProcessor;
 import net.minecraft.world.gen.structure.template.Template.BlockInfo;
 
 public class HorribleVillage {
-   public static Predicate<IBlockState> BLOCKS_TO_COLLIDE = new Predicate<IBlockState>() {
-      @Override
-      public boolean apply(IBlockState input) {
-         return input.getBlock() == Blocks.PLANKS
-            ? true
-            : input.getMaterial() != Material.AIR
-               && input.getMaterial() != Material.LEAVES
-               && input.getMaterial() != Material.PLANTS
-               && input.getMaterial() != Material.CACTUS
-               && input.getMaterial() != Material.VINE
-               && input.getMaterial() != Material.SNOW
-               && input.getMaterial() != Material.WOOD;
-      }
-   };
-   public static ITemplateProcessor replacerHorribleVillage = new ITemplateProcessor() {
-      @Override
-      public BlockInfo processBlock(World world, BlockPos pos, BlockInfo blockInfoIn) {
-         if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
-            IBlockState state = Blocks.CHEST.getStateFromMeta(Blocks.CHEST.getMetaFromState(blockInfoIn.blockState));
-            world.setBlockState(pos, state);
-            TileEntity tileentity = world.getTileEntity(pos);
-            if (tileentity instanceof TileEntityChest) {
-               ((TileEntityChest)tileentity).setLootTable(ListLootTable.CHESTS_HORRIBLE_VILLAGE, world.rand.nextLong());
-            }
-
-            return null;
-         } else {
-            return blockInfoIn;
+   public static Predicate<IBlockState> BLOCKS_TO_COLLIDE = input -> input.getBlock() == Blocks.PLANKS || input.getMaterial() != Material.AIR
+           && input.getMaterial() != Material.LEAVES
+           && input.getMaterial() != Material.PLANTS
+           && input.getMaterial() != Material.CACTUS
+           && input.getMaterial() != Material.VINE
+           && input.getMaterial() != Material.SNOW
+           && input.getMaterial() != Material.WOOD;
+   public static ITemplateProcessor replacerHorribleVillage = (world, pos, blockInfoIn) -> {
+      if (blockInfoIn.blockState.getBlock() == Blocks.CHEST) {
+         IBlockState state = Blocks.CHEST.getStateFromMeta(Blocks.CHEST.getMetaFromState(blockInfoIn.blockState));
+         world.setBlockState(pos, state);
+         TileEntity tileentity = world.getTileEntity(pos);
+         if (tileentity instanceof TileEntityChest) {
+            ((TileEntityChest)tileentity).setLootTable(ListLootTable.CHESTS_HORRIBLE_VILLAGE, world.rand.nextLong());
          }
+
+         return null;
+      } else {
+         return blockInfoIn;
       }
    };
    public ArrayList<StructPos> structuresSpawned = new ArrayList<>();
@@ -281,28 +271,26 @@ public class HorribleVillage {
          }
       }
 
-      if (entity != null) {
-         float yaw = this.world.rand.nextFloat() * 360.0F;
-         entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, yaw, 0.0F);
+      float yaw = this.world.rand.nextFloat() * 360.0F;
+      entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, yaw, 0.0F);
 
-         for (int i = 0; i < 16 && this.world.collidesWithAnyBlock(entity.getEntityBoundingBox()); i++) {
-            d0 = pos.getX() + (this.world.rand.nextDouble() - this.world.rand.nextDouble()) * spawnRange + 0.5;
-            d1 = pos.getY();
-            d2 = pos.getZ() + (this.world.rand.nextDouble() - this.world.rand.nextDouble()) * spawnRange + 0.5;
-            d1 = TileMonsterSpawner.getLandHeight(this.world, new BlockPos(d0, d1 + this.world.rand.nextInt(spawnHeight), d2), spawnHeight * 2);
-            entity.setLocationAndAngles(d0, d1, d2, yaw, 0.0F);
+      for (int i = 0; i < 16 && this.world.collidesWithAnyBlock(entity.getEntityBoundingBox()); i++) {
+         d0 = pos.getX() + (this.world.rand.nextDouble() - this.world.rand.nextDouble()) * spawnRange + 0.5;
+         d1 = pos.getY();
+         d2 = pos.getZ() + (this.world.rand.nextDouble() - this.world.rand.nextDouble()) * spawnRange + 0.5;
+         d1 = TileMonsterSpawner.getLandHeight(this.world, new BlockPos(d0, d1 + this.world.rand.nextInt(spawnHeight), d2), spawnHeight * 2);
+         entity.setLocationAndAngles(d0, d1, d2, yaw, 0.0F);
+      }
+
+      if (!this.world.collidesWithAnyBlock(entity.getEntityBoundingBox())) {
+         AnvilChunkLoader.spawnEntity(entity, this.world);
+         if (entity instanceof AbstractMob) {
+            AbstractMob mob = (AbstractMob)entity;
+            mob.onInitialSpawn();
+            mob.canDropLoot = true;
          }
 
-         if (!this.world.collidesWithAnyBlock(entity.getEntityBoundingBox())) {
-            AnvilChunkLoader.spawnEntity(entity, this.world);
-            if (entity instanceof AbstractMob) {
-               AbstractMob mob = (AbstractMob)entity;
-               mob.onInitialSpawn();
-               mob.canDropLoot = true;
-            }
-
-            entity.enablePersistence();
-         }
+         entity.enablePersistence();
       }
    }
 

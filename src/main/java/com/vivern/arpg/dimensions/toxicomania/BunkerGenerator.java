@@ -52,7 +52,7 @@ public class BunkerGenerator {
       } else if (side == 4) {
          return this.yplus;
       } else {
-         return side == 5 ? this.yminus : false;
+         return side == 5 && this.yminus;
       }
    }
 

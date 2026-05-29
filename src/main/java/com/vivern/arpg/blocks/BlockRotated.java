@@ -107,17 +107,17 @@ public class BlockRotated extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(this.getProperty())).getIndex();
+      return state.getValue(this.getProperty()).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(this.getProperty(), rot.rotate((EnumFacing)state.getValue(this.getProperty())));
+      return state.withProperty(this.getProperty(), rot.rotate(state.getValue(this.getProperty())));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(this.getProperty())));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(this.getProperty())));
    }
 
    @Override
@@ -132,7 +132,7 @@ public class BlockRotated extends Block {
       } else {
          return this.AABB == null
             ? FULL_BLOCK_AABB
-            : this.AABB[((EnumFacing)state.getValue(this.getProperty())).getIndex() - (this.fullFacing ? 0 : 2)];
+            : this.AABB[state.getValue(this.getProperty()).getIndex() - (this.fullFacing ? 0 : 2)];
       }
    }
 
@@ -143,7 +143,7 @@ public class BlockRotated extends Block {
       } else {
          return this.AABB == null
             ? FULL_BLOCK_AABB
-            : this.AABB[((EnumFacing)blockState.getValue(this.getProperty())).getIndex() - (this.fullFacing ? 0 : 2)];
+            : this.AABB[blockState.getValue(this.getProperty()).getIndex() - (this.fullFacing ? 0 : 2)];
       }
    }
 

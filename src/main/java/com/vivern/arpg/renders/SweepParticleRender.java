@@ -56,7 +56,7 @@ public class SweepParticleRender<T extends SweepParticle> extends Render<SweepPa
          }
 
          GlStateManager.color(entity.Red, entity.Green, entity.Blue, entity.alpha);
-         float time = entity.ticksExisted - entity.schedule / entity.ticksPerFrame;
+         float time = entity.ticksExisted - (float) entity.schedule / entity.ticksPerFrame;
          float scaleY = entity.frameCount;
          Tessellator tessellator = Tessellator.getInstance();
          BufferBuilder bufferbuilder = tessellator.getBuffer();

@@ -65,7 +65,7 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
    }
 
    public boolean getPowered() {
-      return (Boolean)this.dataManager.get(POWERED);
+      return this.dataManager.get(POWERED);
    }
 
    @Override
@@ -156,7 +156,7 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
 
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -175,7 +175,7 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
          != null) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

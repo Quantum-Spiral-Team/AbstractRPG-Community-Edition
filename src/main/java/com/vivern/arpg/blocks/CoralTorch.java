@@ -261,7 +261,7 @@ public class CoralTorch extends BlockUnderwater {
    @Override
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.19F) {
-         EnumFacing enumfacing = (EnumFacing)stateIn.getValue(FACING);
+         EnumFacing enumfacing = stateIn.getValue(FACING);
          double d0 = pos.getX() + 0.5;
          double d1 = pos.getY() + 0.7;
          double d2 = pos.getZ() + 0.5;

@@ -213,7 +213,7 @@ public class TileAlchemicVaporizer extends TileEntityLockable implements IManaBu
 
    @Override
    public ItemStack getStackInSlot(int index) {
-      return (ItemStack)this.containItemStacks.get(index);
+      return this.containItemStacks.get(index);
    }
 
    @Override
@@ -228,7 +228,7 @@ public class TileAlchemicVaporizer extends TileEntityLockable implements IManaBu
 
    @Override
    public void setInventorySlotContents(int index, ItemStack stack) {
-      ItemStack itemstack = (ItemStack)this.containItemStacks.get(index);
+      ItemStack itemstack = this.containItemStacks.get(index);
       boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
       this.containItemStacks.set(index, stack);
       if (stack.getCount() > this.getInventoryStackLimit()) {
@@ -257,10 +257,8 @@ public class TileAlchemicVaporizer extends TileEntityLockable implements IManaBu
 
    @Override
    public boolean isUsableByPlayer(EntityPlayer player) {
-      return this.world.getTileEntity(this.pos) != this
-         ? false
-         : player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
-            <= 64.0;
+      return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
+              <= 64.0;
    }
 
    @Override

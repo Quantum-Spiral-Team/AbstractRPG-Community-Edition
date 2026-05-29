@@ -8,15 +8,7 @@ import com.vivern.arpg.entity.ChlorineCloud;
 import com.vivern.arpg.entity.CrystalFanShoot;
 import com.vivern.arpg.entity.EntityGrenade;
 import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.HostileProjectiles;
 import com.vivern.arpg.mobs.OtherMobsPack;
 import com.vivern.arpg.potions.Freezing;
@@ -133,9 +125,9 @@ public class ItemGrenade extends ItemWeapon {
             boolean hasCooldown = player.getCooldownTracker().hasCooldown(this);
             if (!hasCooldown
                && (
-                  Keys.isKeyPressed(player, Keys.PRIMARYATTACK) && player.getHeldItemMainhand() == stack
-                     || Keys.isKeyPressed(player, Keys.SECONDARYATTACK) && player.getHeldItemOffhand() == stack
-                     || Keys.isKeyPressed(player, Keys.GRENADE) && this.isFirst(player, stack)
+                    ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY) && player.getHeldItemMainhand() == stack
+                     || ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && player.getHeldItemOffhand() == stack
+                     || ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.GRENADE) && this.isFirst(player, stack)
                )) {
                Weapons.setPlayerAnimationOnServer(player, 1, player.getHeldItemMainhand() == stack ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(stack));

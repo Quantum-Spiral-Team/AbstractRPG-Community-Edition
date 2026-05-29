@@ -37,7 +37,7 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
       this.ticksExisted++;
       if (this.ticksExisted % 10 == 0) {
          if (this.charge < 1.0F) {
-            ItemStack soulstone = (ItemStack)this.stack.get(0);
+            ItemStack soulstone = this.stack.get(0);
             if (!soulstone.isEmpty() && soulstone.getItem() == ItemsRegister.SOUL_STONE) {
                int soulid = SoulStone.getSoul(soulstone);
                if (soulid > 0) {
@@ -50,7 +50,7 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
             this.charge -= add;
             this.getManaBuffer().addMana(add);
             if (this.ticksExisted % 100 == 0) {
-               this.world.playSound((EntityPlayer)null, this.getPos(), Sounds.sacrificial_altar, SoundCategory.BLOCKS, 0.6F, 1.0F);
+               this.world.playSound(null, this.getPos(), Sounds.sacrificial_altar, SoundCategory.BLOCKS, 0.6F, 1.0F);
             }
 
             if (this.charge <= 1.0F) {
@@ -124,12 +124,12 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
 
    @Override
    public boolean isEmpty() {
-      return ((ItemStack)this.stack.get(0)).isEmpty();
+      return this.stack.get(0).isEmpty();
    }
 
    @Override
    public ItemStack getStackInSlot(int index) {
-      return (ItemStack)this.stack.get(index);
+      return this.stack.get(index);
    }
 
    @Override
@@ -211,12 +211,12 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
 
    @Override
    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-      return ((ItemStack)this.stack.get(0)).isEmpty() && this.isItemValidForSlot(index, itemStackIn) && direction != EnumFacing.DOWN;
+      return this.stack.get(0).isEmpty() && this.isItemValidForSlot(index, itemStackIn) && direction != EnumFacing.DOWN;
    }
 
    @Override
    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-      return SoulStone.getSoul((ItemStack)this.stack.get(0)) == 0 && direction == EnumFacing.DOWN;
+      return SoulStone.getSoul(this.stack.get(0)) == 0 && direction == EnumFacing.DOWN;
    }
 
    @Override

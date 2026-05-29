@@ -56,7 +56,7 @@ public class ItemWeatherRocket extends ItemItem {
          entityfireworkrocket.setTextureId(this.textureId);
          worldIn.spawnEntity(entityfireworkrocket);
          worldIn.playSound(
-            (EntityPlayer)null,
+                 null,
             entityfireworkrocket.posX,
             entityfireworkrocket.posY,
             entityfireworkrocket.posZ,

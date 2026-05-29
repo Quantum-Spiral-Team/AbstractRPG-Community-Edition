@@ -36,7 +36,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 
-public class TileRunicMirror extends TileEntity implements ITickable, IVialElementsAccepter, IMagicVision, ITileEntitySynchronize {
+public class TileRunicMirror extends TileEntity implements ITickable, IVialElementsAccepter, IMagicVision, ITileEntitySynchronized {
    public ShardType elementType = null;
    public float elementCollected = 0.0F;
    public float maxElementCollected = 32.0F;
@@ -145,19 +145,19 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
       this.motionPitch *= 0.93F;
       this.motionYaw *= 0.93F;
       if (this.rotationPitch < this.rendrotationPitch) {
-         this.motionPitch = (float)(this.motionPitch - Math.min((double)(this.rendrotationPitch - this.rotationPitch), 0.5));
+         this.motionPitch = (float)(this.motionPitch - Math.min(this.rendrotationPitch - this.rotationPitch, 0.5));
       }
 
       if (this.rotationPitch > this.rendrotationPitch) {
-         this.motionPitch = (float)(this.motionPitch + Math.min((double)(this.rotationPitch - this.rendrotationPitch), 0.5));
+         this.motionPitch = (float)(this.motionPitch + Math.min(this.rotationPitch - this.rendrotationPitch, 0.5));
       }
 
       if (this.rotationYaw < this.rendrotationYaw) {
-         this.motionYaw = (float)(this.motionYaw - Math.min((double)(this.rendrotationYaw - this.rotationYaw), 0.5));
+         this.motionYaw = (float)(this.motionYaw - Math.min(this.rendrotationYaw - this.rotationYaw, 0.5));
       }
 
       if (this.rotationYaw > this.rendrotationYaw) {
-         this.motionYaw = (float)(this.motionYaw + Math.min((double)(this.rotationYaw - this.rendrotationYaw), 0.5));
+         this.motionYaw = (float)(this.motionYaw + Math.min(this.rotationYaw - this.rendrotationYaw, 0.5));
       }
 
       if (this.world.isRemote) {
@@ -194,7 +194,7 @@ public class TileRunicMirror extends TileEntity implements ITickable, IVialEleme
       if (this.world.getWorldTime() % ManaBuffer.TICKRATE == 0L) {
          ManaBuffer.Calibration mirrorCalibration = null;
          if (!this.world.isRemote) {
-            ITileEntitySynchronize.sendSynchronize(this, 64.0, this.elementCollected);
+            ITileEntitySynchronized.sendSynchronize(this, 64.0, this.elementCollected);
          }
 
          if (this.elementCollected > 0.0F) {

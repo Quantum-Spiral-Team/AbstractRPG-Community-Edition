@@ -115,7 +115,7 @@ public class Stairs extends Block {
       List<AxisAlignedBB> list = Lists.newArrayList();
       boolean flag = bstate.getValue(HALF) == EnumHalf.TOP;
       list.add(flag ? AABB_SLAB_TOP : AABB_SLAB_BOTTOM);
-      EnumShape blockstairs$enumshape = (EnumShape)bstate.getValue(SHAPE);
+      EnumShape blockstairs$enumshape = bstate.getValue(SHAPE);
       if (blockstairs$enumshape == EnumShape.STRAIGHT
          || blockstairs$enumshape == EnumShape.INNER_LEFT
          || blockstairs$enumshape == EnumShape.INNER_RIGHT) {
@@ -131,7 +131,7 @@ public class Stairs extends Block {
 
    private static AxisAlignedBB getCollQuarterBlock(IBlockState bstate) {
       boolean flag = bstate.getValue(HALF) == EnumHalf.TOP;
-      switch ((EnumFacing)bstate.getValue(FACING)) {
+      switch (bstate.getValue(FACING)) {
          case NORTH:
          default:
             return flag ? AABB_QTR_BOT_NORTH : AABB_QTR_TOP_NORTH;
@@ -145,9 +145,9 @@ public class Stairs extends Block {
    }
 
    private static AxisAlignedBB getCollEighthBlock(IBlockState bstate) {
-      EnumFacing enumfacing = (EnumFacing)bstate.getValue(FACING);
+      EnumFacing enumfacing = bstate.getValue(FACING);
       EnumFacing enumfacing1;
-      switch ((EnumShape)bstate.getValue(SHAPE)) {
+      switch (bstate.getValue(SHAPE)) {
          case OUTER_LEFT:
          default:
             enumfacing1 = enumfacing;
@@ -182,9 +182,9 @@ public class Stairs extends Block {
       if (face.getAxis() == Axis.Y) {
          return face == EnumFacing.UP == (state.getValue(HALF) == EnumHalf.TOP) ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
       } else {
-         EnumShape blockstairs$enumshape = (EnumShape)state.getValue(SHAPE);
+         EnumShape blockstairs$enumshape = state.getValue(SHAPE);
          if (blockstairs$enumshape != EnumShape.OUTER_LEFT && blockstairs$enumshape != EnumShape.OUTER_RIGHT) {
-            EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+            EnumFacing enumfacing = state.getValue(FACING);
             switch (blockstairs$enumshape) {
                case INNER_RIGHT:
                   return enumfacing != face && enumfacing != face.rotateYCCW() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
@@ -365,7 +365,7 @@ public class Stairs extends Block {
          i |= 4;
       }
 
-      return i | 5 - ((EnumFacing)state.getValue(FACING)).getIndex();
+      return i | 5 - state.getValue(FACING).getIndex();
    }
 
    @Override
@@ -374,11 +374,11 @@ public class Stairs extends Block {
    }
 
    private static EnumShape getStairsShape(IBlockState p_185706_0_, IBlockAccess p_185706_1_, BlockPos p_185706_2_) {
-      EnumFacing enumfacing = (EnumFacing)p_185706_0_.getValue(FACING);
+      EnumFacing enumfacing = p_185706_0_.getValue(FACING);
       IBlockState iblockstate = p_185706_1_.getBlockState(p_185706_2_.offset(enumfacing));
       if (isBlockStairs(iblockstate) && p_185706_0_.getValue(HALF) == iblockstate.getValue(HALF)) {
-         EnumFacing enumfacing1 = (EnumFacing)iblockstate.getValue(FACING);
-         if (enumfacing1.getAxis() != ((EnumFacing)p_185706_0_.getValue(FACING)).getAxis()
+         EnumFacing enumfacing1 = iblockstate.getValue(FACING);
+         if (enumfacing1.getAxis() != p_185706_0_.getValue(FACING).getAxis()
             && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing1.getOpposite())) {
             if (enumfacing1 == enumfacing.rotateYCCW()) {
                return EnumShape.OUTER_LEFT;
@@ -390,8 +390,8 @@ public class Stairs extends Block {
 
       IBlockState iblockstate1 = p_185706_1_.getBlockState(p_185706_2_.offset(enumfacing.getOpposite()));
       if (isBlockStairs(iblockstate1) && p_185706_0_.getValue(HALF) == iblockstate1.getValue(HALF)) {
-         EnumFacing enumfacing2 = (EnumFacing)iblockstate1.getValue(FACING);
-         if (enumfacing2.getAxis() != ((EnumFacing)p_185706_0_.getValue(FACING)).getAxis()
+         EnumFacing enumfacing2 = iblockstate1.getValue(FACING);
+         if (enumfacing2.getAxis() != p_185706_0_.getValue(FACING).getAxis()
             && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing2)) {
             if (enumfacing2 == enumfacing.rotateYCCW()) {
                return EnumShape.INNER_LEFT;
@@ -417,13 +417,13 @@ public class Stairs extends Block {
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
-      EnumShape blockstairs$enumshape = (EnumShape)state.getValue(SHAPE);
+      EnumFacing enumfacing = state.getValue(FACING);
+      EnumShape blockstairs$enumshape = state.getValue(SHAPE);
       switch (mirrorIn) {
          case LEFT_RIGHT:
             if (enumfacing.getAxis() == Axis.Z) {
@@ -463,9 +463,9 @@ public class Stairs extends Block {
 
    @Override
    protected BlockStateContainer createBlockState() {
-      return (BlockStateContainer)(this.material == Material.WATER
+      return this.material == Material.WATER
          ? new BlockUnderwater.BlockStateContainerUnderwater(this, new IProperty[]{FACING, HALF, SHAPE})
-         : new BlockStateContainer(this, new IProperty[]{FACING, HALF, SHAPE}));
+         : new BlockStateContainer(this, new IProperty[]{FACING, HALF, SHAPE});
    }
 
    @Override
@@ -481,9 +481,9 @@ public class Stairs extends Block {
          return true;
       } else {
          state = this.getActualState(state, world, pos);
-         EnumHalf half = (EnumHalf)state.getValue(HALF);
-         EnumFacing side = (EnumFacing)state.getValue(FACING);
-         EnumShape shape = (EnumShape)state.getValue(SHAPE);
+         EnumHalf half = state.getValue(HALF);
+         EnumFacing side = state.getValue(FACING);
+         EnumShape shape = state.getValue(SHAPE);
          if (face == EnumFacing.UP) {
             return half == EnumHalf.TOP;
          } else if (face == EnumFacing.DOWN) {
@@ -493,9 +493,7 @@ public class Stairs extends Block {
          } else if (face == side) {
             return true;
          } else {
-            return shape == EnumShape.INNER_LEFT && face.rotateY() == side
-               ? true
-               : shape == EnumShape.INNER_RIGHT && face.rotateYCCW() == side;
+            return shape == EnumShape.INNER_LEFT && face.rotateY() == side || shape == EnumShape.INNER_RIGHT && face.rotateYCCW() == side;
          }
       }
    }

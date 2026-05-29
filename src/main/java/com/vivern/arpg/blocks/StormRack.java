@@ -52,7 +52,7 @@ public class StormRack extends Block {
 
    @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case NORTH:
             return LADDER_NORTH_AABB;
          case SOUTH:
@@ -82,7 +82,7 @@ public class StormRack extends Block {
       } else if (this.canAttachTo(worldIn, pos.east(), side)) {
          return true;
       } else {
-         return this.canAttachTo(worldIn, pos.north(), side) ? true : this.canAttachTo(worldIn, pos.south(), side);
+         return this.canAttachTo(worldIn, pos.north(), side) || this.canAttachTo(worldIn, pos.south(), side);
       }
    }
 
@@ -109,7 +109,7 @@ public class StormRack extends Block {
 
    @Override
    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+      EnumFacing enumfacing = state.getValue(FACING);
       if (!this.canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing)) {
          this.dropBlockAsItem(worldIn, pos, state, 0);
          worldIn.setBlockToAir(pos);
@@ -136,17 +136,17 @@ public class StormRack extends Block {
 
    @Override
    public int getMetaFromState(IBlockState state) {
-      return ((EnumFacing)state.getValue(FACING)).getIndex();
+      return state.getValue(FACING).getIndex();
    }
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override

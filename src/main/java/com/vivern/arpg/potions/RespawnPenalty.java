@@ -1,6 +1,6 @@
 package com.vivern.arpg.potions;
 
-import com.vivern.arpg.network.PacketDoSomethingToClients;
+import com.vivern.arpg.network.packet.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +34,10 @@ public class RespawnPenalty extends AdvancedPotion {
          GlStateManager.pushMatrix();
          float scale = 2.0F;
          GlStateManager.scale(scale, scale, 1.0F);
-         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("YOU DIED IN BOSS BATTLE!", (i / 2 - 126) / scale, 30.0F / scale, 14884382);
+         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("YOU DIED IN BOSS BATTLE!", ((float) i / 2 - 126) / scale, 30.0F / scale, 14884382);
          GlStateManager.popMatrix();
          int dur = clientDelayCounter;
-         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("waiting for respawn: " + dur / 20 + "." + dur / 2 % 10, i / 2 - 61, 115.0F, 14884382);
+         Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("waiting for respawn: " + dur / 20 + "." + dur / 2 % 10, (float) i / 2 - 61, 115.0F, 14884382);
       }
    }
 
@@ -51,7 +51,7 @@ public class RespawnPenalty extends AdvancedPotion {
       super.performEffect(entityLivingBaseIn, amplifier);
       if (!entityLivingBaseIn.world.isRemote && entityLivingBaseIn.isDead && entityLivingBaseIn instanceof EntityPlayerMP) {
          PacketDoSomethingToClients packet = new PacketDoSomethingToClients();
-         packet.writeargs(this.getThisDuration(entityLivingBaseIn), 0.0, 0.0, 0.0, 0.0, 0.0, 6);
+         packet.writeArgs(this.getThisDuration(entityLivingBaseIn), 0.0, 0.0, 0.0, 0.0, 0.0, 6);
          PacketHandler.sendTo(packet, (EntityPlayerMP)entityLivingBaseIn);
       }
    }

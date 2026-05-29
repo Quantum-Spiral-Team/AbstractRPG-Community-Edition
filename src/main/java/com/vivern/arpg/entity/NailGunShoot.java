@@ -301,7 +301,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
          Weapons.setAcceleration(entityHit);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -317,7 +317,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
          entityHit.setDead();
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -331,7 +331,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
          entityHit.setDead();
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -350,7 +350,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
          Weapons.setAcceleration(entityHit);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -373,7 +373,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
          Weapons.setAcceleration(entityHit);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -386,7 +386,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
       } else if (rep == 7) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -404,7 +404,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
          this.motionZ *= -1.0;
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,

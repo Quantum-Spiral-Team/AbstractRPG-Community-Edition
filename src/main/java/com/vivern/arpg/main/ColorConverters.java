@@ -5,6 +5,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
 
+import java.util.Locale;
+
 public class ColorConverters {
    public static Vec3d getRainbow(float hue) {
       float f1 = 0.16666667F;
@@ -213,7 +215,7 @@ public class ColorConverters {
    }
 
    public static float[] hexToRgb(String colorStr) {
-      colorStr = colorStr.toUpperCase();
+      colorStr = colorStr.toUpperCase(Locale.ROOT);
       return new float[]{
          Integer.valueOf(colorStr.substring(0, 2), 16).intValue() / 255.0F,
          Integer.valueOf(colorStr.substring(2, 4), 16).intValue() / 255.0F,

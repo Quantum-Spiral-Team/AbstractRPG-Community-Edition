@@ -25,7 +25,7 @@ public class Antipotion extends Item {
       player.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
       itemstack.shrink(1);
       world.playSound(
-         (EntityPlayer)null,
+              null,
          player.posX,
          player.posY,
          player.posZ,

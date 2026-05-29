@@ -10,7 +10,7 @@ import com.vivern.arpg.entity.EntityFrostBolt;
 import com.vivern.arpg.entity.EntityFrostfireExplosive;
 import com.vivern.arpg.entity.EntitySlimeBullet;
 import com.vivern.arpg.entity.GemStaffShoot;
-import com.vivern.arpg.entity.IEntitySynchronize;
+import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.entity.LavaDropperShoot;
 import com.vivern.arpg.entity.ShellShard;
 import com.vivern.arpg.entity.ViolenceShoot;
@@ -31,7 +31,7 @@ import com.vivern.arpg.main.WeaponDamage;
 import com.vivern.arpg.main.WeaponParameters;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.mobs.HostileProjectiles;
-import com.vivern.arpg.network.PacketBulletEffectToClients;
+import com.vivern.arpg.network.packet.PacketBulletEffectToClients;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
@@ -893,7 +893,7 @@ public class ItemRocket extends Item {
    ) {
       if (!world.isRemote) {
          PacketBulletEffectToClients packet = new PacketBulletEffectToClients();
-         packet.writeargs(x, y, z, a, b, c, id);
+         packet.writeArgs(x, y, z, a, b, c, id);
          PacketHandler.sendToAllAround(packet, world, sendX, sendY, sendZ, distance);
       }
    }
@@ -1991,7 +1991,7 @@ public class ItemRocket extends Item {
                   shoot.motionZ = itemRand.nextGaussian() / 4.0;
                   world.spawnEntity(shoot);
                   shoot.velocityChanged = true;
-                  IEntitySynchronize.sendSynchronize(shoot, 64.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.0);
+                  ISynchronizedEntity.sendSynchronize(shoot, 64.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.0);
                }
             }
 
@@ -2059,7 +2059,7 @@ public class ItemRocket extends Item {
             }
 
             if (entity.attemptTeleport(d3, d4, d5)) {
-               entity.world.playSound((EntityPlayer)null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+               entity.world.playSound(null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
                entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
                break;
             }

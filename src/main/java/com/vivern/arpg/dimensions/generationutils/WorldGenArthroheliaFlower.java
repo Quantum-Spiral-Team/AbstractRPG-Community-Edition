@@ -51,7 +51,7 @@ public class WorldGenArthroheliaFlower extends WorldGenerator {
    public void doStep(World world, Random rand, BlockPos position) {
       IBlockState state = world.getBlockState(position);
       if (state.getBlock() == this.stalk && rand.nextFloat() < 0.3F) {
-         EnumFacing facing = this.selectFacing((EnumFacing)state.getValue(BlockRotated.FACING_FULL), rand);
+         EnumFacing facing = this.selectFacing(state.getValue(BlockRotated.FACING_FULL), rand);
          BlockPos var6 = position.offset(facing);
          world.setBlockState(var6, this.spike.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
          position = var6.offset(facing);
@@ -59,7 +59,7 @@ public class WorldGenArthroheliaFlower extends WorldGenerator {
       }
 
       if (state.getBlock() == this.spike && rand.nextFloat() < 0.15F) {
-         EnumFacing facing = this.selectFacing(((EnumFacing)state.getValue(BlockRotated.FACING_FULL)).getOpposite(), rand);
+         EnumFacing facing = this.selectFacing(state.getValue(BlockRotated.FACING_FULL).getOpposite(), rand);
          position = position.offset(facing);
          world.setBlockState(position, this.spike.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
          position = position.offset(facing);
@@ -70,7 +70,7 @@ public class WorldGenArthroheliaFlower extends WorldGenerator {
    public void doHat(World world, Random rand, BlockPos position) {
       IBlockState state = world.getBlockState(position);
       if (state.getBlock() == this.stalk && rand.nextFloat() < 0.5F) {
-         EnumFacing facing = (EnumFacing)state.getValue(BlockRotated.FACING_FULL);
+         EnumFacing facing = state.getValue(BlockRotated.FACING_FULL);
          if (facing == EnumFacing.UP) {
             if (this.hatType == 1 && world.isAirBlock(position.up()) && world.isAirBlock(position.up(2))) {
                world.setBlockState(position.up(), this.stem.getDefaultState().withProperty(BlockRotated.FACING_FULL, EnumFacing.DOWN), 2);

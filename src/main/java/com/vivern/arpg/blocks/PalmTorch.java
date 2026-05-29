@@ -33,12 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PalmTorch extends Block {
    public static ResourceLocation res = new ResourceLocation("arpg:textures/palm_fire.png");
-   public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
-      @Override
-      public boolean apply(@Nullable EnumFacing p_apply_1_) {
-         return p_apply_1_ != EnumFacing.DOWN;
-      }
-   });
+   public static final PropertyDirection FACING = PropertyDirection.create("facing", facing -> facing != EnumFacing.DOWN);
    protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.4F, 0.0, 0.4F, 0.6F, 0.6F, 0.6F);
    protected static final AxisAlignedBB TORCH_NORTH_AABB = new AxisAlignedBB(0.35F, 0.2F, 0.7F, 0.65F, 0.8F, 1.0);
    protected static final AxisAlignedBB TORCH_SOUTH_AABB = new AxisAlignedBB(0.35F, 0.2F, 0.0, 0.65F, 0.8F, 0.3F);
@@ -76,7 +71,7 @@ public class PalmTorch extends Block {
       if (facing.equals(EnumFacing.UP) && this.canPlaceOn(worldIn, blockpos)) {
          return true;
       } else {
-         return facing != EnumFacing.UP && facing != EnumFacing.DOWN ? !isExceptBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID : false;
+         return facing != EnumFacing.UP && facing != EnumFacing.DOWN && !isExceptBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID;
       }
    }
 
@@ -99,7 +94,7 @@ public class PalmTorch extends Block {
       if (!this.checkForDrop(worldIn, pos, state)) {
          return true;
       } else {
-         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+         EnumFacing enumfacing = state.getValue(FACING);
          Axis enumfacing$axis = enumfacing.getAxis();
          EnumFacing enumfacing1 = enumfacing.getOpposite();
          BlockPos blockpos = pos.offset(enumfacing1);
@@ -121,7 +116,7 @@ public class PalmTorch extends Block {
    }
 
    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-      if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING))) {
+      if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, state.getValue(FACING))) {
          return true;
       } else {
          if (worldIn.getBlockState(pos).getBlock() == this) {
@@ -135,7 +130,7 @@ public class PalmTorch extends Block {
 
    @Override
    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             return TORCH_EAST_AABB;
          case WEST:
@@ -197,7 +192,7 @@ public class PalmTorch extends Block {
    @Override
    public int getMetaFromState(IBlockState state) {
       int i = 0;
-      switch ((EnumFacing)state.getValue(FACING)) {
+      switch (state.getValue(FACING)) {
          case EAST:
             i |= 1;
             break;
@@ -221,12 +216,12 @@ public class PalmTorch extends Block {
 
    @Override
    public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
    }
 
    @Override
    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
    }
 
    @Override
@@ -263,7 +258,7 @@ public class PalmTorch extends Block {
    @SideOnly(Side.CLIENT)
    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
       if (rand.nextFloat() < 0.9F) {
-         EnumFacing enumfacing = (EnumFacing)stateIn.getValue(FACING);
+         EnumFacing enumfacing = stateIn.getValue(FACING);
          double d0 = pos.getX() + 0.5;
          double d1 = pos.getY() + 0.65;
          double d2 = pos.getZ() + 0.5;

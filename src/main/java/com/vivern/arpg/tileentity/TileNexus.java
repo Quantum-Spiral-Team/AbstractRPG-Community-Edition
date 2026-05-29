@@ -5,7 +5,7 @@ import com.vivern.arpg.main.MobSpawn;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.NexusCap;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.PacketNexusInfoToClients;
+import com.vivern.arpg.network.packet.PacketNexusInfoToClients;
 import java.util.List;
 import java.util.Random;
 import org.jetbrains.annotations.Nullable;
@@ -458,7 +458,7 @@ public abstract class TileNexus extends TileEntity implements ITickable {
 
          PacketNexusInfoToClients packet = new PacketNexusInfoToClients();
          if (this.invasionStarted) {
-            packet.writeargs(
+            packet.writeArgs(
                MathHelper.clamp(this.nexusHealth / this.MAX_HEALTH, 0.0F, 1.0F),
                MathHelper.clamp(this.waveCompleteRate / 100.0F, 0.0F, 1.0F),
                (short)this.WAVE,
@@ -466,7 +466,7 @@ public abstract class TileNexus extends TileEntity implements ITickable {
                this.WAVE == this.FINAL_WAVE
             );
          } else {
-            packet.writeargs(0.0F, 0.0F, (short)0, this.nexusId, this.WAVE == this.FINAL_WAVE);
+            packet.writeArgs(0.0F, 0.0F, (short)0, this.nexusId, this.WAVE == this.FINAL_WAVE);
          }
 
          PacketHandler.sendToAllAround(
@@ -483,7 +483,7 @@ public abstract class TileNexus extends TileEntity implements ITickable {
    public void sendWinPacket() {
       if (!this.world.isRemote) {
          PacketNexusInfoToClients packet = new PacketNexusInfoToClients();
-         packet.writeargs(MathHelper.clamp(this.nexusHealth / this.MAX_HEALTH, 0.0F, 1.0F), -100.0F, (short)this.WAVE, this.nexusId, true);
+         packet.writeArgs(MathHelper.clamp(this.nexusHealth / this.MAX_HEALTH, 0.0F, 1.0F), -100.0F, (short)this.WAVE, this.nexusId, true);
          PacketHandler.sendToAllAround(
             packet,
             this.world,
@@ -498,7 +498,7 @@ public abstract class TileNexus extends TileEntity implements ITickable {
    public void sendLosePacket() {
       if (!this.world.isRemote) {
          PacketNexusInfoToClients packet = new PacketNexusInfoToClients();
-         packet.writeargs(0.0F, -200.0F, (short)this.WAVE, this.nexusId, this.WAVE == this.FINAL_WAVE);
+         packet.writeArgs(0.0F, -200.0F, (short)this.WAVE, this.nexusId, this.WAVE == this.FINAL_WAVE);
          PacketHandler.sendToAllAround(
             packet,
             this.world,

@@ -1,14 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityStreamLaserP;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +75,7 @@ public class Impetus extends ItemWeapon {
          World world = player.getEntityWorld();
          Item itemIn = itemstack.getItem();
          EnumHand hand = player.getActiveHand();
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
          float mana = Mana.getMana(player);
          float spee = Mana.getManaSpeed(player);
          float power = Mana.getMagicPowerMax(player);
@@ -105,7 +98,7 @@ public class Impetus extends ItemWeapon {
 
             if (player.ticksExisted % 10 == 0) {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -120,7 +113,7 @@ public class Impetus extends ItemWeapon {
                double edist = 4.0 + charge / (10.0 - acc);
                Vec3d vec = GetMOP.posRayTrace(edist, 1.0F, player, 1.0, 0.8);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -159,7 +152,7 @@ public class Impetus extends ItemWeapon {
                double edist = 4.0 + charge / (9.0 - acc);
                List<Entity> list = GetMOP.entityMopRayTrace(Entity.class, edist, 1.0F, player, 1.5, player.rotationPitch, player.rotationYaw);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -186,7 +179,7 @@ public class Impetus extends ItemWeapon {
                }
             } else {
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,

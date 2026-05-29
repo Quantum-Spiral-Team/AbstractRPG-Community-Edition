@@ -54,9 +54,8 @@ public class TimeOfDayProvider {
          timeOfDayPrev.fallEndTime = timeOfDay.upriseEndTime;
       }
 
-      for (int i = 0; i < this.timesOfDay.size(); i++) {
-         TimeOfDay timeOfDay = this.timesOfDay.get(i);
-         timeOfDay.fixtime(this.dayLength);
+      for (TimeOfDay timeOfDay : this.timesOfDay) {
+          timeOfDay.fixtime(this.dayLength);
       }
 
       return this;
@@ -69,15 +68,14 @@ public class TimeOfDayProvider {
       float b = 0.0F;
       float a = 0.0F;
 
-      for (int i = 0; i < this.timesOfDay.size(); i++) {
-         TimeOfDay timeOfDay = this.timesOfDay.get(i);
-         float power = timeOfDay.getPower(worldTime, this);
-         if (power > 0.0F) {
-            r += timeOfDay.colors[id].x * power;
-            g += timeOfDay.colors[id].y * power;
-            b += timeOfDay.colors[id].z * power;
-            a += timeOfDay.colors[id].w * power;
-         }
+      for (TimeOfDay timeOfDay : this.timesOfDay) {
+          float power = timeOfDay.getPower(worldTime, this);
+          if (power > 0.0F) {
+              r += timeOfDay.colors[id].x * power;
+              g += timeOfDay.colors[id].y * power;
+              b += timeOfDay.colors[id].z * power;
+              a += timeOfDay.colors[id].w * power;
+          }
       }
 
       return new Vector4f(r, g, b, a);
@@ -91,17 +89,16 @@ public class TimeOfDayProvider {
       float[] b = new float[amount];
       int fpa = idFirst + amount;
 
-      for (int i = 0; i < this.timesOfDay.size(); i++) {
-         TimeOfDay timeOfDay = this.timesOfDay.get(i);
-         float power = timeOfDay.getPower(worldTime, this);
-         if (power > 0.0F) {
-            for (int j = idFirst; j < fpa; j++) {
-               int k = j - idFirst;
-               r[k] += timeOfDay.colors[j].x * power;
-               g[k] += timeOfDay.colors[j].y * power;
-               b[k] += timeOfDay.colors[j].z * power;
-            }
-         }
+      for (TimeOfDay timeOfDay : this.timesOfDay) {
+          float power = timeOfDay.getPower(worldTime, this);
+          if (power > 0.0F) {
+              for (int j = idFirst; j < fpa; j++) {
+                  int k = j - idFirst;
+                  r[k] += timeOfDay.colors[j].x * power;
+                  g[k] += timeOfDay.colors[j].y * power;
+                  b[k] += timeOfDay.colors[j].z * power;
+              }
+          }
       }
 
       for (int j = 0; j < amount; j++) {
@@ -120,18 +117,17 @@ public class TimeOfDayProvider {
       float[] a = new float[amount];
       int fpa = idFirst + amount;
 
-      for (int i = 0; i < this.timesOfDay.size(); i++) {
-         TimeOfDay timeOfDay = this.timesOfDay.get(i);
-         float power = timeOfDay.getPower(worldTime, this);
-         if (power > 0.0F) {
-            for (int j = idFirst; j < fpa; j++) {
-               int k = j - idFirst;
-               r[k] += timeOfDay.colors[j].x * power;
-               g[k] += timeOfDay.colors[j].y * power;
-               b[k] += timeOfDay.colors[j].z * power;
-               a[k] += timeOfDay.colors[j].w * power;
-            }
-         }
+      for (TimeOfDay timeOfDay : this.timesOfDay) {
+          float power = timeOfDay.getPower(worldTime, this);
+          if (power > 0.0F) {
+              for (int j = idFirst; j < fpa; j++) {
+                  int k = j - idFirst;
+                  r[k] += timeOfDay.colors[j].x * power;
+                  g[k] += timeOfDay.colors[j].y * power;
+                  b[k] += timeOfDay.colors[j].z * power;
+                  a[k] += timeOfDay.colors[j].w * power;
+              }
+          }
       }
 
       for (int j = 0; j < amount; j++) {
@@ -167,34 +163,27 @@ public class TimeOfDayProvider {
    }
 
    public void printSourceCode() {
-      System.out.println();
-      System.out.println();
+      for (TimeOfDay timeOfDay : this.timesOfDay) {
+          System.out.print(".addO(" + timeOfDay.upriseStartTime + ", " + timeOfDay.upriseEndTime);
 
-      for (int i = 0; i < this.timesOfDay.size(); i++) {
-         TimeOfDay timeOfDay = this.timesOfDay.get(i);
-         System.out.print(".addO(" + timeOfDay.upriseStartTime + ", " + timeOfDay.upriseEndTime);
+          for (int j = 0; j < timeOfDay.colors.length; j++) {
+              System.out
+                      .print(
+                              ", new Vector4f("
+                                      + timeOfDay.colors[j].x
+                                      + "F, "
+                                      + timeOfDay.colors[j].y
+                                      + "F, "
+                                      + timeOfDay.colors[j].z
+                                      + "F, "
+                                      + timeOfDay.colors[j].w
+                                      + "F)"
+                      );
+          }
 
-         for (int j = 0; j < timeOfDay.colors.length; j++) {
-            System.out
-               .print(
-                  ", new Vector4f("
-                     + timeOfDay.colors[j].x
-                     + "F, "
-                     + timeOfDay.colors[j].y
-                     + "F, "
-                     + timeOfDay.colors[j].z
-                     + "F, "
-                     + timeOfDay.colors[j].w
-                     + "F)"
-               );
-         }
-
-         System.out.print(")");
-         System.out.print("\n");
+          System.out.print(")");
+          System.out.print("\n");
       }
-
-      System.out.println();
-      System.out.println();
    }
 
    public void setLightmapColors(

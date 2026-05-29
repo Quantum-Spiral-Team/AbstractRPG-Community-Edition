@@ -49,7 +49,7 @@ public class TilePresentBox extends TileEntityLockableLoot {
          PresentBox.trySendPacketUpdate(this.getWorld(), this.getPos(), this, 64);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.pos,
                Sounds.box_open,
                SoundCategory.BLOCKS,
@@ -66,7 +66,7 @@ public class TilePresentBox extends TileEntityLockableLoot {
          PresentBox.trySendPacketUpdate(this.getWorld(), this.getPos(), this, 64);
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.pos,
                Sounds.box_close,
                SoundCategory.BLOCKS,
@@ -94,7 +94,7 @@ public class TilePresentBox extends TileEntityLockableLoot {
 
    public int addItemStack(ItemStack stack) {
       for (int i = 0; i < this.stacks.size(); i++) {
-         if (((ItemStack)this.stacks.get(i)).isEmpty()) {
+         if (this.stacks.get(i).isEmpty()) {
             this.setInventorySlotContents(i, stack);
             return i;
          }

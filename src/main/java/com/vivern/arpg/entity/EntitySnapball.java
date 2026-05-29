@@ -35,7 +35,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntitySnapball extends EntityThrowable implements IEntitySynchronize {
+public class EntitySnapball extends EntityThrowable implements ISynchronizedEntity {
    public final ItemStack weaponstack;
    public boolean powered = false;
    public boolean exploding = false;
@@ -163,7 +163,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
 
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -185,7 +185,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       if (!this.world.isRemote && this.powered) {
          if (this.ticksExisted <= 1) {
             if (this.thrower != null) {
-               IEntitySynchronize.sendSynchronize(this, 64.0, this.thrower.getEntityId());
+               ISynchronizedEntity.sendSynchronize(this, 64.0, this.thrower.getEntityId());
             }
 
             this.world.setEntityState(this, (byte)9);
@@ -281,7 +281,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       }
 
       if (!this.world.isRemote) {
-         IEntitySynchronize.sendSynchronize(
+         ISynchronizedEntity.sendSynchronize(
             this, 64.0, this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ
          );
       }
@@ -354,7 +354,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
       if (id == 11) {
          this.world
             .playSound(
-               (EntityPlayer)null,
+                    null,
                this.posX,
                this.posY,
                this.posZ,
@@ -392,7 +392,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                result.entityHit.hurtResistantTime = 0;
                this.world
                   .playSound(
-                     (EntityPlayer)null,
+                          null,
                      this.posX,
                      this.posY,
                      this.posZ,
@@ -419,7 +419,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
                != null) {
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,
@@ -570,7 +570,7 @@ public class EntitySnapball extends EntityThrowable implements IEntitySynchroniz
             this.world.setEntityState(this, (byte)10);
             this.world
                .playSound(
-                  (EntityPlayer)null,
+                       null,
                   this.posX,
                   this.posY,
                   this.posZ,

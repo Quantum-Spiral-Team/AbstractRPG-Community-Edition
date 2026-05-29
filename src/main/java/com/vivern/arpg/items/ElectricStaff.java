@@ -1,12 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityElectricBolt;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -59,16 +54,15 @@ public class ElectricStaff extends ItemWeapon {
             float power = Mana.getMagicPowerMax(player);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
             float manacost = parameters.getEnchantedF("manacost", sor);
-            boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
-            boolean click2 = Keys.isKeyPressed(player, Keys.SECONDARYATTACK);
+            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-            if (hand != null
-               && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)
-               && Mana.getMana(player) > manacost
-               && !player.getCooldownTracker().hasCooldown(this)) {
+            if ((click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)
+                    && Mana.getMana(player) > manacost
+                    && !player.getCooldownTracker().hasCooldown(this)) {
                Weapons.setPlayerAnimationOnServer(player, 14, hand);
                world.playSound(
-                  (EntityPlayer)null,
+                       null,
                   player.posX,
                   player.posY,
                   player.posZ,
@@ -115,8 +109,4 @@ public class ElectricStaff extends ItemWeapon {
       return WeaponHandleType.SEMI_ONE_HANDED;
    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
 }

@@ -25,8 +25,8 @@ public class Booom {
    public static int drunkTick = 0;
    public static float drunkPower = 0.0F;
 
-   public Booom(EntityPlayer player, int lasttick) {
-      lastTick = lasttick;
+   public Booom(EntityPlayer player, int lastTick) {
+      Booom.lastTick = lastTick;
    }
 
    public static float getFrequencyForTicks(int ticks) {

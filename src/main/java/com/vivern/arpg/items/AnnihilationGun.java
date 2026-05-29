@@ -2,17 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityStreamLaserP;
 import com.vivern.arpg.entity.GunPEmitter;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
 import java.util.Random;
@@ -90,19 +80,19 @@ public class AnnihilationGun extends ItemWeapon {
    public void sound(World world, EntityPlayer player, int intcharge, int rapidity) {
       if (intcharge == 2) {
          world.playSound(
-            (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.biglazer1, SoundCategory.AMBIENT, 1.0F, 1.0F
+                 null, player.posX, player.posY, player.posZ, Sounds.biglazer1, SoundCategory.AMBIENT, 1.0F, 1.0F
          );
       }
 
       if (intcharge == 30 - rapidity * 5) {
          world.playSound(
-            (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.biglazer2, SoundCategory.AMBIENT, 1.0F, 1.0F
+                 null, player.posX, player.posY, player.posZ, Sounds.biglazer2, SoundCategory.AMBIENT, 1.0F, 1.0F
          );
       }
 
       if (intcharge == 60 - rapidity * 10) {
          world.playSound(
-            (EntityPlayer)null, player.posX, player.posY, player.posZ, Sounds.biglazer3, SoundCategory.AMBIENT, 1.0F, 1.0F
+                 null, player.posX, player.posY, player.posZ, Sounds.biglazer3, SoundCategory.AMBIENT, 1.0F, 1.0F
          );
       }
    }
@@ -113,7 +103,7 @@ public class AnnihilationGun extends ItemWeapon {
       if (IWeapon.canShoot(itemstack)) {
          EntityPlayer player = (EntityPlayer)entityIn;
          this.decreaseReload(itemstack, player);
-         boolean click = Keys.isKeyPressed(player, Keys.PRIMARYATTACK);
+         boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
          int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
          int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
          int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
@@ -171,7 +161,7 @@ public class AnnihilationGun extends ItemWeapon {
                if (ammo > 0 && this.isReloaded(itemstack)) {
                   if (intcharge > chargeneed) {
                      world.playSound(
-                        (EntityPlayer)null,
+                             null,
                         player.posX,
                         player.posY,
                         player.posZ,
@@ -244,7 +234,7 @@ public class AnnihilationGun extends ItemWeapon {
                   }
                } else if (this.initiateReload(itemstack, player, ItemsRegister.ANTIMATTER_CHARGE, maxammo, ItemsRegister.STABILIZATION_CELL)) {
                   world.playSound(
-                     (EntityPlayer)null,
+                          null,
                      player.posX,
                      player.posY,
                      player.posZ,

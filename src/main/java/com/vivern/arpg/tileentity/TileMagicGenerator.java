@@ -127,7 +127,7 @@ public class TileMagicGenerator extends TileEntity implements IManaBuffer, ITick
       if (energyStorage.canExtract()) {
          TileEntity tileoffset = tile.getWorld().getTileEntity(tile.getPos().offset(facing));
          if (tileoffset != null && tileoffset.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
-            IEnergyStorage energystorageOffset = (IEnergyStorage)tileoffset.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
+            IEnergyStorage energystorageOffset = tileoffset.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
             if (energystorageOffset != null && energystorageOffset.canReceive()) {
                int accepted = energystorageOffset.receiveEnergy(maxOutput, true);
                int provided = energyStorage.extractEnergy(maxOutput, true);

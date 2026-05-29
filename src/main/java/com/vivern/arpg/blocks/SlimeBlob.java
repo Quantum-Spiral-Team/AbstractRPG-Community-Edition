@@ -69,7 +69,7 @@ public class SlimeBlob extends Block {
 
    @Override
    public boolean canPlaceBlockAt(World world, BlockPos pos) {
-      return world.isSideSolid(pos.down(), EnumFacing.UP) ? super.canPlaceBlockAt(world, pos) : false;
+      return world.isSideSolid(pos.down(), EnumFacing.UP) && super.canPlaceBlockAt(world, pos);
    }
 
    @Override
