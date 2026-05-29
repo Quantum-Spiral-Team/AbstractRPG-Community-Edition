@@ -66,6 +66,14 @@ jobs:
           echo "stop" > run/server/stop.txt
           set +e
           timeout 120s ./gradlew runServer --no-daemon --stacktrace < run/server/stop.txt 2>&1 | tee server.log
+          if ! qrep -qP '.+Done \(.+\)\! For help, type "help" or "\?"' server.log; then
+            echo "Error: the server did not start successfully (the ‘Done’ message was not found)"
+            exit 1
+          fi
+          if grep -qF 'LoaderExceptionModCrash' server.log; then
+            echo "Error: Critical errors found in the logs"
+            exit 1
+          fi
           code=${PIPESTATUS[0]}
           set -e
           
