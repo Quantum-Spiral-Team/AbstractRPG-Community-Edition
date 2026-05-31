@@ -91,7 +91,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
                             }
 
                             projectile.bullet = bullet;
-                            projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                            projectile.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                             world.spawnEntity(projectile);
                             if (!player.capabilities.isCreativeMode) {
                                 this.addAmmo(ammo, itemstack, -1);

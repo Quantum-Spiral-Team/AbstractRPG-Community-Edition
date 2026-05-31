@@ -95,7 +95,7 @@ public class CrystalCutter extends ItemWeapon {
                             }
 
                             shoot.cutterSize = parameters.getEnchantedF("cutter_size", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                            shoot.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                            shoot.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                             world.spawnEntity(shoot);
                             if (!player.capabilities.isCreativeMode) {
                                 this.addAmmo(ammo, itemstack, -1);

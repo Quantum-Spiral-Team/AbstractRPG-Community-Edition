@@ -55,7 +55,7 @@ public class IchorShower extends ItemWeapon {
                 float power = Mana.getMagicPowerMax(player);
                 boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manaCost = parameters.getEnchantedF("manacost", sor);
+                float manaCost = parameters.getEnchantedF("mana_cost", sor);
                 if (click && player.getHeldItemMainhand() == itemstack && Mana.getMana(player) > manaCost && !player.getCooldownTracker().hasCooldown(this)) {
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.ichorsteam, SoundCategory.AMBIENT, 0.8F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
                     player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));

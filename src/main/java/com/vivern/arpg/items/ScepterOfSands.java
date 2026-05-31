@@ -71,7 +71,7 @@ public class ScepterOfSands extends ItemWeapon {
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchantedF("manacost", sor);
+            float manacost = parameters.getEnchantedF("mana_cost", sor);
             float power = Mana.getMagicPowerMax(player);
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
             float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getFloat("rapid_multiplier");
@@ -94,7 +94,7 @@ public class ScepterOfSands extends ItemWeapon {
                     for (int i = 0; i < rapidOne; i++) {
                         EntitySand sand = new EntitySand(world, player, itemstack, power);
                         Weapons.shoot(sand, hand, player, player.rotationPitch - 3.0F, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.4F, 0.0F, 0.2F, 0.0F);
-                        sand.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                        sand.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                         sand.crystalCharge = crystal;
                         world.spawnEntity(sand);
                     }

@@ -75,7 +75,7 @@ public class PlasmaPistol extends ItemWeapon implements IEnergyItem {
 
                     PlasmaPistolShoot projectile = new PlasmaPistolShoot(world, player, itemstack);
                     Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.05F, 0.5F, 0.2F);
-                    projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                    projectile.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                     world.spawnEntity(projectile);
                 }
 
@@ -92,7 +92,7 @@ public class PlasmaPistol extends ItemWeapon implements IEnergyItem {
 
                     PlasmaPistolShoot projectile = new PlasmaPistolShoot(world, player, itemstack);
                     Weapons.shoot(projectile, EnumHand.OFF_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.05F, 0.5F, 0.2F);
-                    projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                    projectile.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                     world.spawnEntity(projectile);
                 }
             }

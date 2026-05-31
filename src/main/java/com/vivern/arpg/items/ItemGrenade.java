@@ -617,7 +617,7 @@ public class ItemGrenade extends ItemWeapon {
             float damageRadius = parameters.getFloat("damage_radius");
             float gravity1 = parameters.getFloat("gravity");
             float gravity2 = parameters.getFloat("friendlyfire_gravity");
-            int liveTime = parameters.getInt("livetime");
+            int liveTime = parameters.getInt("live_time");
             if (!world.isRemote) {
                 AxisAlignedBB axisalignedbb = new AxisAlignedBB(x - damageRadius, y - damageRadius, z - damageRadius, x + damageRadius, y + damageRadius, z + damageRadius);
                 List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(projectile, axisalignedbb);

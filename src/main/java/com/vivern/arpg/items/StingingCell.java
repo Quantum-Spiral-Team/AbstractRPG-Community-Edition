@@ -45,7 +45,7 @@ public class StingingCell extends ItemWeapon {
                 float power = Mana.getMagicPowerMax(player);
                 int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manacost = parameters.getEnchantedF("manacost", sor);
+                float manacost = parameters.getEnchantedF("mana_cost", sor);
                 if (player.getHeldItemMainhand() == itemstack && Mana.getMana(player) > manacost && click && !player.getCooldownTracker().hasCooldown(this)) {
                     Weapons.setPlayerAnimationOnServer(player, 14, EnumHand.MAIN_HAND);
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.stinging_cell, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
@@ -55,7 +55,7 @@ public class StingingCell extends ItemWeapon {
 
                     for (int i = 0; i < shots; i++) {
                         StingingCellEntity projectile = new StingingCellEntity(world, player, itemstack, power);
-                        projectile.livetime = parameters.getInt("livetime");
+                        projectile.livetime = parameters.getInt("live_time");
                         Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.35F, 0.75F, 0.1F);
                         world.spawnEntity(projectile);
                     }

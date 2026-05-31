@@ -97,7 +97,7 @@ public class Charger extends ItemWeapon {
             int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
             float rapidMult = 1.0F + rapidity * parameters.getFloat("rapid_multiplier");
-            float manacost = parameters.getEnchantedF("manacost", sor) * rapidMult;
+            float manacost = parameters.getEnchantedF("mana_cost", sor) * rapidMult;
             boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);

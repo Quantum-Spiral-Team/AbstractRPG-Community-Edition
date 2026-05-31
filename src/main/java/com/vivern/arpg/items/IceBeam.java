@@ -88,7 +88,7 @@ public class IceBeam extends ItemWeapon {
             int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
             int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
             float rapidMult = 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * parameters.getFloat("rapid_multiplier");
-            float manacost = parameters.getEnchantedF("manacost", sor) * rapidMult;
+            float manacost = parameters.getEnchantedF("mana_cost", sor) * rapidMult;
             boolean b1 = true;
             if (player.getHeldItemMainhand() == itemstack && mana > manacost && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
                 double edist = parameters.getEnchantedF("distance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));

@@ -63,7 +63,7 @@ public class MagicRocket extends ItemWeapon {
             float power = Mana.getMagicPowerMax(player);
             int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchantedF("manacost", sor);
+            float manacost = parameters.getEnchantedF("mana_cost", sor);
             if (player.getHeldItemMainhand() == itemstack) {
                 if (click2) {
                     Entity captured = world.getEntityByID(NBTHelper.GetNBTint(itemstack, "actualid"));
@@ -114,7 +114,7 @@ public class MagicRocket extends ItemWeapon {
                     player.addStat(StatList.getObjectUseStats(this));
                     EntityMagicRocket projectile = new EntityMagicRocket(world, player, itemstack, power);
                     Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.1F, 0.5F, 0.2F);
-                    projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                    projectile.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                     world.spawnEntity(projectile);
                     NBTHelper.SetNBTint(itemstack, projectile.getEntityId(), "actualid");
                     if (!player.capabilities.isCreativeMode) {

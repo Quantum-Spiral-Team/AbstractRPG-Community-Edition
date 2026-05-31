@@ -212,7 +212,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                     if (!player.getCooldownTracker().hasCooldown(this)) {
                         if (click) {
                             if (player.ticksExisted % 2 == 0) {
-                                if (!(Mana.getMana(player) > parameters.getEnchantedF("manacost", sor))) {
+                                if (!(Mana.getMana(player) > parameters.getEnchantedF("mana_cost", sor))) {
                                     NBTHelper.SetNBTint(itemstack, 0, "fire");
                                 } else {
                                     NBTHelper.GiveNBTint(itemstack, 0, "fire");
@@ -223,7 +223,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                                     }
 
                                     float fireValue = (float) fire / maxFire;
-                                    float fireExponent = GetMOP.softFromTo(fireValue, 0.0F, 0.15F) * 5.0F + GetMOP.softFromTo(fireValue, 0.15F, 0.5F) * 7.0F + GetMOP.softFromTo(fireValue, 0.5F, 1.0F) * parameters.getEnchantedF("livetime", ran);
+                                    float fireExponent = GetMOP.softFromTo(fireValue, 0.0F, 0.15F) * 5.0F + GetMOP.softFromTo(fireValue, 0.15F, 0.5F) * 7.0F + GetMOP.softFromTo(fireValue, 0.5F, 1.0F) * parameters.getEnchantedF("live_time", ran);
                                     if (fire == maxFire / 2) {
                                         IWeapon.fireBomEffect(this, player, world, -1);
                                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.staff_of_witherdry_flare, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
@@ -253,7 +253,7 @@ public class StaffOfWitherdry extends ItemWeapon {
                                     shoot.livetime = (int) fireExponent;
                                     world.spawnEntity(shoot);
                                     if (!player.capabilities.isCreativeMode) {
-                                        Mana.changeMana(player, -parameters.getEnchantedF("manacost", sor));
+                                        Mana.changeMana(player, -parameters.getEnchantedF("mana_cost", sor));
                                         Mana.setManaSpeed(player, 0.001F);
                                         itemstack.damageItem(1, player);
                                     }

@@ -71,7 +71,7 @@ public class MagicBoomerang extends ItemWeapon {
             if (IWeapon.canShoot(stack)) {
                 EntityPlayer player = (EntityPlayer) entityIn;
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manacost = parameters.getEnchantedF("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, stack));
+                float manacost = parameters.getEnchantedF("mana_cost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, stack));
                 if (Mana.getMana(player) >= manacost) {
                     EnumHand hand = null;
                     if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {

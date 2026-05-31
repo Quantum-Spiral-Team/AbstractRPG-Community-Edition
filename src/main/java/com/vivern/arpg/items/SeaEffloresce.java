@@ -55,7 +55,7 @@ public class SeaEffloresce extends ItemWeapon {
                 float power = Mana.getMagicPowerMax(player);
                 int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manacost = parameters.getEnchantedF("manacost", sor);
+                float manacost = parameters.getEnchantedF("mana_cost", sor);
                 if (player.getHeldItemMainhand() == itemstack && Mana.getMana(player) > manacost && click && !player.getCooldownTracker().hasCooldown(this)) {
                     Weapons.setPlayerAnimationOnServer(player, 13, EnumHand.MAIN_HAND);
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.sea_effloresce, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
@@ -63,7 +63,7 @@ public class SeaEffloresce extends ItemWeapon {
                     player.addStat(StatList.getObjectUseStats(this));
                     EntitySeaEffloresce projectile = new EntitySeaEffloresce(world, player, itemstack, power);
                     Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.3F, 0.5F, 0.2F);
-                    projectile.livetime = parameters.getInt("livetime");
+                    projectile.livetime = parameters.getInt("live_time");
                     world.spawnEntity(projectile);
                     if (!player.capabilities.isCreativeMode) {
                         Mana.changeMana(player, -manacost);

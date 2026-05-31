@@ -89,7 +89,7 @@ public class PistolFish extends ItemWeapon {
 
                             PistolFishStrike projectile = new PistolFishStrike(world, player, itemstack);
                             Weapons.shoot(projectile, hand, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.1F, 0.4F, 0.2F);
-                            projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                            projectile.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                             world.spawnEntity(projectile);
                             if (itemRand.nextFloat() < parameters.getEnchantedF("special_shoot_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack))) {
                                 Entity htarget = projectile.getHypotheticalTarget();
@@ -107,7 +107,7 @@ public class PistolFish extends ItemWeapon {
                                                 Vec3d pos3 = pos2.subtract(pos1);
                                                 double dist = Math.sqrt(pos3.x * pos3.x + pos3.z * pos3.z);
                                                 SuperKnockback.setMove(projectile2, -parameters.getFloat("velocity"), pos2.x, pos2.y + dist * 0.1, pos2.z);
-                                                projectile2.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                                                projectile2.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                                                 world.spawnEntity(projectile2);
                                                 world.playSound(null, player.posX, player.posY, player.posZ, Sounds.pistol_fish, SoundCategory.AMBIENT, 0.9F, 1.4F + itemRand.nextFloat() / 5.0F);
                                                 break;

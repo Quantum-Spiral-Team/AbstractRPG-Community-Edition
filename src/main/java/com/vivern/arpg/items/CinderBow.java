@@ -76,7 +76,7 @@ public class CinderBow extends AbstractBow {
             EntityPlayer player = (EntityPlayer) entityIn;
             if (player.getHeldItemMainhand() == itemstack && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY) && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY)) {
                 int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
-                float manacost = WeaponParameters.getWeaponParameters(this).getEnchantedF("manacost", sor);
+                float manacost = WeaponParameters.getWeaponParameters(this).getEnchantedF("mana_cost", sor);
                 if (Mana.getMana(player) > manacost) {
                     int pulling = NBTHelper.GetNBTint(itemstack, "pulling");
                     int coolTime = this.getCooldownTime(itemstack);

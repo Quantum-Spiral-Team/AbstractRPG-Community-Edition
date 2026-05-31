@@ -89,7 +89,7 @@ public class BubbleFish extends ItemWeapon {
                 int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
                 boolean b1 = true;
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manacost = parameters.getEnchantedF("manacost", sor);
+                float manacost = parameters.getEnchantedF("mana_cost", sor);
                 if (click && player.getHeldItemMainhand() == itemstack) {
                     if (ammo > 0 && this.isReloaded(itemstack)) {
                         if (!hascooldown && mana > manacost) {
@@ -118,7 +118,7 @@ public class BubbleFish extends ItemWeapon {
                             for (int i = 0; i < shots; i++) {
                                 BubbleFishShoot projectile = new BubbleFishShoot(world, player, itemstack, power);
                                 Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.05F, 0.5F, 0.5F);
-                                projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack)) + itemRand.nextInt(parameters.getInt("livetime_random_add"));
+                                projectile.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack)) + itemRand.nextInt(parameters.getInt("livetime_random_add"));
                                 world.spawnEntity(projectile);
                             }
                         }

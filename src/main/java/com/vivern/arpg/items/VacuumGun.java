@@ -74,7 +74,7 @@ public class VacuumGun extends ItemWeapon {
                             Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                             VacuumGunShoot projectile = new VacuumGunShoot(world, player, itemstack);
                             Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.15F, 0.5F, 0.3F);
-                            projectile.livetime = parameters.getInt("livetime");
+                            projectile.livetime = parameters.getInt("live_time");
                             projectile.special = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0;
                             world.spawnEntity(projectile);
                             if (!player.capabilities.isCreativeMode) {

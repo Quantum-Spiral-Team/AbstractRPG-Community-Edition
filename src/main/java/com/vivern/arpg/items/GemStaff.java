@@ -74,7 +74,7 @@ public class GemStaff extends ItemWeapon {
                 WeaponParameters parameters = getWeaponParameter(type);
                 EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
                 Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP;
-                if ((click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND) && Mana.getMana(player) > parameters.getEnchantedF("manacost", sor) && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
+                if ((click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND) && Mana.getMana(player) > parameters.getEnchantedF("mana_cost", sor) && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.magic_m, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
                     player.getCooldownTracker().setCooldown(cooldownItem, this.getCooldownTime(itemstack));
                     player.addStat(StatList.getObjectUseStats(this));
@@ -83,14 +83,14 @@ public class GemStaff extends ItemWeapon {
                     bolt.type = type;
                     bolt.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
                     bolt.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
-                    bolt.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                    bolt.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                     bolt.red = parameters.getFloat("red");
                     bolt.green = parameters.getFloat("green");
                     bolt.blue = parameters.getFloat("blue");
                     Weapons.shoot(bolt, hand, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.1F, 0.5F, 0.2F);
                     world.spawnEntity(bolt);
                     if (!player.capabilities.isCreativeMode) {
-                        Mana.changeMana(player, -parameters.getEnchantedF("manacost", sor));
+                        Mana.changeMana(player, -parameters.getEnchantedF("mana_cost", sor));
                         Mana.setManaSpeed(player, 0.001F);
                         itemstack.damageItem(1, player);
                     }

@@ -82,7 +82,7 @@ public class CryoGun extends ItemWeapon {
                             Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
                             CryoGunEntity projectile = new CryoGunEntity(world, player, itemstack);
                             Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.25F, 0.5F, 0.6F);
-                            projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                            projectile.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                             world.spawnEntity(projectile);
                             if (!player.capabilities.isCreativeMode) {
                                 if (itemRand.nextFloat() < parameters.getEnchantedF("ammo_consume_chance", reuse)) {

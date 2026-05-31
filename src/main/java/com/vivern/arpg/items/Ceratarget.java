@@ -122,7 +122,7 @@ public class Ceratarget extends ItemWeapon {
             if (rel > 0 && rel < reltime) {
                 if (rel > reltime / 2) {
                     WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                    float manaNeed = parameters.getEnchantedF("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack)) / reltime * 2.0F;
+                    float manaNeed = parameters.getEnchantedF("mana_cost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack)) / reltime * 2.0F;
                     if (Mana.getMana(player) > manaNeed) {
                         NBTHelper.AddNBTint(itemstack, -1, "reload_time");
                         if (!player.capabilities.isCreativeMode) {
@@ -143,7 +143,7 @@ public class Ceratarget extends ItemWeapon {
             NBTHelper.GiveNBTint(itemstack, 0, "ammo");
             if (NBTHelper.GetNBTint(itemstack, "ammo") == 0) {
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manaNeed = parameters.getEnchantedF("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack));
+                float manaNeed = parameters.getEnchantedF("mana_cost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack));
                 if (Mana.getMana(player) > manaNeed) {
                     this.startReload(itemstack);
                     NBTHelper.SetNBTint(itemstack, maxAmmo, "ammo");

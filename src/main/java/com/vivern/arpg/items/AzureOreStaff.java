@@ -86,7 +86,7 @@ public class AzureOreStaff extends ItemWeapon {
                 boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
                 boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manacost = parameters.getEnchantedF("manacost", sor);
+                float manacost = parameters.getEnchantedF("mana_cost", sor);
                 if (player.getHeldItemMainhand() == itemstack) {
                     if (click && Mana.getMana(player) > manacost && !player.getCooldownTracker().hasCooldown(this)) {
                         Weapons.setPlayerAnimationOnServer(player, 26, EnumHand.MAIN_HAND);

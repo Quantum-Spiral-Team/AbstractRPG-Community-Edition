@@ -79,7 +79,7 @@ public class WandOfCold extends ItemWeapon {
                 boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
                 boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manacost = parameters.getEnchantedF("manacost", sor);
+                float manacost = parameters.getEnchantedF("mana_cost", sor);
                 NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
                 int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
                 if (player.getHeldItemMainhand() == itemstack) {

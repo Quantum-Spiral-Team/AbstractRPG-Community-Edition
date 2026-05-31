@@ -58,7 +58,7 @@ public class FireballStaff extends ItemWeapon {
                 float mana = Mana.getMana(player);
                 int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manacost = parameters.getEnchantedF("manacost", sor);
+                float manacost = parameters.getEnchantedF("mana_cost", sor);
                 if (click && player.getHeldItemMainhand() == itemstack && mana > manacost && !hascooldown) {
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.fire, SoundCategory.AMBIENT, 1.3F, 0.6F + itemRand.nextFloat() / 6.0F);
                     player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));

@@ -119,7 +119,7 @@ public class Voltrident extends ItemWeapon {
             boolean shootingSide = NBTHelper.GetNBTboolean(itemstack, "side");
             int level_stop_at = NBTHelper.GetNBTint(itemstack, "level_stop_at");
             boolean powerOn = level_stop_at != -1;
-            float manacost = powerOn ? parameters.getEnchantedF("manacost_powered", sor) : parameters.getEnchantedF("manacost", sor);
+            float manacost = powerOn ? parameters.getEnchantedF("manacost_powered", sor) : parameters.getEnchantedF("mana_cost", sor);
             if (player.getHeldItemMainhand() == itemstack) {
                 if (powerOn && player.ticksExisted % 7 == 0) {
                     Weapons.setPlayerAnimationOnServer(player, 22, EnumHand.MAIN_HAND);

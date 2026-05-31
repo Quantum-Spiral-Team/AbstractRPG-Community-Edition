@@ -87,7 +87,7 @@ public class CrystalStar extends ItemWeapon {
                 NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
                 int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manacost = parameters.getEnchantedF("manacost", sor);
+                float manacost = parameters.getEnchantedF("mana_cost", sor);
                 EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
                 if (hand != null) {
                     if (firedelay > 0) {

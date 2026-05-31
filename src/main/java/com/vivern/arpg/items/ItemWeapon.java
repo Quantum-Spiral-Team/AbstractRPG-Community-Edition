@@ -55,7 +55,7 @@ public abstract class ItemWeapon extends Item implements IWeapon {
             addTooltip(parameters, tooltip, "knockback");
             addTooltip(parameters, tooltip, "damage_radius");
             addTooltip(parameters, tooltip, "rf_to_shoot");
-            addTooltip(parameters, tooltip, "manacost");
+            addTooltip(parameters, tooltip, "mana_cost");
             addTooltip(parameters, tooltip, "length");
             addTooltip(parameters, tooltip, "end_size");
             addTooltip(parameters, tooltip, "min_pull_time");

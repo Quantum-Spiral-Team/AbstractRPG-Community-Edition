@@ -148,7 +148,7 @@ public class WorldEvent extends IRenderHandler {
     public void writeToNbt(NBTTagCompound compound) {
         compound.setInteger("ticksExisted", this.ticksExisted);
         compound.setBoolean("isStarted", this.isStarted);
-        compound.setInteger("livetime", this.livetime);
+        compound.setInteger("live_time", this.livetime);
         compound.setInteger("currentCooldown", this.currentCooldown);
     }
 
@@ -161,8 +161,8 @@ public class WorldEvent extends IRenderHandler {
             this.isStarted = compound.getBoolean("isStarted");
         }
 
-        if (compound.hasKey("livetime")) {
-            this.livetime = compound.getInteger("livetime");
+        if (compound.hasKey("live_time")) {
+            this.livetime = compound.getInteger("live_time");
         }
 
         if (compound.hasKey("currentCooldown")) {

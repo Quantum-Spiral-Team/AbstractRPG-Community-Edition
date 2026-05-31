@@ -77,7 +77,7 @@ public class WhispersBlade extends ItemWeapon {
                 NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
                 int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                float manacost = parameters.getEnchantedF("manacost", sor);
+                float manacost = parameters.getEnchantedF("mana_cost", sor);
                 if (powered) {
                     manacost *= 2.0F;
                 }

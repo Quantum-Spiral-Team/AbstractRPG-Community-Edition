@@ -141,7 +141,7 @@ public class Violence extends ItemWeapon {
 
                     if (!player.getCooldownTracker().hasCooldown(this)) {
                         if (click) {
-                            float manacost = parameters.getEnchantedF("manacost", sor);
+                            float manacost = parameters.getEnchantedF("mana_cost", sor);
                             if (Mana.getMana(player) > manacost) {
                                 Weapons.setPlayerAnimationOnServer(player, 14, EnumHand.MAIN_HAND);
                                 world.playSound(null, player.posX, player.posY, player.posZ, Sounds.violence, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);

@@ -102,7 +102,7 @@ public class IcicleMinigun extends ItemWeapon {
                             Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
                             EntityMinigunIcicle bullet = new EntityMinigunIcicle(world, player, itemstack);
                             Weapons.shoot(bullet, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.35F, 0.5F, 0.8F);
-                            bullet.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                            bullet.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                             world.spawnEntity(bullet);
                             if (!player.capabilities.isCreativeMode) {
                                 this.addAmmo(ammo, itemstack, -1);
