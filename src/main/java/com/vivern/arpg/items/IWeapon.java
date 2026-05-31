@@ -1084,6 +1084,100 @@ public interface IWeapon {
         return parameters;
     }
 
+    //	public static void setClientAnimation(ItemStack stack, String name, int amount, boolean setMaximum)
+    //	{
+    //		Object obj = stack.getCapability(AnimationCapabilityProvider.CAPABILITY, null);
+    //		if (obj instanceof AnimationsIWeapon)
+    //		{
+    //			AnimationsIWeapon animations = (AnimationsIWeapon) obj;
+    //			animations.set(name, amount, setMaximum);
+    //		}
+    //
+    //		if (!stack.hasTagCompound())
+    //        {
+    //			stack.setTagCompound(new NBTTagCompound());
+    //        }
+    //		NBTTagCompound maintag = stack.getTagCompound();
+    //		if (!maintag.hasKey("clientAnimations", 10))
+    //        {
+    //			maintag.setTag("clientAnimations", new NBTTagCompound());
+    //        }
+    //		NBTTagCompound animationsTag = maintag.getCompoundTag("clientAnimations");
+    //		if (!animationsTag.hasKey(name, 10))
+    //        {
+    //			animationsTag.setTag(name, new NBTTagCompound());
+    //        }
+    //		NBTTagCompound tag = animationsTag.getCompoundTag(name);
+    //		tag.setInteger("current", amount);
+    //		if (setMaximum)
+    //		tag.setInteger("max", amount);
+    //		if (!tag.hasKey("previous"))
+    //		tag.setInteger("previous", amount);
+    //
+    //	}
+    //
+    //	public static float getClientAnimation(ItemStack stack, String name, float partialTicks)
+    //	{
+    //		Object obj = stack.getCapability(AnimationCapabilityProvider.CAPABILITY, null);
+    //		if (obj instanceof AnimationsIWeapon)
+    //		{
+    //    		//System.out.println("instanceof");
+    //			AnimationsIWeapon animations = (AnimationsIWeapon) obj;
+    //			return animations.get(name, partialTicks);
+    //		}
+    //		return 0;
+    //		if (stack.hasTagCompound())
+    //        {
+    //			NBTTagCompound maintag = stack.getTagCompound();
+    //			if (maintag.hasKey("clientAnimations", 10))
+    //            {
+    //				NBTTagCompound animationsTag = maintag.getCompoundTag("clientAnimations");
+    //				if (animationsTag.hasKey(name, 10))
+    //                {
+    //					NBTTagCompound tag = animationsTag.getCompoundTag(name);
+    //					int current = 0;
+    //					int max = 0;
+    //					int previous = 0;
+    //					if (tag.hasKey("current"))
+    //                    {
+    //						current = tag.getInteger("current");
+    //                    }
+    //					if (tag.hasKey("max"))
+    //                    {
+    //						max = tag.getInteger("max");
+    //                    }
+    //					if (tag.hasKey("previous"))
+    //                    {
+    //						previous = tag.getInteger("previous");
+    //                    }
+    //					return 1F - MathHelper.clamp(GetMOP.partial(current, previous, partialTicks) / (float) max, 0, 1F);
+    //                }
+    //            }
+    //        }
+    //		return 0;
+    //	}
+    //
+    //	public static void updateAllClientAnimations(ItemStack stack)
+    //	{
+    //		Object obj = stack.getCapability(AnimationCapabilityProvider.CAPABILITY, null);
+    //		if (obj instanceof AnimationsIWeapon)
+    //		{
+    //			//System.out.println("updateAllClientAnimations");
+    //			AnimationsIWeapon animations = (AnimationsIWeapon) obj;
+    //			animations.updateAll();
+    //		}
+
+    // /		if (stack.hasTagCompound()) /		{ /			NBTTagCompound maintag = stack.getTagCompound(); /			if
+    // (maintag.hasKey("clientAnimations", 10)) /			{ /				NBTTagCompound animationsTag =
+    // maintag.getCompoundTag("clientAnimations"); /				Set<String> names = animationsTag.getKeySet(); /				for (String
+    // name : names) /				{ /					if (animationsTag.hasKey(name, 10)) /					{ /						NBTTagCompound tag =
+    // animationsTag.getCompoundTag(name); /						int current = 0; /						int previous = 0; /						if
+    // (tag.hasKey("current") && tag.hasKey("previous")) /						{ /							current = tag.getInteger("current"); /
+    // /							previous = tag.getInteger("previous"); / /							tag.setInteger("previous", current); / /							if
+    // (current > 0) /							tag.setInteger("current", current - 1); /						} /					} /				} /			} /		}
+    //	}
+    //
+
     class MeleeAttackResult {
 
         @Nullable
