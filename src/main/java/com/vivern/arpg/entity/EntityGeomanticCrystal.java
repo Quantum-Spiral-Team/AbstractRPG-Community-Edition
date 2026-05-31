@@ -3,9 +3,8 @@ package com.vivern.arpg.entity;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.network.packet.PacketDoSomethingToClients;
 import com.vivern.arpg.network.PacketHandler;
-import org.jetbrains.annotations.Nullable;
+import com.vivern.arpg.network.packet.PacketDoSomethingToClients;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
@@ -23,171 +22,152 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class EntityGeomanticCrystal extends Entity {
-   public ItemStack stackIn = ItemStack.EMPTY;
-   public int randomRotat = 0;
 
-   public EntityGeomanticCrystal(World world) {
-      super(world);
-      this.setSize(0.25F, 0.25F);
-      this.randomRotat = this.rand.nextInt(360);
-   }
+    public ItemStack stackIn = ItemStack.EMPTY;
+    public int randomRotat = 0;
 
-   public EntityGeomanticCrystal(World world, EntityItem dropper) {
-      super(world);
-      this.setPosition(dropper.posX, dropper.posY, dropper.posZ);
-      this.setSize(0.25F, 0.25F);
-      this.motionX = dropper.motionX / 2.0;
-      this.motionY = dropper.motionY / 2.0;
-      this.motionZ = dropper.motionZ / 2.0;
-      this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-      this.velocityChanged = true;
-      this.stackIn = dropper.getItem();
-   }
+    public EntityGeomanticCrystal(World world) {
+        super(world);
+        this.setSize(0.25F, 0.25F);
+        this.randomRotat = this.rand.nextInt(360);
+    }
 
-   public void sendUpdateColor(World world) {
-      if (!world.isRemote) {
-         PacketDoSomethingToClients packet = new PacketDoSomethingToClients();
-         packet.writeArgs(
-            NBTHelper.GetNBTint(this.stackIn, "color"),
-            NBTHelper.GetNBTint(this.stackIn, "colorover"),
-            NBTHelper.GetNBTint(this.stackIn, "type"),
-            NBTHelper.GetNBTint(this.stackIn, "size"),
-            0.0,
-            this.getEntityId(),
-            2
-         );
-         PacketHandler.sendToAllAround(packet, world, this.posX, this.posY, this.posZ, 32.0);
-      }
-   }
+    public EntityGeomanticCrystal(World world, EntityItem dropper) {
+        super(world);
+        this.setPosition(dropper.posX, dropper.posY, dropper.posZ);
+        this.setSize(0.25F, 0.25F);
+        this.motionX = dropper.motionX / 2.0;
+        this.motionY = dropper.motionY / 2.0;
+        this.motionZ = dropper.motionZ / 2.0;
+        this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+        this.velocityChanged = true;
+        this.stackIn = dropper.getItem();
+    }
 
-   public void setClientStackColors(int color, int colorOverlay, int crystalType, int size) {
-      this.stackIn = new ItemStack(ItemsRegister.GEOMANTIC_CRYSTAL);
-      NBTHelper.GiveNBTint(this.stackIn, color, "color");
-      NBTHelper.GiveNBTint(this.stackIn, colorOverlay, "colorover");
-      NBTHelper.GiveNBTint(this.stackIn, crystalType, "type");
-      NBTHelper.GiveNBTint(this.stackIn, size, "size");
-   }
+    public void sendUpdateColor(World world) {
+        if (!world.isRemote) {
+            PacketDoSomethingToClients packet = new PacketDoSomethingToClients();
+            packet.writeArgs(NBTHelper.GetNBTint(this.stackIn, "color"), NBTHelper.GetNBTint(this.stackIn, "colorover"), NBTHelper.GetNBTint(this.stackIn, "type"), NBTHelper.GetNBTint(this.stackIn, "size"), 0.0, this.getEntityId(), 2);
+            PacketHandler.sendToAllAround(packet, world, this.posX, this.posY, this.posZ, 32.0);
+        }
+    }
 
-   @Override
-   protected void entityInit() {
-   }
+    public void setClientStackColors(int color, int colorOverlay, int crystalType, int size) {
+        this.stackIn = new ItemStack(ItemsRegister.GEOMANTIC_CRYSTAL);
+        NBTHelper.GiveNBTint(this.stackIn, color, "color");
+        NBTHelper.GiveNBTint(this.stackIn, colorOverlay, "colorover");
+        NBTHelper.GiveNBTint(this.stackIn, crystalType, "type");
+        NBTHelper.GiveNBTint(this.stackIn, size, "size");
+    }
 
-   @Override
-   @Nullable
-   public AxisAlignedBB getCollisionBox(Entity entityIn) {
-      return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
-   }
+    @Override
+    protected void entityInit() {
+    }
 
-   @Override
-   @Nullable
-   public AxisAlignedBB getCollisionBoundingBox() {
-      return this.getEntityBoundingBox();
-   }
+    @Override
+    @Nullable
+    public AxisAlignedBB getCollisionBox(Entity entityIn) {
+        return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
+    }
 
-   @Override
-   public void onUpdate() {
-      super.onUpdate();
-      if (this.ticksExisted == 2 || this.ticksExisted % 80 == 0) {
-         this.sendUpdateColor(this.world);
-      }
+    @Override
+    @Nullable
+    public AxisAlignedBB getCollisionBoundingBox() {
+        return this.getEntityBoundingBox();
+    }
 
-      if (!this.hasNoGravity() && !this.isInWater()) {
-         this.motionY -= 0.03F;
-      }
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (this.ticksExisted == 2 || this.ticksExisted % 80 == 0) {
+            this.sendUpdateColor(this.world);
+        }
 
-      this.pushOutOfBlocks(this.posX, (this.getEntityBoundingBox().minY + this.getEntityBoundingBox().maxY) / 2.0, this.posZ);
-      this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-      float f = this.isInWater() ? 0.16F : 0.96F;
-      if (this.onGround) {
-         BlockPos underPos = new BlockPos(
-            MathHelper.floor(this.posX),
-            MathHelper.floor(this.getEntityBoundingBox().minY) - 1,
-            MathHelper.floor(this.posZ)
-         );
-         IBlockState underState = this.world.getBlockState(underPos);
-         f = underState.getBlock().getSlipperiness(underState, this.world, underPos, this) * 0.96F;
-      }
+        if (!this.hasNoGravity() && !this.isInWater()) {
+            this.motionY -= 0.03F;
+        }
 
-      this.motionX *= f;
-      this.motionY *= 0.9600000190734863;
-      this.motionZ *= f;
-      if (this.onGround) {
-         this.motionY *= -0.9F;
-      }
-   }
+        this.pushOutOfBlocks(this.posX, (this.getEntityBoundingBox().minY + this.getEntityBoundingBox().maxY) / 2.0, this.posZ);
+        this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+        float f = this.isInWater() ? 0.16F : 0.96F;
+        if (this.onGround) {
+            BlockPos underPos = new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(this.getEntityBoundingBox().minY) - 1, MathHelper.floor(this.posZ));
+            IBlockState underState = this.world.getBlockState(underPos);
+            f = underState.getBlock().getSlipperiness(underState, this.world, underPos, this) * 0.96F;
+        }
 
-   @Override
-   public void onCollideWithPlayer(EntityPlayer player) {
-      if (this.ticksExisted > 15) {
-         if (!player.world.isRemote) {
-            player.world.spawnEntity(new EntityItem(player.world, this.posX, this.posY, this.posZ, this.stackIn));
-         }
+        this.motionX *= f;
+        this.motionY *= 0.9600000190734863;
+        this.motionZ *= f;
+        if (this.onGround) {
+            this.motionY *= -0.9F;
+        }
+    }
 
-         this.setDead();
-      }
-   }
+    @Override
+    public void onCollideWithPlayer(EntityPlayer player) {
+        if (this.ticksExisted > 15) {
+            if (!player.world.isRemote) {
+                player.world.spawnEntity(new EntityItem(player.world, this.posX, this.posY, this.posZ, this.stackIn));
+            }
 
-   @Override
-   public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
-      if (player.isSneaking()) {
-         return EnumActionResult.FAIL;
-      } else {
-         if (!this.world.isRemote) {
-            player.world.spawnEntity(new EntityItem(player.world, this.posX, this.posY, this.posZ, this.stackIn));
             this.setDead();
-         }
+        }
+    }
 
-         return EnumActionResult.SUCCESS;
-      }
-   }
+    @Override
+    public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
+        if (player.isSneaking()) {
+            return EnumActionResult.FAIL;
+        } else {
+            if (!this.world.isRemote) {
+                player.world.spawnEntity(new EntityItem(player.world, this.posX, this.posY, this.posZ, this.stackIn));
+                this.setDead();
+            }
 
-   @Override
-   public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
-      if (player.isSneaking()) {
-         return false;
-      } else {
-         if (!this.world.isRemote) {
-            player.world.spawnEntity(new EntityItem(player.world, this.posX, this.posY, this.posZ, this.stackIn));
+            return EnumActionResult.SUCCESS;
+        }
+    }
+
+    @Override
+    public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+        if (player.isSneaking()) {
+            return false;
+        } else {
+            if (!this.world.isRemote) {
+                player.world.spawnEntity(new EntityItem(player.world, this.posX, this.posY, this.posZ, this.stackIn));
+                this.setDead();
+            }
+
+            return true;
+        }
+    }
+
+    @Override
+    protected void readEntityFromNBT(NBTTagCompound compound) {
+        NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
+        this.stackIn = new ItemStack(nbttagcompound);
+        if (this.stackIn.isEmpty()) {
             this.setDead();
-         }
+        }
+    }
 
-         return true;
-      }
-   }
+    @Override
+    protected void writeEntityToNBT(NBTTagCompound compound) {
+        if (!this.stackIn.isEmpty()) {
+            compound.setTag("Item", this.stackIn.writeToNBT(new NBTTagCompound()));
+        }
+    }
 
-   @Override
-   protected void readEntityFromNBT(NBTTagCompound compound) {
-      NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
-      this.stackIn = new ItemStack(nbttagcompound);
-      if (this.stackIn.isEmpty()) {
-         this.setDead();
-      }
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void handleStatusUpdate(byte id) {
+        if (id == 0) {
+            this.world.playSound(this.posX, this.posY, this.posZ, Sounds.item_misc_d, SoundCategory.PLAYERS, 0.9F, 0.9F + this.rand.nextFloat() / 5.0F, false);
+        }
+    }
 
-   @Override
-   protected void writeEntityToNBT(NBTTagCompound compound) {
-      if (!this.stackIn.isEmpty()) {
-         compound.setTag("Item", this.stackIn.writeToNBT(new NBTTagCompound()));
-      }
-   }
-
-   @Override
-   @SideOnly(Side.CLIENT)
-   public void handleStatusUpdate(byte id) {
-      if (id == 0) {
-         this.world
-            .playSound(
-               this.posX,
-               this.posY,
-               this.posZ,
-               Sounds.item_misc_d,
-               SoundCategory.PLAYERS,
-               0.9F,
-               0.9F + this.rand.nextFloat() / 5.0F,
-               false
-            );
-      }
-   }
 }

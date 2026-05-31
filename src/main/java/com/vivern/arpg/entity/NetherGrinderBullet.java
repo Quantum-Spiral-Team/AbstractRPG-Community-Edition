@@ -2,22 +2,12 @@ package com.vivern.arpg.entity;
 
 import com.vivern.arpg.items.IRepulsable;
 import com.vivern.arpg.items.ItemBullet;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.ParticleFastSummon;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.RenderModule;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -28,288 +18,188 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class NetherGrinderBullet extends StandardBullet implements IRepulsable, ISynchronizedEntity, RenderModule.IRenderModuleMulticolored {
-   public final ItemStack weaponstack;
-   public ItemBullet bullet;
-   public int inwalltime = 0;
-   public int livetime = 20;
-   public boolean bulletCollided = false;
-   ResourceLocation texture = new ResourceLocation("arpg:textures/bullet_trace.png");
-   ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
 
-   public NetherGrinderBullet(World world) {
-      super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
-   }
+    public final ItemStack weaponstack;
+    public ItemBullet bullet;
+    public int inwalltime = 0;
+    public int livetime = 20;
+    public boolean bulletCollided = false;
+    ResourceLocation texture = new ResourceLocation("arpg:textures/bullet_trace.png");
+    ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
 
-   public NetherGrinderBullet(World world, EntityLivingBase thrower) {
-      super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
-   }
+    public NetherGrinderBullet(World world) {
+        super(world);
+        this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
+    }
 
-   public NetherGrinderBullet(World world, double x, double y, double z) {
-      super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
-   }
+    public NetherGrinderBullet(World world, EntityLivingBase thrower) {
+        super(world, thrower);
+        this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
+    }
 
-   public NetherGrinderBullet(World world, EntityLivingBase thrower, ItemStack itemstack) {
-      super(world, thrower);
-      this.weaponstack = itemstack;
-   }
+    public NetherGrinderBullet(World world, double x, double y, double z) {
+        super(world, x, y, z);
+        this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
+    }
 
-   @Override
-   public Vec3d getColor(int index) {
-      return index == 1
-         ? new Vec3d(this.getRED(), this.getGREEN(), this.getBLUE())
-         : new Vec3d(Math.min(this.getRED() + 0.2F, 1.0F), Math.min(this.getGREEN() + 0.2F, 1.0F), Math.min(this.getBLUE() + 0.2F, 1.0F));
-   }
+    public NetherGrinderBullet(World world, EntityLivingBase thrower, ItemStack itemstack) {
+        super(world, thrower);
+        this.weaponstack = itemstack;
+    }
 
-   @Override
-   public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
-      float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
-      float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
-      float f2 = MathHelper.cos(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
-      this.shoot(f, f1, f2, velocity, inaccuracy);
-      this.motionX = this.motionX + entityThrower.motionX * 0.1;
-      this.motionZ = this.motionZ + entityThrower.motionZ * 0.1;
-      if (!entityThrower.onGround) {
-         this.motionY = this.motionY + entityThrower.motionY * 0.1;
-      }
-   }
+    @Override
+    public Vec3d getColor(int index) {
+        return index == 1 ? new Vec3d(this.getRED(), this.getGREEN(), this.getBLUE()) : new Vec3d(Math.min(this.getRED() + 0.2F, 1.0F), Math.min(this.getGREEN() + 0.2F, 1.0F), Math.min(this.getBLUE() + 0.2F, 1.0F));
+    }
 
-   @Override
-   public float getGravityVelocity() {
-      return 0.0F;
-   }
+    @Override
+    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
+        float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
+        float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
+        float f2 = MathHelper.cos(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
+        this.shoot(f, f1, f2, velocity, inaccuracy);
+        this.motionX = this.motionX + entityThrower.motionX * 0.1;
+        this.motionZ = this.motionZ + entityThrower.motionZ * 0.1;
+        if (!entityThrower.onGround) {
+            this.motionY = this.motionY + entityThrower.motionY * 0.1;
+        }
+    }
 
-   @Override
-   public void onClient(double... args) {
-      if (args.length == 4) {
-         Vec3d to = new Vec3d(args[0], args[1], args[2]);
-         Vec3d from = to.subtract(this.motionX, this.motionY, this.motionZ);
-         ParticleFastSummon.bulletImpact(
-            this.world, 2, 0.12F, this.getRED(), this.getGREEN(), this.getBLUE(), from, to, 0.32F, 0.11F, 0.17F, 5, 8, 3, (int)args[3]
-         );
-      }
-   }
+    @Override
+    public float getGravityVelocity() {
+        return 0.0F;
+    }
 
-   @Override
-   public void onUpdate() {
-      super.onUpdate();
-      ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(this.weaponstack, "bullet"));
-      if (bullet != null) {
-         bullet.onProjectileUpdate(this);
-      }
+    @Override
+    public void onClient(double... args) {
+        if (args.length == 4) {
+            Vec3d to = new Vec3d(args[0], args[1], args[2]);
+            Vec3d from = to.subtract(this.motionX, this.motionY, this.motionZ);
+            ParticleFastSummon.bulletImpact(this.world, 2, 0.12F, this.getRED(), this.getGREEN(), this.getBLUE(), from, to, 0.32F, 0.11F, 0.17F, 5, 8, 3, (int) args[3]);
+        }
+    }
 
-      if (this.ticksExisted > this.livetime) {
-         this.setDead();
-      }
-   }
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(this.weaponstack, "bullet"));
+        if (bullet != null) {
+            bullet.onProjectileUpdate(this);
+        }
 
-   public boolean repulse(Entity entityHit) {
-      int rep = Weapons.getEntityRepulseType(entityHit);
-      if (rep == 0) {
-         return false;
-      } else if (entityHit instanceof EntityThrowable && ((EntityThrowable)entityHit).getThrower() == this.getThrower()) {
-         return false;
-      } else if (rep == 1 || rep == 5) {
-         entityHit.motionX = entityHit.motionX + this.motionX;
-         entityHit.motionY = entityHit.motionY + this.motionY;
-         entityHit.motionZ = entityHit.motionZ + this.motionZ;
-         Weapons.setAcceleration(entityHit);
-         this.world
-            .playSound(
-                    null,
-               this.posX,
-               this.posY,
-               this.posZ,
-               Sounds.bullet,
-               SoundCategory.AMBIENT,
-               0.8F,
-               0.9F + this.rand.nextFloat() / 5.0F
-            );
-         this.world.setEntityState(this, (byte)8);
-         this.setDead();
-         return true;
-      } else if (rep == 2) {
-         entityHit.motionX = entityHit.motionX + this.motionX / 2.0;
-         entityHit.motionY = entityHit.motionY + this.motionY / 2.0;
-         entityHit.motionZ = entityHit.motionZ + this.motionZ / 2.0;
-         Weapons.setAcceleration(entityHit);
-         this.world
-            .playSound(
-                    null,
-               this.posX,
-               this.posY,
-               this.posZ,
-               Sounds.bullet,
-               SoundCategory.AMBIENT,
-               0.8F,
-               0.9F + this.rand.nextFloat() / 5.0F
-            );
-         this.world.setEntityState(this, (byte)8);
-         this.setDead();
-         return true;
-      } else if (rep == 3 || rep == 4) {
-         entityHit.setDead();
-         this.world
-            .playSound(
-                    null,
-               this.posX,
-               this.posY,
-               this.posZ,
-               Sounds.bullet,
-               SoundCategory.AMBIENT,
-               0.8F,
-               0.9F + this.rand.nextFloat() / 5.0F
-            );
-         this.world.setEntityState(this, (byte)8);
-         this.setDead();
-         return true;
-      } else if (rep == 6) {
-         int axisnoreflect = this.rand.nextInt(3);
-         entityHit.motionX *= axisnoreflect == 0 ? 1.0 : -1.0;
-         entityHit.motionY *= axisnoreflect == 1 ? 1.0 : -1.0;
-         entityHit.motionZ *= axisnoreflect == 2 ? 1.0 : -1.0;
-         this.motionX *= axisnoreflect == 0 ? 1.0 : -1.0;
-         this.motionY *= axisnoreflect == 1 ? 1.0 : -1.0;
-         this.motionZ *= axisnoreflect == 2 ? 1.0 : -1.0;
-         Weapons.setAcceleration(entityHit);
-         this.world
-            .playSound(
-                    null,
-               this.posX,
-               this.posY,
-               this.posZ,
-               Sounds.bullet,
-               SoundCategory.AMBIENT,
-               0.8F,
-               0.9F + this.rand.nextFloat() / 5.0F
-            );
-         return true;
-      } else if (rep != 7 && rep != 8) {
-         return false;
-      } else {
-         this.world
-            .playSound(
-                    null,
-               this.posX,
-               this.posY,
-               this.posZ,
-               Sounds.bullet,
-               SoundCategory.AMBIENT,
-               0.8F,
-               0.9F + this.rand.nextFloat() / 5.0F
-            );
-         this.world.setEntityState(this, (byte)8);
-         this.setDead();
-         return true;
-      }
-   }
-
-   @Override
-   public void onImpact(RayTraceResult result) {
-      if (this.bullet != null && !this.bulletCollided) {
-         this.bulletCollided = this.bullet
-            .onImpact(this.world, this.getThrower(), this.posX, this.posY, this.posZ, result, this);
-      }
-
-      if (result.entityHit != null) {
-         if (!this.repulse(result.entityHit) && Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-            float bdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack));
-            float bknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack));
-            if (this.bullet != null) {
-               bdamage += this.bullet.damage * parameters.getFloat("bullet_damage");
-               bknockback += this.bullet.knockback * parameters.getFloat("bullet_knockback");
-            }
-
-            if (result.entityHit.isBurning()) {
-               bdamage += parameters.getFloat("fire_bonus");
-            }
-
-            Weapons.dealDamage(
-               new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.bullet),
-               bdamage,
-               this.getThrower(),
-               result.entityHit,
-               true,
-               bknockback
-            );
-            result.entityHit.hurtResistantTime = 0;
-            if (result.entityHit instanceof EntityLivingBase) {
-               EntityLivingBase entitylivingbase = (EntityLivingBase)result.entityHit;
-               if (this.bullet != null) {
-                  this.bullet.onDamageCause(this.world, entitylivingbase, this.getThrower(), this);
-               }
-
-               if (entitylivingbase.getHealth() <= 0.0F && this.rand.nextFloat() < 0.15) {
-                  DeathEffects.applyDeathEffect(entitylivingbase, DeathEffects.DE_DISMEMBER);
-               }
-            }
-
-            this.world
-               .playSound(
-                       null,
-                  this.posX,
-                  this.posY,
-                  this.posZ,
-                  Sounds.bullet,
-                  SoundCategory.AMBIENT,
-                  0.8F,
-                  0.9F + this.rand.nextFloat() / 5.0F
-               );
-            ISynchronizedEntity.sendSynchronize(
-               this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, -1.0
-            );
+        if (this.ticksExisted > this.livetime) {
             this.setDead();
-         }
-      } else if (this.world
-            .getBlockState(result.getBlockPos())
-            .getBlock()
-            .getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos())
-         != null) {
-         this.world
-            .playSound(
-                    null,
-               this.posX,
-               this.posY,
-               this.posZ,
-               Sounds.bullet,
-               SoundCategory.AMBIENT,
-               0.8F,
-               0.9F + this.rand.nextFloat() / 5.0F
-            );
-         if (!this.world.isRemote) {
-            if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
-               this.inwalltime++;
-               if (this.inwalltime > 1) {
-                  ISynchronizedEntity.sendSynchronize(
-                     this,
-                     64.0,
-                     result.hitVec.x,
-                     result.hitVec.y,
-                     result.hitVec.z,
-                     Block.getStateId(this.world.getBlockState(result.getBlockPos()))
-                  );
-                  this.setDead();
-               }
-            } else {
-               ISynchronizedEntity.sendSynchronize(
-                  this,
-                  64.0,
-                  result.hitVec.x,
-                  result.hitVec.y,
-                  result.hitVec.z,
-                  Block.getStateId(this.world.getBlockState(result.getBlockPos()))
-               );
-               this.setDead();
-            }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   public int getRepulseType() {
-      return 0;
-   }
+    public boolean repulse(Entity entityHit) {
+        int rep = Weapons.getEntityRepulseType(entityHit);
+        if (rep == 0) {
+            return false;
+        } else if (entityHit instanceof EntityThrowable && ((EntityThrowable) entityHit).getThrower() == this.getThrower()) {
+            return false;
+        } else if (rep == 1 || rep == 5) {
+            entityHit.motionX = entityHit.motionX + this.motionX;
+            entityHit.motionY = entityHit.motionY + this.motionY;
+            entityHit.motionZ = entityHit.motionZ + this.motionZ;
+            Weapons.setAcceleration(entityHit);
+            this.world.playSound(null, this.posX, this.posY, this.posZ, Sounds.bullet, SoundCategory.AMBIENT, 0.8F, 0.9F + this.rand.nextFloat() / 5.0F);
+            this.world.setEntityState(this, (byte) 8);
+            this.setDead();
+            return true;
+        } else if (rep == 2) {
+            entityHit.motionX = entityHit.motionX + this.motionX / 2.0;
+            entityHit.motionY = entityHit.motionY + this.motionY / 2.0;
+            entityHit.motionZ = entityHit.motionZ + this.motionZ / 2.0;
+            Weapons.setAcceleration(entityHit);
+            this.world.playSound(null, this.posX, this.posY, this.posZ, Sounds.bullet, SoundCategory.AMBIENT, 0.8F, 0.9F + this.rand.nextFloat() / 5.0F);
+            this.world.setEntityState(this, (byte) 8);
+            this.setDead();
+            return true;
+        } else if (rep == 3 || rep == 4) {
+            entityHit.setDead();
+            this.world.playSound(null, this.posX, this.posY, this.posZ, Sounds.bullet, SoundCategory.AMBIENT, 0.8F, 0.9F + this.rand.nextFloat() / 5.0F);
+            this.world.setEntityState(this, (byte) 8);
+            this.setDead();
+            return true;
+        } else if (rep == 6) {
+            int axisnoreflect = this.rand.nextInt(3);
+            entityHit.motionX *= axisnoreflect == 0 ? 1.0 : -1.0;
+            entityHit.motionY *= axisnoreflect == 1 ? 1.0 : -1.0;
+            entityHit.motionZ *= axisnoreflect == 2 ? 1.0 : -1.0;
+            this.motionX *= axisnoreflect == 0 ? 1.0 : -1.0;
+            this.motionY *= axisnoreflect == 1 ? 1.0 : -1.0;
+            this.motionZ *= axisnoreflect == 2 ? 1.0 : -1.0;
+            Weapons.setAcceleration(entityHit);
+            this.world.playSound(null, this.posX, this.posY, this.posZ, Sounds.bullet, SoundCategory.AMBIENT, 0.8F, 0.9F + this.rand.nextFloat() / 5.0F);
+            return true;
+        } else if (rep != 7 && rep != 8) {
+            return false;
+        } else {
+            this.world.playSound(null, this.posX, this.posY, this.posZ, Sounds.bullet, SoundCategory.AMBIENT, 0.8F, 0.9F + this.rand.nextFloat() / 5.0F);
+            this.world.setEntityState(this, (byte) 8);
+            this.setDead();
+            return true;
+        }
+    }
+
+    @Override
+    public void onImpact(RayTraceResult result) {
+        if (this.bullet != null && !this.bulletCollided) {
+            this.bulletCollided = this.bullet.onImpact(this.world, this.getThrower(), this.posX, this.posY, this.posZ, result, this);
+        }
+
+        if (result.entityHit != null) {
+            if (!this.repulse(result.entityHit) && Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
+                float bdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack));
+                float bknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack));
+                if (this.bullet != null) {
+                    bdamage += this.bullet.damage * parameters.getFloat("bullet_damage");
+                    bknockback += this.bullet.knockback * parameters.getFloat("bullet_knockback");
+                }
+
+                if (result.entityHit.isBurning()) {
+                    bdamage += parameters.getFloat("fire_bonus");
+                }
+
+                Weapons.dealDamage(new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.bullet), bdamage, this.getThrower(), result.entityHit, true, bknockback);
+                result.entityHit.hurtResistantTime = 0;
+                if (result.entityHit instanceof EntityLivingBase) {
+                    EntityLivingBase entitylivingbase = (EntityLivingBase) result.entityHit;
+                    if (this.bullet != null) {
+                        this.bullet.onDamageCause(this.world, entitylivingbase, this.getThrower(), this);
+                    }
+
+                    if (entitylivingbase.getHealth() <= 0.0F && this.rand.nextFloat() < 0.15) {
+                        DeathEffects.applyDeathEffect(entitylivingbase, DeathEffects.DE_DISMEMBER);
+                    }
+                }
+
+                this.world.playSound(null, this.posX, this.posY, this.posZ, Sounds.bullet, SoundCategory.AMBIENT, 0.8F, 0.9F + this.rand.nextFloat() / 5.0F);
+                ISynchronizedEntity.sendSynchronize(this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, -1.0);
+                this.setDead();
+            }
+        } else if (this.world.getBlockState(result.getBlockPos()).getBlock().getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos()) != null) {
+            this.world.playSound(null, this.posX, this.posY, this.posZ, Sounds.bullet, SoundCategory.AMBIENT, 0.8F, 0.9F + this.rand.nextFloat() / 5.0F);
+            if (!this.world.isRemote) {
+                if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) > 0) {
+                    this.inwalltime++;
+                    if (this.inwalltime > 1) {
+                        ISynchronizedEntity.sendSynchronize(this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, Block.getStateId(this.world.getBlockState(result.getBlockPos())));
+                        this.setDead();
+                    }
+                } else {
+                    ISynchronizedEntity.sendSynchronize(this, 64.0, result.hitVec.x, result.hitVec.y, result.hitVec.z, Block.getStateId(this.world.getBlockState(result.getBlockPos())));
+                    this.setDead();
+                }
+            }
+        }
+    }
+
+    @Override
+    public int getRepulseType() {
+        return 0;
+    }
+
 }

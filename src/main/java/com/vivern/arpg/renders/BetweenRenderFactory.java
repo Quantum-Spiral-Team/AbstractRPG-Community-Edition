@@ -5,8 +5,10 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class BetweenRenderFactory implements IRenderFactory {
-   @Override
-   public Render createRenderFor(RenderManager manager) {
-      return new RenderBetween(manager);
-   }
+
+    @Override
+    public Render createRenderFor(RenderManager manager) {
+        return new RenderBetween(manager);
+    }
+
 }

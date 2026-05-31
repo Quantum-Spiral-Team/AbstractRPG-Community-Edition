@@ -7,30 +7,32 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 public class AccuracyEnch extends Enchantment {
-   public AccuracyEnch() {
-      super(Rarity.UNCOMMON, EnchantmentInit.enchantmentTypeWeapon, new EntityEquipmentSlot[]{EntityEquipmentSlot.MAINHAND});
-      this.setName("Accuracy");
-      this.setRegistryName("arpg:accuracy_ench");
-      EnchantmentInit.ENCHANTMENTSLIST.add(this);
-   }
 
-   @Override
-   public int getMinEnchantability(int enchantmentLevel) {
-      return 15 + (enchantmentLevel - 1) * 11;
-   }
+    public AccuracyEnch() {
+        super(Rarity.UNCOMMON, EnchantmentInit.enchantmentTypeWeapon, new EntityEquipmentSlot[]{EntityEquipmentSlot.MAINHAND});
+        this.setName("Accuracy");
+        this.setRegistryName("arpg:accuracy_ench");
+        EnchantmentInit.ENCHANTMENTSLIST.add(this);
+    }
 
-   @Override
-   public int getMaxEnchantability(int enchantmentLevel) {
-      return this.getMinEnchantability(enchantmentLevel) + 20;
-   }
+    @Override
+    public int getMinEnchantability(int enchantmentLevel) {
+        return 15 + (enchantmentLevel - 1) * 11;
+    }
 
-   @Override
-   public int getMaxLevel() {
-      return 3;
-   }
+    @Override
+    public int getMaxEnchantability(int enchantmentLevel) {
+        return this.getMinEnchantability(enchantmentLevel) + 20;
+    }
 
-   @Override
-   public boolean canApplyAtEnchantingTable(ItemStack stack) {
-      return stack.getItem() instanceof IWeapon;
-   }
+    @Override
+    public int getMaxLevel() {
+        return 3;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack) {
+        return stack.getItem() instanceof IWeapon;
+    }
+
 }

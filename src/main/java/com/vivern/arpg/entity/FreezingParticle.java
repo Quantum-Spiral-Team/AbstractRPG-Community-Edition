@@ -10,34 +10,36 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class FreezingParticle extends Entity {
-   public EntityLivingBase entityON;
-   public ModelBase model;
 
-   public FreezingParticle(World worldIn) {
-      super(worldIn);
-   }
+    public EntityLivingBase entityON;
+    public ModelBase model;
 
-   public FreezingParticle(World worldIn, EntityLivingBase entityON) {
-      super(worldIn);
-      this.entityON = entityON;
-   }
+    public FreezingParticle(World worldIn) {
+        super(worldIn);
+    }
 
-   @Override
-   protected void entityInit() {
-   }
+    public FreezingParticle(World worldIn, EntityLivingBase entityON) {
+        super(worldIn);
+        this.entityON = entityON;
+    }
 
-   @Override
-   protected void readEntityFromNBT(NBTTagCompound compound) {
-   }
+    @Override
+    protected void entityInit() {
+    }
 
-   @Override
-   protected void writeEntityToNBT(NBTTagCompound compound) {
-   }
+    @Override
+    protected void readEntityFromNBT(NBTTagCompound compound) {
+    }
 
-   @Override
-   public void onUpdate() {
-      if (this.ticksExisted > 1) {
-         this.setDead();
-      }
-   }
+    @Override
+    protected void writeEntityToNBT(NBTTagCompound compound) {
+    }
+
+    @Override
+    public void onUpdate() {
+        if (this.ticksExisted > 1) {
+            this.setDead();
+        }
+    }
+
 }

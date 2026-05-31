@@ -6,10 +6,12 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class FreezingFactory implements IRenderFactory {
-   private final PhoenixGhostCapeModel elfocus = new PhoenixGhostCapeModel();
 
-   @Override
-   public Render createRenderFor(RenderManager manager) {
-      return new RenderFreezing(manager, this.elfocus);
-   }
+    private final PhoenixGhostCapeModel elfocus = new PhoenixGhostCapeModel();
+
+    @Override
+    public Render createRenderFor(RenderManager manager) {
+        return new RenderFreezing(manager, this.elfocus);
+    }
+
 }

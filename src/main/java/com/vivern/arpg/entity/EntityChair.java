@@ -6,32 +6,34 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class EntityChair extends Entity {
-   public EntityChair(World world) {
-      super(world);
-   }
 
-   @Override
-   public void entityInit() {
-      this.setSize(0.0F, 0.0F);
-   }
+    public EntityChair(World world) {
+        super(world);
+    }
 
-   @Override
-   public void onEntityUpdate() {
-      super.onEntityUpdate();
-      if (!this.isBeingRidden()) {
-         this.setDead();
-      }
+    @Override
+    public void entityInit() {
+        this.setSize(0.0F, 0.0F);
+    }
 
-      if (!(this.world.getBlockState(this.getPosition()).getBlock() instanceof Chair)) {
-         this.setDead();
-      }
-   }
+    @Override
+    public void onEntityUpdate() {
+        super.onEntityUpdate();
+        if (!this.isBeingRidden()) {
+            this.setDead();
+        }
 
-   @Override
-   public void readEntityFromNBT(NBTTagCompound nbt) {
-   }
+        if (!(this.world.getBlockState(this.getPosition()).getBlock() instanceof Chair)) {
+            this.setDead();
+        }
+    }
 
-   @Override
-   public void writeEntityToNBT(NBTTagCompound nbt) {
-   }
+    @Override
+    public void readEntityFromNBT(NBTTagCompound nbt) {
+    }
+
+    @Override
+    public void writeEntityToNBT(NBTTagCompound nbt) {
+    }
+
 }

@@ -11,36 +11,38 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class MagicOrnament extends BlockBlock {
-   public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 2);
 
-   public MagicOrnament(Material mater, String name, float hard, float resi) {
-      super(mater, name, hard, resi);
-   }
+    public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 2);
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(TYPE, meta);
-   }
+    public MagicOrnament(Material mater, String name, float hard, float resi) {
+        super(mater, name, hard, resi);
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(TYPE);
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(TYPE, meta);
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{TYPE});
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(TYPE);
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      int type = 0;
-      if (facing == EnumFacing.UP) {
-         type = 1;
-      } else if (facing == EnumFacing.DOWN) {
-         type = 2;
-      }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{TYPE});
+    }
 
-      return this.getDefaultState().withProperty(TYPE, type);
-   }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        int type = 0;
+        if (facing == EnumFacing.UP) {
+            type = 1;
+        } else if (facing == EnumFacing.DOWN) {
+            type = 2;
+        }
+
+        return this.getDefaultState().withProperty(TYPE, type);
+    }
+
 }

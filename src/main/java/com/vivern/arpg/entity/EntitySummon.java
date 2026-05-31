@@ -6,9 +6,6 @@ import com.vivern.arpg.mobs.EntitySummoned;
 import com.vivern.arpg.mobs.SummonedBlaze;
 import com.vivern.arpg.mobs.SummonedSnowman;
 import com.vivern.arpg.renders.GUNParticle;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -22,167 +19,119 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class EntitySummon extends EntityThrowable {
-   public final ItemStack weaponstack;
-   public int etype = 0;
-   public int maxcount = 0;
-   static ResourceLocation cloud = new ResourceLocation("arpg:textures/largecloud.png");
-   static ResourceLocation blazeSummon = new ResourceLocation("arpg:textures/blaze_summon.png");
 
-   public EntitySummon(World world) {
-      super(world);
-      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
-   }
+    public final ItemStack weaponstack;
+    public int etype = 0;
+    public int maxcount = 0;
+    static ResourceLocation cloud = new ResourceLocation("arpg:textures/largecloud.png");
+    static ResourceLocation blazeSummon = new ResourceLocation("arpg:textures/blaze_summon.png");
 
-   public EntitySummon(World world, EntityLivingBase thrower) {
-      super(world, thrower);
-      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
-   }
+    public EntitySummon(World world) {
+        super(world);
+        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
+    }
 
-   public EntitySummon(World world, double x, double y, double z) {
-      super(world, x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
-   }
+    public EntitySummon(World world, EntityLivingBase thrower) {
+        super(world, thrower);
+        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
+    }
 
-   public EntitySummon(World world, EntityLivingBase thrower, int entityType, int maxCount, ItemStack itemstack) {
-      super(world, thrower);
-      this.etype = entityType;
-      this.maxcount = maxCount;
-      this.weaponstack = itemstack;
-   }
+    public EntitySummon(World world, double x, double y, double z) {
+        super(world, x, y, z);
+        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public void handleStatusUpdate(byte id) {
-      if (id == 3) {
-         this.world
-            .playSound(
-               this.posX,
-               this.posY,
-               this.posZ,
-               Sounds.summon,
-               SoundCategory.AMBIENT,
-               1.0F,
-               0.9F + this.rand.nextFloat() / 5.0F,
-               false
-            );
+    public EntitySummon(World world, EntityLivingBase thrower, int entityType, int maxCount, ItemStack itemstack) {
+        super(world, thrower);
+        this.etype = entityType;
+        this.maxcount = maxCount;
+        this.weaponstack = itemstack;
+    }
 
-         for (int ss = 0; ss < 6; ss++) {
-            GUNParticle fire = new GUNParticle(
-               cloud,
-               0.35F + (float)this.rand.nextGaussian() / 5.0F,
-               -0.015F,
-               25 + this.rand.nextInt(10),
-               240,
-               this.world,
-               this.posX,
-               this.posY,
-               this.posZ,
-               (float)this.rand.nextGaussian() / 23.0F,
-               (float)this.rand.nextGaussian() / 23.0F + 0.05F,
-               (float)this.rand.nextGaussian() / 23.0F,
-               0.87F,
-               1.0F,
-               1.0F,
-               true,
-               this.rand.nextInt(100) - 50
-            );
-            fire.alphaTickAdding = -0.02F;
-            fire.alphaGlowing = true;
-            this.world.spawnEntity(fire);
-         }
-      }
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void handleStatusUpdate(byte id) {
+        if (id == 3) {
+            this.world.playSound(this.posX, this.posY, this.posZ, Sounds.summon, SoundCategory.AMBIENT, 1.0F, 0.9F + this.rand.nextFloat() / 5.0F, false);
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public void onEntityUpdate() {
-      GUNParticle fire = new GUNParticle(
-         cloud,
-         0.23F + (float)this.rand.nextGaussian() / 8.0F,
-         -0.015F,
-         15 + this.rand.nextInt(10),
-         240,
-         this.world,
-         this.posX,
-         this.posY,
-         this.posZ,
-         (float)this.rand.nextGaussian() / 54.0F,
-         (float)this.rand.nextGaussian() / 54.0F,
-         (float)this.rand.nextGaussian() / 54.0F,
-         0.87F,
-         1.0F,
-         1.0F,
-         true,
-         this.rand.nextInt(100) - 50
-      );
-      fire.alphaTickAdding = -0.03F;
-      fire.alphaGlowing = true;
-      this.world.spawnEntity(fire);
-   }
-
-   @Override
-   protected float getGravityVelocity() {
-      return 0.07F;
-   }
-
-   @Override
-   protected void onImpact(RayTraceResult result) {
-      if (!this.world.isRemote) {
-         if (this.getThrower() instanceof EntityPlayer && this.getThrower() != null) {
-            if (this.etype == 1) {
-               int lcount = 0;
-               double damageRadius = 100.0;
-               AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
-                  .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
-                  .offset(-damageRadius, -damageRadius, -damageRadius);
-               List<EntitySummoned> list = this.world.getEntitiesWithinAABB(EntitySummoned.class, axisalignedbb);
-               Set<EntitySummoned> uniqueList = new HashSet<>(list);
-               if (!uniqueList.isEmpty()) {
-                  for (EntitySummoned loaded : uniqueList) {
-                     if (!loaded.isDead && (loaded.getOwner() == this.getThrower() || loaded.getOwnerId() == this.getThrower().getUniqueID())) {
-                        lcount++;
-                     }
-                  }
-               }
-
-               if (lcount < this.maxcount) {
-                  SummonedBlaze blaze = new SummonedBlaze(
-                     this.world, this.posX, this.posY, this.posZ, (EntityPlayer)this.getThrower(), this.weaponstack
-                  );
-                  this.world.spawnEntity(blaze);
-               }
-            } else if (this.etype == 2) {
-               int lcountx = 0;
-               double damageRadiusx = 100.0;
-               AxisAlignedBB axisalignedbbx = this.getEntityBoundingBox()
-                  .expand(damageRadiusx * 2.0, damageRadiusx * 2.0, damageRadiusx * 2.0)
-                  .offset(-damageRadiusx, -damageRadiusx, -damageRadiusx);
-               List<EntitySummoned> listx = this.world.getEntitiesWithinAABB(EntitySummoned.class, axisalignedbbx);
-               Set<EntitySummoned> uniqueListx = new HashSet<>(listx);
-               if (!uniqueListx.isEmpty()) {
-                  for (EntitySummoned loadedx : uniqueListx) {
-                     if (!loadedx.isDead && (loadedx.getOwner() == this.getThrower() || loadedx.getOwnerId() == this.getThrower().getUniqueID())) {
-                        lcountx++;
-                     }
-                  }
-               }
-
-               if (lcountx < this.maxcount) {
-                  SummonedSnowman snowman = new SummonedSnowman(
-                     this.world, this.posX, this.posY, this.posZ, (EntityPlayer)this.getThrower(), this.weaponstack
-                  );
-                  this.world.spawnEntity(snowman);
-               }
+            for (int ss = 0; ss < 6; ss++) {
+                GUNParticle fire = new GUNParticle(cloud, 0.35F + (float) this.rand.nextGaussian() / 5.0F, -0.015F, 25 + this.rand.nextInt(10), 240, this.world, this.posX, this.posY, this.posZ, (float) this.rand.nextGaussian() / 23.0F, (float) this.rand.nextGaussian() / 23.0F + 0.05F, (float) this.rand.nextGaussian() / 23.0F, 0.87F, 1.0F, 1.0F, true, this.rand.nextInt(100) - 50);
+                fire.alphaTickAdding = -0.02F;
+                fire.alphaGlowing = true;
+                this.world.spawnEntity(fire);
             }
-         }
+        }
+    }
 
-         this.world.setEntityState(this, (byte)3);
-         this.setDead();
-      }
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onEntityUpdate() {
+        GUNParticle fire = new GUNParticle(cloud, 0.23F + (float) this.rand.nextGaussian() / 8.0F, -0.015F, 15 + this.rand.nextInt(10), 240, this.world, this.posX, this.posY, this.posZ, (float) this.rand.nextGaussian() / 54.0F, (float) this.rand.nextGaussian() / 54.0F, (float) this.rand.nextGaussian() / 54.0F, 0.87F, 1.0F, 1.0F, true, this.rand.nextInt(100) - 50);
+        fire.alphaTickAdding = -0.03F;
+        fire.alphaGlowing = true;
+        this.world.spawnEntity(fire);
+    }
 
-   @Override
-   public void writeEntityToNBT(NBTTagCompound compound) {
-   }
+    @Override
+    protected float getGravityVelocity() {
+        return 0.07F;
+    }
+
+    @Override
+    protected void onImpact(RayTraceResult result) {
+        if (!this.world.isRemote) {
+            if (this.getThrower() instanceof EntityPlayer && this.getThrower() != null) {
+                if (this.etype == 1) {
+                    int lcount = 0;
+                    double damageRadius = 100.0;
+                    AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0).offset(-damageRadius, -damageRadius, -damageRadius);
+                    List<EntitySummoned> list = this.world.getEntitiesWithinAABB(EntitySummoned.class, axisalignedbb);
+                    Set<EntitySummoned> uniqueList = new HashSet<>(list);
+                    if (!uniqueList.isEmpty()) {
+                        for (EntitySummoned loaded : uniqueList) {
+                            if (!loaded.isDead && (loaded.getOwner() == this.getThrower() || loaded.getOwnerId() == this.getThrower().getUniqueID())) {
+                                lcount++;
+                            }
+                        }
+                    }
+
+                    if (lcount < this.maxcount) {
+                        SummonedBlaze blaze = new SummonedBlaze(this.world, this.posX, this.posY, this.posZ, (EntityPlayer) this.getThrower(), this.weaponstack);
+                        this.world.spawnEntity(blaze);
+                    }
+                } else if (this.etype == 2) {
+                    int lcountx = 0;
+                    double damageRadiusx = 100.0;
+                    AxisAlignedBB axisalignedbbx = this.getEntityBoundingBox().expand(damageRadiusx * 2.0, damageRadiusx * 2.0, damageRadiusx * 2.0).offset(-damageRadiusx, -damageRadiusx, -damageRadiusx);
+                    List<EntitySummoned> listx = this.world.getEntitiesWithinAABB(EntitySummoned.class, axisalignedbbx);
+                    Set<EntitySummoned> uniqueListx = new HashSet<>(listx);
+                    if (!uniqueListx.isEmpty()) {
+                        for (EntitySummoned loadedx : uniqueListx) {
+                            if (!loadedx.isDead && (loadedx.getOwner() == this.getThrower() || loadedx.getOwnerId() == this.getThrower().getUniqueID())) {
+                                lcountx++;
+                            }
+                        }
+                    }
+
+                    if (lcountx < this.maxcount) {
+                        SummonedSnowman snowman = new SummonedSnowman(this.world, this.posX, this.posY, this.posZ, (EntityPlayer) this.getThrower(), this.weaponstack);
+                        this.world.spawnEntity(snowman);
+                    }
+                }
+            }
+
+            this.world.setEntityState(this, (byte) 3);
+            this.setDead();
+        }
+    }
+
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound) {
+    }
+
 }

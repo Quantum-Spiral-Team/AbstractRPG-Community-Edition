@@ -23,117 +23,110 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 
 public class BogFlower extends ItemWeapon {
-   public BogFlower() {
-      this.setRegistryName("bog_flower");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("bog_flower");
-      this.setMaxDamage(4);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public int getMaxItemUseDuration(ItemStack itemstack) {
-      return 72000;
-   }
+    public BogFlower() {
+        this.setRegistryName("bog_flower");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("bog_flower");
+        this.setMaxDamage(4);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public EnumAction getItemUseAction(ItemStack stack) {
-      return EnumAction.BOW;
-   }
+    @Override
+    public int getMaxItemUseDuration(ItemStack itemstack) {
+        return 72000;
+    }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      player.setActiveHand(hand);
-      return new ActionResult(EnumActionResult.PASS, itemstack);
-   }
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
+    }
 
-   @Override
-   public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
-      return true;
-   }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        player.setActiveHand(hand);
+        return new ActionResult(EnumActionResult.PASS, itemstack);
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!worldIn.isRemote && entityIn instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)entityIn;
-         int damage = itemstack.getItemDamage();
-         World world = player.getEntityWorld();
-         Item itemIn = itemstack.getItem();
-         EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
-         float mana = Mana.getMana(player);
-         float spee = Mana.getManaSpeed(player);
-         int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-         int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
-         float power = Mana.getMagicPowerMax(player);
-         NBTHelper.GiveNBTint(itemstack, 0, "charges");
-         int charges = NBTHelper.GetNBTint(itemstack, "charges");
-         int rel = this.getReloadTime(itemstack);
-         if (charges < rel * (3 + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) * 2)) {
-            NBTHelper.AddNBTint(itemstack, 1, "charges");
-            itemstack.setItemDamage(4 - Math.round((float)(charges / rel)));
-         }
+    @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+        return true;
+    }
 
-         if (!player.getCooldownTracker().hasCooldown(itemIn) && player.getActiveItemStack() == itemstack && mana > 10.0F - sor * 1.2F && click && charges >= rel) {
-            NBTHelper.AddNBTint(itemstack, -rel, "charges");
-            world.playSound(
-                    null,
-               player.posX,
-               player.posY,
-               player.posZ,
-               Sounds.bog_flower,
-               SoundCategory.AMBIENT,
-               0.8F,
-               0.9F + itemRand.nextFloat() / 5.0F
-            );
-            player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-            player.addStat(StatList.getObjectUseStats(this));
-            if (!player.capabilities.isCreativeMode) {
-               Mana.changeMana(player, -10.0F + sor * 1.2F);
-               Mana.setManaSpeed(player, 0.001F);
+    @Override
+    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!worldIn.isRemote && entityIn instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entityIn;
+            int damage = itemstack.getItemDamage();
+            World world = player.getEntityWorld();
+            Item itemIn = itemstack.getItem();
+            EnumHand hand = player.getActiveHand();
+            boolean click = Mouse.isButtonDown(1);
+            float mana = Mana.getMana(player);
+            float spee = Mana.getManaSpeed(player);
+            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+            int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
+            float power = Mana.getMagicPowerMax(player);
+            NBTHelper.GiveNBTint(itemstack, 0, "charges");
+            int charges = NBTHelper.GetNBTint(itemstack, "charges");
+            int rel = this.getReloadTime(itemstack);
+            if (charges < rel * (3 + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) * 2)) {
+                NBTHelper.AddNBTint(itemstack, 1, "charges");
+                itemstack.setItemDamage(4 - Math.round((float) (charges / rel)));
             }
 
-            EntityBogFlower projectile = new EntityBogFlower(world, player, itemstack, power);
-            projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.5F, 3.0F - acc);
-            world.spawnEntity(projectile);
-         }
-      }
-   }
+            if (!player.getCooldownTracker().hasCooldown(itemIn) && player.getActiveItemStack() == itemstack && mana > 10.0F - sor * 1.2F && click && charges >= rel) {
+                NBTHelper.AddNBTint(itemstack, -rel, "charges");
+                world.playSound(null, player.posX, player.posY, player.posZ, Sounds.bog_flower, SoundCategory.AMBIENT, 0.8F, 0.9F + itemRand.nextFloat() / 5.0F);
+                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
+                player.addStat(StatList.getObjectUseStats(this));
+                if (!player.capabilities.isCreativeMode) {
+                    Mana.changeMana(player, -10.0F + sor * 1.2F);
+                    Mana.setManaSpeed(player, 0.001F);
+                }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.ONE_HANDED;
-   }
+                EntityBogFlower projectile = new EntityBogFlower(world, player, itemstack, power);
+                projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.5F, 3.0F - acc);
+                world.spawnEntity(projectile);
+            }
+        }
+    }
 
-   @Override
-   public boolean autoReload(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.ONE_HANDED;
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return true;
-   }
+    @Override
+    public boolean autoReload(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public boolean hasZoom(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return true;
+    }
 
-   @Override
-   public int getCooldownTime(ItemStack itemstack) {
-      return 10 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * 3;
-   }
+    @Override
+    public boolean hasZoom(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public int getReloadTime(ItemStack itemstack) {
-      return 110 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 25;
-   }
+    @Override
+    public int getCooldownTime(ItemStack itemstack) {
+        return 10 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * 3;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public float getZoom(ItemStack itemstack, EntityPlayer player) {
-      return 0.0F;
-   }
+    @Override
+    public int getReloadTime(ItemStack itemstack) {
+        return 110 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 25;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public float getZoom(ItemStack itemstack, EntityPlayer player) {
+        return 0.0F;
+    }
+
 }

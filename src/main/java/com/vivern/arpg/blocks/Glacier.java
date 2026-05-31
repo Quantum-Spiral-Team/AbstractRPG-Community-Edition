@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.main.BlocksRegister;
 import com.google.common.base.Predicate;
+import com.vivern.arpg.main.BlocksRegister;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -13,34 +13,36 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class Glacier extends Block implements IBlockHardBreak {
-   public Glacier() {
-      super(Material.ROCK);
-      this.setRegistryName("glacier");
-      this.setTranslationKey("glacier");
-      this.blockHardness = BlocksRegister.HR_SNOWICE_GLACIER.hardness;
-      this.blockResistance = BlocksRegister.HR_SNOWICE_GLACIER.resistance;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_SNOWICE_GLACIER.lvl);
-      this.setSoundType(SoundType.GLASS);
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-   }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return true;
-   }
+    public Glacier() {
+        super(Material.ROCK);
+        this.setRegistryName("glacier");
+        this.setTranslationKey("glacier");
+        this.blockHardness = BlocksRegister.HR_SNOWICE_GLACIER.hardness;
+        this.blockResistance = BlocksRegister.HR_SNOWICE_GLACIER.resistance;
+        this.setHarvestLevel("pickaxe", BlocksRegister.HR_SNOWICE_GLACIER.lvl);
+        this.setSoundType(SoundType.GLASS);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    }
 
-   @Override
-   public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
-      return true;
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return true;
+    }
 
-   @Override
-   public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
-      worldIn.setBlockState(pos, Blocks.FLOWING_WATER.getStateFromMeta(2));
-   }
+    @Override
+    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
+        return true;
+    }
 
-   @Override
-   public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
-      return BlocksRegister.HR_SNOWICE_GLACIER.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
-   }
+    @Override
+    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
+        worldIn.setBlockState(pos, Blocks.FLOWING_WATER.getStateFromMeta(2));
+    }
+
+    @Override
+    public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
+        return BlocksRegister.HR_SNOWICE_GLACIER.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
+    }
+
 }

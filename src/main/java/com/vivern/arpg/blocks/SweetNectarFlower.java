@@ -5,7 +5,6 @@ import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.tileentity.TileNexusFlower;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -24,116 +23,113 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class SweetNectarFlower extends BlockBlockHard {
-   protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.8, 0.8125);
 
-   public SweetNectarFlower() {
-      super(Material.PLANTS, "sweet_nectar_flower", BlocksRegister.HR_CHLORINE_BELCHER, "axe", false);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setSoundType(SoundType.PLANT);
-   }
+    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.8, 0.8125);
 
-   public Class<TileNexusFlower> getTileEntityClass() {
-      return TileNexusFlower.class;
-   }
+    public SweetNectarFlower() {
+        super(Material.PLANTS, "sweet_nectar_flower", BlocksRegister.HR_CHLORINE_BELCHER, "axe", false);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setSoundType(SoundType.PLANT);
+    }
 
-   public TileNexusFlower getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileNexusFlower)world.getTileEntity(position);
-   }
+    public Class<TileNexusFlower> getTileEntityClass() {
+        return TileNexusFlower.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileNexusFlower getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileNexusFlower) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileNexusFlower createTileEntity(World world, IBlockState blockState) {
-      return new TileNexusFlower();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public void breakBlock(World world, BlockPos pos, IBlockState state) {
-      TileEntity tile = world.getTileEntity(pos);
-      if (tile instanceof TileNexusFlower) {
-         TileNexusFlower nexus = (TileNexusFlower)tile;
-         if (nexus.invasionStarted) {
-            nexus.onInvasionEnd(false);
-         }
-      }
+    @Override
+    @Nullable
+    public TileNexusFlower createTileEntity(World world, IBlockState blockState) {
+        return new TileNexusFlower();
+    }
 
-      super.breakBlock(world, pos, state);
-   }
-
-   @Override
-   protected boolean canSilkHarvest() {
-      return false;
-   }
-
-   @Override
-   public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune) {
-      TileEntity tile = world.getTileEntity(pos);
-      if (tile instanceof TileNexusFlower) {
-         TileNexusFlower nexus = (TileNexusFlower)tile;
-         if (nexus.invasionStarted) {
-            return;
-         }
-      }
-
-      super.dropBlockAsItemWithChance(world, pos, state, chance, fortune);
-   }
-
-   @Override
-   public boolean onBlockActivated(
-      World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      player.swingArm(hand);
-      if (!world.isRemote) {
-         TileEntity tile = world.getTileEntity(pos);
-         if (tile instanceof TileNexusFlower) {
-            TileNexusFlower nexus = (TileNexusFlower)tile;
-            if (!nexus.invasionStarted) {
-               if (world.getBiome(pos) == BiomesRegister.TOXIC_SLIME_LAND
-                  && world.getBiome(pos.west(16)) == BiomesRegister.TOXIC_SLIME_LAND
-                  && world.getBiome(pos.east(16)) == BiomesRegister.TOXIC_SLIME_LAND
-                  && world.getBiome(pos.north(16)) == BiomesRegister.TOXIC_SLIME_LAND
-                  && world.getBiome(pos.south(16)) == BiomesRegister.TOXIC_SLIME_LAND) {
-                  nexus.startInvasion(Team.getTeamFor(player));
-                  world.playSound(null, pos, Sounds.chlorine_belcher, SoundCategory.BLOCKS, 1.3F, 0.9F + world.rand.nextFloat() / 5.0F);
-               } else if (player instanceof EntityPlayerMP) {
-                  player.sendMessage(new TextComponentString("The flower must be deep in Slime Lands biome"));
-               }
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof TileNexusFlower) {
+            TileNexusFlower nexus = (TileNexusFlower) tile;
+            if (nexus.invasionStarted) {
+                nexus.onInvasionEnd(false);
             }
-         }
-      }
+        }
 
-      return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
-   }
+        super.breakBlock(world, pos, state);
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    protected boolean canSilkHarvest() {
+        return false;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof TileNexusFlower) {
+            TileNexusFlower nexus = (TileNexusFlower) tile;
+            if (nexus.invasionStarted) {
+                return;
+            }
+        }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+        super.dropBlockAsItemWithChance(world, pos, state, chance, fortune);
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        player.swingArm(hand);
+        if (!world.isRemote) {
+            TileEntity tile = world.getTileEntity(pos);
+            if (tile instanceof TileNexusFlower) {
+                TileNexusFlower nexus = (TileNexusFlower) tile;
+                if (!nexus.invasionStarted) {
+                    if (world.getBiome(pos) == BiomesRegister.TOXIC_SLIME_LAND && world.getBiome(pos.west(16)) == BiomesRegister.TOXIC_SLIME_LAND && world.getBiome(pos.east(16)) == BiomesRegister.TOXIC_SLIME_LAND && world.getBiome(pos.north(16)) == BiomesRegister.TOXIC_SLIME_LAND && world.getBiome(pos.south(16)) == BiomesRegister.TOXIC_SLIME_LAND) {
+                        nexus.startInvasion(Team.getTeamFor(player));
+                        world.playSound(null, pos, Sounds.chlorine_belcher, SoundCategory.BLOCKS, 1.3F, 0.9F + world.rand.nextFloat() / 5.0F);
+                    } else if (player instanceof EntityPlayerMP) {
+                        player.sendMessage(new TextComponentString("The flower must be deep in Slime Lands biome"));
+                    }
+                }
+            }
+        }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return null;
-   }
+        return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
+    }
+
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
+
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return null;
+    }
+
 }

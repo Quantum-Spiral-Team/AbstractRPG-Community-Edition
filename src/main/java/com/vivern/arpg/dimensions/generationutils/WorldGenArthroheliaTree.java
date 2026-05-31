@@ -2,183 +2,152 @@ package com.vivern.arpg.dimensions.generationutils;
 
 import com.vivern.arpg.blocks.BlockRotated;
 import com.vivern.arpg.main.BlocksRegister;
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import java.util.Random;
+
 public class WorldGenArthroheliaTree extends WorldGenerator {
-   public EnumFacing growDirection;
-   public int maxsamples;
-   public int samples;
-   public float[] chances;
-   public float chanceReduction = 1.0F;
-   public float startChanceToContinue = 0.9F;
-   public float startChanceToSplit = 0.2F;
-   public int genStyle = 0;
-   public static float[] chancesBrush = new float[]{0.8F, 0.3F, 0.5F};
-   public static float[] chancesTree = new float[]{0.95F, 0.05F, 0.7F};
-   public static float[] chancesMini = new float[]{0.95F, 0.1F, 0.1F};
 
-   @Override
-   public boolean generate(World world, Random rand, BlockPos position) {
-      this.samples = this.maxsamples;
-      world.setBlockState(position, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, this.growDirection), 2);
-      if (this.genStyle == 0) {
-         this.recursiveGenerate(world, position, rand, 0, this.growDirection, this.startChanceToContinue, this.startChanceToSplit);
-      }
+    public EnumFacing growDirection;
+    public int maxsamples;
+    public int samples;
+    public float[] chances;
+    public float chanceReduction = 1.0F;
+    public float startChanceToContinue = 0.9F;
+    public float startChanceToSplit = 0.2F;
+    public int genStyle = 0;
+    public static float[] chancesBrush = new float[]{0.8F, 0.3F, 0.5F};
+    public static float[] chancesTree = new float[]{0.95F, 0.05F, 0.7F};
+    public static float[] chancesMini = new float[]{0.95F, 0.1F, 0.1F};
 
-      if (this.genStyle == 1) {
-         this.recursiveGenerate2(world, position, rand, 0, this.growDirection, this.startChanceToContinue, this.startChanceToSplit);
-      }
+    @Override
+    public boolean generate(World world, Random rand, BlockPos position) {
+        this.samples = this.maxsamples;
+        world.setBlockState(position, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, this.growDirection), 2);
+        if (this.genStyle == 0) {
+            this.recursiveGenerate(world, position, rand, 0, this.growDirection, this.startChanceToContinue, this.startChanceToSplit);
+        }
 
-      if (this.genStyle == 2) {
-         this.recursiveGenerate3(world, position, rand, 0, this.growDirection, this.startChanceToContinue, this.startChanceToSplit);
-      }
+        if (this.genStyle == 1) {
+            this.recursiveGenerate2(world, position, rand, 0, this.growDirection, this.startChanceToContinue, this.startChanceToSplit);
+        }
 
-      return this.samples < this.maxsamples;
-   }
+        if (this.genStyle == 2) {
+            this.recursiveGenerate3(world, position, rand, 0, this.growDirection, this.startChanceToContinue, this.startChanceToSplit);
+        }
 
-   public float getChances(EnumFacing facing) {
-      if (facing == this.growDirection) {
-         return this.chances[0];
-      } else {
-         return facing == this.growDirection.getOpposite() ? this.chances[1] : this.chances[2];
-      }
-   }
+        return this.samples < this.maxsamples;
+    }
 
-   public void recursiveGenerate(
-      World world, BlockPos position, Random rand, int currentoffsetFromStart, EnumFacing facing, float chanceToContinue, float chanceToSplit
-   ) {
-      BlockPos offpos = position.offset(facing);
-      if (this.samples > 0) {
-         if (rand.nextFloat() < chanceToSplit) {
-            offpos = offpos.offset(facing);
-            world.setBlockState(offpos, BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
-            this.setTwo(world, offpos, facing, BlocksRegister.ARTHROHELIA_STEM);
-            this.samples -= 3;
+    public float getChances(EnumFacing facing) {
+        if (facing == this.growDirection) {
+            return this.chances[0];
+        } else {
+            return facing == this.growDirection.getOpposite() ? this.chances[1] : this.chances[2];
+        }
+    }
 
-            for (EnumFacing nextFace : EnumFacing.VALUES) {
-               if (nextFace != facing.getOpposite() && rand.nextFloat() < this.getChances(nextFace)) {
-                  this.setTwo(world, offpos, nextFace, BlocksRegister.ARTHROHELIA_STEM);
-                  this.recursiveGenerate(
-                     world,
-                     offpos.offset(nextFace),
-                     rand,
-                     currentoffsetFromStart,
-                     nextFace,
-                     chanceToContinue - 0.05F * this.chanceReduction,
-                     chanceToSplit - 0.02F * this.chanceReduction
-                  );
-               }
+    public void recursiveGenerate(World world, BlockPos position, Random rand, int currentoffsetFromStart, EnumFacing facing, float chanceToContinue, float chanceToSplit) {
+        BlockPos offpos = position.offset(facing);
+        if (this.samples > 0) {
+            if (rand.nextFloat() < chanceToSplit) {
+                offpos = offpos.offset(facing);
+                world.setBlockState(offpos, BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
+                this.setTwo(world, offpos, facing, BlocksRegister.ARTHROHELIA_STEM);
+                this.samples -= 3;
+
+                for (EnumFacing nextFace : EnumFacing.VALUES) {
+                    if (nextFace != facing.getOpposite() && rand.nextFloat() < this.getChances(nextFace)) {
+                        this.setTwo(world, offpos, nextFace, BlocksRegister.ARTHROHELIA_STEM);
+                        this.recursiveGenerate(world, offpos.offset(nextFace), rand, currentoffsetFromStart, nextFace, chanceToContinue - 0.05F * this.chanceReduction, chanceToSplit - 0.02F * this.chanceReduction);
+                    }
+                }
+            } else if (rand.nextFloat() < chanceToContinue) {
+                world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+                this.samples--;
+                this.recursiveGenerate(world, offpos, rand, currentoffsetFromStart, facing, chanceToContinue, chanceToSplit);
+            } else {
+                world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
             }
-         } else if (rand.nextFloat() < chanceToContinue) {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-            this.samples--;
-            this.recursiveGenerate(world, offpos, rand, currentoffsetFromStart, facing, chanceToContinue, chanceToSplit);
-         } else {
+        } else {
             world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-         }
-      } else {
-         world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-      }
-   }
+        }
+    }
 
-   public void setTwo(World world, BlockPos position, EnumFacing facing, Block block) {
-      world.setBlockState(position.offset(facing), block.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-      facing = facing.getOpposite();
-      world.setBlockState(position.offset(facing), block.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-   }
+    public void setTwo(World world, BlockPos position, EnumFacing facing, Block block) {
+        world.setBlockState(position.offset(facing), block.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+        facing = facing.getOpposite();
+        world.setBlockState(position.offset(facing), block.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+    }
 
-   public void recursiveGenerate2(
-      World world, BlockPos position, Random rand, int currentoffsetFromStart, EnumFacing facing, float chanceToContinue, float chanceToSplit
-   ) {
-      BlockPos offpos = position.offset(facing);
-      if (this.samples > 0) {
-         if (rand.nextFloat() < chanceToSplit) {
-            offpos = offpos.offset(facing);
-            world.setBlockState(offpos, BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
-            this.setTwo(world, offpos, facing, BlocksRegister.ARTHROHELIA_STALK);
-            this.samples -= 3;
+    public void recursiveGenerate2(World world, BlockPos position, Random rand, int currentoffsetFromStart, EnumFacing facing, float chanceToContinue, float chanceToSplit) {
+        BlockPos offpos = position.offset(facing);
+        if (this.samples > 0) {
+            if (rand.nextFloat() < chanceToSplit) {
+                offpos = offpos.offset(facing);
+                world.setBlockState(offpos, BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
+                this.setTwo(world, offpos, facing, BlocksRegister.ARTHROHELIA_STALK);
+                this.samples -= 3;
 
-            for (EnumFacing nextFace : EnumFacing.VALUES) {
-               if (nextFace != facing.getOpposite() && rand.nextFloat() < this.getChances(nextFace)) {
-                  this.setTwo(world, offpos, nextFace, BlocksRegister.ARTHROHELIA_STALK);
-                  this.recursiveGenerate2(
-                     world,
-                     offpos.offset(nextFace),
-                     rand,
-                     currentoffsetFromStart,
-                     nextFace,
-                     chanceToContinue - 0.05F * this.chanceReduction,
-                     chanceToSplit - 0.02F * this.chanceReduction
-                  );
-               }
+                for (EnumFacing nextFace : EnumFacing.VALUES) {
+                    if (nextFace != facing.getOpposite() && rand.nextFloat() < this.getChances(nextFace)) {
+                        this.setTwo(world, offpos, nextFace, BlocksRegister.ARTHROHELIA_STALK);
+                        this.recursiveGenerate2(world, offpos.offset(nextFace), rand, currentoffsetFromStart, nextFace, chanceToContinue - 0.05F * this.chanceReduction, chanceToSplit - 0.02F * this.chanceReduction);
+                    }
+                }
+            } else if (rand.nextFloat() < chanceToContinue && rand.nextFloat() < chanceToContinue) {
+                world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
+                world.setBlockState(offpos.offset(facing), BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+                this.samples -= 2;
+                this.recursiveGenerate2(world, offpos.offset(facing), rand, currentoffsetFromStart, facing, chanceToContinue, chanceToSplit);
+            } else {
+                world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
             }
-         } else if (rand.nextFloat() < chanceToContinue && rand.nextFloat() < chanceToContinue) {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
-            world.setBlockState(offpos.offset(facing), BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-            this.samples -= 2;
-            this.recursiveGenerate2(world, offpos.offset(facing), rand, currentoffsetFromStart, facing, chanceToContinue, chanceToSplit);
-         } else {
+        } else {
             world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-         }
-      } else {
-         world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-      }
-   }
+        }
+    }
 
-   public void recursiveGenerate3(
-      World world, BlockPos position, Random rand, int currentoffsetFromStart, EnumFacing facing, float chanceToContinue, float chanceToSplit
-   ) {
-      BlockPos offpos = position.offset(facing);
-      if (this.samples > 0) {
-         if (rand.nextFloat() < chanceToSplit) {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-            offpos = offpos.offset(facing, 2);
-            world.setBlockState(offpos, BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
-            this.samples -= 3;
+    public void recursiveGenerate3(World world, BlockPos position, Random rand, int currentoffsetFromStart, EnumFacing facing, float chanceToContinue, float chanceToSplit) {
+        BlockPos offpos = position.offset(facing);
+        if (this.samples > 0) {
+            if (rand.nextFloat() < chanceToSplit) {
+                world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+                offpos = offpos.offset(facing, 2);
+                world.setBlockState(offpos, BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
+                this.samples -= 3;
 
-            for (EnumFacing nextFace : EnumFacing.VALUES) {
-               if (nextFace != facing.getOpposite() && rand.nextFloat() < this.getChances(nextFace)) {
-                  world.setBlockState(
-                     offpos.offset(nextFace, 2),
-                     BlocksRegister.ARTHROHELIA_STALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, nextFace.getOpposite()),
-                     2
-                  );
-                  this.recursiveGenerate3(
-                     world,
-                     offpos.offset(nextFace, 2),
-                     rand,
-                     currentoffsetFromStart,
-                     nextFace,
-                     chanceToContinue - 0.05F * this.chanceReduction,
-                     chanceToSplit - 0.02F * this.chanceReduction
-                  );
-               }
+                for (EnumFacing nextFace : EnumFacing.VALUES) {
+                    if (nextFace != facing.getOpposite() && rand.nextFloat() < this.getChances(nextFace)) {
+                        world.setBlockState(offpos.offset(nextFace, 2), BlocksRegister.ARTHROHELIA_STALK.getDefaultState().withProperty(BlockRotated.FACING_FULL, nextFace.getOpposite()), 2);
+                        this.recursiveGenerate3(world, offpos.offset(nextFace, 2), rand, currentoffsetFromStart, nextFace, chanceToContinue - 0.05F * this.chanceReduction, chanceToSplit - 0.02F * this.chanceReduction);
+                    }
+                }
+            } else if (rand.nextFloat() < chanceToContinue && rand.nextFloat() < chanceToContinue) {
+                world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
+                world.setBlockState(offpos.offset(facing), BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+                this.samples -= 2;
+                this.recursiveGenerate3(world, offpos.offset(facing), rand, currentoffsetFromStart, facing, chanceToContinue, chanceToSplit);
+            } else {
+                world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
+                world.setBlockState(offpos.offset(facing), BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
+                this.setSpikes(world, offpos.offset(facing), facing, BlocksRegister.ARTHROHELIA_SPIKE);
             }
-         } else if (rand.nextFloat() < chanceToContinue && rand.nextFloat() < chanceToContinue) {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
-            world.setBlockState(offpos.offset(facing), BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-            this.samples -= 2;
-            this.recursiveGenerate3(world, offpos.offset(facing), rand, currentoffsetFromStart, facing, chanceToContinue, chanceToSplit);
-         } else {
-            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_STEM.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing.getOpposite()), 2);
-            world.setBlockState(offpos.offset(facing), BlocksRegister.AMETHYST_LANTERN.getDefaultState(), 2);
-            this.setSpikes(world, offpos.offset(facing), facing, BlocksRegister.ARTHROHELIA_SPIKE);
-         }
-      } else {
-         world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
-      }
-   }
+        } else {
+            world.setBlockState(offpos, BlocksRegister.ARTHROHELIA_SPIKE.getDefaultState().withProperty(BlockRotated.FACING_FULL, facing), 2);
+        }
+    }
 
-   public void setSpikes(World world, BlockPos position, EnumFacing facing, Block block) {
-      for (EnumFacing nextFace : EnumFacing.VALUES) {
-         if (nextFace != facing && nextFace != facing.getOpposite()) {
-            world.setBlockState(position.offset(nextFace), block.getDefaultState().withProperty(BlockRotated.FACING_FULL, nextFace), 2);
-         }
-      }
-   }
+    public void setSpikes(World world, BlockPos position, EnumFacing facing, Block block) {
+        for (EnumFacing nextFace : EnumFacing.VALUES) {
+            if (nextFace != facing && nextFace != facing.getOpposite()) {
+                world.setBlockState(position.offset(nextFace), block.getDefaultState().withProperty(BlockRotated.FACING_FULL, nextFace), 2);
+            }
+        }
+    }
+
 }

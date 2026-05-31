@@ -15,67 +15,69 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class RenderSpear<T extends EntitySunrise> extends Render<T> {
-   private final RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
-   protected final Item item;
-   protected final float scale;
-   protected boolean light;
 
-   public RenderSpear(RenderManager renderManagerIn, Item itemIn, float scale, boolean light) {
-      super(renderManagerIn);
-      this.item = itemIn;
-      this.scale = scale;
-      this.light = light;
-   }
+    private final RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
+    protected final Item item;
+    protected final float scale;
+    protected boolean light;
 
-   @Override
-   public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-      GlStateManager.pushMatrix();
-      GlStateManager.disableCull();
-      GlStateManager.translate((float)x, (float)y, (float)z);
-      GlStateManager.enableRescaleNormal();
-      if (this.light) {
-         GL11.glDisable(2896);
-         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 220.0F, 240.0F);
-      }
+    public RenderSpear(RenderManager renderManagerIn, Item itemIn, float scale, boolean light) {
+        super(renderManagerIn);
+        this.item = itemIn;
+        this.scale = scale;
+        this.light = light;
+    }
 
-      if (entity.link) {
-         GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
-         GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
-      }
+    @Override
+    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        GlStateManager.pushMatrix();
+        GlStateManager.disableCull();
+        GlStateManager.translate((float) x, (float) y, (float) z);
+        GlStateManager.enableRescaleNormal();
+        if (this.light) {
+            GL11.glDisable(2896);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 220.0F, 240.0F);
+        }
 
-      if (!entity.link) {
-         GlStateManager.rotate(entity.rotationYaw - 90.0F, 0.0F, 1.0F, 0.0F);
-         GlStateManager.rotate(entity.rotationPitch, 0.0F, 0.0F, 1.0F);
-      }
+        if (entity.link) {
+            GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
+        }
 
-      GlStateManager.rotate(225.0F, 0.0F, 0.0F, 1.0F);
-      GlStateManager.scale(this.scale, this.scale, this.scale);
-      this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-      if (this.renderOutlines) {
-         GlStateManager.enableColorMaterial();
-         GlStateManager.enableOutlineMode(this.getTeamColor(entity));
-      }
+        if (!entity.link) {
+            GlStateManager.rotate(entity.rotationYaw - 90.0F, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(entity.rotationPitch, 0.0F, 0.0F, 1.0F);
+        }
 
-      this.itemRenderer.renderItem(this.getStackToRender(entity), TransformType.GROUND);
-      if (this.renderOutlines) {
-         GlStateManager.disableOutlineMode();
-         GlStateManager.disableColorMaterial();
-      }
+        GlStateManager.rotate(225.0F, 0.0F, 0.0F, 1.0F);
+        GlStateManager.scale(this.scale, this.scale, this.scale);
+        this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        if (this.renderOutlines) {
+            GlStateManager.enableColorMaterial();
+            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+        }
 
-      if (this.light) {
-         GL11.glEnable(2896);
-      }
+        this.itemRenderer.renderItem(this.getStackToRender(entity), TransformType.GROUND);
+        if (this.renderOutlines) {
+            GlStateManager.disableOutlineMode();
+            GlStateManager.disableColorMaterial();
+        }
 
-      GlStateManager.popMatrix();
-      super.doRender(entity, x, y, z, entityYaw, partialTicks);
-   }
+        if (this.light) {
+            GL11.glEnable(2896);
+        }
 
-   public ItemStack getStackToRender(T entityIn) {
-      return new ItemStack(this.item);
-   }
+        GlStateManager.popMatrix();
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    }
 
-   @Override
-   protected ResourceLocation getEntityTexture(EntitySunrise entity) {
-      return TextureMap.LOCATION_BLOCKS_TEXTURE;
-   }
+    public ItemStack getStackToRender(T entityIn) {
+        return new ItemStack(this.item);
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(EntitySunrise entity) {
+        return TextureMap.LOCATION_BLOCKS_TEXTURE;
+    }
+
 }

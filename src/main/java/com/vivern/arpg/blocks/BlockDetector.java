@@ -17,75 +17,77 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockDetector extends Block {
-   public static final PropertyDirection FACING = BlockDirectional.FACING;
 
-   public BlockDetector() {
-      super(Material.ROCK);
-      this.setRegistryName("block_detector");
-      this.setTranslationKey("block_detector");
-      this.blockHardness = 1.5F;
-      this.blockResistance = 1.5F;
-      this.setCreativeTab(CreativeTabs.REDSTONE);
-      this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
-   }
+    public static final PropertyDirection FACING = BlockDirectional.FACING;
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      BlockPos offset = pos.offset(state.getValue(FACING).getOpposite());
-      worldIn.neighborChanged(offset, worldIn.getBlockState(offset).getBlock(), pos);
-   }
+    public BlockDetector() {
+        super(Material.ROCK);
+        this.setRegistryName("block_detector");
+        this.setTranslationKey("block_detector");
+        this.blockHardness = 1.5F;
+        this.blockResistance = 1.5F;
+        this.setCreativeTab(CreativeTabs.REDSTONE);
+        this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
+    }
 
-   @Override
-   public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-      if (blockState.getValue(FACING) == side) {
-         return blockAccess.isAirBlock(pos.offset(side)) ? 0 : 15;
-      } else {
-         return 0;
-      }
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        BlockPos offset = pos.offset(state.getValue(FACING).getOpposite());
+        worldIn.neighborChanged(offset, worldIn.getBlockState(offset).getBlock(), pos);
+    }
 
-   @Override
-   public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-      return blockState.getWeakPower(blockAccess, pos, side);
-   }
+    @Override
+    public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        if (blockState.getValue(FACING) == side) {
+            return blockAccess.isAirBlock(pos.offset(side)) ? 0 : 15;
+        } else {
+            return 0;
+        }
+    }
 
-   @Override
-   public boolean canProvidePower(IBlockState state) {
-      return true;
-   }
+    @Override
+    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        return blockState.getWeakPower(blockAccess, pos, side);
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return true;
-   }
+    @Override
+    public boolean canProvidePower(IBlockState state) {
+        return true;
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return true;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
-   }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(FACING).getIndex();
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
+    }
 
-   @Override
-   public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(FACING).getIndex();
+    }
 
-   @Override
-   public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
-   }
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{FACING});
-   }
+    @Override
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{FACING});
+    }
+
 }

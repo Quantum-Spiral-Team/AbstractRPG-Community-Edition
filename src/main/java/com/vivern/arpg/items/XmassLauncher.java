@@ -1,8 +1,8 @@
 package com.vivern.arpg.items;
 
+import com.vivern.arpg.entity.XmassRocket;
 import com.vivern.arpg.items.animation.EnumFlick;
 import com.vivern.arpg.items.animation.Flicks;
-import com.vivern.arpg.entity.XmassRocket;
 import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -22,166 +22,138 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class XmassLauncher extends ItemWeapon {
-   public static int maxammo = 8;
 
-   public XmassLauncher() {
-      this.setRegistryName("xmass_launcher");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("xmass_launcher");
-      this.setMaxDamage(1000);
-      this.setMaxStackSize(1);
-   }
+    public static int maxammo = 8;
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    public XmassLauncher() {
+        this.setRegistryName("xmass_launcher");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("xmass_launcher");
+        this.setMaxDamage(1000);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void boom(int param) {
-      Boom.lastTick = 25;
-      Boom.frequency = -0.126F;
-      Boom.x = 1.0F;
-      Boom.y = 0.0F;
-      Boom.z = 0.0F;
-      Boom.power = 0.3F;
-   }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
-      if (state == 1) {
-         int cooldown = this.getCooldownTime(itemstack);
-         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.SHOOT, 0, cooldown, -1, cooldown);
-      }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void boom(int param) {
+        Boom.lastTick = 25;
+        Boom.frequency = -0.126F;
+        Boom.x = 1.0F;
+        Boom.y = 0.0F;
+        Boom.z = 0.0F;
+        Boom.power = 0.3F;
+    }
 
-      if (state == 2) {
-         int cooldown = this.getCooldownTime(itemstack);
-         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.SHOOT, 0, cooldown, -1, cooldown);
-         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.ROCKET, 0, 14, -1, 14);
-      }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
+        if (state == 1) {
+            int cooldown = this.getCooldownTime(itemstack);
+            Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.SHOOT, 0, cooldown, -1, cooldown);
+        }
 
-      if (state == 3) {
-         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.RELOAD, 0, 60, -1, 60);
-         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.ROCKET, 0, 14, -1, 60);
-      }
-   }
+        if (state == 2) {
+            int cooldown = this.getCooldownTime(itemstack);
+            Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.SHOOT, 0, cooldown, -1, cooldown);
+            Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.ROCKET, 0, 14, -1, 14);
+        }
 
-   @Override
-   public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-      return new AnimationCapabilityProvider();
-   }
+        if (state == 3) {
+            Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.RELOAD, 0, 60, -1, 60);
+            Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.ROCKET, 0, 14, -1, 60);
+        }
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            this.decreaseReload(itemstack, player);
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
-            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-            int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            if ((click || click2) && player.getHeldItemMainhand() == itemstack) {
-               if (ammo > 0 && this.isReloaded(itemstack)) {
-                  if (!player.getCooldownTracker().hasCooldown(this)) {
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.xmass_launcher,
-                        SoundCategory.AMBIENT,
-                        1.0F,
-                        0.9F + itemRand.nextFloat() / 5.0F
-                     );
-                     player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-                     player.addStat(StatList.getObjectUseStats(this));
-                     IWeapon.fireBomEffect(this, player, world, 0);
-                     Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
-                     IWeapon.sendIWeaponState(itemstack, player, ammo > 1 ? 2 : 1, itemSlot, EnumHand.MAIN_HAND);
-                     XmassRocket projectile = new XmassRocket(world, player, itemstack);
-                     Weapons.shoot(
-                        projectile,
-                        EnumHand.MAIN_HAND,
-                        player,
-                        player.rotationPitch - 2.0F,
-                        player.rotationYaw,
-                        0.0F,
-                        parameters.getFloat("velocity"),
-                        parameters.getEnchantedF("inaccuracy", acc),
-                        -0.11F,
-                        0.5F,
-                        0.6F
-                     );
-                     projectile.explodeInstantly = click2;
-                     world.spawnEntity(projectile);
-                     if (!player.capabilities.isCreativeMode) {
-                        this.addAmmo(ammo, itemstack, -1);
-                        itemstack.damageItem(1, player);
-                     }
-                  }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.XMASS_BUNDLE, maxammo)) {
-                  world.playSound(
-                          null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     Sounds.xmass_launcher_rel,
-                     SoundCategory.NEUTRAL,
-                     0.75F,
-                     0.95F + itemRand.nextFloat() / 10.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 0.1F
-                  );
-                  Weapons.setPlayerAnimationOnServer(player, 34, EnumHand.MAIN_HAND);
-                  IWeapon.sendIWeaponState(itemstack, player, 3, itemSlot, EnumHand.MAIN_HAND);
-               }
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+        return new AnimationCapabilityProvider();
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                this.decreaseReload(itemstack, player);
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
+                int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+                int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                if ((click || click2) && player.getHeldItemMainhand() == itemstack) {
+                    if (ammo > 0 && this.isReloaded(itemstack)) {
+                        if (!player.getCooldownTracker().hasCooldown(this)) {
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.xmass_launcher, SoundCategory.AMBIENT, 1.0F, 0.9F + itemRand.nextFloat() / 5.0F);
+                            player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
+                            player.addStat(StatList.getObjectUseStats(this));
+                            IWeapon.fireBomEffect(this, player, world, 0);
+                            Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
+                            IWeapon.sendIWeaponState(itemstack, player, ammo > 1 ? 2 : 1, itemSlot, EnumHand.MAIN_HAND);
+                            XmassRocket projectile = new XmassRocket(world, player, itemstack);
+                            Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch - 2.0F, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.11F, 0.5F, 0.6F);
+                            projectile.explodeInstantly = click2;
+                            world.spawnEntity(projectile);
+                            if (!player.capabilities.isCreativeMode) {
+                                this.addAmmo(ammo, itemstack, -1);
+                                itemstack.damageItem(1, player);
+                            }
+                        }
+                    } else if (this.initiateReload(itemstack, player, ItemsRegister.XMASS_BUNDLE, maxammo)) {
+                        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.xmass_launcher_rel, SoundCategory.NEUTRAL, 0.75F, 0.95F + itemRand.nextFloat() / 10.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 0.1F);
+                        Weapons.setPlayerAnimationOnServer(player, 34, EnumHand.MAIN_HAND);
+                        IWeapon.sendIWeaponState(itemstack, player, 3, itemSlot, EnumHand.MAIN_HAND);
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public float getAdditionalDurabilityBar(ItemStack stack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(stack, "ammo") / maxammo, 0.0F, 1.0F);
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public float getAdditionalDurabilityBar(ItemStack stack) {
+        return MathHelper.clamp((float) NBTHelper.GetNBTint(stack, "ammo") / maxammo, 0.0F, 1.0F);
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
-      return true;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
+        return true;
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.TWO_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.TWO_HANDED;
+    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
+    @Override
+    public int getItemEnchantability() {
+        return 2;
+    }
+
 }

@@ -11,25 +11,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class StormledgePortalFrame extends BlockBlock {
-   public StormledgePortalFrame(Material mater, String name, float hard, float resi) {
-      super(mater, name, hard, resi);
-   }
 
-   @Override
-   public boolean onBlockActivated(
-      World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (player.getHeldItemMainhand().getItem() == ItemsRegister.PIRATE_SEXTANT) {
-         if (!DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(0, 2, 0), null, null)
-            && !DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(1, 2, 0), null, null)
-            && !DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(0, 2, 1), null, null)
-            && !DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(-1, 2, 0), null, null)
-            && DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(0, 2, -1), null, null)) {
-         }
+    public StormledgePortalFrame(Material mater, String name, float hard, float resi) {
+        super(mater, name, hard, resi);
+    }
 
-         return true;
-      } else {
-         return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
-      }
-   }
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (player.getHeldItemMainhand().getItem() == ItemsRegister.PIRATE_SEXTANT) {
+            if (!DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(0, 2, 0), null, null) && !DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(1, 2, 0), null, null) && !DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(0, 2, 1), null, null) && !DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(-1, 2, 0), null, null) && DimensionsRegister.teleporterSTORMLEDGE.tryActivate(world, pos.add(0, 2, -1), null, null)) {
+            }
+
+            return true;
+        } else {
+            return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
+        }
+    }
+
 }

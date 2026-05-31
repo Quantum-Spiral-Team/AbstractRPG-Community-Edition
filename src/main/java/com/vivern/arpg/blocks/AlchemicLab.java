@@ -1,11 +1,10 @@
 package com.vivern.arpg.blocks;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.entity.EntityMagicUI;
 import com.vivern.arpg.main.IMagicUI;
-import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TileAlchemicLab;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -33,165 +32,143 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class AlchemicLab extends Block implements IMagicUI {
-   public static final PropertyBool NORTH = PropertyBool.create("north");
-   public static final PropertyBool EAST = PropertyBool.create("east");
-   public static final PropertyBool SOUTH = PropertyBool.create("south");
-   public static final PropertyBool WEST = PropertyBool.create("west");
 
-   public AlchemicLab() {
-      super(Material.GLASS);
-      this.setRegistryName("alchemic_lab");
-      this.setTranslationKey("alchemic_lab");
-      this.blockHardness = 2.5F;
-      this.blockResistance = 1.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setLightLevel(0.5F);
-      this.setSoundType(SoundTypeShards.SHARDS);
-      this.setHarvestLevel("pickaxe", 0);
-   }
+    public static final PropertyBool NORTH = PropertyBool.create("north");
+    public static final PropertyBool EAST = PropertyBool.create("east");
+    public static final PropertyBool SOUTH = PropertyBool.create("south");
+    public static final PropertyBool WEST = PropertyBool.create("west");
 
-   @Override
-   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity instanceof IInventory) {
-         InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
-         worldIn.updateComparatorOutputLevel(pos, this);
-      }
+    public AlchemicLab() {
+        super(Material.GLASS);
+        this.setRegistryName("alchemic_lab");
+        this.setTranslationKey("alchemic_lab");
+        this.blockHardness = 2.5F;
+        this.blockResistance = 1.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setLightLevel(0.5F);
+        this.setSoundType(SoundTypeShards.SHARDS);
+        this.setHarvestLevel("pickaxe", 0);
+    }
 
-      super.breakBlock(worldIn, pos, state);
-   }
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof IInventory) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
 
-   @Override
-   public void open(World world, EntityPlayer player, BlockPos pos, Entity entity) {
-      if (!world.isRemote && IMagicUI.checkNoNearOpened(world, pos, null, 2)) {
-         world.playSound(
-                 null,
-            pos.getX(),
-            pos.getY(),
-            pos.getZ(),
-            Sounds.mui_open,
-            IMagicUI.sound,
-            0.8F,
-            0.85F + RANDOM.nextFloat() * 0.3F
-         );
-         EntityMagicUI.EntityMUIManaBuffer mui1 = new EntityMagicUI.EntityMUIManaBuffer(world, pos);
-         mui1.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
-         world.spawnEntity(mui1);
-      }
-   }
+        super.breakBlock(worldIn, pos, state);
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.TRANSLUCENT;
-   }
+    @Override
+    public void open(World world, EntityPlayer player, BlockPos pos, Entity entity) {
+        if (!world.isRemote && IMagicUI.checkNoNearOpened(world, pos, null, 2)) {
+            world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), Sounds.mui_open, IMagicUI.sound, 0.8F, 0.85F + RANDOM.nextFloat() * 0.3F);
+            EntityMagicUI.EntityMUIManaBuffer mui1 = new EntityMagicUI.EntityMUIManaBuffer(world, pos);
+            mui1.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
+            world.spawnEntity(mui1);
+        }
+    }
 
-   @Override
-   public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-      return layer == BlockRenderLayer.TRANSLUCENT || layer == BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
 
-   @Override
-   public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      boolean west = worldIn.getTileEntity(pos.west()) != null
-         && worldIn.getTileEntity(pos.west()).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.EAST);
-      boolean east = worldIn.getTileEntity(pos.east()) != null
-         && worldIn.getTileEntity(pos.east()).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.WEST);
-      boolean south = worldIn.getTileEntity(pos.south()) != null
-         && worldIn.getTileEntity(pos.south()).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.NORTH);
-      boolean north = worldIn.getTileEntity(pos.north()) != null
-         && worldIn.getTileEntity(pos.north()).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.SOUTH);
-      return state.withProperty(WEST, west).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, south);
-   }
+    @Override
+    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
+        return layer == BlockRenderLayer.TRANSLUCENT || layer == BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      return worldIn.isAirBlock(pos.up());
-   }
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        boolean west = worldIn.getTileEntity(pos.west()) != null && worldIn.getTileEntity(pos.west()).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.EAST);
+        boolean east = worldIn.getTileEntity(pos.east()) != null && worldIn.getTileEntity(pos.east()).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.WEST);
+        boolean south = worldIn.getTileEntity(pos.south()) != null && worldIn.getTileEntity(pos.south()).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.NORTH);
+        boolean north = worldIn.getTileEntity(pos.north()) != null && worldIn.getTileEntity(pos.north()).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.SOUTH);
+        return state.withProperty(WEST, west).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, south);
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST});
-   }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return worldIn.isAirBlock(pos.up());
+    }
 
-   @Override
-   public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-      return BlockFaceShape.UNDEFINED;
-   }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST});
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getActualState(this.getDefaultState(), worldIn, pos);
-   }
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!worldIn.isRemote) {
-         TileAlchemicLab tile = this.getTileEntity(worldIn, pos);
-         worldIn.playSound(null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
-         if (tile != null) {
-            player.openGui(AbstractRPG.instance, 2, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            return true;
-         }
-      }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getActualState(this.getDefaultState(), worldIn, pos);
+    }
 
-      return true;
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            TileAlchemicLab tile = this.getTileEntity(worldIn, pos);
+            worldIn.playSound(null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
+            if (tile != null) {
+                player.openGui(AbstractRPG.instance, 2, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                return true;
+            }
+        }
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TileAlchemicLab tile, int range) {
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + range,
-            pos.getY() + range,
-            pos.getZ() + range,
-            pos.getX() - range,
-            pos.getY() - range,
-            pos.getZ() - range
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+        return true;
+    }
 
-   public Class<TileAlchemicLab> getTileEntityClass() {
-      return TileAlchemicLab.class;
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TileAlchemicLab tile, int range) {
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + range, pos.getY() + range, pos.getZ() + range, pos.getX() - range, pos.getY() - range, pos.getZ() - range))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-   public TileAlchemicLab getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileAlchemicLab)world.getTileEntity(position);
-   }
+    public Class<TileAlchemicLab> getTileEntityClass() {
+        return TileAlchemicLab.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileAlchemicLab getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileAlchemicLab) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileAlchemicLab createTileEntity(World world, IBlockState blockState) {
-      return new TileAlchemicLab();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @Nullable
+    public TileAlchemicLab createTileEntity(World world, IBlockState blockState) {
+        return new TileAlchemicLab();
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return 0;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState();
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return 0;
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState();
+    }
+
 }

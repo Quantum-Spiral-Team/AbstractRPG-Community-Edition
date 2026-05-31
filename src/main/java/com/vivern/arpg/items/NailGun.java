@@ -18,146 +18,116 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class NailGun extends ItemWeapon {
-   public static int maxammo = 128;
 
-   public NailGun() {
-      this.setRegistryName("nail_gun");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("nail_gun");
-      this.setMaxDamage(3500);
-      this.setMaxStackSize(1);
-   }
+    public static int maxammo = 128;
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    public NailGun() {
+        this.setRegistryName("nail_gun");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("nail_gun");
+        this.setMaxDamage(3500);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void boom(int param) {
-      Boom.lastTick = 7;
-      Boom.frequency = -0.45F;
-      Boom.x = 1.0F;
-      Boom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
-      Boom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
-      Boom.power = 0.27F;
-   }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-            this.decreaseReload(itemstack, player);
-            int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            if (click && player.getHeldItemMainhand() == itemstack) {
-               if (ammo > 0 && this.isReloaded(itemstack)) {
-                  if (!player.getCooldownTracker().hasCooldown(this)) {
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.explode_stinger,
-                        SoundCategory.AMBIENT,
-                        0.9F,
-                        1.2F + itemRand.nextFloat() / 5.0F
-                     );
-                     player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-                     player.addStat(StatList.getObjectUseStats(this));
-                     IWeapon.fireBomEffect(this, player, world, 0);
-                     Weapons.setPlayerAnimationOnServer(player, 12, EnumHand.MAIN_HAND);
-                     NailGunShoot projectile = new NailGunShoot(world, player, itemstack);
-                     Weapons.shoot(
-                        projectile,
-                        EnumHand.MAIN_HAND,
-                        player,
-                        player.rotationPitch,
-                        player.rotationYaw,
-                        0.0F,
-                        parameters.getFloat("velocity"),
-                        parameters.getEnchantedF("inaccuracy", acc),
-                        -0.15F,
-                        0.5F,
-                        0.6F
-                     );
-                     projectile.velocityChanged = true;
-                     world.spawnEntity(projectile);
-                     if (!player.capabilities.isCreativeMode) {
-                        this.addAmmo(ammo, itemstack, -1);
-                        itemstack.damageItem(1, player);
-                     }
-                  }
-               } else if (this.initiateMetadataReload(
-                  itemstack, player, new ItemStack(ItemsRegister.NAIL_GUN_CLIP, 1, 1), maxammo, new ItemStack(ItemsRegister.NAIL_GUN_CLIP, 1, 0)
-               )) {
-                  world.playSound(
-                          null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     Sounds.nether_grinder_rel,
-                     SoundCategory.NEUTRAL,
-                     0.7F,
-                     0.95F + itemRand.nextFloat() / 10.0F
-                  );
-                  Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
-               }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void boom(int param) {
+        Boom.lastTick = 7;
+        Boom.frequency = -0.45F;
+        Boom.x = 1.0F;
+        Boom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
+        Boom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
+        Boom.power = 0.27F;
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+                this.decreaseReload(itemstack, player);
+                int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                if (click && player.getHeldItemMainhand() == itemstack) {
+                    if (ammo > 0 && this.isReloaded(itemstack)) {
+                        if (!player.getCooldownTracker().hasCooldown(this)) {
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.explode_stinger, SoundCategory.AMBIENT, 0.9F, 1.2F + itemRand.nextFloat() / 5.0F);
+                            player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
+                            player.addStat(StatList.getObjectUseStats(this));
+                            IWeapon.fireBomEffect(this, player, world, 0);
+                            Weapons.setPlayerAnimationOnServer(player, 12, EnumHand.MAIN_HAND);
+                            NailGunShoot projectile = new NailGunShoot(world, player, itemstack);
+                            Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.15F, 0.5F, 0.6F);
+                            projectile.velocityChanged = true;
+                            world.spawnEntity(projectile);
+                            if (!player.capabilities.isCreativeMode) {
+                                this.addAmmo(ammo, itemstack, -1);
+                                itemstack.damageItem(1, player);
+                            }
+                        }
+                    } else if (this.initiateMetadataReload(itemstack, player, new ItemStack(ItemsRegister.NAIL_GUN_CLIP, 1, 1), maxammo, new ItemStack(ItemsRegister.NAIL_GUN_CLIP, 1, 0))) {
+                        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.nether_grinder_rel, SoundCategory.NEUTRAL, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
+                        Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public float getAdditionalDurabilityBar(ItemStack stack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(stack, "ammo") / maxammo, 0.0F, 1.0F);
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public float getAdditionalDurabilityBar(ItemStack stack) {
+        return MathHelper.clamp((float) NBTHelper.GetNBTint(stack, "ammo") / maxammo, 0.0F, 1.0F);
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
-      return true;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
+        return true;
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.TWO_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.TWO_HANDED;
+    }
 
-   @Override
-   public int getCooldownTime(ItemStack itemstack) {
-      int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return 4 - rapidity;
-   }
+    @Override
+    public int getCooldownTime(ItemStack itemstack) {
+        int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
+        return 4 - rapidity;
+    }
 
-   @Override
-   public int getReloadTime(ItemStack itemstack) {
-      return 75 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 20;
-   }
+    @Override
+    public int getReloadTime(ItemStack itemstack) {
+        return 75 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 20;
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
+
 }

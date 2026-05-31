@@ -20,150 +20,147 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Garland extends Block {
-   public static final PropertyBool NORTH = PropertyBool.create("north");
-   public static final PropertyBool EAST = PropertyBool.create("east");
-   public static final PropertyBool SOUTH = PropertyBool.create("south");
-   public static final PropertyBool WEST = PropertyBool.create("west");
-   public static final PropertyBool VERTICAL = PropertyBool.create("vertical");
-   protected static final AxisAlignedBB SN_AABB = new AxisAlignedBB(0.375, 0.375, 0.0, 0.625, 1.0, 1.0);
-   protected static final AxisAlignedBB WE_AABB = new AxisAlignedBB(0.0, 0.375, 0.375, 1.0, 1.0, 0.625);
-   protected static final AxisAlignedBB UPPER_AABB = new AxisAlignedBB(0.375, 0.375, 0.375, 0.625, 1.0, 0.625);
-   protected static final AxisAlignedBB UPPERLARGE_AABB = new AxisAlignedBB(0.175, 0.625, 0.175, 0.825, 1.0, 0.825);
-   protected static final AxisAlignedBB S_half_AABB = new AxisAlignedBB(0.0, 0.25, 0.825, 1.0, 0.875, 1.0);
-   protected static final AxisAlignedBB W_half_AABB = new AxisAlignedBB(0.0, 0.25, 0.0, 0.175, 0.875, 1.0);
-   protected static final AxisAlignedBB N_half_AABB = new AxisAlignedBB(0.0, 0.25, 0.0, 1.0, 0.875, 0.175);
-   protected static final AxisAlignedBB E_half_AABB = new AxisAlignedBB(0.825, 0.25, 0.0, 1.0, 0.875, 1.0);
 
-   public Garland() {
-      super(Material.CLOTH);
-      this.setRegistryName("garland");
-      this.setTranslationKey("garland");
-      this.blockHardness = 0.0F;
-      this.blockResistance = 0.0F;
-      this.setSoundType(SoundType.CLOTH);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setDefaultState(this.getDefaultState().withProperty(VERTICAL, false));
-      this.setLightLevel(0.2F);
-   }
+    public static final PropertyBool NORTH = PropertyBool.create("north");
+    public static final PropertyBool EAST = PropertyBool.create("east");
+    public static final PropertyBool SOUTH = PropertyBool.create("south");
+    public static final PropertyBool WEST = PropertyBool.create("west");
+    public static final PropertyBool VERTICAL = PropertyBool.create("vertical");
+    protected static final AxisAlignedBB SN_AABB = new AxisAlignedBB(0.375, 0.375, 0.0, 0.625, 1.0, 1.0);
+    protected static final AxisAlignedBB WE_AABB = new AxisAlignedBB(0.0, 0.375, 0.375, 1.0, 1.0, 0.625);
+    protected static final AxisAlignedBB UPPER_AABB = new AxisAlignedBB(0.375, 0.375, 0.375, 0.625, 1.0, 0.625);
+    protected static final AxisAlignedBB UPPERLARGE_AABB = new AxisAlignedBB(0.175, 0.625, 0.175, 0.825, 1.0, 0.825);
+    protected static final AxisAlignedBB S_half_AABB = new AxisAlignedBB(0.0, 0.25, 0.825, 1.0, 0.875, 1.0);
+    protected static final AxisAlignedBB W_half_AABB = new AxisAlignedBB(0.0, 0.25, 0.0, 0.175, 0.875, 1.0);
+    protected static final AxisAlignedBB N_half_AABB = new AxisAlignedBB(0.0, 0.25, 0.0, 1.0, 0.875, 0.175);
+    protected static final AxisAlignedBB E_half_AABB = new AxisAlignedBB(0.825, 0.25, 0.0, 1.0, 0.875, 1.0);
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return 15728880;
-   }
+    public Garland() {
+        super(Material.CLOTH);
+        this.setRegistryName("garland");
+        this.setTranslationKey("garland");
+        this.blockHardness = 0.0F;
+        this.blockResistance = 0.0F;
+        this.setSoundType(SoundType.CLOTH);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setDefaultState(this.getDefaultState().withProperty(VERTICAL, false));
+        this.setLightLevel(0.2F);
+    }
 
-   public AxisAlignedBB getAABB(IBlockState state) {
-      boolean n = state.getValue(NORTH);
-      boolean e = state.getValue(EAST);
-      boolean s = state.getValue(SOUTH);
-      boolean w = state.getValue(WEST);
-      boolean vertical = state.getValue(VERTICAL);
-      if (vertical) {
-         if (n) {
-            return e ? UPPERLARGE_AABB : SN_AABB;
-         } else {
-            return e ? WE_AABB : UPPER_AABB;
-         }
-      } else if (n && !s) {
-         return N_half_AABB;
-      } else if (e && !w) {
-         return E_half_AABB;
-      } else if (s && !n) {
-         return S_half_AABB;
-      } else {
-         return w && !e ? W_half_AABB : FULL_BLOCK_AABB;
-      }
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return 15728880;
+    }
 
-   @Override
-   public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      if (state.getValue(VERTICAL)) {
-         boolean west = worldIn.getBlockState(pos.west()).getBlock() == this;
-         boolean east = west || worldIn.getBlockState(pos.east()).getBlock() == this;
-         boolean south = worldIn.getBlockState(pos.south()).getBlock() == this;
-         boolean north = south || worldIn.getBlockState(pos.north()).getBlock() == this;
-         return state.withProperty(WEST, east).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, north);
-      } else {
-         boolean west = this.isBlocksolid(worldIn, pos.west());
-         boolean east = this.isBlocksolid(worldIn, pos.east());
-         boolean south = this.isBlocksolid(worldIn, pos.south());
-         boolean north = this.isBlocksolid(worldIn, pos.north());
-         return state.withProperty(WEST, west).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, south);
-      }
-   }
+    public AxisAlignedBB getAABB(IBlockState state) {
+        boolean n = state.getValue(NORTH);
+        boolean e = state.getValue(EAST);
+        boolean s = state.getValue(SOUTH);
+        boolean w = state.getValue(WEST);
+        boolean vertical = state.getValue(VERTICAL);
+        if (vertical) {
+            if (n) {
+                return e ? UPPERLARGE_AABB : SN_AABB;
+            } else {
+                return e ? WE_AABB : UPPER_AABB;
+            }
+        } else if (n && !s) {
+            return N_half_AABB;
+        } else if (e && !w) {
+            return E_half_AABB;
+        } else if (s && !n) {
+            return S_half_AABB;
+        } else {
+            return w && !e ? W_half_AABB : FULL_BLOCK_AABB;
+        }
+    }
 
-   @Override
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      boolean west = this.isBlocksolid(worldIn, pos.west());
-      boolean east = this.isBlocksolid(worldIn, pos.east());
-      boolean south = this.isBlocksolid(worldIn, pos.south());
-      boolean north = this.isBlocksolid(worldIn, pos.north());
-      boolean up = this.isBlocksolid(worldIn, pos.up());
-      return east || north || south || west || up;
-   }
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        if (state.getValue(VERTICAL)) {
+            boolean west = worldIn.getBlockState(pos.west()).getBlock() == this;
+            boolean east = west || worldIn.getBlockState(pos.east()).getBlock() == this;
+            boolean south = worldIn.getBlockState(pos.south()).getBlock() == this;
+            boolean north = south || worldIn.getBlockState(pos.north()).getBlock() == this;
+            return state.withProperty(WEST, east).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, north);
+        } else {
+            boolean west = this.isBlocksolid(worldIn, pos.west());
+            boolean east = this.isBlocksolid(worldIn, pos.east());
+            boolean south = this.isBlocksolid(worldIn, pos.south());
+            boolean north = this.isBlocksolid(worldIn, pos.north());
+            return state.withProperty(WEST, west).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, south);
+        }
+    }
 
-   public boolean isBlocksolid(IBlockAccess worldIn, BlockPos pos) {
-      return worldIn.getBlockState(pos).getCollisionBoundingBox(worldIn, pos) != Block.NULL_AABB;
-   }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        boolean west = this.isBlocksolid(worldIn, pos.west());
+        boolean east = this.isBlocksolid(worldIn, pos.east());
+        boolean south = this.isBlocksolid(worldIn, pos.south());
+        boolean north = this.isBlocksolid(worldIn, pos.north());
+        boolean up = this.isBlocksolid(worldIn, pos.up());
+        return east || north || south || west || up;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return NULL_AABB;
-   }
+    public boolean isBlocksolid(IBlockAccess worldIn, BlockPos pos) {
+        return worldIn.getBlockState(pos).getCollisionBoundingBox(worldIn, pos) != Block.NULL_AABB;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return this.getAABB(this.getActualState(state, source, pos));
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return NULL_AABB;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return this.getAABB(this.getActualState(state, source, pos));
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(VERTICAL, meta > 0);
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(VERTICAL) ? 1 : 0;
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(VERTICAL, meta > 0);
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, VERTICAL});
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(VERTICAL) ? 1 : 0;
+    }
 
-   @Override
-   public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-      return BlockFaceShape.UNDEFINED;
-   }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, VERTICAL});
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      boolean west = this.isBlocksolid(worldIn, pos.west());
-      boolean east = this.isBlocksolid(worldIn, pos.east());
-      boolean south = this.isBlocksolid(worldIn, pos.south());
-      boolean north = this.isBlocksolid(worldIn, pos.north());
-      boolean up = this.isBlocksolid(worldIn, pos.up());
-      return this.getDefaultState()
-         .withProperty(VERTICAL, placer.isSneaking() || !west && !east && !south && !north && up)
-         .withProperty(WEST, west)
-         .withProperty(EAST, east)
-         .withProperty(NORTH, north)
-         .withProperty(SOUTH, south);
-   }
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        boolean west = this.isBlocksolid(worldIn, pos.west());
+        boolean east = this.isBlocksolid(worldIn, pos.east());
+        boolean south = this.isBlocksolid(worldIn, pos.south());
+        boolean north = this.isBlocksolid(worldIn, pos.north());
+        boolean up = this.isBlocksolid(worldIn, pos.up());
+        return this.getDefaultState().withProperty(VERTICAL, placer.isSneaking() || !west && !east && !south && !north && up).withProperty(WEST, west).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, south);
+    }
+
 }

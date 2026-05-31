@@ -1,18 +1,13 @@
 package com.vivern.arpg.blocks;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.items.ItemCalibrationThing;
 import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.recipes.ExploringField;
 import com.vivern.arpg.tileentity.TileResearchTable;
-import java.util.Random;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -27,108 +22,112 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class ResearchTable extends Table {
-   static Vec3d col = ColorConverters.DecimaltoRGB(7286418);
 
-   public ResearchTable() {
-      super(Material.WOOD, "research_table", 3.0F, 25.0F, SoundType.WOOD, "axe", 0);
-   }
+    static Vec3d col = ColorConverters.DecimaltoRGB(7286418);
 
-   @Override
-   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity instanceof TileResearchTable) {
-         TileResearchTable tile = (TileResearchTable)tileentity;
-         if (tile.specialization == 1) {
-            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_EXPLORING_KIT));
-         }
+    public ResearchTable() {
+        super(Material.WOOD, "research_table", 3.0F, 25.0F, SoundType.WOOD, "axe", 0);
+    }
 
-         if (tile.specialization == 2) {
-            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_RESEARCH_KIT));
-         }
-
-         if (tile.specialization == 3) {
-            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_WRITING_KIT));
-         }
-      }
-
-      super.breakBlock(worldIn, pos, state);
-   }
-
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!worldIn.isRemote && hand == EnumHand.MAIN_HAND) {
-         TileResearchTable tile = this.getTileEntity(worldIn, pos);
-         if (tile != null) {
-            if (tile.specialization == 0) {
-               Item item = player.getHeldItemMainhand().getItem();
-               if (item == ItemsRegister.MAGIC_EXPLORING_KIT) {
-                  tile.specialization = 1;
-                  tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
-                  player.getHeldItemMainhand().shrink(1);
-                  PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
-                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
-               } else if (item == ItemsRegister.MAGIC_RESEARCH_KIT) {
-                  tile.specialization = 2;
-                  tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
-                  player.getHeldItemMainhand().shrink(1);
-                  PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
-                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
-               } else if (item == ItemsRegister.MAGIC_WRITING_KIT) {
-                  tile.specialization = 3;
-                  tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
-                  player.getHeldItemMainhand().shrink(1);
-                  PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
-                  player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
-               }
-            } else if (!player.getCooldownTracker().hasCooldown(ItemsRegister.MAGIC_EXPLORING_KIT)) {
-               if (player instanceof EntityPlayerMP) {
-                  ExploringField.SendExploringInfoToClient((EntityPlayerMP)player);
-               }
-
-               player.openGui(AbstractRPG.instance, 14, worldIn, pos.getX(), pos.getY(), pos.getZ());
-               tile.openTable(player);
-               return true;
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof TileResearchTable) {
+            TileResearchTable tile = (TileResearchTable) tileentity;
+            if (tile.specialization == 1) {
+                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_EXPLORING_KIT));
             }
-         }
-      }
 
-      return true;
-   }
+            if (tile.specialization == 2) {
+                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_RESEARCH_KIT));
+            }
 
-   public Class<TileResearchTable> getTileEntityClass() {
-      return TileResearchTable.class;
-   }
+            if (tile.specialization == 3) {
+                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_WRITING_KIT));
+            }
+        }
 
-   public TileResearchTable getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileResearchTable)world.getTileEntity(position);
-   }
+        super.breakBlock(worldIn, pos, state);
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote && hand == EnumHand.MAIN_HAND) {
+            TileResearchTable tile = this.getTileEntity(worldIn, pos);
+            if (tile != null) {
+                if (tile.specialization == 0) {
+                    Item item = player.getHeldItemMainhand().getItem();
+                    if (item == ItemsRegister.MAGIC_EXPLORING_KIT) {
+                        tile.specialization = 1;
+                        tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
+                        player.getHeldItemMainhand().shrink(1);
+                        PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
+                        player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
+                    } else if (item == ItemsRegister.MAGIC_RESEARCH_KIT) {
+                        tile.specialization = 2;
+                        tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
+                        player.getHeldItemMainhand().shrink(1);
+                        PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
+                        player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
+                    } else if (item == ItemsRegister.MAGIC_WRITING_KIT) {
+                        tile.specialization = 3;
+                        tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
+                        player.getHeldItemMainhand().shrink(1);
+                        PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
+                        player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
+                    }
+                } else if (!player.getCooldownTracker().hasCooldown(ItemsRegister.MAGIC_EXPLORING_KIT)) {
+                    if (player instanceof EntityPlayerMP) {
+                        ExploringField.SendExploringInfoToClient((EntityPlayerMP) player);
+                    }
 
-   @Override
-   @Nullable
-   public TileResearchTable createTileEntity(World world, IBlockState blockState) {
-      return new TileResearchTable();
-   }
+                    player.openGui(AbstractRPG.instance, 14, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                    tile.openTable(player);
+                    return true;
+                }
+            }
+        }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void randomDisplayTick(IBlockState stateIn, World world, BlockPos pos, Random rand) {
-      TileResearchTable tile = this.getTileEntity(world, pos);
-      if (tile.specialization == 1) {
-         for (int i = -3; i <= 3; i++) {
-            Vec3d addd = GetMOP.yawToVec3D(tile.rotation * 90.0F + i * 45).scale(0.375);
-            Vec3d finalpos = new Vec3d(pos.getX() + 0.5, pos.getY() + 1 + 0.4375 - Math.abs(i) * 0.0625, pos.getZ() + 0.5)
-               .add(addd);
-            ItemCalibrationThing.spawnCandleLightParticle(world, finalpos, col, false);
-         }
-      }
-   }
+        return true;
+    }
+
+    public Class<TileResearchTable> getTileEntityClass() {
+        return TileResearchTable.class;
+    }
+
+    public TileResearchTable getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileResearchTable) world.getTileEntity(position);
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
+
+    @Override
+    @Nullable
+    public TileResearchTable createTileEntity(World world, IBlockState blockState) {
+        return new TileResearchTable();
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void randomDisplayTick(IBlockState stateIn, World world, BlockPos pos, Random rand) {
+        TileResearchTable tile = this.getTileEntity(world, pos);
+        if (tile.specialization == 1) {
+            for (int i = -3; i <= 3; i++) {
+                Vec3d addd = GetMOP.yawToVec3D(tile.rotation * 90.0F + i * 45).scale(0.375);
+                Vec3d finalpos = new Vec3d(pos.getX() + 0.5, pos.getY() + 1 + 0.4375 - Math.abs(i) * 0.0625, pos.getZ() + 0.5).add(addd);
+                ItemCalibrationThing.spawnCandleLightParticle(world, finalpos, col, false);
+            }
+        }
+    }
+
 }

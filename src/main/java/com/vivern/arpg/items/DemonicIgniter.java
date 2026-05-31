@@ -16,32 +16,34 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class DemonicIgniter extends Item {
-   public DemonicIgniter() {
-      this.setRegistryName("demonic_igniter");
-      this.setCreativeTab(CreativeTabs.TOOLS);
-      this.setTranslationKey("demonic_igniter");
-      this.setMaxDamage(50);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-      pos = pos.offset(facing);
-      ItemStack itemstack = player.getHeldItem(hand);
-      if (!player.canPlayerEdit(pos, facing, itemstack)) {
-         return EnumActionResult.FAIL;
-      } else {
-         if (worldIn.isAirBlock(pos)) {
-            worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-            worldIn.setBlockState(pos, BlocksRegister.DEMONIC_FIRE.getDefaultState(), 11);
-         }
+    public DemonicIgniter() {
+        this.setRegistryName("demonic_igniter");
+        this.setCreativeTab(CreativeTabs.TOOLS);
+        this.setTranslationKey("demonic_igniter");
+        this.setMaxDamage(50);
+        this.setMaxStackSize(1);
+    }
 
-         if (player instanceof EntityPlayerMP) {
-            CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)player, pos, itemstack);
-         }
+    @Override
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        pos = pos.offset(facing);
+        ItemStack itemstack = player.getHeldItem(hand);
+        if (!player.canPlayerEdit(pos, facing, itemstack)) {
+            return EnumActionResult.FAIL;
+        } else {
+            if (worldIn.isAirBlock(pos)) {
+                worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
+                worldIn.setBlockState(pos, BlocksRegister.DEMONIC_FIRE.getDefaultState(), 11);
+            }
 
-         itemstack.damageItem(1, player);
-         return EnumActionResult.SUCCESS;
-      }
-   }
+            if (player instanceof EntityPlayerMP) {
+                CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP) player, pos, itemstack);
+            }
+
+            itemstack.damageItem(1, player);
+            return EnumActionResult.SUCCESS;
+        }
+    }
+
 }

@@ -1,8 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.tileentity.TileTopazCrystal;
-import java.util.Random;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -16,90 +14,85 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class TopazCrystal extends Block {
-   public static final AxisAlignedBB ALL_AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 1.0, 0.75);
 
-   public TopazCrystal() {
-      super(Material.GLASS);
-      this.setRegistryName("topaz_crystal");
-      this.setTranslationKey("topaz_crystal");
-      this.blockHardness = 4.5F;
-      this.blockResistance = 10.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setLightLevel(0.5F);
-      this.setSoundType(SoundTypeShards.SHARDS);
-      this.setHarvestLevel("pickaxe", 1);
-   }
+    public static final AxisAlignedBB ALL_AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 1.0, 0.75);
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.TRANSLUCENT;
-   }
+    public TopazCrystal() {
+        super(Material.GLASS);
+        this.setRegistryName("topaz_crystal");
+        this.setTranslationKey("topaz_crystal");
+        this.blockHardness = 4.5F;
+        this.blockResistance = 10.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setLightLevel(0.5F);
+        this.setSoundType(SoundTypeShards.SHARDS);
+        this.setHarvestLevel("pickaxe", 1);
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-      if (rand.nextFloat() < 0.4F) {
-         TileTopazCrystal tile = this.getTileEntity(worldIn, pos);
-         if (tile != null && tile.givePos != null) {
-         }
-      }
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TileTopazCrystal tile) {
-      int range = 64;
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        if (rand.nextFloat() < 0.4F) {
+            TileTopazCrystal tile = this.getTileEntity(worldIn, pos);
+            if (tile != null && tile.givePos != null) {
+            }
+        }
+    }
 
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + 64,
-            pos.getY() + 64,
-            pos.getZ() + 64,
-            pos.getX() - 64,
-            pos.getY() - 64,
-            pos.getZ() - 64
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TileTopazCrystal tile) {
+        int range = 64;
 
-   public Class<TileTopazCrystal> getTileEntityClass() {
-      return TileTopazCrystal.class;
-   }
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + 64, pos.getY() + 64, pos.getZ() + 64, pos.getX() - 64, pos.getY() - 64, pos.getZ() - 64))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-   public TileTopazCrystal getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileTopazCrystal)world.getTileEntity(position);
-   }
+    public Class<TileTopazCrystal> getTileEntityClass() {
+        return TileTopazCrystal.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileTopazCrystal getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileTopazCrystal) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileTopazCrystal createTileEntity(World world, IBlockState blockState) {
-      return new TileTopazCrystal();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @Nullable
+    public TileTopazCrystal createTileEntity(World world, IBlockState blockState) {
+        return new TileTopazCrystal();
+    }
+
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
 }

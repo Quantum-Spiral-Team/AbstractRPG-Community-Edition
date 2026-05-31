@@ -13,27 +13,20 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 public class Antipotion extends Item {
-   public Antipotion() {
-      this.setRegistryName("antipotion");
-      this.setCreativeTab(CreativeTabs.FOOD);
-      this.setTranslationKey("antipotion");
-   }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      player.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
-      itemstack.shrink(1);
-      world.playSound(
-              null,
-         player.posX,
-         player.posY,
-         player.posZ,
-         Sounds.injector,
-         SoundCategory.PLAYERS,
-         0.8F,
-         0.9F + itemRand.nextFloat() / 5.0F
-      );
-      return new ActionResult(EnumActionResult.SUCCESS, itemstack);
-   }
+    public Antipotion() {
+        this.setRegistryName("antipotion");
+        this.setCreativeTab(CreativeTabs.FOOD);
+        this.setTranslationKey("antipotion");
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        player.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
+        itemstack.shrink(1);
+        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.injector, SoundCategory.PLAYERS, 0.8F, 0.9F + itemRand.nextFloat() / 5.0F);
+        return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+    }
+
 }

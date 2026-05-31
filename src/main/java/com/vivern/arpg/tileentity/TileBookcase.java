@@ -4,9 +4,6 @@ import com.vivern.arpg.main.ItemsElements;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.network.PacketHandler;
-import java.util.ArrayList;
-import java.util.Random;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -16,159 +13,165 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class TileBookcase extends TileEntity {
-   public int[] booksGems = new int[]{50, 50, 50};
-   public int booksVariant = 0;
-   public int rotation;
-   public static Random rand = new Random();
-   public NonNullList<ItemStack> stacks = NonNullList.withSize(3, ItemStack.EMPTY);
 
-   public TileBookcase() {
-      this.booksVariant = rand.nextInt(7) + 1;
-   }
+    public int[] booksGems = new int[]{50, 50, 50};
+    public int booksVariant = 0;
+    public int rotation;
+    public static Random rand = new Random();
+    public NonNullList<ItemStack> stacks = NonNullList.withSize(3, ItemStack.EMPTY);
 
-   public boolean hasBooks() {
-      for (int i = 0; i < 3; i++) {
-         if (!this.stacks.get(i).isEmpty()) {
-            return true;
-         }
-      }
+    public TileBookcase() {
+        this.booksVariant = rand.nextInt(7) + 1;
+    }
 
-      return false;
-   }
+    public boolean hasBooks() {
+        for (int i = 0; i < 3; i++) {
+            if (!this.stacks.get(i).isEmpty()) {
+                return true;
+            }
+        }
 
-   @Nullable
-   public ItemsElements.ElementsPack getInformation(ItemStack stack) {
-      ArrayList<ItemStack> stacksInBooks = new ArrayList<>();
+        return false;
+    }
 
-      for (int i = 0; i < 3; i++) {
-         ItemStack book = this.stacks.get(i);
-         if (!book.isEmpty()) {
-            NBTTagList tagList = NBTHelper.GetNbtTagList(book, "pages", 10);
-            if (!tagList.isEmpty()) {
-               for (NBTBase base : tagList) {
-                  if (base instanceof NBTTagCompound) {
-                     NBTTagCompound tagCompound = (NBTTagCompound)base;
-                     if (tagCompound.hasKey("item") && tagCompound.hasKey("metadata")) {
-                        Item item = Item.getByNameOrId(tagCompound.getString("item"));
-                        if (item != null) {
-                           stacksInBooks.add(new ItemStack(item, 1, tagCompound.getInteger("metadata")));
+    @Nullable
+    public ItemsElements.ElementsPack getInformation(ItemStack stack) {
+        ArrayList<ItemStack> stacksInBooks = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            ItemStack book = this.stacks.get(i);
+            if (!book.isEmpty()) {
+                NBTTagList tagList = NBTHelper.GetNbtTagList(book, "pages", 10);
+                if (!tagList.isEmpty()) {
+                    for (NBTBase base : tagList) {
+                        if (base instanceof NBTTagCompound) {
+                            NBTTagCompound tagCompound = (NBTTagCompound) base;
+                            if (tagCompound.hasKey("item") && tagCompound.hasKey("metadata")) {
+                                Item item = Item.getByNameOrId(tagCompound.getString("item"));
+                                if (item != null) {
+                                    stacksInBooks.add(new ItemStack(item, 1, tagCompound.getInteger("metadata")));
+                                }
+                            }
                         }
-                     }
-                  }
-               }
+                    }
+                }
             }
-         }
-      }
+        }
 
-      for (ItemStack writtenStack : stacksInBooks) {
-         if (stack.getItem() == writtenStack.getItem()) {
-            if (stack.getMetadata() == writtenStack.getMetadata()) {
-               return ItemsElements.getAllElements(stack);
+        for (ItemStack writtenStack : stacksInBooks) {
+            if (stack.getItem() == writtenStack.getItem()) {
+                if (stack.getMetadata() == writtenStack.getMetadata()) {
+                    return ItemsElements.getAllElements(stack);
+                }
+
+                ItemsElements.ElementsPack elementsInCase = ItemsElements.getAllElements(writtenStack);
+                ItemsElements.ElementsPack elementsAnalyzed = ItemsElements.getAllElements(stack);
+                if (elementsAnalyzed == elementsInCase && elementsAnalyzed != ItemsElements.EMPTY_ELEMENTS) {
+                    return elementsAnalyzed;
+                }
             }
+        }
 
-            ItemsElements.ElementsPack elementsInCase = ItemsElements.getAllElements(writtenStack);
-            ItemsElements.ElementsPack elementsAnalyzed = ItemsElements.getAllElements(stack);
-            if (elementsAnalyzed == elementsInCase && elementsAnalyzed != ItemsElements.EMPTY_ELEMENTS) {
-               return elementsAnalyzed;
+        return null;
+    }
+
+    public boolean addBook(ItemStack book) {
+        for (int i = 0; i < 3; i++) {
+            if (this.booksGems[i] == 50) {
+                int gem = NBTHelper.GetNBTint(book, "gem");
+                this.booksGems[i] = gem;
+                this.stacks.set(i, book.copy());
+                PacketHandler.trySendPacketUpdate(this.world, this.pos, this, 64.0);
+                return true;
             }
-         }
-      }
+        }
 
-      return null;
-   }
+        return false;
+    }
 
-   public boolean addBook(ItemStack book) {
-      for (int i = 0; i < 3; i++) {
-         if (this.booksGems[i] == 50) {
-            int gem = NBTHelper.GetNBTint(book, "gem");
-            this.booksGems[i] = gem;
-            this.stacks.set(i, book.copy());
-            PacketHandler.trySendPacketUpdate(this.world, this.pos, this, 64.0);
-            return true;
-         }
-      }
+    public void write(NBTTagCompound compound) {
+        byte b0 = (byte) this.booksGems[0];
+        byte b1 = (byte) this.booksGems[1];
+        byte b2 = (byte) this.booksGems[2];
+        byte b3 = (byte) this.booksVariant;
+        int gemsAndVariant = b0 | b1 << 8 | b2 << 16 | b3 << 24;
+        compound.setInteger("gemsAndVariant", gemsAndVariant);
 
-      return false;
-   }
+        for (int i = 0; i < 3; i++) {
+            ItemStack stack = this.stacks.get(i);
+            if (!stack.isEmpty() && stack.hasTagCompound()) {
+                NBTTagCompound tag = stack.getTagCompound().copy();
+                tag.removeTag("gem");
+                compound.setTag("book" + i, tag);
+            }
+        }
+    }
 
-   public void write(NBTTagCompound compound) {
-      byte b0 = (byte)this.booksGems[0];
-      byte b1 = (byte)this.booksGems[1];
-      byte b2 = (byte)this.booksGems[2];
-      byte b3 = (byte)this.booksVariant;
-      int gemsAndVariant = b0 | b1 << 8 | b2 << 16 | b3 << 24;
-      compound.setInteger("gemsAndVariant", gemsAndVariant);
+    public void read(NBTTagCompound compound) {
+        if (compound.hasKey("gemsAndVariant")) {
+            int gemsAndVariant = compound.getInteger("gemsAndVariant");
+            this.booksVariant = gemsAndVariant >>> 24 & 0xFF;
+            this.booksGems[2] = gemsAndVariant >>> 16 & 0xFF;
+            this.booksGems[1] = gemsAndVariant >>> 8 & 0xFF;
+            this.booksGems[0] = gemsAndVariant & 0xFF;
+        }
 
-      for (int i = 0; i < 3; i++) {
-         ItemStack stack = this.stacks.get(i);
-         if (!stack.isEmpty() && stack.hasTagCompound()) {
-            NBTTagCompound tag = stack.getTagCompound().copy();
-            tag.removeTag("gem");
-            compound.setTag("book" + i, tag);
-         }
-      }
-   }
+        this.stacks = NonNullList.withSize(3, ItemStack.EMPTY);
 
-   public void read(NBTTagCompound compound) {
-      if (compound.hasKey("gemsAndVariant")) {
-         int gemsAndVariant = compound.getInteger("gemsAndVariant");
-         this.booksVariant = gemsAndVariant >>> 24 & 0xFF;
-         this.booksGems[2] = gemsAndVariant >>> 16 & 0xFF;
-         this.booksGems[1] = gemsAndVariant >>> 8 & 0xFF;
-         this.booksGems[0] = gemsAndVariant & 0xFF;
-      }
+        for (int i = 0; i < 3; i++) {
+            String tagname = "book" + i;
+            if (compound.hasKey(tagname, 10)) {
+                NBTTagCompound tag = compound.getCompoundTag(tagname);
+                ItemStack itemStack = new ItemStack(ItemsRegister.ELEMENTS_BOOK);
+                tag.setInteger("gem", this.booksGems[i]);
+                itemStack.setTagCompound(tag);
+                this.stacks.set(i, itemStack);
+            }
+        }
+    }
 
-      this.stacks = NonNullList.withSize(3, ItemStack.EMPTY);
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        this.write(compound);
+        return super.writeToNBT(compound);
+    }
 
-      for (int i = 0; i < 3; i++) {
-         String tagname = "book" + i;
-         if (compound.hasKey(tagname, 10)) {
-            NBTTagCompound tag = compound.getCompoundTag(tagname);
-            ItemStack itemStack = new ItemStack(ItemsRegister.ELEMENTS_BOOK);
-            tag.setInteger("gem", this.booksGems[i]);
-            itemStack.setTagCompound(tag);
-            this.stacks.set(i, itemStack);
-         }
-      }
-   }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        this.read(compound);
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      this.write(compound);
-      return super.writeToNBT(compound);
-   }
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        this.write(compound);
+        return compound;
+    }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      this.read(compound);
-      super.readFromNBT(compound);
-   }
+    @Override
+    public void handleUpdateTag(NBTTagCompound compound) {
+        this.read(compound);
+        super.handleUpdateTag(compound);
+    }
 
-   @Override
-   public NBTTagCompound getUpdateTag() {
-      NBTTagCompound compound = super.getUpdateTag();
-      this.write(compound);
-      return compound;
-   }
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        NBTTagCompound compound = packet.getNbtCompound();
+        this.read(compound);
+    }
 
-   @Override
-   public void handleUpdateTag(NBTTagCompound compound) {
-      this.read(compound);
-      super.handleUpdateTag(compound);
-   }
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        this.write(compound);
+        return new SPacketUpdateTileEntity(this.pos, 1, compound);
+    }
 
-   @Override
-   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-      NBTTagCompound compound = packet.getNbtCompound();
-      this.read(compound);
-   }
-
-   @Override
-   public SPacketUpdateTileEntity getUpdatePacket() {
-      NBTTagCompound compound = new NBTTagCompound();
-      this.write(compound);
-      return new SPacketUpdateTileEntity(this.pos, 1, compound);
-   }
 }

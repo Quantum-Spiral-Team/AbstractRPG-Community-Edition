@@ -2,8 +2,6 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.tileentity.TileCrystalSphere;
-import java.util.Random;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -25,125 +23,120 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class BlockCrystalSphere extends Block {
-   public static AxisAlignedBB AABB = new AxisAlignedBB(0.3125, 0.0, 0.3125, 0.6875, 0.5625, 0.6875);
 
-   public BlockCrystalSphere() {
-      super(Material.GLASS);
-      this.setRegistryName("block_crystal_sphere");
-      this.setTranslationKey("block_crystal_sphere");
-      this.blockHardness = 1.5F;
-      this.blockResistance = 15.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setLightLevel(0.2F);
-      this.setSoundType(SoundTypeShards.SHARDS);
-   }
+    public static AxisAlignedBB AABB = new AxisAlignedBB(0.3125, 0.0, 0.3125, 0.6875, 0.5625, 0.6875);
 
-   @Override
-   public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-      if (!world.isRemote) {
-         ItemStack stack = new ItemStack(Item.getItemFromBlock(this));
-         TileEntity tile = this.getTileEntity(world, pos);
-         if (tile != null && tile instanceof TileCrystalSphere) {
-            TileCrystalSphere sphere = (TileCrystalSphere)tile;
-            NBTTagCompound compound = new NBTTagCompound();
-            compound.setFloat("stored", sphere.energyStored);
-            if (sphere.energyType != null) {
-               compound.setString("type", sphere.energyType.getName());
+    public BlockCrystalSphere() {
+        super(Material.GLASS);
+        this.setRegistryName("block_crystal_sphere");
+        this.setTranslationKey("block_crystal_sphere");
+        this.blockHardness = 1.5F;
+        this.blockResistance = 15.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setLightLevel(0.2F);
+        this.setSoundType(SoundTypeShards.SHARDS);
+    }
+
+    @Override
+    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+        if (!world.isRemote) {
+            ItemStack stack = new ItemStack(Item.getItemFromBlock(this));
+            TileEntity tile = this.getTileEntity(world, pos);
+            if (tile != null && tile instanceof TileCrystalSphere) {
+                TileCrystalSphere sphere = (TileCrystalSphere) tile;
+                NBTTagCompound compound = new NBTTagCompound();
+                compound.setFloat("stored", sphere.energyStored);
+                if (sphere.energyType != null) {
+                    compound.setString("type", sphere.energyType.getName());
+                }
+
+                NBTHelper.GiveNBTtag(stack, compound, "BlockEntityTag");
+                NBTHelper.SetNBTtag(stack, compound, "BlockEntityTag");
             }
 
-            NBTHelper.GiveNBTtag(stack, compound, "BlockEntityTag");
-            NBTHelper.SetNBTtag(stack, compound, "BlockEntityTag");
-         }
+            spawnAsEntity(world, pos, stack);
+        }
+    }
 
-         spawnAsEntity(world, pos, stack);
-      }
-   }
+    @Override
+    public int quantityDropped(IBlockState state, int fortune, Random random) {
+        return 0;
+    }
 
-   @Override
-   public int quantityDropped(IBlockState state, int fortune, Random random) {
-      return 0;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.TRANSLUCENT;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        return super.getOffset(state, worldIn, pos);
+    }
 
-   @Override
-   public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      return super.getOffset(state, worldIn, pos);
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TileCrystalSphere tile) {
+        int range = 64;
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TileCrystalSphere tile) {
-      int range = 64;
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + 64, pos.getY() + 64, pos.getZ() + 64, pos.getX() - 64, pos.getY() - 64, pos.getZ() - 64))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + 64,
-            pos.getY() + 64,
-            pos.getZ() + 64,
-            pos.getX() - 64,
-            pos.getY() - 64,
-            pos.getZ() - 64
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+    @Override
+    public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
+        this.onPlayerDestroy(worldIn, pos, worldIn.getBlockState(pos));
+    }
 
-   @Override
-   public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
-      this.onPlayerDestroy(worldIn, pos, worldIn.getBlockState(pos));
-   }
+    public Class<TileCrystalSphere> getTileEntityClass() {
+        return TileCrystalSphere.class;
+    }
 
-   public Class<TileCrystalSphere> getTileEntityClass() {
-      return TileCrystalSphere.class;
-   }
+    public TileCrystalSphere getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileCrystalSphere) world.getTileEntity(position);
+    }
 
-   public TileCrystalSphere getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileCrystalSphere)world.getTileEntity(position);
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    @Override
+    @Nullable
+    public TileCrystalSphere createTileEntity(World world, IBlockState blockState) {
+        return new TileCrystalSphere();
+    }
 
-   @Override
-   @Nullable
-   public TileCrystalSphere createTileEntity(World world, IBlockState blockState) {
-      return new TileCrystalSphere();
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
 
-   @Override
-   public EnumBlockRenderType getRenderType(IBlockState state) {
-      return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-   }
 }

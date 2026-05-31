@@ -3,8 +3,6 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.OreDicHelper;
 import com.vivern.arpg.tileentity.TileStarLantern;
-import java.util.List;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -22,235 +20,228 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class StarLantern extends Block {
-   public static final AxisAlignedBB ALL_AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.75, 0.75);
 
-   public StarLantern() {
-      super(Material.WOOD);
-      this.setRegistryName("star_lantern");
-      this.setTranslationKey("star_lantern");
-      this.blockHardness = BlocksRegister.HR_CONIFER_PLANKS.hardness;
-      this.blockResistance = BlocksRegister.HR_CONIFER_PLANKS.resistance;
-      this.setHarvestLevel("axe", BlocksRegister.HR_CONIFER_PLANKS.lvl);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setLightLevel(1.0F);
-   }
+    public static final AxisAlignedBB ALL_AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.75, 0.75);
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!worldIn.isRemote) {
-         ItemStack stack = player.getHeldItem(hand);
-         List<String> ores = OreDicHelper.getOreNames(stack);
-         TileStarLantern tile = this.getTileEntity(worldIn, pos);
-         if (!ores.isEmpty()) {
-            for (String name : ores) {
-               if ("dyeBlack".equals(name)) {
-                  tile.red /= 2.0F;
-                  tile.green /= 2.0F;
-                  tile.blue /= 2.0F;
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+    public StarLantern() {
+        super(Material.WOOD);
+        this.setRegistryName("star_lantern");
+        this.setTranslationKey("star_lantern");
+        this.blockHardness = BlocksRegister.HR_CONIFER_PLANKS.hardness;
+        this.blockResistance = BlocksRegister.HR_CONIFER_PLANKS.resistance;
+        this.setHarvestLevel("axe", BlocksRegister.HR_CONIFER_PLANKS.lvl);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setLightLevel(1.0F);
+    }
 
-               if ("dyeRed".equals(name)) {
-                  tile.green /= 2.0F;
-                  tile.blue /= 2.0F;
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            ItemStack stack = player.getHeldItem(hand);
+            List<String> ores = OreDicHelper.getOreNames(stack);
+            TileStarLantern tile = this.getTileEntity(worldIn, pos);
+            if (!ores.isEmpty()) {
+                for (String name : ores) {
+                    if ("dyeBlack".equals(name)) {
+                        tile.red /= 2.0F;
+                        tile.green /= 2.0F;
+                        tile.blue /= 2.0F;
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeGreen".equals(name)) {
-                  tile.red /= 2.0F;
-                  tile.blue /= 2.0F;
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeRed".equals(name)) {
+                        tile.green /= 2.0F;
+                        tile.blue /= 2.0F;
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeBrown".equals(name)) {
-                  tile.red = Math.max(0.0F, tile.red - 0.1F);
-                  tile.green = Math.max(0.0F, tile.green - 0.2F);
-                  tile.blue = Math.max(0.0F, tile.blue - 0.3F);
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeGreen".equals(name)) {
+                        tile.red /= 2.0F;
+                        tile.blue /= 2.0F;
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeBlue".equals(name)) {
-                  tile.red /= 2.0F;
-                  tile.green /= 2.0F;
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeBrown".equals(name)) {
+                        tile.red = Math.max(0.0F, tile.red - 0.1F);
+                        tile.green = Math.max(0.0F, tile.green - 0.2F);
+                        tile.blue = Math.max(0.0F, tile.blue - 0.3F);
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyePurple".equals(name)) {
-                  tile.green /= 2.0F;
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeBlue".equals(name)) {
+                        tile.red /= 2.0F;
+                        tile.green /= 2.0F;
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeCyan".equals(name)) {
-                  tile.red /= 2.0F;
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyePurple".equals(name)) {
+                        tile.green /= 2.0F;
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeLightGray".equals(name)) {
-                  tile.red = Math.max(0.0F, tile.red - 0.1F);
-                  tile.green = Math.max(0.0F, tile.green - 0.1F);
-                  tile.blue = Math.max(0.0F, tile.blue - 0.1F);
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeCyan".equals(name)) {
+                        tile.red /= 2.0F;
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeGray".equals(name)) {
-                  tile.red = Math.max(0.0F, tile.red - 0.2F);
-                  tile.green = Math.max(0.0F, tile.green - 0.2F);
-                  tile.blue = Math.max(0.0F, tile.blue - 0.2F);
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeLightGray".equals(name)) {
+                        tile.red = Math.max(0.0F, tile.red - 0.1F);
+                        tile.green = Math.max(0.0F, tile.green - 0.1F);
+                        tile.blue = Math.max(0.0F, tile.blue - 0.1F);
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyePink".equals(name)) {
-                  tile.green = Math.max(0.0F, tile.green - 0.1F);
-                  tile.blue = Math.max(0.0F, tile.blue - 0.1F);
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeGray".equals(name)) {
+                        tile.red = Math.max(0.0F, tile.red - 0.2F);
+                        tile.green = Math.max(0.0F, tile.green - 0.2F);
+                        tile.blue = Math.max(0.0F, tile.blue - 0.2F);
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeLime".equals(name)) {
-                  tile.red = Math.max(0.0F, tile.red - 0.1F);
-                  tile.blue = Math.max(0.0F, tile.blue - 0.1F);
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyePink".equals(name)) {
+                        tile.green = Math.max(0.0F, tile.green - 0.1F);
+                        tile.blue = Math.max(0.0F, tile.blue - 0.1F);
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeYellow".equals(name)) {
-                  tile.blue /= 2.0F;
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeLime".equals(name)) {
+                        tile.red = Math.max(0.0F, tile.red - 0.1F);
+                        tile.blue = Math.max(0.0F, tile.blue - 0.1F);
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeLightBlue".equals(name)) {
-                  tile.red = Math.max(0.0F, tile.red - 0.1F);
-                  tile.green = Math.max(0.0F, tile.green - 0.1F);
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeYellow".equals(name)) {
+                        tile.blue /= 2.0F;
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeMagenta".equals(name)) {
-                  tile.green = Math.max(0.0F, tile.green - 0.1F);
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeLightBlue".equals(name)) {
+                        tile.red = Math.max(0.0F, tile.red - 0.1F);
+                        tile.green = Math.max(0.0F, tile.green - 0.1F);
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeOrange".equals(name)) {
-                  tile.green = Math.max(0.0F, tile.green - 0.1F);
-                  tile.blue /= 2.0F;
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeMagenta".equals(name)) {
+                        tile.green = Math.max(0.0F, tile.green - 0.1F);
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
 
-               if ("dyeWhite".equals(name)) {
-                  tile.red = Math.min(1.0F, tile.red + 0.1F);
-                  tile.green = Math.min(1.0F, tile.green + 0.1F);
-                  tile.blue = Math.min(1.0F, tile.blue + 0.1F);
-                  trySendPacketUpdate(worldIn, pos, tile);
-                  stack.shrink(1);
-                  return true;
-               }
+                    if ("dyeOrange".equals(name)) {
+                        tile.green = Math.max(0.0F, tile.green - 0.1F);
+                        tile.blue /= 2.0F;
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
+
+                    if ("dyeWhite".equals(name)) {
+                        tile.red = Math.min(1.0F, tile.red + 0.1F);
+                        tile.green = Math.min(1.0F, tile.green + 0.1F);
+                        tile.blue = Math.min(1.0F, tile.blue + 0.1F);
+                        trySendPacketUpdate(worldIn, pos, tile);
+                        stack.shrink(1);
+                        return true;
+                    }
+                }
             }
-         }
-      }
+        }
 
-      return false;
-   }
+        return false;
+    }
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TileStarLantern tile) {
-      int range = 32;
+    public static void trySendPacketUpdate(World world, BlockPos pos, TileStarLantern tile) {
+        int range = 32;
 
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + range,
-            pos.getY() + range,
-            pos.getZ() + range,
-            pos.getX() - range,
-            pos.getY() - range,
-            pos.getZ() - range
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + range, pos.getY() + range, pos.getZ() + range, pos.getX() - range, pos.getY() - range, pos.getZ() - range))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return 15728880;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return 15728880;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   public Class<TileStarLantern> getTileEntityClass() {
-      return TileStarLantern.class;
-   }
+    public Class<TileStarLantern> getTileEntityClass() {
+        return TileStarLantern.class;
+    }
 
-   public TileStarLantern getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileStarLantern)world.getTileEntity(position);
-   }
+    public TileStarLantern getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileStarLantern) world.getTileEntity(position);
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   @Nullable
-   public TileStarLantern createTileEntity(World world, IBlockState blockState) {
-      return new TileStarLantern();
-   }
+    @Override
+    @Nullable
+    public TileStarLantern createTileEntity(World world, IBlockState blockState) {
+        return new TileStarLantern();
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
 }

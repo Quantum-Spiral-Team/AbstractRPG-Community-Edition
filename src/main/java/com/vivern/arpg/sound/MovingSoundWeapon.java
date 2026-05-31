@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MovingSoundWeapon extends MovingSound {
+
     public final EntityLivingBase entity;
     public Item itemInHand;
     public int startTime;
@@ -24,19 +25,7 @@ public class MovingSoundWeapon extends MovingSound {
     public float initPitch;
     public long endDate;
 
-    public MovingSoundWeapon(
-            EntityLivingBase entity,
-            Item itemInHand,
-            SoundEvent soundEvent,
-            SoundCategory category,
-            float initVolume,
-            float initPitch,
-            int playtime,
-            int startTime,
-            int endTime,
-            float startPitch,
-            float endPitch
-    ) {
+    public MovingSoundWeapon(EntityLivingBase entity, Item itemInHand, SoundEvent soundEvent, SoundCategory category, float initVolume, float initPitch, int playtime, int startTime, int endTime, float startPitch, float endPitch) {
         super(soundEvent, category);
         this.entity = entity;
         this.repeat = true;
@@ -57,14 +46,14 @@ public class MovingSoundWeapon extends MovingSound {
             ItemStack stack = this.entity.getHeldItemMainhand();
             if (!stack.isEmpty() && stack.getItem() == this.itemInHand) {
                 long playtime = this.endDate - this.entity.world.getTotalWorldTime();
-                float ft1 = GetMOP.getFromTo((float)this.ticksExisted, 0.0F, (float)this.startTime);
-                float ft2 = 1.0F - GetMOP.getFromTo((float)playtime, 0.0F, (float)this.endTime);
+                float ft1 = GetMOP.getFromTo((float) this.ticksExisted, 0.0F, (float) this.startTime);
+                float ft2 = 1.0F - GetMOP.getFromTo((float) playtime, 0.0F, (float) this.endTime);
                 this.ticksExisted++;
                 this.volume = (ft1 - ft2) * this.initVolume;
                 this.pitch = this.startPitch * (1.0F - ft1) + this.initPitch * (ft1 - ft2) + this.endPitch * ft2;
-                this.xPosF = (float)this.entity.posX;
-                this.yPosF = (float)this.entity.posY;
-                this.zPosF = (float)this.entity.posZ;
+                this.xPosF = (float) this.entity.posX;
+                this.yPosF = (float) this.entity.posY;
+                this.zPosF = (float) this.entity.posZ;
             } else {
                 this.donePlaying = true;
             }
@@ -75,10 +64,7 @@ public class MovingSoundWeapon extends MovingSound {
 
     @Override
     public boolean isDonePlaying() {
-        boolean b1 = super.isDonePlaying()
-                || this.entity.isDead
-                || this.entity.world == null
-                || this.entity.world.getTotalWorldTime() >= this.endDate;
+        boolean b1 = super.isDonePlaying() || this.entity.isDead || this.entity.world == null || this.entity.world.getTotalWorldTime() >= this.endDate;
         if (!b1) {
             ItemStack stack = this.entity.getHeldItemMainhand();
             if (stack.isEmpty() || stack.getItem() != this.itemInHand) {
@@ -88,4 +74,5 @@ public class MovingSoundWeapon extends MovingSound {
 
         return b1;
     }
+
 }

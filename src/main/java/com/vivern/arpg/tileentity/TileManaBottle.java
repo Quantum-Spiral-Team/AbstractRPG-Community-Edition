@@ -11,112 +11,114 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class TileManaBottle extends TileEntity implements IManaBuffer, ITickable, IMagicVision {
-   public static float CAPACITY_MANABOTTLE_TIER_1 = 1000.0F;
-   public static float CAPACITY_MANABOTTLE_TIER_2 = 8000.0F;
-   public static float CAPACITY_MANABOTTLE_TIER_3 = 50000.0F;
-   public ManaBuffer manaBuffer = new ManaBuffer(this, this, CAPACITY_MANABOTTLE_TIER_1, 8, 0.0F, 1.0F);
-   public float openness = 0.0F;
-   public float prevopenness = 0.0F;
-   public boolean opened;
 
-   @Override
-   public void update() {
-      if (this.opened) {
-         this.manaBuffer.updateManaBuffer(this.world, this.pos);
-      }
+    public static float CAPACITY_MANABOTTLE_TIER_1 = 1000.0F;
+    public static float CAPACITY_MANABOTTLE_TIER_2 = 8000.0F;
+    public static float CAPACITY_MANABOTTLE_TIER_3 = 50000.0F;
+    public ManaBuffer manaBuffer = new ManaBuffer(this, this, CAPACITY_MANABOTTLE_TIER_1, 8, 0.0F, 1.0F);
+    public float openness = 0.0F;
+    public float prevopenness = 0.0F;
+    public boolean opened;
 
-      if (this.world.isRemote) {
-         this.prevopenness = this.openness;
-         if (this.opened && this.openness < 1.0F) {
-            this.openness += 0.2F;
-         }
+    @Override
+    public void update() {
+        if (this.opened) {
+            this.manaBuffer.updateManaBuffer(this.world, this.pos);
+        }
 
-         if (!this.opened && this.openness > 0.0F) {
-            this.openness -= 0.2F;
-         }
-      }
-   }
+        if (this.world.isRemote) {
+            this.prevopenness = this.openness;
+            if (this.opened && this.openness < 1.0F) {
+                this.openness += 0.2F;
+            }
 
-   @Override
-   public ManaBuffer getManaBuffer() {
-      return this.manaBuffer;
-   }
+            if (!this.opened && this.openness > 0.0F) {
+                this.openness -= 0.2F;
+            }
+        }
+    }
 
-   @Override
-   public boolean canProvideMana() {
-      return this.opened;
-   }
+    @Override
+    public ManaBuffer getManaBuffer() {
+        return this.manaBuffer;
+    }
 
-   public void read(NBTTagCompound compound) {
-      this.getManaBuffer().readFromNBT(compound);
-      if (compound.hasKey("max")) {
-         this.getManaBuffer().setManaStorageSize(compound.getFloat("max"));
-      }
+    @Override
+    public boolean canProvideMana() {
+        return this.opened;
+    }
 
-      if (compound.hasKey("opened")) {
-         this.opened = compound.getBoolean("opened");
-      }
+    public void read(NBTTagCompound compound) {
+        this.getManaBuffer().readFromNBT(compound);
+        if (compound.hasKey("max")) {
+            this.getManaBuffer().setManaStorageSize(compound.getFloat("max"));
+        }
 
-      super.readFromNBT(compound);
-   }
+        if (compound.hasKey("opened")) {
+            this.opened = compound.getBoolean("opened");
+        }
 
-   public NBTTagCompound write(NBTTagCompound compound) {
-      this.getManaBuffer().writeToNBT(compound);
-      compound.setFloat("max", this.getManaBuffer().getManaStorageSize());
-      compound.setBoolean("opened", this.opened);
-      return super.writeToNBT(compound);
-   }
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      this.write(compound);
-      return super.writeToNBT(compound);
-   }
+    public NBTTagCompound write(NBTTagCompound compound) {
+        this.getManaBuffer().writeToNBT(compound);
+        compound.setFloat("max", this.getManaBuffer().getManaStorageSize());
+        compound.setBoolean("opened", this.opened);
+        return super.writeToNBT(compound);
+    }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      this.read(compound);
-      super.readFromNBT(compound);
-   }
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        this.write(compound);
+        return super.writeToNBT(compound);
+    }
 
-   @Override
-   public NBTTagCompound getUpdateTag() {
-      NBTTagCompound compound = super.getUpdateTag();
-      this.write(compound);
-      return compound;
-   }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        this.read(compound);
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public void handleUpdateTag(NBTTagCompound compound) {
-      this.read(compound);
-      super.handleUpdateTag(compound);
-   }
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        this.write(compound);
+        return compound;
+    }
 
-   @Override
-   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-      NBTTagCompound compound = packet.getNbtCompound();
-      this.read(compound);
-   }
+    @Override
+    public void handleUpdateTag(NBTTagCompound compound) {
+        this.read(compound);
+        super.handleUpdateTag(compound);
+    }
 
-   @Override
-   public SPacketUpdateTileEntity getUpdatePacket() {
-      NBTTagCompound compound = new NBTTagCompound();
-      this.write(compound);
-      return new SPacketUpdateTileEntity(this.pos, 1, compound);
-   }
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        NBTTagCompound compound = packet.getNbtCompound();
+        this.read(compound);
+    }
 
-   @Override
-   public float getElementEnergy(ShardType shardType) {
-      return 0.0F;
-   }
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        this.write(compound);
+        return new SPacketUpdateTileEntity(this.pos, 1, compound);
+    }
 
-   @Override
-   public float getMana() {
-      return this.getManaBuffer().getManaStored();
-   }
+    @Override
+    public float getElementEnergy(ShardType shardType) {
+        return 0.0F;
+    }
 
-   @Override
-   public float getManaStorageSize(World world, BlockPos pos) {
-      return this.getManaBuffer().getManaStorageSize();
-   }
+    @Override
+    public float getMana() {
+        return this.getManaBuffer().getManaStored();
+    }
+
+    @Override
+    public float getManaStorageSize(World world, BlockPos pos) {
+        return this.getManaBuffer().getManaStorageSize();
+    }
+
 }

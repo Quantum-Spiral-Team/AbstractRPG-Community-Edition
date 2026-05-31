@@ -1,7 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.dimensions.generationutils.WorldGenFieryBeans;
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
@@ -18,87 +17,91 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Random;
+
 public class FieryBeanSapling extends Block implements IGrowable {
-   protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 0.875, 0.875);
-   public static WorldGenFieryBeans generator = new WorldGenFieryBeans();
 
-   public FieryBeanSapling() {
-      super(Material.PLANTS);
-      this.setRegistryName("fiery_bean");
-      this.setTranslationKey("fiery_bean");
-      this.blockHardness = 0.0F;
-      this.blockResistance = 0.0F;
-      this.setSoundType(SoundType.PLANT);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setTickRandomly(true);
-   }
+    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 0.875, 0.875);
+    public static WorldGenFieryBeans generator = new WorldGenFieryBeans();
 
-   @Override
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      Block block = worldIn.getBlockState(pos.down()).getBlock();
-      return block == Blocks.DIRT || block == Blocks.GRASS;
-   }
+    public FieryBeanSapling() {
+        super(Material.PLANTS);
+        this.setRegistryName("fiery_bean");
+        this.setTranslationKey("fiery_bean");
+        this.blockHardness = 0.0F;
+        this.blockResistance = 0.0F;
+        this.setSoundType(SoundType.PLANT);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setTickRandomly(true);
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-      Block block = worldIn.getBlockState(pos.down()).getBlock();
-      if (block != Blocks.DIRT && block != Blocks.GRASS) {
-         this.dropBlockAsItem(worldIn, pos, state, 0);
-         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-      }
-   }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        Block block = worldIn.getBlockState(pos.down()).getBlock();
+        return block == Blocks.DIRT || block == Blocks.GRASS;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+        Block block = worldIn.getBlockState(pos.down()).getBlock();
+        if (block != Blocks.DIRT && block != Blocks.GRASS) {
+            this.dropBlockAsItem(worldIn, pos, state, 0);
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+        }
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return NULL_AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return NULL_AABB;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-      this.grow(worldIn, rand, pos, state);
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-      int light = Math.max(worldIn.getLightFor(EnumSkyBlock.BLOCK, pos), worldIn.getLightFor(EnumSkyBlock.SKY, pos));
-      return light > 12;
-   }
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+        this.grow(worldIn, rand, pos, state);
+    }
 
-   @Override
-   public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-      return true;
-   }
+    @Override
+    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+        int light = Math.max(worldIn.getLightFor(EnumSkyBlock.BLOCK, pos), worldIn.getLightFor(EnumSkyBlock.SKY, pos));
+        return light > 12;
+    }
 
-   @Override
-   public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-      if (rand.nextFloat() < 0.1) {
-         Block block = worldIn.getBlockState(pos.down()).getBlock();
-         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-         if (block == Blocks.DIRT || block == Blocks.GRASS) {
-            generator.runGenerator(6 + rand.nextInt(14), worldIn, rand, pos, true);
-         }
-      }
-   }
+    @Override
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+        return true;
+    }
+
+    @Override
+    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+        if (rand.nextFloat() < 0.1) {
+            Block block = worldIn.getBlockState(pos.down()).getBlock();
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+            if (block == Blocks.DIRT || block == Blocks.GRASS) {
+                generator.runGenerator(6 + rand.nextInt(14), worldIn, rand, pos, true);
+            }
+        }
+    }
+
 }

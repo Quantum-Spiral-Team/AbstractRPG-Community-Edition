@@ -8,30 +8,32 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class EntityArrowModern extends AbstractArrow {
-   public EntityArrowModern(World worldIn) {
-      super(worldIn);
-   }
 
-   public EntityArrowModern(World worldIn, double x, double y, double z) {
-      super(worldIn, x, y, z);
-   }
+    public EntityArrowModern(World worldIn) {
+        super(worldIn);
+    }
 
-   public EntityArrowModern(World worldIn, EntityLivingBase shooter) {
-      super(worldIn, shooter);
-   }
+    public EntityArrowModern(World worldIn, double x, double y, double z) {
+        super(worldIn, x, y, z);
+    }
 
-   @Override
-   public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
-      super.shoot(x, y, z, velocity * 1.3F, inaccuracy / 2.0F);
-   }
+    public EntityArrowModern(World worldIn, EntityLivingBase shooter) {
+        super(worldIn, shooter);
+    }
 
-   @Override
-   public SoundEvent getHitSound() {
-      return Sounds.arrow_modern;
-   }
+    @Override
+    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
+        super.shoot(x, y, z, velocity * 1.3F, inaccuracy / 2.0F);
+    }
 
-   @Override
-   protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROW_MODERN);
-   }
+    @Override
+    public SoundEvent getHitSound() {
+        return Sounds.arrow_modern;
+    }
+
+    @Override
+    protected ItemStack getArrowStack() {
+        return new ItemStack(ItemsRegister.ARROW_MODERN);
+    }
+
 }

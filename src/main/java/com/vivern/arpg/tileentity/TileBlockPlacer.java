@@ -1,7 +1,6 @@
 package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.blocks.ISeed;
-import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -14,109 +13,113 @@ import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.IPlantable;
 
+import java.util.Random;
+
 public class TileBlockPlacer extends TileEntityLockableLoot {
-   private static final Random RNG = new Random();
-   private NonNullList<ItemStack> stacks = NonNullList.withSize(9, ItemStack.EMPTY);
 
-   @Override
-   public int getSizeInventory() {
-      return 9;
-   }
+    private static final Random RNG = new Random();
+    private NonNullList<ItemStack> stacks = NonNullList.withSize(9, ItemStack.EMPTY);
 
-   public int getRandStackId() {
-      int ii = 0;
+    @Override
+    public int getSizeInventory() {
+        return 9;
+    }
 
-      for (int k = RNG.nextInt(9); ii < 9; k++) {
-         if (k > 8) {
-            k = 0;
-         }
+    public int getRandStackId() {
+        int ii = 0;
 
-         if (!this.stacks.get(k).isEmpty() && this.canItemBePlaced(this.stacks.get(k).getItem())) {
-            return k;
-         }
+        for (int k = RNG.nextInt(9); ii < 9; k++) {
+            if (k > 8) {
+                k = 0;
+            }
 
-         ii++;
-      }
+            if (!this.stacks.get(k).isEmpty() && this.canItemBePlaced(this.stacks.get(k).getItem())) {
+                return k;
+            }
 
-      return -1;
-   }
+            ii++;
+        }
 
-   public boolean canItemBePlaced(Item item) {
-      return item instanceof ItemBlock || item instanceof IPlantable || item instanceof ISeed;
-   }
+        return -1;
+    }
 
-   @Override
-   public boolean isEmpty() {
-      for (ItemStack itemstack : this.stacks) {
-         if (!itemstack.isEmpty()) {
-            return false;
-         }
-      }
+    public boolean canItemBePlaced(Item item) {
+        return item instanceof ItemBlock || item instanceof IPlantable || item instanceof ISeed;
+    }
 
-      return true;
-   }
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack itemstack : this.stacks) {
+            if (!itemstack.isEmpty()) {
+                return false;
+            }
+        }
 
-   public int addItemStack(ItemStack stack) {
-      for (int i = 0; i < this.stacks.size(); i++) {
-         if (this.stacks.get(i).isEmpty()) {
-            this.setInventorySlotContents(i, stack);
-            return i;
-         }
-      }
+        return true;
+    }
 
-      return -1;
-   }
+    public int addItemStack(ItemStack stack) {
+        for (int i = 0; i < this.stacks.size(); i++) {
+            if (this.stacks.get(i).isEmpty()) {
+                this.setInventorySlotContents(i, stack);
+                return i;
+            }
+        }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      super.readFromNBT(compound);
-      this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-      if (!this.checkLootAndRead(compound)) {
-         ItemStackHelper.loadAllItems(compound, this.stacks);
-      }
+        return -1;
+    }
 
-      if (compound.hasKey("CustomName", 8)) {
-         this.customName = compound.getString("CustomName");
-      }
-   }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        if (!this.checkLootAndRead(compound)) {
+            ItemStackHelper.loadAllItems(compound, this.stacks);
+        }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      super.writeToNBT(compound);
-      if (!this.checkLootAndWrite(compound)) {
-         ItemStackHelper.saveAllItems(compound, this.stacks);
-      }
+        if (compound.hasKey("CustomName", 8)) {
+            this.customName = compound.getString("CustomName");
+        }
+    }
 
-      if (this.hasCustomName()) {
-         compound.setString("CustomName", this.customName);
-      }
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        if (!this.checkLootAndWrite(compound)) {
+            ItemStackHelper.saveAllItems(compound, this.stacks);
+        }
 
-      return compound;
-   }
+        if (this.hasCustomName()) {
+            compound.setString("CustomName", this.customName);
+        }
 
-   @Override
-   public int getInventoryStackLimit() {
-      return 1;
-   }
+        return compound;
+    }
 
-   @Override
-   public String getName() {
-      return "block_placer";
-   }
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
 
-   @Override
-   public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-      this.fillWithLoot(playerIn);
-      return new Container9(playerInventory, this);
-   }
+    @Override
+    public String getName() {
+        return "block_placer";
+    }
 
-   @Override
-   public String getGuiID() {
-      return "minecraft:dispenser";
-   }
+    @Override
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+        this.fillWithLoot(playerIn);
+        return new Container9(playerInventory, this);
+    }
 
-   @Override
-   protected NonNullList<ItemStack> getItems() {
-      return this.stacks;
-   }
+    @Override
+    public String getGuiID() {
+        return "minecraft:dispenser";
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return this.stacks;
+    }
+
 }

@@ -22,95 +22,95 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
 public class BlockFluidToxin extends BlockFluidClassic {
-   public BlockFluidToxin() {
-      super(FluidsRegister.TOXIN, Material.WATER);
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-      this.setTranslationKey("fluid_toxin_block");
-      this.setRegistryName("fluid_toxin_block");
-   }
 
-   @Override
-   public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
-      super.onBlockAdded(world, pos, state);
-      this.mergerFluids(pos, world);
-   }
+    public BlockFluidToxin() {
+        super(FluidsRegister.TOXIN, Material.WATER);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setTranslationKey("fluid_toxin_block");
+        this.setRegistryName("fluid_toxin_block");
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
-      super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
-      this.mergerFluids(pos, world);
-   }
+    @Override
+    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+        super.onBlockAdded(world, pos, state);
+        this.mergerFluids(pos, world);
+    }
 
-   @Override
-   public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-      super.onEntityCollision(worldIn, pos, state, entityIn);
-      if (entityIn instanceof EntityLivingBase && entityIn.ticksExisted % 5 == 0) {
-         EntityLivingBase base = (EntityLivingBase)entityIn;
-         if (base.isPotionActive(PotionEffects.FIBER_BANDAGING) && RANDOM.nextFloat() < 0.4F) {
-            return;
-         }
+    @Override
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
+        super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
+        this.mergerFluids(pos, world);
+    }
 
-         float filled = this.getFilledPercentage(worldIn, pos);
-         if (filled < 0.0F) {
-            filled++;
-         }
-
-         double minY = pos.getY();
-         double maxY = pos.getY() + filled;
-         boolean boots = false;
-         boolean chest = false;
-         boolean leggs = false;
-         boolean helmt = false;
-
-         for (ItemStack stack : base.getArmorInventoryList()) {
-            if (stack.getItem() == ItemsRegister.TOXINIUM_BOOTS || !(entityIn.posY > minY) || !(entityIn.posY < maxY)) {
-               boots = true;
+    @Override
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+        super.onEntityCollision(worldIn, pos, state, entityIn);
+        if (entityIn instanceof EntityLivingBase && entityIn.ticksExisted % 5 == 0) {
+            EntityLivingBase base = (EntityLivingBase) entityIn;
+            if (base.isPotionActive(PotionEffects.FIBER_BANDAGING) && RANDOM.nextFloat() < 0.4F) {
+                return;
             }
 
-            if (stack.getItem() == ItemsRegister.TOXINIUM_CHEST || !(entityIn.posY + 0.8 > minY) || !(entityIn.posY + 1.3 < maxY)) {
-               chest = true;
+            float filled = this.getFilledPercentage(worldIn, pos);
+            if (filled < 0.0F) {
+                filled++;
             }
 
-            if (stack.getItem() == ItemsRegister.TOXINIUM_LEGS || !(entityIn.posY > minY) || !(entityIn.posY + 0.8 < maxY)) {
-               leggs = true;
+            double minY = pos.getY();
+            double maxY = pos.getY() + filled;
+            boolean boots = false;
+            boolean chest = false;
+            boolean leggs = false;
+            boolean helmt = false;
+
+            for (ItemStack stack : base.getArmorInventoryList()) {
+                if (stack.getItem() == ItemsRegister.TOXINIUM_BOOTS || !(entityIn.posY > minY) || !(entityIn.posY < maxY)) {
+                    boots = true;
+                }
+
+                if (stack.getItem() == ItemsRegister.TOXINIUM_CHEST || !(entityIn.posY + 0.8 > minY) || !(entityIn.posY + 1.3 < maxY)) {
+                    chest = true;
+                }
+
+                if (stack.getItem() == ItemsRegister.TOXINIUM_LEGS || !(entityIn.posY > minY) || !(entityIn.posY + 0.8 < maxY)) {
+                    leggs = true;
+                }
+
+                if (stack.getItem() == ItemsRegister.TOXINIUM_HELM || !(entityIn.posY + 1.3 > minY) || !(entityIn.posY + entityIn.height < maxY)) {
+                    helmt = true;
+                }
             }
 
-            if (stack.getItem() == ItemsRegister.TOXINIUM_HELM
-               || !(entityIn.posY + 1.3 > minY)
-               || !(entityIn.posY + entityIn.height < maxY)) {
-               helmt = true;
-            }
-         }
-
-         if (boots && chest && leggs && helmt) {
-            return;
-         }
-
-         PotionEffect baff = new PotionEffect(PotionEffects.TOXIN, 320);
-         base.addPotionEffect(baff);
-      }
-   }
-
-   private void mergerFluids(BlockPos pos, World world) {
-      if (!world.isRemote) {
-         for (EnumFacing facing : EnumFacing.values()) {
-            BlockPos frompos = pos.offset(facing);
-            Block block = world.getBlockState(frompos).getBlock();
-            if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
-               if (frompos.getY() > pos.getY()) {
-                  world.setBlockState(pos, BlocksRegister.GREEN_ONYX.getDefaultState());
-               } else {
-                  world.setBlockState(frompos, BlocksRegister.GREEN_ONYX.getDefaultState());
-               }
-
-               world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
+            if (boots && chest && leggs && helmt) {
+                return;
             }
 
-            if (block == BlocksRegister.FLUID_CRYON) {
-               world.setBlockState(frompos, Blocks.ICE.getDefaultState());
-               world.playSound(null, frompos, Sounds.fluid_freezing, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
+            PotionEffect baff = new PotionEffect(PotionEffects.TOXIN, 320);
+            base.addPotionEffect(baff);
+        }
+    }
+
+    private void mergerFluids(BlockPos pos, World world) {
+        if (!world.isRemote) {
+            for (EnumFacing facing : EnumFacing.values()) {
+                BlockPos frompos = pos.offset(facing);
+                Block block = world.getBlockState(frompos).getBlock();
+                if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
+                    if (frompos.getY() > pos.getY()) {
+                        world.setBlockState(pos, BlocksRegister.GREEN_ONYX.getDefaultState());
+                    } else {
+                        world.setBlockState(frompos, BlocksRegister.GREEN_ONYX.getDefaultState());
+                    }
+
+                    world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
+                }
+
+                if (block == BlocksRegister.FLUID_CRYON) {
+                    world.setBlockState(frompos, Blocks.ICE.getDefaultState());
+                    world.playSound(null, frompos, Sounds.fluid_freezing, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
+                }
             }
-         }
-      }
-   }
+        }
+    }
+
 }

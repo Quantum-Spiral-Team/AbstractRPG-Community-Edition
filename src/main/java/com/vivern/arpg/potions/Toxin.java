@@ -12,37 +12,39 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Toxin extends Potion {
-   protected Toxin(boolean isBadEffectIn, int liquidColorIn) {
-      super(isBadEffectIn, liquidColorIn);
-      this.setRegistryName("arpg:toxin");
-      this.setPotionName("Toxin");
-      this.setIconIndex(15, 1);
-   }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasStatusIcon() {
-      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
-      return true;
-   }
+    protected Toxin(boolean isBadEffectIn, int liquidColorIn) {
+        super(isBadEffectIn, liquidColorIn);
+        this.setRegistryName("arpg:toxin");
+        this.setPotionName("Toxin");
+        this.setIconIndex(15, 1);
+    }
 
-   @Override
-   public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
-      if (entityLivingBase.ticksExisted % 12 == 0) {
-         IAttributeInstance entityAttribute = entityLivingBase.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
-         double baseValue = entityAttribute.getBaseValue();
-         entityAttribute.setBaseValue(1.0);
-         entityLivingBase.attackEntityFrom(new WeaponDamage(null, null, null, false, false, null, WeaponDamage.toxin), 3 * (amplifier + 1));
-         entityLivingBase.hurtResistantTime = 0;
-         entityAttribute.setBaseValue(baseValue);
-         if (entityLivingBase.getHealth() <= 0.0F) {
-            DeathEffects.applyDeathEffect(entityLivingBase, DeathEffects.DE_COLOREDACID);
-         }
-      }
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasStatusIcon() {
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
+        return true;
+    }
 
-   @Override
-   public boolean isReady(int duration, int amplifier) {
-      return true;
-   }
+    @Override
+    public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
+        if (entityLivingBase.ticksExisted % 12 == 0) {
+            IAttributeInstance entityAttribute = entityLivingBase.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
+            double baseValue = entityAttribute.getBaseValue();
+            entityAttribute.setBaseValue(1.0);
+            entityLivingBase.attackEntityFrom(new WeaponDamage(null, null, null, false, false, null, WeaponDamage.toxin), 3 * (amplifier + 1));
+            entityLivingBase.hurtResistantTime = 0;
+            entityAttribute.setBaseValue(baseValue);
+            if (entityLivingBase.getHealth() <= 0.0F) {
+                DeathEffects.applyDeathEffect(entityLivingBase, DeathEffects.DE_COLOREDACID);
+            }
+        }
+    }
+
+    @Override
+    public boolean isReady(int duration, int amplifier) {
+        return true;
+    }
+
 }

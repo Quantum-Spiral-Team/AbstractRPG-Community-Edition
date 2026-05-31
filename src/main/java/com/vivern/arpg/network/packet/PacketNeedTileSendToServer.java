@@ -2,8 +2,6 @@ package com.vivern.arpg.network.packet;
 
 import com.vivern.arpg.network.PacketHandler;
 import io.netty.buffer.ByteBuf;
-import java.util.ConcurrentModificationException;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -14,59 +12,63 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.ConcurrentModificationException;
+
 public class PacketNeedTileSendToServer extends Packet {
-   public int x = 0;
-   public int y = 0;
-   public int z = 0;
-   public boolean isMessage;
 
-   public void writePos(BlockPos pos) {
-      this.buf().writeInt(pos.getX());
-      this.buf().writeInt(pos.getY());
-      this.buf().writeInt(pos.getZ());
-      this.isMessage = true;
-   }
+    public int x = 0;
+    public int y = 0;
+    public int z = 0;
+    public boolean isMessage;
 
-   public void writePos(int x, int y, int z) {
-      this.buf().writeInt(x);
-      this.buf().writeInt(y);
-      this.buf().writeInt(z);
-      this.isMessage = true;
-   }
+    public void writePos(BlockPos pos) {
+        this.buf().writeInt(pos.getX());
+        this.buf().writeInt(pos.getY());
+        this.buf().writeInt(pos.getZ());
+        this.isMessage = true;
+    }
 
-   @Override
-   public void fromBytes(ByteBuf buffer) {
-      this.x = buffer.readInt();
-      this.y = buffer.readInt();
-      this.z = buffer.readInt();
-   }
+    public void writePos(int x, int y, int z) {
+        this.buf().writeInt(x);
+        this.buf().writeInt(y);
+        this.buf().writeInt(z);
+        this.isMessage = true;
+    }
 
-   @SideOnly(Side.CLIENT)
-   public static void send(BlockPos pos) {
-      PacketNeedTileSendToServer packet = new PacketNeedTileSendToServer();
-      packet.writePos(pos);
-      PacketHandler.NETWORK.sendToServer(packet);
-   }
+    @Override
+    public void fromBytes(ByteBuf buffer) {
+        this.x = buffer.readInt();
+        this.y = buffer.readInt();
+        this.z = buffer.readInt();
+    }
 
-   @Override
-   public void client(EntityPlayer player, Packet sp, MessageContext ctx) {}
+    @SideOnly(Side.CLIENT)
+    public static void send(BlockPos pos) {
+        PacketNeedTileSendToServer packet = new PacketNeedTileSendToServer();
+        packet.writePos(pos);
+        PacketHandler.NETWORK.sendToServer(packet);
+    }
 
-   @Override
-   public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {
-      FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.processMessage(player));
-   }
+    @Override
+    public void client(EntityPlayer player, Packet sp, MessageContext ctx) {}
 
-   void processMessage(EntityPlayerMP player) {
-      try {
-         TileEntity tile = player.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
-         if (tile != null) {
-            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-            if (spacketupdatetileentity != null) {
-               player.connection.sendPacket(spacketupdatetileentity);
+    @Override
+    public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {
+        FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.processMessage(player));
+    }
+
+    void processMessage(EntityPlayerMP player) {
+        try {
+            TileEntity tile = player.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+            if (tile != null) {
+                SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+                if (spacketupdatetileentity != null) {
+                    player.connection.sendPacket(spacketupdatetileentity);
+                }
             }
-         }
-      } catch (ConcurrentModificationException var4) {
-         var4.printStackTrace();
-      }
-   }
+        } catch (ConcurrentModificationException var4) {
+            var4.printStackTrace();
+        }
+    }
+
 }

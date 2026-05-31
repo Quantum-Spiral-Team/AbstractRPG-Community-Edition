@@ -19,72 +19,65 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Mouse;
 
 public class Sunrise extends Item {
-   public Sunrise() {
-      this.setRegistryName("sunrise");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("sunrise");
-      this.setMaxDamage(10000);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public int getMaxItemUseDuration(ItemStack itemstack) {
-      return 72000;
-   }
+    public Sunrise() {
+        this.setRegistryName("sunrise");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("sunrise");
+        this.setMaxDamage(10000);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public EnumAction getItemUseAction(ItemStack stack) {
-      return EnumAction.BOW;
-   }
+    @Override
+    public int getMaxItemUseDuration(ItemStack itemstack) {
+        return 72000;
+    }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      player.setActiveHand(hand);
-      return new ActionResult(EnumActionResult.PASS, itemstack);
-   }
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
+    }
 
-   @Override
-   public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
-      return true;
-   }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        player.setActiveHand(hand);
+        return new ActionResult(EnumActionResult.PASS, itemstack);
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!worldIn.isRemote && entityIn instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)entityIn;
-         int damage = itemstack.getItemDamage();
-         World world = player.getEntityWorld();
-         Item itemIn = itemstack.getItem();
-         EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
-         float mana = Mana.getMana(player);
-         float spee = Mana.getManaSpeed(player);
-         if (player.getActiveItemStack() == itemstack && mana > 1.1F && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
-            world.playSound(
-                    null,
-               player.posX,
-               player.posY,
-               player.posZ,
-               Sounds.fire,
-               SoundCategory.AMBIENT,
-               0.7F,
-               0.9F / (itemRand.nextFloat() * 0.4F + 0.8F)
-            );
-            player.getCooldownTracker().setCooldown(this, 5);
-            player.addStat(StatList.getObjectUseStats(this));
-            itemstack.damageItem(1, (EntityLivingBase)entityIn);
-            if (!player.capabilities.isCreativeMode) {
-               Mana.changeMana(player, -1.1F);
-               Mana.setManaSpeed(player, 0.001F);
+    @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+        return true;
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!worldIn.isRemote && entityIn instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entityIn;
+            int damage = itemstack.getItemDamage();
+            World world = player.getEntityWorld();
+            Item itemIn = itemstack.getItem();
+            EnumHand hand = player.getActiveHand();
+            boolean click = Mouse.isButtonDown(1);
+            float mana = Mana.getMana(player);
+            float spee = Mana.getManaSpeed(player);
+            if (player.getActiveItemStack() == itemstack && mana > 1.1F && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
+                world.playSound(null, player.posX, player.posY, player.posZ, Sounds.fire, SoundCategory.AMBIENT, 0.7F, 0.9F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                player.getCooldownTracker().setCooldown(this, 5);
+                player.addStat(StatList.getObjectUseStats(this));
+                itemstack.damageItem(1, (EntityLivingBase) entityIn);
+                if (!player.capabilities.isCreativeMode) {
+                    Mana.changeMana(player, -1.1F);
+                    Mana.setManaSpeed(player, 0.001F);
+                }
+
+                if (!world.isRemote) {
+                    EntitySunrise entit = new EntitySunrise(world, player);
+                    entit.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.7F, 0.6F);
+                    world.spawnEntity(entit);
+                }
             }
+        }
+    }
 
-            if (!world.isRemote) {
-               EntitySunrise entit = new EntitySunrise(world, player);
-               entit.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.7F, 0.6F);
-               world.spawnEntity(entit);
-            }
-         }
-      }
-   }
 }

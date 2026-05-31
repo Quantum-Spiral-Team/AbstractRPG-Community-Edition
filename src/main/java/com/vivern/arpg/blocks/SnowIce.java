@@ -9,24 +9,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class SnowIce extends Block implements IBlockHardBreak {
-   public SnowIce() {
-      super(Material.GOURD);
-      this.setRegistryName("snow_ice");
-      this.setTranslationKey("snow_ice");
-      this.blockHardness = BlocksRegister.HR_SNOWICE_GLACIER.hardness;
-      this.blockResistance = BlocksRegister.HR_SNOWICE_GLACIER.resistance;
-      this.setHarvestLevel("shovel", BlocksRegister.HR_SNOWICE_GLACIER.lvl);
-      this.setSoundType(SoundTypeShards.SHARDS);
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-   }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return true;
-   }
+    public SnowIce() {
+        super(Material.GOURD);
+        this.setRegistryName("snow_ice");
+        this.setTranslationKey("snow_ice");
+        this.blockHardness = BlocksRegister.HR_SNOWICE_GLACIER.hardness;
+        this.blockResistance = BlocksRegister.HR_SNOWICE_GLACIER.resistance;
+        this.setHarvestLevel("shovel", BlocksRegister.HR_SNOWICE_GLACIER.lvl);
+        this.setSoundType(SoundTypeShards.SHARDS);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    }
 
-   @Override
-   public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
-      return BlocksRegister.HR_SNOWICE_GLACIER.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return true;
+    }
+
+    @Override
+    public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
+        return BlocksRegister.HR_SNOWICE_GLACIER.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
+    }
+
 }

@@ -6,17 +6,19 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class FrozenStoneBricks extends Block {
-   public FrozenStoneBricks() {
-      super(Material.ROCK);
-      this.setRegistryName("frozen_stone_bricks");
-      this.setTranslationKey("frozen_stone_bricks");
-      this.blockHardness = 2.0F;
-      this.blockResistance = 1.5F;
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-   }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return true;
-   }
+    public FrozenStoneBricks() {
+        super(Material.ROCK);
+        this.setRegistryName("frozen_stone_bricks");
+        this.setTranslationKey("frozen_stone_bricks");
+        this.blockHardness = 2.0F;
+        this.blockResistance = 1.5F;
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return true;
+    }
+
 }

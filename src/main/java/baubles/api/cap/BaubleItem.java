@@ -4,16 +4,17 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import net.minecraft.item.ItemStack;
 
-public class BaubleItem implements IBauble
-{
-	private BaubleType baubleType;
+public class BaubleItem implements IBauble {
 
-	public BaubleItem(BaubleType type) {
-		baubleType = type;
-	}
+    private BaubleType baubleType;
 
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return baubleType;
-	}
+    public BaubleItem(BaubleType type) {
+        baubleType = type;
+    }
+
+    @Override
+    public BaubleType getBaubleType(ItemStack itemstack) {
+        return baubleType;
+    }
+
 }

@@ -16,46 +16,48 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderBoomerang<T extends Entity> extends Render<T> {
-   protected final Item item;
-   private final RenderItem itemRenderer;
 
-   public RenderBoomerang(RenderManager renderManagerIn, Item itemIn) {
-      super(renderManagerIn);
-      this.item = itemIn;
-      this.itemRenderer = Minecraft.getMinecraft().getRenderItem();
-   }
+    protected final Item item;
+    private final RenderItem itemRenderer;
 
-   @Override
-   public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-      GlStateManager.pushMatrix();
-      GlStateManager.translate((float)x, (float)y, (float)z);
-      GlStateManager.enableRescaleNormal();
-      GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-      GlStateManager.rotate(entity.rotationPitch, 0.0F, 1.0F, 0.0F);
-      GlStateManager.rotate((entity.ticksExisted + partialTicks) * 30.0F, 0.0F, 0.0F, 1.0F);
-      this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-      if (this.renderOutlines) {
-         GlStateManager.enableColorMaterial();
-         GlStateManager.enableOutlineMode(this.getTeamColor(entity));
-      }
+    public RenderBoomerang(RenderManager renderManagerIn, Item itemIn) {
+        super(renderManagerIn);
+        this.item = itemIn;
+        this.itemRenderer = Minecraft.getMinecraft().getRenderItem();
+    }
 
-      this.itemRenderer.renderItem(this.getStackToRender(entity), TransformType.GROUND);
-      if (this.renderOutlines) {
-         GlStateManager.disableOutlineMode();
-         GlStateManager.disableColorMaterial();
-      }
+    @Override
+    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        GlStateManager.pushMatrix();
+        GlStateManager.translate((float) x, (float) y, (float) z);
+        GlStateManager.enableRescaleNormal();
+        GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+        GlStateManager.rotate(entity.rotationPitch, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate((entity.ticksExisted + partialTicks) * 30.0F, 0.0F, 0.0F, 1.0F);
+        this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        if (this.renderOutlines) {
+            GlStateManager.enableColorMaterial();
+            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+        }
 
-      GlStateManager.disableRescaleNormal();
-      GlStateManager.popMatrix();
-      super.doRender(entity, x, y, z, entityYaw, partialTicks);
-   }
+        this.itemRenderer.renderItem(this.getStackToRender(entity), TransformType.GROUND);
+        if (this.renderOutlines) {
+            GlStateManager.disableOutlineMode();
+            GlStateManager.disableColorMaterial();
+        }
 
-   public ItemStack getStackToRender(T entityIn) {
-      return new ItemStack(this.item);
-   }
+        GlStateManager.disableRescaleNormal();
+        GlStateManager.popMatrix();
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    }
 
-   @Override
-   protected ResourceLocation getEntityTexture(Entity entity) {
-      return TextureMap.LOCATION_BLOCKS_TEXTURE;
-   }
+    public ItemStack getStackToRender(T entityIn) {
+        return new ItemStack(this.item);
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        return TextureMap.LOCATION_BLOCKS_TEXTURE;
+    }
+
 }

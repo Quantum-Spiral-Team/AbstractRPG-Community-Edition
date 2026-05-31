@@ -2,12 +2,10 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.dimensions.aquatica.DimensionAquatica;
 import com.vivern.arpg.tileentity.TileTritonHearth;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -26,158 +24,159 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class TritonHearth extends Block {
-   public static AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 0.875, 0.875);
-   public static final PropertyBool WET = PropertyBool.create("wet");
 
-   public TritonHearth() {
-      super(Material.WATER);
-      this.setRegistryName("triton_hearth");
-      this.setTranslationKey("triton_hearth");
-      this.blockHardness = 10.0F;
-      this.blockResistance = 10.0F;
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-   }
+    public static AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 0.875, 0.875);
+    public static final PropertyBool WET = PropertyBool.create("wet");
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.TRANSLUCENT;
-   }
+    public TritonHearth() {
+        super(Material.WATER);
+        this.setRegistryName("triton_hearth");
+        this.setTranslationKey("triton_hearth");
+        this.blockHardness = 10.0F;
+        this.blockResistance = 10.0F;
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+    }
 
-   @Override
-   public EnumBlockRenderType getRenderType(IBlockState state) {
-      return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
 
-   @Override
-   public void onFallenUpon(World world, BlockPos pos, Entity entityIn, float fallDistance) {
-      TileEntity tile = world.getTileEntity(pos);
-      if (tile instanceof TileTritonHearth) {
-         IBlockState state = world.getBlockState(pos);
-         TileTritonHearth tritonHearth = (TileTritonHearth)tile;
-         tritonHearth.checkMaterials(state.getValue(WET));
-      }
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
 
-      super.onFallenUpon(world, pos, entityIn, fallDistance);
-   }
+    @Override
+    public void onFallenUpon(World world, BlockPos pos, Entity entityIn, float fallDistance) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof TileTritonHearth) {
+            IBlockState state = world.getBlockState(pos);
+            TileTritonHearth tritonHearth = (TileTritonHearth) tile;
+            tritonHearth.checkMaterials(state.getValue(WET));
+        }
 
-   @Override
-   public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-      return false;
-   }
+        super.onFallenUpon(world, pos, entityIn, fallDistance);
+    }
 
-   @Override
-   public Material getMaterial(IBlockState state) {
-      return state.getValue(WET) ? Material.WATER : Material.ROCK;
-   }
+    @Override
+    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
+        return false;
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      if (!this.isInWater(world, pos)) {
-         world.setBlockState(pos, state.withProperty(WET, false));
-      } else {
-         world.setBlockState(pos, state.withProperty(WET, true));
-      }
+    @Override
+    public Material getMaterial(IBlockState state) {
+        return state.getValue(WET) ? Material.WATER : Material.ROCK;
+    }
 
-      super.neighborChanged(state, world, pos, blockIn, fromPos);
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        if (!this.isInWater(world, pos)) {
+            world.setBlockState(pos, state.withProperty(WET, false));
+        } else {
+            world.setBlockState(pos, state.withProperty(WET, true));
+        }
 
-   public boolean isInWater(World worldIn, BlockPos pos) {
-      for (EnumFacing facing : EnumFacing.values()) {
-         IBlockState state = worldIn.getBlockState(pos.offset(facing));
-         if (!(state.getMaterial() == Material.WATER || state.isOpaqueCube())) {
-            return false;
-         }
-      }
-      return true;
-   }
+        super.neighborChanged(state, world, pos, blockIn, fromPos);
+    }
 
-   public boolean isAroundWater(World world, BlockPos pos) {
-      int count = 0;
-
-      for (EnumFacing facing : EnumFacing.VALUES) {
-         BlockPos poss = pos.offset(facing);
-         IBlockState state2 = world.getBlockState(poss);
-         if (state2.getBlock() == Blocks.WATER && state2.getValue(BlockStaticLiquid.LEVEL) == 0) {
-            if (++count >= 2) {
-               return true;
+    public boolean isInWater(World worldIn, BlockPos pos) {
+        for (EnumFacing facing : EnumFacing.values()) {
+            IBlockState state = worldIn.getBlockState(pos.offset(facing));
+            if (!(state.getMaterial() == Material.WATER || state.isOpaqueCube())) {
+                return false;
             }
-         }
-      }
+        }
+        return true;
+    }
 
-      return false;
-   }
+    public boolean isAroundWater(World world, BlockPos pos) {
+        int count = 0;
 
-   @Override
-   public void breakBlock(World world, BlockPos pos, IBlockState state) {
-      if (state.getValue(WET) && this.isAroundWater(world, pos)) {
-         world.setBlockState(pos, Blocks.WATER.getDefaultState());
-      }
+        for (EnumFacing facing : EnumFacing.VALUES) {
+            BlockPos poss = pos.offset(facing);
+            IBlockState state2 = world.getBlockState(poss);
+            if (state2.getBlock() == Blocks.WATER && state2.getValue(BlockStaticLiquid.LEVEL) == 0) {
+                if (++count >= 2) {
+                    return true;
+                }
+            }
+        }
 
-      super.breakBlock(world, pos, state);
-   }
+        return false;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        if (state.getValue(WET) && this.isAroundWater(world, pos)) {
+            world.setBlockState(pos, Blocks.WATER.getDefaultState());
+        }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+        super.breakBlock(world, pos, state);
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   public Class<TileTritonHearth> getTileEntityClass() {
-      return TileTritonHearth.class;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   public TileTritonHearth getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileTritonHearth)world.getTileEntity(position);
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public Class<TileTritonHearth> getTileEntityClass() {
+        return TileTritonHearth.class;
+    }
 
-   @Override
-   @Nullable
-   public TileTritonHearth createTileEntity(World world, IBlockState blockState) {
-      return new TileTritonHearth();
-   }
+    public TileTritonHearth getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileTritonHearth) world.getTileEntity(position);
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(WET, meta > 0);
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(WET) ? 1 : 0;
-   }
+    @Override
+    @Nullable
+    public TileTritonHearth createTileEntity(World world, IBlockState blockState) {
+        return new TileTritonHearth();
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, BlockLiquid.LEVEL, WET);
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(WET, meta > 0);
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getDefaultState().withProperty(BlockLiquid.LEVEL, 0).withProperty(WET, this.isInWater(worldIn, pos));
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(WET) ? 1 : 0;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
-      return world.provider.getDimension() == 103
-         ? DimensionAquatica.getBlockFogColor(world, pos, state, entity, originalColor, partialTicks)
-         : super.getFogColor(world, pos, state, entity, originalColor, partialTicks);
-   }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, BlockLiquid.LEVEL, WET);
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(BlockLiquid.LEVEL, 0).withProperty(WET, this.isInWater(worldIn, pos));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
+        return world.provider.getDimension() == 103 ? DimensionAquatica.getBlockFogColor(world, pos, state, entity, originalColor, partialTicks) : super.getFogColor(world, pos, state, entity, originalColor, partialTicks);
+    }
+
 }

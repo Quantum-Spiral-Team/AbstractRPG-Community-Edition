@@ -2,43 +2,46 @@ package com.vivern.arpg.network.packet;
 
 import com.vivern.arpg.recipes.ExploringField;
 import io.netty.buffer.ByteBuf;
-import java.util.ConcurrentModificationException;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import java.util.ConcurrentModificationException;
+
 public class PacketExploringToServer extends Packet {
-   public int nbtKey;
-   public int nbtBitshift;
 
-   public void writeints(int nbtKey, int nbtBitshift) {
-      this.buf().writeInt(nbtKey);
-      this.buf().writeInt(nbtBitshift);
-   }
+    public int nbtKey;
+    public int nbtBitshift;
 
-   @Override
-   public void fromBytes(ByteBuf buffer) {
-      this.nbtKey = buffer.readInt();
-      this.nbtBitshift = buffer.readInt();
-   }
+    public void writeints(int nbtKey, int nbtBitshift) {
+        this.buf().writeInt(nbtKey);
+        this.buf().writeInt(nbtBitshift);
+    }
 
-   @Override
-   public void client(EntityPlayer player, Packet sp, MessageContext ctx) {}
+    @Override
+    public void fromBytes(ByteBuf buffer) {
+        this.nbtKey = buffer.readInt();
+        this.nbtBitshift = buffer.readInt();
+    }
 
-   @Override
-   public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {
-      FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.processMessage(player));
-   }
+    @Override
+    public void client(EntityPlayer player, Packet sp, MessageContext ctx) {}
 
-   void processMessage(EntityLivingBase player) {
-      try {
-         if (this.nbtBitshift >= 0 && this.nbtBitshift < 32 && player instanceof EntityPlayerMP) {
-            ExploringField.setExploringNow(ExploringField.getExploringTagCompound((EntityPlayerMP)player), this.nbtKey, this.nbtBitshift);
-         }
-      } catch (ConcurrentModificationException var3) {
-         var3.printStackTrace();
-      }
-   }
+    @Override
+    public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {
+        FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.processMessage(player));
+    }
+
+    void processMessage(EntityLivingBase player) {
+        try {
+            if (this.nbtBitshift >= 0 && this.nbtBitshift < 32 && player instanceof EntityPlayerMP) {
+                ExploringField.setExploringNow(ExploringField.getExploringTagCompound((EntityPlayerMP) player), this.nbtKey, this.nbtBitshift);
+            }
+        } catch (ConcurrentModificationException var3) {
+            var3.printStackTrace();
+        }
+    }
+
 }

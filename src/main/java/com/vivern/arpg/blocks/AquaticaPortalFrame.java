@@ -10,49 +10,51 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class AquaticaPortalFrame extends BlockBlock {
-   public AquaticaPortalFrame(Material mater, String name, float hard, float resi) {
-      super(mater, name, hard, resi);
-   }
 
-   @Override
-   public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      IBlockState statewater = world.getBlockState(fromPos);
-      if (statewater.getBlock() == Blocks.WATER || statewater.getBlock() == Blocks.FLOWING_WATER) {
-         if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 2, 0), statewater, null)) {
-            return;
-         }
+    public AquaticaPortalFrame(Material mater, String name, float hard, float resi) {
+        super(mater, name, hard, resi);
+    }
 
-         if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(2, 0, 0), statewater, Axis.X)) {
-            return;
-         }
+    @Override
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        IBlockState statewater = world.getBlockState(fromPos);
+        if (statewater.getBlock() == Blocks.WATER || statewater.getBlock() == Blocks.FLOWING_WATER) {
+            if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 2, 0), statewater, null)) {
+                return;
+            }
 
-         if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(-2, 0, 0), statewater, Axis.X)) {
-            return;
-         }
+            if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(2, 0, 0), statewater, Axis.X)) {
+                return;
+            }
 
-         if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(1, 1, 0), statewater, Axis.X)) {
-            return;
-         }
+            if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(-2, 0, 0), statewater, Axis.X)) {
+                return;
+            }
 
-         if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(-1, 1, 0), statewater, Axis.X)) {
-            return;
-         }
+            if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(1, 1, 0), statewater, Axis.X)) {
+                return;
+            }
 
-         if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 0, 2), statewater, Axis.Z)) {
-            return;
-         }
+            if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(-1, 1, 0), statewater, Axis.X)) {
+                return;
+            }
 
-         if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 0, -2), statewater, Axis.Z)) {
-            return;
-         }
+            if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 0, 2), statewater, Axis.Z)) {
+                return;
+            }
 
-         if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 1, 1), statewater, Axis.Z)) {
-            return;
-         }
+            if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 0, -2), statewater, Axis.Z)) {
+                return;
+            }
 
-         if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 1, -1), statewater, Axis.Z)) {
-            return;
-         }
-      }
-   }
+            if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 1, 1), statewater, Axis.Z)) {
+                return;
+            }
+
+            if (DimensionsRegister.teleporterAQUATICA.tryActivate(world, fromPos.add(0, 1, -1), statewater, Axis.Z)) {
+                return;
+            }
+        }
+    }
+
 }

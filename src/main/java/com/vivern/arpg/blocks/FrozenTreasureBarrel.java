@@ -21,94 +21,96 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FrozenTreasureBarrel extends Block {
-   protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 1.0, 0.875);
 
-   public FrozenTreasureBarrel() {
-      super(Material.WOOD);
-      this.setRegistryName("frozen_treasure_barrel");
-      this.setTranslationKey("frozen_treasure_barrel");
-      this.blockHardness = 0.2F;
-      this.blockResistance = 0.1F;
-      this.setSoundType(SoundType.WOOD);
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setHarvestLevel("axe", 0);
-   }
+    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 1.0, 0.875);
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    public FrozenTreasureBarrel() {
+        super(Material.WOOD);
+        this.setRegistryName("frozen_treasure_barrel");
+        this.setTranslationKey("frozen_treasure_barrel");
+        this.blockHardness = 0.2F;
+        this.blockResistance = 0.1F;
+        this.setSoundType(SoundType.WOOD);
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setHarvestLevel("axe", 0);
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT_MIPPED;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT_MIPPED;
+    }
 
-   @Override
-   public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-      int maxr = 1 + RANDOM.nextInt(2);
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-      for (int r = 0; r < maxr; r++) {
-         if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
-            if (RANDOM.nextFloat() < 0.4 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.SNOWFLAKE_SHURIKEN, 2 + RANDOM.nextInt(15)));
-            } else if (RANDOM.nextFloat() < 0.15 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(BlocksRegister.FROZEN_TORCH, 6 + RANDOM.nextInt(10)));
-            } else if (RANDOM.nextFloat() < 0.15 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CONIFER_ROSIN, 2 + RANDOM.nextInt(5)));
-            } else if (RANDOM.nextFloat() < 0.15 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(Items.COAL, 1 + RANDOM.nextInt(2)));
-            } else if (RANDOM.nextFloat() < 0.1 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(Items.ARROW, 4 + RANDOM.nextInt(5)));
-            } else if (RANDOM.nextFloat() < 0.25 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CONIFER_STICK, 2 + RANDOM.nextInt(4)));
-            } else if (RANDOM.nextFloat() < 0.15 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(Items.STICK, 2 + RANDOM.nextInt(4)));
-            } else if (RANDOM.nextFloat() < 0.15 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.ICE_FLOWER_SEEDS, 1 + RANDOM.nextInt(3)));
-            } else if (RANDOM.nextFloat() < 0.25 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(BlocksRegister.CONIFER_SAPLING, 2 + RANDOM.nextInt(4)));
-            } else if (RANDOM.nextFloat() < 0.16 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.ARROW_FROZEN, 4 + RANDOM.nextInt(8)));
-            } else if (RANDOM.nextFloat() < 0.2 * chance) {
-               spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.HAIL_TEAR, 1 + RANDOM.nextInt(3)));
+    @Override
+    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
+        int maxr = 1 + RANDOM.nextInt(2);
+
+        for (int r = 0; r < maxr; r++) {
+            if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
+                if (RANDOM.nextFloat() < 0.4 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.SNOWFLAKE_SHURIKEN, 2 + RANDOM.nextInt(15)));
+                } else if (RANDOM.nextFloat() < 0.15 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(BlocksRegister.FROZEN_TORCH, 6 + RANDOM.nextInt(10)));
+                } else if (RANDOM.nextFloat() < 0.15 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CONIFER_ROSIN, 2 + RANDOM.nextInt(5)));
+                } else if (RANDOM.nextFloat() < 0.15 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(Items.COAL, 1 + RANDOM.nextInt(2)));
+                } else if (RANDOM.nextFloat() < 0.1 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(Items.ARROW, 4 + RANDOM.nextInt(5)));
+                } else if (RANDOM.nextFloat() < 0.25 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CONIFER_STICK, 2 + RANDOM.nextInt(4)));
+                } else if (RANDOM.nextFloat() < 0.15 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(Items.STICK, 2 + RANDOM.nextInt(4)));
+                } else if (RANDOM.nextFloat() < 0.15 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.ICE_FLOWER_SEEDS, 1 + RANDOM.nextInt(3)));
+                } else if (RANDOM.nextFloat() < 0.25 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(BlocksRegister.CONIFER_SAPLING, 2 + RANDOM.nextInt(4)));
+                } else if (RANDOM.nextFloat() < 0.16 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.ARROW_FROZEN, 4 + RANDOM.nextInt(8)));
+                } else if (RANDOM.nextFloat() < 0.2 * chance) {
+                    spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.HAIL_TEAR, 1 + RANDOM.nextInt(3)));
+                }
+
+                if (RANDOM.nextFloat() < 0.2 * chance) {
+                    for (int i = 0; i < 1 + RANDOM.nextInt(7); i++) {
+                        EntityCoin coin = new EntityCoin(worldIn, 1 + (RANDOM.nextFloat() < 0.3 ? 1 : 0));
+                        coin.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+                        worldIn.spawnEntity(coin);
+                    }
+                }
             }
+        }
+    }
 
-            if (RANDOM.nextFloat() < 0.2 * chance) {
-               for (int i = 0; i < 1 + RANDOM.nextInt(7); i++) {
-                  EntityCoin coin = new EntityCoin(worldIn, 1 + (RANDOM.nextFloat() < 0.3 ? 1 : 0));
-                  coin.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-                  worldIn.spawnEntity(coin);
-               }
-            }
-         }
-      }
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        return true;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-      return true;
-   }
+    @Override
+    public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
+        return MathHelper.getInt(RANDOM, 0, 5);
+    }
 
-   @Override
-   public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
-      return MathHelper.getInt(RANDOM, 0, 5);
-   }
 }

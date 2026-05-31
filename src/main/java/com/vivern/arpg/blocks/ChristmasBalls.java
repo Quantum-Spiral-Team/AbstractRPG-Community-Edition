@@ -20,116 +20,112 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ChristmasBalls extends Block {
-   public static final PropertyBool NORTH = PropertyBool.create("north");
-   public static final PropertyBool EAST = PropertyBool.create("east");
-   public static final PropertyBool SOUTH = PropertyBool.create("south");
-   public static final PropertyBool WEST = PropertyBool.create("west");
-   public static final PropertyBool UPPER = PropertyBool.create("up");
-   public static final PropertyInteger COLORTYPE = PropertyInteger.create("colortype", 0, 2);
-   protected static final AxisAlignedBB UP_AABB = new AxisAlignedBB(0.2000000059604645, 0.9, 0.2000000059604645, 0.8000000238418579, 1.0, 0.8000000238418579);
-   protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.2, 0.2, 0.9, 0.8, 0.8, 1.0);
-   protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.2, 0.2, 0.0, 0.8, 0.8, 0.1);
-   protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.9, 0.2, 0.2, 1.0, 0.8, 0.8);
-   protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0, 0.2, 0.2, 0.1, 0.8, 0.8);
 
-   public ChristmasBalls() {
-      super(Material.GLASS);
-      this.setRegistryName("christmas_balls");
-      this.setTranslationKey("christmas_balls");
-      this.blockHardness = 0.0F;
-      this.blockResistance = 0.0F;
-      this.setSoundType(SoundTypeShards.SHARDS);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-   }
+    public static final PropertyBool NORTH = PropertyBool.create("north");
+    public static final PropertyBool EAST = PropertyBool.create("east");
+    public static final PropertyBool SOUTH = PropertyBool.create("south");
+    public static final PropertyBool WEST = PropertyBool.create("west");
+    public static final PropertyBool UPPER = PropertyBool.create("up");
+    public static final PropertyInteger COLORTYPE = PropertyInteger.create("colortype", 0, 2);
+    protected static final AxisAlignedBB UP_AABB = new AxisAlignedBB(0.2000000059604645, 0.9, 0.2000000059604645, 0.8000000238418579, 1.0, 0.8000000238418579);
+    protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.2, 0.2, 0.9, 0.8, 0.8, 1.0);
+    protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.2, 0.2, 0.0, 0.8, 0.8, 0.1);
+    protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.9, 0.2, 0.2, 1.0, 0.8, 0.8);
+    protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0, 0.2, 0.2, 0.1, 0.8, 0.8);
 
-   @Override
-   public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      boolean west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST, false) || worldIn.getBlockState(pos.west()).isFullCube();
-      boolean east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST, false) || worldIn.getBlockState(pos.east()).isFullCube();
-      boolean south = worldIn.isSideSolid(pos.south(), EnumFacing.NORTH, false) || worldIn.getBlockState(pos.south()).isFullCube();
-      boolean north = worldIn.isSideSolid(pos.north(), EnumFacing.SOUTH, false) || worldIn.getBlockState(pos.north()).isFullCube();
-      boolean up = worldIn.isSideSolid(pos.up(), EnumFacing.DOWN, false) || worldIn.getBlockState(pos.up()).isFullCube();
-      return state.withProperty(WEST, west).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, south).withProperty(UPPER, up);
-   }
+    public ChristmasBalls() {
+        super(Material.GLASS);
+        this.setRegistryName("christmas_balls");
+        this.setTranslationKey("christmas_balls");
+        this.blockHardness = 0.0F;
+        this.blockResistance = 0.0F;
+        this.setSoundType(SoundTypeShards.SHARDS);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+    }
 
-   @Override
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      boolean west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST) || worldIn.isBlockFullCube(pos.west());
-      boolean east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST) || worldIn.isBlockFullCube(pos.east());
-      boolean south = worldIn.isSideSolid(pos.south(), EnumFacing.NORTH) || worldIn.isBlockFullCube(pos.south());
-      boolean north = worldIn.isSideSolid(pos.north(), EnumFacing.SOUTH) || worldIn.isBlockFullCube(pos.north());
-      boolean up = worldIn.isSideSolid(pos.up(), EnumFacing.DOWN) || worldIn.isBlockFullCube(pos.up());
-      return east || north || south || west || up;
-   }
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        boolean west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST, false) || worldIn.getBlockState(pos.west()).isFullCube();
+        boolean east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST, false) || worldIn.getBlockState(pos.east()).isFullCube();
+        boolean south = worldIn.isSideSolid(pos.south(), EnumFacing.NORTH, false) || worldIn.getBlockState(pos.south()).isFullCube();
+        boolean north = worldIn.isSideSolid(pos.north(), EnumFacing.SOUTH, false) || worldIn.getBlockState(pos.north()).isFullCube();
+        boolean up = worldIn.isSideSolid(pos.up(), EnumFacing.DOWN, false) || worldIn.getBlockState(pos.up()).isFullCube();
+        return state.withProperty(WEST, west).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, south).withProperty(UPPER, up);
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return NULL_AABB;
-   }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        boolean west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST) || worldIn.isBlockFullCube(pos.west());
+        boolean east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST) || worldIn.isBlockFullCube(pos.east());
+        boolean south = worldIn.isSideSolid(pos.south(), EnumFacing.NORTH) || worldIn.isBlockFullCube(pos.south());
+        boolean north = worldIn.isSideSolid(pos.north(), EnumFacing.SOUTH) || worldIn.isBlockFullCube(pos.north());
+        boolean up = worldIn.isSideSolid(pos.up(), EnumFacing.DOWN) || worldIn.isBlockFullCube(pos.up());
+        return east || north || south || west || up;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return NULL_AABB;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(COLORTYPE, meta);
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(COLORTYPE);
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(COLORTYPE, meta);
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, UPPER, COLORTYPE});
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(COLORTYPE);
+    }
 
-   @Override
-   public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-      return BlockFaceShape.UNDEFINED;
-   }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, UPPER, COLORTYPE});
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      boolean west;
-      boolean east;
-      boolean south;
-      boolean north;
-      boolean up;
-      if (placer != null && placer.isSneaking()) {
-         west = facing == EnumFacing.EAST;
-         east = facing == EnumFacing.WEST;
-         south = facing == EnumFacing.NORTH;
-         north = facing == EnumFacing.SOUTH;
-         up = facing == EnumFacing.DOWN;
-      } else {
-         west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST) || worldIn.isBlockFullCube(pos.west());
-         east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST) || worldIn.isBlockFullCube(pos.east());
-         south = worldIn.isSideSolid(pos.south(), EnumFacing.NORTH) || worldIn.isBlockFullCube(pos.south());
-         north = worldIn.isSideSolid(pos.north(), EnumFacing.SOUTH) || worldIn.isBlockFullCube(pos.north());
-         up = worldIn.isSideSolid(pos.up(), EnumFacing.DOWN) || worldIn.isBlockFullCube(pos.up());
-      }
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
+    }
 
-      return this.getDefaultState()
-         .withProperty(COLORTYPE, worldIn.rand.nextInt(3))
-         .withProperty(WEST, west)
-         .withProperty(EAST, east)
-         .withProperty(NORTH, north)
-         .withProperty(SOUTH, south)
-         .withProperty(UPPER, up);
-   }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        boolean west;
+        boolean east;
+        boolean south;
+        boolean north;
+        boolean up;
+        if (placer != null && placer.isSneaking()) {
+            west = facing == EnumFacing.EAST;
+            east = facing == EnumFacing.WEST;
+            south = facing == EnumFacing.NORTH;
+            north = facing == EnumFacing.SOUTH;
+            up = facing == EnumFacing.DOWN;
+        } else {
+            west = worldIn.isSideSolid(pos.west(), EnumFacing.EAST) || worldIn.isBlockFullCube(pos.west());
+            east = worldIn.isSideSolid(pos.east(), EnumFacing.WEST) || worldIn.isBlockFullCube(pos.east());
+            south = worldIn.isSideSolid(pos.south(), EnumFacing.NORTH) || worldIn.isBlockFullCube(pos.south());
+            north = worldIn.isSideSolid(pos.north(), EnumFacing.SOUTH) || worldIn.isBlockFullCube(pos.north());
+            up = worldIn.isSideSolid(pos.up(), EnumFacing.DOWN) || worldIn.isBlockFullCube(pos.up());
+        }
+
+        return this.getDefaultState().withProperty(COLORTYPE, worldIn.rand.nextInt(3)).withProperty(WEST, west).withProperty(EAST, east).withProperty(NORTH, north).withProperty(SOUTH, south).withProperty(UPPER, up);
+    }
+
 }

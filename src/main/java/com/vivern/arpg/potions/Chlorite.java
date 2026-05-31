@@ -12,68 +12,70 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 public class Chlorite extends AdvancedPotion {
-   public Chlorite(int index) {
-      super(true, 14410575, index, true);
-      this.setRegistryName("arpg:chlorite");
-      this.setPotionName("Chlorite");
-      this.setIconIndex(29, 1);
-   }
 
-   @Override
-   public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
-      if (!entityOnEffect.world.isRemote) {
-         if (amplifier > 15 && entityOnEffect.ticksExisted % 20 == 0 && this.getThisDuration(entityOnEffect) > 0) {
-            entityOnEffect.attackEntityFrom(DamageSource.MAGIC, 5.0F);
-         }
-      } else if (entityOnEffect == Minecraft.getMinecraft().player && entityOnEffect.ticksExisted % 40 == 0) {
-         Boom.drunkTick = 260;
-         Boom.drunkPower = Math.min(amplifier / 2.0F, 15.0F);
-      }
-   }
+    public Chlorite(int index) {
+        super(true, 14410575, index, true);
+        this.setRegistryName("arpg:chlorite");
+        this.setPotionName("Chlorite");
+        this.setIconIndex(29, 1);
+    }
 
-   @Override
-   public boolean isReady(int duration, int amplifier) {
-      return true;
-   }
-
-   @Override
-   public void onRemoveEffect(EntityLivingBase entityOnEffect, PotionEffect effect, boolean byExpiry) {
-      if (entityOnEffect == Minecraft.getMinecraft().player) {
-         Boom.drunkTick = 0;
-         Boom.drunkPower = 0.0F;
-      }
-
-      super.onRemoveEffect(entityOnEffect, effect, byExpiry);
-   }
-
-   @Override
-   public void onThisDeath(LivingDeathEvent event, PotionEffect effect) {
-      if (event.getEntityLiving() == Minecraft.getMinecraft().player) {
-         Boom.drunkTick = 0;
-         Boom.drunkPower = 0.0F;
-      }
-
-      super.onThisDeath(event, effect);
-   }
-
-   @Override
-   public boolean isPotionApplicable(EntityLivingBase entityOnEffect, PotionEffect effect) {
-      if (entityOnEffect instanceof EntityPlayer) {
-         int eq = BaublesApi.isBaubleEquipped((EntityPlayer)entityOnEffect, ItemsRegister.GAS_MASK);
-         if (eq > -1) {
-            ItemStack st = BaublesApi.getBaublesHandler((EntityPlayer)entityOnEffect).getStackInSlot(eq);
-            if (st.getItemDamage() == st.getMaxDamage()) {
-               return true;
+    @Override
+    public void performEffect(EntityLivingBase entityOnEffect, int amplifier) {
+        if (!entityOnEffect.world.isRemote) {
+            if (amplifier > 15 && entityOnEffect.ticksExisted % 20 == 0 && this.getThisDuration(entityOnEffect) > 0) {
+                entityOnEffect.attackEntityFrom(DamageSource.MAGIC, 5.0F);
             }
+        } else if (entityOnEffect == Minecraft.getMinecraft().player && entityOnEffect.ticksExisted % 40 == 0) {
+            Boom.drunkTick = 260;
+            Boom.drunkPower = Math.min(amplifier / 2.0F, 15.0F);
+        }
+    }
 
-            if (!entityOnEffect.world.isRemote) {
-               st.damageItem(1, entityOnEffect);
+    @Override
+    public boolean isReady(int duration, int amplifier) {
+        return true;
+    }
+
+    @Override
+    public void onRemoveEffect(EntityLivingBase entityOnEffect, PotionEffect effect, boolean byExpiry) {
+        if (entityOnEffect == Minecraft.getMinecraft().player) {
+            Boom.drunkTick = 0;
+            Boom.drunkPower = 0.0F;
+        }
+
+        super.onRemoveEffect(entityOnEffect, effect, byExpiry);
+    }
+
+    @Override
+    public void onThisDeath(LivingDeathEvent event, PotionEffect effect) {
+        if (event.getEntityLiving() == Minecraft.getMinecraft().player) {
+            Boom.drunkTick = 0;
+            Boom.drunkPower = 0.0F;
+        }
+
+        super.onThisDeath(event, effect);
+    }
+
+    @Override
+    public boolean isPotionApplicable(EntityLivingBase entityOnEffect, PotionEffect effect) {
+        if (entityOnEffect instanceof EntityPlayer) {
+            int eq = BaublesApi.isBaubleEquipped((EntityPlayer) entityOnEffect, ItemsRegister.GAS_MASK);
+            if (eq > -1) {
+                ItemStack st = BaublesApi.getBaublesHandler((EntityPlayer) entityOnEffect).getStackInSlot(eq);
+                if (st.getItemDamage() == st.getMaxDamage()) {
+                    return true;
+                }
+
+                if (!entityOnEffect.world.isRemote) {
+                    st.damageItem(1, entityOnEffect);
+                }
+
+                return false;
             }
+        }
 
-            return false;
-         }
-      }
+        return true;
+    }
 
-      return true;
-   }
 }

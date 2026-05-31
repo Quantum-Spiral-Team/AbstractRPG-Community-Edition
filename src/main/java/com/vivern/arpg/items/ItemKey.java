@@ -18,45 +18,47 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 
 public class ItemKey extends ItemItem {
-   public ChestLock lockOpens;
-   public boolean consumes;
 
-   public ItemKey(String name, int maxstacksize, ChestLock lockOpens, boolean consumes) {
-      super(name, CreativeTabs.TOOLS, 0, maxstacksize);
-      this.lockOpens = lockOpens;
-      this.consumes = consumes;
-   }
+    public ChestLock lockOpens;
+    public boolean consumes;
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      player.setActiveHand(hand);
-      RayTraceResult raytraceresult = this.rayTrace(world, player, false);
-      if (raytraceresult == null) {
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      } else if (raytraceresult.typeOfHit != Type.BLOCK) {
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      } else {
-         BlockPos pos = raytraceresult.getBlockPos();
-         TileEntity tile = world.getTileEntity(pos);
-         if (tile != null && tile instanceof TileARPGChest) {
-            TileARPGChest chest = (TileARPGChest)tile;
-            if (chest.isLockedWith(this.lockOpens)) {
-               world.playSound(null, pos, Sounds.item_misc_b, SoundCategory.BLOCKS, 0.5F, 0.9F + itemRand.nextFloat() / 5.0F);
-               if (!world.isRemote) {
-                  chest.lockOrUnlockWith(this.lockOpens, false);
-                  if (this.consumes) {
-                     itemstack.shrink(1);
-                  }
+    public ItemKey(String name, int maxstacksize, ChestLock lockOpens, boolean consumes) {
+        super(name, CreativeTabs.TOOLS, 0, maxstacksize);
+        this.lockOpens = lockOpens;
+        this.consumes = consumes;
+    }
 
-                  PacketHandler.trySendPacketUpdate(world, pos, chest, 64.0);
-               }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        player.setActiveHand(hand);
+        RayTraceResult raytraceresult = this.rayTrace(world, player, false);
+        if (raytraceresult == null) {
+            return new ActionResult(EnumActionResult.PASS, itemstack);
+        } else if (raytraceresult.typeOfHit != Type.BLOCK) {
+            return new ActionResult(EnumActionResult.PASS, itemstack);
+        } else {
+            BlockPos pos = raytraceresult.getBlockPos();
+            TileEntity tile = world.getTileEntity(pos);
+            if (tile != null && tile instanceof TileARPGChest) {
+                TileARPGChest chest = (TileARPGChest) tile;
+                if (chest.isLockedWith(this.lockOpens)) {
+                    world.playSound(null, pos, Sounds.item_misc_b, SoundCategory.BLOCKS, 0.5F, 0.9F + itemRand.nextFloat() / 5.0F);
+                    if (!world.isRemote) {
+                        chest.lockOrUnlockWith(this.lockOpens, false);
+                        if (this.consumes) {
+                            itemstack.shrink(1);
+                        }
 
-               return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+                        PacketHandler.trySendPacketUpdate(world, pos, chest, 64.0);
+                    }
+
+                    return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+                }
             }
-         }
 
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      }
-   }
+            return new ActionResult(EnumActionResult.PASS, itemstack);
+        }
+    }
+
 }

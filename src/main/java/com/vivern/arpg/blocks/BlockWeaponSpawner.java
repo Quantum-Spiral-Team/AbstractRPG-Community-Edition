@@ -1,7 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.tileentity.TileWeaponSpawner;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -15,85 +14,86 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockWeaponSpawner extends Block {
-   public BlockWeaponSpawner() {
-      super(Material.ROCK);
-      this.setRegistryName("weapon_spawner");
-      this.setTranslationKey("weapon_spawner");
-      this.blockHardness = -1.0F;
-      this.blockResistance = 99999.0F;
-      this.setCreativeTab(CreativeTabs.REDSTONE);
-   }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
-      if (worldIn.getTileEntity(pos) instanceof TileWeaponSpawner) {
-         TileWeaponSpawner tileentity = (TileWeaponSpawner)worldIn.getTileEntity(pos);
-         if (flag) {
-            tileentity.redstone++;
-         }
+    public BlockWeaponSpawner() {
+        super(Material.ROCK);
+        this.setRegistryName("weapon_spawner");
+        this.setTranslationKey("weapon_spawner");
+        this.blockHardness = -1.0F;
+        this.blockResistance = 99999.0F;
+        this.setCreativeTab(CreativeTabs.REDSTONE);
+    }
 
-         if (!flag) {
-            tileentity.redstone = 0;
-         }
-      }
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
+        if (worldIn.getTileEntity(pos) instanceof TileWeaponSpawner) {
+            TileWeaponSpawner tileentity = (TileWeaponSpawner) worldIn.getTileEntity(pos);
+            if (flag) {
+                tileentity.redstone++;
+            }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (worldIn.isRemote) {
-         return true;
-      } else {
-         TileEntity tileentity = worldIn.getTileEntity(pos);
-         if (tileentity instanceof TileWeaponSpawner) {
-            playerIn.displayGUIChest((TileWeaponSpawner)tileentity);
-         }
+            if (!flag) {
+                tileentity.redstone = 0;
+            }
+        }
+    }
 
-         return true;
-      }
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (worldIn.isRemote) {
+            return true;
+        } else {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+            if (tileentity instanceof TileWeaponSpawner) {
+                playerIn.displayGUIChest((TileWeaponSpawner) tileentity);
+            }
 
-   public Class<TileWeaponSpawner> getTileEntityClass() {
-      return TileWeaponSpawner.class;
-   }
+            return true;
+        }
+    }
 
-   public TileWeaponSpawner getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileWeaponSpawner)world.getTileEntity(position);
-   }
+    public Class<TileWeaponSpawner> getTileEntityClass() {
+        return TileWeaponSpawner.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileWeaponSpawner getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileWeaponSpawner) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileWeaponSpawner createTileEntity(World world, IBlockState blockState) {
-      return new TileWeaponSpawner();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity instanceof TileWeaponSpawner) {
-         InventoryHelper.dropInventoryItems(worldIn, pos, (TileWeaponSpawner)tileentity);
-         worldIn.updateComparatorOutputLevel(pos, this);
-      }
+    @Override
+    @Nullable
+    public TileWeaponSpawner createTileEntity(World world, IBlockState blockState) {
+        return new TileWeaponSpawner();
+    }
 
-      super.breakBlock(worldIn, pos, state);
-   }
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof TileWeaponSpawner) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (TileWeaponSpawner) tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
 
-   @Override
-   public boolean hasComparatorInputOverride(IBlockState state) {
-      return true;
-   }
+        super.breakBlock(worldIn, pos, state);
+    }
 
-   @Override
-   public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-      return Container.calcRedstone(worldIn.getTileEntity(pos));
-   }
+    @Override
+    public boolean hasComparatorInputOverride(IBlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+        return Container.calcRedstone(worldIn.getTileEntity(pos));
+    }
+
 }

@@ -4,7 +4,6 @@ import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ManaBar;
 import com.vivern.arpg.tileentity.TileSpellForge;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -26,154 +25,119 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class SpellForgeBlock extends Block {
-   public static AxisAlignedBB AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 1.0, 0.9375);
-   static ResourceLocation tex = new ResourceLocation("arpg:textures/spellblue4.png");
 
-   public SpellForgeBlock() {
-      super(Material.ROCK);
-      this.setRegistryName("spell_forge");
-      this.setTranslationKey("spell_forge");
-      this.blockHardness = 10.0F;
-      this.blockResistance = 10.0F;
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-   }
+    public static AxisAlignedBB AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 1.0, 0.9375);
+    static ResourceLocation tex = new ResourceLocation("arpg:textures/spellblue4.png");
 
-   @Override
-   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity instanceof IInventory) {
-         InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
-         worldIn.updateComparatorOutputLevel(pos, this);
-      }
+    public SpellForgeBlock() {
+        super(Material.ROCK);
+        this.setRegistryName("spell_forge");
+        this.setTranslationKey("spell_forge");
+        this.blockHardness = 10.0F;
+        this.blockResistance = 10.0F;
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+    }
 
-      super.breakBlock(worldIn, pos, state);
-   }
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof IInventory) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+        super.breakBlock(worldIn, pos, state);
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   public Class<TileSpellForge> getTileEntityClass() {
-      return TileSpellForge.class;
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   public TileSpellForge getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileSpellForge)world.getTileEntity(position);
-   }
+    public Class<TileSpellForge> getTileEntityClass() {
+        return TileSpellForge.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileSpellForge getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileSpellForge) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileSpellForge createTileEntity(World world, IBlockState blockState) {
-      return new TileSpellForge();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      TileSpellForge tile = this.getTileEntity(worldIn, pos);
-      if (worldIn.isRemote) {
-         ManaBar.energy_bars_enable = true;
-      }
+    @Override
+    @Nullable
+    public TileSpellForge createTileEntity(World world, IBlockState blockState) {
+        return new TileSpellForge();
+    }
 
-      if (tile != null
-         && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELL_ROLL
-         && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELL_PLIERS
-         && playerIn.getHeldItemOffhand().getItem() != ItemsRegister.SPELL_PLIERS
-         && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.VIAL
-         && playerIn.getHeldItemOffhand().getItem() != ItemsRegister.VIAL
-         && !playerIn.getCooldownTracker().hasCooldown(ItemsRegister.VIAL)) {
-         playerIn.displayGUIChest(tile);
-         playerIn.swingArm(hand);
-         return true;
-      } else {
-         return false;
-      }
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        TileSpellForge tile = this.getTileEntity(worldIn, pos);
+        if (worldIn.isRemote) {
+            ManaBar.energy_bars_enable = true;
+        }
 
-   @SideOnly(Side.CLIENT)
-   public void effect(World world, BlockPos pos) {
-      for (int ss = 0; ss < 15; ss++) {
-         GUNParticle bubble = new GUNParticle(
-            tex,
-            0.02F + RANDOM.nextFloat() / 50.0F,
-            0.025F,
-            10 + RANDOM.nextInt(20),
-            240,
-            world,
-            pos.getX() + 0.5,
-            pos.getY() + 1.1,
-            pos.getZ() + 0.5,
-            (float)RANDOM.nextGaussian() / 9.0F,
-            (float)RANDOM.nextGaussian() / 9.0F + 0.17F,
-            (float)RANDOM.nextGaussian() / 9.0F,
-            0.5F + RANDOM.nextFloat() / 2.0F,
-            0.5F + RANDOM.nextFloat() / 2.0F,
-            0.5F + RANDOM.nextFloat() / 2.0F,
-            false,
-            RANDOM.nextInt(360),
-            true,
-            2.5F
-         );
-         world.spawnEntity(bubble);
-      }
-   }
+        if (tile != null && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELL_ROLL && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELL_PLIERS && playerIn.getHeldItemOffhand().getItem() != ItemsRegister.SPELL_PLIERS && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.VIAL && playerIn.getHeldItemOffhand().getItem() != ItemsRegister.VIAL && !playerIn.getCooldownTracker().hasCooldown(ItemsRegister.VIAL)) {
+            playerIn.displayGUIChest(tile);
+            playerIn.swingArm(hand);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TileSpellForge tile) {
-      int range = 64;
+    @SideOnly(Side.CLIENT)
+    public void effect(World world, BlockPos pos) {
+        for (int ss = 0; ss < 15; ss++) {
+            GUNParticle bubble = new GUNParticle(tex, 0.02F + RANDOM.nextFloat() / 50.0F, 0.025F, 10 + RANDOM.nextInt(20), 240, world, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, (float) RANDOM.nextGaussian() / 9.0F, (float) RANDOM.nextGaussian() / 9.0F + 0.17F, (float) RANDOM.nextGaussian() / 9.0F, 0.5F + RANDOM.nextFloat() / 2.0F, 0.5F + RANDOM.nextFloat() / 2.0F, 0.5F + RANDOM.nextFloat() / 2.0F, false, RANDOM.nextInt(360), true, 2.5F);
+            world.spawnEntity(bubble);
+        }
+    }
 
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + 64,
-            pos.getY() + 64,
-            pos.getZ() + 64,
-            pos.getX() - 64,
-            pos.getY() - 64,
-            pos.getZ() - 64
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TileSpellForge tile) {
+        int range = 64;
 
-   @Override
-   public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-      TileSpellForge tile = this.getTileEntity(worldIn, pos);
-      if (tile != null) {
-         EnumFacing f = placer.getHorizontalFacing();
-         if (f == EnumFacing.EAST) {
-            tile.rotation = 90;
-         }
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + 64, pos.getY() + 64, pos.getZ() + 64, pos.getX() - 64, pos.getY() - 64, pos.getZ() - 64))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-         if (f == EnumFacing.NORTH) {
-            tile.rotation = 180;
-         }
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        TileSpellForge tile = this.getTileEntity(worldIn, pos);
+        if (tile != null) {
+            EnumFacing f = placer.getHorizontalFacing();
+            if (f == EnumFacing.EAST) {
+                tile.rotation = 90;
+            }
 
-         if (f == EnumFacing.WEST) {
-            tile.rotation = 270;
-         }
-      }
-   }
+            if (f == EnumFacing.NORTH) {
+                tile.rotation = 180;
+            }
+
+            if (f == EnumFacing.WEST) {
+                tile.rotation = 270;
+            }
+        }
+    }
+
 }

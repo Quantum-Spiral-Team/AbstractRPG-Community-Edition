@@ -1,5 +1,4 @@
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault @ParametersAreNonnullByDefault
 package com.vivern.arpg.items;
 
 import mcp.MethodsReturnNonnullByDefault;

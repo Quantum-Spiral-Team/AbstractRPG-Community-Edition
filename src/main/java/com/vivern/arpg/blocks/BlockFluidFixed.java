@@ -5,7 +5,9 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 
 public class BlockFluidFixed extends BlockFluidClassic {
-   public BlockFluidFixed(Fluid fluid, Material material) {
-      super(fluid, material);
-   }
+
+    public BlockFluidFixed(Fluid fluid, Material material) {
+        super(fluid, material);
+    }
+
 }

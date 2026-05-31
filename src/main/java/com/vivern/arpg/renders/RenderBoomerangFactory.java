@@ -6,14 +6,16 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderBoomerangFactory implements IRenderFactory {
-   public final Item IntegItem;
 
-   public RenderBoomerangFactory(Item InputItem) {
-      this.IntegItem = InputItem;
-   }
+    public final Item IntegItem;
 
-   @Override
-   public Render createRenderFor(RenderManager manager) {
-      return new RenderBoomerang(manager, this.IntegItem);
-   }
+    public RenderBoomerangFactory(Item InputItem) {
+        this.IntegItem = InputItem;
+    }
+
+    @Override
+    public Render createRenderFor(RenderManager manager) {
+        return new RenderBoomerang(manager, this.IntegItem);
+    }
+
 }

@@ -6,36 +6,38 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class AppleEffect extends EntityThrowable {
-   public AppleEffect(World world) {
-      super(world);
-   }
 
-   public AppleEffect(World world, EntityLivingBase thrower) {
-      super(world, thrower);
-   }
+    public AppleEffect(World world) {
+        super(world);
+    }
 
-   public AppleEffect(World world, double x, double y, double z) {
-      super(world, x, y, z);
-   }
+    public AppleEffect(World world, EntityLivingBase thrower) {
+        super(world, thrower);
+    }
 
-   @Override
-   protected void onImpact(RayTraceResult result) {
-      if (!this.world.isRemote) {
-         this.world.setEntityState(this, (byte)4);
-         this.setDead();
-      }
-   }
+    public AppleEffect(World world, double x, double y, double z) {
+        super(world, x, y, z);
+    }
 
-   @Override
-   public void onUpdate() {
-      super.onUpdate();
-      if (this.ticksExisted > 10) {
-         this.setDead();
-      }
-   }
+    @Override
+    protected void onImpact(RayTraceResult result) {
+        if (!this.world.isRemote) {
+            this.world.setEntityState(this, (byte) 4);
+            this.setDead();
+        }
+    }
 
-   @Override
-   protected float getGravityVelocity() {
-      return 0.001F;
-   }
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (this.ticksExisted > 10) {
+            this.setDead();
+        }
+    }
+
+    @Override
+    protected float getGravityVelocity() {
+        return 0.001F;
+    }
+
 }

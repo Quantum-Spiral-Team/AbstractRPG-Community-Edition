@@ -6,10 +6,9 @@ import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.renders.IMagicVision;
-import java.util.Map;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantment.Rarity;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -25,314 +24,315 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.Map;
+
 public class TileDisenchantmentTable extends TileEntityLockableLoot implements IManaBuffer, ITickable, IMagicVision {
-   private NonNullList<ItemStack> stacks = NonNullList.withSize(1, ItemStack.EMPTY);
-   public float manaExtracted = 0.0F;
-   public ManaBuffer manaBuffer = new ManaBuffer(this, this, 20.0F, 3, -0.5F, 2.0F);
-   public int progress = 0;
-   public int progressMax = 200;
-   public Enchantment enchantmentRemoving;
-   public int tickCount;
-   public float bookSpread;
-   public float bookSpreadPrev;
-   public float bookRotation;
-   public float bookRotationPrev;
-   public float tRot;
 
-   @Override
-   public int getSizeInventory() {
-      return 1;
-   }
+    private NonNullList<ItemStack> stacks = NonNullList.withSize(1, ItemStack.EMPTY);
+    public float manaExtracted = 0.0F;
+    public ManaBuffer manaBuffer = new ManaBuffer(this, this, 20.0F, 3, -0.5F, 2.0F);
+    public int progress = 0;
+    public int progressMax = 200;
+    public Enchantment enchantmentRemoving;
+    public int tickCount;
+    public float bookSpread;
+    public float bookSpreadPrev;
+    public float bookRotation;
+    public float bookRotationPrev;
+    public float tRot;
 
-   @Override
-   public boolean isEmpty() {
-      for (ItemStack itemstack : this.stacks) {
-         if (!itemstack.isEmpty()) {
-            return false;
-         }
-      }
+    @Override
+    public int getSizeInventory() {
+        return 1;
+    }
 
-      return true;
-   }
-
-   @Override
-   public void setInventorySlotContents(int index, ItemStack stack) {
-      super.setInventorySlotContents(index, stack);
-      this.progress = 0;
-      this.enchantmentRemoving = null;
-   }
-
-   public int addItemStack(ItemStack stack) {
-      for (int i = 0; i < this.stacks.size(); i++) {
-         if (this.stacks.get(i).isEmpty()) {
-            this.setInventorySlotContents(i, stack);
-            return i;
-         }
-      }
-
-      return -1;
-   }
-
-   @Override
-   public int getInventoryStackLimit() {
-      return 1;
-   }
-
-   @Override
-   public String getName() {
-      return "disenchantment_table";
-   }
-
-   @Override
-   public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-      this.fillWithLoot(playerIn);
-      return new Container1(playerInventory, this);
-   }
-
-   @Override
-   public String getGuiID() {
-      return "arpg.disenchantment_table";
-   }
-
-   @Override
-   protected NonNullList<ItemStack> getItems() {
-      return this.stacks;
-   }
-
-   @Override
-   public void update() {
-      this.manaBuffer.updateManaBuffer(this.world, this.pos);
-      if (this.world.isRemote) {
-         this.updateRotation();
-      } else {
-         if (this.enchantmentRemoving == null) {
-            ItemStack stack = this.getStackInSlot(0);
-            if (stack.isItemEnchanted()) {
-               Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
-               int randI = GetMOP.rand.nextInt(map.size());
-               int i = 0;
-
-               for (Enchantment enchantment : map.keySet()) {
-                  if (i == randI) {
-                     this.enchantmentRemoving = enchantment;
-                     break;
-                  }
-
-                  i++;
-               }
-            } else if (this.progress > 0) {
-               this.progress = 0;
-               PacketHandler.trySendPacketUpdate(this.world, this.pos, this, 8.0);
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack itemstack : this.stacks) {
+            if (!itemstack.isEmpty()) {
+                return false;
             }
-         }
+        }
 
-         if (this.getManaBuffer().getManaStored() < this.getManaBuffer().getManaStorageSize()) {
-            if (this.enchantmentRemoving != null) {
-               this.progress++;
-               if (this.progress >= this.progressMax) {
-                  ItemStack stack = this.getStackInSlot(0);
-                  int lvl = EnchantmentHelper.getEnchantmentLevel(this.enchantmentRemoving, stack);
-                  if (lvl > 0) {
-                     Rarity rarity = this.enchantmentRemoving.getRarity();
-                     float manaReleased = 0.0F;
-                     if (this.enchantmentRemoving == EnchantmentInit.SPECIAL) {
-                        manaReleased = 500.0F;
-                     } else if (rarity == Rarity.COMMON) {
-                        manaReleased = 25.0F;
-                     } else if (rarity == Rarity.UNCOMMON) {
-                        manaReleased = 40.0F;
-                     } else if (rarity == Rarity.RARE) {
-                        manaReleased = 125.0F;
-                     } else if (rarity == Rarity.VERY_RARE) {
-                        manaReleased = 350.0F;
-                     }
+        return true;
+    }
 
-                     this.manaExtracted = this.manaExtracted + manaReleased * Math.max(lvl - 1, 1);
-                     Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
-                     if (lvl - 1 <= 0) {
-                        map.remove(this.enchantmentRemoving);
-                        this.enchantmentRemoving = null;
-                     } else {
-                        map.put(this.enchantmentRemoving, lvl - 1);
-                     }
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        super.setInventorySlotContents(index, stack);
+        this.progress = 0;
+        this.enchantmentRemoving = null;
+    }
 
-                     EnchantmentHelper.setEnchantments(map, stack);
-                  } else {
-                     this.enchantmentRemoving = null;
-                  }
+    public int addItemStack(ItemStack stack) {
+        for (int i = 0; i < this.stacks.size(); i++) {
+            if (this.stacks.get(i).isEmpty()) {
+                this.setInventorySlotContents(i, stack);
+                return i;
+            }
+        }
 
-                  this.progress = 0;
-               }
+        return -1;
+    }
 
-               PacketHandler.trySendPacketUpdate(this.world, this.pos, this, 8.0);
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+
+    @Override
+    public String getName() {
+        return "disenchantment_table";
+    }
+
+    @Override
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+        this.fillWithLoot(playerIn);
+        return new Container1(playerInventory, this);
+    }
+
+    @Override
+    public String getGuiID() {
+        return "arpg.disenchantment_table";
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return this.stacks;
+    }
+
+    @Override
+    public void update() {
+        this.manaBuffer.updateManaBuffer(this.world, this.pos);
+        if (this.world.isRemote) {
+            this.updateRotation();
+        } else {
+            if (this.enchantmentRemoving == null) {
+                ItemStack stack = this.getStackInSlot(0);
+                if (stack.isItemEnchanted()) {
+                    Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
+                    int randI = GetMOP.rand.nextInt(map.size());
+                    int i = 0;
+
+                    for (Enchantment enchantment : map.keySet()) {
+                        if (i == randI) {
+                            this.enchantmentRemoving = enchantment;
+                            break;
+                        }
+
+                        i++;
+                    }
+                } else if (this.progress > 0) {
+                    this.progress = 0;
+                    PacketHandler.trySendPacketUpdate(this.world, this.pos, this, 8.0);
+                }
             }
 
-            float manaConverted = this.manaExtracted <= 0.5F ? this.manaExtracted : this.manaExtracted / Math.max(this.progressMax - this.progress, 1);
-            float manaAdd = Math.min(manaConverted, this.getManaBuffer().getManaStorageSize() - this.getManaBuffer().getManaStored());
-            this.getManaBuffer().addMana(manaAdd);
-            this.manaExtracted -= manaAdd;
-         }
-      }
-   }
+            if (this.getManaBuffer().getManaStored() < this.getManaBuffer().getManaStorageSize()) {
+                if (this.enchantmentRemoving != null) {
+                    this.progress++;
+                    if (this.progress >= this.progressMax) {
+                        ItemStack stack = this.getStackInSlot(0);
+                        int lvl = EnchantmentHelper.getEnchantmentLevel(this.enchantmentRemoving, stack);
+                        if (lvl > 0) {
+                            Rarity rarity = this.enchantmentRemoving.getRarity();
+                            float manaReleased = 0.0F;
+                            if (this.enchantmentRemoving == EnchantmentInit.SPECIAL) {
+                                manaReleased = 500.0F;
+                            } else if (rarity == Rarity.COMMON) {
+                                manaReleased = 25.0F;
+                            } else if (rarity == Rarity.UNCOMMON) {
+                                manaReleased = 40.0F;
+                            } else if (rarity == Rarity.RARE) {
+                                manaReleased = 125.0F;
+                            } else if (rarity == Rarity.VERY_RARE) {
+                                manaReleased = 350.0F;
+                            }
 
-   public void updateRotation() {
-      this.bookSpreadPrev = this.bookSpread;
-      this.bookRotationPrev = this.bookRotation;
-      EntityPlayer entityplayer = this.world
-         .getClosestPlayer(
-            this.pos.getX() + 0.5F, this.pos.getY() + 0.5F, this.pos.getZ() + 0.5F, 3.0, false
-         );
-      if (entityplayer != null) {
-         double d0 = entityplayer.posX - (this.pos.getX() + 0.5F);
-         double d1 = entityplayer.posZ - (this.pos.getZ() + 0.5F);
-         this.tRot = (float)MathHelper.atan2(d1, d0);
-         this.bookSpread += 0.1F;
-      } else {
-         this.tRot += 0.02F;
-         this.bookSpread -= 0.1F;
-      }
+                            this.manaExtracted = this.manaExtracted + manaReleased * Math.max(lvl - 1, 1);
+                            Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
+                            if (lvl - 1 <= 0) {
+                                map.remove(this.enchantmentRemoving);
+                                this.enchantmentRemoving = null;
+                            } else {
+                                map.put(this.enchantmentRemoving, lvl - 1);
+                            }
 
-      while (this.bookRotation >= (float) Math.PI) {
-         this.bookRotation -= (float) (Math.PI * 2);
-      }
+                            EnchantmentHelper.setEnchantments(map, stack);
+                        } else {
+                            this.enchantmentRemoving = null;
+                        }
 
-      while (this.bookRotation < (float) -Math.PI) {
-         this.bookRotation += (float) (Math.PI * 2);
-      }
+                        this.progress = 0;
+                    }
 
-      while (this.tRot >= (float) Math.PI) {
-         this.tRot -= (float) (Math.PI * 2);
-      }
+                    PacketHandler.trySendPacketUpdate(this.world, this.pos, this, 8.0);
+                }
 
-      while (this.tRot < (float) -Math.PI) {
-         this.tRot += (float) (Math.PI * 2);
-      }
+                float manaConverted = this.manaExtracted <= 0.5F ? this.manaExtracted : this.manaExtracted / Math.max(this.progressMax - this.progress, 1);
+                float manaAdd = Math.min(manaConverted, this.getManaBuffer().getManaStorageSize() - this.getManaBuffer().getManaStored());
+                this.getManaBuffer().addMana(manaAdd);
+                this.manaExtracted -= manaAdd;
+            }
+        }
+    }
 
-      float f2 = this.tRot - this.bookRotation;
+    public void updateRotation() {
+        this.bookSpreadPrev = this.bookSpread;
+        this.bookRotationPrev = this.bookRotation;
+        EntityPlayer entityplayer = this.world.getClosestPlayer(this.pos.getX() + 0.5F, this.pos.getY() + 0.5F, this.pos.getZ() + 0.5F, 3.0, false);
+        if (entityplayer != null) {
+            double d0 = entityplayer.posX - (this.pos.getX() + 0.5F);
+            double d1 = entityplayer.posZ - (this.pos.getZ() + 0.5F);
+            this.tRot = (float) MathHelper.atan2(d1, d0);
+            this.bookSpread += 0.1F;
+        } else {
+            this.tRot += 0.02F;
+            this.bookSpread -= 0.1F;
+        }
 
-      while (f2 >= (float) Math.PI) {
-         f2 -= (float) (Math.PI * 2);
-      }
+        while (this.bookRotation >= (float) Math.PI) {
+            this.bookRotation -= (float) (Math.PI * 2);
+        }
 
-      while (f2 < (float) -Math.PI) {
-         f2 += (float) (Math.PI * 2);
-      }
+        while (this.bookRotation < (float) -Math.PI) {
+            this.bookRotation += (float) (Math.PI * 2);
+        }
 
-      this.bookRotation += f2 * 0.4F;
-      this.bookSpread = MathHelper.clamp(this.bookSpread, 0.0F, 1.0F);
-      this.tickCount++;
-   }
+        while (this.tRot >= (float) Math.PI) {
+            this.tRot -= (float) (Math.PI * 2);
+        }
 
-   public void read(NBTTagCompound compound) {
-      this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-      if (!this.checkLootAndRead(compound)) {
-         ItemStackHelper.loadAllItems(compound, this.stacks);
-      }
+        while (this.tRot < (float) -Math.PI) {
+            this.tRot += (float) (Math.PI * 2);
+        }
 
-      if (compound.hasKey("CustomName", 8)) {
-         this.customName = compound.getString("CustomName");
-      }
+        float f2 = this.tRot - this.bookRotation;
 
-      this.manaBuffer.readFromNBT(compound);
-      if (compound.hasKey("progress")) {
-         this.progress = compound.getInteger("progress");
-      }
+        while (f2 >= (float) Math.PI) {
+            f2 -= (float) (Math.PI * 2);
+        }
 
-      if (compound.hasKey("manaExtracted")) {
-         this.manaExtracted = compound.getFloat("manaExtracted");
-      }
+        while (f2 < (float) -Math.PI) {
+            f2 += (float) (Math.PI * 2);
+        }
 
-      if (compound.hasKey("enchantId")) {
-         this.enchantmentRemoving = Enchantment.getEnchantmentByID(compound.getInteger("enchantId"));
-      }
+        this.bookRotation += f2 * 0.4F;
+        this.bookSpread = MathHelper.clamp(this.bookSpread, 0.0F, 1.0F);
+        this.tickCount++;
+    }
 
-      super.readFromNBT(compound);
-   }
+    public void read(NBTTagCompound compound) {
+        this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        if (!this.checkLootAndRead(compound)) {
+            ItemStackHelper.loadAllItems(compound, this.stacks);
+        }
 
-   public NBTTagCompound write(NBTTagCompound compound) {
-      if (!this.checkLootAndWrite(compound)) {
-         ItemStackHelper.saveAllItems(compound, this.stacks);
-      }
+        if (compound.hasKey("CustomName", 8)) {
+            this.customName = compound.getString("CustomName");
+        }
 
-      if (this.hasCustomName()) {
-         compound.setString("CustomName", this.customName);
-      }
+        this.manaBuffer.readFromNBT(compound);
+        if (compound.hasKey("progress")) {
+            this.progress = compound.getInteger("progress");
+        }
 
-      this.manaBuffer.writeToNBT(compound);
-      compound.setInteger("progress", this.progress);
-      compound.setFloat("manaExtracted", this.manaExtracted);
-      compound.setInteger("enchantId", Enchantment.getEnchantmentID(this.enchantmentRemoving));
-      return super.writeToNBT(compound);
-   }
+        if (compound.hasKey("manaExtracted")) {
+            this.manaExtracted = compound.getFloat("manaExtracted");
+        }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      this.write(compound);
-      return super.writeToNBT(compound);
-   }
+        if (compound.hasKey("enchantId")) {
+            this.enchantmentRemoving = Enchantment.getEnchantmentByID(compound.getInteger("enchantId"));
+        }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      this.read(compound);
-      super.readFromNBT(compound);
-   }
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public NBTTagCompound getUpdateTag() {
-      NBTTagCompound compound = super.getUpdateTag();
-      this.write(compound);
-      return compound;
-   }
+    public NBTTagCompound write(NBTTagCompound compound) {
+        if (!this.checkLootAndWrite(compound)) {
+            ItemStackHelper.saveAllItems(compound, this.stacks);
+        }
 
-   @Override
-   public void handleUpdateTag(NBTTagCompound compound) {
-      this.read(compound);
-      super.handleUpdateTag(compound);
-   }
+        if (this.hasCustomName()) {
+            compound.setString("CustomName", this.customName);
+        }
 
-   @Override
-   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-      NBTTagCompound compound = packet.getNbtCompound();
-      this.read(compound);
-   }
+        this.manaBuffer.writeToNBT(compound);
+        compound.setInteger("progress", this.progress);
+        compound.setFloat("manaExtracted", this.manaExtracted);
+        compound.setInteger("enchantId", Enchantment.getEnchantmentID(this.enchantmentRemoving));
+        return super.writeToNBT(compound);
+    }
 
-   @Override
-   public SPacketUpdateTileEntity getUpdatePacket() {
-      NBTTagCompound compound = new NBTTagCompound();
-      this.write(compound);
-      return new SPacketUpdateTileEntity(this.pos, 1, compound);
-   }
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        this.write(compound);
+        return super.writeToNBT(compound);
+    }
 
-   @Override
-   public int getField(int id) {
-      if (id == 0) {
-         return this.progress;
-      } else if (id == 1) {
-         return this.progressMax;
-      } else if (id == 2) {
-         return this.enchantmentRemoving != null ? Enchantment.getEnchantmentID(this.enchantmentRemoving) : -1;
-      } else {
-         return super.getField(id);
-      }
-   }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        this.read(compound);
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public ManaBuffer getManaBuffer() {
-      return this.manaBuffer;
-   }
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        this.write(compound);
+        return compound;
+    }
 
-   @Override
-   public float getElementEnergy(ShardType shardType) {
-      return 0.0F;
-   }
+    @Override
+    public void handleUpdateTag(NBTTagCompound compound) {
+        this.read(compound);
+        super.handleUpdateTag(compound);
+    }
 
-   @Override
-   public float getMana() {
-      return this.getManaBuffer().getMana();
-   }
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        NBTTagCompound compound = packet.getNbtCompound();
+        this.read(compound);
+    }
 
-   @Override
-   public float getManaStorageSize(World world, BlockPos pos) {
-      return this.getManaBuffer().getManaStorageSize();
-   }
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        this.write(compound);
+        return new SPacketUpdateTileEntity(this.pos, 1, compound);
+    }
+
+    @Override
+    public int getField(int id) {
+        if (id == 0) {
+            return this.progress;
+        } else if (id == 1) {
+            return this.progressMax;
+        } else if (id == 2) {
+            return this.enchantmentRemoving != null ? Enchantment.getEnchantmentID(this.enchantmentRemoving) : -1;
+        } else {
+            return super.getField(id);
+        }
+    }
+
+    @Override
+    public ManaBuffer getManaBuffer() {
+        return this.manaBuffer;
+    }
+
+    @Override
+    public float getElementEnergy(ShardType shardType) {
+        return 0.0F;
+    }
+
+    @Override
+    public float getMana() {
+        return this.getManaBuffer().getMana();
+    }
+
+    @Override
+    public float getManaStorageSize(World world, BlockPos pos) {
+        return this.getManaBuffer().getManaStorageSize();
+    }
+
 }

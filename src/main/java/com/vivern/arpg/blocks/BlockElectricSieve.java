@@ -1,7 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.tileentity.TileElectricSieve;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,32 +11,33 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockElectricSieve extends BlockSieve {
-   public BlockElectricSieve() {
-      super(Material.IRON, "electric_sieve");
-      this.blockHardness = 3.0F;
-      this.blockResistance = 10.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setHarvestLevel("pickaxe", 0);
-      this.setSoundType(SoundType.METAL);
-   }
 
-   @Override
-   public TileElectricSieve getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileElectricSieve)world.getTileEntity(position);
-   }
+    public BlockElectricSieve() {
+        super(Material.IRON, "electric_sieve");
+        this.blockHardness = 3.0F;
+        this.blockResistance = 10.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setHarvestLevel("pickaxe", 0);
+        this.setSoundType(SoundType.METAL);
+    }
 
-   @Override
-   @Nullable
-   public TileElectricSieve createTileEntity(World world, IBlockState blockState) {
-      return new TileElectricSieve();
-   }
+    @Override
+    public TileElectricSieve getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileElectricSieve) world.getTileEntity(position);
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      return false;
-   }
+    @Override
+    @Nullable
+    public TileElectricSieve createTileEntity(World world, IBlockState blockState) {
+        return new TileElectricSieve();
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return false;
+    }
+
 }

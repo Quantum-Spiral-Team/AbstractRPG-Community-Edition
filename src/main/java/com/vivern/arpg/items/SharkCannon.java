@@ -18,87 +18,71 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Mouse;
 
 public class SharkCannon extends Item {
-   public SharkCannon() {
-      this.setRegistryName("shark_cannon");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("shark_cannon");
-      this.setMaxDamage(3);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public int getMaxItemUseDuration(ItemStack itemstack) {
-      return 72000;
-   }
+    public SharkCannon() {
+        this.setRegistryName("shark_cannon");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("shark_cannon");
+        this.setMaxDamage(3);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public EnumAction getItemUseAction(ItemStack stack) {
-      return EnumAction.BOW;
-   }
+    @Override
+    public int getMaxItemUseDuration(ItemStack itemstack) {
+        return 72000;
+    }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      player.setActiveHand(hand);
-      return new ActionResult(EnumActionResult.PASS, itemstack);
-   }
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
+    }
 
-   @Override
-   public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
-      return true;
-   }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        player.setActiveHand(hand);
+        return new ActionResult(EnumActionResult.PASS, itemstack);
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!worldIn.isRemote && entityIn instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)entityIn;
-         int damage = itemstack.getItemDamage();
-         World world = player.getEntityWorld();
-         Item itemIn = itemstack.getItem();
-         EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
-         if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
-            if (damage <= itemIn.getMaxDamage() - 1) {
-               world.playSound(
-                       null,
-                  player.posX,
-                  player.posY,
-                  player.posZ,
-                  Sounds.sharkfire,
-                  SoundCategory.AMBIENT,
-                  0.9F,
-                  0.9F / (itemRand.nextFloat() * 0.4F + 0.8F)
-               );
-               player.getCooldownTracker().setCooldown(this, 15);
-               player.addStat(StatList.getObjectUseStats(this));
+    @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+        return true;
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!worldIn.isRemote && entityIn instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entityIn;
+            int damage = itemstack.getItemDamage();
+            World world = player.getEntityWorld();
+            Item itemIn = itemstack.getItem();
+            EnumHand hand = player.getActiveHand();
+            boolean click = Mouse.isButtonDown(1);
+            if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
+                if (damage <= itemIn.getMaxDamage() - 1) {
+                    world.playSound(null, player.posX, player.posY, player.posZ, Sounds.sharkfire, SoundCategory.AMBIENT, 0.9F, 0.9F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                    player.getCooldownTracker().setCooldown(this, 15);
+                    player.addStat(StatList.getObjectUseStats(this));
+                }
+
+                if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.SHARK_AMMO, 1))) {
+                    player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.SHARK_AMMO, 1).getItem(), -1, 1, null);
+                    itemstack.setItemDamage(0);
+                    player.getCooldownTracker().setCooldown(this, 80);
+                    world.playSound(null, player.posX, player.posY, player.posZ, Sounds.sharkreload, SoundCategory.AMBIENT, 0.7F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                }
+
+                if (!player.capabilities.isCreativeMode && damage <= itemIn.getMaxDamage() - 1) {
+                    itemstack.damageItem(1, player);
+                }
+
+                if (!world.isRemote && damage <= itemIn.getMaxDamage() - 1) {
+                    SharkRocket rocket = new SharkRocket(world, player);
+                    rocket.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.6F, 1.0F);
+                    world.spawnEntity(rocket);
+                }
             }
+        }
+    }
 
-            if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.SHARK_AMMO, 1))) {
-               player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.SHARK_AMMO, 1).getItem(), -1, 1, null);
-               itemstack.setItemDamage(0);
-               player.getCooldownTracker().setCooldown(this, 80);
-               world.playSound(
-                       null,
-                  player.posX,
-                  player.posY,
-                  player.posZ,
-                  Sounds.sharkreload,
-                  SoundCategory.AMBIENT,
-                  0.7F,
-                  1.0F / (itemRand.nextFloat() * 0.4F + 0.8F)
-               );
-            }
-
-            if (!player.capabilities.isCreativeMode && damage <= itemIn.getMaxDamage() - 1) {
-               itemstack.damageItem(1, player);
-            }
-
-            if (!world.isRemote && damage <= itemIn.getMaxDamage() - 1) {
-               SharkRocket rocket = new SharkRocket(world, player);
-               rocket.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.6F, 1.0F);
-               world.spawnEntity(rocket);
-            }
-         }
-      }
-   }
 }

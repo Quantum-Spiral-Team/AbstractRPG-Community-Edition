@@ -2,7 +2,6 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.tileentity.TileElementDistributor;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -16,69 +15,60 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class CreativeElementDistributor extends Block {
-   public CreativeElementDistributor() {
-      super(Material.CIRCUITS);
-      this.setRegistryName("creative_element_distributor");
-      this.setTranslationKey("creative_element_distributor");
-      this.blockHardness = 10.0F;
-      this.blockResistance = 10.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-   }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!worldIn.isRemote) {
-         TileElementDistributor tile = this.getTileEntity(worldIn, pos);
-         if (tile != null) {
-            player.openGui(AbstractRPG.instance, 15, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            return true;
-         }
-      }
+    public CreativeElementDistributor() {
+        super(Material.CIRCUITS);
+        this.setRegistryName("creative_element_distributor");
+        this.setTranslationKey("creative_element_distributor");
+        this.blockHardness = 10.0F;
+        this.blockResistance = 10.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+    }
 
-      return false;
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            TileElementDistributor tile = this.getTileEntity(worldIn, pos);
+            if (tile != null) {
+                player.openGui(AbstractRPG.instance, 15, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                return true;
+            }
+        }
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TileElementDistributor tile) {
-      int range = 8;
+        return false;
+    }
 
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + range,
-            pos.getY() + range,
-            pos.getZ() + range,
-            pos.getX() - range,
-            pos.getY() - range,
-            pos.getZ() - range
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TileElementDistributor tile) {
+        int range = 8;
 
-   public Class<TileElementDistributor> getTileEntityClass() {
-      return TileElementDistributor.class;
-   }
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + range, pos.getY() + range, pos.getZ() + range, pos.getX() - range, pos.getY() - range, pos.getZ() - range))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-   public TileElementDistributor getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileElementDistributor)world.getTileEntity(position);
-   }
+    public Class<TileElementDistributor> getTileEntityClass() {
+        return TileElementDistributor.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileElementDistributor getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileElementDistributor) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileElementDistributor createTileEntity(World world, IBlockState blockState) {
-      return new TileElementDistributor();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
+
+    @Override
+    @Nullable
+    public TileElementDistributor createTileEntity(World world, IBlockState blockState) {
+        return new TileElementDistributor();
+    }
+
 }

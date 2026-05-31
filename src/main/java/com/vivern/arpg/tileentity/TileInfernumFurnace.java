@@ -23,306 +23,306 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class TileInfernumFurnace extends TileEntityLockable implements IManaBuffer, ITickable, ISidedInventory, IMagicVision {
-   public static final int[] SLOTS_TOP_SIDES = new int[]{0};
-   public static final int[] SLOTS_BOTTOM = new int[]{1};
-   public NonNullList<ItemStack> furnaceItemStacks = NonNullList.withSize(2, ItemStack.EMPTY);
-   public ManaBuffer manaBuffer = new ManaBuffer(this, this, 30.0F, 8, 1.0F, 4.0F);
-   public float meltProgress = 0.0F;
-   public float progressPerTick = 0.15F;
-   public float costToRecipe = 10.0F;
 
-   @Override
-   public int getSizeInventory() {
-      return 2;
-   }
+    public static final int[] SLOTS_TOP_SIDES = new int[]{0};
+    public static final int[] SLOTS_BOTTOM = new int[]{1};
+    public NonNullList<ItemStack> furnaceItemStacks = NonNullList.withSize(2, ItemStack.EMPTY);
+    public ManaBuffer manaBuffer = new ManaBuffer(this, this, 30.0F, 8, 1.0F, 4.0F);
+    public float meltProgress = 0.0F;
+    public float progressPerTick = 0.15F;
+    public float costToRecipe = 10.0F;
 
-   @Override
-   public boolean isEmpty() {
-      for (ItemStack itemstack : this.furnaceItemStacks) {
-         if (!itemstack.isEmpty()) {
-            return false;
-         }
-      }
+    @Override
+    public int getSizeInventory() {
+        return 2;
+    }
 
-      return true;
-   }
-
-   @Override
-   public ItemStack getStackInSlot(int index) {
-      return this.furnaceItemStacks.get(MathHelper.clamp(index, 0, 1));
-   }
-
-   @Override
-   public ItemStack decrStackSize(int index, int count) {
-      return ItemStackHelper.getAndSplit(this.furnaceItemStacks, index, count);
-   }
-
-   @Override
-   public ItemStack removeStackFromSlot(int index) {
-      return ItemStackHelper.getAndRemove(this.furnaceItemStacks, index);
-   }
-
-   @Override
-   public void setInventorySlotContents(int index, ItemStack stack) {
-      ItemStack itemstack = this.furnaceItemStacks.get(index);
-      boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
-      this.furnaceItemStacks.set(index, stack);
-      if (stack.getCount() > this.getInventoryStackLimit()) {
-         stack.setCount(this.getInventoryStackLimit());
-      }
-
-      if (index == 0 && !flag) {
-         this.meltProgress = 0.0F;
-         InfernumFurnace.trySendPacketUpdate(this.world, this.getPos(), this);
-      }
-   }
-
-   @Override
-   public String getName() {
-      return "tile_infernum_furnace";
-   }
-
-   @Override
-   public boolean hasCustomName() {
-      return false;
-   }
-
-   @Override
-   public int getInventoryStackLimit() {
-      return 64;
-   }
-
-   @Override
-   public boolean isUsableByPlayer(EntityPlayer player) {
-      return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5)
-              <= 64.0;
-   }
-
-   @Override
-   public void openInventory(EntityPlayer player) {
-   }
-
-   @Override
-   public void closeInventory(EntityPlayer player) {
-   }
-
-   @Override
-   public boolean isItemValidForSlot(int index, ItemStack stack) {
-      return index == 0;
-   }
-
-   @Override
-   public int[] getSlotsForFace(EnumFacing side) {
-      return side == EnumFacing.DOWN ? SLOTS_BOTTOM : SLOTS_TOP_SIDES;
-   }
-
-   @Override
-   public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-      return this.isItemValidForSlot(index, itemStackIn);
-   }
-
-   @Override
-   public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-      return true;
-   }
-
-   @Override
-   public int getField(int id) {
-      switch (id) {
-         case 0:
-            return (int)this.getManaBuffer().getManaStored();
-         case 1:
-            return (int)this.getManaBuffer().getManaStorageSize();
-         case 2:
-            return 0;
-         case 3:
-            return (int)this.meltProgress;
-         case 4:
-            return (int)this.progressPerTick;
-         case 5:
-            return (int)this.costToRecipe;
-         default:
-            return 0;
-      }
-   }
-
-   @Override
-   public void setField(int id, int value) {
-      switch (id) {
-         case 0:
-         case 1:
-         case 2:
-         default:
-            break;
-         case 3:
-            this.meltProgress = value;
-            break;
-         case 4:
-            this.progressPerTick = value;
-            break;
-         case 5:
-            this.costToRecipe = value;
-      }
-   }
-
-   @Override
-   public int getFieldCount() {
-      return 5;
-   }
-
-   @Override
-   public void clear() {
-      this.furnaceItemStacks.clear();
-   }
-
-   @Override
-   public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-      return new ContainerInfernumFurnace(playerInventory, this);
-   }
-
-   @Override
-   public String getGuiID() {
-      return "arpg.infernum_furnace";
-   }
-
-   public void smeltItem() {
-      if (this.canSmelt()) {
-         ItemStack itemstack = this.furnaceItemStacks.get(0);
-         ItemStack itemstack1 = FurnaceRecipes.instance().getSmeltingResult(itemstack);
-         ItemStack itemstack2 = this.furnaceItemStacks.get(1);
-         if (itemstack2.isEmpty()) {
-            this.furnaceItemStacks.set(1, itemstack1.copy());
-         } else if (itemstack2.getItem() == itemstack1.getItem()) {
-            itemstack2.grow(itemstack1.getCount());
-         }
-
-         itemstack.shrink(1);
-      }
-   }
-
-   @Override
-   public void update() {
-      this.manaBuffer.updateManaBuffer(this.world, this.pos);
-      if (!this.world.isRemote) {
-         float cost = Math.min(this.progressPerTick, this.getManaBuffer().getManaStored());
-         if (cost > 0.0F && this.canSmelt()) {
-            if (this.meltProgress < this.costToRecipe) {
-               this.meltProgress += cost;
-               this.getManaBuffer().addMana(-cost);
-               InfernumFurnace.trySendPacketUpdate(this.world, this.getPos(), this);
-            } else {
-               this.smeltItem();
-               this.meltProgress = 0.0F;
-               InfernumFurnace.trySendPacketUpdate(this.world, this.getPos(), this);
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack itemstack : this.furnaceItemStacks) {
+            if (!itemstack.isEmpty()) {
+                return false;
             }
-         }
-      }
-   }
+        }
 
-   public boolean canSmelt() {
-      if (this.furnaceItemStacks.get(0).isEmpty()) {
-         return false;
-      } else {
-         ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
-         if (itemstack.isEmpty()) {
-            return false;
-         } else {
-            ItemStack itemstack1 = this.furnaceItemStacks.get(1);
-            if (itemstack1.isEmpty()) {
-               return true;
-            } else if (!itemstack1.isItemEqual(itemstack)) {
-               return false;
-            } else {
-               return itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit()
-                       && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize() || itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize();
+        return true;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int index) {
+        return this.furnaceItemStacks.get(MathHelper.clamp(index, 0, 1));
+    }
+
+    @Override
+    public ItemStack decrStackSize(int index, int count) {
+        return ItemStackHelper.getAndSplit(this.furnaceItemStacks, index, count);
+    }
+
+    @Override
+    public ItemStack removeStackFromSlot(int index) {
+        return ItemStackHelper.getAndRemove(this.furnaceItemStacks, index);
+    }
+
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        ItemStack itemstack = this.furnaceItemStacks.get(index);
+        boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
+        this.furnaceItemStacks.set(index, stack);
+        if (stack.getCount() > this.getInventoryStackLimit()) {
+            stack.setCount(this.getInventoryStackLimit());
+        }
+
+        if (index == 0 && !flag) {
+            this.meltProgress = 0.0F;
+            InfernumFurnace.trySendPacketUpdate(this.world, this.getPos(), this);
+        }
+    }
+
+    @Override
+    public String getName() {
+        return "tile_infernum_furnace";
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 64;
+    }
+
+    @Override
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5) <= 64.0;
+    }
+
+    @Override
+    public void openInventory(EntityPlayer player) {
+    }
+
+    @Override
+    public void closeInventory(EntityPlayer player) {
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return index == 0;
+    }
+
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return side == EnumFacing.DOWN ? SLOTS_BOTTOM : SLOTS_TOP_SIDES;
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+        return this.isItemValidForSlot(index, itemStackIn);
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        return true;
+    }
+
+    @Override
+    public int getField(int id) {
+        switch (id) {
+            case 0:
+                return (int) this.getManaBuffer().getManaStored();
+            case 1:
+                return (int) this.getManaBuffer().getManaStorageSize();
+            case 2:
+                return 0;
+            case 3:
+                return (int) this.meltProgress;
+            case 4:
+                return (int) this.progressPerTick;
+            case 5:
+                return (int) this.costToRecipe;
+            default:
+                return 0;
+        }
+    }
+
+    @Override
+    public void setField(int id, int value) {
+        switch (id) {
+            case 0:
+            case 1:
+            case 2:
+            default:
+                break;
+            case 3:
+                this.meltProgress = value;
+                break;
+            case 4:
+                this.progressPerTick = value;
+                break;
+            case 5:
+                this.costToRecipe = value;
+        }
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 5;
+    }
+
+    @Override
+    public void clear() {
+        this.furnaceItemStacks.clear();
+    }
+
+    @Override
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+        return new ContainerInfernumFurnace(playerInventory, this);
+    }
+
+    @Override
+    public String getGuiID() {
+        return "arpg.infernum_furnace";
+    }
+
+    public void smeltItem() {
+        if (this.canSmelt()) {
+            ItemStack itemstack = this.furnaceItemStacks.get(0);
+            ItemStack itemstack1 = FurnaceRecipes.instance().getSmeltingResult(itemstack);
+            ItemStack itemstack2 = this.furnaceItemStacks.get(1);
+            if (itemstack2.isEmpty()) {
+                this.furnaceItemStacks.set(1, itemstack1.copy());
+            } else if (itemstack2.getItem() == itemstack1.getItem()) {
+                itemstack2.grow(itemstack1.getCount());
             }
-         }
-      }
-   }
 
-   public void read(NBTTagCompound compound) {
-      this.furnaceItemStacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-      ItemStackHelper.loadAllItems(compound, this.furnaceItemStacks);
-      if (compound.hasKey("progress")) {
-         this.meltProgress = compound.getFloat("progress");
-      }
+            itemstack.shrink(1);
+        }
+    }
 
-      if (compound.hasKey("pertick")) {
-         this.progressPerTick = compound.getFloat("pertick");
-      }
+    @Override
+    public void update() {
+        this.manaBuffer.updateManaBuffer(this.world, this.pos);
+        if (!this.world.isRemote) {
+            float cost = Math.min(this.progressPerTick, this.getManaBuffer().getManaStored());
+            if (cost > 0.0F && this.canSmelt()) {
+                if (this.meltProgress < this.costToRecipe) {
+                    this.meltProgress += cost;
+                    this.getManaBuffer().addMana(-cost);
+                    InfernumFurnace.trySendPacketUpdate(this.world, this.getPos(), this);
+                } else {
+                    this.smeltItem();
+                    this.meltProgress = 0.0F;
+                    InfernumFurnace.trySendPacketUpdate(this.world, this.getPos(), this);
+                }
+            }
+        }
+    }
 
-      if (compound.hasKey("costnow")) {
-         this.costToRecipe = compound.getFloat("costnow");
-      }
+    public boolean canSmelt() {
+        if (this.furnaceItemStacks.get(0).isEmpty()) {
+            return false;
+        } else {
+            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
+            if (itemstack.isEmpty()) {
+                return false;
+            } else {
+                ItemStack itemstack1 = this.furnaceItemStacks.get(1);
+                if (itemstack1.isEmpty()) {
+                    return true;
+                } else if (!itemstack1.isItemEqual(itemstack)) {
+                    return false;
+                } else {
+                    return itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize() || itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize();
+                }
+            }
+        }
+    }
 
-      this.manaBuffer.readFromNBT(compound);
-      super.readFromNBT(compound);
-   }
+    public void read(NBTTagCompound compound) {
+        this.furnaceItemStacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        ItemStackHelper.loadAllItems(compound, this.furnaceItemStacks);
+        if (compound.hasKey("progress")) {
+            this.meltProgress = compound.getFloat("progress");
+        }
 
-   public NBTTagCompound write(NBTTagCompound compound) {
-      ItemStackHelper.saveAllItems(compound, this.furnaceItemStacks);
-      compound.setFloat("progress", this.meltProgress);
-      compound.setFloat("pertick", this.progressPerTick);
-      compound.setFloat("costnow", this.costToRecipe);
-      this.manaBuffer.writeToNBT(compound);
-      return super.writeToNBT(compound);
-   }
+        if (compound.hasKey("pertick")) {
+            this.progressPerTick = compound.getFloat("pertick");
+        }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      this.write(compound);
-      return super.writeToNBT(compound);
-   }
+        if (compound.hasKey("costnow")) {
+            this.costToRecipe = compound.getFloat("costnow");
+        }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      this.read(compound);
-      super.readFromNBT(compound);
-   }
+        this.manaBuffer.readFromNBT(compound);
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public NBTTagCompound getUpdateTag() {
-      NBTTagCompound compound = super.getUpdateTag();
-      this.write(compound);
-      return compound;
-   }
+    public NBTTagCompound write(NBTTagCompound compound) {
+        ItemStackHelper.saveAllItems(compound, this.furnaceItemStacks);
+        compound.setFloat("progress", this.meltProgress);
+        compound.setFloat("pertick", this.progressPerTick);
+        compound.setFloat("costnow", this.costToRecipe);
+        this.manaBuffer.writeToNBT(compound);
+        return super.writeToNBT(compound);
+    }
 
-   @Override
-   public void handleUpdateTag(NBTTagCompound compound) {
-      this.read(compound);
-      super.handleUpdateTag(compound);
-   }
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        this.write(compound);
+        return super.writeToNBT(compound);
+    }
 
-   @Override
-   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-      NBTTagCompound compound = packet.getNbtCompound();
-      this.read(compound);
-   }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        this.read(compound);
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public SPacketUpdateTileEntity getUpdatePacket() {
-      NBTTagCompound compound = new NBTTagCompound();
-      this.write(compound);
-      return new SPacketUpdateTileEntity(this.pos, 1, compound);
-   }
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        this.write(compound);
+        return compound;
+    }
 
-   @Override
-   public ManaBuffer getManaBuffer() {
-      return this.manaBuffer;
-   }
+    @Override
+    public void handleUpdateTag(NBTTagCompound compound) {
+        this.read(compound);
+        super.handleUpdateTag(compound);
+    }
 
-   @Override
-   public float getElementEnergy(ShardType shardType) {
-      return 0.0F;
-   }
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        NBTTagCompound compound = packet.getNbtCompound();
+        this.read(compound);
+    }
 
-   @Override
-   public float getMana() {
-      return this.getManaBuffer().getMana();
-   }
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        this.write(compound);
+        return new SPacketUpdateTileEntity(this.pos, 1, compound);
+    }
 
-   @Override
-   public float getManaStorageSize(World world, BlockPos pos) {
-      return this.getManaBuffer().getManaStorageSize();
-   }
+    @Override
+    public ManaBuffer getManaBuffer() {
+        return this.manaBuffer;
+    }
+
+    @Override
+    public float getElementEnergy(ShardType shardType) {
+        return 0.0F;
+    }
+
+    @Override
+    public float getMana() {
+        return this.getManaBuffer().getMana();
+    }
+
+    @Override
+    public float getManaStorageSize(World world, BlockPos pos) {
+        return this.getManaBuffer().getManaStorageSize();
+    }
+
 }

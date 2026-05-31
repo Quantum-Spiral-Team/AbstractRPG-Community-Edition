@@ -3,7 +3,6 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.tileentity.TileTeamBanner;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -24,92 +23,93 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockTeamBanner extends Block {
-   public static final AxisAlignedBB ALL_AABB = GetMOP.newAABB(4, 26, 0);
 
-   public BlockTeamBanner() {
-      super(Material.WOOD);
-      this.setRegistryName("team_banner");
-      this.setTranslationKey("team_banner");
-      this.blockHardness = 2.0F;
-      this.blockResistance = 20.0F;
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setSoundType(SoundType.WOOD);
-      this.setHarvestLevel("axe", 0);
-   }
+    public static final AxisAlignedBB ALL_AABB = GetMOP.newAABB(4, 26, 0);
 
-   @Override
-   public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-      TileEntity tileEntity = world.getTileEntity(pos);
-      if (tileEntity != null && tileEntity instanceof TileTeamBanner && placer != null && placer instanceof EntityPlayer) {
-         TileTeamBanner tilebanner = (TileTeamBanner)tileEntity;
-         EntityPlayer player = (EntityPlayer)placer;
-         tilebanner.playername = player.getName();
-         tilebanner.teamname = Team.nameOfPersonalTeam(tilebanner.playername);
-         tilebanner.rotation = (short)MathHelper.wrapDegrees(player.rotationYaw + 180.0F);
-         if (player.getGameProfile() != null && player.getGameProfile().getId() != null) {
-            tilebanner.playerUUID = player.getGameProfile().getId();
-         } else {
-            tilebanner.playerUUID = player.getUniqueID();
-         }
-      }
-   }
+    public BlockTeamBanner() {
+        super(Material.WOOD);
+        this.setRegistryName("team_banner");
+        this.setTranslationKey("team_banner");
+        this.blockHardness = 2.0F;
+        this.blockResistance = 20.0F;
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setSoundType(SoundType.WOOD);
+        this.setHarvestLevel("axe", 0);
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!world.isRemote && hand == EnumHand.MAIN_HAND) {
-         TileEntity tileEntity = world.getTileEntity(pos);
-         if (tileEntity != null && tileEntity instanceof TileTeamBanner) {
-            TileTeamBanner tilebanner = (TileTeamBanner)tileEntity;
-            tilebanner.joinNewPlayer(player);
-         }
-      }
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity != null && tileEntity instanceof TileTeamBanner && placer != null && placer instanceof EntityPlayer) {
+            TileTeamBanner tilebanner = (TileTeamBanner) tileEntity;
+            EntityPlayer player = (EntityPlayer) placer;
+            tilebanner.playername = player.getName();
+            tilebanner.teamname = Team.nameOfPersonalTeam(tilebanner.playername);
+            tilebanner.rotation = (short) MathHelper.wrapDegrees(player.rotationYaw + 180.0F);
+            if (player.getGameProfile() != null && player.getGameProfile().getId() != null) {
+                tilebanner.playerUUID = player.getGameProfile().getId();
+            } else {
+                tilebanner.playerUUID = player.getUniqueID();
+            }
+        }
+    }
 
-      return true;
-   }
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!world.isRemote && hand == EnumHand.MAIN_HAND) {
+            TileEntity tileEntity = world.getTileEntity(pos);
+            if (tileEntity != null && tileEntity instanceof TileTeamBanner) {
+                TileTeamBanner tilebanner = (TileTeamBanner) tileEntity;
+                tilebanner.joinNewPlayer(player);
+            }
+        }
 
-   @Override
-   public EnumBlockRenderType getRenderType(IBlockState state) {
-      return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-   }
+        return true;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-   @Override
-   @Nullable
-   public TileTeamBanner createTileEntity(World world, IBlockState blockState) {
-      return new TileTeamBanner();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @Nullable
+    public TileTeamBanner createTileEntity(World world, IBlockState blockState) {
+        return new TileTeamBanner();
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
 }

@@ -48,13 +48,13 @@ public class ClientEvents {
     }
 
     static {
-        registerKey(Keys.USE,             ServerKeyTracker.Keys.USE);
-        registerKey(Keys.PRIMARYATTACK,   ServerKeyTracker.Keys.PRIMARY);
+        registerKey(Keys.USE, ServerKeyTracker.Keys.USE);
+        registerKey(Keys.PRIMARYATTACK, ServerKeyTracker.Keys.PRIMARY);
         registerKey(Keys.SECONDARYATTACK, ServerKeyTracker.Keys.SECONDARY);
-        registerKey(Keys.SCOPE,           ServerKeyTracker.Keys.SCOPE);
-        registerKey(Keys.GRENADE,         ServerKeyTracker.Keys.GRENADE);
-        registerKey(Keys.GRAPLINGHOOK,    ServerKeyTracker.Keys.HOOK);
-        registerKey(Keys.HEADABILITY,     ServerKeyTracker.Keys.ABILITY);
+        registerKey(Keys.SCOPE, ServerKeyTracker.Keys.SCOPE);
+        registerKey(Keys.GRENADE, ServerKeyTracker.Keys.GRENADE);
+        registerKey(Keys.GRAPLINGHOOK, ServerKeyTracker.Keys.HOOK);
+        registerKey(Keys.HEADABILITY, ServerKeyTracker.Keys.ABILITY);
 
         for (KeyBinding key : KEY_TO_ID.keySet()) {
             LAST_STATES.put(key, false);

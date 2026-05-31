@@ -10,30 +10,31 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @Deprecated
 @SideOnly(Side.CLIENT)
 public class TEISRChests extends TileEntityItemStackRenderer {
-   public final ModelChest simpleChest = new ModelChest();
 
-   @Override
-   public void renderByItem(ItemStack itemStackIn) {
-      this.renderByItem(itemStackIn, 1.0F);
-   }
+    public final ModelChest simpleChest = new ModelChest();
 
-   public void drawModel() {
-      GlStateManager.enableDepth();
-      GlStateManager.depthFunc(515);
-      GlStateManager.depthMask(true);
-      GlStateManager.pushMatrix();
-      GlStateManager.enableRescaleNormal();
-      GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-      GlStateManager.scale(1.0F, -1.0F, -1.0F);
-      GlStateManager.translate(0.5F, 0.5F, 0.5F);
-      GlStateManager.translate(-0.5F, -0.5F, -0.5F);
-      this.simpleChest.renderAll();
-      GlStateManager.disableRescaleNormal();
-      GlStateManager.popMatrix();
-      GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-   }
+    @Override
+    public void renderByItem(ItemStack itemStackIn) {
+        this.renderByItem(itemStackIn, 1.0F);
+    }
 
-   static {
-      instance = new TEISRChests();
-   }
+    public void drawModel() {
+        GlStateManager.enableDepth();
+        GlStateManager.depthFunc(515);
+        GlStateManager.depthMask(true);
+        GlStateManager.pushMatrix();
+        GlStateManager.enableRescaleNormal();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.scale(1.0F, -1.0F, -1.0F);
+        GlStateManager.translate(0.5F, 0.5F, 0.5F);
+        GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+        this.simpleChest.renderAll();
+        GlStateManager.disableRescaleNormal();
+        GlStateManager.popMatrix();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    static {
+        instance = new TEISRChests();
+    }
 }

@@ -9,15 +9,15 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public interface IModelRegisterCallback {
-   @SideOnly(Side.CLIENT)
-   default void registerModel() {
-      if (this instanceof Item) {
-         ModelLoader.setCustomModelResourceLocation((Item)this, 0, new ModelResourceLocation(((Item)this).getRegistryName(), "inventory"));
-      } else if (this instanceof Block) {
-         ModelResourceLocation mrl = new DefaultStateMapper()
-            .putStateModelLocations(((Block)this).getDefaultState().getBlock())
-            .get(((Block)this).getDefaultState());
-         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock((Block)this), 0, mrl);
-      }
-   }
+
+    @SideOnly(Side.CLIENT)
+    default void registerModel() {
+        if (this instanceof Item) {
+            ModelLoader.setCustomModelResourceLocation((Item) this, 0, new ModelResourceLocation(((Item) this).getRegistryName(), "inventory"));
+        } else if (this instanceof Block) {
+            ModelResourceLocation mrl = new DefaultStateMapper().putStateModelLocations(((Block) this).getDefaultState().getBlock()).get(((Block) this).getDefaultState());
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock((Block) this), 0, mrl);
+        }
+    }
+
 }

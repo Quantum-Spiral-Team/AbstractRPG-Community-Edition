@@ -1,4 +1,3 @@
 package com.vivern.arpg.mobs;
 
-public class LavaSprinkler {
-}
+public class LavaSprinkler {}

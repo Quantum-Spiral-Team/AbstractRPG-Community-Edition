@@ -4,14 +4,16 @@ import com.vivern.arpg.entity.CustomMobProjectile;
 import net.minecraft.util.math.RayTraceResult;
 
 public interface IMobCustomProjectile {
-   void onImpact(CustomMobProjectile var1, RayTraceResult var2);
 
-   default void onUpdate(CustomMobProjectile entity) {
-   }
+    void onImpact(CustomMobProjectile var1, RayTraceResult var2);
 
-   default void onImpactClient(CustomMobProjectile entity) {
-   }
+    default void onUpdate(CustomMobProjectile entity) {
+    }
 
-   default void onUpdateClient(CustomMobProjectile entity) {
-   }
+    default void onImpactClient(CustomMobProjectile entity) {
+    }
+
+    default void onUpdateClient(CustomMobProjectile entity) {
+    }
+
 }

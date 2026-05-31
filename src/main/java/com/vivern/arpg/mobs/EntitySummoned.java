@@ -1,9 +1,7 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.main.Team;
 import com.google.common.base.Optional;
-import java.util.UUID;
-import org.jetbrains.annotations.Nullable;
+import com.vivern.arpg.main.Team;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -25,264 +23,260 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 public class EntitySummoned extends EntityCreature {
-   public EntityPlayer owner;
-   protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(EntitySummoned.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-   public boolean allowedFollow = true;
-   public boolean allowedAttack = false;
-   public boolean allowedHunt = false;
-   public boolean allowedSpecial = false;
-   public double followPlayerMaxRange = 15.0;
-   public double followPlayerMinRange = 2.0;
-   public String team = "";
-   public Vec3d followPoint;
 
-   public EntitySummoned(World world) {
-      super(world);
-   }
+    public EntityPlayer owner;
+    protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(EntitySummoned.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+    public boolean allowedFollow = true;
+    public boolean allowedAttack = false;
+    public boolean allowedHunt = false;
+    public boolean allowedSpecial = false;
+    public double followPlayerMaxRange = 15.0;
+    public double followPlayerMinRange = 2.0;
+    public String team = "";
+    public Vec3d followPoint;
 
-   public EntitySummoned(World world, double x, double y, double z) {
-      super(world);
-      this.setPositionAndUpdate(x, y, z);
-   }
+    public EntitySummoned(World world) {
+        super(world);
+    }
 
-   public EntitySummoned(World world, double x, double y, double z, EntityPlayer owner, ItemStack itemstack) {
-      super(world);
-      this.setPositionAndUpdate(x, y, z);
-      this.setOwner(owner);
-      this.team = Team.getTeamFor(owner);
-   }
+    public EntitySummoned(World world, double x, double y, double z) {
+        super(world);
+        this.setPositionAndUpdate(x, y, z);
+    }
 
-   public void expelling() {
-      this.setDead();
-   }
+    public EntitySummoned(World world, double x, double y, double z, EntityPlayer owner, ItemStack itemstack) {
+        super(world);
+        this.setPositionAndUpdate(x, y, z);
+        this.setOwner(owner);
+        this.team = Team.getTeamFor(owner);
+    }
 
-   @Override
-   protected boolean canDespawn() {
-      return false;
-   }
+    public void expelling() {
+        this.setDead();
+    }
 
-   @Override
-   public SoundCategory getSoundCategory() {
-      return SoundCategory.NEUTRAL;
-   }
+    @Override
+    protected boolean canDespawn() {
+        return false;
+    }
 
-   @Override
-   public void onLivingUpdate() {
-      this.updateArmSwingProgress();
-      float f = this.getBrightness();
-      if (f > 0.5F) {
-         this.idleTime += 2;
-      }
+    @Override
+    public SoundCategory getSoundCategory() {
+        return SoundCategory.NEUTRAL;
+    }
 
-      super.onLivingUpdate();
-   }
+    @Override
+    public void onLivingUpdate() {
+        this.updateArmSwingProgress();
+        float f = this.getBrightness();
+        if (f > 0.5F) {
+            this.idleTime += 2;
+        }
 
-   @Override
-   public void onUpdate() {
-      super.onUpdate();
-   }
+        super.onLivingUpdate();
+    }
 
-   @Override
-   protected SoundEvent getSwimSound() {
-      return SoundEvents.ENTITY_GENERIC_SWIM;
-   }
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+    }
 
-   @Override
-   protected SoundEvent getSplashSound() {
-      return SoundEvents.ENTITY_GENERIC_SPLASH;
-   }
+    @Override
+    protected SoundEvent getSwimSound() {
+        return SoundEvents.ENTITY_GENERIC_SWIM;
+    }
 
-   @Override
-   public boolean attackEntityFrom(DamageSource source, float amount) {
-      if (source == DamageSource.IN_WALL) {
-         return false;
-      } else {
-         return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
-      }
-   }
+    @Override
+    protected SoundEvent getSplashSound() {
+        return SoundEvents.ENTITY_GENERIC_SPLASH;
+    }
 
-   @Override
-   protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-      return SoundEvents.ENTITY_GENERIC_HURT;
-   }
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (source == DamageSource.IN_WALL) {
+            return false;
+        } else {
+            return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
+        }
+    }
 
-   @Override
-   protected SoundEvent getDeathSound() {
-      return SoundEvents.ENTITY_GENERIC_DEATH;
-   }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return SoundEvents.ENTITY_GENERIC_HURT;
+    }
 
-   @Override
-   protected SoundEvent getFallSound(int heightIn) {
-      return heightIn > 4 ? SoundEvents.ENTITY_GENERIC_BIG_FALL : SoundEvents.ENTITY_GENERIC_SMALL_FALL;
-   }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_GENERIC_DEATH;
+    }
 
-   @Override
-   public boolean attackEntityAsMob(Entity entityIn) {
-      float f = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-      int i = 0;
-      if (entityIn instanceof EntityLivingBase) {
-         f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase)entityIn).getCreatureAttribute());
-         i += EnchantmentHelper.getKnockbackModifier(this);
-      }
+    @Override
+    protected SoundEvent getFallSound(int heightIn) {
+        return heightIn > 4 ? SoundEvents.ENTITY_GENERIC_BIG_FALL : SoundEvents.ENTITY_GENERIC_SMALL_FALL;
+    }
 
-      boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f);
-      if (flag) {
-         if (i > 0 && entityIn instanceof EntityLivingBase) {
-            ((EntityLivingBase)entityIn)
-               .knockBack(
-                  this,
-                  i * 0.5F,
-                  MathHelper.sin(this.rotationYaw * (float) (Math.PI / 180.0)),
-                  -MathHelper.cos(this.rotationYaw * (float) (Math.PI / 180.0))
-               );
-            this.motionX *= 0.6;
-            this.motionZ *= 0.6;
-         }
+    @Override
+    public boolean attackEntityAsMob(Entity entityIn) {
+        float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+        int i = 0;
+        if (entityIn instanceof EntityLivingBase) {
+            f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase) entityIn).getCreatureAttribute());
+            i += EnchantmentHelper.getKnockbackModifier(this);
+        }
 
-         int j = EnchantmentHelper.getFireAspectModifier(this);
-         if (j > 0) {
-            entityIn.setFire(j * 4);
-         }
-
-         if (entityIn instanceof EntityPlayer) {
-            EntityPlayer entityplayer = (EntityPlayer)entityIn;
-            ItemStack itemstack = this.getHeldItemMainhand();
-            ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
-            if (!itemstack.isEmpty()
-               && !itemstack1.isEmpty()
-               && itemstack.getItem().canDisableShield(itemstack, itemstack1, entityplayer, this)
-               && itemstack1.getItem().isShield(itemstack1, entityplayer)) {
-               float f1 = 0.25F + EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
-               if (this.rand.nextFloat() < f1) {
-                  entityplayer.getCooldownTracker().setCooldown(itemstack1.getItem(), 100);
-                  this.world.setEntityState(entityplayer, (byte)30);
-               }
+        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f);
+        if (flag) {
+            if (i > 0 && entityIn instanceof EntityLivingBase) {
+                ((EntityLivingBase) entityIn).knockBack(this, i * 0.5F, MathHelper.sin(this.rotationYaw * (float) (Math.PI / 180.0)), -MathHelper.cos(this.rotationYaw * (float) (Math.PI / 180.0)));
+                this.motionX *= 0.6;
+                this.motionZ *= 0.6;
             }
-         }
 
-         this.applyEnchantments(this, entityIn);
-      }
+            int j = EnchantmentHelper.getFireAspectModifier(this);
+            if (j > 0) {
+                entityIn.setFire(j * 4);
+            }
 
-      return flag;
-   }
+            if (entityIn instanceof EntityPlayer) {
+                EntityPlayer entityplayer = (EntityPlayer) entityIn;
+                ItemStack itemstack = this.getHeldItemMainhand();
+                ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
+                if (!itemstack.isEmpty() && !itemstack1.isEmpty() && itemstack.getItem().canDisableShield(itemstack, itemstack1, entityplayer, this) && itemstack1.getItem().isShield(itemstack1, entityplayer)) {
+                    float f1 = 0.25F + EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
+                    if (this.rand.nextFloat() < f1) {
+                        entityplayer.getCooldownTracker().setCooldown(itemstack1.getItem(), 100);
+                        this.world.setEntityState(entityplayer, (byte) 30);
+                    }
+                }
+            }
 
-   @Override
-   public float getBlockPathWeight(BlockPos pos) {
-      return 0.5F - this.world.getLightBrightness(pos);
-   }
+            this.applyEnchantments(this, entityIn);
+        }
 
-   protected boolean isValidLightLevel() {
-      return false;
-   }
+        return flag;
+    }
 
-   @Override
-   public boolean getCanSpawnHere() {
-      return super.getCanSpawnHere();
-   }
+    @Override
+    public float getBlockPathWeight(BlockPos pos) {
+        return 0.5F - this.world.getLightBrightness(pos);
+    }
 
-   @Override
-   protected void applyEntityAttributes() {
-      super.applyEntityAttributes();
-      this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-   }
+    protected boolean isValidLightLevel() {
+        return false;
+    }
 
-   @Override
-   protected boolean canDropLoot() {
-      return true;
-   }
+    @Override
+    public boolean getCanSpawnHere() {
+        return super.getCanSpawnHere();
+    }
 
-   @Override
-   protected void entityInit() {
-      super.entityInit();
-      this.dataManager.register(OWNER_UNIQUE_ID, Optional.absent());
-   }
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+    }
 
-   @Override
-   public void writeEntityToNBT(NBTTagCompound compound) {
-      super.writeEntityToNBT(compound);
-      if (this.getOwnerId() == null) {
-         compound.setString("OwnerUUID", "");
-      } else {
-         compound.setString("OwnerUUID", this.getOwnerId().toString());
-      }
+    @Override
+    protected boolean canDropLoot() {
+        return true;
+    }
 
-      compound.setBoolean("allowedFollow", this.allowedFollow);
-      compound.setBoolean("allowedAttack", this.allowedAttack);
-      compound.setBoolean("allowedHunt", this.allowedHunt);
-      compound.setBoolean("allowedSpecial", this.allowedSpecial);
-      compound.setString("team", this.team);
-   }
+    @Override
+    protected void entityInit() {
+        super.entityInit();
+        this.dataManager.register(OWNER_UNIQUE_ID, Optional.absent());
+    }
 
-   public void setOwner(EntityPlayer player) {
-      this.setOwnerId(player.getUniqueID());
-      this.owner = player;
-   }
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound) {
+        super.writeEntityToNBT(compound);
+        if (this.getOwnerId() == null) {
+            compound.setString("OwnerUUID", "");
+        } else {
+            compound.setString("OwnerUUID", this.getOwnerId().toString());
+        }
 
-   @Override
-   public void readEntityFromNBT(NBTTagCompound compound) {
-      super.readEntityFromNBT(compound);
-      String s;
-      if (compound.hasKey("OwnerUUID", 8)) {
-         s = compound.getString("OwnerUUID");
-      } else {
-         String s1 = compound.getString("Owner");
-         s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-      }
+        compound.setBoolean("allowedFollow", this.allowedFollow);
+        compound.setBoolean("allowedAttack", this.allowedAttack);
+        compound.setBoolean("allowedHunt", this.allowedHunt);
+        compound.setBoolean("allowedSpecial", this.allowedSpecial);
+        compound.setString("team", this.team);
+    }
 
-      if (!s.isEmpty()) {
-         try {
-            this.setOwnerId(UUID.fromString(s));
-         } catch (Throwable var4) {
-         }
-      }
+    public void setOwner(EntityPlayer player) {
+        this.setOwnerId(player.getUniqueID());
+        this.owner = player;
+    }
 
-      this.allowedFollow = compound.getBoolean("allowedFollow");
-      this.allowedAttack = compound.getBoolean("allowedAttack");
-      this.allowedHunt = compound.getBoolean("allowedHunt");
-      this.allowedSpecial = compound.getBoolean("allowedSpecial");
-      this.owner = this.getOwner();
-      this.team = compound.getString("team");
-      if (this.owner != null) {
-         this.followPoint = this.owner.getPositionVector();
-      } else {
-         this.followPoint = this.getPositionVector();
-      }
-   }
+    @Override
+    public void readEntityFromNBT(NBTTagCompound compound) {
+        super.readEntityFromNBT(compound);
+        String s;
+        if (compound.hasKey("OwnerUUID", 8)) {
+            s = compound.getString("OwnerUUID");
+        } else {
+            String s1 = compound.getString("Owner");
+            s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+        }
 
-   @Nullable
-   public UUID getOwnerId() {
-      return (UUID)((Optional)this.dataManager.get(OWNER_UNIQUE_ID)).orNull();
-   }
+        if (!s.isEmpty()) {
+            try {
+                this.setOwnerId(UUID.fromString(s));
+            } catch (Throwable var4) {
+            }
+        }
 
-   public void setOwnerId(@Nullable UUID p_184754_1_) {
-      this.dataManager.set(OWNER_UNIQUE_ID, Optional.fromNullable(p_184754_1_));
-   }
+        this.allowedFollow = compound.getBoolean("allowedFollow");
+        this.allowedAttack = compound.getBoolean("allowedAttack");
+        this.allowedHunt = compound.getBoolean("allowedHunt");
+        this.allowedSpecial = compound.getBoolean("allowedSpecial");
+        this.owner = this.getOwner();
+        this.team = compound.getString("team");
+        if (this.owner != null) {
+            this.followPoint = this.owner.getPositionVector();
+        } else {
+            this.followPoint = this.getPositionVector();
+        }
+    }
 
-   @Nullable
-   public EntityPlayer getOwner() {
-      try {
-         UUID uuid = this.getOwnerId();
-         return uuid == null ? null : this.world.getPlayerEntityByUUID(uuid);
-      } catch (IllegalArgumentException var21) {
-         return null;
-      }
-   }
+    @Nullable
+    public UUID getOwnerId() {
+        return (UUID) ((Optional) this.dataManager.get(OWNER_UNIQUE_ID)).orNull();
+    }
 
-   public String getEntitySummonedTeam() {
-      return this.team;
-   }
+    public void setOwnerId(@Nullable UUID p_184754_1_) {
+        this.dataManager.set(OWNER_UNIQUE_ID, Optional.fromNullable(p_184754_1_));
+    }
 
-   public void setEntitySummonedTeam(String t) {
-      this.team = t;
-   }
+    @Nullable
+    public EntityPlayer getOwner() {
+        try {
+            UUID uuid = this.getOwnerId();
+            return uuid == null ? null : this.world.getPlayerEntityByUUID(uuid);
+        } catch (IllegalArgumentException var21) {
+            return null;
+        }
+    }
 
-   public ResourceLocation getDisplayIcon() {
-      return null;
-   }
+    public String getEntitySummonedTeam() {
+        return this.team;
+    }
 
-   public boolean isPreventingPlayerRest(EntityPlayer playerIn) {
-      return false;
-   }
+    public void setEntitySummonedTeam(String t) {
+        this.team = t;
+    }
+
+    public ResourceLocation getDisplayIcon() {
+        return null;
+    }
+
+    public boolean isPreventingPlayerRest(EntityPlayer playerIn) {
+        return false;
+    }
+
 }

@@ -9,18 +9,20 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 
 public class SacrificialAltarTESR extends TileEntitySpecialRenderer<TileSacrificialAltar> {
-   @Override
-   public void render(TileSacrificialAltar te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-      ItemStack stack0 = te.getStackInSlot(0);
-      if (!stack0.isEmpty()) {
-         float fend = 0.5F;
-         float fy = 1.1125F;
-         GlStateManager.pushMatrix();
-         GlStateManager.translate((float)x + fend, (float)y + fy, (float)z + fend);
-         GlStateManager.rotate((te.ticksExisted + partialTicks) * 3.0F, 0.0F, 1.0F, 0.0F);
-         this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-         Minecraft.getMinecraft().getRenderItem().renderItem(stack0, TransformType.GROUND);
-         GlStateManager.popMatrix();
-      }
-   }
+
+    @Override
+    public void render(TileSacrificialAltar te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        ItemStack stack0 = te.getStackInSlot(0);
+        if (!stack0.isEmpty()) {
+            float fend = 0.5F;
+            float fy = 1.1125F;
+            GlStateManager.pushMatrix();
+            GlStateManager.translate((float) x + fend, (float) y + fy, (float) z + fend);
+            GlStateManager.rotate((te.ticksExisted + partialTicks) * 3.0F, 0.0F, 1.0F, 0.0F);
+            this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+            Minecraft.getMinecraft().getRenderItem().renderItem(stack0, TransformType.GROUND);
+            GlStateManager.popMatrix();
+        }
+    }
+
 }

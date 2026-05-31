@@ -6,56 +6,58 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileBioCell extends TileEntity {
-   public int seed = 0;
 
-   public void read(NBTTagCompound compound) {
-      if (compound.hasKey("seed")) {
-         this.seed = compound.getInteger("seed");
-      }
+    public int seed = 0;
 
-      super.readFromNBT(compound);
-   }
+    public void read(NBTTagCompound compound) {
+        if (compound.hasKey("seed")) {
+            this.seed = compound.getInteger("seed");
+        }
 
-   public NBTTagCompound write(NBTTagCompound compound) {
-      compound.setInteger("seed", this.seed);
-      return super.writeToNBT(compound);
-   }
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      this.write(compound);
-      return super.writeToNBT(compound);
-   }
+    public NBTTagCompound write(NBTTagCompound compound) {
+        compound.setInteger("seed", this.seed);
+        return super.writeToNBT(compound);
+    }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      this.read(compound);
-      super.readFromNBT(compound);
-   }
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        this.write(compound);
+        return super.writeToNBT(compound);
+    }
 
-   @Override
-   public NBTTagCompound getUpdateTag() {
-      NBTTagCompound compound = super.getUpdateTag();
-      this.write(compound);
-      return compound;
-   }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        this.read(compound);
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public void handleUpdateTag(NBTTagCompound compound) {
-      this.read(compound);
-      super.handleUpdateTag(compound);
-   }
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        this.write(compound);
+        return compound;
+    }
 
-   @Override
-   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-      NBTTagCompound compound = packet.getNbtCompound();
-      this.read(compound);
-   }
+    @Override
+    public void handleUpdateTag(NBTTagCompound compound) {
+        this.read(compound);
+        super.handleUpdateTag(compound);
+    }
 
-   @Override
-   public SPacketUpdateTileEntity getUpdatePacket() {
-      NBTTagCompound compound = new NBTTagCompound();
-      this.write(compound);
-      return new SPacketUpdateTileEntity(this.pos, 1, compound);
-   }
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        NBTTagCompound compound = packet.getNbtCompound();
+        this.read(compound);
+    }
+
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        this.write(compound);
+        return new SPacketUpdateTileEntity(this.pos, 1, compound);
+    }
+
 }

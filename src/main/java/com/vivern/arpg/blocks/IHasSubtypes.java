@@ -1,4 +1,3 @@
 package com.vivern.arpg.blocks;
 
-public interface IHasSubtypes {
-}
+public interface IHasSubtypes {}

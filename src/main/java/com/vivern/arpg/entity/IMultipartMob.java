@@ -4,11 +4,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 
 public interface IMultipartMob {
-   boolean attackEntityFromPart(EntityPart var1, DamageSource var2, float var3);
 
-   EntityLivingBase getMob();
+    boolean attackEntityFromPart(EntityPart var1, DamageSource var2, float var3);
 
-   String getTeamString();
+    EntityLivingBase getMob();
 
-   boolean isDead();
+    String getTeamString();
+
+    boolean isDead();
+
 }

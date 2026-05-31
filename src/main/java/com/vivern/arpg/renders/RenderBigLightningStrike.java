@@ -13,30 +13,34 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 // FIX: change `Render<T>` to `Render<BigLightningStrike>`
 @SideOnly(Side.CLIENT)
 public class RenderBigLightningStrike<T extends BigLightningStrike> extends Render<BigLightningStrike> {
-   public RenderBigLightningStrike(RenderManager renderManagerIn) {
-      super(renderManagerIn);
-   }
 
-   @Override
-   public void doRender(BigLightningStrike entity, double x, double y, double z, float entityYaw, float partialTicks) {
-      GlStateManager.pushMatrix();
-      if (entity.mainSegment != null) {
-         entity.mainSegment.render(entity, x, y, z, entityYaw, partialTicks);
-      }
+    public RenderBigLightningStrike(RenderManager renderManagerIn) {
+        super(renderManagerIn);
+    }
 
-      GlStateManager.popMatrix();
-      super.doRender(entity, x, y, z, entityYaw, partialTicks);
-   }
+    @Override
+    public void doRender(BigLightningStrike entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        GlStateManager.pushMatrix();
+        if (entity.mainSegment != null) {
+            entity.mainSegment.render(entity, x, y, z, entityYaw, partialTicks);
+        }
 
-   @Override
-   protected ResourceLocation getEntityTexture(BigLightningStrike entity) {
-      return TextureMap.LOCATION_MISSING_TEXTURE;
-   }
+        GlStateManager.popMatrix();
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    }
 
-   public static class BigLightningStrikeFactory implements IRenderFactory {
-      @Override
-      public Render createRenderFor(RenderManager manager) {
-         return new RenderBigLightningStrike(manager);
-      }
-   }
+    @Override
+    protected ResourceLocation getEntityTexture(BigLightningStrike entity) {
+        return TextureMap.LOCATION_MISSING_TEXTURE;
+    }
+
+    public static class BigLightningStrikeFactory implements IRenderFactory {
+
+        @Override
+        public Render createRenderFor(RenderManager manager) {
+            return new RenderBigLightningStrike(manager);
+        }
+
+    }
+
 }

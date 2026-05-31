@@ -3,8 +3,6 @@ package com.vivern.arpg.main;
 import baubles.api.BaublesApi;
 import com.vivern.arpg.Tags;
 import com.vivern.arpg.items.IWeapon;
-import java.lang.reflect.Field;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -17,107 +15,111 @@ import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import org.jetbrains.annotations.Nullable;
 
-@EventBusSubscriber(value =Side.CLIENT, modid = Tags.MOD_ID)
+import java.lang.reflect.Field;
+
+@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class FOVUpdateTracker {
-   public static AttributeModifier SPRINTING_SPEED_BOOST;
-   public static boolean canTryReflection = true;
 
-   @Nullable
-   public static AttributeModifier getSprintingSpeedBoost(EntityLivingBase entityLivingBase) {
-      if (SPRINTING_SPEED_BOOST == null) {
-         IAttributeInstance iattributeinstance = entityLivingBase.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+    public static AttributeModifier SPRINTING_SPEED_BOOST;
+    public static boolean canTryReflection = true;
 
-         for (AttributeModifier modifier : iattributeinstance.getModifiers()) {
-            if ("Sprinting speed boost".equals(modifier.getName())) {
-               return modifier;
+    @Nullable
+    public static AttributeModifier getSprintingSpeedBoost(EntityLivingBase entityLivingBase) {
+        if (SPRINTING_SPEED_BOOST == null) {
+            IAttributeInstance iattributeinstance = entityLivingBase.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+
+            for (AttributeModifier modifier : iattributeinstance.getModifiers()) {
+                if ("Sprinting speed boost".equals(modifier.getName())) {
+                    return modifier;
+                }
             }
-         }
 
-         if (canTryReflection) {
-            canTryReflection = false;
+            if (canTryReflection) {
+                canTryReflection = false;
 
-            try {
-               Field field = EntityLivingBase.class.getDeclaredField("SPRINTING_SPEED_BOOST");
-               field.setAccessible(true);
-               Object obj = field.get(null);
-               if (obj instanceof AttributeModifier) {
-                  SPRINTING_SPEED_BOOST = (AttributeModifier)obj;
-               }
-            } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException | SecurityException ignored) {
+                try {
+                    Field field = EntityLivingBase.class.getDeclaredField("SPRINTING_SPEED_BOOST");
+                    field.setAccessible(true);
+                    Object obj = field.get(null);
+                    if (obj instanceof AttributeModifier) {
+                        SPRINTING_SPEED_BOOST = (AttributeModifier) obj;
+                    }
+                } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException |
+                         SecurityException ignored) {
+                }
             }
-         }
-      }
+        }
 
-      return SPRINTING_SPEED_BOOST;
-   }
+        return SPRINTING_SPEED_BOOST;
+    }
 
-   public static float getStandartFovModifierWithoutSpeed(EntityPlayer player) {
-      float f = 1.0F;
-      if (player.capabilities.isFlying) {
-         f *= 1.1F;
-      }
+    public static float getStandartFovModifierWithoutSpeed(EntityPlayer player) {
+        float f = 1.0F;
+        if (player.capabilities.isFlying) {
+            f *= 1.1F;
+        }
 
-      double defaultSpeed = SharedMonsterAttributes.MOVEMENT_SPEED.getDefaultValue();
-      if (player.isSprinting() && getSprintingSpeedBoost(player) != null) {
-         defaultSpeed *= 1.0 + getSprintingSpeedBoost(player).getAmount();
-      }
+        double defaultSpeed = SharedMonsterAttributes.MOVEMENT_SPEED.getDefaultValue();
+        if (player.isSprinting() && getSprintingSpeedBoost(player) != null) {
+            defaultSpeed *= 1.0 + getSprintingSpeedBoost(player).getAmount();
+        }
 
-      f = (float)(f * ((defaultSpeed / player.capabilities.getWalkSpeed() + 1.0) / 2.0));
-      if (player.capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f)) {
-         f = 1.0F;
-      }
+        f = (float) (f * ((defaultSpeed / player.capabilities.getWalkSpeed() + 1.0) / 2.0));
+        if (player.capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f)) {
+            f = 1.0F;
+        }
 
-      if (player.isHandActive() && player.getActiveItemStack().getItem() instanceof ItemBow) {
-         int i = player.getItemInUseMaxCount();
-         float f1 = i / 20.0F;
-         if (f1 > 1.0F) {
-            f1 = 1.0F;
-         } else {
-            f1 *= f1;
-         }
+        if (player.isHandActive() && player.getActiveItemStack().getItem() instanceof ItemBow) {
+            int i = player.getItemInUseMaxCount();
+            float f1 = i / 20.0F;
+            if (f1 > 1.0F) {
+                f1 = 1.0F;
+            } else {
+                f1 *= f1;
+            }
 
-         f *= 1.0F - f1 * 0.15F;
-      }
+            f *= 1.0F - f1 * 0.15F;
+        }
 
-      return f;
-   }
+        return f;
+    }
 
-   public static boolean disableSpeedFOV(EntityPlayer player) {
-      return true;
-   }
+    public static boolean disableSpeedFOV(EntityPlayer player) {
+        return true;
+    }
 
-   @SubscribeEvent
-   public static void onZoom(FOVUpdateEvent e) {
-      ItemStack current = e.getEntity().getHeldItemMainhand();
-      IWeapon iw = current.getItem() instanceof IWeapon ? (IWeapon)current.getItem() : null;
-      boolean aimlens = BaublesApi.isBaubleEquipped(e.getEntity(), ItemsRegister.AIM_LENS) > -1;
-      boolean active = PlayerButtonTracker.getScopeActive(e.getEntity(), iw != null && iw.hasZoom(current) || aimlens);
-      float fov = disableSpeedFOV(e.getEntity()) ? getStandartFovModifierWithoutSpeed(e.getEntity()) : e.getFov();
-      boolean iweaponhaszoom = false;
-      if (iw != null && iw.hasZoom(current) && active) {
-         iweaponhaszoom = true;
-         fov -= iw.getZoom(current, e.getEntity());
-      }
+    @SubscribeEvent
+    public static void onZoom(FOVUpdateEvent e) {
+        ItemStack current = e.getEntity().getHeldItemMainhand();
+        IWeapon iw = current.getItem() instanceof IWeapon ? (IWeapon) current.getItem() : null;
+        boolean aimlens = BaublesApi.isBaubleEquipped(e.getEntity(), ItemsRegister.AIM_LENS) > -1;
+        boolean active = PlayerButtonTracker.getScopeActive(e.getEntity(), iw != null && iw.hasZoom(current) || aimlens);
+        float fov = disableSpeedFOV(e.getEntity()) ? getStandartFovModifierWithoutSpeed(e.getEntity()) : e.getFov();
+        boolean iweaponhaszoom = false;
+        if (iw != null && iw.hasZoom(current) && active) {
+            iweaponhaszoom = true;
+            fov -= iw.getZoom(current, e.getEntity());
+        }
 
-      fov -= Boom.FOVboom;
-      if (aimlens && active) {
-         if (iweaponhaszoom) {
-            fov -= 0.3F;
-         } else {
-            fov -= 0.55F;
-         }
-      }
+        fov -= Boom.FOVboom;
+        if (aimlens && active) {
+            if (iweaponhaszoom) {
+                fov -= 0.3F;
+            } else {
+                fov -= 0.55F;
+            }
+        }
 
-      e.setNewfov(fov);
-   }
+        e.setNewfov(fov);
+    }
 
-   @SubscribeEvent
-   public static void RenderHand(RenderSpecificHandEvent event) {
-      if (PlayerButtonTracker.scopeactived
-         && event.getItemStack().getItem() instanceof IWeapon
-         && ((IWeapon)event.getItemStack().getItem()).hasZoom(event.getItemStack())) {
-         event.setCanceled(true);
-      }
-   }
+    @SubscribeEvent
+    public static void RenderHand(RenderSpecificHandEvent event) {
+        if (PlayerButtonTracker.scopeactived && event.getItemStack().getItem() instanceof IWeapon && ((IWeapon) event.getItemStack().getItem()).hasZoom(event.getItemStack())) {
+            event.setCanceled(true);
+        }
+    }
+
 }

@@ -2,8 +2,6 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.tileentity.TileShimmeringBeastbloom;
-import java.util.Random;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -20,111 +18,106 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class ShimmeringBeastbloom extends Block {
-   public static AxisAlignedBB AABB = new AxisAlignedBB(0.2, 0.0, 0.2, 0.8, 1.2, 0.8);
 
-   public ShimmeringBeastbloom() {
-      super(Material.PLANTS);
-      this.setRegistryName("shimmering_beastbloom");
-      this.setTranslationKey("shimmering_beastbloom");
-      this.blockHardness = 1.5F;
-      this.blockResistance = 1.5F;
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setSoundType(SoundType.PLANT);
-      this.lightValue = 5;
-   }
+    public static AxisAlignedBB AABB = new AxisAlignedBB(0.2, 0.0, 0.2, 0.8, 1.2, 0.8);
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TileShimmeringBeastbloom tile) {
-      int range = 64;
+    public ShimmeringBeastbloom() {
+        super(Material.PLANTS);
+        this.setRegistryName("shimmering_beastbloom");
+        this.setTranslationKey("shimmering_beastbloom");
+        this.blockHardness = 1.5F;
+        this.blockResistance = 1.5F;
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setSoundType(SoundType.PLANT);
+        this.lightValue = 5;
+    }
 
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + 64,
-            pos.getY() + 64,
-            pos.getZ() + 64,
-            pos.getX() - 64,
-            pos.getY() - 64,
-            pos.getZ() - 64
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TileShimmeringBeastbloom tile) {
+        int range = 64;
 
-   public Class<TileShimmeringBeastbloom> getTileEntityClass() {
-      return TileShimmeringBeastbloom.class;
-   }
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + 64, pos.getY() + 64, pos.getZ() + 64, pos.getX() - 64, pos.getY() - 64, pos.getZ() - 64))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-   public TileShimmeringBeastbloom getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileShimmeringBeastbloom)world.getTileEntity(position);
-   }
+    public Class<TileShimmeringBeastbloom> getTileEntityClass() {
+        return TileShimmeringBeastbloom.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileShimmeringBeastbloom getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileShimmeringBeastbloom) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileShimmeringBeastbloom createTileEntity(World world, IBlockState blockState) {
-      return TileShimmeringBeastbloom.generateRandomBloom(RANDOM);
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @Nullable
+    public TileShimmeringBeastbloom createTileEntity(World world, IBlockState blockState) {
+        return TileShimmeringBeastbloom.generateRandomBloom(RANDOM);
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public EnumBlockRenderType getRenderType(IBlockState state) {
-      return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public int quantityDropped(Random random) {
-      return 0;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      return canStayAtPos(worldIn, pos);
-   }
+    @Override
+    public int quantityDropped(Random random) {
+        return 0;
+    }
 
-   public static boolean canStayAtPos(World worldIn, BlockPos pos) {
-      Block blockd = worldIn.getBlockState(pos.down()).getBlock();
-      return blockd == BlocksRegister.FULMINIFLORA || blockd == Blocks.STONE;
-   }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return canStayAtPos(worldIn, pos);
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      if (!canStayAtPos(worldIn, pos)) {
-         worldIn.destroyBlock(pos, true);
-      }
-   }
+    public static boolean canStayAtPos(World worldIn, BlockPos pos) {
+        Block blockd = worldIn.getBlockState(pos.down()).getBlock();
+        return blockd == BlocksRegister.FULMINIFLORA || blockd == Blocks.STONE;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        if (!canStayAtPos(worldIn, pos)) {
+            worldIn.destroyBlock(pos, true);
+        }
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
 }

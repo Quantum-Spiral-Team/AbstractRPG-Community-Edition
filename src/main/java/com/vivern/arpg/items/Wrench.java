@@ -1,6 +1,9 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.*;
+import com.vivern.arpg.main.FindAmmo;
+import com.vivern.arpg.main.GetMOP;
+import com.vivern.arpg.main.NBTHelper;
+import com.vivern.arpg.main.ServerKeyTracker;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -9,109 +12,111 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class Wrench extends ItemWeapon {
-   public Wrench() {
-      this.setRegistryName("wrench");
-      this.setCreativeTab(CreativeTabs.TOOLS);
-      this.setTranslationKey("wrench");
-      this.setMaxStackSize(1);
-      this.setMaxDamage(20000);
-   }
 
-   public float getPower() {
-      return 1.0F;
-   }
+    public Wrench() {
+        this.setRegistryName("wrench");
+        this.setCreativeTab(CreativeTabs.TOOLS);
+        this.setTranslationKey("wrench");
+        this.setMaxStackSize(1);
+        this.setMaxDamage(20000);
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return false;
-   }
+    public float getPower() {
+        return 1.0F;
+    }
 
-   @Override
-   public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-      if (!world.isRemote && entity instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)entity;
-         if (player.getHeldItemMainhand() == stack && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY)) {
-            Vec3d vec3d = player.getPositionEyes(1.0F);
-            Vec3d vec3d1 = player.getLook(1.0F);
-            Vec3d vec3d2 = vec3d.add(vec3d1.x * 3.0, vec3d1.y * 3.0, vec3d1.z * 3.0);
-            RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 0.2F, false, vec3d, vec3d2, false, true, false);
-            if (res != null) {
-               if (res.typeOfHit == Type.BLOCK) {
-                  Block bl = world.getBlockState(res.getBlockPos()).getBlock();
-                  if (bl instanceof IWrenchUser) {
-                     ((IWrenchUser)bl).onUseWrench(world, entity, stack, this.getPower(), res.getBlockPos());
-                     return;
-                  }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return false;
+    }
 
-                  TileEntity tile = world.getTileEntity(res.getBlockPos());
-                  if (tile instanceof IWrenchUser) {
-                     ((IWrenchUser)tile).onUseWrench(world, entity, stack, this.getPower(), res.getBlockPos());
-                     return;
-                  }
-               }
+    @Override
+    public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
+        if (!world.isRemote && entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entity;
+            if (player.getHeldItemMainhand() == stack && ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY)) {
+                Vec3d vec3d = player.getPositionEyes(1.0F);
+                Vec3d vec3d1 = player.getLook(1.0F);
+                Vec3d vec3d2 = vec3d.add(vec3d1.x * 3.0, vec3d1.y * 3.0, vec3d1.z * 3.0);
+                RayTraceResult res = GetMOP.fixedRayTraceBlocks(world, player, 0.2F, false, vec3d, vec3d2, false, true, false);
+                if (res != null) {
+                    if (res.typeOfHit == Type.BLOCK) {
+                        Block bl = world.getBlockState(res.getBlockPos()).getBlock();
+                        if (bl instanceof IWrenchUser) {
+                            ((IWrenchUser) bl).onUseWrench(world, entity, stack, this.getPower(), res.getBlockPos());
+                            return;
+                        }
 
-               if (res.typeOfHit == Type.ENTITY && res.entityHit instanceof IWrenchUser) {
-                  ((IWrenchUser)res.entityHit).onUseWrench(world, entity, stack, this.getPower(), null);
-               }
+                        TileEntity tile = world.getTileEntity(res.getBlockPos());
+                        if (tile instanceof IWrenchUser) {
+                            ((IWrenchUser) tile).onUseWrench(world, entity, stack, this.getPower(), res.getBlockPos());
+                            return;
+                        }
+                    }
+
+                    if (res.typeOfHit == Type.ENTITY && res.entityHit instanceof IWrenchUser) {
+                        ((IWrenchUser) res.entityHit).onUseWrench(world, entity, stack, this.getPower(), null);
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   public static void moveToHand(EntityPlayer player, EnumHand hand) {
-      if (player.getHeldItem(hand).isEmpty()) {
-         int slot = FindAmmo.getSlotForWrench(player.inventory);
-         if (slot >= 0) {
-            ItemStack wrench = player.inventory.getStackInSlot(slot).copy();
-            NBTHelper.GiveNBTint(wrench, slot, "lastslot");
-            NBTHelper.SetNBTint(wrench, slot, "lastslot");
-            player.setHeldItem(hand, wrench);
-            player.inventory.setInventorySlotContents(slot, ItemStack.EMPTY);
-         }
-      }
-   }
-
-   public static void returnToSlot(EntityPlayer player, int slotFrom) {
-      ItemStack wrench = player.inventory.getStackInSlot(slotFrom).copy();
-      if (wrench.getItem() instanceof Wrench) {
-         int slot = NBTHelper.GetNBTint(wrench, "lastslot");
-         if (player.inventory.getStackInSlot(slot).isEmpty()) {
-            NBTHelper.SetNBTint(wrench, -1, "lastslot");
-            player.inventory.setInventorySlotContents(slotFrom, ItemStack.EMPTY);
-            player.inventory.setInventorySlotContents(slot, wrench);
-         } else {
-            slot = player.inventory.getFirstEmptyStack();
+    public static void moveToHand(EntityPlayer player, EnumHand hand) {
+        if (player.getHeldItem(hand).isEmpty()) {
+            int slot = FindAmmo.getSlotForWrench(player.inventory);
             if (slot >= 0) {
-               NBTHelper.SetNBTint(wrench, -1, "lastslot");
-               player.inventory.setInventorySlotContents(slotFrom, ItemStack.EMPTY);
-               player.inventory.setInventorySlotContents(slot, wrench);
+                ItemStack wrench = player.inventory.getStackInSlot(slot).copy();
+                NBTHelper.GiveNBTint(wrench, slot, "lastslot");
+                NBTHelper.SetNBTint(wrench, slot, "lastslot");
+                player.setHeldItem(hand, wrench);
+                player.inventory.setInventorySlotContents(slot, ItemStack.EMPTY);
             }
-         }
-      }
-   }
+        }
+    }
+
+    public static void returnToSlot(EntityPlayer player, int slotFrom) {
+        ItemStack wrench = player.inventory.getStackInSlot(slotFrom).copy();
+        if (wrench.getItem() instanceof Wrench) {
+            int slot = NBTHelper.GetNBTint(wrench, "lastslot");
+            if (player.inventory.getStackInSlot(slot).isEmpty()) {
+                NBTHelper.SetNBTint(wrench, -1, "lastslot");
+                player.inventory.setInventorySlotContents(slotFrom, ItemStack.EMPTY);
+                player.inventory.setInventorySlotContents(slot, wrench);
+            } else {
+                slot = player.inventory.getFirstEmptyStack();
+                if (slot >= 0) {
+                    NBTHelper.SetNBTint(wrench, -1, "lastslot");
+                    player.inventory.setInventorySlotContents(slotFrom, ItemStack.EMPTY);
+                    player.inventory.setInventorySlotContents(slot, wrench);
+                }
+            }
+        }
+    }
 
     @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
     @Override
-   public int getCooldownTime(ItemStack itemstack) {
-      return 0;
-   }
-
-   @Override
-   public int getReloadTime(ItemStack itemstack) {
-      return 0;
-   }
+    public int getCooldownTime(ItemStack itemstack) {
+        return 0;
+    }
 
     @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.ONE_HANDED;
-   }
+    public int getReloadTime(ItemStack itemstack) {
+        return 0;
+    }
+
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.ONE_HANDED;
+    }
+
 }

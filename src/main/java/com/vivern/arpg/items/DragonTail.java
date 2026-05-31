@@ -3,11 +3,7 @@ package com.vivern.arpg.items;
 import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAreaEffectCloud;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.MobEffects;
@@ -21,175 +17,130 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class DragonTail extends ItemWeapon {
-   public DragonTail() {
-      this.setRegistryName("dragon_tail");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("dragon_tail");
-      this.setMaxDamage(1150);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    public DragonTail() {
+        this.setRegistryName("dragon_tail");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("dragon_tail");
+        this.setMaxDamage(1150);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return false;
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            int damage = itemstack.getItemDamage();
-            boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-            NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
-            NBTHelper.GiveNBTint(itemstack, 0, "charge");
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int delay = NBTHelper.GetNBTint(itemstack, "atdelay");
-            if (delay > 0) {
-               NBTHelper.AddNBTint(itemstack, -1, "atdelay");
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                int damage = itemstack.getItemDamage();
+                boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
+                NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
+                NBTHelper.GiveNBTint(itemstack, 0, "charge");
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                int delay = NBTHelper.GetNBTint(itemstack, "atdelay");
+                if (delay > 0) {
+                    NBTHelper.AddNBTint(itemstack, -1, "atdelay");
+                }
+
+                int charge = NBTHelper.GetNBTint(itemstack, "charge");
+                if (charge < parameters.getInt("max_charge")) {
+                    NBTHelper.AddNBTint(itemstack, 1, "charge");
+                }
+
+                EnumHand hand = EnumHand.MAIN_HAND;
+                if (player.getHeldItemMainhand() == itemstack) {
+                    if (delay <= 0 && click && !hascooldown) {
+                        Weapons.setPlayerAnimationOnServer(player, EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) > 0 ? 17 : 2, hand);
+                        NBTHelper.SetNBTint(itemstack, 4, "atdelay");
+                        double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
+                        player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
+                    }
+
+                    if (delay == 1) {
+                        if (IWeapon.doMeleeSpearAttack(this, itemstack, player, hand, charge >= parameters.getInt("max_charge") && itemRand.nextFloat() < parameters.getEnchantedF("cloud_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))).success) {
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.melee_sword, SoundCategory.PLAYERS, 0.7F, 0.8F + itemRand.nextFloat() / 5.0F);
+                        } else {
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.melee_miss_sword, SoundCategory.PLAYERS, 0.6F, 0.8F + itemRand.nextFloat() / 5.0F);
+                        }
+
+                        player.addExhaustion(0.1F);
+                    }
+                }
             }
+        }
+    }
 
-            int charge = NBTHelper.GetNBTint(itemstack, "charge");
-            if (charge < parameters.getInt("max_charge")) {
-               NBTHelper.AddNBTint(itemstack, 1, "charge");
+    @Override
+    public boolean attackEntityMelee(Entity entity, ItemStack stack, EntityPlayer player, EnumHand hand, boolean isCritical) {
+        float artropods = 1.0F;
+        float holy = 1.0F;
+        if (entity instanceof EntityLivingBase) {
+            artropods = ((EntityLivingBase) entity).getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD ? EnchantmentHelper.getEnchantmentLevel(Enchantments.BANE_OF_ARTHROPODS, stack) * 0.1F + 1.0F : 1.0F;
+            holy = ((EntityLivingBase) entity).getCreatureAttribute() == EnumCreatureAttribute.UNDEAD ? EnchantmentHelper.getEnchantmentLevel(Enchantments.SMITE, stack) * 0.1F + 1.0F : 1.0F;
+            if (((EntityLivingBase) entity).getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
+                isCritical = false;
             }
+        }
 
-            EnumHand hand = EnumHand.MAIN_HAND;
-            if (player.getHeldItemMainhand() == itemstack) {
-               if (delay <= 0 && click && !hascooldown) {
-                  Weapons.setPlayerAnimationOnServer(player, EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) > 0 ? 17 : 2, hand);
-                  NBTHelper.SetNBTint(itemstack, 4, "atdelay");
-                  double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
-                  player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
-               }
+        boolean ret = entity.attackEntityFrom(DamageSource.causePlayerDamage(player), (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * artropods * holy);
+        entity.hurtResistantTime = 0;
+        WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+        int firelvl = parameters.getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
+        if (firelvl > 0) {
+            entity.setFire(firelvl);
+        }
 
-               if (delay == 1) {
-                  if (IWeapon.doMeleeSpearAttack(
-                        this,
-                        itemstack,
-                        player,
-                        hand,
-                        charge >= parameters.getInt("max_charge")
-                           && itemRand.nextFloat()
-                              < parameters.getEnchantedF("cloud_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))
-                     )
-                     .success) {
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.melee_sword,
-                        SoundCategory.PLAYERS,
-                        0.7F,
-                        0.8F + itemRand.nextFloat() / 5.0F
-                     );
-                  } else {
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.melee_miss_sword,
-                        SoundCategory.PLAYERS,
-                        0.6F,
-                        0.8F + itemRand.nextFloat() / 5.0F
-                     );
-                  }
+        if (isCritical) {
+            int charge = NBTHelper.GetNBTint(stack, "charge");
+            if (charge >= parameters.getInt("max_charge")) {
+                EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(entity.world, entity.posX, entity.posY, entity.posZ);
+                entityareaeffectcloud.setOwner(player);
+                entityareaeffectcloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
+                entityareaeffectcloud.setRadius(parameters.getEnchantedI("cloud_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack)));
+                entityareaeffectcloud.setDuration(parameters.getInt("cloud_duration"));
+                if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) == 0) {
+                    entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / entityareaeffectcloud.getDuration());
+                }
 
-                  player.addExhaustion(0.1F);
-               }
+                entityareaeffectcloud.addEffect(parameters.getPotion("potion", MobEffects.INSTANT_DAMAGE, EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack)));
+                entity.world.spawnEntity(entityareaeffectcloud);
+                NBTHelper.SetNBTint(stack, 0, "charge");
+                entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERDRAGON_SHOOT, SoundCategory.PLAYERS, 0.6F, 0.93F + itemRand.nextFloat() / 5.0F);
             }
-         }
-      }
-   }
+        }
 
-   @Override
-   public boolean attackEntityMelee(Entity entity, ItemStack stack, EntityPlayer player, EnumHand hand, boolean isCritical) {
-      float artropods = 1.0F;
-      float holy = 1.0F;
-      if (entity instanceof EntityLivingBase) {
-         artropods = ((EntityLivingBase)entity).getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD
-            ? EnchantmentHelper.getEnchantmentLevel(Enchantments.BANE_OF_ARTHROPODS, stack) * 0.1F + 1.0F
-            : 1.0F;
-         holy = ((EntityLivingBase)entity).getCreatureAttribute() == EnumCreatureAttribute.UNDEAD
-            ? EnchantmentHelper.getEnchantmentLevel(Enchantments.SMITE, stack) * 0.1F + 1.0F
-            : 1.0F;
-         if (((EntityLivingBase)entity).getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
-            isCritical = false;
-         }
-      }
+        return ret;
+    }
 
-      boolean ret = entity.attackEntityFrom(
-         DamageSource.causePlayerDamage(player), (float)player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * artropods * holy
-      );
-      entity.hurtResistantTime = 0;
-      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int firelvl = parameters.getEnchantedI("fire", EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack));
-      if (firelvl > 0) {
-         entity.setFire(firelvl);
-      }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
-      if (isCritical) {
-         int charge = NBTHelper.GetNBTint(stack, "charge");
-         if (charge >= parameters.getInt("max_charge")) {
-            EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(
-               entity.world, entity.posX, entity.posY, entity.posZ
-            );
-            entityareaeffectcloud.setOwner(player);
-            entityareaeffectcloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
-            entityareaeffectcloud.setRadius(parameters.getEnchantedI("cloud_radius", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack)));
-            entityareaeffectcloud.setDuration(parameters.getInt("cloud_duration"));
-            if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) == 0) {
-               entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / entityareaeffectcloud.getDuration());
-            }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.SEMI_ONE_HANDED;
+    }
 
-            entityareaeffectcloud.addEffect(
-               parameters.getPotion("potion", MobEffects.INSTANT_DAMAGE, EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack))
-            );
-            entity.world.spawnEntity(entityareaeffectcloud);
-            NBTHelper.SetNBTint(stack, 0, "charge");
-            entity.world
-               .playSound(
-                       null,
-                  entity.posX,
-                  entity.posY,
-                  entity.posZ,
-                  SoundEvents.ENTITY_ENDERDRAGON_SHOOT,
-                  SoundCategory.PLAYERS,
-                  0.6F,
-                  0.93F + itemRand.nextFloat() / 5.0F
-               );
-         }
-      }
-
-      return ret;
-   }
-
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
-
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.SEMI_ONE_HANDED;
-   }
 }

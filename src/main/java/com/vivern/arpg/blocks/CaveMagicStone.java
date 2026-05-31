@@ -12,34 +12,36 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CaveMagicStone extends Block {
-   public CaveMagicStone() {
-      super(Material.ROCK);
-      this.setRegistryName("magic_stone");
-      this.setTranslationKey("magic_stone");
-      this.blockHardness = 10.0F;
-      this.blockResistance = 25.0F;
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-      this.setLightLevel(0.5F);
-   }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.TRANSLUCENT;
-   }
+    public CaveMagicStone() {
+        super(Material.ROCK);
+        this.setRegistryName("magic_stone");
+        this.setTranslationKey("magic_stone");
+        this.blockHardness = 10.0F;
+        this.blockResistance = 25.0F;
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setLightLevel(0.5F);
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
 
-   @Override
-   public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return true;
-   }
+    @Override
+    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
+        return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return true;
+    }
+
 }

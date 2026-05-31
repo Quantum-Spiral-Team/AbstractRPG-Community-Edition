@@ -11,26 +11,28 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class NiveousHole extends Block implements IBlockHardBreak {
-   public NiveousHole() {
-      super(Material.ROCK);
-      this.setRegistryName("niveous_hole");
-      this.setTranslationKey("niveous_hole");
-      this.blockHardness = BlocksRegister.HR_NIVEOUS_HALL.hardness;
-      this.blockResistance = BlocksRegister.HR_NIVEOUS_HALL.resistance;
-      this.setCreativeTab(CreativeTabs.REDSTONE);
-      this.slipperiness = 0.999F;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_NIVEOUS_HALL.lvl);
-   }
 
-   @Override
-   public void onLanded(World worldIn, Entity entityIn) {
-      if (!worldIn.isRemote && entityIn instanceof EverfrostMobsPack.NiveousSlider) {
-         ((EverfrostMobsPack.NiveousSlider)entityIn).onFallToHole();
-      }
-   }
+    public NiveousHole() {
+        super(Material.ROCK);
+        this.setRegistryName("niveous_hole");
+        this.setTranslationKey("niveous_hole");
+        this.blockHardness = BlocksRegister.HR_NIVEOUS_HALL.hardness;
+        this.blockResistance = BlocksRegister.HR_NIVEOUS_HALL.resistance;
+        this.setCreativeTab(CreativeTabs.REDSTONE);
+        this.slipperiness = 0.999F;
+        this.setHarvestLevel("pickaxe", BlocksRegister.HR_NIVEOUS_HALL.lvl);
+    }
 
-   @Override
-   public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
-      return BlocksRegister.HR_NIVEOUS_HALL.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
-   }
+    @Override
+    public void onLanded(World worldIn, Entity entityIn) {
+        if (!worldIn.isRemote && entityIn instanceof EverfrostMobsPack.NiveousSlider) {
+            ((EverfrostMobsPack.NiveousSlider) entityIn).onFallToHole();
+        }
+    }
+
+    @Override
+    public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
+        return BlocksRegister.HR_NIVEOUS_HALL.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
+    }
+
 }

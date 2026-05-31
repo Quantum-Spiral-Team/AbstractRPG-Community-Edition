@@ -1,16 +1,11 @@
 package com.vivern.arpg.biomes;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.dimensions.generationutils.WorldGenCaveLiquids;
-import com.vivern.arpg.dimensions.generationutils.WorldGenFluidLake;
-import com.vivern.arpg.dimensions.generationutils.WorldGenGroundFoliage;
-import com.vivern.arpg.dimensions.generationutils.WorldGenSpread;
-import com.vivern.arpg.dimensions.generationutils.WorldGenToxicBarrels;
+import com.vivern.arpg.dimensions.generationutils.*;
 import com.vivern.arpg.dimensions.toxicomania.ToxicomaniaChunkGenerator;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Mana;
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,155 +22,158 @@ import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 
+import java.util.Random;
+
 public class ToxicSlimeland extends BiomeControlled {
-   public ToxicSlimeland() {
-      super(new BiomeProperties("Slime lands").setBaseHeight(1.0F).setHeightVariation(0.2F).setTemperature(1.35F).setRainfall(0.9F).setWaterColor(5931421));
-      this.topBlock = BlocksRegister.BROWN_SLIME.getDefaultState();
-      this.fillerBlock = BlocksRegister.BROWN_SLIME.getDefaultState();
-      this.decorator = new ToxicSlimelandDecorator();
-   }
 
-   @Override
-   public IBlockState[] controlSurface(IBlockState top, IBlockState filler, double tgc) {
-      if (tgc < 6.0) {
-         top = ToxicomaniaChunkGenerator.SLIME;
-         filler = ToxicomaniaChunkGenerator.SLIME;
-      } else if (tgc < 7.0) {
-         top = ToxicomaniaChunkGenerator.SLUDGE;
-         filler = ToxicomaniaChunkGenerator.SLUDGE;
-      }
+    public ToxicSlimeland() {
+        super(new BiomeProperties("Slime lands").setBaseHeight(1.0F).setHeightVariation(0.2F).setTemperature(1.35F).setRainfall(0.9F).setWaterColor(5931421));
+        this.topBlock = BlocksRegister.BROWN_SLIME.getDefaultState();
+        this.fillerBlock = BlocksRegister.BROWN_SLIME.getDefaultState();
+        this.decorator = new ToxicSlimelandDecorator();
+    }
 
-      return new IBlockState[]{top, filler};
-   }
+    @Override
+    public IBlockState[] controlSurface(IBlockState top, IBlockState filler, double tgc) {
+        if (tgc < 6.0) {
+            top = ToxicomaniaChunkGenerator.SLIME;
+            filler = ToxicomaniaChunkGenerator.SLIME;
+        } else if (tgc < 7.0) {
+            top = ToxicomaniaChunkGenerator.SLUDGE;
+            filler = ToxicomaniaChunkGenerator.SLUDGE;
+        }
 
-   @Override
-   public void onPlayer60ticksInBiome(BiomeControlled biome, EntityPlayer player) {
-      Mana.addRad(player, BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTI_RAD_PACK) > -1 ? 10 : 40, true);
-   }
+        return new IBlockState[]{top, filler};
+    }
 
-   class ToxicSlimelandDecorator extends BiomeDecorator {
-      public WorldGenToxicBarrels barrels = new WorldGenToxicBarrels(13, 4, 3);
-      public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISON_LILY, 8, 4, 0);
-      public WorldGenSpread slimeblob = new WorldGenSpread(BlocksRegister.SLIME_BLOB, 16, 8, 4, BlocksRegister.BROWN_SLIME);
-      public WorldGenFluidLake lakeslime = new WorldGenFluidLake(BlocksRegister.FLUID_SLIME, null, null, BlocksRegister.BROWN_SLIME, false, false);
+    @Override
+    public void onPlayer60ticksInBiome(BiomeControlled biome, EntityPlayer player) {
+        Mana.addRad(player, BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTI_RAD_PACK) > -1 ? 10 : 40, true);
+    }
 
-      @Override
-      public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
-         if (this.decorating) {
-            throw new RuntimeException("Already decorating");
-         } else {
-            if (random.nextFloat() < 0.9F) {
-               BlockPos position = worldIn.getTopSolidOrLiquidBlock(
-                  new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
-               );
-               Block blockd = worldIn.getBlockState(position.down()).getBlock();
-               if ((!worldIn.getBlockState(position).getMaterial().isLiquid() || random.nextFloat() < 0.3F) && blockd == BlocksRegister.BROWN_SLIME) {
-                  WorldServer worldServer = (WorldServer)worldIn;
-                  MinecraftServer minecraftServer = worldIn.getMinecraftServer();
-                  TemplateManager templateManager = worldServer.getStructureTemplateManager();
-                  int t = random.nextInt(5) + 1;
-                  Template template = templateManager.get(minecraftServer, new ResourceLocation("arpg:toxic_big_slime_" + t));
-                  PlacementSettings settings = new PlacementSettings();
-                  int sx = -1;
-                  int sz = -1;
-                  int swr = random.nextInt(4);
-                  if (swr == 0) {
-                     settings.setRotation(Rotation.CLOCKWISE_180);
-                     sx = 1;
-                     sz = 1;
-                  }
+    class ToxicSlimelandDecorator extends BiomeDecorator {
 
-                  if (swr == 1) {
-                     settings.setRotation(Rotation.CLOCKWISE_90);
-                     sx = 1;
-                     sz = -1;
-                  }
+        public WorldGenToxicBarrels barrels = new WorldGenToxicBarrels(13, 4, 3);
+        public WorldGenGroundFoliage poisonlily = new WorldGenGroundFoliage(BlocksRegister.POISON_LILY, 8, 4, 0);
+        public WorldGenSpread slimeblob = new WorldGenSpread(BlocksRegister.SLIME_BLOB, 16, 8, 4, BlocksRegister.BROWN_SLIME);
+        public WorldGenFluidLake lakeslime = new WorldGenFluidLake(BlocksRegister.FLUID_SLIME, null, null, BlocksRegister.BROWN_SLIME, false, false);
 
-                  if (swr == 2) {
-                     settings.setRotation(Rotation.COUNTERCLOCKWISE_90);
-                     sx = -1;
-                     sz = 1;
-                  }
+        @Override
+        public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
+            if (this.decorating) {
+                throw new RuntimeException("Already decorating");
+            } else {
+                if (random.nextFloat() < 0.9F) {
+                    BlockPos position = worldIn.getTopSolidOrLiquidBlock(new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16)));
+                    Block blockd = worldIn.getBlockState(position.down()).getBlock();
+                    if ((!worldIn.getBlockState(position).getMaterial().isLiquid() || random.nextFloat() < 0.3F) && blockd == BlocksRegister.BROWN_SLIME) {
+                        WorldServer worldServer = (WorldServer) worldIn;
+                        MinecraftServer minecraftServer = worldIn.getMinecraftServer();
+                        TemplateManager templateManager = worldServer.getStructureTemplateManager();
+                        int t = random.nextInt(5) + 1;
+                        Template template = templateManager.get(minecraftServer, new ResourceLocation("arpg:toxic_big_slime_" + t));
+                        PlacementSettings settings = new PlacementSettings();
+                        int sx = -1;
+                        int sz = -1;
+                        int swr = random.nextInt(4);
+                        if (swr == 0) {
+                            settings.setRotation(Rotation.CLOCKWISE_180);
+                            sx = 1;
+                            sz = 1;
+                        }
 
-                  if (swr == 3) {
-                     settings.setRotation(Rotation.NONE);
-                  }
+                        if (swr == 1) {
+                            settings.setRotation(Rotation.CLOCKWISE_90);
+                            sx = 1;
+                            sz = -1;
+                        }
 
-                  int disp = 1;
-                  if (t == 3) {
-                     disp = 3;
-                  }
+                        if (swr == 2) {
+                            settings.setRotation(Rotation.COUNTERCLOCKWISE_90);
+                            sx = -1;
+                            sz = 1;
+                        }
 
-                  if (t == 4 || t == 5) {
-                     disp = 5;
-                  }
+                        if (swr == 3) {
+                            settings.setRotation(Rotation.NONE);
+                        }
 
-                  template.addBlocksToWorld(worldIn, position.add(sx * disp, 0, sz * disp), settings);
-               }
+                        int disp = 1;
+                        if (t == 3) {
+                            disp = 3;
+                        }
+
+                        if (t == 4 || t == 5) {
+                            disp = 5;
+                        }
+
+                        template.addBlocksToWorld(worldIn, position.add(sx * disp, 0, sz * disp), settings);
+                    }
+                }
+
+                this.chunkProviderSettings = Factory.jsonToFactory(worldIn.getWorldInfo().getGeneratorOptions()).build();
+                this.chunkPos = pos;
+
+                for (int k5 = 0; k5 < 20; k5++) {
+                    int i10 = random.nextInt(16) + 8;
+                    int l13 = random.nextInt(16) + 8;
+                    int i17 = random.nextInt(248) + 8;
+                    if (i17 > 0) {
+                        int k19 = random.nextInt(i17);
+                        BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
+                        new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
+                    }
+                }
+
+                for (int k5x = 0; k5x < 45; k5x++) {
+                    int i10 = random.nextInt(16) + 8;
+                    int l13 = random.nextInt(16) + 8;
+                    int i17 = random.nextInt(248) + 8;
+                    if (i17 > 0) {
+                        int k19 = random.nextInt(i17);
+                        BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
+                        new WorldGenCaveLiquids(BlocksRegister.FLUID_SLIME, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
+                    }
+                }
+
+                if (random.nextFloat() < 0.3) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    this.lakeslime.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)).down(4));
+                }
+
+                if (random.nextFloat() < 0.15) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    this.barrels.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
+                }
+
+                if (random.nextFloat() < 0.4) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    this.poisonlily.generate(worldIn, random, new BlockPos(this.chunkPos.getX() + j, 63, this.chunkPos.getZ() + k));
+                }
+
+                for (int i = 0; i < 4; i++) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    BlockPos posup = worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k));
+                    Block block = worldIn.getBlockState(posup.down()).getBlock();
+                    if (block == BlocksRegister.BROWN_SLIME || block == BlocksRegister.SLUDGE) {
+                        this.slimeblob.generate(worldIn, random, posup);
+                    }
+                }
+
+                if (random.nextFloat() < 0.03) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    ToxicomaniaChunkGenerator.genLootBlob(worldIn, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)), random);
+                }
+
+                this.decorating = false;
             }
+        }
 
-            this.chunkProviderSettings = Factory.jsonToFactory(worldIn.getWorldInfo().getGeneratorOptions()).build();
-            this.chunkPos = pos;
+    }
 
-            for (int k5 = 0; k5 < 20; k5++) {
-               int i10 = random.nextInt(16) + 8;
-               int l13 = random.nextInt(16) + 8;
-               int i17 = random.nextInt(248) + 8;
-               if (i17 > 0) {
-                  int k19 = random.nextInt(i17);
-                  BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
-               }
-            }
-
-            for (int k5x = 0; k5x < 45; k5x++) {
-               int i10 = random.nextInt(16) + 8;
-               int l13 = random.nextInt(16) + 8;
-               int i17 = random.nextInt(248) + 8;
-               if (i17 > 0) {
-                  int k19 = random.nextInt(i17);
-                  BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUID_SLIME, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
-               }
-            }
-
-            if (random.nextFloat() < 0.3) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               this.lakeslime.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)).down(4));
-            }
-
-            if (random.nextFloat() < 0.15) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               this.barrels.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
-            }
-
-            if (random.nextFloat() < 0.4) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               this.poisonlily
-                  .generate(worldIn, random, new BlockPos(this.chunkPos.getX() + j, 63, this.chunkPos.getZ() + k));
-            }
-
-            for (int i = 0; i < 4; i++) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               BlockPos posup = worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k));
-               Block block = worldIn.getBlockState(posup.down()).getBlock();
-               if (block == BlocksRegister.BROWN_SLIME || block == BlocksRegister.SLUDGE) {
-                  this.slimeblob.generate(worldIn, random, posup);
-               }
-            }
-
-            if (random.nextFloat() < 0.03) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               ToxicomaniaChunkGenerator.genLootBlob(worldIn, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)), random);
-            }
-
-            this.decorating = false;
-         }
-      }
-   }
 }

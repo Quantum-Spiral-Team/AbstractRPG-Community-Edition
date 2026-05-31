@@ -3,7 +3,6 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TilePyrocrystallineConverter;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
@@ -18,152 +17,138 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class PyrocrystallineConverter extends Block {
-   public static final PropertyDirection FACING = BlockDirectional.FACING;
 
-   public PyrocrystallineConverter() {
-      super(Material.GLASS);
-      this.setRegistryName("pyrocrystalline_converter");
-      this.setTranslationKey("pyrocrystalline_converter");
-      this.blockHardness = 4.5F;
-      this.blockResistance = 16.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setSoundType(SoundType.STONE);
-      this.setHarvestLevel("pickaxe", 0);
-      this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
-   }
+    public static final PropertyDirection FACING = BlockDirectional.FACING;
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    public PyrocrystallineConverter() {
+        super(Material.GLASS);
+        this.setRegistryName("pyrocrystalline_converter");
+        this.setTranslationKey("pyrocrystalline_converter");
+        this.blockHardness = 4.5F;
+        this.blockResistance = 16.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setSoundType(SoundType.STONE);
+        this.setHarvestLevel("pickaxe", 0);
+        this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
+    }
 
-   @Override
-   public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-      return BlockFaceShape.UNDEFINED;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!worldIn.isRemote) {
-         TilePyrocrystallineConverter tile = this.getTileEntity(worldIn, pos);
-         worldIn.playSound(null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
-         if (tile != null) {
-            player.openGui(AbstractRPG.instance, 8, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            return true;
-         }
-      }
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
+    }
 
-      return false;
-   }
-
-   public static void trySendPacketUpdate(World world, BlockPos pos, TilePyrocrystallineConverter tile, int range) {
-      if (!world.isRemote) {
-         for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-            EntityPlayerMP.class,
-            new AxisAlignedBB(
-               pos.getX() + range,
-               pos.getY() + range,
-               pos.getZ() + range,
-               pos.getX() - range,
-               pos.getY() - range,
-               pos.getZ() - range
-            )
-         )) {
-            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-            if (spacketupdatetileentity != null) {
-               playerIn.connection.sendPacket(spacketupdatetileentity);
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            TilePyrocrystallineConverter tile = this.getTileEntity(worldIn, pos);
+            worldIn.playSound(null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
+            if (tile != null) {
+                player.openGui(AbstractRPG.instance, 8, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                return true;
             }
-         }
-      }
-   }
+        }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
-      if (worldIn.getTileEntity(pos) instanceof TilePyrocrystallineConverter) {
-         TilePyrocrystallineConverter tileentity = (TilePyrocrystallineConverter)worldIn.getTileEntity(pos);
-         if (flag) {
-            tileentity.redstone++;
-         }
+        return false;
+    }
 
-         if (!flag) {
-            tileentity.redstone = 0;
-         }
-      }
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TilePyrocrystallineConverter tile, int range) {
+        if (!world.isRemote) {
+            for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + range, pos.getY() + range, pos.getZ() + range, pos.getX() - range, pos.getY() - range, pos.getZ() - range))) {
+                SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+                if (spacketupdatetileentity != null) {
+                    playerIn.connection.sendPacket(spacketupdatetileentity);
+                }
+            }
+        }
+    }
 
-   public Class<TilePyrocrystallineConverter> getTileEntityClass() {
-      return TilePyrocrystallineConverter.class;
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
+        if (worldIn.getTileEntity(pos) instanceof TilePyrocrystallineConverter) {
+            TilePyrocrystallineConverter tileentity = (TilePyrocrystallineConverter) worldIn.getTileEntity(pos);
+            if (flag) {
+                tileentity.redstone++;
+            }
 
-   public TilePyrocrystallineConverter getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TilePyrocrystallineConverter)world.getTileEntity(position);
-   }
+            if (!flag) {
+                tileentity.redstone = 0;
+            }
+        }
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public Class<TilePyrocrystallineConverter> getTileEntityClass() {
+        return TilePyrocrystallineConverter.class;
+    }
 
-   @Override
-   @Nullable
-   public TilePyrocrystallineConverter createTileEntity(World world, IBlockState blockState) {
-      return new TilePyrocrystallineConverter();
-   }
+    public TilePyrocrystallineConverter getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TilePyrocrystallineConverter) world.getTileEntity(position);
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   public static BlockPos getOffsetBlock(World world, BlockPos pos) {
-      return pos.offset(world.getBlockState(pos).getValue(FACING), 2);
-   }
+    @Override
+    @Nullable
+    public TilePyrocrystallineConverter createTileEntity(World world, IBlockState blockState) {
+        return new TilePyrocrystallineConverter();
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
-   }
+    public static BlockPos getOffsetBlock(World world, BlockPos pos) {
+        return pos.offset(world.getBlockState(pos).getValue(FACING), 2);
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(FACING).getIndex();
-   }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+    }
 
-   @Override
-   public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
+    }
 
-   @Override
-   public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(FACING).getIndex();
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{FACING});
-   }
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+    }
+
+    @Override
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{FACING});
+    }
+
 }

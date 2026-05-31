@@ -19,54 +19,56 @@ import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
 public class BlockBlockCraftingTable extends BlockBlockHard {
-   public BlockBlockCraftingTable(Material mater, String name, BlocksRegister.HardRes hardnessResistance, String tool, boolean canDropWhithoutTool) {
-      super(mater, name, hardnessResistance, tool, canDropWhithoutTool);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-   }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-       if (!worldIn.isRemote) {
-           playerIn.displayGui(new InterfaceCraftingTable(worldIn, pos));
-           playerIn.addStat(StatList.CRAFTING_TABLE_INTERACTION);
-       }
-       return true;
-   }
+    public BlockBlockCraftingTable(Material mater, String name, BlocksRegister.HardRes hardnessResistance, String tool, boolean canDropWhithoutTool) {
+        super(mater, name, hardnessResistance, tool, canDropWhithoutTool);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+    }
 
-   public static class InterfaceCraftingTable implements IInteractionObject {
-      private final World world;
-      private final BlockPos position;
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            playerIn.displayGui(new InterfaceCraftingTable(worldIn, pos));
+            playerIn.addStat(StatList.CRAFTING_TABLE_INTERACTION);
+        }
+        return true;
+    }
 
-      public InterfaceCraftingTable(World worldIn, BlockPos pos) {
-         this.world = worldIn;
-         this.position = pos;
-      }
+    public static class InterfaceCraftingTable implements IInteractionObject {
 
-      @Override
-      public String getName() {
-         return "crafting_table";
-      }
+        private final World world;
+        private final BlockPos position;
 
-      @Override
-      public boolean hasCustomName() {
-         return false;
-      }
+        public InterfaceCraftingTable(World worldIn, BlockPos pos) {
+            this.world = worldIn;
+            this.position = pos;
+        }
 
-      @Override
-      public ITextComponent getDisplayName() {
-         return new TextComponentTranslation(Blocks.CRAFTING_TABLE.getTranslationKey() + ".name", new Object[0]);
-      }
+        @Override
+        public String getName() {
+            return "crafting_table";
+        }
 
-      @Override
-      public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-         return new ContainerMyWorkbench(playerInventory, this.world, this.position);
-      }
+        @Override
+        public boolean hasCustomName() {
+            return false;
+        }
 
-      @Override
-      public String getGuiID() {
-         return "minecraft:crafting_table";
-      }
-   }
+        @Override
+        public ITextComponent getDisplayName() {
+            return new TextComponentTranslation(Blocks.CRAFTING_TABLE.getTranslationKey() + ".name", new Object[0]);
+        }
+
+        @Override
+        public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+            return new ContainerMyWorkbench(playerInventory, this.world, this.position);
+        }
+
+        @Override
+        public String getGuiID() {
+            return "minecraft:crafting_table";
+        }
+
+    }
+
 }

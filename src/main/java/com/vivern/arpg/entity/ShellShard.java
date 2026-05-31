@@ -13,100 +13,96 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class ShellShard extends AbstractArrow {
-   public ShellShard(World worldIn) {
-      super(worldIn);
-      this.pickupStatus = PickupStatus.DISALLOWED;
-   }
 
-   public ShellShard(World worldIn, double x, double y, double z) {
-      super(worldIn, x, y, z);
-      this.pickupStatus = PickupStatus.DISALLOWED;
-   }
+    public ShellShard(World worldIn) {
+        super(worldIn);
+        this.pickupStatus = PickupStatus.DISALLOWED;
+    }
 
-   public ShellShard(World worldIn, EntityLivingBase shooter) {
-      super(worldIn, shooter);
-      this.pickupStatus = PickupStatus.DISALLOWED;
-   }
+    public ShellShard(World worldIn, double x, double y, double z) {
+        super(worldIn, x, y, z);
+        this.pickupStatus = PickupStatus.DISALLOWED;
+    }
 
-   @Override
-   public void onHit(RayTraceResult raytraceResultIn) {
-      if (raytraceResultIn.entityHit == null || this.ticksExisted > 3) {
-         super.onHit(raytraceResultIn);
-      }
-   }
+    public ShellShard(World worldIn, EntityLivingBase shooter) {
+        super(worldIn, shooter);
+        this.pickupStatus = PickupStatus.DISALLOWED;
+    }
 
-   @Override
-   public boolean doWaterMoveHook() {
-      return true;
-   }
+    @Override
+    public void onHit(RayTraceResult raytraceResultIn) {
+        if (raytraceResultIn.entityHit == null || this.ticksExisted > 3) {
+            super.onHit(raytraceResultIn);
+        }
+    }
 
-   @Override
-   public int waterParticlesHookAdding() {
-      return 0;
-   }
+    @Override
+    public boolean doWaterMoveHook() {
+        return true;
+    }
 
-   @Override
-   public void modifySpeedInWater() {
-      double multiplier = 0.97;
-      this.motionX *= multiplier;
-      this.motionY *= multiplier;
-      this.motionZ *= multiplier;
-      this.motionY -= 0.004;
-   }
+    @Override
+    public int waterParticlesHookAdding() {
+        return 0;
+    }
 
-   @Override
-   public boolean hasNoGravity() {
-      return this.inWater || super.hasNoGravity();
-   }
+    @Override
+    public void modifySpeedInWater() {
+        double multiplier = 0.97;
+        this.motionX *= multiplier;
+        this.motionY *= multiplier;
+        this.motionZ *= multiplier;
+        this.motionY -= 0.004;
+    }
 
-   @Override
-   public float calculateDamage(RayTraceResult raytraceResultIn, DamageSource damagesource) {
-      double finalDamagePerSpeed = this.getItemArrowDamage(this.world) + this.bowDamage;
-      if (Team.checkIsOpponent(this.shootingEntity, raytraceResultIn.entityHit)) {
-         float f = Math.max(
-               MathHelper.sqrt(
-                  this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ
-               ),
-               1.0F
-            )
-            + 1.0F;
-         int i = MathHelper.ceil(f * finalDamagePerSpeed);
-         if (this.getIsCritical()) {
-            i += this.rand.nextInt(i / 2 + 2);
-         }
+    @Override
+    public boolean hasNoGravity() {
+        return this.inWater || super.hasNoGravity();
+    }
 
-         return i;
-      } else {
-         return 0.0F;
-      }
-   }
+    @Override
+    public float calculateDamage(RayTraceResult raytraceResultIn, DamageSource damagesource) {
+        double finalDamagePerSpeed = this.getItemArrowDamage(this.world) + this.bowDamage;
+        if (Team.checkIsOpponent(this.shootingEntity, raytraceResultIn.entityHit)) {
+            float f = Math.max(MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ), 1.0F) + 1.0F;
+            int i = MathHelper.ceil(f * finalDamagePerSpeed);
+            if (this.getIsCritical()) {
+                i += this.rand.nextInt(i / 2 + 2);
+            }
 
-   @Override
-   public void onUpdate() {
-      super.onUpdate();
-      if (!this.world.isRemote) {
-         if (this.timeInGround > 60) {
-            this.removeArrowEntity(null);
-         }
+            return i;
+        } else {
+            return 0.0F;
+        }
+    }
 
-         if (this.ticksExisted < 5) {
-            this.velocityChanged = true;
-         }
-      }
-   }
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (!this.world.isRemote) {
+            if (this.timeInGround > 60) {
+                this.removeArrowEntity(null);
+            }
 
-   @Override
-   public double getItemArrowDamage(World worldIn) {
-      return WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_SHELL).getFloat("shard_damage");
-   }
+            if (this.ticksExisted < 5) {
+                this.velocityChanged = true;
+            }
+        }
+    }
 
-   @Override
-   public SoundEvent getHitSound() {
-      return Sounds.seashell;
-   }
+    @Override
+    public double getItemArrowDamage(World worldIn) {
+        return WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_SHELL).getFloat("shard_damage");
+    }
 
-   @Override
-   protected ItemStack getArrowStack() {
-      return ItemStack.EMPTY;
-   }
+    @Override
+    public SoundEvent getHitSound() {
+        return Sounds.seashell;
+    }
+
+    @Override
+    protected ItemStack getArrowStack() {
+        return ItemStack.EMPTY;
+    }
+
 }

@@ -3,8 +3,6 @@ package com.vivern.arpg.network.packet;
 import com.vivern.arpg.recipes.TerraformingPlayerCommand;
 import com.vivern.arpg.tileentity.TileResearchTable;
 import io.netty.buffer.ByteBuf;
-import java.util.ConcurrentModificationException;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -12,59 +10,61 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import java.util.ConcurrentModificationException;
+
 public class PacketTFRPuzzleToServer extends Packet {
-   public int x = 0;
-   public int y = 0;
-   public int z = 0;
-   public int boardSelectX = 0;
-   public int boardSelectY = 0;
-   public int data = 0;
-   public TerraformingPlayerCommand.TRPlayerCommandType commandType;
 
-   public void writeInts(int x, int y, int z, TerraformingPlayerCommand command) {
-      this.buf().writeInt(x);
-      this.buf().writeInt(y);
-      this.buf().writeInt(z);
-      this.buf().writeInt(command.boardSelectX);
-      this.buf().writeInt(command.boardSelectY);
-      this.buf().writeInt(command.data);
-      this.buf().writeByte(command.commandType.ordinal());
-   }
+    public int x = 0;
+    public int y = 0;
+    public int z = 0;
+    public int boardSelectX = 0;
+    public int boardSelectY = 0;
+    public int data = 0;
+    public TerraformingPlayerCommand.TRPlayerCommandType commandType;
 
-   @Override
-   public void fromBytes(ByteBuf buffer) {
-      this.x = buffer.readInt();
-      this.y = buffer.readInt();
-      this.z = buffer.readInt();
-      this.boardSelectX = buffer.readInt();
-      this.boardSelectY = buffer.readInt();
-      this.data = buffer.readInt();
-      byte t = buffer.readByte();
-      if (t >= 0 && t < TerraformingPlayerCommand.TRPlayerCommandType.values().length) {
-         this.commandType = TerraformingPlayerCommand.TRPlayerCommandType.values()[t];
-      }
-   }
+    public void writeInts(int x, int y, int z, TerraformingPlayerCommand command) {
+        this.buf().writeInt(x);
+        this.buf().writeInt(y);
+        this.buf().writeInt(z);
+        this.buf().writeInt(command.boardSelectX);
+        this.buf().writeInt(command.boardSelectY);
+        this.buf().writeInt(command.data);
+        this.buf().writeByte(command.commandType.ordinal());
+    }
 
-   @Override
-   public void client(EntityPlayer player, Packet sp, MessageContext ctx) {}
+    @Override
+    public void fromBytes(ByteBuf buffer) {
+        this.x = buffer.readInt();
+        this.y = buffer.readInt();
+        this.z = buffer.readInt();
+        this.boardSelectX = buffer.readInt();
+        this.boardSelectY = buffer.readInt();
+        this.data = buffer.readInt();
+        byte t = buffer.readByte();
+        if (t >= 0 && t < TerraformingPlayerCommand.TRPlayerCommandType.values().length) {
+            this.commandType = TerraformingPlayerCommand.TRPlayerCommandType.values()[t];
+        }
+    }
 
-   @Override
-   public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {
-      FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.processMessage(player));
-   }
+    @Override
+    public void client(EntityPlayer player, Packet sp, MessageContext ctx) {}
 
-   void processMessage(EntityPlayerMP player) {
-      try {
-         if (this.commandType != null && player.getDistanceSq(this.x, this.y, this.z) < 64.0) {
-            TileEntity tile = player.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
-            if (tile instanceof TileResearchTable) {
-               ((TileResearchTable)tile).puzzleCommand = new TerraformingPlayerCommand(
-                  this.commandType, this.boardSelectX, this.boardSelectY, this.data, player
-               );
+    @Override
+    public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {
+        FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.processMessage(player));
+    }
+
+    void processMessage(EntityPlayerMP player) {
+        try {
+            if (this.commandType != null && player.getDistanceSq(this.x, this.y, this.z) < 64.0) {
+                TileEntity tile = player.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+                if (tile instanceof TileResearchTable) {
+                    ((TileResearchTable) tile).puzzleCommand = new TerraformingPlayerCommand(this.commandType, this.boardSelectX, this.boardSelectY, this.data, player);
+                }
             }
-         }
-      } catch (ConcurrentModificationException var3) {
-         var3.printStackTrace();
-      }
-   }
+        } catch (ConcurrentModificationException var3) {
+            var3.printStackTrace();
+        }
+    }
+
 }

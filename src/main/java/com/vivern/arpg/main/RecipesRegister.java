@@ -2,7 +2,6 @@ package com.vivern.arpg.main;
 
 import com.vivern.arpg.items.armor.SnowcoatHelm;
 import com.vivern.arpg.recipes.MoltenGreataxeOil;
-import javax.annotation.Nonnull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -13,23 +12,24 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
+@EventBusSubscriber(modid = "arpg")
 public class RecipesRegister {
-   @SubscribeEvent
-   public static void registerRecipes(Register<IRecipe> event) {
-      event.getRegistry().register(new MoltenGreataxeOil().setRegistryName(MoltenGreataxeOil.name));
-      event.getRegistry().register(new SnowcoatHelm.SnowcoatDye().setRegistryName(SnowcoatHelm.SnowcoatDye.name));
-   }
 
-   public static IRecipe getShapelessRecipe(ResourceLocation name, ResourceLocation group, @Nonnull ItemStack output, Ingredient... params) {
-      NonNullList<Ingredient> lst = NonNullList.create();
+    @SubscribeEvent
+    public static void registerRecipes(Register<IRecipe> event) {
+        event.getRegistry().register(new MoltenGreataxeOil().setRegistryName(MoltenGreataxeOil.name));
+        event.getRegistry().register(new SnowcoatHelm.SnowcoatDye().setRegistryName(SnowcoatHelm.SnowcoatDye.name));
+    }
 
-      Collections.addAll(lst, params);
+    public static IRecipe getShapelessRecipe(ResourceLocation name, ResourceLocation group, @Nonnull ItemStack output, Ingredient... params) {
+        NonNullList<Ingredient> lst = NonNullList.create();
 
-      return new ShapelessRecipes(group == null ? "" : group.toString(), output, lst).setRegistryName(name);
-   }
+        Collections.addAll(lst, params);
+
+        return new ShapelessRecipes(group == null ? "" : group.toString(), output, lst).setRegistryName(name);
+    }
+
 }

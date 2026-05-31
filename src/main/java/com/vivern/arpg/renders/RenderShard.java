@@ -10,20 +10,22 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderShard<T extends EntityShard> extends Render<T> {
-   public RenderShard(RenderManager renderManagerIn) {
-      super(renderManagerIn);
-   }
 
-   @Override
-   public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-      if (entity != null && entity.shardType != null) {
-         entity.shardType.renderShardEntity(entity, x, y, z, entityYaw, partialTicks, this.renderManager);
-         super.doRender(entity, x, y, z, entityYaw, partialTicks);
-      }
-   }
+    public RenderShard(RenderManager renderManagerIn) {
+        super(renderManagerIn);
+    }
 
-   @Override
-   protected ResourceLocation getEntityTexture(T entity) {
-      return TextureMap.LOCATION_MISSING_TEXTURE;
-   }
+    @Override
+    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        if (entity != null && entity.shardType != null) {
+            entity.shardType.renderShardEntity(entity, x, y, z, entityYaw, partialTicks, this.renderManager);
+            super.doRender(entity, x, y, z, entityYaw, partialTicks);
+        }
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(T entity) {
+        return TextureMap.LOCATION_MISSING_TEXTURE;
+    }
+
 }

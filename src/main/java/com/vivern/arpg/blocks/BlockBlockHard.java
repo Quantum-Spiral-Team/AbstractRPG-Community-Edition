@@ -1,9 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
-import java.util.ArrayList;
-import java.util.List;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -15,65 +12,69 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockBlockHard extends BlockBlock implements IBlockHardBreak {
-   public float slowSpeed;
-   public float fastSpeed;
-   public boolean canDropWhithoutTool;
-   public int level;
-   public String tool;
 
-   public BlockBlockHard(
-      Material mater, String name, float hardness, float resi, float slowSpeed, float fastSpeed, int level, String tool, boolean canDropWhithoutTool
-   ) {
-      super(mater, name, hardness, resi);
-      this.slowSpeed = slowSpeed;
-      this.canDropWhithoutTool = canDropWhithoutTool;
-      this.level = level;
-      this.tool = tool;
-      this.fastSpeed = fastSpeed;
-      this.setHarvest(tool, level);
-   }
+    public float slowSpeed;
+    public float fastSpeed;
+    public boolean canDropWhithoutTool;
+    public int level;
+    public String tool;
 
-   public BlockBlockHard(Material mater, String name, BlocksRegister.HardRes hardnessResistance, String tool, boolean canDropWhithoutTool) {
-      super(mater, name, hardnessResistance.hardness, hardnessResistance.resistance);
-      this.slowSpeed = hardnessResistance.slow;
-      this.canDropWhithoutTool = canDropWhithoutTool;
-      this.level = hardnessResistance.lvl;
-      this.tool = tool;
-      this.fastSpeed = hardnessResistance.fast;
-      this.setHarvest(tool, this.level);
-   }
+    public BlockBlockHard(Material mater, String name, float hardness, float resi, float slowSpeed, float fastSpeed, int level, String tool, boolean canDropWhithoutTool) {
+        super(mater, name, hardness, resi);
+        this.slowSpeed = slowSpeed;
+        this.canDropWhithoutTool = canDropWhithoutTool;
+        this.level = level;
+        this.tool = tool;
+        this.fastSpeed = fastSpeed;
+        this.setHarvest(tool, level);
+    }
 
-   @Override
-   public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
-      player.addStat(StatList.getBlockStats(this));
-      player.addExhaustion(0.005F);
-      if (this.canSilkHarvest(worldIn, pos, state, player) && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
-         List<ItemStack> items = new ArrayList<>();
-         ItemStack itemstack = this.getSilkTouchDrop(state);
-         if (!itemstack.isEmpty()) {
-            items.add(itemstack);
-         }
+    public BlockBlockHard(Material mater, String name, BlocksRegister.HardRes hardnessResistance, String tool, boolean canDropWhithoutTool) {
+        super(mater, name, hardnessResistance.hardness, hardnessResistance.resistance);
+        this.slowSpeed = hardnessResistance.slow;
+        this.canDropWhithoutTool = canDropWhithoutTool;
+        this.level = hardnessResistance.lvl;
+        this.tool = tool;
+        this.fastSpeed = hardnessResistance.fast;
+        this.setHarvest(tool, this.level);
+    }
 
-         ForgeEventFactory.fireBlockHarvesting(items, worldIn, pos, state, 0, 1.0F, true, player);
+    @Override
+    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+        player.addStat(StatList.getBlockStats(this));
+        player.addExhaustion(0.005F);
+        if (this.canSilkHarvest(worldIn, pos, state, player) && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
+            List<ItemStack> items = new ArrayList<>();
+            ItemStack itemstack = this.getSilkTouchDrop(state);
+            if (!itemstack.isEmpty()) {
+                items.add(itemstack);
+            }
 
-         for (ItemStack item : items) {
-            spawnAsEntity(worldIn, pos, item);
-         }
-      } else {
-         this.harvesters.set(player);
-         int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-         if (this.canDropWhithoutTool || stack.getItem().getHarvestLevel(stack, this.tool, player, state) >= this.level) {
-            this.dropBlockAsItem(worldIn, pos, state, i);
-         }
+            ForgeEventFactory.fireBlockHarvesting(items, worldIn, pos, state, 0, 1.0F, true, player);
 
-         this.harvesters.set(null);
-      }
-   }
+            for (ItemStack item : items) {
+                spawnAsEntity(worldIn, pos, item);
+            }
+        } else {
+            this.harvesters.set(player);
+            int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+            if (this.canDropWhithoutTool || stack.getItem().getHarvestLevel(stack, this.tool, player, state) >= this.level) {
+                this.dropBlockAsItem(worldIn, pos, state, i);
+            }
 
-   @Override
-   public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
-      return toolLevel >= this.level && tool.equals(this.tool) ? originalSpeed * this.fastSpeed : originalSpeed * this.slowSpeed;
-   }
+            this.harvesters.set(null);
+        }
+    }
+
+    @Override
+    public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
+        return toolLevel >= this.level && tool.equals(this.tool) ? originalSpeed * this.fastSpeed : originalSpeed * this.slowSpeed;
+    }
+
 }

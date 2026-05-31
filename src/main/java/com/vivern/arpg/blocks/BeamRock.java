@@ -1,9 +1,9 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -22,104 +22,106 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BeamRock extends BlockRotatedPillar implements IBlockHardBreak {
-   public static final PropertyEnum<EnumAxis> LOG_AXIS = PropertyEnum.create("axis", EnumAxis.class);
 
-   public BeamRock() {
-      super(Material.ROCK);
-      this.setRegistryName("beamrock");
-      this.setTranslationKey("beamrock");
-      this.blockHardness = BlocksRegister.HR_STORMBRASS_ROCKS.hardness;
-      this.blockResistance = BlocksRegister.HR_STORMBRASS_ROCKS.resistance;
-      this.setHarvestLevel("pickaxe", BlocksRegister.HR_STORMBRASS_ROCKS.lvl);
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-      this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
-      this.setSoundType(SoundType.STONE);
-      this.setLightLevel(0.25F);
-   }
+    public static final PropertyEnum<EnumAxis> LOG_AXIS = PropertyEnum.create("axis", EnumAxis.class);
 
-   @Override
-   public BlocksRegister.HardRes getHardRes() {
-      return BlocksRegister.HR_STORMBRASS_ROCKS;
-   }
+    public BeamRock() {
+        super(Material.ROCK);
+        this.setRegistryName("beamrock");
+        this.setTranslationKey("beamrock");
+        this.blockHardness = BlocksRegister.HR_STORMBRASS_ROCKS.hardness;
+        this.blockResistance = BlocksRegister.HR_STORMBRASS_ROCKS.resistance;
+        this.setHarvestLevel("pickaxe", BlocksRegister.HR_STORMBRASS_ROCKS.lvl);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
+        this.setSoundType(SoundType.STONE);
+        this.setLightLevel(0.25F);
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return 15728880;
-   }
+    @Override
+    public BlocksRegister.HardRes getHardRes() {
+        return BlocksRegister.HR_STORMBRASS_ROCKS;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
-      switch (meta) {
-         case 0:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
-            break;
-         case 4:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.X);
-            break;
-         case 8:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Z);
-            break;
-         default:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.NONE);
-      }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return 15728880;
+    }
 
-      return iblockstate;
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
+        switch (meta) {
+            case 0:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
+                break;
+            case 4:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.X);
+                break;
+            case 8:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Z);
+                break;
+            default:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.NONE);
+        }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      int i = 0;
-      switch (state.getValue(LOG_AXIS)) {
-         case X:
-            i = 4;
-            break;
-         case Z:
-            i = 8;
-            break;
-         case NONE:
-            i = 12;
-      }
+        return iblockstate;
+    }
 
-      return i;
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        int i = 0;
+        switch (state.getValue(LOG_AXIS)) {
+            case X:
+                i = 4;
+                break;
+            case Z:
+                i = 8;
+                break;
+            case NONE:
+                i = 12;
+        }
 
-   @Override
-   public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-      return super.removedByPlayer(state, world, pos, player, willHarvest);
-   }
+        return i;
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
-   }
+    @Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+        return super.removedByPlayer(state, world, pos, player, willHarvest);
+    }
 
-   @Override
-   public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      return MapColor.OBSIDIAN;
-   }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
-   }
+    @Override
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        return MapColor.OBSIDIAN;
+    }
 
-   @Override
-   public IBlockState withRotation(IBlockState state, Rotation rot) {
-      switch (rot) {
-         case COUNTERCLOCKWISE_90:
-         case CLOCKWISE_90:
-            switch (state.getValue(LOG_AXIS)) {
-               case X:
-                  return state.withProperty(LOG_AXIS, EnumAxis.Z);
-               case Z:
-                  return state.withProperty(LOG_AXIS, EnumAxis.X);
-               default:
-                  return state;
-            }
-         default:
-            return state;
-      }
-   }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
+    }
+
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        switch (rot) {
+            case COUNTERCLOCKWISE_90:
+            case CLOCKWISE_90:
+                switch (state.getValue(LOG_AXIS)) {
+                    case X:
+                        return state.withProperty(LOG_AXIS, EnumAxis.Z);
+                    case Z:
+                        return state.withProperty(LOG_AXIS, EnumAxis.X);
+                    default:
+                        return state;
+                }
+            default:
+                return state;
+        }
+    }
+
 }

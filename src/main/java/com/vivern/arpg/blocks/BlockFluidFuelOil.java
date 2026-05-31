@@ -13,43 +13,45 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
 public class BlockFluidFuelOil extends BlockFluidClassic {
-   public BlockFluidFuelOil() {
-      super(FluidsRegister.FUELOIL, Material.WATER);
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-      this.setTranslationKey("fluid_fueloil_block");
-      this.setRegistryName("fluid_fueloil_block");
-   }
 
-   @Override
-   public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
-      super.onBlockAdded(world, pos, state);
-      this.mergerFluids(pos, world);
-   }
+    public BlockFluidFuelOil() {
+        super(FluidsRegister.FUELOIL, Material.WATER);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setTranslationKey("fluid_fueloil_block");
+        this.setRegistryName("fluid_fueloil_block");
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
-      super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
-      this.mergerFluids(pos, world);
-   }
+    @Override
+    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+        super.onBlockAdded(world, pos, state);
+        this.mergerFluids(pos, world);
+    }
 
-   @Override
-   public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-      super.onEntityCollision(worldIn, pos, state, entityIn);
-      entityIn.motionX *= 0.5;
-      entityIn.motionY *= 0.5;
-      entityIn.motionZ *= 0.5;
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
+        super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
+        this.mergerFluids(pos, world);
+    }
 
-   @Override
-   public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
-      return true;
-   }
+    @Override
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+        super.onEntityCollision(worldIn, pos, state, entityIn);
+        entityIn.motionX *= 0.5;
+        entityIn.motionY *= 0.5;
+        entityIn.motionZ *= 0.5;
+    }
 
-   @Override
-   public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
-      return 20;
-   }
+    @Override
+    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
+        return true;
+    }
 
-   private void mergerFluids(BlockPos pos, World world) {
-   }
+    @Override
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
+        return 20;
+    }
+
+    private void mergerFluids(BlockPos pos, World world) {
+    }
+
 }

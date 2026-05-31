@@ -16,211 +16,213 @@ import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.NonNullList;
 
 public class TileElementDistributor extends TileEntityLockableLoot implements TileEntityClicked {
-   public NonNullList<ItemStack> stacks = NonNullList.withSize(1, ItemStack.EMPTY);
-   public boolean optionUseMetadata = false;
-   public static NonNullList<ItemStack> nextStacks;
-   public static ItemStack nextDisplayed;
 
-   public static void fillNextStacks() {
-      CreativeTabs.SEARCH.displayAllRelevantItems(nextStacks);
+    public NonNullList<ItemStack> stacks = NonNullList.withSize(1, ItemStack.EMPTY);
+    public boolean optionUseMetadata = false;
+    public static NonNullList<ItemStack> nextStacks;
+    public static ItemStack nextDisplayed;
 
-      while (ItemsElements.getAllElements(nextStacks.get(0)) != ItemsElements.EMPTY_ELEMENTS) {
-         nextStacks.remove(0);
-         if (nextStacks.isEmpty()) {
-            return;
-         }
-      }
-   }
+    public static void fillNextStacks() {
+        CreativeTabs.SEARCH.displayAllRelevantItems(nextStacks);
 
-   public static void removeFromNextStacks(ItemStack itemStack, boolean useMeta) {
-      if (nextStacks != null) {
-         if (useMeta) {
-            for (int i = 0; i < nextStacks.size(); i++) {
-               ItemStack stackIn = nextStacks.get(i);
-               if (stackIn.getItem() == itemStack.getItem() && stackIn.getMetadata() == itemStack.getMetadata()) {
-                  nextStacks.remove(i);
-                  return;
-               }
+        while (ItemsElements.getAllElements(nextStacks.get(0)) != ItemsElements.EMPTY_ELEMENTS) {
+            nextStacks.remove(0);
+            if (nextStacks.isEmpty()) {
+                return;
             }
-         } else {
-            NonNullList<ItemStack> newnextStacks = NonNullList.create();
+        }
+    }
 
-            for (ItemStack stackHas : nextStacks) {
-               if (stackHas.getItem() != itemStack.getItem()) {
-                  newnextStacks.add(stackHas);
-               }
+    public static void removeFromNextStacks(ItemStack itemStack, boolean useMeta) {
+        if (nextStacks != null) {
+            if (useMeta) {
+                for (int i = 0; i < nextStacks.size(); i++) {
+                    ItemStack stackIn = nextStacks.get(i);
+                    if (stackIn.getItem() == itemStack.getItem() && stackIn.getMetadata() == itemStack.getMetadata()) {
+                        nextStacks.remove(i);
+                        return;
+                    }
+                }
+            } else {
+                NonNullList<ItemStack> newnextStacks = NonNullList.create();
+
+                for (ItemStack stackHas : nextStacks) {
+                    if (stackHas.getItem() != itemStack.getItem()) {
+                        newnextStacks.add(stackHas);
+                    }
+                }
+
+                nextStacks = newnextStacks;
+            }
+        }
+    }
+
+    @Override
+    public void mouseClick(int mouseX, int mouseY, int mouseButton) {
+        if (!this.world.isRemote) {
+            if (mouseButton == 3 && !this.isEmpty()) {
+                if (nextStacks != null && nextStacks.size() > 0) {
+                    removeFromNextStacks(this.getStackInSlot(0), this.optionUseMetadata);
+                }
+
+                this.clear();
+                if (nextStacks != null && nextStacks.size() > 0) {
+                    nextDisplayed = nextStacks.get(0);
+                }
+            } else if (mouseButton == 4) {
+                this.optionUseMetadata = !this.optionUseMetadata;
+            } else if (mouseButton == 5) {
+                if (nextStacks == null) {
+                    nextStacks = NonNullList.create();
+                    fillNextStacks();
+                }
+
+                if (nextStacks != null && nextStacks.size() > 0) {
+                    this.setInventorySlotContents(0, nextStacks.get(0).copy());
+                }
+            } else if (mouseButton == 6) {
+                this.optionUseMetadata = true;
+            } else if (mouseButton == 7) {
+                this.optionUseMetadata = false;
             }
 
-            nextStacks = newnextStacks;
-         }
-      }
-   }
+            CreativeElementDistributor.trySendPacketUpdate(this.world, this.getPos(), this);
+        }
+    }
 
-   @Override
-   public void mouseClick(int mouseX, int mouseY, int mouseButton) {
-      if (!this.world.isRemote) {
-         if (mouseButton == 3 && !this.isEmpty()) {
-            if (nextStacks != null && nextStacks.size() > 0) {
-               removeFromNextStacks(this.getStackInSlot(0), this.optionUseMetadata);
+    @Override
+    public int getSizeInventory() {
+        return 1;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack itemstack : this.stacks) {
+            if (!itemstack.isEmpty()) {
+                return false;
             }
+        }
 
-            this.clear();
-            if (nextStacks != null && nextStacks.size() > 0) {
-               nextDisplayed = nextStacks.get(0);
+        return true;
+    }
+
+    public int addItemStack(ItemStack stack) {
+        for (int i = 0; i < this.stacks.size(); i++) {
+            if (this.stacks.get(i).isEmpty()) {
+                this.setInventorySlotContents(i, stack);
+                return i;
             }
-         } else if (mouseButton == 4) {
-            this.optionUseMetadata = !this.optionUseMetadata;
-         } else if (mouseButton == 5) {
-            if (nextStacks == null) {
-               nextStacks = NonNullList.create();
-               fillNextStacks();
-            }
+        }
 
-            if (nextStacks != null && nextStacks.size() > 0) {
-               this.setInventorySlotContents(0, nextStacks.get(0).copy());
-            }
-         } else if (mouseButton == 6) {
-            this.optionUseMetadata = true;
-         } else if (mouseButton == 7) {
-            this.optionUseMetadata = false;
-         }
+        return -1;
+    }
 
-         CreativeElementDistributor.trySendPacketUpdate(this.world, this.getPos(), this);
-      }
-   }
+    public void read(NBTTagCompound compound) {
+        this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        if (!this.checkLootAndRead(compound)) {
+            ItemStackHelper.loadAllItems(compound, this.stacks);
+        }
 
-   @Override
-   public int getSizeInventory() {
-      return 1;
-   }
+        if (compound.hasKey("usemeta")) {
+            this.optionUseMetadata = compound.getBoolean("usemeta");
+        }
 
-   @Override
-   public boolean isEmpty() {
-      for (ItemStack itemstack : this.stacks) {
-         if (!itemstack.isEmpty()) {
-            return false;
-         }
-      }
+        super.readFromNBT(compound);
+    }
 
-      return true;
-   }
+    public NBTTagCompound write(NBTTagCompound compound) {
+        if (!this.checkLootAndWrite(compound)) {
+            ItemStackHelper.saveAllItems(compound, this.stacks);
+        }
 
-   public int addItemStack(ItemStack stack) {
-      for (int i = 0; i < this.stacks.size(); i++) {
-         if (this.stacks.get(i).isEmpty()) {
-            this.setInventorySlotContents(i, stack);
-            return i;
-         }
-      }
+        compound.setBoolean("usemeta", this.optionUseMetadata);
+        return super.writeToNBT(compound);
+    }
 
-      return -1;
-   }
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        this.write(compound);
+        return super.writeToNBT(compound);
+    }
 
-   public void read(NBTTagCompound compound) {
-      this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-      if (!this.checkLootAndRead(compound)) {
-         ItemStackHelper.loadAllItems(compound, this.stacks);
-      }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        this.read(compound);
+        super.readFromNBT(compound);
+    }
 
-      if (compound.hasKey("usemeta")) {
-         this.optionUseMetadata = compound.getBoolean("usemeta");
-      }
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        this.write(compound);
+        return compound;
+    }
 
-      super.readFromNBT(compound);
-   }
+    @Override
+    public void handleUpdateTag(NBTTagCompound compound) {
+        this.read(compound);
+        super.handleUpdateTag(compound);
+    }
 
-   public NBTTagCompound write(NBTTagCompound compound) {
-      if (!this.checkLootAndWrite(compound)) {
-         ItemStackHelper.saveAllItems(compound, this.stacks);
-      }
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        NBTTagCompound compound = packet.getNbtCompound();
+        this.read(compound);
+    }
 
-      compound.setBoolean("usemeta", this.optionUseMetadata);
-      return super.writeToNBT(compound);
-   }
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        this.write(compound);
+        return new SPacketUpdateTileEntity(this.pos, 1, compound);
+    }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      this.write(compound);
-      return super.writeToNBT(compound);
-   }
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        super.setInventorySlotContents(index, stack);
+    }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      this.read(compound);
-      super.readFromNBT(compound);
-   }
+    @Override
+    public int getField(int id) {
+        switch (id) {
+            case 0:
+                return this.optionUseMetadata ? 1 : 0;
+            default:
+                return 0;
+        }
+    }
 
-   @Override
-   public NBTTagCompound getUpdateTag() {
-      NBTTagCompound compound = super.getUpdateTag();
-      this.write(compound);
-      return compound;
-   }
+    @Override
+    public void setField(int id, int value) {
+        switch (id) {
+            case 0:
+                this.optionUseMetadata = value > 0;
+        }
+    }
 
-   @Override
-   public void handleUpdateTag(NBTTagCompound compound) {
-      this.read(compound);
-      super.handleUpdateTag(compound);
-   }
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
 
-   @Override
-   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-      NBTTagCompound compound = packet.getNbtCompound();
-      this.read(compound);
-   }
+    @Override
+    public String getName() {
+        return "tile_creative_element_distributor";
+    }
 
-   @Override
-   public SPacketUpdateTileEntity getUpdatePacket() {
-      NBTTagCompound compound = new NBTTagCompound();
-      this.write(compound);
-      return new SPacketUpdateTileEntity(this.pos, 1, compound);
-   }
+    @Override
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+        return new ContainerElementDistributor(playerInventory, this);
+    }
 
-   @Override
-   public void setInventorySlotContents(int index, ItemStack stack) {
-      super.setInventorySlotContents(index, stack);
-   }
+    @Override
+    public String getGuiID() {
+        return "arpg.creative_element_distributor";
+    }
 
-   @Override
-   public int getField(int id) {
-      switch (id) {
-         case 0:
-            return this.optionUseMetadata ? 1 : 0;
-         default:
-            return 0;
-      }
-   }
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return this.stacks;
+    }
 
-   @Override
-   public void setField(int id, int value) {
-      switch (id) {
-         case 0:
-            this.optionUseMetadata = value > 0;
-      }
-   }
-
-   @Override
-   public int getInventoryStackLimit() {
-      return 1;
-   }
-
-   @Override
-   public String getName() {
-      return "tile_creative_element_distributor";
-   }
-
-   @Override
-   public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-      return new ContainerElementDistributor(playerInventory, this);
-   }
-
-   @Override
-   public String getGuiID() {
-      return "arpg.creative_element_distributor";
-   }
-
-   @Override
-   protected NonNullList<ItemStack> getItems() {
-      return this.stacks;
-   }
 }

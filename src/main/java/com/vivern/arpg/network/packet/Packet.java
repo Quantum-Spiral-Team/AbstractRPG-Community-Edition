@@ -5,12 +5,9 @@ import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.EncoderException;
-import java.io.IOException;
-
-import net.minecraft.entity.player.EntityPlayerMP;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTSizeTracker;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,74 +16,79 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
 
 public abstract class Packet implements IMessage, IMessageHandler<Packet, Packet> {
-   public ByteBuf buf;
 
-   @Override
-   public Packet onMessage(Packet sp, MessageContext ctx) {
-      if (ctx.side.isServer()) {
-         sp.server(ctx.getServerHandler().player, sp, ctx);
-      } else {
-         sp.client(this.clientPlayer(), sp, ctx);
-      }
+    public ByteBuf buf;
 
-      return null;
-   }
+    @Override
+    public Packet onMessage(Packet sp, MessageContext ctx) {
+        if (ctx.side.isServer()) {
+            sp.server(ctx.getServerHandler().player, sp, ctx);
+        } else {
+            sp.client(this.clientPlayer(), sp, ctx);
+        }
 
-   protected ByteBuf buf() {
-      return this.buf != null ? this.buf : (this.buf = Unpooled.buffer());
-   }
+        return null;
+    }
 
-   public abstract void client(EntityPlayer player, Packet sp, MessageContext ctx);
+    protected ByteBuf buf() {
+        return this.buf != null ? this.buf : (this.buf = Unpooled.buffer());
+    }
 
-   public abstract void server(EntityPlayerMP player, Packet sp, MessageContext ctx);
+    public abstract void client(EntityPlayer player, Packet sp, MessageContext ctx);
 
-   @Override
-   public void fromBytes(ByteBuf buf) {
-      this.buf = buf;
-   }
+    public abstract void server(EntityPlayerMP player, Packet sp, MessageContext ctx);
 
-   @Override
-   public void toBytes(ByteBuf buf) {
-      if (buf != null) {
-         buf.writeBytes(this.buf);
-      }
-   }
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.buf = buf;
+    }
 
-   @SideOnly(Side.CLIENT)
-   public EntityPlayer clientPlayer() {
-      return Minecraft.getMinecraft().player;
-   }
+    @Override
+    public void toBytes(ByteBuf buf) {
+        if (buf != null) {
+            buf.writeBytes(this.buf);
+        }
+    }
 
-   public static ByteBuf writeCompoundTag(@Nullable NBTTagCompound nbt, ByteBuf buffer) {
-      if (nbt == null) {
-         buffer.writeByte(0);
-      } else {
-         try {
-            CompressedStreamTools.write(nbt, new ByteBufOutputStream(buffer));
-         } catch (IOException var3) {
-            throw new EncoderException(var3);
-         }
-      }
+    @SideOnly(Side.CLIENT)
+    public EntityPlayer clientPlayer() {
+        return Minecraft.getMinecraft().player;
+    }
 
-      return buffer;
-   }
+    public static ByteBuf writeCompoundTag(@Nullable NBTTagCompound nbt, ByteBuf buffer) {
+        if (nbt == null) {
+            buffer.writeByte(0);
+        } else {
+            try {
+                CompressedStreamTools.write(nbt, new ByteBufOutputStream(buffer));
+            } catch (IOException var3) {
+                throw new EncoderException(var3);
+            }
+        }
 
-   @Nullable
-   public static NBTTagCompound readCompoundTag(ByteBuf buffer) throws IOException {
-      int i = buffer.readerIndex();
-      byte b0 = buffer.readByte();
-      if (b0 == 0) {
-         return null;
-      } else {
-         buffer.readerIndex(i);
+        return buffer;
+    }
 
-         try {
-            return CompressedStreamTools.read(new ByteBufInputStream(buffer), new NBTSizeTracker(2097152L));
-         } catch (IOException var4) {
-            throw new EncoderException(var4);
-         }
-      }
-   }
+    @Nullable
+    public static NBTTagCompound readCompoundTag(ByteBuf buffer) throws IOException {
+        int i = buffer.readerIndex();
+        byte b0 = buffer.readByte();
+        if (b0 == 0) {
+            return null;
+        } else {
+            buffer.readerIndex(i);
+
+            try {
+                return CompressedStreamTools.read(new ByteBufInputStream(buffer), new NBTSizeTracker(2097152L));
+            } catch (IOException var4) {
+                throw new EncoderException(var4);
+            }
+        }
+    }
+
 }

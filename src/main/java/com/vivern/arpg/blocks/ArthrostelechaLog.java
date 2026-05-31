@@ -2,9 +2,9 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -20,124 +20,126 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class ArthrostelechaLog extends BlockRotatedPillar implements IBlockHardBreak {
-   public static final PropertyEnum<EnumAxis> LOG_AXIS = PropertyEnum.create("axis", EnumAxis.class);
 
-   public ArthrostelechaLog(boolean brass) {
-      super(Material.WOOD);
-      this.setRegistryName(brass ? "arthrostelecha_log_brass" : "arthrostelecha_log_pink");
-      this.setTranslationKey(brass ? "arthrostelecha_log_brass" : "arthrostelecha_log_pink");
-      this.blockHardness = BlocksRegister.HR_STORM_FOLIAGE.hardness;
-      this.blockResistance = BlocksRegister.HR_STORM_FOLIAGE.resistance;
-      this.setHarvestLevel("axe", BlocksRegister.HR_STORM_FOLIAGE.lvl);
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-      this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
-      this.setSoundType(SoundType.STONE);
-   }
+    public static final PropertyEnum<EnumAxis> LOG_AXIS = PropertyEnum.create("axis", EnumAxis.class);
 
-   @Override
-   public BlocksRegister.HardRes getHardRes() {
-      return BlocksRegister.HR_STORM_FOLIAGE;
-   }
+    public ArthrostelechaLog(boolean brass) {
+        super(Material.WOOD);
+        this.setRegistryName(brass ? "arthrostelecha_log_brass" : "arthrostelecha_log_pink");
+        this.setTranslationKey(brass ? "arthrostelecha_log_brass" : "arthrostelecha_log_pink");
+        this.blockHardness = BlocksRegister.HR_STORM_FOLIAGE.hardness;
+        this.blockResistance = BlocksRegister.HR_STORM_FOLIAGE.resistance;
+        this.setHarvestLevel("axe", BlocksRegister.HR_STORM_FOLIAGE.lvl);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
+        this.setSoundType(SoundType.STONE);
+    }
 
-   @Override
-   public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
-      return true;
-   }
+    @Override
+    public BlocksRegister.HardRes getHardRes() {
+        return BlocksRegister.HR_STORM_FOLIAGE;
+    }
 
-   @Override
-   public boolean isWood(IBlockAccess world, BlockPos pos) {
-      return true;
-   }
+    @Override
+    public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
+        return true;
+    }
 
-   public static boolean isArthrostelechaLeaves(Block block) {
-      return block == BlocksRegister.ARTHROSTELECHA_LEAVES_BRASS || block == BlocksRegister.ARTHROSTELECHA_LEAVES_PINK;
-   }
+    @Override
+    public boolean isWood(IBlockAccess world, BlockPos pos) {
+        return true;
+    }
 
-   public static boolean isArthrostelechaLog(Block block) {
-      return block == BlocksRegister.ARTHROSTELECHA_LOG_PINK || block == BlocksRegister.ARTHROSTELECHA_LOG_BRASS;
-   }
+    public static boolean isArthrostelechaLeaves(Block block) {
+        return block == BlocksRegister.ARTHROSTELECHA_LEAVES_BRASS || block == BlocksRegister.ARTHROSTELECHA_LEAVES_PINK;
+    }
 
-   @Override
-   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-      int i = 4;
-      int j = 5;
-      if (worldIn.isAreaLoaded(pos.add(-5, -5, -5), pos.add(5, 5, 5))) {
-         for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-4, -4, -4), pos.add(4, 4, 4))) {
-            IBlockState iblockstate = worldIn.getBlockState(blockpos);
-            if (isArthrostelechaLeaves(iblockstate.getBlock())) {
-               iblockstate.getBlock().beginLeavesDecay(iblockstate, worldIn, blockpos);
+    public static boolean isArthrostelechaLog(Block block) {
+        return block == BlocksRegister.ARTHROSTELECHA_LOG_PINK || block == BlocksRegister.ARTHROSTELECHA_LOG_BRASS;
+    }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        int i = 4;
+        int j = 5;
+        if (worldIn.isAreaLoaded(pos.add(-5, -5, -5), pos.add(5, 5, 5))) {
+            for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-4, -4, -4), pos.add(4, 4, 4))) {
+                IBlockState iblockstate = worldIn.getBlockState(blockpos);
+                if (isArthrostelechaLeaves(iblockstate.getBlock())) {
+                    iblockstate.getBlock().beginLeavesDecay(iblockstate, worldIn, blockpos);
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
-      switch (meta) {
-         case 0:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
-            break;
-         case 4:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.X);
-            break;
-         case 8:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Z);
-            break;
-         default:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.NONE);
-      }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
+        switch (meta) {
+            case 0:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
+                break;
+            case 4:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.X);
+                break;
+            case 8:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Z);
+                break;
+            default:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.NONE);
+        }
 
-      return iblockstate;
-   }
+        return iblockstate;
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      int i = 0;
-      switch (state.getValue(LOG_AXIS)) {
-         case X:
-            i = 4;
-            break;
-         case Z:
-            i = 8;
-            break;
-         case NONE:
-            i = 12;
-      }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        int i = 0;
+        switch (state.getValue(LOG_AXIS)) {
+            case X:
+                i = 4;
+                break;
+            case Z:
+                i = 8;
+                break;
+            case NONE:
+                i = 12;
+        }
 
-      return i;
-   }
+        return i;
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
-   }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
+    }
 
-   @Override
-   public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      return MapColor.BROWN;
-   }
+    @Override
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        return MapColor.BROWN;
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
-   }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
+    }
 
-   @Override
-   public IBlockState withRotation(IBlockState state, Rotation rot) {
-      switch (rot) {
-         case COUNTERCLOCKWISE_90:
-         case CLOCKWISE_90:
-            switch (state.getValue(LOG_AXIS)) {
-               case X:
-                  return state.withProperty(LOG_AXIS, EnumAxis.Z);
-               case Z:
-                  return state.withProperty(LOG_AXIS, EnumAxis.X);
-               default:
-                  return state;
-            }
-         default:
-            return state;
-      }
-   }
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        switch (rot) {
+            case COUNTERCLOCKWISE_90:
+            case CLOCKWISE_90:
+                switch (state.getValue(LOG_AXIS)) {
+                    case X:
+                        return state.withProperty(LOG_AXIS, EnumAxis.Z);
+                    case Z:
+                        return state.withProperty(LOG_AXIS, EnumAxis.X);
+                    default:
+                        return state;
+                }
+            default:
+                return state;
+        }
+    }
+
 }

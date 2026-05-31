@@ -2,7 +2,6 @@ package com.vivern.arpg.events;
 
 import com.vivern.arpg.container.GUIArpgInfo;
 import com.vivern.arpg.container.GuiHandler;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -10,41 +9,45 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.List;
+
 public class CommandArpgInfo extends CommandBase {
-   public static final String NAME = "arpg";
-   public static final String USAGE = "/arpg info";
 
-   @Override
-   public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-      return true;
-   }
+    public static final String NAME = "arpg";
+    public static final String USAGE = "/arpg info";
 
-   @Override
-   public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-      return getListOfStringsMatchingLastWord(args, new String[]{"info"});
-   }
+    @Override
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+        return true;
+    }
 
-   @Override
-   public String getName() {
-      return "arpg";
-   }
+    @Override
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
+        return getListOfStringsMatchingLastWord(args, new String[]{"info"});
+    }
 
-   @Override
-   public int getRequiredPermissionLevel() {
-      return 0;
-   }
+    @Override
+    public String getName() {
+        return "arpg";
+    }
 
-   @Override
-   public String getUsage(ICommandSender sender) {
-      return "/arpg info";
-   }
+    @Override
+    public int getRequiredPermissionLevel() {
+        return 0;
+    }
 
-   @Override
-   public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException, NumberFormatException {
-      if (args.length == 1 && "info".equals(args[0])) {
-         if (Minecraft.getMinecraft().player != null) {
-            GuiHandler.displayGui(Minecraft.getMinecraft().player, new GUIArpgInfo(Minecraft.getMinecraft().player));
-         }
-      }
-   }
+    @Override
+    public String getUsage(ICommandSender sender) {
+        return "/arpg info";
+    }
+
+    @Override
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException, NumberFormatException {
+        if (args.length == 1 && "info".equals(args[0])) {
+            if (Minecraft.getMinecraft().player != null) {
+                GuiHandler.displayGui(Minecraft.getMinecraft().player, new GUIArpgInfo(Minecraft.getMinecraft().player));
+            }
+        }
+    }
+
 }

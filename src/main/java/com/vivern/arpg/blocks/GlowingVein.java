@@ -2,7 +2,6 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.tileentity.TileGlowingVein;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -10,43 +9,46 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class GlowingVein extends Block implements IBlockHardBreak {
-   public GlowingVein() {
-      super(Material.ROCK);
-      this.setRegistryName("glowing_vein");
-      this.setTranslationKey("glowing_vein");
-      this.blockHardness = 8.0F;
-      this.blockResistance = 15.0F;
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-   }
 
-   @Override
-   public BlocksRegister.HardRes getHardRes() {
-      return BlocksRegister.HR_DUNGEON_STONES;
-   }
+    public GlowingVein() {
+        super(Material.ROCK);
+        this.setRegistryName("glowing_vein");
+        this.setTranslationKey("glowing_vein");
+        this.blockHardness = 8.0F;
+        this.blockResistance = 15.0F;
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    }
 
-   public Class<TileGlowingVein> getTileEntityClass() {
-      return TileGlowingVein.class;
-   }
+    @Override
+    public BlocksRegister.HardRes getHardRes() {
+        return BlocksRegister.HR_DUNGEON_STONES;
+    }
 
-   public TileGlowingVein getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileGlowingVein)world.getTileEntity(position);
-   }
+    public Class<TileGlowingVein> getTileEntityClass() {
+        return TileGlowingVein.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileGlowingVein getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileGlowingVein) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileGlowingVein createTileEntity(World world, IBlockState blockState) {
-      return new TileGlowingVein();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return true;
-   }
+    @Override
+    @Nullable
+    public TileGlowingVein createTileEntity(World world, IBlockState blockState) {
+        return new TileGlowingVein();
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return true;
+    }
+
 }

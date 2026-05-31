@@ -4,7 +4,6 @@ import com.vivern.arpg.items.animation.EnumFlick;
 import com.vivern.arpg.items.animation.Flicks;
 import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
-import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -24,260 +23,212 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class Buzdygan extends ItemWeapon {
-   public static int maxAngle = 3600;
-   public static int angleAdd = maxAngle / 60;
 
-   public Buzdygan() {
-      this.setRegistryName("buzdygan");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("buzdygan");
-      this.setMaxDamage(1750);
-      this.setMaxStackSize(1);
-   }
+    public static int maxAngle = 3600;
+    public static int angleAdd = maxAngle / 60;
 
-   @Override
-   public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-      return new AnimationCapabilityProvider();
-   }
+    public Buzdygan() {
+        this.setRegistryName("buzdygan");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("buzdygan");
+        this.setMaxDamage(1750);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+        return new AnimationCapabilityProvider();
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void boom(int param) {
-      if (param == 0) {
-         Boom.lastTick = 16;
-         Boom.frequency = 0.196F;
-         Boom.x = 1.0F;
-         Boom.y = itemRand.nextFloat() < 0.5 ? 0.2F : -0.2F;
-         Boom.z = 0.0F;
-         Boom.power = -0.25F;
-      }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-      if (param == 1) {
-         Boom.lastTick = 14;
-         Boom.frequency = 0.225F;
-         Boom.x = -1.0F;
-         Boom.y = (float)itemRand.nextGaussian() / 7.0F;
-         Boom.z = (float)itemRand.nextGaussian() / 7.0F;
-         Boom.power = 0.3F;
-      }
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void boom(int param) {
+        if (param == 0) {
+            Boom.lastTick = 16;
+            Boom.frequency = 0.196F;
+            Boom.x = 1.0F;
+            Boom.y = itemRand.nextFloat() < 0.5 ? 0.2F : -0.2F;
+            Boom.z = 0.0F;
+            Boom.power = -0.25F;
+        }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
-      if (state == 0) {
-         Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.SPIN, 0, maxAngle, angleAdd, 0);
-      }
-   }
+        if (param == 1) {
+            Boom.lastTick = 14;
+            Boom.frequency = 0.225F;
+            Boom.x = -1.0F;
+            Boom.y = (float) itemRand.nextGaussian() / 7.0F;
+            Boom.z = (float) itemRand.nextGaussian() / 7.0F;
+            Boom.power = 0.3F;
+        }
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click1 = false;
-            boolean click2 = false;
-            boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-            EnumHand hand = null;
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int maxrunes = parameters.getInt("max_charges");
-            if (player.getHeldItemMainhand() == itemstack) {
-               hand = EnumHand.MAIN_HAND;
-               click1 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-               click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
-            } else if (player.getHeldItemOffhand() == itemstack) {
-               hand = EnumHand.OFF_HAND;
-               click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-               click1 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
-            }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
+        if (state == 0) {
+            Flicks.INSTANCE.setClientAnimation(player, slot, EnumFlick.SPIN, 0, maxAngle, angleAdd, 0);
+        }
+    }
 
-            int delay = NBTHelper.GetNBTint(itemstack, "atdelay");
-            if (delay > 0) {
-               NBTHelper.AddNBTint(itemstack, -1, "atdelay");
-            }
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click1 = false;
+                boolean click2 = false;
+                boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
+                EnumHand hand = null;
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                int maxrunes = parameters.getInt("max_charges");
+                if (player.getHeldItemMainhand() == itemstack) {
+                    hand = EnumHand.MAIN_HAND;
+                    click1 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                    click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
+                } else if (player.getHeldItemOffhand() == itemstack) {
+                    hand = EnumHand.OFF_HAND;
+                    click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                    click1 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
+                }
 
-            if (hand != null) {
-               boolean active = NBTHelper.GetNBTboolean(itemstack, "active");
-               float runes = NBTHelper.GetNBTfloat(itemstack, "runes");
-               if (!active) {
-                  if (runes >= maxrunes && click2 && !hascooldown) {
-                     itemstack.damageItem(4, player);
-                     NBTHelper.giveNBTboolean(itemstack, true, "active");
-                     NBTHelper.SetNBTboolean(itemstack, true, "active");
-                     IWeapon.sendIWeaponState(itemstack, player, 0, itemSlot, hand);
-                  } else if (delay <= 0 && click1 && !hascooldown) {
-                     NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
-                     NBTHelper.SetNBTint(itemstack, 5, "atdelay");
-                     int randAnim = itemRand.nextInt(3);
-                     if (randAnim == 0) {
-                        Weapons.setPlayerAnimationOnServer(player, 29, EnumHand.MAIN_HAND);
-                     }
+                int delay = NBTHelper.GetNBTint(itemstack, "atdelay");
+                if (delay > 0) {
+                    NBTHelper.AddNBTint(itemstack, -1, "atdelay");
+                }
 
-                     if (randAnim == 1) {
-                        Weapons.setPlayerAnimationOnServer(player, 30, EnumHand.MAIN_HAND);
-                     }
+                if (hand != null) {
+                    boolean active = NBTHelper.GetNBTboolean(itemstack, "active");
+                    float runes = NBTHelper.GetNBTfloat(itemstack, "runes");
+                    if (!active) {
+                        if (runes >= maxrunes && click2 && !hascooldown) {
+                            itemstack.damageItem(4, player);
+                            NBTHelper.giveNBTboolean(itemstack, true, "active");
+                            NBTHelper.SetNBTboolean(itemstack, true, "active");
+                            IWeapon.sendIWeaponState(itemstack, player, 0, itemSlot, hand);
+                        } else if (delay <= 0 && click1 && !hascooldown) {
+                            NBTHelper.GiveNBTint(itemstack, 0, "atdelay");
+                            NBTHelper.SetNBTint(itemstack, 5, "atdelay");
+                            int randAnim = itemRand.nextInt(3);
+                            if (randAnim == 0) {
+                                Weapons.setPlayerAnimationOnServer(player, 29, EnumHand.MAIN_HAND);
+                            }
 
-                     if (randAnim == 2) {
-                        Weapons.setPlayerAnimationOnServer(player, 31, EnumHand.MAIN_HAND);
-                     }
+                            if (randAnim == 1) {
+                                Weapons.setPlayerAnimationOnServer(player, 30, EnumHand.MAIN_HAND);
+                            }
 
-                     double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
-                     player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
-                     IWeapon.fireBomEffect(this, player, world, 0);
-                  }
+                            if (randAnim == 2) {
+                                Weapons.setPlayerAnimationOnServer(player, 31, EnumHand.MAIN_HAND);
+                            }
 
-                  if (delay == 1) {
-                     if (IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, false).success) {
-                        world.playSound(
-                                null,
-                           player.posX,
-                           player.posY,
-                           player.posZ,
-                           Sounds.chain_mace_impact,
-                           SoundCategory.PLAYERS,
-                           0.7F,
-                           0.8F + itemRand.nextFloat() / 5.0F
-                        );
-                        if (runes < maxrunes) {
-                           NBTHelper.GiveNBTfloat(itemstack, 0.0F, "runes");
-                           NBTHelper.AddNBTfloat(itemstack, 1.0F, "runes");
+                            double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
+                            player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
+                            IWeapon.fireBomEffect(this, player, world, 0);
                         }
 
-                        IWeapon.fireBomEffect(this, player, world, 1);
-                     } else {
-                        world.playSound(
-                                null,
-                           player.posX,
-                           player.posY,
-                           player.posZ,
-                           Sounds.swosh_a,
-                           SoundCategory.PLAYERS,
-                           0.6F,
-                           0.6F + itemRand.nextFloat() / 5.0F
-                        );
-                     }
+                        if (delay == 1) {
+                            if (IWeapon.doMeleeSwordAttack(this, itemstack, player, hand, false).success) {
+                                world.playSound(null, player.posX, player.posY, player.posZ, Sounds.chain_mace_impact, SoundCategory.PLAYERS, 0.7F, 0.8F + itemRand.nextFloat() / 5.0F);
+                                if (runes < maxrunes) {
+                                    NBTHelper.GiveNBTfloat(itemstack, 0.0F, "runes");
+                                    NBTHelper.AddNBTfloat(itemstack, 1.0F, "runes");
+                                }
 
-                     player.addExhaustion(0.1F);
-                  }
-               } else if (runes > 0.0F) {
-                  if (!hascooldown) {
-                     NBTHelper.AddNBTfloat(itemstack, parameters.getFloat("charge_decrement"), "runes");
-                     player.addExhaustion(0.02F);
-                     player.getCooldownTracker().setCooldown(this, parameters.getInt("charged_hit_delay"));
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.buzdygan_rotate,
-                        SoundCategory.PLAYERS,
-                        0.7F,
-                        0.9F + itemRand.nextFloat() / 5.0F
-                     );
-                     if (runes >= 1.0F) {
-                        Weapons.setPlayerAnimationOnServer(player, 22, hand);
-                     }
+                                IWeapon.fireBomEffect(this, player, world, 1);
+                            } else {
+                                world.playSound(null, player.posX, player.posY, player.posZ, Sounds.swosh_a, SoundCategory.PLAYERS, 0.6F, 0.6F + itemRand.nextFloat() / 5.0F);
+                            }
 
-                     int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
-                     int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
-                     double length = parameters.getEnchantedF("charged_length", range);
-                     double size = parameters.getEnchantedF("charged_size", range);
-                     double slowdown = parameters.getFloat("charged_slowdown");
-                     float cdamage = parameters.getEnchantedF("charged_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-                     float cknockback = parameters.getEnchantedF("charged_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
-                     Vec3d vec3d = player.getPositionEyes(1.0F);
-                     Vec3d vec3d1 = player.getLook(1.0F);
-                     Vec3d vec3d2 = vec3d.add(vec3d1.x * length, vec3d1.y * length, vec3d1.z * length);
-                     RayTraceResult raytraceresult = player.world.rayTraceBlocks(vec3d, vec3d2, false, true, false);
-                     if (raytraceresult != null) {
-                        vec3d2 = new Vec3d(
-                           raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z
-                        );
-                     }
-
-                     List<Entity> list = GetMOP.findEntitiesOnPath(vec3d, vec3d2, world, player, size, size * 0.7);
-                     if (!list.isEmpty()) {
-                        for (Entity entity : list) {
-                           if (Weapons.canDealDamageTo(entity) && Team.checkIsOpponent(player, entity)) {
-                              Weapons.dealDamage(
-                                 new WeaponDamage(itemstack, player, null, false, false, player, WeaponDamage.heavymelee),
-                                 cdamage,
-                                 player,
-                                 entity,
-                                 true,
-                                 cknockback,
-                                 player.posX,
-                                 player.posY,
-                                 player.posZ
-                              );
-                              entity.hurtResistantTime = 0;
-                              entity.motionX *= slowdown;
-                              entity.motionY *= slowdown;
-                              entity.motionZ *= slowdown;
-                              Weapons.setPotionIfEntityLB(
-                                 entity, MobEffects.SLOWNESS, parameters.getEnchantedI("slowness_time", witchery), parameters.getInt("slowness_power")
-                              );
-                           }
+                            player.addExhaustion(0.1F);
                         }
-                     }
-                  }
-               } else {
-                  NBTHelper.SetNBTfloat(itemstack, 0.0F, "runes");
-                  NBTHelper.SetNBTboolean(itemstack, false, "active");
-               }
+                    } else if (runes > 0.0F) {
+                        if (!hascooldown) {
+                            NBTHelper.AddNBTfloat(itemstack, parameters.getFloat("charge_decrement"), "runes");
+                            player.addExhaustion(0.02F);
+                            player.getCooldownTracker().setCooldown(this, parameters.getInt("charged_hit_delay"));
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.buzdygan_rotate, SoundCategory.PLAYERS, 0.7F, 0.9F + itemRand.nextFloat() / 5.0F);
+                            if (runes >= 1.0F) {
+                                Weapons.setPlayerAnimationOnServer(player, 22, hand);
+                            }
+
+                            int range = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
+                            int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, itemstack);
+                            double length = parameters.getEnchantedF("charged_length", range);
+                            double size = parameters.getEnchantedF("charged_size", range);
+                            double slowdown = parameters.getFloat("charged_slowdown");
+                            float cdamage = parameters.getEnchantedF("charged_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                            float cknockback = parameters.getEnchantedF("charged_knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                            Vec3d vec3d = player.getPositionEyes(1.0F);
+                            Vec3d vec3d1 = player.getLook(1.0F);
+                            Vec3d vec3d2 = vec3d.add(vec3d1.x * length, vec3d1.y * length, vec3d1.z * length);
+                            RayTraceResult raytraceresult = player.world.rayTraceBlocks(vec3d, vec3d2, false, true, false);
+                            if (raytraceresult != null) {
+                                vec3d2 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
+                            }
+
+                            List<Entity> list = GetMOP.findEntitiesOnPath(vec3d, vec3d2, world, player, size, size * 0.7);
+                            if (!list.isEmpty()) {
+                                for (Entity entity : list) {
+                                    if (Weapons.canDealDamageTo(entity) && Team.checkIsOpponent(player, entity)) {
+                                        Weapons.dealDamage(new WeaponDamage(itemstack, player, null, false, false, player, WeaponDamage.heavymelee), cdamage, player, entity, true, cknockback, player.posX, player.posY, player.posZ);
+                                        entity.hurtResistantTime = 0;
+                                        entity.motionX *= slowdown;
+                                        entity.motionY *= slowdown;
+                                        entity.motionZ *= slowdown;
+                                        Weapons.setPotionIfEntityLB(entity, MobEffects.SLOWNESS, parameters.getEnchantedI("slowness_time", witchery), parameters.getInt("slowness_power"));
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        NBTHelper.SetNBTfloat(itemstack, 0.0F, "runes");
+                        NBTHelper.SetNBTboolean(itemstack, false, "active");
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   public boolean attackEntityMelee(Entity entity, ItemStack stack, EntityPlayer player, EnumHand hand, boolean isCritical) {
-      int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack);
-      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      Weapons.mixPotion(
-         entity,
-         PotionEffects.BROKEN_ARMOR,
-         (float)parameters.getEnchantedI("brokenarmor_time", witchery),
-         (float)parameters.getInt("brokenarmor_power_add"),
-         Weapons.EnumPotionMix.GREATEST,
-         Weapons.EnumPotionMix.WITH_MAXIMUM,
-         Weapons.EnumMathOperation.NONE,
-         Weapons.EnumMathOperation.PLUS,
-         parameters.getEnchantedI("brokenarmor_time", witchery),
-         parameters.getInt("brokenarmor_power_max")
-      );
-      return super.attackEntityMelee(entity, stack, player, hand, isCritical);
-   }
+    @Override
+    public boolean attackEntityMelee(Entity entity, ItemStack stack, EntityPlayer player, EnumHand hand, boolean isCritical) {
+        int witchery = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.WITCHERY, stack);
+        WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+        Weapons.mixPotion(entity, PotionEffects.BROKEN_ARMOR, (float) parameters.getEnchantedI("brokenarmor_time", witchery), (float) parameters.getInt("brokenarmor_power_add"), Weapons.EnumPotionMix.GREATEST, Weapons.EnumPotionMix.WITH_MAXIMUM, Weapons.EnumMathOperation.NONE, Weapons.EnumMathOperation.PLUS, parameters.getEnchantedI("brokenarmor_time", witchery), parameters.getInt("brokenarmor_power_max"));
+        return super.attackEntityMelee(entity, stack, player, hand, isCritical);
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.SEMI_ONE_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.SEMI_ONE_HANDED;
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
+    @Override
+    public int getItemEnchantability() {
+        return 2;
+    }
+
 }

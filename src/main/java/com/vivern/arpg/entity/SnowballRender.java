@@ -8,14 +8,16 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class SnowballRender implements IRenderFactory {
-   public final Item IntegItem;
 
-   public SnowballRender(Item InputItem) {
-      this.IntegItem = InputItem;
-   }
+    public final Item IntegItem;
 
-   @Override
-   public Render createRenderFor(RenderManager manager) {
-      return new RenderSnowball(manager, this.IntegItem, Minecraft.getMinecraft().getRenderItem());
-   }
+    public SnowballRender(Item InputItem) {
+        this.IntegItem = InputItem;
+    }
+
+    @Override
+    public Render createRenderFor(RenderManager manager) {
+        return new RenderSnowball(manager, this.IntegItem, Minecraft.getMinecraft().getRenderItem());
+    }
+
 }

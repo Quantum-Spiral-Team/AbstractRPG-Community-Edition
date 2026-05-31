@@ -1,217 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.blocks.AbsorptionTotem;
-import com.vivern.arpg.blocks.AdvancedBlockDetector;
-import com.vivern.arpg.blocks.AlchemicLab;
-import com.vivern.arpg.blocks.AlchemicVaporizer;
-import com.vivern.arpg.blocks.AquaticaPortal;
-import com.vivern.arpg.blocks.AquaticaPortalFrame;
-import com.vivern.arpg.blocks.ArthrostelechaLeaves;
-import com.vivern.arpg.blocks.ArthrostelechaLog;
-import com.vivern.arpg.blocks.AshBlock;
-import com.vivern.arpg.blocks.AssemblyTable;
-import com.vivern.arpg.blocks.BeamRock;
-import com.vivern.arpg.blocks.BioCell;
-import com.vivern.arpg.blocks.BlockARPGChest;
-import com.vivern.arpg.blocks.BlockAcidBomb;
-import com.vivern.arpg.blocks.BlockAssemblyAugment;
-import com.vivern.arpg.blocks.BlockBlock;
-import com.vivern.arpg.blocks.BlockBlockCraftingTable;
-import com.vivern.arpg.blocks.BlockBlockHard;
-import com.vivern.arpg.blocks.BlockBunkerDoor;
-import com.vivern.arpg.blocks.BlockCalibrationBundle;
-import com.vivern.arpg.blocks.BlockCollider;
-import com.vivern.arpg.blocks.BlockColumn;
-import com.vivern.arpg.blocks.BlockCrystalSphere;
-import com.vivern.arpg.blocks.BlockDetector;
-import com.vivern.arpg.blocks.BlockDrill;
-import com.vivern.arpg.blocks.BlockElectricSieve;
-import com.vivern.arpg.blocks.BlockElectromagnet;
-import com.vivern.arpg.blocks.BlockEtheriteInvocator;
-import com.vivern.arpg.blocks.BlockFluidBiogenicAcid;
-import com.vivern.arpg.blocks.BlockFluidCryon;
-import com.vivern.arpg.blocks.BlockFluidDarkness;
-import com.vivern.arpg.blocks.BlockFluidDissolvedToxinium;
-import com.vivern.arpg.blocks.BlockFluidFuelOil;
-import com.vivern.arpg.blocks.BlockFluidGasoline;
-import com.vivern.arpg.blocks.BlockFluidHydrothermal;
-import com.vivern.arpg.blocks.BlockFluidLarvaWater;
-import com.vivern.arpg.blocks.BlockFluidLuminescent;
-import com.vivern.arpg.blocks.BlockFluidManaOil;
-import com.vivern.arpg.blocks.BlockFluidNaturalGas;
-import com.vivern.arpg.blocks.BlockFluidNitricAcid;
-import com.vivern.arpg.blocks.BlockFluidPetroleum;
-import com.vivern.arpg.blocks.BlockFluidPoison;
-import com.vivern.arpg.blocks.BlockFluidSlime;
-import com.vivern.arpg.blocks.BlockFluidSulfuricAcid;
-import com.vivern.arpg.blocks.BlockFluidSulfuricGas;
-import com.vivern.arpg.blocks.BlockFluidToxin;
-import com.vivern.arpg.blocks.BlockFulminiherba;
-import com.vivern.arpg.blocks.BlockItemCharger;
-import com.vivern.arpg.blocks.BlockLootBlob;
-import com.vivern.arpg.blocks.BlockMoneyBox;
-import com.vivern.arpg.blocks.BlockNiveoliteGame;
-import com.vivern.arpg.blocks.BlockOre;
-import com.vivern.arpg.blocks.BlockPlacer;
-import com.vivern.arpg.blocks.BlockPuzzle;
-import com.vivern.arpg.blocks.BlockRadioactive;
-import com.vivern.arpg.blocks.BlockRotated;
-import com.vivern.arpg.blocks.BlockRunicMirror;
-import com.vivern.arpg.blocks.BlockSeaweed;
-import com.vivern.arpg.blocks.BlockSieve;
-import com.vivern.arpg.blocks.BlockSoulCatcher;
-import com.vivern.arpg.blocks.BlockSpawner;
-import com.vivern.arpg.blocks.BlockSpeleothem;
-import com.vivern.arpg.blocks.BlockStalactiteBase;
-import com.vivern.arpg.blocks.BlockTeamBanner;
-import com.vivern.arpg.blocks.BlockVial;
-import com.vivern.arpg.blocks.BlockWeaponSpawner;
-import com.vivern.arpg.blocks.BlockWinterAltar;
-import com.vivern.arpg.blocks.BlueGlowingMushroom;
-import com.vivern.arpg.blocks.BonesPile;
-import com.vivern.arpg.blocks.Bookcase;
-import com.vivern.arpg.blocks.BrownSlime;
-import com.vivern.arpg.blocks.BurningFrost;
-import com.vivern.arpg.blocks.CaveCrystal;
-import com.vivern.arpg.blocks.Chair;
-import com.vivern.arpg.blocks.Chest;
-import com.vivern.arpg.blocks.ChlorineBelcher;
-import com.vivern.arpg.blocks.ChristmasBalls;
-import com.vivern.arpg.blocks.CleanIce;
-import com.vivern.arpg.blocks.ColliderPipe;
-import com.vivern.arpg.blocks.ConiferLeaves;
-import com.vivern.arpg.blocks.ConiferLog;
-import com.vivern.arpg.blocks.ConiferSapling;
-import com.vivern.arpg.blocks.CoralChandelier;
-import com.vivern.arpg.blocks.CoralTorch;
-import com.vivern.arpg.blocks.Corallimorpha;
-import com.vivern.arpg.blocks.CreativeElementDistributor;
-import com.vivern.arpg.blocks.CrystalChandelier;
-import com.vivern.arpg.blocks.CrystalTorch;
-import com.vivern.arpg.blocks.Crystallizer;
-import com.vivern.arpg.blocks.CustomPlant;
-import com.vivern.arpg.blocks.DebugColorBlock;
-import com.vivern.arpg.blocks.DecorativeChain;
-import com.vivern.arpg.blocks.DecorativePipe;
-import com.vivern.arpg.blocks.DemonicFire;
-import com.vivern.arpg.blocks.DisenchantmentTable;
-import com.vivern.arpg.blocks.DoleriteColumn;
-import com.vivern.arpg.blocks.DungeonFloorLadder;
-import com.vivern.arpg.blocks.DungeonPortal;
-import com.vivern.arpg.blocks.DungeonTopLadder;
-import com.vivern.arpg.blocks.ElectrofernLeaves;
-import com.vivern.arpg.blocks.EthernalFrostPortal;
-import com.vivern.arpg.blocks.ExoheliaSpike;
-import com.vivern.arpg.blocks.FieryBeanBlock;
-import com.vivern.arpg.blocks.FieryBeanLeaves;
-import com.vivern.arpg.blocks.FieryBeanLog;
-import com.vivern.arpg.blocks.FieryBeanSapling;
-import com.vivern.arpg.blocks.FrostedWeed;
-import com.vivern.arpg.blocks.FrostfireExplosive;
-import com.vivern.arpg.blocks.FrozenChandelier;
-import com.vivern.arpg.blocks.FrozenCobblestone;
-import com.vivern.arpg.blocks.FrozenSlime;
-import com.vivern.arpg.blocks.FrozenStone;
-import com.vivern.arpg.blocks.FrozenTileRoof;
-import com.vivern.arpg.blocks.FrozenTorch;
-import com.vivern.arpg.blocks.FrozenTreasureBarrel;
-import com.vivern.arpg.blocks.FrozenVase;
-import com.vivern.arpg.blocks.FulminiortumBonny;
-import com.vivern.arpg.blocks.FulminiortumBulb;
-import com.vivern.arpg.blocks.Garland;
-import com.vivern.arpg.blocks.GemsparkBlock;
-import com.vivern.arpg.blocks.GiantFlowerLeaves;
-import com.vivern.arpg.blocks.GiantShell;
-import com.vivern.arpg.blocks.Glacier;
-import com.vivern.arpg.blocks.Glossary;
-import com.vivern.arpg.blocks.Glowbush;
-import com.vivern.arpg.blocks.GlowingCaveCrystal;
-import com.vivern.arpg.blocks.GlowingVein;
-import com.vivern.arpg.blocks.GreenGlowingMushroom;
-import com.vivern.arpg.blocks.HealthFlowerLeaves;
-import com.vivern.arpg.blocks.IHasSubtypes;
-import com.vivern.arpg.blocks.IceSpikes;
-import com.vivern.arpg.blocks.IndustrialMixer;
-import com.vivern.arpg.blocks.InfernumFurnace;
-import com.vivern.arpg.blocks.LarvaBlock;
-import com.vivern.arpg.blocks.LivingSponge;
-import com.vivern.arpg.blocks.LooseSnow;
-import com.vivern.arpg.blocks.LoppyToxiberry;
-import com.vivern.arpg.blocks.LoppyToxistem;
-import com.vivern.arpg.blocks.MagicGenerator;
-import com.vivern.arpg.blocks.MagicLog;
-import com.vivern.arpg.blocks.MagicOrnament;
-import com.vivern.arpg.blocks.MagmaBloom;
-import com.vivern.arpg.blocks.ManaBottle;
-import com.vivern.arpg.blocks.ManaFlowerLeaves;
-import com.vivern.arpg.blocks.ManaPump;
-import com.vivern.arpg.blocks.MelanzaStem;
-import com.vivern.arpg.blocks.MetallicCoral;
-import com.vivern.arpg.blocks.MiniCoral;
-import com.vivern.arpg.blocks.MiniNuke;
-import com.vivern.arpg.blocks.MutatedFlowerPink;
-import com.vivern.arpg.blocks.MutatedFlowerRed;
-import com.vivern.arpg.blocks.NativeSilver;
-import com.vivern.arpg.blocks.NetherMelter;
-import com.vivern.arpg.blocks.NiveoliteBlock;
-import com.vivern.arpg.blocks.NiveousHole;
-import com.vivern.arpg.blocks.PalmFruitBunch;
-import com.vivern.arpg.blocks.PalmLeaves;
-import com.vivern.arpg.blocks.PalmLog;
-import com.vivern.arpg.blocks.PalmSapling;
-import com.vivern.arpg.blocks.PalmTorch;
-import com.vivern.arpg.blocks.Pane;
-import com.vivern.arpg.blocks.Pilaster;
-import com.vivern.arpg.blocks.PoisonLily;
-import com.vivern.arpg.blocks.PresentBox;
-import com.vivern.arpg.blocks.PyrocrystallineConverter;
-import com.vivern.arpg.blocks.RedPepperVine;
-import com.vivern.arpg.blocks.RedstonedFrozenBricks;
-import com.vivern.arpg.blocks.ResearchTable;
-import com.vivern.arpg.blocks.Retort;
-import com.vivern.arpg.blocks.RustLamp;
-import com.vivern.arpg.blocks.RustedPipe;
-import com.vivern.arpg.blocks.SacrificialAltar;
-import com.vivern.arpg.blocks.SeaLock;
-import com.vivern.arpg.blocks.SeaUrchin;
-import com.vivern.arpg.blocks.Seagrass;
-import com.vivern.arpg.blocks.SeleniteCrystal;
-import com.vivern.arpg.blocks.ShimmeringBeastbloom;
-import com.vivern.arpg.blocks.SlimeBlob;
-import com.vivern.arpg.blocks.SlimeGlob;
-import com.vivern.arpg.blocks.SnowIce;
-import com.vivern.arpg.blocks.SnowSewingTable;
-import com.vivern.arpg.blocks.SoundTypeCrunchy;
-import com.vivern.arpg.blocks.SoundTypeShards;
-import com.vivern.arpg.blocks.SpellForgeBlock;
-import com.vivern.arpg.blocks.Splitter;
-import com.vivern.arpg.blocks.Stairs;
-import com.vivern.arpg.blocks.StarLantern;
-import com.vivern.arpg.blocks.StormConductor;
-import com.vivern.arpg.blocks.StormRack;
-import com.vivern.arpg.blocks.StormledgePortal;
-import com.vivern.arpg.blocks.StormledgePortalFrame;
-import com.vivern.arpg.blocks.SulfurCrystal;
-import com.vivern.arpg.blocks.SummonedHellstone;
-import com.vivern.arpg.blocks.SweetNectarFlower;
-import com.vivern.arpg.blocks.Table;
-import com.vivern.arpg.blocks.TideBeacon;
-import com.vivern.arpg.blocks.TomatoStem;
-import com.vivern.arpg.blocks.TopazCrystal;
-import com.vivern.arpg.blocks.ToxiberryTreeLeaves;
-import com.vivern.arpg.blocks.ToxiberryTreeLog;
-import com.vivern.arpg.blocks.ToxiberryTreeSapling;
-import com.vivern.arpg.blocks.ToxicBarrel;
-import com.vivern.arpg.blocks.ToxicChandelier;
-import com.vivern.arpg.blocks.ToxicGrass;
-import com.vivern.arpg.blocks.ToxicPortalFrame;
-import com.vivern.arpg.blocks.ToxicTallgrass;
-import com.vivern.arpg.blocks.ToxicTorch;
-import com.vivern.arpg.blocks.ToxicomaniaPortal;
-import com.vivern.arpg.blocks.TritonHearth;
-import com.vivern.arpg.blocks.VirulentCapsule;
-import com.vivern.arpg.blocks.VoidCrystal;
-import com.vivern.arpg.blocks.WoodenShaft;
+import com.vivern.arpg.blocks.*;
 import com.vivern.arpg.items.ItemARPGChest;
 import com.vivern.arpg.items.ItemBlockFuel;
 import com.vivern.arpg.items.ItemBlockHasSubtypes;
@@ -219,14 +8,9 @@ import com.vivern.arpg.loot.OreDrop;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.TEISRBlocks;
 import com.vivern.arpg.tileentity.EnumChest;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.Block.EnumOffsetType;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -245,1745 +29,1008 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 @SuppressWarnings("ConstantConditions")
 public class BlocksRegister {
-   public static final Set<Block> FOR_RENDER = new HashSet<>();
-   public static final HardRes HR_CONIFER_LOG = new HardRes(6.0F, 30.0F, 0.4F, 1.0F, 4);
-   public static final HardRes HR_CONIFER_PLANKS = new HardRes(5.5F, 35.0F, 0.4F, 1.0F, 4);
-   public static final HardRes HR_SNOWICE_GLACIER = new HardRes(4.5F, 10.0F, 0.2F, 1.0F, 3);
-   public static final HardRes HR_FROZEN_STONE = new HardRes(7.0F, 80.0F, 0.04F, 1.0F, 5);
-   public static final HardRes HR_FROZEN_COBBLESTONE = new HardRes(7.5F, 90.0F, 0.04F, 1.0F, 5);
-   public static final HardRes HR_FROZEN_BRICK = new HardRes(10.0F, 100.0F, 0.02F, 1.0F, 5);
-   public static final HardRes HR_FROZEN_ROOF = new HardRes(8.0F, 80.0F, 0.02F, 1.0F, 4);
-   public static final HardRes HR_FROZEN_FURNITURE = new HardRes(6.0F, 35.0F, 0.2F, 1.0F, 3);
-   public static final HardRes HR_PUZZLE = new HardRes(20.0F, 100.0F, 0.0F, 1.0F, 7);
-   public static final HardRes HR_NIVEOLITE = new HardRes(12.0F, 85.0F, 0.01F, 1.0F, 5);
-   public static final HardRes HR_NIVEOUS_HALL = new HardRes(12.0F, 130.0F, 0.01F, 1.0F, 6);
-   public static final HardRes HR_FROZEN_DEBRIS = new HardRes(50.0F, 1400.0F, 0.2F, 1.0F, 6);
-   public static final HardRes HR_RADIOACTIVE_STONE = new HardRes(13.0F, 120.0F, 0.01F, 1.0F, 5);
-   public static final HardRes HR_RADIOACTIVE_WASTE = new HardRes(13.0F, 40.0F, 0.5F, 1.0F, 5);
-   public static final HardRes HR_CHLORINE_BELCHER = new HardRes(20.0F, 40.0F, 0.1F, 0.9F, 4);
-   public static final HardRes HR_NECTAR_FLOWER = new HardRes(25.0F, 80.0F, 0.01F, 0.9F, 4);
-   public static final HardRes HR_ARSENIC = new HardRes(13.0F, 120.0F, 0.01F, 1.0F, 7);
-   public static final HardRes HR_WOLFRAM_AND_BIOCELLS = new HardRes(14.0F, 1500.0F, 0.01F, 1.2F, 8);
-   public static final HardRes HR_TOXINIUM = new HardRes(11.0F, 115.0F, 0.01F, 1.0F, 6);
-   public static final HardRes HR_BUNKER_MISC = new HardRes(18.0F, 40.0F, 0.1F, 1.0F, 7);
-   public static final HardRes HR_BUNKER = new HardRes(18.0F, 250.0F, 0.01F, 1.0F, 9);
-   public static final HardRes HR_TOXIBERRY_LOG = new HardRes(12.0F, 35.0F, 0.4F, 1.0F, 5);
-   public static final HardRes HR_TOXIBERRY_FURNITURE = new HardRes(11.0F, 28.0F, 0.4F, 1.0F, 3);
-   public static final HardRes HR_MITHRIL_ADAMANTIUM_ORE = new HardRes(22.0F, 110.0F, 0.01F, 1.0F, 7);
-   public static final HardRes HR_DUNGEON_STONES = new HardRes(24.0F, 120.0F, 0.01F, 1.0F, 9);
-   public static final HardRes HR_DOLERITE_BRICKS = new HardRes(28.0F, 230.0F, 0.01F, 1.0F, 9);
-   public static final HardRes HR_PALM = new HardRes(18.0F, 50.0F, 0.14F, 1.0F, 9);
-   public static final HardRes HR_CORALS = new HardRes(26.0F, 180.0F, 0.03F, 1.0F, 9);
-   public static final HardRes HR_METALLIC_CORALS = new HardRes(30.0F, 1250.0F, 0.01F, 1.0F, 10);
-   public static final HardRes HR_SHELLROCKS = new HardRes(26.0F, 800.0F, 0.03F, 1.0F, 10);
-   public static final HardRes HR_CORALBRICKS = new HardRes(35.0F, 2000.0F, 0.01F, 1.0F, 11);
-   public static final HardRes HR_SANKTUARYBRICKS = new HardRes(45.0F, 2600.0F, 0.01F, 1.0F, 11);
-   public static final HardRes HR_STORM_FOLIAGE = new HardRes(40.0F, 60.0F, 0.13F, 1.0F, 10);
-   public static final HardRes HR_STORMBRASS_ROCKS = new HardRes(60.0F, 3000.0F, 0.01F, 1.0F, 11);
-   public static final HardRes HR_ZARPION_ROCKS = new HardRes(80.0F, 4000.0F, 0.01F, 1.0F, 12);
-   public static final HardRes HR_STORMSTEEL_ORE = new HardRes(35.0F, 1000.0F, 0.01F, 1.0F, 11);
-   public static final HardRes HR_SPAWNER_VOIDCRYSTAL = new HardRes(12.0F, 40.0F, 0.15F, 1.0F, 3);
-   public static final HardRes HR_SPAWNER_FROZEN = new HardRes(11.0F, 30.0F, 0.15F, 1.0F, 4);
-   public static final HardRes HR_SPAWNER_RUSTED = new HardRes(22.0F, 45.0F, 0.15F, 1.0F, 5);
-   public static final HardRes HR_SPAWNER_ANCIENT = new HardRes(34.0F, 150.0F, 0.15F, 1.0F, 8);
-   public static final HardRes HR_SPAWNER_AQUATIC = new HardRes(46.0F, 300.0F, 0.15F, 1.0F, 10);
-   public static final HardRes HR_SPAWNER_STORM = new HardRes(65.0F, 1000.0F, 0.15F, 1.0F, 11);
 
-   public static final Block DEMONIC_FIRE = new DemonicFire();
-   public static final Block DEMONITE_ORE = new BlockOre(Material.ROCK, "demonite_ore", 3.5F, 80.0F, 2, 8).setHarvestLvl("pickaxe", 3);
-   public static final Block INFERNUM_ORE = new BlockBlock(Material.ROCK, "infernum_ore", 3.5F, 80.0F)
-      .setHarvest("pickaxe", 3)
-      .setisReplaceableOreGen(false);
-   public static final Block MOLTEN_ORE = new BlockBlock(Material.ROCK, "molten_ore", 8.0F, 100.0F)
-      .setHarvest("pickaxe", 4)
-      .setisReplaceableOreGen(false)
-      .setLightLevel(1.0F);
-   public static final Block MAGMA_BLOOM = new MagmaBloom();
-   public static final Block SUMMONED_HELLSTONE = new SummonedHellstone();
-   public static final Block RED_PEPPER_VINE = new RedPepperVine();
-   public static final Block FROZEN_STONE = new FrozenStone();
-   public static final Block FROZEN_COBBLESTONE = new FrozenCobblestone();
-   public static final Block BLOCK_BLOCK_HARD = new BlockBlockHard(Material.ROCK, "frozen_stone_bricks", HR_FROZEN_BRICK, "pickaxe", false);
-   public static final Block FROZEN_BRICK_STAIRS = new Stairs.HardStairs(
-      BLOCK_BLOCK_HARD.getDefaultState(),
-      Material.ROCK,
-      "frozen_brick_stairs",
-      HR_FROZEN_BRICK.hardness,
-      HR_FROZEN_BRICK.resistance,
-      HR_FROZEN_BRICK.slow,
-      HR_FROZEN_BRICK.fast,
-      SoundType.STONE,
-      "pickaxe",
-      HR_FROZEN_BRICK.lvl,
-      false
-   );
-   public static final Block FROZEN_BRICK_PILASTER = new Pilaster.HardPilaster(
-      Material.ROCK,
-      "frozen_brick_pilaster",
-      HR_FROZEN_BRICK.hardness,
-      HR_FROZEN_BRICK.resistance,
-      HR_FROZEN_BRICK.slow,
-      HR_FROZEN_BRICK.fast,
-      SoundType.STONE,
-      "pickaxe",
-      HR_FROZEN_BRICK.lvl,
-      false
-   );
-   public static final Block FROZEN_ROOF = new FrozenTileRoof();
-   public static final Block FROZEN_ROOF_STAIRS = new Stairs.HardStairs(
-      FROZEN_ROOF.getDefaultState(),
-      Material.ROCK,
-      "frozen_tile_roof_stairs",
-      HR_FROZEN_ROOF.hardness,
-      HR_FROZEN_ROOF.resistance,
-      HR_FROZEN_ROOF.slow,
-      HR_FROZEN_ROOF.fast,
-      SoundType.STONE,
-      "pickaxe",
-      HR_FROZEN_ROOF.lvl,
-      false
-   );
-   public static final Block FLUID_CRYON = new BlockFluidCryon();
-   public static final Block ETHERNAL_FROST_PORTAL = new EthernalFrostPortal();
-   public static final Block FROSTED_WEED = new FrostedWeed();
-   public static final Block LOOSE_SNOW = new LooseSnow();
-   public static final Block SNOW_ICE = new SnowIce();
-   public static final Block GLACIER = new Glacier();
-   public static final Block CLEAN_ICE = new CleanIce();
-   public static final Block ICE_PANE = new Pane(Material.GLASS, "ice_pane", 0.5F, 0.3F, false).setSound(SoundType.GLASS);
-   public static final Block FROZEN_STALACTITE = new BlockStalactiteBase("frozen_stalactite_base", Material.ROCK, 0, "pickaxe", 0);
-   public static final Block FROZEN_STALACTITE_ADDITION = new BlockStalactiteBase("frozen_stalactite_addition", Material.ROCK, 1, "pickaxe", 0);
-   public static final Block FROZEN_STALAGMITE_BASE = new BlockStalactiteBase("frozen_stalagmite_base", Material.ROCK, 2, "pickaxe", 0);
-   public static final Block FROZEN_VASE = new FrozenVase();
-   public static final Block FROZEN_CHANDELIER = new FrozenChandelier();
-   public static final Block FROZEN_TORCH = new FrozenTorch();
-   public static final Block FROZEN_TABLE = new Table(
-      Material.ROCK,
-      "frozen_table",
-      HR_FROZEN_FURNITURE.hardness,
-      HR_FROZEN_FURNITURE.resistance,
-      SoundType.STONE,
-      "pickaxe",
-      HR_FROZEN_FURNITURE.lvl
-   );
-   public static final Block FROZEN_CHAIR = new Chair(
-      Material.ROCK,
-      "frozen_chair",
-      HR_FROZEN_FURNITURE.hardness,
-      HR_FROZEN_FURNITURE.resistance,
-      SoundType.STONE,
-      "pickaxe",
-      HR_FROZEN_FURNITURE.lvl
-   );
-   public static final Block ICE_SPIKES = new IceSpikes();
-   public static final Block BURNING_FROST = new BurningFrost();
-   public static final Block FROSTFIRE_EXPLOSIVE = new FrostfireExplosive();
-   public static final Block FROZEN_SLIME = new FrozenSlime();
-   public static final Block REDSTONED_FROZEN_BRICKS = new RedstonedFrozenBricks();
-   public static final Block FROZEN_SPAWNER = new BlockSpawner(Material.ROCK, "frozen_spawner", HR_SPAWNER_FROZEN, 15, 25)
-      .setRenderLayer(BlockRenderLayer.CUTOUT)
-      .setOpaque(false);
-   public static final CustomPlant ICE_FLOWER = CustomPlant.createCustomPlant(
-      "ice_flower",
-      0.0F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      new Block[]{SNOW_ICE, CLEAN_ICE, GLACIER, Blocks.ICE, Blocks.SNOW},
-      true,
-      "arpg:ice_flower_seed,2,4,0",
-      4,
-      15,
-      0.03F,
-      0,
-      null,
-      0,
-      0,
-      0.0F,
-      1
-   );
-   public static final CustomPlant CRIMBERRY = CustomPlant.createCustomPlant(
-      "crimberry",
-      0.0F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      new Block[]{Blocks.SNOW},
-      true,
-      "arpg:crimberry_seed,1,4,0",
-      10,
-      15,
-      0.04F,
-      2,
-      null,
-      0,
-      0,
-      0.0F,
-      1
-   );
-   public static final CustomPlant WINTER_WILLOW = CustomPlant.createCustomPlant(
-      "winter_willow",
-      0.5F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      new Block[]{SNOW_ICE, Blocks.SNOW, Blocks.DIRT, Blocks.GRASS},
-      true,
-      "arpg:winter_willow_seed,2,3,0",
-      8,
-      15,
-      0.035F,
-      0,
-      null,
-      0,
-      0,
-      0.0F,
-      2
-   );
-   public static final Block FROZEN_TREASURE_BARREL = new FrozenTreasureBarrel();
-   public static final Block BLOCK_WINTER_ALTAR = new BlockWinterAltar();
-   public static final Block SNOW_SEWING_TABLE = new SnowSewingTable();
-   public static final Block PUZZLE = new BlockPuzzle();
-   public static final Block FROZEN_CHEST = new Chest(Material.WOOD, "frozen_chest", 1.5F, 2.25F, SoundType.WOOD, "axe", 0, EnumChest.FROZEN);
-   public static final Block GARLAND = new Garland();
-   public static final Block PRESENT_BOX = new PresentBox();
-   public static final Block STAR_LANTERN = new StarLantern();
-   public static final Block CHRISTMAS_BALLS = new ChristmasBalls();
-   public static final Block CONIFER_CRAFTING_TABLE = new BlockBlockCraftingTable(Material.WOOD, "conifer_crafting_table", HR_CONIFER_PLANKS, "axe", true)
-      .setSound(SoundType.WOOD);
-   public static final Block CONIFER_SAPLING = new ConiferSapling();
-   public static final Block CONIFER_LEAVES = new ConiferLeaves();
-   public static final Block CONIFER_LOG = new ConiferLog();
-   public static final Block CONIFER_PLANKS = new BlockBlockHard(Material.WOOD, "conifer_planks", HR_CONIFER_PLANKS, "axe", true)
-      .setSound(SoundType.WOOD);
-   public static final Block CONIFER_STAIRS = new Stairs.HardStairs(
-      CONIFER_PLANKS.getDefaultState(), Material.WOOD, "conifer_stairs", SoundType.WOOD, HR_CONIFER_PLANKS, "axe", true
-   );
-   public static final Block CONIFER_ORNAMENT = new BlockBlockHard(Material.WOOD, "conifer_ornament", HR_CONIFER_PLANKS, "axe", true)
-      .setSound(SoundType.WOOD);
-   public static final Block CONIFER_PILASTER = new Pilaster.HardPilaster(
-      Material.WOOD, "conifer_pilaster", SoundType.WOOD, HR_CONIFER_PLANKS, "axe", true
-   );
-   public static final Block CONIFER_TABLE = new Table(
-      Material.WOOD,
-      "conifer_table",
-      HR_CONIFER_PLANKS.hardness,
-      HR_CONIFER_PLANKS.resistance,
-      SoundType.WOOD,
-      "axe",
-      HR_CONIFER_PLANKS.lvl
-   );
-   public static final Block CONIFER_CHAIR = new Chair(
-      Material.WOOD,
-      "conifer_chair",
-      HR_CONIFER_PLANKS.hardness,
-      HR_CONIFER_PLANKS.resistance,
-      SoundType.WOOD,
-      "axe",
-      HR_CONIFER_PLANKS.lvl
-   );
-   public static final Block NIVEOLITE_BLOCK = new NiveoliteBlock();
-   public static final Block NIVEOUS_BRICKS = new BlockBlockHard(
-         Material.ROCK,
-         "niveous_bricks",
-         HR_NIVEOUS_HALL.hardness,
-         HR_NIVEOUS_HALL.resistance,
-         HR_NIVEOUS_HALL.slow,
-         HR_NIVEOUS_HALL.fast,
-         HR_NIVEOUS_HALL.lvl,
-         "pickaxe",
-         false
-      )
-      .setSlipperiness(0.7F);
-   public static final Block POLISHED_NIVEOUS_BLOCK = new BlockBlockHard(
-         Material.ROCK,
-         "polished_niveous_block",
-         HR_NIVEOUS_HALL.hardness,
-         HR_NIVEOUS_HALL.resistance,
-         HR_NIVEOUS_HALL.slow,
-         HR_NIVEOUS_HALL.fast,
-         HR_NIVEOUS_HALL.lvl,
-         "pickaxe",
-         false
-      )
-      .setSlipperiness(0.999F);
-   public static final Block NIVEOUS_COLUMN = new BlockColumn.HardBlockColumn(
-      Material.ROCK,
-      "niveous_column",
-      HR_NIVEOUS_HALL.hardness,
-      HR_NIVEOUS_HALL.resistance,
-      HR_NIVEOUS_HALL.slow,
-      HR_NIVEOUS_HALL.fast,
-      HR_NIVEOUS_HALL.lvl,
-      "pickaxe",
-      false
-   );
-   public static final Block NIVEOUS_PILASTER = new Pilaster.HardPilaster(
-      Material.ROCK,
-      "niveous_pilaster",
-      HR_NIVEOUS_HALL.hardness,
-      HR_NIVEOUS_HALL.resistance,
-      HR_NIVEOUS_HALL.slow,
-      HR_NIVEOUS_HALL.fast,
-      SoundType.STONE,
-      "pickaxe",
-      HR_NIVEOUS_HALL.lvl,
-      false
-   );
-   public static final Block POLISHED_NIVEOUS_PILASTER = new Pilaster.HardPilaster(
-      Material.ROCK,
-      "polished_niveous_pilaster",
-      HR_NIVEOUS_HALL.hardness,
-      HR_NIVEOUS_HALL.resistance,
-      HR_NIVEOUS_HALL.slow,
-      HR_NIVEOUS_HALL.fast,
-      SoundType.STONE,
-      "pickaxe",
-      HR_NIVEOUS_HALL.lvl,
-      false
-   );
-   public static final Block NIVEOUS_STAIRS = new Stairs.HardStairs(
-      NIVEOUS_BRICKS.getDefaultState(),
-      Material.ROCK,
-      "niveous_stairs",
-      HR_NIVEOUS_HALL.hardness,
-      HR_NIVEOUS_HALL.resistance,
-      HR_NIVEOUS_HALL.slow,
-      HR_NIVEOUS_HALL.fast,
-      SoundType.STONE,
-      "pickaxe",
-      HR_NIVEOUS_HALL.lvl,
-      false
-   );
-   public static final Block NIVEOUS_HOLE = new NiveousHole();
-   public static final Block BLOCK_NIVEOLITE_GAME = new BlockNiveoliteGame();
-   public static final Block ICE_ORE_GLACIER = new BlockOre(Material.ROCK, "ice_ore_glacier", 2.7F, 0.8F, 2, 4).setHarvestLvl("pickaxe", 2);
-   public static final Block ICE_ORE_SNOW_ICE = new BlockOre(Material.CLAY, "ice_ore_snow_ice", 2.5F, 0.8F, 2, 4)
-      .setHarvestLvl("shovel", 2)
-      .setSoundType(SoundTypeShards.SHARDS);
-   public static final Block FROZEN_DEBRIS = new BlockBlockHard(Material.IRON, "frozen_debris", HR_FROZEN_DEBRIS, "pickaxe", false);
-   public static final Block FLUID_POISON = new BlockFluidPoison();
-   public static final Block FLUID_SLIME = new BlockFluidSlime();
-   public static final Block FLUID_BIOGENIC_ACID = new BlockFluidBiogenicAcid();
-   public static final Block FLUID_SULFURIC_ACID = new BlockFluidSulfuricAcid();
-   public static final Block FLUID_LUMINESCENT = new BlockFluidLuminescent();
-   public static final Block FLUID_TOXIN = new BlockFluidToxin();
-   public static final Block FLUID_DISSOLVED_TOXINIUM = new BlockFluidDissolvedToxinium();
-   public static final Block TOXIC_PORTAL_FRAME = new ToxicPortalFrame();
-   public static final Block TOXICOMANIA_PORTAL = new ToxicomaniaPortal();
-   public static final Block LOOT_BLOB = new BlockLootBlob();
-   public static final Block ACID_BOMB = new BlockAcidBomb();
-   public static final Block MINI_NUKE = new MiniNuke();
-   public static final Block BIO_CELL = new BioCell();
-   public static final Block SWEET_NECTAR_FLOWER = new SweetNectarFlower();
-   public static final Block VIRULENT_CAPSULE = new VirulentCapsule();
-   public static final Block SLIME_BLOB = new SlimeBlob();
-   public static final Block SLIME_GLOB = new SlimeGlob();
-   public static final Block BROWN_SLIME = new BrownSlime();
-   public static final Block CHLORINE_BELCHER = new ChlorineBelcher();
-   public static final Block TOXIC_BARREL = new ToxicBarrel();
-   public static final Block BOMB_TOXIC = new BlockRotated.HardBlockRotated(
-         Material.IRON, "bomb_toxic", HR_RADIOACTIVE_WASTE, "pickaxe", false, false, new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 1.0, 0.75)
-      )
-      .setSound(SoundType.METAL)
-      .setOpaque(false)
-      .setFullCube(false);
-   public static final Block BOMB_SMALL = new BlockRotated.HardBlockRotated(
-         Material.IRON, "bomb_small", HR_RADIOACTIVE_WASTE, "pickaxe", false, false, new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.6, 0.75)
-      )
-      .setSound(SoundType.METAL)
-      .setOpaque(false)
-      .setFullCube(false);
-   public static final Block BOMB_RUSTED = new BlockRotated.HardBlockRotated(
-         Material.IRON, "bomb_rusted", HR_RADIOACTIVE_WASTE, "pickaxe", false, false, new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.3, 0.75)
-      )
-      .setSound(SoundType.METAL)
-      .setOpaque(false)
-      .setFullCube(false);
-   public static final Block RUSTED_PIPE = new RustedPipe();
-   public static final Block JUNK_PILE = new BlockBlock(Material.CLAY, "junk_pile", 0.1F, 0.1F)
-      .setSound(SoundTypeCrunchy.CRUNCHY)
-      .setHarvest("shovel", 0)
-      .setOpaque(false)
-      .setFullcube(false)
-      .setAABB(new AxisAlignedBB(0.1, 0.0, 0.1, 0.9, 0.25, 0.9), Block.NULL_AABB)
-      .setOffsets(EnumOffsetType.XZ);
-   public static final Block TOXIC_TALLGRASS = new ToxicTallgrass();
-   public static final Block TOXIC_GRASS = new ToxicGrass();
-   public static final Block TOXIC_DIRT = new BlockBlockHard(Material.GROUND, "toxic_dirt", HR_RADIOACTIVE_WASTE, "shovel", true)
-      .setSound(SoundType.GROUND);
-   public static final Block SLUDGE = new BlockBlockHard(Material.CLAY, "sludge", HR_RADIOACTIVE_WASTE, "shovel", true).setSound(SoundType.GROUND);
-   public static final Block NUCLEAR_WASTE = new BlockRadioactive(Material.CLAY, "nuclear_waste", HR_RADIOACTIVE_WASTE, "shovel", 25, 3, 0, 0)
-      .setSound(SoundType.GROUND)
-      .setLightLevel(0.4F);
-   public static final Block JUNK = new BlockBlockHard(Material.CLAY, "junk", HR_RADIOACTIVE_WASTE, "shovel", true).setSound(SoundType.GROUND);
-   public static final Block SCRAP = new BlockBlockHard(Material.CLAY, "scrap", HR_RADIOACTIVE_WASTE, "shovel", true).setSound(SoundTypeCrunchy.CRUNCHY);
-   public static final Block SCRAP_ELECTRONICS = new BlockBlockHard(Material.IRON, "scrap_electronics", HR_RADIOACTIVE_WASTE, "shovel", true)
-      .setSound(SoundTypeCrunchy.CRUNCHY);
-   public static final Block ROTTEN_PLANKS = new BlockBlock(Material.WOOD, "rotten_planks", 0.4F, 0.2F)
-      .setSound(SoundType.WOOD)
-      .setHarvest("axe", 0);
-   public static final Block BRICK_SHARDS = new BlockBlock(Material.GROUND, "brick_shards", 0.5F, 0.8F)
-      .setSound(SoundTypeShards.SHARDS)
-      .setHarvest("shovel", 0);
-   public static final Block RADIOACTIVE_COBBLESTONE = new BlockRadioactive(Material.ROCK, "radioactive_cobblestone", HR_RADIOACTIVE_STONE, "pickaxe", 0, 0, 10, 0);
-   public static final Block RADIOACTIVE_STONE = new BlockRadioactive(Material.ROCK, "radioactive_stone", HR_RADIOACTIVE_STONE, "pickaxe", 0, 0, 10, 0);
-   public static final Block RADIOACTIVE_SPELEOTHEM = new BlockSpeleothem(
-      Material.ROCK, "radioactive_speleothem", HR_RADIOACTIVE_WASTE.hardness, HR_RADIOACTIVE_WASTE.resistance
-   );
-   public static final Block LEPIDOLITE_ORE = new BlockOre.BlockOreHard(Material.ROCK, "lepidolite_ore", HR_RADIOACTIVE_STONE, "pickaxe", 2, 5);
-   public static final Block ARSENIC_ORE = new BlockBlockHard(Material.ROCK, "arsenic_ore", HR_ARSENIC, "pickaxe", false);
-   public static final Block TOXINIUM_ORE = new BlockBlockHard(Material.ROCK, "toxinium_ore", HR_TOXINIUM, "pickaxe", false);
-   public static final Block WOLFRAM_ORE = new BlockBlockHard(Material.ROCK, "wolfram_ore", HR_WOLFRAM_AND_BIOCELLS, "pickaxe", true); //TODO wolfram -> tungsten
-   public static final Block RADIOACTIVE_TITANIUM_ORE = new BlockRadioactive(
-         Material.ROCK, "radioactive_titanium_ore", HR_RADIOACTIVE_STONE, "pickaxe", 0, 0, 20, 0
-      )
-      .setisReplaceableOreGen(false);
-   private static final Block[] TOXIC_GROUNDS = new Block[]{TOXIC_GRASS, TOXIC_DIRT, SLUDGE, NUCLEAR_WASTE, JUNK};
-   public static final CustomPlant TOXIBERRY_ARCANO = CustomPlant.createCustomPlant(
-      "toxiberry_arcanophyllum",
-      0.0F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      TOXIC_GROUNDS,
-      true,
-      "arpg:toxiberry_arcanophyllum_seed,1,3,0 arpg:plant_fiber,0,2,0",
-      6,
-      15,
-      0.02F,
-      0,
-      null,
-      0,
-      0,
-      0.0F,
-      1
-   );
-   public static final CustomPlant TOXIBERRY_VIBRANT = CustomPlant.createCustomPlant(
-      "toxiberry_vibrant",
-      0.0F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      TOXIC_GROUNDS,
-      true,
-      "arpg:toxiberry_vibrant_seed,1,4,0",
-      3,
-      15,
-      0.015F,
-      1,
-      null,
-      0,
-      0,
-      0.0F,
-      1
-   );
-   public static final CustomPlant MOSS_PLANT = CustomPlant.createCustomPlant(
-      "mossplant",
-      0.0F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      TOXIC_GROUNDS,
-      true,
-      "arpg:mossplant_seed,1,2,0 arpg:plant_fiber,0,2,0",
-      1,
-      15,
-      0.01F,
-      0,
-      null,
-      0,
-      0,
-      0.0F,
-      1
-   );
-   public static final CustomPlant CONTEM_PLANT = CustomPlant.createCustomPlant(
-         "contemplant",
-         0.0F,
-         0.0F,
-         SoundType.PLANT,
-         null,
-         TOXIC_GROUNDS,
-         true,
-         "arpg:contemplant_seed,2,3,0 arpg:plant_fiber,0,2,0",
-         6,
-         15,
-         0.02F,
-         2,
-         MobEffects.POISON,
-         50,
-         0,
-         0.5F,
-         1
-      )
-      .setSeedRadioactive(30);
-   public static final CustomPlant MUCOPHILLUS = CustomPlant.createCustomPlant(
-         "mucophillus",
-         0.0F,
-         0.0F,
-         SoundType.PLANT,
-         null,
-         TOXIC_GROUNDS,
-         true,
-         "arpg:mucophillus_seed,1,2,0",
-         8,
-         15,
-         0.03F,
-         4,
-         PotionEffects.TOXIN,
-         40,
-         1,
-         0.95F,
-         1
-      )
-      .setSeedRadioactive(40);
-   public static final CustomPlant MUCOPHILLUS_BROWN = CustomPlant.createCustomPlant(
-         "brown_mucophillus",
-         0.0F,
-         0.0F,
-         SoundType.PLANT,
-         null,
-         TOXIC_GROUNDS,
-         true,
-         "arpg:brown_mucophillus_seed,1,5,0",
-         8,
-         15,
-         0.027F,
-         4,
-         PotionEffects.TOXIN,
-         70,
-         0,
-         0.95F,
-         1
-      )
-      .setSeedRadioactive(60);
-   public static final CustomPlant VISCOSA = CustomPlant.createCustomPlant(
-      "viscosa",
-      0.0F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      TOXIC_GROUNDS,
-      true,
-      "arpg:viscosa_seed,1,2,0 arpg:plant_fiber,0,2,0",
-      6,
-      15,
-      0.007F,
-      3,
-      PotionEffects.TOXIN,
-      55,
-      1,
-      0.99F,
-      1
-   );
-   public static final CustomPlant TOXIBERRY_WEEPING = CustomPlant.createCustomPlant(
-         "weeping_toxiberry",
-         0.0F,
-         0.0F,
-         SoundType.PLANT,
-         null,
-         TOXIC_GROUNDS,
-         true,
-         "arpg:weeping_toxiberry_seed,2,7,0 arpg:plant_fiber,0,2,0",
-         6,
-         15,
-         0.023F,
-         1,
-         PotionEffects.TOXIN,
-         25,
-         0,
-         0.9F,
-         1
-      )
-      .setSeedRadioactive(20);
-   public static final CustomPlant TOXINIA = CustomPlant.createCustomPlant(
-      "toxinia",
-      0.0F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      TOXIC_GROUNDS,
-      true,
-      "arpg:toxinia_seed,1,3,0 arpg:plant_fiber,0,2,0",
-      6,
-      15,
-      0.035F,
-      1,
-      PotionEffects.TOXIN,
-      35,
-      0,
-      0.96F,
-      1
-   );
-   public static final CustomPlant ARELIA = CustomPlant.createCustomPlant(
-      "arelia",
-      0.0F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      TOXIC_GROUNDS,
-      true,
-      "arpg:arelia_seed,1,2,0 arpg:plant_fiber,0,1,0",
-      6,
-      15,
-      0.025F,
-      0,
-      null,
-      0,
-      0,
-      0.0F,
-      1
-   );
-   public static final CustomPlant DECEIDUS = CustomPlant.createCustomPlant(
-         "deceidus",
-         0.0F,
-         0.0F,
-         SoundType.PLANT,
-         null,
-         TOXIC_GROUNDS,
-         true,
-         "arpg:deceidus_seed,2,4,0 arpg:plant_fiber,0,1,0",
-         6,
-         15,
-         0.015F,
-         3,
-         PotionEffects.TOXIN,
-         75,
-         0,
-         0.7F,
-         1
-      )
-      .setSeedRadioactive(10);
-   public static final CustomPlant JUNKWEED = CustomPlant.createCustomPlant(
-         "junkweed",
-         0.0F,
-         0.0F,
-         SoundType.PLANT,
-         null,
-         TOXIC_GROUNDS,
-         true,
-         "arpg:junkweed_seed,1,4,0 arpg:plant_fiber,0,1,0",
-         6,
-         15,
-         0.035F,
-         0,
-         null,
-         0,
-         0,
-         0.0F,
-         1
-      )
-      .setFuelToSeed(4);
-   public static final CustomPlant TOXEDGE = CustomPlant.createCustomPlant(
-         "toxedge",
-         0.0F,
-         0.0F,
-         SoundType.PLANT,
-         null,
-         TOXIC_GROUNDS,
-         true,
-         "arpg:toxedge_seed,1,3,0 arpg:plant_fiber,0,1,0",
-         6,
-         15,
-         0.03F,
-         0,
-         null,
-         0,
-         0,
-         0.0F,
-         1
-      )
-      .setFuelToSeed(4);
-   public static final CustomPlant TOXIBULB = CustomPlant.createCustomPlant(
-      "toxibulb",
-      0.0F,
-      0.0F,
-      SoundType.PLANT,
-      null,
-      TOXIC_GROUNDS,
-      true,
-      "arpg:toxibulb_seed,1,3,0 arpg:plant_fiber,1,2,0",
-      8,
-      15,
-      0.01F,
-      4,
-      MobEffects.WITHER,
-      100,
-      1,
-      0.9F,
-      3
-   );
-   public static final Block POISON_LILY = new PoisonLily();
-   public static final Block LOPPY_TOXIBERRY = new LoppyToxiberry();
-   public static final Block LOPPY_TOXISTEM = new LoppyToxistem();
-   public static final Block TOXIBERRY_TREE_SAPLING = new ToxiberryTreeSapling();
-   public static final Block MUTATED_FLOWER_RED = new MutatedFlowerRed();
-   public static final Block MUTATED_FLOWER_PINK = new MutatedFlowerPink();
-   public static final Block GIANT_FLOWER_LEAVES = new GiantFlowerLeaves();
-   public static final Block LAB_PLATING = new BlockBlockHard(Material.CLAY, "lab_plating", HR_BUNKER, "pickaxe", false)
-      .setSound(SoundType.METAL)
-      .setisReplaceableOreGen(false);
-   public static final Block RUST_LAMP = new RustLamp();
-   public static final Block RUST_METAL = new BlockBlockHard(Material.IRON, "rust_metal", HR_BUNKER, "pickaxe", false).setSound(SoundType.METAL);
-   public static final Block RUST_ARMATURE = new BlockBlockHard(Material.IRON, "rust_armature", HR_BUNKER_MISC, "pickaxe", false)
-      .setOpaque(false)
-      .setSound(SoundType.METAL)
-      .setRenderLayer(BlockRenderLayer.CUTOUT_MIPPED);
-   public static final Block DARK_RUST_METALL = new BlockBlockHard(Material.IRON, "dark_rust_metal", HR_BUNKER, "pickaxe", false)
-      .setSound(SoundType.METAL);
-   public static final Block BUNKER_DOOR = new BlockBunkerDoor();
-   public static final Block TOXIC_CHEST = new Chest(Material.WOOD, "toxic_chest", 1.5F, 2.25F, SoundType.WOOD, "axe", 0, EnumChest.FROZEN);
-   public static final Block RUSTED_CHEST = new Chest(Material.IRON, "rusted_chest", 2.5F, 4.25F, SoundType.METAL, "pickaxe", 1, EnumChest.FROZEN);
-   public static final Block RUSTED_SPAWNER = new BlockSpawner(Material.ROCK, "rusted_spawner", HR_SPAWNER_RUSTED, 20, 35)
-      .setRenderLayer(BlockRenderLayer.CUTOUT)
-      .setOpaque(false);
-   public static final Block TOXIBERRY_LOG = new ToxiberryTreeLog();
-   public static final Block TOXIBERRY_LEAVES = new ToxiberryTreeLeaves();
-   public static final Block TOXIC_PLANKS = new BlockBlockHard(Material.WOOD, "toxic_planks", HR_TOXIBERRY_FURNITURE, "axe", true)
-      .setSound(SoundType.WOOD);
-   public static final Block TOXIC_TABLE = new Table(
-      Material.WOOD,
-      "toxic_table",
-      HR_TOXIBERRY_FURNITURE.hardness,
-      HR_TOXIBERRY_FURNITURE.resistance,
-      SoundType.WOOD,
-      "axe",
-      HR_TOXIBERRY_FURNITURE.lvl
-   );
-   public static final Block TOXIC_STAIRS = new Stairs(
-      TOXIC_PLANKS.getDefaultState(),
-      Material.WOOD,
-      "toxic_planks_stairs",
-      HR_TOXIBERRY_FURNITURE.hardness,
-      HR_TOXIBERRY_FURNITURE.resistance,
-      SoundType.WOOD,
-      "axe",
-      HR_TOXIBERRY_FURNITURE.lvl
-   );
-   public static final Block TOXIC_PILASTER = new Pilaster(
-      Material.WOOD,
-      "toxic_planks_pilaster",
-      HR_TOXIBERRY_FURNITURE.hardness,
-      HR_TOXIBERRY_FURNITURE.resistance,
-      SoundType.WOOD,
-      "axe",
-      HR_TOXIBERRY_FURNITURE.lvl
-   );
-   public static final Block TOXIC_CHAIR = new Chair(
-      Material.WOOD,
-      "toxic_planks_chair",
-      HR_TOXIBERRY_FURNITURE.hardness,
-      HR_TOXIBERRY_FURNITURE.resistance,
-      SoundType.WOOD,
-      "axe",
-      HR_TOXIBERRY_FURNITURE.lvl
-   );
-   public static final Block TOXIC_TORCH = new ToxicTorch();
-   public static final Block TOXIC_CHANDELIER = new ToxicChandelier();
-   public static final Block FLUID_HYDROTHERMAL = new BlockFluidHydrothermal();
-   public static final Block FLUID_LARVA_WATER = new BlockFluidLarvaWater();
-   public static final Block DEEP_ROCK = new BlockBlockHard(Material.ROCK, "deep_rock", HR_DUNGEON_STONES, "pickaxe", false);
-   public static final Block CALCITE = new BlockBlockHard(Material.ROCK, "calcite", HR_DUNGEON_STONES, "pickaxe", false);
-   public static final Block CAVE_ONYX = new BlockBlockHard(Material.ROCK, "cave_onyx", HR_DUNGEON_STONES, "pickaxe", false);
-   public static final Block GREEN_ONYX = new BlockBlockHard(Material.ROCK, "green_onyx", HR_DUNGEON_STONES, "pickaxe", false);
-   public static final Block SELENITE = new BlockBlockHard(Material.ROCK, "selenite", HR_DUNGEON_STONES, "pickaxe", false);
-   public static final Block MAGIC_STONE = new BlockBlockHard(Material.ROCK, "magic_stone", HR_DUNGEON_STONES, "pickaxe", false)
-      .setRenderLayer(BlockRenderLayer.TRANSLUCENT)
-      .setOpaque(false)
-      .setFullcube(true)
-      .setisReplaceableOreGen(false);
-   public static final Block GLOWING_VEIN = new GlowingVein();
-   public static final Block DOLERITE = new BlockBlockHard(Material.ROCK, "dolerite", HR_DUNGEON_STONES, "pickaxe", false);
-   public static final Block SELENITE_SPELEOTHEM = new BlockSpeleothem(Material.ROCK, "selenite_speleothem", 1.0F, 2.0F);
-   public static final Block BLUE_GLOWING_MUSHROOM = new BlueGlowingMushroom();
-   public static final Block GREEN_GLOWING_MUSHROOM = new GreenGlowingMushroom();
-   public static final Block WOODEN_SHAFT = new WoodenShaft();
-   public static final Block LARVA_BLOCK = new LarvaBlock();
-   public static final Block SELENITE_CRYSTAL = new SeleniteCrystal();
-   public static final Block CAVE_CRYSTAL = new CaveCrystal();
-   public static final Block GLOWING_CAVE_CRYSTAL = new GlowingCaveCrystal();
-   public static final Block DUNGEON_PORTAL_FRAME = new BlockBlock(Material.ROCK, "dungeon_portal_frame", 10.0F, 60.0F).setHarvest("pickaxe", 5);
-   public static final Block DUNGEON_PORTAL = new DungeonPortal();
-   public static final Block DUNGEON_FLOOR_LADDER = new DungeonFloorLadder();
-   public static final Block DUNGEON_TOP_LADDER = new DungeonTopLadder();
-   public static final Block ANCIENT_SPAWNER = new BlockSpawner(Material.ROCK, "ancient_spawner", HR_SPAWNER_ANCIENT, 25, 45)
-      .setRenderLayer(BlockRenderLayer.CUTOUT)
-      .setOpaque(false);
-   public static final Block CRYSTALLIZER = new Crystallizer();
-   public static final Block PYROCRYSTALLINE_CONVERTER = new PyrocrystallineConverter();
-   public static final Block CRYSTAL_CHEST = new Chest(Material.ROCK, "crystal_chest", 3.5F, 4.25F, SoundType.STONE, "pickaxe", 1, EnumChest.FROZEN);
-   public static final Block CRYSTAL_TABLE = new Table(Material.WOOD, "crystal_table", 3.4F, 35.0F, SoundType.STONE, "pickaxe", 0);
-   public static final Block CRYSTAL_CHAIR = new Chair(Material.WOOD, "crystal_chair", 3.4F, 35.0F, SoundType.STONE, "pickaxe", 0);
-   public static final Block CRYSTAL_TORCH = new CrystalTorch();
-   public static final Block CRYSTAL_VASE = new BlockBlock(Material.GLASS, "crystal_vase", 2.4F, 35.0F)
-      .setSound(SoundTypeShards.SHARDS)
-      .setPlaceAsVase(true)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 1.0, 0.8125), new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 1.1875, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false);
-   public static final Block CRYSTAL_CHANDELIER = new CrystalChandelier();
-   public static final Block DOLERITE_BRICKS = new BlockBlockHard(Material.ROCK, "dolerite_bricks", HR_DOLERITE_BRICKS, "pickaxe", false);
-   public static final Block DOLERITE_STAIRS = new Stairs.HardStairs(
-      DOLERITE_BRICKS.getDefaultState(), Material.ROCK, "dolerite_stairs", SoundType.STONE, HR_DOLERITE_BRICKS, "pickaxe", false
-   );
-   public static final Block DOLERITE_PILASTER = new Pilaster.HardPilaster(
-      Material.ROCK, "dolerite_pilaster", SoundType.STONE, HR_DOLERITE_BRICKS, "pickaxe", false
-   );
-   public static final Block DOLERITE_COLUMN = new DoleriteColumn();
-   public static final Block MITHRIL_ORE = new BlockBlockHard(Material.ROCK, "mithril_ore", HR_MITHRIL_ADAMANTIUM_ORE, "pickaxe", false)
-      .setisReplaceableOreGen(false);
-   public static final Block ADAMANTIUM_ORE = new BlockBlockHard(Material.ROCK, "adamantium_ore", HR_MITHRIL_ADAMANTIUM_ORE, "pickaxe", false)
-      .setisReplaceableOreGen(false);
-   public static final Block AQUATICA_PORTAL = new AquaticaPortal();
-   public static final Block AQUATICA_PORTAL_FRAME = new AquaticaPortalFrame(Material.ROCK, "aquatica_portal_frame", 14.0F, 46.0F);
-   public static final Block SHELLROCK = new BlockBlockHard(Material.ROCK, "shellrock", HR_SHELLROCKS, "pickaxe", false);
-   public static final Block CHALKROCK = new BlockBlockHard(Material.ROCK, "chalkrock", HR_SHELLROCKS, "pickaxe", false);
-   public static final Block STROMATOLITE = new BlockBlockHard(Material.ROCK, "stromatolite", HR_SHELLROCKS, "pickaxe", false);
-   public static final Block SEA_STONE = new BlockBlockHard(Material.ROCK, "sea_stone", HR_SHELLROCKS, "shovel", false)
-      .setRenderLayer(BlockRenderLayer.CUTOUT);
-   public static final Block CORAL_BRICKS = new BlockBlockHard(Material.ROCK, "coral_bricks", HR_CORALBRICKS, "pickaxe", false)
-      .setRenderLayer(BlockRenderLayer.CUTOUT);
-   public static final Block PEARLESCENT_BRICKS = new BlockBlockHard(Material.ROCK, "pearlescent_bricks", HR_CORALBRICKS, "pickaxe", false);
-   public static final Block RADIANT_BRICK = new BlockBlockHard(Material.ROCK, "radiant_brick", HR_CORALBRICKS, "pickaxe", false);
-   public static final Block CORAL_TORCH = new CoralTorch();
-   public static final Block CORAL_TABLE = new Table(Material.ROCK, "coral_table", 7.5F, 40.0F, SoundType.STONE, "pickaxe", 0);
-   public static final Block CORAL_CHAIR = new Chair(Material.ROCK, "coral_chair", 7.5F, 40.0F, SoundType.STONE, "pickaxe", 0);
-   public static final Block CORAL_CHANDELIER = new CoralChandelier();
-   public static final Block CORAL_VASE = new BlockBlock(Material.ROCK, "coral_vase", 7.3F, 40.0F)
-      .setSound(SoundTypeShards.SHARDS)
-      .setPlaceAsVase(true)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 1.0, 0.8125), new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 1.0, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false)
-      .setRenderLayer(BlockRenderLayer.CUTOUT);
-   public static final Block PEARLESCENT_STAIRS = new Stairs.HardStairs(
-      PEARLESCENT_BRICKS.getDefaultState(), Material.ROCK, "pearlescent_stairs", SoundType.STONE, HR_CORALBRICKS, "pickaxe", false
-   );
-   public static final Block PEARLESCENT_PILASTER = new Pilaster.HardPilaster(
-      Material.ROCK, "pearlescent_pilaster", SoundType.STONE, HR_CORALBRICKS, "pickaxe", false
-   );
-   public static final Block CORAL_YELLOW = new BlockOre.BlockOreHard(Material.ROCK, "coral_yellow", HR_CORALS, "pickaxe", 0, 0);
-   public static final Block CORAL_PINK = new BlockOre.BlockOreHard(Material.ROCK, "coral_pink", HR_CORALS, "pickaxe", 0, 0);
-   public static final Block CORAL_WHITE = new BlockOre.BlockOreHard(Material.ROCK, "coral_white", HR_CORALS, "pickaxe", 0, 0);
-   public static final Block CORAL_RED = new BlockOre.BlockOreHard(Material.ROCK, "coral_red", HR_CORALS, "pickaxe", 0, 0);
-   public static final Block CORAL_ORANGE = new BlockOre.BlockOreHard(Material.ROCK, "coral_orange", HR_CORALS, "pickaxe", 0, 0)
-      .setRenderLayer(BlockRenderLayer.CUTOUT);
-   public static final Block CORALLIMORPHA_BLUE = new Corallimorpha("corallimorpha_blue");
-   public static final Block CORALLIMORPHA_BROWN = new Corallimorpha("corallimorpha_brown");
-   public static final Block CORALLIMORPHA_GREEN = new Corallimorpha("corallimorpha_green");
-   public static final Block CORALLIMORPHA_LILAC = new Corallimorpha("corallimorpha_lilac");
-   public static final Block CORALLIMORPHA_PINK = new Corallimorpha("corallimorpha_pink");
-   public static final Block CORALLIMORPHA_RED = new Corallimorpha("corallimorpha_red");
-   public static final Block CORALLIMORPHA_YELLOW = new Corallimorpha("corallimorpha_yellow");
-   public static final Block ACROPORA_PURPLE = new MiniCoral("acropora_purple", BlockRenderLayer.CUTOUT);
-   public static final Block ACROPORA_PURPLE_BIG = new MiniCoral("acropora_purple_big", BlockRenderLayer.CUTOUT);
-   public static final Block ACROPORA_WHITE = new MiniCoral("acropora_white", BlockRenderLayer.CUTOUT);
-   public static final Block ACROPORA_WHITE_BIG = new MiniCoral("acropora_white_big", BlockRenderLayer.CUTOUT);
-   public static final Block ACTINIFORA_ARENACEOUS = new MiniCoral("actinifora_arenaceous", BlockRenderLayer.CUTOUT).setDropGlowingPearls().setLightLevel(0.6F);
-   public static final Block ACTINIFORA_BRIGHT = new MiniCoral("actinifora_bright", BlockRenderLayer.CUTOUT).setDropGlowingPearls().setLightLevel(0.8F);
-   public static final Block ACTINIFORA_GIANT = new MiniCoral("actinifora_giant", BlockRenderLayer.CUTOUT).setLightLevel(0.8F);
-   public static final Block ACTINIFORA_RAMIFORM = new MiniCoral("actinifora_ramiform", BlockRenderLayer.CUTOUT).setDropGlowingPearls().setLightLevel(0.7F);
-   public static final Block ACTINIFORA_SEGREGATE = new MiniCoral("actinifora_segregate", BlockRenderLayer.CUTOUT).setLightLevel(0.8F);
-   public static final Block FAVIA_BLUE = new MiniCoral("favia_blue", BlockRenderLayer.SOLID).setOffset(0.3);
-   public static final Block FAVIA_BRAIN = new MiniCoral("favia_brain", BlockRenderLayer.SOLID).setOffset(0.25);
-   public static final Block FAVIA_GREEN = new MiniCoral("favia_green", BlockRenderLayer.SOLID).setOffset(0.3);
-   public static final Block FAVIA_RED = new MiniCoral("favia_red", BlockRenderLayer.SOLID).setOffset(0.3);
-   public static final Block FAVIA_YELLOW = new MiniCoral("favia_yellow", BlockRenderLayer.SOLID).setOffset(0.3);
-   public static final Block GORGONARIA_BROWN = new MiniCoral("gorgonaria_brown", BlockRenderLayer.CUTOUT);
-   public static final Block GORGONARIA_BROWN_BIG = new MiniCoral("gorgonaria_brown_big", BlockRenderLayer.CUTOUT);
-   public static final Block GORGONARIA_RED = new MiniCoral("gorgonaria_red", BlockRenderLayer.CUTOUT);
-   public static final Block GORGONARIA_RED_BIG = new MiniCoral("gorgonaria_red_big", BlockRenderLayer.CUTOUT);
-   public static final Block GORGONARIA_WHITE = new MiniCoral("gorgonaria_white", BlockRenderLayer.CUTOUT);
-   public static final Block GORGONARIA_WHITE_BIG = new MiniCoral("gorgonaria_white_big", BlockRenderLayer.CUTOUT);
-   public static final Block HELIOPORACEA = new MiniCoral("helioporacea", BlockRenderLayer.CUTOUT);
-   public static final Block GIANT_SHELL = new GiantShell("giant_shell", BlockRenderLayer.SOLID).setOffset(0.5);
-   public static final Block PALM_LOG = new PalmLog();
-   public static final Block PALM_LEAVES = new PalmLeaves("palm_leaves");
-   public static final Block PALM_SAPLING = new PalmSapling();
-   public static final Block PALM_DRY_LEAVES = new PalmLeaves("palm_dry_leaves");
-   public static final Block PALM_FRUIT_BUNCH = new PalmFruitBunch();
-   public static final Block PALM_TABLE = new Table(Material.WOOD, "palm_table", 2.2F, 2.2F, SoundType.WOOD, "axe", 0);
-   public static final Block PALM_CHAIR = new Chair(Material.WOOD, "palm_chair", 2.2F, 2.2F, SoundType.WOOD, "axe", 0);
-   public static final Block PALM_TORCH = new PalmTorch();
-   public static final Block PALM_PLANKS = new BlockBlockHard(Material.WOOD, "palm_planks", HR_PALM, "axe", false).setSound(SoundType.WOOD);
-   public static final Block SEAWEEDBLOCK = new BlockSeaweed();
-   public static final Block SEAGRASS = new Seagrass();
-   public static final Block LIVING_SPONGE = new LivingSponge();
-   public static final Block METALLIC_CORAL = new MetallicCoral();
-   public static final Block SHELLROCK_SPELEOTHEM = new BlockSpeleothem(Material.ROCK, "shellrock_speleothem", 1.0F, 2.0F);
-   public static final Block TRITON_HEARTH = new TritonHearth();
-   public static final Block TIDE_BEACON = new TideBeacon();
-   public static final Block AQUATIC_SPAWNER = new BlockSpawner(Material.IRON, "aquatic_spawner", HR_SPAWNER_AQUATIC, 30, 55)
-      .setRenderLayer(BlockRenderLayer.CUTOUT)
-      .setOpaque(false);
-   public static final Block SEALOCK = new SeaLock();
-   public static final Block SANCTUARY_BRICKS = new BlockBlockHard(Material.ROCK, "sanctuary_bricks", HR_SANKTUARYBRICKS, "pickaxe", false);
-   public static final Block SEA_URCHIN = new SeaUrchin();
-   public static final Block STORMLEDGE_PORTAL = new StormledgePortal();
-   public static final Block STORMLEDGE_PORTAL_FRAME = new StormledgePortalFrame(Material.ROCK, "stormledge_portal_frame", 24.0F, 56.0F);
-   public static final Block BLOCK_ETHERITE_INVOCATOR = new BlockEtheriteInvocator();
-   public static final Block METALLIC_ROCK = new BlockBlockHard(Material.ROCK, "metallic_rock", HR_STORMBRASS_ROCKS, "pickaxe", false);
-   public static final Block BEAM_ROCK = new BeamRock();
-   public static final Block METALLIC_ROCK_PILASTER = new Pilaster.HardPilaster(
-      Material.ROCK, "metallic_rock_pilaster", SoundType.STONE, HR_STORMBRASS_ROCKS, "pickaxe", false
-   );
-   public static final Block STORM_MASONRY = new BlockBlockHard(Material.ROCK, "storm_masonry", HR_ZARPION_ROCKS, "pickaxe", false).setOpacity(0);
-   public static final Block STORM_PLATE = new BlockBlockHard(Material.ROCK, "storm_plate", HR_ZARPION_ROCKS, "pickaxe", false).setOpacity(0);
-   public static final Block STORM_PILASTER = new Pilaster.HardPilaster(
-      Material.ROCK, "storm_pilaster", SoundType.STONE, HR_ZARPION_ROCKS, "pickaxe", false
-   );
-   public static final Block STORM_CONDUCTOR = new StormConductor();
-   public static final Block STORM_RACK = new StormRack();
-   public static final Block FULMINIFLORA = new BlockBlock(Material.ROCK, "fulminiflora", 8.0F, 35.0F);
-   public static final Block FULMINIHERBA = new BlockFulminiherba();
-   public static final Block ARTHROSTELECHA_LOG_BRASS = new ArthrostelechaLog(true);
-   public static final Block ARTHROSTELECHA_LOG_PINK = new ArthrostelechaLog(false);
-   public static final Block ARTHROSTELECHA_LEAVES_BRASS = new ArthrostelechaLeaves(true);
-   public static final Block ARTHROSTELECHA_LEAVES_PINK = new ArthrostelechaLeaves(false);
-   public static final Block GLOWBUSH = new Glowbush();
-   public static final Block FULMINIORTUM_BULB = new FulminiortumBulb();
-   public static final Block FULMINIORTUM_BONNY = new FulminiortumBonny();
-   public static final Block SHIMMERING_BEASTBLOOM = new ShimmeringBeastbloom();
-   public static final Block LAIGANIA_STEM = new BlockBlock(Material.ROCK, "laigania_stem", 4.5F, 40.0F).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-   public static final Block LAIGANIA_PULP = new BlockBlock(Material.ROCK, "laigania_pulp", 4.5F, 40.0F)
-      .setLightOptions(5, 240)
-      .setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-   public static final Block VENTASTOLA_TRUNK = new BlockBlock(Material.ROCK, "ventastola_trunk", 4.5F, 40.0F)
-      .setLightLevel(0.25F)
-      .setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-   public static final Block VENTASTOLA_CATCHER = new Pane(Material.WEB, "ventastola_catcher", 1.0F, 10.0F, true).setSound(SoundType.CLOTH);
-   public static final Block MELANZA_BULB = new BlockBlock(Material.PLANTS, "melanza_bulb", 3.0F, 15.0F)
-      .setOpaque(false)
-      .setLightOptions(13, 220)
-      .setRenderLayer(BlockRenderLayer.CUTOUT)
-      .setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-   public static final Block MELANZA_STEM = new MelanzaStem();
-   public static final Block ELECTRIC_VINE = new BlockBlock(Material.ROCK, "electric_vine", 3.5F, 50.0F)
-      .setOpaque(false)
-      .setFullcube(false)
-      .setOpacity(0)
-      .setRenderLayer(BlockRenderLayer.CUTOUT)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block ELECTROFERN_LEAVES = new ElectrofernLeaves();
-   public static final Block ELECTROFERN_STEM = new DecorativePipe(
-      Material.WOOD,
-      "electrofern_stem",
-      HR_STORM_FOLIAGE,
-      "axe",
-      CreativeTabs.DECORATIONS,
-      SoundTypeCrunchy.CRUNCHY,
-      0.125F,
-      0.125F,
-      (state, facing) -> state.getBlock() == ELECTROFERN_LEAVES
-         ? state.getValue(ElectrofernLeaves.FACING) == facing
-         : state.getBlock() == BlocksRegister.ELECTROFERN_STEM || state.getBlock() == FULMINIFLORA || state.getBlock() == Blocks.STONE
-   );
-   public static final Block ARTHROHELIA_STEM = new BlockRotated.HardBlockRotated(
-         Material.ROCK, "arthrohelia_stem", HR_STORM_FOLIAGE, "axe", false, true, Block.FULL_BLOCK_AABB
-      )
-      .setOpaque(false)
-      .setFullCube(false)
-      .setRenderLayer(BlockRenderLayer.CUTOUT);
-   public static final Block ARTHROHELIA_STALK = new BlockRotated.HardBlockRotated(
-         Material.ROCK, "arthrohelia_stalk", HR_STORM_FOLIAGE, "axe", false, true, Block.FULL_BLOCK_AABB
-      )
-      .setOpaque(false)
-      .setFullCube(false)
-      .setRenderLayer(BlockRenderLayer.CUTOUT);
-   public static final Block ARTHROHELIA_SPIKE = new BlockRotated.HardBlockRotated(
-         Material.ROCK, "arthrohelia_spike", HR_STORM_FOLIAGE, "axe", false, true, Block.FULL_BLOCK_AABB
-      )
-      .setOpaque(false)
-      .setFullCube(false)
-      .setRenderLayer(BlockRenderLayer.CUTOUT);
-   public static final Block EXOHELIA_SPIKE = new ExoheliaSpike();
-   public static final Block ORESTORM_STEEL = new BlockBlockHard(Material.ROCK, "stormsteel_ore", HR_STORMSTEEL_ORE, "pickaxe", false)
-      .setisReplaceableOreGen(false);
-   public static final Block STORM_SPAWNER = new BlockSpawner(Material.IRON, "storm_spawner", HR_SPAWNER_STORM, 35, 65)
-      .setRenderLayer(BlockRenderLayer.CUTOUT)
-      .setOpaque(false);
-   public static final Block DETECTOR = new BlockDetector();
-   public static final Block ADVANCED_DETECTOR = new AdvancedBlockDetector();
-   public static final Block PLACER = new BlockPlacer();
-   public static final Block CRYSTAL_SPHERE = new BlockCrystalSphere();
-   public static final Block FLUID_DARKNESS = new BlockFluidDarkness();
-   public static final Block SPELL_FORGE = new SpellForgeBlock();
-   public static final Block MANA_BOTTLE = new ManaBottle();
-   public static final Block TOPAZ_CRYSTAL = new TopazCrystal();
-   public static final Block NETHER_MELTER = new NetherMelter();
-   public static final Block SACRIFICIAL_ALTAR = new SacrificialAltar();
-   public static final Block INFERNUM_FURNACE = new InfernumFurnace();
-   public static final Block BONESBLOCK = new BlockBlock(Material.GROUND, "bones_block", 1.3F, 25.0F)
-      .setHarvest("shovel", 1)
-      .setSound(SoundTypeCrunchy.CRUNCHY);
-   public static final Block BONES_PILE = new BonesPile();
-   public static final Block ALCHEMIC_LAB = new AlchemicLab();
-   public static final Block ALCHEMIC_VAPORIZER = new AlchemicVaporizer();
-   public static final Block RUNIC_MIRROR = new BlockRunicMirror();
-   public static final Block RUBY_ORE = new BlockOre(Material.ROCK, "ruby_ore", 3.0F, 15.0F, 2, 8);
-   public static final Block SAPPHIRE_ORE = new BlockOre(Material.ROCK, "sapphire_ore", 3.0F, 15.0F, 2, 8);
-   public static final Block CITRINE_ORE = new BlockOre(Material.ROCK, "citrine_ore", 3.0F, 15.0F, 2, 8);
-   public static final Block TOPAZ_ORE = new BlockOre(Material.ROCK, "topaz_ore", 2.0F, 12.0F, 2, 5);
-   public static final Block AMETHYST_ORE = new BlockOre(Material.ROCK, "amethyst_ore", 2.0F, 12.0F, 2, 5);
-   public static final Block RHINESTONE_ORE = new BlockOre(Material.ROCK, "rhinestone_ore", 2.0F, 12.0F, 2, 5);
-   public static final Block DRILL = new BlockDrill();
-   public static final Block TURNING_AUGMENT = new BlockAssemblyAugment(
-         Material.IRON, "turning_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)
-      )
-      .setSound(SoundType.METAL)
-      .setOpaque(false)
-      .setFullCube(false);
-   public static final Block PRESS_AUGMENT = new BlockAssemblyAugment(
-         Material.IRON, "press_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)
-      )
-      .setSound(SoundType.METAL)
-      .setOpaque(false)
-      .setFullCube(false);
-   public static final Block WELD_AUGMENT = new BlockAssemblyAugment(
-         Material.IRON, "weld_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)
-      )
-      .setSound(SoundType.METAL)
-      .setOpaque(false)
-      .setFullCube(false);
-   public static final Block PLASMA_SPRAY_AUGMENT = new BlockAssemblyAugment(
-         Material.IRON, "plasma_spray_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)
-      )
-      .setSound(SoundType.METAL)
-      .setOpaque(false)
-      .setFullCube(false);
-   public static final Block MOLECULAR_PRINTER_AUGMENT = new BlockAssemblyAugment(
-         Material.IRON, "molecular_printer_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)
-      )
-      .setSound(SoundType.METAL)
-      .setOpaque(false)
-      .setFullCube(false);
-   public static final Block ASSEMBLY_TABLE = new AssemblyTable();
-   public static final Block WEAPON_SPAWNER = new BlockWeaponSpawner();
-   public static final Block BLOCK_ELECTROMAGNET = new BlockElectromagnet();
-   public static final Block COLLIDER_PIPE = new ColliderPipe();
-   public static final Block COLLIDER = new BlockCollider();
-   public static final Block STONE_SPELEOTHEM = new BlockSpeleothem(Material.ROCK, "stone_speleothem", 1.0F, 2.0F);
-   public static final Block ITEM_CHARGER = new BlockItemCharger();
-   public static final Block CHROMIUM_ORE = new BlockBlock(Material.ROCK, "chromium_ore", 3.5F, 15.0F)
-      .setisReplaceableOreGen(false)
-      .setHarvest("pickaxe", 2);
-   public static final Block ZINC_ORE = new BlockBlock(Material.ROCK, "zinc_ore", 3.0F, 15.0F).setisReplaceableOreGen(false).setHarvest("pickaxe", 1);
-   public static final Block ALUMINIUM_ORE = new BlockBlock(Material.ROCK, "aluminium_ore", 3.0F, 10.0F);
-   public static final Block BAUXITE = new BlockOre(Material.CLAY, "bauxite_block", 0.6F, 3.0F, 0, 1)
-      .setHarvestLvl("shovel", 0)
-      .setSoundType(SoundType.GROUND);
-   public static final Block FIERY_BEAN_LOG = new FieryBeanLog();
-   public static final Block FIERY_BEAN_BLOCK = new FieryBeanBlock();
-   public static final Block FIERY_BEAN_LEAVES = new FieryBeanLeaves("fiery_bean_leaves");
-   public static final Block FIERY_BEAN_SAPLING = new FieryBeanSapling();
-   public static final Block SULFUR_CRYSTAL = new SulfurCrystal();
-   public static final Block FLUID_SULFURIC_GAS = new BlockFluidSulfuricGas();
-   public static final Block FIERY_BEAN_PLANKS = new BlockBlock(Material.WOOD, "fiery_bean_planks", 1.0F, 10.0F)
-      .setSound(SoundType.WOOD)
-      .setHarvest("axe", 0);
-   public static final Block NATIVE_SILVER = new NativeSilver();
-   public static final Block VOID_CRYSTAL_BLOCK = new VoidCrystal(Material.PORTAL, "void_crystal_block", HR_SPAWNER_VOIDCRYSTAL, 10, 30);
-   public static final Block SILVER_ORE = new BlockBlock(Material.ROCK, "silver_ore", 3.0F, 15.0F).setHarvest("pickaxe", 2).setisReplaceableOreGen(false);
-   public static final Block RHINESTONE_BLOCK = new BlockBlock(Material.ROCK, "rhinestone_block", 4.0F, 40.0F);
-   public static final Block INDUSTRIAL_MIXER = new IndustrialMixer();
-   public static final Block MAGIC_LOG = new MagicLog();
-   public static final Block RESEARCH_TABLE = new ResearchTable();
-   public static final Block MAGIC_BRICKS = new BlockBlock(Material.ROCK, "magic_bricks", 2.5F, 50.0F).setHarvest("pickaxe", 2);
-   public static final Block MAGIC_ORNAMENT = new MagicOrnament(Material.ROCK, "magic_ornament", 2.8F, 55.0F).setHarvest("pickaxe", 2);
-   public static final Block STAINED_GLASS_MARIGOLD = new BlockBlock(Material.GLASS, "stained_glass_marigold", 2.5F, 40.0F)
-      .setRenderLayer(BlockRenderLayer.TRANSLUCENT)
-      .setOpaque(false)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block STAINED_GLASS_SUNSET = new BlockBlock(Material.GLASS, "stained_glass_sunset", 2.5F, 40.0F)
-      .setRenderLayer(BlockRenderLayer.TRANSLUCENT)
-      .setOpaque(false)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block STAINED_GLASS_ROSE = new BlockBlock(Material.GLASS, "stained_glass_rose", 2.5F, 40.0F)
-      .setRenderLayer(BlockRenderLayer.TRANSLUCENT)
-      .setOpaque(false)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block STAINED_GLASS_SKY = new BlockBlock(Material.GLASS, "stained_glass_sky", 2.5F, 40.0F)
-      .setRenderLayer(BlockRenderLayer.TRANSLUCENT)
-      .setOpaque(false)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block STAINED_GLASS_STARLIGHT = new BlockBlock(Material.GLASS, "stained_glass_starlight", 2.5F, 40.0F)
-      .setRenderLayer(BlockRenderLayer.TRANSLUCENT)
-      .setOpaque(false)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block STAINED_GLASS_AURORA = new BlockBlock(Material.GLASS, "stained_glass_aurora", 2.5F, 40.0F)
-      .setRenderLayer(BlockRenderLayer.TRANSLUCENT)
-      .setOpaque(false)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block RUBY_LANTERN = new BlockBlock(Material.GLASS, "ruby_lantern", 2.5F, 40.0F)
-      .setLightLevel(1.0F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block SAPPHIRE_LANTERN = new BlockBlock(Material.GLASS, "sapphire_lantern", 2.5F, 40.0F)
-      .setLightLevel(1.0F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block CITRINE_LANTERN = new BlockBlock(Material.GLASS, "citrine_lantern", 2.5F, 40.0F)
-      .setLightLevel(1.0F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block EMERALD_LANTERN = new BlockBlock(Material.GLASS, "emerald_lantern", 2.5F, 40.0F)
-      .setLightLevel(1.0F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block AMETHYST_LANTERN = new BlockBlock(Material.GLASS, "amethyst_lantern", 2.5F, 40.0F)
-      .setLightLevel(1.0F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block TOPAZ_LANTERN = new BlockBlock(Material.GLASS, "topaz_lantern", 2.5F, 40.0F)
-      .setLightLevel(1.0F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block RHINESTONE_LANTERN = new BlockBlock(Material.GLASS, "rhinestone_lantern", 2.5F, 40.0F)
-      .setLightLevel(1.0F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block DIAMOND_LANTERN = new BlockBlock(Material.GLASS, "diamond_lantern", 2.5F, 40.0F)
-      .setLightLevel(1.0F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block RUBY_LAMP = new BlockBlock(Material.GLASS, "ruby_lamp", 1.5F, 30.0F)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false)
-      .setLightLevel(0.93F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block SAPPHIRE_LAMP = new BlockBlock(Material.GLASS, "sapphire_lamp", 1.5F, 30.0F)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false)
-      .setLightLevel(0.93F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block CITRINE_LAMP = new BlockBlock(Material.GLASS, "citrine_lamp", 1.5F, 30.0F)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false)
-      .setLightLevel(0.93F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block EMERALD_LAMP = new BlockBlock(Material.GLASS, "emerald_lamp", 1.5F, 30.0F)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false)
-      .setLightLevel(0.93F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block AMETHYST_LAMP = new BlockBlock(Material.GLASS, "amethyst_lamp", 1.5F, 30.0F)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false)
-      .setLightLevel(0.93F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block TOPAZ_LAMP = new BlockBlock(Material.GLASS, "topaz_lamp", 1.5F, 30.0F)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false)
-      .setLightLevel(0.93F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block RHINESTONE_LAMP = new BlockBlock(Material.GLASS, "rhinestone_lamp", 1.5F, 30.0F)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false)
-      .setLightLevel(0.93F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block DIAMOND_LAMP = new BlockBlock(Material.GLASS, "diamond_lamp", 1.5F, 30.0F)
-      .setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125))
-      .setOpaque(false)
-      .setFullcube(false)
-      .setLightLevel(0.93F)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block DECORATIVE_CHAIN = new DecorativeChain();
-   public static final Block SPLITTER = new Splitter();
-   public static final Block CREATIVE_ELEMENT_DISTRIBUTOR = new CreativeElementDistributor();
-   public static final Block RETORT = new Retort();
-   public static final Block GEMSPARK_BLOCK = new GemsparkBlock();
-   public static final Block BLOCK_VIAL = new BlockVial();
-   public static final Block WOODEN_BOOKCASE = new Bookcase("wooden_bookcase", SoundType.WOOD, "axe", 0);
-   public static final Block GLOSSARY = new Glossary();
-   public static final Block ABSORPTION_TOTEM = new AbsorptionTotem();
-   public static final Block DISENCHANTMENT_TABLE = new DisenchantmentTable();
-   public static final Block FLUID_MANA_OIL = new BlockFluidManaOil();
-   public static final Block MANAOIL_SPELEOTHEM = new BlockSpeleothem(Material.WOOD, "manaoil_speleothem", 0.5F, 2.0F, SoundType.WOOD)
-      .setAlwaysDrops();
-   public static final Block MANA_FLOWER_LEAVES = new ManaFlowerLeaves();
-   public static final Block MANA_FLOWER = new ManaFlowerLeaves.ManaFlower();
-   public static final Block HEALTH_FLOWER_LEAVES = new HealthFlowerLeaves();
-   public static final Block HEALTH_FLOWER = new HealthFlowerLeaves.HealthFlower();
-   public static final Block TOMATO_STEM = new TomatoStem();
-   public static final Block FLUID_PETROLEUM = new BlockFluidPetroleum();
-   public static final Block FLUID_GASOLINE = new BlockFluidGasoline();
-   public static final Block FLUID_FUEL_OIL = new BlockFluidFuelOil();
-   public static final Block FLUID_NITRIC_ACID = new BlockFluidNitricAcid();
-   public static final Block FLUID_NATURAL_GAS = new BlockFluidNaturalGas();
-   public static final Block TITANIUM_ORE = new BlockBlock(Material.ROCK, "titanium_ore", 4.0F, 50.0F).setisReplaceableOreGen(false);
-   public static final Block MACHINERY_CASING = new BlockBlock(Material.IRON, "machinery_casing", 3.0F, 50.0F).setSound(SoundType.METAL);
-   public static final Block CHROMIUM_GLASS = new BlockBlock(Material.IRON, "hardened_chromium_glass", 10.0F, 1000.0F)
-      .setSound(SoundType.GLASS)
-      .setRenderLayer(BlockRenderLayer.CUTOUT)
-      .setOpaque(false)
-      .setCreativeTab(CreativeTabs.DECORATIONS);
-   public static final Block ASH_BLOCK = new AshBlock();
-   public static final Block SILVER_BLOCK = new BlockBlock(Material.IRON, "silver_block", 5.0F, 60.0F).setSound(SoundType.METAL);
-   public static final Block SALT_ORE = new BlockOre(Material.ROCK, "salt_ore", 1.3F, 15.0F, 0, 2);
-   public static final Block MONEY_BOX = new BlockMoneyBox();
-   public static final Block BLOCK_CALIBRATION_BUNDLE = new BlockCalibrationBundle();
-   public static final Block SOUL_CATCHER = new BlockSoulCatcher();
-   public static final Block MANA_PUMP = new ManaPump();
-   public static final Block SIEVE = new BlockSieve(Material.WOOD, "sieve");
-   public static final Block ELECTRIC_SIEVE = new BlockElectricSieve();
-   public static final Block CHEST_FROZEN = new BlockARPGChest(
-      Material.WOOD, "chest_frozen", HR_FROZEN_STONE, "axe", SoundType.WOOD, EnumChest.FROZEN
-   );
-   public static final Block CHEST_TOXIC = new BlockARPGChest(
-      Material.WOOD, "chest_toxic", HR_TOXIBERRY_LOG, "axe", SoundType.WOOD, EnumChest.TOXIC
-   );
-   public static final Block CHEST_RUSTED = new BlockARPGChest(
-      Material.IRON, "chest_rusted", HR_BUNKER, "pickaxe", SoundType.METAL, EnumChest.RUSTED
-   );
-   public static final Block CHEST_ROTTEN = new BlockARPGChest(
-      Material.WOOD, "chest_rotten", HR_MITHRIL_ADAMANTIUM_ORE, "axe", SoundType.WOOD, EnumChest.ROTTEN
-   );
-   public static final Block CHEST_CRYSTAL = new BlockARPGChest(
-      Material.ROCK, "chest_crystal", HR_DOLERITE_BRICKS, "pickaxe", SoundType.STONE, EnumChest.CRYSTAL
-   );
-   public static final Block CHEST_SUNKEN = new BlockARPGChest(Material.WOOD, "chest_sunken", HR_CORALS, "axe", SoundType.WOOD, EnumChest.SUNKEN);
-   public static final Block CHEST_CORAL = new BlockARPGChest(
-      Material.ROCK, "chest_coral", HR_CORALBRICKS, "pickaxe", SoundType.STONE, EnumChest.CORAL
-   );
-   public static final Block CHEST_STORM = new BlockARPGChest(
-      Material.IRON, "chest_storm", HR_ZARPION_ROCKS, "pickaxe", SoundType.ANVIL, EnumChest.STORM
-   );
-   public static final Block DEBUG_COLOR_BLOCK = new DebugColorBlock();
-   public static final Block MAGIC_GENERATOR = new MagicGenerator();
-   public static final Block TEAM_BANNER = new BlockTeamBanner();
+    public static final Set<Block> FOR_RENDER = new HashSet<>();
+    public static final HardRes HR_CONIFER_LOG = new HardRes(6.0F, 30.0F, 0.4F, 1.0F, 4);
+    public static final HardRes HR_CONIFER_PLANKS = new HardRes(5.5F, 35.0F, 0.4F, 1.0F, 4);
+    public static final HardRes HR_SNOWICE_GLACIER = new HardRes(4.5F, 10.0F, 0.2F, 1.0F, 3);
+    public static final HardRes HR_FROZEN_STONE = new HardRes(7.0F, 80.0F, 0.04F, 1.0F, 5);
+    public static final HardRes HR_FROZEN_COBBLESTONE = new HardRes(7.5F, 90.0F, 0.04F, 1.0F, 5);
+    public static final HardRes HR_FROZEN_BRICK = new HardRes(10.0F, 100.0F, 0.02F, 1.0F, 5);
+    public static final HardRes HR_FROZEN_ROOF = new HardRes(8.0F, 80.0F, 0.02F, 1.0F, 4);
+    public static final HardRes HR_FROZEN_FURNITURE = new HardRes(6.0F, 35.0F, 0.2F, 1.0F, 3);
+    public static final HardRes HR_PUZZLE = new HardRes(20.0F, 100.0F, 0.0F, 1.0F, 7);
+    public static final HardRes HR_NIVEOLITE = new HardRes(12.0F, 85.0F, 0.01F, 1.0F, 5);
+    public static final HardRes HR_NIVEOUS_HALL = new HardRes(12.0F, 130.0F, 0.01F, 1.0F, 6);
+    public static final HardRes HR_FROZEN_DEBRIS = new HardRes(50.0F, 1400.0F, 0.2F, 1.0F, 6);
+    public static final HardRes HR_RADIOACTIVE_STONE = new HardRes(13.0F, 120.0F, 0.01F, 1.0F, 5);
+    public static final HardRes HR_RADIOACTIVE_WASTE = new HardRes(13.0F, 40.0F, 0.5F, 1.0F, 5);
+    public static final HardRes HR_CHLORINE_BELCHER = new HardRes(20.0F, 40.0F, 0.1F, 0.9F, 4);
+    public static final HardRes HR_NECTAR_FLOWER = new HardRes(25.0F, 80.0F, 0.01F, 0.9F, 4);
+    public static final HardRes HR_ARSENIC = new HardRes(13.0F, 120.0F, 0.01F, 1.0F, 7);
+    public static final HardRes HR_WOLFRAM_AND_BIOCELLS = new HardRes(14.0F, 1500.0F, 0.01F, 1.2F, 8);
+    public static final HardRes HR_TOXINIUM = new HardRes(11.0F, 115.0F, 0.01F, 1.0F, 6);
+    public static final HardRes HR_BUNKER_MISC = new HardRes(18.0F, 40.0F, 0.1F, 1.0F, 7);
+    public static final HardRes HR_BUNKER = new HardRes(18.0F, 250.0F, 0.01F, 1.0F, 9);
+    public static final HardRes HR_TOXIBERRY_LOG = new HardRes(12.0F, 35.0F, 0.4F, 1.0F, 5);
+    public static final HardRes HR_TOXIBERRY_FURNITURE = new HardRes(11.0F, 28.0F, 0.4F, 1.0F, 3);
+    public static final HardRes HR_MITHRIL_ADAMANTIUM_ORE = new HardRes(22.0F, 110.0F, 0.01F, 1.0F, 7);
+    public static final HardRes HR_DUNGEON_STONES = new HardRes(24.0F, 120.0F, 0.01F, 1.0F, 9);
+    public static final HardRes HR_DOLERITE_BRICKS = new HardRes(28.0F, 230.0F, 0.01F, 1.0F, 9);
+    public static final HardRes HR_PALM = new HardRes(18.0F, 50.0F, 0.14F, 1.0F, 9);
+    public static final HardRes HR_CORALS = new HardRes(26.0F, 180.0F, 0.03F, 1.0F, 9);
+    public static final HardRes HR_METALLIC_CORALS = new HardRes(30.0F, 1250.0F, 0.01F, 1.0F, 10);
+    public static final HardRes HR_SHELLROCKS = new HardRes(26.0F, 800.0F, 0.03F, 1.0F, 10);
+    public static final HardRes HR_CORALBRICKS = new HardRes(35.0F, 2000.0F, 0.01F, 1.0F, 11);
+    public static final HardRes HR_SANKTUARYBRICKS = new HardRes(45.0F, 2600.0F, 0.01F, 1.0F, 11);
+    public static final HardRes HR_STORM_FOLIAGE = new HardRes(40.0F, 60.0F, 0.13F, 1.0F, 10);
+    public static final HardRes HR_STORMBRASS_ROCKS = new HardRes(60.0F, 3000.0F, 0.01F, 1.0F, 11);
+    public static final HardRes HR_ZARPION_ROCKS = new HardRes(80.0F, 4000.0F, 0.01F, 1.0F, 12);
+    public static final HardRes HR_STORMSTEEL_ORE = new HardRes(35.0F, 1000.0F, 0.01F, 1.0F, 11);
+    public static final HardRes HR_SPAWNER_VOIDCRYSTAL = new HardRes(12.0F, 40.0F, 0.15F, 1.0F, 3);
+    public static final HardRes HR_SPAWNER_FROZEN = new HardRes(11.0F, 30.0F, 0.15F, 1.0F, 4);
+    public static final HardRes HR_SPAWNER_RUSTED = new HardRes(22.0F, 45.0F, 0.15F, 1.0F, 5);
+    public static final HardRes HR_SPAWNER_ANCIENT = new HardRes(34.0F, 150.0F, 0.15F, 1.0F, 8);
+    public static final HardRes HR_SPAWNER_AQUATIC = new HardRes(46.0F, 300.0F, 0.15F, 1.0F, 10);
+    public static final HardRes HR_SPAWNER_STORM = new HardRes(65.0F, 1000.0F, 0.15F, 1.0F, 11);
 
-   public static void setupAfterItems() {
-      ((BlockOre) DEMONITE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.DEMONITE, 5), new OreDrop(0, 3, ItemsRegister.DEMONITE_SHARD, 7));
-      ((BlockOre) ICE_ORE_GLACIER).setOreDrops(new OreDrop(1, 1, ItemsRegister.ICE_GEM, 7));
-      ((BlockOre) ICE_ORE_SNOW_ICE).setOreDrops(new OreDrop(1, 1, ItemsRegister.ICE_GEM, 7));
-      ((BlockOre) RUBY_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.RUBY, 0));
-      ((BlockOre) SAPPHIRE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.SAPPHIRE, 0));
-      ((BlockOre) CITRINE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.CITRINE, 0));
-      ((BlockOre) TOPAZ_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.TOPAZ, 0));
-      ((BlockOre) AMETHYST_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.AMETHYST, 0));
-      ((BlockOre) RHINESTONE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.RHINESTONE, 0));
-      ((BlockOre) BAUXITE).setOreDrops(new OreDrop(2, 4, ItemsRegister.BAUXITE, 1));
-      ((BlockOre) SALT_ORE).setOreDrops(new OreDrop(1, 3, ItemsRegister.SALT, 1));
-      ((BlockBlock) RADIOACTIVE_STONE).setItemDropped("arpg:radioactive_cobblestone");
-      ((BlockBlock)STROMATOLITE).setItemDropped("arpg:chalkrock");
-      ((BlockOre.BlockOreHard) LEPIDOLITE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.LEPIDOLITE, 7));
-      ((BlockOre.BlockOreHard) CORAL_ORANGE).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
-      ((BlockOre.BlockOreHard) CORAL_WHITE).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
-      ((BlockOre.BlockOreHard) CORAL_YELLOW).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
-      ((BlockOre.BlockOreHard) CORAL_RED).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
-      ((BlockOre.BlockOreHard) CORAL_PINK).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
-   }
+    public static final Block DEMONIC_FIRE = new DemonicFire();
+    public static final Block DEMONITE_ORE = new BlockOre(Material.ROCK, "demonite_ore", 3.5F, 80.0F, 2, 8).setHarvestLvl("pickaxe", 3);
+    public static final Block INFERNUM_ORE = new BlockBlock(Material.ROCK, "infernum_ore", 3.5F, 80.0F).setHarvest("pickaxe", 3).setisReplaceableOreGen(false);
+    public static final Block MOLTEN_ORE = new BlockBlock(Material.ROCK, "molten_ore", 8.0F, 100.0F).setHarvest("pickaxe", 4).setisReplaceableOreGen(false).setLightLevel(1.0F);
+    public static final Block MAGMA_BLOOM = new MagmaBloom();
+    public static final Block SUMMONED_HELLSTONE = new SummonedHellstone();
+    public static final Block RED_PEPPER_VINE = new RedPepperVine();
+    public static final Block FROZEN_STONE = new FrozenStone();
+    public static final Block FROZEN_COBBLESTONE = new FrozenCobblestone();
+    public static final Block BLOCK_BLOCK_HARD = new BlockBlockHard(Material.ROCK, "frozen_stone_bricks", HR_FROZEN_BRICK, "pickaxe", false);
+    public static final Block FROZEN_BRICK_STAIRS = new Stairs.HardStairs(BLOCK_BLOCK_HARD.getDefaultState(), Material.ROCK, "frozen_brick_stairs", HR_FROZEN_BRICK.hardness, HR_FROZEN_BRICK.resistance, HR_FROZEN_BRICK.slow, HR_FROZEN_BRICK.fast, SoundType.STONE, "pickaxe", HR_FROZEN_BRICK.lvl, false);
+    public static final Block FROZEN_BRICK_PILASTER = new Pilaster.HardPilaster(Material.ROCK, "frozen_brick_pilaster", HR_FROZEN_BRICK.hardness, HR_FROZEN_BRICK.resistance, HR_FROZEN_BRICK.slow, HR_FROZEN_BRICK.fast, SoundType.STONE, "pickaxe", HR_FROZEN_BRICK.lvl, false);
+    public static final Block FROZEN_ROOF = new FrozenTileRoof();
+    public static final Block FROZEN_ROOF_STAIRS = new Stairs.HardStairs(FROZEN_ROOF.getDefaultState(), Material.ROCK, "frozen_tile_roof_stairs", HR_FROZEN_ROOF.hardness, HR_FROZEN_ROOF.resistance, HR_FROZEN_ROOF.slow, HR_FROZEN_ROOF.fast, SoundType.STONE, "pickaxe", HR_FROZEN_ROOF.lvl, false);
+    public static final Block FLUID_CRYON = new BlockFluidCryon();
+    public static final Block ETHERNAL_FROST_PORTAL = new EthernalFrostPortal();
+    public static final Block FROSTED_WEED = new FrostedWeed();
+    public static final Block LOOSE_SNOW = new LooseSnow();
+    public static final Block SNOW_ICE = new SnowIce();
+    public static final Block GLACIER = new Glacier();
+    public static final Block CLEAN_ICE = new CleanIce();
+    public static final Block ICE_PANE = new Pane(Material.GLASS, "ice_pane", 0.5F, 0.3F, false).setSound(SoundType.GLASS);
+    public static final Block FROZEN_STALACTITE = new BlockStalactiteBase("frozen_stalactite_base", Material.ROCK, 0, "pickaxe", 0);
+    public static final Block FROZEN_STALACTITE_ADDITION = new BlockStalactiteBase("frozen_stalactite_addition", Material.ROCK, 1, "pickaxe", 0);
+    public static final Block FROZEN_STALAGMITE_BASE = new BlockStalactiteBase("frozen_stalagmite_base", Material.ROCK, 2, "pickaxe", 0);
+    public static final Block FROZEN_VASE = new FrozenVase();
+    public static final Block FROZEN_CHANDELIER = new FrozenChandelier();
+    public static final Block FROZEN_TORCH = new FrozenTorch();
+    public static final Block FROZEN_TABLE = new Table(Material.ROCK, "frozen_table", HR_FROZEN_FURNITURE.hardness, HR_FROZEN_FURNITURE.resistance, SoundType.STONE, "pickaxe", HR_FROZEN_FURNITURE.lvl);
+    public static final Block FROZEN_CHAIR = new Chair(Material.ROCK, "frozen_chair", HR_FROZEN_FURNITURE.hardness, HR_FROZEN_FURNITURE.resistance, SoundType.STONE, "pickaxe", HR_FROZEN_FURNITURE.lvl);
+    public static final Block ICE_SPIKES = new IceSpikes();
+    public static final Block BURNING_FROST = new BurningFrost();
+    public static final Block FROSTFIRE_EXPLOSIVE = new FrostfireExplosive();
+    public static final Block FROZEN_SLIME = new FrozenSlime();
+    public static final Block REDSTONED_FROZEN_BRICKS = new RedstonedFrozenBricks();
+    public static final Block FROZEN_SPAWNER = new BlockSpawner(Material.ROCK, "frozen_spawner", HR_SPAWNER_FROZEN, 15, 25).setRenderLayer(BlockRenderLayer.CUTOUT).setOpaque(false);
+    public static final CustomPlant ICE_FLOWER = CustomPlant.createCustomPlant("ice_flower", 0.0F, 0.0F, SoundType.PLANT, null, new Block[]{SNOW_ICE, CLEAN_ICE, GLACIER, Blocks.ICE, Blocks.SNOW}, true, "arpg:ice_flower_seed,2,4,0", 4, 15, 0.03F, 0, null, 0, 0, 0.0F, 1);
+    public static final CustomPlant CRIMBERRY = CustomPlant.createCustomPlant("crimberry", 0.0F, 0.0F, SoundType.PLANT, null, new Block[]{Blocks.SNOW}, true, "arpg:crimberry_seed,1,4,0", 10, 15, 0.04F, 2, null, 0, 0, 0.0F, 1);
+    public static final CustomPlant WINTER_WILLOW = CustomPlant.createCustomPlant("winter_willow", 0.5F, 0.0F, SoundType.PLANT, null, new Block[]{SNOW_ICE, Blocks.SNOW, Blocks.DIRT, Blocks.GRASS}, true, "arpg:winter_willow_seed,2,3,0", 8, 15, 0.035F, 0, null, 0, 0, 0.0F, 2);
+    public static final Block FROZEN_TREASURE_BARREL = new FrozenTreasureBarrel();
+    public static final Block BLOCK_WINTER_ALTAR = new BlockWinterAltar();
+    public static final Block SNOW_SEWING_TABLE = new SnowSewingTable();
+    public static final Block PUZZLE = new BlockPuzzle();
+    public static final Block FROZEN_CHEST = new Chest(Material.WOOD, "frozen_chest", 1.5F, 2.25F, SoundType.WOOD, "axe", 0, EnumChest.FROZEN);
+    public static final Block GARLAND = new Garland();
+    public static final Block PRESENT_BOX = new PresentBox();
+    public static final Block STAR_LANTERN = new StarLantern();
+    public static final Block CHRISTMAS_BALLS = new ChristmasBalls();
+    public static final Block CONIFER_CRAFTING_TABLE = new BlockBlockCraftingTable(Material.WOOD, "conifer_crafting_table", HR_CONIFER_PLANKS, "axe", true).setSound(SoundType.WOOD);
+    public static final Block CONIFER_SAPLING = new ConiferSapling();
+    public static final Block CONIFER_LEAVES = new ConiferLeaves();
+    public static final Block CONIFER_LOG = new ConiferLog();
+    public static final Block CONIFER_PLANKS = new BlockBlockHard(Material.WOOD, "conifer_planks", HR_CONIFER_PLANKS, "axe", true).setSound(SoundType.WOOD);
+    public static final Block CONIFER_STAIRS = new Stairs.HardStairs(CONIFER_PLANKS.getDefaultState(), Material.WOOD, "conifer_stairs", SoundType.WOOD, HR_CONIFER_PLANKS, "axe", true);
+    public static final Block CONIFER_ORNAMENT = new BlockBlockHard(Material.WOOD, "conifer_ornament", HR_CONIFER_PLANKS, "axe", true).setSound(SoundType.WOOD);
+    public static final Block CONIFER_PILASTER = new Pilaster.HardPilaster(Material.WOOD, "conifer_pilaster", SoundType.WOOD, HR_CONIFER_PLANKS, "axe", true);
+    public static final Block CONIFER_TABLE = new Table(Material.WOOD, "conifer_table", HR_CONIFER_PLANKS.hardness, HR_CONIFER_PLANKS.resistance, SoundType.WOOD, "axe", HR_CONIFER_PLANKS.lvl);
+    public static final Block CONIFER_CHAIR = new Chair(Material.WOOD, "conifer_chair", HR_CONIFER_PLANKS.hardness, HR_CONIFER_PLANKS.resistance, SoundType.WOOD, "axe", HR_CONIFER_PLANKS.lvl);
+    public static final Block NIVEOLITE_BLOCK = new NiveoliteBlock();
+    public static final Block NIVEOUS_BRICKS = new BlockBlockHard(Material.ROCK, "niveous_bricks", HR_NIVEOUS_HALL.hardness, HR_NIVEOUS_HALL.resistance, HR_NIVEOUS_HALL.slow, HR_NIVEOUS_HALL.fast, HR_NIVEOUS_HALL.lvl, "pickaxe", false).setSlipperiness(0.7F);
+    public static final Block POLISHED_NIVEOUS_BLOCK = new BlockBlockHard(Material.ROCK, "polished_niveous_block", HR_NIVEOUS_HALL.hardness, HR_NIVEOUS_HALL.resistance, HR_NIVEOUS_HALL.slow, HR_NIVEOUS_HALL.fast, HR_NIVEOUS_HALL.lvl, "pickaxe", false).setSlipperiness(0.999F);
+    public static final Block NIVEOUS_COLUMN = new BlockColumn.HardBlockColumn(Material.ROCK, "niveous_column", HR_NIVEOUS_HALL.hardness, HR_NIVEOUS_HALL.resistance, HR_NIVEOUS_HALL.slow, HR_NIVEOUS_HALL.fast, HR_NIVEOUS_HALL.lvl, "pickaxe", false);
+    public static final Block NIVEOUS_PILASTER = new Pilaster.HardPilaster(Material.ROCK, "niveous_pilaster", HR_NIVEOUS_HALL.hardness, HR_NIVEOUS_HALL.resistance, HR_NIVEOUS_HALL.slow, HR_NIVEOUS_HALL.fast, SoundType.STONE, "pickaxe", HR_NIVEOUS_HALL.lvl, false);
+    public static final Block POLISHED_NIVEOUS_PILASTER = new Pilaster.HardPilaster(Material.ROCK, "polished_niveous_pilaster", HR_NIVEOUS_HALL.hardness, HR_NIVEOUS_HALL.resistance, HR_NIVEOUS_HALL.slow, HR_NIVEOUS_HALL.fast, SoundType.STONE, "pickaxe", HR_NIVEOUS_HALL.lvl, false);
+    public static final Block NIVEOUS_STAIRS = new Stairs.HardStairs(NIVEOUS_BRICKS.getDefaultState(), Material.ROCK, "niveous_stairs", HR_NIVEOUS_HALL.hardness, HR_NIVEOUS_HALL.resistance, HR_NIVEOUS_HALL.slow, HR_NIVEOUS_HALL.fast, SoundType.STONE, "pickaxe", HR_NIVEOUS_HALL.lvl, false);
+    public static final Block NIVEOUS_HOLE = new NiveousHole();
+    public static final Block BLOCK_NIVEOLITE_GAME = new BlockNiveoliteGame();
+    public static final Block ICE_ORE_GLACIER = new BlockOre(Material.ROCK, "ice_ore_glacier", 2.7F, 0.8F, 2, 4).setHarvestLvl("pickaxe", 2);
+    public static final Block ICE_ORE_SNOW_ICE = new BlockOre(Material.CLAY, "ice_ore_snow_ice", 2.5F, 0.8F, 2, 4).setHarvestLvl("shovel", 2).setSoundType(SoundTypeShards.SHARDS);
+    public static final Block FROZEN_DEBRIS = new BlockBlockHard(Material.IRON, "frozen_debris", HR_FROZEN_DEBRIS, "pickaxe", false);
+    public static final Block FLUID_POISON = new BlockFluidPoison();
+    public static final Block FLUID_SLIME = new BlockFluidSlime();
+    public static final Block FLUID_BIOGENIC_ACID = new BlockFluidBiogenicAcid();
+    public static final Block FLUID_SULFURIC_ACID = new BlockFluidSulfuricAcid();
+    public static final Block FLUID_LUMINESCENT = new BlockFluidLuminescent();
+    public static final Block FLUID_TOXIN = new BlockFluidToxin();
+    public static final Block FLUID_DISSOLVED_TOXINIUM = new BlockFluidDissolvedToxinium();
+    public static final Block TOXIC_PORTAL_FRAME = new ToxicPortalFrame();
+    public static final Block TOXICOMANIA_PORTAL = new ToxicomaniaPortal();
+    public static final Block LOOT_BLOB = new BlockLootBlob();
+    public static final Block ACID_BOMB = new BlockAcidBomb();
+    public static final Block MINI_NUKE = new MiniNuke();
+    public static final Block BIO_CELL = new BioCell();
+    public static final Block SWEET_NECTAR_FLOWER = new SweetNectarFlower();
+    public static final Block VIRULENT_CAPSULE = new VirulentCapsule();
+    public static final Block SLIME_BLOB = new SlimeBlob();
+    public static final Block SLIME_GLOB = new SlimeGlob();
+    public static final Block BROWN_SLIME = new BrownSlime();
+    public static final Block CHLORINE_BELCHER = new ChlorineBelcher();
+    public static final Block TOXIC_BARREL = new ToxicBarrel();
+    public static final Block BOMB_TOXIC = new BlockRotated.HardBlockRotated(Material.IRON, "bomb_toxic", HR_RADIOACTIVE_WASTE, "pickaxe", false, false, new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 1.0, 0.75)).setSound(SoundType.METAL).setOpaque(false).setFullCube(false);
+    public static final Block BOMB_SMALL = new BlockRotated.HardBlockRotated(Material.IRON, "bomb_small", HR_RADIOACTIVE_WASTE, "pickaxe", false, false, new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.6, 0.75)).setSound(SoundType.METAL).setOpaque(false).setFullCube(false);
+    public static final Block BOMB_RUSTED = new BlockRotated.HardBlockRotated(Material.IRON, "bomb_rusted", HR_RADIOACTIVE_WASTE, "pickaxe", false, false, new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.3, 0.75)).setSound(SoundType.METAL).setOpaque(false).setFullCube(false);
+    public static final Block RUSTED_PIPE = new RustedPipe();
+    public static final Block JUNK_PILE = new BlockBlock(Material.CLAY, "junk_pile", 0.1F, 0.1F).setSound(SoundTypeCrunchy.CRUNCHY).setHarvest("shovel", 0).setOpaque(false).setFullcube(false).setAABB(new AxisAlignedBB(0.1, 0.0, 0.1, 0.9, 0.25, 0.9), Block.NULL_AABB).setOffsets(EnumOffsetType.XZ);
+    public static final Block TOXIC_TALLGRASS = new ToxicTallgrass();
+    public static final Block TOXIC_GRASS = new ToxicGrass();
+    public static final Block TOXIC_DIRT = new BlockBlockHard(Material.GROUND, "toxic_dirt", HR_RADIOACTIVE_WASTE, "shovel", true).setSound(SoundType.GROUND);
+    public static final Block SLUDGE = new BlockBlockHard(Material.CLAY, "sludge", HR_RADIOACTIVE_WASTE, "shovel", true).setSound(SoundType.GROUND);
+    public static final Block NUCLEAR_WASTE = new BlockRadioactive(Material.CLAY, "nuclear_waste", HR_RADIOACTIVE_WASTE, "shovel", 25, 3, 0, 0).setSound(SoundType.GROUND).setLightLevel(0.4F);
+    public static final Block JUNK = new BlockBlockHard(Material.CLAY, "junk", HR_RADIOACTIVE_WASTE, "shovel", true).setSound(SoundType.GROUND);
+    public static final Block SCRAP = new BlockBlockHard(Material.CLAY, "scrap", HR_RADIOACTIVE_WASTE, "shovel", true).setSound(SoundTypeCrunchy.CRUNCHY);
+    public static final Block SCRAP_ELECTRONICS = new BlockBlockHard(Material.IRON, "scrap_electronics", HR_RADIOACTIVE_WASTE, "shovel", true).setSound(SoundTypeCrunchy.CRUNCHY);
+    public static final Block ROTTEN_PLANKS = new BlockBlock(Material.WOOD, "rotten_planks", 0.4F, 0.2F).setSound(SoundType.WOOD).setHarvest("axe", 0);
+    public static final Block BRICK_SHARDS = new BlockBlock(Material.GROUND, "brick_shards", 0.5F, 0.8F).setSound(SoundTypeShards.SHARDS).setHarvest("shovel", 0);
+    public static final Block RADIOACTIVE_COBBLESTONE = new BlockRadioactive(Material.ROCK, "radioactive_cobblestone", HR_RADIOACTIVE_STONE, "pickaxe", 0, 0, 10, 0);
+    public static final Block RADIOACTIVE_STONE = new BlockRadioactive(Material.ROCK, "radioactive_stone", HR_RADIOACTIVE_STONE, "pickaxe", 0, 0, 10, 0);
+    public static final Block RADIOACTIVE_SPELEOTHEM = new BlockSpeleothem(Material.ROCK, "radioactive_speleothem", HR_RADIOACTIVE_WASTE.hardness, HR_RADIOACTIVE_WASTE.resistance);
+    public static final Block LEPIDOLITE_ORE = new BlockOre.BlockOreHard(Material.ROCK, "lepidolite_ore", HR_RADIOACTIVE_STONE, "pickaxe", 2, 5);
+    public static final Block ARSENIC_ORE = new BlockBlockHard(Material.ROCK, "arsenic_ore", HR_ARSENIC, "pickaxe", false);
+    public static final Block TOXINIUM_ORE = new BlockBlockHard(Material.ROCK, "toxinium_ore", HR_TOXINIUM, "pickaxe", false);
+    public static final Block WOLFRAM_ORE = new BlockBlockHard(Material.ROCK, "wolfram_ore", HR_WOLFRAM_AND_BIOCELLS, "pickaxe", true); //TODO wolfram -> tungsten
+    public static final Block RADIOACTIVE_TITANIUM_ORE = new BlockRadioactive(Material.ROCK, "radioactive_titanium_ore", HR_RADIOACTIVE_STONE, "pickaxe", 0, 0, 20, 0).setisReplaceableOreGen(false);
+    private static final Block[] TOXIC_GROUNDS = new Block[]{TOXIC_GRASS, TOXIC_DIRT, SLUDGE, NUCLEAR_WASTE, JUNK};
+    public static final CustomPlant TOXIBERRY_ARCANO = CustomPlant.createCustomPlant("toxiberry_arcanophyllum", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:toxiberry_arcanophyllum_seed,1,3,0 arpg:plant_fiber,0,2,0", 6, 15, 0.02F, 0, null, 0, 0, 0.0F, 1);
+    public static final CustomPlant TOXIBERRY_VIBRANT = CustomPlant.createCustomPlant("toxiberry_vibrant", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:toxiberry_vibrant_seed,1,4,0", 3, 15, 0.015F, 1, null, 0, 0, 0.0F, 1);
+    public static final CustomPlant MOSS_PLANT = CustomPlant.createCustomPlant("mossplant", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:mossplant_seed,1,2,0 arpg:plant_fiber,0,2,0", 1, 15, 0.01F, 0, null, 0, 0, 0.0F, 1);
+    public static final CustomPlant CONTEM_PLANT = CustomPlant.createCustomPlant("contemplant", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:contemplant_seed,2,3,0 arpg:plant_fiber,0,2,0", 6, 15, 0.02F, 2, MobEffects.POISON, 50, 0, 0.5F, 1).setSeedRadioactive(30);
+    public static final CustomPlant MUCOPHILLUS = CustomPlant.createCustomPlant("mucophillus", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:mucophillus_seed,1,2,0", 8, 15, 0.03F, 4, PotionEffects.TOXIN, 40, 1, 0.95F, 1).setSeedRadioactive(40);
+    public static final CustomPlant MUCOPHILLUS_BROWN = CustomPlant.createCustomPlant("brown_mucophillus", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:brown_mucophillus_seed,1,5,0", 8, 15, 0.027F, 4, PotionEffects.TOXIN, 70, 0, 0.95F, 1).setSeedRadioactive(60);
+    public static final CustomPlant VISCOSA = CustomPlant.createCustomPlant("viscosa", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:viscosa_seed,1,2,0 arpg:plant_fiber,0,2,0", 6, 15, 0.007F, 3, PotionEffects.TOXIN, 55, 1, 0.99F, 1);
+    public static final CustomPlant TOXIBERRY_WEEPING = CustomPlant.createCustomPlant("weeping_toxiberry", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:weeping_toxiberry_seed,2,7,0 arpg:plant_fiber,0,2,0", 6, 15, 0.023F, 1, PotionEffects.TOXIN, 25, 0, 0.9F, 1).setSeedRadioactive(20);
+    public static final CustomPlant TOXINIA = CustomPlant.createCustomPlant("toxinia", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:toxinia_seed,1,3,0 arpg:plant_fiber,0,2,0", 6, 15, 0.035F, 1, PotionEffects.TOXIN, 35, 0, 0.96F, 1);
+    public static final CustomPlant ARELIA = CustomPlant.createCustomPlant("arelia", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:arelia_seed,1,2,0 arpg:plant_fiber,0,1,0", 6, 15, 0.025F, 0, null, 0, 0, 0.0F, 1);
+    public static final CustomPlant DECEIDUS = CustomPlant.createCustomPlant("deceidus", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:deceidus_seed,2,4,0 arpg:plant_fiber,0,1,0", 6, 15, 0.015F, 3, PotionEffects.TOXIN, 75, 0, 0.7F, 1).setSeedRadioactive(10);
+    public static final CustomPlant JUNKWEED = CustomPlant.createCustomPlant("junkweed", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:junkweed_seed,1,4,0 arpg:plant_fiber,0,1,0", 6, 15, 0.035F, 0, null, 0, 0, 0.0F, 1).setFuelToSeed(4);
+    public static final CustomPlant TOXEDGE = CustomPlant.createCustomPlant("toxedge", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:toxedge_seed,1,3,0 arpg:plant_fiber,0,1,0", 6, 15, 0.03F, 0, null, 0, 0, 0.0F, 1).setFuelToSeed(4);
+    public static final CustomPlant TOXIBULB = CustomPlant.createCustomPlant("toxibulb", 0.0F, 0.0F, SoundType.PLANT, null, TOXIC_GROUNDS, true, "arpg:toxibulb_seed,1,3,0 arpg:plant_fiber,1,2,0", 8, 15, 0.01F, 4, MobEffects.WITHER, 100, 1, 0.9F, 3);
+    public static final Block POISON_LILY = new PoisonLily();
+    public static final Block LOPPY_TOXIBERRY = new LoppyToxiberry();
+    public static final Block LOPPY_TOXISTEM = new LoppyToxistem();
+    public static final Block TOXIBERRY_TREE_SAPLING = new ToxiberryTreeSapling();
+    public static final Block MUTATED_FLOWER_RED = new MutatedFlowerRed();
+    public static final Block MUTATED_FLOWER_PINK = new MutatedFlowerPink();
+    public static final Block GIANT_FLOWER_LEAVES = new GiantFlowerLeaves();
+    public static final Block LAB_PLATING = new BlockBlockHard(Material.CLAY, "lab_plating", HR_BUNKER, "pickaxe", false).setSound(SoundType.METAL).setisReplaceableOreGen(false);
+    public static final Block RUST_LAMP = new RustLamp();
+    public static final Block RUST_METAL = new BlockBlockHard(Material.IRON, "rust_metal", HR_BUNKER, "pickaxe", false).setSound(SoundType.METAL);
+    public static final Block RUST_ARMATURE = new BlockBlockHard(Material.IRON, "rust_armature", HR_BUNKER_MISC, "pickaxe", false).setOpaque(false).setSound(SoundType.METAL).setRenderLayer(BlockRenderLayer.CUTOUT_MIPPED);
+    public static final Block DARK_RUST_METALL = new BlockBlockHard(Material.IRON, "dark_rust_metal", HR_BUNKER, "pickaxe", false).setSound(SoundType.METAL);
+    public static final Block BUNKER_DOOR = new BlockBunkerDoor();
+    public static final Block TOXIC_CHEST = new Chest(Material.WOOD, "toxic_chest", 1.5F, 2.25F, SoundType.WOOD, "axe", 0, EnumChest.FROZEN);
+    public static final Block RUSTED_CHEST = new Chest(Material.IRON, "rusted_chest", 2.5F, 4.25F, SoundType.METAL, "pickaxe", 1, EnumChest.FROZEN);
+    public static final Block RUSTED_SPAWNER = new BlockSpawner(Material.ROCK, "rusted_spawner", HR_SPAWNER_RUSTED, 20, 35).setRenderLayer(BlockRenderLayer.CUTOUT).setOpaque(false);
+    public static final Block TOXIBERRY_LOG = new ToxiberryTreeLog();
+    public static final Block TOXIBERRY_LEAVES = new ToxiberryTreeLeaves();
+    public static final Block TOXIC_PLANKS = new BlockBlockHard(Material.WOOD, "toxic_planks", HR_TOXIBERRY_FURNITURE, "axe", true).setSound(SoundType.WOOD);
+    public static final Block TOXIC_TABLE = new Table(Material.WOOD, "toxic_table", HR_TOXIBERRY_FURNITURE.hardness, HR_TOXIBERRY_FURNITURE.resistance, SoundType.WOOD, "axe", HR_TOXIBERRY_FURNITURE.lvl);
+    public static final Block TOXIC_STAIRS = new Stairs(TOXIC_PLANKS.getDefaultState(), Material.WOOD, "toxic_planks_stairs", HR_TOXIBERRY_FURNITURE.hardness, HR_TOXIBERRY_FURNITURE.resistance, SoundType.WOOD, "axe", HR_TOXIBERRY_FURNITURE.lvl);
+    public static final Block TOXIC_PILASTER = new Pilaster(Material.WOOD, "toxic_planks_pilaster", HR_TOXIBERRY_FURNITURE.hardness, HR_TOXIBERRY_FURNITURE.resistance, SoundType.WOOD, "axe", HR_TOXIBERRY_FURNITURE.lvl);
+    public static final Block TOXIC_CHAIR = new Chair(Material.WOOD, "toxic_planks_chair", HR_TOXIBERRY_FURNITURE.hardness, HR_TOXIBERRY_FURNITURE.resistance, SoundType.WOOD, "axe", HR_TOXIBERRY_FURNITURE.lvl);
+    public static final Block TOXIC_TORCH = new ToxicTorch();
+    public static final Block TOXIC_CHANDELIER = new ToxicChandelier();
+    public static final Block FLUID_HYDROTHERMAL = new BlockFluidHydrothermal();
+    public static final Block FLUID_LARVA_WATER = new BlockFluidLarvaWater();
+    public static final Block DEEP_ROCK = new BlockBlockHard(Material.ROCK, "deep_rock", HR_DUNGEON_STONES, "pickaxe", false);
+    public static final Block CALCITE = new BlockBlockHard(Material.ROCK, "calcite", HR_DUNGEON_STONES, "pickaxe", false);
+    public static final Block CAVE_ONYX = new BlockBlockHard(Material.ROCK, "cave_onyx", HR_DUNGEON_STONES, "pickaxe", false);
+    public static final Block GREEN_ONYX = new BlockBlockHard(Material.ROCK, "green_onyx", HR_DUNGEON_STONES, "pickaxe", false);
+    public static final Block SELENITE = new BlockBlockHard(Material.ROCK, "selenite", HR_DUNGEON_STONES, "pickaxe", false);
+    public static final Block MAGIC_STONE = new BlockBlockHard(Material.ROCK, "magic_stone", HR_DUNGEON_STONES, "pickaxe", false).setRenderLayer(BlockRenderLayer.TRANSLUCENT).setOpaque(false).setFullcube(true).setisReplaceableOreGen(false);
+    public static final Block GLOWING_VEIN = new GlowingVein();
+    public static final Block DOLERITE = new BlockBlockHard(Material.ROCK, "dolerite", HR_DUNGEON_STONES, "pickaxe", false);
+    public static final Block SELENITE_SPELEOTHEM = new BlockSpeleothem(Material.ROCK, "selenite_speleothem", 1.0F, 2.0F);
+    public static final Block BLUE_GLOWING_MUSHROOM = new BlueGlowingMushroom();
+    public static final Block GREEN_GLOWING_MUSHROOM = new GreenGlowingMushroom();
+    public static final Block WOODEN_SHAFT = new WoodenShaft();
+    public static final Block LARVA_BLOCK = new LarvaBlock();
+    public static final Block SELENITE_CRYSTAL = new SeleniteCrystal();
+    public static final Block CAVE_CRYSTAL = new CaveCrystal();
+    public static final Block GLOWING_CAVE_CRYSTAL = new GlowingCaveCrystal();
+    public static final Block DUNGEON_PORTAL_FRAME = new BlockBlock(Material.ROCK, "dungeon_portal_frame", 10.0F, 60.0F).setHarvest("pickaxe", 5);
+    public static final Block DUNGEON_PORTAL = new DungeonPortal();
+    public static final Block DUNGEON_FLOOR_LADDER = new DungeonFloorLadder();
+    public static final Block DUNGEON_TOP_LADDER = new DungeonTopLadder();
+    public static final Block ANCIENT_SPAWNER = new BlockSpawner(Material.ROCK, "ancient_spawner", HR_SPAWNER_ANCIENT, 25, 45).setRenderLayer(BlockRenderLayer.CUTOUT).setOpaque(false);
+    public static final Block CRYSTALLIZER = new Crystallizer();
+    public static final Block PYROCRYSTALLINE_CONVERTER = new PyrocrystallineConverter();
+    public static final Block CRYSTAL_CHEST = new Chest(Material.ROCK, "crystal_chest", 3.5F, 4.25F, SoundType.STONE, "pickaxe", 1, EnumChest.FROZEN);
+    public static final Block CRYSTAL_TABLE = new Table(Material.WOOD, "crystal_table", 3.4F, 35.0F, SoundType.STONE, "pickaxe", 0);
+    public static final Block CRYSTAL_CHAIR = new Chair(Material.WOOD, "crystal_chair", 3.4F, 35.0F, SoundType.STONE, "pickaxe", 0);
+    public static final Block CRYSTAL_TORCH = new CrystalTorch();
+    public static final Block CRYSTAL_VASE = new BlockBlock(Material.GLASS, "crystal_vase", 2.4F, 35.0F).setSound(SoundTypeShards.SHARDS).setPlaceAsVase(true).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 1.0, 0.8125), new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 1.1875, 0.8125)).setOpaque(false).setFullcube(false);
+    public static final Block CRYSTAL_CHANDELIER = new CrystalChandelier();
+    public static final Block DOLERITE_BRICKS = new BlockBlockHard(Material.ROCK, "dolerite_bricks", HR_DOLERITE_BRICKS, "pickaxe", false);
+    public static final Block DOLERITE_STAIRS = new Stairs.HardStairs(DOLERITE_BRICKS.getDefaultState(), Material.ROCK, "dolerite_stairs", SoundType.STONE, HR_DOLERITE_BRICKS, "pickaxe", false);
+    public static final Block DOLERITE_PILASTER = new Pilaster.HardPilaster(Material.ROCK, "dolerite_pilaster", SoundType.STONE, HR_DOLERITE_BRICKS, "pickaxe", false);
+    public static final Block DOLERITE_COLUMN = new DoleriteColumn();
+    public static final Block MITHRIL_ORE = new BlockBlockHard(Material.ROCK, "mithril_ore", HR_MITHRIL_ADAMANTIUM_ORE, "pickaxe", false).setisReplaceableOreGen(false);
+    public static final Block ADAMANTIUM_ORE = new BlockBlockHard(Material.ROCK, "adamantium_ore", HR_MITHRIL_ADAMANTIUM_ORE, "pickaxe", false).setisReplaceableOreGen(false);
+    public static final Block AQUATICA_PORTAL = new AquaticaPortal();
+    public static final Block AQUATICA_PORTAL_FRAME = new AquaticaPortalFrame(Material.ROCK, "aquatica_portal_frame", 14.0F, 46.0F);
+    public static final Block SHELLROCK = new BlockBlockHard(Material.ROCK, "shellrock", HR_SHELLROCKS, "pickaxe", false);
+    public static final Block CHALKROCK = new BlockBlockHard(Material.ROCK, "chalkrock", HR_SHELLROCKS, "pickaxe", false);
+    public static final Block STROMATOLITE = new BlockBlockHard(Material.ROCK, "stromatolite", HR_SHELLROCKS, "pickaxe", false);
+    public static final Block SEA_STONE = new BlockBlockHard(Material.ROCK, "sea_stone", HR_SHELLROCKS, "shovel", false).setRenderLayer(BlockRenderLayer.CUTOUT);
+    public static final Block CORAL_BRICKS = new BlockBlockHard(Material.ROCK, "coral_bricks", HR_CORALBRICKS, "pickaxe", false).setRenderLayer(BlockRenderLayer.CUTOUT);
+    public static final Block PEARLESCENT_BRICKS = new BlockBlockHard(Material.ROCK, "pearlescent_bricks", HR_CORALBRICKS, "pickaxe", false);
+    public static final Block RADIANT_BRICK = new BlockBlockHard(Material.ROCK, "radiant_brick", HR_CORALBRICKS, "pickaxe", false);
+    public static final Block CORAL_TORCH = new CoralTorch();
+    public static final Block CORAL_TABLE = new Table(Material.ROCK, "coral_table", 7.5F, 40.0F, SoundType.STONE, "pickaxe", 0);
+    public static final Block CORAL_CHAIR = new Chair(Material.ROCK, "coral_chair", 7.5F, 40.0F, SoundType.STONE, "pickaxe", 0);
+    public static final Block CORAL_CHANDELIER = new CoralChandelier();
+    public static final Block CORAL_VASE = new BlockBlock(Material.ROCK, "coral_vase", 7.3F, 40.0F).setSound(SoundTypeShards.SHARDS).setPlaceAsVase(true).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 1.0, 0.8125), new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 1.0, 0.8125)).setOpaque(false).setFullcube(false).setRenderLayer(BlockRenderLayer.CUTOUT);
+    public static final Block PEARLESCENT_STAIRS = new Stairs.HardStairs(PEARLESCENT_BRICKS.getDefaultState(), Material.ROCK, "pearlescent_stairs", SoundType.STONE, HR_CORALBRICKS, "pickaxe", false);
+    public static final Block PEARLESCENT_PILASTER = new Pilaster.HardPilaster(Material.ROCK, "pearlescent_pilaster", SoundType.STONE, HR_CORALBRICKS, "pickaxe", false);
+    public static final Block CORAL_YELLOW = new BlockOre.BlockOreHard(Material.ROCK, "coral_yellow", HR_CORALS, "pickaxe", 0, 0);
+    public static final Block CORAL_PINK = new BlockOre.BlockOreHard(Material.ROCK, "coral_pink", HR_CORALS, "pickaxe", 0, 0);
+    public static final Block CORAL_WHITE = new BlockOre.BlockOreHard(Material.ROCK, "coral_white", HR_CORALS, "pickaxe", 0, 0);
+    public static final Block CORAL_RED = new BlockOre.BlockOreHard(Material.ROCK, "coral_red", HR_CORALS, "pickaxe", 0, 0);
+    public static final Block CORAL_ORANGE = new BlockOre.BlockOreHard(Material.ROCK, "coral_orange", HR_CORALS, "pickaxe", 0, 0).setRenderLayer(BlockRenderLayer.CUTOUT);
+    public static final Block CORALLIMORPHA_BLUE = new Corallimorpha("corallimorpha_blue");
+    public static final Block CORALLIMORPHA_BROWN = new Corallimorpha("corallimorpha_brown");
+    public static final Block CORALLIMORPHA_GREEN = new Corallimorpha("corallimorpha_green");
+    public static final Block CORALLIMORPHA_LILAC = new Corallimorpha("corallimorpha_lilac");
+    public static final Block CORALLIMORPHA_PINK = new Corallimorpha("corallimorpha_pink");
+    public static final Block CORALLIMORPHA_RED = new Corallimorpha("corallimorpha_red");
+    public static final Block CORALLIMORPHA_YELLOW = new Corallimorpha("corallimorpha_yellow");
+    public static final Block ACROPORA_PURPLE = new MiniCoral("acropora_purple", BlockRenderLayer.CUTOUT);
+    public static final Block ACROPORA_PURPLE_BIG = new MiniCoral("acropora_purple_big", BlockRenderLayer.CUTOUT);
+    public static final Block ACROPORA_WHITE = new MiniCoral("acropora_white", BlockRenderLayer.CUTOUT);
+    public static final Block ACROPORA_WHITE_BIG = new MiniCoral("acropora_white_big", BlockRenderLayer.CUTOUT);
+    public static final Block ACTINIFORA_ARENACEOUS = new MiniCoral("actinifora_arenaceous", BlockRenderLayer.CUTOUT).setDropGlowingPearls().setLightLevel(0.6F);
+    public static final Block ACTINIFORA_BRIGHT = new MiniCoral("actinifora_bright", BlockRenderLayer.CUTOUT).setDropGlowingPearls().setLightLevel(0.8F);
+    public static final Block ACTINIFORA_GIANT = new MiniCoral("actinifora_giant", BlockRenderLayer.CUTOUT).setLightLevel(0.8F);
+    public static final Block ACTINIFORA_RAMIFORM = new MiniCoral("actinifora_ramiform", BlockRenderLayer.CUTOUT).setDropGlowingPearls().setLightLevel(0.7F);
+    public static final Block ACTINIFORA_SEGREGATE = new MiniCoral("actinifora_segregate", BlockRenderLayer.CUTOUT).setLightLevel(0.8F);
+    public static final Block FAVIA_BLUE = new MiniCoral("favia_blue", BlockRenderLayer.SOLID).setOffset(0.3);
+    public static final Block FAVIA_BRAIN = new MiniCoral("favia_brain", BlockRenderLayer.SOLID).setOffset(0.25);
+    public static final Block FAVIA_GREEN = new MiniCoral("favia_green", BlockRenderLayer.SOLID).setOffset(0.3);
+    public static final Block FAVIA_RED = new MiniCoral("favia_red", BlockRenderLayer.SOLID).setOffset(0.3);
+    public static final Block FAVIA_YELLOW = new MiniCoral("favia_yellow", BlockRenderLayer.SOLID).setOffset(0.3);
+    public static final Block GORGONARIA_BROWN = new MiniCoral("gorgonaria_brown", BlockRenderLayer.CUTOUT);
+    public static final Block GORGONARIA_BROWN_BIG = new MiniCoral("gorgonaria_brown_big", BlockRenderLayer.CUTOUT);
+    public static final Block GORGONARIA_RED = new MiniCoral("gorgonaria_red", BlockRenderLayer.CUTOUT);
+    public static final Block GORGONARIA_RED_BIG = new MiniCoral("gorgonaria_red_big", BlockRenderLayer.CUTOUT);
+    public static final Block GORGONARIA_WHITE = new MiniCoral("gorgonaria_white", BlockRenderLayer.CUTOUT);
+    public static final Block GORGONARIA_WHITE_BIG = new MiniCoral("gorgonaria_white_big", BlockRenderLayer.CUTOUT);
+    public static final Block HELIOPORACEA = new MiniCoral("helioporacea", BlockRenderLayer.CUTOUT);
+    public static final Block GIANT_SHELL = new GiantShell("giant_shell", BlockRenderLayer.SOLID).setOffset(0.5);
+    public static final Block PALM_LOG = new PalmLog();
+    public static final Block PALM_LEAVES = new PalmLeaves("palm_leaves");
+    public static final Block PALM_SAPLING = new PalmSapling();
+    public static final Block PALM_DRY_LEAVES = new PalmLeaves("palm_dry_leaves");
+    public static final Block PALM_FRUIT_BUNCH = new PalmFruitBunch();
+    public static final Block PALM_TABLE = new Table(Material.WOOD, "palm_table", 2.2F, 2.2F, SoundType.WOOD, "axe", 0);
+    public static final Block PALM_CHAIR = new Chair(Material.WOOD, "palm_chair", 2.2F, 2.2F, SoundType.WOOD, "axe", 0);
+    public static final Block PALM_TORCH = new PalmTorch();
+    public static final Block PALM_PLANKS = new BlockBlockHard(Material.WOOD, "palm_planks", HR_PALM, "axe", false).setSound(SoundType.WOOD);
+    public static final Block SEAWEEDBLOCK = new BlockSeaweed();
+    public static final Block SEAGRASS = new Seagrass();
+    public static final Block LIVING_SPONGE = new LivingSponge();
+    public static final Block METALLIC_CORAL = new MetallicCoral();
+    public static final Block SHELLROCK_SPELEOTHEM = new BlockSpeleothem(Material.ROCK, "shellrock_speleothem", 1.0F, 2.0F);
+    public static final Block TRITON_HEARTH = new TritonHearth();
+    public static final Block TIDE_BEACON = new TideBeacon();
+    public static final Block AQUATIC_SPAWNER = new BlockSpawner(Material.IRON, "aquatic_spawner", HR_SPAWNER_AQUATIC, 30, 55).setRenderLayer(BlockRenderLayer.CUTOUT).setOpaque(false);
+    public static final Block SEALOCK = new SeaLock();
+    public static final Block SANCTUARY_BRICKS = new BlockBlockHard(Material.ROCK, "sanctuary_bricks", HR_SANKTUARYBRICKS, "pickaxe", false);
+    public static final Block SEA_URCHIN = new SeaUrchin();
+    public static final Block STORMLEDGE_PORTAL = new StormledgePortal();
+    public static final Block STORMLEDGE_PORTAL_FRAME = new StormledgePortalFrame(Material.ROCK, "stormledge_portal_frame", 24.0F, 56.0F);
+    public static final Block BLOCK_ETHERITE_INVOCATOR = new BlockEtheriteInvocator();
+    public static final Block METALLIC_ROCK = new BlockBlockHard(Material.ROCK, "metallic_rock", HR_STORMBRASS_ROCKS, "pickaxe", false);
+    public static final Block BEAM_ROCK = new BeamRock();
+    public static final Block METALLIC_ROCK_PILASTER = new Pilaster.HardPilaster(Material.ROCK, "metallic_rock_pilaster", SoundType.STONE, HR_STORMBRASS_ROCKS, "pickaxe", false);
+    public static final Block STORM_MASONRY = new BlockBlockHard(Material.ROCK, "storm_masonry", HR_ZARPION_ROCKS, "pickaxe", false).setOpacity(0);
+    public static final Block STORM_PLATE = new BlockBlockHard(Material.ROCK, "storm_plate", HR_ZARPION_ROCKS, "pickaxe", false).setOpacity(0);
+    public static final Block STORM_PILASTER = new Pilaster.HardPilaster(Material.ROCK, "storm_pilaster", SoundType.STONE, HR_ZARPION_ROCKS, "pickaxe", false);
+    public static final Block STORM_CONDUCTOR = new StormConductor();
+    public static final Block STORM_RACK = new StormRack();
+    public static final Block FULMINIFLORA = new BlockBlock(Material.ROCK, "fulminiflora", 8.0F, 35.0F);
+    public static final Block FULMINIHERBA = new BlockFulminiherba();
+    public static final Block ARTHROSTELECHA_LOG_BRASS = new ArthrostelechaLog(true);
+    public static final Block ARTHROSTELECHA_LOG_PINK = new ArthrostelechaLog(false);
+    public static final Block ARTHROSTELECHA_LEAVES_BRASS = new ArthrostelechaLeaves(true);
+    public static final Block ARTHROSTELECHA_LEAVES_PINK = new ArthrostelechaLeaves(false);
+    public static final Block GLOWBUSH = new Glowbush();
+    public static final Block FULMINIORTUM_BULB = new FulminiortumBulb();
+    public static final Block FULMINIORTUM_BONNY = new FulminiortumBonny();
+    public static final Block SHIMMERING_BEASTBLOOM = new ShimmeringBeastbloom();
+    public static final Block LAIGANIA_STEM = new BlockBlock(Material.ROCK, "laigania_stem", 4.5F, 40.0F).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    public static final Block LAIGANIA_PULP = new BlockBlock(Material.ROCK, "laigania_pulp", 4.5F, 40.0F).setLightOptions(5, 240).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    public static final Block VENTASTOLA_TRUNK = new BlockBlock(Material.ROCK, "ventastola_trunk", 4.5F, 40.0F).setLightLevel(0.25F).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    public static final Block VENTASTOLA_CATCHER = new Pane(Material.WEB, "ventastola_catcher", 1.0F, 10.0F, true).setSound(SoundType.CLOTH);
+    public static final Block MELANZA_BULB = new BlockBlock(Material.PLANTS, "melanza_bulb", 3.0F, 15.0F).setOpaque(false).setLightOptions(13, 220).setRenderLayer(BlockRenderLayer.CUTOUT).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    public static final Block MELANZA_STEM = new MelanzaStem();
+    public static final Block ELECTRIC_VINE = new BlockBlock(Material.ROCK, "electric_vine", 3.5F, 50.0F).setOpaque(false).setFullcube(false).setOpacity(0).setRenderLayer(BlockRenderLayer.CUTOUT).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block ELECTROFERN_LEAVES = new ElectrofernLeaves();
+    public static final Block ELECTROFERN_STEM = new DecorativePipe(Material.WOOD, "electrofern_stem", HR_STORM_FOLIAGE, "axe", CreativeTabs.DECORATIONS, SoundTypeCrunchy.CRUNCHY, 0.125F, 0.125F, (state, facing) -> state.getBlock() == ELECTROFERN_LEAVES ? state.getValue(ElectrofernLeaves.FACING) == facing : state.getBlock() == BlocksRegister.ELECTROFERN_STEM || state.getBlock() == FULMINIFLORA || state.getBlock() == Blocks.STONE);
+    public static final Block ARTHROHELIA_STEM = new BlockRotated.HardBlockRotated(Material.ROCK, "arthrohelia_stem", HR_STORM_FOLIAGE, "axe", false, true, Block.FULL_BLOCK_AABB).setOpaque(false).setFullCube(false).setRenderLayer(BlockRenderLayer.CUTOUT);
+    public static final Block ARTHROHELIA_STALK = new BlockRotated.HardBlockRotated(Material.ROCK, "arthrohelia_stalk", HR_STORM_FOLIAGE, "axe", false, true, Block.FULL_BLOCK_AABB).setOpaque(false).setFullCube(false).setRenderLayer(BlockRenderLayer.CUTOUT);
+    public static final Block ARTHROHELIA_SPIKE = new BlockRotated.HardBlockRotated(Material.ROCK, "arthrohelia_spike", HR_STORM_FOLIAGE, "axe", false, true, Block.FULL_BLOCK_AABB).setOpaque(false).setFullCube(false).setRenderLayer(BlockRenderLayer.CUTOUT);
+    public static final Block EXOHELIA_SPIKE = new ExoheliaSpike();
+    public static final Block ORESTORM_STEEL = new BlockBlockHard(Material.ROCK, "stormsteel_ore", HR_STORMSTEEL_ORE, "pickaxe", false).setisReplaceableOreGen(false);
+    public static final Block STORM_SPAWNER = new BlockSpawner(Material.IRON, "storm_spawner", HR_SPAWNER_STORM, 35, 65).setRenderLayer(BlockRenderLayer.CUTOUT).setOpaque(false);
+    public static final Block DETECTOR = new BlockDetector();
+    public static final Block ADVANCED_DETECTOR = new AdvancedBlockDetector();
+    public static final Block PLACER = new BlockPlacer();
+    public static final Block CRYSTAL_SPHERE = new BlockCrystalSphere();
+    public static final Block FLUID_DARKNESS = new BlockFluidDarkness();
+    public static final Block SPELL_FORGE = new SpellForgeBlock();
+    public static final Block MANA_BOTTLE = new ManaBottle();
+    public static final Block TOPAZ_CRYSTAL = new TopazCrystal();
+    public static final Block NETHER_MELTER = new NetherMelter();
+    public static final Block SACRIFICIAL_ALTAR = new SacrificialAltar();
+    public static final Block INFERNUM_FURNACE = new InfernumFurnace();
+    public static final Block BONESBLOCK = new BlockBlock(Material.GROUND, "bones_block", 1.3F, 25.0F).setHarvest("shovel", 1).setSound(SoundTypeCrunchy.CRUNCHY);
+    public static final Block BONES_PILE = new BonesPile();
+    public static final Block ALCHEMIC_LAB = new AlchemicLab();
+    public static final Block ALCHEMIC_VAPORIZER = new AlchemicVaporizer();
+    public static final Block RUNIC_MIRROR = new BlockRunicMirror();
+    public static final Block RUBY_ORE = new BlockOre(Material.ROCK, "ruby_ore", 3.0F, 15.0F, 2, 8);
+    public static final Block SAPPHIRE_ORE = new BlockOre(Material.ROCK, "sapphire_ore", 3.0F, 15.0F, 2, 8);
+    public static final Block CITRINE_ORE = new BlockOre(Material.ROCK, "citrine_ore", 3.0F, 15.0F, 2, 8);
+    public static final Block TOPAZ_ORE = new BlockOre(Material.ROCK, "topaz_ore", 2.0F, 12.0F, 2, 5);
+    public static final Block AMETHYST_ORE = new BlockOre(Material.ROCK, "amethyst_ore", 2.0F, 12.0F, 2, 5);
+    public static final Block RHINESTONE_ORE = new BlockOre(Material.ROCK, "rhinestone_ore", 2.0F, 12.0F, 2, 5);
+    public static final Block DRILL = new BlockDrill();
+    public static final Block TURNING_AUGMENT = new BlockAssemblyAugment(Material.IRON, "turning_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)).setSound(SoundType.METAL).setOpaque(false).setFullCube(false);
+    public static final Block PRESS_AUGMENT = new BlockAssemblyAugment(Material.IRON, "press_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)).setSound(SoundType.METAL).setOpaque(false).setFullCube(false);
+    public static final Block WELD_AUGMENT = new BlockAssemblyAugment(Material.IRON, "weld_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)).setSound(SoundType.METAL).setOpaque(false).setFullCube(false);
+    public static final Block PLASMA_SPRAY_AUGMENT = new BlockAssemblyAugment(Material.IRON, "plasma_spray_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)).setSound(SoundType.METAL).setOpaque(false).setFullCube(false);
+    public static final Block MOLECULAR_PRINTER_AUGMENT = new BlockAssemblyAugment(Material.IRON, "molecular_printer_augment", 5.0F, 5.0F, new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)).setSound(SoundType.METAL).setOpaque(false).setFullCube(false);
+    public static final Block ASSEMBLY_TABLE = new AssemblyTable();
+    public static final Block WEAPON_SPAWNER = new BlockWeaponSpawner();
+    public static final Block BLOCK_ELECTROMAGNET = new BlockElectromagnet();
+    public static final Block COLLIDER_PIPE = new ColliderPipe();
+    public static final Block COLLIDER = new BlockCollider();
+    public static final Block STONE_SPELEOTHEM = new BlockSpeleothem(Material.ROCK, "stone_speleothem", 1.0F, 2.0F);
+    public static final Block ITEM_CHARGER = new BlockItemCharger();
+    public static final Block CHROMIUM_ORE = new BlockBlock(Material.ROCK, "chromium_ore", 3.5F, 15.0F).setisReplaceableOreGen(false).setHarvest("pickaxe", 2);
+    public static final Block ZINC_ORE = new BlockBlock(Material.ROCK, "zinc_ore", 3.0F, 15.0F).setisReplaceableOreGen(false).setHarvest("pickaxe", 1);
+    public static final Block ALUMINIUM_ORE = new BlockBlock(Material.ROCK, "aluminium_ore", 3.0F, 10.0F);
+    public static final Block BAUXITE = new BlockOre(Material.CLAY, "bauxite_block", 0.6F, 3.0F, 0, 1).setHarvestLvl("shovel", 0).setSoundType(SoundType.GROUND);
+    public static final Block FIERY_BEAN_LOG = new FieryBeanLog();
+    public static final Block FIERY_BEAN_BLOCK = new FieryBeanBlock();
+    public static final Block FIERY_BEAN_LEAVES = new FieryBeanLeaves("fiery_bean_leaves");
+    public static final Block FIERY_BEAN_SAPLING = new FieryBeanSapling();
+    public static final Block SULFUR_CRYSTAL = new SulfurCrystal();
+    public static final Block FLUID_SULFURIC_GAS = new BlockFluidSulfuricGas();
+    public static final Block FIERY_BEAN_PLANKS = new BlockBlock(Material.WOOD, "fiery_bean_planks", 1.0F, 10.0F).setSound(SoundType.WOOD).setHarvest("axe", 0);
+    public static final Block NATIVE_SILVER = new NativeSilver();
+    public static final Block VOID_CRYSTAL_BLOCK = new VoidCrystal(Material.PORTAL, "void_crystal_block", HR_SPAWNER_VOIDCRYSTAL, 10, 30);
+    public static final Block SILVER_ORE = new BlockBlock(Material.ROCK, "silver_ore", 3.0F, 15.0F).setHarvest("pickaxe", 2).setisReplaceableOreGen(false);
+    public static final Block RHINESTONE_BLOCK = new BlockBlock(Material.ROCK, "rhinestone_block", 4.0F, 40.0F);
+    public static final Block INDUSTRIAL_MIXER = new IndustrialMixer();
+    public static final Block MAGIC_LOG = new MagicLog();
+    public static final Block RESEARCH_TABLE = new ResearchTable();
+    public static final Block MAGIC_BRICKS = new BlockBlock(Material.ROCK, "magic_bricks", 2.5F, 50.0F).setHarvest("pickaxe", 2);
+    public static final Block MAGIC_ORNAMENT = new MagicOrnament(Material.ROCK, "magic_ornament", 2.8F, 55.0F).setHarvest("pickaxe", 2);
+    public static final Block STAINED_GLASS_MARIGOLD = new BlockBlock(Material.GLASS, "stained_glass_marigold", 2.5F, 40.0F).setRenderLayer(BlockRenderLayer.TRANSLUCENT).setOpaque(false).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block STAINED_GLASS_SUNSET = new BlockBlock(Material.GLASS, "stained_glass_sunset", 2.5F, 40.0F).setRenderLayer(BlockRenderLayer.TRANSLUCENT).setOpaque(false).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block STAINED_GLASS_ROSE = new BlockBlock(Material.GLASS, "stained_glass_rose", 2.5F, 40.0F).setRenderLayer(BlockRenderLayer.TRANSLUCENT).setOpaque(false).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block STAINED_GLASS_SKY = new BlockBlock(Material.GLASS, "stained_glass_sky", 2.5F, 40.0F).setRenderLayer(BlockRenderLayer.TRANSLUCENT).setOpaque(false).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block STAINED_GLASS_STARLIGHT = new BlockBlock(Material.GLASS, "stained_glass_starlight", 2.5F, 40.0F).setRenderLayer(BlockRenderLayer.TRANSLUCENT).setOpaque(false).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block STAINED_GLASS_AURORA = new BlockBlock(Material.GLASS, "stained_glass_aurora", 2.5F, 40.0F).setRenderLayer(BlockRenderLayer.TRANSLUCENT).setOpaque(false).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block RUBY_LANTERN = new BlockBlock(Material.GLASS, "ruby_lantern", 2.5F, 40.0F).setLightLevel(1.0F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block SAPPHIRE_LANTERN = new BlockBlock(Material.GLASS, "sapphire_lantern", 2.5F, 40.0F).setLightLevel(1.0F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block CITRINE_LANTERN = new BlockBlock(Material.GLASS, "citrine_lantern", 2.5F, 40.0F).setLightLevel(1.0F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block EMERALD_LANTERN = new BlockBlock(Material.GLASS, "emerald_lantern", 2.5F, 40.0F).setLightLevel(1.0F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block AMETHYST_LANTERN = new BlockBlock(Material.GLASS, "amethyst_lantern", 2.5F, 40.0F).setLightLevel(1.0F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block TOPAZ_LANTERN = new BlockBlock(Material.GLASS, "topaz_lantern", 2.5F, 40.0F).setLightLevel(1.0F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block RHINESTONE_LANTERN = new BlockBlock(Material.GLASS, "rhinestone_lantern", 2.5F, 40.0F).setLightLevel(1.0F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block DIAMOND_LANTERN = new BlockBlock(Material.GLASS, "diamond_lantern", 2.5F, 40.0F).setLightLevel(1.0F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block RUBY_LAMP = new BlockBlock(Material.GLASS, "ruby_lamp", 1.5F, 30.0F).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125)).setOpaque(false).setFullcube(false).setLightLevel(0.93F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block SAPPHIRE_LAMP = new BlockBlock(Material.GLASS, "sapphire_lamp", 1.5F, 30.0F).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125)).setOpaque(false).setFullcube(false).setLightLevel(0.93F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block CITRINE_LAMP = new BlockBlock(Material.GLASS, "citrine_lamp", 1.5F, 30.0F).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125)).setOpaque(false).setFullcube(false).setLightLevel(0.93F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block EMERALD_LAMP = new BlockBlock(Material.GLASS, "emerald_lamp", 1.5F, 30.0F).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125)).setOpaque(false).setFullcube(false).setLightLevel(0.93F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block AMETHYST_LAMP = new BlockBlock(Material.GLASS, "amethyst_lamp", 1.5F, 30.0F).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125)).setOpaque(false).setFullcube(false).setLightLevel(0.93F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block TOPAZ_LAMP = new BlockBlock(Material.GLASS, "topaz_lamp", 1.5F, 30.0F).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125)).setOpaque(false).setFullcube(false).setLightLevel(0.93F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block RHINESTONE_LAMP = new BlockBlock(Material.GLASS, "rhinestone_lamp", 1.5F, 30.0F).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125)).setOpaque(false).setFullcube(false).setLightLevel(0.93F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block DIAMOND_LAMP = new BlockBlock(Material.GLASS, "diamond_lamp", 1.5F, 30.0F).setAABB(new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.75, 0.8125)).setOpaque(false).setFullcube(false).setLightLevel(0.93F).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block DECORATIVE_CHAIN = new DecorativeChain();
+    public static final Block SPLITTER = new Splitter();
+    public static final Block CREATIVE_ELEMENT_DISTRIBUTOR = new CreativeElementDistributor();
+    public static final Block RETORT = new Retort();
+    public static final Block GEMSPARK_BLOCK = new GemsparkBlock();
+    public static final Block BLOCK_VIAL = new BlockVial();
+    public static final Block WOODEN_BOOKCASE = new Bookcase("wooden_bookcase", SoundType.WOOD, "axe", 0);
+    public static final Block GLOSSARY = new Glossary();
+    public static final Block ABSORPTION_TOTEM = new AbsorptionTotem();
+    public static final Block DISENCHANTMENT_TABLE = new DisenchantmentTable();
+    public static final Block FLUID_MANA_OIL = new BlockFluidManaOil();
+    public static final Block MANAOIL_SPELEOTHEM = new BlockSpeleothem(Material.WOOD, "manaoil_speleothem", 0.5F, 2.0F, SoundType.WOOD).setAlwaysDrops();
+    public static final Block MANA_FLOWER_LEAVES = new ManaFlowerLeaves();
+    public static final Block MANA_FLOWER = new ManaFlowerLeaves.ManaFlower();
+    public static final Block HEALTH_FLOWER_LEAVES = new HealthFlowerLeaves();
+    public static final Block HEALTH_FLOWER = new HealthFlowerLeaves.HealthFlower();
+    public static final Block TOMATO_STEM = new TomatoStem();
+    public static final Block FLUID_PETROLEUM = new BlockFluidPetroleum();
+    public static final Block FLUID_GASOLINE = new BlockFluidGasoline();
+    public static final Block FLUID_FUEL_OIL = new BlockFluidFuelOil();
+    public static final Block FLUID_NITRIC_ACID = new BlockFluidNitricAcid();
+    public static final Block FLUID_NATURAL_GAS = new BlockFluidNaturalGas();
+    public static final Block TITANIUM_ORE = new BlockBlock(Material.ROCK, "titanium_ore", 4.0F, 50.0F).setisReplaceableOreGen(false);
+    public static final Block MACHINERY_CASING = new BlockBlock(Material.IRON, "machinery_casing", 3.0F, 50.0F).setSound(SoundType.METAL);
+    public static final Block CHROMIUM_GLASS = new BlockBlock(Material.IRON, "hardened_chromium_glass", 10.0F, 1000.0F).setSound(SoundType.GLASS).setRenderLayer(BlockRenderLayer.CUTOUT).setOpaque(false).setCreativeTab(CreativeTabs.DECORATIONS);
+    public static final Block ASH_BLOCK = new AshBlock();
+    public static final Block SILVER_BLOCK = new BlockBlock(Material.IRON, "silver_block", 5.0F, 60.0F).setSound(SoundType.METAL);
+    public static final Block SALT_ORE = new BlockOre(Material.ROCK, "salt_ore", 1.3F, 15.0F, 0, 2);
+    public static final Block MONEY_BOX = new BlockMoneyBox();
+    public static final Block BLOCK_CALIBRATION_BUNDLE = new BlockCalibrationBundle();
+    public static final Block SOUL_CATCHER = new BlockSoulCatcher();
+    public static final Block MANA_PUMP = new ManaPump();
+    public static final Block SIEVE = new BlockSieve(Material.WOOD, "sieve");
+    public static final Block ELECTRIC_SIEVE = new BlockElectricSieve();
+    public static final Block CHEST_FROZEN = new BlockARPGChest(Material.WOOD, "chest_frozen", HR_FROZEN_STONE, "axe", SoundType.WOOD, EnumChest.FROZEN);
+    public static final Block CHEST_TOXIC = new BlockARPGChest(Material.WOOD, "chest_toxic", HR_TOXIBERRY_LOG, "axe", SoundType.WOOD, EnumChest.TOXIC);
+    public static final Block CHEST_RUSTED = new BlockARPGChest(Material.IRON, "chest_rusted", HR_BUNKER, "pickaxe", SoundType.METAL, EnumChest.RUSTED);
+    public static final Block CHEST_ROTTEN = new BlockARPGChest(Material.WOOD, "chest_rotten", HR_MITHRIL_ADAMANTIUM_ORE, "axe", SoundType.WOOD, EnumChest.ROTTEN);
+    public static final Block CHEST_CRYSTAL = new BlockARPGChest(Material.ROCK, "chest_crystal", HR_DOLERITE_BRICKS, "pickaxe", SoundType.STONE, EnumChest.CRYSTAL);
+    public static final Block CHEST_SUNKEN = new BlockARPGChest(Material.WOOD, "chest_sunken", HR_CORALS, "axe", SoundType.WOOD, EnumChest.SUNKEN);
+    public static final Block CHEST_CORAL = new BlockARPGChest(Material.ROCK, "chest_coral", HR_CORALBRICKS, "pickaxe", SoundType.STONE, EnumChest.CORAL);
+    public static final Block CHEST_STORM = new BlockARPGChest(Material.IRON, "chest_storm", HR_ZARPION_ROCKS, "pickaxe", SoundType.ANVIL, EnumChest.STORM);
+    public static final Block DEBUG_COLOR_BLOCK = new DebugColorBlock();
+    public static final Block MAGIC_GENERATOR = new MagicGenerator();
+    public static final Block TEAM_BANNER = new BlockTeamBanner();
 
-   public static void registerBlocks() throws IllegalArgumentException, IllegalAccessException {
-      HashMap<Block, Integer> fuels = new HashMap<>();
-      fuels.put(FIERY_BEAN_LOG, 60);
-      fuels.put(PALM_LOG, 20);
-      fuels.put(PALM_DRY_LEAVES, 5);
-      fuels.put(ROTTEN_PLANKS, 8);
-      fuels.put(TOXIC_PLANKS, 12);
-      fuels.put(TOXIC_STAIRS, 9);
-      fuels.put(TOXIC_PILASTER, 6);
-      fuels.put(JUNK_PILE, 5);
-      fuels.put(WOODEN_SHAFT, 5);
-      fuels.put(TOXIC_CHEST, 50);
-      fuels.put(TOXIC_TABLE, 25);
-      fuels.put(TOXIC_CHAIR, 20);
-      fuels.put(TOXIC_TORCH, 2);
-      fuels.put(TOXIBERRY_TREE_SAPLING, 15);
-      fuels.put(PRESENT_BOX, 10);
-      fuels.put(PALM_SAPLING, 40);
-      fuels.put(PALM_FRUIT_BUNCH, 45);
-      fuels.put(PALM_TABLE, 35);
-      fuels.put(PALM_CHAIR, 30);
-      fuels.put(PALM_TORCH, 3);
-      fuels.put(SNOW_SEWING_TABLE, 15);
-      fuels.put(PALM_PLANKS, 15);
-      fuels.put(FIERY_BEAN_PLANKS, 25);
-      fuels.put(MAGIC_LOG, 30);
-      fuels.put(MANAOIL_SPELEOTHEM, 20);
-      fuels.put(CONIFER_LOG, -1);
-      fuels.put(CONIFER_PLANKS, -1);
-      fuels.put(CONIFER_ORNAMENT, -1);
-      Field[] fields = BlocksRegister.class.getFields();
+    public static void setupAfterItems() {
+        ((BlockOre) DEMONITE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.DEMONITE, 5), new OreDrop(0, 3, ItemsRegister.DEMONITE_SHARD, 7));
+        ((BlockOre) ICE_ORE_GLACIER).setOreDrops(new OreDrop(1, 1, ItemsRegister.ICE_GEM, 7));
+        ((BlockOre) ICE_ORE_SNOW_ICE).setOreDrops(new OreDrop(1, 1, ItemsRegister.ICE_GEM, 7));
+        ((BlockOre) RUBY_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.RUBY, 0));
+        ((BlockOre) SAPPHIRE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.SAPPHIRE, 0));
+        ((BlockOre) CITRINE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.CITRINE, 0));
+        ((BlockOre) TOPAZ_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.TOPAZ, 0));
+        ((BlockOre) AMETHYST_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.AMETHYST, 0));
+        ((BlockOre) RHINESTONE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.RHINESTONE, 0));
+        ((BlockOre) BAUXITE).setOreDrops(new OreDrop(2, 4, ItemsRegister.BAUXITE, 1));
+        ((BlockOre) SALT_ORE).setOreDrops(new OreDrop(1, 3, ItemsRegister.SALT, 1));
+        ((BlockBlock) RADIOACTIVE_STONE).setItemDropped("arpg:radioactive_cobblestone");
+        ((BlockBlock) STROMATOLITE).setItemDropped("arpg:chalkrock");
+        ((BlockOre.BlockOreHard) LEPIDOLITE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.LEPIDOLITE, 7));
+        ((BlockOre.BlockOreHard) CORAL_ORANGE).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
+        ((BlockOre.BlockOreHard) CORAL_WHITE).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
+        ((BlockOre.BlockOreHard) CORAL_YELLOW).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
+        ((BlockOre.BlockOreHard) CORAL_RED).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
+        ((BlockOre.BlockOreHard) CORAL_PINK).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
+    }
 
-      for (Field field : fields) {
-         if (field.getType() == Block.class || field.getType() == CustomPlant.class) {
-            Block block = (Block) field.get(new BlocksRegister());
-            setRegister(block, fuels);
-         }
-      }
-   }
+    public static void registerBlocks() throws IllegalArgumentException, IllegalAccessException {
+        HashMap<Block, Integer> fuels = new HashMap<>();
+        fuels.put(FIERY_BEAN_LOG, 60);
+        fuels.put(PALM_LOG, 20);
+        fuels.put(PALM_DRY_LEAVES, 5);
+        fuels.put(ROTTEN_PLANKS, 8);
+        fuels.put(TOXIC_PLANKS, 12);
+        fuels.put(TOXIC_STAIRS, 9);
+        fuels.put(TOXIC_PILASTER, 6);
+        fuels.put(JUNK_PILE, 5);
+        fuels.put(WOODEN_SHAFT, 5);
+        fuels.put(TOXIC_CHEST, 50);
+        fuels.put(TOXIC_TABLE, 25);
+        fuels.put(TOXIC_CHAIR, 20);
+        fuels.put(TOXIC_TORCH, 2);
+        fuels.put(TOXIBERRY_TREE_SAPLING, 15);
+        fuels.put(PRESENT_BOX, 10);
+        fuels.put(PALM_SAPLING, 40);
+        fuels.put(PALM_FRUIT_BUNCH, 45);
+        fuels.put(PALM_TABLE, 35);
+        fuels.put(PALM_CHAIR, 30);
+        fuels.put(PALM_TORCH, 3);
+        fuels.put(SNOW_SEWING_TABLE, 15);
+        fuels.put(PALM_PLANKS, 15);
+        fuels.put(FIERY_BEAN_PLANKS, 25);
+        fuels.put(MAGIC_LOG, 30);
+        fuels.put(MANAOIL_SPELEOTHEM, 20);
+        fuels.put(CONIFER_LOG, -1);
+        fuels.put(CONIFER_PLANKS, -1);
+        fuels.put(CONIFER_ORNAMENT, -1);
+        Field[] fields = BlocksRegister.class.getFields();
 
-   @SideOnly(Side.CLIENT)
-   public static void registerBlocksRender() {
-      setRender(FROZEN_STONE);
-      setRender(GLACIER);
-      setRender(FROZEN_COBBLESTONE);
-      setRender(SNOW_ICE);
-      setRender(CLEAN_ICE);
-      setRender(LOOSE_SNOW);
-      setRender(FROZEN_STALACTITE);
-      setRender(FROZEN_STALACTITE_ADDITION);
-      setRender(FROZEN_STALAGMITE_BASE);
-      setRender(FROZEN_TREASURE_BARREL);
-      setRender(CONIFER_LOG);
-      setRender(CONIFER_LEAVES);
-      setRender(FROSTED_WEED);
-      setRender(FROZEN_VASE);
-      setRender(FROZEN_CHANDELIER);
-      setRender(FROZEN_TORCH);
-      setRender(FROZEN_TABLE);
-      setRender(FROZEN_CHAIR);
-      setRender(BLOCK_BLOCK_HARD);
-      setRender(FROZEN_BRICK_STAIRS);
-      setRender(FROZEN_BRICK_PILASTER);
-      setRender(FROZEN_ROOF);
-      setRender(FROZEN_ROOF_STAIRS);
-      setRender(DEMONIC_FIRE);
-      setRender(CHRISTMAS_BALLS);
-      setRender(DETECTOR);
-      setRender(ADVANCED_DETECTOR);
-      setRender(PLACER);
-      setRender(DEEP_ROCK);
-      setRender(CALCITE);
-      setRender(CAVE_ONYX);
-      setRender(GREEN_ONYX);
-      setRender(SELENITE);
-      setRender(CAVE_CRYSTAL);
-      setRender(MAGIC_STONE);
-      setRender(GLOWING_CAVE_CRYSTAL);
-      setRender(GLOWING_VEIN);
-      setRender(SELENITE_CRYSTAL);
-      setRender(DOLERITE);
-      setRender(BLUE_GLOWING_MUSHROOM);
-      setRender(GREEN_GLOWING_MUSHROOM);
-      setRender(WOODEN_SHAFT);
-      setRender(ICE_SPIKES);
-      setRender(SLIME_GLOB);
-      setRender(LARVA_BLOCK);
-      setRender(SPELL_FORGE);
-      setRender(DEMONITE_ORE);
-      setRender(INFERNUM_ORE);
-      setRender(MOLTEN_ORE);
-      setRender(ICE_ORE_GLACIER);
-      setRender(ICE_ORE_SNOW_ICE);
-      setRender(TOPAZ_CRYSTAL);
-      setRender(NETHER_MELTER);
-      setRender(SACRIFICIAL_ALTAR);
-      setRender(INFERNUM_FURNACE);
-      setRender(SLUDGE);
-      setRender(NUCLEAR_WASTE);
-      setRender(JUNK);
-      setRender(SCRAP);
-      setRender(SCRAP_ELECTRONICS);
-      setRender(TOXIC_DIRT);
-      setRender(BONESBLOCK);
-      setRender(TOXIC_GRASS);
-      setRender(RADIOACTIVE_COBBLESTONE);
-      setRender(RADIOACTIVE_STONE);
-      setRender(ALCHEMIC_LAB);
-      setRender(ALCHEMIC_VAPORIZER);
-      setRender(PUZZLE);
-      setRender(SEALOCK);
-      setRender(TOXIBERRY_LOG);
-      setRender(TOXIBERRY_LEAVES);
-      setRender(DARK_RUST_METALL);
-      setRender(ROTTEN_PLANKS);
-      setRender(RUST_METAL);
-      setRender(RUST_ARMATURE);
-      setRender(BRICK_SHARDS);
-      setRender(TOXIC_TALLGRASS);
-      setRender(BOMB_RUSTED);
-      setRender(BOMB_TOXIC);
-      setRender(BOMB_SMALL);
-      setRender(RUSTED_PIPE);
-      setRender(TOXIC_PLANKS);
-      setRender(TOXIC_TABLE);
-      setRender(TOXIC_STAIRS);
-      setRender(TOXIC_PILASTER);
-      setRender(TOXIC_CHAIR);
-      setRender(TOXIC_TORCH);
-      setRender(POISON_LILY);
-      setRender(LOPPY_TOXIBERRY);
-      setRender(LOPPY_TOXISTEM);
-      setRender(JUNK_PILE);
-      setRender(TOXIBERRY_TREE_SAPLING);
-      setRender(SLIME_BLOB);
-      setRender(BROWN_SLIME);
-      setRender(BONES_PILE);
-      setRender(MUTATED_FLOWER_RED);
-      setRender(MUTATED_FLOWER_PINK);
-      setRender(GIANT_FLOWER_LEAVES);
-      setRender(BURNING_FROST);
-      setRender(RUBY_ORE);
-      setRender(SAPPHIRE_ORE);
-      setRender(CITRINE_ORE);
-      setRender(AMETHYST_ORE);
-      setRender(TOPAZ_ORE);
-      setRender(RHINESTONE_ORE);
-      setRender(CONIFER_PLANKS);
-      setRender(CONIFER_STAIRS);
-      setRender(CONIFER_ORNAMENT);
-      setRender(ICE_PANE);
-      setRender(CONIFER_TABLE);
-      setRender(CONIFER_CHAIR);
-      setRender(STAR_LANTERN);
-      setRender(CONIFER_PILASTER);
-      setRender(GARLAND);
-      setRender(PRESENT_BOX);
-      setRender(CRYSTAL_TABLE);
-      setRender(CRYSTAL_CHAIR);
-      setRender(CRYSTAL_TORCH);
-      setRender(CORAL_TORCH);
-      setRender(CRYSTAL_VASE);
-      setRender(CRYSTAL_CHANDELIER);
-      setRender(TOXIC_CHANDELIER);
-      setRender(CORAL_TABLE);
-      setRender(CORAL_CHAIR);
-      setRender(CORAL_CHANDELIER);
-      setRender(CORAL_VASE);
-      setRender(CORAL_BRICKS);
-      setRender(PEARLESCENT_BRICKS);
-      setRender(PEARLESCENT_STAIRS);
-      setRender(PEARLESCENT_PILASTER);
-      setRender(SEAWEEDBLOCK);
-      setRender(PALM_LOG);
-      setRender(PALM_LEAVES);
-      setRender(PALM_SAPLING);
-      setRender(PALM_DRY_LEAVES);
-      setRender(PALM_FRUIT_BUNCH);
-      setRender(PALM_TABLE);
-      setRender(PALM_CHAIR);
-      setRender(PALM_TORCH);
-      setRender(SEA_STONE);
-      setRender(CORAL_YELLOW);
-      setRender(CORAL_PINK);
-      setRender(CORAL_WHITE);
-      setRender(CORAL_RED);
-      setRender(CORAL_ORANGE);
-      setRender(CORALLIMORPHA_BLUE);
-      setRender(CORALLIMORPHA_RED);
-      setRender(CORALLIMORPHA_YELLOW);
-      setRender(CORALLIMORPHA_PINK);
-      setRender(CORALLIMORPHA_LILAC);
-      setRender(CORALLIMORPHA_BROWN);
-      setRender(CORALLIMORPHA_GREEN);
-      setRender(ACROPORA_PURPLE);
-      setRender(ACROPORA_WHITE);
-      setRender(GORGONARIA_BROWN);
-      setRender(GORGONARIA_RED);
-      setRender(HELIOPORACEA);
-      setRender(ACROPORA_PURPLE_BIG);
-      setRender(GORGONARIA_WHITE);
-      setRender(GORGONARIA_RED_BIG);
-      setRender(GORGONARIA_WHITE_BIG);
-      setRender(GORGONARIA_BROWN_BIG);
-      setRender(ACROPORA_WHITE_BIG);
-      setRender(FAVIA_BLUE);
-      setRender(FAVIA_GREEN);
-      setRender(FAVIA_RED);
-      setRender(FAVIA_YELLOW);
-      setRender(FAVIA_BRAIN);
-      setRender(GIANT_SHELL);
-      setRender(ACTINIFORA_RAMIFORM);
-      setRender(ACTINIFORA_ARENACEOUS);
-      setRender(ACTINIFORA_BRIGHT);
-      setRender(ACTINIFORA_GIANT);
-      setRender(ACTINIFORA_SEGREGATE);
-      setRender(FROSTFIRE_EXPLOSIVE);
-      setRender(ACID_BOMB);
-      setRender(COLLIDER_PIPE);
-      setRender(REDSTONED_FROZEN_BRICKS);
-      setRender(FULMINIFLORA);
-      setRender(FULMINIHERBA);
-      setRender(GLOWBUSH);
-      setRender(FULMINIORTUM_BULB);
-      setRender(FULMINIORTUM_BONNY);
-      setRender(ARTHROSTELECHA_LOG_BRASS);
-      setRender(ARTHROSTELECHA_LOG_PINK);
-      setRender(ARTHROSTELECHA_LEAVES_BRASS);
-      setRender(ARTHROSTELECHA_LEAVES_PINK);
-      setRender(LOOT_BLOB);
-      setRender(MINI_NUKE);
-      setRender(ARSENIC_ORE);
-      setRender(BIO_CELL);
-      setRender(CHLORINE_BELCHER);
-      setRender(VIRULENT_CAPSULE);
-      setRender(SWEET_NECTAR_FLOWER);
-      setRender(LAB_PLATING);
-      setRender(RUST_LAMP);
-      setRender(SEAGRASS);
-      setRender(SHELLROCK);
-      setRender(LIVING_SPONGE);
-      setRender(CHALKROCK);
-      setRender(STROMATOLITE);
-      setRender(METALLIC_CORAL);
-      setRender(FROZEN_SPAWNER);
-      setRender(TOXINIUM_ORE);
-      setRender(WOLFRAM_ORE);
-      setRender(RUSTED_SPAWNER);
-      setRender(BUNKER_DOOR);
-      setRender(BLOCK_WINTER_ALTAR);
-      setRender(CONIFER_SAPLING);
-      setRender(SNOW_SEWING_TABLE);
-      setRender(STONE_SPELEOTHEM);
-      setRender(SHELLROCK_SPELEOTHEM);
-      setRender(SELENITE_SPELEOTHEM);
-      setRender(DOLERITE_BRICKS);
-      setRender(DOLERITE_PILASTER);
-      setRender(DOLERITE_STAIRS);
-      setRender(DOLERITE_COLUMN);
-      setRender(METALLIC_ROCK);
-      setRender(BEAM_ROCK);
-      setRender(METALLIC_ROCK_PILASTER);
-      setRender(STORM_MASONRY);
-      setRender(STORM_PLATE);
-      setRender(STORM_PILASTER);
-      setRender(STORM_CONDUCTOR);
-      setRender(STORM_RACK);
-      setRender(ADAMANTIUM_ORE);
-      setRender(RADIANT_BRICK);
-      setRender(CHROMIUM_ORE);
-      setRender(ZINC_ORE);
-      setRender(ALUMINIUM_ORE);
-      setRender(BAUXITE);
-      setRender(FIERY_BEAN_BLOCK);
-      setRender(FIERY_BEAN_LEAVES);
-      setRender(FIERY_BEAN_LOG);
-      setRender(FIERY_BEAN_SAPLING);
-      setRender(MAGMA_BLOOM);
-      setRender(SULFUR_CRYSTAL);
-      setRender(PALM_PLANKS);
-      setRender(FIERY_BEAN_PLANKS);
-      setRender(NATIVE_SILVER);
-      setRender(TOXIC_PORTAL_FRAME);
-      setRender(DUNGEON_PORTAL_FRAME);
-      setRender(ANCIENT_SPAWNER);
-      setRender(RADIOACTIVE_SPELEOTHEM);
-      setRender(FROZEN_SLIME);
-      setRender(SILVER_ORE);
-      setRender(RHINESTONE_BLOCK);
-      setRender(AQUATIC_SPAWNER);
-      setRender(NIVEOLITE_BLOCK);
-      setRender(MAGIC_LOG);
-      setRender(RESEARCH_TABLE);
-      setRender(MAGIC_BRICKS);
-      setRender(MAGIC_ORNAMENT);
-      setRender(STAINED_GLASS_MARIGOLD);
-      setRender(STAINED_GLASS_ROSE);
-      setRender(STAINED_GLASS_SUNSET);
-      setRender(STAINED_GLASS_SKY);
-      setRender(STAINED_GLASS_STARLIGHT);
-      setRender(STAINED_GLASS_AURORA);
-      setRender(AMETHYST_LANTERN);
-      setRender(CITRINE_LANTERN);
-      setRender(EMERALD_LANTERN);
-      setRender(RUBY_LANTERN);
-      setRender(SAPPHIRE_LANTERN);
-      setRender(TOPAZ_LANTERN);
-      setRender(RHINESTONE_LANTERN);
-      setRender(DIAMOND_LANTERN);
-      setRender(AMETHYST_LAMP);
-      setRender(CITRINE_LAMP);
-      setRender(DIAMOND_LAMP);
-      setRender(EMERALD_LAMP);
-      setRender(RHINESTONE_LAMP);
-      setRender(RUBY_LAMP);
-      setRender(SAPPHIRE_LAMP);
-      setRender(TOPAZ_LAMP);
-      setRender(DECORATIVE_CHAIN);
-      setRender(VENTASTOLA_CATCHER);
-      setRender(LAIGANIA_STEM);
-      setRender(LAIGANIA_PULP);
-      setRender(VENTASTOLA_TRUNK);
-      setRender(MELANZA_BULB);
-      setRender(MELANZA_STEM);
-      setRender(SPLITTER);
-      setRender(CREATIVE_ELEMENT_DISTRIBUTOR);
-      setRender(RETORT);
-      setRender(GEMSPARK_BLOCK);
-      setRender(SUMMONED_HELLSTONE);
-      setRender(WOODEN_BOOKCASE);
-      setRender(ABSORPTION_TOTEM);
-      setRender(DISENCHANTMENT_TABLE);
-      setRender(MANAOIL_SPELEOTHEM);
-      setRender(MANA_FLOWER_LEAVES);
-      setRender(MANA_FLOWER);
-      setRender(HEALTH_FLOWER_LEAVES);
-      setRender(HEALTH_FLOWER);
-      setRender(RED_PEPPER_VINE);
-      setRender(TOMATO_STEM);
-      setRender(ELECTROFERN_LEAVES);
-      setRender(ELECTROFERN_STEM);
-      setRender(ARTHROHELIA_STEM);
-      setRender(ARTHROHELIA_STALK);
-      setRender(ARTHROHELIA_SPIKE);
-      setRender(EXOHELIA_SPIKE);
-      setRender(MITHRIL_ORE);
-      setRender(ORESTORM_STEEL);
-      setRender(TITANIUM_ORE);
-      setRender(RADIOACTIVE_TITANIUM_ORE);
-      setRender(MACHINERY_CASING);
-      setRender(CHROMIUM_GLASS);
-      setRender(ASH_BLOCK);
-      setRender(SILVER_BLOCK);
-      setRender(SALT_ORE);
-      setRender(MONEY_BOX);
-      setRender(NIVEOUS_BRICKS);
-      setRender(NIVEOUS_COLUMN);
-      setRender(NIVEOUS_PILASTER);
-      setRender(NIVEOUS_STAIRS);
-      setRender(POLISHED_NIVEOUS_BLOCK);
-      setRender(POLISHED_NIVEOUS_PILASTER);
-      setRender(NIVEOUS_HOLE);
-      setRender(FROZEN_DEBRIS);
-      setRender(CONIFER_CRAFTING_TABLE);
-      setRender(LEPIDOLITE_ORE);
-      setRender(TOXIC_BARREL);
-      setRender(AQUATICA_PORTAL_FRAME);
-      setRender(DEBUG_COLOR_BLOCK);
-      setRender(STORM_SPAWNER);
-      setRender(STORMLEDGE_PORTAL_FRAME);
-      setRender(SEA_URCHIN);
-      setTEISR(ASSEMBLY_TABLE);
-      setTEISR(INDUSTRIAL_MIXER);
-      setTEISR(TRITON_HEARTH);
-      setTEISR(TIDE_BEACON);
-      setTEISR(GLOSSARY);
-      setTEISR(RUNIC_MIRROR);
-      setTEISR(VOID_CRYSTAL_BLOCK);
-      setTEISR(BIO_CELL);
-      setTEISR(SHIMMERING_BEASTBLOOM);
-      setTEISR(TURNING_AUGMENT);
-      setTEISR(PRESS_AUGMENT);
-      setTEISR(WELD_AUGMENT);
-      setTEISR(PLASMA_SPRAY_AUGMENT);
-      setTEISR(MOLECULAR_PRINTER_AUGMENT);
-      setTEISR(MANA_BOTTLE);
-      setTEISR(CRYSTAL_SPHERE);
-      setTEISR(SOUL_CATCHER);
-      setTEISR(MANA_PUMP);
-      setTEISR(SIEVE);
-      setTEISR(ELECTRIC_SIEVE);
-      setTEISR(BLOCK_NIVEOLITE_GAME);
-      setTEISR(PRESENT_BOX);
-      setTEISR(ITEM_CHARGER);
-      setTEISR(CHEST_FROZEN);
-      setTEISR(CHEST_RUSTED);
-      setTEISR(CHEST_TOXIC);
-      setTEISR(CHEST_ROTTEN);
-      setTEISR(CHEST_CRYSTAL);
-      setTEISR(CHEST_SUNKEN);
-      setTEISR(CHEST_CORAL);
-      setTEISR(CHEST_STORM);
-      setTEISR(MAGIC_GENERATOR);
-      setTEISR(SANCTUARY_BRICKS);
-      setTEISR(BLOCK_ETHERITE_INVOCATOR);
-      setTEISR(TEAM_BANNER);
+        for (Field field : fields) {
+            if (field.getType() == Block.class || field.getType() == CustomPlant.class) {
+                Block block = (Block) field.get(new BlocksRegister());
+                setRegister(block, fuels);
+            }
+        }
+    }
 
-      for (Block block : FOR_RENDER) {
-         setRender(block);
-      }
-   }
+    @SideOnly(Side.CLIENT)
+    public static void registerBlocksRender() {
+        setRender(FROZEN_STONE);
+        setRender(GLACIER);
+        setRender(FROZEN_COBBLESTONE);
+        setRender(SNOW_ICE);
+        setRender(CLEAN_ICE);
+        setRender(LOOSE_SNOW);
+        setRender(FROZEN_STALACTITE);
+        setRender(FROZEN_STALACTITE_ADDITION);
+        setRender(FROZEN_STALAGMITE_BASE);
+        setRender(FROZEN_TREASURE_BARREL);
+        setRender(CONIFER_LOG);
+        setRender(CONIFER_LEAVES);
+        setRender(FROSTED_WEED);
+        setRender(FROZEN_VASE);
+        setRender(FROZEN_CHANDELIER);
+        setRender(FROZEN_TORCH);
+        setRender(FROZEN_TABLE);
+        setRender(FROZEN_CHAIR);
+        setRender(BLOCK_BLOCK_HARD);
+        setRender(FROZEN_BRICK_STAIRS);
+        setRender(FROZEN_BRICK_PILASTER);
+        setRender(FROZEN_ROOF);
+        setRender(FROZEN_ROOF_STAIRS);
+        setRender(DEMONIC_FIRE);
+        setRender(CHRISTMAS_BALLS);
+        setRender(DETECTOR);
+        setRender(ADVANCED_DETECTOR);
+        setRender(PLACER);
+        setRender(DEEP_ROCK);
+        setRender(CALCITE);
+        setRender(CAVE_ONYX);
+        setRender(GREEN_ONYX);
+        setRender(SELENITE);
+        setRender(CAVE_CRYSTAL);
+        setRender(MAGIC_STONE);
+        setRender(GLOWING_CAVE_CRYSTAL);
+        setRender(GLOWING_VEIN);
+        setRender(SELENITE_CRYSTAL);
+        setRender(DOLERITE);
+        setRender(BLUE_GLOWING_MUSHROOM);
+        setRender(GREEN_GLOWING_MUSHROOM);
+        setRender(WOODEN_SHAFT);
+        setRender(ICE_SPIKES);
+        setRender(SLIME_GLOB);
+        setRender(LARVA_BLOCK);
+        setRender(SPELL_FORGE);
+        setRender(DEMONITE_ORE);
+        setRender(INFERNUM_ORE);
+        setRender(MOLTEN_ORE);
+        setRender(ICE_ORE_GLACIER);
+        setRender(ICE_ORE_SNOW_ICE);
+        setRender(TOPAZ_CRYSTAL);
+        setRender(NETHER_MELTER);
+        setRender(SACRIFICIAL_ALTAR);
+        setRender(INFERNUM_FURNACE);
+        setRender(SLUDGE);
+        setRender(NUCLEAR_WASTE);
+        setRender(JUNK);
+        setRender(SCRAP);
+        setRender(SCRAP_ELECTRONICS);
+        setRender(TOXIC_DIRT);
+        setRender(BONESBLOCK);
+        setRender(TOXIC_GRASS);
+        setRender(RADIOACTIVE_COBBLESTONE);
+        setRender(RADIOACTIVE_STONE);
+        setRender(ALCHEMIC_LAB);
+        setRender(ALCHEMIC_VAPORIZER);
+        setRender(PUZZLE);
+        setRender(SEALOCK);
+        setRender(TOXIBERRY_LOG);
+        setRender(TOXIBERRY_LEAVES);
+        setRender(DARK_RUST_METALL);
+        setRender(ROTTEN_PLANKS);
+        setRender(RUST_METAL);
+        setRender(RUST_ARMATURE);
+        setRender(BRICK_SHARDS);
+        setRender(TOXIC_TALLGRASS);
+        setRender(BOMB_RUSTED);
+        setRender(BOMB_TOXIC);
+        setRender(BOMB_SMALL);
+        setRender(RUSTED_PIPE);
+        setRender(TOXIC_PLANKS);
+        setRender(TOXIC_TABLE);
+        setRender(TOXIC_STAIRS);
+        setRender(TOXIC_PILASTER);
+        setRender(TOXIC_CHAIR);
+        setRender(TOXIC_TORCH);
+        setRender(POISON_LILY);
+        setRender(LOPPY_TOXIBERRY);
+        setRender(LOPPY_TOXISTEM);
+        setRender(JUNK_PILE);
+        setRender(TOXIBERRY_TREE_SAPLING);
+        setRender(SLIME_BLOB);
+        setRender(BROWN_SLIME);
+        setRender(BONES_PILE);
+        setRender(MUTATED_FLOWER_RED);
+        setRender(MUTATED_FLOWER_PINK);
+        setRender(GIANT_FLOWER_LEAVES);
+        setRender(BURNING_FROST);
+        setRender(RUBY_ORE);
+        setRender(SAPPHIRE_ORE);
+        setRender(CITRINE_ORE);
+        setRender(AMETHYST_ORE);
+        setRender(TOPAZ_ORE);
+        setRender(RHINESTONE_ORE);
+        setRender(CONIFER_PLANKS);
+        setRender(CONIFER_STAIRS);
+        setRender(CONIFER_ORNAMENT);
+        setRender(ICE_PANE);
+        setRender(CONIFER_TABLE);
+        setRender(CONIFER_CHAIR);
+        setRender(STAR_LANTERN);
+        setRender(CONIFER_PILASTER);
+        setRender(GARLAND);
+        setRender(PRESENT_BOX);
+        setRender(CRYSTAL_TABLE);
+        setRender(CRYSTAL_CHAIR);
+        setRender(CRYSTAL_TORCH);
+        setRender(CORAL_TORCH);
+        setRender(CRYSTAL_VASE);
+        setRender(CRYSTAL_CHANDELIER);
+        setRender(TOXIC_CHANDELIER);
+        setRender(CORAL_TABLE);
+        setRender(CORAL_CHAIR);
+        setRender(CORAL_CHANDELIER);
+        setRender(CORAL_VASE);
+        setRender(CORAL_BRICKS);
+        setRender(PEARLESCENT_BRICKS);
+        setRender(PEARLESCENT_STAIRS);
+        setRender(PEARLESCENT_PILASTER);
+        setRender(SEAWEEDBLOCK);
+        setRender(PALM_LOG);
+        setRender(PALM_LEAVES);
+        setRender(PALM_SAPLING);
+        setRender(PALM_DRY_LEAVES);
+        setRender(PALM_FRUIT_BUNCH);
+        setRender(PALM_TABLE);
+        setRender(PALM_CHAIR);
+        setRender(PALM_TORCH);
+        setRender(SEA_STONE);
+        setRender(CORAL_YELLOW);
+        setRender(CORAL_PINK);
+        setRender(CORAL_WHITE);
+        setRender(CORAL_RED);
+        setRender(CORAL_ORANGE);
+        setRender(CORALLIMORPHA_BLUE);
+        setRender(CORALLIMORPHA_RED);
+        setRender(CORALLIMORPHA_YELLOW);
+        setRender(CORALLIMORPHA_PINK);
+        setRender(CORALLIMORPHA_LILAC);
+        setRender(CORALLIMORPHA_BROWN);
+        setRender(CORALLIMORPHA_GREEN);
+        setRender(ACROPORA_PURPLE);
+        setRender(ACROPORA_WHITE);
+        setRender(GORGONARIA_BROWN);
+        setRender(GORGONARIA_RED);
+        setRender(HELIOPORACEA);
+        setRender(ACROPORA_PURPLE_BIG);
+        setRender(GORGONARIA_WHITE);
+        setRender(GORGONARIA_RED_BIG);
+        setRender(GORGONARIA_WHITE_BIG);
+        setRender(GORGONARIA_BROWN_BIG);
+        setRender(ACROPORA_WHITE_BIG);
+        setRender(FAVIA_BLUE);
+        setRender(FAVIA_GREEN);
+        setRender(FAVIA_RED);
+        setRender(FAVIA_YELLOW);
+        setRender(FAVIA_BRAIN);
+        setRender(GIANT_SHELL);
+        setRender(ACTINIFORA_RAMIFORM);
+        setRender(ACTINIFORA_ARENACEOUS);
+        setRender(ACTINIFORA_BRIGHT);
+        setRender(ACTINIFORA_GIANT);
+        setRender(ACTINIFORA_SEGREGATE);
+        setRender(FROSTFIRE_EXPLOSIVE);
+        setRender(ACID_BOMB);
+        setRender(COLLIDER_PIPE);
+        setRender(REDSTONED_FROZEN_BRICKS);
+        setRender(FULMINIFLORA);
+        setRender(FULMINIHERBA);
+        setRender(GLOWBUSH);
+        setRender(FULMINIORTUM_BULB);
+        setRender(FULMINIORTUM_BONNY);
+        setRender(ARTHROSTELECHA_LOG_BRASS);
+        setRender(ARTHROSTELECHA_LOG_PINK);
+        setRender(ARTHROSTELECHA_LEAVES_BRASS);
+        setRender(ARTHROSTELECHA_LEAVES_PINK);
+        setRender(LOOT_BLOB);
+        setRender(MINI_NUKE);
+        setRender(ARSENIC_ORE);
+        setRender(BIO_CELL);
+        setRender(CHLORINE_BELCHER);
+        setRender(VIRULENT_CAPSULE);
+        setRender(SWEET_NECTAR_FLOWER);
+        setRender(LAB_PLATING);
+        setRender(RUST_LAMP);
+        setRender(SEAGRASS);
+        setRender(SHELLROCK);
+        setRender(LIVING_SPONGE);
+        setRender(CHALKROCK);
+        setRender(STROMATOLITE);
+        setRender(METALLIC_CORAL);
+        setRender(FROZEN_SPAWNER);
+        setRender(TOXINIUM_ORE);
+        setRender(WOLFRAM_ORE);
+        setRender(RUSTED_SPAWNER);
+        setRender(BUNKER_DOOR);
+        setRender(BLOCK_WINTER_ALTAR);
+        setRender(CONIFER_SAPLING);
+        setRender(SNOW_SEWING_TABLE);
+        setRender(STONE_SPELEOTHEM);
+        setRender(SHELLROCK_SPELEOTHEM);
+        setRender(SELENITE_SPELEOTHEM);
+        setRender(DOLERITE_BRICKS);
+        setRender(DOLERITE_PILASTER);
+        setRender(DOLERITE_STAIRS);
+        setRender(DOLERITE_COLUMN);
+        setRender(METALLIC_ROCK);
+        setRender(BEAM_ROCK);
+        setRender(METALLIC_ROCK_PILASTER);
+        setRender(STORM_MASONRY);
+        setRender(STORM_PLATE);
+        setRender(STORM_PILASTER);
+        setRender(STORM_CONDUCTOR);
+        setRender(STORM_RACK);
+        setRender(ADAMANTIUM_ORE);
+        setRender(RADIANT_BRICK);
+        setRender(CHROMIUM_ORE);
+        setRender(ZINC_ORE);
+        setRender(ALUMINIUM_ORE);
+        setRender(BAUXITE);
+        setRender(FIERY_BEAN_BLOCK);
+        setRender(FIERY_BEAN_LEAVES);
+        setRender(FIERY_BEAN_LOG);
+        setRender(FIERY_BEAN_SAPLING);
+        setRender(MAGMA_BLOOM);
+        setRender(SULFUR_CRYSTAL);
+        setRender(PALM_PLANKS);
+        setRender(FIERY_BEAN_PLANKS);
+        setRender(NATIVE_SILVER);
+        setRender(TOXIC_PORTAL_FRAME);
+        setRender(DUNGEON_PORTAL_FRAME);
+        setRender(ANCIENT_SPAWNER);
+        setRender(RADIOACTIVE_SPELEOTHEM);
+        setRender(FROZEN_SLIME);
+        setRender(SILVER_ORE);
+        setRender(RHINESTONE_BLOCK);
+        setRender(AQUATIC_SPAWNER);
+        setRender(NIVEOLITE_BLOCK);
+        setRender(MAGIC_LOG);
+        setRender(RESEARCH_TABLE);
+        setRender(MAGIC_BRICKS);
+        setRender(MAGIC_ORNAMENT);
+        setRender(STAINED_GLASS_MARIGOLD);
+        setRender(STAINED_GLASS_ROSE);
+        setRender(STAINED_GLASS_SUNSET);
+        setRender(STAINED_GLASS_SKY);
+        setRender(STAINED_GLASS_STARLIGHT);
+        setRender(STAINED_GLASS_AURORA);
+        setRender(AMETHYST_LANTERN);
+        setRender(CITRINE_LANTERN);
+        setRender(EMERALD_LANTERN);
+        setRender(RUBY_LANTERN);
+        setRender(SAPPHIRE_LANTERN);
+        setRender(TOPAZ_LANTERN);
+        setRender(RHINESTONE_LANTERN);
+        setRender(DIAMOND_LANTERN);
+        setRender(AMETHYST_LAMP);
+        setRender(CITRINE_LAMP);
+        setRender(DIAMOND_LAMP);
+        setRender(EMERALD_LAMP);
+        setRender(RHINESTONE_LAMP);
+        setRender(RUBY_LAMP);
+        setRender(SAPPHIRE_LAMP);
+        setRender(TOPAZ_LAMP);
+        setRender(DECORATIVE_CHAIN);
+        setRender(VENTASTOLA_CATCHER);
+        setRender(LAIGANIA_STEM);
+        setRender(LAIGANIA_PULP);
+        setRender(VENTASTOLA_TRUNK);
+        setRender(MELANZA_BULB);
+        setRender(MELANZA_STEM);
+        setRender(SPLITTER);
+        setRender(CREATIVE_ELEMENT_DISTRIBUTOR);
+        setRender(RETORT);
+        setRender(GEMSPARK_BLOCK);
+        setRender(SUMMONED_HELLSTONE);
+        setRender(WOODEN_BOOKCASE);
+        setRender(ABSORPTION_TOTEM);
+        setRender(DISENCHANTMENT_TABLE);
+        setRender(MANAOIL_SPELEOTHEM);
+        setRender(MANA_FLOWER_LEAVES);
+        setRender(MANA_FLOWER);
+        setRender(HEALTH_FLOWER_LEAVES);
+        setRender(HEALTH_FLOWER);
+        setRender(RED_PEPPER_VINE);
+        setRender(TOMATO_STEM);
+        setRender(ELECTROFERN_LEAVES);
+        setRender(ELECTROFERN_STEM);
+        setRender(ARTHROHELIA_STEM);
+        setRender(ARTHROHELIA_STALK);
+        setRender(ARTHROHELIA_SPIKE);
+        setRender(EXOHELIA_SPIKE);
+        setRender(MITHRIL_ORE);
+        setRender(ORESTORM_STEEL);
+        setRender(TITANIUM_ORE);
+        setRender(RADIOACTIVE_TITANIUM_ORE);
+        setRender(MACHINERY_CASING);
+        setRender(CHROMIUM_GLASS);
+        setRender(ASH_BLOCK);
+        setRender(SILVER_BLOCK);
+        setRender(SALT_ORE);
+        setRender(MONEY_BOX);
+        setRender(NIVEOUS_BRICKS);
+        setRender(NIVEOUS_COLUMN);
+        setRender(NIVEOUS_PILASTER);
+        setRender(NIVEOUS_STAIRS);
+        setRender(POLISHED_NIVEOUS_BLOCK);
+        setRender(POLISHED_NIVEOUS_PILASTER);
+        setRender(NIVEOUS_HOLE);
+        setRender(FROZEN_DEBRIS);
+        setRender(CONIFER_CRAFTING_TABLE);
+        setRender(LEPIDOLITE_ORE);
+        setRender(TOXIC_BARREL);
+        setRender(AQUATICA_PORTAL_FRAME);
+        setRender(DEBUG_COLOR_BLOCK);
+        setRender(STORM_SPAWNER);
+        setRender(STORMLEDGE_PORTAL_FRAME);
+        setRender(SEA_URCHIN);
+        setTEISR(ASSEMBLY_TABLE);
+        setTEISR(INDUSTRIAL_MIXER);
+        setTEISR(TRITON_HEARTH);
+        setTEISR(TIDE_BEACON);
+        setTEISR(GLOSSARY);
+        setTEISR(RUNIC_MIRROR);
+        setTEISR(VOID_CRYSTAL_BLOCK);
+        setTEISR(BIO_CELL);
+        setTEISR(SHIMMERING_BEASTBLOOM);
+        setTEISR(TURNING_AUGMENT);
+        setTEISR(PRESS_AUGMENT);
+        setTEISR(WELD_AUGMENT);
+        setTEISR(PLASMA_SPRAY_AUGMENT);
+        setTEISR(MOLECULAR_PRINTER_AUGMENT);
+        setTEISR(MANA_BOTTLE);
+        setTEISR(CRYSTAL_SPHERE);
+        setTEISR(SOUL_CATCHER);
+        setTEISR(MANA_PUMP);
+        setTEISR(SIEVE);
+        setTEISR(ELECTRIC_SIEVE);
+        setTEISR(BLOCK_NIVEOLITE_GAME);
+        setTEISR(PRESENT_BOX);
+        setTEISR(ITEM_CHARGER);
+        setTEISR(CHEST_FROZEN);
+        setTEISR(CHEST_RUSTED);
+        setTEISR(CHEST_TOXIC);
+        setTEISR(CHEST_ROTTEN);
+        setTEISR(CHEST_CRYSTAL);
+        setTEISR(CHEST_SUNKEN);
+        setTEISR(CHEST_CORAL);
+        setTEISR(CHEST_STORM);
+        setTEISR(MAGIC_GENERATOR);
+        setTEISR(SANCTUARY_BRICKS);
+        setTEISR(BLOCK_ETHERITE_INVOCATOR);
+        setTEISR(TEAM_BANNER);
 
-   //TODO move to ContentRegister and events
-   private static void setRegister(Block block, HashMap<Block, Integer> fuels) {
-      int burn = fuels.getOrDefault(block, 0);
-      if (burn == 0) {
-         ForgeRegistries.BLOCKS.register(block);
-         if (block instanceof BlockARPGChest) {
-            ForgeRegistries.ITEMS.register(new ItemARPGChest(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
-         } else if (block instanceof IHasSubtypes) {
-            ForgeRegistries.ITEMS
-               .register(new ItemBlockHasSubtypes(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
-         } else {
-            ForgeRegistries.ITEMS.register(new ItemBlock(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
-         }
-      } else {
-         ForgeRegistries.BLOCKS.register(block);
-         ForgeRegistries.ITEMS.register(new ItemBlockFuel(block, burn).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
-      }
-   }
+        for (Block block : FOR_RENDER) {
+            setRender(block);
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   private static void setRender(Block block) {
-      Item item = Item.getItemFromBlock(block);
-      if (item != null && item.getRegistryName() != null) {
-         ModelLoader.setCustomModelResourceLocation(item, 0,
-                 new ModelResourceLocation(item.getRegistryName(), "inventory"));
-      }
-   }
+    //TODO move to ContentRegister and events
+    private static void setRegister(Block block, HashMap<Block, Integer> fuels) {
+        int burn = fuels.getOrDefault(block, 0);
+        if (burn == 0) {
+            ForgeRegistries.BLOCKS.register(block);
+            if (block instanceof BlockARPGChest) {
+                ForgeRegistries.ITEMS.register(new ItemARPGChest(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
+            } else if (block instanceof IHasSubtypes) {
+                ForgeRegistries.ITEMS.register(new ItemBlockHasSubtypes(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
+            } else {
+                ForgeRegistries.ITEMS.register(new ItemBlock(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
+            }
+        } else {
+            ForgeRegistries.BLOCKS.register(block);
+            ForgeRegistries.ITEMS.register(new ItemBlockFuel(block, burn).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   private static void setRender(Block block, ModelResourceLocation model) {
-      Item item = Item.getItemFromBlock(block);
-      if (item != null) {
-         ModelLoader.setCustomModelResourceLocation(item, 0, model);
-      }
-   }
+    @SideOnly(Side.CLIENT)
+    private static void setRender(Block block) {
+        Item item = Item.getItemFromBlock(block);
+        if (item != null && item.getRegistryName() != null) {
+            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   public static void registerStateMappers() {
-      ModelLoader.setCustomStateMapper(CORALLIMORPHA_BLUE, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
-      ModelLoader.setCustomStateMapper(CORALLIMORPHA_BROWN, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
-      ModelLoader.setCustomStateMapper(CORALLIMORPHA_GREEN, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
-      ModelLoader.setCustomStateMapper(CORALLIMORPHA_LILAC, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
-      ModelLoader.setCustomStateMapper(CORALLIMORPHA_PINK, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
-      ModelLoader.setCustomStateMapper(CORALLIMORPHA_RED, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
-      ModelLoader.setCustomStateMapper(CORALLIMORPHA_YELLOW, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
-      ModelLoader.setCustomStateMapper(ACROPORA_PURPLE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(ACROPORA_WHITE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(GORGONARIA_BROWN, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(GORGONARIA_RED, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(GORGONARIA_WHITE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(HELIOPORACEA, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(ACROPORA_PURPLE_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(ACROPORA_WHITE_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(GORGONARIA_BROWN_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(GORGONARIA_RED_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(GORGONARIA_WHITE_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(FAVIA_RED, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(FAVIA_GREEN, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(FAVIA_BLUE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(FAVIA_YELLOW, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(FAVIA_BRAIN, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(ACTINIFORA_RAMIFORM, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(ACTINIFORA_BRIGHT, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(ACTINIFORA_ARENACEOUS, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(ACTINIFORA_SEGREGATE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-      ModelLoader.setCustomStateMapper(ACTINIFORA_GIANT, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
-   }
+    @SideOnly(Side.CLIENT)
+    private static void setRender(Block block, ModelResourceLocation model) {
+        Item item = Item.getItemFromBlock(block);
+        if (item != null) {
+            ModelLoader.setCustomModelResourceLocation(item, 0, model);
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   public static void setTEISR(final Block block) {
-      Item item = Item.getItemFromBlock(block);
-      if (item != null) {
-         ModelLoader.setCustomModelResourceLocation(item, 0,
-                 new ModelResourceLocation(block.getRegistryName(), "inventory"));
+    @SideOnly(Side.CLIENT)
+    public static void registerStateMappers() {
+        ModelLoader.setCustomStateMapper(CORALLIMORPHA_BLUE, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
+        ModelLoader.setCustomStateMapper(CORALLIMORPHA_BROWN, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
+        ModelLoader.setCustomStateMapper(CORALLIMORPHA_GREEN, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
+        ModelLoader.setCustomStateMapper(CORALLIMORPHA_LILAC, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
+        ModelLoader.setCustomStateMapper(CORALLIMORPHA_PINK, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
+        ModelLoader.setCustomStateMapper(CORALLIMORPHA_RED, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
+        ModelLoader.setCustomStateMapper(CORALLIMORPHA_YELLOW, new StateMap.Builder().ignore(Corallimorpha.WET, Corallimorpha.LEVEL).build());
+        ModelLoader.setCustomStateMapper(ACROPORA_PURPLE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(ACROPORA_WHITE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(GORGONARIA_BROWN, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(GORGONARIA_RED, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(GORGONARIA_WHITE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(HELIOPORACEA, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(ACROPORA_PURPLE_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(ACROPORA_WHITE_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(GORGONARIA_BROWN_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(GORGONARIA_RED_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(GORGONARIA_WHITE_BIG, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(FAVIA_RED, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(FAVIA_GREEN, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(FAVIA_BLUE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(FAVIA_YELLOW, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(FAVIA_BRAIN, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(ACTINIFORA_RAMIFORM, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(ACTINIFORA_BRIGHT, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(ACTINIFORA_ARENACEOUS, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(ACTINIFORA_SEGREGATE, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+        ModelLoader.setCustomStateMapper(ACTINIFORA_GIANT, new StateMap.Builder().ignore(MiniCoral.WET, MiniCoral.LEVEL).build());
+    }
 
-         item.setTileEntityItemStackRenderer(TEISRBlocks.instance);
-      }
-   }
+    @SideOnly(Side.CLIENT)
+    public static void setTEISR(final Block block) {
+        Item item = Item.getItemFromBlock(block);
+        if (item != null) {
+            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
 
-   public static class HardRes {
-      public final float hardness;
-      public final float resistance;
-      public final float slow;
-      public final float fast;
-      public final int lvl;
+            item.setTileEntityItemStackRenderer(TEISRBlocks.instance);
+        }
+    }
 
-      public HardRes(float hardness, float resistance, float slow, float fast, int lvl) {
-         this.hardness = hardness;
-         this.resistance = resistance;
-         this.slow = slow;
-         this.fast = fast;
-         this.lvl = lvl;
-      }
+    public static class HardRes {
 
-      @SuppressWarnings("unused")
-      public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
-         return toolLevel >= this.lvl && state.getBlock().isToolEffective(tool, state) ? originalSpeed * this.fast : originalSpeed * this.slow;
-      }
-   }
+        public final float hardness;
+        public final float resistance;
+        public final float slow;
+        public final float fast;
+        public final int lvl;
+
+        public HardRes(float hardness, float resistance, float slow, float fast, int lvl) {
+            this.hardness = hardness;
+            this.resistance = resistance;
+            this.slow = slow;
+            this.fast = fast;
+            this.lvl = lvl;
+        }
+
+        @SuppressWarnings("unused")
+        public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
+            return toolLevel >= this.lvl && state.getBlock().isToolEffective(tool, state) ? originalSpeed * this.fast : originalSpeed * this.slow;
+        }
+
+    }
+
 }

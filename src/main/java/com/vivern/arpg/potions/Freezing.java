@@ -7,8 +7,6 @@ import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.renders.LayerIce;
 import com.vivern.arpg.renders.PotionBurningEffects;
-import java.util.Map.Entry;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -25,195 +23,174 @@ import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.event.entity.living.PotionEvent.PotionAddedEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map.Entry;
 
 public class Freezing extends AdvancedPotion {
-   public static final ResourceLocation cold = new ResourceLocation("arpg:textures/cold.png");
-   public static final ResourceLocation textur = new ResourceLocation("arpg:textures/freezing.png");
-   public static PotionEffect forTestSound = new PotionEffect(PotionEffects.FREEZING);
 
-   protected Freezing(boolean isBadEffectIn, int liquidColorIn, int index) {
-      super(isBadEffectIn, liquidColorIn, index, true);
-      this.setRegistryName("arpg:freezing");
-      this.setPotionName("Freezing");
-      this.setIconIndex(2, 1);
-      this.shouldRender = true;
-   }
+    public static final ResourceLocation cold = new ResourceLocation("arpg:textures/cold.png");
+    public static final ResourceLocation textur = new ResourceLocation("arpg:textures/freezing.png");
+    public static PotionEffect forTestSound = new PotionEffect(PotionEffects.FREEZING);
 
-   @Override
-   public boolean isPotionApplicable(EntityLivingBase entityOnEffect, PotionEffect effect) {
-      return !entityOnEffect.isPotionActive(PotionEffects.FREEZE_IMMUNITY);
-   }
+    protected Freezing(boolean isBadEffectIn, int liquidColorIn, int index) {
+        super(isBadEffectIn, liquidColorIn, index, true);
+        this.setRegistryName("arpg:freezing");
+        this.setPotionName("Freezing");
+        this.setIconIndex(2, 1);
+        this.shouldRender = true;
+    }
 
-   public static boolean canImmobilizeEntity(EntityLivingBase entity, @Nullable PotionEffect effect) {
-      if (effect == null || effect.getDuration() <= 1) {
-         return false;
-      } else if (entity instanceof AbstractMob) {
-         return ((AbstractMob)entity).canFreezingImmobilizeMob(effect);
-      } else if (entity instanceof EntityPlayer) {
-         int effectPower = effect.getAmplifier() + 1;
-         float entityPower = entity.getMaxHealth() * 0.05F + 1.25F + (float)entity.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue();
-         return effectPower >= entityPower;
-      } else {
-         int effectPower = effect.getAmplifier() + 1;
-         float entityPower = entity.getMaxHealth() * 0.025F
-            + (entity.width + entity.height) / 2.6F
-            + (float)entity.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue();
-         if (entity.isImmuneToFire()) {
-            entityPower--;
-         }
+    @Override
+    public boolean isPotionApplicable(EntityLivingBase entityOnEffect, PotionEffect effect) {
+        return !entityOnEffect.isPotionActive(PotionEffects.FREEZE_IMMUNITY);
+    }
 
-         return effectPower >= entityPower;
-      }
-   }
-
-   public static boolean canImmobilizeEntity(Entity entity) {
-      if (entity instanceof EntityLivingBase) {
-         EntityLivingBase entityLivingBase = (EntityLivingBase)entity;
-         return canImmobilizeEntity(entityLivingBase, entityLivingBase.getActivePotionEffect(PotionEffects.FREEZING));
-      } else {
-         return false;
-      }
-   }
-
-   @Override
-   public void onApplyEffect(PotionAddedEvent event) {
-      if (event.getEntityLiving() instanceof AbstractHorse) {
-         event.getEntityLiving().setAIMoveSpeed(0.0F);
-      }
-
-      super.onApplyEffect(event);
-   }
-
-   @Override
-   public void onRemoveEffect(EntityLivingBase entityOnEffect, PotionEffect effect, boolean byExpiry) {
-      if (entityOnEffect instanceof AbstractHorse) {
-         entityOnEffect.setAIMoveSpeed(1.0F);
-      }
-
-      super.onRemoveEffect(entityOnEffect, effect, byExpiry);
-   }
-
-   public static boolean tryPlaySound(EntityLivingBase entity, PotionEffect lasteffect) {
-      PotionEffect neweff = entity.getActivePotionEffect(PotionEffects.FREEZING);
-      if (!canImmobilizeEntity(entity, lasteffect) && canImmobilizeEntity(entity, neweff) && entity.isPotionApplicable(neweff)) {
-         entity.world
-            .playSound(
-                    null,
-               entity.posX,
-               entity.posY,
-               entity.posZ,
-               Sounds.freezing,
-               SoundCategory.HOSTILE,
-               1.2F,
-               0.9F + entity.getRNG().nextFloat() / 5.0F
-            );
-         return true;
-      } else {
-         return false;
-      }
-   }
-
-   public static boolean tryPlaySound(EntityLivingBase entity) {
-      return tryPlaySound(entity, forTestSound);
-   }
-
-   public static boolean tryPlaySound(Entity entity) {
-      return entity instanceof EntityLivingBase && tryPlaySound((EntityLivingBase) entity, forTestSound);
-   }
-
-   public static boolean tryPlaySound(Entity entity, PotionEffect lasteffect) {
-      return entity instanceof EntityLivingBase && tryPlaySound((EntityLivingBase) entity, lasteffect);
-   }
-
-   public static boolean onKeysChange(EntityLivingBase player, int nextKeys) {
-      if (canImmobilizeEntity(player)) {
-         if (!player.world.isRemote) {
-            PotionEffect effect = Weapons.mixPotion(
-               player,
-               PotionEffects.FREEZING,
-               3.0F,
-               0.0F,
-               Weapons.EnumPotionMix.WITH_MINIMUM,
-               Weapons.EnumPotionMix.ABSOLUTE,
-               Weapons.EnumMathOperation.MINUS,
-               Weapons.EnumMathOperation.PLUS,
-               0,
-               0
-            );
-            if (effect.getDuration() <= 4) {
-               player.addPotionEffect(new PotionEffect(PotionEffects.FREEZE_IMMUNITY, 105 - player.world.getDifficulty().getId() * 15));
+    public static boolean canImmobilizeEntity(EntityLivingBase entity, @Nullable PotionEffect effect) {
+        if (effect == null || effect.getDuration() <= 1) {
+            return false;
+        } else if (entity instanceof AbstractMob) {
+            return ((AbstractMob) entity).canFreezingImmobilizeMob(effect);
+        } else if (entity instanceof EntityPlayer) {
+            int effectPower = effect.getAmplifier() + 1;
+            float entityPower = entity.getMaxHealth() * 0.05F + 1.25F + (float) entity.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue();
+            return effectPower >= entityPower;
+        } else {
+            int effectPower = effect.getAmplifier() + 1;
+            float entityPower = entity.getMaxHealth() * 0.025F + (entity.width + entity.height) / 2.6F + (float) entity.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue();
+            if (entity.isImmuneToFire()) {
+                entityPower--;
             }
-         } else {
-            bom();
-         }
 
-         return false;
-      } else {
-         return true;
-      }
-   }
+            return effectPower >= entityPower;
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   public static void bom() {
-      Boom.lastTick = 6;
-      Boom.frequency = 0.525F * (rand.nextFloat() < 0.5 ? 1 : -1);
-      Boom.x = 0.0F;
-      Boom.y = 0.0F;
-      Boom.z = 1.0F;
-      Boom.power = 0.45F;
-   }
+    public static boolean canImmobilizeEntity(Entity entity) {
+        if (entity instanceof EntityLivingBase) {
+            EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
+            return canImmobilizeEntity(entityLivingBase, entityLivingBase.getActivePotionEffect(PotionEffects.FREEZING));
+        } else {
+            return false;
+        }
+    }
 
-   @Override
-   public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
-      entityLivingBase.motionY -= 0.02;
-   }
+    @Override
+    public void onApplyEffect(PotionAddedEvent event) {
+        if (event.getEntityLiving() instanceof AbstractHorse) {
+            event.getEntityLiving().setAIMoveSpeed(0.0F);
+        }
 
-   @Override
-   public boolean isReady(int duration, int amplifier) {
-      return true;
-   }
+        super.onApplyEffect(event);
+    }
 
-   @SuppressWarnings("unchecked")
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
-      if (canImmobilizeEntity(entityOnEffect, effect)) {
-         GlStateManager.pushMatrix();
-         GlStateManager.depthMask(false);
-         GlStateManager.enableBlend();
-         GlStateManager.matrixMode(5888);
-         ARPGHooks.bindEnotherTexture = textur;
-         entityRenderer.doRender(entityOnEffect, x, y, z, yaw, partialTicks);
-         GlStateManager.disableBlend();
-         GlStateManager.depthMask(true);
-         GlStateManager.popMatrix();
-         ARPGHooks.bindEnotherTexture = null;
-      }
-   }
+    @Override
+    public void onRemoveEffect(EntityLivingBase entityOnEffect, PotionEffect effect, boolean byExpiry) {
+        if (entityOnEffect instanceof AbstractHorse) {
+            entityOnEffect.setAIMoveSpeed(1.0F);
+        }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void renderFirstperson(EntityPlayer player, PotionEffect effect, RenderHandEvent event) {
-      float add = canImmobilizeEntity(player, effect) ? 0.3F : 0.0F;
-      Minecraft.getMinecraft().getTextureManager().bindTexture(textur);
-      PotionBurningEffects.renderPolygonInFirstPerson(DemonicBurn.fire1, 0.1F + 0.3F * Math.min(effect.getDuration(), 60) / 60.0F + add, -0.4F);
-   }
+        super.onRemoveEffect(entityOnEffect, effect, byExpiry);
+    }
 
-   public static void initIceLayers() {
-      for (Entry<Class<? extends Entity>, Render<? extends Entity>> entry : Minecraft.getMinecraft().getRenderManager().entityRenderMap.entrySet()) {
-         if (entry.getKey() != null
-            && EntityLivingBase.class.isAssignableFrom(entry.getKey())
-            && entry.getValue() != null
-            && entry.getValue() instanceof RenderLivingBase) {
-            RenderLivingBase render = (RenderLivingBase)entry.getValue();
-            LayerIce layer = new LayerIce(render);
-            render.addLayer(layer);
-         }
-      }
+    public static boolean tryPlaySound(EntityLivingBase entity, PotionEffect lasteffect) {
+        PotionEffect neweff = entity.getActivePotionEffect(PotionEffects.FREEZING);
+        if (!canImmobilizeEntity(entity, lasteffect) && canImmobilizeEntity(entity, neweff) && entity.isPotionApplicable(neweff)) {
+            entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, Sounds.freezing, SoundCategory.HOSTILE, 1.2F, 0.9F + entity.getRNG().nextFloat() / 5.0F);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-      LayerIce layer1 = new LayerIce(Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
-      LayerIce layer2 = new LayerIce(Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
-      Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default").addLayer(layer1);
-      Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim").addLayer(layer2);
-   }
+    public static boolean tryPlaySound(EntityLivingBase entity) {
+        return tryPlaySound(entity, forTestSound);
+    }
+
+    public static boolean tryPlaySound(Entity entity) {
+        return entity instanceof EntityLivingBase && tryPlaySound((EntityLivingBase) entity, forTestSound);
+    }
+
+    public static boolean tryPlaySound(Entity entity, PotionEffect lasteffect) {
+        return entity instanceof EntityLivingBase && tryPlaySound((EntityLivingBase) entity, lasteffect);
+    }
+
+    public static boolean onKeysChange(EntityLivingBase player, int nextKeys) {
+        if (canImmobilizeEntity(player)) {
+            if (!player.world.isRemote) {
+                PotionEffect effect = Weapons.mixPotion(player, PotionEffects.FREEZING, 3.0F, 0.0F, Weapons.EnumPotionMix.WITH_MINIMUM, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumMathOperation.MINUS, Weapons.EnumMathOperation.PLUS, 0, 0);
+                if (effect.getDuration() <= 4) {
+                    player.addPotionEffect(new PotionEffect(PotionEffects.FREEZE_IMMUNITY, 105 - player.world.getDifficulty().getId() * 15));
+                }
+            } else {
+                bom();
+            }
+
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void bom() {
+        Boom.lastTick = 6;
+        Boom.frequency = 0.525F * (rand.nextFloat() < 0.5 ? 1 : -1);
+        Boom.x = 0.0F;
+        Boom.y = 0.0F;
+        Boom.z = 1.0F;
+        Boom.power = 0.45F;
+    }
+
+    @Override
+    public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
+        entityLivingBase.motionY -= 0.02;
+    }
+
+    @Override
+    public boolean isReady(int duration, int amplifier) {
+        return true;
+    }
+
+    @SuppressWarnings("unchecked")
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
+        if (canImmobilizeEntity(entityOnEffect, effect)) {
+            GlStateManager.pushMatrix();
+            GlStateManager.depthMask(false);
+            GlStateManager.enableBlend();
+            GlStateManager.matrixMode(5888);
+            ARPGHooks.bindEnotherTexture = textur;
+            entityRenderer.doRender(entityOnEffect, x, y, z, yaw, partialTicks);
+            GlStateManager.disableBlend();
+            GlStateManager.depthMask(true);
+            GlStateManager.popMatrix();
+            ARPGHooks.bindEnotherTexture = null;
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void renderFirstperson(EntityPlayer player, PotionEffect effect, RenderHandEvent event) {
+        float add = canImmobilizeEntity(player, effect) ? 0.3F : 0.0F;
+        Minecraft.getMinecraft().getTextureManager().bindTexture(textur);
+        PotionBurningEffects.renderPolygonInFirstPerson(DemonicBurn.fire1, 0.1F + 0.3F * Math.min(effect.getDuration(), 60) / 60.0F + add, -0.4F);
+    }
+
+    public static void initIceLayers() {
+        for (Entry<Class<? extends Entity>, Render<? extends Entity>> entry : Minecraft.getMinecraft().getRenderManager().entityRenderMap.entrySet()) {
+            if (entry.getKey() != null && EntityLivingBase.class.isAssignableFrom(entry.getKey()) && entry.getValue() != null && entry.getValue() instanceof RenderLivingBase) {
+                RenderLivingBase render = (RenderLivingBase) entry.getValue();
+                LayerIce layer = new LayerIce(render);
+                render.addLayer(layer);
+            }
+        }
+
+        LayerIce layer1 = new LayerIce(Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
+        LayerIce layer2 = new LayerIce(Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
+        Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default").addLayer(layer1);
+        Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim").addLayer(layer2);
+    }
+
 }

@@ -1,41 +1,46 @@
 package com.vivern.arpg.items.animation;
 
-import java.util.ArrayList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ItemStackImagine {
-   public ArrayList<SynchronizedField> fields = new ArrayList<>();
+import java.util.ArrayList;
 
-   public static ItemStackImagine getFromStack(ItemStack itemstack) {
-      if (itemstack.hasTagCompound()) {
-         NBTTagCompound tag = itemstack.getTagCompound();
-         if (tag instanceof NBTTagReimagined) {
-            return ((NBTTagReimagined)tag).getOrCreateImagine();
-         } else {
+public class ItemStackImagine {
+
+    public ArrayList<SynchronizedField> fields = new ArrayList<>();
+
+    public static ItemStackImagine getFromStack(ItemStack itemstack) {
+        if (itemstack.hasTagCompound()) {
+            NBTTagCompound tag = itemstack.getTagCompound();
+            if (tag instanceof NBTTagReimagined) {
+                return ((NBTTagReimagined) tag).getOrCreateImagine();
+            } else {
+                NBTTagReimagined tagReimagined = new NBTTagReimagined();
+                tagReimagined.merge(tag);
+                itemstack.setTagCompound(tagReimagined);
+                return tagReimagined.getOrCreateImagine();
+            }
+        } else {
             NBTTagReimagined tagReimagined = new NBTTagReimagined();
-            tagReimagined.merge(tag);
             itemstack.setTagCompound(tagReimagined);
             return tagReimagined.getOrCreateImagine();
-         }
-      } else {
-         NBTTagReimagined tagReimagined = new NBTTagReimagined();
-         itemstack.setTagCompound(tagReimagined);
-         return tagReimagined.getOrCreateImagine();
-      }
-   }
+        }
+    }
 
-   public static enum EnumSynchronize {
-      NONE,
-      FROM_SERVER_TO_CLIENT,
-      FROM_CLIENT_TO_SERVER;
-   }
+    public static enum EnumSynchronize {
+        NONE, FROM_SERVER_TO_CLIENT, FROM_CLIENT_TO_SERVER;
+    }
 
-   public static class SynchronizedField {
-      public EnumSynchronize synchronizeType;
-   }
+    public static class SynchronizedField {
 
-   public static class SynchronizedFloat extends SynchronizedField {
-      public float value;
-   }
+        public EnumSynchronize synchronizeType;
+
+    }
+
+    public static class SynchronizedFloat extends SynchronizedField {
+
+        public float value;
+
+    }
+
 }

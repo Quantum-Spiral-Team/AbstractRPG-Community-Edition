@@ -10,14 +10,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderFreezing extends RenderLiving<EntityLiving> {
-   private static final ResourceLocation textur = new ResourceLocation("arpg:textures/sobig-4.png");
 
-   public RenderFreezing(RenderManager rendermanagerIn, ModelBase modelbaseIn) {
-      super(rendermanagerIn, modelbaseIn, 0.0F);
-   }
+    private static final ResourceLocation textur = new ResourceLocation("arpg:textures/sobig-4.png");
 
-   @Override
-   protected ResourceLocation getEntityTexture(EntityLiving entity) {
-      return textur;
-   }
+    public RenderFreezing(RenderManager rendermanagerIn, ModelBase modelbaseIn) {
+        super(rendermanagerIn, modelbaseIn, 0.0F);
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(EntityLiving entity) {
+        return textur;
+    }
+
 }

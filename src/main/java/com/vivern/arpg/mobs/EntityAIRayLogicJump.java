@@ -1,8 +1,8 @@
 package com.vivern.arpg.mobs;
 
+import com.google.common.base.Predicate;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.SuperKnockback;
-import com.google.common.base.Predicate;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -10,42 +10,44 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 public class EntityAIRayLogicJump extends EntityAIBase {
-   public EntityCreature entity;
-   public Predicate<IBlockState> ignoreBlocks = block -> false;
 
-   public EntityAIRayLogicJump(EntityCreature entity) {
-      this.entity = entity;
-   }
+    public EntityCreature entity;
+    public Predicate<IBlockState> ignoreBlocks = block -> false;
 
-   @Override
-   public boolean shouldExecute() {
-      return true;
-   }
+    public EntityAIRayLogicJump(EntityCreature entity) {
+        this.entity = entity;
+    }
 
-   @Override
-   public void updateTask() {
-      if (this.entity.ticksExisted % 20 == 0) {
-         Vec3d fromPos = this.entity.getPositionEyes(1.0F);
-         Vec3d vec3d1 = this.entity.getLook(1.0F);
-         Vec3d lookPos = fromPos.add(vec3d1.x * 1.3, vec3d1.y * 1.3, vec3d1.z * 1.3);
-         Vec3d lookPosForJump = fromPos.add(vec3d1.x * 10.0, vec3d1.y * 10.0, vec3d1.z * 10.0);
-         Vec3d impact = GetMOP.logicRayTraceIgnoreMobs(this.entity.world, fromPos, lookPos, this.ignoreBlocks, false);
-         BlockPos pos = new BlockPos(impact);
-         BlockPos posDown = pos.down();
-         if (this.entity.world.getBlockState(posDown).getCollisionBoundingBox(this.entity.world, posDown) == null) {
-            BlockPos posDown1 = posDown.down();
-            if (this.entity.world.getBlockState(posDown1).getCollisionBoundingBox(this.entity.world, posDown1) == null) {
-               this.jump(lookPosForJump);
+    @Override
+    public boolean shouldExecute() {
+        return true;
+    }
+
+    @Override
+    public void updateTask() {
+        if (this.entity.ticksExisted % 20 == 0) {
+            Vec3d fromPos = this.entity.getPositionEyes(1.0F);
+            Vec3d vec3d1 = this.entity.getLook(1.0F);
+            Vec3d lookPos = fromPos.add(vec3d1.x * 1.3, vec3d1.y * 1.3, vec3d1.z * 1.3);
+            Vec3d lookPosForJump = fromPos.add(vec3d1.x * 10.0, vec3d1.y * 10.0, vec3d1.z * 10.0);
+            Vec3d impact = GetMOP.logicRayTraceIgnoreMobs(this.entity.world, fromPos, lookPos, this.ignoreBlocks, false);
+            BlockPos pos = new BlockPos(impact);
+            BlockPos posDown = pos.down();
+            if (this.entity.world.getBlockState(posDown).getCollisionBoundingBox(this.entity.world, posDown) == null) {
+                BlockPos posDown1 = posDown.down();
+                if (this.entity.world.getBlockState(posDown1).getCollisionBoundingBox(this.entity.world, posDown1) == null) {
+                    this.jump(lookPosForJump);
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   public void jump(Vec3d lookPos) {
-      if (this.entity.onGround) {
-         SuperKnockback.applyMove(this.entity, -15.0F, lookPos.x, 0.0, lookPos.z);
-         this.entity.motionY = 0.6;
-         this.entity.velocityChanged = true;
-      }
-   }
+    public void jump(Vec3d lookPos) {
+        if (this.entity.onGround) {
+            SuperKnockback.applyMove(this.entity, -15.0F, lookPos.x, 0.0, lookPos.z);
+            this.entity.motionY = 0.6;
+            this.entity.velocityChanged = true;
+        }
+    }
+
 }

@@ -12,29 +12,31 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class CustomPlantSeed extends Item {
-   public CustomPlant plant;
-   public int burntime = -1;
 
-   public CustomPlantSeed(CustomPlant plant) {
-      this.setRegistryName(plant.getRegistryName() + "_seed");
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setTranslationKey(plant.getRegistryName() + "_seed");
-      this.plant = plant;
-   }
+    public CustomPlant plant;
+    public int burntime = -1;
 
-   @Override
-   public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-      if (worldIn.isAirBlock(pos.up()) && this.plant.canBlockStay(worldIn, pos.up()) && facing == EnumFacing.UP) {
-         player.getHeldItem(hand).shrink(1);
-         worldIn.setBlockState(pos.up(), this.plant.getDefaultState().withProperty(CustomPlant.GROWED, false));
-         return EnumActionResult.SUCCESS;
-      } else {
-         return EnumActionResult.FAIL;
-      }
-   }
+    public CustomPlantSeed(CustomPlant plant) {
+        this.setRegistryName(plant.getRegistryName() + "_seed");
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setTranslationKey(plant.getRegistryName() + "_seed");
+        this.plant = plant;
+    }
 
-   @Override
-   public int getItemBurnTime(ItemStack itemStack) {
-      return this.burntime * 20;
-   }
+    @Override
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (worldIn.isAirBlock(pos.up()) && this.plant.canBlockStay(worldIn, pos.up()) && facing == EnumFacing.UP) {
+            player.getHeldItem(hand).shrink(1);
+            worldIn.setBlockState(pos.up(), this.plant.getDefaultState().withProperty(CustomPlant.GROWED, false));
+            return EnumActionResult.SUCCESS;
+        } else {
+            return EnumActionResult.FAIL;
+        }
+    }
+
+    @Override
+    public int getItemBurnTime(ItemStack itemStack) {
+        return this.burntime * 20;
+    }
+
 }

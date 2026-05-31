@@ -17,129 +17,114 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 
 public class TileDungeonLadder extends TileEntity implements ITickable {
-   public Block blockmaterial = Blocks.STONE;
-   public EnumFacing face = EnumFacing.EAST;
-   public Block laddermaterial = Blocks.LADDER;
-   public int ladderStyle = 0;
-   public ResourceLocation BLOCK_TEXTURES = new ResourceLocation("textures/blocks/stone.png");
-   public ResourceLocation LADDER_TEXTURES = new ResourceLocation("textures/blocks/ladder.png");
-   public Entity playerToTeleport;
-   public int teleportTick = 0;
-   public Vec3d positionToTeleport;
-   public int playsoundTick = 0;
 
-   @Override
-   public void update() {
-      if (!this.world.isRemote) {
-         if (this.playerToTeleport != null && this.positionToTeleport != null) {
-            if (this.teleportTick > 0) {
-               this.teleportTick--;
-               DungeonTopLadder.doTeleportAgressively(
-                  this.playerToTeleport,
-                  this.positionToTeleport.x,
-                  this.positionToTeleport.y,
-                  this.positionToTeleport.z,
-                  this.playerToTeleport.rotationYaw,
-                  this.playerToTeleport.rotationPitch
-               );
+    public Block blockmaterial = Blocks.STONE;
+    public EnumFacing face = EnumFacing.EAST;
+    public Block laddermaterial = Blocks.LADDER;
+    public int ladderStyle = 0;
+    public ResourceLocation BLOCK_TEXTURES = new ResourceLocation("textures/blocks/stone.png");
+    public ResourceLocation LADDER_TEXTURES = new ResourceLocation("textures/blocks/ladder.png");
+    public Entity playerToTeleport;
+    public int teleportTick = 0;
+    public Vec3d positionToTeleport;
+    public int playsoundTick = 0;
+
+    @Override
+    public void update() {
+        if (!this.world.isRemote) {
+            if (this.playerToTeleport != null && this.positionToTeleport != null) {
+                if (this.teleportTick > 0) {
+                    this.teleportTick--;
+                    DungeonTopLadder.doTeleportAgressively(this.playerToTeleport, this.positionToTeleport.x, this.positionToTeleport.y, this.positionToTeleport.z, this.playerToTeleport.rotationYaw, this.playerToTeleport.rotationPitch);
+                } else {
+                    this.playerToTeleport = null;
+                    this.positionToTeleport = null;
+                }
+            }
+
+            if (this.playsoundTick > 0) {
+                this.playsoundTick--;
+                if (this.playsoundTick == 0) {
+                    this.world.playSound(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), Sounds.dungeon_ladder, SoundCategory.BLOCKS, 0.7F, 0.85F + GetMOP.rand.nextFloat() * 0.3F);
+                }
+            }
+        }
+    }
+
+    public void read(NBTTagCompound compound) {
+        if (compound.hasKey("blockmaterial")) {
+            this.blockmaterial = Block.getBlockFromName(compound.getString("blockmaterial"));
+            if ("minecraft".equals(this.blockmaterial.getRegistryName().getNamespace())) {
+                this.BLOCK_TEXTURES = new ResourceLocation("textures/blocks/" + this.blockmaterial.getRegistryName().getPath() + ".png");
             } else {
-               this.playerToTeleport = null;
-               this.positionToTeleport = null;
+                this.BLOCK_TEXTURES = new ResourceLocation("arpg:textures/" + this.blockmaterial.getRegistryName().getPath() + ".png");
             }
-         }
+        }
 
-         if (this.playsoundTick > 0) {
-            this.playsoundTick--;
-            if (this.playsoundTick == 0) {
-               this.world
-                  .playSound(
-                     null,
-                     this.pos.getX(),
-                     this.pos.getY(),
-                     this.pos.getZ(),
-                     Sounds.dungeon_ladder,
-                     SoundCategory.BLOCKS,
-                     0.7F,
-                     0.85F + GetMOP.rand.nextFloat() * 0.3F
-                  );
+        if (compound.hasKey("laddermaterial")) {
+            this.laddermaterial = Block.getBlockFromName(compound.getString("laddermaterial"));
+            if ("minecraft".equals(this.laddermaterial.getRegistryName().getNamespace())) {
+                this.LADDER_TEXTURES = new ResourceLocation("textures/blocks/" + this.laddermaterial.getRegistryName().getPath() + ".png");
+            } else {
+                this.LADDER_TEXTURES = new ResourceLocation("arpg:textures/" + this.laddermaterial.getRegistryName().getPath() + ".png");
             }
-         }
-      }
-   }
+        }
 
-   public void read(NBTTagCompound compound) {
-      if (compound.hasKey("blockmaterial")) {
-         this.blockmaterial = Block.getBlockFromName(compound.getString("blockmaterial"));
-         if ("minecraft".equals(this.blockmaterial.getRegistryName().getNamespace())) {
-            this.BLOCK_TEXTURES = new ResourceLocation("textures/blocks/" + this.blockmaterial.getRegistryName().getPath() + ".png");
-         } else {
-            this.BLOCK_TEXTURES = new ResourceLocation("arpg:textures/" + this.blockmaterial.getRegistryName().getPath() + ".png");
-         }
-      }
+        if (compound.hasKey("face")) {
+            this.face = EnumFacing.byIndex(compound.getInteger("face"));
+        }
 
-      if (compound.hasKey("laddermaterial")) {
-         this.laddermaterial = Block.getBlockFromName(compound.getString("laddermaterial"));
-         if ("minecraft".equals(this.laddermaterial.getRegistryName().getNamespace())) {
-            this.LADDER_TEXTURES = new ResourceLocation("textures/blocks/" + this.laddermaterial.getRegistryName().getPath() + ".png");
-         } else {
-            this.LADDER_TEXTURES = new ResourceLocation("arpg:textures/" + this.laddermaterial.getRegistryName().getPath() + ".png");
-         }
-      }
+        if (compound.hasKey("ladderStyle")) {
+            this.ladderStyle = compound.getInteger("ladderStyle");
+        }
 
-      if (compound.hasKey("face")) {
-         this.face = EnumFacing.byIndex(compound.getInteger("face"));
-      }
+        super.readFromNBT(compound);
+    }
 
-      if (compound.hasKey("ladderStyle")) {
-         this.ladderStyle = compound.getInteger("ladderStyle");
-      }
+    public NBTTagCompound write(NBTTagCompound compound) {
+        compound.setString("blockmaterial", this.blockmaterial.getRegistryName().toString());
+        compound.setString("laddermaterial", this.laddermaterial.getRegistryName().toString());
+        compound.setInteger("face", this.face.getIndex());
+        compound.setInteger("ladderStyle", this.ladderStyle);
+        return super.writeToNBT(compound);
+    }
 
-      super.readFromNBT(compound);
-   }
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        this.write(compound);
+        return super.writeToNBT(compound);
+    }
 
-   public NBTTagCompound write(NBTTagCompound compound) {
-      compound.setString("blockmaterial", this.blockmaterial.getRegistryName().toString());
-      compound.setString("laddermaterial", this.laddermaterial.getRegistryName().toString());
-      compound.setInteger("face", this.face.getIndex());
-      compound.setInteger("ladderStyle", this.ladderStyle);
-      return super.writeToNBT(compound);
-   }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        this.read(compound);
+        super.readFromNBT(compound);
+    }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      this.write(compound);
-      return super.writeToNBT(compound);
-   }
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        this.write(compound);
+        return compound;
+    }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      this.read(compound);
-      super.readFromNBT(compound);
-   }
+    @Override
+    public void handleUpdateTag(NBTTagCompound compound) {
+        this.read(compound);
+        super.handleUpdateTag(compound);
+    }
 
-   @Override
-   public NBTTagCompound getUpdateTag() {
-      NBTTagCompound compound = super.getUpdateTag();
-      this.write(compound);
-      return compound;
-   }
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        NBTTagCompound compound = packet.getNbtCompound();
+        this.read(compound);
+    }
 
-   @Override
-   public void handleUpdateTag(NBTTagCompound compound) {
-      this.read(compound);
-      super.handleUpdateTag(compound);
-   }
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        this.write(compound);
+        return new SPacketUpdateTileEntity(this.pos, 1, compound);
+    }
 
-   @Override
-   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-      NBTTagCompound compound = packet.getNbtCompound();
-      this.read(compound);
-   }
-
-   @Override
-   public SPacketUpdateTileEntity getUpdatePacket() {
-      NBTTagCompound compound = new NBTTagCompound();
-      this.write(compound);
-      return new SPacketUpdateTileEntity(this.pos, 1, compound);
-   }
 }

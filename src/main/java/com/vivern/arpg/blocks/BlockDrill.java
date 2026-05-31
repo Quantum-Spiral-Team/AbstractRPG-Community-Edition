@@ -1,7 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.tileentity.TileDrill;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
@@ -18,91 +17,94 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockDrill extends Block {
-   public static final PropertyDirection FACING = BlockDirectional.FACING;
 
-   public BlockDrill() {
-      super(Material.ROCK);
-      this.setRegistryName("block_drill");
-      this.setTranslationKey("block_drill");
-      this.blockHardness = 3.5F;
-      this.blockResistance = 3.5F;
-      this.setCreativeTab(CreativeTabs.REDSTONE);
-      this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
-   }
+    public static final PropertyDirection FACING = BlockDirectional.FACING;
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
-      if (worldIn.getTileEntity(pos) instanceof TileDrill) {
-         TileDrill tileentity = (TileDrill)worldIn.getTileEntity(pos);
-         if (flag) {
-            tileentity.redstone++;
-         }
+    public BlockDrill() {
+        super(Material.ROCK);
+        this.setRegistryName("block_drill");
+        this.setTranslationKey("block_drill");
+        this.blockHardness = 3.5F;
+        this.blockResistance = 3.5F;
+        this.setCreativeTab(CreativeTabs.REDSTONE);
+        this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
+    }
 
-         if (!flag) {
-            tileentity.redstone = 0;
-         }
-      }
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
+        if (worldIn.getTileEntity(pos) instanceof TileDrill) {
+            TileDrill tileentity = (TileDrill) worldIn.getTileEntity(pos);
+            if (flag) {
+                tileentity.redstone++;
+            }
 
-   public Class<TileDrill> getTileEntityClass() {
-      return TileDrill.class;
-   }
+            if (!flag) {
+                tileentity.redstone = 0;
+            }
+        }
+    }
 
-   public TileDrill getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileDrill)world.getTileEntity(position);
-   }
+    public Class<TileDrill> getTileEntityClass() {
+        return TileDrill.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileDrill getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileDrill) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileDrill createTileEntity(World world, IBlockState blockState) {
-      return new TileDrill();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean hasComparatorInputOverride(IBlockState state) {
-      return true;
-   }
+    @Override
+    @Nullable
+    public TileDrill createTileEntity(World world, IBlockState blockState) {
+        return new TileDrill();
+    }
 
-   @Override
-   public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-      return Container.calcRedstone(worldIn.getTileEntity(pos));
-   }
+    @Override
+    public boolean hasComparatorInputOverride(IBlockState state) {
+        return true;
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
-   }
+    @Override
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+        return Container.calcRedstone(worldIn.getTileEntity(pos));
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
-   }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(FACING).getIndex();
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
+    }
 
-   @Override
-   public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(FACING).getIndex();
+    }
 
-   @Override
-   public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
-   }
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{FACING});
-   }
+    @Override
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{FACING});
+    }
+
 }

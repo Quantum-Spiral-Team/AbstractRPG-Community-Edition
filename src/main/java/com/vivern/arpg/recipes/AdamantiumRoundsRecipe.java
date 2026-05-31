@@ -11,42 +11,41 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
-   @Override
-   public boolean matches(InventoryCrafting inv, World worldIn) {
-      if (inv.getStackInSlot(4).getItem() == ItemsRegister.ADAMANTIUM_NUGGET) {
-         Item item1 = inv.getStackInSlot(1).getItem();
-         if (item1 instanceof ItemBullet
-            && inv.getStackInSlot(3).getItem() == item1
-            && inv.getStackInSlot(5).getItem() == item1
-            && inv.getStackInSlot(7).getItem() == item1) {
-            return true;
-         }
-      }
 
-      return false;
-   }
+    @Override
+    public boolean matches(InventoryCrafting inv, World worldIn) {
+        if (inv.getStackInSlot(4).getItem() == ItemsRegister.ADAMANTIUM_NUGGET) {
+            Item item1 = inv.getStackInSlot(1).getItem();
+            if (item1 instanceof ItemBullet && inv.getStackInSlot(3).getItem() == item1 && inv.getStackInSlot(5).getItem() == item1 && inv.getStackInSlot(7).getItem() == item1) {
+                return true;
+            }
+        }
 
-   @Override
-   public ItemStack getCraftingResult(InventoryCrafting inv) {
-      Item item1 = inv.getStackInSlot(1).getItem();
-      if (item1 instanceof ItemBullet) {
-         ItemStack st = new ItemStack(ItemsRegister.ADAMANTIUM_ROUNDS);
-         String name = ((ItemBullet)item1).getNbtName();
-         NBTHelper.GiveNBTstring(st, name, "bullet");
-         NBTHelper.SetNBTstring(st, name, "bullet");
-         return st;
-      } else {
-         return ItemStack.EMPTY;
-      }
-   }
+        return false;
+    }
 
-   @Override
-   public boolean canFit(int width, int height) {
-      return width + height == 6;
-   }
+    @Override
+    public ItemStack getCraftingResult(InventoryCrafting inv) {
+        Item item1 = inv.getStackInSlot(1).getItem();
+        if (item1 instanceof ItemBullet) {
+            ItemStack st = new ItemStack(ItemsRegister.ADAMANTIUM_ROUNDS);
+            String name = ((ItemBullet) item1).getNbtName();
+            NBTHelper.GiveNBTstring(st, name, "bullet");
+            NBTHelper.SetNBTstring(st, name, "bullet");
+            return st;
+        } else {
+            return ItemStack.EMPTY;
+        }
+    }
 
-   @Override
-   public ItemStack getRecipeOutput() {
-      return new ItemStack(ItemsRegister.ADAMANTIUM_ROUNDS);
-   }
+    @Override
+    public boolean canFit(int width, int height) {
+        return width + height == 6;
+    }
+
+    @Override
+    public ItemStack getRecipeOutput() {
+        return new ItemStack(ItemsRegister.ADAMANTIUM_ROUNDS);
+    }
+
 }

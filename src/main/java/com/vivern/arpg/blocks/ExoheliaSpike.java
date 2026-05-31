@@ -20,83 +20,85 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ExoheliaSpike extends Block {
-   public static final PropertyDirection FACING = PropertyDirection.create("facing");
-   public static final PropertyBool ROTATED = PropertyBool.create("rotated");
-   protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
 
-   public ExoheliaSpike() {
-      super(Material.ROCK);
-      this.setRegistryName("exohelia_spike");
-      this.setTranslationKey("exohelia_spike");
-      this.blockHardness = 0.2F;
-      this.blockResistance = 0.1F;
-      this.setSoundType(SoundTypeCrunchy.CRUNCHY);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-   }
+    public static final PropertyDirection FACING = PropertyDirection.create("facing");
+    public static final PropertyBool ROTATED = PropertyBool.create("rotated");
+    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
 
-   @Override
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      return super.canPlaceBlockAt(worldIn, pos);
-   }
+    public ExoheliaSpike() {
+        super(Material.ROCK);
+        this.setRegistryName("exohelia_spike");
+        this.setTranslationKey("exohelia_spike");
+        this.blockHardness = 0.2F;
+        this.blockResistance = 0.1F;
+        this.setSoundType(SoundTypeCrunchy.CRUNCHY);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return super.canPlaceBlockAt(worldIn, pos);
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      EnumFacing facing = state.getValue(FACING);
-      boolean rotated = state.getValue(ROTATED);
-      return facing.getIndex() + (rotated ? 6 : 0);
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      boolean rotated = false;
-      if (meta >= 6) {
-         rotated = true;
-         meta -= 6;
-      }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        EnumFacing facing = state.getValue(FACING);
+        boolean rotated = state.getValue(ROTATED);
+        return facing.getIndex() + (rotated ? 6 : 0);
+    }
 
-      return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta)).withProperty(ROTATED, rotated);
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        boolean rotated = false;
+        if (meta >= 6) {
+            rotated = true;
+            meta -= 6;
+        }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{FACING, ROTATED});
-   }
+        return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta)).withProperty(ROTATED, rotated);
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      boolean rotated = false;
-      if (facing != EnumFacing.UP && facing != EnumFacing.DOWN) {
-         rotated = placer.isSneaking();
-      } else {
-         rotated = placer.getHorizontalFacing().getAxis() == Axis.X;
-      }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{FACING, ROTATED});
+    }
 
-      return this.getDefaultState().withProperty(FACING, facing).withProperty(ROTATED, rotated);
-   }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        boolean rotated = false;
+        if (facing != EnumFacing.UP && facing != EnumFacing.DOWN) {
+            rotated = placer.isSneaking();
+        } else {
+            rotated = placer.getHorizontalFacing().getAxis() == Axis.X;
+        }
+
+        return this.getDefaultState().withProperty(FACING, facing).withProperty(ROTATED, rotated);
+    }
+
 }

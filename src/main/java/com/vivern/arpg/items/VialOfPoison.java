@@ -22,72 +22,74 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 
 public class VialOfPoison extends Item implements IBauble, IAttributedBauble, IItemDamaging, IItemHurted, IRenderBauble {
-   public VialOfPoison() {
-      this.setRegistryName("vial_of_poison");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("vial_of_poison");
-      this.setMaxDamage(1450);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public BaubleType getBaubleType(ItemStack itemstack) {
-      return BaubleType.AMULET;
-   }
+    public VialOfPoison() {
+        this.setRegistryName("vial_of_poison");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("vial_of_poison");
+        this.setMaxDamage(1450);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public IAttribute getAttribute() {
-      return SharedMonsterAttributes.MAX_HEALTH;
-   }
+    @Override
+    public BaubleType getBaubleType(ItemStack itemstack) {
+        return BaubleType.AMULET;
+    }
 
-   @Override
-   public double value() {
-      return 4.0;
-   }
+    @Override
+    public IAttribute getAttribute() {
+        return SharedMonsterAttributes.MAX_HEALTH;
+    }
 
-   @Override
-   public int operation() {
-      return 0;
-   }
+    @Override
+    public double value() {
+        return 4.0;
+    }
 
-   @Override
-   public String itemName() {
-      return "vial_of_poison";
-   }
+    @Override
+    public int operation() {
+        return 0;
+    }
 
-   @Override
-   public boolean useMultimap() {
-      return false;
-   }
+    @Override
+    public String itemName() {
+        return "vial_of_poison";
+    }
 
-   @Override
-   public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-      if (type == RenderType.BODY) {
-         GlStateManager.pushMatrix();
-         GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
-         Helper.rotateIfSneaking(player);
-         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-         Minecraft.getMinecraft().getRenderItem().renderItem(stack, TransformType.HEAD);
-         GlStateManager.popMatrix();
-      }
-   }
+    @Override
+    public boolean useMultimap() {
+        return false;
+    }
 
-   @Override
-   public float onCauseDamageWithItem(float hurtdamage, ItemStack stack, EntityPlayer playerattacker, EntityLivingBase target, DamageSource source) {
-      PotionEffect baff = new PotionEffect(MobEffects.POISON, 230);
-      target.addPotionEffect(baff);
-      stack.damageItem(1, playerattacker);
-      return hurtdamage;
-   }
+    @Override
+    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
+        if (type == RenderType.BODY) {
+            GlStateManager.pushMatrix();
+            GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+            Helper.rotateIfSneaking(player);
+            Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+            Minecraft.getMinecraft().getRenderItem().renderItem(stack, TransformType.HEAD);
+            GlStateManager.popMatrix();
+        }
+    }
 
-   @Override
-   public float onHurtWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
-      if (source.getTrueSource() instanceof EntityLivingBase) {
-         PotionEffect baff = new PotionEffect(MobEffects.POISON, 230);
-         ((EntityLivingBase)source.getTrueSource()).addPotionEffect(baff);
-         stack.damageItem(1, player);
-      }
+    @Override
+    public float onCauseDamageWithItem(float hurtdamage, ItemStack stack, EntityPlayer playerattacker, EntityLivingBase target, DamageSource source) {
+        PotionEffect baff = new PotionEffect(MobEffects.POISON, 230);
+        target.addPotionEffect(baff);
+        stack.damageItem(1, playerattacker);
+        return hurtdamage;
+    }
 
-      return hurtdamage;
-   }
+    @Override
+    public float onHurtWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
+        if (source.getTrueSource() instanceof EntityLivingBase) {
+            PotionEffect baff = new PotionEffect(MobEffects.POISON, 230);
+            ((EntityLivingBase) source.getTrueSource()).addPotionEffect(baff);
+            stack.damageItem(1, player);
+        }
+
+        return hurtdamage;
+    }
+
 }

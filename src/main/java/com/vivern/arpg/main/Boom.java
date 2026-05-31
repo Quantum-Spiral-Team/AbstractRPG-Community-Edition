@@ -12,45 +12,47 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class Boom {
-   public static int lastTick = 0;
-   public static int FOVlastTick = 0;
-   public static float x;
-   public static float y;
-   public static float z;
-   public static float frequency = 4.0F;
-   public static float power = 0.14F;
-   public static float FOVboom = 0.0F;
-   public static float FOVfrequency = 4.0F;
-   public static float FOVpower = 0.14F;
-   public static int drunkTick = 0;
-   public static float drunkPower = 0.0F;
 
-   public Boom(EntityPlayer player, int lastTick) {
-      Boom.lastTick = lastTick;
-   }
+    public static int lastTick = 0;
+    public static int FOVlastTick = 0;
+    public static float x;
+    public static float y;
+    public static float z;
+    public static float frequency = 4.0F;
+    public static float power = 0.14F;
+    public static float FOVboom = 0.0F;
+    public static float FOVfrequency = 4.0F;
+    public static float FOVpower = 0.14F;
+    public static int drunkTick = 0;
+    public static float drunkPower = 0.0F;
 
-   public static float getFrequencyForTicks(int ticks) {
-      return -0.0067F + 3.2026F / ticks;
-   }
+    public Boom(EntityPlayer player, int lastTick) {
+        Boom.lastTick = lastTick;
+    }
 
-   @SubscribeEvent
-   @SideOnly(Side.CLIENT)
-   public static void onRenderWorld(CameraSetup event) {
-      if (lastTick > 0) {
-         lastTick--;
-         if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer) {
-            GlStateManager.rotate((float)Math.sin(lastTick * frequency) * lastTick * power, x, y, z);
-         }
-      }
+    public static float getFrequencyForTicks(int ticks) {
+        return -0.0067F + 3.2026F / ticks;
+    }
 
-      if (FOVlastTick > 0) {
-         FOVlastTick--;
-         FOVboom = (float)Math.sin(FOVlastTick * FOVfrequency) * FOVlastTick * FOVpower;
-      }
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public static void onRenderWorld(CameraSetup event) {
+        if (lastTick > 0) {
+            lastTick--;
+            if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer) {
+                GlStateManager.rotate((float) Math.sin(lastTick * frequency) * lastTick * power, x, y, z);
+            }
+        }
 
-      if (drunkTick > 0) {
-         drunkTick--;
-         GlStateManager.rotate(drunkPower, AnimationTimer.rainbow1, AnimationTimer.rainbow2, 0.0F);
-      }
-   }
+        if (FOVlastTick > 0) {
+            FOVlastTick--;
+            FOVboom = (float) Math.sin(FOVlastTick * FOVfrequency) * FOVlastTick * FOVpower;
+        }
+
+        if (drunkTick > 0) {
+            drunkTick--;
+            GlStateManager.rotate(drunkPower, AnimationTimer.rainbow1, AnimationTimer.rainbow2, 0.0F);
+        }
+    }
+
 }

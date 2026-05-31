@@ -1,8 +1,7 @@
 package com.vivern.arpg.items.armor;
 
-import com.vivern.arpg.main.PropertiesRegistry;
 import com.google.common.collect.Multimap;
-import java.util.UUID;
+import com.vivern.arpg.main.PropertiesRegistry;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -12,54 +11,39 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
+import java.util.UUID;
+
 public class IceBoots extends ItemArmor {
-   private static final UUID[] ARMOR_MODIFIERSG = new UUID[]{
-      UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
-      UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
-      UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
-      UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")
-   };
 
-   public IceBoots() {
-      super(IceHelm.ice_mt, 0, EntityEquipmentSlot.FEET);
-      this.setRegistryName("ice_armor_boots");
-      this.setTranslationKey("ice_armor_boots");
-      this.setMaxDamage(1000);
-      this.maxStackSize = 1;
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
-   }
+    private static final UUID[] ARMOR_MODIFIERSG = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
 
-   @Override
-   public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
-      Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
-      if (equipmentSlot == this.armorType) {
-         multimap.put(
-            SharedMonsterAttributes.ARMOR.getName(),
-            new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor modifier", this.damageReduceAmount, 0)
-         );
-         multimap.put(
-            PropertiesRegistry.JUMP_HEIGHT.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor jumping", 0.06, 0)
-         );
-         multimap.put(
-            SharedMonsterAttributes.MOVEMENT_SPEED.getName(),
-            new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor speed", 0.03, 0)
-         );
-         multimap.put(
-            SharedMonsterAttributes.ATTACK_SPEED.getName(),
-            new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor attackspeed", 0.1, 0)
-         );
-         multimap.put(
-            PropertiesRegistry.ARMOR_PROTECTION.getName(),
-            new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor protection", 0.5, 0)
-         );
-      }
+    public IceBoots() {
+        super(IceHelm.ice_mt, 0, EntityEquipmentSlot.FEET);
+        this.setRegistryName("ice_armor_boots");
+        this.setTranslationKey("ice_armor_boots");
+        this.setMaxDamage(1000);
+        this.maxStackSize = 1;
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, ItemArmor.DISPENSER_BEHAVIOR);
+    }
 
-      return multimap;
-   }
+    @Override
+    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+        Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+        if (equipmentSlot == this.armorType) {
+            multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor modifier", this.damageReduceAmount, 0));
+            multimap.put(PropertiesRegistry.JUMP_HEIGHT.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor jumping", 0.06, 0));
+            multimap.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor speed", 0.03, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor attackspeed", 0.1, 0));
+            multimap.put(PropertiesRegistry.ARMOR_PROTECTION.getName(), new AttributeModifier(ARMOR_MODIFIERSG[equipmentSlot.getIndex()], "Armor protection", 0.5, 0));
+        }
 
-   @Override
-   public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-      return "arpg:textures/ice_armor_1.png";
-   }
+        return multimap;
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+        return "arpg:textures/ice_armor_1.png";
+    }
+
 }

@@ -5,11 +5,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLogic;
 
 public interface IManaBuffer {
-   Material MAGIC_BLOCK = new MaterialLogic(MapColor.GOLD);
 
-   ManaBuffer getManaBuffer();
+    Material MAGIC_BLOCK = new MaterialLogic(MapColor.GOLD);
 
-   default boolean canProvideMana() {
-      return true;
-   }
+    ManaBuffer getManaBuffer();
+
+    default boolean canProvideMana() {
+        return true;
+    }
+
 }

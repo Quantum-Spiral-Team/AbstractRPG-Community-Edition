@@ -19,85 +19,87 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DecorativeChain extends Block {
-   public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 3);
-   public static final AxisAlignedBB AABB = new AxisAlignedBB(0.4375, 0.0, 0.4375, 0.5625, 1.0, 0.5625);
-   public static final AxisAlignedBB AABB_SELECT = new AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 1.0, 0.625);
 
-   public DecorativeChain() {
-      super(Material.IRON);
-      this.setRegistryName("decorative_chain");
-      this.setTranslationKey("decorative_chain");
-      this.blockHardness = 1.5F;
-      this.blockResistance = 20.0F;
-      this.setSoundType(SoundType.METAL);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setLightOpacity(0);
-   }
+    public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 3);
+    public static final AxisAlignedBB AABB = new AxisAlignedBB(0.4375, 0.0, 0.4375, 0.5625, 1.0, 0.5625);
+    public static final AxisAlignedBB AABB_SELECT = new AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 1.0, 0.625);
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    public DecorativeChain() {
+        super(Material.IRON);
+        this.setRegistryName("decorative_chain");
+        this.setTranslationKey("decorative_chain");
+        this.blockHardness = 1.5F;
+        this.blockResistance = 20.0F;
+        this.setSoundType(SoundType.METAL);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setLightOpacity(0);
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return AABB;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB_SELECT;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(TYPE, meta);
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB_SELECT;
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(TYPE);
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(TYPE, meta);
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{TYPE});
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(TYPE);
+    }
 
-   @Override
-   public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      Block blockup = worldIn.getBlockState(pos.up()).getBlock();
-      Block blockdown = worldIn.getBlockState(pos.down()).getBlock();
-      boolean up = blockup != this;
-      boolean down = blockdown != this;
-      if (up) {
-         return down ? this.getDefaultState().withProperty(TYPE, 1) : this.getDefaultState().withProperty(TYPE, 3);
-      } else {
-         return down ? this.getDefaultState().withProperty(TYPE, 2) : this.getDefaultState().withProperty(TYPE, 0);
-      }
-   }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{TYPE});
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      Block blockup = worldIn.getBlockState(pos.up()).getBlock();
-      Block blockdown = worldIn.getBlockState(pos.down()).getBlock();
-      boolean up = blockup != this;
-      boolean down = blockdown != this;
-      if (up) {
-         return down ? this.getDefaultState().withProperty(TYPE, 1) : this.getDefaultState().withProperty(TYPE, 3);
-      } else {
-         return down ? this.getDefaultState().withProperty(TYPE, 2) : this.getDefaultState().withProperty(TYPE, 0);
-      }
-   }
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        Block blockup = worldIn.getBlockState(pos.up()).getBlock();
+        Block blockdown = worldIn.getBlockState(pos.down()).getBlock();
+        boolean up = blockup != this;
+        boolean down = blockdown != this;
+        if (up) {
+            return down ? this.getDefaultState().withProperty(TYPE, 1) : this.getDefaultState().withProperty(TYPE, 3);
+        } else {
+            return down ? this.getDefaultState().withProperty(TYPE, 2) : this.getDefaultState().withProperty(TYPE, 0);
+        }
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        Block blockup = worldIn.getBlockState(pos.up()).getBlock();
+        Block blockdown = worldIn.getBlockState(pos.down()).getBlock();
+        boolean up = blockup != this;
+        boolean down = blockdown != this;
+        if (up) {
+            return down ? this.getDefaultState().withProperty(TYPE, 1) : this.getDefaultState().withProperty(TYPE, 3);
+        } else {
+            return down ? this.getDefaultState().withProperty(TYPE, 2) : this.getDefaultState().withProperty(TYPE, 0);
+        }
+    }
+
 }

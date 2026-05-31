@@ -17,173 +17,152 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class GemStaff extends ItemWeapon {
-   public GemStaff() {
-      this.setRegistryName("gem_staff");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("gem_staff");
-      this.setMaxDamage(320);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    public GemStaff() {
+        this.setRegistryName("gem_staff");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("gem_staff");
+        this.setMaxDamage(320);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   public static ItemStack getStackWithGem(int gem) {
-      ItemStack stack = new ItemStack(ItemsRegister.GEM_STAFF);
-      NBTHelper.GiveNBTint(stack, gem, "type");
-      NBTHelper.SetNBTint(stack, gem, "type");
-      NBTHelper.GiveNBTint(stack, gem, "type");
-      NBTHelper.SetNBTint(stack, gem, "type");
-      return stack;
-   }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-   public static WeaponParameters getWeaponParameter(int gem) {
-      return WeaponParameters.getWeaponParameters("gem_staff_" + gem);
-   }
+    public static ItemStack getStackWithGem(int gem) {
+        ItemStack stack = new ItemStack(ItemsRegister.GEM_STAFF);
+        NBTHelper.GiveNBTint(stack, gem, "type");
+        NBTHelper.SetNBTint(stack, gem, "type");
+        NBTHelper.GiveNBTint(stack, gem, "type");
+        NBTHelper.SetNBTint(stack, gem, "type");
+        return stack;
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
-            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-            float power = Mana.getMagicPowerMax(player);
-            int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
-            int type = NBTHelper.GetNBTint(itemstack, "type");
-            WeaponParameters parameters = getWeaponParameter(type);
-            EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-            Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP;
-            if ((click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)
-                    && Mana.getMana(player) > parameters.getEnchantedF("manacost", sor)
-                    && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
-               world.playSound(
-                       null,
-                  player.posX,
-                  player.posY,
-                  player.posZ,
-                  Sounds.magic_m,
-                  SoundCategory.AMBIENT,
-                  0.9F,
-                  0.9F + itemRand.nextFloat() / 5.0F
-               );
-               player.getCooldownTracker().setCooldown(cooldownItem, this.getCooldownTime(itemstack));
-               player.addStat(StatList.getObjectUseStats(this));
-               Weapons.setPlayerAnimationOnServer(player, 14, hand);
-               GemStaffShoot bolt = new GemStaffShoot(world, player, itemstack, power);
-               bolt.type = type;
-               bolt.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-               bolt.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
-               bolt.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-               bolt.red = parameters.getFloat("red");
-               bolt.green = parameters.getFloat("green");
-               bolt.blue = parameters.getFloat("blue");
-               Weapons.shoot(
-                  bolt,
-                  hand,
-                  player,
-                  player.rotationPitch,
-                  player.rotationYaw,
-                  0.0F,
-                  parameters.getFloat("velocity"),
-                  parameters.getEnchantedF("inaccuracy", acc),
-                  -0.1F,
-                  0.5F,
-                  0.2F
-               );
-               world.spawnEntity(bolt);
-               if (!player.capabilities.isCreativeMode) {
-                  Mana.changeMana(player, -parameters.getEnchantedF("manacost", sor));
-                  Mana.setManaSpeed(player, 0.001F);
-                  itemstack.damageItem(1, player);
-               }
+    public static WeaponParameters getWeaponParameter(int gem) {
+        return WeaponParameters.getWeaponParameters("gem_staff_" + gem);
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
+                int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+                float power = Mana.getMagicPowerMax(player);
+                int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
+                int type = NBTHelper.GetNBTint(itemstack, "type");
+                WeaponParameters parameters = getWeaponParameter(type);
+                EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
+                Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP;
+                if ((click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND) && Mana.getMana(player) > parameters.getEnchantedF("manacost", sor) && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
+                    world.playSound(null, player.posX, player.posY, player.posZ, Sounds.magic_m, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                    player.getCooldownTracker().setCooldown(cooldownItem, this.getCooldownTime(itemstack));
+                    player.addStat(StatList.getObjectUseStats(this));
+                    Weapons.setPlayerAnimationOnServer(player, 14, hand);
+                    GemStaffShoot bolt = new GemStaffShoot(world, player, itemstack, power);
+                    bolt.type = type;
+                    bolt.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+                    bolt.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, itemstack));
+                    bolt.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                    bolt.red = parameters.getFloat("red");
+                    bolt.green = parameters.getFloat("green");
+                    bolt.blue = parameters.getFloat("blue");
+                    Weapons.shoot(bolt, hand, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.1F, 0.5F, 0.2F);
+                    world.spawnEntity(bolt);
+                    if (!player.capabilities.isCreativeMode) {
+                        Mana.changeMana(player, -parameters.getEnchantedF("manacost", sor));
+                        Mana.setManaSpeed(player, 0.001F);
+                        itemstack.damageItem(1, player);
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.ONE_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.ONE_HANDED;
+    }
 
-   @Override
-   public int getCooldownTime(ItemStack itemstack) {
-      int type = NBTHelper.GetNBTint(itemstack, "type");
-      WeaponParameters parameters = getWeaponParameter(type);
-      int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return parameters.getEnchantedI("cooldown", rapidity);
-   }
+    @Override
+    public int getCooldownTime(ItemStack itemstack) {
+        int type = NBTHelper.GetNBTint(itemstack, "type");
+        WeaponParameters parameters = getWeaponParameter(type);
+        int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
+        return parameters.getEnchantedI("cooldown", rapidity);
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-      if (this.isInCreativeTab(tab)) {
-         for (int i = 0; i <= 7; i++) {
-            ItemStack stack = new ItemStack(this);
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (this.isInCreativeTab(tab)) {
+            for (int i = 0; i <= 7; i++) {
+                ItemStack stack = new ItemStack(this);
 
-            while (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("type")) {
-               NBTHelper.GiveNBTint(stack, i, "type");
-               NBTHelper.SetNBTint(stack, i, "type");
+                while (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("type")) {
+                    NBTHelper.GiveNBTint(stack, i, "type");
+                    NBTHelper.SetNBTint(stack, i, "type");
+                }
+
+                items.add(stack);
             }
+        }
+    }
 
-            items.add(stack);
-         }
-      }
-   }
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        if (stack.getItem() == ItemsRegister.GEM_STAFF) {
+            int type = NBTHelper.GetNBTint(stack, "type");
+            switch (type) {
+                case 0:
+                    return "diamond staff";
+                case 1:
+                    return "ruby staff";
+                case 2:
+                    return "sapphire staff";
+                case 3:
+                    return "emerald staff";
+                case 4:
+                    return "citrine staff";
+                case 5:
+                    return "amethyst staff";
+                case 6:
+                    return "topaz staff";
+                case 7:
+                    return "rhinestone staff";
+            }
+        }
 
-   @Override
-   public String getItemStackDisplayName(ItemStack stack) {
-      if (stack.getItem() == ItemsRegister.GEM_STAFF) {
-         int type = NBTHelper.GetNBTint(stack, "type");
-         switch (type) {
-            case 0:
-               return "diamond staff";
-            case 1:
-               return "ruby staff";
-            case 2:
-               return "sapphire staff";
-            case 3:
-               return "emerald staff";
-            case 4:
-               return "citrine staff";
-            case 5:
-               return "amethyst staff";
-            case 6:
-               return "topaz staff";
-            case 7:
-               return "rhinestone staff";
-         }
-      }
+        return super.getItemStackDisplayName(stack);
+    }
 
-      return super.getItemStackDisplayName(stack);
-   }
+    @Override
+    public int getItemEnchantability() {
+        return 2;
+    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
 }

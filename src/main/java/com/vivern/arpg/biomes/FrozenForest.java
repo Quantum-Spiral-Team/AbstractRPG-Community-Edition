@@ -5,10 +5,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
 public class FrozenForest extends Biome {
-   public FrozenForest() {
-      super(new BiomeProperties("Frozen forest").setBaseHeight(0.3F).setTemperature(-3.0F).setSnowEnabled().setWaterColor(10804223));
-      this.topBlock = Blocks.SNOW.getDefaultState();
-      this.fillerBlock = BlocksRegister.SNOW_ICE.getDefaultState();
-      this.decorator = new FrozenForestDecorator();
-   }
+
+    public FrozenForest() {
+        super(new BiomeProperties("Frozen forest").setBaseHeight(0.3F).setTemperature(-3.0F).setSnowEnabled().setWaterColor(10804223));
+        this.topBlock = Blocks.SNOW.getDefaultState();
+        this.fillerBlock = BlocksRegister.SNOW_ICE.getDefaultState();
+        this.decorator = new FrozenForestDecorator();
+    }
+
 }

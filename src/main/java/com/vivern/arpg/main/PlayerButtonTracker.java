@@ -8,78 +8,80 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class PlayerButtonTracker {
-   public static boolean doublejump = false;
-   public static boolean pressjump = false;
-   public static boolean ongr = false;
-   public static boolean flyingjump = false;
-   public static boolean unpressjump = false;
-   public static boolean scopeactived = false;
-   public static int itemslot = 0;
-   public static int previtemslot = 0;
-   public static boolean pressscope = false;
-   public static float mousesens = 1.0F;
-   public static float redmousesens = 1.0F;
-   public static boolean activedms = false;
 
-   public static boolean getDoubleJump(EntityPlayer player) {
-      pressjump = GameSettings.isKeyDown(Keys.JUMP);
-      if (player.onGround) {
-         ongr = true;
-         flyingjump = false;
-         unpressjump = false;
-         doublejump = false;
-      }
+    public static boolean doublejump = false;
+    public static boolean pressjump = false;
+    public static boolean ongr = false;
+    public static boolean flyingjump = false;
+    public static boolean unpressjump = false;
+    public static boolean scopeactived = false;
+    public static int itemslot = 0;
+    public static int previtemslot = 0;
+    public static boolean pressscope = false;
+    public static float mousesens = 1.0F;
+    public static float redmousesens = 1.0F;
+    public static boolean activedms = false;
 
-      if (ongr && !player.onGround) {
-         flyingjump = true;
-      }
+    public static boolean getDoubleJump(EntityPlayer player) {
+        pressjump = GameSettings.isKeyDown(Keys.JUMP);
+        if (player.onGround) {
+            ongr = true;
+            flyingjump = false;
+            unpressjump = false;
+            doublejump = false;
+        }
 
-      if (flyingjump && !pressjump) {
-         unpressjump = true;
-      }
+        if (ongr && !player.onGround) {
+            flyingjump = true;
+        }
 
-      if (unpressjump && pressjump) {
-         doublejump = true;
-         return doublejump;
-      } else {
-         return false;
-      }
-   }
+        if (flyingjump && !pressjump) {
+            unpressjump = true;
+        }
 
-   public static boolean getScopeActive(EntityPlayer player, boolean hasItemScoped) {
-      if (!activedms) {
-         mousesens = Minecraft.getMinecraft().gameSettings.mouseSensitivity;
-      }
+        if (unpressjump && pressjump) {
+            doublejump = true;
+            return doublejump;
+        } else {
+            return false;
+        }
+    }
 
-      if (GameSettings.isKeyDown(Keys.SCOPE) && !pressscope) {
-         pressscope = true;
-         scopeactived = !scopeactived;
-      }
+    public static boolean getScopeActive(EntityPlayer player, boolean hasItemScoped) {
+        if (!activedms) {
+            mousesens = Minecraft.getMinecraft().gameSettings.mouseSensitivity;
+        }
 
-      if (pressscope && !GameSettings.isKeyDown(Keys.SCOPE)) {
-         pressscope = false;
-      }
+        if (GameSettings.isKeyDown(Keys.SCOPE) && !pressscope) {
+            pressscope = true;
+            scopeactived = !scopeactived;
+        }
 
-      itemslot = player.inventory.currentItem;
-      if (previtemslot != itemslot) {
-         scopeactived = false;
-      }
+        if (pressscope && !GameSettings.isKeyDown(Keys.SCOPE)) {
+            pressscope = false;
+        }
 
-      if (Minecraft.getMinecraft().getRenderManager().options != null && Minecraft.getMinecraft().getRenderManager().options.thirdPersonView != 0) {
-         scopeactived = false;
-      }
+        itemslot = player.inventory.currentItem;
+        if (previtemslot != itemslot) {
+            scopeactived = false;
+        }
 
-      previtemslot = itemslot;
-      if (!scopeactived) {
-         Minecraft.getMinecraft().gameSettings.mouseSensitivity = mousesens;
-         activedms = false;
-      }
+        if (Minecraft.getMinecraft().getRenderManager().options != null && Minecraft.getMinecraft().getRenderManager().options.thirdPersonView != 0) {
+            scopeactived = false;
+        }
 
-      if (scopeactived && !activedms && hasItemScoped) {
-         Minecraft.getMinecraft().gameSettings.mouseSensitivity = 0.17F;
-         activedms = true;
-      }
+        previtemslot = itemslot;
+        if (!scopeactived) {
+            Minecraft.getMinecraft().gameSettings.mouseSensitivity = mousesens;
+            activedms = false;
+        }
 
-      return scopeactived;
-   }
+        if (scopeactived && !activedms && hasItemScoped) {
+            Minecraft.getMinecraft().gameSettings.mouseSensitivity = 0.17F;
+            activedms = true;
+        }
+
+        return scopeactived;
+    }
+
 }

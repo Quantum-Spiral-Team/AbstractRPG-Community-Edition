@@ -1,65 +1,68 @@
 package com.vivern.arpg.mobs;
 
 import com.vivern.arpg.main.GetMOP;
-import java.util.List;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.DamageSource;
 
+import java.util.List;
+
 public class EntityAILaserAttack extends EntityAIBase {
-   public EntityCreature entity;
-   public int delay;
-   public int delayRandom;
-   public int maxDelay;
-   public float damage;
-   public float attackDist;
 
-   public EntityAILaserAttack(EntityCreature entity, int maxDelay, int delayRandom, float damage, float dist) {
-      this.entity = entity;
-      this.setMutexBits(8);
-      this.maxDelay = maxDelay;
-      this.damage = damage;
-      this.delayRandom = delayRandom;
-      this.attackDist = dist;
-   }
+    public EntityCreature entity;
+    public int delay;
+    public int delayRandom;
+    public int maxDelay;
+    public float damage;
+    public float attackDist;
 
-   @Override
-   public boolean shouldExecute() {
-      EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
-      return entitylivingbase != null && entitylivingbase.isEntityAlive() && this.entity.getDistance(entitylivingbase) <= this.attackDist;
-   }
+    public EntityAILaserAttack(EntityCreature entity, int maxDelay, int delayRandom, float damage, float dist) {
+        this.entity = entity;
+        this.setMutexBits(8);
+        this.maxDelay = maxDelay;
+        this.damage = damage;
+        this.delayRandom = delayRandom;
+        this.attackDist = dist;
+    }
 
-   @Override
-   public void startExecuting() {
-   }
+    @Override
+    public boolean shouldExecute() {
+        EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
+        return entitylivingbase != null && entitylivingbase.isEntityAlive() && this.entity.getDistance(entitylivingbase) <= this.attackDist;
+    }
 
-   @Override
-   public boolean shouldContinueExecuting() {
-      return this.shouldExecute();
-   }
+    @Override
+    public void startExecuting() {
+    }
 
-   @Override
-   public void resetTask() {
-      this.delay = this.maxDelay;
-   }
+    @Override
+    public boolean shouldContinueExecuting() {
+        return this.shouldExecute();
+    }
 
-   @Override
-   public void updateTask() {
-      this.delay--;
-      if (this.delay < 1) {
-         EntityLivingBase target = this.entity.getAttackTarget();
-         this.entity.getLookHelper().setLookPositionWithEntity(target, 10.0F, 10.0F);
-         this.delay = this.maxDelay + this.entity.getRNG().nextInt(this.delayRandom);
-         List<EntityLivingBase> list = GetMOP.mopRayTrace(this.attackDist, 1.0F, this.entity, 0.01, 0.01);
-         if (!list.isEmpty()) {
-            for (EntityLivingBase entitylivingbase : list) {
-               if (entitylivingbase != this.entity) {
-                  entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(this.entity), this.damage);
-                  entitylivingbase.hurtResistantTime = 0;
-               }
+    @Override
+    public void resetTask() {
+        this.delay = this.maxDelay;
+    }
+
+    @Override
+    public void updateTask() {
+        this.delay--;
+        if (this.delay < 1) {
+            EntityLivingBase target = this.entity.getAttackTarget();
+            this.entity.getLookHelper().setLookPositionWithEntity(target, 10.0F, 10.0F);
+            this.delay = this.maxDelay + this.entity.getRNG().nextInt(this.delayRandom);
+            List<EntityLivingBase> list = GetMOP.mopRayTrace(this.attackDist, 1.0F, this.entity, 0.01, 0.01);
+            if (!list.isEmpty()) {
+                for (EntityLivingBase entitylivingbase : list) {
+                    if (entitylivingbase != this.entity) {
+                        entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(this.entity), this.damage);
+                        entitylivingbase.hurtResistantTime = 0;
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
+
 }

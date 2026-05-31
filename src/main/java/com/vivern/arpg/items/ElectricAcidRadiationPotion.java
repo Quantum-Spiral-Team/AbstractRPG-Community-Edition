@@ -17,66 +17,59 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Mouse;
 
 public class ElectricAcidRadiationPotion extends Item {
-   public ElectricAcidRadiationPotion() {
-      this.setRegistryName("electric_acid_radiation_potion");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("electric_acid_radiation_potion");
-   }
 
-   @Override
-   public int getMaxItemUseDuration(ItemStack itemstack) {
-      return 72000;
-   }
+    public ElectricAcidRadiationPotion() {
+        this.setRegistryName("electric_acid_radiation_potion");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("electric_acid_radiation_potion");
+    }
 
-   @Override
-   public EnumAction getItemUseAction(ItemStack stack) {
-      return EnumAction.BOW;
-   }
+    @Override
+    public int getMaxItemUseDuration(ItemStack itemstack) {
+        return 72000;
+    }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      player.setActiveHand(hand);
-      return new ActionResult(EnumActionResult.PASS, itemstack);
-   }
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
+    }
 
-   @Override
-   public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
-      return true;
-   }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        player.setActiveHand(hand);
+        return new ActionResult(EnumActionResult.PASS, itemstack);
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (entityIn instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)entityIn;
-         int damage = itemstack.getItemDamage();
-         World world = player.getEntityWorld();
-         Item itemIn = itemstack.getItem();
-         EnumHand hand = player.getActiveHand();
-         boolean click = Mouse.isButtonDown(1);
-         if (player.getHeldItemMainhand() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
-            world.playSound(
-                    null,
-               player.posX,
-               player.posY,
-               player.posZ,
-               Sounds.swosh_a,
-               SoundCategory.AMBIENT,
-               0.8F,
-               0.4F / (itemRand.nextFloat() * 0.4F + 0.8F)
-            );
-            player.getCooldownTracker().setCooldown(this, 34);
-            player.addStat(StatList.getObjectUseStats(this));
-            if (!player.capabilities.isCreativeMode && damage <= itemIn.getMaxDamage() - 1) {
-               player.getHeldItemMainhand().shrink(1);
+    @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+        return true;
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (entityIn instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entityIn;
+            int damage = itemstack.getItemDamage();
+            World world = player.getEntityWorld();
+            Item itemIn = itemstack.getItem();
+            EnumHand hand = player.getActiveHand();
+            boolean click = Mouse.isButtonDown(1);
+            if (player.getHeldItemMainhand() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
+                world.playSound(null, player.posX, player.posY, player.posZ, Sounds.swosh_a, SoundCategory.AMBIENT, 0.8F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                player.getCooldownTracker().setCooldown(this, 34);
+                player.addStat(StatList.getObjectUseStats(this));
+                if (!player.capabilities.isCreativeMode && damage <= itemIn.getMaxDamage() - 1) {
+                    player.getHeldItemMainhand().shrink(1);
+                }
+
+                if (!world.isRemote) {
+                    EntityElectricAcidRadiationPotion potion = new EntityElectricAcidRadiationPotion(world, player);
+                    potion.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 3.0F);
+                    world.spawnEntity(potion);
+                }
             }
+        }
+    }
 
-            if (!world.isRemote) {
-               EntityElectricAcidRadiationPotion potion = new EntityElectricAcidRadiationPotion(world, player);
-               potion.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 3.0F);
-               world.spawnEntity(potion);
-            }
-         }
-      }
-   }
 }

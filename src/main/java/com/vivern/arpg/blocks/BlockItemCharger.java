@@ -2,7 +2,6 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.tileentity.TileItemCharger;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -22,97 +21,88 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockItemCharger extends Block {
-   public BlockItemCharger() {
-      super(Material.IRON);
-      this.setRegistryName("block_item_charger");
-      this.setTranslationKey("block_item_charger");
-      this.blockHardness = 6.5F;
-      this.blockResistance = 10.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setSoundType(SoundTypeShards.METAL);
-      this.setHarvestLevel("pickaxe", 1);
-   }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    public BlockItemCharger() {
+        super(Material.IRON);
+        this.setRegistryName("block_item_charger");
+        this.setTranslationKey("block_item_charger");
+        this.blockHardness = 6.5F;
+        this.blockResistance = 10.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setSoundType(SoundTypeShards.METAL);
+        this.setHarvestLevel("pickaxe", 1);
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public EnumBlockRenderType getRenderType(IBlockState state) {
-      return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!worldIn.isRemote) {
-         TileItemCharger tile = this.getTileEntity(worldIn, pos);
-         if (tile != null) {
-            player.openGui(AbstractRPG.instance, 12, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            return true;
-         }
-      }
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
 
-      return true;
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            TileItemCharger tile = this.getTileEntity(worldIn, pos);
+            if (tile != null) {
+                player.openGui(AbstractRPG.instance, 12, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                return true;
+            }
+        }
 
-   @Override
-   public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-      super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-      TileItemCharger tile = this.getTileEntity(worldIn, pos);
-      tile.rotation = (byte)placer.getHorizontalFacing().getOpposite().getHorizontalIndex();
-   }
+        return true;
+    }
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TileItemCharger tile, int range) {
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + range,
-            pos.getY() + range,
-            pos.getZ() + range,
-            pos.getX() - range,
-            pos.getY() - range,
-            pos.getZ() - range
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        TileItemCharger tile = this.getTileEntity(worldIn, pos);
+        tile.rotation = (byte) placer.getHorizontalFacing().getOpposite().getHorizontalIndex();
+    }
 
-   public Class<TileItemCharger> getTileEntityClass() {
-      return TileItemCharger.class;
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TileItemCharger tile, int range) {
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + range, pos.getY() + range, pos.getZ() + range, pos.getX() - range, pos.getY() - range, pos.getZ() - range))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-   public TileItemCharger getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileItemCharger)world.getTileEntity(position);
-   }
+    public Class<TileItemCharger> getTileEntityClass() {
+        return TileItemCharger.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileItemCharger getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileItemCharger) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileItemCharger createTileEntity(World world, IBlockState blockState) {
-      return new TileItemCharger();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
+
+    @Override
+    @Nullable
+    public TileItemCharger createTileEntity(World world, IBlockState blockState) {
+        return new TileItemCharger();
+    }
+
 }

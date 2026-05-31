@@ -1,4 +1,3 @@
 package com.vivern.arpg.mobs;
 
-public class MobSpawnDayNight {
-}
+public class MobSpawnDayNight {}

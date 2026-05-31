@@ -1,7 +1,6 @@
 package com.vivern.arpg.potions;
 
 import com.vivern.arpg.main.Team;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,62 +13,62 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class Insane extends Potion {
-   protected Insane(boolean isBadEffectIn, int liquidColorIn) {
-      super(isBadEffectIn, liquidColorIn);
-      this.setRegistryName("arpg:insane");
-      this.setPotionName("Insane");
-      this.setIconIndex(21, 1);
-   }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasStatusIcon() {
-      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
-      return true;
-   }
+    protected Insane(boolean isBadEffectIn, int liquidColorIn) {
+        super(isBadEffectIn, liquidColorIn);
+        this.setRegistryName("arpg:insane");
+        this.setPotionName("Insane");
+        this.setIconIndex(21, 1);
+    }
 
-   @Override
-   public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
-      if (entityLivingBase instanceof EntityCreature) {
-         EntityCreature creature = (EntityCreature)entityLivingBase;
-         PotionEffect eff = entityLivingBase.getActivePotionEffect(this);
-         if (eff != null && eff.getDuration() < 15) {
-            creature.setAttackTarget(null);
-         }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasStatusIcon() {
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
+        return true;
+    }
 
-         if (creature.getAttackTarget() == null || creature.getAttackTarget().isDead || amplifier > 0) {
-            World world = entityLivingBase.world;
-            double damageRadius = entityLivingBase.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue();
-            AxisAlignedBB axisalignedbb = entityLivingBase.getEntityBoundingBox()
-               .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
-               .offset(-damageRadius, -damageRadius, -damageRadius);
-            List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
-            double maxdist = Double.MAX_VALUE;
-            EntityLivingBase finalentity = null;
-            if (!list.isEmpty()) {
-               for (EntityLivingBase entitylivingb : list) {
-                  if ((amplifier != 2 || entitylivingb.getClass() != entityLivingBase.getClass())
-                     && Team.checkIsOpponent(entityLivingBase, entitylivingb)
-                     && creature.getEntitySenses().canSee(entitylivingb)) {
-                     double dist = entitylivingb.getDistance(entityLivingBase);
-                     if (dist < maxdist) {
-                        maxdist = dist;
-                        finalentity = entitylivingb;
-                     }
-                  }
-               }
+    @Override
+    public void performEffect(EntityLivingBase entityLivingBase, int amplifier) {
+        if (entityLivingBase instanceof EntityCreature) {
+            EntityCreature creature = (EntityCreature) entityLivingBase;
+            PotionEffect eff = entityLivingBase.getActivePotionEffect(this);
+            if (eff != null && eff.getDuration() < 15) {
+                creature.setAttackTarget(null);
             }
 
-            if (finalentity != null) {
-               creature.setAttackTarget(finalentity);
-            }
-         }
-      }
-   }
+            if (creature.getAttackTarget() == null || creature.getAttackTarget().isDead || amplifier > 0) {
+                World world = entityLivingBase.world;
+                double damageRadius = entityLivingBase.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue();
+                AxisAlignedBB axisalignedbb = entityLivingBase.getEntityBoundingBox().expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0).offset(-damageRadius, -damageRadius, -damageRadius);
+                List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+                double maxdist = Double.MAX_VALUE;
+                EntityLivingBase finalentity = null;
+                if (!list.isEmpty()) {
+                    for (EntityLivingBase entitylivingb : list) {
+                        if ((amplifier != 2 || entitylivingb.getClass() != entityLivingBase.getClass()) && Team.checkIsOpponent(entityLivingBase, entitylivingb) && creature.getEntitySenses().canSee(entitylivingb)) {
+                            double dist = entitylivingb.getDistance(entityLivingBase);
+                            if (dist < maxdist) {
+                                maxdist = dist;
+                                finalentity = entitylivingb;
+                            }
+                        }
+                    }
+                }
 
-   @Override
-   public boolean isReady(int duration, int amplifier) {
-      return duration % 10 == 0;
-   }
+                if (finalentity != null) {
+                    creature.setAttackTarget(finalentity);
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean isReady(int duration, int amplifier) {
+        return duration % 10 == 0;
+    }
+
 }

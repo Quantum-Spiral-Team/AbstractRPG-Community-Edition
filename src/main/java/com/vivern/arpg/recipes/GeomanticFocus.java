@@ -2,60 +2,56 @@ package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.OreDicHelper;
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GeomanticFocus {
-   public static List<GeomanticFocus> registry = new ArrayList<>();
-   public PyrocrystallineRecipe.OreCost[] costs;
-   public String meltOutput;
 
-   public GeomanticFocus(String meltOutput, PyrocrystallineRecipe.OreCost... costs) {
-      this.costs = costs;
-      this.meltOutput = meltOutput;
-   }
+    public static List<GeomanticFocus> registry = new ArrayList<>();
+    public PyrocrystallineRecipe.OreCost[] costs;
+    public String meltOutput;
 
-   public static void init() {
-      registerFocusType(
-         new GeomanticFocus(
-            "oreCopper",
-            new PyrocrystallineRecipe.OreCost(OreDicHelper.DUSTSULFUR, 10),
-            new PyrocrystallineRecipe.OreCost(OreDicHelper.DUSTCOPPER, 60),
-            new PyrocrystallineRecipe.OreCost(OreDicHelper.DUSTGOLD, 10)
-         )
-      );
-   }
+    public GeomanticFocus(String meltOutput, PyrocrystallineRecipe.OreCost... costs) {
+        this.costs = costs;
+        this.meltOutput = meltOutput;
+    }
 
-   public static void registerFocusType(GeomanticFocus type) {
-      if (!registry.contains(type)) {
-         registry.add(type);
-      }
-   }
+    public static void init() {
+        registerFocusType(new GeomanticFocus("oreCopper", new PyrocrystallineRecipe.OreCost(OreDicHelper.DUSTSULFUR, 10), new PyrocrystallineRecipe.OreCost(OreDicHelper.DUSTCOPPER, 60), new PyrocrystallineRecipe.OreCost(OreDicHelper.DUSTGOLD, 10)));
+    }
 
-   public static String getMeltFromFocus(ItemStack stack) {
-      String m = NBTHelper.GetNBTstring(stack, "melt");
-      if (!m.isEmpty()) {
-         return m;
-      } else {
-         for (GeomanticFocus focus : registry) {
-            if (isStackFocus(focus, stack)) {
-               NBTHelper.GiveNBTstring(stack, focus.meltOutput, "melt");
-               return focus.meltOutput;
+    public static void registerFocusType(GeomanticFocus type) {
+        if (!registry.contains(type)) {
+            registry.add(type);
+        }
+    }
+
+    public static String getMeltFromFocus(ItemStack stack) {
+        String m = NBTHelper.GetNBTstring(stack, "melt");
+        if (!m.isEmpty()) {
+            return m;
+        } else {
+            for (GeomanticFocus focus : registry) {
+                if (isStackFocus(focus, stack)) {
+                    NBTHelper.GiveNBTstring(stack, focus.meltOutput, "melt");
+                    return focus.meltOutput;
+                }
             }
-         }
 
-         return "";
-      }
-   }
+            return "";
+        }
+    }
 
-   public static boolean isStackFocus(GeomanticFocus focustype, ItemStack stack) {
-      for (PyrocrystallineRecipe.OreCost cost : focustype.costs) {
-         if (NBTHelper.GetNBTfloat(stack, cost.name) < cost.count) {
-            return false;
-         }
-      }
+    public static boolean isStackFocus(GeomanticFocus focustype, ItemStack stack) {
+        for (PyrocrystallineRecipe.OreCost cost : focustype.costs) {
+            if (NBTHelper.GetNBTfloat(stack, cost.name) < cost.count) {
+                return false;
+            }
+        }
 
-      return true;
-   }
+        return true;
+    }
+
 }

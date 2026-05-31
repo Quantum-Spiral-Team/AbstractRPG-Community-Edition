@@ -6,5 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 
 public interface IItemDamaging {
-   float onCauseDamageWithItem(float var1, ItemStack var2, EntityPlayer var3, EntityLivingBase var4, DamageSource var5);
+
+    float onCauseDamageWithItem(float var1, ItemStack var2, EntityPlayer var3, EntityLivingBase var4, DamageSource var5);
+
 }

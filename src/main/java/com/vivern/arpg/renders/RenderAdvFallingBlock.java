@@ -22,67 +22,60 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderAdvFallingBlock extends Render<AdvancedFallingBlock> {
-   public RenderAdvFallingBlock(RenderManager renderManagerIn) {
-      super(renderManagerIn);
-      this.shadowSize = 0.5F;
-   }
 
-   @Override
-   public void doRender(AdvancedFallingBlock entity, double x, double y, double z, float entityYaw, float partialTicks) {
-      if (entity.getBlock() != null) {
-         IBlockState iblockstate = entity.getBlock();
-         if (iblockstate.getRenderType() == EnumBlockRenderType.MODEL) {
-            World world = entity.getWorldObj();
-            if (iblockstate != world.getBlockState(new BlockPos(entity)) && iblockstate.getRenderType() != EnumBlockRenderType.INVISIBLE) {
-               this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-               GlStateManager.pushMatrix();
-               GlStateManager.disableLighting();
-               Tessellator tessellator = Tessellator.getInstance();
-               BufferBuilder bufferbuilder = tessellator.getBuffer();
-               if (this.renderOutlines) {
-                  GlStateManager.enableColorMaterial();
-                  GlStateManager.enableOutlineMode(this.getTeamColor(entity));
-               }
+    public RenderAdvFallingBlock(RenderManager renderManagerIn) {
+        super(renderManagerIn);
+        this.shadowSize = 0.5F;
+    }
 
-               bufferbuilder.begin(7, DefaultVertexFormats.BLOCK);
-               BlockPos blockpos = new BlockPos(entity.posX, entity.getEntityBoundingBox().maxY, entity.posZ);
-               GlStateManager.translate(
-                  (float)(x - blockpos.getX() - 0.5), (float)(y - blockpos.getY()), (float)(z - blockpos.getZ() - 0.5)
-               );
-               BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-               blockrendererdispatcher.getBlockModelRenderer()
-                  .renderModel(
-                     world,
-                     blockrendererdispatcher.getModelForState(iblockstate),
-                     iblockstate,
-                     blockpos,
-                     bufferbuilder,
-                     false,
-                     MathHelper.getPositionRandom(entity.getOrigin())
-                  );
-               tessellator.draw();
-               if (this.renderOutlines) {
-                  GlStateManager.disableOutlineMode();
-                  GlStateManager.disableColorMaterial();
-               }
+    @Override
+    public void doRender(AdvancedFallingBlock entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        if (entity.getBlock() != null) {
+            IBlockState iblockstate = entity.getBlock();
+            if (iblockstate.getRenderType() == EnumBlockRenderType.MODEL) {
+                World world = entity.getWorldObj();
+                if (iblockstate != world.getBlockState(new BlockPos(entity)) && iblockstate.getRenderType() != EnumBlockRenderType.INVISIBLE) {
+                    this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                    GlStateManager.pushMatrix();
+                    GlStateManager.disableLighting();
+                    Tessellator tessellator = Tessellator.getInstance();
+                    BufferBuilder bufferbuilder = tessellator.getBuffer();
+                    if (this.renderOutlines) {
+                        GlStateManager.enableColorMaterial();
+                        GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+                    }
 
-               GlStateManager.enableLighting();
-               GlStateManager.popMatrix();
-               super.doRender(entity, x, y, z, entityYaw, partialTicks);
+                    bufferbuilder.begin(7, DefaultVertexFormats.BLOCK);
+                    BlockPos blockpos = new BlockPos(entity.posX, entity.getEntityBoundingBox().maxY, entity.posZ);
+                    GlStateManager.translate((float) (x - blockpos.getX() - 0.5), (float) (y - blockpos.getY()), (float) (z - blockpos.getZ() - 0.5));
+                    BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+                    blockrendererdispatcher.getBlockModelRenderer().renderModel(world, blockrendererdispatcher.getModelForState(iblockstate), iblockstate, blockpos, bufferbuilder, false, MathHelper.getPositionRandom(entity.getOrigin()));
+                    tessellator.draw();
+                    if (this.renderOutlines) {
+                        GlStateManager.disableOutlineMode();
+                        GlStateManager.disableColorMaterial();
+                    }
+
+                    GlStateManager.enableLighting();
+                    GlStateManager.popMatrix();
+                    super.doRender(entity, x, y, z, entityYaw, partialTicks);
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   protected ResourceLocation getEntityTexture(AdvancedFallingBlock entity) {
-      return TextureMap.LOCATION_BLOCKS_TEXTURE;
-   }
+    @Override
+    protected ResourceLocation getEntityTexture(AdvancedFallingBlock entity) {
+        return TextureMap.LOCATION_BLOCKS_TEXTURE;
+    }
 
-   public static class RenderAdvFallBlockFactory implements IRenderFactory {
-      @Override
-      public Render createRenderFor(RenderManager manager) {
-         return new RenderAdvFallingBlock(manager);
-      }
-   }
+    public static class RenderAdvFallBlockFactory implements IRenderFactory {
+
+        @Override
+        public Render createRenderFor(RenderManager manager) {
+            return new RenderAdvFallingBlock(manager);
+        }
+
+    }
+
 }

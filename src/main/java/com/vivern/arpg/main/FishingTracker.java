@@ -10,12 +10,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 @SideOnly(Side.CLIENT)
 public class FishingTracker {
-   public static boolean fishing;
-   public static double posxx = 0.0;
-   public static double posyy = 0.0;
 
-   @SubscribeEvent
-   @SideOnly(Side.CLIENT)
-   public static void onRenderWorld(RenderGameOverlayEvent.Post event) {
-   }
+    public static boolean fishing;
+    public static double posxx = 0.0;
+    public static double posyy = 0.0;
+
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public static void onRenderWorld(RenderGameOverlayEvent.Post event) {
+    }
+
 }

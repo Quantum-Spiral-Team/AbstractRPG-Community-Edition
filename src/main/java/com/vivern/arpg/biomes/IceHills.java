@@ -5,10 +5,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
 public class IceHills extends Biome {
-   public IceHills() {
-      super(new BiomeProperties("Ice hills").setBaseHeight(0.5F).setHeightVariation(0.5F).setTemperature(-1.0F).setWaterColor(10804223));
-      this.topBlock = Blocks.SNOW.getDefaultState();
-      this.fillerBlock = BlocksRegister.FROZEN_STONE.getDefaultState();
-      this.decorator = new IceHillsDecorator();
-   }
+
+    public IceHills() {
+        super(new BiomeProperties("Ice hills").setBaseHeight(0.5F).setHeightVariation(0.5F).setTemperature(-1.0F).setWaterColor(10804223));
+        this.topBlock = Blocks.SNOW.getDefaultState();
+        this.fillerBlock = BlocksRegister.FROZEN_STONE.getDefaultState();
+        this.decorator = new IceHillsDecorator();
+    }
+
 }

@@ -5,8 +5,10 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class ShardRenderFactory implements IRenderFactory {
-   @Override
-   public Render createRenderFor(RenderManager manager) {
-      return new RenderShard(manager);
-   }
+
+    @Override
+    public Render createRenderFor(RenderManager manager) {
+        return new RenderShard(manager);
+    }
+
 }

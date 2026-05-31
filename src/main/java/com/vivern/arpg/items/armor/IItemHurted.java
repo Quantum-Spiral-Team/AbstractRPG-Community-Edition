@@ -5,9 +5,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 
 public interface IItemHurted {
-   float onHurtWithItem(float var1, ItemStack var2, EntityPlayer var3, DamageSource var4);
 
-   default boolean cancelOnNull() {
-      return false;
-   }
+    float onHurtWithItem(float var1, ItemStack var2, EntityPlayer var3, DamageSource var4);
+
+    default boolean cancelOnNull() {
+        return false;
+    }
+
 }

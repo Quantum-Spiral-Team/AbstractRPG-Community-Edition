@@ -1,7 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.entity.EntityAcidBomb;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -23,131 +22,117 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockAcidBomb extends AbstractBomb {
-   public static final PropertyBool EXPLODE = PropertyBool.create("explode");
-   public static float basePower = 10.0F;
 
-   public BlockAcidBomb() {
-      super(Material.TNT);
-      this.setRegistryName("acid_bomb");
-      this.setTranslationKey("acid_bomb");
-      this.blockHardness = 0.3F;
-      this.blockResistance = 0.5F;
-      this.setDefaultState(this.blockState.getBaseState().withProperty(EXPLODE, false));
-      this.setCreativeTab(CreativeTabs.REDSTONE);
-      this.setSoundType(SoundType.METAL);
-   }
+    public static final PropertyBool EXPLODE = PropertyBool.create("explode");
+    public static float basePower = 10.0F;
 
-   @Override
-   public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-      super.onBlockAdded(worldIn, pos, state);
-      if (worldIn.isBlockPowered(pos)) {
-         this.onPlayerDestroy(worldIn, pos, state.withProperty(EXPLODE, true));
-         worldIn.setBlockToAir(pos);
-      }
-   }
+    public BlockAcidBomb() {
+        super(Material.TNT);
+        this.setRegistryName("acid_bomb");
+        this.setTranslationKey("acid_bomb");
+        this.blockHardness = 0.3F;
+        this.blockResistance = 0.5F;
+        this.setDefaultState(this.blockState.getBaseState().withProperty(EXPLODE, false));
+        this.setCreativeTab(CreativeTabs.REDSTONE);
+        this.setSoundType(SoundType.METAL);
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      if (worldIn.isBlockPowered(pos)) {
-         this.onPlayerDestroy(worldIn, pos, state.withProperty(EXPLODE, true));
-         worldIn.setBlockToAir(pos);
-      }
-   }
+    @Override
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+        super.onBlockAdded(worldIn, pos, state);
+        if (worldIn.isBlockPowered(pos)) {
+            this.onPlayerDestroy(worldIn, pos, state.withProperty(EXPLODE, true));
+            worldIn.setBlockToAir(pos);
+        }
+    }
 
-   @Override
-   public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
-      if (!worldIn.isRemote) {
-         EntityAcidBomb entitytntprimed = new EntityAcidBomb(
-            worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5F, explosionIn.getExplosivePlacedBy(), basePower
-         );
-         entitytntprimed.fuse = 10 + RANDOM.nextInt(10);
-         worldIn.spawnEntity(entitytntprimed);
-      }
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        if (worldIn.isBlockPowered(pos)) {
+            this.onPlayerDestroy(worldIn, pos, state.withProperty(EXPLODE, true));
+            worldIn.setBlockToAir(pos);
+        }
+    }
 
-   @Override
-   public void activate(World worldIn, BlockPos pos, @Nullable EntityLivingBase igniter) {
-      this.explode(worldIn, pos, worldIn.getBlockState(pos), igniter);
-   }
+    @Override
+    public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
+        if (!worldIn.isRemote) {
+            EntityAcidBomb entitytntprimed = new EntityAcidBomb(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5F, explosionIn.getExplosivePlacedBy(), basePower);
+            entitytntprimed.fuse = 10 + RANDOM.nextInt(10);
+            worldIn.spawnEntity(entitytntprimed);
+        }
+    }
 
-   @Override
-   public void blockexploded(World worldIn, BlockPos pos, EntityLivingBase igniter, Entity entityExplosive) {
-      if (!worldIn.isRemote) {
-         EntityAcidBomb entitytntprimed = new EntityAcidBomb(
-            worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5F, igniter, basePower
-         );
-         entitytntprimed.fuse = 10 + RANDOM.nextInt(10);
-         worldIn.spawnEntity(entitytntprimed);
-      }
-   }
+    @Override
+    public void activate(World worldIn, BlockPos pos, @Nullable EntityLivingBase igniter) {
+        this.explode(worldIn, pos, worldIn.getBlockState(pos), igniter);
+    }
 
-   @Override
-   public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
-      this.explode(worldIn, pos, state, null);
-   }
+    @Override
+    public void blockexploded(World worldIn, BlockPos pos, EntityLivingBase igniter, Entity entityExplosive) {
+        if (!worldIn.isRemote) {
+            EntityAcidBomb entitytntprimed = new EntityAcidBomb(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5F, igniter, basePower);
+            entitytntprimed.fuse = 10 + RANDOM.nextInt(10);
+            worldIn.spawnEntity(entitytntprimed);
+        }
+    }
 
-   public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {
-      if (!worldIn.isRemote && state.getValue(EXPLODE)) {
-         EntityAcidBomb entitytntprimed = new EntityAcidBomb(
-            worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5F, igniter, basePower
-         );
-         worldIn.spawnEntity(entitytntprimed);
-         worldIn.playSound(
-                 null,
-            entitytntprimed.posX,
-            entitytntprimed.posY,
-            entitytntprimed.posZ,
-            SoundEvents.ENTITY_TNT_PRIMED,
-            SoundCategory.BLOCKS,
-            1.0F,
-            1.0F
-         );
-      }
-   }
+    @Override
+    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
+        this.explode(worldIn, pos, state, null);
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      ItemStack itemstack = playerIn.getHeldItem(hand);
-      if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
-         this.explode(worldIn, pos, state.withProperty(EXPLODE, true), playerIn);
-         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
-         if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
-            itemstack.damageItem(1, playerIn);
-         } else if (!playerIn.capabilities.isCreativeMode) {
-            itemstack.shrink(1);
-         }
+    public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {
+        if (!worldIn.isRemote && state.getValue(EXPLODE)) {
+            EntityAcidBomb entitytntprimed = new EntityAcidBomb(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5F, igniter, basePower);
+            worldIn.spawnEntity(entitytntprimed);
+            worldIn.playSound(null, entitytntprimed.posX, entitytntprimed.posY, entitytntprimed.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
+    }
 
-         return true;
-      } else {
-         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
-      }
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack itemstack = playerIn.getHeldItem(hand);
+        if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
+            this.explode(worldIn, pos, state.withProperty(EXPLODE, true), playerIn);
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
+            if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
+                itemstack.damageItem(1, playerIn);
+            } else if (!playerIn.capabilities.isCreativeMode) {
+                itemstack.shrink(1);
+            }
 
-   @Override
-   public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-   }
+            return true;
+        } else {
+            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+        }
+    }
 
-   @Override
-   public boolean canDropFromExplosion(Explosion explosionIn) {
-      return false;
-   }
+    @Override
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(EXPLODE, (meta & 1) > 0);
-   }
+    @Override
+    public boolean canDropFromExplosion(Explosion explosionIn) {
+        return false;
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(EXPLODE) ? 1 : 0;
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(EXPLODE, (meta & 1) > 0);
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{EXPLODE});
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(EXPLODE) ? 1 : 0;
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{EXPLODE});
+    }
+
 }

@@ -1,8 +1,8 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.items.armor.IItemAttacked;
 import com.vivern.arpg.entity.CoralPolyp;
 import com.vivern.arpg.entity.CoralRifleBullet;
+import com.vivern.arpg.items.armor.IItemAttacked;
 import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -22,182 +22,152 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CoralRifle extends ItemWeapon implements IItemAttacked {
-   public static int maxammo = 50;
 
-   public CoralRifle() {
-      this.setRegistryName("coral_rifle");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("coral_rifle");
-      this.setMaxDamage(3500);
-      this.setMaxStackSize(1);
-   }
+    public static int maxammo = 50;
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    public CoralRifle() {
+        this.setRegistryName("coral_rifle");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("coral_rifle");
+        this.setMaxDamage(3500);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void boom(int param) {
-      Boom.lastTick = 7;
-      Boom.frequency = -0.45F;
-      Boom.x = 1.0F;
-      Boom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
-      Boom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
-      Boom.power = 0.27F;
-   }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-            this.decreaseReload(itemstack, player);
-            int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            if (click && player.getHeldItemMainhand() == itemstack) {
-               if (ammo > 0 && this.isReloaded(itemstack)) {
-                  if (!player.getCooldownTracker().hasCooldown(this)) {
-                     ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(itemstack, "bullet"));
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.coral_rifle,
-                        SoundCategory.AMBIENT,
-                        0.9F,
-                        1.2F + itemRand.nextFloat() / 5.0F
-                     );
-                     player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-                     player.addStat(StatList.getObjectUseStats(this));
-                     IWeapon.fireBomEffect(this, player, world, 0);
-                     Weapons.setPlayerAnimationOnServer(player, 12, EnumHand.MAIN_HAND);
-                     CoralRifleBullet projectile = new CoralRifleBullet(world, player, itemstack);
-                     Weapons.shoot(
-                        projectile,
-                        EnumHand.MAIN_HAND,
-                        player,
-                        player.rotationPitch,
-                        player.rotationYaw,
-                        0.0F,
-                        parameters.getFloat("velocity"),
-                        parameters.getEnchantedF("inaccuracy", acc),
-                        -0.1F,
-                        0.5F,
-                        0.2F
-                     );
-                     if (bullet != null) {
-                        projectile.setColor(bullet.colorR, bullet.colorG, bullet.colorB);
-                     }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void boom(int param) {
+        Boom.lastTick = 7;
+        Boom.frequency = -0.45F;
+        Boom.x = 1.0F;
+        Boom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
+        Boom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
+        Boom.power = 0.27F;
+    }
 
-                     projectile.bullet = bullet;
-                     projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                     world.spawnEntity(projectile);
-                     if (!player.capabilities.isCreativeMode) {
-                        this.addAmmo(ammo, itemstack, -1);
-                        itemstack.damageItem(1, player);
-                     }
-                  }
-               } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.CORAL_RIFLE_CLIP, maxammo, true)) {
-                  world.playSound(
-                          null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     Sounds.coral_rifle_rel,
-                     SoundCategory.AMBIENT,
-                     0.8F,
-                     1.0F
-                  );
-                  Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
-                  if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
-                     NBTHelper.giveNBTboolean(itemstack, true, "polyps");
-                     NBTHelper.SetNBTboolean(itemstack, true, "polyps");
-                  }
-               }
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+                this.decreaseReload(itemstack, player);
+                int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                if (click && player.getHeldItemMainhand() == itemstack) {
+                    if (ammo > 0 && this.isReloaded(itemstack)) {
+                        if (!player.getCooldownTracker().hasCooldown(this)) {
+                            ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(itemstack, "bullet"));
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.coral_rifle, SoundCategory.AMBIENT, 0.9F, 1.2F + itemRand.nextFloat() / 5.0F);
+                            player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
+                            player.addStat(StatList.getObjectUseStats(this));
+                            IWeapon.fireBomEffect(this, player, world, 0);
+                            Weapons.setPlayerAnimationOnServer(player, 12, EnumHand.MAIN_HAND);
+                            CoralRifleBullet projectile = new CoralRifleBullet(world, player, itemstack);
+                            Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.1F, 0.5F, 0.2F);
+                            if (bullet != null) {
+                                projectile.setColor(bullet.colorR, bullet.colorG, bullet.colorB);
+                            }
+
+                            projectile.bullet = bullet;
+                            projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                            world.spawnEntity(projectile);
+                            if (!player.capabilities.isCreativeMode) {
+                                this.addAmmo(ammo, itemstack, -1);
+                                itemstack.damageItem(1, player);
+                            }
+                        }
+                    } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.CORAL_RIFLE_CLIP, maxammo, true)) {
+                        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.coral_rifle_rel, SoundCategory.AMBIENT, 0.8F, 1.0F);
+                        Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
+                        if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
+                            NBTHelper.giveNBTboolean(itemstack, true, "polyps");
+                            NBTHelper.SetNBTboolean(itemstack, true, "polyps");
+                        }
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public float getAdditionalDurabilityBar(ItemStack stack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(stack, "ammo") / maxammo, 0.0F, 1.0F);
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public float getAdditionalDurabilityBar(ItemStack stack) {
+        return MathHelper.clamp((float) NBTHelper.GetNBTint(stack, "ammo") / maxammo, 0.0F, 1.0F);
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
-      return true;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
+        return true;
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.TWO_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.TWO_HANDED;
+    }
 
-   @Override
-   public int getCooldownTime(ItemStack itemstack) {
-      WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return GetMOP.floatToIntWithChance(parameters.getEnchantedF("cooldown", rapidity), itemRand);
-   }
+    @Override
+    public int getCooldownTime(ItemStack itemstack) {
+        WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
+        int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
+        return GetMOP.floatToIntWithChance(parameters.getEnchantedF("cooldown", rapidity), itemRand);
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
+    @Override
+    public int getItemEnchantability() {
+        return 2;
+    }
 
-   @Override
-   public float onAttackedWithItem(float damage, ItemStack stack, EntityPlayer player, DamageSource source) {
-      if (NBTHelper.GetNBTboolean(stack, "polyps") && source.getTrueSource() instanceof EntityLiving) {
-         EntityLiving entityLiving = (EntityLiving)source.getTrueSource();
-         if (entityLiving.getDistance(player) < 5.0F) {
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-            int maxi = parameters.getInt("polyps");
+    @Override
+    public float onAttackedWithItem(float damage, ItemStack stack, EntityPlayer player, DamageSource source) {
+        if (NBTHelper.GetNBTboolean(stack, "polyps") && source.getTrueSource() instanceof EntityLiving) {
+            EntityLiving entityLiving = (EntityLiving) source.getTrueSource();
+            if (entityLiving.getDistance(player) < 5.0F) {
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
+                int maxi = parameters.getInt("polyps");
 
-            for (int i = 0; i < maxi; i++) {
-               CoralPolyp polyp = new CoralPolyp(
-                  player.world, player, parameters.getEnchantedF("polyps_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack))
-               );
-               polyp.setPosition(player.posX, player.posY + player.height / 2.0F, player.posZ);
-               polyp.motionX = (itemRand.nextFloat() - 0.5F) * 0.25F;
-               polyp.motionY = (itemRand.nextFloat() - 0.5F) * 0.15F;
-               polyp.motionZ = (itemRand.nextFloat() - 0.5F) * 0.25F;
-               polyp.enemy = entityLiving;
-               player.world.spawnEntity(polyp);
+                for (int i = 0; i < maxi; i++) {
+                    CoralPolyp polyp = new CoralPolyp(player.world, player, parameters.getEnchantedF("polyps_damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack)));
+                    polyp.setPosition(player.posX, player.posY + player.height / 2.0F, player.posZ);
+                    polyp.motionX = (itemRand.nextFloat() - 0.5F) * 0.25F;
+                    polyp.motionY = (itemRand.nextFloat() - 0.5F) * 0.15F;
+                    polyp.motionZ = (itemRand.nextFloat() - 0.5F) * 0.25F;
+                    polyp.enemy = entityLiving;
+                    player.world.spawnEntity(polyp);
+                }
+
+                NBTHelper.SetNBTboolean(stack, false, "polyps");
             }
+        }
 
-            NBTHelper.SetNBTboolean(stack, false, "polyps");
-         }
-      }
+        return 0.0F;
+    }
 
-      return 0.0F;
-   }
 }

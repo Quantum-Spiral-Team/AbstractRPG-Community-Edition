@@ -1,12 +1,11 @@
 package com.vivern.arpg.items;
 
+import com.google.common.base.Predicate;
 import com.vivern.arpg.entity.ShootOfWitherdry;
 import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
-import com.google.common.base.Predicate;
-import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -25,438 +24,316 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class StaffOfWitherdry extends ItemWeapon {
-   public static ResourceLocation flame_big = new ResourceLocation("arpg:textures/flame_big2.png");
-   public static ResourceLocation flamethrow = new ResourceLocation("arpg:textures/flamethrow.png");
-   public static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
-   public static Predicate<EntityLivingBase> BURNING_ENTITIES = input -> input.isBurning();
-   public static ParticleTracker.TrackerSmoothShowHide tracker = new ParticleTracker.TrackerSmoothShowHide(
-      new Vec3d[]{new Vec3d(5.0, 20.0, 0.066), new Vec3d(23.0, 38.0, -0.066)}, null
-   );
-   public static ParticleTracker.TrackerSmoothShowHide tracker2 = new ParticleTracker.TrackerSmoothShowHide(null, new Vec3d[]{new Vec3d(0.0, 3.0, 0.066)});
 
-   public StaffOfWitherdry() {
-      this.setRegistryName("staff_of_witherdry");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("staff_of_witherdry");
-      this.setMaxDamage(13600);
-      this.setMaxStackSize(1);
-   }
+    public static ResourceLocation flame_big = new ResourceLocation("arpg:textures/flame_big2.png");
+    public static ResourceLocation flamethrow = new ResourceLocation("arpg:textures/flamethrow.png");
+    public static ResourceLocation largesmoke = new ResourceLocation("arpg:textures/largesmoke.png");
+    public static Predicate<EntityLivingBase> BURNING_ENTITIES = input -> input.isBurning();
+    public static ParticleTracker.TrackerSmoothShowHide tracker = new ParticleTracker.TrackerSmoothShowHide(new Vec3d[]{new Vec3d(5.0, 20.0, 0.066), new Vec3d(23.0, 38.0, -0.066)}, null);
+    public static ParticleTracker.TrackerSmoothShowHide tracker2 = new ParticleTracker.TrackerSmoothShowHide(null, new Vec3d[]{new Vec3d(0.0, 3.0, 0.066)});
 
-   @Override
-   public float getXpRepairRatio(ItemStack stack) {
-      return 14.0F;
-   }
+    public StaffOfWitherdry() {
+        this.setRegistryName("staff_of_witherdry");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("staff_of_witherdry");
+        this.setMaxDamage(13600);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    @Override
+    public float getXpRepairRatio(ItemStack stack) {
+        return 14.0F;
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void boom(int param) {
-      if (param == -1) {
-         Boom.lastTick = 30;
-         Boom.frequency = -0.39F;
-         Boom.x = 0.0F;
-         Boom.y = (float)(itemRand.nextGaussian() / 8.0);
-         Boom.z = 1.0F;
-         Boom.power = 0.2F;
-         Boom.FOVlastTick = 20;
-         Boom.FOVfrequency = -0.157F;
-         Boom.FOVpower = 0.02F;
-      } else if (param == -2) {
-         Boom.lastTick = 18;
-         Boom.frequency = -0.175F;
-         Boom.x = 0.0F;
-         Boom.y = 0.0F;
-         Boom.z = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
-         Boom.power = 0.22F;
-      } else {
-         Boom.lastTick = 16;
-         Boom.frequency = -0.39F;
-         Boom.x = 0.6F;
-         Boom.y = (float)(itemRand.nextGaussian() / 8.0);
-         Boom.z = (float)(itemRand.nextGaussian() / 3.0);
-         Boom.power = 0.055F * param / 32.0F;
-      }
-   }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void boom(int param) {
+        if (param == -1) {
+            Boom.lastTick = 30;
+            Boom.frequency = -0.39F;
+            Boom.x = 0.0F;
+            Boom.y = (float) (itemRand.nextGaussian() / 8.0);
+            Boom.z = 1.0F;
+            Boom.power = 0.2F;
+            Boom.FOVlastTick = 20;
+            Boom.FOVfrequency = -0.157F;
+            Boom.FOVpower = 0.02F;
+        } else if (param == -2) {
+            Boom.lastTick = 18;
+            Boom.frequency = -0.175F;
+            Boom.x = 0.0F;
+            Boom.y = 0.0F;
+            Boom.z = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
+            Boom.power = 0.22F;
+        } else {
+            Boom.lastTick = 16;
+            Boom.frequency = -0.39F;
+            Boom.x = 0.6F;
+            Boom.y = (float) (itemRand.nextGaussian() / 8.0);
+            Boom.z = (float) (itemRand.nextGaussian() / 3.0);
+            Boom.power = 0.055F * param / 32.0F;
+        }
+    }
 
-   public static int getMaxFiretime(ItemStack itemstack) {
-      return WeaponParameters.getWeaponParameters(itemstack.getItem())
-         .getEnchantedI("maxfire_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (world.isRemote) {
-         int fire = NBTHelper.GetNBTint(itemstack, "fire");
-         if (fire > 0) {
-            float fireValue = (float)fire / getMaxFiretime(itemstack);
-            float fireBig = GetMOP.softFromTo(fireValue, 0.4F, 0.5F);
-            float fireExponent = GetMOP.softFromTo(fireValue, 0.0F, 0.15F) * 5.0F
-               + GetMOP.softFromTo(fireValue, 0.15F, 0.5F) * 7.0F
-               + GetMOP.softFromTo(fireValue, 0.5F, 1.0F) * 20.0F;
-            float fireExtra = fireBig - GetMOP.softFromTo(fireValue, 0.5F, 0.6F);
-            Vec3d shootPoint = entityIn.getPositionVector()
-               .add(0.0, 1.2, 0.0)
-               .add(GetMOP.pitchYawToVec3D(entityIn.rotationPitch, entityIn.rotationYaw));
-            int lt = (int)fireExponent;
-            GUNParticle particle = new GUNParticle(
-               flame_big,
-               0.1F + 0.1F * fireExtra,
-               -0.003F,
-               lt,
-               190 + (int)(50.0F * fireBig),
-               world,
-               shootPoint.x,
-               shootPoint.y,
-               shootPoint.z,
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F,
-               1.0F - fireExtra * 0.3F,
-               1.0F - fireExtra * 0.3F,
-               true,
-               itemRand.nextInt(360),
-               true,
-               1.4F
-            );
-            particle.alphaGlowing = true;
-            particle.scaleTickAdding = 0.04347F + 0.015F * fireBig;
-            particle.alphaTickAdding = -1.0F / lt;
-            particle.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 1.0F, 3.0F, 0.3F);
-            world.spawnEntity(particle);
-            lt = (int)fireExponent / 2;
-            float colRG = 0.7F + fireBig * 0.3F;
-            AnimatedGParticle anim = new AnimatedGParticle(
-               flamethrow,
-               0.02F + 0.1F * fireExtra,
-               -0.003F,
-               lt,
-               240,
-               world,
-               shootPoint.x,
-               shootPoint.y,
-               shootPoint.z,
-               0.0F,
-               0.0F,
-               0.0F,
-               colRG,
-               colRG,
-               1.0F,
-               true,
-               itemRand.nextInt(360),
-               true,
-               1.4F
-            );
-            anim.framecount = 16;
-            anim.scaleTickAdding = 0.035F + 0.01F * fireExtra;
-            anim.alphaGlowing = true;
-            anim.randomDeath = false;
-            anim.animDelay = 1;
-            anim.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 1.0F, 1.0F, 0.3F);
-            anim.tracker = tracker2;
-            world.spawnEntity(anim);
-            lt = (int)(fireExponent * 1.1875F);
-            particle = new GUNParticle(
-               largesmoke,
-               0.1F,
-               -0.0045F,
-               lt,
-               -1,
-               world,
-               shootPoint.x,
-               shootPoint.y,
-               shootPoint.z,
-               0.0F,
-               0.0F,
-               0.0F,
-               1.0F,
-               1.0F,
-               1.0F,
-               true,
-               itemRand.nextInt(360),
-               true,
-               1.4F
-            );
-            particle.scaleTickAdding = 0.044F;
-            particle.alpha = 0.0F;
-            particle.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 0.95F, 2.0F, 0.3F);
-            particle.tracker = tracker;
-            world.spawnEntity(particle);
-         }
-      } else {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-            int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
-            int ran = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
-            float power = Mana.getMagicPowerMax(player);
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
+    public static int getMaxFiretime(ItemStack itemstack) {
+        return WeaponParameters.getWeaponParameters(itemstack.getItem()).getEnchantedI("maxfire_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (world.isRemote) {
             int fire = NBTHelper.GetNBTint(itemstack, "fire");
-            NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
-            int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            if (player.getHeldItemMainhand() == itemstack) {
-               if (firedelay > 0) {
-                  NBTHelper.AddNBTint(itemstack, -1, "fdelay");
-               }
-
-               if (firedelay == 1) {
-                  double raduis = 10.0;
-                  Vec3d vec1 = GetMOP.pitchYawToVec3D(player.rotationPitch, player.rotationYaw);
-                  Vec3d vec2 = entityIn.getPositionVector().add(0.0, 1.2, 0.0);
-                  Vec3d shootPoint = vec2.add(vec1);
-                  Vec3d aabbPoint = vec2.add(vec1.scale(raduis));
-                  List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, GetMOP.newAABB(aabbPoint, raduis), BURNING_ENTITIES);
-                  int amountTargets = 3 + MathHelper.clamp((list.size() - 2) / 2, 0, 5);
-                  EntityLivingBase[] targets = new EntityLivingBase[amountTargets];
-                  double[] distances = new double[amountTargets];
-
-                  for (int i = 0; i < amountTargets; i++) {
-                     distances[i] = Double.MAX_VALUE;
-                  }
-
-                  for (EntityLivingBase elb : list) {
-                     if (Team.checkIsOpponent(player, elb)) {
-                        double distSq = player.getDistanceSq(elb);
-                        this.placeToDistArray(targets, elb, distances, distSq, 0, amountTargets);
-                     }
-                  }
-
-                  for (int i = 0; i < amountTargets; i++) {
-                     double yy;
-                     double zz;
-                     double xx;
-                     if (targets[i] != null) {
-                        xx = targets[i].posX;
-                        yy = targets[i].posY + targets[i].height / 2.0F;
-                        zz = targets[i].posZ;
-                     } else {
-                        Vec3d vec3 = GetMOP.pitchYawToVec3D(
-                           player.rotationPitch + (float)itemRand.nextGaussian() * 2.0F, player.rotationYaw + (float)itemRand.nextGaussian() * 4.0F
-                        );
-                        Vec3d vec4 = vec2.add(vec3.scale(8.0));
-                        xx = vec4.x;
-                        yy = vec4.y;
-                        zz = vec4.z;
-                     }
-
-                     double d3 = xx - shootPoint.x;
-                     double d4 = yy - shootPoint.y;
-                     double d5 = zz - shootPoint.z;
-                     EntityWitherSkull shoot = new EntityWitherSkull(world, player, d3, d4, d5);
-                     shoot.setPosition(
-                        shootPoint.x + (itemRand.nextFloat() - 0.5) / 2.0,
-                        shootPoint.y + (itemRand.nextFloat() - 0.5) / 4.0,
-                        shootPoint.z + (itemRand.nextFloat() - 0.5) / 2.0
-                     );
-                     world.spawnEntity(shoot);
-                  }
-               }
-
-               if (!player.getCooldownTracker().hasCooldown(this)) {
-                  if (click) {
-                     if (player.ticksExisted % 2 == 0) {
-                        if (!(Mana.getMana(player) > parameters.getEnchantedF("manacost", sor))) {
-                           NBTHelper.SetNBTint(itemstack, 0, "fire");
-                        } else {
-                           NBTHelper.GiveNBTint(itemstack, 0, "fire");
-                           NBTHelper.GiveNBTint(itemstack, 0, "charge");
-                           int maxFire = getMaxFiretime(itemstack);
-                           if (fire < maxFire) {
-                              NBTHelper.AddNBTint(itemstack, 1, "fire");
-                           }
-
-                           float fireValue = (float)fire / maxFire;
-                           float fireExponent = GetMOP.softFromTo(fireValue, 0.0F, 0.15F) * 5.0F
-                              + GetMOP.softFromTo(fireValue, 0.15F, 0.5F) * 7.0F
-                              + GetMOP.softFromTo(fireValue, 0.5F, 1.0F) * parameters.getEnchantedF("livetime", ran);
-                           if (fire == maxFire / 2) {
-                              IWeapon.fireBomEffect(this, player, world, -1);
-                              world.playSound(
-                                      null,
-                                 player.posX,
-                                 player.posY,
-                                 player.posZ,
-                                 Sounds.staff_of_witherdry_flare,
-                                 SoundCategory.AMBIENT,
-                                 0.9F,
-                                 0.9F + itemRand.nextFloat() / 5.0F
-                              );
-                           } else if (player.ticksExisted % 4 == 0) {
-                              IWeapon.fireBomEffect(this, player, world, (int)fireExponent);
-                           }
-
-                           if (fire == 0 || fire < maxFire && fire % 5 == 0 || fire >= maxFire && player.ticksExisted % 10 == 0) {
-                              Weapons.setPlayerAnimationOnServer(player, 22, EnumHand.MAIN_HAND);
-                           }
-
-                           if (fire == 0) {
-                              world.playSound(
-                                      null,
-                                 player.posX,
-                                 player.posY,
-                                 player.posZ,
-                                 Sounds.staff_of_witherdry_start,
-                                 SoundCategory.AMBIENT,
-                                 0.9F,
-                                 0.9F + itemRand.nextFloat() / 5.0F
-                              );
-                           } else if (fire > 5 && player.ticksExisted % 14 == 0) {
-                              if (fire < maxFire / 2) {
-                                 world.playSound(
-                                         null,
-                                    player.posX,
-                                    player.posY,
-                                    player.posZ,
-                                    Sounds.staff_of_witherdry_low,
-                                    SoundCategory.AMBIENT,
-                                    0.9F,
-                                    0.9F + itemRand.nextFloat() / 5.0F
-                                 );
-                              } else if (fire > maxFire / 2) {
-                                 world.playSound(
-                                         null,
-                                    player.posX,
-                                    player.posY,
-                                    player.posZ,
-                                    Sounds.staff_of_witherdry_high,
-                                    SoundCategory.AMBIENT,
-                                    1.1F,
-                                    0.9F + itemRand.nextFloat() / 5.0F
-                                 );
-                              }
-                           }
-
-                           player.addStat(StatList.getObjectUseStats(this));
-                           Vec3d shootPoint = entityIn.getPositionVector()
-                              .add(0.0, 1.2, 0.0)
-                              .add(GetMOP.pitchYawToVec3D(entityIn.rotationPitch, entityIn.rotationYaw));
-                           ShootOfWitherdry shoot = new ShootOfWitherdry(world, player, itemstack, power);
-                           shoot.setPosition(shootPoint.x, shootPoint.y, shootPoint.z);
-                           shoot.shoot(
-                              player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc)
-                           );
-                           shoot.livetime = (int)fireExponent;
-                           world.spawnEntity(shoot);
-                           if (!player.capabilities.isCreativeMode) {
-                              Mana.changeMana(player, -parameters.getEnchantedF("manacost", sor));
-                              Mana.setManaSpeed(player, 0.001F);
-                              itemstack.damageItem(1, player);
-                           }
-                        }
-                     }
-                  } else if (click2) {
-                     int charge = NBTHelper.GetNBTint(itemstack, "charge");
-                     if (charge > 0) {
-                        NBTHelper.SetNBTint(itemstack, 5, "fdelay");
-                        player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-                        world.playSound(
-                                null,
-                           player.posX,
-                           player.posY,
-                           player.posZ,
-                           Sounds.staff_of_witherdry_skull,
-                           SoundCategory.AMBIENT,
-                           1.0F,
-                           0.95F + itemRand.nextFloat() / 10.0F
-                        );
-                        Weapons.setPlayerAnimationOnServer(player, 24, EnumHand.MAIN_HAND);
-                        IWeapon.fireBomEffect(this, player, world, -2);
-                        if (!player.capabilities.isCreativeMode) {
-                           itemstack.damageItem(1, player);
-                           if (itemRand.nextFloat()
-                              < parameters.getEnchantedF("charge_consume_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))) {
-                              NBTHelper.AddNBTint(itemstack, -1, "charge");
-                           }
-                        }
-                     }
-                  }
-               }
-
-               if (!click) {
-                  NBTHelper.SetNBTint(itemstack, 0, "fire");
-               }
-            } else {
-               NBTHelper.SetNBTint(itemstack, 0, "fire");
-               NBTHelper.SetNBTint(itemstack, 0, "fdelay");
+            if (fire > 0) {
+                float fireValue = (float) fire / getMaxFiretime(itemstack);
+                float fireBig = GetMOP.softFromTo(fireValue, 0.4F, 0.5F);
+                float fireExponent = GetMOP.softFromTo(fireValue, 0.0F, 0.15F) * 5.0F + GetMOP.softFromTo(fireValue, 0.15F, 0.5F) * 7.0F + GetMOP.softFromTo(fireValue, 0.5F, 1.0F) * 20.0F;
+                float fireExtra = fireBig - GetMOP.softFromTo(fireValue, 0.5F, 0.6F);
+                Vec3d shootPoint = entityIn.getPositionVector().add(0.0, 1.2, 0.0).add(GetMOP.pitchYawToVec3D(entityIn.rotationPitch, entityIn.rotationYaw));
+                int lt = (int) fireExponent;
+                GUNParticle particle = new GUNParticle(flame_big, 0.1F + 0.1F * fireExtra, -0.003F, lt, 190 + (int) (50.0F * fireBig), world, shootPoint.x, shootPoint.y, shootPoint.z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F - fireExtra * 0.3F, 1.0F - fireExtra * 0.3F, true, itemRand.nextInt(360), true, 1.4F);
+                particle.alphaGlowing = true;
+                particle.scaleTickAdding = 0.04347F + 0.015F * fireBig;
+                particle.alphaTickAdding = -1.0F / lt;
+                particle.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 1.0F, 3.0F, 0.3F);
+                world.spawnEntity(particle);
+                lt = (int) fireExponent / 2;
+                float colRG = 0.7F + fireBig * 0.3F;
+                AnimatedGParticle anim = new AnimatedGParticle(flamethrow, 0.02F + 0.1F * fireExtra, -0.003F, lt, 240, world, shootPoint.x, shootPoint.y, shootPoint.z, 0.0F, 0.0F, 0.0F, colRG, colRG, 1.0F, true, itemRand.nextInt(360), true, 1.4F);
+                anim.framecount = 16;
+                anim.scaleTickAdding = 0.035F + 0.01F * fireExtra;
+                anim.alphaGlowing = true;
+                anim.randomDeath = false;
+                anim.animDelay = 1;
+                anim.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 1.0F, 1.0F, 0.3F);
+                anim.tracker = tracker2;
+                world.spawnEntity(anim);
+                lt = (int) (fireExponent * 1.1875F);
+                particle = new GUNParticle(largesmoke, 0.1F, -0.0045F, lt, -1, world, shootPoint.x, shootPoint.y, shootPoint.z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, itemRand.nextInt(360), true, 1.4F);
+                particle.scaleTickAdding = 0.044F;
+                particle.alpha = 0.0F;
+                particle.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 0.95F, 2.0F, 0.3F);
+                particle.tracker = tracker;
+                world.spawnEntity(particle);
             }
-         } else {
-            NBTHelper.SetNBTint(itemstack, 0, "fire");
-            NBTHelper.SetNBTint(itemstack, 0, "fdelay");
-         }
-      }
-   }
+        } else {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+                int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
+                int ran = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack);
+                float power = Mana.getMagicPowerMax(player);
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
+                int fire = NBTHelper.GetNBTint(itemstack, "fire");
+                NBTHelper.GiveNBTint(itemstack, 0, "fdelay");
+                int firedelay = NBTHelper.GetNBTint(itemstack, "fdelay");
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                if (player.getHeldItemMainhand() == itemstack) {
+                    if (firedelay > 0) {
+                        NBTHelper.AddNBTint(itemstack, -1, "fdelay");
+                    }
 
-   public void placeToDistArray(EntityLivingBase[] targets, EntityLivingBase elb, double[] distances, double distSq, int index, int amountTargets) {
-      if (index < amountTargets) {
-         if (distSq < distances[index]) {
-            EntityLivingBase lastElb = targets[index];
-            double lastDistSq = distances[index];
-            distances[index] = distSq;
-            targets[index] = elb;
-            this.placeToDistArray(targets, lastElb, distances, lastDistSq, index + 1, amountTargets);
-         } else {
-            this.placeToDistArray(targets, elb, distances, distSq, index + 1, amountTargets);
-         }
-      }
-   }
+                    if (firedelay == 1) {
+                        double raduis = 10.0;
+                        Vec3d vec1 = GetMOP.pitchYawToVec3D(player.rotationPitch, player.rotationYaw);
+                        Vec3d vec2 = entityIn.getPositionVector().add(0.0, 1.2, 0.0);
+                        Vec3d shootPoint = vec2.add(vec1);
+                        Vec3d aabbPoint = vec2.add(vec1.scale(raduis));
+                        List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, GetMOP.newAABB(aabbPoint, raduis), BURNING_ENTITIES);
+                        int amountTargets = 3 + MathHelper.clamp((list.size() - 2) / 2, 0, 5);
+                        EntityLivingBase[] targets = new EntityLivingBase[amountTargets];
+                        double[] distances = new double[amountTargets];
 
-   public static int maxcharge(ItemStack itemstack) {
-      return WeaponParameters.getWeaponParameters(itemstack.getItem())
-         .getEnchantedI("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
-   }
+                        for (int i = 0; i < amountTargets; i++) {
+                            distances[i] = Double.MAX_VALUE;
+                        }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public float getAdditionalDurabilityBar(ItemStack stack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(stack, "charge") / maxcharge(stack), 0.0F, 1.0F);
-   }
+                        for (EntityLivingBase elb : list) {
+                            if (Team.checkIsOpponent(player, elb)) {
+                                double distSq = player.getDistanceSq(elb);
+                                this.placeToDistArray(targets, elb, distances, distSq, 0, amountTargets);
+                            }
+                        }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
-      return NBTHelper.GetNBTint(itemstack, "charge") > 0;
-   }
+                        for (int i = 0; i < amountTargets; i++) {
+                            double yy;
+                            double zz;
+                            double xx;
+                            if (targets[i] != null) {
+                                xx = targets[i].posX;
+                                yy = targets[i].posY + targets[i].height / 2.0F;
+                                zz = targets[i].posZ;
+                            } else {
+                                Vec3d vec3 = GetMOP.pitchYawToVec3D(player.rotationPitch + (float) itemRand.nextGaussian() * 2.0F, player.rotationYaw + (float) itemRand.nextGaussian() * 4.0F);
+                                Vec3d vec4 = vec2.add(vec3.scale(8.0));
+                                xx = vec4.x;
+                                yy = vec4.y;
+                                zz = vec4.z;
+                            }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+                            double d3 = xx - shootPoint.x;
+                            double d4 = yy - shootPoint.y;
+                            double d5 = zz - shootPoint.z;
+                            EntityWitherSkull shoot = new EntityWitherSkull(world, player, d3, d4, d5);
+                            shoot.setPosition(shootPoint.x + (itemRand.nextFloat() - 0.5) / 2.0, shootPoint.y + (itemRand.nextFloat() - 0.5) / 4.0, shootPoint.z + (itemRand.nextFloat() - 0.5) / 2.0);
+                            world.spawnEntity(shoot);
+                        }
+                    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.TWO_HANDED;
-   }
+                    if (!player.getCooldownTracker().hasCooldown(this)) {
+                        if (click) {
+                            if (player.ticksExisted % 2 == 0) {
+                                if (!(Mana.getMana(player) > parameters.getEnchantedF("manacost", sor))) {
+                                    NBTHelper.SetNBTint(itemstack, 0, "fire");
+                                } else {
+                                    NBTHelper.GiveNBTint(itemstack, 0, "fire");
+                                    NBTHelper.GiveNBTint(itemstack, 0, "charge");
+                                    int maxFire = getMaxFiretime(itemstack);
+                                    if (fire < maxFire) {
+                                        NBTHelper.AddNBTint(itemstack, 1, "fire");
+                                    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
+                                    float fireValue = (float) fire / maxFire;
+                                    float fireExponent = GetMOP.softFromTo(fireValue, 0.0F, 0.15F) * 5.0F + GetMOP.softFromTo(fireValue, 0.15F, 0.5F) * 7.0F + GetMOP.softFromTo(fireValue, 0.5F, 1.0F) * parameters.getEnchantedF("livetime", ran);
+                                    if (fire == maxFire / 2) {
+                                        IWeapon.fireBomEffect(this, player, world, -1);
+                                        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.staff_of_witherdry_flare, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                                    } else if (player.ticksExisted % 4 == 0) {
+                                        IWeapon.fireBomEffect(this, player, world, (int) fireExponent);
+                                    }
+
+                                    if (fire == 0 || fire < maxFire && fire % 5 == 0 || fire >= maxFire && player.ticksExisted % 10 == 0) {
+                                        Weapons.setPlayerAnimationOnServer(player, 22, EnumHand.MAIN_HAND);
+                                    }
+
+                                    if (fire == 0) {
+                                        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.staff_of_witherdry_start, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                                    } else if (fire > 5 && player.ticksExisted % 14 == 0) {
+                                        if (fire < maxFire / 2) {
+                                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.staff_of_witherdry_low, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                                        } else if (fire > maxFire / 2) {
+                                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.staff_of_witherdry_high, SoundCategory.AMBIENT, 1.1F, 0.9F + itemRand.nextFloat() / 5.0F);
+                                        }
+                                    }
+
+                                    player.addStat(StatList.getObjectUseStats(this));
+                                    Vec3d shootPoint = entityIn.getPositionVector().add(0.0, 1.2, 0.0).add(GetMOP.pitchYawToVec3D(entityIn.rotationPitch, entityIn.rotationYaw));
+                                    ShootOfWitherdry shoot = new ShootOfWitherdry(world, player, itemstack, power);
+                                    shoot.setPosition(shootPoint.x, shootPoint.y, shootPoint.z);
+                                    shoot.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc));
+                                    shoot.livetime = (int) fireExponent;
+                                    world.spawnEntity(shoot);
+                                    if (!player.capabilities.isCreativeMode) {
+                                        Mana.changeMana(player, -parameters.getEnchantedF("manacost", sor));
+                                        Mana.setManaSpeed(player, 0.001F);
+                                        itemstack.damageItem(1, player);
+                                    }
+                                }
+                            }
+                        } else if (click2) {
+                            int charge = NBTHelper.GetNBTint(itemstack, "charge");
+                            if (charge > 0) {
+                                NBTHelper.SetNBTint(itemstack, 5, "fdelay");
+                                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
+                                world.playSound(null, player.posX, player.posY, player.posZ, Sounds.staff_of_witherdry_skull, SoundCategory.AMBIENT, 1.0F, 0.95F + itemRand.nextFloat() / 10.0F);
+                                Weapons.setPlayerAnimationOnServer(player, 24, EnumHand.MAIN_HAND);
+                                IWeapon.fireBomEffect(this, player, world, -2);
+                                if (!player.capabilities.isCreativeMode) {
+                                    itemstack.damageItem(1, player);
+                                    if (itemRand.nextFloat() < parameters.getEnchantedF("charge_consume_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack))) {
+                                        NBTHelper.AddNBTint(itemstack, -1, "charge");
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (!click) {
+                        NBTHelper.SetNBTint(itemstack, 0, "fire");
+                    }
+                } else {
+                    NBTHelper.SetNBTint(itemstack, 0, "fire");
+                    NBTHelper.SetNBTint(itemstack, 0, "fdelay");
+                }
+            } else {
+                NBTHelper.SetNBTint(itemstack, 0, "fire");
+                NBTHelper.SetNBTint(itemstack, 0, "fdelay");
+            }
+        }
+    }
+
+    public void placeToDistArray(EntityLivingBase[] targets, EntityLivingBase elb, double[] distances, double distSq, int index, int amountTargets) {
+        if (index < amountTargets) {
+            if (distSq < distances[index]) {
+                EntityLivingBase lastElb = targets[index];
+                double lastDistSq = distances[index];
+                distances[index] = distSq;
+                targets[index] = elb;
+                this.placeToDistArray(targets, lastElb, distances, lastDistSq, index + 1, amountTargets);
+            } else {
+                this.placeToDistArray(targets, elb, distances, distSq, index + 1, amountTargets);
+            }
+        }
+    }
+
+    public static int maxcharge(ItemStack itemstack) {
+        return WeaponParameters.getWeaponParameters(itemstack.getItem()).getEnchantedI("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public float getAdditionalDurabilityBar(ItemStack stack) {
+        return MathHelper.clamp((float) NBTHelper.GetNBTint(stack, "charge") / maxcharge(stack), 0.0F, 1.0F);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
+        return NBTHelper.GetNBTint(itemstack, "charge") > 0;
+    }
+
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
+
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.TWO_HANDED;
+    }
+
+    @Override
+    public int getItemEnchantability() {
+        return 2;
+    }
+
 }

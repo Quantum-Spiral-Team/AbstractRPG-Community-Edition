@@ -20,56 +20,58 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
 public class BlockFluidLuminescent extends BlockFluidClassic {
-   public BlockFluidLuminescent() {
-      super(FluidsRegister.LUMINESCENT, Material.WATER);
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-      this.setTranslationKey("fluid_luminescent_block");
-      this.setRegistryName("fluid_luminescent_block");
-      this.setLightLevel(0.9F);
-   }
 
-   @Override
-   public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
-      super.onBlockAdded(world, pos, state);
-      this.mergerFluids(pos, world);
-   }
+    public BlockFluidLuminescent() {
+        super(FluidsRegister.LUMINESCENT, Material.WATER);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setTranslationKey("fluid_luminescent_block");
+        this.setRegistryName("fluid_luminescent_block");
+        this.setLightLevel(0.9F);
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
-      super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
-      this.mergerFluids(pos, world);
-   }
+    @Override
+    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+        super.onBlockAdded(world, pos, state);
+        this.mergerFluids(pos, world);
+    }
 
-   @Override
-   public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-      super.onEntityCollision(worldIn, pos, state, entityIn);
-      if (entityIn instanceof EntityLivingBase && entityIn.ticksExisted % 20 == 0) {
-         EntityLivingBase base = (EntityLivingBase)entityIn;
-         PotionEffect baff = new PotionEffect(MobEffects.GLOWING, 220);
-         base.addPotionEffect(baff);
-      }
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
+        super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
+        this.mergerFluids(pos, world);
+    }
 
-   private void mergerFluids(BlockPos pos, World world) {
-      if (!world.isRemote) {
-         for (EnumFacing facing : EnumFacing.values()) {
-            BlockPos frompos = pos.offset(facing);
-            Block block = world.getBlockState(frompos).getBlock();
-            if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
-               if (frompos.getY() > pos.getY()) {
-                  world.setBlockState(pos, BlocksRegister.GREEN_ONYX.getDefaultState());
-               } else {
-                  world.setBlockState(frompos, BlocksRegister.GREEN_ONYX.getDefaultState());
-               }
+    @Override
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+        super.onEntityCollision(worldIn, pos, state, entityIn);
+        if (entityIn instanceof EntityLivingBase && entityIn.ticksExisted % 20 == 0) {
+            EntityLivingBase base = (EntityLivingBase) entityIn;
+            PotionEffect baff = new PotionEffect(MobEffects.GLOWING, 220);
+            base.addPotionEffect(baff);
+        }
+    }
 
-               world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
+    private void mergerFluids(BlockPos pos, World world) {
+        if (!world.isRemote) {
+            for (EnumFacing facing : EnumFacing.values()) {
+                BlockPos frompos = pos.offset(facing);
+                Block block = world.getBlockState(frompos).getBlock();
+                if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
+                    if (frompos.getY() > pos.getY()) {
+                        world.setBlockState(pos, BlocksRegister.GREEN_ONYX.getDefaultState());
+                    } else {
+                        world.setBlockState(frompos, BlocksRegister.GREEN_ONYX.getDefaultState());
+                    }
+
+                    world.playSound(null, frompos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
+                }
+
+                if (block == BlocksRegister.FLUID_CRYON) {
+                    world.setBlockState(frompos, Blocks.ICE.getDefaultState());
+                    world.playSound(null, frompos, Sounds.fluid_freezing, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
+                }
             }
+        }
+    }
 
-            if (block == BlocksRegister.FLUID_CRYON) {
-               world.setBlockState(frompos, Blocks.ICE.getDefaultState());
-               world.playSound(null, frompos, Sounds.fluid_freezing, SoundCategory.BLOCKS, 1.0F, 0.85F + world.rand.nextFloat() / 4.0F);
-            }
-         }
-      }
-   }
 }

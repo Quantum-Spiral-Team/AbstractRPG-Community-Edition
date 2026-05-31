@@ -1,27 +1,29 @@
 package com.vivern.arpg.dimensions.generationutils;
 
 import com.google.common.base.Predicate;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import org.jetbrains.annotations.Nullable;
 
 public class OreBlockMatcher implements Predicate<IBlockState> {
-   public final Block[] blocks;
 
-   public OreBlockMatcher(Block[] blocksType) {
-      this.blocks = blocksType;
-   }
+    public final Block[] blocks;
 
-   @Override
-   public boolean apply(@Nullable IBlockState apply) {
-      if (apply != null) {
-         for (Block bl : this.blocks) {
-            if (bl == apply.getBlock()) {
-               return true;
+    public OreBlockMatcher(Block[] blocksType) {
+        this.blocks = blocksType;
+    }
+
+    @Override
+    public boolean apply(@Nullable IBlockState apply) {
+        if (apply != null) {
+            for (Block bl : this.blocks) {
+                if (bl == apply.getBlock()) {
+                    return true;
+                }
             }
-         }
-      }
+        }
 
-      return false;
-   }
+        return false;
+    }
+
 }

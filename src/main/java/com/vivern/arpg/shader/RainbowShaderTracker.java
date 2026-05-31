@@ -17,62 +17,60 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
 
-@EventBusSubscriber(
-   modid = "arpg"
-)
+@EventBusSubscriber(modid = "arpg")
 public class RainbowShaderTracker {
-   @SideOnly(Side.CLIENT)
-   private static Minecraft mc = Minecraft.getMinecraft();
-   @SideOnly(Side.CLIENT)
-   public static Framebuffer fbuffer = new Framebuffer(mc.displayWidth, mc.displayHeight, true);
 
-   @SubscribeEvent
-   public static void onRenderTick(RenderTickEvent event) {
-      if (mc.player != null && mc.player.isPotionActive(PotionEffects.RAINBOW)) {
-         Framebuffer minefb = Minecraft.getMinecraft().getFramebuffer();
-         GlStateManager.pushMatrix();
-         TextureManager r = Minecraft.getMinecraft().renderEngine;
-         new ScaledResolution(mc);
-         int h = mc.displayHeight;
-         int w = mc.displayWidth;
-         fbuffer.createBindFramebuffer(w, h);
-         fbuffer.framebufferRender(w, h);
-         minefb.bindFramebuffer(true);
-         minefb.bindFramebufferTexture();
-         fbuffer.bindFramebuffer(true);
-         ShaderMain.RainbowShader.start();
-         ARBShaderObjects.glUniform1fARB(ShaderMain.RainbowShader.getUniform("time"), AnimationTimer.normaltick / 100.0F);
-         if (mc.player != null) {
-            ARBShaderObjects.glUniform1fARB(
-               ShaderMain.RainbowShader.getUniform("power"), (mc.player.getActivePotionEffect(PotionEffects.RAINBOW).getAmplifier() + 1) / 3.0F
-            );
-         } else {
-            ARBShaderObjects.glUniform1fARB(ShaderMain.RainbowShader.getUniform("power"), 0.3F);
-         }
+    @SideOnly(Side.CLIENT)
+    private static Minecraft mc = Minecraft.getMinecraft();
+    @SideOnly(Side.CLIENT)
+    public static Framebuffer fbuffer = new Framebuffer(mc.displayWidth, mc.displayHeight, true);
 
-         Tessellator tesf = Tessellator.getInstance();
-         BufferBuilder bufferbuilderf = tesf.getBuffer();
-         bufferbuilderf.begin(7, DefaultVertexFormats.POSITION_TEX);
-         bufferbuilderf.pos(0.0, h, 0.0).tex(0.0, 1.0).endVertex();
-         bufferbuilderf.pos(w, h, 0.0).tex(1.0, 1.0).endVertex();
-         bufferbuilderf.pos(w, 0.0, 0.0).tex(1.0, 0.0).endVertex();
-         bufferbuilderf.pos(0.0, 0.0, 0.0).tex(0.0, 0.0).endVertex();
-         tesf.draw();
-         ShaderMain.RainbowShader.stop();
-         fbuffer.bindFramebufferTexture();
-         fbuffer.unbindFramebuffer();
-         minefb.bindFramebuffer(true);
-         Tessellator tes = Tessellator.getInstance();
-         BufferBuilder bufferbuilder = tes.getBuffer();
-         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-         bufferbuilder.pos(0.0, h, 0.0).tex(0.0, 1.0).endVertex();
-         bufferbuilder.pos(w, h, 0.0).tex(1.0, 1.0).endVertex();
-         bufferbuilder.pos(w, 0.0, 0.0).tex(1.0, 0.0).endVertex();
-         bufferbuilder.pos(0.0, 0.0, 0.0).tex(0.0, 0.0).endVertex();
-         tes.draw();
-         GlStateManager.popMatrix();
-         minefb.unbindFramebufferTexture();
-      }
-   }
+    @SubscribeEvent
+    public static void onRenderTick(RenderTickEvent event) {
+        if (mc.player != null && mc.player.isPotionActive(PotionEffects.RAINBOW)) {
+            Framebuffer minefb = Minecraft.getMinecraft().getFramebuffer();
+            GlStateManager.pushMatrix();
+            TextureManager r = Minecraft.getMinecraft().renderEngine;
+            new ScaledResolution(mc);
+            int h = mc.displayHeight;
+            int w = mc.displayWidth;
+            fbuffer.createBindFramebuffer(w, h);
+            fbuffer.framebufferRender(w, h);
+            minefb.bindFramebuffer(true);
+            minefb.bindFramebufferTexture();
+            fbuffer.bindFramebuffer(true);
+            ShaderMain.RainbowShader.start();
+            ARBShaderObjects.glUniform1fARB(ShaderMain.RainbowShader.getUniform("time"), AnimationTimer.normaltick / 100.0F);
+            if (mc.player != null) {
+                ARBShaderObjects.glUniform1fARB(ShaderMain.RainbowShader.getUniform("power"), (mc.player.getActivePotionEffect(PotionEffects.RAINBOW).getAmplifier() + 1) / 3.0F);
+            } else {
+                ARBShaderObjects.glUniform1fARB(ShaderMain.RainbowShader.getUniform("power"), 0.3F);
+            }
+
+            Tessellator tesf = Tessellator.getInstance();
+            BufferBuilder bufferbuilderf = tesf.getBuffer();
+            bufferbuilderf.begin(7, DefaultVertexFormats.POSITION_TEX);
+            bufferbuilderf.pos(0.0, h, 0.0).tex(0.0, 1.0).endVertex();
+            bufferbuilderf.pos(w, h, 0.0).tex(1.0, 1.0).endVertex();
+            bufferbuilderf.pos(w, 0.0, 0.0).tex(1.0, 0.0).endVertex();
+            bufferbuilderf.pos(0.0, 0.0, 0.0).tex(0.0, 0.0).endVertex();
+            tesf.draw();
+            ShaderMain.RainbowShader.stop();
+            fbuffer.bindFramebufferTexture();
+            fbuffer.unbindFramebuffer();
+            minefb.bindFramebuffer(true);
+            Tessellator tes = Tessellator.getInstance();
+            BufferBuilder bufferbuilder = tes.getBuffer();
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+            bufferbuilder.pos(0.0, h, 0.0).tex(0.0, 1.0).endVertex();
+            bufferbuilder.pos(w, h, 0.0).tex(1.0, 1.0).endVertex();
+            bufferbuilder.pos(w, 0.0, 0.0).tex(1.0, 0.0).endVertex();
+            bufferbuilder.pos(0.0, 0.0, 0.0).tex(0.0, 0.0).endVertex();
+            tes.draw();
+            GlStateManager.popMatrix();
+            minefb.unbindFramebufferTexture();
+        }
+    }
+
 }

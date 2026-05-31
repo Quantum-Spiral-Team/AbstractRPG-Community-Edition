@@ -21,102 +21,85 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 
 public class SapphireEye extends Item implements IBauble {
-   public SapphireEye() {
-      this.setRegistryName("sapphire_eye");
-      this.setCreativeTab(CreativeTabs.TOOLS);
-      this.setTranslationKey("sapphire_eye");
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-      ItemStack itemstack = playerIn.getHeldItem(handIn);
-      RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
-      if (raytraceresult == null) {
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      } else {
-         if (raytraceresult.typeOfHit == Type.BLOCK) {
-            BlockPos blockpos = raytraceresult.getBlockPos();
-            if (!worldIn.isBlockModifiable(playerIn, blockpos)
-               || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemstack)) {
-               return new ActionResult(EnumActionResult.PASS, itemstack);
-            }
+    public SapphireEye() {
+        this.setRegistryName("sapphire_eye");
+        this.setCreativeTab(CreativeTabs.TOOLS);
+        this.setTranslationKey("sapphire_eye");
+        this.setMaxStackSize(1);
+    }
 
-            TileEntity tentity = worldIn.getTileEntity(blockpos);
-            if (tentity != null) {
-               if (tentity instanceof IManaBuffer) {
-                  if (playerIn.isSneaking()) {
-                     NBTHelper.SetNBTboolean(itemstack, false, "topaz");
-                     NBTHelper.SetNBTboolean(itemstack, false, "firstclicked");
-                  }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
+        if (raytraceresult == null) {
+            return new ActionResult(EnumActionResult.PASS, itemstack);
+        } else {
+            if (raytraceresult.typeOfHit == Type.BLOCK) {
+                BlockPos blockpos = raytraceresult.getBlockPos();
+                if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemstack)) {
+                    return new ActionResult(EnumActionResult.PASS, itemstack);
+                }
 
-                  boolean firstclicked = NBTHelper.GetNBTboolean(itemstack, "firstclicked");
-                  if (firstclicked) {
-                     boolean topaz = NBTHelper.GetNBTboolean(itemstack, "topaz");
-                     BlockPos from = NBTHelper.GetNBTBlockPos(itemstack, "from");
-                     if (from == blockpos) {
-                        return new ActionResult(EnumActionResult.PASS, itemstack);
-                     }
-
-                     if (from != null && topaz) {
-                        TileEntity tiletopazfrom = worldIn.getTileEntity(from);
-                        if (tiletopazfrom != null && tiletopazfrom instanceof TileTopazCrystal) {
-                           ((TileTopazCrystal)tiletopazfrom).setPosToGive(blockpos);
+                TileEntity tentity = worldIn.getTileEntity(blockpos);
+                if (tentity != null) {
+                    if (tentity instanceof IManaBuffer) {
+                        if (playerIn.isSneaking()) {
+                            NBTHelper.SetNBTboolean(itemstack, false, "topaz");
+                            NBTHelper.SetNBTboolean(itemstack, false, "firstclicked");
                         }
 
-                        NBTHelper.SetNBTboolean(itemstack, false, "topaz");
-                     }
+                        boolean firstclicked = NBTHelper.GetNBTboolean(itemstack, "firstclicked");
+                        if (firstclicked) {
+                            boolean topaz = NBTHelper.GetNBTboolean(itemstack, "topaz");
+                            BlockPos from = NBTHelper.GetNBTBlockPos(itemstack, "from");
+                            if (from == blockpos) {
+                                return new ActionResult(EnumActionResult.PASS, itemstack);
+                            }
 
-                     NBTHelper.SetNBTboolean(itemstack, false, "firstclicked");
-                     worldIn.playSound(
-                        playerIn,
-                        playerIn.posX,
-                        playerIn.posY,
-                        playerIn.posZ,
-                        Sounds.item_misc_d,
-                        SoundCategory.BLOCKS,
-                        0.5F,
-                        0.9F + itemRand.nextFloat() / 5.0F
-                     );
-                  } else {
-                     NBTHelper.giveNBTboolean(itemstack, true, "firstclicked");
-                     NBTHelper.SetNBTboolean(itemstack, true, "firstclicked");
-                     NBTHelper.GiveNBTBlockPos(itemstack, blockpos, "from");
-                     NBTHelper.SetNBTBlockPos(itemstack, blockpos, "from");
-                     if (tentity instanceof TileTopazCrystal) {
-                        NBTHelper.giveNBTboolean(itemstack, true, "topaz");
-                        NBTHelper.SetNBTboolean(itemstack, true, "topaz");
-                     }
+                            if (from != null && topaz) {
+                                TileEntity tiletopazfrom = worldIn.getTileEntity(from);
+                                if (tiletopazfrom != null && tiletopazfrom instanceof TileTopazCrystal) {
+                                    ((TileTopazCrystal) tiletopazfrom).setPosToGive(blockpos);
+                                }
 
-                     worldIn.playSound(
-                        playerIn,
-                        playerIn.posX,
-                        playerIn.posY,
-                        playerIn.posZ,
-                        Sounds.item_misc_b,
-                        SoundCategory.BLOCKS,
-                        0.5F,
-                        0.9F + itemRand.nextFloat() / 5.0F
-                     );
-                  }
+                                NBTHelper.SetNBTboolean(itemstack, false, "topaz");
+                            }
 
-                  return new ActionResult(EnumActionResult.SUCCESS, itemstack);
-               }
+                            NBTHelper.SetNBTboolean(itemstack, false, "firstclicked");
+                            worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, Sounds.item_misc_d, SoundCategory.BLOCKS, 0.5F, 0.9F + itemRand.nextFloat() / 5.0F);
+                        } else {
+                            NBTHelper.giveNBTboolean(itemstack, true, "firstclicked");
+                            NBTHelper.SetNBTboolean(itemstack, true, "firstclicked");
+                            NBTHelper.GiveNBTBlockPos(itemstack, blockpos, "from");
+                            NBTHelper.SetNBTBlockPos(itemstack, blockpos, "from");
+                            if (tentity instanceof TileTopazCrystal) {
+                                NBTHelper.giveNBTboolean(itemstack, true, "topaz");
+                                NBTHelper.SetNBTboolean(itemstack, true, "topaz");
+                            }
+
+                            worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, Sounds.item_misc_b, SoundCategory.BLOCKS, 0.5F, 0.9F + itemRand.nextFloat() / 5.0F);
+                        }
+
+                        return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+                    }
+                } else if (playerIn.isSneaking()) {
+                    NBTHelper.SetNBTboolean(itemstack, false, "topaz");
+                    NBTHelper.SetNBTboolean(itemstack, false, "firstclicked");
+                }
             } else if (playerIn.isSneaking()) {
-               NBTHelper.SetNBTboolean(itemstack, false, "topaz");
-               NBTHelper.SetNBTboolean(itemstack, false, "firstclicked");
+                NBTHelper.SetNBTboolean(itemstack, false, "topaz");
+                NBTHelper.SetNBTboolean(itemstack, false, "firstclicked");
             }
-         } else if (playerIn.isSneaking()) {
-            NBTHelper.SetNBTboolean(itemstack, false, "topaz");
-            NBTHelper.SetNBTboolean(itemstack, false, "firstclicked");
-         }
 
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      }
-   }
+            return new ActionResult(EnumActionResult.PASS, itemstack);
+        }
+    }
 
-   @Override
-   public BaubleType getBaubleType(ItemStack itemstack) {
-      return BaubleType.TRINKET;
-   }
+    @Override
+    public BaubleType getBaubleType(ItemStack itemstack) {
+        return BaubleType.TRINKET;
+    }
+
 }

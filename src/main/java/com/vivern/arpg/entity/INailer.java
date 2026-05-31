@@ -3,11 +3,13 @@ package com.vivern.arpg.entity;
 import net.minecraft.entity.Entity;
 
 public interface INailer {
-   void setNailedEntity(Entity var1);
 
-   Entity getNailedEntity();
+    void setNailedEntity(Entity var1);
 
-   boolean isprickedToWall();
+    Entity getNailedEntity();
 
-   boolean canPrickParticle();
+    boolean isprickedToWall();
+
+    boolean canPrickParticle();
+
 }

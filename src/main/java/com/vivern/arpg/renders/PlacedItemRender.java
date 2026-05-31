@@ -16,41 +16,43 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 // FIX: change `Render<T>` to `Render<EntityPlacedItem>`
 @SideOnly(Side.CLIENT)
 public class PlacedItemRender<T extends EntityPlacedItem> extends Render<EntityPlacedItem> {
-   RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
 
-   public PlacedItemRender(RenderManager renderManagerIn) {
-      super(renderManagerIn);
-   }
+    RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
 
-   @Override
-   public void doRender(EntityPlacedItem entity, double x, double y, double z, float entityYaw, float partialTicks) {
-      ItemStack torender = entity.getPlacedItemStack();
-      if (torender != null && torender != ItemStack.EMPTY) {
-         GlStateManager.pushMatrix();
-         GlStateManager.translate((float)x, (float)y, (float)z);
-         GlStateManager.enableRescaleNormal();
-         GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-         this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-         if (this.renderOutlines) {
-            GlStateManager.enableColorMaterial();
-            GlStateManager.enableOutlineMode(this.getTeamColor(entity));
-         }
+    public PlacedItemRender(RenderManager renderManagerIn) {
+        super(renderManagerIn);
+    }
 
-         this.itemRenderer.renderItem(torender, TransformType.GROUND);
-         if (this.renderOutlines) {
-            GlStateManager.disableOutlineMode();
-            GlStateManager.disableColorMaterial();
-         }
+    @Override
+    public void doRender(EntityPlacedItem entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        ItemStack torender = entity.getPlacedItemStack();
+        if (torender != null && torender != ItemStack.EMPTY) {
+            GlStateManager.pushMatrix();
+            GlStateManager.translate((float) x, (float) y, (float) z);
+            GlStateManager.enableRescaleNormal();
+            GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+            this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+            if (this.renderOutlines) {
+                GlStateManager.enableColorMaterial();
+                GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+            }
 
-         GlStateManager.disableRescaleNormal();
-         GlStateManager.popMatrix();
-      }
+            this.itemRenderer.renderItem(torender, TransformType.GROUND);
+            if (this.renderOutlines) {
+                GlStateManager.disableOutlineMode();
+                GlStateManager.disableColorMaterial();
+            }
 
-      super.doRender(entity, x, y, z, entityYaw, partialTicks);
-   }
+            GlStateManager.disableRescaleNormal();
+            GlStateManager.popMatrix();
+        }
 
-   @Override
-   protected ResourceLocation getEntityTexture(EntityPlacedItem entity) {
-      return TextureMap.LOCATION_BLOCKS_TEXTURE;
-   }
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(EntityPlacedItem entity) {
+        return TextureMap.LOCATION_BLOCKS_TEXTURE;
+    }
+
 }

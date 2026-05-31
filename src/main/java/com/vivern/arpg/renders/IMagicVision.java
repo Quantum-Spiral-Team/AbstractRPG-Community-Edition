@@ -5,11 +5,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public interface IMagicVision {
-   float getElementEnergy(ShardType var1);
 
-   float getMana();
+    float getElementEnergy(ShardType var1);
 
-   default float getManaStorageSize(World world, BlockPos pos) {
-      return 0.0F;
-   }
+    float getMana();
+
+    default float getManaStorageSize(World world, BlockPos pos) {
+        return 0.0F;
+    }
+
 }

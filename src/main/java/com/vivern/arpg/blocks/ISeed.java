@@ -5,7 +5,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 public interface ISeed {
-   IBlockState getPlant(IBlockAccess var1, BlockPos var2);
 
-   boolean canGrowAt(IBlockAccess var1, BlockPos var2);
+    IBlockState getPlant(IBlockAccess var1, BlockPos var2);
+
+    boolean canGrowAt(IBlockAccess var1, BlockPos var2);
+
 }

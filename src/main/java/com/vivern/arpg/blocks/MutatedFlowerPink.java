@@ -2,7 +2,6 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.dimensions.generationutils.ReplaceOnlyReplaceable;
 import com.vivern.arpg.main.BlocksRegister;
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
@@ -26,119 +25,121 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Random;
+
 public class MutatedFlowerPink extends Block implements IGrowable {
-   protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 0.875, 0.875);
 
-   public MutatedFlowerPink() {
-      super(Material.PLANTS);
-      this.setRegistryName("mutated_flower_pink");
-      this.setTranslationKey("mutated_flower_pink");
-      this.blockHardness = 0.0F;
-      this.blockResistance = 0.0F;
-      this.setSoundType(SoundType.PLANT);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setTickRandomly(true);
-   }
+    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 0.875, 0.875);
 
-   @Override
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      Block block = worldIn.getBlockState(pos.down()).getBlock();
-      return block == BlocksRegister.TOXIC_GRASS || block == BlocksRegister.TOXIC_DIRT || block == BlocksRegister.TOXIBERRY_LOG;
-   }
+    public MutatedFlowerPink() {
+        super(Material.PLANTS);
+        this.setRegistryName("mutated_flower_pink");
+        this.setTranslationKey("mutated_flower_pink");
+        this.blockHardness = 0.0F;
+        this.blockResistance = 0.0F;
+        this.setSoundType(SoundType.PLANT);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setTickRandomly(true);
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-      Block block = worldIn.getBlockState(pos.down()).getBlock();
-      if (block != BlocksRegister.TOXIC_GRASS && block != BlocksRegister.TOXIC_DIRT && block != BlocksRegister.TOXIBERRY_LOG) {
-         this.dropBlockAsItem(worldIn, pos, state, 0);
-         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-      }
-   }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        Block block = worldIn.getBlockState(pos.down()).getBlock();
+        return block == BlocksRegister.TOXIC_GRASS || block == BlocksRegister.TOXIC_DIRT || block == BlocksRegister.TOXIBERRY_LOG;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+        Block block = worldIn.getBlockState(pos.down()).getBlock();
+        if (block != BlocksRegister.TOXIC_GRASS && block != BlocksRegister.TOXIC_DIRT && block != BlocksRegister.TOXIBERRY_LOG) {
+            this.dropBlockAsItem(worldIn, pos, state, 0);
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+        }
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return NULL_AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return NULL_AABB;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-      this.grow(worldIn, rand, pos, state);
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-      int light = Math.max(worldIn.getLightFor(EnumSkyBlock.BLOCK, pos), worldIn.getLightFor(EnumSkyBlock.SKY, pos));
-      return light > 13;
-   }
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+        this.grow(worldIn, rand, pos, state);
+    }
 
-   @Override
-   public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-      return true;
-   }
+    @Override
+    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+        int light = Math.max(worldIn.getLightFor(EnumSkyBlock.BLOCK, pos), worldIn.getLightFor(EnumSkyBlock.SKY, pos));
+        return light > 13;
+    }
 
-   @Override
-   public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-      if (rand.nextFloat() < 0.07) {
-         Block block = worldIn.getBlockState(pos.down()).getBlock();
-         if (block == BlocksRegister.TOXIC_GRASS || block == BlocksRegister.TOXIC_DIRT) {
-            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-            WorldServer worldServer = (WorldServer)worldIn;
-            MinecraftServer minecraftServer = worldIn.getMinecraftServer();
-            TemplateManager templateManager = worldServer.getStructureTemplateManager();
-            boolean small = rand.nextFloat() < 0.4F;
-            Template template = templateManager.get(
-               minecraftServer, new ResourceLocation("arpg" + (small ? ":toxic_tree_flower_4" : ":toxic_tree_flower_1"))
-            );
-            PlacementSettings settings = new PlacementSettings();
-            int sx = -1;
-            int sz = -1;
-            int swr = rand.nextInt(4);
-            if (swr == 0) {
-               settings.setRotation(Rotation.CLOCKWISE_180);
-               sx = 1;
-               sz = 1;
+    @Override
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+        return true;
+    }
+
+    @Override
+    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+        if (rand.nextFloat() < 0.07) {
+            Block block = worldIn.getBlockState(pos.down()).getBlock();
+            if (block == BlocksRegister.TOXIC_GRASS || block == BlocksRegister.TOXIC_DIRT) {
+                worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+                WorldServer worldServer = (WorldServer) worldIn;
+                MinecraftServer minecraftServer = worldIn.getMinecraftServer();
+                TemplateManager templateManager = worldServer.getStructureTemplateManager();
+                boolean small = rand.nextFloat() < 0.4F;
+                Template template = templateManager.get(minecraftServer, new ResourceLocation("arpg" + (small ? ":toxic_tree_flower_4" : ":toxic_tree_flower_1")));
+                PlacementSettings settings = new PlacementSettings();
+                int sx = -1;
+                int sz = -1;
+                int swr = rand.nextInt(4);
+                if (swr == 0) {
+                    settings.setRotation(Rotation.CLOCKWISE_180);
+                    sx = 1;
+                    sz = 1;
+                }
+
+                if (swr == 1) {
+                    settings.setRotation(Rotation.CLOCKWISE_90);
+                    sx = 1;
+                    sz = -1;
+                }
+
+                if (swr == 2) {
+                    settings.setRotation(Rotation.COUNTERCLOCKWISE_90);
+                    sx = -1;
+                    sz = 1;
+                }
+
+                if (swr == 3) {
+                    settings.setRotation(Rotation.NONE);
+                }
+
+                template.addBlocksToWorld(worldIn, pos.add(sx * (small ? 3 : 5), 0, sz * (small ? 3 : 5)), ReplaceOnlyReplaceable.instance, settings, 2);
             }
+        }
+    }
 
-            if (swr == 1) {
-               settings.setRotation(Rotation.CLOCKWISE_90);
-               sx = 1;
-               sz = -1;
-            }
-
-            if (swr == 2) {
-               settings.setRotation(Rotation.COUNTERCLOCKWISE_90);
-               sx = -1;
-               sz = 1;
-            }
-
-            if (swr == 3) {
-               settings.setRotation(Rotation.NONE);
-            }
-
-            template.addBlocksToWorld(worldIn, pos.add(sx * (small ? 3 : 5), 0, sz * (small ? 3 : 5)), ReplaceOnlyReplaceable.instance, settings, 2);
-         }
-      }
-   }
 }

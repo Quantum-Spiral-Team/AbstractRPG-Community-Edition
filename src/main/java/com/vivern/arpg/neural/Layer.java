@@ -3,11 +3,13 @@ package com.vivern.arpg.neural;
 import java.io.Serializable;
 
 public interface Layer extends Serializable {
-   int getInputSize();
 
-   int getSize();
+    int getInputSize();
 
-   float[] computeOutput(float[] var1);
+    int getSize();
 
-   String export();
+    float[] computeOutput(float[] var1);
+
+    String export();
+
 }

@@ -9,18 +9,20 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TenacityPotion extends Potion {
-   protected TenacityPotion(boolean isBadEffectIn, int liquidColorIn) {
-      super(isBadEffectIn, liquidColorIn);
-      this.setRegistryName("arpg:tenacity");
-      this.setPotionName("Tenacity");
-      this.setIconIndex(32, 1);
-      this.registerPotionAttributeModifier(SharedMonsterAttributes.KNOCKBACK_RESISTANCE, MathHelper.getRandomUUID().toString(), 0.2, 0);
-   }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasStatusIcon() {
-      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
-      return true;
-   }
+    protected TenacityPotion(boolean isBadEffectIn, int liquidColorIn) {
+        super(isBadEffectIn, liquidColorIn);
+        this.setRegistryName("arpg:tenacity");
+        this.setPotionName("Tenacity");
+        this.setIconIndex(32, 1);
+        this.registerPotionAttributeModifier(SharedMonsterAttributes.KNOCKBACK_RESISTANCE, MathHelper.getRandomUUID().toString(), 0.2, 0);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasStatusIcon() {
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
+        return true;
+    }
+
 }

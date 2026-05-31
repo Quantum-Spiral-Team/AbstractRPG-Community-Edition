@@ -1,6 +1,5 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.Tags;
 import com.vivern.arpg.entity.EntityFlyApple;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,90 +16,73 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import org.lwjgl.input.Mouse;
 
 public class ItemFirst extends Item {
-   public ItemFirst() {
-      this.setRegistryName("first_item");
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setTranslationKey("FirstItem");
-      this.setMaxDamage(20);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public int getMaxItemUseDuration(ItemStack itemstack) {
-      return 72000;
-   }
+    public ItemFirst() {
+        this.setRegistryName("first_item");
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setTranslationKey("FirstItem");
+        this.setMaxDamage(20);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public EnumAction getItemUseAction(ItemStack stack) {
-      return EnumAction.BOW;
-   }
+    @Override
+    public int getMaxItemUseDuration(ItemStack itemstack) {
+        return 72000;
+    }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      player.setActiveHand(hand);
-      return new ActionResult<>(EnumActionResult.PASS, itemstack);
-   }
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
+    }
 
-   @Override
-   public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
-      return true;
-   }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        player.setActiveHand(hand);
+        return new ActionResult<>(EnumActionResult.PASS, itemstack);
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!worldIn.isRemote && entityIn instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)entityIn;
-         int damage = itemstack.getItemDamage();
-         World world = player.getEntityWorld();
-         Item itemIn = itemstack.getItem();
-         boolean click = Mouse.isButtonDown(1);
-         if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
-            if (damage <= 19) {
-               world.playSound(
-                       null,
-                       player.posX,
-                       player.posY,
-                       player.posZ,
-                       Sounds.applecannon,
-                       SoundCategory.AMBIENT,
-                       0.8F,
-                       0.4F / (itemRand.nextFloat() * 0.4F + 0.8F)
-               );
-               player.getCooldownTracker().setCooldown(this, 5);
-               player.addStat(StatList.getObjectUseStats(this));
+    @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+        return true;
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!worldIn.isRemote && entityIn instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entityIn;
+            int damage = itemstack.getItemDamage();
+            World world = player.getEntityWorld();
+            Item itemIn = itemstack.getItem();
+            boolean click = Mouse.isButtonDown(1);
+            if (player.getActiveItemStack() == itemstack && click && !player.getCooldownTracker().hasCooldown(itemIn)) {
+                if (damage <= 19) {
+                    world.playSound(null, player.posX, player.posY, player.posZ, Sounds.applecannon, SoundCategory.AMBIENT, 0.8F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                    player.getCooldownTracker().setCooldown(this, 5);
+                    player.addStat(StatList.getObjectUseStats(this));
+                }
+
+                if (itemstack.getItemDamage() > 19 && player.inventory.hasItemStack(new ItemStack(Items.APPLE, 1))) {
+                    player.inventory.clearMatchingItems(new ItemStack(Items.APPLE, 1).getItem(), -1, 1, null);
+                    itemstack.setItemDamage(0);
+                    player.getCooldownTracker().setCooldown(this, 40);
+                    world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                }
+
+                if (!player.capabilities.isCreativeMode && damage <= 19) {
+                    itemstack.damageItem(1, player);
+                }
+
+                if (!world.isRemote && damage <= 19) {
+                    EntityFlyApple apple = new EntityFlyApple(world, player);
+                    apple.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+                    world.spawnEntity(apple);
+                }
             }
+        }
+    }
 
-            if (itemstack.getItemDamage() > 19 && player.inventory.hasItemStack(new ItemStack(Items.APPLE, 1))) {
-               player.inventory.clearMatchingItems(new ItemStack(Items.APPLE, 1).getItem(), -1, 1, null);
-               itemstack.setItemDamage(0);
-               player.getCooldownTracker().setCooldown(this, 40);
-               world.playSound(
-                       null,
-                       player.posX,
-                       player.posY,
-                       player.posZ,
-                       SoundEvents.BLOCK_BREWING_STAND_BREW,
-                       SoundCategory.NEUTRAL,
-                       0.5F,
-                       0.4F / (itemRand.nextFloat() * 0.4F + 0.8F)
-               );
-            }
-
-            if (!player.capabilities.isCreativeMode && damage <= 19) {
-               itemstack.damageItem(1, player);
-            }
-
-            if (!world.isRemote && damage <= 19) {
-               EntityFlyApple apple = new EntityFlyApple(world, player);
-               apple.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
-               world.spawnEntity(apple);
-            }
-         }
-      }
-   }
 }

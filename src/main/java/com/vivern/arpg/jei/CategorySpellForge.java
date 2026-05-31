@@ -11,53 +11,55 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
 
 public class CategorySpellForge implements IRecipeCategory<WrapperSpellForge> {
-   private static final ResourceLocation GUI_TEXTURES = new ResourceLocation("arpg:textures/gui_forging.png");
-   public static final String UID = "arpg:spell_forge";
-   public IDrawableStatic background;
-   public IGuiHelper helper;
 
-   public CategorySpellForge(IGuiHelper h) {
-      this.background = h.createDrawable(GUI_TEXTURES, 5, 143, 170, 108);
+    private static final ResourceLocation GUI_TEXTURES = new ResourceLocation("arpg:textures/gui_forging.png");
+    public static final String UID = "arpg:spell_forge";
+    public IDrawableStatic background;
+    public IGuiHelper helper;
 
-      for (int i = 0; i < 12; i++) {
-         WrapperSpellForge.idrawRunesMain[i] = ARPGPlugin.guihelper.createDrawable(GUIResearchTable.MAIN_RUNES, 0, 12 + 12 * i, 12, 12, 12, 156);
-      }
-   }
+    public CategorySpellForge(IGuiHelper h) {
+        this.background = h.createDrawable(GUI_TEXTURES, 5, 143, 170, 108);
 
-   @Override
-   public String getUid() {
-      return "arpg:spell_forge";
-   }
+        for (int i = 0; i < 12; i++) {
+            WrapperSpellForge.idrawRunesMain[i] = ARPGPlugin.guihelper.createDrawable(GUIResearchTable.MAIN_RUNES, 0, 12 + 12 * i, 12, 12, 12, 156);
+        }
+    }
 
-   @Override
-   public String getTitle() {
-      return "Spell Forge";
-   }
+    @Override
+    public String getUid() {
+        return "arpg:spell_forge";
+    }
 
-   @Override
-   public String getModName() {
-      return "arpg";
-   }
+    @Override
+    public String getTitle() {
+        return "Spell Forge";
+    }
 
-   @Override
-   public IDrawable getBackground() {
-      return this.background;
-   }
+    @Override
+    public String getModName() {
+        return "arpg";
+    }
 
-   @Override
-   public void setRecipe(IRecipeLayout recipeLayout, WrapperSpellForge recipeWrapper, IIngredients ingredients) {
-      IGuiItemStackGroup isg = recipeLayout.getItemStacks();
+    @Override
+    public IDrawable getBackground() {
+        return this.background;
+    }
 
-      for (int i = 0; i < 9; i++) {
-         int yy = i / 3;
-         int xx = i % 3;
-         isg.init(i, true, 58 + 18 * xx, 26 + 18 * yy);
-         isg.set(i, recipeWrapper.getInOrEmpty(true, i));
-      }
+    @Override
+    public void setRecipe(IRecipeLayout recipeLayout, WrapperSpellForge recipeWrapper, IIngredients ingredients) {
+        IGuiItemStackGroup isg = recipeLayout.getItemStacks();
 
-      isg.init(9, false, 141, 44);
-      isg.set(9, recipeWrapper.getInOrEmpty(false, 9));
-      isg.init(10, true, 19, 33);
-      isg.set(10, recipeWrapper.getInOrEmpty(true, 10));
-   }
+        for (int i = 0; i < 9; i++) {
+            int yy = i / 3;
+            int xx = i % 3;
+            isg.init(i, true, 58 + 18 * xx, 26 + 18 * yy);
+            isg.set(i, recipeWrapper.getInOrEmpty(true, i));
+        }
+
+        isg.init(9, false, 141, 44);
+        isg.set(9, recipeWrapper.getInOrEmpty(false, 9));
+        isg.init(10, true, 19, 33);
+        isg.set(10, recipeWrapper.getInOrEmpty(true, 10));
+    }
+
 }

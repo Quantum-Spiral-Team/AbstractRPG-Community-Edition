@@ -1,50 +1,53 @@
 package com.vivern.arpg.mobs;
 
-import javax.annotation.concurrent.Immutable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
+import javax.annotation.concurrent.Immutable;
+
 @Immutable
 public class GraviballPathNode {
-   private final BlockPos pos;
-   private final EnumFacing facing;
 
-   public GraviballPathNode(BlockPos pos, EnumFacing facing) {
-      this.pos = pos;
-      this.facing = facing;
-   }
+    private final BlockPos pos;
+    private final EnumFacing facing;
 
-   public GraviballPathNode(int x, int y, int z, EnumFacing facing) {
-      this.pos = new BlockPos(x, y, z);
-      this.facing = facing;
-   }
+    public GraviballPathNode(BlockPos pos, EnumFacing facing) {
+        this.pos = pos;
+        this.facing = facing;
+    }
 
-   public GraviballPathNode(double x, double y, double z, EnumFacing facing) {
-      this.pos = new BlockPos(x, y, z);
-      this.facing = facing;
-   }
+    public GraviballPathNode(int x, int y, int z, EnumFacing facing) {
+        this.pos = new BlockPos(x, y, z);
+        this.facing = facing;
+    }
 
-   public BlockPos getPos() {
-      return this.pos;
-   }
+    public GraviballPathNode(double x, double y, double z, EnumFacing facing) {
+        this.pos = new BlockPos(x, y, z);
+        this.facing = facing;
+    }
 
-   public int getPosX() {
-      return this.pos.getX();
-   }
+    public BlockPos getPos() {
+        return this.pos;
+    }
 
-   public int getPosY() {
-      return this.pos.getY();
-   }
+    public int getPosX() {
+        return this.pos.getX();
+    }
 
-   public int getPosZ() {
-      return this.pos.getZ();
-   }
+    public int getPosY() {
+        return this.pos.getY();
+    }
 
-   public EnumFacing getFacing() {
-      return this.facing;
-   }
+    public int getPosZ() {
+        return this.pos.getZ();
+    }
 
-   public boolean isFloor() {
-      return this.facing == EnumFacing.UP;
-   }
+    public EnumFacing getFacing() {
+        return this.facing;
+    }
+
+    public boolean isFloor() {
+        return this.facing == EnumFacing.UP;
+    }
+
 }

@@ -3,7 +3,6 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.tileentity.IManaBuffer;
 import com.vivern.arpg.tileentity.TileDisenchantmentTable;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,80 +19,81 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class DisenchantmentTable extends Block {
-   protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0);
 
-   public DisenchantmentTable() {
-      super(IManaBuffer.MAGIC_BLOCK);
-      this.setRegistryName("disenchantment_table");
-      this.setTranslationKey("disenchantment_table");
-      this.blockHardness = 8.5F;
-      this.blockResistance = 15.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setHarvestLevel("pickaxe", 2);
-   }
+    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0);
 
-   @Override
-   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity instanceof IInventory) {
-         InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
-         worldIn.updateComparatorOutputLevel(pos, this);
-      }
+    public DisenchantmentTable() {
+        super(IManaBuffer.MAGIC_BLOCK);
+        this.setRegistryName("disenchantment_table");
+        this.setTranslationKey("disenchantment_table");
+        this.blockHardness = 8.5F;
+        this.blockResistance = 15.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setHarvestLevel("pickaxe", 2);
+    }
 
-      super.breakBlock(worldIn, pos, state);
-   }
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof IInventory) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+        super.breakBlock(worldIn, pos, state);
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!world.isRemote) {
-         TileEntity tile = world.getTileEntity(pos);
-         if (tile instanceof TileDisenchantmentTable) {
-            player.openGui(AbstractRPG.instance, 16, world, pos.getX(), pos.getY(), pos.getZ());
-            return true;
-         }
-      }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return AABB;
+    }
 
-      return false;
-   }
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!world.isRemote) {
+            TileEntity tile = world.getTileEntity(pos);
+            if (tile instanceof TileDisenchantmentTable) {
+                player.openGui(AbstractRPG.instance, 16, world, pos.getX(), pos.getY(), pos.getZ());
+                return true;
+            }
+        }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+        return false;
+    }
 
-   @Override
-   @Nullable
-   public TileDisenchantmentTable createTileEntity(World world, IBlockState blockState) {
-      return new TileDisenchantmentTable();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @Nullable
+    public TileDisenchantmentTable createTileEntity(World world, IBlockState blockState) {
+        return new TileDisenchantmentTable();
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
 }

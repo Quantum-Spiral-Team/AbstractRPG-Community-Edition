@@ -2,7 +2,6 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityBoomerangMagic;
 import com.vivern.arpg.main.*;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -18,120 +17,102 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class MagicBoomerang extends ItemWeapon {
-   public MagicBoomerang() {
-      this.setRegistryName("magic_boomerang");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("magic_boomerang");
-      this.setMaxStackSize(1);
-      this.setFull3D();
-      this.setMaxDamage(2);
-      this.addPropertyOverride(new ResourceLocation("throw"), new IItemPropertyGetter() {
-         @Override
-         @SideOnly(Side.CLIENT)
-         public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-            if (entityIn == null) {
-               return 0.0F;
-            } else if (entityIn instanceof EntityPlayer) {
-               EntityPlayer pl = (EntityPlayer)entityIn;
-               return pl.getCooldownTracker().hasCooldown(ItemsRegister.MAGIC_BOOMERANG) ? 1.0F : 0.0F;
-            } else {
-               return 0.0F;
+
+    public MagicBoomerang() {
+        this.setRegistryName("magic_boomerang");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("magic_boomerang");
+        this.setMaxStackSize(1);
+        this.setFull3D();
+        this.setMaxDamage(2);
+        this.addPropertyOverride(new ResourceLocation("throw"), new IItemPropertyGetter() {
+            @Override
+            @SideOnly(Side.CLIENT)
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+                if (entityIn == null) {
+                    return 0.0F;
+                } else if (entityIn instanceof EntityPlayer) {
+                    EntityPlayer pl = (EntityPlayer) entityIn;
+                    return pl.getCooldownTracker().hasCooldown(ItemsRegister.MAGIC_BOOMERANG) ? 1.0F : 0.0F;
+                } else {
+                    return 0.0F;
+                }
             }
-         }
-      });
-   }
+        });
+    }
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-   @Override
-   public void onUpdate(ItemStack stack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(stack, entityIn);
-         if (IWeapon.canShoot(stack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchantedF("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, stack));
-            if (Mana.getMana(player) >= manacost) {
-               EnumHand hand = null;
-               if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
-                  hand = EnumHand.MAIN_HAND;
-               } else if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && player.getHeldItemOffhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
-                  hand = EnumHand.OFF_HAND;
-               }
+    @Override
+    public void onUpdate(ItemStack stack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(stack, entityIn);
+            if (IWeapon.canShoot(stack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                float manacost = parameters.getEnchantedF("manacost", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, stack));
+                if (Mana.getMana(player) >= manacost) {
+                    EnumHand hand = null;
+                    if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
+                        hand = EnumHand.MAIN_HAND;
+                    } else if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && player.getHeldItemOffhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
+                        hand = EnumHand.OFF_HAND;
+                    }
 
-               if (hand != null) {
-                  Weapons.setPlayerAnimationOnServer(player, 1, hand);
-                  player.getCooldownTracker().setCooldown(this, 400);
-                  player.addStat(StatList.getObjectUseStats(this));
-                  world.playSound(
-                          null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     Sounds.swosh,
-                     SoundCategory.AMBIENT,
-                     0.8F,
-                     1.0F / (itemRand.nextFloat() * 0.4F + 0.8F)
-                  );
-                  EntityBoomerangMagic projectile = new EntityBoomerangMagic(world, player, stack, Mana.getMagicPowerMax(player));
-                  projectile.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
-                  projectile.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack));
-                  Weapons.shoot(
-                     projectile,
-                     hand,
-                     player,
-                     player.rotationPitch,
-                     player.rotationYaw,
-                     0.0F,
-                     parameters.getEnchantedF("velocity", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)),
-                     parameters.getFloat("inaccuracy"),
-                     -0.15F,
-                     0.4F,
-                     0.1F
-                  );
-                  world.spawnEntity(projectile);
-                  if (!player.capabilities.isCreativeMode) {
-                     Mana.changeMana(player, -manacost);
-                     Mana.setManaSpeed(player, 0.001F);
-                  }
-               }
+                    if (hand != null) {
+                        Weapons.setPlayerAnimationOnServer(player, 1, hand);
+                        player.getCooldownTracker().setCooldown(this, 400);
+                        player.addStat(StatList.getObjectUseStats(this));
+                        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.swosh, SoundCategory.AMBIENT, 0.8F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                        EntityBoomerangMagic projectile = new EntityBoomerangMagic(world, player, stack, Mana.getMagicPowerMax(player));
+                        projectile.damage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, stack));
+                        projectile.knockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack));
+                        Weapons.shoot(projectile, hand, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getEnchantedF("velocity", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)), parameters.getFloat("inaccuracy"), -0.15F, 0.4F, 0.1F);
+                        world.spawnEntity(projectile);
+                        if (!player.capabilities.isCreativeMode) {
+                            Mana.changeMana(player, -manacost);
+                            Mana.setManaSpeed(player, 0.001F);
+                        }
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.SEMI_ONE_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.SEMI_ONE_HANDED;
+    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
+    @Override
+    public int getItemEnchantability() {
+        return 2;
+    }
+
 }

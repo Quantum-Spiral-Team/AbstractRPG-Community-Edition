@@ -11,12 +11,12 @@ public class PacketKeyPressed extends Packet {
 
     public PacketKeyPressed() {}
 
-    public PacketKeyPressed(byte id,  boolean pressed) {
+    public PacketKeyPressed(byte id, boolean pressed) {
         this.buf.writeByte(id);
         this.buf.writeBoolean(pressed);
     }
 
-    public PacketKeyPressed(ServerKeyTracker.Keys key,  boolean pressed) {
+    public PacketKeyPressed(ServerKeyTracker.Keys key, boolean pressed) {
         this.buf.writeByte(key.getId());
         this.buf.writeBoolean(pressed);
     }
@@ -33,4 +33,5 @@ public class PacketKeyPressed extends Packet {
             ServerKeyTracker.setKeyPressed(player, id, pressed);
         });
     }
+
 }

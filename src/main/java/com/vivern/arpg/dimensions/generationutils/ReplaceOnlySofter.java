@@ -6,10 +6,12 @@ import net.minecraft.world.gen.structure.template.ITemplateProcessor;
 import net.minecraft.world.gen.structure.template.Template.BlockInfo;
 
 public class ReplaceOnlySofter implements ITemplateProcessor {
-   public static ReplaceOnlySofter instance = new ReplaceOnlySofter();
 
-   @Override
-   public BlockInfo processBlock(World worldIn, BlockPos pos, BlockInfo blockInfoIn) {
-      return worldIn.getBlockState(pos).getBlockHardness(worldIn, pos) > blockInfoIn.blockState.getBlockHardness(worldIn, pos) ? null : blockInfoIn;
-   }
+    public static ReplaceOnlySofter instance = new ReplaceOnlySofter();
+
+    @Override
+    public BlockInfo processBlock(World worldIn, BlockPos pos, BlockInfo blockInfoIn) {
+        return worldIn.getBlockState(pos).getBlockHardness(worldIn, pos) > blockInfoIn.blockState.getBlockHardness(worldIn, pos) ? null : blockInfoIn;
+    }
+
 }

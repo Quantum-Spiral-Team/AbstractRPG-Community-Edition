@@ -3,9 +3,6 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.tileentity.IManaBuffer;
 import com.vivern.arpg.tileentity.TileRetort;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -16,131 +13,130 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class Retort extends Block {
-   public static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875, 0.0, 0.125, 0.8125, 1.0, 0.8125);
-   public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-   public Retort() {
-      super(IManaBuffer.MAGIC_BLOCK);
-      this.setRegistryName("retort");
-      this.setTranslationKey("retort");
-      this.blockHardness = 6.5F;
-      this.blockResistance = 8.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setSoundType(SoundTypeShards.SHARDS);
-   }
+    public static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875, 0.0, 0.125, 0.8125, 1.0, 0.8125);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.TRANSLUCENT;
-   }
+    public Retort() {
+        super(IManaBuffer.MAGIC_BLOCK);
+        this.setRegistryName("retort");
+        this.setTranslationKey("retort");
+        this.blockHardness = 6.5F;
+        this.blockResistance = 8.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setSoundType(SoundTypeShards.SHARDS);
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      ItemStack stack = playerIn.getHeldItem(hand);
-      if (stack.getItem() == ItemsRegister.BEAKER) {
-         TileEntity tileEntity = world.getTileEntity(pos);
-         if (tileEntity != null && tileEntity instanceof TileRetort) {
-            ((TileRetort)tileEntity).onPlayerUseBeaker(stack, playerIn);
-            return true;
-         }
-      } else if (stack.isEmpty() && !world.isRemote) {
-         BlockPos posoff = pos.offset(state.getValue(FACING).getOpposite());
-         TileEntity tileEntity = world.getTileEntity(pos);
-         if (tileEntity != null && tileEntity instanceof TileRetort) {
-            ((TileRetort)tileEntity).startRefining(posoff);
-            return true;
-         }
-      }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return AABB;
+    }
 
-      return true;
-   }
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack stack = playerIn.getHeldItem(hand);
+        if (stack.getItem() == ItemsRegister.BEAKER) {
+            TileEntity tileEntity = world.getTileEntity(pos);
+            if (tileEntity != null && tileEntity instanceof TileRetort) {
+                ((TileRetort) tileEntity).onPlayerUseBeaker(stack, playerIn);
+                return true;
+            }
+        } else if (stack.isEmpty() && !world.isRemote) {
+            BlockPos posoff = pos.offset(state.getValue(FACING).getOpposite());
+            TileEntity tileEntity = world.getTileEntity(pos);
+            if (tileEntity != null && tileEntity instanceof TileRetort) {
+                ((TileRetort) tileEntity).startRefining(posoff);
+                return true;
+            }
+        }
 
-   public Class<TileRetort> getTileEntityClass() {
-      return TileRetort.class;
-   }
+        return true;
+    }
 
-   public TileRetort getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileRetort)world.getTileEntity(position);
-   }
+    public Class<TileRetort> getTileEntityClass() {
+        return TileRetort.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileRetort getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileRetort) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileRetort createTileEntity(World world, IBlockState blockState) {
-      return new TileRetort();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @Nullable
+    public TileRetort createTileEntity(World world, IBlockState blockState) {
+        return new TileRetort();
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      EnumFacing enumfacing = EnumFacing.byIndex(meta);
-      if (enumfacing.getAxis() == Axis.Y) {
-         enumfacing = EnumFacing.NORTH;
-      }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+    }
 
-      return this.getDefaultState().withProperty(FACING, enumfacing);
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
+        if (enumfacing.getAxis() == Axis.Y) {
+            enumfacing = EnumFacing.NORTH;
+        }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(FACING).getIndex();
-   }
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
 
-   @Override
-   public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(FACING).getIndex();
+    }
 
-   @Override
-   public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
-   }
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{FACING});
-   }
+    @Override
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{FACING});
+    }
+
 }

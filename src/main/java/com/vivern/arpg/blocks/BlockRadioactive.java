@@ -2,8 +2,6 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.Mana;
-import java.util.List;
-import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -12,55 +10,56 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.List;
+import java.util.Random;
+
 public class BlockRadioactive extends BlockBlockHard {
-   public int radiance;
-   public int distance;
-   public int breakRad;
-   public int walkRad;
 
-   public BlockRadioactive(
-           Material mater, String name, BlocksRegister.HardRes hardres, String tool, int radianceRadiation, int radianceDistance, int breakRad, int walkRad
-   ) {
-      super(mater, name, hardres, tool, false);
-      this.radiance = radianceRadiation;
-      this.distance = radianceDistance;
-      this.breakRad = breakRad;
-      this.walkRad = walkRad;
-      this.setTickRandomly(radianceRadiation != 0 && radianceDistance > 0);
-   }
+    public int radiance;
+    public int distance;
+    public int breakRad;
+    public int walkRad;
 
-   @Override
-   public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-      if (!worldIn.isRemote) {
-         AxisAlignedBB axisalignedbb = new AxisAlignedBB(
-            pos.add(-this.distance, -this.distance, -this.distance), pos.add(this.distance, this.distance, this.distance)
-         );
-         List<EntityPlayer> list = worldIn.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
-         if (!list.isEmpty()) {
-            for (EntityPlayer player : list) {
-               Mana.addRad(player, this.radiance, true);
+    public BlockRadioactive(Material mater, String name, BlocksRegister.HardRes hardres, String tool, int radianceRadiation, int radianceDistance, int breakRad, int walkRad) {
+        super(mater, name, hardres, tool, false);
+        this.radiance = radianceRadiation;
+        this.distance = radianceDistance;
+        this.breakRad = breakRad;
+        this.walkRad = walkRad;
+        this.setTickRandomly(radianceRadiation != 0 && radianceDistance > 0);
+    }
+
+    @Override
+    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
+        if (!worldIn.isRemote) {
+            AxisAlignedBB axisalignedbb = new AxisAlignedBB(pos.add(-this.distance, -this.distance, -this.distance), pos.add(this.distance, this.distance, this.distance));
+            List<EntityPlayer> list = worldIn.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+            if (!list.isEmpty()) {
+                for (EntityPlayer player : list) {
+                    Mana.addRad(player, this.radiance, true);
+                }
             }
-         }
-      }
+        }
 
-      super.randomTick(worldIn, pos, state, random);
-   }
+        super.randomTick(worldIn, pos, state, random);
+    }
 
-   @Override
-   public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-      if (!world.isRemote && this.breakRad != 0) {
-         Mana.addRad(player, this.breakRad, true);
-      }
+    @Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+        if (!world.isRemote && this.breakRad != 0) {
+            Mana.addRad(player, this.breakRad, true);
+        }
 
-      return super.removedByPlayer(state, world, pos, player, willHarvest);
-   }
+        return super.removedByPlayer(state, world, pos, player, willHarvest);
+    }
 
-   @Override
-   public void onEntityWalk(World world, BlockPos pos, Entity entityIn) {
-      if (!world.isRemote && this.walkRad != 0 && entityIn instanceof EntityPlayer) {
-         Mana.addRad((EntityPlayer)entityIn, this.walkRad, true);
-      }
+    @Override
+    public void onEntityWalk(World world, BlockPos pos, Entity entityIn) {
+        if (!world.isRemote && this.walkRad != 0 && entityIn instanceof EntityPlayer) {
+            Mana.addRad((EntityPlayer) entityIn, this.walkRad, true);
+        }
 
-      super.onEntityWalk(world, pos, entityIn);
-   }
+        super.onEntityWalk(world, pos, entityIn);
+    }
+
 }

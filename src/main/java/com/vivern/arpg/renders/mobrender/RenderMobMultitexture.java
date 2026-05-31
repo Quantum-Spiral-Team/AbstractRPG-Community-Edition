@@ -1,6 +1,5 @@
 package com.vivern.arpg.renders.mobrender;
 
-import javax.annotation.Nonnull;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -11,52 +10,58 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
+import javax.annotation.Nonnull;
+
 public class RenderMobMultitexture extends RenderLiving<EntityLiving> {
-   public RenderMobMultitexture(RenderManager manager, ModelBase model, float shadowSize, boolean layerHeldItem, boolean layerArmor) {
-      super(manager, model, shadowSize);
-      if (layerHeldItem) {
-         this.addLayer(new LayerHeldItem(this));
-      }
 
-      if (layerArmor) {
-         this.addLayer(new LayerBipedArmor(this));
-      }
-   }
+    public RenderMobMultitexture(RenderManager manager, ModelBase model, float shadowSize, boolean layerHeldItem, boolean layerArmor) {
+        super(manager, model, shadowSize);
+        if (layerHeldItem) {
+            this.addLayer(new LayerHeldItem(this));
+        }
 
-   public static RenderMobMultitexFactory getFACTORY(ModelBase model, float shadowSize) {
-      return new RenderMobMultitexFactory(model, shadowSize);
-   }
+        if (layerArmor) {
+            this.addLayer(new LayerBipedArmor(this));
+        }
+    }
 
-   @Override
-   @Nonnull
-   protected ResourceLocation getEntityTexture(@Nonnull EntityLiving entity) {
-      return ((IMultitexture)entity).getMultitexture();
-   }
+    public static RenderMobMultitexFactory getFACTORY(ModelBase model, float shadowSize) {
+        return new RenderMobMultitexFactory(model, shadowSize);
+    }
 
-   public static class RenderMobMultitexFactory implements IRenderFactory<EntityLiving> {
-      private ModelBase model;
-      private float shadowSize;
-      private boolean layerHeldItem = false;
-      private boolean layerArmor = false;
+    @Override
+    @Nonnull
+    protected ResourceLocation getEntityTexture(@Nonnull EntityLiving entity) {
+        return ((IMultitexture) entity).getMultitexture();
+    }
 
-      public RenderMobMultitexFactory(ModelBase model, float shadowSize) {
-         this.model = model;
-         this.shadowSize = shadowSize;
-      }
+    public static class RenderMobMultitexFactory implements IRenderFactory<EntityLiving> {
 
-      public RenderMobMultitexFactory setLayerHeldItem(boolean layerHeldItem) {
-         this.layerHeldItem = layerHeldItem;
-         return this;
-      }
+        private ModelBase model;
+        private float shadowSize;
+        private boolean layerHeldItem = false;
+        private boolean layerArmor = false;
 
-      public RenderMobMultitexFactory setlayerArmor(boolean layerArmor) {
-         this.layerArmor = layerArmor;
-         return this;
-      }
+        public RenderMobMultitexFactory(ModelBase model, float shadowSize) {
+            this.model = model;
+            this.shadowSize = shadowSize;
+        }
 
-      @Override
-      public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
-         return new RenderMobMultitexture(manager, this.model, this.shadowSize, this.layerHeldItem, this.layerArmor);
-      }
-   }
+        public RenderMobMultitexFactory setLayerHeldItem(boolean layerHeldItem) {
+            this.layerHeldItem = layerHeldItem;
+            return this;
+        }
+
+        public RenderMobMultitexFactory setlayerArmor(boolean layerArmor) {
+            this.layerArmor = layerArmor;
+            return this;
+        }
+
+        @Override
+        public Render<? super EntityLiving> createRenderFor(RenderManager manager) {
+            return new RenderMobMultitexture(manager, this.model, this.shadowSize, this.layerHeldItem, this.layerArmor);
+        }
+
+    }
+
 }

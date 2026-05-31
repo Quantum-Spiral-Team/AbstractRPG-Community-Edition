@@ -10,36 +10,38 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class RingOfProtection extends Item implements IBauble, IAttributedBauble {
-   public RingOfProtection() {
-      this.setRegistryName("ring_of_protection");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("ring_of_protection");
-      this.setMaxDamage(500);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public BaubleType getBaubleType(ItemStack itemstack) {
-      return BaubleType.RING;
-   }
+    public RingOfProtection() {
+        this.setRegistryName("ring_of_protection");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("ring_of_protection");
+        this.setMaxDamage(500);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public IAttribute getAttribute() {
-      return PropertiesRegistry.ARMOR_PROTECTION;
-   }
+    @Override
+    public BaubleType getBaubleType(ItemStack itemstack) {
+        return BaubleType.RING;
+    }
 
-   @Override
-   public double value() {
-      return 1.0;
-   }
+    @Override
+    public IAttribute getAttribute() {
+        return PropertiesRegistry.ARMOR_PROTECTION;
+    }
 
-   @Override
-   public int operation() {
-      return 0;
-   }
+    @Override
+    public double value() {
+        return 1.0;
+    }
 
-   @Override
-   public String itemName() {
-      return "ring_of_protection";
-   }
+    @Override
+    public int operation() {
+        return 0;
+    }
+
+    @Override
+    public String itemName() {
+        return "ring_of_protection";
+    }
+
 }

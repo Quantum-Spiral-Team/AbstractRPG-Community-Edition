@@ -19,42 +19,44 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class MagmaBloomSeed extends Item implements ISeed {
-   public MagmaBloomSeed() {
-      this.setRegistryName("magma_bloom_seeds");
-      this.setCreativeTab(CreativeTabs.MATERIALS);
-      this.setTranslationKey("magma_bloom_seeds");
-   }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      player.setActiveHand(hand);
-      RayTraceResult raytraceresult = this.rayTrace(world, player, true);
-      if (raytraceresult == null) {
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      } else if (raytraceresult.typeOfHit != Type.BLOCK) {
-         return new ActionResult(EnumActionResult.PASS, itemstack);
-      } else {
-         BlockPos pos = raytraceresult.getBlockPos();
-         if (this.canGrowAt(world, pos.up())) {
-            player.getHeldItem(hand).shrink(1);
-            world.setBlockState(pos.up(), BlocksRegister.MAGMA_BLOOM.getDefaultState());
-            return new ActionResult(EnumActionResult.SUCCESS, itemstack);
-         } else {
-            return new ActionResult(EnumActionResult.FAIL, itemstack);
-         }
-      }
-   }
+    public MagmaBloomSeed() {
+        this.setRegistryName("magma_bloom_seeds");
+        this.setCreativeTab(CreativeTabs.MATERIALS);
+        this.setTranslationKey("magma_bloom_seeds");
+    }
 
-   @Override
-   public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
-      return BlocksRegister.MAGMA_BLOOM.getDefaultState();
-   }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        player.setActiveHand(hand);
+        RayTraceResult raytraceresult = this.rayTrace(world, player, true);
+        if (raytraceresult == null) {
+            return new ActionResult(EnumActionResult.PASS, itemstack);
+        } else if (raytraceresult.typeOfHit != Type.BLOCK) {
+            return new ActionResult(EnumActionResult.PASS, itemstack);
+        } else {
+            BlockPos pos = raytraceresult.getBlockPos();
+            if (this.canGrowAt(world, pos.up())) {
+                player.getHeldItem(hand).shrink(1);
+                world.setBlockState(pos.up(), BlocksRegister.MAGMA_BLOOM.getDefaultState());
+                return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+            } else {
+                return new ActionResult(EnumActionResult.FAIL, itemstack);
+            }
+        }
+    }
 
-   @Override
-   public boolean canGrowAt(IBlockAccess world, BlockPos pos) {
-      IBlockState st = world.getBlockState(pos.down());
-      Block block = st.getBlock();
-      return (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) && world.isAirBlock(pos);
-   }
+    @Override
+    public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
+        return BlocksRegister.MAGMA_BLOOM.getDefaultState();
+    }
+
+    @Override
+    public boolean canGrowAt(IBlockAccess world, BlockPos pos) {
+        IBlockState st = world.getBlockState(pos.down());
+        Block block = st.getBlock();
+        return (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) && world.isAirBlock(pos);
+    }
+
 }

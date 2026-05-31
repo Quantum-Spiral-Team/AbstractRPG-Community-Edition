@@ -9,39 +9,41 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketWeaponStateToClients extends Packet {
-   byte state;
-   int entityId;
-   int slot;
 
-   public void writeArgs(byte state, int entityId, int slot) {
-      this.buf().writeByte(state);
-      this.buf().writeInt(entityId);
-      this.buf().writeInt(slot);
-   }
+    byte state;
+    int entityId;
+    int slot;
 
-   @Override
-   public void fromBytes(ByteBuf buffer) {
-      this.state = buffer.readByte();
-      this.entityId = buffer.readInt();
-      this.slot = buffer.readInt();
-   }
+    public void writeArgs(byte state, int entityId, int slot) {
+        this.buf().writeByte(state);
+        this.buf().writeInt(entityId);
+        this.buf().writeInt(slot);
+    }
 
-   @Override
-   public void client(EntityPlayer player, Packet sp, MessageContext ctx) {
-      Entity entity = player.world.getEntityByID(this.entityId);
-      if (entity instanceof EntityPlayer) {
-         if (this.slot < 0) {
-            this.slot = 0;
-         }
+    @Override
+    public void fromBytes(ByteBuf buffer) {
+        this.state = buffer.readByte();
+        this.entityId = buffer.readInt();
+        this.slot = buffer.readInt();
+    }
 
-         EntityPlayer playerActivates = (EntityPlayer)entity;
-         ItemStack itemStack = playerActivates.inventory.getStackInSlot(this.slot);
-         if (!itemStack.isEmpty() && itemStack.getItem() instanceof IWeapon) {
-            ((IWeapon)itemStack.getItem()).onStateReceived(playerActivates, itemStack, this.state, this.slot);
-         }
-      }
-   }
+    @Override
+    public void client(EntityPlayer player, Packet sp, MessageContext ctx) {
+        Entity entity = player.world.getEntityByID(this.entityId);
+        if (entity instanceof EntityPlayer) {
+            if (this.slot < 0) {
+                this.slot = 0;
+            }
 
-   @Override
-   public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {}
+            EntityPlayer playerActivates = (EntityPlayer) entity;
+            ItemStack itemStack = playerActivates.inventory.getStackInSlot(this.slot);
+            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IWeapon) {
+                ((IWeapon) itemStack.getItem()).onStateReceived(playerActivates, itemStack, this.state, this.slot);
+            }
+        }
+    }
+
+    @Override
+    public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {}
+
 }

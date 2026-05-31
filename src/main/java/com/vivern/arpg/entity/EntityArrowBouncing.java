@@ -2,7 +2,6 @@ package com.vivern.arpg.entity;
 
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.Sounds;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,118 +10,105 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class EntityArrowBouncing extends AbstractArrow {
-   public boolean allowBounce = true;
 
-   public EntityArrowBouncing(World worldIn) {
-      super(worldIn);
-   }
+    public boolean allowBounce = true;
 
-   public EntityArrowBouncing(World worldIn, double x, double y, double z) {
-      super(worldIn, x, y, z);
-   }
+    public EntityArrowBouncing(World worldIn) {
+        super(worldIn);
+    }
 
-   public EntityArrowBouncing(World worldIn, EntityLivingBase shooter) {
-      super(worldIn, shooter);
-   }
+    public EntityArrowBouncing(World worldIn, double x, double y, double z) {
+        super(worldIn, x, y, z);
+    }
 
-   @Override
-   public boolean doWaterMoveHook() {
-      return true;
-   }
+    public EntityArrowBouncing(World worldIn, EntityLivingBase shooter) {
+        super(worldIn, shooter);
+    }
 
-   @Override
-   public int waterParticlesHookAdding() {
-      return 2;
-   }
+    @Override
+    public boolean doWaterMoveHook() {
+        return true;
+    }
 
-   @Override
-   public void modifySpeedInWater() {
-      double multiplier = 0.86;
-      this.motionX *= multiplier;
-      this.motionY *= multiplier;
-      this.motionZ *= multiplier;
-   }
+    @Override
+    public int waterParticlesHookAdding() {
+        return 2;
+    }
 
-   @Override
-   public void writeEntityToNBT(NBTTagCompound compound) {
-      super.writeEntityToNBT(compound);
-      compound.setBoolean("allowBounce", this.allowBounce);
-   }
+    @Override
+    public void modifySpeedInWater() {
+        double multiplier = 0.86;
+        this.motionX *= multiplier;
+        this.motionY *= multiplier;
+        this.motionZ *= multiplier;
+    }
 
-   @Override
-   public void readEntityFromNBT(NBTTagCompound compound) {
-      super.readEntityFromNBT(compound);
-      if (compound.hasKey("allowBounce")) {
-         this.allowBounce = compound.getBoolean("allowBounce");
-      }
-   }
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound) {
+        super.writeEntityToNBT(compound);
+        compound.setBoolean("allowBounce", this.allowBounce);
+    }
 
-   @Override
-   public void onHit(RayTraceResult raytraceResultIn) {
-      if (!this.allowBounce || raytraceResultIn.entityHit != null) {
-         super.onHit(raytraceResultIn);
-      } else if (this.bounce(raytraceResultIn, 0.8)) {
-         this.playSound(this.getHitSound(), 1.0F, 1.2F + this.rand.nextFloat() * 0.2F);
-         this.allowBounce = false;
-         double blockoffset = 0.01;
-         if (raytraceResultIn.sideHit != null && raytraceResultIn.hitVec != null) {
-            Vec3d hit = new Vec3d(
-               raytraceResultIn.sideHit == EnumFacing.WEST
-                  ? raytraceResultIn.hitVec.x - blockoffset
-                  : raytraceResultIn.hitVec.x,
-               raytraceResultIn.sideHit == EnumFacing.DOWN
-                  ? raytraceResultIn.hitVec.y - blockoffset
-                  : raytraceResultIn.hitVec.y,
-               raytraceResultIn.sideHit == EnumFacing.NORTH
-                  ? raytraceResultIn.hitVec.z - blockoffset
-                  : raytraceResultIn.hitVec.z
-            );
-            this.setPosition(hit.x, hit.y, hit.z);
-         }
+    @Override
+    public void readEntityFromNBT(NBTTagCompound compound) {
+        super.readEntityFromNBT(compound);
+        if (compound.hasKey("allowBounce")) {
+            this.allowBounce = compound.getBoolean("allowBounce");
+        }
+    }
 
-         this.setDamage(this.getDamage() + 1.2);
-      }
-   }
+    @Override
+    public void onHit(RayTraceResult raytraceResultIn) {
+        if (!this.allowBounce || raytraceResultIn.entityHit != null) {
+            super.onHit(raytraceResultIn);
+        } else if (this.bounce(raytraceResultIn, 0.8)) {
+            this.playSound(this.getHitSound(), 1.0F, 1.2F + this.rand.nextFloat() * 0.2F);
+            this.allowBounce = false;
+            double blockoffset = 0.01;
+            if (raytraceResultIn.sideHit != null && raytraceResultIn.hitVec != null) {
+                Vec3d hit = new Vec3d(raytraceResultIn.sideHit == EnumFacing.WEST ? raytraceResultIn.hitVec.x - blockoffset : raytraceResultIn.hitVec.x, raytraceResultIn.sideHit == EnumFacing.DOWN ? raytraceResultIn.hitVec.y - blockoffset : raytraceResultIn.hitVec.y, raytraceResultIn.sideHit == EnumFacing.NORTH ? raytraceResultIn.hitVec.z - blockoffset : raytraceResultIn.hitVec.z);
+                this.setPosition(hit.x, hit.y, hit.z);
+            }
 
-   public boolean bounce(@Nullable RayTraceResult result, double speedMultipl) {
-      boolean ret = false;
-      if (result != null
-         && result.getBlockPos() != null
-         && this.world
-               .getBlockState(result.getBlockPos())
-               .getBlock()
-               .getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos())
-            != null) {
-         if (result.sideHit == EnumFacing.UP || result.sideHit == EnumFacing.DOWN) {
-            this.motionY = -this.motionY * speedMultipl;
-            ret = true;
-         }
+            this.setDamage(this.getDamage() + 1.2);
+        }
+    }
 
-         if (result.sideHit == EnumFacing.NORTH || result.sideHit == EnumFacing.SOUTH) {
-            this.motionZ = -this.motionZ * speedMultipl;
-            ret = true;
-         }
+    public boolean bounce(@Nullable RayTraceResult result, double speedMultipl) {
+        boolean ret = false;
+        if (result != null && result.getBlockPos() != null && this.world.getBlockState(result.getBlockPos()).getBlock().getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos()) != null) {
+            if (result.sideHit == EnumFacing.UP || result.sideHit == EnumFacing.DOWN) {
+                this.motionY = -this.motionY * speedMultipl;
+                ret = true;
+            }
 
-         if (result.sideHit == EnumFacing.EAST || result.sideHit == EnumFacing.WEST) {
-            this.motionX = -this.motionX * speedMultipl;
-            ret = true;
-         }
+            if (result.sideHit == EnumFacing.NORTH || result.sideHit == EnumFacing.SOUTH) {
+                this.motionZ = -this.motionZ * speedMultipl;
+                ret = true;
+            }
 
-         this.velocityChanged = true;
-      }
+            if (result.sideHit == EnumFacing.EAST || result.sideHit == EnumFacing.WEST) {
+                this.motionX = -this.motionX * speedMultipl;
+                ret = true;
+            }
 
-      return ret;
-   }
+            this.velocityChanged = true;
+        }
 
-   @Override
-   public SoundEvent getHitSound() {
-      return Sounds.arrow_bouncing;
-   }
+        return ret;
+    }
 
-   @Override
-   protected ItemStack getArrowStack() {
-      return new ItemStack(ItemsRegister.ARROW_BOUNCING);
-   }
+    @Override
+    public SoundEvent getHitSound() {
+        return Sounds.arrow_bouncing;
+    }
+
+    @Override
+    protected ItemStack getArrowStack() {
+        return new ItemStack(ItemsRegister.ARROW_BOUNCING);
+    }
+
 }

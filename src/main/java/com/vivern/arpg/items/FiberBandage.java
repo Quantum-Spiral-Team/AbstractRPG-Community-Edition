@@ -3,7 +3,6 @@ package com.vivern.arpg.items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.potions.PotionEffects;
-import java.util.List;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,36 +16,29 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class FiberBandage extends Item {
-   public FiberBandage() {
-      this.setRegistryName("fiber_bandage");
-      this.setCreativeTab(CreativeTabs.TOOLS);
-      this.setTranslationKey("fiber_bandage");
-   }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      Weapons.setPotionIfEntityLB(player, PotionEffects.FIBER_BANDAGING, 12000, 0);
-      itemstack.shrink(1);
-      world.playSound(
-              null,
-         player.posX,
-         player.posY,
-         player.posZ,
-         Sounds.sea_effloresce_impact,
-         SoundCategory.PLAYERS,
-         0.8F,
-         1.45F + itemRand.nextFloat() / 5.0F
-      );
-      return new ActionResult(EnumActionResult.SUCCESS, itemstack);
-   }
+    public FiberBandage() {
+        this.setRegistryName("fiber_bandage");
+        this.setCreativeTab(CreativeTabs.TOOLS);
+        this.setTranslationKey("fiber_bandage");
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-      tooltip.add(
-         "For a while, it slightly reduces the radiation that affects you from the outside and reduces the chance of getting dirty in liquids: poisons, toxins and mucus"
-      );
-   }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        Weapons.setPotionIfEntityLB(player, PotionEffects.FIBER_BANDAGING, 12000, 0);
+        itemstack.shrink(1);
+        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.sea_effloresce_impact, SoundCategory.PLAYERS, 0.8F, 1.45F + itemRand.nextFloat() / 5.0F);
+        return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add("For a while, it slightly reduces the radiation that affects you from the outside and reduces the chance of getting dirty in liquids: poisons, toxins and mucus");
+    }
+
 }

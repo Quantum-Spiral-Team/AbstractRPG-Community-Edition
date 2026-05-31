@@ -12,55 +12,57 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public class CategorySieve implements IRecipeCategory<WrapperSieve> {
-   public static final String UID = "arpg:sieve";
-   public static final ResourceLocation GUI_TEXTURES = new ResourceLocation("arpg:textures/gui_sieve.png");
-   public IDrawableStatic background;
 
-   public CategorySieve(IGuiHelper h) {
-      this.background = h.createDrawable(GUI_TEXTURES, 0, 0, 166, 78);
-   }
+    public static final String UID = "arpg:sieve";
+    public static final ResourceLocation GUI_TEXTURES = new ResourceLocation("arpg:textures/gui_sieve.png");
+    public IDrawableStatic background;
 
-   @Override
-   public String getUid() {
-      return "arpg:sieve";
-   }
+    public CategorySieve(IGuiHelper h) {
+        this.background = h.createDrawable(GUI_TEXTURES, 0, 0, 166, 78);
+    }
 
-   @Override
-   public String getTitle() {
-      return "Sieve";
-   }
+    @Override
+    public String getUid() {
+        return "arpg:sieve";
+    }
 
-   @Override
-   public String getModName() {
-      return "arpg";
-   }
+    @Override
+    public String getTitle() {
+        return "Sieve";
+    }
 
-   @Override
-   public IDrawable getBackground() {
-      return this.background;
-   }
+    @Override
+    public String getModName() {
+        return "arpg";
+    }
 
-   @Override
-   public void setRecipe(IRecipeLayout recipeLayout, WrapperSieve recipeWrapper, IIngredients ingredients) {
-      IGuiItemStackGroup isg = recipeLayout.getItemStacks();
-      int xx1 = 74;
-      int yy1 = 2;
-      int xx2 = 2;
-      int yy2 = 22;
-      isg.init(0, true, xx1, yy1);
-      isg.set(0, recipeWrapper.getInOrEmpty(true, 0));
+    @Override
+    public IDrawable getBackground() {
+        return this.background;
+    }
 
-      for (int i = 0; i < 3; i++) {
-         for (int j = 0; j < 9; j++) {
-            int indexx = j + i * 9 + 1;
-            isg.init(indexx, false, xx2 + j * 18, yy2 + i * 18);
-            ItemStack stack = recipeWrapper.getInOrEmpty(false, indexx - 1);
-            if (!stack.isEmpty()) {
-               NBTHelper.SetLore(stack, "Chance: " + recipeWrapper.getChanceInPercent(indexx - 1) + "%");
+    @Override
+    public void setRecipe(IRecipeLayout recipeLayout, WrapperSieve recipeWrapper, IIngredients ingredients) {
+        IGuiItemStackGroup isg = recipeLayout.getItemStacks();
+        int xx1 = 74;
+        int yy1 = 2;
+        int xx2 = 2;
+        int yy2 = 22;
+        isg.init(0, true, xx1, yy1);
+        isg.set(0, recipeWrapper.getInOrEmpty(true, 0));
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 9; j++) {
+                int indexx = j + i * 9 + 1;
+                isg.init(indexx, false, xx2 + j * 18, yy2 + i * 18);
+                ItemStack stack = recipeWrapper.getInOrEmpty(false, indexx - 1);
+                if (!stack.isEmpty()) {
+                    NBTHelper.SetLore(stack, "Chance: " + recipeWrapper.getChanceInPercent(indexx - 1) + "%");
+                }
+
+                isg.set(indexx, stack);
             }
+        }
+    }
 
-            isg.set(indexx, stack);
-         }
-      }
-   }
 }

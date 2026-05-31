@@ -1,6 +1,5 @@
 package com.vivern.arpg.items;
 
-import java.util.List;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,56 +20,58 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class SlimeLocator extends Item {
-   public SlimeLocator() {
-      this.setRegistryName("slime_locator");
-      this.setCreativeTab(CreativeTabs.TOOLS);
-      this.setTranslationKey("slime_locator");
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer playerIn, EnumHand handIn) {
-      if (!world.isRemote) {
-         BlockPos blockpos = new BlockPos(
-            MathHelper.floor(playerIn.posX), MathHelper.floor(playerIn.posY), MathHelper.floor(playerIn.posZ)
-         );
-         if (playerIn instanceof EntityPlayerMP) {
-            playerIn.sendMessage(new TextComponentString(this.getCanSpawnHere(world, blockpos)));
-         }
-      }
+    public SlimeLocator() {
+        this.setRegistryName("slime_locator");
+        this.setCreativeTab(CreativeTabs.TOOLS);
+        this.setTranslationKey("slime_locator");
+        this.setMaxStackSize(1);
+    }
 
-      return new ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
-   }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer playerIn, EnumHand handIn) {
+        if (!world.isRemote) {
+            BlockPos blockpos = new BlockPos(MathHelper.floor(playerIn.posX), MathHelper.floor(playerIn.posY), MathHelper.floor(playerIn.posZ));
+            if (playerIn instanceof EntityPlayerMP) {
+                playerIn.sendMessage(new TextComponentString(this.getCanSpawnHere(world, blockpos)));
+            }
+        }
 
-   public String getCanSpawnHere(World world, BlockPos blockpos) {
-      Chunk chunk = world.getChunk(blockpos);
-      if (world.getDifficulty() != EnumDifficulty.PEACEFUL) {
-         Biome biome = world.getBiome(blockpos);
-         if (biome == Biomes.SWAMPLAND) {
-            if (blockpos.getY() > 50.0 && blockpos.getY() < 70.0) {
-               return "\u00A7aSlimes can spawn in Swampland biome";
+        return new ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+    }
+
+    public String getCanSpawnHere(World world, BlockPos blockpos) {
+        Chunk chunk = world.getChunk(blockpos);
+        if (world.getDifficulty() != EnumDifficulty.PEACEFUL) {
+            Biome biome = world.getBiome(blockpos);
+            if (biome == Biomes.SWAMPLAND) {
+                if (blockpos.getY() > 50.0 && blockpos.getY() < 70.0) {
+                    return "\u00A7aSlimes can spawn in Swampland biome";
+                }
+
+                return "\u00A76Slimes can spawn in Swampland biome, but below 70 and above 50 height";
             }
 
-            return "\u00A76Slimes can spawn in Swampland biome, but below 70 and above 50 height";
-         }
+            if (chunk.getRandomWithSeed(987234911L).nextInt(10) == 0) {
+                if (blockpos.getY() < 40.0) {
+                    return "\u00A7aSlimes can spawn here";
+                }
 
-         if (chunk.getRandomWithSeed(987234911L).nextInt(10) == 0) {
-            if (blockpos.getY() < 40.0) {
-               return "\u00A7aSlimes can spawn here";
+                return "\u00A76Slimes can spawn in this chunk, but below 40 height";
             }
+        }
 
-            return "\u00A76Slimes can spawn in this chunk, but below 40 height";
-         }
-      }
+        return "\u00A74Slimes can't spawn here";
+    }
 
-      return "\u00A74Slimes can't spawn here";
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add("This locator can be used to find chunks, where vanilla slimes are spawn");
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-      tooltip.add("This locator can be used to find chunks, where vanilla slimes are spawn");
-      super.addInformation(stack, worldIn, tooltip, flagIn);
-   }
 }

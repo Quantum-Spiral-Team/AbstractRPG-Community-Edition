@@ -9,24 +9,26 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MovingSoundEntity extends MovingSound {
-   public final Entity entity;
 
-   public MovingSoundEntity(Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, boolean repeat) {
-      super(sound, category);
-      this.entity = entity;
-      this.repeat = repeat;
-      this.volume = volume;
-      this.pitch = pitch;
-   }
+    public final Entity entity;
 
-   @Override
-   public void update() {
-      if (!this.entity.isDead) {
-         this.xPosF = (float)this.entity.posX;
-         this.yPosF = (float)this.entity.posY;
-         this.zPosF = (float)this.entity.posZ;
-      } else {
-         this.donePlaying = true;
-      }
-   }
+    public MovingSoundEntity(Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch, boolean repeat) {
+        super(sound, category);
+        this.entity = entity;
+        this.repeat = repeat;
+        this.volume = volume;
+        this.pitch = pitch;
+    }
+
+    @Override
+    public void update() {
+        if (!this.entity.isDead) {
+            this.xPosF = (float) this.entity.posX;
+            this.yPosF = (float) this.entity.posY;
+            this.zPosF = (float) this.entity.posZ;
+        } else {
+            this.donePlaying = true;
+        }
+    }
+
 }

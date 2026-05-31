@@ -1,4 +1,3 @@
 package com.vivern.arpg.container;
 
-public class GUISpellForge {
-}
+public class GUISpellForge {}

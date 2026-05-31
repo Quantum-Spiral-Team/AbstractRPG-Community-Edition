@@ -6,7 +6,6 @@ import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
 import com.vivern.arpg.items.armor.IItemHurted;
 import com.vivern.arpg.renders.HandBaubleRender;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
@@ -24,134 +23,140 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class BaubleAntipotion extends Item implements IBauble, IRenderBauble {
-   public BaubleType btype;
-   public Potion[] potion;
-   public boolean removeFire = false;
-   public String[] text;
-   public boolean render = false;
-   public int renderType;
 
-   public BaubleAntipotion(String name, CreativeTabs tab, Potion[] potion, BaubleType btype, boolean removeFire, String[] text) {
-      this.setRegistryName(name);
-      this.setCreativeTab(tab);
-      this.setTranslationKey(name);
-      this.setMaxStackSize(1);
-      this.btype = btype;
-      this.potion = potion;
-      this.removeFire = removeFire;
-      this.text = text;
-   }
+    public BaubleType btype;
+    public Potion[] potion;
+    public boolean removeFire = false;
+    public String[] text;
+    public boolean render = false;
+    public int renderType;
 
-   public BaubleAntipotion(String name, CreativeTabs tab, Potion potion, BaubleType btype, String text) {
-      this.setRegistryName(name);
-      this.setCreativeTab(tab);
-      this.setTranslationKey(name);
-      this.setMaxStackSize(1);
-      this.btype = btype;
-      this.potion = new Potion[]{potion};
-      this.text = new String[]{text};
-   }
+    public BaubleAntipotion(String name, CreativeTabs tab, Potion[] potion, BaubleType btype, boolean removeFire, String[] text) {
+        this.setRegistryName(name);
+        this.setCreativeTab(tab);
+        this.setTranslationKey(name);
+        this.setMaxStackSize(1);
+        this.btype = btype;
+        this.potion = potion;
+        this.removeFire = removeFire;
+        this.text = text;
+    }
 
-   public BaubleAntipotion setRender(int renderType) {
-      this.renderType = renderType;
-      this.render = true;
-      return this;
-   }
+    public BaubleAntipotion(String name, CreativeTabs tab, Potion potion, BaubleType btype, String text) {
+        this.setRegistryName(name);
+        this.setCreativeTab(tab);
+        this.setTranslationKey(name);
+        this.setMaxStackSize(1);
+        this.btype = btype;
+        this.potion = new Potion[]{potion};
+        this.text = new String[]{text};
+    }
 
-   @Override
-   public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-      if (this.render) {
-         if (this.renderType == 1 && type == RenderType.BODY) {
-            GlStateManager.pushMatrix();
-            GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
-            Helper.rotateIfSneaking(player);
-            Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-            Minecraft.getMinecraft().getRenderItem().renderItem(stack, TransformType.HEAD);
-            GlStateManager.popMatrix();
-         }
+    public BaubleAntipotion setRender(int renderType) {
+        this.renderType = renderType;
+        this.render = true;
+        return this;
+    }
 
-         if (this.renderType == 2 && type == RenderType.HEAD) {
-            GlStateManager.pushMatrix();
-            GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
-            Helper.rotateIfSneaking(player);
-            Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-            Minecraft.getMinecraft().getRenderItem().renderItem(stack, TransformType.HEAD);
-            GlStateManager.popMatrix();
-         }
-
-         if (this.renderType == 3 && type == RenderType.BODY) {
-            GlStateManager.pushMatrix();
-            HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.RIGHT);
-            GlStateManager.popMatrix();
-         }
-
-         if (this.renderType == 4 && type == RenderType.BODY) {
-            GlStateManager.pushMatrix();
-            HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.LEFT);
-            GlStateManager.popMatrix();
-         }
-
-         if (this.renderType == 5 && type == RenderType.BODY) {
-            GlStateManager.pushMatrix();
-            if (BaublesApi.getBaubles(player).getStackInSlot(1) == stack) {
-               HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.RIGHT, TransformType.THIRD_PERSON_RIGHT_HAND);
-            } else if (BaublesApi.getBaubles(player).getStackInSlot(2) == stack) {
-               HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.LEFT, TransformType.THIRD_PERSON_LEFT_HAND);
+    @Override
+    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
+        if (this.render) {
+            if (this.renderType == 1 && type == RenderType.BODY) {
+                GlStateManager.pushMatrix();
+                GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+                Helper.rotateIfSneaking(player);
+                Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                Minecraft.getMinecraft().getRenderItem().renderItem(stack, TransformType.HEAD);
+                GlStateManager.popMatrix();
             }
 
-            GlStateManager.popMatrix();
-         }
-      }
-   }
+            if (this.renderType == 2 && type == RenderType.HEAD) {
+                GlStateManager.pushMatrix();
+                GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+                Helper.rotateIfSneaking(player);
+                Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                Minecraft.getMinecraft().getRenderItem().renderItem(stack, TransformType.HEAD);
+                GlStateManager.popMatrix();
+            }
 
-   @Override
-   public BaubleType getBaubleType(ItemStack itemstack) {
-      return this.btype;
-   }
+            if (this.renderType == 3 && type == RenderType.BODY) {
+                GlStateManager.pushMatrix();
+                HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.RIGHT);
+                GlStateManager.popMatrix();
+            }
 
-   @Override
-   public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-      if (this.potion != null) {
-         for (Potion p : this.potion) {
-            player.removePotionEffect(p);
-         }
-      }
+            if (this.renderType == 4 && type == RenderType.BODY) {
+                GlStateManager.pushMatrix();
+                HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.LEFT);
+                GlStateManager.popMatrix();
+            }
 
-      if (this.removeFire) {
-         player.extinguish();
-      }
-   }
+            if (this.renderType == 5 && type == RenderType.BODY) {
+                GlStateManager.pushMatrix();
+                if (BaublesApi.getBaubles(player).getStackInSlot(1) == stack) {
+                    HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.RIGHT, TransformType.THIRD_PERSON_RIGHT_HAND);
+                } else if (BaublesApi.getBaubles(player).getStackInSlot(2) == stack) {
+                    HandBaubleRender.doRenderLayer(player, stack, EnumHandSide.LEFT, TransformType.THIRD_PERSON_LEFT_HAND);
+                }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-      for (String s : this.text) {
-         tooltip.add(s);
-      }
+                GlStateManager.popMatrix();
+            }
+        }
+    }
 
-      super.addInformation(stack, worldIn, tooltip, flagIn);
-   }
+    @Override
+    public BaubleType getBaubleType(ItemStack itemstack) {
+        return this.btype;
+    }
 
-   public static class BaubleAntipotionFallless extends BaubleAntipotion implements IItemHurted {
-      public BaubleAntipotionFallless(String name, CreativeTabs tab, Potion[] potion, BaubleType btype, boolean removeFire, String[] text) {
-         super(name, tab, potion, btype, removeFire, text);
-      }
+    @Override
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+        if (this.potion != null) {
+            for (Potion p : this.potion) {
+                player.removePotionEffect(p);
+            }
+        }
 
-      @Override
-      public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-         super.onWornTick(itemstack, player);
-         player.fallDistance = 0.0F;
-      }
+        if (this.removeFire) {
+            player.extinguish();
+        }
+    }
 
-      @Override
-      public float onHurtWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
-         return source == DamageSource.FALL ? 0.0F : hurtdamage;
-      }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        for (String s : this.text) {
+            tooltip.add(s);
+        }
 
-      @Override
-      public boolean cancelOnNull() {
-         return true;
-      }
-   }
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    public static class BaubleAntipotionFallless extends BaubleAntipotion implements IItemHurted {
+
+        public BaubleAntipotionFallless(String name, CreativeTabs tab, Potion[] potion, BaubleType btype, boolean removeFire, String[] text) {
+            super(name, tab, potion, btype, removeFire, text);
+        }
+
+        @Override
+        public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+            super.onWornTick(itemstack, player);
+            player.fallDistance = 0.0F;
+        }
+
+        @Override
+        public float onHurtWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
+            return source == DamageSource.FALL ? 0.0F : hurtdamage;
+        }
+
+        @Override
+        public boolean cancelOnNull() {
+            return true;
+        }
+
+    }
+
 }

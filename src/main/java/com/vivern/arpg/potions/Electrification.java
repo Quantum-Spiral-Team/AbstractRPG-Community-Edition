@@ -7,17 +7,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Electrification extends Potion {
-   protected Electrification(boolean isBadEffectIn, int liquidColorIn) {
-      super(isBadEffectIn, liquidColorIn);
-      this.setRegistryName("arpg:electrification");
-      this.setPotionName("Electrification");
-      this.setIconIndex(16, 1);
-   }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasStatusIcon() {
-      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
-      return true;
-   }
+    protected Electrification(boolean isBadEffectIn, int liquidColorIn) {
+        super(isBadEffectIn, liquidColorIn);
+        this.setRegistryName("arpg:electrification");
+        this.setPotionName("Electrification");
+        this.setIconIndex(16, 1);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasStatusIcon() {
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
+        return true;
+    }
+
 }

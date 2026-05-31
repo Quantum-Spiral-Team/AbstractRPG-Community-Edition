@@ -15,144 +15,130 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 
 public class TilePresentBox extends TileEntityLockableLoot {
-   private NonNullList<ItemStack> stacks = NonNullList.withSize(9, ItemStack.EMPTY);
-   public boolean opened = false;
-   public int openTime = 0;
-   public int texture = 0;
 
-   public TilePresentBox() {
-   }
+    private NonNullList<ItemStack> stacks = NonNullList.withSize(9, ItemStack.EMPTY);
+    public boolean opened = false;
+    public int openTime = 0;
+    public int texture = 0;
 
-   public TilePresentBox(int texture) {
-      this.texture = texture;
-   }
+    public TilePresentBox() {
+    }
 
-   @Override
-   public SPacketUpdateTileEntity getUpdatePacket() {
-      NBTTagCompound compound = new NBTTagCompound();
-      compound.setBoolean("opened", this.opened);
-      return new SPacketUpdateTileEntity(this.pos, 1, compound);
-   }
+    public TilePresentBox(int texture) {
+        this.texture = texture;
+    }
 
-   @Override
-   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-      NBTTagCompound compound = packet.getNbtCompound();
-      if (compound.hasKey("opened")) {
-         this.opened = compound.getBoolean("opened");
-      }
-   }
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        compound.setBoolean("opened", this.opened);
+        return new SPacketUpdateTileEntity(this.pos, 1, compound);
+    }
 
-   @Override
-   public void openInventory(EntityPlayer player) {
-      if (!player.isSpectator() && !this.opened) {
-         this.opened = true;
-         PresentBox.trySendPacketUpdate(this.getWorld(), this.getPos(), this, 64);
-         this.world
-            .playSound(
-                    null,
-               this.pos,
-               Sounds.box_open,
-               SoundCategory.BLOCKS,
-               0.5F,
-               this.world.rand.nextFloat() * 0.1F + 0.9F
-            );
-      }
-   }
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        NBTTagCompound compound = packet.getNbtCompound();
+        if (compound.hasKey("opened")) {
+            this.opened = compound.getBoolean("opened");
+        }
+    }
 
-   @Override
-   public void closeInventory(EntityPlayer player) {
-      if (!player.isSpectator()) {
-         this.opened = false;
-         PresentBox.trySendPacketUpdate(this.getWorld(), this.getPos(), this, 64);
-         this.world
-            .playSound(
-                    null,
-               this.pos,
-               Sounds.box_close,
-               SoundCategory.BLOCKS,
-               0.5F,
-               this.world.rand.nextFloat() * 0.1F + 0.9F
-            );
-      }
-   }
+    @Override
+    public void openInventory(EntityPlayer player) {
+        if (!player.isSpectator() && !this.opened) {
+            this.opened = true;
+            PresentBox.trySendPacketUpdate(this.getWorld(), this.getPos(), this, 64);
+            this.world.playSound(null, this.pos, Sounds.box_open, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+        }
+    }
 
-   @Override
-   public int getSizeInventory() {
-      return 9;
-   }
+    @Override
+    public void closeInventory(EntityPlayer player) {
+        if (!player.isSpectator()) {
+            this.opened = false;
+            PresentBox.trySendPacketUpdate(this.getWorld(), this.getPos(), this, 64);
+            this.world.playSound(null, this.pos, Sounds.box_close, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+        }
+    }
 
-   @Override
-   public boolean isEmpty() {
-      for (ItemStack itemstack : this.stacks) {
-         if (!itemstack.isEmpty()) {
-            return false;
-         }
-      }
+    @Override
+    public int getSizeInventory() {
+        return 9;
+    }
 
-      return true;
-   }
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack itemstack : this.stacks) {
+            if (!itemstack.isEmpty()) {
+                return false;
+            }
+        }
 
-   public int addItemStack(ItemStack stack) {
-      for (int i = 0; i < this.stacks.size(); i++) {
-         if (this.stacks.get(i).isEmpty()) {
-            this.setInventorySlotContents(i, stack);
-            return i;
-         }
-      }
+        return true;
+    }
 
-      return -1;
-   }
+    public int addItemStack(ItemStack stack) {
+        for (int i = 0; i < this.stacks.size(); i++) {
+            if (this.stacks.get(i).isEmpty()) {
+                this.setInventorySlotContents(i, stack);
+                return i;
+            }
+        }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      super.readFromNBT(compound);
-      this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-      if (!this.checkLootAndRead(compound)) {
-         ItemStackHelper.loadAllItems(compound, this.stacks);
-      }
+        return -1;
+    }
 
-      if (compound.hasKey("CustomName", 8)) {
-         this.customName = compound.getString("CustomName");
-      }
-   }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        if (!this.checkLootAndRead(compound)) {
+            ItemStackHelper.loadAllItems(compound, this.stacks);
+        }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      super.writeToNBT(compound);
-      if (!this.checkLootAndWrite(compound)) {
-         ItemStackHelper.saveAllItems(compound, this.stacks);
-      }
+        if (compound.hasKey("CustomName", 8)) {
+            this.customName = compound.getString("CustomName");
+        }
+    }
 
-      if (this.hasCustomName()) {
-         compound.setString("CustomName", this.customName);
-      }
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        if (!this.checkLootAndWrite(compound)) {
+            ItemStackHelper.saveAllItems(compound, this.stacks);
+        }
 
-      return compound;
-   }
+        if (this.hasCustomName()) {
+            compound.setString("CustomName", this.customName);
+        }
 
-   @Override
-   public int getInventoryStackLimit() {
-      return 64;
-   }
+        return compound;
+    }
 
-   @Override
-   public String getName() {
-      return "tile_present_box";
-   }
+    @Override
+    public int getInventoryStackLimit() {
+        return 64;
+    }
 
-   @Override
-   public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-      this.fillWithLoot(playerIn);
-      return new Container9(playerInventory, this);
-   }
+    @Override
+    public String getName() {
+        return "tile_present_box";
+    }
 
-   @Override
-   public String getGuiID() {
-      return "minecraft:dispenser";
-   }
+    @Override
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+        this.fillWithLoot(playerIn);
+        return new Container9(playerInventory, this);
+    }
 
-   @Override
-   protected NonNullList<ItemStack> getItems() {
-      return this.stacks;
-   }
+    @Override
+    public String getGuiID() {
+        return "minecraft:dispenser";
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return this.stacks;
+    }
+
 }

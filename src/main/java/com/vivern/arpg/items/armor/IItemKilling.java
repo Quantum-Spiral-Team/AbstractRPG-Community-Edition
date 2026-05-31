@@ -6,5 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 
 public interface IItemKilling {
-   void onKillWithItem(ItemStack var1, EntityPlayer var2, EntityLivingBase var3, DamageSource var4);
+
+    void onKillWithItem(ItemStack var1, EntityPlayer var2, EntityLivingBase var3, DamageSource var4);
+
 }

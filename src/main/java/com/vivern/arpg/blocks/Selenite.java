@@ -9,22 +9,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 public class Selenite extends Block {
-   public Selenite() {
-      super(Material.ROCK);
-      this.setRegistryName("selenite");
-      this.setTranslationKey("selenite");
-      this.blockHardness = 2.5F;
-      this.blockResistance = 2.0F;
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-   }
 
-   @Override
-   public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
-      return false;
-   }
+    public Selenite() {
+        super(Material.ROCK);
+        this.setRegistryName("selenite");
+        this.setTranslationKey("selenite");
+        this.blockHardness = 2.5F;
+        this.blockResistance = 2.0F;
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return true;
-   }
+    @Override
+    public boolean isReplaceableOreGen(IBlockState state, IBlockAccess world, BlockPos pos, Predicate<IBlockState> target) {
+        return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return true;
+    }
+
 }

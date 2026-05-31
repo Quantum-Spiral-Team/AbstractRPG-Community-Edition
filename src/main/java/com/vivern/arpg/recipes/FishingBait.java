@@ -11,74 +11,76 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class FishingBait implements IRecipe {
-   @Override
-   public IRecipe setRegistryName(ResourceLocation name) {
-      return this;
-   }
 
-   @Override
-   public ResourceLocation getRegistryName() {
-      return new ResourceLocation("arpg:bait_use_recipe");
-   }
+    @Override
+    public IRecipe setRegistryName(ResourceLocation name) {
+        return this;
+    }
 
-   @Override
-   public Class<IRecipe> getRegistryType() {
-      return this.getRegistryType();
-   }
+    @Override
+    public ResourceLocation getRegistryName() {
+        return new ResourceLocation("arpg:bait_use_recipe");
+    }
 
-   @Override
-   public boolean matches(InventoryCrafting inv, World worldIn) {
-      ItemStack rod = null;
-      ItemStack bait = null;
+    @Override
+    public Class<IRecipe> getRegistryType() {
+        return this.getRegistryType();
+    }
 
-      for (int i = 0; i < inv.getSizeInventory(); i++) {
-         if (inv.getStackInSlot(i).getItem() instanceof ItemFishingRod) {
-            if (rod != null) {
-               return false;
+    @Override
+    public boolean matches(InventoryCrafting inv, World worldIn) {
+        ItemStack rod = null;
+        ItemStack bait = null;
+
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
+            if (inv.getStackInSlot(i).getItem() instanceof ItemFishingRod) {
+                if (rod != null) {
+                    return false;
+                }
+
+                rod = inv.getStackInSlot(i);
             }
 
-            rod = inv.getStackInSlot(i);
-         }
+            if (Fishing.getBaitPower(inv.getStackInSlot(i).getItem()) > 0.0F) {
+                if (bait != null) {
+                    return false;
+                }
 
-         if (Fishing.getBaitPower(inv.getStackInSlot(i).getItem()) > 0.0F) {
-            if (bait != null) {
-               return false;
+                bait = inv.getStackInSlot(i);
+            }
+        }
+
+        return rod != null && bait != null;
+    }
+
+    @Override
+    public ItemStack getCraftingResult(InventoryCrafting inv) {
+        ItemStack rod = null;
+        ItemStack bait = null;
+
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
+            if (inv.getStackInSlot(i).getItem() instanceof ItemFishingRod) {
+                rod = inv.getStackInSlot(i);
             }
 
-            bait = inv.getStackInSlot(i);
-         }
-      }
+            if (Fishing.getBaitPower(inv.getStackInSlot(i).getItem()) > 0.0F) {
+                bait = inv.getStackInSlot(i);
+            }
+        }
 
-      return rod != null && bait != null;
-   }
+        ItemStack newrod = rod.copy();
+        NBTHelper.SetNBTstring(newrod, bait.getItem().getRegistryName().toString(), "bait");
+        return newrod;
+    }
 
-   @Override
-   public ItemStack getCraftingResult(InventoryCrafting inv) {
-      ItemStack rod = null;
-      ItemStack bait = null;
+    @Override
+    public boolean canFit(int width, int height) {
+        return width + height == 3;
+    }
 
-      for (int i = 0; i < inv.getSizeInventory(); i++) {
-         if (inv.getStackInSlot(i).getItem() instanceof ItemFishingRod) {
-            rod = inv.getStackInSlot(i);
-         }
+    @Override
+    public ItemStack getRecipeOutput() {
+        return new ItemStack(ItemsRegister.FISHING_ROD);
+    }
 
-         if (Fishing.getBaitPower(inv.getStackInSlot(i).getItem()) > 0.0F) {
-            bait = inv.getStackInSlot(i);
-         }
-      }
-
-      ItemStack newrod = rod.copy();
-      NBTHelper.SetNBTstring(newrod, bait.getItem().getRegistryName().toString(), "bait");
-      return newrod;
-   }
-
-   @Override
-   public boolean canFit(int width, int height) {
-      return width + height == 3;
-   }
-
-   @Override
-   public ItemStack getRecipeOutput() {
-      return new ItemStack(ItemsRegister.FISHING_ROD);
-   }
 }

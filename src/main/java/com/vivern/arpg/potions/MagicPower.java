@@ -7,17 +7,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MagicPower extends Potion {
-   protected MagicPower(boolean isBadEffectIn, int liquidColorIn) {
-      super(isBadEffectIn, liquidColorIn);
-      this.setRegistryName("arpg:magic_power");
-      this.setPotionName("Magic_Power");
-      this.setIconIndex(11, 1);
-   }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasStatusIcon() {
-      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
-      return true;
-   }
+    protected MagicPower(boolean isBadEffectIn, int liquidColorIn) {
+        super(isBadEffectIn, liquidColorIn);
+        this.setRegistryName("arpg:magic_power");
+        this.setPotionName("Magic_Power");
+        this.setIconIndex(11, 1);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasStatusIcon() {
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("arpg:textures/potions.png"));
+        return true;
+    }
+
 }

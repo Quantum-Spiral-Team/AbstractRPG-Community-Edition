@@ -18,137 +18,109 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ToxicNuclearCannon extends ItemWeapon {
-   public static int maxammo = 1;
 
-   public ToxicNuclearCannon() {
-      this.setRegistryName("toxic_nuclear_cannon");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("toxic_nuclear_cannon");
-      this.setMaxDamage(600);
-      this.setMaxStackSize(1);
-   }
+    public static int maxammo = 1;
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    public ToxicNuclearCannon() {
+        this.setRegistryName("toxic_nuclear_cannon");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("toxic_nuclear_cannon");
+        this.setMaxDamage(600);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void boom(int param) {
-      Boom.lastTick = 10;
-      Boom.frequency = -0.3125F;
-      Boom.x = 1.0F;
-      Boom.y = 0.0F;
-      Boom.z = 0.0F;
-      Boom.power = 0.57F;
-   }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            this.decreaseReload(itemstack, player);
-            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-            int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            if (click && player.getHeldItemMainhand() == itemstack) {
-               if (ammo > 0 && this.isReloaded(itemstack)) {
-                  if (!player.getCooldownTracker().hasCooldown(this)) {
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.cannon,
-                        SoundCategory.AMBIENT,
-                        0.9F,
-                        0.9F + itemRand.nextFloat() / 5.0F
-                     );
-                     player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-                     player.addStat(StatList.getObjectUseStats(this));
-                     IWeapon.fireBomEffect(this, player, world, 0);
-                     Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
-                     ToxicNuke projectile = new ToxicNuke(world, player, itemstack);
-                     Weapons.shoot(
-                        projectile,
-                        EnumHand.MAIN_HAND,
-                        player,
-                        player.rotationPitch,
-                        player.rotationYaw,
-                        0.0F,
-                        parameters.getFloat("velocity"),
-                        parameters.getEnchantedF("inaccuracy", acc),
-                        -0.1F,
-                        0.5F,
-                        0.4F
-                     );
-                     world.spawnEntity(projectile);
-                     this.addAmmo(ammo, itemstack, -1);
-                     if (!player.capabilities.isCreativeMode) {
-                        itemstack.damageItem(1, player);
-                     }
-                  }
-               } else if (this.initiateReload(itemstack, player, ItemsRegister.TOXIC_NUCLEAR_WARHEAD, maxammo)) {
-                  world.playSound(
-                          null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     Sounds.toxic_nuke_rel,
-                     SoundCategory.AMBIENT,
-                     0.7F,
-                     0.95F + itemRand.nextFloat() / 20.0F
-                  );
-                  Weapons.setPlayerAnimationOnServer(player, 19, EnumHand.MAIN_HAND);
-               }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void boom(int param) {
+        Boom.lastTick = 10;
+        Boom.frequency = -0.3125F;
+        Boom.x = 1.0F;
+        Boom.y = 0.0F;
+        Boom.z = 0.0F;
+        Boom.power = 0.57F;
+    }
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                this.decreaseReload(itemstack, player);
+                int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+                int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                if (click && player.getHeldItemMainhand() == itemstack) {
+                    if (ammo > 0 && this.isReloaded(itemstack)) {
+                        if (!player.getCooldownTracker().hasCooldown(this)) {
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.cannon, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                            player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
+                            player.addStat(StatList.getObjectUseStats(this));
+                            IWeapon.fireBomEffect(this, player, world, 0);
+                            Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
+                            ToxicNuke projectile = new ToxicNuke(world, player, itemstack);
+                            Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.1F, 0.5F, 0.4F);
+                            world.spawnEntity(projectile);
+                            this.addAmmo(ammo, itemstack, -1);
+                            if (!player.capabilities.isCreativeMode) {
+                                itemstack.damageItem(1, player);
+                            }
+                        }
+                    } else if (this.initiateReload(itemstack, player, ItemsRegister.TOXIC_NUCLEAR_WARHEAD, maxammo)) {
+                        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.toxic_nuke_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 20.0F);
+                        Weapons.setPlayerAnimationOnServer(player, 19, EnumHand.MAIN_HAND);
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public float getAdditionalDurabilityBar(ItemStack stack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(stack, "ammo") / maxammo, 0.0F, 1.0F);
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public float getAdditionalDurabilityBar(ItemStack stack) {
+        return MathHelper.clamp((float) NBTHelper.GetNBTint(stack, "ammo") / maxammo, 0.0F, 1.0F);
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
-      return true;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasAdditionalDurabilityBar(ItemStack itemstack) {
+        return true;
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.TWO_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.TWO_HANDED;
+    }
 
-   @Override
-   public int getItemEnchantability() {
-      return 2;
-   }
+    @Override
+    public int getItemEnchantability() {
+        return 2;
+    }
+
 }

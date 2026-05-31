@@ -12,145 +12,147 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 public class ModelRendererUncompiled extends ModelRenderer {
-   public int light = 0;
-   public boolean addlight = false;
-   public boolean uselight;
-   public float scaleFact = 1.0F;
 
-   public ModelRendererUncompiled(ModelBase model, int texOffX, int texOffY, int light, boolean addlight) {
-      super(model, texOffX, texOffY);
-      this.light = light;
-      this.addlight = addlight;
-      this.uselight = true;
-   }
+    public int light = 0;
+    public boolean addlight = false;
+    public boolean uselight;
+    public float scaleFact = 1.0F;
 
-   public ModelRendererUncompiled(ModelBase model, int texOffX, int texOffY) {
-      super(model, texOffX, texOffY);
-      this.uselight = false;
-   }
+    public ModelRendererUncompiled(ModelBase model, int texOffX, int texOffY, int light, boolean addlight) {
+        super(model, texOffX, texOffY);
+        this.light = light;
+        this.addlight = addlight;
+        this.uselight = true;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public void render(float scale) {
-      if (!this.isHidden && this.showModel) {
-         float lbX = 0.0F;
-         float lbY = 0.0F;
-         if (this.uselight) {
-            lbX = OpenGlHelper.lastBrightnessX;
-            lbY = OpenGlHelper.lastBrightnessY;
-            GL11.glDisable(2896);
-            if (this.addlight) {
-               OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, Math.min(240.0F, this.light + lbX), Math.min(240.0F, this.light + lbY));
-            } else {
-               OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, Math.min(240, this.light), Math.min(240, this.light));
+    public ModelRendererUncompiled(ModelBase model, int texOffX, int texOffY) {
+        super(model, texOffX, texOffY);
+        this.uselight = false;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void render(float scale) {
+        if (!this.isHidden && this.showModel) {
+            float lbX = 0.0F;
+            float lbY = 0.0F;
+            if (this.uselight) {
+                lbX = OpenGlHelper.lastBrightnessX;
+                lbY = OpenGlHelper.lastBrightnessY;
+                GL11.glDisable(2896);
+                if (this.addlight) {
+                    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, Math.min(240.0F, this.light + lbX), Math.min(240.0F, this.light + lbY));
+                } else {
+                    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, Math.min(240, this.light), Math.min(240, this.light));
+                }
             }
-         }
 
-         GlStateManager.translate(this.offsetX, this.offsetY, this.offsetZ);
-         if (this.rotateAngleX == 0.0F && this.rotateAngleY == 0.0F && this.rotateAngleZ == 0.0F) {
-            if (this.rotationPointX == 0.0F && this.rotationPointY == 0.0F && this.rotationPointZ == 0.0F) {
-               this.renderUncompiled(scale * this.scaleFact);
-               if (this.childModels != null) {
-                  for (ModelRenderer childModel : this.childModels) {
-                      childModel.render(scale);
-                  }
-               }
+            GlStateManager.translate(this.offsetX, this.offsetY, this.offsetZ);
+            if (this.rotateAngleX == 0.0F && this.rotateAngleY == 0.0F && this.rotateAngleZ == 0.0F) {
+                if (this.rotationPointX == 0.0F && this.rotationPointY == 0.0F && this.rotationPointZ == 0.0F) {
+                    this.renderUncompiled(scale * this.scaleFact);
+                    if (this.childModels != null) {
+                        for (ModelRenderer childModel : this.childModels) {
+                            childModel.render(scale);
+                        }
+                    }
+                } else {
+                    GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
+                    this.renderUncompiled(scale * this.scaleFact);
+                    if (this.childModels != null) {
+                        for (ModelRenderer childModel : this.childModels) {
+                            childModel.render(scale);
+                        }
+                    }
+
+                    GlStateManager.translate(-this.rotationPointX * scale, -this.rotationPointY * scale, -this.rotationPointZ * scale);
+                }
             } else {
-               GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
-               this.renderUncompiled(scale * this.scaleFact);
-               if (this.childModels != null) {
-                  for (ModelRenderer childModel : this.childModels) {
-                      childModel.render(scale);
-                  }
-               }
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
+                if (this.rotateAngleZ != 0.0F) {
+                    GlStateManager.rotate(this.rotateAngleZ * (180.0F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
+                }
 
-               GlStateManager.translate(-this.rotationPointX * scale, -this.rotationPointY * scale, -this.rotationPointZ * scale);
+                if (this.rotateAngleY != 0.0F) {
+                    GlStateManager.rotate(this.rotateAngleY * (180.0F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+                }
+
+                if (this.rotateAngleX != 0.0F) {
+                    GlStateManager.rotate(this.rotateAngleX * (180.0F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
+                }
+
+                this.renderUncompiled(scale * this.scaleFact);
+                if (this.childModels != null) {
+                    for (ModelRenderer childModel : this.childModels) {
+                        childModel.render(scale);
+                    }
+                }
+
+                GlStateManager.popMatrix();
             }
-         } else {
+
+            GlStateManager.translate(-this.offsetX, -this.offsetY, -this.offsetZ);
+            if (this.uselight) {
+                GL11.glEnable(2896);
+                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lbX, lbY);
+            }
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void renderWithRotation(float scale) {
+        if (!this.isHidden && this.showModel) {
             GlStateManager.pushMatrix();
             GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
-            if (this.rotateAngleZ != 0.0F) {
-               GlStateManager.rotate(this.rotateAngleZ * (180.0F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
-            }
-
             if (this.rotateAngleY != 0.0F) {
-               GlStateManager.rotate(this.rotateAngleY * (180.0F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
+                GlStateManager.rotate(this.rotateAngleY * (180.0F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
             }
 
             if (this.rotateAngleX != 0.0F) {
-               GlStateManager.rotate(this.rotateAngleX * (180.0F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
+                GlStateManager.rotate(this.rotateAngleX * (180.0F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
             }
 
-            this.renderUncompiled(scale * this.scaleFact);
-            if (this.childModels != null) {
-               for (ModelRenderer childModel : this.childModels) {
-                   childModel.render(scale);
-               }
+            if (this.rotateAngleZ != 0.0F) {
+                GlStateManager.rotate(this.rotateAngleZ * (180.0F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
             }
 
+            this.renderUncompiled(scale);
             GlStateManager.popMatrix();
-         }
+        }
+    }
 
-         GlStateManager.translate(-this.offsetX, -this.offsetY, -this.offsetZ);
-         if (this.uselight) {
-            GL11.glEnable(2896);
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lbX, lbY);
-         }
-      }
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void postRender(float scale) {
+        if (!this.isHidden && this.showModel) {
+            if (this.rotateAngleX != 0.0F || this.rotateAngleY != 0.0F || this.rotateAngleZ != 0.0F) {
+                GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
+                if (this.rotateAngleZ != 0.0F) {
+                    GlStateManager.rotate(this.rotateAngleZ * (180.0F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
+                }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public void renderWithRotation(float scale) {
-      if (!this.isHidden && this.showModel) {
-         GlStateManager.pushMatrix();
-         GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
-         if (this.rotateAngleY != 0.0F) {
-            GlStateManager.rotate(this.rotateAngleY * (180.0F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
-         }
+                if (this.rotateAngleY != 0.0F) {
+                    GlStateManager.rotate(this.rotateAngleY * (180.0F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+                }
 
-         if (this.rotateAngleX != 0.0F) {
-            GlStateManager.rotate(this.rotateAngleX * (180.0F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
-         }
-
-         if (this.rotateAngleZ != 0.0F) {
-            GlStateManager.rotate(this.rotateAngleZ * (180.0F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
-         }
-
-         this.renderUncompiled(scale);
-         GlStateManager.popMatrix();
-      }
-   }
-
-   @Override
-   @SideOnly(Side.CLIENT)
-   public void postRender(float scale) {
-      if (!this.isHidden && this.showModel) {
-         if (this.rotateAngleX != 0.0F || this.rotateAngleY != 0.0F || this.rotateAngleZ != 0.0F) {
-            GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
-            if (this.rotateAngleZ != 0.0F) {
-               GlStateManager.rotate(this.rotateAngleZ * (180.0F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
+                if (this.rotateAngleX != 0.0F) {
+                    GlStateManager.rotate(this.rotateAngleX * (180.0F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
+                }
+            } else if (this.rotationPointX != 0.0F || this.rotationPointY != 0.0F || this.rotationPointZ != 0.0F) {
+                GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
             }
+        }
+    }
 
-            if (this.rotateAngleY != 0.0F) {
-               GlStateManager.rotate(this.rotateAngleY * (180.0F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
-            }
+    @SideOnly(Side.CLIENT)
+    public void renderUncompiled(float scale) {
+        BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
 
-            if (this.rotateAngleX != 0.0F) {
-               GlStateManager.rotate(this.rotateAngleX * (180.0F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
-            }
-         } else if (this.rotationPointX != 0.0F || this.rotationPointY != 0.0F || this.rotationPointZ != 0.0F) {
-            GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
-         }
-      }
-   }
+        for (ModelBox modelBox : this.cubeList) {
+            modelBox.render(bufferbuilder, scale);
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   public void renderUncompiled(float scale) {
-      BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
-
-      for (ModelBox modelBox : this.cubeList) {
-          modelBox.render(bufferbuilder, scale);
-      }
-   }
 }

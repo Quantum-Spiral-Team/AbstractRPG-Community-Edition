@@ -1,10 +1,8 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.EnumOffsetType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,70 +15,74 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Random;
+
 public class FulminiortumBonny extends Block {
-   public static AxisAlignedBB AABB = new AxisAlignedBB(0.2, 0.0, 0.2, 0.8, 1.0, 0.8);
 
-   public FulminiortumBonny() {
-      super(Material.PLANTS);
-      this.setRegistryName("bonny_fulminiortum");
-      this.setTranslationKey("bonny_fulminiortum");
-      this.blockHardness = 0.4F;
-      this.blockResistance = 0.4F;
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setSoundType(SoundType.PLANT);
-      this.lightValue = 3;
-   }
+    public static AxisAlignedBB AABB = new AxisAlignedBB(0.2, 0.0, 0.2, 0.8, 1.0, 0.8);
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    public FulminiortumBonny() {
+        super(Material.PLANTS);
+        this.setRegistryName("bonny_fulminiortum");
+        this.setTranslationKey("bonny_fulminiortum");
+        this.blockHardness = 0.4F;
+        this.blockResistance = 0.4F;
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setSoundType(SoundType.PLANT);
+        this.lightValue = 3;
+    }
 
-   @Override
-   public EnumOffsetType getOffsetType() {
-      return EnumOffsetType.XYZ;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public EnumOffsetType getOffsetType() {
+        return EnumOffsetType.XYZ;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public int quantityDropped(Random random) {
-      return 0;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   @Override
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      return canStayAtPos(worldIn, pos);
-   }
+    @Override
+    public int quantityDropped(Random random) {
+        return 0;
+    }
 
-   public static boolean canStayAtPos(World worldIn, BlockPos pos) {
-      Block blockd = worldIn.getBlockState(pos.down()).getBlock();
-      return blockd == BlocksRegister.FULMINIFLORA || blockd == Blocks.STONE;
-   }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return canStayAtPos(worldIn, pos);
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      if (!canStayAtPos(worldIn, pos)) {
-         worldIn.destroyBlock(pos, true);
-      }
-   }
+    public static boolean canStayAtPos(World worldIn, BlockPos pos) {
+        Block blockd = worldIn.getBlockState(pos.down()).getBlock();
+        return blockd == BlocksRegister.FULMINIFLORA || blockd == Blocks.STONE;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        if (!canStayAtPos(worldIn, pos)) {
+            worldIn.destroyBlock(pos, true);
+        }
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
 }

@@ -1,40 +1,16 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Ln;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Multimap;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.network.packet.PacketItemBoomToClient;
 import com.vivern.arpg.network.packet.PacketWeaponEffectToClients;
 import com.vivern.arpg.network.packet.PacketWeaponStateToClients;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Multimap;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map.Entry;
-
-import net.minecraft.util.*;
-import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.item.EntityItem;
@@ -46,13 +22,24 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map.Entry;
 
 public interface IWeapon {
 
@@ -547,6 +534,7 @@ public interface IWeapon {
 
     static void sendIWeaponState(ItemStack itemStack, EntityPlayer player, int state_byte, int slot, EnumHand hand) {
         if (!player.world.isRemote) {
+            //  System.out.println("sended IWeaponState from player " + player.getEntityId() + " " + player.getName() + " slot: " + slot);
             PacketWeaponStateToClients packet = new PacketWeaponStateToClients();
             packet.writeArgs((byte) state_byte, player.getEntityId(), hand == EnumHand.MAIN_HAND ? slot : 40);
             PacketHandler.sendToAllAround(packet, player.world, player.posX, player.posY, player.posZ, 64.0);
@@ -560,6 +548,16 @@ public interface IWeapon {
     @SideOnly(Side.CLIENT)
     default void onStateReceived(EntityPlayer player, ItemStack itemstack, byte state, int slot) {
     }
+
+    //	public default void advancedClientUpdate(ItemStack stack, World worldIn, EntityPlayer player) {
+    //	}
+
+    //	public default void setupShoot(ItemStack stack, EntityPlayer player, World world) {
+    //	    Item itemIn = itemstack.getItem();
+    //	    world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, useSound, SoundCategory.AMBIENT, 1.0F, 0.9F + player.getRNG().nextFloat() / 5);
+    //	    player.getCooldownTracker().setCooldown(itemIn, cooldown - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
+    //	    player.addStat(StatList.getObjectUseStats(itemIn));
+    //	}
 
     default int getModifiedMeleeCooldown(double entityAttackSpeed, int cooldown) {
         return (int) Math.round(cooldown * (4.0 / entityAttackSpeed));
@@ -736,18 +734,11 @@ public interface IWeapon {
         int sweeping = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack);
         int knockback = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack);
         WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-        return doMeleeDaggerAttack(iweapon,
-                stack,
-                player,
-                hand,
-                parameters.getEnchantedF("damage", sharpness),
-                parameters.getEnchantedF("knockback", knockback),
-                parameters.getEnchantedF("length", sweeping),
-                isCritical
-        );
+        return doMeleeDaggerAttack(iweapon, stack, player, hand, parameters.getEnchantedF("damage", sharpness), parameters.getEnchantedF("knockback", knockback), parameters.getEnchantedF("length", sweeping), isCritical);
     }
 
     static MeleeAttackResult doMeleeDaggerAttack(IWeapon iweapon, ItemStack stack, EntityPlayer player, EnumHand hand, float damage, float knockback, float length, boolean isCritical) {
+        //  Vec3d vec = GetMOP.rayGetMOP.PosRayTrace(length, 1, player, size, size / 2F);
         Vec3d vec3d = player.getPositionEyes(1.0F);
         Vec3d vec3d1 = player.getLook(1.0F);
         Vec3d vec3d2 = vec3d.add(vec3d1.x * length, vec3d1.y * length, vec3d1.z * length);
@@ -800,16 +791,7 @@ public interface IWeapon {
         int sweeping = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack);
         int knockback = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, stack);
         WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
-        return doMeleeWhipAttack(iweapon,
-                stack,
-                player,
-                hand,
-                parameters.getEnchantedF("damage", sharpness),
-                parameters.getEnchantedF("knockback", knockback),
-                parameters.getEnchantedF("length", sweeping),
-                parameters.getEnchantedF("size", sweeping),
-                parameters.getEnchantedF("end_size", sweeping)
-        );
+        return doMeleeWhipAttack(iweapon, stack, player, hand, parameters.getEnchantedF("damage", sharpness), parameters.getEnchantedF("knockback", knockback), parameters.getEnchantedF("length", sweeping), parameters.getEnchantedF("size", sweeping), parameters.getEnchantedF("end_size", sweeping));
     }
 
     static MeleeAttackResult doMeleeWhipAttack(IWeapon iweapon, ItemStack stack, EntityPlayer player, EnumHand hand, float damage, float knockback, float length, float size, float endSize) {
@@ -933,6 +915,9 @@ public interface IWeapon {
         }
     }
 
+    /**
+     * @return Can shield block damage
+     */
     static boolean checkShieldAngle(ItemStack stack, EntityPlayer playerWithShield, DamageSource source) {
         float shieldAngle = WeaponParameters.getWeaponParameters(stack.getItem()).getEnchantedF("shield_angle", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, stack));
         Vec3d vec1 = playerWithShield.getLookVec();
@@ -1009,23 +994,23 @@ public interface IWeapon {
 
         Predicate<EntityLivingBase> filter = null;
         if (inverted) {
-            if (filterMode == 1) {
+            if (filterMode == 1) { // type
                 final String finalString = filterParamString;
                 filter = input -> {
                     String entityName = EntityList.getEntityString(input);
                     return entityName != null && !entityName.isEmpty() && !entityName.toLowerCase(Locale.ROOT).contains(finalString);
                 };
-            } else if (filterMode == 2) {
+            } else if (filterMode == 2) { // name
                 final String finalString = filterParamString;
                 filter = input -> {
                     String entityName = input.getName().toLowerCase(Locale.ROOT);
                     return !entityName.isEmpty() && !entityName.contains(finalString);
                 };
-            } else if (filterMode == 3) {
-                final boolean finalpercent = percent;
+            } else if (filterMode == 3) { // hp
+                final boolean finalPercent = percent;
                 float finalNumberValue = numberValue;
-                filter = input -> finalpercent ? input.getHealth() / input.getMaxHealth() >= finalNumberValue / 100.0F : input.getHealth() >= finalNumberValue;
-            } else if (filterMode == 4) {
+                filter = input -> finalPercent ? input.getHealth() / input.getMaxHealth() >= finalNumberValue / 100.0F : input.getHealth() >= finalNumberValue;
+            } else if (filterMode == 4) { // leadership
                 final float finalValue = numberValue;
                 filter = input -> {
                     if (input instanceof AbstractMob) {
@@ -1035,30 +1020,30 @@ public interface IWeapon {
                         return 0.0F > finalValue;
                     }
                 };
-            } else if (filterMode == 5) {
+            } else if (filterMode == 5) { // team
                 final String finalString = filterParamString;
                 filter = input -> {
                     String team = Team.getTeamFor(input);
                     return team.isEmpty() || !team.contains(finalString);
                 };
             }
-        } else if (filterMode == 1) {
+        } else if (filterMode == 1) { // type
             final String finalString = filterParamString;
             filter = input -> {
                 String entityName = EntityList.getEntityString(input);
                 return entityName != null && !entityName.isEmpty() && entityName.toLowerCase(Locale.ROOT).contains(finalString);
             };
-        } else if (filterMode == 2) {
+        } else if (filterMode == 2) { // name
             final String finalString = filterParamString;
             filter = input -> {
                 String entityName = input.getName().toLowerCase(Locale.ROOT);
                 return !entityName.isEmpty() && entityName.contains(finalString);
             };
-        } else if (filterMode == 3) {
-            final boolean finalpercent = percent;
+        } else if (filterMode == 3) { // hp
+            final boolean finalPercent = percent;
             float finalNumberValue1 = numberValue;
-            filter = input -> finalpercent ? input.getHealth() / input.getMaxHealth() < finalNumberValue1 / 100.0F : input.getHealth() < finalNumberValue1;
-        } else if (filterMode == 4) {
+            filter = input -> finalPercent ? input.getHealth() / input.getMaxHealth() < finalNumberValue1 / 100.0F : input.getHealth() < finalNumberValue1;
+        } else if (filterMode == 4) { // leadership
             final float finalValue = numberValue;
             filter = input -> {
                 if (input instanceof AbstractMob) {
@@ -1068,7 +1053,7 @@ public interface IWeapon {
                     return true;
                 }
             };
-        } else if (filterMode == 5) {
+        } else if (filterMode == 5) { // team
             final String finalString = filterParamString;
             filter = input -> {
                 String team = Team.getTeamFor(input);

@@ -1,11 +1,6 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Team;
-import java.util.List;
+import com.vivern.arpg.main.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -23,123 +18,113 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class SummonedSnowman extends EntitySummoned {
-   public static ResourceLocation displayicon = new ResourceLocation("arpg:textures/snowman_display_icon.png");
-   public final ItemStack weaponstack;
 
-   public SummonedSnowman(World world) {
-      super(world);
-      this.setSize(0.7F, 1.7F);
-      this.weaponstack = new ItemStack(ItemsRegister.CONIFER_ROD);
-   }
+    public static ResourceLocation displayicon = new ResourceLocation("arpg:textures/snowman_display_icon.png");
+    public final ItemStack weaponstack;
 
-   public SummonedSnowman(World world, double x, double y, double z) {
-      super(world);
-      this.setSize(0.7F, 1.7F);
-      this.setPositionAndUpdate(x, y, z);
-      this.weaponstack = new ItemStack(ItemsRegister.CONIFER_ROD);
-   }
+    public SummonedSnowman(World world) {
+        super(world);
+        this.setSize(0.7F, 1.7F);
+        this.weaponstack = new ItemStack(ItemsRegister.CONIFER_ROD);
+    }
 
-   public SummonedSnowman(World world, double x, double y, double z, EntityPlayer owner, ItemStack itemstack) {
-      super(world);
-      this.setSize(0.7F, 1.7F);
-      this.setPositionAndUpdate(x, y, z);
-      this.setOwner(owner);
-      this.allowedFollow = true;
-      this.followPlayerMaxRange = 20.0;
-      this.followPlayerMinRange = 11.0;
-      this.team = Team.getTeamFor(owner);
-      this.weaponstack = itemstack;
-   }
+    public SummonedSnowman(World world, double x, double y, double z) {
+        super(world);
+        this.setSize(0.7F, 1.7F);
+        this.setPositionAndUpdate(x, y, z);
+        this.weaponstack = new ItemStack(ItemsRegister.CONIFER_ROD);
+    }
 
-   @Override
-   public ResourceLocation getDisplayIcon() {
-      return displayicon;
-   }
+    public SummonedSnowman(World world, double x, double y, double z, EntityPlayer owner, ItemStack itemstack) {
+        super(world);
+        this.setSize(0.7F, 1.7F);
+        this.setPositionAndUpdate(x, y, z);
+        this.setOwner(owner);
+        this.allowedFollow = true;
+        this.followPlayerMaxRange = 20.0;
+        this.followPlayerMinRange = 11.0;
+        this.team = Team.getTeamFor(owner);
+        this.weaponstack = itemstack;
+    }
 
-   @Override
-   protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-      return SoundEvents.ENTITY_SNOWMAN_HURT;
-   }
+    @Override
+    public ResourceLocation getDisplayIcon() {
+        return displayicon;
+    }
 
-   protected SoundEvent getDeathSound(DamageSource damageSourceIn) {
-      return SoundEvents.ENTITY_SNOWMAN_DEATH;
-   }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return SoundEvents.ENTITY_SNOWMAN_HURT;
+    }
 
-   @Override
-   public void onUpdate() {
-      super.onUpdate();
-      if (this.ticksExisted > 1800) {
-         this.expelling();
-      }
+    protected SoundEvent getDeathSound(DamageSource damageSourceIn) {
+        return SoundEvents.ENTITY_SNOWMAN_DEATH;
+    }
 
-      if (this.ticksExisted % 20 == 0) {
-         double max = Double.MAX_VALUE;
-         EntityLivingBase targ = null;
-         double damageRadius = 17.0;
-         AxisAlignedBB axisalignedbb = this.getEntityBoundingBox()
-            .expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0)
-            .offset(-damageRadius, -damageRadius, -damageRadius);
-         List<EntityLivingBase> list = this.world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
-         if (!list.isEmpty()) {
-            for (EntityLivingBase entitylivingbase : list) {
-               if (GetMOP.findEntityOnPath(
-                       this.getPositionEyes(1.0F),
-                        entitylivingbase.getPositionVector().add(0.0, entitylivingbase.height / 2.0F, 0.0),
-                       this,
-                        true,
-                        0.1,
-                        0.01
-                     )
-                     == entitylivingbase
-                  && entitylivingbase.isCreatureType(EnumCreatureType.MONSTER, false)
-                  && entitylivingbase != this.getOwner()
-                  && EntitySelectors.NOT_SPECTATING.apply(entitylivingbase)
-                  && entitylivingbase.getHealth() > 0.0F) {
-                  double dist = entitylivingbase.getDistance(this);
-                  if (dist < max) {
-                     max = dist;
-                     targ = entitylivingbase;
-                  }
-               }
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (this.ticksExisted > 1800) {
+            this.expelling();
+        }
+
+        if (this.ticksExisted % 20 == 0) {
+            double max = Double.MAX_VALUE;
+            EntityLivingBase targ = null;
+            double damageRadius = 17.0;
+            AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().expand(damageRadius * 2.0, damageRadius * 2.0, damageRadius * 2.0).offset(-damageRadius, -damageRadius, -damageRadius);
+            List<EntityLivingBase> list = this.world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+            if (!list.isEmpty()) {
+                for (EntityLivingBase entitylivingbase : list) {
+                    if (GetMOP.findEntityOnPath(this.getPositionEyes(1.0F), entitylivingbase.getPositionVector().add(0.0, entitylivingbase.height / 2.0F, 0.0), this, true, 0.1, 0.01) == entitylivingbase && entitylivingbase.isCreatureType(EnumCreatureType.MONSTER, false) && entitylivingbase != this.getOwner() && EntitySelectors.NOT_SPECTATING.apply(entitylivingbase) && entitylivingbase.getHealth() > 0.0F) {
+                        double dist = entitylivingbase.getDistance(this);
+                        if (dist < max) {
+                            max = dist;
+                            targ = entitylivingbase;
+                        }
+                    }
+                }
             }
-         }
 
-         this.setAttackTarget(targ);
-      }
+            this.setAttackTarget(targ);
+        }
 
-      if (this.owner != null && this.owner.isDead) {
-         this.setDead();
-      }
-   }
+        if (this.owner != null && this.owner.isDead) {
+            this.setDead();
+        }
+    }
 
-   @Override
-   protected void applyEntityAttributes() {
-      super.applyEntityAttributes();
-      int enchMight = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
-      int enchImpulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
-      int enchRapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, this.weaponstack);
-      this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(17.0);
-      this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25 + enchRapidity / 20.0);
-      this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.5 + enchMight);
-      this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1.0);
-      this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0 + enchMight);
-      this.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(4.0 + enchRapidity / 2.0);
-      this.getEntityAttribute(PropertiesRegistry.MELEE_KNOCKBACK).setBaseValue(enchImpulse);
-   }
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        int enchMight = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack);
+        int enchImpulse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack);
+        int enchRapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, this.weaponstack);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(17.0);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25 + enchRapidity / 20.0);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.5 + enchMight);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1.0);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0 + enchMight);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(4.0 + enchRapidity / 2.0);
+        this.getEntityAttribute(PropertiesRegistry.MELEE_KNOCKBACK).setBaseValue(enchImpulse);
+    }
 
-   @Override
-   protected void initEntityAI() {
-      this.tasks.addTask(1, new EntityAISwimming(this));
-      this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));
-   }
+    @Override
+    protected void initEntityAI() {
+        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0, false));
+    }
 
-   @Override
-   public void onDeath(DamageSource cause) {
-      super.onDeath(cause);
-      int enchReuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack);
-      if (this.world.getGameRules().getBoolean("doMobLoot") && enchReuse > 0) {
-         this.entityDropItem(new ItemStack(Items.SNOWBALL, this.rand.nextInt(3 + enchReuse * 2) + 1), 0.0F);
-      }
-   }
+    @Override
+    public void onDeath(DamageSource cause) {
+        super.onDeath(cause);
+        int enchReuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack);
+        if (this.world.getGameRules().getBoolean("doMobLoot") && enchReuse > 0) {
+            this.entityDropItem(new ItemStack(Items.SNOWBALL, this.rand.nextInt(3 + enchReuse * 2) + 1), 0.0F);
+        }
+    }
+
 }

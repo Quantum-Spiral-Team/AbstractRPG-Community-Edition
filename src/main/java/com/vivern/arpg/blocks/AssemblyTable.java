@@ -2,7 +2,6 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.tileentity.TileAssemblyTable;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -17,12 +16,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -30,159 +24,150 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class AssemblyTable extends Block {
-   public static final PropertyDirection FACING = PropertyDirection.create("facing");
-   public static final AxisAlignedBB ALL_AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0);
 
-   public AssemblyTable() {
-      super(Material.IRON);
-      this.setRegistryName("assembly_table");
-      this.setTranslationKey("assembly_table");
-      this.blockHardness = 6.5F;
-      this.blockResistance = 10.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setSoundType(SoundTypeShards.METAL);
-      this.setHarvestLevel("pickaxe", 1);
-   }
+    public static final PropertyDirection FACING = PropertyDirection.create("facing");
+    public static final AxisAlignedBB ALL_AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0);
 
-   @Override
-   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity instanceof IInventory) {
-         InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
-         worldIn.updateComparatorOutputLevel(pos, this);
-      }
+    public AssemblyTable() {
+        super(Material.IRON);
+        this.setRegistryName("assembly_table");
+        this.setTranslationKey("assembly_table");
+        this.blockHardness = 6.5F;
+        this.blockResistance = 10.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setSoundType(SoundTypeShards.METAL);
+        this.setHarvestLevel("pickaxe", 1);
+    }
 
-      super.breakBlock(worldIn, pos, state);
-   }
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof IInventory) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-   }
+        super.breakBlock(worldIn, pos, state);
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      if (!worldIn.isRemote) {
-         TileAssemblyTable tile = this.getTileEntity(worldIn, pos);
-         tile.augments = tile.findAugments();
-      }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+    }
 
-      super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        if (!worldIn.isRemote) {
+            TileAssemblyTable tile = this.getTileEntity(worldIn, pos);
+            tile.augments = tile.findAugments();
+        }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+    }
 
-   @Override
-   public EnumBlockRenderType getRenderType(IBlockState state) {
-      return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!worldIn.isRemote) {
-         TileAssemblyTable tile = this.getTileEntity(worldIn, pos);
-         if (tile != null) {
-            player.openGui(AbstractRPG.instance, 9, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            return true;
-         }
-      }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-      return true;
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            TileAssemblyTable tile = this.getTileEntity(worldIn, pos);
+            if (tile != null) {
+                player.openGui(AbstractRPG.instance, 9, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                return true;
+            }
+        }
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TileAssemblyTable tile, int range) {
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + range,
-            pos.getY() + range,
-            pos.getZ() + range,
-            pos.getX() - range,
-            pos.getY() - range,
-            pos.getZ() - range
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+        return true;
+    }
 
-   public Class<TileAssemblyTable> getTileEntityClass() {
-      return TileAssemblyTable.class;
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TileAssemblyTable tile, int range) {
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + range, pos.getY() + range, pos.getZ() + range, pos.getX() - range, pos.getY() - range, pos.getZ() - range))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-   public TileAssemblyTable getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileAssemblyTable)world.getTileEntity(position);
-   }
+    public Class<TileAssemblyTable> getTileEntityClass() {
+        return TileAssemblyTable.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileAssemblyTable getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileAssemblyTable) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileAssemblyTable createTileEntity(World world, IBlockState blockState) {
-      return new TileAssemblyTable();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @Nullable
+    public TileAssemblyTable createTileEntity(World world, IBlockState blockState) {
+        return new TileAssemblyTable();
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      EnumFacing enumfacing = EnumFacing.byIndex(meta);
-      if (enumfacing.getAxis() == Axis.Y) {
-         enumfacing = EnumFacing.NORTH;
-      }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-      return this.getDefaultState().withProperty(FACING, enumfacing);
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
+        if (enumfacing.getAxis() == Axis.Y) {
+            enumfacing = EnumFacing.NORTH;
+        }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(FACING).getIndex();
-   }
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
 
-   @Override
-   public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(FACING).getIndex();
+    }
 
-   @Override
-   public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
-   }
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{FACING});
-   }
+    @Override
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{FACING});
+    }
+
 }

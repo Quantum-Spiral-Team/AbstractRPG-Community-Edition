@@ -13,131 +13,133 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class BossSpineSegment extends EntityMob {
-   public int number;
-   public BossSpine owner;
 
-   public BossSpineSegment(World worldIn) {
-      super(worldIn);
-      this.setSize(1.0F, 1.0F);
-      this.setNoGravity(true);
-      this.noClip = true;
-      this.number = 0;
-      this.owner = null;
-      this.isImmuneToFire = true;
-   }
+    public int number;
+    public BossSpine owner;
 
-   public BossSpineSegment(World worldIn, int number, BossSpine owner) {
-      super(worldIn);
-      this.setSize(1.0F, 1.0F);
-      this.setNoGravity(true);
-      this.noClip = true;
-      this.number = number;
-      this.owner = owner;
-      this.isImmuneToFire = true;
-   }
+    public BossSpineSegment(World worldIn) {
+        super(worldIn);
+        this.setSize(1.0F, 1.0F);
+        this.setNoGravity(true);
+        this.noClip = true;
+        this.number = 0;
+        this.owner = null;
+        this.isImmuneToFire = true;
+    }
 
-   @Override
-   public void onDeath(DamageSource cause) {
-      if (this.owner != null) {
-         this.owner.deads++;
-      }
+    public BossSpineSegment(World worldIn, int number, BossSpine owner) {
+        super(worldIn);
+        this.setSize(1.0F, 1.0F);
+        this.setNoGravity(true);
+        this.noClip = true;
+        this.number = number;
+        this.owner = owner;
+        this.isImmuneToFire = true;
+    }
 
-      super.onDeath(cause);
-   }
+    @Override
+    public void onDeath(DamageSource cause) {
+        if (this.owner != null) {
+            this.owner.deads++;
+        }
 
-   @Override
-   public void fall(float distance, float damageMultiplier) {
-   }
+        super.onDeath(cause);
+    }
 
-   @Override
-   public boolean attackEntityFrom(DamageSource source, float amount) {
-      if (source == DamageSource.IN_WALL || source == DamageSource.CRAMMING || source == DamageSource.CACTUS) {
-         return false;
-      } else if (this.owner != null && this.owner.deads > 20) {
-         this.world.setEntityState(this, (byte)2);
-         boolean att = this.owner.attackEntityFrom(source, amount);
-         if (this.owner.getHealth() <= 0.0F) {
-            super.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
-         }
+    @Override
+    public void fall(float distance, float damageMultiplier) {
+    }
 
-         return att;
-      } else {
-         return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
-      }
-   }
-
-   @Override
-   public boolean canBreatheUnderwater() {
-      return true;
-   }
-
-   @Override
-   public void onUpdate() {
-      super.onUpdate();
-      if (!this.world.isRemote) {
-         if (this.owner != null) {
-            if (this.owner.poslist.size() > this.number) {
-               Vec3d vec = this.owner.poslist.get(this.number);
-               if (vec != null) {
-                  this.motionX /= 2.0;
-                  this.motionY /= 2.0;
-                  this.motionZ /= 2.0;
-                  float power = (float)this.getDistance(vec.x, vec.y, vec.z);
-                  SuperKnockback.applyMove(this, -power, vec.x, vec.y, vec.z);
-               }
-            }
-
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (source == DamageSource.IN_WALL || source == DamageSource.CRAMMING || source == DamageSource.CACTUS) {
+            return false;
+        } else if (this.owner != null && this.owner.deads > 20) {
+            this.world.setEntityState(this, (byte) 2);
+            boolean att = this.owner.attackEntityFrom(source, amount);
             if (this.owner.getHealth() <= 0.0F) {
-               this.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
-            }
-         } else {
-            this.setDead();
-         }
-      }
-
-      if (this.owner != null) {
-         if (this.owner.poslist.size() > this.number) {
-            if (this.number > 0) {
-               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.owner.poslist.get(this.number - 1)));
-               this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
-               this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
+                super.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
             }
 
-            if (this.number == 0) {
-               Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.owner.getPositionVector()));
-               this.rotationPitch = (float)MathHelper.wrapDegrees(pitchYaw.x);
-               this.rotationYaw = (float)MathHelper.wrapDegrees(pitchYaw.y);
+            return att;
+        } else {
+            return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
+        }
+    }
+
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (!this.world.isRemote) {
+            if (this.owner != null) {
+                if (this.owner.poslist.size() > this.number) {
+                    Vec3d vec = this.owner.poslist.get(this.number);
+                    if (vec != null) {
+                        this.motionX /= 2.0;
+                        this.motionY /= 2.0;
+                        this.motionZ /= 2.0;
+                        float power = (float) this.getDistance(vec.x, vec.y, vec.z);
+                        SuperKnockback.applyMove(this, -power, vec.x, vec.y, vec.z);
+                    }
+                }
+
+                if (this.owner.getHealth() <= 0.0F) {
+                    this.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
+                }
+            } else {
+                this.setDead();
             }
-         }
+        }
 
-         if (this.owner.getAttackTarget() != null) {
-            this.setAttackTarget(this.owner.getAttackTarget());
-         }
-      }
-   }
+        if (this.owner != null) {
+            if (this.owner.poslist.size() > this.number) {
+                if (this.number > 0) {
+                    Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.owner.poslist.get(this.number - 1)));
+                    this.rotationPitch = (float) MathHelper.wrapDegrees(pitchYaw.x);
+                    this.rotationYaw = (float) MathHelper.wrapDegrees(pitchYaw.y);
+                }
 
-   @Override
-   protected void applyEntityAttributes() {
-      super.applyEntityAttributes();
-      this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0);
-      this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(17.0);
-      this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5);
-      this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0);
-      this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0);
-      this.getEntityAttribute(PropertiesRegistry.ARMOR_PROTECTION).setBaseValue(3.0);
-   }
+                if (this.number == 0) {
+                    Vec3d pitchYaw = GetMOP.vec3DToPitchYaw(this.getPositionVector().subtract(this.owner.getPositionVector()));
+                    this.rotationPitch = (float) MathHelper.wrapDegrees(pitchYaw.x);
+                    this.rotationYaw = (float) MathHelper.wrapDegrees(pitchYaw.y);
+                }
+            }
 
-   @Override
-   protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-      return Sounds.spine_hurt;
-   }
+            if (this.owner.getAttackTarget() != null) {
+                this.setAttackTarget(this.owner.getAttackTarget());
+            }
+        }
+    }
 
-   @Override
-   protected SoundEvent getDeathSound() {
-      return Sounds.spine_segment_dead;
-   }
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(17.0);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0);
+        this.getEntityAttribute(PropertiesRegistry.ARMOR_PROTECTION).setBaseValue(3.0);
+    }
 
-   @Override
-   protected void initEntityAI() {
-   }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return Sounds.spine_hurt;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return Sounds.spine_segment_dead;
+    }
+
+    @Override
+    protected void initEntityAI() {
+    }
+
 }

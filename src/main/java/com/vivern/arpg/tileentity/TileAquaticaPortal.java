@@ -1,4 +1,3 @@
 package com.vivern.arpg.tileentity;
 
-public class TileAquaticaPortal extends TilePortal {
-}
+public class TileAquaticaPortal extends TilePortal {}

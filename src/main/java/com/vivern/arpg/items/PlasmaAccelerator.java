@@ -17,205 +17,150 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
-   public PlasmaAccelerator() {
-      this.setRegistryName("plasma_accelerator");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("plasma_accelerator");
-      this.setMaxDamage(1000);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    public PlasmaAccelerator() {
+        this.setRegistryName("plasma_accelerator");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("plasma_accelerator");
+        this.setMaxDamage(1000);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-            int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
-            boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-            int cooldowntime = this.getCooldownTime(itemstack);
-            int special = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack);
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
-            int shoots = this.getEnergyStored(itemstack) / RFtoShoot;
-            if (player.getHeldItemMainhand() == itemstack) {
-               if (click) {
-                  NBTHelper.GiveNBTint(itemstack, 0, "charge");
-               }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-               int charge = NBTHelper.GetNBTint(itemstack, "charge");
-               if (player.ticksExisted % 15 == 0 && !hascooldown) {
-                  if (charge > -25 && charge < -10) {
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.plasma_accelerator_loopfirst,
-                        SoundCategory.AMBIENT,
-                        0.8F,
-                        1.0F
-                     );
-                     Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
-                  }
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+                int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
+                boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
+                int cooldowntime = this.getCooldownTime(itemstack);
+                int special = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack);
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
+                int shoots = this.getEnergyStored(itemstack) / RFtoShoot;
+                if (player.getHeldItemMainhand() == itemstack) {
+                    if (click) {
+                        NBTHelper.GiveNBTint(itemstack, 0, "charge");
+                    }
 
-                  if (charge <= -25) {
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.plasma_accelerator_loop,
-                        SoundCategory.AMBIENT,
-                        0.8F,
-                        1.0F
-                     );
-                     Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
-                  }
-               }
+                    int charge = NBTHelper.GetNBTint(itemstack, "charge");
+                    if (player.ticksExisted % 15 == 0 && !hascooldown) {
+                        if (charge > -25 && charge < -10) {
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.plasma_accelerator_loopfirst, SoundCategory.AMBIENT, 0.8F, 1.0F);
+                            Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
+                        }
 
-               int maxChargedShoots = parameters.getEnchantedI("shots", special);
-               if (charge <= 0 && click && charge > -(cooldowntime * Math.min(shoots - 1, maxChargedShoots) + 1)) {
-                  if (!hascooldown) {
-                     if (charge == 0) {
-                        world.playSound(
-                                null,
-                           player.posX,
-                           player.posY,
-                           player.posZ,
-                           Sounds.plasma_accelerator_start,
-                           SoundCategory.AMBIENT,
-                           0.8F,
-                           0.9F + itemRand.nextFloat() / 5.0F
-                        );
-                        Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
-                     }
+                        if (charge <= -25) {
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.plasma_accelerator_loop, SoundCategory.AMBIENT, 0.8F, 1.0F);
+                            Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
+                        }
+                    }
 
-                     if (charge == -cooldowntime || charge == -cooldowntime * 2 || special > 0 && charge == -cooldowntime * 3) {
-                        world.playSound(
-                                null,
-                           player.posX,
-                           player.posY,
-                           player.posZ,
-                           Sounds.plasma_accelerator_charge,
-                           SoundCategory.AMBIENT,
-                           0.8F,
-                           0.9F + itemRand.nextFloat() / 5.0F
-                        );
-                     }
+                    int maxChargedShoots = parameters.getEnchantedI("shots", special);
+                    if (charge <= 0 && click && charge > -(cooldowntime * Math.min(shoots - 1, maxChargedShoots) + 1)) {
+                        if (!hascooldown) {
+                            if (charge == 0) {
+                                world.playSound(null, player.posX, player.posY, player.posZ, Sounds.plasma_accelerator_start, SoundCategory.AMBIENT, 0.8F, 0.9F + itemRand.nextFloat() / 5.0F);
+                                Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
+                            }
 
-                     NBTHelper.AddNBTint(itemstack, -1, "charge");
-                  }
-               } else if (charge < 0 && !click) {
-                  NBTHelper.SetNBTint(itemstack, -NBTHelper.GetNBTint(itemstack, "charge"), "charge");
-               } else if (this.getEnergyStored(itemstack) >= RFtoShoot && charge > 0) {
-                  if (!hascooldown) {
-                     if (charge < cooldowntime) {
+                            if (charge == -cooldowntime || charge == -cooldowntime * 2 || special > 0 && charge == -cooldowntime * 3) {
+                                world.playSound(null, player.posX, player.posY, player.posZ, Sounds.plasma_accelerator_charge, SoundCategory.AMBIENT, 0.8F, 0.9F + itemRand.nextFloat() / 5.0F);
+                            }
+
+                            NBTHelper.AddNBTint(itemstack, -1, "charge");
+                        }
+                    } else if (charge < 0 && !click) {
+                        NBTHelper.SetNBTint(itemstack, -NBTHelper.GetNBTint(itemstack, "charge"), "charge");
+                    } else if (this.getEnergyStored(itemstack) >= RFtoShoot && charge > 0) {
+                        if (!hascooldown) {
+                            if (charge < cooldowntime) {
+                                NBTHelper.SetNBTint(itemstack, 0, "charge");
+                                player.getCooldownTracker().setCooldown(this, cooldowntime);
+                            } else {
+                                NBTHelper.AddNBTint(itemstack, -cooldowntime, "charge");
+                                player.getCooldownTracker().setCooldown(this, cooldowntime / 5);
+                            }
+
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.plasma_accelerator, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                            Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
+                            player.addStat(StatList.getObjectUseStats(this));
+                            IWeapon.fireBomEffect(this, player, world, 0);
+                            if (!player.capabilities.isCreativeMode) {
+                                itemstack.damageItem(1, player);
+                                this.extractEnergyFromItem(itemstack, RFtoShoot, false);
+                            }
+
+                            PlasmaAcceleratorShoot projectile = new PlasmaAcceleratorShoot(world, player, itemstack);
+                            Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.2F, 0.5F, 0.3F);
+                            projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
+                            world.spawnEntity(projectile);
+                        }
+                    } else if (charge > 0) {
                         NBTHelper.SetNBTint(itemstack, 0, "charge");
-                        player.getCooldownTracker().setCooldown(this, cooldowntime);
-                     } else {
-                        NBTHelper.AddNBTint(itemstack, -cooldowntime, "charge");
-                        player.getCooldownTracker().setCooldown(this, cooldowntime / 5);
-                     }
-
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.plasma_accelerator,
-                        SoundCategory.AMBIENT,
-                        0.9F,
-                        0.9F + itemRand.nextFloat() / 5.0F
-                     );
-                     Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
-                     player.addStat(StatList.getObjectUseStats(this));
-                     IWeapon.fireBomEffect(this, player, world, 0);
-                     if (!player.capabilities.isCreativeMode) {
-                        itemstack.damageItem(1, player);
-                        this.extractEnergyFromItem(itemstack, RFtoShoot, false);
-                     }
-
-                     PlasmaAcceleratorShoot projectile = new PlasmaAcceleratorShoot(world, player, itemstack);
-                     Weapons.shoot(
-                        projectile,
-                        EnumHand.MAIN_HAND,
-                        player,
-                        player.rotationPitch,
-                        player.rotationYaw,
-                        0.0F,
-                        parameters.getFloat("velocity"),
-                        parameters.getEnchantedF("inaccuracy", acc),
-                        -0.2F,
-                        0.5F,
-                        0.3F
-                     );
-                     projectile.livetime = parameters.getEnchantedI("livetime", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
-                     world.spawnEntity(projectile);
-                  }
-               } else if (charge > 0) {
-                  NBTHelper.SetNBTint(itemstack, 0, "charge");
-               }
-            } else {
-               NBTHelper.SetNBTint(itemstack, 0, "charge");
+                    }
+                } else {
+                    NBTHelper.SetNBTint(itemstack, 0, "charge");
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void boom(int param) {
-      Boom.lastTick = 15;
-      Boom.frequency = 0.2F;
-      Boom.x = 1.0F;
-      Boom.y = 0.0F;
-      Boom.z = 0.0F;
-      Boom.power = 0.3F;
-      Boom.FOVlastTick = 15;
-      Boom.FOVfrequency = -0.2F;
-      Boom.FOVpower = 0.4F;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void boom(int param) {
+        Boom.lastTick = 15;
+        Boom.frequency = 0.2F;
+        Boom.x = 1.0F;
+        Boom.y = 0.0F;
+        Boom.z = 0.0F;
+        Boom.power = 0.3F;
+        Boom.FOVlastTick = 15;
+        Boom.FOVfrequency = -0.2F;
+        Boom.FOVpower = 0.4F;
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.TWO_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.TWO_HANDED;
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public int getMaxEnergyStored(ItemStack stack) {
-      return ItemAccumulator.TOPAZITRON_CAPACITY * 2;
-   }
+    @Override
+    public int getMaxEnergyStored(ItemStack stack) {
+        return ItemAccumulator.TOPAZITRON_CAPACITY * 2;
+    }
 
-   @Override
-   public int getThroughput() {
-      return ItemAccumulator.TOPAZITRON_THROUGHPUT;
-   }
+    @Override
+    public int getThroughput() {
+        return ItemAccumulator.TOPAZITRON_THROUGHPUT;
+    }
+
 }

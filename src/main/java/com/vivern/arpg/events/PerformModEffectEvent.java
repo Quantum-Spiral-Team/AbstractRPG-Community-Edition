@@ -5,25 +5,27 @@ import net.minecraft.potion.Potion;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class PerformModEffectEvent extends Event {
-   private final EntityLivingBase livingBase;
-   private final Potion potion;
-   private final int amplifier;
 
-   public PerformModEffectEvent(EntityLivingBase livingBase, int amplifier, Potion potion) {
-      this.livingBase = livingBase;
-      this.amplifier = amplifier;
-      this.potion = potion;
-   }
+    private final EntityLivingBase livingBase;
+    private final Potion potion;
+    private final int amplifier;
 
-   public EntityLivingBase getEntityLiving() {
-      return this.livingBase;
-   }
+    public PerformModEffectEvent(EntityLivingBase livingBase, int amplifier, Potion potion) {
+        this.livingBase = livingBase;
+        this.amplifier = amplifier;
+        this.potion = potion;
+    }
 
-   public int getAmplifier() {
-      return this.amplifier;
-   }
+    public EntityLivingBase getEntityLiving() {
+        return this.livingBase;
+    }
 
-   public Potion getPotion() {
-      return this.potion;
-   }
+    public int getAmplifier() {
+        return this.amplifier;
+    }
+
+    public Potion getPotion() {
+        return this.potion;
+    }
+
 }

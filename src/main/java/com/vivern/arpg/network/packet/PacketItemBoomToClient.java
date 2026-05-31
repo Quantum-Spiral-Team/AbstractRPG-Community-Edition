@@ -8,28 +8,30 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketItemBoomToClient extends Packet {
-   public int param = 0;
-   public int id = 0;
 
-   public void write(int itemId, int parameter) {
-      this.buf().writeInt(parameter);
-      this.buf().writeInt(itemId);
-   }
+    public int param = 0;
+    public int id = 0;
 
-   @Override
-   public void fromBytes(ByteBuf buf) {
-      this.param = buf.readInt();
-      this.id = buf.readInt();
-   }
+    public void write(int itemId, int parameter) {
+        this.buf().writeInt(parameter);
+        this.buf().writeInt(itemId);
+    }
 
-   @Override
-   public void client(EntityPlayer player, Packet sp, MessageContext ctx) {
-      Item item = Item.getItemById(this.id);
-      if (item instanceof IWeapon) {
-         ((IWeapon)item).boom(this.param);
-      }
-   }
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.param = buf.readInt();
+        this.id = buf.readInt();
+    }
 
-   @Override
-   public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {}
+    @Override
+    public void client(EntityPlayer player, Packet sp, MessageContext ctx) {
+        Item item = Item.getItemById(this.id);
+        if (item instanceof IWeapon) {
+            ((IWeapon) item).boom(this.param);
+        }
+    }
+
+    @Override
+    public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {}
+
 }

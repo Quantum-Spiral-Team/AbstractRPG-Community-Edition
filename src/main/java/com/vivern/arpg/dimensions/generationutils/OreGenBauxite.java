@@ -1,8 +1,7 @@
 package com.vivern.arpg.dimensions.generationutils;
 
-import com.vivern.arpg.main.GetMOP;
 import com.google.common.base.Predicate;
-import java.util.Random;
+import com.vivern.arpg.main.GetMOP;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -12,114 +11,74 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
+import java.util.Random;
+
 public class OreGenBauxite implements IWorldGenerator {
-   public IBlockState oreState;
-   public IBlockState oreState2;
-   public int[] dimensions;
-   public Predicate<IBlockState> blocksToReplace;
-   public int blockAmountMin;
-   public int blockAmountMax;
-   public float chancesToSpawn;
-   public int minHeight;
-   public int maxHeight;
-   public IBlockState[] falsiveblocks;
-   public float falsivechance;
-   public boolean usefalsive;
-   public static Predicate<IBlockState> ORE_BLOCKS;
 
-   public OreGenBauxite(
-      final IBlockState oreState,
-      IBlockState oreState2,
-      int[] dimensions,
-      Predicate<IBlockState> blocksToReplace,
-      int blockAmountMin,
-      int blockAmountMax,
-      float chancesToSpawn,
-      int minHeight,
-      int maxHeight
-   ) {
-      this.oreState = oreState;
-      this.dimensions = dimensions;
-      this.blocksToReplace = blocksToReplace;
-      this.blockAmountMin = blockAmountMin;
-      this.blockAmountMax = blockAmountMax;
-      this.chancesToSpawn = chancesToSpawn;
-      this.minHeight = minHeight;
-      this.maxHeight = maxHeight;
-      this.oreState2 = oreState2;
-      ORE_BLOCKS = input -> input.getBlock() == oreState.getBlock();
-   }
+    public IBlockState oreState;
+    public IBlockState oreState2;
+    public int[] dimensions;
+    public Predicate<IBlockState> blocksToReplace;
+    public int blockAmountMin;
+    public int blockAmountMax;
+    public float chancesToSpawn;
+    public int minHeight;
+    public int maxHeight;
+    public IBlockState[] falsiveblocks;
+    public float falsivechance;
+    public boolean usefalsive;
+    public static Predicate<IBlockState> ORE_BLOCKS;
 
-   public OreGenBauxite(
-      IBlockState oreState,
-      IBlockState oreState2,
-      int dimension,
-      Predicate<IBlockState> blocksToReplace,
-      int blockAmountMin,
-      int blockAmountMax,
-      float chancesToSpawn,
-      int minHeight,
-      int maxHeight
-   ) {
-      this(oreState, oreState2, new int[]{dimension}, blocksToReplace, blockAmountMin, blockAmountMax, chancesToSpawn, minHeight, maxHeight);
-   }
+    public OreGenBauxite(final IBlockState oreState, IBlockState oreState2, int[] dimensions, Predicate<IBlockState> blocksToReplace, int blockAmountMin, int blockAmountMax, float chancesToSpawn, int minHeight, int maxHeight) {
+        this.oreState = oreState;
+        this.dimensions = dimensions;
+        this.blocksToReplace = blocksToReplace;
+        this.blockAmountMin = blockAmountMin;
+        this.blockAmountMax = blockAmountMax;
+        this.chancesToSpawn = chancesToSpawn;
+        this.minHeight = minHeight;
+        this.maxHeight = maxHeight;
+        this.oreState2 = oreState2;
+        ORE_BLOCKS = input -> input.getBlock() == oreState.getBlock();
+    }
 
-   @Override
-   public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-      int dim = world.provider.getDimension();
+    public OreGenBauxite(IBlockState oreState, IBlockState oreState2, int dimension, Predicate<IBlockState> blocksToReplace, int blockAmountMin, int blockAmountMax, float chancesToSpawn, int minHeight, int maxHeight) {
+        this(oreState, oreState2, new int[]{dimension}, blocksToReplace, blockAmountMin, blockAmountMax, chancesToSpawn, minHeight, maxHeight);
+    }
 
-      for (int succdim : this.dimensions) {
-         if (succdim == dim) {
-            this.runGenerator(
-               this.oreState,
-               this.oreState2,
-               random.nextInt(this.blockAmountMax - this.blockAmountMin + 1) + this.blockAmountMin,
-               this.chancesToSpawn,
-               this.minHeight,
-               this.maxHeight,
-               this.blocksToReplace,
-               world,
-               random,
-               chunkX,
-               chunkZ
-            );
-         }
-      }
-   }
+    @Override
+    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
+        int dim = world.provider.getDimension();
 
-   public void runGenerator(
-      IBlockState blockToGen,
-      IBlockState blockToGen2,
-      int blockAmount,
-      float chancesToSpawn,
-      int minHeight,
-      int maxHeight,
-      Predicate<IBlockState> blockToReplace,
-      World world,
-      Random rand,
-      int chunk_X,
-      int chunk_Z
-   ) {
-      if (minHeight >= 0 && maxHeight <= 256 && minHeight <= maxHeight) {
-         int heightdiff = maxHeight - minHeight + 1;
-
-         for (float i = chancesToSpawn; i > 0.0F; i--) {
-            if (i < 1.0F && rand.nextFloat() > i) {
-               return;
+        for (int succdim : this.dimensions) {
+            if (succdim == dim) {
+                this.runGenerator(this.oreState, this.oreState2, random.nextInt(this.blockAmountMax - this.blockAmountMin + 1) + this.blockAmountMin, this.chancesToSpawn, this.minHeight, this.maxHeight, this.blocksToReplace, world, random, chunkX, chunkZ);
             }
+        }
+    }
 
-            int x = chunk_X * 16 + rand.nextInt(16);
-            int z = chunk_Z * 16 + rand.nextInt(16);
-            GetMOP.BlockTraceResult res = GetMOP.blockTrace(world, new BlockPos(x, maxHeight, z), EnumFacing.DOWN, maxHeight - minHeight, blockToReplace);
-            if (res != null) {
-               WorldGenMinable generator = new WorldGenMinable(blockToGen, blockAmount, blockToReplace);
-               generator.generate(world, rand, res.pos);
-               WorldGenMinable generator2 = new WorldGenMinable(blockToGen2, (int)Math.max(blockAmount * 0.6F, 1.0F), ORE_BLOCKS);
-               generator2.generate(world, rand, res.pos);
+    public void runGenerator(IBlockState blockToGen, IBlockState blockToGen2, int blockAmount, float chancesToSpawn, int minHeight, int maxHeight, Predicate<IBlockState> blockToReplace, World world, Random rand, int chunk_X, int chunk_Z) {
+        if (minHeight >= 0 && maxHeight <= 256 && minHeight <= maxHeight) {
+            int heightdiff = maxHeight - minHeight + 1;
+
+            for (float i = chancesToSpawn; i > 0.0F; i--) {
+                if (i < 1.0F && rand.nextFloat() > i) {
+                    return;
+                }
+
+                int x = chunk_X * 16 + rand.nextInt(16);
+                int z = chunk_Z * 16 + rand.nextInt(16);
+                GetMOP.BlockTraceResult res = GetMOP.blockTrace(world, new BlockPos(x, maxHeight, z), EnumFacing.DOWN, maxHeight - minHeight, blockToReplace);
+                if (res != null) {
+                    WorldGenMinable generator = new WorldGenMinable(blockToGen, blockAmount, blockToReplace);
+                    generator.generate(world, rand, res.pos);
+                    WorldGenMinable generator2 = new WorldGenMinable(blockToGen2, (int) Math.max(blockAmount * 0.6F, 1.0F), ORE_BLOCKS);
+                    generator2.generate(world, rand, res.pos);
+                }
             }
-         }
-      } else {
-         throw new IllegalArgumentException("Illegal Height Arguments for WorldGenerator");
-      }
-   }
+        } else {
+            throw new IllegalArgumentException("Illegal Height Arguments for WorldGenerator");
+        }
+    }
+
 }

@@ -21,49 +21,34 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class TomatoStem extends PlantWithStages {
-   public TomatoStem() {
-      super(
-         Material.PLANTS,
-         "tomato_stem",
-         new Block[]{Blocks.FARMLAND},
-         0.0F,
-         0.0F,
-         SoundType.PLANT,
-         4,
-         new AxisAlignedBB[]{
-            GetMOP.newAABB(10, 9, 0), GetMOP.newAABB(12, 12, 0), GetMOP.newAABB(14, 18, 0), GetMOP.newAABB(14, 22, 0), GetMOP.newAABB(14, 22, 0)
-         },
-         10,
-         15,
-         0.25F,
-         null
-      );
-      this.canUseBonemeal = true;
-   }
 
-   @Override
-   public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      return FARMLAND_OFFSET;
-   }
+    public TomatoStem() {
+        super(Material.PLANTS, "tomato_stem", new Block[]{Blocks.FARMLAND}, 0.0F, 0.0F, SoundType.PLANT, 4, new AxisAlignedBB[]{GetMOP.newAABB(10, 9, 0), GetMOP.newAABB(12, 12, 0), GetMOP.newAABB(14, 18, 0), GetMOP.newAABB(14, 22, 0), GetMOP.newAABB(14, 22, 0)}, 10, 15, 0.25F, null);
+        this.canUseBonemeal = true;
+    }
 
-   @Override
-   public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-      super.onEntityCollision(worldIn, pos, state, entityIn);
-      entityIn.motionX *= 0.8;
-      entityIn.motionZ *= 0.8;
-   }
+    @Override
+    public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        return FARMLAND_OFFSET;
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!worldIn.isRemote && player.getHeldItem(hand).isEmpty() && state.getValue(AGE) == 4) {
-         spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CHERRY_TOMATO));
-         worldIn.playSound(null, pos, Sounds.fruit_pickup, SoundCategory.BLOCKS, 0.6F, 0.9F + RANDOM.nextFloat() / 5.0F);
-         worldIn.setBlockState(pos, state.withProperty(AGE, RANDOM.nextFloat() < 0.75F ? 2 : 3));
-         return true;
-      } else {
-         return super.onBlockActivated(worldIn, pos, state, player, hand, facing, hitX, hitY, hitZ);
-      }
-   }
+    @Override
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+        super.onEntityCollision(worldIn, pos, state, entityIn);
+        entityIn.motionX *= 0.8;
+        entityIn.motionZ *= 0.8;
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote && player.getHeldItem(hand).isEmpty() && state.getValue(AGE) == 4) {
+            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CHERRY_TOMATO));
+            worldIn.playSound(null, pos, Sounds.fruit_pickup, SoundCategory.BLOCKS, 0.6F, 0.9F + RANDOM.nextFloat() / 5.0F);
+            worldIn.setBlockState(pos, state.withProperty(AGE, RANDOM.nextFloat() < 0.75F ? 2 : 3));
+            return true;
+        } else {
+            return super.onBlockActivated(worldIn, pos, state, player, hand, facing, hitX, hitY, hitZ);
+        }
+    }
+
 }

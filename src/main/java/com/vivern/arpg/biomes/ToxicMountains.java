@@ -4,7 +4,6 @@ import com.vivern.arpg.dimensions.generationutils.WorldGenCaveLiquids;
 import com.vivern.arpg.dimensions.generationutils.WorldGenGroundFoliage;
 import com.vivern.arpg.dimensions.toxicomania.ToxicomaniaChunkGenerator;
 import com.vivern.arpg.main.BlocksRegister;
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.server.MinecraftServer;
@@ -21,154 +20,155 @@ import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 
+import java.util.Random;
+
 public class ToxicMountains extends BiomeControlled {
-   public ToxicMountains() {
-      super(new BiomeProperties("Toxic mountains").setBaseHeight(1.4F).setHeightVariation(1.3F).setTemperature(0.6F).setRainfall(0.6F).setWaterColor(5931421));
-      this.topBlock = BlocksRegister.TOXIC_GRASS.getDefaultState();
-      this.fillerBlock = BlocksRegister.TOXIC_DIRT.getDefaultState();
-      this.decorator = new ToxicMountainsDecorator();
-   }
 
-   @Override
-   public IBlockState[] controlSurface(IBlockState top, IBlockState filler, double tgc) {
-      if (tgc < 1.0) {
-         top = ToxicomaniaChunkGenerator.GRASS;
-         filler = ToxicomaniaChunkGenerator.DIRT;
-      } else if (tgc < 4.0) {
-         top = ToxicomaniaChunkGenerator.STONE;
-         filler = ToxicomaniaChunkGenerator.STONE;
-      } else if (tgc < 5.0) {
-         top = ToxicomaniaChunkGenerator.COBBLE;
-         filler = ToxicomaniaChunkGenerator.COBBLE;
-      }
+    public ToxicMountains() {
+        super(new BiomeProperties("Toxic mountains").setBaseHeight(1.4F).setHeightVariation(1.3F).setTemperature(0.6F).setRainfall(0.6F).setWaterColor(5931421));
+        this.topBlock = BlocksRegister.TOXIC_GRASS.getDefaultState();
+        this.fillerBlock = BlocksRegister.TOXIC_DIRT.getDefaultState();
+        this.decorator = new ToxicMountainsDecorator();
+    }
 
-      return new IBlockState[]{top, filler};
-   }
+    @Override
+    public IBlockState[] controlSurface(IBlockState top, IBlockState filler, double tgc) {
+        if (tgc < 1.0) {
+            top = ToxicomaniaChunkGenerator.GRASS;
+            filler = ToxicomaniaChunkGenerator.DIRT;
+        } else if (tgc < 4.0) {
+            top = ToxicomaniaChunkGenerator.STONE;
+            filler = ToxicomaniaChunkGenerator.STONE;
+        } else if (tgc < 5.0) {
+            top = ToxicomaniaChunkGenerator.COBBLE;
+            filler = ToxicomaniaChunkGenerator.COBBLE;
+        }
 
-   class ToxicMountainsDecorator extends BiomeDecorator {
-      public WorldGenGroundFoliage junkweed = new WorldGenGroundFoliage(BlocksRegister.JUNKWEED, 64, 8, 7);
-      public WorldGenGroundFoliage weep = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRY_WEEPING, 20, 8, 5);
-      public WorldGenGroundFoliage vibrant = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRY_VIBRANT, 15, 6, 5);
-      public WorldGenGroundFoliage mosspl = new WorldGenGroundFoliage(BlocksRegister.MOSS_PLANT, 32, 8, 5);
-      public WorldGenBlockBlob SCRAP_GENERATOR = new WorldGenBlockBlob(BlocksRegister.SCRAP, 0);
-      public WorldGenBlockBlob JUNK_GENERATOR = new WorldGenBlockBlob(BlocksRegister.JUNK, 0);
-      public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXIC_TALLGRASS, 38, 6, 5);
+        return new IBlockState[]{top, filler};
+    }
 
-      @Override
-      public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
-         if (this.decorating) {
-            throw new RuntimeException("Already decorating");
-         } else {
-            if (random.nextInt(6) == 0) {
-               BlockPos position = worldIn.getHeight(
-                  new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16))
-               );
-               Block blockd = worldIn.getBlockState(position.down()).getBlock();
-               if (blockd == BlocksRegister.TOXIC_GRASS
-                  || blockd == BlocksRegister.TOXIC_DIRT
-                  || blockd == BlocksRegister.SLUDGE
-                  || blockd == BlocksRegister.JUNK) {
-                  WorldServer worldServer = (WorldServer)worldIn;
-                  MinecraftServer minecraftServer = worldIn.getMinecraftServer();
-                  TemplateManager templateManager = worldServer.getStructureTemplateManager();
-                  Template template = templateManager.get(minecraftServer, new ResourceLocation("arpg:toxic_tree_" + (random.nextInt(3) + 1)));
-                  PlacementSettings settings = new PlacementSettings();
-                  int sx = -1;
-                  int sz = -1;
-                  int swr = random.nextInt(4);
-                  if (swr == 0) {
-                     settings.setRotation(Rotation.CLOCKWISE_180);
-                     sx = 1;
-                     sz = 1;
-                  }
+    class ToxicMountainsDecorator extends BiomeDecorator {
 
-                  if (swr == 1) {
-                     settings.setRotation(Rotation.CLOCKWISE_90);
-                     sx = 1;
-                     sz = -1;
-                  }
+        public WorldGenGroundFoliage junkweed = new WorldGenGroundFoliage(BlocksRegister.JUNKWEED, 64, 8, 7);
+        public WorldGenGroundFoliage weep = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRY_WEEPING, 20, 8, 5);
+        public WorldGenGroundFoliage vibrant = new WorldGenGroundFoliage(BlocksRegister.TOXIBERRY_VIBRANT, 15, 6, 5);
+        public WorldGenGroundFoliage mosspl = new WorldGenGroundFoliage(BlocksRegister.MOSS_PLANT, 32, 8, 5);
+        public WorldGenBlockBlob SCRAP_GENERATOR = new WorldGenBlockBlob(BlocksRegister.SCRAP, 0);
+        public WorldGenBlockBlob JUNK_GENERATOR = new WorldGenBlockBlob(BlocksRegister.JUNK, 0);
+        public WorldGenGroundFoliage tallgrass = new WorldGenGroundFoliage(BlocksRegister.TOXIC_TALLGRASS, 38, 6, 5);
 
-                  if (swr == 2) {
-                     settings.setRotation(Rotation.COUNTERCLOCKWISE_90);
-                     sx = -1;
-                     sz = 1;
-                  }
+        @Override
+        public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
+            if (this.decorating) {
+                throw new RuntimeException("Already decorating");
+            } else {
+                if (random.nextInt(6) == 0) {
+                    BlockPos position = worldIn.getHeight(new BlockPos(pos.getX() + 8 + random.nextInt(16), 0, pos.getZ() + 8 + random.nextInt(16)));
+                    Block blockd = worldIn.getBlockState(position.down()).getBlock();
+                    if (blockd == BlocksRegister.TOXIC_GRASS || blockd == BlocksRegister.TOXIC_DIRT || blockd == BlocksRegister.SLUDGE || blockd == BlocksRegister.JUNK) {
+                        WorldServer worldServer = (WorldServer) worldIn;
+                        MinecraftServer minecraftServer = worldIn.getMinecraftServer();
+                        TemplateManager templateManager = worldServer.getStructureTemplateManager();
+                        Template template = templateManager.get(minecraftServer, new ResourceLocation("arpg:toxic_tree_" + (random.nextInt(3) + 1)));
+                        PlacementSettings settings = new PlacementSettings();
+                        int sx = -1;
+                        int sz = -1;
+                        int swr = random.nextInt(4);
+                        if (swr == 0) {
+                            settings.setRotation(Rotation.CLOCKWISE_180);
+                            sx = 1;
+                            sz = 1;
+                        }
 
-                  if (swr == 3) {
-                     settings.setRotation(Rotation.NONE);
-                  }
+                        if (swr == 1) {
+                            settings.setRotation(Rotation.CLOCKWISE_90);
+                            sx = 1;
+                            sz = -1;
+                        }
 
-                  template.addBlocksToWorld(worldIn, position.add(sx * 3, 0, sz * 3), settings);
-               }
+                        if (swr == 2) {
+                            settings.setRotation(Rotation.COUNTERCLOCKWISE_90);
+                            sx = -1;
+                            sz = 1;
+                        }
+
+                        if (swr == 3) {
+                            settings.setRotation(Rotation.NONE);
+                        }
+
+                        template.addBlocksToWorld(worldIn, position.add(sx * 3, 0, sz * 3), settings);
+                    }
+                }
+
+                this.chunkProviderSettings = Factory.jsonToFactory(worldIn.getWorldInfo().getGeneratorOptions()).build();
+                this.chunkPos = pos;
+
+                for (int k5 = 0; k5 < 50; k5++) {
+                    int i10 = random.nextInt(16) + 8;
+                    int l13 = random.nextInt(16) + 8;
+                    int i17 = random.nextInt(248) + 8;
+                    if (i17 > 0) {
+                        int k19 = random.nextInt(i17);
+                        BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
+                        new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
+                    }
+                }
+
+                if (random.nextFloat() < 0.25) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    this.SCRAP_GENERATOR.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
+                }
+
+                if (random.nextFloat() < 0.16) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    this.JUNK_GENERATOR.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
+                }
+
+                for (int i = 0; i < 2; i++) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    BlockPos postop = worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k));
+                    if (worldIn.getBlockState(postop.down()).getBlock() == BlocksRegister.JUNK || random.nextFloat() < 0.4) {
+                        this.junkweed.generate(worldIn, random, postop);
+                    }
+                }
+
+                if (random.nextFloat() < 0.3) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    this.weep.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
+                }
+
+                if (random.nextFloat() < 0.4) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    this.vibrant.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
+                }
+
+                if (random.nextFloat() < 0.6) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    this.mosspl.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
+                }
+
+                if (random.nextFloat() < 0.6) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    this.tallgrass.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
+                }
+
+                if (random.nextFloat() < 0.04) {
+                    int j = random.nextInt(16) + 8;
+                    int k = random.nextInt(16) + 8;
+                    ToxicomaniaChunkGenerator.genLootBlob(worldIn, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)), random);
+                }
+
+                this.decorating = false;
             }
+        }
 
-            this.chunkProviderSettings = Factory.jsonToFactory(worldIn.getWorldInfo().getGeneratorOptions()).build();
-            this.chunkPos = pos;
+    }
 
-            for (int k5 = 0; k5 < 50; k5++) {
-               int i10 = random.nextInt(16) + 8;
-               int l13 = random.nextInt(16) + 8;
-               int i17 = random.nextInt(248) + 8;
-               if (i17 > 0) {
-                  int k19 = random.nextInt(i17);
-                  BlockPos blockpos6 = this.chunkPos.add(i10, k19, l13);
-                  new WorldGenCaveLiquids(BlocksRegister.FLUID_TOXIN, BlocksRegister.RADIOACTIVE_STONE).generate(worldIn, random, blockpos6);
-               }
-            }
-
-            if (random.nextFloat() < 0.25) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               this.SCRAP_GENERATOR.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
-            }
-
-            if (random.nextFloat() < 0.16) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               this.JUNK_GENERATOR.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
-            }
-
-            for (int i = 0; i < 2; i++) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               BlockPos postop = worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k));
-               if (worldIn.getBlockState(postop.down()).getBlock() == BlocksRegister.JUNK || random.nextFloat() < 0.4) {
-                  this.junkweed.generate(worldIn, random, postop);
-               }
-            }
-
-            if (random.nextFloat() < 0.3) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               this.weep.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
-            }
-
-            if (random.nextFloat() < 0.4) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               this.vibrant.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
-            }
-
-            if (random.nextFloat() < 0.6) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               this.mosspl.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
-            }
-
-            if (random.nextFloat() < 0.6) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               this.tallgrass.generate(worldIn, random, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)));
-            }
-
-            if (random.nextFloat() < 0.04) {
-               int j = random.nextInt(16) + 8;
-               int k = random.nextInt(16) + 8;
-               ToxicomaniaChunkGenerator.genLootBlob(worldIn, worldIn.getTopSolidOrLiquidBlock(this.chunkPos.add(j, 0, k)), random);
-            }
-
-            this.decorating = false;
-         }
-      }
-   }
 }

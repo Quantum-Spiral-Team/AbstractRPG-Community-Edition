@@ -14,89 +14,70 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class StingingCell extends ItemWeapon {
-   public StingingCell() {
-      this.setRegistryName("stinging_cell");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("stinging_cell");
-      this.setMaxDamage(2500);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    public StingingCell() {
+        this.setRegistryName("stinging_cell");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("stinging_cell");
+        this.setMaxDamage(2500);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
-            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-            int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
-            float power = Mana.getMagicPowerMax(player);
-            int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
-            WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-            float manacost = parameters.getEnchantedF("manacost", sor);
-            if (player.getHeldItemMainhand() == itemstack && Mana.getMana(player) > manacost && click && !player.getCooldownTracker().hasCooldown(this)) {
-               Weapons.setPlayerAnimationOnServer(player, 14, EnumHand.MAIN_HAND);
-               world.playSound(
-                       null,
-                  player.posX,
-                  player.posY,
-                  player.posZ,
-                  Sounds.stinging_cell,
-                  SoundCategory.AMBIENT,
-                  0.9F,
-                  0.9F + itemRand.nextFloat() / 5.0F
-               );
-               player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-               player.addStat(StatList.getObjectUseStats(this));
-               int shots = parameters.getInt("shots");
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-               for (int i = 0; i < shots; i++) {
-                  StingingCellEntity projectile = new StingingCellEntity(world, player, itemstack, power);
-                  projectile.livetime = parameters.getInt("livetime");
-                  Weapons.shoot(
-                     projectile,
-                     EnumHand.MAIN_HAND,
-                     player,
-                     player.rotationPitch,
-                     player.rotationYaw,
-                     0.0F,
-                     parameters.getFloat("velocity"),
-                     parameters.getEnchantedF("inaccuracy", acc),
-                     -0.35F,
-                     0.75F,
-                     0.1F
-                  );
-                  world.spawnEntity(projectile);
-               }
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
+                int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+                int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
+                float power = Mana.getMagicPowerMax(player);
+                int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                float manacost = parameters.getEnchantedF("manacost", sor);
+                if (player.getHeldItemMainhand() == itemstack && Mana.getMana(player) > manacost && click && !player.getCooldownTracker().hasCooldown(this)) {
+                    Weapons.setPlayerAnimationOnServer(player, 14, EnumHand.MAIN_HAND);
+                    world.playSound(null, player.posX, player.posY, player.posZ, Sounds.stinging_cell, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                    player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
+                    player.addStat(StatList.getObjectUseStats(this));
+                    int shots = parameters.getInt("shots");
 
-               if (!player.capabilities.isCreativeMode) {
-                  Mana.changeMana(player, -manacost);
-                  Mana.setManaSpeed(player, 0.001F);
-                  itemstack.damageItem(1, player);
-               }
+                    for (int i = 0; i < shots; i++) {
+                        StingingCellEntity projectile = new StingingCellEntity(world, player, itemstack, power);
+                        projectile.livetime = parameters.getInt("livetime");
+                        Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.0F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.35F, 0.75F, 0.1F);
+                        world.spawnEntity(projectile);
+                    }
+
+                    if (!player.capabilities.isCreativeMode) {
+                        Mana.changeMana(player, -manacost);
+                        Mana.setManaSpeed(player, 0.001F);
+                        itemstack.damageItem(1, player);
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.TWO_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.TWO_HANDED;
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
+
 }

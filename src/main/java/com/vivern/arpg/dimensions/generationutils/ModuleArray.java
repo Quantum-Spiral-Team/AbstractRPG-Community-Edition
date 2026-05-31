@@ -4,23 +4,25 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 public class ModuleArray extends Module {
-   public Module[] modules;
 
-   public ModuleArray(ModularStructureGenerator generator, Module... modules) {
-      super(generator);
-      this.modules = modules;
-      this.canBeQueued = false;
-      this.canDebug = false;
-   }
+    public Module[] modules;
 
-   @Override
-   public void generate(BlockPos sourcePos, EnumFacing facing, Module sourceModule, int age) {
-      if (!this.generator.cannotGenerate(this, sourcePos, facing, sourceModule, age)) {
-         for (Module m : this.modules) {
-             this.generator.addToGenerationQueue(m, sourcePos, facing, sourceModule, age);
-         }
+    public ModuleArray(ModularStructureGenerator generator, Module... modules) {
+        super(generator);
+        this.modules = modules;
+        this.canBeQueued = false;
+        this.canDebug = false;
+    }
 
-         this.generator.onEndGenerate(this, sourcePos, facing, sourceModule, age);
-      }
-   }
+    @Override
+    public void generate(BlockPos sourcePos, EnumFacing facing, Module sourceModule, int age) {
+        if (!this.generator.cannotGenerate(this, sourcePos, facing, sourceModule, age)) {
+            for (Module m : this.modules) {
+                this.generator.addToGenerationQueue(m, sourcePos, facing, sourceModule, age);
+            }
+
+            this.generator.onEndGenerate(this, sourcePos, facing, sourceModule, age);
+        }
+    }
+
 }

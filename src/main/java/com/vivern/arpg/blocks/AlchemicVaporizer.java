@@ -3,7 +3,6 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TileAlchemicVaporizer;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -22,95 +21,96 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class AlchemicVaporizer extends Block {
-   public static final AxisAlignedBB ALL_AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 1.0, 0.875);
 
-   public AlchemicVaporizer() {
-      super(Material.IRON);
-      this.setRegistryName("alchemic_vaporizer");
-      this.setTranslationKey("alchemic_vaporizer");
-      this.blockHardness = 8.5F;
-      this.blockResistance = 15.0F;
-      this.setCreativeTab(CreativeTabs.MISC);
-      this.setSoundType(SoundTypeShards.METAL);
-      this.setHarvestLevel("pickaxe", 1);
-   }
+    public static final AxisAlignedBB ALL_AABB = new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 1.0, 0.875);
 
-   @Override
-   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity instanceof IInventory) {
-         InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
-         worldIn.updateComparatorOutputLevel(pos, this);
-      }
+    public AlchemicVaporizer() {
+        super(Material.IRON);
+        this.setRegistryName("alchemic_vaporizer");
+        this.setTranslationKey("alchemic_vaporizer");
+        this.blockHardness = 8.5F;
+        this.blockResistance = 15.0F;
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setSoundType(SoundTypeShards.METAL);
+        this.setHarvestLevel("pickaxe", 1);
+    }
 
-      super.breakBlock(worldIn, pos, state);
-   }
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof IInventory) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+        super.breakBlock(worldIn, pos, state);
+    }
 
-   @Override
-   public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-      return layer == BlockRenderLayer.TRANSLUCENT || layer == BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
+        return layer == BlockRenderLayer.TRANSLUCENT || layer == BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return ALL_AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (!worldIn.isRemote) {
-         TileAlchemicVaporizer tile = this.getTileEntity(worldIn, pos);
-         worldIn.playSound(null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
-         if (tile != null) {
-            player.openGui(AbstractRPG.instance, 3, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            return true;
-         }
-      }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return ALL_AABB;
+    }
 
-      return false;
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            TileAlchemicVaporizer tile = this.getTileEntity(worldIn, pos);
+            worldIn.playSound(null, pos, Sounds.vessel_hit, SoundCategory.PLAYERS, 0.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
+            if (tile != null) {
+                player.openGui(AbstractRPG.instance, 3, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                return true;
+            }
+        }
 
-   public Class<TileAlchemicVaporizer> getTileEntityClass() {
-      return TileAlchemicVaporizer.class;
-   }
+        return false;
+    }
 
-   public TileAlchemicVaporizer getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TileAlchemicVaporizer)world.getTileEntity(position);
-   }
+    public Class<TileAlchemicVaporizer> getTileEntityClass() {
+        return TileAlchemicVaporizer.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TileAlchemicVaporizer getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TileAlchemicVaporizer) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TileAlchemicVaporizer createTileEntity(World world, IBlockState blockState) {
-      return new TileAlchemicVaporizer();
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    @Nullable
+    public TileAlchemicVaporizer createTileEntity(World world, IBlockState blockState) {
+        return new TileAlchemicVaporizer();
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
 }

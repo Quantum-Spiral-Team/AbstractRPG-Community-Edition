@@ -29,336 +29,307 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 // extends ItemBow, not ItemWeapon
 public abstract class AbstractBow extends ItemWeapon {
-   public float speedToCritical = 1.0F;
-   public MovingSoundEntity clientPullSound = null;
-   public float pullSoundPitch = 1.0F;
 
-   public AbstractBow(
-      String name, int maxDamage, float velocity, float inaccuracy, int maxPullTime, int minPullTime, float arrowDamageBonus, float mightDamageBonus
-   ) {
-      this.setRegistryName(name);
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey(name);
-      this.setMaxDamage(maxDamage);
-      this.setMaxStackSize(1);
-   }
+    public float speedToCritical = 1.0F;
+    public MovingSoundEntity clientPullSound = null;
+    public float pullSoundPitch = 1.0F;
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    public AbstractBow(String name, int maxDamage, float velocity, float inaccuracy, int maxPullTime, int minPullTime, float arrowDamageBonus, float mightDamageBonus) {
+        this.setRegistryName(name);
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey(name);
+        this.setMaxDamage(maxDamage);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public void boom(int param) {
-      if (param >= 0) {
-         Boom.lastTick = 16;
-         Boom.frequency = -0.196F;
-         Boom.x = -1.0F;
-         Boom.y = (itemRand.nextFloat() - 0.5F) * 0.5F;
-         Boom.z = (itemRand.nextFloat() - 0.5F) * 0.5F;
-         Boom.power = 0.15F * (param / 10.0F);
-         if (this.clientPullSound != null) {
-            if (Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(this.clientPullSound)) {
-               Minecraft.getMinecraft().getSoundHandler().stopSound(this.clientPullSound);
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void boom(int param) {
+        if (param >= 0) {
+            Boom.lastTick = 16;
+            Boom.frequency = -0.196F;
+            Boom.x = -1.0F;
+            Boom.y = (itemRand.nextFloat() - 0.5F) * 0.5F;
+            Boom.z = (itemRand.nextFloat() - 0.5F) * 0.5F;
+            Boom.power = 0.15F * (param / 10.0F);
+            if (this.clientPullSound != null) {
+                if (Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(this.clientPullSound)) {
+                    Minecraft.getMinecraft().getSoundHandler().stopSound(this.clientPullSound);
+                }
+
+                this.clientPullSound = null;
             }
+        } else if (param == -2) {
+            if (this.clientPullSound != null) {
+                if (Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(this.clientPullSound)) {
+                    Minecraft.getMinecraft().getSoundHandler().stopSound(this.clientPullSound);
+                }
 
-            this.clientPullSound = null;
-         }
-      } else if (param == -2) {
-         if (this.clientPullSound != null) {
-            if (Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(this.clientPullSound)) {
-               Minecraft.getMinecraft().getSoundHandler().stopSound(this.clientPullSound);
+                this.clientPullSound = null;
             }
-
-            this.clientPullSound = null;
-         }
-      } else if (Minecraft.getMinecraft().player != null) {
-         this.clientPullSound = new MovingSoundEntity(
-            Minecraft.getMinecraft().player, this.getPullSound(), SoundCategory.PLAYERS, 1.0F, this.pullSoundPitch, false
-         );
-         Minecraft.getMinecraft().getSoundHandler().playSound(this.clientPullSound);
-      }
-   }
+        } else if (Minecraft.getMinecraft().player != null) {
+            this.clientPullSound = new MovingSoundEntity(Minecraft.getMinecraft().player, this.getPullSound(), SoundCategory.PLAYERS, 1.0F, this.pullSoundPitch, false);
+            Minecraft.getMinecraft().getSoundHandler().playSound(this.clientPullSound);
+        }
+    }
 
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public
-    void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
-      player.world
-         .playSound(x, y, z, this.getShootSound(), SoundCategory.PLAYERS, 0.7F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + (float)a * 0.5F, false);
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
+        player.world.playSound(x, y, z, this.getShootSound(), SoundCategory.PLAYERS, 0.7F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + (float) a * 0.5F, false);
+    }
 
 
-   public abstract SoundEvent getShootSound();
+    public abstract SoundEvent getShootSound();
 
-   public SoundEvent getPullSound() {
-      return Sounds.bow_aim;
-   }
+    public SoundEvent getPullSound() {
+        return Sounds.bow_aim;
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         boolean[] removePull = new boolean[]{true};
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            NBTHelper.GiveNBTint(itemstack, 0, "pulling");
-            int pulling = NBTHelper.GetNBTint(itemstack, "pulling");
-            if (this.inUpdate(itemstack, world, entityIn, itemSlot, isSelected, removePull) && player.getHeldItemMainhand() == itemstack) {
-               if (click) {
-                  if (pulling == 0) {
-                     IWeapon.fireBomEffect(this, player, world, -1);
-                  }
-
-                  if (pulling == 0 || player.ticksExisted % 10 == 0) {
-                     Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
-                     NBTHelper.GiveNBTint(itemstack, -10000, "arrowUsing");
-                     ItemStack ammo = this.findAmmo(player);
-                     NBTHelper.SetNBTint(itemstack, ammo.isEmpty() ? -10000 : Item.getIdFromItem(ammo.getItem()), "arrowUsing");
-                  }
-
-                  if (pulling < this.getCooldownTime(itemstack)) {
-                     NBTHelper.AddNBTint(itemstack, 1, "pulling");
-                  }
-
-                  removePull[0] = false;
-               } else {
-                  WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                  int minPullTime = parameters.getInt("min_pull_time");
-                  if (pulling >= minPullTime) {
-                     boolean creative = player.capabilities.isCreativeMode;
-                     ItemStack ammo = this.findAmmo(player);
-                     pulling = ForgeEventFactory.onArrowLoose(itemstack, world, player, pulling, !ammo.isEmpty() || creative);
-                     if (pulling >= 0 && (!ammo.isEmpty() || creative)) {
-                        if (ammo.isEmpty()) {
-                           ammo = new ItemStack(Items.ARROW);
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            boolean[] removePull = new boolean[]{true};
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                NBTHelper.GiveNBTint(itemstack, 0, "pulling");
+                int pulling = NBTHelper.GetNBTint(itemstack, "pulling");
+                if (this.inUpdate(itemstack, world, entityIn, itemSlot, isSelected, removePull) && player.getHeldItemMainhand() == itemstack) {
+                    if (click) {
+                        if (pulling == 0) {
+                            IWeapon.fireBomEffect(this, player, world, -1);
                         }
 
-                        float arrowvelocity = this.getArrowVelocity(pulling, itemstack, player);
-                        boolean isArrowUnlimit = this.isArrowUnlimit(ammo, world, player, itemstack, pulling);
+                        if (pulling == 0 || player.ticksExisted % 10 == 0) {
+                            Weapons.setPlayerAnimationOnServer(player, 11, EnumHand.MAIN_HAND);
+                            NBTHelper.GiveNBTint(itemstack, -10000, "arrowUsing");
+                            ItemStack ammo = this.findAmmo(player);
+                            NBTHelper.SetNBTint(itemstack, ammo.isEmpty() ? -10000 : Item.getIdFromItem(ammo.getItem()), "arrowUsing");
+                        }
+
+                        if (pulling < this.getCooldownTime(itemstack)) {
+                            NBTHelper.AddNBTint(itemstack, 1, "pulling");
+                        }
+
                         removePull[0] = false;
-                        if (this.createAndShootArrow(ammo, world, player, itemstack, pulling, arrowvelocity, isArrowUnlimit)) {
-                           IWeapon.fireBomEffect(this, player, world, pulling);
-                           itemstack.damageItem(1, player);
-                           IWeapon.fireEffect(
-                                   this,
-                                   player,
-                                   world,
-                                   64.0,
-                                   player.posX,
-                                   player.posY,
-                                   player.posZ,
-                                   arrowvelocity,
-                                   0.0,
-                                   0.0,
-                                   0.0,
-                                   0.0,
-                                   0.0
-                           );
-                           if (!creative && !isArrowUnlimit) {
-                              ammo.shrink(1);
-                              if (ammo.isEmpty()) {
-                                 player.inventory.deleteStack(ammo);
-                              }
-                           }
+                    } else {
+                        WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+                        int minPullTime = parameters.getInt("min_pull_time");
+                        if (pulling >= minPullTime) {
+                            boolean creative = player.capabilities.isCreativeMode;
+                            ItemStack ammo = this.findAmmo(player);
+                            pulling = ForgeEventFactory.onArrowLoose(itemstack, world, player, pulling, !ammo.isEmpty() || creative);
+                            if (pulling >= 0 && (!ammo.isEmpty() || creative)) {
+                                if (ammo.isEmpty()) {
+                                    ammo = new ItemStack(Items.ARROW);
+                                }
 
-                           player.addStat(StatList.getObjectUseStats(this));
+                                float arrowvelocity = this.getArrowVelocity(pulling, itemstack, player);
+                                boolean isArrowUnlimit = this.isArrowUnlimit(ammo, world, player, itemstack, pulling);
+                                removePull[0] = false;
+                                if (this.createAndShootArrow(ammo, world, player, itemstack, pulling, arrowvelocity, isArrowUnlimit)) {
+                                    IWeapon.fireBomEffect(this, player, world, pulling);
+                                    itemstack.damageItem(1, player);
+                                    IWeapon.fireEffect(this, player, world, 64.0, player.posX, player.posY, player.posZ, arrowvelocity, 0.0, 0.0, 0.0, 0.0, 0.0);
+                                    if (!creative && !isArrowUnlimit) {
+                                        ammo.shrink(1);
+                                        if (ammo.isEmpty()) {
+                                            player.inventory.deleteStack(ammo);
+                                        }
+                                    }
+
+                                    player.addStat(StatList.getObjectUseStats(this));
+                                }
+                            }
                         }
-                     }
-                  }
-               }
+                    }
+                }
             }
-         }
 
-         if (removePull[0]) {
-            NBTHelper.SetNBTint(itemstack, 0, "pulling");
-            NBTHelper.SetNBTint(itemstack, -10000, "arrowUsing");
-            if (entityIn instanceof EntityPlayer) {
-               IWeapon.fireBomEffect(this, (EntityPlayer)entityIn, world, -2);
+            if (removePull[0]) {
+                NBTHelper.SetNBTint(itemstack, 0, "pulling");
+                NBTHelper.SetNBTint(itemstack, -10000, "arrowUsing");
+                if (entityIn instanceof EntityPlayer) {
+                    IWeapon.fireBomEffect(this, (EntityPlayer) entityIn, world, -2);
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   public float getArrowVelocity(int charge, ItemStack bow, EntityPlayer player) {
-      float f = (float)charge / this.getCooldownTime(bow);
-      f = (f * f + f * 2.0F) / 3.0F;
-      if (f > 1.0F) {
-         f = 1.0F;
-      }
+    public float getArrowVelocity(int charge, ItemStack bow, EntityPlayer player) {
+        float f = (float) charge / this.getCooldownTime(bow);
+        f = (f * f + f * 2.0F) / 3.0F;
+        if (f > 1.0F) {
+            f = 1.0F;
+        }
 
-      return f;
-   }
+        return f;
+    }
 
-   public void setDamageToArrow(
-      EntityArrow entityarrow, ItemStack ammo, World world, EntityPlayer player, ItemStack bow, int pulling, float arrowvelocity, boolean isArrowUnlimit
-   ) {
-      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, bow);
-      entityarrow.setDamage(entityarrow.getDamage() + parameters.getEnchantedF("damage", might));
-   }
+    public void setDamageToArrow(EntityArrow entityarrow, ItemStack ammo, World world, EntityPlayer player, ItemStack bow, int pulling, float arrowvelocity, boolean isArrowUnlimit) {
+        WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+        int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, bow);
+        entityarrow.setDamage(entityarrow.getDamage() + parameters.getEnchantedF("damage", might));
+    }
 
-   public boolean createAndShootArrow(ItemStack ammo, World world, EntityPlayer player, ItemStack bow, int pulling, float arrowvelocity, boolean isArrowUnlimit) {
-      NBTHelper.SetNBTint(bow, 0, "pulling");
-      NBTHelper.SetNBTint(bow, -10000, "arrowUsing");
-      ItemArrow itemarrow = (ItemArrow)ammo.getItem();
-      EntityArrow entityarrow = itemarrow.createArrow(world, ammo, player);
+    public boolean createAndShootArrow(ItemStack ammo, World world, EntityPlayer player, ItemStack bow, int pulling, float arrowvelocity, boolean isArrowUnlimit) {
+        NBTHelper.SetNBTint(bow, 0, "pulling");
+        NBTHelper.SetNBTint(bow, -10000, "arrowUsing");
+        ItemArrow itemarrow = (ItemArrow) ammo.getItem();
+        EntityArrow entityarrow = itemarrow.createArrow(world, ammo, player);
 
-      WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      entityarrow.shoot(
-         player,
-         player.rotationPitch,
-         player.rotationYaw,
-         0.0F,
-         arrowvelocity * parameters.getFloat("velocity"),
-         parameters.getEnchantedF("inaccuracy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, bow))
-      );
-      if (arrowvelocity >= this.speedToCritical) {
-         entityarrow.setIsCritical(true);
-      }
+        WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
+        entityarrow.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, arrowvelocity * parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, bow)));
+        if (arrowvelocity >= this.speedToCritical) {
+            entityarrow.setIsCritical(true);
+        }
 
-      this.setDamageToArrow(entityarrow, ammo, world, player, bow, pulling, arrowvelocity, isArrowUnlimit);
-      int k = GetMOP.floatToIntWithChance(parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, bow)), itemRand);
-      entityarrow.setKnockbackStrength(k);
-      if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, bow) > 0) {
-         entityarrow.setFire(100);
-      }
+        this.setDamageToArrow(entityarrow, ammo, world, player, bow, pulling, arrowvelocity, isArrowUnlimit);
+        int k = GetMOP.floatToIntWithChance(parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, bow)), itemRand);
+        entityarrow.setKnockbackStrength(k);
+        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, bow) > 0) {
+            entityarrow.setFire(100);
+        }
 
-      if (isArrowUnlimit || player.capabilities.isCreativeMode) {
-         entityarrow.pickupStatus = PickupStatus.CREATIVE_ONLY;
-      }
+        if (isArrowUnlimit || player.capabilities.isCreativeMode) {
+            entityarrow.pickupStatus = PickupStatus.CREATIVE_ONLY;
+        }
 
-      boolean isspawned = world.spawnEntity(entityarrow);
-      this.customizeArrow(entityarrow, ammo, world, player, bow, pulling, arrowvelocity, isArrowUnlimit);
-      return isspawned;
-   }
+        boolean isspawned = world.spawnEntity(entityarrow);
+        this.customizeArrow(entityarrow, ammo, world, player, bow, pulling, arrowvelocity, isArrowUnlimit);
+        return isspawned;
+    }
 
-   public void customizeArrow(
-      EntityArrow arrow, ItemStack ammo, World world, EntityPlayer player, ItemStack bow, int pulling, float arrowvelocity, boolean isArrowUnlimit
-   ) {
-   }
+    public void customizeArrow(EntityArrow arrow, ItemStack ammo, World world, EntityPlayer player, ItemStack bow, int pulling, float arrowvelocity, boolean isArrowUnlimit) {
+    }
 
-   public boolean isArrowUnlimit(ItemStack ammo, World world, EntityPlayer player, ItemStack bow, int pulling) {
-      return ammo.getItem() instanceof ItemArrow && ((ItemArrow)ammo.getItem()).isInfinite(ammo, bow, player);
-   }
+    public boolean isArrowUnlimit(ItemStack ammo, World world, EntityPlayer player, ItemStack bow, int pulling) {
+        return ammo.getItem() instanceof ItemArrow && ((ItemArrow) ammo.getItem()).isInfinite(ammo, bow, player);
+    }
 
-   public boolean inUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected, boolean[] removePull) {
-      return true;
-   }
+    public boolean inUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected, boolean[] removePull) {
+        return true;
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.TWO_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.TWO_HANDED;
+    }
 
-   public ItemStack findAmmo(EntityPlayer player) {
-      if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND))) {
-         return player.getHeldItem(EnumHand.OFF_HAND);
-      } else if (this.isArrow(player.getHeldItem(EnumHand.MAIN_HAND))) {
-         return player.getHeldItem(EnumHand.MAIN_HAND);
-      } else {
-         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-            ItemStack itemstack = player.inventory.getStackInSlot(i);
-            if (this.isArrow(itemstack)) {
-               return itemstack;
+    public ItemStack findAmmo(EntityPlayer player) {
+        if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND))) {
+            return player.getHeldItem(EnumHand.OFF_HAND);
+        } else if (this.isArrow(player.getHeldItem(EnumHand.MAIN_HAND))) {
+            return player.getHeldItem(EnumHand.MAIN_HAND);
+        } else {
+            for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+                ItemStack itemstack = player.inventory.getStackInSlot(i);
+                if (this.isArrow(itemstack)) {
+                    return itemstack;
+                }
             }
-         }
 
-         return ItemStack.EMPTY;
-      }
-   }
+            return ItemStack.EMPTY;
+        }
+    }
 
-   public boolean isArrow(ItemStack stack) {
-      return stack.getItem() instanceof ItemArrow;
-   }
+    public boolean isArrow(ItemStack stack) {
+        return stack.getItem() instanceof ItemArrow;
+    }
 
-   @Override
-   public int getCooldownTime(ItemStack itemstack) {
-      WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      int maxPullTime = parameters.getInt("max_pull_time");
-      int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      float mult = 1.0F - 0.2F * rapidity;
-      return Math.round(maxPullTime * mult);
-   }
+    @Override
+    public int getCooldownTime(ItemStack itemstack) {
+        WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
+        int maxPullTime = parameters.getInt("max_pull_time");
+        int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
+        float mult = 1.0F - 0.2F * rapidity;
+        return Math.round(maxPullTime * mult);
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
 
-   @Override
-   public boolean getCanShoot(ItemStack itemstack, Entity entity) {
-      if (entity instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer)entity;
-         ItemStack mainH = player.getHeldItemMainhand();
-         ItemStack offH = player.getHeldItemOffhand();
-         if (offH != itemstack && mainH != itemstack) {
-            return true;
-         } else {
-            switch (this.getWeaponHandleType()) {
-               case TWO_HANDED:
-                  if (mainH == itemstack) {
-                     return offH.isEmpty() || offH.getItem() instanceof IWeapon || this.isArrow(offH);
-                  } else {
-                     return mainH.isEmpty() || this.isArrow(mainH);
-                  }
-               case ONE_HANDED:
-                  if (mainH != itemstack) {
-                      if (mainH.getItem() instanceof IWeapon) {
-                          return ((IWeapon) mainH.getItem()).getWeaponHandleType() != WeaponHandleType.TWO_HANDED;
-                      }
+    @Override
+    public boolean getCanShoot(ItemStack itemstack, Entity entity) {
+        if (entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entity;
+            ItemStack mainH = player.getHeldItemMainhand();
+            ItemStack offH = player.getHeldItemOffhand();
+            if (offH != itemstack && mainH != itemstack) {
+                return true;
+            } else {
+                switch (this.getWeaponHandleType()) {
+                    case TWO_HANDED:
+                        if (mainH == itemstack) {
+                            return offH.isEmpty() || offH.getItem() instanceof IWeapon || this.isArrow(offH);
+                        } else {
+                            return mainH.isEmpty() || this.isArrow(mainH);
+                        }
+                    case ONE_HANDED:
+                        if (mainH != itemstack) {
+                            if (mainH.getItem() instanceof IWeapon) {
+                                return ((IWeapon) mainH.getItem()).getWeaponHandleType() != WeaponHandleType.TWO_HANDED;
+                            }
 
-                  }
-                  return true;
-               case SEMI_ONE_HANDED:
-                  if (mainH != itemstack && mainH.getItem() instanceof IWeapon) {
-                     WeaponHandleType type = ((IWeapon) mainH.getItem()).getWeaponHandleType();
-                     return type != WeaponHandleType.TWO_HANDED && type != WeaponHandleType.SEMI_ONE_HANDED;
-                  }
-                  return true;
-               default:
-                 return false;
+                        }
+                        return true;
+                    case SEMI_ONE_HANDED:
+                        if (mainH != itemstack && mainH.getItem() instanceof IWeapon) {
+                            WeaponHandleType type = ((IWeapon) mainH.getItem()).getWeaponHandleType();
+                            return type != WeaponHandleType.TWO_HANDED && type != WeaponHandleType.SEMI_ONE_HANDED;
+                        }
+                        return true;
+                    default:
+                        return false;
+                }
             }
-         }
-      } else {
-         return false;
-      }
-   }
+        } else {
+            return false;
+        }
+    }
 
-   //TODO add nbt to support arrows with potion effects
-   @SideOnly(Side.CLIENT)
-   public static void renderArrowInBow(ItemStack itemstack, float progress, float partialTicksTeisr, float arrowOffset) {
-      int arrow = NBTHelper.GetNBTint(itemstack, "arrowUsing");
-      if (arrow != -10000) {
-         Item itemArrow = Item.getItemById(arrow);
-         GlStateManager.pushMatrix();
-         GlStateManager.translate(0.43F + progress * arrowOffset, 0.47F, 0.04F);
-         GlStateManager.rotate(135.0F, 0.0F, -0.05F, 1.0F);
-         float scale = 2.0F;
-         GlStateManager.scale(scale, scale, scale);
-         GlStateManager.enableBlend();
-         AbstractMobModel.alphaGlowDisable();
-         Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(itemArrow), TransformType.GROUND);
-         GlStateManager.disableBlend();
-         GlStateManager.popMatrix();
-      }
-   }
+    //TODO add nbt to support arrows with potion effects
+    @SideOnly(Side.CLIENT)
+    public static void renderArrowInBow(ItemStack itemstack, float progress, float partialTicksTeisr, float arrowOffset) {
+        int arrow = NBTHelper.GetNBTint(itemstack, "arrowUsing");
+        if (arrow != -10000) {
+            Item itemArrow = Item.getItemById(arrow);
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0.43F + progress * arrowOffset, 0.47F, 0.04F);
+            GlStateManager.rotate(135.0F, 0.0F, -0.05F, 1.0F);
+            float scale = 2.0F;
+            GlStateManager.scale(scale, scale, scale);
+            GlStateManager.enableBlend();
+            AbstractMobModel.alphaGlowDisable();
+            Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(itemArrow), TransformType.GROUND);
+            GlStateManager.disableBlend();
+            GlStateManager.popMatrix();
+        }
+    }
+
 }

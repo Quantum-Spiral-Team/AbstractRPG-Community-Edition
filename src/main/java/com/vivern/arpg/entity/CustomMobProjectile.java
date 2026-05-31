@@ -12,102 +12,104 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CustomMobProjectile extends EntityThrowable {
-   public float grav = 0.0F;
-   public double unstabilization = 1.0;
-   public IMobCustomProjectile mobInterf = null;
-   public int light = -1;
-   public ResourceLocation texture;
-   public float Red = 1.0F;
-   public float Green = 1.0F;
-   public float Blue = 1.0F;
-   public boolean enableAlpha = false;
-   public int rotation = 0;
-   public float scale = 1.0F;
-   public float alpha = 1.0F;
-   public boolean alphaGlowing = false;
-   public boolean noWaterBubble = true;
-   public boolean isPushedByLiquids = true;
-   public int renderStyle = 0;
 
-   public CustomMobProjectile(World world) {
-      super(world);
-   }
+    public float grav = 0.0F;
+    public double unstabilization = 1.0;
+    public IMobCustomProjectile mobInterf = null;
+    public int light = -1;
+    public ResourceLocation texture;
+    public float Red = 1.0F;
+    public float Green = 1.0F;
+    public float Blue = 1.0F;
+    public boolean enableAlpha = false;
+    public int rotation = 0;
+    public float scale = 1.0F;
+    public float alpha = 1.0F;
+    public boolean alphaGlowing = false;
+    public boolean noWaterBubble = true;
+    public boolean isPushedByLiquids = true;
+    public int renderStyle = 0;
 
-   public CustomMobProjectile(World world, EntityLivingBase thrower) {
-      super(world, thrower);
-   }
+    public CustomMobProjectile(World world) {
+        super(world);
+    }
 
-   public CustomMobProjectile(World world, double x, double y, double z) {
-      super(world, x, y, z);
-   }
+    public CustomMobProjectile(World world, EntityLivingBase thrower) {
+        super(world, thrower);
+    }
 
-   public CustomMobProjectile(World world, EntityLivingBase thrower, float grav, double unstabilization, IMobCustomProjectile mobInterf) {
-      super(world, thrower);
-      this.grav = grav;
-      this.unstabilization = unstabilization;
-      this.mobInterf = mobInterf;
-   }
+    public CustomMobProjectile(World world, double x, double y, double z) {
+        super(world, x, y, z);
+    }
 
-   @Override
-   public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
-      float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
-      float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
-      float f2 = MathHelper.cos(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
-      this.shoot(f, f1, f2, velocity, inaccuracy);
-      this.motionX = this.motionX + entityThrower.motionX * this.unstabilization;
-      this.motionZ = this.motionZ + entityThrower.motionZ * this.unstabilization;
-      if (!entityThrower.onGround) {
-         this.motionY = this.motionY + entityThrower.motionY * this.unstabilization;
-      }
-   }
+    public CustomMobProjectile(World world, EntityLivingBase thrower, float grav, double unstabilization, IMobCustomProjectile mobInterf) {
+        super(world, thrower);
+        this.grav = grav;
+        this.unstabilization = unstabilization;
+        this.mobInterf = mobInterf;
+    }
 
-   @Override
-   public boolean isInWater() {
-      return !this.noWaterBubble && this.inWater;
-   }
+    @Override
+    public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
+        float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
+        float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
+        float f2 = MathHelper.cos(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
+        this.shoot(f, f1, f2, velocity, inaccuracy);
+        this.motionX = this.motionX + entityThrower.motionX * this.unstabilization;
+        this.motionZ = this.motionZ + entityThrower.motionZ * this.unstabilization;
+        if (!entityThrower.onGround) {
+            this.motionY = this.motionY + entityThrower.motionY * this.unstabilization;
+        }
+    }
 
-   @Override
-   public boolean isPushedByWater() {
-      return this.isPushedByLiquids;
-   }
+    @Override
+    public boolean isInWater() {
+        return !this.noWaterBubble && this.inWater;
+    }
 
-   @Override
-   protected float getGravityVelocity() {
-      return this.grav;
-   }
+    @Override
+    public boolean isPushedByWater() {
+        return this.isPushedByLiquids;
+    }
 
-   @Override
-   public void onUpdate() {
-      super.onUpdate();
-      if (this.mobInterf != null) {
-         this.mobInterf.onUpdate(this);
-      }
+    @Override
+    protected float getGravityVelocity() {
+        return this.grav;
+    }
 
-      this.world.setEntityState(this, (byte)9);
-   }
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (this.mobInterf != null) {
+            this.mobInterf.onUpdate(this);
+        }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public void handleStatusUpdate(byte id) {
-      if (id == 8 && this.mobInterf != null) {
-         this.mobInterf.onImpactClient(this);
-      }
+        this.world.setEntityState(this, (byte) 9);
+    }
 
-      if (id == 9 && this.mobInterf != null) {
-         this.mobInterf.onUpdateClient(this);
-      }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void handleStatusUpdate(byte id) {
+        if (id == 8 && this.mobInterf != null) {
+            this.mobInterf.onImpactClient(this);
+        }
 
-      if (id == -1) {
-         this.texture = new ResourceLocation("arpg:textures/lava_drop.png");
-      }
-   }
+        if (id == 9 && this.mobInterf != null) {
+            this.mobInterf.onUpdateClient(this);
+        }
 
-   @Override
-   protected void onImpact(RayTraceResult result) {
-      if (this.mobInterf != null) {
-         this.mobInterf.onImpact(this, result);
-      }
+        if (id == -1) {
+            this.texture = new ResourceLocation("arpg:textures/lava_drop.png");
+        }
+    }
 
-      this.world.setEntityState(this, (byte)8);
-   }
+    @Override
+    protected void onImpact(RayTraceResult result) {
+        if (this.mobInterf != null) {
+            this.mobInterf.onImpact(this, result);
+        }
+
+        this.world.setEntityState(this, (byte) 8);
+    }
+
 }

@@ -13,142 +13,144 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class TileTopazCrystal extends TileEntity implements ITickable, IMagicUI {
-   public float energyStored = 0.0F;
-   public float energyProvideAtOnce = 1.0F;
-   public BlockPos drainPos = null;
-   public BlockPos givePos = null;
-   public int ticksExisted = 0;
 
-   @Override
-   public void open(World world, EntityPlayer player, BlockPos pos, Entity entity) {
-      if (!world.isRemote && IMagicUI.checkNoNearOpened(world, pos, null, 2)) {
-         EntityMagicUI.EntityMUILink mui1 = new EntityMagicUI.EntityMUILink(world, pos);
-         EntityMagicUI.EntityMUICloser muiC = new EntityMagicUI.EntityMUICloser(world).addALL(mui1);
-         muiC.origin = pos;
-         IMagicUI.spawnEntityMUIinRound(world, player, pos, null, 0.1, 0.6F, muiC, mui1);
-      }
-   }
+    public float energyStored = 0.0F;
+    public float energyProvideAtOnce = 1.0F;
+    public BlockPos drainPos = null;
+    public BlockPos givePos = null;
+    public int ticksExisted = 0;
 
-   @Override
-   public void onProvideLink(World world, EntityPlayer player, BlockPos thispos, Entity thisentity, BlockPos linkpos, Entity linkentity) {
-      this.setPosToGive(linkpos);
-   }
+    @Override
+    public void open(World world, EntityPlayer player, BlockPos pos, Entity entity) {
+        if (!world.isRemote && IMagicUI.checkNoNearOpened(world, pos, null, 2)) {
+            EntityMagicUI.EntityMUILink mui1 = new EntityMagicUI.EntityMUILink(world, pos);
+            EntityMagicUI.EntityMUICloser muiC = new EntityMagicUI.EntityMUICloser(world).addALL(mui1);
+            muiC.origin = pos;
+            IMagicUI.spawnEntityMUIinRound(world, player, pos, null, 0.1, 0.6F, muiC, mui1);
+        }
+    }
 
-   public void setPosToDrain(BlockPos pos) {
-      this.drainPos = pos;
-   }
+    @Override
+    public void onProvideLink(World world, EntityPlayer player, BlockPos thispos, Entity thisentity, BlockPos linkpos, Entity linkentity) {
+        this.setPosToGive(linkpos);
+    }
 
-   public void setPosToGive(BlockPos pos) {
-      this.givePos = pos;
-   }
+    public void setPosToDrain(BlockPos pos) {
+        this.drainPos = pos;
+    }
 
-   @Override
-   public void update() {
-   }
+    public void setPosToGive(BlockPos pos) {
+        this.givePos = pos;
+    }
 
-   @Override
-   public SPacketUpdateTileEntity getUpdatePacket() {
-      NBTTagCompound compound = new NBTTagCompound();
-      compound.setFloat("stored", this.energyStored);
-      if (this.givePos != null) {
-         compound.setInteger("giveposx", this.givePos.getX());
-         compound.setInteger("giveposy", this.givePos.getY());
-         compound.setInteger("giveposz", this.givePos.getZ());
-      }
+    @Override
+    public void update() {
+    }
 
-      if (this.drainPos != null) {
-         compound.setInteger("drainposx", this.drainPos.getX());
-         compound.setInteger("drainposy", this.drainPos.getY());
-         compound.setInteger("drainposz", this.drainPos.getZ());
-      }
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+        compound.setFloat("stored", this.energyStored);
+        if (this.givePos != null) {
+            compound.setInteger("giveposx", this.givePos.getX());
+            compound.setInteger("giveposy", this.givePos.getY());
+            compound.setInteger("giveposz", this.givePos.getZ());
+        }
 
-      return new SPacketUpdateTileEntity(this.pos, 1, compound);
-   }
+        if (this.drainPos != null) {
+            compound.setInteger("drainposx", this.drainPos.getX());
+            compound.setInteger("drainposy", this.drainPos.getY());
+            compound.setInteger("drainposz", this.drainPos.getZ());
+        }
 
-   @Override
-   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-      NBTTagCompound compound = packet.getNbtCompound();
-      if (compound.hasKey("stored")) {
-         this.energyStored = compound.getFloat("stored");
-      }
+        return new SPacketUpdateTileEntity(this.pos, 1, compound);
+    }
 
-      if (compound.hasKey("giveposx") && compound.hasKey("giveposy") && compound.hasKey("giveposz")) {
-         this.givePos = new BlockPos(compound.getInteger("giveposx"), compound.getInteger("giveposy"), compound.getInteger("giveposz"));
-      }
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        NBTTagCompound compound = packet.getNbtCompound();
+        if (compound.hasKey("stored")) {
+            this.energyStored = compound.getFloat("stored");
+        }
 
-      if (compound.hasKey("drainposx") && compound.hasKey("drainposy") && compound.hasKey("drainposz")) {
-         this.drainPos = new BlockPos(compound.getInteger("drainposx"), compound.getInteger("drainposy"), compound.getInteger("drainposz"));
-      }
-   }
+        if (compound.hasKey("giveposx") && compound.hasKey("giveposy") && compound.hasKey("giveposz")) {
+            this.givePos = new BlockPos(compound.getInteger("giveposx"), compound.getInteger("giveposy"), compound.getInteger("giveposz"));
+        }
 
-   @Override
-   public NBTTagCompound getUpdateTag() {
-      NBTTagCompound compound = super.getUpdateTag();
-      compound.setFloat("stored", this.energyStored);
-      if (this.givePos != null) {
-         compound.setInteger("giveposx", this.givePos.getX());
-         compound.setInteger("giveposy", this.givePos.getY());
-         compound.setInteger("giveposz", this.givePos.getZ());
-      }
+        if (compound.hasKey("drainposx") && compound.hasKey("drainposy") && compound.hasKey("drainposz")) {
+            this.drainPos = new BlockPos(compound.getInteger("drainposx"), compound.getInteger("drainposy"), compound.getInteger("drainposz"));
+        }
+    }
 
-      if (this.drainPos != null) {
-         compound.setInteger("drainposx", this.drainPos.getX());
-         compound.setInteger("drainposy", this.drainPos.getY());
-         compound.setInteger("drainposz", this.drainPos.getZ());
-      }
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        compound.setFloat("stored", this.energyStored);
+        if (this.givePos != null) {
+            compound.setInteger("giveposx", this.givePos.getX());
+            compound.setInteger("giveposy", this.givePos.getY());
+            compound.setInteger("giveposz", this.givePos.getZ());
+        }
 
-      return compound;
-   }
+        if (this.drainPos != null) {
+            compound.setInteger("drainposx", this.drainPos.getX());
+            compound.setInteger("drainposy", this.drainPos.getY());
+            compound.setInteger("drainposz", this.drainPos.getZ());
+        }
 
-   @Override
-   public void handleUpdateTag(NBTTagCompound compound) {
-      if (compound.hasKey("stored")) {
-         this.energyStored = compound.getFloat("stored");
-      }
+        return compound;
+    }
 
-      if (compound.hasKey("giveposx") && compound.hasKey("giveposy") && compound.hasKey("giveposz")) {
-         this.givePos = new BlockPos(compound.getInteger("giveposx"), compound.getInteger("giveposy"), compound.getInteger("giveposz"));
-      }
+    @Override
+    public void handleUpdateTag(NBTTagCompound compound) {
+        if (compound.hasKey("stored")) {
+            this.energyStored = compound.getFloat("stored");
+        }
 
-      if (compound.hasKey("drainposx") && compound.hasKey("drainposy") && compound.hasKey("drainposz")) {
-         this.drainPos = new BlockPos(compound.getInteger("drainposx"), compound.getInteger("drainposy"), compound.getInteger("drainposz"));
-      }
+        if (compound.hasKey("giveposx") && compound.hasKey("giveposy") && compound.hasKey("giveposz")) {
+            this.givePos = new BlockPos(compound.getInteger("giveposx"), compound.getInteger("giveposy"), compound.getInteger("giveposz"));
+        }
 
-      super.handleUpdateTag(compound);
-   }
+        if (compound.hasKey("drainposx") && compound.hasKey("drainposy") && compound.hasKey("drainposz")) {
+            this.drainPos = new BlockPos(compound.getInteger("drainposx"), compound.getInteger("drainposy"), compound.getInteger("drainposz"));
+        }
 
-   @Override
-   public void readFromNBT(NBTTagCompound compound) {
-      if (compound.hasKey("stored")) {
-         this.energyStored = compound.getFloat("stored");
-      }
+        super.handleUpdateTag(compound);
+    }
 
-      if (compound.hasKey("giveposx") && compound.hasKey("giveposy") && compound.hasKey("giveposz")) {
-         this.givePos = new BlockPos(compound.getInteger("giveposx"), compound.getInteger("giveposy"), compound.getInteger("giveposz"));
-      }
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        if (compound.hasKey("stored")) {
+            this.energyStored = compound.getFloat("stored");
+        }
 
-      if (compound.hasKey("drainposx") && compound.hasKey("drainposy") && compound.hasKey("drainposz")) {
-         this.drainPos = new BlockPos(compound.getInteger("drainposx"), compound.getInteger("drainposy"), compound.getInteger("drainposz"));
-      }
+        if (compound.hasKey("giveposx") && compound.hasKey("giveposy") && compound.hasKey("giveposz")) {
+            this.givePos = new BlockPos(compound.getInteger("giveposx"), compound.getInteger("giveposy"), compound.getInteger("giveposz"));
+        }
 
-      super.readFromNBT(compound);
-   }
+        if (compound.hasKey("drainposx") && compound.hasKey("drainposy") && compound.hasKey("drainposz")) {
+            this.drainPos = new BlockPos(compound.getInteger("drainposx"), compound.getInteger("drainposy"), compound.getInteger("drainposz"));
+        }
 
-   @Override
-   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-      compound.setFloat("stored", this.energyStored);
-      if (this.givePos != null) {
-         compound.setInteger("giveposx", this.givePos.getX());
-         compound.setInteger("giveposy", this.givePos.getY());
-         compound.setInteger("giveposz", this.givePos.getZ());
-      }
+        super.readFromNBT(compound);
+    }
 
-      if (this.drainPos != null) {
-         compound.setInteger("drainposx", this.drainPos.getX());
-         compound.setInteger("drainposy", this.drainPos.getY());
-         compound.setInteger("drainposz", this.drainPos.getZ());
-      }
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound.setFloat("stored", this.energyStored);
+        if (this.givePos != null) {
+            compound.setInteger("giveposx", this.givePos.getX());
+            compound.setInteger("giveposy", this.givePos.getY());
+            compound.setInteger("giveposz", this.givePos.getZ());
+        }
 
-      return super.writeToNBT(compound);
-   }
+        if (this.drainPos != null) {
+            compound.setInteger("drainposx", this.drainPos.getX());
+            compound.setInteger("drainposy", this.drainPos.getY());
+            compound.setInteger("drainposz", this.drainPos.getZ());
+        }
+
+        return super.writeToNBT(compound);
+    }
+
 }

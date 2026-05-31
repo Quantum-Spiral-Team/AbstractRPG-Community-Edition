@@ -4,7 +4,9 @@ import com.vivern.arpg.tileentity.TileChest;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public class ChestsTESR extends TileEntitySpecialRenderer<TileChest> {
-   @Override
-   public void render(TileChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-   }
+
+    @Override
+    public void render(TileChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+    }
+
 }

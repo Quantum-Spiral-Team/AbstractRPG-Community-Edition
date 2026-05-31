@@ -1,7 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.tileentity.TilePresentBox;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -25,141 +24,130 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class PresentBox extends Block {
-   public static final PropertyInteger TEXTYPE = PropertyInteger.create("type", 0, 5);
-   public static AxisAlignedBB AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 0.9375);
 
-   public PresentBox() {
-      super(Material.CLOTH);
-      this.setRegistryName("present_box");
-      this.setTranslationKey("present_box");
-      this.blockHardness = 1.0F;
-      this.blockResistance = 1.0F;
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setSoundType(SoundType.CLOTH);
-      this.setHarvestLevel("shears", 0);
-   }
+    public static final PropertyInteger TEXTYPE = PropertyInteger.create("type", 0, 5);
+    public static AxisAlignedBB AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 0.9375);
 
-   @Override
-   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity instanceof IInventory) {
-         InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
-         worldIn.updateComparatorOutputLevel(pos, this);
-      }
+    public PresentBox() {
+        super(Material.CLOTH);
+        this.setRegistryName("present_box");
+        this.setTranslationKey("present_box");
+        this.blockHardness = 1.0F;
+        this.blockResistance = 1.0F;
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setSoundType(SoundType.CLOTH);
+        this.setHarvestLevel("shears", 0);
+    }
 
-      super.breakBlock(worldIn, pos, state);
-   }
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof IInventory) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
 
-   @Override
-   public IBlockState getStateForPlacement(
-      World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand
-   ) {
-      return this.getDefaultState().withProperty(TEXTYPE, RANDOM.nextInt(6));
-   }
+        super.breakBlock(worldIn, pos, state);
+    }
 
-   @Override
-   public boolean onBlockActivated(
-      World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ
-   ) {
-      if (worldIn.isRemote) {
-         return true;
-      } else {
-         TileEntity tileentity = worldIn.getTileEntity(pos);
-         if (tileentity instanceof TilePresentBox) {
-            playerIn.displayGUIChest((TilePresentBox)tileentity);
-         }
+    @Override
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+        return this.getDefaultState().withProperty(TEXTYPE, RANDOM.nextInt(6));
+    }
 
-         return true;
-      }
-   }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (worldIn.isRemote) {
+            return true;
+        } else {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+            if (tileentity instanceof TilePresentBox) {
+                playerIn.displayGUIChest((TilePresentBox) tileentity);
+            }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return AABB;
-   }
+            return true;
+        }
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return AABB;
+    }
 
-   public Class<TilePresentBox> getTileEntityClass() {
-      return TilePresentBox.class;
-   }
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return AABB;
+    }
 
-   public TilePresentBox getTileEntity(IBlockAccess world, BlockPos position) {
-      return (TilePresentBox)world.getTileEntity(position);
-   }
+    public Class<TilePresentBox> getTileEntityClass() {
+        return TilePresentBox.class;
+    }
 
-   @Override
-   public boolean hasTileEntity(IBlockState blockState) {
-      return true;
-   }
+    public TilePresentBox getTileEntity(IBlockAccess world, BlockPos position) {
+        return (TilePresentBox) world.getTileEntity(position);
+    }
 
-   @Override
-   @Nullable
-   public TilePresentBox createTileEntity(World world, IBlockState blockState) {
-      return new TilePresentBox(blockState.getValue(TEXTYPE));
-   }
+    @Override
+    public boolean hasTileEntity(IBlockState blockState) {
+        return true;
+    }
 
-   @Override
-   public boolean hasComparatorInputOverride(IBlockState state) {
-      return true;
-   }
+    @Override
+    @Nullable
+    public TilePresentBox createTileEntity(World world, IBlockState blockState) {
+        return new TilePresentBox(blockState.getValue(TEXTYPE));
+    }
 
-   @Override
-   public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-      return Container.calcRedstone(worldIn.getTileEntity(pos));
-   }
+    @Override
+    public boolean hasComparatorInputOverride(IBlockState state) {
+        return true;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+        return Container.calcRedstone(worldIn.getTileEntity(pos));
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public EnumBlockRenderType getRenderType(IBlockState state) {
-      return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   public static void trySendPacketUpdate(World world, BlockPos pos, TilePresentBox tile, int range) {
-      for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(
-         EntityPlayerMP.class,
-         new AxisAlignedBB(
-            pos.getX() + range,
-            pos.getY() + range,
-            pos.getZ() + range,
-            pos.getX() - range,
-            pos.getY() - range,
-            pos.getZ() - range
-         )
-      )) {
-         SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
-         if (spacketupdatetileentity != null) {
-            playerIn.connection.sendPacket(spacketupdatetileentity);
-         }
-      }
-   }
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      return this.getDefaultState().withProperty(TEXTYPE, meta);
-   }
+    public static void trySendPacketUpdate(World world, BlockPos pos, TilePresentBox tile, int range) {
+        for (EntityPlayerMP playerIn : world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos.getX() + range, pos.getY() + range, pos.getZ() + range, pos.getX() - range, pos.getY() - range, pos.getZ() - range))) {
+            SPacketUpdateTileEntity spacketupdatetileentity = tile.getUpdatePacket();
+            if (spacketupdatetileentity != null) {
+                playerIn.connection.sendPacket(spacketupdatetileentity);
+            }
+        }
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(TEXTYPE);
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(TEXTYPE, meta);
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{TEXTYPE});
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(TEXTYPE);
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{TEXTYPE});
+    }
+
 }

@@ -8,34 +8,36 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketCoinToClient extends Packet {
-   public int amount = 0;
-   public int entityId = 0;
-   public boolean isMessage;
 
-   public void write(int amount, int entityId) {
-      this.buf().writeInt(amount);
-      this.buf().writeInt(entityId);
-      this.isMessage = true;
-   }
+    public int amount = 0;
+    public int entityId = 0;
+    public boolean isMessage;
 
-   @Override
-   public void fromBytes(ByteBuf buf) {
-      this.amount = buf.readInt();
-      this.entityId = buf.readInt();
-      this.buf = buf;
-   }
+    public void write(int amount, int entityId) {
+        this.buf().writeInt(amount);
+        this.buf().writeInt(entityId);
+        this.isMessage = true;
+    }
 
-   @Override
-   public void client(EntityPlayer player, Packet sp, MessageContext ctx) {
-      if (this.amount != 0) {
-         Entity entity = player.world.getEntityByID(this.entityId);
-         if (entity instanceof EntityCoin) {
-            EntityCoin coin = (EntityCoin)entity;
-            coin.store = this.amount;
-         }
-      }
-   }
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.amount = buf.readInt();
+        this.entityId = buf.readInt();
+        this.buf = buf;
+    }
 
-   @Override
-   public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {}
+    @Override
+    public void client(EntityPlayer player, Packet sp, MessageContext ctx) {
+        if (this.amount != 0) {
+            Entity entity = player.world.getEntityByID(this.entityId);
+            if (entity instanceof EntityCoin) {
+                EntityCoin coin = (EntityCoin) entity;
+                coin.store = this.amount;
+            }
+        }
+    }
+
+    @Override
+    public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {}
+
 }

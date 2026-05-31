@@ -13,8 +13,10 @@ public class ARPGConfig {
     public static GeneralCategory general = new GeneralCategory();
 
     public static class GeneralCategory {
+
         @Config.Comment("Disable Realms")
         public boolean disableRealms = true;
+
     }
 
     static {

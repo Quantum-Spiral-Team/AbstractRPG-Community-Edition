@@ -7,19 +7,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public interface IAttributedBauble {
-   IAttribute getAttribute();
 
-   double value();
+    IAttribute getAttribute();
 
-   int operation();
+    double value();
 
-   String itemName();
+    int operation();
 
-   default Multimap<String, AttributeModifier> getAttributeModifiers(EntityPlayer player, int equipmentSlot, ItemStack itemstack) {
-      return null;
-   }
+    String itemName();
 
-   default boolean useMultimap() {
-      return false;
-   }
+    default Multimap<String, AttributeModifier> getAttributeModifiers(EntityPlayer player, int equipmentSlot, ItemStack itemstack) {
+        return null;
+    }
+
+    default boolean useMultimap() {
+        return false;
+    }
+
 }

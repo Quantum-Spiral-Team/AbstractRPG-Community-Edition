@@ -1,7 +1,6 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.items.ItemGrenade;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,177 +12,164 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class EntityGrenade extends EntityThrowable {
-   public ItemGrenade grenade;
-   public int flyingTime = 0;
-   public Vec3d randomRotate;
-   public float rotationProgr = 0.0F;
-   public float prevrotationProgr = 0.0F;
-   public int impacts = 0;
-   public boolean waterMoveHook = false;
-   public int explodes = 0;
 
-   public EntityGrenade(World world) {
-      super(world);
-      this.setSize(0.2F, 0.2F);
-      this.randomRotate = new Vec3d(this.rand.nextGaussian(), this.rand.nextGaussian(), this.rand.nextGaussian());
-   }
+    public ItemGrenade grenade;
+    public int flyingTime = 0;
+    public Vec3d randomRotate;
+    public float rotationProgr = 0.0F;
+    public float prevrotationProgr = 0.0F;
+    public int impacts = 0;
+    public boolean waterMoveHook = false;
+    public int explodes = 0;
 
-   public EntityGrenade(World world, EntityLivingBase thrower) {
-      super(world, thrower);
-      this.setSize(0.2F, 0.2F);
-      this.randomRotate = new Vec3d(this.rand.nextGaussian(), this.rand.nextGaussian(), this.rand.nextGaussian());
-   }
+    public EntityGrenade(World world) {
+        super(world);
+        this.setSize(0.2F, 0.2F);
+        this.randomRotate = new Vec3d(this.rand.nextGaussian(), this.rand.nextGaussian(), this.rand.nextGaussian());
+    }
 
-   public EntityGrenade(World world, double x, double y, double z) {
-      super(world, x, y, z);
-      this.setSize(0.2F, 0.2F);
-      this.randomRotate = new Vec3d(this.rand.nextGaussian(), this.rand.nextGaussian(), this.rand.nextGaussian());
-   }
+    public EntityGrenade(World world, EntityLivingBase thrower) {
+        super(world, thrower);
+        this.setSize(0.2F, 0.2F);
+        this.randomRotate = new Vec3d(this.rand.nextGaussian(), this.rand.nextGaussian(), this.rand.nextGaussian());
+    }
 
-   @Override
-   protected float getGravityVelocity() {
-      return this.inWater ? super.getGravityVelocity() / 2.0F : super.getGravityVelocity();
-   }
+    public EntityGrenade(World world, double x, double y, double z) {
+        super(world, x, y, z);
+        this.setSize(0.2F, 0.2F);
+        this.randomRotate = new Vec3d(this.rand.nextGaussian(), this.rand.nextGaussian(), this.rand.nextGaussian());
+    }
 
-   public float getspeedSq() {
-      return (float)(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-   }
+    @Override
+    protected float getGravityVelocity() {
+        return this.inWater ? super.getGravityVelocity() / 2.0F : super.getGravityVelocity();
+    }
 
-   @Override
-   public boolean isInWater() {
-      return !this.waterMoveHook && super.isInWater();
-   }
+    public float getspeedSq() {
+        return (float) (this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+    }
 
-   @Override
-   public void onUpdate() {
-      this.flyingTime++;
-      if (this.grenade != null && this.grenade.doWaterMoveHook() && !this.inGround && this.inWater) {
-         this.waterMoveHook = true;
-         super.onUpdate();
-         this.waterMoveHook = false;
-         int imax = this.grenade.getWaterParticlesHookAdding();
-         if (imax > 0) {
-            for (int i = 0; i < imax; i++) {
-               float f3 = 0.25F;
-               this.world
-                  .spawnParticle(
-                     EnumParticleTypes.WATER_BUBBLE,
-                     this.posX - this.motionX * 0.25,
-                     this.posY - this.motionY * 0.25,
-                     this.posZ - this.motionZ * 0.25,
-                     this.motionX,
-                     this.motionY,
-                     this.motionZ,
-                     new int[0]
-                  );
+    @Override
+    public boolean isInWater() {
+        return !this.waterMoveHook && super.isInWater();
+    }
+
+    @Override
+    public void onUpdate() {
+        this.flyingTime++;
+        if (this.grenade != null && this.grenade.doWaterMoveHook() && !this.inGround && this.inWater) {
+            this.waterMoveHook = true;
+            super.onUpdate();
+            this.waterMoveHook = false;
+            int imax = this.grenade.getWaterParticlesHookAdding();
+            if (imax > 0) {
+                for (int i = 0; i < imax; i++) {
+                    float f3 = 0.25F;
+                    this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * 0.25, this.posY - this.motionY * 0.25, this.posZ - this.motionZ * 0.25, this.motionX, this.motionY, this.motionZ, new int[0]);
+                }
             }
-         }
 
-         this.grenade.modifySpeedInWater(this);
-      } else {
-         super.onUpdate();
-      }
+            this.grenade.modifySpeedInWater(this);
+        } else {
+            super.onUpdate();
+        }
 
-      if (this.grenade != null) {
-         this.grenade.onProjectileUpdate(this);
-         if (!this.world.isRemote && (this.ticksExisted <= 2 || this.ticksExisted % 15 == 0)) {
-            this.world.setEntityState(this, this.grenade.id);
-         }
-      }
+        if (this.grenade != null) {
+            this.grenade.onProjectileUpdate(this);
+            if (!this.world.isRemote && (this.ticksExisted <= 2 || this.ticksExisted % 15 == 0)) {
+                this.world.setEntityState(this, this.grenade.id);
+            }
+        }
 
-      if (this.world.isRemote) {
-         this.prevrotationProgr = this.rotationProgr;
-         this.rotationProgr = this.rotationProgr + MathHelper.sqrt(this.getspeedSq());
-      }
-   }
+        if (this.world.isRemote) {
+            this.prevrotationProgr = this.rotationProgr;
+            this.rotationProgr = this.rotationProgr + MathHelper.sqrt(this.getspeedSq());
+        }
+    }
 
-   @Override
-   public void writeEntityToNBT(NBTTagCompound compound) {
-      compound.setInteger("time", this.flyingTime);
-      if (this.grenade != null) {
-         compound.setByte("grenadeid", this.grenade.id);
-      }
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound) {
+        compound.setInteger("time", this.flyingTime);
+        if (this.grenade != null) {
+            compound.setByte("grenadeid", this.grenade.id);
+        }
 
-      if (this.explodes != 0) {
-         compound.setInteger("explodes", this.explodes);
-      }
+        if (this.explodes != 0) {
+            compound.setInteger("explodes", this.explodes);
+        }
 
-      super.writeEntityToNBT(compound);
-   }
+        super.writeEntityToNBT(compound);
+    }
 
-   @Override
-   public void readEntityFromNBT(NBTTagCompound compound) {
-      if (compound.hasKey("time")) {
-         this.flyingTime = compound.getInteger("time");
-      }
+    @Override
+    public void readEntityFromNBT(NBTTagCompound compound) {
+        if (compound.hasKey("time")) {
+            this.flyingTime = compound.getInteger("time");
+        }
 
-      if (compound.hasKey("grenadeid")) {
-         this.grenade = ItemGrenade.REGISTRY.get(compound.getByte("grenadeid"));
-      }
+        if (compound.hasKey("grenadeid")) {
+            this.grenade = ItemGrenade.REGISTRY.get(compound.getByte("grenadeid"));
+        }
 
-      if (compound.hasKey("explodes")) {
-         this.explodes = compound.getInteger("explodes");
-      }
+        if (compound.hasKey("explodes")) {
+            this.explodes = compound.getInteger("explodes");
+        }
 
-      super.readEntityFromNBT(compound);
-   }
+        super.readEntityFromNBT(compound);
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public void handleStatusUpdate(byte id) {
-      if (id != -1 || this.grenade == null) {
-         this.grenade = ItemGrenade.REGISTRY.get(id);
-      } else if (this.world.isRemote) {
-         this.grenade.explode(this.world, this.thrower, this.posX, this.posY, this.posZ, null, this);
-      }
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void handleStatusUpdate(byte id) {
+        if (id != -1 || this.grenade == null) {
+            this.grenade = ItemGrenade.REGISTRY.get(id);
+        } else if (this.world.isRemote) {
+            this.grenade.explode(this.world, this.thrower, this.posX, this.posY, this.posZ, null, this);
+        }
+    }
 
-   public boolean bounce(@Nullable RayTraceResult result, double speedMultipl) {
-      boolean ret = false;
-      if (result != null
-         && result.getBlockPos() != null
-         && this.world
-               .getBlockState(result.getBlockPos())
-               .getBlock()
-               .getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos())
-            != null) {
-         if (result.sideHit == EnumFacing.UP || result.sideHit == EnumFacing.DOWN) {
-            this.motionY = -this.motionY * speedMultipl;
-            ret = true;
-         }
+    public boolean bounce(@Nullable RayTraceResult result, double speedMultipl) {
+        boolean ret = false;
+        if (result != null && result.getBlockPos() != null && this.world.getBlockState(result.getBlockPos()).getBlock().getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos()) != null) {
+            if (result.sideHit == EnumFacing.UP || result.sideHit == EnumFacing.DOWN) {
+                this.motionY = -this.motionY * speedMultipl;
+                ret = true;
+            }
 
-         if (result.sideHit == EnumFacing.NORTH || result.sideHit == EnumFacing.SOUTH) {
-            this.motionZ = -this.motionZ * speedMultipl;
-            ret = true;
-         }
+            if (result.sideHit == EnumFacing.NORTH || result.sideHit == EnumFacing.SOUTH) {
+                this.motionZ = -this.motionZ * speedMultipl;
+                ret = true;
+            }
 
-         if (result.sideHit == EnumFacing.EAST || result.sideHit == EnumFacing.WEST) {
-            this.motionX = -this.motionX * speedMultipl;
-            ret = true;
-         }
+            if (result.sideHit == EnumFacing.EAST || result.sideHit == EnumFacing.WEST) {
+                this.motionX = -this.motionX * speedMultipl;
+                ret = true;
+            }
 
-         this.velocityChanged = true;
-      }
+            this.velocityChanged = true;
+        }
 
-      return ret;
-   }
+        return ret;
+    }
 
-   public void slowdown(double mult) {
-      this.motionX *= mult;
-      this.motionY *= mult;
-      this.motionZ *= mult;
-   }
+    public void slowdown(double mult) {
+        this.motionX *= mult;
+        this.motionY *= mult;
+        this.motionZ *= mult;
+    }
 
-   @Override
-   protected void onImpact(RayTraceResult result) {
-      if (this.grenade != null) {
-         this.grenade.onProjectileImpact(this, result);
-      }
+    @Override
+    protected void onImpact(RayTraceResult result) {
+        if (this.grenade != null) {
+            this.grenade.onProjectileImpact(this, result);
+        }
 
-      if (result.entityHit != this.thrower) {
-         this.impacts++;
-      }
-   }
+        if (result.entityHit != this.thrower) {
+            this.impacts++;
+        }
+    }
+
 }

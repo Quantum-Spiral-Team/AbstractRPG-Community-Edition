@@ -3,7 +3,6 @@ package com.vivern.arpg.items;
 import com.vivern.arpg.entity.EntityRestlessSkull;
 import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
-import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -19,177 +18,154 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class RestlessSkull extends ItemWeapon {
-   public RestlessSkull() {
-      this.setRegistryName("restless_skull");
-      this.setCreativeTab(CreativeTabs.COMBAT);
-      this.setTranslationKey("restless_skull");
-      this.setMaxDamage(5000);
-      this.setMaxStackSize(1);
-   }
 
-   @Override
-   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-      return true;
-   }
+    public RestlessSkull() {
+        this.setRegistryName("restless_skull");
+        this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setTranslationKey("restless_skull");
+        this.setMaxDamage(5000);
+        this.setMaxStackSize(1);
+    }
 
-   @Override
-   public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+        return true;
+    }
 
-   @Override
-   public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
-      return false;
-   }
+    @Override
+    public boolean canAttackMelee(ItemStack itemstack, EntityPlayer player) {
+        return false;
+    }
 
-   @Override
-   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-      return slotChanged;
-   }
+    @Override
+    public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+        return false;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasAdditionalDurabilityBar(ItemStack stack) {
-      int charges = NBTHelper.GetNBTint(stack, "charges");
-      return charges > 0;
-   }
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public float getAdditionalDurabilityBar(ItemStack stack) {
-      float maxcharges = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) > 0 ? 50.0F : 20.0F;
-      float charges = NBTHelper.GetNBTint(stack, "charges");
-      return charges / maxcharges;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasAdditionalDurabilityBar(ItemStack stack) {
+        int charges = NBTHelper.GetNBTint(stack, "charges");
+        return charges > 0;
+    }
 
-   @Override
-   public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
-      if (!world.isRemote) {
-         this.setCanShoot(itemstack, entityIn);
-         if (IWeapon.canShoot(itemstack)) {
-            EntityPlayer player = (EntityPlayer)entityIn;
-            boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
-            boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
-            int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
-            int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
-            float power = Mana.getMagicPowerMax(player);
-            int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
-            NBTHelper.giveNBTboolean(itemstack, false, "challengeblock");
-            NBTHelper.giveNBTboolean(itemstack, false, "challengemob");
-            NBTHelper.giveNBTboolean(itemstack, false, "challengeflame");
-            NBTHelper.GiveNBTint(itemstack, 0, "charges");
-            boolean challengeblock = NBTHelper.GetNBTboolean(itemstack, "challengeblock");
-            boolean challengemob = NBTHelper.GetNBTboolean(itemstack, "challengemob");
-            boolean challengeflame = NBTHelper.GetNBTboolean(itemstack, "challengeflame");
-            int charges = NBTHelper.GetNBTint(itemstack, "charges");
-            if (player.getHeldItemMainhand() == itemstack) {
-               if (player.ticksExisted % 10 == 0) {
-                  List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, player.getEntityBoundingBox().grow(5.0, 4.0, 5.0));
-                  int ghostflames = 0;
+    @SideOnly(Side.CLIENT)
+    @Override
+    public float getAdditionalDurabilityBar(ItemStack stack) {
+        float maxcharges = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) > 0 ? 50.0F : 20.0F;
+        float charges = NBTHelper.GetNBTint(stack, "charges");
+        return charges / maxcharges;
+    }
 
-                  for (EntityLivingBase base : list) {
-                     if (base.isPotionActive(PotionEffects.INCORPOREITY)) {
-                        ghostflames++;
-                     }
-                  }
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!world.isRemote) {
+            this.setCanShoot(itemstack, entityIn);
+            if (IWeapon.canShoot(itemstack)) {
+                EntityPlayer player = (EntityPlayer) entityIn;
+                boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
+                boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
+                int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
+                int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
+                float power = Mana.getMagicPowerMax(player);
+                int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
+                NBTHelper.giveNBTboolean(itemstack, false, "challengeblock");
+                NBTHelper.giveNBTboolean(itemstack, false, "challengemob");
+                NBTHelper.giveNBTboolean(itemstack, false, "challengeflame");
+                NBTHelper.GiveNBTint(itemstack, 0, "charges");
+                boolean challengeblock = NBTHelper.GetNBTboolean(itemstack, "challengeblock");
+                boolean challengemob = NBTHelper.GetNBTboolean(itemstack, "challengemob");
+                boolean challengeflame = NBTHelper.GetNBTboolean(itemstack, "challengeflame");
+                int charges = NBTHelper.GetNBTint(itemstack, "charges");
+                if (player.getHeldItemMainhand() == itemstack) {
+                    if (player.ticksExisted % 10 == 0) {
+                        List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, player.getEntityBoundingBox().grow(5.0, 4.0, 5.0));
+                        int ghostflames = 0;
 
-                  if (ghostflames >= 2) {
-                     NBTHelper.SetNBTboolean(itemstack, true, "challengeflame");
-                  }
-               }
+                        for (EntityLivingBase base : list) {
+                            if (base.isPotionActive(PotionEffects.INCORPOREITY)) {
+                                ghostflames++;
+                            }
+                        }
 
-               if (Mana.getMana(player) > 1.8F - sor / 3.1F && !player.getCooldownTracker().hasCooldown(this)) {
-                  if (click) {
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.restless_skull,
-                        SoundCategory.AMBIENT,
-                        0.9F,
-                        0.9F + itemRand.nextFloat() / 5.0F
-                     );
-                     player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-                     player.addStat(StatList.getObjectUseStats(this));
-                     Weapons.setPlayerAnimationOnServer(player, 13, EnumHand.MAIN_HAND);
-                     EntityRestlessSkull projectile = new EntityRestlessSkull(world, player, itemstack, power);
-                     projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.65F, (float) 2 / (acc + 1));
-                     if (itemRand.nextFloat() < 0.3 + reuse / 3.0F) {
-                        projectile.flaming = true;
-                     }
+                        if (ghostflames >= 2) {
+                            NBTHelper.SetNBTboolean(itemstack, true, "challengeflame");
+                        }
+                    }
 
-                     world.spawnEntity(projectile);
-                     if (!player.capabilities.isCreativeMode) {
-                        Mana.changeMana(player, -1.8F + sor / 3.1F);
-                        Mana.setManaSpeed(player, 0.001F);
-                        itemstack.damageItem(1, player);
-                     }
-                  } else if (click2 && charges > 0) {
-                     world.playSound(
-                             null,
-                        player.posX,
-                        player.posY,
-                        player.posZ,
-                        Sounds.restless_skull,
-                        SoundCategory.AMBIENT,
-                        0.9F,
-                        0.9F + itemRand.nextFloat() / 5.0F
-                     );
-                     player.getCooldownTracker().setCooldown(this, 9 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * 2);
-                     player.addStat(StatList.getObjectUseStats(this));
-                     Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
-                     EntityRestlessSkull projectilex = new EntityRestlessSkull(world, player, itemstack, power);
-                     projectilex.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.65F, (float) 2 / (acc + 1));
-                     projectilex.powered = true;
-                     projectilex.active = true;
-                     world.spawnEntity(projectilex);
-                     if (!player.capabilities.isCreativeMode) {
-                        Mana.changeMana(player, -1.2F + sor / 4.1F);
-                        Mana.setManaSpeed(player, 0.001F);
-                        itemstack.damageItem(1, player);
-                     }
+                    if (Mana.getMana(player) > 1.8F - sor / 3.1F && !player.getCooldownTracker().hasCooldown(this)) {
+                        if (click) {
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.restless_skull, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                            player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
+                            player.addStat(StatList.getObjectUseStats(this));
+                            Weapons.setPlayerAnimationOnServer(player, 13, EnumHand.MAIN_HAND);
+                            EntityRestlessSkull projectile = new EntityRestlessSkull(world, player, itemstack, power);
+                            projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.65F, (float) 2 / (acc + 1));
+                            if (itemRand.nextFloat() < 0.3 + reuse / 3.0F) {
+                                projectile.flaming = true;
+                            }
 
-                     NBTHelper.AddNBTint(itemstack, -1, "charges");
-                  }
-               }
+                            world.spawnEntity(projectile);
+                            if (!player.capabilities.isCreativeMode) {
+                                Mana.changeMana(player, -1.8F + sor / 3.1F);
+                                Mana.setManaSpeed(player, 0.001F);
+                                itemstack.damageItem(1, player);
+                            }
+                        } else if (click2 && charges > 0) {
+                            world.playSound(null, player.posX, player.posY, player.posZ, Sounds.restless_skull, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                            player.getCooldownTracker().setCooldown(this, 9 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack) * 2);
+                            player.addStat(StatList.getObjectUseStats(this));
+                            Weapons.setPlayerAnimationOnServer(player, 3, EnumHand.MAIN_HAND);
+                            EntityRestlessSkull projectilex = new EntityRestlessSkull(world, player, itemstack, power);
+                            projectilex.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 0.65F, (float) 2 / (acc + 1));
+                            projectilex.powered = true;
+                            projectilex.active = true;
+                            world.spawnEntity(projectilex);
+                            if (!player.capabilities.isCreativeMode) {
+                                Mana.changeMana(player, -1.2F + sor / 4.1F);
+                                Mana.setManaSpeed(player, 0.001F);
+                                itemstack.damageItem(1, player);
+                            }
 
-               if (challengeblock && challengemob && challengeflame) {
-                  int maxcharges = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 ? 50 : 20;
-                  NBTHelper.SetNBTboolean(itemstack, false, "challengeblock");
-                  NBTHelper.SetNBTboolean(itemstack, false, "challengemob");
-                  NBTHelper.SetNBTboolean(itemstack, false, "challengeflame");
-                  NBTHelper.SetNBTint(itemstack, MathHelper.clamp(charges + 10, 0, maxcharges), "charges");
-                  world.playSound(
-                          null,
-                     player.posX,
-                     player.posY,
-                     player.posZ,
-                     Sounds.restless_skull_boost,
-                     SoundCategory.AMBIENT,
-                     0.9F,
-                     0.9F + itemRand.nextFloat() / 5.0F
-                  );
-               }
+                            NBTHelper.AddNBTint(itemstack, -1, "charges");
+                        }
+                    }
+
+                    if (challengeblock && challengemob && challengeflame) {
+                        int maxcharges = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 ? 50 : 20;
+                        NBTHelper.SetNBTboolean(itemstack, false, "challengeblock");
+                        NBTHelper.SetNBTboolean(itemstack, false, "challengemob");
+                        NBTHelper.SetNBTboolean(itemstack, false, "challengeflame");
+                        NBTHelper.SetNBTint(itemstack, MathHelper.clamp(charges + 10, 0, maxcharges), "charges");
+                        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.restless_skull_boost, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   public WeaponHandleType getWeaponHandleType() {
-      return WeaponHandleType.SEMI_ONE_HANDED;
-   }
+    @Override
+    public WeaponHandleType getWeaponHandleType() {
+        return WeaponHandleType.SEMI_ONE_HANDED;
+    }
 
-   @Override
-   public int getCooldownTime(ItemStack itemstack) {
-      int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
-      return 13 - rapidity * 3;
-   }
+    @Override
+    public int getCooldownTime(ItemStack itemstack) {
+        int rapidity = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack);
+        return 13 - rapidity * 3;
+    }
 
-   @Override
-   public boolean autoCooldown(ItemStack itemstack) {
-      return false;
-   }
+    @Override
+    public boolean autoCooldown(ItemStack itemstack) {
+        return false;
+    }
+
 }

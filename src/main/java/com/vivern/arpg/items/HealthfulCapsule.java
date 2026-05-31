@@ -13,35 +13,28 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 public class HealthfulCapsule extends Item {
-   public HealthfulCapsule() {
-      this.setRegistryName("healthful_capsule");
-      this.setCreativeTab(CreativeTabs.FOOD);
-      this.setTranslationKey("healthful_capsule");
-   }
 
-   @Override
-   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-      ItemStack itemstack = player.getHeldItem(hand);
-      if (!world.isRemote) {
-         PropertiesRegistry.PermanentAttributes attributes = PropertiesRegistry.getPlayerPermanentAttributes(player);
-         if (attributes.liveBoosters[1] < PropertiesRegistry.PermanentAttributes.getMaximumLiveBoosts(1)) {
-            attributes.liveBoosters[1]++;
-         }
+    public HealthfulCapsule() {
+        this.setRegistryName("healthful_capsule");
+        this.setCreativeTab(CreativeTabs.FOOD);
+        this.setTranslationKey("healthful_capsule");
+    }
 
-         PropertiesRegistry.setPlayerPermanentAttributes(player, attributes);
-      }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        if (!world.isRemote) {
+            PropertiesRegistry.PermanentAttributes attributes = PropertiesRegistry.getPlayerPermanentAttributes(player);
+            if (attributes.liveBoosters[1] < PropertiesRegistry.PermanentAttributes.getMaximumLiveBoosts(1)) {
+                attributes.liveBoosters[1]++;
+            }
 
-      itemstack.shrink(1);
-      world.playSound(
-              null,
-         player.posX,
-         player.posY,
-         player.posZ,
-         Sounds.injector,
-         SoundCategory.PLAYERS,
-         0.8F,
-         0.9F + itemRand.nextFloat() / 5.0F
-      );
-      return new ActionResult(EnumActionResult.SUCCESS, itemstack);
-   }
+            PropertiesRegistry.setPlayerPermanentAttributes(player, attributes);
+        }
+
+        itemstack.shrink(1);
+        world.playSound(null, player.posX, player.posY, player.posZ, Sounds.injector, SoundCategory.PLAYERS, 0.8F, 0.9F + itemRand.nextFloat() / 5.0F);
+        return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+    }
+
 }

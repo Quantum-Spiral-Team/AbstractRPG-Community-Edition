@@ -1,8 +1,8 @@
 package com.vivern.arpg.blocks;
 
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -18,92 +18,94 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class MagicLog extends BlockRotatedPillar {
-   public static final PropertyEnum<EnumAxis> LOG_AXIS = PropertyEnum.create("axis", EnumAxis.class);
 
-   public MagicLog() {
-      super(Material.WOOD);
-      this.setRegistryName("magic_wood");
-      this.setTranslationKey("magic_wood");
-      this.setHardness(2.0F);
-      this.setResistance(25.0F);
-      this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-      this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
-      this.setSoundType(SoundType.WOOD);
-      this.setHarvestLevel("axe", 0);
-   }
+    public static final PropertyEnum<EnumAxis> LOG_AXIS = PropertyEnum.create("axis", EnumAxis.class);
 
-   @Override
-   public boolean isWood(IBlockAccess world, BlockPos pos) {
-      return true;
-   }
+    public MagicLog() {
+        super(Material.WOOD);
+        this.setRegistryName("magic_wood");
+        this.setTranslationKey("magic_wood");
+        this.setHardness(2.0F);
+        this.setResistance(25.0F);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
+        this.setSoundType(SoundType.WOOD);
+        this.setHarvestLevel("axe", 0);
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
-      switch (meta) {
-         case 0:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
-            break;
-         case 4:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.X);
-            break;
-         case 8:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Z);
-            break;
-         default:
-            iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.NONE);
-      }
+    @Override
+    public boolean isWood(IBlockAccess world, BlockPos pos) {
+        return true;
+    }
 
-      return iblockstate;
-   }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        IBlockState iblockstate = this.getDefaultState().withProperty(LOG_AXIS, EnumAxis.Y);
+        switch (meta) {
+            case 0:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
+                break;
+            case 4:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.X);
+                break;
+            case 8:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Z);
+                break;
+            default:
+                iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.NONE);
+        }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      int i = 0;
-      switch (state.getValue(LOG_AXIS)) {
-         case X:
-            i = 4;
-            break;
-         case Z:
-            i = 8;
-            break;
-         case NONE:
-            i = 12;
-      }
+        return iblockstate;
+    }
 
-      return i;
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        int i = 0;
+        switch (state.getValue(LOG_AXIS)) {
+            case X:
+                i = 4;
+                break;
+            case Z:
+                i = 8;
+                break;
+            case NONE:
+                i = 12;
+        }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
-   }
+        return i;
+    }
 
-   @Override
-   public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-      return MapColor.BROWN_STAINED_HARDENED_CLAY;
-   }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
-   }
+    @Override
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        return MapColor.BROWN_STAINED_HARDENED_CLAY;
+    }
 
-   @Override
-   public IBlockState withRotation(IBlockState state, Rotation rot) {
-      switch (rot) {
-         case COUNTERCLOCKWISE_90:
-         case CLOCKWISE_90:
-            switch (state.getValue(LOG_AXIS)) {
-               case X:
-                  return state.withProperty(LOG_AXIS, EnumAxis.Z);
-               case Z:
-                  return state.withProperty(LOG_AXIS, EnumAxis.X);
-               default:
-                  return state;
-            }
-         default:
-            return state;
-      }
-   }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getStateFromMeta(meta).withProperty(LOG_AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
+    }
+
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        switch (rot) {
+            case COUNTERCLOCKWISE_90:
+            case CLOCKWISE_90:
+                switch (state.getValue(LOG_AXIS)) {
+                    case X:
+                        return state.withProperty(LOG_AXIS, EnumAxis.Z);
+                    case Z:
+                        return state.withProperty(LOG_AXIS, EnumAxis.X);
+                    default:
+                        return state;
+                }
+            default:
+                return state;
+        }
+    }
+
 }

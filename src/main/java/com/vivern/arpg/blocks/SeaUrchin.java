@@ -19,67 +19,69 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SeaUrchin extends Block implements IBlockHardBreak {
-   protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.01, 0.01, 0.01, 0.99, 0.99, 0.99);
 
-   public SeaUrchin() {
-      super(Material.ROCK);
-      this.setRegistryName("sea_urchin");
-      this.setTranslationKey("sea_urchin");
-      this.blockHardness = BlocksRegister.HR_CORALS.hardness;
-      this.blockResistance = BlocksRegister.HR_CORALS.resistance;
-      this.setHarvestLevel("axe", BlocksRegister.HR_CORALS.lvl);
-      this.setSoundType(SoundTypeCrunchy.CRUNCHY);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-   }
+    protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.01, 0.01, 0.01, 0.99, 0.99, 0.99);
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return STANDING_AABB;
-   }
+    public SeaUrchin() {
+        super(Material.ROCK);
+        this.setRegistryName("sea_urchin");
+        this.setTranslationKey("sea_urchin");
+        this.blockHardness = BlocksRegister.HR_CORALS.hardness;
+        this.blockResistance = BlocksRegister.HR_CORALS.resistance;
+        this.setHarvestLevel("axe", BlocksRegister.HR_CORALS.lvl);
+        this.setSoundType(SoundTypeCrunchy.CRUNCHY);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+    }
 
-   @Override
-   public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-      return STANDING_AABB;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return STANDING_AABB;
+    }
 
-   @Override
-   public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entityIn) {
-      if (!world.isRemote && entityIn.hurtResistantTime <= 0) {
-         if (entityIn instanceof EntityPlayer) {
-            entityIn.attackEntityFrom(DamageSource.CACTUS, 8.0F);
-            if (RANDOM.nextFloat() < 0.22F) {
-               world.destroyBlock(pos, false);
-               world.setBlockState(pos, Blocks.WATER.getDefaultState());
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return STANDING_AABB;
+    }
 
-               for (int i = 0; i < 3; i++) {
-                  HostileProjectiles.SeaBomb entityshoot = new HostileProjectiles.SeaBomb(world);
-                  entityshoot.shoot(entityIn, 30 - RANDOM.nextInt(61), RANDOM.nextInt(360), 0.0F, 0.4F, 9.5F);
-                  entityshoot.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-                  entityshoot.damage = 12.0F;
-                  entityshoot.explodeTimeOffset = RANDOM.nextInt(10) - 70;
-                  entityshoot.dropBlocks = false;
-                  world.spawnEntity(entityshoot);
-               }
+    @Override
+    public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entityIn) {
+        if (!world.isRemote && entityIn.hurtResistantTime <= 0) {
+            if (entityIn instanceof EntityPlayer) {
+                entityIn.attackEntityFrom(DamageSource.CACTUS, 8.0F);
+                if (RANDOM.nextFloat() < 0.22F) {
+                    world.destroyBlock(pos, false);
+                    world.setBlockState(pos, Blocks.WATER.getDefaultState());
+
+                    for (int i = 0; i < 3; i++) {
+                        HostileProjectiles.SeaBomb entityshoot = new HostileProjectiles.SeaBomb(world);
+                        entityshoot.shoot(entityIn, 30 - RANDOM.nextInt(61), RANDOM.nextInt(360), 0.0F, 0.4F, 9.5F);
+                        entityshoot.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+                        entityshoot.damage = 12.0F;
+                        entityshoot.explodeTimeOffset = RANDOM.nextInt(10) - 70;
+                        entityshoot.dropBlocks = false;
+                        world.spawnEntity(entityshoot);
+                    }
+                }
+            } else {
+                entityIn.attackEntityFrom(DamageSource.CACTUS, 4.0F);
             }
-         } else {
-            entityIn.attackEntityFrom(DamageSource.CACTUS, 4.0F);
-         }
-      }
-   }
+        }
+    }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return true;
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return true;
+    }
 
-   @Override
-   public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
-      return BlocksRegister.HR_CORALS.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
-   }
+    @Override
+    public float getBlockBreakingSpeed(World world, String tool, int toolLevel, IBlockState state, BlockPos pos, float originalSpeed) {
+        return BlocksRegister.HR_CORALS.getBlockBreakingSpeed(world, tool, toolLevel, state, pos, originalSpeed);
+    }
+
 }

@@ -13,10 +13,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumFacing.Plane;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -25,137 +25,139 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class StormRack extends Block {
-   public static final PropertyDirection FACING = BlockHorizontal.FACING;
-   public static final AxisAlignedBB LADDER_EAST_AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 0.1875, 1.0, 1.0);
-   public static final AxisAlignedBB LADDER_WEST_AABB = new AxisAlignedBB(0.8125, 0.0, 0.0, 1.0, 1.0, 1.0);
-   public static final AxisAlignedBB LADDER_SOUTH_AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 0.1875);
-   public static final AxisAlignedBB LADDER_NORTH_AABB = new AxisAlignedBB(0.0, 0.0, 0.8125, 1.0, 1.0, 1.0);
 
-   public StormRack() {
-      super(Material.CIRCUITS);
-      this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.NORTH));
-      this.setRegistryName("storm_rack");
-      this.setTranslationKey("storm_rack");
-      this.setHardness(10.0F);
-      this.setResistance(10.0F);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-      this.setSoundType(SoundType.METAL);
-      this.setHarvestLevel("pickaxe", 0);
-      this.setLightLevel(0.2F);
-   }
+    public static final PropertyDirection FACING = BlockHorizontal.FACING;
+    public static final AxisAlignedBB LADDER_EAST_AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 0.1875, 1.0, 1.0);
+    public static final AxisAlignedBB LADDER_WEST_AABB = new AxisAlignedBB(0.8125, 0.0, 0.0, 1.0, 1.0, 1.0);
+    public static final AxisAlignedBB LADDER_SOUTH_AABB = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 0.1875);
+    public static final AxisAlignedBB LADDER_NORTH_AABB = new AxisAlignedBB(0.0, 0.0, 0.8125, 1.0, 1.0, 1.0);
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return 15728880;
-   }
+    public StormRack() {
+        super(Material.CIRCUITS);
+        this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.NORTH));
+        this.setRegistryName("storm_rack");
+        this.setTranslationKey("storm_rack");
+        this.setHardness(10.0F);
+        this.setResistance(10.0F);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+        this.setSoundType(SoundType.METAL);
+        this.setHarvestLevel("pickaxe", 0);
+        this.setLightLevel(0.2F);
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      switch (state.getValue(FACING)) {
-         case NORTH:
-            return LADDER_NORTH_AABB;
-         case SOUTH:
-            return LADDER_SOUTH_AABB;
-         case WEST:
-            return LADDER_WEST_AABB;
-         case EAST:
-         default:
-            return LADDER_EAST_AABB;
-      }
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return 15728880;
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        switch (state.getValue(FACING)) {
+            case NORTH:
+                return LADDER_NORTH_AABB;
+            case SOUTH:
+                return LADDER_SOUTH_AABB;
+            case WEST:
+                return LADDER_WEST_AABB;
+            case EAST:
+            default:
+                return LADDER_EAST_AABB;
+        }
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
-      if (this.canAttachTo(worldIn, pos.west(), side)) {
-         return true;
-      } else if (this.canAttachTo(worldIn, pos.east(), side)) {
-         return true;
-      } else {
-         return this.canAttachTo(worldIn, pos.north(), side) || this.canAttachTo(worldIn, pos.south(), side);
-      }
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   private boolean canAttachTo(World p_193392_1_, BlockPos p_193392_2_, EnumFacing p_193392_3_) {
-      IBlockState iblockstate = p_193392_1_.getBlockState(p_193392_2_);
-      boolean flag = isExceptBlockForAttachWithPiston(iblockstate.getBlock());
-      return !flag && iblockstate.getBlockFaceShape(p_193392_1_, p_193392_2_, p_193392_3_) == BlockFaceShape.SOLID && !iblockstate.canProvidePower();
-   }
+    @Override
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+        if (this.canAttachTo(worldIn, pos.west(), side)) {
+            return true;
+        } else if (this.canAttachTo(worldIn, pos.east(), side)) {
+            return true;
+        } else {
+            return this.canAttachTo(worldIn, pos.north(), side) || this.canAttachTo(worldIn, pos.south(), side);
+        }
+    }
 
-   @Override
-   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-      if (facing.getAxis().isHorizontal() && this.canAttachTo(worldIn, pos.offset(facing.getOpposite()), facing)) {
-         return this.getDefaultState().withProperty(FACING, facing);
-      } else {
-         for (EnumFacing enumfacing : Plane.HORIZONTAL) {
-            if (this.canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing)) {
-               return this.getDefaultState().withProperty(FACING, enumfacing);
+    private boolean canAttachTo(World p_193392_1_, BlockPos p_193392_2_, EnumFacing p_193392_3_) {
+        IBlockState iblockstate = p_193392_1_.getBlockState(p_193392_2_);
+        boolean flag = isExceptBlockForAttachWithPiston(iblockstate.getBlock());
+        return !flag && iblockstate.getBlockFaceShape(p_193392_1_, p_193392_2_, p_193392_3_) == BlockFaceShape.SOLID && !iblockstate.canProvidePower();
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        if (facing.getAxis().isHorizontal() && this.canAttachTo(worldIn, pos.offset(facing.getOpposite()), facing)) {
+            return this.getDefaultState().withProperty(FACING, facing);
+        } else {
+            for (EnumFacing enumfacing : Plane.HORIZONTAL) {
+                if (this.canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing)) {
+                    return this.getDefaultState().withProperty(FACING, enumfacing);
+                }
             }
-         }
 
-         return this.getDefaultState();
-      }
-   }
+            return this.getDefaultState();
+        }
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      EnumFacing enumfacing = state.getValue(FACING);
-      if (!this.canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing)) {
-         this.dropBlockAsItem(worldIn, pos, state, 0);
-         worldIn.setBlockToAir(pos);
-      }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        EnumFacing enumfacing = state.getValue(FACING);
+        if (!this.canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing)) {
+            this.dropBlockAsItem(worldIn, pos, state, 0);
+            worldIn.setBlockToAir(pos);
+        }
 
-      super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-   }
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+    }
 
-   @Override
-   public IBlockState getStateFromMeta(int meta) {
-      EnumFacing enumfacing = EnumFacing.byIndex(meta);
-      if (enumfacing.getAxis() == Axis.Y) {
-         enumfacing = EnumFacing.NORTH;
-      }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
+        if (enumfacing.getAxis() == Axis.Y) {
+            enumfacing = EnumFacing.NORTH;
+        }
 
-      return this.getDefaultState().withProperty(FACING, enumfacing);
-   }
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return state.getValue(FACING).getIndex();
-   }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(FACING).getIndex();
+    }
 
-   @Override
-   public IBlockState withRotation(IBlockState state, Rotation rot) {
-      return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
-   }
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
+    }
 
-   @Override
-   public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-      return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
-   }
+    @Override
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
+    }
 
-   @Override
-   protected BlockStateContainer createBlockState() {
-      return new BlockStateContainer(this, new IProperty[]{FACING});
-   }
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{FACING});
+    }
 
-   @Override
-   public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-      return BlockFaceShape.UNDEFINED;
-   }
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
+    }
+
 }

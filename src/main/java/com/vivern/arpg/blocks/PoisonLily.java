@@ -1,8 +1,6 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
-import java.util.List;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
@@ -21,99 +19,96 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class PoisonLily extends Block {
-   protected static final AxisAlignedBB LILY_PAD_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.09375, 0.9375);
 
-   public PoisonLily() {
-      super(Material.PLANTS);
-      this.setRegistryName("poisonlily");
-      this.setTranslationKey("poisonlily");
-      this.setHardness(0.0F);
-      this.setResistance(0.0F);
-      this.setSoundType(SoundType.PLANT);
-      this.setCreativeTab(CreativeTabs.DECORATIONS);
-   }
+    protected static final AxisAlignedBB LILY_PAD_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.09375, 0.9375);
 
-   @Override
-   public void addCollisionBoxToList(
-      IBlockState state,
-      World worldIn,
-      BlockPos pos,
-      AxisAlignedBB entityBox,
-      List<AxisAlignedBB> collidingBoxes,
-      @Nullable Entity entityIn,
-      boolean isActualState
-   ) {
-      if (!(entityIn instanceof EntityBoat)) {
-         addCollisionBoxToList(pos, entityBox, collidingBoxes, LILY_PAD_AABB);
-      }
-   }
+    public PoisonLily() {
+        super(Material.PLANTS);
+        this.setRegistryName("poisonlily");
+        this.setTranslationKey("poisonlily");
+        this.setHardness(0.0F);
+        this.setResistance(0.0F);
+        this.setSoundType(SoundType.PLANT);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
+    }
 
-   @Override
-   public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-      super.onEntityCollision(worldIn, pos, state, entityIn);
-      if (entityIn instanceof EntityBoat) {
-         worldIn.destroyBlock(new BlockPos(pos), true);
-      }
-   }
+    @Override
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+        if (!(entityIn instanceof EntityBoat)) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, LILY_PAD_AABB);
+        }
+    }
 
-   @Override
-   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-      return LILY_PAD_AABB;
-   }
+    @Override
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+        super.onEntityCollision(worldIn, pos, state, entityIn);
+        if (entityIn instanceof EntityBoat) {
+            worldIn.destroyBlock(new BlockPos(pos), true);
+        }
+    }
 
-   @Override
-   public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-      return !worldIn.getBlockState(pos).getMaterial().isLiquid() && this.canBlockStay(worldIn, pos);
-   }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return LILY_PAD_AABB;
+    }
 
-   @Override
-   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-      super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-      this.checkAndDropBlock(worldIn, pos, state);
-   }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return !worldIn.getBlockState(pos).getMaterial().isLiquid() && this.canBlockStay(worldIn, pos);
+    }
 
-   protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
-      if (!this.canBlockStay(worldIn, pos)) {
-         this.dropBlockAsItem(worldIn, pos, state, 0);
-         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-      }
-   }
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+        this.checkAndDropBlock(worldIn, pos, state);
+    }
 
-   public boolean canBlockStay(World worldIn, BlockPos pos) {
-      if (pos.getY() >= 0 && pos.getY() < 256) {
-         IBlockState iblockstate = worldIn.getBlockState(pos.down());
-         Material material = iblockstate.getMaterial();
-         return iblockstate.getBlock() == BlocksRegister.FLUID_POISON && iblockstate.getValue(BlockLiquid.LEVEL) == 0;
-      } else {
-         return false;
-      }
-   }
+    protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
+        if (!this.canBlockStay(worldIn, pos)) {
+            this.dropBlockAsItem(worldIn, pos, state, 0);
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+        }
+    }
 
-   @Override
-   public boolean isOpaqueCube(IBlockState state) {
-      return false;
-   }
+    public boolean canBlockStay(World worldIn, BlockPos pos) {
+        if (pos.getY() >= 0 && pos.getY() < 256) {
+            IBlockState iblockstate = worldIn.getBlockState(pos.down());
+            Material material = iblockstate.getMaterial();
+            return iblockstate.getBlock() == BlocksRegister.FLUID_POISON && iblockstate.getValue(BlockLiquid.LEVEL) == 0;
+        } else {
+            return false;
+        }
+    }
 
-   @Override
-   public boolean isFullCube(IBlockState state) {
-      return false;
-   }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   @SideOnly(Side.CLIENT)
-   public BlockRenderLayer getRenderLayer() {
-      return BlockRenderLayer.CUTOUT;
-   }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-   @Override
-   public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-      return BlockFaceShape.UNDEFINED;
-   }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-   @Override
-   public int getMetaFromState(IBlockState state) {
-      return 0;
-   }
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return 0;
+    }
+
 }

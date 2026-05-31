@@ -1,6 +1,5 @@
 package com.vivern.arpg.renders;
 
-import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
@@ -10,41 +9,34 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Random;
+
 @SideOnly(Side.CLIENT)
 public class LayerRandomItem implements LayerRenderer<EntityLivingBase> {
-   public RenderLivingBase<?> renderer;
-   public float yOffset;
-   public boolean inverseLayers;
 
-   public LayerRandomItem(float yOffset, boolean inverseLayers) {
-      this.yOffset = yOffset;
-      this.inverseLayers = inverseLayers;
-   }
+    public RenderLivingBase<?> renderer;
+    public float yOffset;
+    public boolean inverseLayers;
 
-   @Override
-   public void doRenderLayer(
-      EntityLivingBase entitylivingbaseIn,
-      float limbSwing,
-      float limbSwingAmount,
-      float partialTicks,
-      float ageInTicks,
-      float netHeadYaw,
-      float headPitch,
-      float scale
-   ) {
-      Random random = new Random(entitylivingbaseIn.getEntityId());
-      GlStateManager.pushMatrix();
-      GlStateManager.translate(0.0F, this.yOffset, 0.0F);
-      GlStateManager.rotate(
-         (float)random.nextGaussian() * 6.0F, (float)random.nextGaussian(), (float)random.nextGaussian(), (float)random.nextGaussian()
-      );
-      GlStateManager.enableRescaleNormal();
-      Minecraft.getMinecraft().getRenderItem().renderItem(entitylivingbaseIn.getHeldItemMainhand(), TransformType.GROUND);
-      GlStateManager.popMatrix();
-   }
+    public LayerRandomItem(float yOffset, boolean inverseLayers) {
+        this.yOffset = yOffset;
+        this.inverseLayers = inverseLayers;
+    }
 
-   @Override
-   public boolean shouldCombineTextures() {
-      return false;
-   }
+    @Override
+    public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        Random random = new Random(entitylivingbaseIn.getEntityId());
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(0.0F, this.yOffset, 0.0F);
+        GlStateManager.rotate((float) random.nextGaussian() * 6.0F, (float) random.nextGaussian(), (float) random.nextGaussian(), (float) random.nextGaussian());
+        GlStateManager.enableRescaleNormal();
+        Minecraft.getMinecraft().getRenderItem().renderItem(entitylivingbaseIn.getHeldItemMainhand(), TransformType.GROUND);
+        GlStateManager.popMatrix();
+    }
+
+    @Override
+    public boolean shouldCombineTextures() {
+        return false;
+    }
+
 }

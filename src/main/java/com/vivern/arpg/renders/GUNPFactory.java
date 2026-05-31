@@ -5,8 +5,10 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class GUNPFactory implements IRenderFactory<GUNParticle> {
-   @Override
-   public Render<GUNParticle> createRenderFor(RenderManager manager) {
-      return new GUNPRender<>(manager);
-   }
+
+    @Override
+    public Render<GUNParticle> createRenderFor(RenderManager manager) {
+        return new GUNPRender<>(manager);
+    }
+
 }

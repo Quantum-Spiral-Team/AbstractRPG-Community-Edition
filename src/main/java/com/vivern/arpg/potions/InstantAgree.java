@@ -9,31 +9,33 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class InstantAgree extends Potion {
-   protected InstantAgree(boolean isBadEffectIn, int liquidColorIn) {
-      super(isBadEffectIn, liquidColorIn);
-      this.setRegistryName("arpg:instant_agree");
-      this.setPotionName("Instant_Agree");
-   }
 
-   @SideOnly(Side.CLIENT)
-   @Override
-   public boolean hasStatusIcon() {
-      return false;
-   }
+    protected InstantAgree(boolean isBadEffectIn, int liquidColorIn) {
+        super(isBadEffectIn, liquidColorIn);
+        this.setRegistryName("arpg:instant_agree");
+        this.setPotionName("Instant_Agree");
+    }
 
-   @Override
-   public boolean isInstant() {
-      return true;
-   }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean hasStatusIcon() {
+        return false;
+    }
 
-   @Override
-   public void affectEntity(Entity source, Entity indirectSource, EntityLivingBase entityLivingBase, int amplifier, double health) {
-      if (entityLivingBase instanceof EntityCreature && indirectSource != null && indirectSource instanceof EntityLivingBase) {
-         EntityCreature creature = (EntityCreature)entityLivingBase;
-         if (creature.getAttackTarget() == null) {
-            creature.attackEntityFrom(DamageSource.causeIndirectMagicDamage(indirectSource, source), 0.0F);
-            creature.setAttackTarget((EntityLivingBase)indirectSource);
-         }
-      }
-   }
+    @Override
+    public boolean isInstant() {
+        return true;
+    }
+
+    @Override
+    public void affectEntity(Entity source, Entity indirectSource, EntityLivingBase entityLivingBase, int amplifier, double health) {
+        if (entityLivingBase instanceof EntityCreature && indirectSource != null && indirectSource instanceof EntityLivingBase) {
+            EntityCreature creature = (EntityCreature) entityLivingBase;
+            if (creature.getAttackTarget() == null) {
+                creature.attackEntityFrom(DamageSource.causeIndirectMagicDamage(indirectSource, source), 0.0F);
+                creature.setAttackTarget((EntityLivingBase) indirectSource);
+            }
+        }
+    }
+
 }

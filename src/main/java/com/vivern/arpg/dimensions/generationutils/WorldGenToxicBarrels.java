@@ -2,40 +2,39 @@ package com.vivern.arpg.dimensions.generationutils;
 
 import com.vivern.arpg.blocks.ToxicBarrel;
 import com.vivern.arpg.main.BlocksRegister;
-import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import java.util.Random;
+
 public class WorldGenToxicBarrels extends WorldGenerator {
-   public int samples = 64;
-   public int sizeXZ = 8;
-   public int sizeY = 4;
 
-   public WorldGenToxicBarrels() {
-   }
+    public int samples = 64;
+    public int sizeXZ = 8;
+    public int sizeY = 4;
 
-   public WorldGenToxicBarrels(int samples, int sizeXZ, int sizeY) {
-      this.samples = samples;
-      this.sizeXZ = sizeXZ;
-      this.sizeY = sizeY;
-   }
+    public WorldGenToxicBarrels() {
+    }
 
-   @Override
-   public boolean generate(World worldIn, Random rand, BlockPos position) {
-      for (int i = 0; i < this.samples; i++) {
-         BlockPos blockpos = position.add(
-            rand.nextInt(this.sizeXZ) - rand.nextInt(this.sizeXZ),
-            rand.nextInt(this.sizeY) - rand.nextInt(this.sizeY),
-            rand.nextInt(this.sizeXZ) - rand.nextInt(this.sizeXZ)
-         );
-         IBlockState state = worldIn.getBlockState(blockpos.down());
-         if (worldIn.isAirBlock(blockpos) && blockpos.getY() < 255 && !state.getMaterial().isLiquid() && state.isFullCube()) {
-            worldIn.setBlockState(blockpos, BlocksRegister.TOXIC_BARREL.getDefaultState().withProperty(ToxicBarrel.VARIANT, rand.nextInt(13)));
-         }
-      }
+    public WorldGenToxicBarrels(int samples, int sizeXZ, int sizeY) {
+        this.samples = samples;
+        this.sizeXZ = sizeXZ;
+        this.sizeY = sizeY;
+    }
 
-      return true;
-   }
+    @Override
+    public boolean generate(World worldIn, Random rand, BlockPos position) {
+        for (int i = 0; i < this.samples; i++) {
+            BlockPos blockpos = position.add(rand.nextInt(this.sizeXZ) - rand.nextInt(this.sizeXZ), rand.nextInt(this.sizeY) - rand.nextInt(this.sizeY), rand.nextInt(this.sizeXZ) - rand.nextInt(this.sizeXZ));
+            IBlockState state = worldIn.getBlockState(blockpos.down());
+            if (worldIn.isAirBlock(blockpos) && blockpos.getY() < 255 && !state.getMaterial().isLiquid() && state.isFullCube()) {
+                worldIn.setBlockState(blockpos, BlocksRegister.TOXIC_BARREL.getDefaultState().withProperty(ToxicBarrel.VARIANT, rand.nextInt(13)));
+            }
+        }
+
+        return true;
+    }
+
 }
