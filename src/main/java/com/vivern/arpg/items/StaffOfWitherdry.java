@@ -435,8 +435,8 @@ public class StaffOfWitherdry extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "charge") / maxcharge(itemstack), 0.0F, 1.0F);
+   public float getAdditionalDurabilityBar(ItemStack stack) {
+      return MathHelper.clamp((float)NBTHelper.GetNBTint(stack, "charge") / maxcharge(stack), 0.0F, 1.0F);
    }
 
    @SideOnly(Side.CLIENT)

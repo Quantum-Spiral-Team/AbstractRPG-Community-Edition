@@ -309,10 +309,10 @@ public class StaticLance extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
+   public float getAdditionalDurabilityBar(ItemStack stack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      return NBTHelper.GetNBTint(itemstack, "boomcooldown")
-         / parameters.getEnchantedF("blow_cooldown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, itemstack));
+      return NBTHelper.GetNBTint(stack, "boomcooldown")
+         / parameters.getEnchantedF("blow_cooldown", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RAPIDITY, stack));
    }
 
    @SideOnly(Side.CLIENT)

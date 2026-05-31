@@ -277,9 +277,9 @@ public class Violence extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
+   public float getAdditionalDurabilityBar(ItemStack stack) {
       return MathHelper.clamp(
-         NBTHelper.GetNBTint(itemstack, "hitcooldown") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getFloat("hit_cooldown"), 0.0F, 1.0F
+         NBTHelper.GetNBTint(stack, "hitcooldown") / WeaponParameters.getWeaponParameters(stack.getItem()).getFloat("hit_cooldown"), 0.0F, 1.0F
       );
    }
 

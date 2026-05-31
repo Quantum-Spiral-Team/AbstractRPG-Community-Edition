@@ -138,8 +138,8 @@ public class GothicBow extends AbstractBow {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
-      return MathHelper.clamp((float)Math.abs(NBTHelper.GetNBTint(itemstack, "ice")) / this.getChargesToShoot(), 0.0F, 1.0F);
+   public float getAdditionalDurabilityBar(ItemStack stack) {
+      return MathHelper.clamp((float)Math.abs(NBTHelper.GetNBTint(stack, "ice")) / this.getChargesToShoot(), 0.0F, 1.0F);
    }
 
    @SideOnly(Side.CLIENT)

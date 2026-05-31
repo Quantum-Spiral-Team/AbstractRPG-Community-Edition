@@ -474,10 +474,10 @@ public class Whip extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
+   public float getAdditionalDurabilityBar(ItemStack stack) {
       int whipMaxCharge = WeaponParameters.getWeaponParameters(this)
-         .getEnchantedI("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack));
-      return 1.0F - MathHelper.clamp((float)(-NBTHelper.GetNBTint(itemstack, "charge")) / whipMaxCharge, 0.0F, 1.0F);
+         .getEnchantedI("max_charge", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack));
+      return 1.0F - MathHelper.clamp((float)(-NBTHelper.GetNBTint(stack, "charge")) / whipMaxCharge, 0.0F, 1.0F);
    }
 
    @Override

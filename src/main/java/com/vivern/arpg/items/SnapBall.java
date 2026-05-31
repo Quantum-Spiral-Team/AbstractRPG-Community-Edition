@@ -180,9 +180,9 @@ public class SnapBall extends ItemWeapon implements IEnergyItem {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
+   public float getAdditionalDurabilityBar(ItemStack stack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-      int charge = NBTHelper.GetNBTint(itemstack, "charge");
+      int charge = NBTHelper.GetNBTint(stack, "charge");
       int chtp = parameters.getInt("charge_to_powered") + 1;
       return MathHelper.clamp((float)charge / chtp, 0.0F, 1.0F);
    }

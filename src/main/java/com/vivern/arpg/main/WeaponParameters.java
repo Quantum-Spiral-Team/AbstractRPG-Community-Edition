@@ -15,11 +15,11 @@ public class WeaponParameters {
    public String name;
    public static final float AUTO = -8.792019E7F;
    private static float levelRate = 1.0F;
-   public static float EXlevelFROZEN = 0.0F;
-   public static float EXlevelTOXINIUM = 0.0F;
-   public static float EXlevelDUNGEON_CHEST = 0.0F;
-   public static float EXlevelSEA_MIDDLE = 0.0F;
-   public static float EXlevelPLASMA = 0.0F;
+   public static float EXLevelFROZEN = 0.0F;
+   public static float EXLevelTOXINIUM = 0.0F;
+   public static float EXLevelDUNGEON_CHEST = 0.0F;
+   public static float EXLevelSEA_MIDDLE = 0.0F;
+   public static float EXLevelPLASMA = 0.0F;
 
    protected WeaponParameters(String name) {
       this.name = name;
@@ -772,7 +772,7 @@ public class WeaponParameters {
          .add("frostburn_time_max", 550.0F, 25.0F)
          .add("winterbreak_knockback", 3.0F, 0.5F)
          .add("winterbreak_snow_need", 8.0F, -2.0F);
-      EXlevelFROZEN = levelRate;
+      EXLevelFROZEN = levelRate;
       levelRate += 0.15F * raise;
       newparam(ItemsRegister.ICICLE_MINIGUN)
          .lvl("damage", 2.1375F, -8.792019E7F)
@@ -888,7 +888,7 @@ public class WeaponParameters {
          .add("velocity", 1.5F)
          .add("inaccuracy", 4.0F, -1.2F);
       levelRate += 0.25F * raise;
-      EXlevelTOXINIUM = levelRate;
+      EXLevelTOXINIUM = levelRate;
       newparam("tools_toxinium")
          .lvl("damage_drill", 2.25F, -8.792019E7F)
          .add("knockback_drill", 0.1F, 0.05F)
@@ -1074,7 +1074,7 @@ public class WeaponParameters {
          .add("livetime", 13.0F, 2.0F)
          .add("max_crystal_charge", 80.0F)
          .add("fallingblock_chance", 0.2F, 0.125F);
-      EXlevelDUNGEON_CHEST = levelRate;
+      EXLevelDUNGEON_CHEST = levelRate;
       newparam("tools_adamantium")
          .lvl("damage_drill", 2.25F, -8.792019E7F)
          .add("knockback_drill", 0.1F, 0.05F)
@@ -1308,7 +1308,7 @@ public class WeaponParameters {
          .add("charges_per_kill", 2.0F, 1.0F)
          .add("charges_effects_bonus", 2.0F)
          .add("charges_max", 40.0F, 30.0F);
-      EXlevelSEA_MIDDLE = levelRate;
+      EXLevelSEA_MIDDLE = levelRate;
       levelRate += 0.2F * raise;
       newparam(ItemsRegister.AZURE_ORE_STAFF)
          .lvl("damage", 1.84F, -8.792019E7F)
@@ -1433,7 +1433,7 @@ public class WeaponParameters {
          .add("distance", 22.0F, 5.0F)
          .add("targets", 8.0F, 2.0F)
          .add("voltage_to_overkill", 3.0F);
-      EXlevelPLASMA = levelRate;
+      EXLevelPLASMA = levelRate;
       levelRate += 0.25F * raise;
       newparam("tools_storm")
          .lvl("damage_drill", 2.25F, -8.792019E7F)
@@ -1550,8 +1550,8 @@ public class WeaponParameters {
       newparam(ItemsRegister.SEA_GRENADE)
          .add("cooldown", 220.0F)
          .add("first_explode_delay", 30.0F)
-         .lvl("damage", 15.0F * EXlevelSEA_MIDDLE)
-         .lvl("bomb_damage", 7.5F * EXlevelSEA_MIDDLE)
+         .lvl("damage", 15.0F * EXLevelSEA_MIDDLE)
+         .lvl("bomb_damage", 7.5F * EXLevelSEA_MIDDLE)
          .add("damage_radius", 3.0F)
          .add("destroy_radius", 2.0F)
          .add("bombs", 8.0F)
@@ -1609,7 +1609,7 @@ public class WeaponParameters {
       newparam(ItemsRegister.SURPRISE_ROCKET).lvl("damage", 3.0F).add("knockback", 0.0F).add("surprises", 8.0F, 1.0F);
       newparam(ItemsRegister.SHELL_ROCKET)
          .lvl("damage", 8.0F)
-         .lvl("shells_damage", 2.0F * EXlevelSEA_MIDDLE)
+         .lvl("shells_damage", 2.0F * EXLevelSEA_MIDDLE)
          .add("knockback", 0.6F)
          .add("damage_radius", 2.0F, 0.17F)
          .add("shells_min", 6.0F)
@@ -1617,18 +1617,18 @@ public class WeaponParameters {
       newparam(ItemsRegister.ARROW_BOUNCING).lvl("damage", 2.0F);
       newparam(ItemsRegister.ARROW_FIREJET).lvl("damage", 2.5F);
       newparam(ItemsRegister.ARROW_VOID).lvl("damage", 3.0F);
-      newparam(ItemsRegister.ARROW_BENGAL).lvl("damage", 3.0F).lvl("bengal_damage", 3.0F * EXlevelFROZEN);
+      newparam(ItemsRegister.ARROW_BENGAL).lvl("damage", 3.0F).lvl("bengal_damage", 3.0F * EXLevelFROZEN);
       newparam(ItemsRegister.ARROW_FROZEN).lvl("damage", 3.0F);
       newparam(ItemsRegister.ARROW_VICIOUS).lvl("damage", 3.5F);
       newparam(ItemsRegister.ARROW_MODERN).lvl("damage", 4.0F);
       newparam(ItemsRegister.ARROW_MITHRIL).lvl("damage", 5.0F);
       newparam(ItemsRegister.ARROW_FISH).lvl("damage", 4.5F);
-      newparam(ItemsRegister.ARROW_SHELL).lvl("damage", 4.5F).lvl("shard_damage", 2.0F * EXlevelSEA_MIDDLE);
+      newparam(ItemsRegister.ARROW_SHELL).lvl("damage", 4.5F).lvl("shard_damage", 2.0F * EXLevelSEA_MIDDLE);
       newparam(ItemsRegister.ARROW_TWIN)
          .lvl("damage", 5.0F)
-         .lvl("damage_link", 5.0F * EXlevelPLASMA)
+         .lvl("damage_link", 5.0F * EXLevelPLASMA)
          .lvl("damage_link_length_mult", -0.5F)
-         .lvl("damage_link_max", 50.0F * EXlevelPLASMA);
+         .lvl("damage_link_max", 50.0F * EXLevelPLASMA);
       newparam(ItemsRegister.ARROW_WIND).lvl("damage", 7.0F);
       newparam(ItemsRegister.BULLET_COPPER).lvl("damage", 0.0F).lvl("knockback", 0.0F);
       newparam(ItemsRegister.BULLET_LEAD).lvl("damage", 0.5F).lvl("knockback", 0.2F);
@@ -1646,10 +1646,10 @@ public class WeaponParameters {
       newparam(ItemsRegister.BULLET_CRYSTAL)
          .lvl("damage", 3.0F)
          .lvl("knockback", 0.0F)
-         .lvl("damage_crystals", 5.0F * EXlevelDUNGEON_CHEST)
+         .lvl("damage_crystals", 5.0F * EXLevelDUNGEON_CHEST)
          .add("amount_crystals", 8.0F);
-      newparam(ItemsRegister.BULLET_CORAL).lvl("damage", 3.5F).lvl("knockback", 0.0F).lvl("damage_polyp", 3.0F * EXlevelSEA_MIDDLE);
+      newparam(ItemsRegister.BULLET_CORAL).lvl("damage", 3.5F).lvl("knockback", 0.0F).lvl("damage_polyp", 3.0F * EXLevelSEA_MIDDLE);
       newparam(ItemsRegister.BULLET_DIVING).lvl("damage", 4.5F).lvl("knockback", 0.2F);
-      newparam(ItemsRegister.BULLET_THUNDER).lvl("damage", 5.0F).lvl("knockback", 0.0F).lvl("damage_thunder", 5.5F * EXlevelPLASMA);
+      newparam(ItemsRegister.BULLET_THUNDER).lvl("damage", 5.0F).lvl("knockback", 0.0F).lvl("damage_thunder", 5.5F * EXLevelPLASMA);
    }
 }

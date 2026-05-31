@@ -299,8 +299,8 @@ public abstract class AbstractMiningTool extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / this.chargesPerItem, 0.0F, 1.0F);
+   public float getAdditionalDurabilityBar(ItemStack stack) {
+      return MathHelper.clamp((float)NBTHelper.GetNBTint(stack, "ammo") / this.chargesPerItem, 0.0F, 1.0F);
    }
 
    @Override

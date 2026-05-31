@@ -120,7 +120,7 @@ public class ThornkeeperShoot extends EntityThrowable {
             && !this.world.isRemote) {
             Weapons.dealDamage(
                new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.pierce),
-               (3.0F * WeaponParameters.EXlevelSEA_MIDDLE + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack) / 2.0F) * this.magicPower,
+               (3.0F * WeaponParameters.EXLevelSEA_MIDDLE + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack) / 2.0F) * this.magicPower,
                this.thrower,
                result.entityHit,
                true,

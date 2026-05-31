@@ -156,8 +156,8 @@ public class MoltenGreatAxe extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
-      return MathHelper.clamp(NBTHelper.GetNBTint(itemstack, "duration") / 2400.0F, 0.0F, 1.0F);
+   public float getAdditionalDurabilityBar(ItemStack stack) {
+      return MathHelper.clamp(NBTHelper.GetNBTint(stack, "duration") / 2400.0F, 0.0F, 1.0F);
    }
 
    @SideOnly(Side.CLIENT)

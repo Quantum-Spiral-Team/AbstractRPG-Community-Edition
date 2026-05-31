@@ -480,9 +480,9 @@ public class WinterBreath extends ItemWeapon implements IItemAttacked {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
+   public float getAdditionalDurabilityBar(ItemStack stack) {
       return MathHelper.clamp(
-         (float)NBTHelper.GetNBTint(itemstack, "blocking") / WeaponParameters.getWeaponParameters(itemstack.getItem()).getInt("max_hits"), 0.0F, 1.0F
+         (float)NBTHelper.GetNBTint(stack, "blocking") / WeaponParameters.getWeaponParameters(stack.getItem()).getInt("max_hits"), 0.0F, 1.0F
       );
    }
 

@@ -406,9 +406,9 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
-      WeaponParameters parameters = WeaponParameters.getWeaponParameters(itemstack.getItem());
-      return (float)NBTHelper.GetNBTint(itemstack, "heat") / parameters.getInt("heat_max");
+   public float getAdditionalDurabilityBar(ItemStack stack) {
+      WeaponParameters parameters = WeaponParameters.getWeaponParameters(stack.getItem());
+      return (float)NBTHelper.GetNBTint(stack, "heat") / parameters.getInt("heat_max");
    }
 
    @Override

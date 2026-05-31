@@ -339,8 +339,8 @@ public class HydraulicShotgun extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "ammo") / maxammo, 0.0F, 1.0F);
+   public float getAdditionalDurabilityBar(ItemStack stack) {
+      return MathHelper.clamp((float)NBTHelper.GetNBTint(stack, "ammo") / maxammo, 0.0F, 1.0F);
    }
 
    @SideOnly(Side.CLIENT)

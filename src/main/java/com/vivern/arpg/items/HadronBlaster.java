@@ -664,10 +664,10 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
+   public float getAdditionalDurabilityBar(ItemStack stack) {
       WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
       int hadrons_to_laser = parameters.getInt("hadrons_to_laser");
-      int hadronss = NBTHelper.GetNBTint(itemstack, "hadrons");
+      int hadronss = NBTHelper.GetNBTint(stack, "hadrons");
       return MathHelper.clamp((float)hadronss / hadrons_to_laser, 0.0F, 1.0F);
    }
 

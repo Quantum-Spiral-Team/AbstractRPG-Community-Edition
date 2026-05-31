@@ -1573,7 +1573,7 @@ public class ToxicomaniaMobsPack {
          this.hurtSound = SoundEvents.ENTITY_SILVERFISH_HURT;
          this.deathSound = SoundEvents.ENTITY_SILVERFISH_DEATH;
          this.defaultteam = "toxic";
-         this.setattributes(12.0, 10.0, 3.0F * WeaponParameters.EXlevelTOXINIUM, 0.14, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+         this.setattributes(12.0, 10.0, 3.0F * WeaponParameters.EXLevelTOXINIUM, 0.14, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
          this.byPlayer = false;
          this.setNoGravity(true);
          this.berserk = false;
@@ -1586,7 +1586,7 @@ public class ToxicomaniaMobsPack {
          this.hurtSound = SoundEvents.ENTITY_SILVERFISH_HURT;
          this.deathSound = SoundEvents.ENTITY_SILVERFISH_DEATH;
          this.team = Team.getTeamFor(player);
-         this.setattributes(12.0, 10.0, (berserk ? 2 : 3) * WeaponParameters.EXlevelTOXINIUM, 0.14, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+         this.setattributes(12.0, 10.0, (berserk ? 2 : 3) * WeaponParameters.EXLevelTOXINIUM, 0.14, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
          this.byPlayer = true;
          this.setAttackTarget(attacktarg);
          this.setNoGravity(true);

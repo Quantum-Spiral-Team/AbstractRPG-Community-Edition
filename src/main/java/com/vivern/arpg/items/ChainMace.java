@@ -697,10 +697,10 @@ public class ChainMace extends ItemWeapon {
 
       @SideOnly(Side.CLIENT)
       @Override
-      public float getAdditionalDurabilityBar(ItemStack itemstack) {
+      public float getAdditionalDurabilityBar(ItemStack stack) {
          return MathHelper.clamp(
-            (float)NBTHelper.GetNBTint(itemstack, "kills")
-               / WeaponParameters.getWeaponParameters(this).getEnchantedI("charges_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack)),
+            (float)NBTHelper.GetNBTint(stack, "kills")
+               / WeaponParameters.getWeaponParameters(this).getEnchantedI("charges_max", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack)),
             0.0F,
             1.0F
          );

@@ -113,7 +113,7 @@ public class SparklingNecklace extends Item implements IBauble, IAttributedBaubl
             targ.hurtResistantTime = 0;
             Weapons.dealDamage(
                new WeaponDamage(itemstack, player, null, false, false, startPos, WeaponDamage.electric),
-               4.0F * WeaponParameters.EXlevelPLASMA * Mana.getMagicPowerMax((EntityPlayer)player),
+               4.0F * WeaponParameters.EXLevelPLASMA * Mana.getMagicPowerMax((EntityPlayer)player),
                player,
                targ,
                false

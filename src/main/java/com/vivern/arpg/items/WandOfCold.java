@@ -185,8 +185,8 @@ public class WandOfCold extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public float getAdditionalDurabilityBar(ItemStack itemstack) {
-      return MathHelper.clamp((float)NBTHelper.GetNBTint(itemstack, "charges") / maxcharge(itemstack), 0.0F, 1.0F);
+   public float getAdditionalDurabilityBar(ItemStack stack) {
+      return MathHelper.clamp((float)NBTHelper.GetNBTint(stack, "charges") / maxcharge(stack), 0.0F, 1.0F);
    }
 
    @SideOnly(Side.CLIENT)
