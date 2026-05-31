@@ -2,7 +2,7 @@ package com.vivern.arpg.network;
 
 import com.vivern.arpg.Tags;
 import com.vivern.arpg.network.packet.*;
-import com.vivern.arpg.network.packet.keys.PacketKeyPressed;
+import com.vivern.arpg.network.packet.keys.PacketKeysState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -60,7 +60,7 @@ public class PacketHandler {
         register(PacketEntityPositionToClients.class, Side.CLIENT);
         register(PacketDoSomethingToServer.class, Side.SERVER);
         register(PacketGrapplingHookToClients.class, Side.CLIENT);
-        register(PacketKeyPressed.class, Side.SERVER);
+        register(PacketKeysState.class, Side.SERVER);
     }
 
     private static int nextID() {

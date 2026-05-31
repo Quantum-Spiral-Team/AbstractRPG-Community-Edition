@@ -2,81 +2,82 @@ package com.vivern.arpg.main;
 
 import net.minecraft.entity.player.EntityPlayer;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class ServerKeyTracker {
 
-    private static final Map<UUID, Set<Byte>> PRESSED_KEYS = new HashMap<>();
-    private static final Map<UUID, Set<Byte>> JUST_PRESSED_KEYS = new HashMap<>();
+    private static final Map<UUID, EnumSet<Keys>> CURRENT_KEYS = new HashMap<>();
+    private static final Map<UUID, EnumSet<Keys>> PREVIOUS_KEYS = new HashMap<>();
 
-    public static void setKeyPressed(EntityPlayer player, byte keyId, boolean isPressed) {
-        if (player == null)
-            return;
-
+    public static void updatePlayerKeys(EntityPlayer player, byte mask) {
+        if (player == null) return;
         UUID uuid = player.getUniqueID();
 
-        if (isPressed) {
-            PRESSED_KEYS.computeIfAbsent(uuid, k -> new HashSet<>()).add(keyId);
-            JUST_PRESSED_KEYS.computeIfAbsent(uuid, k -> new HashSet<>()).add(keyId);
-        } else {
-            Set<Byte> keys = PRESSED_KEYS.get(uuid);
-            if (keys != null) {
-                keys.remove(keyId);
+        EnumSet<Keys> oldState = CURRENT_KEYS.getOrDefault(uuid, EnumSet.noneOf(Keys.class));
+        PREVIOUS_KEYS.put(uuid, oldState.clone());
 
-                if (keys.isEmpty()) {
-                    PRESSED_KEYS.remove(uuid);
-                }
-            }
+        EnumSet<Keys> newState = EnumSet.noneOf(Keys.class);
+        for (Keys key : Keys.values()) {
+            if ((mask & key.mask) != 0) newState.add(key);
         }
-    }
-
-    public static boolean isKeyPressed(EntityPlayer player, byte keyId) {
-        if (player == null)
-            return false;
-
-        Set<Byte> keys = PRESSED_KEYS.get(player.getUniqueID());
-        return keys != null && keys.contains(keyId);
+        CURRENT_KEYS.put(uuid, newState);
     }
 
     public static boolean isKeyPressed(EntityPlayer player, Keys key) {
-        return isKeyPressed(player, key.getId());
-    }
+        UUID uuid = player.getUniqueID();
+        EnumSet<Keys> current = CURRENT_KEYS.get(uuid);
+        EnumSet<Keys> previous = PREVIOUS_KEYS.get(uuid);
 
-    public static boolean isKeyDown(EntityPlayer player, byte id) {
-        if (player == null)
-            return false;
-        Set<Byte> keys = PRESSED_KEYS.get(player.getUniqueID());
-        return keys != null && keys.contains(id);
+        boolean isNowDown = current != null && current.contains(key);
+        boolean wasDown = previous != null && previous.contains(key);
+
+        return isNowDown && !wasDown;
     }
 
     public static boolean isKeyDown(EntityPlayer player, Keys key) {
-        return isKeyDown(player, key.getId());
+        EnumSet<Keys> keys = CURRENT_KEYS.get(player.getUniqueID());
+        return keys != null && keys.contains(key);
     }
 
     public static void clearPlayer(EntityPlayer player) {
         if (player != null) {
             UUID uuid = player.getUniqueID();
-            PRESSED_KEYS.remove(uuid);
-            JUST_PRESSED_KEYS.remove(uuid);
+            CURRENT_KEYS.remove(uuid);
+            PREVIOUS_KEYS.remove(uuid);
         }
     }
 
     public static void resetTick() {
-        JUST_PRESSED_KEYS.clear();
+        for (Map.Entry<UUID, EnumSet<Keys>> entry : CURRENT_KEYS.entrySet()) {
+            PREVIOUS_KEYS.put(entry.getKey(), entry.getValue().clone());
+        }
     }
 
+    /**
+     * Если потребуется увеличить количество доступных кнопок, просто поменяйте byte на short.
+     * Если будет необходимо сильно больше клавиш (хотя я сомневаюсь, что подобная необходимость возникнет), используйте {@link java.util.BitSet}.
+      */
     public enum Keys {
-        USE,
-        PRIMARY,
-        SECONDARY,
-        SCOPE,
-        GRENADE,
-        HOOK,
-        ABILITY,
+        USE(1),             // 00000001 (1)
+        PRIMARY(1 << 1),    // 00000010 (2)
+        SECONDARY(1 << 2),  // 00000100 (4)
+        SCOPE(1 << 3),      // 00001000 (8)
+        GRENADE(1 << 4),    // 00010000 (16)
+        HOOK(1 << 5),       // 00100000 (32)
+        ABILITY(1 << 6),    // 01000000 (64)
         ;
 
-        public byte getId() {
-            return (byte) this.ordinal();
+        private final byte mask;
+
+        Keys(int mask) {
+            this.mask = (byte) mask;
+        }
+
+        public byte getMask() {
+            return mask;
         }
     }
 

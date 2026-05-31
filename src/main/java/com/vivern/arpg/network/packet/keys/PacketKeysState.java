@@ -7,18 +7,12 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketKeyPressed extends Packet {
+public class PacketKeysState extends Packet {
 
-    public PacketKeyPressed() {}
+    public PacketKeysState() {}
 
-    public PacketKeyPressed(byte id, boolean pressed) {
-        this.buf.writeByte(id);
-        this.buf.writeBoolean(pressed);
-    }
-
-    public PacketKeyPressed(ServerKeyTracker.Keys key, boolean pressed) {
-        this.buf.writeByte(key.getId());
-        this.buf.writeBoolean(pressed);
+    public PacketKeysState(byte mask) {
+        this.buf.writeByte(mask);
     }
 
     @Override
@@ -26,11 +20,10 @@ public class PacketKeyPressed extends Packet {
 
     @Override
     public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {
-        final byte id = sp.buf.readByte();
-        final boolean pressed = sp.buf.readBoolean();
+        final byte mask = sp.buf.readByte();
 
         FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> {
-            ServerKeyTracker.setKeyPressed(player, id, pressed);
+            ServerKeyTracker.updatePlayerKeys(player, mask);
         });
     }
 

@@ -4,7 +4,7 @@ import com.vivern.arpg.Tags;
 import com.vivern.arpg.main.Keys;
 import com.vivern.arpg.main.ServerKeyTracker;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.packet.keys.PacketKeyPressed;
+import com.vivern.arpg.network.packet.keys.PacketKeysState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -20,31 +20,32 @@ import java.util.Map;
 @SideOnly(Side.CLIENT)
 public class ClientEvents {
 
-    private static final Map<KeyBinding, Byte> KEY_TO_ID = new HashMap<>();
-    private static final Map<KeyBinding, Boolean> LAST_STATES = new HashMap<>();
+    private static final Map<KeyBinding, ServerKeyTracker.Keys> KEY_MAP = new HashMap<>();
+    private static byte lastStateMask = 0;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END && Minecraft.getMinecraft().player != null) {
             boolean inGui = Minecraft.getMinecraft().currentScreen != null;
+            byte currentStateMask = 0;
 
-            for (Map.Entry<KeyBinding, Byte> entry : KEY_TO_ID.entrySet()) {
-                KeyBinding key = entry.getKey();
-                byte id = entry.getValue();
-
-                boolean isDown = !inGui && key.isKeyDown();
-                boolean wasDown = LAST_STATES.get(key);
-
-                if (isDown != wasDown) {
-                    LAST_STATES.put(key, isDown);
-                    PacketHandler.NETWORK.sendToServer(new PacketKeyPressed(id, isDown));
+            if (!inGui) {
+                for (Map.Entry<KeyBinding, ServerKeyTracker.Keys> entry : KEY_MAP.entrySet()) {
+                    if (entry.getKey().isKeyDown()) {
+                        currentStateMask |= entry.getValue().getMask();
+                    }
                 }
+            }
+
+            if (currentStateMask != lastStateMask) {
+                lastStateMask = currentStateMask;
+                PacketHandler.NETWORK.sendToServer(new PacketKeysState(currentStateMask));
             }
         }
     }
 
-    private static void registerKey(KeyBinding key, ServerKeyTracker.Keys modKey) {
-        KEY_TO_ID.put(key, modKey.getId());
+    private static void registerKey(KeyBinding keyBind, ServerKeyTracker.Keys key) {
+        KEY_MAP.put(keyBind, key);
     }
 
     static {
@@ -55,9 +56,5 @@ public class ClientEvents {
         registerKey(Keys.GRENADE, ServerKeyTracker.Keys.GRENADE);
         registerKey(Keys.GRAPLINGHOOK, ServerKeyTracker.Keys.HOOK);
         registerKey(Keys.HEADABILITY, ServerKeyTracker.Keys.ABILITY);
-
-        for (KeyBinding key : KEY_TO_ID.keySet()) {
-            LAST_STATES.put(key, false);
-        }
     }
 }
