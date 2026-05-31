@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -290,8 +291,8 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void playWingsSound(EntityPlayer player, MovingSound sound) {
-        if (player instanceof EntityPlayerSP) {
+    public void playWingsSound(EntityPlayer player, @Nullable MovingSound sound) {
+        if (player instanceof EntityPlayerSP && sound != null) {
             Minecraft.getMinecraft().getSoundHandler().playSound(sound);
         }
     }

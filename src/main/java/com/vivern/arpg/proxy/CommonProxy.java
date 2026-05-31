@@ -36,6 +36,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 
@@ -355,7 +356,7 @@ public class CommonProxy {
         EnchantmentInit.enchantmentTypeWeapon = EnumHelper.addEnchantmentType("i_weapon", item -> item instanceof IWeapon);
     }
 
-    public void playWingsSound(EntityPlayer player, MovingSound sound) {
+    public void playWingsSound(EntityPlayer player, @Nullable MovingSound sound) {
         //nothing on server side
     }
 

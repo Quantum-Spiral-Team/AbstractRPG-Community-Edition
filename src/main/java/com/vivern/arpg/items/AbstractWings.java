@@ -32,6 +32,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.List;
 import java.util.Random;
 
+//TODO я менял логику onWornTick, нужно будет проверить её работу (скорее всего не работает и придётся что-то придумывать). То же самое для ВСЕХ крыльев
 public abstract class AbstractWings extends Item implements IWings, IBauble {
 
     public int flapPeriod = 8;
@@ -263,7 +264,7 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
     public abstract double getFallingMotionSlowdown(ItemStack stack);
 
     @SideOnly(Side.CLIENT)
-    protected abstract MovingSound getWingsSound(EntityPlayer player);
+    protected abstract @Nullable MovingSound getWingsSound(EntityPlayer player);
 
     public void tryPlayFlapSound(EntityPlayer player, ItemStack itemstack, int clientFlyTime) {
         NBTHelper.giveNBTboolean(itemstack, false, "soundPlayed");

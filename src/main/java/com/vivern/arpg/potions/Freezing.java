@@ -30,12 +30,12 @@ import java.util.Map.Entry;
 public class Freezing extends AdvancedPotion {
 
     public static final ResourceLocation cold = new ResourceLocation("arpg:textures/cold.png");
-    public static final ResourceLocation textur = new ResourceLocation("arpg:textures/freezing.png");
+    public static final ResourceLocation texture = new ResourceLocation("arpg:textures/freezing.png");
     public static PotionEffect forTestSound = new PotionEffect(PotionEffects.FREEZING);
 
     protected Freezing(boolean isBadEffectIn, int liquidColorIn, int index) {
         super(isBadEffectIn, liquidColorIn, index, true);
-        this.setRegistryName("arpg:freezing");
+        this.setRegistryName("freezing");
         this.setPotionName("Freezing");
         this.setIconIndex(2, 1);
         this.shouldRender = true;
@@ -93,9 +93,9 @@ public class Freezing extends AdvancedPotion {
         super.onRemoveEffect(entityOnEffect, effect, byExpiry);
     }
 
-    public static boolean tryPlaySound(EntityLivingBase entity, PotionEffect lasteffect) {
-        PotionEffect neweff = entity.getActivePotionEffect(PotionEffects.FREEZING);
-        if (!canImmobilizeEntity(entity, lasteffect) && canImmobilizeEntity(entity, neweff) && entity.isPotionApplicable(neweff)) {
+    public static boolean tryPlaySound(EntityLivingBase entity, PotionEffect oldEffect) {
+        PotionEffect neEffect = entity.getActivePotionEffect(PotionEffects.FREEZING);
+        if (!canImmobilizeEntity(entity, oldEffect) && canImmobilizeEntity(entity, neEffect) && entity.isPotionApplicable(neEffect)) {
             entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, Sounds.freezing, SoundCategory.HOSTILE, 1.2F, 0.9F + entity.getRNG().nextFloat() / 5.0F);
             return true;
         } else {
@@ -119,7 +119,7 @@ public class Freezing extends AdvancedPotion {
         if (canImmobilizeEntity(player)) {
             if (!player.world.isRemote) {
                 PotionEffect effect = Weapons.mixPotion(player, PotionEffects.FREEZING, 3.0F, 0.0F, Weapons.EnumPotionMix.WITH_MINIMUM, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumMathOperation.MINUS, Weapons.EnumMathOperation.PLUS, 0, 0);
-                if (effect.getDuration() <= 4) {
+                if (effect != null && effect.getDuration() <= 4) {
                     player.addPotionEffect(new PotionEffect(PotionEffects.FREEZE_IMMUNITY, 105 - player.world.getDifficulty().getId() * 15));
                 }
             } else {
@@ -161,7 +161,7 @@ public class Freezing extends AdvancedPotion {
             GlStateManager.depthMask(false);
             GlStateManager.enableBlend();
             GlStateManager.matrixMode(5888);
-            ARPGHooks.bindEnotherTexture = textur;
+            ARPGHooks.bindEnotherTexture = texture;
             entityRenderer.doRender(entityOnEffect, x, y, z, yaw, partialTicks);
             GlStateManager.disableBlend();
             GlStateManager.depthMask(true);
@@ -174,14 +174,15 @@ public class Freezing extends AdvancedPotion {
     @Override
     public void renderFirstperson(EntityPlayer player, PotionEffect effect, RenderHandEvent event) {
         float add = canImmobilizeEntity(player, effect) ? 0.3F : 0.0F;
-        Minecraft.getMinecraft().getTextureManager().bindTexture(textur);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
         PotionBurningEffects.renderPolygonInFirstPerson(DemonicBurn.fire1, 0.1F + 0.3F * Math.min(effect.getDuration(), 60) / 60.0F + add, -0.4F);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void initIceLayers() {
         for (Entry<Class<? extends Entity>, Render<? extends Entity>> entry : Minecraft.getMinecraft().getRenderManager().entityRenderMap.entrySet()) {
             if (entry.getKey() != null && EntityLivingBase.class.isAssignableFrom(entry.getKey()) && entry.getValue() != null && entry.getValue() instanceof RenderLivingBase) {
-                RenderLivingBase render = (RenderLivingBase) entry.getValue();
+                RenderLivingBase<? extends Entity> render = (RenderLivingBase<?>) entry.getValue();
                 LayerIce layer = new LayerIce(render);
                 render.addLayer(layer);
             }

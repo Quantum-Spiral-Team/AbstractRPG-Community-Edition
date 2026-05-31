@@ -62,10 +62,12 @@ public class BlockFluidCryon extends BlockFluidClassic {
             double xx = d0 + rand.nextFloat();
             double yy = d1 + stateIn.getBoundingBox(worldIn, pos).maxY + 0.05;
             double zz = d2 + rand.nextFloat();
-            GUNParticle spelll = new GUNParticle(res, 0.22F + rand.nextFloat() / 20.0F, -0.0013F, 20 + rand.nextInt(10), 240, worldIn, xx, yy, zz, 0.0F, 0.0F, 0.0F, 0.9F + rand.nextFloat() / 10.0F, 1.0F, 1.0F, false, 0);
-            spelll.scaleTickAdding = -0.0037F;
-            spelll.isPushedByLiquids = false;
-            worldIn.spawnEntity(spelll);
+            GUNParticle spell = new GUNParticle(res, 0.22F + rand.nextFloat() / 20.0F, -0.0013F, 20 + rand.nextInt(10), 240, worldIn, xx, yy, zz, 0.0F, 0.0F, 0.0F, 0.9F + rand.nextFloat() / 10.0F, 1.0F, 1.0F, false, 0);
+            spell.scaleTickAdding = -0.0037F;
+            spell.isPushedByLiquids = false;
+            if (worldIn.isRemote) {
+                worldIn.spawnEntity(spell);
+            }
         }
 
         if (rand.nextInt(10) == 0 && worldIn.getBlockState(pos.down()).isTopSolid()) {
@@ -74,9 +76,11 @@ public class BlockFluidCryon extends BlockFluidClassic {
                 double xx = d0 + rand.nextFloat();
                 double yy = d1 - 1.05;
                 double zz = d2 + rand.nextFloat();
-                GUNParticle spelll = new GUNParticle(res, 0.13F + rand.nextFloat() / 20.0F, 7.0E-4F, 30 + rand.nextInt(10), 240, worldIn, xx, yy, zz, 0.0F, 0.0F, 0.0F, 0.9F + rand.nextFloat() / 10.0F, 1.0F, 1.0F, false, 0, true, 1.0F);
-                spelll.scaleTickAdding = -0.0032F;
-                worldIn.spawnEntity(spelll);
+                GUNParticle spell = new GUNParticle(res, 0.13F + rand.nextFloat() / 20.0F, 7.0E-4F, 30 + rand.nextInt(10), 240, worldIn, xx, yy, zz, 0.0F, 0.0F, 0.0F, 0.9F + rand.nextFloat() / 10.0F, 1.0F, 1.0F, false, 0, true, 1.0F);
+                spell.scaleTickAdding = -0.0032F;
+                if (worldIn.isRemote) {
+                    worldIn.spawnEntity(spell);
+                }
             }
         }
     }
