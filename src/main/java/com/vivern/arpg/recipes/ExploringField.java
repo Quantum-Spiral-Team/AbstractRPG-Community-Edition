@@ -398,7 +398,7 @@ public class ExploringField {
                     } else if (this.nbtKey == 20 && this.nbtBitshift == 0) {
                         text = "Initial Research";
                     } else {
-                        text = this.type.unlocalizedText;
+                        text = this.type.unlocalized;
                     }
 
                     if (researchingNow) {
@@ -478,10 +478,14 @@ public class ExploringField {
         TUTORIAL("Early Research"),
         BONUS("Bonus");
 
-        public String unlocalizedText;
+        private final String unlocalized;
 
-        ExploringPointType(String unlocalizedText) {
-            this.unlocalizedText = unlocalizedText;
+        ExploringPointType(String unlocalized) {
+            this.unlocalized = unlocalized;
+        }
+
+        public String getUnlocalizedName() {
+            return this.unlocalized;
         }
     }
 

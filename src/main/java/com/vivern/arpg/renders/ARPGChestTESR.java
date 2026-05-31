@@ -43,7 +43,7 @@ public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
             GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
             GlStateManager.matrixMode(5888);
         } else {
-            this.bindTexture(chestType.texture);
+            this.bindTexture(chestType.getTexture());
         }
 
         GlStateManager.pushMatrix();
@@ -65,11 +65,11 @@ public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
             float rotateX = -(f * (float) (Math.PI / 2));
             TileARPGChest.EnumChestStanding standing = te.getChestStanding();
             if (standing == TileARPGChest.EnumChestStanding.MIDDLE) {
-                chestType.model.render(null, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), chestType.light, rotateX, 0.0625F);
+                chestType.getModel().render(null, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), chestType.getLight(), rotateX, 0.0625F);
             }
 
             if (standing == TileARPGChest.EnumChestStanding.LEFT) {
-                chestType.modelLarge.render(null, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), chestType.light, rotateX, 0.0625F);
+                chestType.getModelLarge().render(null, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), chestType.getLight(), rotateX, 0.0625F);
             }
 
             if (te.isLocked()) {
@@ -83,7 +83,7 @@ public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
                 GlStateManager.popMatrix();
             }
         } else {
-            model.render(null, 0.0F, 0.0F, 0.0F, chestType.light, 0.0F, 0.0625F);
+            model.render(null, 0.0F, 0.0F, 0.0F, chestType.getLight(), 0.0F, 0.0625F);
         }
 
         GlStateManager.enableCull();

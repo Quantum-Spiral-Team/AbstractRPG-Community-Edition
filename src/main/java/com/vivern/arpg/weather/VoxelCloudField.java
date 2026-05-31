@@ -319,7 +319,7 @@ public class VoxelCloudField {
         if (this.voxelCloudInfo != null) {
             this.voxelCloudInfo.writeColorInPoint(this, voxelCloud, colorRGBA, x, y, z, arrayX, arrayY, arrayZ, vertex);
         } else {
-            float watered = 1.0F - Math.min(GetMOP.getFromTo(VoxelCloud.isDownVertex(vertex.id) ? arrayY : arrayY + 1, (float) voxelCloud.columnBottom, (float) voxelCloud.columnTop) * 2.0F, 1.0F);
+            float watered = 1.0F - Math.min(GetMOP.getFromTo(VoxelCloud.isDownVertex(vertex.getId()) ? arrayY : arrayY + 1, (float) voxelCloud.columnBottom, (float) voxelCloud.columnTop) * 2.0F, 1.0F);
             watered = 1.0F - watered * watered;
             float noise = (float) MathHelper.clamp(this.noiseGeneratorPerlin2.getValue(x / 17.0 + AnimationTimer.tick / 50.0, z / 17.0) / 20.0 + 0.5, 0.0, 1.0);
             noise = 1.0F - noise * noise;

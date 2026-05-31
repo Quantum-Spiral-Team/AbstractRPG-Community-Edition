@@ -254,46 +254,47 @@ public abstract class Phenomenon {
         }
     }
 
+    @FunctionalInterface
+    interface ClickPredicate {
+        boolean test(TerraformingResearchPuzzle puzzle, int x, int y);
+    }
+
     public enum EnumClickPossible {
-        NONE,
-        ANY,
-        SURFACE,
-        PHENOMENON,
-        POINT,
-        NO_POINT,
-        EMPTY_POINT;
+        NONE((puzzle, x, y) -> false),
+        ANY((puzzle, x, y) -> true),
+        SURFACE((puzzle, x, y) ->
+                puzzle.getSurface(x, y, TerraformingResearchSurface.TRSurfaceType.TERRAIN) != null
+                        || puzzle.getSurface(x, y, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE) != null
+                        || puzzle.getSurface(x, y, TerraformingResearchSurface.TRSurfaceType.CREATURE) != null),
+        PHENOMENON((puzzle, x, y) -> puzzle.getPhenomenon(x, y) != null),
+        POINT((puzzle, x, y) -> {
+            TerraformingResearchPuzzle.TerraformingResearchCell cell = getCell(puzzle, x, y);
+            return cell != null && cell.isPoint;
+        }),
+        NO_POINT((puzzle, x, y) -> {
+            TerraformingResearchPuzzle.TerraformingResearchCell cell = getCell(puzzle, x, y);
+            return cell != null && !cell.isPoint;
+        }),
+        EMPTY_POINT((puzzle, x, y) -> {
+            TerraformingResearchPuzzle.TerraformingResearchCell cell = getCell(puzzle, x, y);
+            return cell != null && cell.canFitPhenomenon() && cell.phenomenon == null;
+        });
+
+        private final ClickPredicate predicate;
+
+        EnumClickPossible(ClickPredicate predicate) {
+            this.predicate = predicate;
+        }
 
         public boolean isPossible(TerraformingResearchPuzzle puzzle, int x, int y) {
-            if (this == NONE) {
-                return false;
-            } else if (this == ANY) {
-                return true;
-            } else if (this == SURFACE) {
-                return puzzle.getSurface(x, y, TerraformingResearchSurface.TRSurfaceType.TERRAIN) != null || puzzle.getSurface(x, y, TerraformingResearchSurface.TRSurfaceType.ATMOSPHERE) != null || puzzle.getSurface(x, y, TerraformingResearchSurface.TRSurfaceType.CREATURE) != null;
-            } else if (this == PHENOMENON) {
-                return puzzle.getPhenomenon(x, y) != null;
-            } else if (this == POINT) {
-                if (x >= 0 && y >= 0 && x < puzzle.width && y < puzzle.height) {
-                    TerraformingResearchPuzzle.TerraformingResearchCell cell = puzzle.board[x][y];
-                    return cell.isPoint;
-                } else {
-                    return false;
-                }
-            } else if (this == NO_POINT) {
-                if (x >= 0 && y >= 0 && x < puzzle.width && y < puzzle.height) {
-                    TerraformingResearchPuzzle.TerraformingResearchCell cell = puzzle.board[x][y];
-                    return !cell.isPoint;
-                } else {
-                    return false;
-                }
-            } else if (this != EMPTY_POINT) {
-                return false;
-            } else if (x >= 0 && y >= 0 && x < puzzle.width && y < puzzle.height) {
-                TerraformingResearchPuzzle.TerraformingResearchCell cell = puzzle.board[x][y];
-                return cell.canFitPhenomenon() && cell.phenomenon == null;
-            } else {
-                return false;
+            return this.predicate.test(puzzle, x, y);
+        }
+
+        private static TerraformingResearchPuzzle.TerraformingResearchCell getCell(TerraformingResearchPuzzle puzzle, int x, int y) {
+            if (x >= 0 && y >= 0 && x < puzzle.width && y < puzzle.height) {
+                return puzzle.board[x][y];
             }
+            return null;
         }
     }
 

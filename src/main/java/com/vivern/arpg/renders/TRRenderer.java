@@ -59,9 +59,9 @@ public class TRRenderer {
         TRANSLUCENT(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, true),
         ADDITIVE(SourceFactor.SRC_ALPHA, DestFactor.ONE, true);
 
-        SourceFactor sourceFactor;
-        DestFactor destinationFactor;
-        boolean useBlend;
+        private final SourceFactor sourceFactor;
+        private final DestFactor destinationFactor;
+        private final boolean useBlend;
 
         RenderStyle(SourceFactor sourceFactor, DestFactor destinationFactor, boolean useBlend) {
             this.sourceFactor = sourceFactor;
@@ -72,9 +72,8 @@ public class TRRenderer {
         public void preRender() {
             if (this.useBlend) {
                 GlStateManager.enableBlend();
+                GlStateManager.blendFunc(this.sourceFactor, this.destinationFactor);
             }
-
-            GlStateManager.blendFunc(this.sourceFactor, this.destinationFactor);
         }
 
         public void postRender() {

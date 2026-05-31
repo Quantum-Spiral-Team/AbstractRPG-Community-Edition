@@ -154,12 +154,15 @@ public class VoxelCloud {
         UP_NORTH_EAST(EnumFacing.UP, EnumFacing.NORTH, EnumFacing.EAST, 22),
         UP_NORTH_WEST(EnumFacing.UP, EnumFacing.NORTH, EnumFacing.WEST, 23);
 
-        public EnumFacing mainFacing;
-        public EnumFacing facing2;
-        public EnumFacing facing3;
-        public int id;
-        public Vec3i[] surroundings;
-        public EnumCubeVertex[] surroundingsVertexes;
+        public final EnumFacing mainFacing;
+        public final EnumFacing facing2;
+        public final EnumFacing facing3;
+
+        private final int id;
+        private final Vec3i[] surroundings;
+        private EnumCubeVertex[] surroundingsVertexes;
+
+        private static final EnumCubeVertex[] VALUES = values();
 
         EnumCubeVertex(EnumFacing mainFacing, EnumFacing facing2, EnumFacing facing3, int id) {
             this.mainFacing = mainFacing;
@@ -167,132 +170,124 @@ public class VoxelCloud {
             this.facing3 = facing3;
             this.id = id;
             this.surroundings = this.initSurroundings();
-
-            for (int i = 0; i < 7; i++) {
-                if (this.surroundings[i] == null) {
-                    throw new RuntimeException("surroundings[i] = null!");
-                }
-            }
         }
 
         private Vec3i[] initSurroundings() {
             Vec3i[] vecs = new Vec3i[7];
-            int indx = 0;
+            for (int i = 1; i <= 7; i++) {
+                int i1 = (i >> 2) & 1;
+                int i2 = (i >> 1) & 1;
+                int i3 = i & 1;
 
-            for (int i1 = 0; i1 < 2; i1++) {
-                for (int i2 = 0; i2 < 2; i2++) {
-                    for (int i3 = 0; i3 < 2; i3++) {
-                        if (i1 != 0 || i2 != 0 || i3 != 0) {
-                            vecs[indx] = new Vec3i(this.mainFacing.getXOffset() * i1 + this.facing2.getXOffset() * i2 + this.facing3.getXOffset() * i3, this.mainFacing.getYOffset() * i1 + this.facing2.getYOffset() * i2 + this.facing3.getYOffset() * i3, this.mainFacing.getZOffset() * i1 + this.facing2.getZOffset() * i2 + this.facing3.getZOffset() * i3);
-                            indx++;
-                        }
-                    }
-                }
+                vecs[i - 1] = new Vec3i(
+                        this.mainFacing.getXOffset() * i1 + this.facing2.getXOffset() * i2 + this.facing3.getXOffset() * i3,
+                        this.mainFacing.getYOffset() * i1 + this.facing2.getYOffset() * i2 + this.facing3.getYOffset() * i3,
+                        this.mainFacing.getZOffset() * i1 + this.facing2.getZOffset() * i2 + this.facing3.getZOffset() * i3
+                );
             }
-
             return vecs;
         }
 
         private void initSurroundingsVertex() {
-            EnumCubeVertex[] surround = new EnumCubeVertex[7];
-            int indx = 0;
+            this.surroundingsVertexes = new EnumCubeVertex[7];
+            for (int i = 1; i <= 7; i++) {
+                EnumFacing mf = ((i >> 2) & 1) > 0 ? this.mainFacing.getOpposite() : this.mainFacing;
+                EnumFacing f2 = ((i >> 1) & 1) > 0 ? this.facing2.getOpposite() : this.facing2;
+                EnumFacing f3 = (i & 1) > 0 ? this.facing3.getOpposite() : this.facing3;
 
-            for (int i1 = 0; i1 < 2; i1++) {
-                for (int i2 = 0; i2 < 2; i2++) {
-                    for (int i3 = 0; i3 < 2; i3++) {
-                        if (i1 != 0 || i2 != 0 || i3 != 0) {
-                            EnumFacing mf = i1 > 0 ? this.mainFacing.getOpposite() : this.mainFacing;
-                            EnumFacing f2 = i2 > 0 ? this.facing2.getOpposite() : this.facing2;
-                            EnumFacing f3 = i3 > 0 ? this.facing3.getOpposite() : this.facing3;
-                            surround[indx] = this.find(mf, f2, f3);
-                            if (surround[indx] == null) {
-                                throw new RuntimeException("initSurroundingsVertex surround[indx] = null!");
-                            }
-
-                            indx++;
-                        }
-                    }
+                EnumCubeVertex found = this.find(mf, f2, f3);
+                if (found == null) {
+                    throw new RuntimeException("initSurroundingsVertex: Vertex not found for " + this.name());
                 }
+                this.surroundingsVertexes[i - 1] = found;
             }
-
-            this.surroundingsVertexes = surround;
         }
 
         public EnumCubeVertex find(EnumFacing mainf, EnumFacing face2, EnumFacing face3) {
-            for (EnumCubeVertex vertex : values()) {
-                if (vertex.mainFacing == mainf && (vertex.facing2 == face2 && vertex.facing3 == face3 || vertex.facing2 == face3 && vertex.facing3 == face2)) {
+            for (EnumCubeVertex vertex : VALUES) {
+                if (vertex.mainFacing == mainf &&
+                        ((vertex.facing2 == face2 && vertex.facing3 == face3) ||
+                                (vertex.facing2 == face3 && vertex.facing3 == face2))) {
                     return vertex;
                 }
             }
-
             return null;
         }
 
         public double calculatePlanarDistance(double x, double y, double z, Vec3d pointTo) {
-            if (this.mainFacing.getAxis() == Axis.X) {
-                double f1 = y - pointTo.y;
-                double f2 = z - pointTo.z;
-                return Math.sqrt(f1 * f1 + f2 * f2);
-            } else if (this.mainFacing.getAxis() == Axis.Y) {
-                double f1 = x - pointTo.x;
-                double f2 = z - pointTo.z;
-                return Math.sqrt(f1 * f1 + f2 * f2);
-            } else {
-                double f1 = x - pointTo.x;
-                double f2 = y - pointTo.y;
-                return Math.sqrt(f1 * f1 + f2 * f2);
+            double f1, f2;
+            switch (this.mainFacing.getAxis()) {
+                case X:
+                    f1 = y - pointTo.y;
+                    f2 = z - pointTo.z;
+                    break;
+                case Y:
+                    f1 = x - pointTo.x;
+                    f2 = z - pointTo.z;
+                    break;
+                default:
+                    f1 = x - pointTo.x;
+                    f2 = y - pointTo.y;
+                    break;
             }
+            return Math.sqrt(f1 * f1 + f2 * f2);
         }
 
         public double highestCollinearity(VoxelCloud voxelCloud, double x, double y, double z, Vec3d pointTo) {
-            return Math.max(Math.max(axisCollinearity(voxelCloud, this.mainFacing, x, y, z, pointTo), axisCollinearity(voxelCloud, this.facing2, x, y, z, pointTo)), axisCollinearity(voxelCloud, this.facing3, x, y, z, pointTo));
+            return Math.max(axisCollinearity(voxelCloud, this.mainFacing, x, y, z, pointTo),
+                    Math.max(axisCollinearity(voxelCloud, this.facing2, x, y, z, pointTo),
+                            axisCollinearity(voxelCloud, this.facing3, x, y, z, pointTo)));
         }
 
         public double highestCollinearity(double x, double y, double z, Vec3d pointTo) {
-            return Math.max(Math.max(axisCollinearity(this.mainFacing, x, y, z, pointTo), axisCollinearity(this.facing2, x, y, z, pointTo)), axisCollinearity(this.facing3, x, y, z, pointTo));
+            return Math.max(axisCollinearity(this.mainFacing, x, y, z, pointTo),
+                    Math.max(axisCollinearity(this.facing2, x, y, z, pointTo),
+                            axisCollinearity(this.facing3, x, y, z, pointTo)));
         }
 
         public static double axisCollinearity(EnumFacing facing, double x, double y, double z, Vec3d pointTo) {
-            if (facing == EnumFacing.SOUTH) {
-                return pointTo.z - z;
-            } else if (facing == EnumFacing.NORTH) {
-                return z - pointTo.z;
-            } else if (facing == EnumFacing.EAST) {
-                return pointTo.x - x;
-            } else if (facing == EnumFacing.WEST) {
-                return x - pointTo.x;
-            } else if (facing == EnumFacing.UP) {
-                return pointTo.y - y;
-            } else {
-                return facing == EnumFacing.DOWN ? y - pointTo.y : 0.0;
+            switch (facing) {
+                case SOUTH: return pointTo.z - z;
+                case NORTH: return z - pointTo.z;
+                case EAST:  return pointTo.x - x;
+                case WEST:  return x - pointTo.x;
+                case UP:    return pointTo.y - y;
+                case DOWN:  return y - pointTo.y;
+                default:    return 0.0;
             }
         }
 
         public static double axisCollinearity(VoxelCloud voxelCloud, EnumFacing facing, double x, double y, double z, Vec3d pointTo) {
-            if (facing == EnumFacing.SOUTH && voxelCloud.south) {
-                return pointTo.z - z;
-            } else if (facing == EnumFacing.NORTH && voxelCloud.north) {
-                return z - pointTo.z;
-            } else if (facing == EnumFacing.EAST && voxelCloud.east) {
-                return pointTo.x - x;
-            } else if (facing == EnumFacing.WEST && voxelCloud.west) {
-                return x - pointTo.x;
-            } else if (facing == EnumFacing.UP && voxelCloud.up) {
-                return pointTo.y - y;
-            } else {
-                return facing == EnumFacing.DOWN && voxelCloud.down ? y - pointTo.y : 0.0;
+            switch (facing) {
+                case SOUTH: if (voxelCloud.south) return pointTo.z - z; break;
+                case NORTH: if (voxelCloud.north) return z - pointTo.z; break;
+                case EAST:  if (voxelCloud.east)  return pointTo.x - x; break;
+                case WEST:  if (voxelCloud.west)  return x - pointTo.x; break;
+                case UP:    if (voxelCloud.up)    return pointTo.y - y; break;
+                case DOWN:  if (voxelCloud.down)  return y - pointTo.y; break;
             }
+            return 0.0;
+        }
+
+        public int getId() {
+            return this.id;
+        }
+
+        public Vec3i[] getSurroundings() {
+            return this.surroundings;
+        }
+
+        public EnumCubeVertex[] getSurroundingsVertexes() {
+            return this.surroundingsVertexes;
         }
 
         static {
-            for (EnumCubeVertex vertex : values()) {
+            for (EnumCubeVertex vertex : VALUES) {
                 vertex.initSurroundingsVertex();
-            }
 
-            for (EnumCubeVertex vertex : values()) {
                 for (int i = 0; i < 7; i++) {
-                    if (vertex.surroundingsVertexes[i] == null) {
-                        throw new RuntimeException("surroundingsVertexes[i] = null!");
+                    if (vertex.surroundings[i] == null || vertex.surroundingsVertexes[i] == null) {
+                        throw new RuntimeException("EnumCubeVertex: Critical initialization failure for " + vertex.name());
                     }
                 }
             }

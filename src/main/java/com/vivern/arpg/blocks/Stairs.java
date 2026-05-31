@@ -40,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class Stairs extends Block {
@@ -518,23 +519,23 @@ public class Stairs extends Block {
 
         public float slowSpeed;
         public float fastSpeed;
-        public boolean canDropWhithoutTool;
+        public boolean canDropWithoutTool;
         public int level;
         public String tool;
 
-        public HardStairs(IBlockState modelState, Material mater, String name, float hard, float resi, float slowSpeed, float fastSpeed, SoundType stype, String tool, int harvestlvl, boolean canDropWhithoutTool) {
+        public HardStairs(IBlockState modelState, Material mater, String name, float hard, float resi, float slowSpeed, float fastSpeed, SoundType stype, String tool, int harvestlvl, boolean canDropWithoutTool) {
             super(modelState, mater, name, hard, resi, stype, tool, harvestlvl);
             this.slowSpeed = slowSpeed;
-            this.canDropWhithoutTool = canDropWhithoutTool;
+            this.canDropWithoutTool = canDropWithoutTool;
             this.level = harvestlvl;
             this.tool = tool;
             this.fastSpeed = fastSpeed;
         }
 
-        public HardStairs(IBlockState modelState, Material mater, String name, SoundType stype, BlocksRegister.HardRes hardres, String tool, boolean canDropWhithoutTool) {
+        public HardStairs(IBlockState modelState, Material mater, String name, SoundType stype, BlocksRegister.HardRes hardres, String tool, boolean canDropWithoutTool) {
             super(modelState, mater, name, hardres.hardness, hardres.resistance, stype, tool, hardres.lvl);
             this.slowSpeed = hardres.slow;
-            this.canDropWhithoutTool = canDropWhithoutTool;
+            this.canDropWithoutTool = canDropWithoutTool;
             this.level = hardres.lvl;
             this.tool = tool;
             this.fastSpeed = hardres.fast;
@@ -559,7 +560,7 @@ public class Stairs extends Block {
             } else {
                 this.harvesters.set(player);
                 int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-                if (this.canDropWhithoutTool || stack.getItem().getHarvestLevel(stack, this.tool, player, state) >= this.level) {
+                if (this.canDropWithoutTool || stack.getItem().getHarvestLevel(stack, this.tool, player, state) >= this.level) {
                     this.dropBlockAsItem(worldIn, pos, state, i);
                 }
 

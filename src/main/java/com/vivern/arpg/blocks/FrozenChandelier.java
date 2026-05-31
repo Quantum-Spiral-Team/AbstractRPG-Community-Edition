@@ -21,6 +21,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Random;
 
 public class FrozenChandelier extends Block {
@@ -148,7 +150,7 @@ public class FrozenChandelier extends Block {
 
     public enum EnumAxis implements IStringSerializable {
         X("x"),
-        Z("z");
+        Z("y");
 
         private final String name;
 
@@ -162,14 +164,7 @@ public class FrozenChandelier extends Block {
         }
 
         public static EnumAxis fromFacingAxis(Axis axis) {
-            switch (axis) {
-                case X:
-                    return X;
-                case Z:
-                    return Z;
-                default:
-                    return X;
-            }
+            return axis == Axis.Z ? Z : X;
         }
 
         @Override

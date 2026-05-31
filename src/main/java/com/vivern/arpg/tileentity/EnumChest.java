@@ -1,5 +1,6 @@
 package com.vivern.arpg.tileentity;
 
+import com.vivern.arpg.Tags;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.ARPGChestTESR;
@@ -11,61 +12,77 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.function.Supplier;
+
 public enum EnumChest {
-    FROZEN(0, new ResourceLocation("arpg:textures/chest_frozen.png"), 180, ARPGChestTESR.model, ARPGChestTESR.modelBig, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
-    TOXIC(1, new ResourceLocation("arpg:textures/chest_toxic.png"), 200, ARPGChestTESR.model, ARPGChestTESR.modelBig, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
-    RUSTED(2, new ResourceLocation("arpg:textures/chest_rusted.png"), 0, ARPGChestTESR.model, ARPGChestTESR.modelBig, Sounds.chest_open_metal, Sounds.chest_close_metal),
-    CRYSTAL(3, new ResourceLocation("arpg:textures/chest_crystal.png"), 230, ARPGChestTESR.model, ARPGChestTESR.modelBig, Sounds.chest_open_stone, Sounds.chest_close_stone),
-    ROTTEN(4, new ResourceLocation("arpg:textures/chest_rotten.png"), 0, ARPGChestTESR.model, ARPGChestTESR.modelBig, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
-    SUNKEN(5, new ResourceLocation("arpg:textures/chest_sunken.png"), 210, ARPGChestTESR.model, ARPGChestTESR.modelBig, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
-    CORAL(6, new ResourceLocation("arpg:textures/chest_coral.png"), 190, ARPGChestTESR.model, ARPGChestTESR.modelBig, Sounds.chest_open_stone, Sounds.chest_close_stone),
-    STORM(7, new ResourceLocation("arpg:textures/chest_storm.png"), 240, ARPGChestTESR.modelStorm, ARPGChestTESR.modelBigStorm, Sounds.chest_open_plasma, Sounds.chest_close_plasma);
+    FROZEN(  "frozen",  180, () -> BlocksRegister.CHEST_FROZEN,  SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
+    TOXIC(   "toxic",   200, () -> BlocksRegister.CHEST_TOXIC,   SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
+    RUSTED(  "rusted",  0,   () -> BlocksRegister.CHEST_RUSTED,  Sounds.chest_open_metal,      Sounds.chest_close_metal),
+    CRYSTAL( "crystal", 230, () -> BlocksRegister.CHEST_CRYSTAL, Sounds.chest_open_stone,      Sounds.chest_close_stone),
+    ROTTEN(  "rotten",  0,   () -> BlocksRegister.CHEST_ROTTEN,  SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
+    SUNKEN(  "sunken",  210, () -> BlocksRegister.CHEST_SUNKEN,  SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
+    CORAL(   "coral",   190, () -> BlocksRegister.CHEST_CORAL,   Sounds.chest_open_stone,      Sounds.chest_close_stone),
 
-    @Deprecated
-    public ResourceLocation normal;
-    @Deprecated
-    public ResourceLocation large;
-    @Deprecated
-    public boolean glow;
-    public int id;
-    public ModelBase model;
-    public ModelBase modelLarge;
-    public ResourceLocation texture;
-    public int light;
-    public SoundEvent soundOpen;
-    public SoundEvent soundClose;
+    STORM(   "storm",   240, () -> BlocksRegister.CHEST_STORM,   Sounds.chest_open_plasma,     Sounds.chest_close_plasma,
+            ARPGChestTESR.modelStorm, ARPGChestTESR.modelBigStorm);
 
-    EnumChest(int id, ResourceLocation texture, int light, ModelBase model, ModelBase modelLarge, SoundEvent soundOpen, SoundEvent soundClose) {
-        this.id = id;
-        this.texture = texture;
+    private final ResourceLocation texture;
+    private final int light;
+    private final Supplier<Block> blockSupplier;
+    private final SoundEvent soundOpen;
+    private final SoundEvent soundClose;
+    private final ModelBase model;
+    private final ModelBase modelLarge;
+
+    private static final EnumChest[] VALUES = values();
+
+    EnumChest(String name, int light, Supplier<Block> blockSupplier, SoundEvent soundOpen, SoundEvent soundClose) {
+        this(name, light, blockSupplier, soundOpen, soundClose, ARPGChestTESR.model, ARPGChestTESR.modelBig);
+    }
+
+    EnumChest(String name, int light, Supplier<Block> blockSupplier, SoundEvent soundOpen, SoundEvent soundClose, ModelBase model, ModelBase modelLarge) {
+        this.texture = new ResourceLocation(Tags.MOD_ID, "textures/chest_" + name + ".png");
         this.light = light;
-        this.model = model;
-        this.modelLarge = modelLarge;
+        this.blockSupplier = blockSupplier;
         this.soundOpen = soundOpen;
         this.soundClose = soundClose;
+        this.model = model;
+        this.modelLarge = modelLarge;
     }
 
     public Block getBlock() {
-        if (this == FROZEN) {
-            return BlocksRegister.CHEST_FROZEN;
-        } else if (this == TOXIC) {
-            return BlocksRegister.CHEST_TOXIC;
-        } else if (this == RUSTED) {
-            return BlocksRegister.CHEST_RUSTED;
-        } else if (this == CRYSTAL) {
-            return BlocksRegister.CHEST_CRYSTAL;
-        } else if (this == ROTTEN) {
-            return BlocksRegister.CHEST_ROTTEN;
-        } else if (this == SUNKEN) {
-            return BlocksRegister.CHEST_SUNKEN;
-        } else if (this == CORAL) {
-            return BlocksRegister.CHEST_CORAL;
-        } else {
-            return this == STORM ? BlocksRegister.CHEST_STORM : Blocks.CHEST;
-        }
+        Block block = this.blockSupplier.get();
+        return block != null ? block : Blocks.CHEST;
     }
 
     public static EnumChest byId(int id) {
-        return values()[MathHelper.clamp(id, 0, values().length - 1)];
+        if (id < 0 || id >= VALUES.length) {
+            return VALUES[0];
+        }
+        return VALUES[id];
+    }
+
+    public ResourceLocation getTexture() {
+        return this.texture;
+    }
+
+    public int getLight() {
+        return this.light;
+    }
+
+    public SoundEvent getSoundOpen() {
+        return this.soundOpen;
+    }
+
+    public SoundEvent getSoundClose() {
+        return this.soundClose;
+    }
+
+    public ModelBase getModel() {
+        return this.model;
+    }
+
+    public ModelBase getModelLarge() {
+        return this.modelLarge;
     }
 }

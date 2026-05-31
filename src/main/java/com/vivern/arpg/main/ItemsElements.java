@@ -21,6 +21,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class ItemsElements {
 
@@ -541,8 +542,8 @@ public class ItemsElements {
         PRISTINE("pristine", 15974163),
         PERFECT("perfect", 9846015);
 
-        public String name;
-        public int color;
+        public final String name;
+        public final int color;
 
         EnumPurity(String name, int color) {
             this.name = name;

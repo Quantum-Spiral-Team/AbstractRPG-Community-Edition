@@ -62,6 +62,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.DoubleBinaryOperator;
 
 @EventBusSubscriber(modid = "arpg")
 public class Weapons {
@@ -955,106 +956,45 @@ public class Weapons {
     }
 
     public enum EnumMathOperation {
-        PLUS,
-        MINUS,
-        MULTIPLY,
-        DIVIDE,
-        POWER,
-        ROOT,
-        ADD_MULTIPLIED,
-        NONE;
+        PLUS(Double::sum),
+        MINUS((v1, v2) -> v1 - v2),
+        MULTIPLY((v1, v2) -> v1 * v2),
+        DIVIDE((v1, v2) -> v1 / v2),
+        POWER(Math::pow),
+        ROOT((v1, v2) -> Math.pow(v1, 1.0 / v2)),
+        ADD_MULTIPLIED((v1, v2) -> v1 + v1 * v2),
+        NONE((v1, v2) -> v2);
 
-        public float apply(float var1, float var2) {
-            switch (this) {
-                case PLUS:
-                    return var1 + var2;
-                case MINUS:
-                    return var1 - var2;
-                case MULTIPLY:
-                    return var1 * var2;
-                case DIVIDE:
-                    return var1 / var2;
-                case POWER:
-                    return (float) Math.pow(var1, var2);
-                case ROOT:
-                    return (float) Math.pow(var1, 1.0F / var2);
-                case ADD_MULTIPLIED:
-                    return var1 + var1 * var2;
-                default:
-                    return var2;
-            }
+        private static final EnumMathOperation[] VALUES = values();
+
+        private final DoubleBinaryOperator operator;
+
+        EnumMathOperation(DoubleBinaryOperator operator) {
+            this.operator = operator;
         }
 
         public double apply(double var1, double var2) {
-            switch (this) {
-                case PLUS:
-                    return var1 + var2;
-                case MINUS:
-                    return var1 - var2;
-                case MULTIPLY:
-                    return var1 * var2;
-                case DIVIDE:
-                    return var1 / var2;
-                case POWER:
-                    return Math.pow(var1, var2);
-                case ROOT:
-                    return Math.pow(var1, 1.0 / var2);
-                case ADD_MULTIPLIED:
-                    return var1 + var1 * var2;
-                default:
-                    return var2;
-            }
+            return this.operator.applyAsDouble(var1, var2);
+        }
+
+        public float apply(float var1, float var2) {
+            return (float) this.apply(var1, (double) var2);
         }
 
         public int apply(int var1, int var2) {
-            switch (this) {
-                case PLUS:
-                    return var1 + var2;
-                case MINUS:
-                    return var1 - var2;
-                case MULTIPLY:
-                    return var1 * var2;
-                case DIVIDE:
-                    return var1 / var2;
-                case POWER:
-                    return (int) Math.pow(var1, var2);
-                case ROOT:
-                    return (int) Math.pow(var1, 1.0F / var2);
-                case ADD_MULTIPLIED:
-                    return var1 + var1 * var2;
-                default:
-                    return var2;
-            }
+            return (int) this.apply(var1, (double) var2);
         }
 
         public long apply(long var1, long var2) {
-            switch (this) {
-                case PLUS:
-                    return var1 + var2;
-                case MINUS:
-                    return var1 - var2;
-                case MULTIPLY:
-                    return var1 * var2;
-                case DIVIDE:
-                    return var1 / var2;
-                case POWER:
-                    return (long) Math.pow(var1, var2);
-                case ROOT:
-                    return (long) Math.pow(var1, 1.0F / (float) var2);
-                case ADD_MULTIPLIED:
-                    return var1 + var1 * var2;
-                default:
-                    return var2;
-            }
+            return (long) this.apply(var1, (double) var2);
         }
 
         public byte ordinalByte() {
             return (byte) this.ordinal();
         }
 
-        @Nullable
         public static EnumMathOperation byId(int id) {
-            return id >= 0 && id <= 7 ? values()[id] : null;
+            return id >= 0 && id < VALUES.length ? VALUES[id] : null;
         }
     }
 

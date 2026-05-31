@@ -183,7 +183,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
         }
 
         compound.setInteger("chestState", this.chestState);
-        compound.setInteger("chesttype", this.type.id);
+        compound.setInteger("chesttype", this.type.ordinal());
         return compound;
     }
 

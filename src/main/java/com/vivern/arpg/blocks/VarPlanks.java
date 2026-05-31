@@ -28,13 +28,13 @@ public class VarPlanks extends Block {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return state.getValue(VARIANT).getMetadata();
+        return state.getValue(VARIANT).ordinal();
     }
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
         for (EnumType blockplanks$enumtype : EnumType.values()) {
-            items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
+            items.add(new ItemStack(this, 1, blockplanks$enumtype.ordinal()));
         }
     }
 
@@ -50,7 +50,7 @@ public class VarPlanks extends Block {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(VARIANT).getMetadata();
+        return state.getValue(VARIANT).ordinal();
     }
 
     @Override
@@ -59,31 +59,17 @@ public class VarPlanks extends Block {
     }
 
     public enum EnumType implements IStringSerializable {
-        FROZEN(0, "frozen", MapColor.WOOD);
+        FROZEN("frozen");
 
-        private static final EnumType[] META_LOOKUP = new EnumType[values().length];
-        private final int meta;
+        private static final EnumType[] META_LOOKUP = values();
         private final String name;
-        private final String unlocalizedName;
-        private final MapColor mapColor;
 
-        EnumType(int metaIn, String nameIn, MapColor mapColorIn) {
-            this(metaIn, nameIn, nameIn, mapColorIn);
-        }
-
-        EnumType(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn) {
-            this.meta = metaIn;
-            this.name = nameIn;
-            this.unlocalizedName = unlocalizedNameIn;
-            this.mapColor = mapColorIn;
-        }
-
-        public int getMetadata() {
-            return this.meta;
+        EnumType(String name) {
+            this.name = name;
         }
 
         public MapColor getMapColor() {
-            return this.mapColor;
+            return MapColor.WOOD;
         }
 
         @Override
@@ -102,16 +88,6 @@ public class VarPlanks extends Block {
         @Override
         public String getName() {
             return this.name;
-        }
-
-        public String getUnlocalizedName() {
-            return this.unlocalizedName;
-        }
-
-        static {
-            for (EnumType blockplanks$enumtype : values()) {
-                META_LOOKUP[blockplanks$enumtype.getMetadata()] = blockplanks$enumtype;
-            }
         }
     }
 

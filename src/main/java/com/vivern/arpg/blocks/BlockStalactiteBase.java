@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class BlockStalactiteBase extends Block {
@@ -110,7 +111,7 @@ public class BlockStalactiteBase extends Block {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return state.getValue(VARIANT).getMetadata();
+        return state.getValue(VARIANT).ordinal();
     }
 
     @Override
@@ -125,7 +126,7 @@ public class BlockStalactiteBase extends Block {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(VARIANT).getMetadata();
+        return state.getValue(VARIANT).ordinal();
     }
 
     @Override
@@ -134,35 +135,22 @@ public class BlockStalactiteBase extends Block {
     }
 
     public enum EnumType implements IStringSerializable {
-        S1(0, "s1", MapColor.STONE),
-        S2(1, "s2", MapColor.STONE),
-        S3(2, "s3", MapColor.STONE),
-        S4(3, "s4", MapColor.STONE),
-        S5(4, "s5", MapColor.STONE);
+        S1("s1"),
+        S2("s2"),
+        S3("s3"),
+        S4("s4"),
+        S5("s5");
 
-        private static final EnumType[] META_LOOKUP = new EnumType[values().length];
-        private final int meta;
+        private static final EnumType[] META_LOOKUP = values();
+
         private final String name;
-        private final String unlocalizedName;
-        private final MapColor mapColor;
 
-        EnumType(int metaIn, String nameIn, MapColor mapColorIn) {
-            this(metaIn, nameIn, nameIn, mapColorIn);
-        }
-
-        EnumType(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn) {
-            this.meta = metaIn;
-            this.name = nameIn;
-            this.unlocalizedName = unlocalizedNameIn;
-            this.mapColor = mapColorIn;
-        }
-
-        public int getMetadata() {
-            return this.meta;
+        EnumType(String name) {
+            this.name = name;
         }
 
         public MapColor getMapColor() {
-            return this.mapColor;
+            return MapColor.STONE;
         }
 
         @Override
@@ -181,16 +169,6 @@ public class BlockStalactiteBase extends Block {
         @Override
         public String getName() {
             return this.name;
-        }
-
-        public String getUnlocalizedName() {
-            return this.unlocalizedName;
-        }
-
-        static {
-            for (EnumType blockplanks$enumtype : values()) {
-                META_LOOKUP[blockplanks$enumtype.getMetadata()] = blockplanks$enumtype;
-            }
         }
     }
 

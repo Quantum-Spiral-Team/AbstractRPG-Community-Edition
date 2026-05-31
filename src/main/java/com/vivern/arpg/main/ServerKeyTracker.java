@@ -66,23 +66,17 @@ public class ServerKeyTracker {
     }
 
     public enum Keys {
-        USE((byte) 0),
-        PRIMARY((byte) 1),
-        SECONDARY((byte) 2),
-        SCOPE((byte) 3),
-        GRENADE((byte) 4),
-        HOOK((byte) 5),
-        ABILITY((byte) 6),
+        USE,
+        PRIMARY,
+        SECONDARY,
+        SCOPE,
+        GRENADE,
+        HOOK,
+        ABILITY,
         ;
 
-        private final byte id;
-
-        Keys(byte id) {
-            this.id = id;
-        }
-
         public byte getId() {
-            return id;
+            return (byte) this.ordinal();
         }
     }
 

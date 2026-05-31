@@ -106,7 +106,7 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
             double d1 = i + 0.5;
             double d2 = k + 0.5;
             if (this.getChestStanding() != EnumChestStanding.RIGHT) {
-                this.world.playSound(null, d1, j + 0.5, d2, this.type.soundOpen, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+                this.world.playSound(null, d1, j + 0.5, d2, this.type.getSoundOpen(), SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
             }
         }
 
@@ -127,7 +127,7 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
                 double d3 = i + 0.5;
                 double d0 = k + 0.5;
                 if (this.getChestStanding() != EnumChestStanding.RIGHT) {
-                    this.world.playSound(null, d3, j + 0.5, d0, this.type.soundClose, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+                    this.world.playSound(null, d3, j + 0.5, d0, this.type.getSoundClose(), SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
                 }
             }
 
@@ -410,7 +410,7 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
 
         compound.setInteger("chestState", this.chestState);
         if (this.type != null) {
-            compound.setInteger("chesttype", this.type.id);
+            compound.setInteger("chesttype", this.type.ordinal());
         }
 
         compound.setByte("otherChestSide", (byte) (this.otherChestSide == null ? -1 : this.otherChestSide.getIndex()));
