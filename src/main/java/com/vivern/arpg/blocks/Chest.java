@@ -50,12 +50,19 @@ public class Chest extends BlockContainer {
     protected static final AxisAlignedBB EAST_CHEST_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 1.0, 0.875, 0.9375);
     public static final AxisAlignedBB NOT_CONNECTED_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 0.9375);
     public final EnumChest chestType;
+    @SideOnly(Side.CLIENT)
     public static ModelChest simpleChest = new ChestModel();
+    @SideOnly(Side.CLIENT)
     public static ModelChest simpleChestLAR = new ChestModelLAR();
+    @SideOnly(Side.CLIENT)
     public static ChestCapedModel capedChest = new ChestCapedModel();
+    @SideOnly(Side.CLIENT)
     public static ModelChest doubleLockChest = new ChestDoubleLockModel();
+    @SideOnly(Side.CLIENT)
     public static ModelChest doubleLockChestLAR = new ChestDoubleLockModelLAR();
+    @SideOnly(Side.CLIENT)
     public static ChestShaftedModel shaftedChest = new ChestShaftedModel();
+    @SideOnly(Side.CLIENT)
     public static ChestShaftedModel shaftedChestGlow = new ChestShaftedModel().setglow();
 
     public Chest(Material mater, String name, float hard, float resi, SoundType stype, String tool, int harvestlvl, EnumChest chestType) {

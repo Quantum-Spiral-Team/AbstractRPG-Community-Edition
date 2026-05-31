@@ -12,7 +12,10 @@ import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
 
     public static EnumChest reservedChestType;
@@ -24,7 +27,7 @@ public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
 
     @Override
     public void render(TileARPGChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        EnumChest chestType = te == null ? reservedChestType : te.type;
+        EnumChest chestType = te.type;
         this.render(te, x, y, z, partialTicks, destroyStage, alpha, chestType);
     }
 
@@ -65,11 +68,11 @@ public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
             float rotateX = -(f * (float) (Math.PI / 2));
             TileARPGChest.EnumChestStanding standing = te.getChestStanding();
             if (standing == TileARPGChest.EnumChestStanding.MIDDLE) {
-                chestType.getModel().render(null, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), chestType.getLight(), rotateX, 0.0625F);
+                chestType.getModelEntry().getModel().render(null, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), chestType.getLight(), rotateX, 0.0625F);
             }
 
             if (standing == TileARPGChest.EnumChestStanding.LEFT) {
-                chestType.getModelLarge().render(null, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), chestType.getLight(), rotateX, 0.0625F);
+                chestType.getModelEntry().getModelLarge().render(null, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), chestType.getLight(), rotateX, 0.0625F);
             }
 
             if (te.isLocked()) {

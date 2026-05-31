@@ -10,8 +10,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public enum EnumChest {
@@ -23,31 +26,24 @@ public enum EnumChest {
     SUNKEN(  "sunken",  210, () -> BlocksRegister.CHEST_SUNKEN,  SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
     CORAL(   "coral",   190, () -> BlocksRegister.CHEST_CORAL,   Sounds.chest_open_stone,      Sounds.chest_close_stone),
 
-    STORM(   "storm",   240, () -> BlocksRegister.CHEST_STORM,   Sounds.chest_open_plasma,     Sounds.chest_close_plasma,
-            ARPGChestTESR.modelStorm, ARPGChestTESR.modelBigStorm);
+    STORM(   "storm",   240, () -> BlocksRegister.CHEST_STORM,   Sounds.chest_open_plasma,     Sounds.chest_close_plasma);
 
     private final ResourceLocation texture;
     private final int light;
     private final Supplier<Block> blockSupplier;
     private final SoundEvent soundOpen;
     private final SoundEvent soundClose;
-    private final ModelBase model;
-    private final ModelBase modelLarge;
 
     private static final EnumChest[] VALUES = values();
+    @SideOnly(Side.CLIENT)
+    private static List<ModelEntry> modelEntries;
 
     EnumChest(String name, int light, Supplier<Block> blockSupplier, SoundEvent soundOpen, SoundEvent soundClose) {
-        this(name, light, blockSupplier, soundOpen, soundClose, ARPGChestTESR.model, ARPGChestTESR.modelBig);
-    }
-
-    EnumChest(String name, int light, Supplier<Block> blockSupplier, SoundEvent soundOpen, SoundEvent soundClose, ModelBase model, ModelBase modelLarge) {
         this.texture = new ResourceLocation(Tags.MOD_ID, "textures/chest_" + name + ".png");
         this.light = light;
         this.blockSupplier = blockSupplier;
         this.soundOpen = soundOpen;
         this.soundClose = soundClose;
-        this.model = model;
-        this.modelLarge = modelLarge;
     }
 
     public Block getBlock() {
@@ -78,11 +74,40 @@ public enum EnumChest {
         return this.soundClose;
     }
 
-    public ModelBase getModel() {
-        return this.model;
+    @SideOnly(Side.CLIENT)
+    public ModelEntry getModelEntry() {
+        if (modelEntries == null) {
+            modelEntries = new ArrayList<>();
+            for (EnumChest value : VALUES) {
+                modelEntries.add(value == STORM ?
+                        new ModelEntry(ARPGChestTESR.modelStorm, ARPGChestTESR.modelBigStorm)
+                        : new ModelEntry(ARPGChestTESR.model, ARPGChestTESR.modelBig));
+            }
+        }
+        return modelEntries.get(this.ordinal());
     }
 
-    public ModelBase getModelLarge() {
-        return this.modelLarge;
+    @SideOnly(Side.CLIENT)
+    public static class ModelEntry {
+        private final ModelBase model;
+        private final ModelBase modelLarge;
+
+        public ModelEntry(ModelBase model, ModelBase modelLarge) {
+            this.model = model;
+            this.modelLarge = modelLarge;
+        }
+
+        public ModelEntry(ModelBase model) {
+            this.model = model;
+            this.modelLarge = model;
+        }
+
+        public ModelBase getModel() {
+            return this.model;
+        }
+
+        public ModelBase getModelLarge() {
+            return this.modelLarge;
+        }
     }
 }
