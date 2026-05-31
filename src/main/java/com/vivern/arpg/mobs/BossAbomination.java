@@ -1,23 +1,13 @@
 package com.vivern.arpg.mobs;
 
 import com.vivern.arpg.entity.ISynchronizedEntity;
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -290,12 +280,12 @@ public class BossAbomination extends AbstractBoss implements ISynchronizedEntity
                      if (entitylivingbase instanceof EntityPlayer) {
                         Mana.addRad((EntityPlayer)entitylivingbase, 225, true);
                         if (entitylivingbase == Minecraft.getMinecraft().player) {
-                           Booom.lastTick = 10;
-                           Booom.frequency = 4.0F;
-                           Booom.x = (float)this.rand.nextGaussian();
-                           Booom.y = (float)this.rand.nextGaussian();
-                           Booom.z = (float)this.rand.nextGaussian();
-                           Booom.power = 0.16F;
+                           Boom.lastTick = 10;
+                           Boom.frequency = 4.0F;
+                           Boom.x = (float)this.rand.nextGaussian();
+                           Boom.y = (float)this.rand.nextGaussian();
+                           Boom.z = (float)this.rand.nextGaussian();
+                           Boom.power = 0.16F;
                         }
                      }
                   }

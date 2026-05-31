@@ -229,13 +229,13 @@ public class Instancer extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 16;
-      Booom.frequency = param == 1 ? 0.4F : 0.8F;
-      Booom.x = 0.0F;
-      Booom.y = (float)itemRand.nextGaussian();
-      Booom.z = (float)itemRand.nextGaussian();
-      Booom.power = 0.06F;
+   public void boom(int param) {
+      Boom.lastTick = 16;
+      Boom.frequency = param == 1 ? 0.4F : 0.8F;
+      Boom.x = 0.0F;
+      Boom.y = (float)itemRand.nextGaussian();
+      Boom.z = (float)itemRand.nextGaussian();
+      Boom.power = 0.06F;
    }
 
    public Vec3d getInstancerCorePoint(EntityLivingBase player, EnumHandSide hand) {
@@ -257,7 +257,7 @@ public class Instancer extends ItemWeapon {
    public void spawnPartickles(World world, EntityPlayer player, boolean deploy) {
       if (deploy) {
          if (player.ticksExisted % 4 == 0) {
-            this.bom(0);
+            this.boom(0);
          }
 
          Vec3d partpos = this.getInstancerCorePoint(player, player.getPrimaryHand());
@@ -293,7 +293,7 @@ public class Instancer extends ItemWeapon {
          }
       } else {
          if (player.ticksExisted % 4 == 0) {
-            this.bom(1);
+            this.boom(1);
          }
 
          Vec3d partpos = this.getInstancerCorePoint(player, player.getPrimaryHand());

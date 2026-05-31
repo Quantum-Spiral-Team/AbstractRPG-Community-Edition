@@ -54,10 +54,10 @@ public class AzureOreStaff extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.FOVlastTick = 10;
-      Booom.FOVfrequency = -0.315F;
-      Booom.FOVpower = 0.009F;
+   public void boom(int param) {
+      Boom.FOVlastTick = 10;
+      Boom.FOVfrequency = -0.315F;
+      Boom.FOVpower = 0.009F;
    }
 
    @Override

@@ -13,7 +13,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumHand;
@@ -267,13 +266,13 @@ public class AdamantiumRevolver extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 16;
-      Booom.frequency = -0.196F;
-      Booom.x = 1.0F;
-      Booom.y = (float)itemRand.nextGaussian() / 10.0F;
-      Booom.z = (float)itemRand.nextGaussian() / 10.0F;
-      Booom.power = 0.34F;
+   public void boom(int param) {
+      Boom.lastTick = 16;
+      Boom.frequency = -0.196F;
+      Boom.x = 1.0F;
+      Boom.y = (float)itemRand.nextGaussian() / 10.0F;
+      Boom.z = (float)itemRand.nextGaussian() / 10.0F;
+      Boom.power = 0.34F;
    }
 
    @SideOnly(Side.CLIENT)

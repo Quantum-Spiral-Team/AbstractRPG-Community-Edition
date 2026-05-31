@@ -72,7 +72,7 @@ public class AlchemicLab extends Block implements IMagicUI {
             pos.getY(),
             pos.getZ(),
             Sounds.mui_open,
-            IMagicUI.soundc,
+            IMagicUI.sound,
             0.8F,
             0.85F + RANDOM.nextFloat() * 0.3F
          );

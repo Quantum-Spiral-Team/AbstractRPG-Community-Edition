@@ -707,15 +707,15 @@ public class BaublesPack {
 
       @SideOnly(Side.CLIENT)
       public void bom() {
-         Booom.lastTick = 13;
-         Booom.frequency = 0.315F * (itemRand.nextFloat() < 0.5 ? 1 : -1);
-         Booom.x = 0.0F;
-         Booom.y = 0.0F;
-         Booom.z = 1.0F;
-         Booom.power = 0.45F;
-         Booom.FOVlastTick = 24;
-         Booom.FOVfrequency = -0.131F;
-         Booom.FOVpower = -0.05F;
+         Boom.lastTick = 13;
+         Boom.frequency = 0.315F * (itemRand.nextFloat() < 0.5 ? 1 : -1);
+         Boom.x = 0.0F;
+         Boom.y = 0.0F;
+         Boom.z = 1.0F;
+         Boom.power = 0.45F;
+         Boom.FOVlastTick = 24;
+         Boom.FOVfrequency = -0.131F;
+         Boom.FOVpower = -0.05F;
       }
 
       @SideOnly(Side.CLIENT)

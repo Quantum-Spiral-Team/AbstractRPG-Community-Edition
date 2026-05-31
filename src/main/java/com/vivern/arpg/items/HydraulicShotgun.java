@@ -325,16 +325,16 @@ public class HydraulicShotgun extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 10;
-      Booom.frequency = -0.315F;
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.32F;
-      Booom.FOVlastTick = 6;
-      Booom.FOVfrequency = -0.5F;
-      Booom.FOVpower = 0.017F;
+   public void boom(int param) {
+      Boom.lastTick = 10;
+      Boom.frequency = -0.315F;
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.32F;
+      Boom.FOVlastTick = 6;
+      Boom.FOVfrequency = -0.5F;
+      Boom.FOVpower = 0.017F;
    }
 
    @SideOnly(Side.CLIENT)

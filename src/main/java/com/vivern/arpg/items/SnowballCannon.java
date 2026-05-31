@@ -55,13 +55,13 @@ public class SnowballCannon extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 7;
-      Booom.frequency = -0.45F;
-      Booom.x = 1.0F;
-      Booom.y = (itemRand.nextFloat() - 0.5F) / 2.0F;
-      Booom.z = (itemRand.nextFloat() - 0.5F) / 2.0F;
-      Booom.power = 0.25F + param / 3.5F;
+   public void boom(int param) {
+      Boom.lastTick = 7;
+      Boom.frequency = -0.45F;
+      Boom.x = 1.0F;
+      Boom.y = (itemRand.nextFloat() - 0.5F) / 2.0F;
+      Boom.z = (itemRand.nextFloat() - 0.5F) / 2.0F;
+      Boom.power = 0.25F + param / 3.5F;
    }
 
    @Override

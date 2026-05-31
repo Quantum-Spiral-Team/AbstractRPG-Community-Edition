@@ -1,7 +1,7 @@
 package com.vivern.arpg.potions;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.main.Booom;
+import com.vivern.arpg.main.Boom;
 import com.vivern.arpg.main.ItemsRegister;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,8 +26,8 @@ public class Chlorite extends AdvancedPotion {
             entityOnEffect.attackEntityFrom(DamageSource.MAGIC, 5.0F);
          }
       } else if (entityOnEffect == Minecraft.getMinecraft().player && entityOnEffect.ticksExisted % 40 == 0) {
-         Booom.drunkTick = 260;
-         Booom.drunkPower = Math.min(amplifier / 2.0F, 15.0F);
+         Boom.drunkTick = 260;
+         Boom.drunkPower = Math.min(amplifier / 2.0F, 15.0F);
       }
    }
 
@@ -39,8 +39,8 @@ public class Chlorite extends AdvancedPotion {
    @Override
    public void onRemoveEffect(EntityLivingBase entityOnEffect, PotionEffect effect, boolean byExpiry) {
       if (entityOnEffect == Minecraft.getMinecraft().player) {
-         Booom.drunkTick = 0;
-         Booom.drunkPower = 0.0F;
+         Boom.drunkTick = 0;
+         Boom.drunkPower = 0.0F;
       }
 
       super.onRemoveEffect(entityOnEffect, effect, byExpiry);
@@ -49,8 +49,8 @@ public class Chlorite extends AdvancedPotion {
    @Override
    public void onThisDeath(LivingDeathEvent event, PotionEffect effect) {
       if (event.getEntityLiving() == Minecraft.getMinecraft().player) {
-         Booom.drunkTick = 0;
-         Booom.drunkPower = 0.0F;
+         Boom.drunkTick = 0;
+         Boom.drunkPower = 0.0F;
       }
 
       super.onThisDeath(event, effect);

@@ -72,7 +72,7 @@ public abstract class AbstractMiningTool extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
    }
 
    public Vec3d getColor() {

@@ -114,12 +114,12 @@ public class TheLordOfPain extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    private void bom() {
-      Booom.lastTick = 15;
-      Booom.frequency = -0.21F;
-      Booom.x = 1.0F;
-      Booom.y = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
-      Booom.z = 0.0F;
-      Booom.power = -0.32F;
+      Boom.lastTick = 15;
+      Boom.frequency = -0.21F;
+      Boom.x = 1.0F;
+      Boom.y = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
+      Boom.z = 0.0F;
+      Boom.power = -0.32F;
    }
 
    @Override

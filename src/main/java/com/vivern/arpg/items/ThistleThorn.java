@@ -257,13 +257,13 @@ public class ThistleThorn extends ItemWeapon {
    @SideOnly(Side.CLIENT)
    private void bom(boolean full) {
       if (full) {
-         Booom.FOVlastTick = 9;
-         Booom.FOVfrequency = -0.35F;
-         Booom.FOVpower = 0.07F;
+         Boom.FOVlastTick = 9;
+         Boom.FOVfrequency = -0.35F;
+         Boom.FOVpower = 0.07F;
       } else {
-         Booom.FOVlastTick = 6;
-         Booom.FOVfrequency = -0.52F;
-         Booom.FOVpower = 0.03F;
+         Boom.FOVlastTick = 6;
+         Boom.FOVfrequency = -0.52F;
+         Boom.FOVpower = 0.03F;
       }
    }
 

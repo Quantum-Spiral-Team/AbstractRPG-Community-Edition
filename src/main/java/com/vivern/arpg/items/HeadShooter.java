@@ -115,16 +115,16 @@ public class HeadShooter extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 13;
-      Booom.frequency = -0.245F;
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.25F;
-      Booom.FOVlastTick = 13;
-      Booom.FOVfrequency = -0.245F;
-      Booom.FOVpower = 0.035F;
+   public void boom(int param) {
+      Boom.lastTick = 13;
+      Boom.frequency = -0.245F;
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.25F;
+      Boom.FOVlastTick = 13;
+      Boom.FOVfrequency = -0.245F;
+      Boom.FOVpower = 0.035F;
    }
 
    @Override

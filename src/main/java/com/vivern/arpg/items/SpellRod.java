@@ -52,7 +52,7 @@ public class SpellRod extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param == 0) {
          Minecraft.getMinecraft().ingameGUI.setOverlayMessage(TextFormatting.GREEN + "Vessel used: Auto", false);
       } else {

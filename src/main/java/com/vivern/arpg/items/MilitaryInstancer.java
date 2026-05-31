@@ -155,7 +155,7 @@ public class MilitaryInstancer extends Instancer {
    public void spawnPartickles(World world, EntityPlayer player, boolean deploy) {
       if (deploy) {
          if (player.ticksExisted % 4 == 0) {
-            this.bom(0);
+            this.boom(0);
          }
 
          Vec3d partpos = this.getInstancerCorePoint(player, player.getPrimaryHand());
@@ -218,7 +218,7 @@ public class MilitaryInstancer extends Instancer {
          }
       } else {
          if (player.ticksExisted % 4 == 0) {
-            this.bom(1);
+            this.boom(1);
          }
 
          Vec3d partpos = this.getInstancerCorePoint(player, player.getPrimaryHand());

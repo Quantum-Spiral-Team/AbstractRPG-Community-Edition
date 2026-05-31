@@ -37,32 +37,32 @@ public class AdamantiumBattleAxe extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param == 0) {
-         Booom.lastTick = 32;
-         Booom.frequency = -Booom.getFrequencyForTicks(Booom.lastTick);
-         Booom.x = -1.0F;
-         Booom.y = (itemRand.nextFloat() - 0.5F) * 0.5F;
-         Booom.z = (itemRand.nextFloat() - 0.5F) * 0.5F;
-         Booom.power = 0.35F;
+         Boom.lastTick = 32;
+         Boom.frequency = -Boom.getFrequencyForTicks(Boom.lastTick);
+         Boom.x = -1.0F;
+         Boom.y = (itemRand.nextFloat() - 0.5F) * 0.5F;
+         Boom.z = (itemRand.nextFloat() - 0.5F) * 0.5F;
+         Boom.power = 0.35F;
       }
 
       if (param == 2) {
-         Booom.lastTick = 22;
-         Booom.frequency = 0.43F;
-         Booom.x = itemRand.nextFloat() < 0.5 ? 0.1F : -0.1F;
-         Booom.y = 0.0F;
-         Booom.z = 1.0F;
-         Booom.power = itemRand.nextFloat() < 0.5 ? -0.1F : 0.1F;
+         Boom.lastTick = 22;
+         Boom.frequency = 0.43F;
+         Boom.x = itemRand.nextFloat() < 0.5 ? 0.1F : -0.1F;
+         Boom.y = 0.0F;
+         Boom.z = 1.0F;
+         Boom.power = itemRand.nextFloat() < 0.5 ? -0.1F : 0.1F;
       }
 
       if (param == 3) {
-         Booom.lastTick = 25;
-         Booom.frequency = 0.126F;
-         Booom.x = 1.0F;
-         Booom.y = 0.0F;
-         Booom.z = 0.0F;
-         Booom.power = 0.1F;
+         Boom.lastTick = 25;
+         Boom.frequency = 0.126F;
+         Boom.x = 1.0F;
+         Boom.y = 0.0F;
+         Boom.z = 0.0F;
+         Boom.power = 0.1F;
       }
    }
 

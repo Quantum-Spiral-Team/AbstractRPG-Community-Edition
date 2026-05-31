@@ -13,7 +13,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumHand;
@@ -312,13 +311,13 @@ public class Submachine extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 11;
-      Booom.frequency = -0.285F;
-      Booom.x = 1.0F;
-      Booom.y = (float)itemRand.nextGaussian() / 10.0F;
-      Booom.z = (float)itemRand.nextGaussian() / 10.0F;
-      Booom.power = 0.28F;
+   public void boom(int param) {
+      Boom.lastTick = 11;
+      Boom.frequency = -0.285F;
+      Boom.x = 1.0F;
+      Boom.y = (float)itemRand.nextGaussian() / 10.0F;
+      Boom.z = (float)itemRand.nextGaussian() / 10.0F;
+      Boom.power = 0.28F;
    }
 
    @SideOnly(Side.CLIENT)

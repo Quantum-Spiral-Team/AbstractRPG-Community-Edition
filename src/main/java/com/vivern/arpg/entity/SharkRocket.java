@@ -1,13 +1,7 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
+
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -191,10 +185,10 @@ public class SharkRocket extends EntityThrowable {
    public void handleStatusUpdate(byte id) {
       if (id == 4) {
          if (Minecraft.getMinecraft().getRenderViewEntity().getDistance(this) < 10.0F) {
-            Booom.lastTick = Math.round(16.0F / Minecraft.getMinecraft().getRenderViewEntity().getDistance(this));
-            Booom.x = (float)this.rand.nextGaussian();
-            Booom.y = (float)this.rand.nextGaussian();
-            Booom.z = (float)this.rand.nextGaussian();
+            Boom.lastTick = Math.round(16.0F / Minecraft.getMinecraft().getRenderViewEntity().getDistance(this));
+            Boom.x = (float)this.rand.nextGaussian();
+            Boom.y = (float)this.rand.nextGaussian();
+            Boom.z = (float)this.rand.nextGaussian();
          }
 
          this.world.playSound(this.posX, this.posY, this.posZ, Sounds.boom_a, SoundCategory.AMBIENT, 2.0F, 1.0F, false);

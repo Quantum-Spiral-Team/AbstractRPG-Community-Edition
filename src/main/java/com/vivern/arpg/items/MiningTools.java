@@ -8,20 +8,7 @@ import com.vivern.arpg.items.models.MiningLaserModel;
 import com.vivern.arpg.entity.BlocksDecayer;
 import com.vivern.arpg.entity.EntityStreamLaserP;
 import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.main.BlockBreaking;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FluidsRegister;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.ShardType;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.AnimatedGParticle;
 import com.vivern.arpg.renders.GUNParticle;
@@ -127,13 +114,13 @@ public class MiningTools {
 
       @SideOnly(Side.CLIENT)
       @Override
-      public void bom(int param) {
-         Booom.lastTick = 7;
-         Booom.frequency = 1.45F;
-         Booom.x = (float)itemRand.nextGaussian();
-         Booom.y = 0.0F;
-         Booom.z = (float)itemRand.nextGaussian();
-         Booom.power = 0.08F * (param / 20.0F);
+      public void boom(int param) {
+         Boom.lastTick = 7;
+         Boom.frequency = 1.45F;
+         Boom.x = (float)itemRand.nextGaussian();
+         Boom.y = 0.0F;
+         Boom.z = (float)itemRand.nextGaussian();
+         Boom.power = 0.08F * (param / 20.0F);
       }
 
       @Override
@@ -672,13 +659,13 @@ public class MiningTools {
 
       @SideOnly(Side.CLIENT)
       @Override
-      public void bom(int param) {
-         Booom.lastTick = 7;
-         Booom.frequency = 1.45F;
-         Booom.x = (float)itemRand.nextGaussian();
-         Booom.y = (float)itemRand.nextGaussian();
-         Booom.z = (float)itemRand.nextGaussian();
-         Booom.power = 0.08F * (param / 20.0F);
+      public void boom(int param) {
+         Boom.lastTick = 7;
+         Boom.frequency = 1.45F;
+         Boom.x = (float)itemRand.nextGaussian();
+         Boom.y = (float)itemRand.nextGaussian();
+         Boom.z = (float)itemRand.nextGaussian();
+         Boom.power = 0.08F * (param / 20.0F);
       }
 
       @Override
@@ -1408,13 +1395,13 @@ public class MiningTools {
 
       @SideOnly(Side.CLIENT)
       @Override
-      public void bom(int param) {
-         Booom.lastTick = 7;
-         Booom.frequency = 1.45F;
-         Booom.x = (float)itemRand.nextGaussian();
-         Booom.y = (float)itemRand.nextGaussian();
-         Booom.z = (float)itemRand.nextGaussian();
-         Booom.power = 0.08F * (param / 20.0F);
+      public void boom(int param) {
+         Boom.lastTick = 7;
+         Boom.frequency = 1.45F;
+         Boom.x = (float)itemRand.nextGaussian();
+         Boom.y = (float)itemRand.nextGaussian();
+         Boom.z = (float)itemRand.nextGaussian();
+         Boom.power = 0.08F * (param / 20.0F);
       }
 
       @Override

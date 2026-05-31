@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
-public class Booom {
+public class Boom {
    public static int lastTick = 0;
    public static int FOVlastTick = 0;
    public static float x;
@@ -25,8 +25,8 @@ public class Booom {
    public static int drunkTick = 0;
    public static float drunkPower = 0.0F;
 
-   public Booom(EntityPlayer player, int lastTick) {
-      Booom.lastTick = lastTick;
+   public Boom(EntityPlayer player, int lastTick) {
+      Boom.lastTick = lastTick;
    }
 
    public static float getFrequencyForTicks(int ticks) {

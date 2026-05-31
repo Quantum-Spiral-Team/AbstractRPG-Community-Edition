@@ -1,13 +1,7 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.blocks.FrostfireExplosive;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
 import java.util.List;
@@ -251,12 +245,12 @@ public class EntityFrostfireExplosive extends Entity implements ISynchronizedEnt
          if (Minecraft.getMinecraft().getRenderViewEntity() != null) {
             float distr = Minecraft.getMinecraft().getRenderViewEntity().getDistance(this);
             if (distr < 4.0 * c) {
-               Booom.lastTick = (int)Math.round(5.0 * c - distr);
-               Booom.frequency = 3.0F;
-               Booom.x = (float)this.rand.nextGaussian();
-               Booom.y = (float)this.rand.nextGaussian();
-               Booom.z = (float)this.rand.nextGaussian();
-               Booom.power = (float)(0.06F * c);
+               Boom.lastTick = (int)Math.round(5.0 * c - distr);
+               Boom.frequency = 3.0F;
+               Boom.x = (float)this.rand.nextGaussian();
+               Boom.y = (float)this.rand.nextGaussian();
+               Boom.z = (float)this.rand.nextGaussian();
+               Boom.power = (float)(0.06F * c);
             }
          }
       }

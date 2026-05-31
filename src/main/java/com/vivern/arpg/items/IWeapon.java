@@ -20,7 +20,6 @@ import com.vivern.arpg.network.packet.PacketWeaponStateToClients;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Multimap;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -80,7 +79,7 @@ public interface IWeapon {
 
     //TODO add @param `World world`
     @SideOnly(Side.CLIENT)
-    default void bom(int param) {
+    default void boom(int param) {
     }
 
     default int getCooldownTime(ItemStack itemstack) {

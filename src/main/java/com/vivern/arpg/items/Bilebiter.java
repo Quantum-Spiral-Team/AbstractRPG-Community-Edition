@@ -51,13 +51,13 @@ public class Bilebiter extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 8;
-      Booom.frequency = 4.0F;
-      Booom.x = (float)itemRand.nextGaussian();
-      Booom.y = (float)itemRand.nextGaussian();
-      Booom.z = (float)itemRand.nextGaussian();
-      Booom.power = 0.19F;
+   public void boom(int param) {
+      Boom.lastTick = 8;
+      Boom.frequency = 4.0F;
+      Boom.x = (float)itemRand.nextGaussian();
+      Boom.y = (float)itemRand.nextGaussian();
+      Boom.z = (float)itemRand.nextGaussian();
+      Boom.power = 0.19F;
    }
 
    @Override

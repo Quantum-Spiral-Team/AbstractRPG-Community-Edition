@@ -1,9 +1,8 @@
 package com.vivern.arpg.items;
 
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.events.Events;
 import com.vivern.arpg.items.models.ToxicWingsModel;
-import com.vivern.arpg.main.Booom;
+import com.vivern.arpg.main.Boom;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.IAttributedBauble;
 import com.vivern.arpg.main.NBTHelper;
@@ -15,7 +14,6 @@ import java.util.Random;
 import java.util.UUID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
@@ -224,13 +222,13 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
                   + this.player.motionY * this.player.motionY
             );
             float f1 = f / 2.0F;
-            if (f1 > 0.7F && Booom.lastTick == 0) {
-               Booom.lastTick = 8;
-               Booom.frequency = 4.0F;
-               Booom.x = (float)this.rand.nextGaussian();
-               Booom.y = (float)this.rand.nextGaussian();
-               Booom.z = (float)this.rand.nextGaussian();
-               Booom.power = f1 / 25.0F;
+            if (f1 > 0.7F && Boom.lastTick == 0) {
+               Boom.lastTick = 8;
+               Boom.frequency = 4.0F;
+               Boom.x = (float)this.rand.nextGaussian();
+               Boom.y = (float)this.rand.nextGaussian();
+               Boom.z = (float)this.rand.nextGaussian();
+               Boom.power = f1 / 25.0F;
             }
 
             if (f >= 0.01) {

@@ -17,7 +17,6 @@ import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber(value =Side.CLIENT, modid = Tags.MOD_ID)
 public class FOVUpdateTracker {
@@ -101,7 +100,7 @@ public class FOVUpdateTracker {
          fov -= iw.getZoom(current, e.getEntity());
       }
 
-      fov -= Booom.FOVboom;
+      fov -= Boom.FOVboom;
       if (aimlens && active) {
          if (iweaponhaszoom) {
             fov -= 0.3F;

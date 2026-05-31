@@ -1,7 +1,7 @@
 package com.vivern.arpg.potions;
 
 import com.vivern.arpg.hooks.ARPGHooks;
-import com.vivern.arpg.main.Booom;
+import com.vivern.arpg.main.Boom;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.mobs.AbstractMob;
@@ -155,12 +155,12 @@ public class Freezing extends AdvancedPotion {
 
    @SideOnly(Side.CLIENT)
    public static void bom() {
-      Booom.lastTick = 6;
-      Booom.frequency = 0.525F * (rand.nextFloat() < 0.5 ? 1 : -1);
-      Booom.x = 0.0F;
-      Booom.y = 0.0F;
-      Booom.z = 1.0F;
-      Booom.power = 0.45F;
+      Boom.lastTick = 6;
+      Boom.frequency = 0.525F * (rand.nextFloat() < 0.5 ? 1 : -1);
+      Boom.x = 0.0F;
+      Boom.y = 0.0F;
+      Boom.z = 1.0F;
+      Boom.power = 0.45F;
    }
 
    @Override

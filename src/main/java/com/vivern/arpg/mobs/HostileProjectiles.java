@@ -11,21 +11,8 @@ import com.vivern.arpg.entity.EntityCubicParticle;
 import com.vivern.arpg.entity.EntityElectricBolt;
 import com.vivern.arpg.entity.ISynchronizedEntity;
 import com.vivern.arpg.entity.StandardBullet;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.Catalyst;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.AbstractRPG;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.MovingSoundEntity;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponDamage;
-import com.vivern.arpg.main.WeaponParameters;
-import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.AnimatedGParticle;
@@ -2898,12 +2885,12 @@ public class HostileProjectiles {
             if (Minecraft.getMinecraft().getRenderViewEntity() != null) {
                float distr = Minecraft.getMinecraft().getRenderViewEntity().getDistance(this);
                if (distr < 6.0F) {
-                  Booom.lastTick = Math.round(18.0F - distr);
-                  Booom.frequency = 4.0F;
-                  Booom.x = (float)this.rand.nextGaussian();
-                  Booom.y = (float)this.rand.nextGaussian();
-                  Booom.z = (float)this.rand.nextGaussian();
-                  Booom.power = 0.2F;
+                  Boom.lastTick = Math.round(18.0F - distr);
+                  Boom.frequency = 4.0F;
+                  Boom.x = (float)this.rand.nextGaussian();
+                  Boom.y = (float)this.rand.nextGaussian();
+                  Boom.z = (float)this.rand.nextGaussian();
+                  Boom.power = 0.2F;
                }
 
                partAdding = Math.max(partAdding - (int)distr, 0);
@@ -6572,12 +6559,12 @@ public class HostileProjectiles {
             if (Minecraft.getMinecraft().getRenderViewEntity() != null) {
                float distr = Minecraft.getMinecraft().getRenderViewEntity().getDistance(this);
                if (distr < 14.0F) {
-                  Booom.lastTick = Math.round(18.0F - distr);
-                  Booom.frequency = 4.0F;
-                  Booom.x = (float)this.rand.nextGaussian();
-                  Booom.y = (float)this.rand.nextGaussian();
-                  Booom.z = (float)this.rand.nextGaussian();
-                  Booom.power = 0.4F;
+                  Boom.lastTick = Math.round(18.0F - distr);
+                  Boom.frequency = 4.0F;
+                  Boom.x = (float)this.rand.nextGaussian();
+                  Boom.y = (float)this.rand.nextGaussian();
+                  Boom.z = (float)this.rand.nextGaussian();
+                  Boom.power = 0.4F;
                }
             }
 

@@ -79,24 +79,24 @@ public class CryoDestroyer extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param == 0) {
-         Booom.lastTick = 20;
-         Booom.frequency = -0.157F;
-         Booom.x = -1.0F;
-         Booom.y = (itemRand.nextFloat() - 0.5F) * 0.5F;
-         Booom.z = (itemRand.nextFloat() - 0.5F) * 0.5F;
-         Booom.power = 0.32F;
-         Booom.FOVlastTick = 20;
-         Booom.FOVfrequency = -0.157F;
-         Booom.FOVpower = -0.02F;
+         Boom.lastTick = 20;
+         Boom.frequency = -0.157F;
+         Boom.x = -1.0F;
+         Boom.y = (itemRand.nextFloat() - 0.5F) * 0.5F;
+         Boom.z = (itemRand.nextFloat() - 0.5F) * 0.5F;
+         Boom.power = 0.32F;
+         Boom.FOVlastTick = 20;
+         Boom.FOVfrequency = -0.157F;
+         Boom.FOVpower = -0.02F;
       } else {
-         Booom.lastTick = 14;
-         Booom.frequency = 0.6F;
-         Booom.x = 0.0F;
-         Booom.y = (float)itemRand.nextGaussian();
-         Booom.z = (float)itemRand.nextGaussian();
-         Booom.power = 0.03F;
+         Boom.lastTick = 14;
+         Boom.frequency = 0.6F;
+         Boom.x = 0.0F;
+         Boom.y = (float)itemRand.nextGaussian();
+         Boom.z = (float)itemRand.nextGaussian();
+         Boom.power = 0.03F;
       }
    }
 
@@ -342,7 +342,7 @@ public class CryoDestroyer extends ItemWeapon {
             Weapons.shoot(bigsmoke, EnumHand.MAIN_HAND, player, player.rotationPitch - 2.0F, player.rotationYaw, 0.0F, 1.0F, 1.0F, -0.22F, 0.5F, 0.5F);
             world.spawnEntity(bigsmoke);
             if (player.ticksExisted % 4 == 0) {
-               this.bom(1);
+               this.boom(1);
                this.onStateReceived(player, itemstack, (byte)2, itemSlot);
             }
          }

@@ -161,13 +161,13 @@ public class WhispersBlade extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 17;
-      Booom.frequency = -0.185F;
-      Booom.x = 1.0F;
-      Booom.y = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
-      Booom.z = 0.0F;
-      Booom.power = -0.27F;
+   public void boom(int param) {
+      Boom.lastTick = 17;
+      Boom.frequency = -0.185F;
+      Boom.x = 1.0F;
+      Boom.y = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
+      Boom.z = 0.0F;
+      Boom.power = -0.27F;
    }
 
    @Override

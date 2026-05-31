@@ -40,17 +40,17 @@ public class ItemSpellRoll extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param == 0) {
          param = 1;
       }
 
-      Booom.lastTick = 10;
-      Booom.frequency = 3.0F;
-      Booom.x = (float)itemRand.nextGaussian();
-      Booom.y = (float)itemRand.nextGaussian();
-      Booom.z = (float)itemRand.nextGaussian();
-      Booom.power = 0.18F / param;
+      Boom.lastTick = 10;
+      Boom.frequency = 3.0F;
+      Boom.x = (float)itemRand.nextGaussian();
+      Boom.y = (float)itemRand.nextGaussian();
+      Boom.z = (float)itemRand.nextGaussian();
+      Boom.power = 0.18F / param;
    }
 
    @Override

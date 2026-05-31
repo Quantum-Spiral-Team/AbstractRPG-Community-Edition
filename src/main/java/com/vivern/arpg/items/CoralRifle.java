@@ -54,13 +54,13 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 7;
-      Booom.frequency = -0.45F;
-      Booom.x = 1.0F;
-      Booom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
-      Booom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
-      Booom.power = 0.27F;
+   public void boom(int param) {
+      Boom.lastTick = 7;
+      Boom.frequency = -0.45F;
+      Boom.x = 1.0F;
+      Boom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
+      Boom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
+      Boom.power = 0.27F;
    }
 
    @Override

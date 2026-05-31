@@ -365,26 +365,26 @@ public class PlasmaRifle extends ItemWeapon implements IEnergyItem {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param == 0) {
-         Booom.lastTick = 8;
-         Booom.frequency = 4.0F;
-         Booom.x = (float)itemRand.nextGaussian();
-         Booom.y = (float)itemRand.nextGaussian();
-         Booom.z = (float)itemRand.nextGaussian();
-         Booom.power = 0.1F;
+         Boom.lastTick = 8;
+         Boom.frequency = 4.0F;
+         Boom.x = (float)itemRand.nextGaussian();
+         Boom.y = (float)itemRand.nextGaussian();
+         Boom.z = (float)itemRand.nextGaussian();
+         Boom.power = 0.1F;
       }
 
       if (param == 1) {
-         Booom.lastTick = 18;
-         Booom.frequency = -Booom.getFrequencyForTicks(Booom.lastTick);
-         Booom.x = 1.0F;
-         Booom.y = (float)itemRand.nextGaussian() / 5.0F;
-         Booom.z = (float)itemRand.nextGaussian() / 5.0F;
-         Booom.power = 0.5F;
-         Booom.FOVlastTick = 10;
-         Booom.FOVfrequency = -0.32F;
-         Booom.FOVpower = 0.017F;
+         Boom.lastTick = 18;
+         Boom.frequency = -Boom.getFrequencyForTicks(Boom.lastTick);
+         Boom.x = 1.0F;
+         Boom.y = (float)itemRand.nextGaussian() / 5.0F;
+         Boom.z = (float)itemRand.nextGaussian() / 5.0F;
+         Boom.power = 0.5F;
+         Boom.FOVlastTick = 10;
+         Boom.FOVfrequency = -0.32F;
+         Boom.FOVpower = 0.017F;
       }
    }
 

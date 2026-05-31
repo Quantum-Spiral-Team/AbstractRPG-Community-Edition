@@ -237,16 +237,16 @@ public class RocketLauncher extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 14;
-      Booom.frequency = -0.225F;
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.5F;
-      Booom.FOVlastTick = 8;
-      Booom.FOVfrequency = -0.395F;
-      Booom.FOVpower = 0.022F;
+   public void boom(int param) {
+      Boom.lastTick = 14;
+      Boom.frequency = -0.225F;
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.5F;
+      Boom.FOVlastTick = 8;
+      Boom.FOVfrequency = -0.395F;
+      Boom.FOVpower = 0.022F;
    }
 
    @Override

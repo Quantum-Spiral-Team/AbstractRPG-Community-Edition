@@ -1,11 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import com.google.common.collect.Sets;
 import java.util.List;
@@ -124,12 +119,12 @@ public class EntityMiniNuke extends Entity implements ISynchronizedEntity {
          if (Minecraft.getMinecraft().getRenderViewEntity() != null) {
             float distapl = Minecraft.getMinecraft().getRenderViewEntity().getDistance(this);
             if (distapl < 30.0F) {
-               Booom.lastTick = Math.round(35.0F - distapl);
-               Booom.frequency = 2.7125F;
-               Booom.x = (float)this.rand.nextGaussian();
-               Booom.y = (float)this.rand.nextGaussian();
-               Booom.z = (float)this.rand.nextGaussian();
-               Booom.power = 0.6F - distapl / 50.0F;
+               Boom.lastTick = Math.round(35.0F - distapl);
+               Boom.frequency = 2.7125F;
+               Boom.x = (float)this.rand.nextGaussian();
+               Boom.y = (float)this.rand.nextGaussian();
+               Boom.z = (float)this.rand.nextGaussian();
+               Boom.power = 0.6F - distapl / 50.0F;
             }
          }
 

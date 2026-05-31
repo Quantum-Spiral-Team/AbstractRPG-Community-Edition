@@ -283,16 +283,16 @@ public class HolyShotgun extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 16;
-      Booom.frequency = -0.196F;
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.42F * param;
-      Booom.FOVlastTick = 6;
-      Booom.FOVfrequency = -0.5F;
-      Booom.FOVpower = 0.03F;
+   public void boom(int param) {
+      Boom.lastTick = 16;
+      Boom.frequency = -0.196F;
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.42F * param;
+      Boom.FOVlastTick = 6;
+      Boom.FOVfrequency = -0.5F;
+      Boom.FOVpower = 0.03F;
    }
 
    @SideOnly(Side.CLIENT)

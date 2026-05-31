@@ -1,11 +1,8 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.ElementProjectile;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
+import com.vivern.arpg.main.*;
+
 import java.util.ArrayList;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -65,12 +62,12 @@ public class ElementFocus extends Item {
    @SideOnly(Side.CLIENT)
    private void bom(World worldIn, EntityPlayer player, SoundEvent sound) {
       worldIn.playSound(null, player.posX, player.posY, player.posZ, sound, SoundCategory.AMBIENT, 1.0F, 1.0F);
-      Booom.lastTick = 5;
-      Booom.frequency = -0.6F;
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.22F;
+      Boom.lastTick = 5;
+      Boom.frequency = -0.6F;
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.22F;
    }
 
    @Override

@@ -430,13 +430,13 @@ public class AdamantiumMinigun extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 6;
-      Booom.frequency = 0.525F;
-      Booom.x = (float)itemRand.nextGaussian();
-      Booom.y = (float)itemRand.nextGaussian();
-      Booom.z = (float)itemRand.nextGaussian();
-      Booom.power = 0.3F;
+   public void boom(int param) {
+      Boom.lastTick = 6;
+      Boom.frequency = 0.525F;
+      Boom.x = (float)itemRand.nextGaussian();
+      Boom.y = (float)itemRand.nextGaussian();
+      Boom.z = (float)itemRand.nextGaussian();
+      Boom.power = 0.3F;
    }
 
    @Override

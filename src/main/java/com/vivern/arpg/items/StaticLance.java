@@ -317,13 +317,13 @@ public class StaticLance extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 10;
-      Booom.frequency = -0.63F;
-      Booom.x = 1.0F;
-      Booom.y = (itemRand.nextFloat() - 0.5F) / 3.0F;
-      Booom.z = (itemRand.nextFloat() - 0.5F) / 3.0F;
-      Booom.power = 0.58F;
+   public void boom(int param) {
+      Boom.lastTick = 10;
+      Boom.frequency = -0.63F;
+      Boom.x = 1.0F;
+      Boom.y = (itemRand.nextFloat() - 0.5F) / 3.0F;
+      Boom.z = (itemRand.nextFloat() - 0.5F) / 3.0F;
+      Boom.power = 0.58F;
    }
 
    @Override

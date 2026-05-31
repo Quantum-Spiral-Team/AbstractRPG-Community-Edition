@@ -49,20 +49,20 @@ public class WandOfCold extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param == 0) {
-         Booom.FOVlastTick = 10;
-         Booom.FOVfrequency = -0.315F;
-         Booom.FOVpower = 0.004F;
+         Boom.FOVlastTick = 10;
+         Boom.FOVfrequency = -0.315F;
+         Boom.FOVpower = 0.004F;
       }
 
       if (param == 1) {
-         Booom.lastTick = 19;
-         Booom.frequency = -0.165F;
-         Booom.x = 0.0F;
-         Booom.y = 0.0F;
-         Booom.z = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
-         Booom.power = 0.23F;
+         Boom.lastTick = 19;
+         Boom.frequency = -0.165F;
+         Boom.x = 0.0F;
+         Boom.y = 0.0F;
+         Boom.z = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
+         Boom.power = 0.23F;
       }
    }
 

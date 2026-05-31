@@ -65,14 +65,14 @@ public abstract class AbstractBow extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param >= 0) {
-         Booom.lastTick = 16;
-         Booom.frequency = -0.196F;
-         Booom.x = -1.0F;
-         Booom.y = (itemRand.nextFloat() - 0.5F) * 0.5F;
-         Booom.z = (itemRand.nextFloat() - 0.5F) * 0.5F;
-         Booom.power = 0.15F * (param / 10.0F);
+         Boom.lastTick = 16;
+         Boom.frequency = -0.196F;
+         Boom.x = -1.0F;
+         Boom.y = (itemRand.nextFloat() - 0.5F) * 0.5F;
+         Boom.z = (itemRand.nextFloat() - 0.5F) * 0.5F;
+         Boom.power = 0.15F * (param / 10.0F);
          if (this.clientPullSound != null) {
             if (Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(this.clientPullSound)) {
                Minecraft.getMinecraft().getSoundHandler().stopSound(this.clientPullSound);

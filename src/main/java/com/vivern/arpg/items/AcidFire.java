@@ -135,12 +135,12 @@ public class AcidFire extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    private void bom() {
-      Booom.lastTick = 8;
-      Booom.frequency = 0.4F;
-      Booom.x = 1.0F;
-      Booom.y = (float)itemRand.nextGaussian();
-      Booom.z = (float)itemRand.nextGaussian();
-      Booom.power = 0.2F;
+      Boom.lastTick = 8;
+      Boom.frequency = 0.4F;
+      Boom.x = 1.0F;
+      Boom.y = (float)itemRand.nextGaussian();
+      Boom.z = (float)itemRand.nextGaussian();
+      Boom.power = 0.2F;
       TEISRGuns.mainhandShoot = true;
    }
 

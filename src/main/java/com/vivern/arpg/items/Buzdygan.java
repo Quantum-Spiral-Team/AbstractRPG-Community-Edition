@@ -53,23 +53,23 @@ public class Buzdygan extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param == 0) {
-         Booom.lastTick = 16;
-         Booom.frequency = 0.196F;
-         Booom.x = 1.0F;
-         Booom.y = itemRand.nextFloat() < 0.5 ? 0.2F : -0.2F;
-         Booom.z = 0.0F;
-         Booom.power = -0.25F;
+         Boom.lastTick = 16;
+         Boom.frequency = 0.196F;
+         Boom.x = 1.0F;
+         Boom.y = itemRand.nextFloat() < 0.5 ? 0.2F : -0.2F;
+         Boom.z = 0.0F;
+         Boom.power = -0.25F;
       }
 
       if (param == 1) {
-         Booom.lastTick = 14;
-         Booom.frequency = 0.225F;
-         Booom.x = -1.0F;
-         Booom.y = (float)itemRand.nextGaussian() / 7.0F;
-         Booom.z = (float)itemRand.nextGaussian() / 7.0F;
-         Booom.power = 0.3F;
+         Boom.lastTick = 14;
+         Boom.frequency = 0.225F;
+         Boom.x = -1.0F;
+         Boom.y = (float)itemRand.nextGaussian() / 7.0F;
+         Boom.z = (float)itemRand.nextGaussian() / 7.0F;
+         Boom.power = 0.3F;
       }
    }
 

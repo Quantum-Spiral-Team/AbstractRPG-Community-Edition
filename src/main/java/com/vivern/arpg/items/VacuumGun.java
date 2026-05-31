@@ -149,16 +149,16 @@ public class VacuumGun extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 13;
-      Booom.frequency = -0.245F;
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.5F;
-      Booom.FOVlastTick = 10;
-      Booom.FOVfrequency = -0.32F;
-      Booom.FOVpower = 0.025F;
+   public void boom(int param) {
+      Boom.lastTick = 13;
+      Boom.frequency = -0.245F;
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.5F;
+      Boom.FOVlastTick = 10;
+      Boom.FOVfrequency = -0.32F;
+      Boom.FOVpower = 0.025F;
    }
 
    @Override

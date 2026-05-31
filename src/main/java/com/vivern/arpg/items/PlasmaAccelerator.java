@@ -187,16 +187,16 @@ public class PlasmaAccelerator extends ItemWeapon implements IEnergyItem {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 15;
-      Booom.frequency = 0.2F;
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.3F;
-      Booom.FOVlastTick = 15;
-      Booom.FOVfrequency = -0.2F;
-      Booom.FOVpower = 0.4F;
+   public void boom(int param) {
+      Boom.lastTick = 15;
+      Boom.frequency = 0.2F;
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.3F;
+      Boom.FOVlastTick = 15;
+      Boom.FOVfrequency = -0.2F;
+      Boom.FOVpower = 0.4F;
    }
 
    @Override

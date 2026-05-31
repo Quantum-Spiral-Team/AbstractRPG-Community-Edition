@@ -70,31 +70,31 @@ public class StaffOfWitherdry extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param == -1) {
-         Booom.lastTick = 30;
-         Booom.frequency = -0.39F;
-         Booom.x = 0.0F;
-         Booom.y = (float)(itemRand.nextGaussian() / 8.0);
-         Booom.z = 1.0F;
-         Booom.power = 0.2F;
-         Booom.FOVlastTick = 20;
-         Booom.FOVfrequency = -0.157F;
-         Booom.FOVpower = 0.02F;
+         Boom.lastTick = 30;
+         Boom.frequency = -0.39F;
+         Boom.x = 0.0F;
+         Boom.y = (float)(itemRand.nextGaussian() / 8.0);
+         Boom.z = 1.0F;
+         Boom.power = 0.2F;
+         Boom.FOVlastTick = 20;
+         Boom.FOVfrequency = -0.157F;
+         Boom.FOVpower = 0.02F;
       } else if (param == -2) {
-         Booom.lastTick = 18;
-         Booom.frequency = -0.175F;
-         Booom.x = 0.0F;
-         Booom.y = 0.0F;
-         Booom.z = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
-         Booom.power = 0.22F;
+         Boom.lastTick = 18;
+         Boom.frequency = -0.175F;
+         Boom.x = 0.0F;
+         Boom.y = 0.0F;
+         Boom.z = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
+         Boom.power = 0.22F;
       } else {
-         Booom.lastTick = 16;
-         Booom.frequency = -0.39F;
-         Booom.x = 0.6F;
-         Booom.y = (float)(itemRand.nextGaussian() / 8.0);
-         Booom.z = (float)(itemRand.nextGaussian() / 3.0);
-         Booom.power = 0.055F * param / 32.0F;
+         Boom.lastTick = 16;
+         Boom.frequency = -0.39F;
+         Boom.x = 0.6F;
+         Boom.y = (float)(itemRand.nextGaussian() / 8.0);
+         Boom.z = (float)(itemRand.nextGaussian() / 3.0);
+         Boom.power = 0.055F * param / 32.0F;
       }
    }
 

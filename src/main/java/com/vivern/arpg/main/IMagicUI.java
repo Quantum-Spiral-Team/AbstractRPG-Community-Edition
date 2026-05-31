@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public interface IMagicUI {
-   SoundCategory soundc = SoundCategory.NEUTRAL;
+   SoundCategory sound = SoundCategory.NEUTRAL;
 
    default void acceptSeal(World world, EntityPlayer player, Seal seal, @Nullable BlockPos pos, @Nullable Entity entity) {
    }

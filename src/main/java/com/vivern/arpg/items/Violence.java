@@ -59,13 +59,13 @@ public class Violence extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 17 + itemRand.nextInt(5);
-      Booom.frequency = -0.7F;
-      Booom.x = 0.0F;
-      Booom.y = 0.0F;
-      Booom.z = 1.0F;
-      Booom.power = 0.25F;
+   public void boom(int param) {
+      Boom.lastTick = 17 + itemRand.nextInt(5);
+      Boom.frequency = -0.7F;
+      Boom.x = 0.0F;
+      Boom.y = 0.0F;
+      Boom.z = 1.0F;
+      Boom.power = 0.25F;
    }
 
    @SideOnly(Side.CLIENT)

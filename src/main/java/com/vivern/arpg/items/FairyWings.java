@@ -4,7 +4,7 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
 import com.vivern.arpg.items.models.FairyWingsModel;
-import com.vivern.arpg.main.Booom;
+import com.vivern.arpg.main.Boom;
 import com.vivern.arpg.main.IAttributedBauble;
 import com.vivern.arpg.main.Keys;
 import com.vivern.arpg.main.NBTHelper;
@@ -386,13 +386,13 @@ public class FairyWings extends Item implements IBauble, IAttributedBauble, IWin
                   + this.player.motionY * this.player.motionY
             );
             float f1 = f / 2.0F;
-            if (f1 > 0.7F && Booom.lastTick == 0) {
-               Booom.lastTick = 8;
-               Booom.frequency = 4.0F;
-               Booom.x = (float)this.rand.nextGaussian();
-               Booom.y = (float)this.rand.nextGaussian();
-               Booom.z = (float)this.rand.nextGaussian();
-               Booom.power = f1 / 25.0F;
+            if (f1 > 0.7F && Boom.lastTick == 0) {
+               Boom.lastTick = 8;
+               Boom.frequency = 4.0F;
+               Boom.x = (float)this.rand.nextGaussian();
+               Boom.y = (float)this.rand.nextGaussian();
+               Boom.z = (float)this.rand.nextGaussian();
+               Boom.power = f1 / 25.0F;
             }
 
             if (f >= 0.01) {

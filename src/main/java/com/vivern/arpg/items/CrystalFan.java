@@ -125,20 +125,20 @@ public class CrystalFan extends ItemWeapon {
    @SideOnly(Side.CLIENT)
    private void bom(boolean power) {
       if (power) {
-         Booom.lastTick = 25;
-         Booom.frequency = -0.125F;
-         Booom.x = itemRand.nextFloat() / 5.0F - 0.1F;
-         Booom.y = this.bbom ? 1.0F : -1.0F;
-         Booom.z = 0.0F;
-         Booom.power = -0.37F;
+         Boom.lastTick = 25;
+         Boom.frequency = -0.125F;
+         Boom.x = itemRand.nextFloat() / 5.0F - 0.1F;
+         Boom.y = this.bbom ? 1.0F : -1.0F;
+         Boom.z = 0.0F;
+         Boom.power = -0.37F;
          this.bbom = !this.bbom;
       } else {
-         Booom.lastTick = 15;
-         Booom.frequency = -0.45F;
-         Booom.x = 1.0F;
-         Booom.y = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
-         Booom.z = 0.0F;
-         Booom.power = -0.17F;
+         Boom.lastTick = 15;
+         Boom.frequency = -0.45F;
+         Boom.x = 1.0F;
+         Boom.y = itemRand.nextFloat() < 0.5 ? 1.0F : -1.0F;
+         Boom.z = 0.0F;
+         Boom.power = -0.17F;
       }
    }
 

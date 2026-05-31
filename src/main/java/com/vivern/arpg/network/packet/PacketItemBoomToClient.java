@@ -26,7 +26,7 @@ public class PacketItemBoomToClient extends Packet {
    public void client(EntityPlayer player, Packet sp, MessageContext ctx) {
       Item item = Item.getItemById(this.id);
       if (item instanceof IWeapon) {
-         ((IWeapon)item).bom(this.param);
+         ((IWeapon)item).boom(this.param);
       }
    }
 

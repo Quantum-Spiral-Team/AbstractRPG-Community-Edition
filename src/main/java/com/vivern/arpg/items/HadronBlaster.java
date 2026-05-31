@@ -611,22 +611,22 @@ public class HadronBlaster extends ItemWeapon implements IEnergyItem {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int singleShot) {
+   public void boom(int singleShot) {
       if (singleShot > 0) {
-         Booom.lastTick = 7;
-         Booom.frequency = -0.45F;
-         Booom.x = 1.0F;
-         Booom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
-         Booom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
-         Booom.power = 0.29F;
+         Boom.lastTick = 7;
+         Boom.frequency = -0.45F;
+         Boom.x = 1.0F;
+         Boom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
+         Boom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
+         Boom.power = 0.29F;
          TEISRGuns.mainhandShoot = true;
       } else {
-         Booom.lastTick = 7;
-         Booom.frequency = 3.0F;
-         Booom.x = (float)itemRand.nextGaussian();
-         Booom.y = (float)itemRand.nextGaussian();
-         Booom.z = (float)itemRand.nextGaussian();
-         Booom.power = 0.15F;
+         Boom.lastTick = 7;
+         Boom.frequency = 3.0F;
+         Boom.x = (float)itemRand.nextGaussian();
+         Boom.y = (float)itemRand.nextGaussian();
+         Boom.z = (float)itemRand.nextGaussian();
+         Boom.power = 0.15F;
       }
    }
 

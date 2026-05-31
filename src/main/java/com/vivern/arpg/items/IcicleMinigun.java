@@ -174,13 +174,13 @@ public class IcicleMinigun extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 4;
-      Booom.frequency = -0.9F;
-      Booom.x = 1.0F;
-      Booom.y = (itemRand.nextFloat() - 0.5F) / 3.0F;
-      Booom.z = (itemRand.nextFloat() - 0.5F) / 3.0F;
-      Booom.power = 0.58F;
+   public void boom(int param) {
+      Boom.lastTick = 4;
+      Boom.frequency = -0.9F;
+      Boom.x = 1.0F;
+      Boom.y = (itemRand.nextFloat() - 0.5F) / 3.0F;
+      Boom.z = (itemRand.nextFloat() - 0.5F) / 3.0F;
+      Boom.power = 0.58F;
    }
 
    @Override

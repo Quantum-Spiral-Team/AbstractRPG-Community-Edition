@@ -370,13 +370,13 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 3;
-      Booom.frequency = 1.05F;
-      Booom.x = (float)itemRand.nextGaussian();
-      Booom.y = (float)itemRand.nextGaussian();
-      Booom.z = (float)itemRand.nextGaussian();
-      Booom.power = 0.2F * param;
+   public void boom(int param) {
+      Boom.lastTick = 3;
+      Boom.frequency = 1.05F;
+      Boom.x = (float)itemRand.nextGaussian();
+      Boom.y = (float)itemRand.nextGaussian();
+      Boom.z = (float)itemRand.nextGaussian();
+      Boom.power = 0.2F * param;
    }
 
    @Override

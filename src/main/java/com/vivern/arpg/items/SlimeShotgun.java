@@ -50,13 +50,13 @@ public class SlimeShotgun extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 2 + param;
-      Booom.frequency = -Booom.getFrequencyForTicks(Booom.lastTick);
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.06F * param + (param > 6 ? 0.3F * (param - 6) : 0.0F);
+   public void boom(int param) {
+      Boom.lastTick = 2 + param;
+      Boom.frequency = -Boom.getFrequencyForTicks(Boom.lastTick);
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.06F * param + (param > 6 ? 0.3F * (param - 6) : 0.0F);
    }
 
    @Override

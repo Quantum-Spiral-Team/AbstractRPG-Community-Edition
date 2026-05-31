@@ -188,13 +188,13 @@ public class Ceratarget extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 14;
-      Booom.frequency = -0.225F;
-      Booom.x = 1.0F;
-      Booom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
-      Booom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
-      Booom.power = 0.3F;
+   public void boom(int param) {
+      Boom.lastTick = 14;
+      Boom.frequency = -0.225F;
+      Boom.x = 1.0F;
+      Boom.y = (itemRand.nextFloat() - 0.5F) / 4.0F;
+      Boom.z = (itemRand.nextFloat() - 0.5F) / 4.0F;
+      Boom.power = 0.3F;
    }
 
    @SideOnly(Side.CLIENT)

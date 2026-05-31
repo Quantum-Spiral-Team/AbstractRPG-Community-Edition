@@ -67,13 +67,13 @@ public class AnnihilationGun extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 8;
-      Booom.frequency = 4.0F;
-      Booom.x = (float)this.rand.nextGaussian();
-      Booom.y = (float)this.rand.nextGaussian();
-      Booom.z = (float)this.rand.nextGaussian();
-      Booom.power = 0.14F;
+   public void boom(int param) {
+      Boom.lastTick = 8;
+      Boom.frequency = 4.0F;
+      Boom.x = (float)this.rand.nextGaussian();
+      Boom.y = (float)this.rand.nextGaussian();
+      Boom.z = (float)this.rand.nextGaussian();
+      Boom.power = 0.14F;
    }
 
    @SideOnly(Side.CLIENT)

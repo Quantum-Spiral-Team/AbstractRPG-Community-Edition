@@ -178,12 +178,12 @@ public class PistolFish extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    private void bom(boolean mainhand) {
-      Booom.lastTick = 11;
-      Booom.frequency = -0.285F;
-      Booom.x = 1.0F;
-      Booom.y = (float)itemRand.nextGaussian() / 10.0F;
-      Booom.z = (float)itemRand.nextGaussian() / 10.0F;
-      Booom.power = 0.22F;
+      Boom.lastTick = 11;
+      Boom.frequency = -0.285F;
+      Boom.x = 1.0F;
+      Boom.y = (float)itemRand.nextGaussian() / 10.0F;
+      Boom.z = (float)itemRand.nextGaussian() / 10.0F;
+      Boom.power = 0.22F;
    }
 
    @SideOnly(Side.CLIENT)

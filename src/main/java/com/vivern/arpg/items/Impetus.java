@@ -123,7 +123,7 @@ public class Impetus extends ItemWeapon {
                   0.9F + itemRand.nextFloat() / 5.0F
                );
                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-               this.bom(1);
+               this.boom(1);
                NBTHelper.SetNBTint(itemstack, 0, "usecharge");
                double damageRadius = 0.4;
                AxisAlignedBB aabb = new AxisAlignedBB(
@@ -162,7 +162,7 @@ public class Impetus extends ItemWeapon {
                   0.9F + itemRand.nextFloat() / 5.0F
                );
                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-               this.bom(2);
+               this.boom(2);
                NBTHelper.SetNBTint(itemstack, 0, "usecharge");
                if (!list.isEmpty()) {
                   for (Entity entitylivingbasex : list) {
@@ -189,7 +189,7 @@ public class Impetus extends ItemWeapon {
                   0.9F + itemRand.nextFloat() / 5.0F
                );
                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
-               this.bom(3);
+               this.boom(3);
                NBTHelper.SetNBTint(itemstack, 0, "usecharge");
                List<Entity> alllist = new ArrayList<>();
 
@@ -295,38 +295,38 @@ public class Impetus extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int i) {
+   public void boom(int i) {
       if (i == 1) {
-         Booom.lastTick = 11;
-         Booom.frequency = -0.285F;
-         Booom.x = 1.0F;
-         Booom.y = (float)itemRand.nextGaussian() / 10.0F;
-         Booom.z = (float)itemRand.nextGaussian() / 10.0F;
-         Booom.power = 0.15F;
+         Boom.lastTick = 11;
+         Boom.frequency = -0.285F;
+         Boom.x = 1.0F;
+         Boom.y = (float)itemRand.nextGaussian() / 10.0F;
+         Boom.z = (float)itemRand.nextGaussian() / 10.0F;
+         Boom.power = 0.15F;
       }
 
       if (i == 2) {
-         Booom.lastTick = 13;
-         Booom.frequency = -0.245F;
-         Booom.x = 1.0F;
-         Booom.y = 0.0F;
-         Booom.z = 0.0F;
-         Booom.power = 0.25F;
-         Booom.FOVlastTick = 6;
-         Booom.FOVfrequency = -0.5F;
-         Booom.FOVpower = 0.04F;
+         Boom.lastTick = 13;
+         Boom.frequency = -0.245F;
+         Boom.x = 1.0F;
+         Boom.y = 0.0F;
+         Boom.z = 0.0F;
+         Boom.power = 0.25F;
+         Boom.FOVlastTick = 6;
+         Boom.FOVfrequency = -0.5F;
+         Boom.FOVpower = 0.04F;
       }
 
       if (i == 3) {
-         Booom.lastTick = 35;
-         Booom.frequency = -0.18F;
-         Booom.x = (float)itemRand.nextGaussian() / 5.0F;
-         Booom.y = (float)itemRand.nextGaussian() / 5.0F;
-         Booom.z = (float)itemRand.nextGaussian() / 5.0F;
-         Booom.power = 0.55F;
-         Booom.FOVlastTick = 20;
-         Booom.FOVfrequency = -0.42F;
-         Booom.FOVpower = 0.03F;
+         Boom.lastTick = 35;
+         Boom.frequency = -0.18F;
+         Boom.x = (float)itemRand.nextGaussian() / 5.0F;
+         Boom.y = (float)itemRand.nextGaussian() / 5.0F;
+         Boom.z = (float)itemRand.nextGaussian() / 5.0F;
+         Boom.power = 0.55F;
+         Boom.FOVlastTick = 20;
+         Boom.FOVfrequency = -0.42F;
+         Boom.FOVpower = 0.03F;
       }
    }
 

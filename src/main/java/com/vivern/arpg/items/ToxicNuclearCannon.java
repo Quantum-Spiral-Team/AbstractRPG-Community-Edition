@@ -50,13 +50,13 @@ public class ToxicNuclearCannon extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 10;
-      Booom.frequency = -0.3125F;
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.57F;
+   public void boom(int param) {
+      Boom.lastTick = 10;
+      Boom.frequency = -0.3125F;
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.57F;
    }
 
    @Override

@@ -50,22 +50,22 @@ public class Blowhole extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
+   public void boom(int param) {
       if (param < 8) {
-         Booom.lastTick = 8;
-         Booom.frequency = -0.395F;
+         Boom.lastTick = 8;
+         Boom.frequency = -0.395F;
       } else if (param < 16) {
-         Booom.lastTick = 12;
-         Booom.frequency = -0.262F;
+         Boom.lastTick = 12;
+         Boom.frequency = -0.262F;
       } else {
-         Booom.lastTick = 16;
-         Booom.frequency = -0.196F;
+         Boom.lastTick = 16;
+         Boom.frequency = -0.196F;
       }
 
-      Booom.x = 1.0F;
-      Booom.y = 0.0F;
-      Booom.z = 0.0F;
-      Booom.power = 0.3F * (param / 10.0F);
+      Boom.x = 1.0F;
+      Boom.y = 0.0F;
+      Boom.z = 0.0F;
+      Boom.power = 0.3F * (param / 10.0F);
    }
 
    @Override

@@ -317,13 +317,13 @@ public class CooledRifle extends ItemWeapon {
 
    @SideOnly(Side.CLIENT)
    @Override
-   public void bom(int param) {
-      Booom.lastTick = 4;
-      Booom.frequency = -0.8F;
-      Booom.x = 1.0F;
-      Booom.y = (float)itemRand.nextGaussian() / 10.0F;
-      Booom.z = (float)itemRand.nextGaussian() / 10.0F;
-      Booom.power = 0.19F;
+   public void boom(int param) {
+      Boom.lastTick = 4;
+      Boom.frequency = -0.8F;
+      Boom.x = 1.0F;
+      Boom.y = (float)itemRand.nextGaussian() / 10.0F;
+      Boom.z = (float)itemRand.nextGaussian() / 10.0F;
+      Boom.power = 0.19F;
    }
 
    @SideOnly(Side.CLIENT)

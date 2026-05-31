@@ -1,12 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.Booom;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.PropertiesRegistry;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
 import java.util.List;
@@ -247,12 +241,12 @@ public class EntityAcidBomb extends Entity implements ISynchronizedEntity {
             float distr = Minecraft.getMinecraft().getRenderViewEntity().getDistance(this);
             float inc = (float)(c / 2.0);
             if (distr < 4.0F * inc) {
-               Booom.lastTick = Math.round(5.0F * inc - distr);
-               Booom.frequency = 3.5F;
-               Booom.x = (float)this.rand.nextGaussian();
-               Booom.y = (float)this.rand.nextGaussian();
-               Booom.z = (float)this.rand.nextGaussian();
-               Booom.power = 0.06F * inc;
+               Boom.lastTick = Math.round(5.0F * inc - distr);
+               Boom.frequency = 3.5F;
+               Boom.x = (float)this.rand.nextGaussian();
+               Boom.y = (float)this.rand.nextGaussian();
+               Boom.z = (float)this.rand.nextGaussian();
+               Boom.power = 0.06F * inc;
             }
          }
       }
