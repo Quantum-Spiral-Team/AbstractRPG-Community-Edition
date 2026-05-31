@@ -396,8 +396,15 @@ public class DimensionDungeon extends WorldProvider {
         return WorldSleepResult.ALLOW;
     }
 
-    public static enum EnumCaveDecorType {
-        DEEP, NORMAL, MINESHAFT, WET, SELENITE, MAGIC, GLOWING, CALCITE;
+    public enum EnumCaveDecorType {
+        DEEP,
+        NORMAL,
+        MINESHAFT,
+        WET,
+        SELENITE,
+        MAGIC,
+        GLOWING,
+        CALCITE;
     }
 
 }

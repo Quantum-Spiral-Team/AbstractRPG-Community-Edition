@@ -66,7 +66,13 @@ public class ServerKeyTracker {
     }
 
     public enum Keys {
-        USE((byte) 0), PRIMARY((byte) 1), SECONDARY((byte) 2), SCOPE((byte) 3), GRENADE((byte) 4), HOOK((byte) 5), ABILITY((byte) 6),
+        USE((byte) 0),
+        PRIMARY((byte) 1),
+        SECONDARY((byte) 2),
+        SCOPE((byte) 3),
+        GRENADE((byte) 4),
+        HOOK((byte) 5),
+        ABILITY((byte) 6),
         ;
 
         private final byte id;

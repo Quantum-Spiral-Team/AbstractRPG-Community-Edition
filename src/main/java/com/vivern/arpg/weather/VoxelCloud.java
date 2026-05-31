@@ -128,8 +128,31 @@ public class VoxelCloud {
         return vertexNum == 0 || vertexNum == 1 || vertexNum == 6 || vertexNum == 7 || vertexNum >= 10 && vertexNum <= 13 || vertexNum >= 16 && vertexNum <= 19;
     }
 
-    public static enum EnumCubeVertex {
-        SOUTH_WEST_DOWN(EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, 0), SOUTH_EAST_DOWN(EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.DOWN, 1), SOUTH_EAST_UP(EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.UP, 2), SOUTH_WEST_UP(EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.UP, 3), NORTH_WEST_UP(EnumFacing.NORTH, EnumFacing.WEST, EnumFacing.UP, 4), NORTH_EAST_UP(EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.UP, 5), NORTH_EAST_DOWN(EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.DOWN, 6), NORTH_WEST_DOWN(EnumFacing.NORTH, EnumFacing.WEST, EnumFacing.DOWN, 7), EAST_NORTH_UP(EnumFacing.EAST, EnumFacing.NORTH, EnumFacing.UP, 8), EAST_SOUTH_UP(EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.UP, 9), EAST_SOUTH_DOWN(EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.DOWN, 10), EAST_NORTH_DOWN(EnumFacing.EAST, EnumFacing.NORTH, EnumFacing.DOWN, 11), WEST_NORTH_DOWN(EnumFacing.WEST, EnumFacing.NORTH, EnumFacing.DOWN, 12), WEST_SOUTH_DOWN(EnumFacing.WEST, EnumFacing.SOUTH, EnumFacing.DOWN, 13), WEST_SOUTH_UP(EnumFacing.WEST, EnumFacing.SOUTH, EnumFacing.UP, 14), WEST_NORTH_UP(EnumFacing.WEST, EnumFacing.NORTH, EnumFacing.UP, 15), DOWN_NORTH_WEST(EnumFacing.DOWN, EnumFacing.NORTH, EnumFacing.WEST, 16), DOWN_NORTH_EAST(EnumFacing.DOWN, EnumFacing.NORTH, EnumFacing.EAST, 17), DOWN_EAST_SOUTH(EnumFacing.DOWN, EnumFacing.EAST, EnumFacing.SOUTH, 18), DOWN_WEST_SOUTH(EnumFacing.DOWN, EnumFacing.WEST, EnumFacing.SOUTH, 19), UP_WEST_SOUTH(EnumFacing.UP, EnumFacing.WEST, EnumFacing.SOUTH, 20), UP_EAST_SOUTH(EnumFacing.UP, EnumFacing.EAST, EnumFacing.SOUTH, 21), UP_NORTH_EAST(EnumFacing.UP, EnumFacing.NORTH, EnumFacing.EAST, 22), UP_NORTH_WEST(EnumFacing.UP, EnumFacing.NORTH, EnumFacing.WEST, 23);
+    public enum EnumCubeVertex {
+        SOUTH_WEST_DOWN(EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, 0),
+        SOUTH_EAST_DOWN(EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.DOWN, 1),
+        SOUTH_EAST_UP(EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.UP, 2),
+        SOUTH_WEST_UP(EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.UP, 3),
+        NORTH_WEST_UP(EnumFacing.NORTH, EnumFacing.WEST, EnumFacing.UP, 4),
+        NORTH_EAST_UP(EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.UP, 5),
+        NORTH_EAST_DOWN(EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.DOWN, 6),
+        NORTH_WEST_DOWN(EnumFacing.NORTH, EnumFacing.WEST, EnumFacing.DOWN, 7),
+        EAST_NORTH_UP(EnumFacing.EAST, EnumFacing.NORTH, EnumFacing.UP, 8),
+        EAST_SOUTH_UP(EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.UP, 9),
+        EAST_SOUTH_DOWN(EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.DOWN, 10),
+        EAST_NORTH_DOWN(EnumFacing.EAST, EnumFacing.NORTH, EnumFacing.DOWN, 11),
+        WEST_NORTH_DOWN(EnumFacing.WEST, EnumFacing.NORTH, EnumFacing.DOWN, 12),
+        WEST_SOUTH_DOWN(EnumFacing.WEST, EnumFacing.SOUTH, EnumFacing.DOWN, 13),
+        WEST_SOUTH_UP(EnumFacing.WEST, EnumFacing.SOUTH, EnumFacing.UP, 14),
+        WEST_NORTH_UP(EnumFacing.WEST, EnumFacing.NORTH, EnumFacing.UP, 15),
+        DOWN_NORTH_WEST(EnumFacing.DOWN, EnumFacing.NORTH, EnumFacing.WEST, 16),
+        DOWN_NORTH_EAST(EnumFacing.DOWN, EnumFacing.NORTH, EnumFacing.EAST, 17),
+        DOWN_EAST_SOUTH(EnumFacing.DOWN, EnumFacing.EAST, EnumFacing.SOUTH, 18),
+        DOWN_WEST_SOUTH(EnumFacing.DOWN, EnumFacing.WEST, EnumFacing.SOUTH, 19),
+        UP_WEST_SOUTH(EnumFacing.UP, EnumFacing.WEST, EnumFacing.SOUTH, 20),
+        UP_EAST_SOUTH(EnumFacing.UP, EnumFacing.EAST, EnumFacing.SOUTH, 21),
+        UP_NORTH_EAST(EnumFacing.UP, EnumFacing.NORTH, EnumFacing.EAST, 22),
+        UP_NORTH_WEST(EnumFacing.UP, EnumFacing.NORTH, EnumFacing.WEST, 23);
 
         public EnumFacing mainFacing;
         public EnumFacing facing2;
@@ -138,7 +161,7 @@ public class VoxelCloud {
         public Vec3i[] surroundings;
         public EnumCubeVertex[] surroundingsVertexes;
 
-        private EnumCubeVertex(EnumFacing mainFacing, EnumFacing facing2, EnumFacing facing3, int id) {
+        EnumCubeVertex(EnumFacing mainFacing, EnumFacing facing2, EnumFacing facing3, int id) {
             this.mainFacing = mainFacing;
             this.facing2 = facing2;
             this.facing3 = facing3;

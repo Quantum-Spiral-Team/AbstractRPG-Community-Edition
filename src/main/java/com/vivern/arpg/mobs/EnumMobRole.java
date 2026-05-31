@@ -1,7 +1,17 @@
 package com.vivern.arpg.mobs;
 
 public enum EnumMobRole {
-    SWARMER, WEAK_SOLDIER, SOLDIER, STRONG_SOLDIER, WEAK_TANK, TANK, MIDDLE_ENEMY, STRONG_ENEMY, ELITE_ENEMY, SPECIAL_MOB, MINI_BOSS;
+    SWARMER,
+    WEAK_SOLDIER,
+    SOLDIER,
+    STRONG_SOLDIER,
+    WEAK_TANK,
+    TANK,
+    MIDDLE_ENEMY,
+    STRONG_ENEMY,
+    ELITE_ENEMY,
+    SPECIAL_MOB,
+    MINI_BOSS;
 
     public int getXpValue() {
         if (this == SWARMER) {

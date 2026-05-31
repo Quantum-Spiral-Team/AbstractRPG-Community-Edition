@@ -27,8 +27,10 @@ public class ItemStackImagine {
         }
     }
 
-    public static enum EnumSynchronize {
-        NONE, FROM_SERVER_TO_CLIENT, FROM_CLIENT_TO_SERVER;
+    public enum EnumSynchronize {
+        NONE,
+        FROM_SERVER_TO_CLIENT,
+        FROM_CLIENT_TO_SERVER;
     }
 
     public static class SynchronizedField {

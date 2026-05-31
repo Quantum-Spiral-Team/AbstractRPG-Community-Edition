@@ -472,12 +472,15 @@ public class ExploringField {
 
     }
 
-    public static enum ExploringPointType {
-        RUNE(""), INTERMEDIATE("Interim Research"), TUTORIAL("Early Research"), BONUS("Bonus");
+    public enum ExploringPointType {
+        RUNE(""),
+        INTERMEDIATE("Interim Research"),
+        TUTORIAL("Early Research"),
+        BONUS("Bonus");
 
         public String unlocalizedText;
 
-        private ExploringPointType(String unlocalizedText) {
+        ExploringPointType(String unlocalizedText) {
             this.unlocalizedText = unlocalizedText;
         }
     }

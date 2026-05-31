@@ -29,8 +29,15 @@ public class TerraformingPlayerCommand {
         return "X: " + this.boardSelectX + " | Y: " + this.boardSelectY + " | DATA: " + this.data + " | " + this.commandType.toString();
     }
 
-    public static enum TRPlayerCommandType {
-        SKIP, SKIP_ALL, PLACE_FROM_INVENTORY, BOARD_SELECT, MOVE_SELECTED, GET_ORB, SPLIT, CANCEL;
+    public enum TRPlayerCommandType {
+        SKIP,
+        SKIP_ALL,
+        PLACE_FROM_INVENTORY,
+        BOARD_SELECT,
+        MOVE_SELECTED,
+        GET_ORB,
+        SPLIT,
+        CANCEL;
     }
 
 }

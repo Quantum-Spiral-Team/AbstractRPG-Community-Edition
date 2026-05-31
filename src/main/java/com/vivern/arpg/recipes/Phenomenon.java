@@ -254,8 +254,14 @@ public abstract class Phenomenon {
         }
     }
 
-    public static enum EnumClickPossible {
-        NONE, ANY, SURFACE, PHENOMENON, POINT, NO_POINT, EMPTY_POINT;
+    public enum EnumClickPossible {
+        NONE,
+        ANY,
+        SURFACE,
+        PHENOMENON,
+        POINT,
+        NO_POINT,
+        EMPTY_POINT;
 
         public boolean isPossible(TerraformingResearchPuzzle puzzle, int x, int y) {
             if (this == NONE) {

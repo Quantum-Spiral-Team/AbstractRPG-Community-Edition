@@ -133,8 +133,12 @@ public class BlockStalactiteBase extends Block {
         return new BlockStateContainer(this, new IProperty[]{VARIANT});
     }
 
-    public static enum EnumType implements IStringSerializable {
-        S1(0, "s1", MapColor.STONE), S2(1, "s2", MapColor.STONE), S3(2, "s3", MapColor.STONE), S4(3, "s4", MapColor.STONE), S5(4, "s5", MapColor.STONE);
+    public enum EnumType implements IStringSerializable {
+        S1(0, "s1", MapColor.STONE),
+        S2(1, "s2", MapColor.STONE),
+        S3(2, "s3", MapColor.STONE),
+        S4(3, "s4", MapColor.STONE),
+        S5(4, "s5", MapColor.STONE);
 
         private static final EnumType[] META_LOOKUP = new EnumType[values().length];
         private final int meta;
@@ -142,11 +146,11 @@ public class BlockStalactiteBase extends Block {
         private final String unlocalizedName;
         private final MapColor mapColor;
 
-        private EnumType(int metaIn, String nameIn, MapColor mapColorIn) {
+        EnumType(int metaIn, String nameIn, MapColor mapColorIn) {
             this(metaIn, nameIn, nameIn, mapColorIn);
         }
 
-        private EnumType(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn) {
+        EnumType(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn) {
             this.meta = metaIn;
             this.name = nameIn;
             this.unlocalizedName = unlocalizedNameIn;

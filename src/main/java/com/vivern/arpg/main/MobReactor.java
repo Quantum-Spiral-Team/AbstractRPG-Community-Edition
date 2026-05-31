@@ -245,16 +245,25 @@ public class MobReactor {
         }
     }
 
-    public static enum GroupSpawnLight {
-        LIGHT, DARK, ANY;
+    public enum GroupSpawnLight {
+        LIGHT,
+        DARK,
+        ANY;
     }
 
-    public static enum GroupSpawnMode {
-        LAND, AIRBORN, WATER, UNDERGROUND;
+    public enum GroupSpawnMode {
+        LAND,
+        AIRBORN,
+        WATER,
+        UNDERGROUND;
     }
 
-    public static enum WorldEventsSpawnLogic {
-        NOT_AFFECT, ONLY_IN_ASSIGNED, IN_ALL_EVENTS_EXCEPT_ASSIGNED, ANYTIME_EXCEPT_ASSIGNED, WHEN_NO_EVENTS;
+    public enum WorldEventsSpawnLogic {
+        NOT_AFFECT,
+        ONLY_IN_ASSIGNED,
+        IN_ALL_EVENTS_EXCEPT_ASSIGNED,
+        ANYTIME_EXCEPT_ASSIGNED,
+        WHEN_NO_EVENTS;
     }
 
 }

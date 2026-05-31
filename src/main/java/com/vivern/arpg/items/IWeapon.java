@@ -1084,8 +1084,7 @@ public interface IWeapon {
         return parameters;
     }
 
-    //	public static void setClientAnimation(ItemStack stack, String name, int amount, boolean setMaximum)
-    //	{
+    //	public static void setClientAnimation(ItemStack stack, String name, int amount, boolean setMaximum) {
     //		Object obj = stack.getCapability(AnimationCapabilityProvider.CAPABILITY, null);
     //		if (obj instanceof AnimationsIWeapon)
     //		{
@@ -1201,7 +1200,10 @@ public interface IWeapon {
     }
 
     enum WeaponHandleType {
-        TWO_HANDED("two handed"), ONE_HANDED("one handed"), SEMI_ONE_HANDED("semi one handed"), NONE("none");
+        TWO_HANDED("two handed"),
+        ONE_HANDED("one handed"),
+        SEMI_ONE_HANDED("semi one handed"),
+        NONE("none");
 
         private final String name;
 
@@ -1215,18 +1217,18 @@ public interface IWeapon {
         }
 
         // Unused and doesn't make sense
-        //      public static WeaponHandleType fromName(String name) {
-        //         switch (name.toLowerCase().replace(" ", "")) {
-        //            case "twohanded":
-        //               return TWO_HANDED;
-        //            case "onehanded":
-        //               return ONE_HANDED;
-        //            case "semionehanded":
-        //               return SEMI_ONE_HANDED;
-        //            default:
-        //               return NONE;
-        //         }
-        //      }
+//        public static WeaponHandleType fromName(String name) {
+//           switch (name.toLowerCase().replace(" ", "")) {
+//              case TWO_HANDED.getName().toLowerCase(Locale.ROOT):
+//                 return TWO_HANDED;
+//              case ONE_HANDED.getName().toLowerCase(Locale.ROOT):
+//                 return ONE_HANDED;
+//              case SEMI_ONE_HANDED.getName().toLowerCase(Locale.ROOT):
+//                 return SEMI_ONE_HANDED;
+//              default:
+//                 return NONE;
+//           }
+//        }
 
         public String getName() {
             return this.name;

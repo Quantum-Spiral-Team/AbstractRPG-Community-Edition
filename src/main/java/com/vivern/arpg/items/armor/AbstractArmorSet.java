@@ -280,8 +280,11 @@ public abstract class AbstractArmorSet {
 
     }
 
-    public static enum EnumArmorRepairRatio {
-        CHEAP, NORMAL, EXPENSIVE, RICH;
+    public enum EnumArmorRepairRatio {
+        CHEAP,
+        NORMAL,
+        EXPENSIVE,
+        RICH;
     }
 
 }

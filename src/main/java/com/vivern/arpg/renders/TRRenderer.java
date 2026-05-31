@@ -54,14 +54,16 @@ public class TRRenderer {
         return this;
     }
 
-    public static enum RenderStyle {
-        NORMAL(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, false), TRANSLUCENT(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, true), ADDITIVE(SourceFactor.SRC_ALPHA, DestFactor.ONE, true);
+    public enum RenderStyle {
+        NORMAL(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, false),
+        TRANSLUCENT(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, true),
+        ADDITIVE(SourceFactor.SRC_ALPHA, DestFactor.ONE, true);
 
         SourceFactor sourceFactor;
         DestFactor destinationFactor;
         boolean useBlend;
 
-        private RenderStyle(SourceFactor sourceFactor, DestFactor destinationFactor, boolean useBlend) {
+        RenderStyle(SourceFactor sourceFactor, DestFactor destinationFactor, boolean useBlend) {
             this.sourceFactor = sourceFactor;
             this.destinationFactor = destinationFactor;
             this.useBlend = useBlend;

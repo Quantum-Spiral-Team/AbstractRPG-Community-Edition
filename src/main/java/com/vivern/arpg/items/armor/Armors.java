@@ -493,7 +493,23 @@ public class Armors {
 
     @SideOnly(Side.CLIENT)
     public enum ArmorModels {
-        NORTHERN(new NorthernArmorModel()), FIRE_LORD_HELMET(new FireLordHelmModel()), FIRE_LORD_CHESTPLATE(new FireLordChestModel()), HAZARD_SUIT(new HazardSuitModel()), MAGIC_HOODIE(new MagicHoodie()), FIRE_MAGE_HAT(new FireMageHatModel()), WIZARD_HAT(new WizardHatModel()), PHOENIX_GHOST(new PhoenixGhostModel()), QUADROCOPTER_BELT(new QuadrocopterBeltModel()), ICE_HELMET(new IceHelmetModel()), ADAMANTIUM(new AdamantiumArmorModel()), TOXINIUM(new ToxiniumArmorModel()), CORAL(new CoralArmorModel()), CRYSTAL_MANTLE(new CrystalMantleModel()), SNOWCOAT(new SnowcoatArmorModel()), THUNDERER(new ThundererArmorModel()), JUNGLE_HELMET(new JungleHelmetModel()),
+        NORTHERN(new NorthernArmorModel()),
+        FIRE_LORD_HELMET(new FireLordHelmModel()),
+        FIRE_LORD_CHESTPLATE(new FireLordChestModel()),
+        HAZARD_SUIT(new HazardSuitModel()),
+        MAGIC_HOODIE(new MagicHoodie()),
+        FIRE_MAGE_HAT(new FireMageHatModel()),
+        WIZARD_HAT(new WizardHatModel()),
+        PHOENIX_GHOST(new PhoenixGhostModel()),
+        QUADROCOPTER_BELT(new QuadrocopterBeltModel()),
+        ICE_HELMET(new IceHelmetModel()),
+        ADAMANTIUM(new AdamantiumArmorModel()),
+        TOXINIUM(new ToxiniumArmorModel()),
+        CORAL(new CoralArmorModel()),
+        CRYSTAL_MANTLE(new CrystalMantleModel()),
+        SNOWCOAT(new SnowcoatArmorModel()),
+        THUNDERER(new ThundererArmorModel()),
+        JUNGLE_HELMET(new JungleHelmetModel()),
         ;
 
         private final ModelBase model;

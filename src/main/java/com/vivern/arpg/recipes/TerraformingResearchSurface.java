@@ -96,8 +96,10 @@ public class TerraformingResearchSurface {
 
     }
 
-    public static enum TRSurfaceType {
-        TERRAIN, ATMOSPHERE, CREATURE;
+    public enum TRSurfaceType {
+        TERRAIN,
+        ATMOSPHERE,
+        CREATURE;
     }
 
 }

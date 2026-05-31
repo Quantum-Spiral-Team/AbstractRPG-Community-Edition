@@ -456,8 +456,10 @@ public class TileARPGChest extends TileEntityLockableLoot implements ITickable {
         return new SPacketUpdateTileEntity(this.pos, 1, compound);
     }
 
-    public static enum EnumChestStanding {
-        LEFT, RIGHT, MIDDLE;
+    public enum EnumChestStanding {
+        LEFT,
+        RIGHT,
+        MIDDLE;
     }
 
 }

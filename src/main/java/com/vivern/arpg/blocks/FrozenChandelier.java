@@ -146,12 +146,13 @@ public class FrozenChandelier extends Block {
         }
     }
 
-    public static enum EnumAxis implements IStringSerializable {
-        X("x"), Z("z");
+    public enum EnumAxis implements IStringSerializable {
+        X("x"),
+        Z("z");
 
         private final String name;
 
-        private EnumAxis(String name) {
+        EnumAxis(String name) {
             this.name = name;
         }
 

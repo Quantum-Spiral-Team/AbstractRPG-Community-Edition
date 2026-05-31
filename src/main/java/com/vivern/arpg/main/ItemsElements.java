@@ -534,13 +534,17 @@ public class ItemsElements {
 
     }
 
-    public static enum EnumPurity {
-        IMPURITY("impurity", 6908269), CONGENERIC("congeneric", 3568594), REFINED("refined", 4054056), PRISTINE("pristine", 15974163), PERFECT("perfect", 9846015);
+    public enum EnumPurity {
+        IMPURITY("impurity", 6908269),
+        CONGENERIC("congeneric", 3568594),
+        REFINED("refined", 4054056),
+        PRISTINE("pristine", 15974163),
+        PERFECT("perfect", 9846015);
 
         public String name;
         public int color;
 
-        private EnumPurity(String name, int color) {
+        EnumPurity(String name, int color) {
             this.name = name;
             this.color = color;
         }

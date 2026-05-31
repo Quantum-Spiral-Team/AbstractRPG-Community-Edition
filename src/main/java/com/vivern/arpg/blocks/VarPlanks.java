@@ -58,7 +58,7 @@ public class VarPlanks extends Block {
         return new BlockStateContainer(this, new IProperty[]{VARIANT});
     }
 
-    public static enum EnumType implements IStringSerializable {
+    public enum EnumType implements IStringSerializable {
         FROZEN(0, "frozen", MapColor.WOOD);
 
         private static final EnumType[] META_LOOKUP = new EnumType[values().length];
@@ -67,11 +67,11 @@ public class VarPlanks extends Block {
         private final String unlocalizedName;
         private final MapColor mapColor;
 
-        private EnumType(int metaIn, String nameIn, MapColor mapColorIn) {
+        EnumType(int metaIn, String nameIn, MapColor mapColorIn) {
             this(metaIn, nameIn, nameIn, mapColorIn);
         }
 
-        private EnumType(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn) {
+        EnumType(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn) {
             this.meta = metaIn;
             this.name = nameIn;
             this.unlocalizedName = unlocalizedNameIn;

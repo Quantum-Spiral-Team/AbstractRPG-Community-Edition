@@ -73,12 +73,14 @@ public class AnimationChannel {
         }
     }
 
-    public static enum Interpolations {
-        LINEAR, CATMULLROM;
+    public enum Interpolations {
+        LINEAR,
+        CATMULLROM;
     }
 
-    public static enum Targets {
-        ROTATION, POSITION;
+    public enum Targets {
+        ROTATION,
+        POSITION;
     }
 
 }

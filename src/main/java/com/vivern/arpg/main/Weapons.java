@@ -954,8 +954,15 @@ public class Weapons {
         registerAnimation(new PlayerAnimations.CascAimChainsaw((byte) 50, 25));
     }
 
-    public static enum EnumMathOperation {
-        PLUS, MINUS, MULTIPLY, DIVIDE, POWER, ROOT, ADD_MULTIPLIED, NONE;
+    public enum EnumMathOperation {
+        PLUS,
+        MINUS,
+        MULTIPLY,
+        DIVIDE,
+        POWER,
+        ROOT,
+        ADD_MULTIPLIED,
+        NONE;
 
         public float apply(float var1, float var2) {
             switch (this) {
@@ -1051,8 +1058,12 @@ public class Weapons {
         }
     }
 
-    public static enum EnumPotionMix {
-        GREATEST, LOWEST, WITH_MAXIMUM, WITH_MINIMUM, ABSOLUTE;
+    public enum EnumPotionMix {
+        GREATEST,
+        LOWEST,
+        WITH_MAXIMUM,
+        WITH_MINIMUM,
+        ABSOLUTE;
     }
 
     public static class IllusiveItem extends Item {

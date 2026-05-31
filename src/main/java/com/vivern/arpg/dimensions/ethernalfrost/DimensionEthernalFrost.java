@@ -160,7 +160,12 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
     }
 
     public enum EnumEverfrostSpawner {
-        ICE_CASTLE, ICE_CASTLE_PARAPET, MOUND, STRUCTURES, GRAVE, NIVEOUS_HALL;
+        ICE_CASTLE,
+        ICE_CASTLE_PARAPET,
+        MOUND,
+        STRUCTURES,
+        GRAVE,
+        NIVEOUS_HALL;
     }
 
 }

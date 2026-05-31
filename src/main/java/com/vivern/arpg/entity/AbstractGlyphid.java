@@ -270,8 +270,26 @@ public abstract class AbstractGlyphid extends AbstractMob implements EntityFlyin
         }
     }
 
-    public static enum EnumClimbingState {
-        DOWN, UP, XPLUS, XMINUS, ZPLUS, ZMINUS, DOWN_XPLUS, DOWN_XMINUS, DOWN_ZPLUS, DOWN_ZMINUS, UP_XPLUS, UP_XMINUS, UP_ZPLUS, UP_ZMINUS, XPLUS_ZPLUS, XMINUS_ZPLUS, XPLUS_ZMINUS, XMINUS_ZMINUS, NONE;
+    public enum EnumClimbingState {
+        DOWN,
+        UP,
+        XPLUS,
+        XMINUS,
+        ZPLUS,
+        ZMINUS,
+        DOWN_XPLUS,
+        DOWN_XMINUS,
+        DOWN_ZPLUS,
+        DOWN_ZMINUS,
+        UP_XPLUS,
+        UP_XMINUS,
+        UP_ZPLUS,
+        UP_ZMINUS,
+        XPLUS_ZPLUS,
+        XMINUS_ZPLUS,
+        XPLUS_ZMINUS,
+        XMINUS_ZMINUS,
+        NONE;
     }
 
 }
