@@ -13,12 +13,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BoneHelm extends AbstractArmor {
+public class BoneHelmet extends AbstractArmor {
 
-    public static BoneArmorModel armormodel = new BoneArmorModel();
-    public static String armortexture = "arpg:textures/bone_armor_model_tex.png";
+    public static final String ARMOR_TEXTURE_PATH = "arpg:textures/bone_armor_model_tex.png";
 
-    public BoneHelm() {
+    public BoneHelmet() {
         super(EntityEquipmentSlot.HEAD, "bone_armor_helmet", 5000, 6);
     }
 
@@ -40,16 +39,17 @@ public class BoneHelm extends AbstractArmor {
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
         if (itemStack != ItemStack.EMPTY) {
-            armormodel.setModelAttributes(model);
-            armormodel.helm.showModel = true;
-            armormodel.chest.showModel = false;
-            armormodel.rightarm.showModel = false;
-            armormodel.leftarm.showModel = false;
-            armormodel.rightleg.showModel = false;
-            armormodel.leftleg.showModel = false;
-            armormodel.rightboot.showModel = false;
-            armormodel.leftboot.showModel = false;
-            return armormodel;
+            BoneArmorModel armorModel = (BoneArmorModel) Armors.ArmorModels.BONE_HELMET.getModel();
+            armorModel.setModelAttributes(model);
+            armorModel.helm.showModel = true;
+            armorModel.chest.showModel = false;
+            armorModel.rightarm.showModel = false;
+            armorModel.leftarm.showModel = false;
+            armorModel.rightleg.showModel = false;
+            armorModel.leftleg.showModel = false;
+            armorModel.rightboot.showModel = false;
+            armorModel.leftboot.showModel = false;
+            return armorModel;
         } else {
             return null;
         }
@@ -57,7 +57,7 @@ public class BoneHelm extends AbstractArmor {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        return armortexture;
+        return ARMOR_TEXTURE_PATH;
     }
 
     public static class BoneBoots extends AbstractArmor {
@@ -84,16 +84,17 @@ public class BoneHelm extends AbstractArmor {
         @SideOnly(Side.CLIENT)
         public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
             if (itemStack != ItemStack.EMPTY) {
-                BoneHelm.armormodel.setModelAttributes(model);
-                BoneHelm.armormodel.helm.showModel = false;
-                BoneHelm.armormodel.chest.showModel = false;
-                BoneHelm.armormodel.rightarm.showModel = false;
-                BoneHelm.armormodel.leftarm.showModel = false;
-                BoneHelm.armormodel.rightleg.showModel = false;
-                BoneHelm.armormodel.leftleg.showModel = false;
-                BoneHelm.armormodel.rightboot.showModel = true;
-                BoneHelm.armormodel.leftboot.showModel = true;
-                return BoneHelm.armormodel;
+                BoneArmorModel armorModel = (BoneArmorModel) Armors.ArmorModels.BONE_HELMET.getModel();
+                armorModel.setModelAttributes(model);
+                armorModel.helm.showModel = false;
+                armorModel.chest.showModel = false;
+                armorModel.rightarm.showModel = false;
+                armorModel.leftarm.showModel = false;
+                armorModel.rightleg.showModel = false;
+                armorModel.leftleg.showModel = false;
+                armorModel.rightboot.showModel = true;
+                armorModel.leftboot.showModel = true;
+                return armorModel;
             } else {
                 return null;
             }
@@ -101,14 +102,12 @@ public class BoneHelm extends AbstractArmor {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-            return BoneHelm.armortexture;
+            return BoneHelmet.ARMOR_TEXTURE_PATH;
         }
 
     }
 
     public static class BoneChestplate extends AbstractArmor {
-
-        public static BoneArmorModel model = new BoneArmorModel();
 
         public BoneChestplate() {
             super(EntityEquipmentSlot.CHEST, "bone_armor_chestplate", 6000, 6);
@@ -132,16 +131,17 @@ public class BoneHelm extends AbstractArmor {
         @SideOnly(Side.CLIENT)
         public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
             if (itemStack != ItemStack.EMPTY) {
-                BoneHelm.armormodel.setModelAttributes(model);
-                BoneHelm.armormodel.helm.showModel = false;
-                BoneHelm.armormodel.chest.showModel = true;
-                BoneHelm.armormodel.rightarm.showModel = true;
-                BoneHelm.armormodel.leftarm.showModel = true;
-                BoneHelm.armormodel.rightleg.showModel = false;
-                BoneHelm.armormodel.leftleg.showModel = false;
-                BoneHelm.armormodel.rightboot.showModel = false;
-                BoneHelm.armormodel.leftboot.showModel = false;
-                return BoneHelm.armormodel;
+                BoneArmorModel armorModel = (BoneArmorModel) Armors.ArmorModels.BONE_HELMET.getModel();
+                armorModel.setModelAttributes(model);
+                armorModel.helm.showModel = false;
+                armorModel.chest.showModel = true;
+                armorModel.rightarm.showModel = true;
+                armorModel.leftarm.showModel = true;
+                armorModel.rightleg.showModel = false;
+                armorModel.leftleg.showModel = false;
+                armorModel.rightboot.showModel = false;
+                armorModel.leftboot.showModel = false;
+                return armorModel;
             } else {
                 return null;
             }
@@ -149,14 +149,12 @@ public class BoneHelm extends AbstractArmor {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-            return BoneHelm.armortexture;
+            return BoneHelmet.ARMOR_TEXTURE_PATH;
         }
 
     }
 
     public static class BoneLeggins extends AbstractArmor {
-
-        public static BoneArmorModel model = new BoneArmorModel();
 
         public BoneLeggins() {
             super(EntityEquipmentSlot.LEGS, "bone_armor_leggins", 5500, 6);
@@ -180,16 +178,17 @@ public class BoneHelm extends AbstractArmor {
         @SideOnly(Side.CLIENT)
         public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
             if (itemStack != ItemStack.EMPTY) {
-                BoneHelm.armormodel.setModelAttributes(model);
-                BoneHelm.armormodel.helm.showModel = false;
-                BoneHelm.armormodel.chest.showModel = false;
-                BoneHelm.armormodel.rightarm.showModel = false;
-                BoneHelm.armormodel.leftarm.showModel = false;
-                BoneHelm.armormodel.rightleg.showModel = true;
-                BoneHelm.armormodel.leftleg.showModel = true;
-                BoneHelm.armormodel.rightboot.showModel = false;
-                BoneHelm.armormodel.leftboot.showModel = false;
-                return BoneHelm.armormodel;
+                BoneArmorModel armorModel = (BoneArmorModel) Armors.ArmorModels.BONE_HELMET.getModel();
+                armorModel.setModelAttributes(model);
+                armorModel.helm.showModel = false;
+                armorModel.chest.showModel = false;
+                armorModel.rightarm.showModel = false;
+                armorModel.leftarm.showModel = false;
+                armorModel.rightleg.showModel = true;
+                armorModel.leftleg.showModel = true;
+                armorModel.rightboot.showModel = false;
+                armorModel.leftboot.showModel = false;
+                return armorModel;
             } else {
                 return null;
             }
@@ -197,7 +196,7 @@ public class BoneHelm extends AbstractArmor {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-            return BoneHelm.armortexture;
+            return BoneHelmet.ARMOR_TEXTURE_PATH;
         }
 
     }

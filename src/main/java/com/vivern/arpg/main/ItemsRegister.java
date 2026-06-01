@@ -338,10 +338,10 @@ public class ItemsRegister {
     public static final Item ARCANE_ROCKET = new ItemRocket.ArcaneRocket();
     public static final Item SURPRISE_ROCKET = new ItemRocket.SurpriseRocket();
     public static final Item SHELL_ROCKET = new ItemRocket.ShellRocket();
-    public static final Item BONE_HELM = new BoneHelm();
-    public static final Item BONE_CHEST = new BoneHelm.BoneChestplate();
-    public static final Item BONE_LEGS = new BoneHelm.BoneLeggins();
-    public static final Item BONE_BOOTS = new BoneHelm.BoneBoots();
+    public static final Item BONE_HELM = new BoneHelmet();
+    public static final Item BONE_CHEST = new BoneHelmet.BoneChestplate();
+    public static final Item BONE_LEGS = new BoneHelmet.BoneLeggins();
+    public static final Item BONE_BOOTS = new BoneHelmet.BoneBoots();
     public static final Item LICH_HELM = new LichHelm();
     public static final Item LICH_CHEST = new LichHelm.LichChestplate();
     public static final Item LICH_LEGS = new LichHelm.LichLeggins();

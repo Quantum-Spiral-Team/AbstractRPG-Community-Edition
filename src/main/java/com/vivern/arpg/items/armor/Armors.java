@@ -510,6 +510,7 @@ public class Armors {
         SNOWCOAT(new SnowcoatArmorModel()),
         THUNDERER(new ThundererArmorModel()),
         JUNGLE_HELMET(new JungleHelmetModel()),
+        BONE_HELMET(new BoneArmorModel()),
         ;
 
         private final ModelBase model;
