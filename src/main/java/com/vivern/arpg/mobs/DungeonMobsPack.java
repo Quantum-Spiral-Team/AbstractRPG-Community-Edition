@@ -814,8 +814,13 @@ public class DungeonMobsPack {
                 }
             } else if (this.firstUpdate1) {
                 this.firstUpdate1 = false;
-                Minecraft.getMinecraft().getSoundHandler().playSound(new MovingSoundEntity(this, Sounds.larva_flyer_fly, SoundCategory.HOSTILE, 0.8F, 1.0F, true));
+                this.startPlaySound();
             }
+        }
+
+        @SideOnly(Side.CLIENT)
+        private void startPlaySound() {
+            Minecraft.getMinecraft().getSoundHandler().playSound(new MovingSoundEntity(this, Sounds.larva_flyer_fly, SoundCategory.HOSTILE, 0.8F, 1.0F, true));
         }
 
         public void mode(int mode) {
