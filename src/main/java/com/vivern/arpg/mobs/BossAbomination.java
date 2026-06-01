@@ -143,6 +143,7 @@ public class BossAbomination extends AbstractBoss implements ISynchronizedEntity
     public void fall(float distance, float damageMultiplier) {
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         this.var1 = (int) x;

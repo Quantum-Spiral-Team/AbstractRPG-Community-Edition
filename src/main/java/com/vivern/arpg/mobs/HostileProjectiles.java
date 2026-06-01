@@ -1082,6 +1082,7 @@ public class HostileProjectiles {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             if (args.length == 1) {
@@ -1241,6 +1242,7 @@ public class HostileProjectiles {
             return 0.0F;
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             if (args.length == 8) {
@@ -2352,6 +2354,7 @@ public class HostileProjectiles {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             if (args.length == 6) {
@@ -3347,6 +3350,7 @@ public class HostileProjectiles {
             this.setSize(0.5F, 0.5F);
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             if (args.length == 1) {
@@ -4745,6 +4749,7 @@ public class HostileProjectiles {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double x, double y, double z, double a, double b, double c) {
             GUNParticle sp = new GUNParticle(texturexpl, 0.05F + this.rand.nextFloat() / 4.0F, 0.0F, 4, 240, this.world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 0.2F, 1.0F, true, this.rand.nextInt(360));

@@ -99,6 +99,7 @@ public class EntityHeadShooter extends EntityThrowable implements ISynchronizedE
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         double d1 = this.lastTickPosX - x;

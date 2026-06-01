@@ -2382,6 +2382,7 @@ public class ToxicomaniaMobsPack {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double x, double y, double z, double a, double b, double c) {
             this.var3 = (float) y;

@@ -203,6 +203,7 @@ public class WandColdWave extends EntityThrowable implements ISynchronizedEntity
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         if (args.length == 1) {

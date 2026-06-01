@@ -79,6 +79,7 @@ public class EntityTimelessSword extends Entity implements ISynchronizedEntity {
         return distance < d0 * d0;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         this.yaw = (float) x;

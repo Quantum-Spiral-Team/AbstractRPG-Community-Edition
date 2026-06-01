@@ -16,6 +16,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -78,6 +80,7 @@ public class CryoDestroyerSpray extends EntityThrowable implements ISynchronized
         return 0.01F;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         if (args.length == 4) {

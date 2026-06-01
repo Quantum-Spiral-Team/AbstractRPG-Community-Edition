@@ -632,6 +632,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
         compound.setFloat("rotationOnFloor", this.rotationOnFloor);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         if (args.length == 1) {
@@ -1353,6 +1354,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             this.amount = amountMultipl;
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double x, double y, double z, double a, double b, double c) {
             if (a == 0.0) {
@@ -1969,6 +1971,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             return this;
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double x, double y, double z, double a, double b, double c) {
             if (a == 0.0) {
@@ -2235,6 +2238,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             return this.seal;
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             if (args.length == 1 && args[0] >= 6.0) {
@@ -2328,6 +2332,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             this.seal = seal;
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double x, double y, double z, double a, double b, double c) {
             if (a == 0.0) {

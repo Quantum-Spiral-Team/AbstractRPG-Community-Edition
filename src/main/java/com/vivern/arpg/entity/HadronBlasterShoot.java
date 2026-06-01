@@ -79,6 +79,7 @@ public class HadronBlasterShoot extends EntityThrowable implements ISynchronized
     public void handleStatusUpdate(byte id) {
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         this.world.playSound(this.posX, this.posY, this.posZ, Sounds.hadron_blaster_impact, SoundCategory.AMBIENT, 0.9F, 0.9F + this.rand.nextFloat() / 5.0F, false);

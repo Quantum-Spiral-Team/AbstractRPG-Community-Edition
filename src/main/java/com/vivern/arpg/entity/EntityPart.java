@@ -8,6 +8,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityPart extends AbstractMob implements ISynchronizedEntity {
 
@@ -102,6 +104,7 @@ public class EntityPart extends AbstractMob implements ISynchronizedEntity {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         if (args.length == 5) {

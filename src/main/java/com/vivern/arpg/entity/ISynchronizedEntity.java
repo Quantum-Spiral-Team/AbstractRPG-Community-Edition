@@ -3,12 +3,16 @@ package com.vivern.arpg.entity;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.network.packet.PacketIESToClients;
 import net.minecraft.entity.Entity;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public interface ISynchronizedEntity {
 
+    @SideOnly(Side.CLIENT)
     default void onClient(double x, double y, double z, double a, double b, double c) {
     }
 
+    @SideOnly(Side.CLIENT)
     default void onClient(double... args) {
         this.onClient(args[0], args.length > 1 ? args[1] : 0.0, args.length > 2 ? args[2] : 0.0, args.length > 3 ? args[3] : 0.0, args.length > 4 ? args[4] : 0.0, args.length > 5 ? args[5] : 0.0);
     }

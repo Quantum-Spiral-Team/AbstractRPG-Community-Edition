@@ -128,6 +128,7 @@ public class CeratargetShoot extends EntityThrowable implements ISynchronizedEnt
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         this.impactPos = new Vec3d(x, y, z);

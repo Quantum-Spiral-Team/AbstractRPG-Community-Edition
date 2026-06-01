@@ -110,6 +110,7 @@ public class EntityElectricBolt extends EntityThrowable implements ISynchronized
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         GUNParticle sp = new GUNParticle(this.texturexpl, 0.1F + this.rand.nextFloat() / 4.0F, 0.0F, 4, 240, this.world, x, y, z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F - this.rand.nextFloat() / 20.0F, 1.0F, true, this.rand.nextInt(360));

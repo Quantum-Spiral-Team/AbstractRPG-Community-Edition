@@ -209,6 +209,7 @@ public class AquaticaMobsPack {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             this.renderYawOffset = (float) args[0];
@@ -1446,6 +1447,7 @@ public class AquaticaMobsPack {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             if (args.length == 1) {
@@ -2172,6 +2174,7 @@ public class AquaticaMobsPack {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             if (args.length == 3) {
@@ -2459,6 +2462,7 @@ public class AquaticaMobsPack {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double x, double y, double z, double a, double b, double c) {
             this.var2 = (float) x;
@@ -2960,6 +2964,7 @@ public class AquaticaMobsPack {
             return DeathEffects.POLYP_BLOOD;
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             this.var1 = (int) args[0] + 4;
@@ -3711,6 +3716,7 @@ public class AquaticaMobsPack {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double x, double y, double z, double a, double b, double c) {
             this.particklesTime = 15;

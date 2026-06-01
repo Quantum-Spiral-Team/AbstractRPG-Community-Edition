@@ -275,6 +275,7 @@ public class EverfrostMobsPack {
             ISynchronizedEntity.sendSynchronize(this, 64.0, vec.x, vec.y, vec.z);
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             if (args.length == 3) {
@@ -832,6 +833,7 @@ public class EverfrostMobsPack {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double x, double y, double z, double a, double b, double c) {
             Vec3d pos2 = new Vec3d(x, y, z);

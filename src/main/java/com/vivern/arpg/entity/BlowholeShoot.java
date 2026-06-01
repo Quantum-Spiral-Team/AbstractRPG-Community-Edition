@@ -15,6 +15,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class BlowholeShoot extends EntityThrowable implements ISynchronizedEntit
     public boolean firstUpdate1 = true;
     public int impacts = 0;
     public int timeCollide = 0;
-    public ArrayList<Entity> impacted = new ArrayList<>();
+    public List<Entity> impacted = new ArrayList<>();
     public float renderAngleX1 = 0.0F;
     public float renderAngleZ1 = 0.0F;
     public float renderAngleX2 = 0.0F;
@@ -80,7 +82,7 @@ public class BlowholeShoot extends EntityThrowable implements ISynchronizedEntit
         float f = -MathHelper.sin(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
         float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * (float) (Math.PI / 180.0));
         float f2 = MathHelper.cos(rotationYawIn * (float) (Math.PI / 180.0)) * MathHelper.cos(rotationPitchIn * (float) (Math.PI / 180.0));
-        this.shoot(f, f1, f2, velocity, inaccuracy);
+        super.shoot(f, f1, f2, velocity, inaccuracy);
         double mot = 0.15;
         this.motionX = this.motionX + entityThrower.motionX * mot;
         this.motionZ = this.motionZ + entityThrower.motionZ * mot;
@@ -124,6 +126,7 @@ public class BlowholeShoot extends EntityThrowable implements ISynchronizedEntit
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         if (a == 0.0) {

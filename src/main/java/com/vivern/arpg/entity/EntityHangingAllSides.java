@@ -88,6 +88,7 @@ public class EntityHangingAllSides extends EntityHanging implements ISynchronize
         this.updateBoundingBox();
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         if (args.length == 4) {

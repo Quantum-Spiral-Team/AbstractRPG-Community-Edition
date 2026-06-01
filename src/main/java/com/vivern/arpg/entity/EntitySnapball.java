@@ -96,6 +96,7 @@ public class EntitySnapball extends EntityThrowable implements ISynchronizedEnti
         return this.enablePhysics ? 0.05F : 0.0F;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         if (y == 0.0 && z == 0.0) {

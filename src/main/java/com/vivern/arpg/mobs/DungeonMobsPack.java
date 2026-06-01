@@ -481,6 +481,7 @@ public class DungeonMobsPack {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double x, double y, double z, double a, double b, double c) {
             this.world.playSound(x, y, z, b > 0.0 ? Sounds.melee_mob_attack_a : Sounds.melee_mob_attack_b, SoundCategory.HOSTILE, 1.3F, 0.9F + this.rand.nextFloat() / 5.0F, false);
@@ -1158,6 +1159,7 @@ public class DungeonMobsPack {
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onClient(double... args) {
             if (args.length == 3) {

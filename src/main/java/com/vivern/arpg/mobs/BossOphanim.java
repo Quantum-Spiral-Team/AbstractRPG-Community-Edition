@@ -209,6 +209,7 @@ public class BossOphanim extends AbstractBoss implements ISynchronizedEntity, IM
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         if (args.length == 2) {

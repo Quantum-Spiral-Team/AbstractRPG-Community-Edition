@@ -16,6 +16,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -92,6 +94,7 @@ public class XmassRocket extends EntityThrowable implements ISynchronizedEntity 
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         if (args.length == 3 || args.length == 4) {

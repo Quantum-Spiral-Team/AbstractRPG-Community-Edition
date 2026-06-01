@@ -7,6 +7,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMagneticField extends Entity implements ISynchronizedEntity {
 
@@ -22,6 +24,7 @@ public class EntityMagneticField extends Entity implements ISynchronizedEntity {
         this.noClip = true;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         this.power = (int) x;

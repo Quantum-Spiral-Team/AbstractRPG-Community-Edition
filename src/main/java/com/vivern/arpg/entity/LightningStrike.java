@@ -55,6 +55,7 @@ public class LightningStrike extends Entity implements ISynchronizedEntity {
         this.target = target;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         Vec3d pos2 = new Vec3d(x, y, z);

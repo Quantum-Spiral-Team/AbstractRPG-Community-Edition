@@ -298,6 +298,7 @@ public class EntityChainMace extends Entity implements ISynchronizedEntity, IPro
         this.setPosition(this.posX, this.posY, this.posZ);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         Entity en = this.world.getEntityByID((int) x);

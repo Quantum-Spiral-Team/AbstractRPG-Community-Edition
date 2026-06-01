@@ -70,6 +70,7 @@ public class EntityLaunchedRocket extends EntityThrowable implements IRenderOpti
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         this.gravity = (float) args[0];

@@ -94,6 +94,7 @@ public class CoralRifleBullet extends StandardBullet implements ISynchronizedEnt
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         for (int ss = 0; ss < 3; ss++) {

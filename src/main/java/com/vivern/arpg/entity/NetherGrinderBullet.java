@@ -16,6 +16,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class NetherGrinderBullet extends StandardBullet implements IRepulsable, ISynchronizedEntity, RenderModule.IRenderModuleMulticolored {
 
@@ -70,6 +72,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
         return 0.0F;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         if (args.length == 4) {

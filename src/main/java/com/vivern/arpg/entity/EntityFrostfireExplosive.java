@@ -21,6 +21,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -104,6 +106,7 @@ public class EntityFrostfireExplosive extends Entity implements ISynchronizedEnt
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         if (a != 0.0) {

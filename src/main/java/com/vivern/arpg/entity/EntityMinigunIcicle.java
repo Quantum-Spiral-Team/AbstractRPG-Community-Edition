@@ -14,6 +14,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMinigunIcicle extends EntityThrowable implements ISynchronizedEntity {
 
@@ -68,6 +70,7 @@ public class EntityMinigunIcicle extends EntityThrowable implements ISynchronize
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         for (int ss = 0; ss < 2; ss++) {

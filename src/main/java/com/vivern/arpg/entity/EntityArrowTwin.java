@@ -75,6 +75,7 @@ public class EntityArrowTwin extends AbstractArrow implements ISynchronizedEntit
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double... args) {
         if (args.length == 1) {

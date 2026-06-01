@@ -201,6 +201,7 @@ public class EntitySeaEffloresce extends Entity implements ISynchronizedEntity {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onClient(double x, double y, double z, double a, double b, double c) {
         Entity en = this.world.getEntityByID((int) x);
