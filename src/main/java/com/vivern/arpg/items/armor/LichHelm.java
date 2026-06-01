@@ -16,7 +16,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LichHelm extends AbstractArmor {
 
-    public static LichArmorModel armormodel = new LichArmorModel();
     public static String armortexture = "arpg:textures/lich_armor_model_tex.png";
 
     public LichHelm() {
@@ -41,16 +40,17 @@ public class LichHelm extends AbstractArmor {
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
         if (itemStack != ItemStack.EMPTY) {
-            armormodel.setModelAttributes(model);
-            armormodel.helm.showModel = true;
-            armormodel.chest.showModel = false;
-            armormodel.rightarm.showModel = false;
-            armormodel.leftarm.showModel = false;
-            armormodel.rightleg.showModel = false;
-            armormodel.leftleg.showModel = false;
-            armormodel.rightboot.showModel = false;
-            armormodel.leftboot.showModel = false;
-            return armormodel;
+            LichArmorModel armorModel = (LichArmorModel) Armors.ArmorModels.LICH.getModel();
+            armorModel.setModelAttributes(model);
+            armorModel.helm.showModel = true;
+            armorModel.chest.showModel = false;
+            armorModel.rightarm.showModel = false;
+            armorModel.leftarm.showModel = false;
+            armorModel.rightleg.showModel = false;
+            armorModel.leftleg.showModel = false;
+            armorModel.rightboot.showModel = false;
+            armorModel.leftboot.showModel = false;
+            return armorModel;
         } else {
             return null;
         }
@@ -86,16 +86,17 @@ public class LichHelm extends AbstractArmor {
         @SideOnly(Side.CLIENT)
         public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
             if (itemStack != ItemStack.EMPTY) {
-                LichHelm.armormodel.setModelAttributes(model);
-                LichHelm.armormodel.helm.showModel = false;
-                LichHelm.armormodel.chest.showModel = false;
-                LichHelm.armormodel.rightarm.showModel = false;
-                LichHelm.armormodel.leftarm.showModel = false;
-                LichHelm.armormodel.rightleg.showModel = false;
-                LichHelm.armormodel.leftleg.showModel = false;
-                LichHelm.armormodel.rightboot.showModel = true;
-                LichHelm.armormodel.leftboot.showModel = true;
-                return LichHelm.armormodel;
+                LichArmorModel armorModel = (LichArmorModel) Armors.ArmorModels.LICH.getModel();
+                armorModel.setModelAttributes(model);
+                armorModel.helm.showModel = false;
+                armorModel.chest.showModel = false;
+                armorModel.rightarm.showModel = false;
+                armorModel.leftarm.showModel = false;
+                armorModel.rightleg.showModel = false;
+                armorModel.leftleg.showModel = false;
+                armorModel.rightboot.showModel = true;
+                armorModel.leftboot.showModel = true;
+                return armorModel;
             } else {
                 return null;
             }
@@ -110,7 +111,7 @@ public class LichHelm extends AbstractArmor {
 
     public static class LichChestplate extends AbstractArmor {
 
-        public static BoneArmorModel model = new BoneArmorModel();
+//        public static BoneArmorModel model = new BoneArmorModel();
 
         public LichChestplate() {
             super(EntityEquipmentSlot.CHEST, "lich_armor_chestplate", 3500, 6);
@@ -134,16 +135,17 @@ public class LichHelm extends AbstractArmor {
         @SideOnly(Side.CLIENT)
         public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
             if (itemStack != ItemStack.EMPTY) {
-                LichHelm.armormodel.setModelAttributes(model);
-                LichHelm.armormodel.helm.showModel = false;
-                LichHelm.armormodel.chest.showModel = true;
-                LichHelm.armormodel.rightarm.showModel = true;
-                LichHelm.armormodel.leftarm.showModel = true;
-                LichHelm.armormodel.rightleg.showModel = false;
-                LichHelm.armormodel.leftleg.showModel = false;
-                LichHelm.armormodel.rightboot.showModel = false;
-                LichHelm.armormodel.leftboot.showModel = false;
-                return LichHelm.armormodel;
+                LichArmorModel armorModel = (LichArmorModel) Armors.ArmorModels.LICH.getModel();
+                armorModel.setModelAttributes(model);
+                armorModel.helm.showModel = false;
+                armorModel.chest.showModel = true;
+                armorModel.rightarm.showModel = true;
+                armorModel.leftarm.showModel = true;
+                armorModel.rightleg.showModel = false;
+                armorModel.leftleg.showModel = false;
+                armorModel.rightboot.showModel = false;
+                armorModel.leftboot.showModel = false;
+                return armorModel;
             } else {
                 return null;
             }
@@ -158,7 +160,7 @@ public class LichHelm extends AbstractArmor {
 
     public static class LichLeggins extends AbstractArmor {
 
-        public static BoneArmorModel model = new BoneArmorModel();
+//        public static BoneArmorModel model = new BoneArmorModel();
 
         public LichLeggins() {
             super(EntityEquipmentSlot.LEGS, "lich_armor_leggins", 3200, 6);
@@ -182,16 +184,17 @@ public class LichHelm extends AbstractArmor {
         @SideOnly(Side.CLIENT)
         public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model) {
             if (itemStack != ItemStack.EMPTY) {
-                LichHelm.armormodel.setModelAttributes(model);
-                LichHelm.armormodel.helm.showModel = false;
-                LichHelm.armormodel.chest.showModel = false;
-                LichHelm.armormodel.rightarm.showModel = false;
-                LichHelm.armormodel.leftarm.showModel = false;
-                LichHelm.armormodel.rightleg.showModel = true;
-                LichHelm.armormodel.leftleg.showModel = true;
-                LichHelm.armormodel.rightboot.showModel = false;
-                LichHelm.armormodel.leftboot.showModel = false;
-                return LichHelm.armormodel;
+                LichArmorModel armorModel = (LichArmorModel) Armors.ArmorModels.LICH.getModel();
+                armorModel.setModelAttributes(model);
+                armorModel.helm.showModel = false;
+                armorModel.chest.showModel = false;
+                armorModel.rightarm.showModel = false;
+                armorModel.leftarm.showModel = false;
+                armorModel.rightleg.showModel = true;
+                armorModel.leftleg.showModel = true;
+                armorModel.rightboot.showModel = false;
+                armorModel.leftboot.showModel = false;
+                return armorModel;
             } else {
                 return null;
             }

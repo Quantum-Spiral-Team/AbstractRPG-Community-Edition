@@ -511,6 +511,7 @@ public class Armors {
         THUNDERER(new ThundererArmorModel()),
         JUNGLE_HELMET(new JungleHelmetModel()),
         BONE_HELMET(new BoneArmorModel()),
+        LICH(new LichArmorModel()),
         ;
 
         private final ModelBase model;
