@@ -1,4 +1,4 @@
-package com.vivern.arpg.main;
+package com.vivern.arpg.util.math;
 
 import com.google.common.base.MoreObjects;
 import net.minecraft.util.math.MathHelper;

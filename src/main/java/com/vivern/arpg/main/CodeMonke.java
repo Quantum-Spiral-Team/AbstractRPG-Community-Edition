@@ -1,5 +1,6 @@
 package com.vivern.arpg.main;
 
+import com.vivern.arpg.util.math.Vec2i;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

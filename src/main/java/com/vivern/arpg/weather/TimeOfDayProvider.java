@@ -2,9 +2,12 @@ package com.vivern.arpg.weather;
 
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.GetMOP;
+import com.vivern.arpg.util.math.Vec4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 import java.util.ArrayList;
@@ -15,20 +18,20 @@ public class TimeOfDayProvider {
     public int dayLength = 24000;
     boolean firstReset = true;
 
-    public TimeOfDayProvider add(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Vector4f... colors) {
+    public TimeOfDayProvider add(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Vec4f... colors) {
         TimeOfDay timeOfDay = new TimeOfDay(upriseStartTime, upriseEndTime, fallStartTime, fallEndTime, colors, this);
         this.timesOfDay.add(timeOfDay);
         return this;
     }
 
-    public TimeOfDayProvider addV(int upriseStartTime, int upriseEndTime, Vector4f... colors) {
+    public TimeOfDayProvider addV(int upriseStartTime, int upriseEndTime, Vec4f... colors) {
         TimeOfDay timeOfDay = new TimeOfDay(upriseStartTime, upriseEndTime, 0, 0, colors, this);
         this.timesOfDay.add(timeOfDay);
         return this;
     }
 
     public TimeOfDayProvider addO(int upriseStartTime, int upriseEndTime, Object... colors) {
-        Vector4f[] vectors = new Vector4f[colors.length];
+        Vec4f[] vectors = new Vec4f[colors.length];
 
         for (int i = 0; i < colors.length; i++) {
             if (colors[i] instanceof Integer) {
@@ -37,9 +40,9 @@ public class TimeOfDayProvider {
                 float R = (color >> 16 & 0xFF) / 255.0F;
                 float G = (color >> 8 & 0xFF) / 255.0F;
                 float B = (color & 0xFF) / 255.0F;
-                vectors[i] = new Vector4f(R, G, B, A);
-            } else if (colors[i] instanceof Vector4f) {
-                vectors[i] = (Vector4f) colors[i];
+                vectors[i] = new Vec4f(R, G, B, A);
+            } else if (colors[i] instanceof Vec4f) {
+                vectors[i] = (Vec4f) colors[i];
             }
         }
 
@@ -63,7 +66,7 @@ public class TimeOfDayProvider {
         return this;
     }
 
-    public Vector4f getColor(int id, long worldTimeLong) {
+    public Vec4f getColor(int id, long worldTimeLong) {
         int worldTime = (int) (worldTimeLong % this.dayLength);
         float r = 0.0F;
         float g = 0.0F;
@@ -80,7 +83,7 @@ public class TimeOfDayProvider {
             }
         }
 
-        return new Vector4f(r, g, b, a);
+        return new Vec4f(r, g, b, a);
     }
 
     public Vec3d[] getColorsVec3d(int idFirst, int amount, long worldTimeLong) {
@@ -110,6 +113,7 @@ public class TimeOfDayProvider {
         return vectors;
     }
 
+    @SideOnly(Side.CLIENT)
     public Vector4f[] getColors(int idFirst, int amount, long worldTimeLong) {
         int worldTime = (int) (worldTimeLong % this.dayLength);
         Vector4f[] vectors = new Vector4f[amount];
@@ -169,7 +173,7 @@ public class TimeOfDayProvider {
             System.out.print(".addO(" + timeOfDay.upriseStartTime + ", " + timeOfDay.upriseEndTime);
 
             for (int j = 0; j < timeOfDay.colors.length; j++) {
-                System.out.print(", new Vector4f(" + timeOfDay.colors[j].x + "F, " + timeOfDay.colors[j].y + "F, " + timeOfDay.colors[j].z + "F, " + timeOfDay.colors[j].w + "F)");
+                System.out.print(", new Vec4f(" + timeOfDay.colors[j].x + "F, " + timeOfDay.colors[j].y + "F, " + timeOfDay.colors[j].z + "F, " + timeOfDay.colors[j].w + "F)");
             }
 
             System.out.print(")");
@@ -181,11 +185,11 @@ public class TimeOfDayProvider {
         float gamma = 1.0F + Minecraft.getMinecraft().gameSettings.gammaSetting * 0.3F;
         skyLight *= gamma;
         blockLight *= gamma;
-        Vector4f vector4f = this.getColor(providerColorIndex, worldTime);
+        Vec4f Vec4f = this.getColor(providerColorIndex, worldTime);
         float limit = 0.2F;
-        colors[0] = MathHelper.clamp(vector4f.x * skyLight + colors[0] * blockLight, colors[0] * limit, 1.0F);
-        colors[1] = MathHelper.clamp(vector4f.y * skyLight + colors[1] * blockLight, colors[1] * limit, 1.0F);
-        colors[2] = MathHelper.clamp(vector4f.z * skyLight + colors[2] * blockLight, colors[2] * limit, 1.0F);
+        colors[0] = MathHelper.clamp(Vec4f.x * skyLight + colors[0] * blockLight, colors[0] * limit, 1.0F);
+        colors[1] = MathHelper.clamp(Vec4f.y * skyLight + colors[1] * blockLight, colors[1] * limit, 1.0F);
+        colors[2] = MathHelper.clamp(Vec4f.z * skyLight + colors[2] * blockLight, colors[2] * limit, 1.0F);
     }
 
     public static class TimeOfDay {
@@ -194,9 +198,9 @@ public class TimeOfDayProvider {
         public int upriseEndTime;
         public int fallStartTime;
         public int fallEndTime;
-        public Vector4f[] colors;
+        public Vec4f[] colors;
 
-        public TimeOfDay(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Vector4f[] colors, TimeOfDayProvider timeOfDayProvider) {
+        public TimeOfDay(int upriseStartTime, int upriseEndTime, int fallStartTime, int fallEndTime, Vec4f[] colors, TimeOfDayProvider timeOfDayProvider) {
             this.upriseStartTime = upriseStartTime;
             this.upriseEndTime = upriseEndTime;
             this.fallStartTime = fallStartTime;

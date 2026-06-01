@@ -2,7 +2,7 @@ package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.Vec2i;
+import com.vivern.arpg.util.math.Vec2i;
 import com.vivern.arpg.tileentity.WriteBlank;
 import net.minecraft.util.math.Vec3d;
 

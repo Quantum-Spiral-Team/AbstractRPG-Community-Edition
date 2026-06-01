@@ -6,6 +6,7 @@ import com.vivern.arpg.recipes.ExploringField;
 import com.vivern.arpg.recipes.WriteGraph;
 import com.vivern.arpg.tileentity.TileResearchTable;
 import com.vivern.arpg.tileentity.WriteBlank;
+import com.vivern.arpg.util.math.Vec2i;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;

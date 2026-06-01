@@ -12,6 +12,7 @@ import com.vivern.arpg.renders.RenderTerraformingResearch;
 import com.vivern.arpg.tileentity.ITileEntitySynchronized;
 import com.vivern.arpg.tileentity.TileResearchTable;
 import com.vivern.arpg.tileentity.WriteBlank;
+import com.vivern.arpg.util.math.Vec2i;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;

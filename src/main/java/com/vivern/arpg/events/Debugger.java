@@ -4,6 +4,7 @@ import com.vivern.arpg.items.SoulStone;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.ItemsRegister;
 import com.vivern.arpg.main.OreDicHelper;
+import com.vivern.arpg.util.math.Vec4f;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
@@ -15,12 +16,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.util.vector.Vector4f;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Debugger {
 
@@ -32,11 +35,12 @@ public class Debugger {
     public static int boundValue = 1;
     public static String string = "";
     public static boolean itemTransformHookEnabled = false;
-    public static HashMap<String, Vector4f> debugColors = new HashMap<>();
-    static Vector4f zero4f = new Vector4f(0.0F, 0.0F, 0.0F, 0.0F);
+    public static Map<String, Vec4f> debugColors = new HashMap<>();
+    static Vec4f zero4f = new Vec4f(0.0F, 0.0F, 0.0F, 0.0F);
     public static boolean press = false;
 
-    public static Vector4f getDebugColor(String name) {
+    @SideOnly(Side.CLIENT)
+    public static Vec4f getDebugColor(String name) {
         return debugColors.containsKey(name) ? debugColors.get(name) : zero4f;
     }
 
@@ -174,13 +178,14 @@ public class Debugger {
         return null;
     }
 
+    @SideOnly(Side.CLIENT)
     public static void setDebugSourceDestFactors() {
         GlStateManager.blendFunc(SourceFactor.values()[MathHelper.clamp((int) floats[0], 0, SourceFactor.values().length - 1)], DestFactor.values()[MathHelper.clamp((int) floats[1], 0, DestFactor.values().length - 1)]);
     }
 
     static {
-        debugColors.put("pop", new Vector4f(1.0F, 0.3F, 0.2F, 1.0F));
-        debugColors.put("t", new Vector4f(0.1F, 0.0F, 1.0F, 1.0F));
-        debugColors.put("au", new Vector4f(0.1F, 1.0F, 0.9F, 1.0F));
+        debugColors.put("pop", new Vec4f(1.0F, 0.3F, 0.2F, 1.0F));
+        debugColors.put("t", new Vec4f(0.1F, 0.0F, 1.0F, 1.0F));
+        debugColors.put("au", new Vec4f(0.1F, 1.0F, 0.9F, 1.0F));
     }
 }

@@ -2,7 +2,7 @@ package com.vivern.arpg.container;
 
 import com.vivern.arpg.arpgamemodes.SurvivorGameStyleWatcher;
 import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.Vec2i;
+import com.vivern.arpg.util.math.Vec2i;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.network.packet.PacketDoSomethingToServer;
 import net.minecraft.client.gui.GuiScreen;
