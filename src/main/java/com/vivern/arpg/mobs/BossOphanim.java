@@ -383,7 +383,7 @@ public class BossOphanim extends AbstractBoss implements ISynchronizedEntity, IM
 
             if (this.firstUpdate1) {
                 this.firstUpdate1 = false;
-                Minecraft.getMinecraft().getSoundHandler().playSound(new MovingSoundEntity(this, Sounds.ophanim, SoundCategory.HOSTILE, 0.8F, 1.0F, true));
+                this.startPlaySound();
             }
         }
 
@@ -740,6 +740,11 @@ public class BossOphanim extends AbstractBoss implements ISynchronizedEntity, IM
                 }
             }
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void startPlaySound() {
+        Minecraft.getMinecraft().getSoundHandler().playSound(new MovingSoundEntity(this, Sounds.ophanim, SoundCategory.HOSTILE, 0.8F, 1.0F, true));
     }
 
     public void handlePartsCircle() {
