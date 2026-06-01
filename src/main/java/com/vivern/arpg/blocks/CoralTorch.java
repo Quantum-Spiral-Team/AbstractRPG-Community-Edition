@@ -221,7 +221,6 @@ public class CoralTorch extends BlockUnderwater {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, LEVEL, WET);
     }
