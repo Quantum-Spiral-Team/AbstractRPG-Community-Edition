@@ -5,8 +5,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.SPacketTitle;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,8 +28,13 @@ public class GeigerCounter extends Item {
 
     @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (Minecraft.getMinecraft().player == entityIn && (Minecraft.getMinecraft().player.getHeldItemMainhand() == stack || Minecraft.getMinecraft().player.getHeldItemOffhand() == stack)) {
-            Minecraft.getMinecraft().ingameGUI.setOverlayMessage(TextFormatting.GREEN + "Your radiation: " + Mana.getRad(Minecraft.getMinecraft().player), false);
+        if (entityIn instanceof EntityPlayerMP) {
+            EntityPlayerMP player = (EntityPlayerMP) entityIn;
+            if (player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack) {
+                TextComponentString component = new TextComponentString(TextFormatting.GREEN + "Your radiation: " + Mana.getRad(player));
+                SPacketTitle packet = new SPacketTitle(SPacketTitle.Type.ACTIONBAR, component);
+                player.connection.sendPacket(packet);
+            }
         }
     }
 
