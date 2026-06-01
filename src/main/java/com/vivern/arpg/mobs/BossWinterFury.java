@@ -43,7 +43,7 @@ public class BossWinterFury extends AbstractBoss {
         super(world, 1.5F, 1.5F, Color.BLUE);
         this.hurtSound = Sounds.mob_ice_hurt;
         this.deathSound = Sounds.winter_fury_dead;
-        this.defaultteam = EverfrostMobsPack.mobsteam;
+        this.defaultteam = EverfrostMobsPack.mobsTeam;
         this.setNoGravity(true);
         this.setattributes(325.0, 84.0, 10.0, 0.25, 3 + 2 * this.getMobDifficulty(), 3.0, 0.4, 0.5, 0.0, 0.2);
         this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(ItemsRegister.HAIL_TEAR, 1.0F, 0, 2, 6, 2), new MobDrop(ItemsRegister.HAIL_TEAR, 1.0F, 0, 2, 6, 2), new MobDrop(ItemsRegister.HAIL_TEAR, 1.0F, 0, 2, 6, 2)});

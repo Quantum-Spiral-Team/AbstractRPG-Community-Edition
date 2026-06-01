@@ -48,7 +48,7 @@ import java.util.UUID;
 
 public class EverfrostMobsPack {
 
-    public static String mobsteam = "frozen";
+    public static String mobsTeam = "frozen";
 
     public static void init() {
         AbstractMob.addToRegister(Fentral.class, "Fentral", 6846619, 13612721);
@@ -67,6 +67,7 @@ public class EverfrostMobsPack {
         AbstractMob.addToRegister(AurorasPhantasm.class, "Auroras Phantasm", 3162213, 7008857);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void initRender() {
         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsEverfrostMob.FentralModel(), new ResourceLocation("arpg:textures/fentral_model_tex.png"), 0.6F, Fentral.class));
         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsEverfrostMob.IceWarriorModel(), new ResourceLocation("arpg:textures/ice_warrior_model_tex.png"), 0.6F, IceWarrior.class).setLayerHeldItem());
@@ -90,7 +91,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.mob_ice_hurt;
             this.deathSound = Sounds.mob_ice_death;
             this.livingSound = Sounds.mob_mummy_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(30.0, 64.0, 4.5, 0.245, 6.0, 2.0, 0.0, 0.0, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(Items.ROTTEN_FLESH, 0.75F, 0, 0, 2, 2), new MobDrop(Items.BONE, 0.75F, 0, 0, 2, 2)});
             this.setRoleValues(EnumMobRole.SOLDIER, 2);
@@ -196,7 +197,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.frost_hurt;
             this.deathSound = Sounds.frost_dead;
             this.livingSound = Sounds.phantasm_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(60.0, 48.0, 6.0, 0.1, 3.0, 1.0, 0.2, 0.0, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.3F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)});
             this.setNoGravity(true);
@@ -373,7 +374,7 @@ public class EverfrostMobsPack {
             this.deathSound = SoundEvents.ENTITY_WOLF_DEATH;
             this.livingSound = SoundEvents.ENTITY_WOLF_GROWL;
             this.stepSound = SoundEvents.ENTITY_WOLF_STEP;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(45.0, 48.0, 5.0, 0.3, 2.0, 0.0, 0.2, 0.0, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(Item.getItemFromBlock(Blocks.WOOL), 0.4F, 8, 1, 1, 2)});
             this.setRoleValues(EnumMobRole.STRONG_SOLDIER, 2);
@@ -439,7 +440,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.frost_hurt;
             this.deathSound = Sounds.frost_dead;
             this.livingSound = Sounds.frost_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(25.0, 42.0, 5.0, 0.5, 3.0, 0.5, 0.0, 0.0, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.3F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)});
             this.setNoGravity(true);
@@ -560,7 +561,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.mob_ice_hurt;
             this.deathSound = Sounds.mob_ice_death;
             this.livingSound = Sounds.mob_ice_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(40.0, 48.0, 8.0, 0.09, 3.0, 3.0, 0.6, 0.1, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(Item.getItemFromBlock(Blocks.OBSIDIAN), 0.55F, 0, 0, 2, 1)});
             this.setNoGravity(true);
@@ -615,7 +616,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.mob_ice_hurt;
             this.deathSound = Sounds.mob_ice_death;
             this.livingSound = Sounds.frost_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(55.0, 40.0, 6.0, 0.13, 3.0, 1.0, 0.4, 0.0, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.6F, 0, 1, 1, 1)});
             this.setNoGravity(true);
@@ -752,7 +753,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.mob_ice_hurt;
             this.deathSound = Sounds.mob_ice_death;
             this.livingSound = Sounds.mob_ice_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(45.0, 30.0, 6.0, 0.09, 2.0, 2.0, 0.2, 0.1, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.WEATHER_FRAGMENTS, 0.35F, 0, 1, 1, 0), new MobDrop(ItemsRegister.HAIL_TEAR, 0.1F, 0, 1, 2, 2)});
             this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 2);
@@ -872,7 +873,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.frost_hurt;
             this.deathSound = Sounds.mob_ghost_death;
             this.livingSound = Sounds.frost_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(60.0, 64.0, 2.0, 0.2, 4.0, 5.0, 0.3, 0.0, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.5F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)});
             this.stepHeight = 1.1F;
@@ -985,7 +986,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.mob_ghost_hurt;
             this.deathSound = Sounds.mob_ghost_death;
             this.livingSound = Sounds.mob_ghost_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(75.0, 42.0, 5.0, 0.11, 4.0, 4.0, 0.6, 0.15, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.95F, 0, 0, 3, 2), new MobDrop(ItemsRegister.SNOW_CLOTH, 0.35F, 0, 1, 3, 2)});
             this.setRoleValues(EnumMobRole.ELITE_ENEMY, 2);
@@ -1113,7 +1114,7 @@ public class EverfrostMobsPack {
             this.setSize(this.slimesize, this.slimesize);
             this.hurtSound = SoundEvents.BLOCK_SLIME_STEP;
             this.deathSound = Sounds.mob_ice_death;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(15.0, 40.0, 4.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2);
             this.registerLOOT(new MobDrop[]{new MobDrop(Items.SNOWBALL, 0.8F, 0, 0, 3, 8)});
             this.setRoleValues(EnumMobRole.SWARMER, 2);
@@ -1187,7 +1188,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.mob_ice_hurt;
             this.deathSound = Sounds.mob_ice_death;
             this.livingSound = Sounds.mob_ice_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(40.0, 64.0, 8.0, 0.25, 3.0, 4.0, 0.5, 0.1, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.12F, 0, 1, 1, 2)});
             this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 2);
@@ -1275,7 +1276,7 @@ public class EverfrostMobsPack {
             super(world, 0.875F, 0.375F);
             this.hurtSound = Sounds.slider_hit;
             this.deathSound = Sounds.slider_hit;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(200.0, 1.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0);
             this.setRoleValues(EnumMobRole.SPECIAL_MOB, 2);
             this.soul = null;
@@ -1497,7 +1498,7 @@ public class EverfrostMobsPack {
             this.hurtSound = Sounds.mob_ice_hurt;
             this.deathSound = Sounds.mob_ice_death;
             this.livingSound = Sounds.mob_ice_living;
-            this.defaultteam = EverfrostMobsPack.mobsteam;
+            this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(40.0, 64.0, 6.5, 0.26, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0);
             this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.CONIFER_STICK, 0.34F, 0, 1, 2, 2), new MobDrop(Items.SNOWBALL, 0.95F, 0, 1, 4, 4)});
             this.setRoleValues(EnumMobRole.SOLDIER, 2);

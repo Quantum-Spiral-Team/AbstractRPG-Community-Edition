@@ -2045,7 +2045,7 @@ public class HostileProjectiles {
                 List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, axisalignedbb);
                 if (!list.isEmpty()) {
                     for (Entity entity : list) {
-                        if ((this.thrower != null || EverfrostMobsPack.mobsteam.equals(Team.getTeamFor(entity))) && !Team.checkIsOpponent(this.thrower, entity)) {
+                        if ((this.thrower != null || EverfrostMobsPack.mobsTeam.equals(Team.getTeamFor(entity))) && !Team.checkIsOpponent(this.thrower, entity)) {
                             SuperKnockback.applyKnockback(entity, 1.3F, this.posX, this.posY - 1.0, this.posZ);
                         } else {
                             Weapons.dealDamage(new WeaponDamage(null, this.getThrower(), this, false, false, this, WeaponDamage.frost), this.damage, this.getThrower(), entity, true, 2.4F, this.posX, this.posY, this.posZ);
