@@ -3396,7 +3396,7 @@ public class HostileProjectiles {
             super.onUpdate();
             if (this.world.isRemote && this.firstUpdate1) {
                 this.firstUpdate1 = false;
-                Minecraft.getMinecraft().getSoundHandler().playSound(new MovingSoundEntity(this, Sounds.plasma_ring, SoundCategory.AMBIENT, 1.0F, 0.95F + this.rand.nextFloat() / 10.0F, true));
+                this.startPlaySound();
             }
 
             if (this.ticksExisted > 100) {
@@ -3438,6 +3438,11 @@ public class HostileProjectiles {
                     }
                 }
             }
+        }
+
+        @SideOnly(Side.CLIENT)
+        private void startPlaySound() {
+            Minecraft.getMinecraft().getSoundHandler().playSound(new MovingSoundEntity(this, Sounds.plasma_ring, SoundCategory.AMBIENT, 1.0F, 0.95F + this.rand.nextFloat() / 10.0F, true));
         }
 
         @SideOnly(Side.CLIENT)

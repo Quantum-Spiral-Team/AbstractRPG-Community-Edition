@@ -36,7 +36,8 @@ public class CeratargetShoot extends EntityThrowable implements ISynchronizedEnt
     public int ticksImpacted = 0;
     public boolean firstUpdate1 = true;
     public boolean canBlow = true;
-    public MovingSoundEntity movingsound;
+    @SideOnly(Side.CLIENT)
+    private MovingSoundEntity movingSound;
 
     public CeratargetShoot(World world) {
         super(world);
@@ -69,8 +70,7 @@ public class CeratargetShoot extends EntityThrowable implements ISynchronizedEnt
         super.onUpdate();
         if (this.world.isRemote && this.firstUpdate1) {
             this.firstUpdate1 = false;
-            this.movingsound = new MovingSoundEntity(this, Sounds.ceratarget_fly, SoundCategory.PLAYERS, 1.0F, 0.9F + this.rand.nextFloat() / 5.0F, false);
-            Minecraft.getMinecraft().getSoundHandler().playSound(this.movingsound);
+            this.startPlayingSound();
         }
 
         if (this.ticksExisted % 10 == 0) {
@@ -87,19 +87,18 @@ public class CeratargetShoot extends EntityThrowable implements ISynchronizedEnt
                 double far = 1.5;
                 EntityLivingBase entity = GetMOP.findNearestEnemy(this.world, this.thrower, this.posX + this.motionX * far, this.posY + this.motionY * far, this.posZ + this.motionZ * far, 5.0, true);
                 if (entity != null) {
-                    double multMotion = parameters.getFloat("friction");
-                    this.motionX *= multMotion;
-                    this.motionY *= multMotion;
-                    this.motionZ *= multMotion;
+                    double multiMotion = parameters.getFloat("friction");
+                    this.motionX *= multiMotion;
+                    this.motionY *= multiMotion;
+                    this.motionZ *= multiMotion;
                     SuperKnockback.applyMove(this, -parameters.getFloat("follow_power_entity"), entity.posX, entity.posY + entity.height / 2.0F, entity.posZ);
                 } else if (this.followPoint != null) {
                     SuperKnockback.applyMove(this, -parameters.getFloat("follow_power_point"), this.followPoint.x, this.followPoint.y, this.followPoint.z);
                 }
             }
         } else {
-            if (this.movingsound != null) {
-                Minecraft.getMinecraft().getSoundHandler().stopSound(this.movingsound);
-                this.movingsound = null;
+            if (this.world.isRemote) {
+                this.stopPlayingSound();
             }
 
             if (this.impactPos != null) {
@@ -126,6 +125,24 @@ public class CeratargetShoot extends EntityThrowable implements ISynchronizedEnt
             this.lastTickPosY = this.posY;
             this.lastTickPosZ = this.posZ;
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    private MovingSoundEntity getMovingSound() {
+        if (this.movingSound == null) {
+            this.movingSound = new MovingSoundEntity(this, Sounds.ceratarget_fly, SoundCategory.PLAYERS, 1.0F, 0.9F + this.rand.nextFloat() / 5.0F, false);
+        }
+        return this.movingSound;
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void startPlayingSound() {
+        Minecraft.getMinecraft().getSoundHandler().playSound(this.getMovingSound());
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void stopPlayingSound() {
+        Minecraft.getMinecraft().getSoundHandler().stopSound(this.getMovingSound());
     }
 
     @SideOnly(Side.CLIENT)

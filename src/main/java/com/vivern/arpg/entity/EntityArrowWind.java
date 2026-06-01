@@ -12,12 +12,15 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityArrowWind extends AbstractArrow {
 
     public static ResourceLocation texture = new ResourceLocation("arpg:textures/circle_wind.png");
     public static ParticleTracker.TrackerSmoothShowHide ssh = new ParticleTracker.TrackerSmoothShowHide(new Vec3d[]{new Vec3d(0.0, 4.0, 0.2), new Vec3d(5.0, 13.0, -0.125)}, new Vec3d[]{new Vec3d(0.0, 3.0, 0.4), new Vec3d(3.0, 6.0, 0.2), new Vec3d(7.0, 13.0, -0.3)});
-    public MovingSoundEntity soundFly;
+    @SideOnly(Side.CLIENT)
+    private MovingSoundEntity soundFly;
 
     public EntityArrowWind(World worldIn) {
         super(worldIn);
@@ -43,7 +46,7 @@ public class EntityArrowWind extends AbstractArrow {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        boolean continuePlaysound = false;
+        boolean continuePlaySound = false;
         if (!this.isInWater() && !this.inGround && this.canWind()) {
             if (!this.world.isRemote) {
                 if (this.pickupStatus == PickupStatus.ALLOWED) {
@@ -71,7 +74,7 @@ public class EntityArrowWind extends AbstractArrow {
             } else {
                 double speed = GetMOP.getSpeed(this);
                 if (speed >= 1.0) {
-                    continuePlaysound = true;
+                    continuePlaySound = true;
                     float add = (float) Math.min((speed - 1.0) / 2.0, 1.5);
                     Vec3d vec = this.getPositionVector().add(new Vec3d(this.motionX, this.motionY, this.motionZ).scale(0.5));
                     GUNParticle part = new GUNParticle(texture, add, 0.0F, 14, -1, this.world, vec.x, vec.y, vec.z, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, this.rand.nextInt(360));
@@ -84,15 +87,20 @@ public class EntityArrowWind extends AbstractArrow {
         }
 
         if (this.world.isRemote) {
-            if (continuePlaysound) {
-                if (this.soundFly == null) {
-                    this.soundFly = new MovingSoundEntity(this, Sounds.arrow_wind_fly, this.getSoundCategory(), 1.2F, 1.0F, true);
-                    Minecraft.getMinecraft().getSoundHandler().playSound(this.soundFly);
-                }
-            } else if (this.soundFly != null) {
-                Minecraft.getMinecraft().getSoundHandler().stopSound(this.soundFly);
-                this.soundFly = null;
+            this.onClientUpdate(continuePlaySound);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void onClientUpdate(boolean continuePlaySound) {
+        if (continuePlaySound) {
+            if (this.soundFly == null) {
+                this.soundFly = new MovingSoundEntity(this, Sounds.arrow_wind_fly, this.getSoundCategory(), 1.2F, 1.0F, true);
+                Minecraft.getMinecraft().getSoundHandler().playSound(this.soundFly);
             }
+        } else if (this.soundFly != null) {
+            Minecraft.getMinecraft().getSoundHandler().stopSound(this.soundFly);
+            this.soundFly = null;
         }
     }
 
