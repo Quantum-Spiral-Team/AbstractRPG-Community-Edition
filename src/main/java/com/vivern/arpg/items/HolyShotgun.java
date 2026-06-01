@@ -83,7 +83,7 @@ public class HolyShotgun extends ItemWeapon {
                     } else if (!hascooldown) {
                         int doubleMult = click && ammo > 1 ? 2 : 1;
                         String bulletname = NBTHelper.GetNBTstring(itemstack, "bullet");
-                        ItemBullet bullet = ItemBullet.getItemBulletFromString(bulletname);
+                        ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(bulletname);
                         boolean nonullbullet = bullet != null;
                         float damageadd = 0.0F;
                         float knockbackadd = 0.0F;

@@ -82,7 +82,7 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
     @Override
     public void onUpdate() {
         super.onUpdate();
-        ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(this.weaponstack, "bullet"));
+        ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(NBTHelper.GetNBTstring(this.weaponstack, "bullet"));
         if (bullet != null) {
             bullet.onProjectileUpdate(this);
         }
@@ -155,8 +155,8 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
                 float bdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack));
                 float bknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack));
                 if (this.bullet != null) {
-                    bdamage += this.bullet.damage * parameters.getFloat("bullet_damage");
-                    bknockback += this.bullet.knockback * parameters.getFloat("bullet_knockback");
+                    bdamage += this.bullet.getDamage() * parameters.getFloat("bullet_damage");
+                    bknockback += this.bullet.getKnockback() * parameters.getFloat("bullet_knockback");
                 }
 
                 if (result.entityHit.isBurning()) {

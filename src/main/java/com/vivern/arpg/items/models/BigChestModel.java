@@ -6,9 +6,12 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 
+@SideOnly(Side.CLIENT)
 public class BigChestModel extends ModelBase {
 
     public ModelRenderer chestLock1;

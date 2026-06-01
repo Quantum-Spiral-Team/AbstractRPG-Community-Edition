@@ -3837,7 +3837,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
 
                 float reloadValue = MathHelper.clamp(1.0F - relxxx / reltimeMaxxx, 0.0F, 1.0F);
-                ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(Itemstack, "bullet"));
+                ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(NBTHelper.GetNBTstring(Itemstack, "bullet"));
                 int color = bullet == null ? 16777215 : ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB);
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);

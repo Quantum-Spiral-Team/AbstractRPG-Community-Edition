@@ -141,7 +141,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                             if (!hascooldown && this.getEnergyStored(itemstack) >= RFtoShoot && speed > 10.0F && heat >= 0) {
                                 int turretMult = fullTurret ? 2 : 1;
                                 String bulletname = NBTHelper.GetNBTstring(itemstack, "bullet");
-                                ItemBullet bullet = ItemBullet.getItemBulletFromString(bulletname);
+                                ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(bulletname);
                                 boolean nonullbullet = bullet != null;
                                 float damageadd = 0.0F;
                                 float knockbackadd = 0.0F;

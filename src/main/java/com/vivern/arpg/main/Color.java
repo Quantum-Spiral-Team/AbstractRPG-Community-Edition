@@ -66,12 +66,12 @@ public class Color {
         event.getItemColors().registerItemColorHandler((stack, tintIndex) -> tintIndex == 0 ? NBTHelper.GetNBTint(stack, "color") : NBTHelper.GetNBTint(stack, "colorover"), ItemsRegister.GEOMANTIC_CRYSTAL);
 
         event.getItemColors().registerItemColorHandler((stack, tintIndex) -> {
-            ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
+            ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(NBTHelper.GetNBTstring(stack, "bullet"));
             return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
         }, ItemsRegister.ADAMANTIUM_ROUNDS);
 
         event.getItemColors().registerItemColorHandler((stack, tintIndex) -> {
-            ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
+            ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(NBTHelper.GetNBTstring(stack, "bullet"));
             return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
         }, ItemsRegister.BUCKSHOT);
 
@@ -89,7 +89,7 @@ public class Color {
         }, ItemsRegister.ELEMENTS_BOOK);
 
         event.getItemColors().registerItemColorHandler((stack, tintIndex) -> {
-            ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(stack, "bullet"));
+            ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(NBTHelper.GetNBTstring(stack, "bullet"));
             return tintIndex == 1 && bullet != null ? ColorConverters.RGBtoDecimal(bullet.colorR, bullet.colorG, bullet.colorB) : 16777215;
         }, ItemsRegister.HYDRAULIC_SHOTGUN_CLIP);
     }

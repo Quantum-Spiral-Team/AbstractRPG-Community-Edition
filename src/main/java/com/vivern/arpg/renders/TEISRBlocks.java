@@ -14,172 +14,85 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.NotNull;
 
+@SideOnly(Side.CLIENT)
 public class TEISRBlocks extends TileEntityItemStackRenderer {
 
     public static TileEntityItemStackRenderer instance = new TEISRBlocks();
 
     @Override
-    public void renderByItem(ItemStack itemStackIn) {
+    public void renderByItem(@NotNull ItemStack itemStackIn) {
         this.renderByItem(itemStackIn, 1.0F);
     }
 
     @Override
-    public void renderByItem(ItemStack itemstack, float partialTicks) {
+    public void renderByItem(@NotNull ItemStack itemstack, float partialTicks) {
         Item item = itemstack.getItem();
+
         if (item instanceof ItemBlock) {
-            Block block = ((ItemBlock) item).getBlock();
-            GlStateManager.pushMatrix();
-            if (block == BlocksRegister.ASSEMBLY_TABLE) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileAssemblyTable.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.TURNING_AUGMENT || block == BlocksRegister.PRESS_AUGMENT || block == BlocksRegister.WELD_AUGMENT || block == BlocksRegister.PLASMA_SPRAY_AUGMENT || block == BlocksRegister.MOLECULAR_PRINTER_AUGMENT) {
-                int id = 0;
-                if (block == BlocksRegister.TURNING_AUGMENT) {
-                    id = 1;
-                }
-
-                if (block == BlocksRegister.PRESS_AUGMENT) {
-                    id = 2;
-                }
-
-                if (block == BlocksRegister.WELD_AUGMENT) {
-                    id = 3;
-                }
-
-                if (block == BlocksRegister.PLASMA_SPRAY_AUGMENT) {
-                    id = 4;
-                }
-
-                if (block == BlocksRegister.MOLECULAR_PRINTER_AUGMENT) {
-                    id = 5;
-                }
-
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileAssemblyAugment.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, id, 1.0F);
-            }
-
-            if (block == BlocksRegister.SHIMMERING_BEASTBLOOM) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileShimmeringBeastbloom.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.BIO_CELL) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileBioCell.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.GLOSSARY) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileGlossary.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.TIDE_BEACON) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileNexusBeacon.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.TRITON_HEARTH) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileTritonHearth.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.TRITON_HEARTH) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileTritonHearth.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.VOID_CRYSTAL_BLOCK) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileVoidCrystal.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.RUNIC_MIRROR) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileRunicMirror.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.INDUSTRIAL_MIXER) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileIndustrialMixer.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.CRYSTAL_SPHERE) {
-                NBTTagCompound blockEntityTag = NBTHelper.GetNBTtag(itemstack, "BlockEntityTag");
-                float stored = blockEntityTag != null && blockEntityTag.hasKey("stored") ? blockEntityTag.getFloat("stored") : 0.0F;
-                ShardType type = blockEntityTag != null && blockEntityTag.hasKey("type") ? ShardType.byName(blockEntityTag.getString("type")) : ShardType.FIRE;
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileCrystalSphere.class);
-                TESRrenderer.render(null, stored, type.id, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.MANA_BOTTLE) {
-                NBTTagCompound blockEntityTag = NBTHelper.GetNBTtag(itemstack, "BlockEntityTag");
-                float max = blockEntityTag != null && blockEntityTag.hasKey("max") ? blockEntityTag.getFloat("max") : 0.0F;
-                float stored = blockEntityTag != null && blockEntityTag.hasKey("manaStored") ? blockEntityTag.getFloat("manaStored") : 0.0F;
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileManaBottle.class);
-                TESRrenderer.render(null, max, stored, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.SOUL_CATCHER) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileSoulCatcher.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.MANA_PUMP) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileManaPump.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.SIEVE) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileSieve.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.ELECTRIC_SIEVE) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileElectricSieve.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.BLOCK_NIVEOLITE_GAME) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileNexusNiveolite.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.PRESENT_BOX) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TilePresentBox.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
-            if (block == BlocksRegister.ITEM_CHARGER) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileItemCharger.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
-
             if (item instanceof ItemARPGChest) {
                 ItemARPGChest chest = (ItemARPGChest) item;
                 ARPGChestTESR.reservedChestType = chest.chestType;
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileARPGChest.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
+                renderTESR(TileARPGChest.class, 0.0, 0.0, partialTicks, -1);
+                return;
             }
 
-            if (block == BlocksRegister.MAGIC_GENERATOR) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileMagicGenerator.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
+            Block block = ((ItemBlock) item).getBlock();
+            GlStateManager.pushMatrix();
+
+            if (block == BlocksRegister.CRYSTAL_SPHERE) {
+                NBTTagCompound tag = NBTHelper.GetNBTtag(itemstack, "BlockEntityTag");
+                float stored = (tag != null && tag.hasKey("stored")) ? tag.getFloat("stored") : 0.0F;
+                ShardType type = (tag != null && tag.hasKey("type")) ? ShardType.byName(tag.getString("type")) : ShardType.FIRE;
+                renderTESR(TileCrystalSphere.class, stored, type.id, partialTicks, -1);
+            } else if (block == BlocksRegister.MANA_BOTTLE) {
+                NBTTagCompound tag = NBTHelper.GetNBTtag(itemstack, "BlockEntityTag");
+                float max = (tag != null && tag.hasKey("max")) ? tag.getFloat("max") : 0.0F;
+                float stored = (tag != null && tag.hasKey("manaStored")) ? tag.getFloat("manaStored") : 0.0F;
+                renderTESR(TileManaBottle.class, max, stored, partialTicks, -1);
             }
 
-            if (block == BlocksRegister.BLOCK_ETHERITE_INVOCATOR) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileEtheriteInvocator.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
+            else if (block == BlocksRegister.TURNING_AUGMENT) renderTESR(TileAssemblyAugment.class, 0.0, 0.0, partialTicks, 1);
+            else if (block == BlocksRegister.PRESS_AUGMENT) renderTESR(TileAssemblyAugment.class, 0.0, 0.0, partialTicks, 2);
+            else if (block == BlocksRegister.WELD_AUGMENT) renderTESR(TileAssemblyAugment.class, 0.0, 0.0, partialTicks, 3);
+            else if (block == BlocksRegister.PLASMA_SPRAY_AUGMENT) renderTESR(TileAssemblyAugment.class, 0.0, 0.0, partialTicks, 4);
+            else if (block == BlocksRegister.MOLECULAR_PRINTER_AUGMENT) renderTESR(TileAssemblyAugment.class, 0.0, 0.0, partialTicks, 5);
 
-            if (block == BlocksRegister.TEAM_BANNER) {
-                TileEntitySpecialRenderer TESRrenderer = TileEntityRendererDispatcher.instance.renderers.get(TileTeamBanner.class);
-                TESRrenderer.render(null, 0.0, 0.0, 0.0, partialTicks, -1, 1.0F);
-            }
+            else if (block == BlocksRegister.ASSEMBLY_TABLE) renderTESR(TileAssemblyTable.class, partialTicks);
+            else if (block == BlocksRegister.SHIMMERING_BEASTBLOOM) renderTESR(TileShimmeringBeastbloom.class, partialTicks);
+            else if (block == BlocksRegister.BIO_CELL) renderTESR(TileBioCell.class, partialTicks);
+            else if (block == BlocksRegister.GLOSSARY) renderTESR(TileGlossary.class, partialTicks);
+            else if (block == BlocksRegister.TIDE_BEACON) renderTESR(TileNexusBeacon.class, partialTicks);
+            else if (block == BlocksRegister.TRITON_HEARTH) renderTESR(TileTritonHearth.class, partialTicks); // Дубликат удален
+            else if (block == BlocksRegister.VOID_CRYSTAL_BLOCK) renderTESR(TileVoidCrystal.class, partialTicks);
+            else if (block == BlocksRegister.RUNIC_MIRROR) renderTESR(TileRunicMirror.class, partialTicks);
+            else if (block == BlocksRegister.INDUSTRIAL_MIXER) renderTESR(TileIndustrialMixer.class, partialTicks);
+            else if (block == BlocksRegister.SOUL_CATCHER) renderTESR(TileSoulCatcher.class, partialTicks);
+            else if (block == BlocksRegister.MANA_PUMP) renderTESR(TileManaPump.class, partialTicks);
+            else if (block == BlocksRegister.SIEVE) renderTESR(TileSieve.class, partialTicks);
+            else if (block == BlocksRegister.ELECTRIC_SIEVE) renderTESR(TileElectricSieve.class, partialTicks);
+            else if (block == BlocksRegister.BLOCK_NIVEOLITE_GAME) renderTESR(TileNexusNiveolite.class, partialTicks);
+            else if (block == BlocksRegister.PRESENT_BOX) renderTESR(TilePresentBox.class, partialTicks);
+            else if (block == BlocksRegister.ITEM_CHARGER) renderTESR(TileItemCharger.class, partialTicks);
+            else if (block == BlocksRegister.MAGIC_GENERATOR) renderTESR(TileMagicGenerator.class, partialTicks);
+            else if (block == BlocksRegister.BLOCK_ETHERITE_INVOCATOR) renderTESR(TileEtheriteInvocator.class, partialTicks);
+            else if (block == BlocksRegister.TEAM_BANNER) renderTESR(TileTeamBanner.class, partialTicks);
 
             GlStateManager.popMatrix();
+        }
+    }
+
+    private void renderTESR(Class<? extends net.minecraft.tileentity.TileEntity> teClass, float partialTicks) {
+        this.renderTESR(teClass, 0.0, 0.0, partialTicks, -1);
+    }
+
+    private void renderTESR(Class<? extends net.minecraft.tileentity.TileEntity> teClass, double xOffset, double yOffset, float partialTicks, int destroyStage) {
+        TileEntitySpecialRenderer<?> renderer = TileEntityRendererDispatcher.instance.renderers.get(teClass);
+        if (renderer != null) {
+            renderer.render(null, xOffset, yOffset, 0.0, partialTicks, destroyStage, 1.0F);
         }
     }
 

@@ -83,10 +83,7 @@ public class IndustrialMixer extends Block {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
-            TileIndustrialMixer tile = this.getTileEntity(worldIn, pos);
-            if (tile != null) {
-                player.openGui(AbstractRPG.instance, 13, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            }
+            player.openGui(AbstractRPG.instance, 13, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
 
         return true;

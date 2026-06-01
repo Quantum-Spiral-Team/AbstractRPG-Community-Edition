@@ -38,45 +38,62 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class ItemBullet extends Item {
 
-    public static List<ItemBullet> bulletsRegister = new ArrayList<>();
-    public float damage = 0.0F;
-    public float knockback = 0.0F;
+    public static final Set<ItemBullet> BULLETS_REGISTRY = new HashSet<>();
+    protected float damage;
+    protected float knockback;
     public float colorR = 1.0F;
     public float colorG = 1.0F;
     public float colorB = 1.0F;
-    public String NBTname = "";
+    public final String NBTName;
     public int id = 0;
-    public static ResourceLocation thundertex = new ResourceLocation("arpg:textures/lightning1.png");
-    public static ResourceLocation crystal_scatter = new ResourceLocation("arpg:textures/crystal_scatter.png");
-    public static ResourceLocation[] present = new ResourceLocation[]{new ResourceLocation("arpg:textures/present_random_1.png"), new ResourceLocation("arpg:textures/present_random_2.png"), new ResourceLocation("arpg:textures/present_random_3.png"), new ResourceLocation("arpg:textures/present_random_4.png"), new ResourceLocation("arpg:textures/present_random_5.png"), new ResourceLocation("arpg:textures/blob.png"), new ResourceLocation("arpg:textures/fireball3.png"), new ResourceLocation("arpg:textures/firework_sparkle.png"), new ResourceLocation("arpg:textures/frostlight.png"), new ResourceLocation("arpg:textures/health_icon.png"), new ResourceLocation("arpg:textures/light.png"), new ResourceLocation("arpg:textures/magic_powder.png"), new ResourceLocation("arpg:textures/manamax_icon.png"), new ResourceLocation("arpg:textures/snowflake.png"), new ResourceLocation("arpg:textures/snowflake3.png"), new ResourceLocation("arpg:textures/spellblue3.png"), new ResourceLocation("arpg:textures/vortex.png")};
+    private static byte registryId = 0;
+    public static final ResourceLocation THUNDER_TEXTURE = new ResourceLocation("arpg:textures/lightning1.png");
+    public static final ResourceLocation CRYSTAL_SCATTER_TEXTURE = new ResourceLocation("arpg:textures/crystal_scatter.png");
+    public static final ResourceLocation[] PRESENT = new ResourceLocation[]{
+            new ResourceLocation("arpg:textures/present_random_1.png"),
+            new ResourceLocation("arpg:textures/present_random_2.png"),
+            new ResourceLocation("arpg:textures/present_random_3.png"),
+            new ResourceLocation("arpg:textures/present_random_4.png"),
+            new ResourceLocation("arpg:textures/present_random_5.png"),
+            new ResourceLocation("arpg:textures/blob.png"),
+            new ResourceLocation("arpg:textures/fireball3.png"),
+            new ResourceLocation("arpg:textures/firework_sparkle.png"),
+            new ResourceLocation("arpg:textures/frostlight.png"),
+            new ResourceLocation("arpg:textures/health_icon.png"),
+            new ResourceLocation("arpg:textures/light.png"),
+            new ResourceLocation("arpg:textures/magic_powder.png"),
+            new ResourceLocation("arpg:textures/manamax_icon.png"),
+            new ResourceLocation("arpg:textures/snowflake.png"),
+            new ResourceLocation("arpg:textures/snowflake3.png"),
+            new ResourceLocation("arpg:textures/spellblue3.png"),
+            new ResourceLocation("arpg:textures/vortex.png")
+    };
 
-    public ItemBullet(String name, CreativeTabs tab, int maxstacksize, float damage, float knockback) {
+    public ItemBullet(String name, CreativeTabs tab, int maxStackSize, float damage, float knockback) {
         this.setRegistryName(name);
         this.setCreativeTab(tab);
         this.setTranslationKey(name);
-        this.setMaxStackSize(maxstacksize);
+        this.setMaxStackSize(maxStackSize);
         this.damage = damage;
         this.knockback = knockback;
-        this.NBTname = this.getNbtName();
+        this.NBTName = this.getNbtName();
     }
 
-    public ItemBullet(String name, String NBTname, int maxstacksize, float damage, float knockback, float colorR, float colorG, float colorB) {
+    public ItemBullet(String name, String NBTName, int maxStackSize, float damage, float knockback, float colorR, float colorG, float colorB) {
         this.setRegistryName(name);
         this.setCreativeTab(CreativeTabs.COMBAT);
         this.setTranslationKey(name);
-        this.setMaxStackSize(maxstacksize);
+        this.setMaxStackSize(maxStackSize);
         this.damage = damage;
         this.knockback = knockback;
         this.colorR = colorR;
         this.colorG = colorG;
         this.colorB = colorB;
-        this.NBTname = NBTname;
+        this.NBTName = NBTName;
     }
 
     public ItemBullet setId(int id) {
@@ -85,39 +102,33 @@ public class ItemBullet extends Item {
     }
 
     public static void init() {
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_COPPER).setId(1));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_SILVER).setId(2));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_LEAD).setId(3));
-        registerBullet(((ItemBullet) ItemsRegister.BULLE_TGOLD).setId(4));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_FROZEN).setId(5));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_INCENDIARY).setId(6));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_THUNDER).setId(7));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_POISONOUS).setId(8));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_TOXIC).setId(9));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_CRYSTAL).setId(10));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_EXPLODING).setId(11));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_FESTIVAL).setId(12));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_ADAMANTIUM).setId(13));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_NIVEOUS).setId(14));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_ERRATIC).setId(15));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_CORAL).setId(16));
-        registerBullet(((ItemBullet) ItemsRegister.BULLET_DIVING).setId(17));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_COPPER).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_SILVER).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_LEAD).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLE_TGOLD).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_FROZEN).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_INCENDIARY).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_THUNDER).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_POISONOUS).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_TOXIC).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_CRYSTAL).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_EXPLODING).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_FESTIVAL).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_ADAMANTIUM).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_NIVEOUS).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_ERRATIC).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_CORAL).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_DIVING).setId(registryId++));
 
-        for (ItemBullet bullet : bulletsRegister) {
+        for (ItemBullet bullet : BULLETS_REGISTRY) {
             bullet.damage = WeaponParameters.getWeaponParameters(bullet).getFloat("damage");
             bullet.knockback = WeaponParameters.getWeaponParameters(bullet).getFloat("knockback");
         }
     }
 
-    public static void registerBullet(ItemBullet item) {
-        if (!bulletsRegister.contains(item)) {
-            bulletsRegister.add(item);
-        }
-    }
-
     @Nullable
-    public static ItemBullet getItemBulletFromString(String st) {
-        for (ItemBullet bullet : bulletsRegister) {
+    public static ItemBullet getItemBulletFromNBTName(String st) {
+        for (ItemBullet bullet : BULLETS_REGISTRY) {
             if (bullet.getNbtName().equals(st)) {
                 return bullet;
             }
@@ -128,7 +139,7 @@ public class ItemBullet extends Item {
 
     @Nullable
     public static ItemBullet getItemBulletFromId(int id) {
-        for (ItemBullet bullet : bulletsRegister) {
+        for (ItemBullet bullet : BULLETS_REGISTRY) {
             if (bullet.id == id) {
                 return bullet;
             }
@@ -138,7 +149,15 @@ public class ItemBullet extends Item {
     }
 
     public String getNbtName() {
-        return this.NBTname;
+        return this.NBTName;
+    }
+
+    public float getDamage() {
+        return this.damage;
+    }
+
+    public float getKnockback() {
+        return this.knockback;
     }
 
     public boolean onImpact(World world, EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable Entity projectile) {
@@ -154,113 +173,134 @@ public class ItemBullet extends Item {
         }
     }
 
-    public void onProjectileUpdate(Entity projectile) {
+    public void onProjectileUpdate(Entity projectile) {}
+
+    @SideOnly(Side.CLIENT)
+    public static void onEffectPacket(World world, double x, double y, double z, double a, double b, double c, int id) {
+
+        Vec3d posVec = new Vec3d(x, y, z);
+
+        switch (id) {
+            case 1:
+                handleLaserEffect(world, posVec, new Vec3d(a, b, c));
+                break;
+            case 2:
+                handleCrystalScatterEffect(world, posVec, a, b);
+                break;
+            case 3:
+                world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, x, y, z, 1.0, 0.0, 0.0);
+                break;
+            case 4:
+                handleGunParticleEffect(world, x, y, z, a, b);
+                break;
+            case 5:
+                handleBulletEffect(world, posVec, new Vec3d(a, b, c));
+                break;
+        }
     }
 
-    public static void onEffectPacket(World world, double x, double y, double z, double a, double b, double c, int id) {
-        if (id == 1) {
-            Vec3d vect = new Vec3d(a, b, c);
-            Vec3d newvec = new Vec3d(x, y, z);
-            if (vect.lengthSquared() > 1.0E-6 && newvec.lengthSquared() > 1.0E-6) {
-                BetweenParticle laser = new BetweenParticle(world, thundertex, 0.45F, 240, 0.95F, 0.9F, 1.0F, 0.25F, vect.distanceTo(newvec), 6, 0.05F, 4.0F, vect, newvec);
-                laser.setPosition(vect.x, vect.y, vect.z);
+    @SideOnly(Side.CLIENT)
+    private static void handleLaserEffect(World world, Vec3d targetVec, Vec3d sourceVec) {
+        if (sourceVec.lengthSquared() > 1.0E-6 && targetVec.lengthSquared() > 1.0E-6) {
+            BetweenParticle laser = new BetweenParticle(world, THUNDER_TEXTURE, 0.45F, 240, 0.95F, 0.9F, 1.0F, 0.25F, sourceVec.distanceTo(targetVec), 6, 0.05F, 4.0F, sourceVec, targetVec);
+            laser.setPosition(sourceVec.x, sourceVec.y, sourceVec.z);
+            laser.alphaGlowing = true;
+            world.spawnEntity(laser);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void handleCrystalScatterEffect(World world, Vec3d origin, double seed, double entityId) {
+        EntityPlayer player = Minecraft.getMinecraft().player;
+        if (player == null) return;
+
+        Random rand = new Random((int) seed);
+        Entity impacted = world.getEntityByID((int) entityId);
+        EntityLivingBase target = (impacted instanceof EntityLivingBase) ? (EntityLivingBase) impacted : player;
+        double damageRadius = 0.35;
+
+        for (int i = 0; i < 8; i++) {
+            Vec3d targetVec = GetMOP.rotatedPosRayTrace(2.5, origin, target, damageRadius, 0.3, rand.nextInt(360) - 180, rand.nextInt(360) - 180);
+
+            if (targetVec.lengthSquared() > 1.0E-6 && origin.lengthSquared() > 1.0E-6) {
+                double distance = origin.distanceTo(targetVec);
+                float colorModifier = 1.0F - player.getRNG().nextFloat() / 10.0F;
+
+                BetweenParticle laser = new BetweenParticle(world, CRYSTAL_SCATTER_TEXTURE, 0.17F, 170, colorModifier, 0.7F, colorModifier, 0.17F, distance, 14, 0.0F, (float) distance * 40.0F, origin, targetVec);
+                laser.setPosition(origin.x, origin.y, origin.z);
                 laser.alphaGlowing = true;
                 world.spawnEntity(laser);
             }
         }
+    }
 
-        if (id == 2) {
-            double damageRadius = 0.35;
-            Random rand = new Random((int) a);
-            EntityPlayer player = Minecraft.getMinecraft().player;
-            Vec3d newvec = new Vec3d(x, y, z);
-            Entity impacted = world.getEntityByID((int) b);
-            if (player != null) {
-                for (int i = 0; i < 8; i++) {
-                    Vec3d vect = GetMOP.rotatedPosRayTrace(2.5, newvec, impacted != null && impacted instanceof EntityLivingBase ? (EntityLivingBase) impacted : player, 0.35, 0.3, rand.nextInt(360) - 180, rand.nextInt(360) - 180);
-                    if (vect.lengthSquared() > 1.0E-6 && newvec.lengthSquared() > 1.0E-6) {
-                        double dto = newvec.distanceTo(vect);
-                        BetweenParticle laser = new BetweenParticle(world, crystal_scatter, 0.17F, 170, 1.0F - player.getRNG().nextFloat() / 10.0F, 0.7F, 1.0F - player.getRNG().nextFloat() / 10.0F, 0.17F, dto, 14, 0.0F, (float) dto * 40.0F, newvec, vect);
-                        laser.setPosition(x, y, z);
-                        laser.alphaGlowing = true;
-                        world.spawnEntity(laser);
-                    }
-                }
+    @SideOnly(Side.CLIENT)
+    private static void handleGunParticleEffect(World world, double x, double y, double z, double textureIndex, double lightMode) {
+        BlockPos pos = new BlockPos(x, y, z);
+        int light;
+
+        if (itemRand.nextFloat() < 0.2) {
+            light = itemRand.nextInt(100) + 140;
+        } else {
+            int blockLight = (lightMode == 0.0) ? world.getLightFromNeighborsFor(EnumSkyBlock.BLOCK, pos) : world.getLightFor(EnumSkyBlock.BLOCK, pos);
+            int skyLight = (lightMode == 0.0) ? world.getLightFromNeighborsFor(EnumSkyBlock.SKY, pos) : world.getLightFor(EnumSkyBlock.SKY, pos);
+            light = Math.max(blockLight, skyLight) * 15;
+        }
+
+        float radius = 0.1F + (float) itemRand.nextGaussian() / 40.0F;
+
+        ResourceLocation texture = PRESENT[MathHelper.clamp((int) textureIndex, 0, PRESENT.length - 1)];
+
+        float colR = 0.65F + (float) itemRand.nextGaussian() / 3.0F;
+        float colG = 0.65F + (float) itemRand.nextGaussian() / 3.0F;
+        float colB = 0.65F + (float) itemRand.nextGaussian() / 3.0F;
+
+        float randX = itemRand.nextFloat() * 2.0F - 1.0F;
+        float randY = itemRand.nextFloat() * 2.0F - 1.0F;
+
+        float motionX = randX * radius;
+        float currentRadius = (float) Math.sqrt(radius * radius - motionX * motionX);
+        float motionY = randY * currentRadius;
+        float motionZ = (float) Math.sqrt(currentRadius * currentRadius - motionY * motionY);
+        if (itemRand.nextBoolean()) {
+            motionZ *= -1.0F;
+        }
+
+        int lifetime = 22 + itemRand.nextInt(10);
+        float scale = 0.09F + (float) itemRand.nextGaussian() / 30.0F;
+
+        GUNParticle particle = new GUNParticle(texture, scale, 0.025F, lifetime, light, world, x, y, z, motionX, motionY + 0.1F, motionZ, colR, colG, colB, false, itemRand.nextInt(360), false, 3.0F);
+        particle.dropMode = itemRand.nextFloat() < 0.3;
+        particle.tracker = ParticleTracker.dcinstance;
+
+        world.spawnEntity(particle);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void handleBulletEffect(World world, Vec3d from, Vec3d to) {
+        double radius = 0.1;
+        AxisAlignedBB aabb = new AxisAlignedBB(to.x - radius, to.y - radius, to.z - radius, to.x + radius, to.y + radius, to.z + radius);
+
+        boolean isColliding = world.collidesWithAnyBlock(aabb) || !world.checkNoEntityCollision(aabb);
+        int dustId = -1;
+
+        if (world.collidesWithAnyBlock(aabb)) {
+            IBlockState dustState = GetMOP.firstBlockStateContains(world, aabb, GetMOP.SOLID_BLOCKS);
+            if (dustState != null) {
+                dustId = Block.getStateId(dustState);
             }
         }
 
-        if (id == 3) {
-            world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, x, y, z, 1.0, 0.0, 0.0, new int[0]);
-        }
+        float distance = (float) from.distanceTo(to);
+        int particleAge = (int) MathHelper.clamp(distance / 1.2, 1.0, 6.0);
 
-        if (id == 4) {
-            BlockPos pos = new BlockPos(x, y, z);
-            int light = itemRand.nextFloat() < 0.2 ? itemRand.nextInt(100) + 140 : (b == 0.0 ? Math.max(world.getLightFromNeighborsFor(EnumSkyBlock.BLOCK, pos), world.getLightFromNeighborsFor(EnumSkyBlock.SKY, pos)) * 15 : Math.max(world.getLightFor(EnumSkyBlock.BLOCK, pos), world.getLightFor(EnumSkyBlock.SKY, pos)) * 15);
-            int countOfParticles = 5 + itemRand.nextInt(10);
-            float R = 0.1F + (float) itemRand.nextGaussian() / 40.0F;
-            boolean shouldDrop = itemRand.nextFloat() < 0.3;
-            ResourceLocation textureto = present[MathHelper.clamp((int) a, 0, present.length)];
-            boolean randColor = itemRand.nextFloat() < 0.2;
-            float colR = 0.0F;
-            float colG = 0.0F;
-            float colB = 0.0F;
-            if (!randColor) {
-                colR = 0.65F + (float) itemRand.nextGaussian() / 3.0F;
-                colG = 0.65F + (float) itemRand.nextGaussian() / 3.0F;
-                colB = 0.65F + (float) itemRand.nextGaussian() / 3.0F;
-            }
+        BulletParticle bullet = new BulletParticle(world, from, to, 0.2F, particleAge, 8, distance, 0.38F, 0.21F, 0.63F, isColliding);
+        bullet.smokeRed = 0.5F;
+        bullet.smokeGreen = 0.57F;
+        bullet.smokeBlue = 0.35F;
+        bullet.blockDustId = dustId;
 
-            for (int ix = 0; ix < countOfParticles; ix++) {
-                if (randColor) {
-                    colR = 0.65F + (float) itemRand.nextGaussian() / 3.0F;
-                    colG = 0.65F + (float) itemRand.nextGaussian() / 3.0F;
-                    colB = 0.65F + (float) itemRand.nextGaussian() / 3.0F;
-                }
-
-                float rand1 = itemRand.nextFloat() * 2.0F - 1.0F;
-                float rand2 = itemRand.nextFloat() * 2.0F - 1.0F;
-                float X = rand1 * R;
-                float new_R = (float) Math.sqrt(R * R - X * X);
-                float Y = rand2 * new_R;
-                float Z = (float) Math.sqrt(new_R * new_R - Y * Y);
-                if (itemRand.nextBoolean()) {
-                    Z *= -1.0F;
-                }
-
-                GUNParticle particle = new GUNParticle(textureto, 0.09F + (float) itemRand.nextGaussian() / 30.0F, 0.025F, 22 + itemRand.nextInt(10), light, world, x, y, z, X, Y + 0.1F, Z, colR, colG, colB, false, itemRand.nextInt(360), false, 3.0F);
-                particle.dropMode = shouldDrop;
-                particle.tracker = ParticleTracker.dcinstance;
-                world.spawnEntity(particle);
-            }
-        }
-
-        if (id == 5) {
-            Vec3d from = new Vec3d(x, y, z);
-            Vec3d to = new Vec3d(a, b, c);
-            double damageRadius = 0.1;
-            AxisAlignedBB aabb = new AxisAlignedBB(to.x - damageRadius, to.y - damageRadius, to.z - damageRadius, to.x + damageRadius, to.y + damageRadius, to.z + damageRadius);
-            boolean collidesWithAny = false;
-            int dustId = -1;
-            if (world.collidesWithAnyBlock(aabb)) {
-                collidesWithAny = true;
-                IBlockState dustState = GetMOP.firstBlockStateContains(world, aabb, GetMOP.SOLID_BLOCKS);
-                if (dustState != null) {
-                    dustId = Block.getStateId(dustState);
-                }
-            }
-
-            if (!world.checkNoEntityCollision(aabb)) {
-                collidesWithAny = true;
-            }
-
-            float dist = (float) from.distanceTo(to);
-            BulletParticle part = new BulletParticle(world, from, to, 0.2F, (int) MathHelper.clamp(dist / 1.2, 1.0, 6.0), 8, dist, 0.38F, 0.21F, 0.63F, collidesWithAny);
-            part.smokeRed = 0.5F;
-            part.smokeGreen = 0.57F;
-            part.smokeBlue = 0.35F;
-            part.blockDustId = dustId;
-            world.spawnEntity(part);
-        }
+        world.spawnEntity(bullet);
     }
 
     public static void sendEffectPacket(World world, double distance, double sendX, double sendY, double sendZ, double x, double y, double z, double a, double b, double c, int id) {
@@ -339,7 +379,7 @@ public class ItemBullet extends Item {
             int seed = world.rand.nextInt();
             Random rand = new Random(seed);
             Vec3d vec1 = new Vec3d(x, y, z);
-            EntityLivingBase impacted = result != null && result.entityHit != null && result.entityHit instanceof EntityLivingBase ? (EntityLivingBase) result.entityHit : (EntityLivingBase) GetMOP.findNearestEntityWithinAABB(world, EntityLivingBase.class, new AxisAlignedBB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5), vec1);
+            EntityLivingBase impacted = result != null && result.entityHit instanceof EntityLivingBase ? (EntityLivingBase) result.entityHit : (EntityLivingBase) GetMOP.findNearestEntityWithinAABB(world, EntityLivingBase.class, new AxisAlignedBB(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5), vec1);
             sendEffectPacket(world, 64.0, x, y, z, x, y, z, seed, impacted == null ? -1.0 : impacted.getEntityId(), 0.0, 2);
             if (!world.isRemote) {
                 float damageCrystals = WeaponParameters.getWeaponParameters(this).getFloat("damage_crystals");
@@ -382,13 +422,11 @@ public class ItemBullet extends Item {
 
         @Override
         public void onDamageCause(World world, EntityLivingBase damaget, EntityLivingBase player, @Nullable Entity projectile) {
-            if (player != null && damaget != null) {
-                if (damaget.getHealth() <= 0.0F && damaget.deathTime < 1) {
-                    Weapons.mixPotion(player, PotionEffects.SWIMMING, 120.0F, 1.0F, Weapons.EnumPotionMix.WITH_MAXIMUM, Weapons.EnumPotionMix.WITH_MAXIMUM, Weapons.EnumMathOperation.PLUS, Weapons.EnumMathOperation.PLUS, 1000, 4);
-                }
-
-                player.setAir(300);
+            if (damaget.getHealth() <= 0.0F && damaget.deathTime < 1) {
+                Weapons.mixPotion(player, PotionEffects.SWIMMING, 120.0F, 1.0F, Weapons.EnumPotionMix.WITH_MAXIMUM, Weapons.EnumPotionMix.WITH_MAXIMUM, Weapons.EnumMathOperation.PLUS, Weapons.EnumMathOperation.PLUS, 1000, 4);
             }
+
+            player.setAir(300);
         }
 
     }
@@ -460,22 +498,15 @@ public class ItemBullet extends Item {
             sendEffectPacket(world, 64.0, x, y, z, x, y, z, vec2.x, vec2.y, vec2.z, 5);
         }
 
-        public float getFrontRicochetOffset(EnumFacing facing, Axis x_y_or_z) {
-            if (x_y_or_z == Axis.X) {
-                if (facing.getAxis() == Axis.X) {
-                    return facing.getXOffset();
-                }
-            } else if (x_y_or_z == Axis.Y) {
-                if (facing.getAxis() == Axis.Y) {
-                    return facing.getYOffset();
-                }
-            } else if (x_y_or_z == Axis.X && facing.getAxis() == Axis.X) {
+        public float getFrontRicochetOffset(EnumFacing facing, Axis axis) {
+            if (axis == Axis.X && facing.getAxis() == Axis.X) {
                 return facing.getXOffset();
+            } else if (axis == Axis.Y && facing.getAxis() == Axis.Y) {
+                return facing.getYOffset();
             }
 
             return itemRand.nextFloat() * 2.0F - 1.0F;
         }
-
     }
 
     public static class BulletExploding extends ItemBullet {
@@ -520,9 +551,9 @@ public class ItemBullet extends Item {
         @Override
         public boolean onImpact(World world, EntityLivingBase player, double x, double y, double z, @Nullable RayTraceResult result, @Nullable Entity projectile) {
             if (result != null && result.hitVec != null) {
-                sendEffectPacket(world, 32.0, x, y, z, result.hitVec.x, result.hitVec.y, result.hitVec.z, itemRand.nextInt(present.length), projectile == null ? 0.0 : 1.0, 0.0, 4);
+                sendEffectPacket(world, 32.0, x, y, z, result.hitVec.x, result.hitVec.y, result.hitVec.z, itemRand.nextInt(PRESENT.length), projectile == null ? 0.0 : 1.0, 0.0, 4);
             } else {
-                sendEffectPacket(world, 32.0, x, y, z, x, y, z, itemRand.nextInt(present.length), projectile == null ? 0.0 : 1.0, 0.0, 4);
+                sendEffectPacket(world, 32.0, x, y, z, x, y, z, itemRand.nextInt(PRESENT.length), projectile == null ? 0.0 : 1.0, 0.0, 4);
             }
 
             return true;

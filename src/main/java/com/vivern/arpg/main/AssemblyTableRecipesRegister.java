@@ -295,7 +295,7 @@ public class AssemblyTableRecipesRegister {
         addRecipe(new Ingridient.IngridientItem("arpg:frostfire_explosive", 2, 0, false), 4000, new Ingridient.IngridientItem("minecraft:bucket", 1, 0, false), 80, new Ingridient.IngridientItem("nuggetAluminum", 1), new Ingridient.IngridientItem("arpg:conifer_rosin", 1, 0, false), new Ingridient.IngridientItem("nuggetAluminum", 1), new Ingridient.IngridientItem("arpg:cryogen_cell", 1, 0, false), new Ingridient.IngridientFluidBucket("cryon"), new Ingridient.IngridientItem("arpg:cryogen_cell", 1, 0, false), new Ingridient.IngridientItem("nuggetAluminum", 1), new Ingridient.IngridientItem("arpg:conifer_rosin", 1, 0, false), new Ingridient.IngridientItem("nuggetAluminum", 1));
         addRecipe(new Ingridient.IngridientItem("arpg:mini_nuke", 1, 0, false), 40000, EM, 100, EM, new Ingridient.IngridientItem("dustRedstone", 1), EM, new Ingridient.IngridientItem("arpg:uranium_ingot", 1, 0, false), new Ingridient.IngridientItem("arpg:dark_rust_metal", 1, 0, false), new Ingridient.IngridientItem("arpg:uranium_ingot", 1, 0, false), EM, new Ingridient.IngridientItem("gunpowder", 1), EM, new AssemblyTableRecipe.AugmentCost(WELD, new Ingridient.IngridientItem("arpg:copper_wire", 1, 0, false)));
 
-        for (ItemBullet bullet : ItemBullet.bulletsRegister) {
+        for (ItemBullet bullet : ItemBullet.BULLETS_REGISTRY) {
             Ingridient.IngridientItem resultAdamantium = new Ingridient.IngridientItem("arpg:adamantium_rounds", 5, 0, false);
             Ingridient.IngridientItem resulBuckshot = new Ingridient.IngridientItem("arpg:buckshot", 12, 0, false);
             String name = bullet.getNbtName();

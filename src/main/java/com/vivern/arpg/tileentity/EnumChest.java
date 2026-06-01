@@ -18,15 +18,18 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public enum EnumChest {
-    FROZEN(  "frozen",  180, () -> BlocksRegister.CHEST_FROZEN,  SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
-    TOXIC(   "toxic",   200, () -> BlocksRegister.CHEST_TOXIC,   SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
-    RUSTED(  "rusted",  0,   () -> BlocksRegister.CHEST_RUSTED,  Sounds.chest_open_metal,      Sounds.chest_close_metal),
-    CRYSTAL( "crystal", 230, () -> BlocksRegister.CHEST_CRYSTAL, Sounds.chest_open_stone,      Sounds.chest_close_stone),
-    ROTTEN(  "rotten",  0,   () -> BlocksRegister.CHEST_ROTTEN,  SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
-    SUNKEN(  "sunken",  210, () -> BlocksRegister.CHEST_SUNKEN,  SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
-    CORAL(   "coral",   190, () -> BlocksRegister.CHEST_CORAL,   Sounds.chest_open_stone,      Sounds.chest_close_stone),
+    FROZEN("frozen", 180, () -> BlocksRegister.CHEST_FROZEN, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
+    TOXIC("toxic", 200, () -> BlocksRegister.CHEST_TOXIC, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
+    RUSTED("rusted", 0,   () -> BlocksRegister.CHEST_RUSTED, Sounds.METAL_CHEST_OPEN, Sounds.METAL_CHEST_CLOSE),
+    CRYSTAL("crystal", 230, () -> BlocksRegister.CHEST_CRYSTAL, Sounds.STONE_CHEST_OPEN, Sounds.STONE_CHEST_CLOSE),
+    ROTTEN("rotten", 0,   () -> BlocksRegister.CHEST_ROTTEN, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
+    SUNKEN("sunken", 210, () -> BlocksRegister.CHEST_SUNKEN, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE),
+    CORAL("coral", 190, () -> BlocksRegister.CHEST_CORAL, Sounds.STONE_CHEST_OPEN, Sounds.STONE_CHEST_CLOSE),
 
-    STORM(   "storm",   240, () -> BlocksRegister.CHEST_STORM,   Sounds.chest_open_plasma,     Sounds.chest_close_plasma);
+    STORM("storm", 240, () -> BlocksRegister.CHEST_STORM, Sounds.PLASMA_CHEST_OPEN, Sounds.PLASMA_CHEST_CLOSE),
+
+    DEFAULT,
+    ;
 
     private final ResourceLocation texture;
     private final int light;
@@ -37,6 +40,14 @@ public enum EnumChest {
     private static final EnumChest[] VALUES = values();
     @SideOnly(Side.CLIENT)
     private static List<ModelEntry> modelEntries;
+
+    EnumChest() {
+        this.texture = new ResourceLocation(Tags.MOD_ID, "textures/arpg_chest_tex.png");
+        this.light = 0;
+        this.soundOpen = SoundEvents.BLOCK_CHEST_OPEN;
+        this.soundClose = SoundEvents.BLOCK_CHEST_CLOSE;
+        this.blockSupplier = () -> Blocks.CHEST;
+    }
 
     EnumChest(String name, int light, Supplier<Block> blockSupplier, SoundEvent soundOpen, SoundEvent soundClose) {
         this.texture = new ResourceLocation(Tags.MOD_ID, "textures/chest_" + name + ".png");

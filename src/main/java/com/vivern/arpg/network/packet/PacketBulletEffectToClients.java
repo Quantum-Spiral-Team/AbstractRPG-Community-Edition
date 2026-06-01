@@ -19,7 +19,7 @@ public class PacketBulletEffectToClients extends Packet {
     double a = 0.0;
     double b = 0.0;
     double c = 0.0;
-    int id = 0;
+    byte id = 0;
 
     public void writeArgs(double x, double y, double z, double a, double b, double c, int id) {
         this.buf().writeDouble(x);
@@ -28,7 +28,7 @@ public class PacketBulletEffectToClients extends Packet {
         this.buf().writeDouble(a);
         this.buf().writeDouble(b);
         this.buf().writeDouble(c);
-        this.buf().writeInt(id);
+        this.buf().writeByte(id);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class PacketBulletEffectToClients extends Packet {
         this.a = buffer.readDouble();
         this.b = buffer.readDouble();
         this.c = buffer.readDouble();
-        this.id = buffer.readInt();
+        this.id = buffer.readByte();
     }
 
     @Override

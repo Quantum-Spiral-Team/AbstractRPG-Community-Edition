@@ -98,7 +98,7 @@ public class CooledRifle extends ItemWeapon {
                             projectile.knockback = parameters.getEnchantedF("knockback_shotgun", impulse);
                             projectile.weaponstack = itemstack;
                             String bulletname = NBTHelper.GetNBTstring(itemstack, "bulletshotgun");
-                            ItemBullet bullet = ItemBullet.getItemBulletFromString(bulletname);
+                            ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(bulletname);
                             projectile.bullet = bullet;
                             world.spawnEntity(projectile);
                         }
@@ -108,7 +108,7 @@ public class CooledRifle extends ItemWeapon {
                         if (ammo > 0 && this.isReloaded(itemstack)) {
                             if (!player.getCooldownTracker().hasCooldown(this)) {
                                 String bulletname = NBTHelper.GetNBTstring(itemstack, "bullet");
-                                ItemBullet bullet = ItemBullet.getItemBulletFromString(bulletname);
+                                ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(bulletname);
                                 boolean nonullbullet = bullet != null;
                                 float damageadd = 0.0F;
                                 float knockbackadd = 0.0F;

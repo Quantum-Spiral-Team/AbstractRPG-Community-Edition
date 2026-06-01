@@ -26,9 +26,7 @@ public class CustomPlantSeedEatable extends ItemFood {
         this.setCreativeTab(CreativeTabs.MISC);
         this.setTranslationKey(plant.getRegistryName() + "_seed");
         this.plant = plant;
-        if (potion != null) {
-            this.setPotionEffect(new PotionEffect(potion, dur, amp), effectChance);
-        }
+        this.setPotionEffect(new PotionEffect(potion, dur, amp), effectChance);
     }
 
     @Override

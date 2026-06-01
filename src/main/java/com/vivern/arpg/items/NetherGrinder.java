@@ -81,7 +81,7 @@ public class NetherGrinder extends ItemWeapon {
                             player.addStat(StatList.getObjectUseStats(this));
                             IWeapon.fireBomEffect(this, player, world, 0);
                             Weapons.setPlayerAnimationOnServer(player, 12, EnumHand.MAIN_HAND);
-                            ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(itemstack, "bullet"));
+                            ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(NBTHelper.GetNBTstring(itemstack, "bullet"));
                             NetherGrinderBullet projectile = new NetherGrinderBullet(world, player, itemstack);
                             Weapons.shoot(projectile, EnumHand.MAIN_HAND, player, player.rotationPitch, player.rotationYaw, 0.2F, parameters.getFloat("velocity"), parameters.getEnchantedF("inaccuracy", acc), -0.2F, 0.5F, 0.2F);
                             if (bullet != null) {

@@ -999,7 +999,7 @@ public class HostileProjectiles {
 
             if (result.entityHit != null) {
                 if (Team.checkIsOpponent(this.thrower, result.entityHit) && !this.world.isRemote) {
-                    float bdamage = this.bullet == null ? this.damage : this.damage + this.bullet.damage;
+                    float bdamage = this.bullet == null ? this.damage : this.damage + this.bullet.getDamage();
                     Weapons.dealDamage(new WeaponDamage(null, this.getThrower(), this, false, true, this, WeaponDamage.bullet), bdamage, this.getThrower(), result.entityHit, true, 0.6F);
                     if (result.entityHit instanceof EntityLivingBase) {
                         EntityLivingBase entitylivingbase = (EntityLivingBase) result.entityHit;
@@ -1139,8 +1139,8 @@ public class HostileProjectiles {
                 if (result.entityHit != null) {
                     if (Team.checkIsOpponent(this.thrower, result.entityHit)) {
                         WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
-                        float bdamage = this.bullet == null ? this.damage : this.damage + this.bullet.damage * parameters.getFloat("bullet_damage");
-                        float bknockback = this.bullet == null ? this.knockback : this.knockback + this.bullet.knockback * parameters.getFloat("bullet_knockback");
+                        float bdamage = this.bullet == null ? this.damage : this.damage + this.bullet.getDamage() * parameters.getFloat("bullet_damage");
+                        float bknockback = this.bullet == null ? this.knockback : this.knockback + this.bullet.getKnockback() * parameters.getFloat("bullet_knockback");
                         Weapons.dealDamage(new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.bullet), bdamage, this.getThrower(), result.entityHit, true, bknockback);
                         if (this.bullet != null) {
                             this.bullet.onDamageCause(this.world, result.entityHit, this.getThrower(), this);

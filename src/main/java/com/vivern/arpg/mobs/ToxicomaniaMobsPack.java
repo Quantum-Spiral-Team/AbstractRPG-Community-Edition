@@ -2426,7 +2426,7 @@ public class ToxicomaniaMobsPack {
             }
 
             if (compound.hasKey("bullettype")) {
-                this.bullets = ItemBullet.getItemBulletFromString(compound.getString("bullettype"));
+                this.bullets = ItemBullet.getItemBulletFromNBTName(compound.getString("bullettype"));
             }
 
             super.readFromNBT(compound);

@@ -78,7 +78,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
                 if (click && player.getHeldItemMainhand() == itemstack) {
                     if (ammo > 0 && this.isReloaded(itemstack)) {
                         if (!player.getCooldownTracker().hasCooldown(this)) {
-                            ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(itemstack, "bullet"));
+                            ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(NBTHelper.GetNBTstring(itemstack, "bullet"));
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.coral_rifle, SoundCategory.AMBIENT, 0.9F, 1.2F + itemRand.nextFloat() / 5.0F);
                             player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                             player.addStat(StatList.getObjectUseStats(this));

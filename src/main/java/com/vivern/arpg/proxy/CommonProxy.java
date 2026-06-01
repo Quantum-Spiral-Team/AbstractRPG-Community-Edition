@@ -48,11 +48,11 @@ public class CommonProxy {
         this.addEnchType();
         ShardType.registerElements();
         AnimationCapabilityProvider.register();
+        PotionEffects.RegisterPotions();
         WeaponParameters.registerAll();
         Soul.registerSoul();
         BlocksRegister.registerBlocks();
         BiomesRegister.registerBiomes();
-        PotionEffects.RegisterPotions();
         AdvancedMobEffects.init();
         PacketHandler.packetHandlerRegister();
         PyrocrystallineRecipe.init();

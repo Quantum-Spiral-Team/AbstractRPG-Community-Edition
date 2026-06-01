@@ -77,7 +77,7 @@ public class CoralRifleBullet extends StandardBullet implements ISynchronizedEnt
     @Override
     public void onUpdate() {
         super.onUpdate();
-        ItemBullet bullet = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(this.weaponstack, "bullet"));
+        ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(NBTHelper.GetNBTstring(this.weaponstack, "bullet"));
         if (bullet != null) {
             bullet.onProjectileUpdate(this);
         }
@@ -127,8 +127,8 @@ public class CoralRifleBullet extends StandardBullet implements ISynchronizedEnt
                 float bdamage = parameters.getEnchantedF("damage", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, this.weaponstack));
                 float bknockback = parameters.getEnchantedF("knockback", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.IMPULSE, this.weaponstack));
                 if (this.bullet != null) {
-                    bdamage += this.bullet.damage * parameters.getFloat("bullet_damage");
-                    bknockback += this.bullet.knockback * parameters.getFloat("bullet_knockback");
+                    bdamage += this.bullet.getDamage() * parameters.getFloat("bullet_damage");
+                    bknockback += this.bullet.getKnockback() * parameters.getFloat("bullet_knockback");
                 }
 
                 Weapons.dealDamage(new WeaponDamage(this.weaponstack, this.getThrower(), this, false, true, this, WeaponDamage.bullet), bdamage, this.getThrower(), result.entityHit, true, bknockback);

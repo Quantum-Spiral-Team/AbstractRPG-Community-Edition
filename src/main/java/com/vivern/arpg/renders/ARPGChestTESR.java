@@ -11,9 +11,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 @SideOnly(Side.CLIENT)
 public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
@@ -23,11 +23,10 @@ public class ARPGChestTESR extends TileEntitySpecialRenderer<TileARPGChest> {
     public static BigChestModel modelBig = new BigChestModel();
     public static StormChestModel modelStorm = new StormChestModel();
     public static StormBigChestModel modelBigStorm = new StormBigChestModel();
-    public static ResourceLocation TEXTURE = new ResourceLocation("arpg:textures/arpg_chest_tex.png");
 
     @Override
-    public void render(TileARPGChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        EnumChest chestType = te.type;
+    public void render(@Nullable TileARPGChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        EnumChest chestType = te == null ? reservedChestType : te.type;
         this.render(te, x, y, z, partialTicks, destroyStage, alpha, chestType);
     }
 

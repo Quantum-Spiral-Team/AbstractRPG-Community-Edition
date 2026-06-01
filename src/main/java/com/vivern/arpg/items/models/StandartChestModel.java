@@ -6,9 +6,13 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
+@SideOnly(Side.CLIENT)
 public class StandartChestModel extends ModelBase {
 
     public ModelRenderer chestLock1;
@@ -209,7 +213,7 @@ public class StandartChestModel extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+    public void render(@Nullable Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         for (ModelRenderer modelRenderer : this.lids) {
             modelRenderer.rotateAngleX = f4;
         }

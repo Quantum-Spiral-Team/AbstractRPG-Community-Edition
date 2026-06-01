@@ -1,5 +1,6 @@
 package com.vivern.arpg.blocks;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.items.CustomPlantSeed;
 import com.vivern.arpg.items.CustomPlantSeedEatable;
 import com.vivern.arpg.main.BlocksRegister;
@@ -47,11 +48,23 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
     public int minLightForGrow;
     public int maxLightForGrow;
     public float growChance;
-    public @Nullable Item seed = null;
+    public Item seed;
     public int modelType;
     public int seedRadiation = 0;
 
-    public CustomPlant(String name, float hardnessResistance, float lightLvl, SoundType soundType, AxisAlignedBB collisionAabb, Block[] groundBlocks, boolean canUseBoneMeal, String drops, int minLightForGrow, int maxLightForGrow, float growChance, int modelType) {
+    public CustomPlant(String name,
+                       float hardnessResistance,
+                       float lightLvl,
+                       SoundType soundType,
+                       AxisAlignedBB collisionAabb,
+                       Block[] groundBlocks,
+                       boolean canUseBoneMeal,
+                       String drops,
+                       int minLightForGrow,
+                       int maxLightForGrow,
+                       float growChance,
+                       int modelType
+    ) {
         super(Material.PLANTS);
         this.setRegistryName(name);
         this.setTranslationKey(name);
@@ -75,7 +88,7 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
         CustomPlant plant = new CustomPlant(name, hardnessResistance, lightLvl, soundType, collisionAabb, groundBlocks, canUseBoneMeal, drops, minLightForGrow, maxLightForGrow, growChance, modelType);
         Item seed = seedEatable > 0 ? new CustomPlantSeedEatable(plant, seedEatable, potion, dur, amp, effectChance) : new CustomPlantSeed(plant);
         plant.seed = seed;
-        CreateItemFile.customPlantResLocationCreate(plant, modelType);
+//        CreateItemFile.customPlantResLocationCreate(plant, modelType); DEBUG method
         BlocksRegister.FOR_RENDER.add(plant);
         ItemsRegister.FOR_RENDER.add(seed);
         return plant;
@@ -133,7 +146,11 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
                 int minCount = Integer.parseInt(words[1]);
                 int maxCount = Integer.parseInt(words[2]);
                 int meta = Integer.parseInt(words[3]);
-                lastDrops.add(new ItemStack(item, minCount + RANDOM.nextInt(maxCount - minCount + 1), meta));
+                if (item == null) {
+                    AbstractRPG.LOGGER.warn("[{}] Item with name ot ID {} not found!", CustomPlant.class.getSimpleName(), words[0]);
+                } else {
+                    lastDrops.add(new ItemStack(item, minCount + RANDOM.nextInt(maxCount - minCount + 1), meta));
+                }
             }
         } else if (RANDOM.nextFloat() < 0.7) {
             lastDrops.add(new ItemStack(this.seed, 1));

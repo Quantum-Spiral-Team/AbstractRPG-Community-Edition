@@ -81,7 +81,7 @@ public class ToxiniumShotgun extends ItemWeapon {
                     if (ammo > 0 && this.isReloaded(itemstack)) {
                         if (!hascooldown) {
                             String bulletname = NBTHelper.GetNBTstring(itemstack, "bullet");
-                            ItemBullet bullet = ItemBullet.getItemBulletFromString(bulletname);
+                            ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(bulletname);
                             boolean nonullbullet = bullet != null;
                             float damageadd = 0.0F;
                             float knockbackadd = 0.0F;

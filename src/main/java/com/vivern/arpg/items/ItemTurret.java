@@ -56,7 +56,7 @@ public class ItemTurret extends Item {
                 turret.isAgressive = true;
                 turret.infinityAmmo = false;
                 turret.ammo = NBTHelper.GetNBTint(itemstack, "ammo");
-                turret.bullets = ItemBullet.getItemBulletFromString(NBTHelper.GetNBTstring(itemstack, "bullet"));
+                turret.bullets = ItemBullet.getItemBulletFromNBTName(NBTHelper.GetNBTstring(itemstack, "bullet"));
                 turret.enablePersistence();
                 turret.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack) / 2.0F);
                 itemstack.shrink(1);
