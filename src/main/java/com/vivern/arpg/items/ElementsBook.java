@@ -23,6 +23,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ElementsBook extends Item {
 
@@ -42,7 +44,7 @@ public class ElementsBook extends Item {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         if (!playerIn.getCooldownTracker().hasCooldown(ItemsRegister.ELEMENTS_BOOK)) {
             RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
-            if (raytraceresult != null && raytraceresult.typeOfHit == Type.BLOCK) {
+            if (raytraceresult.typeOfHit == Type.BLOCK) {
                 BlockPos blockpos = raytraceresult.getBlockPos();
                 TileEntity tentity = worldIn.getTileEntity(blockpos);
                 if (tentity != null) {
@@ -52,7 +54,7 @@ public class ElementsBook extends Item {
                             NBTTagList tagList = NBTHelper.GetNbtTagList(itemstack, "pages", 10);
                             if (tagList.tagCount() >= getMaxPagesCount()) {
                                 playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
-                                return new ActionResult(EnumActionResult.FAIL, itemstack);
+                                return new ActionResult<>(EnumActionResult.FAIL, itemstack);
                             }
 
                             NBTTagCompound itemInBook = new NBTTagCompound();
@@ -60,11 +62,11 @@ public class ElementsBook extends Item {
                             itemInBook.setInteger("metadata", splitter.lastDissolvedMetadata);
                             tagList.appendTag(itemInBook);
                             playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
-                            return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+                            return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
                         }
 
                         playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
-                        return new ActionResult(EnumActionResult.PASS, itemstack);
+                        return new ActionResult<>(EnumActionResult.PASS, itemstack);
                     }
 
                     if (tentity instanceof TileBookcase) {
@@ -72,24 +74,27 @@ public class ElementsBook extends Item {
                         if (bookcase.addBook(itemstack)) {
                             itemstack.shrink(1);
                             playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
-                            return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+                            return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
                         }
 
                         playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
-                        return new ActionResult(EnumActionResult.PASS, itemstack);
+                        return new ActionResult<>(EnumActionResult.PASS, itemstack);
                     }
                 }
             }
 
-            this.openGui(playerIn, itemstack);
+            if (worldIn.isRemote) {
+                this.openGui(playerIn, itemstack);
+            }
             playerIn.addStat(StatList.getObjectUseStats(this));
             playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
-            return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+            return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
         } else {
-            return new ActionResult(EnumActionResult.FAIL, itemstack);
+            return new ActionResult<>(EnumActionResult.FAIL, itemstack);
         }
     }
 
+    @SideOnly(Side.CLIENT) //TODO move to GuiHandler
     public void openGui(EntityPlayer player, ItemStack book) {
         if (player instanceof EntityPlayerSP) {
             Minecraft.getMinecraft().displayGuiScreen(new GUIBookOfElements(book));
