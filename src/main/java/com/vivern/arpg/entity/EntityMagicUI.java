@@ -499,7 +499,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
         }
 
         this.pressedLastTick = this.isPressedNow;
-        if (!ServerKeyTracker.isKeyPressed(this.lastPressingPlayer, ServerKeyTracker.Keys.USE)) {
+        if (this.lastPressingPlayer != null && !ServerKeyTracker.isKeyPressed(this.lastPressingPlayer, ServerKeyTracker.Keys.USE)) {
             this.isPressedNow = false;
         }
     }
