@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.BlockModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -281,6 +282,14 @@ public class ClientProxy extends CommonProxy {
             }
         } catch (IllegalArgumentException | IllegalAccessException var6) {
             LOGGER.fatal(var6);
+        }
+
+        LOGGER.debug("arpg | Applying reflection to GlStateManager.activeTextureUnit");
+
+        for (Field field : GlStateManager.class.getDeclaredFields()) {
+            if (field.getName().equals("activeTextureUnit") && !field.isAccessible()) {
+                field.setAccessible(true);
+            }
         }
     }
 

@@ -338,15 +338,6 @@ public class CommonProxy {
             }
         }
 
-        System.out.println("arpg | Applying reflection to GlStateManager.activeTextureUnit");
-        Field[] fieldss = GlStateManager.class.getDeclaredFields();
-
-        for (Field fieldx : fieldss) {
-            if (fieldx.getName() == "activeTextureUnit" && !fieldx.isAccessible()) {
-                fieldx.setAccessible(true);
-            }
-        }
-
         System.out.println("arpg | Adding other mods integration recipes");
         IntegrationHelper.addRecipes();
         System.out.println("arpg | Post init end");
