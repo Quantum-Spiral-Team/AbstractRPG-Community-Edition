@@ -46,7 +46,6 @@ public class AbstractRPG {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
-        PlayerAnimations.instance = new PlayerAnimations(Minecraft.getMinecraft());
     }
 
     @EventHandler

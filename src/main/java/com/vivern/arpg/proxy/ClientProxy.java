@@ -291,6 +291,8 @@ public class ClientProxy extends CommonProxy {
                 field.setAccessible(true);
             }
         }
+
+        PlayerAnimations.instance = new PlayerAnimations(Minecraft.getMinecraft());
     }
 
     @SubscribeEvent
