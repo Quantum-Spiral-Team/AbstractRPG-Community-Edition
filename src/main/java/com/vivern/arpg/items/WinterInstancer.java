@@ -34,7 +34,7 @@ public class WinterInstancer extends Instancer {
                 boolean snow = itemRand.nextFloat() < 0.4F;
                 float scl = 0.05F + itemRand.nextFloat() * 0.05F;
                 int lt = 5 + itemRand.nextInt(7);
-                GUNParticle part = new GUNParticle(snow ? snow1 : star, scl, 0.0F, lt, 200, world, partpos.x + (itemRand.nextFloat() - 0.5F) / 2.0F, partpos.y + (itemRand.nextFloat() - 0.5F) / 2.0F, partpos.z + (itemRand.nextFloat() - 0.5F) / 2.0F, 0.0F, 0.0F, 0.0F, snow ? 1.0F : 0.5F, 1.0F, 1.0F, true, itemRand.nextInt(360), true, 1.0F);
+                GUNParticle part = new GUNParticle(snow ? snow1 : STAR_TEXTURE, scl, 0.0F, lt, 200, world, partpos.x + (itemRand.nextFloat() - 0.5F) / 2.0F, partpos.y + (itemRand.nextFloat() - 0.5F) / 2.0F, partpos.z + (itemRand.nextFloat() - 0.5F) / 2.0F, 0.0F, 0.0F, 0.0F, snow ? 1.0F : 0.5F, 1.0F, 1.0F, true, itemRand.nextInt(360), true, 1.0F);
                 part.alphaGlowing = true;
                 part.scaleTickAdding = -scl / lt;
                 part.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.0F, 10.0F);
@@ -63,7 +63,7 @@ public class WinterInstancer extends Instancer {
                     boolean snow = itemRand.nextFloat() < 0.4F;
                     float scl = 0.05F + itemRand.nextFloat() * 0.05F;
                     int lt = 15 + itemRand.nextInt(10);
-                    GUNParticle part = new GUNParticle(snow ? snow1 : star, scl, 0.0F, lt, 200, world, result.hitVec.x, result.hitVec.y, result.hitVec.z, (float) itemRand.nextGaussian() / 20.0F, (float) itemRand.nextGaussian() / 20.0F, (float) itemRand.nextGaussian() / 20.0F, snow ? 1.0F : 0.5F, 1.0F, 1.0F, true, itemRand.nextInt(360));
+                    GUNParticle part = new GUNParticle(snow ? snow1 : STAR_TEXTURE, scl, 0.0F, lt, 200, world, result.hitVec.x, result.hitVec.y, result.hitVec.z, (float) itemRand.nextGaussian() / 20.0F, (float) itemRand.nextGaussian() / 20.0F, (float) itemRand.nextGaussian() / 20.0F, snow ? 1.0F : 0.5F, 1.0F, 1.0F, true, itemRand.nextInt(360));
                     part.alphaGlowing = true;
                     part.scaleTickAdding = -scl / lt;
                     part.tracker = tracker;

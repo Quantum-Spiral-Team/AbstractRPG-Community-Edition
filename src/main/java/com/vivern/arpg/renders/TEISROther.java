@@ -269,7 +269,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
             if (burning > 0) {
                 AbstractMobModel.light(240, false);
-                Minecraft.getMinecraft().renderEngine.bindTexture(Instancer.texturesAnimation[Math.min(burning - 1, Instancer.texturesAnimation.length - 1)]);
+                Minecraft.getMinecraft().renderEngine.bindTexture(Instancer.TEXTURES_ANIMATION[Math.min(burning - 1, Instancer.TEXTURES_ANIMATION.length - 1)]);
                 this.rollModel.render(null, openness, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F);
                 AbstractMobModel.returnlight();
             } else {

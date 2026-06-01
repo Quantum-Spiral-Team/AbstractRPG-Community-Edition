@@ -176,7 +176,7 @@ public class ItemSpellRoll extends ItemWeapon {
                         b = 1.0F;
                     }
 
-                    GUNParticle spelll = new GUNParticle(Instancer.pixel, scale, 0.0F, livetime, 240, world, spawnPoint.x + (itemRand.nextFloat() - 0.5) * 0.35, spawnPoint.y + (itemRand.nextFloat() - 0.5) * 0.35, spawnPoint.z + (itemRand.nextFloat() - 0.5) * 0.35, 0.0F, 0.07F, 0.0F, r, g, b, true, 0);
+                    GUNParticle spelll = new GUNParticle(Instancer.PIXEL_TEXTURE, scale, 0.0F, livetime, 240, world, spawnPoint.x + (itemRand.nextFloat() - 0.5) * 0.35, spawnPoint.y + (itemRand.nextFloat() - 0.5) * 0.35, spawnPoint.z + (itemRand.nextFloat() - 0.5) * 0.35, 0.0F, 0.07F, 0.0F, r, g, b, true, 0);
                     spelll.isPushedByLiquids = false;
                     spelll.alphaGlowing = true;
                     spelll.scaleTickAdding = -scale / livetime / 2.0F;

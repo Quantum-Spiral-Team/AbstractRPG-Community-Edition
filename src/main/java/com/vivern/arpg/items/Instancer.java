@@ -39,12 +39,27 @@ import java.util.List;
 
 public class Instancer extends ItemWeapon {
 
-    public static ResourceLocation star = new ResourceLocation("arpg:textures/star2.png");
-    public static ResourceLocation pixel = new ResourceLocation("arpg:textures/pixel.png");
-    public static ResourceLocation[] texturesAnimation = new ResourceLocation[]{new ResourceLocation("arpg:textures/summon_soul/soul1.png"), new ResourceLocation("arpg:textures/summon_soul/soul2.png"), new ResourceLocation("arpg:textures/summon_soul/soul3.png"), new ResourceLocation("arpg:textures/summon_soul/soul4.png"), new ResourceLocation("arpg:textures/summon_soul/soul5.png"), new ResourceLocation("arpg:textures/summon_soul/soul6.png"), new ResourceLocation("arpg:textures/summon_soul/soul7.png"), new ResourceLocation("arpg:textures/summon_soul/soul8.png"), new ResourceLocation("arpg:textures/summon_soul/soul9.png"), new ResourceLocation("arpg:textures/summon_soul/soul10.png"), new ResourceLocation("arpg:textures/summon_soul/soul11.png"), new ResourceLocation("arpg:textures/summon_soul/soul12.png"), new ResourceLocation("arpg:textures/summon_soul/soul13.png")};
-    public float carrySlowness = 1.0F;
-    public float deploySlowness = 1.0F;
-    public static HashMap<String, MovingSoundInstancer[]> soundsMap = new HashMap<>();
+    public static final ResourceLocation STAR_TEXTURE = new ResourceLocation("arpg:textures/star2.png");
+    public static final ResourceLocation PIXEL_TEXTURE = new ResourceLocation("arpg:textures/pixel.png");
+    public static final ResourceLocation[] TEXTURES_ANIMATION = new ResourceLocation[]{ //TODO .png.metadata animation
+            new ResourceLocation("arpg:textures/summon_soul/soul1.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul2.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul3.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul4.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul5.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul6.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul7.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul8.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul9.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul10.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul11.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul12.png"),
+            new ResourceLocation("arpg:textures/summon_soul/soul13.png")
+    };
+    public float carrySlowness;
+    public float deploySlowness;
+    @SideOnly(Side.CLIENT)
+    public static HashMap<String, MovingSoundInstancer[]> SOUNDS_MAP;
 
     public Instancer(String name, float carrySlowness, float deploySlowness, int maxDamage) {
         this.carrySlowness = carrySlowness;
@@ -56,21 +71,26 @@ public class Instancer extends ItemWeapon {
         this.setMaxStackSize(1);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void playMovingSound(EntityPlayer entity) {
+        if (SOUNDS_MAP == null) {
+            SOUNDS_MAP = new HashMap<>();
+        }
+
         String name = entity.getName();
-        if (soundsMap.containsKey(name)) {
-            MovingSoundInstancer[] sounds = soundsMap.get(name);
+        if (SOUNDS_MAP.containsKey(name)) {
+            MovingSoundInstancer[] sounds = SOUNDS_MAP.get(name);
             if (sounds[0].isDonePlaying() && sounds[1].isDonePlaying()) {
-                soundsMap.remove(name);
+                SOUNDS_MAP.remove(name);
             }
         }
 
-        if (!soundsMap.containsKey(name)) {
+        if (!SOUNDS_MAP.containsKey(name)) {
             MovingSoundInstancer sound1 = new MovingSoundInstancer(entity, true, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
             Minecraft.getMinecraft().getSoundHandler().playSound(sound1);
             MovingSoundInstancer sound2 = new MovingSoundInstancer(entity, false, SoundCategory.PLAYERS, 1.0F, 1.0F, true);
             Minecraft.getMinecraft().getSoundHandler().playSound(sound2);
-            soundsMap.put(name, new MovingSoundInstancer[]{sound1, sound2});
+            SOUNDS_MAP.put(name, new MovingSoundInstancer[]{sound1, sound2});
         }
     }
 
@@ -79,42 +99,40 @@ public class Instancer extends ItemWeapon {
     public void effect(EntityPlayer player, World world, double x, double y, double z, double a, double b, double c, double d1, double d2, double d3) {
         if (y == 0.0) {
             Entity entity = world.getEntityByID((int) x);
-            if (entity instanceof EntityPlayer) {
+            if (world.isRemote && entity instanceof EntityPlayer) {
                 playMovingSound((EntityPlayer) entity);
             }
         } else if (y == 1.0) {
             Entity entity = world.getEntityByID((int) x);
-            Entity entityplayer = world.getEntityByID((int) z);
-            if (entityplayer instanceof EntityPlayer) {
-                Render render = Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity.getClass());
-                if (render != null && render instanceof RenderLivingBase) {
-                    ModelBase model = ((RenderLivingBase) render).getMainModel();
-                    if (model != null) {
-                        EntityPlayer playerTo = (EntityPlayer) entityplayer;
-                        Vec3d partpos = this.getInstancerCorePoint(playerTo, playerTo.getPrimaryHand());
-                        ParticleTracker tracker = new ParticleTracker.TrackerFollowStaticPoint(partpos, true, 0.3F, 0.001F, 0.18F);
-                        float scl = 1.0F;
-                        int lt = 14;
-                        ModelledPartickle part = new ModelledPartickle(texturesAnimation[0], scl, 0.0F, lt, 240, world, entity.posX, entity.posY, entity.posZ, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, 0);
-                        part.setModel(model, entity);
-                        part.scaleTickAdding = -scl / 26.0F;
-                        part.tracker = tracker;
-                        part.setTextureAnimation(texturesAnimation, 1);
-                        world.spawnEntity(part);
-                        ParticleTracker tracker2 = new ParticleTracker.TrackerFollowStaticPoint(partpos, true, 0.3F, 0.002F, 0.25F);
+            Entity entityPlayer = world.getEntityByID((int) z);
+            if (entityPlayer instanceof EntityPlayer) {
+                Render<?> render = Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity.getClass());
+                if (render instanceof RenderLivingBase) {
+                    ModelBase model = ((RenderLivingBase<?>) render).getMainModel();
+                    EntityPlayer playerTo = (EntityPlayer) entityPlayer;
+                    Vec3d partpos = this.getInstancerCorePoint(playerTo, playerTo.getPrimaryHand());
+                    ParticleTracker tracker = new ParticleTracker.TrackerFollowStaticPoint(partpos, true, 0.3F, 0.001F, 0.18F);
+                    float scl = 1.0F;
+                    int lt = 14;
+                    ModelledPartickle part = new ModelledPartickle(TEXTURES_ANIMATION[0], scl, 0.0F, lt, 240, world, entity.posX, entity.posY, entity.posZ, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, true, 0);
+                    part.setModel(model, entity);
+                    part.scaleTickAdding = -scl / 26.0F;
+                    part.tracker = tracker;
+                    part.setTextureAnimation(TEXTURES_ANIMATION, 1);
+                    world.spawnEntity(part);
+                    ParticleTracker tracker2 = new ParticleTracker.TrackerFollowStaticPoint(partpos, true, 0.3F, 0.002F, 0.25F);
 
-                        for (int i = 0; i < entity.height * 4.0F; i++) {
-                            double posxx = entity.posX + (itemRand.nextFloat() - 0.5F) * entity.width;
-                            double posyy = entity.posY + itemRand.nextFloat() * entity.height;
-                            double poszz = entity.posZ + (itemRand.nextFloat() - 0.5F) * entity.width;
-                            float sclx = 0.0325F;
-                            int ltx = 15 + itemRand.nextInt(10);
-                            float col = itemRand.nextFloat();
-                            GUNParticle partx = new GUNParticle(pixel, sclx, 0.0F, ltx, 240, world, posxx, posyy, poszz, (float) itemRand.nextGaussian() / 8.0F, (float) itemRand.nextGaussian() / 8.0F, (float) itemRand.nextGaussian() / 8.0F, 1.0F - col * 0.35F, 1.0F - col * 0.2F, 1.0F, false, 0);
-                            partx.scaleTickAdding = -sclx / ltx;
-                            partx.tracker = tracker2;
-                            world.spawnEntity(partx);
-                        }
+                    for (int i = 0; i < entity.height * 4.0F; i++) {
+                        double posxx = entity.posX + (itemRand.nextFloat() - 0.5F) * entity.width;
+                        double posyy = entity.posY + itemRand.nextFloat() * entity.height;
+                        double poszz = entity.posZ + (itemRand.nextFloat() - 0.5F) * entity.width;
+                        float sclx = 0.0325F;
+                        int ltx = 15 + itemRand.nextInt(10);
+                        float col = itemRand.nextFloat();
+                        GUNParticle partx = new GUNParticle(PIXEL_TEXTURE, sclx, 0.0F, ltx, 240, world, posxx, posyy, poszz, (float) itemRand.nextGaussian() / 8.0F, (float) itemRand.nextGaussian() / 8.0F, (float) itemRand.nextGaussian() / 8.0F, 1.0F - col * 0.35F, 1.0F - col * 0.2F, 1.0F, false, 0);
+                        partx.scaleTickAdding = -sclx / ltx;
+                        partx.tracker = tracker2;
+                        world.spawnEntity(partx);
                     }
                 }
             }
@@ -126,7 +144,7 @@ public class Instancer extends ItemWeapon {
                 float scl = 0.0325F;
                 int lt = 18 + itemRand.nextInt(12);
                 float col = itemRand.nextFloat();
-                GUNParticle part = new GUNParticle(pixel, scl, 0.01F, lt, 240, world, posxx, posyy, poszz, (float) itemRand.nextGaussian() / 5.0F, (float) itemRand.nextGaussian() / 5.0F, (float) itemRand.nextGaussian() / 5.0F, 1.0F - col * 0.35F, 1.0F - col * 0.2F, 1.0F, true, 1);
+                GUNParticle part = new GUNParticle(PIXEL_TEXTURE, scl, 0.01F, lt, 240, world, posxx, posyy, poszz, (float) itemRand.nextGaussian() / 5.0F, (float) itemRand.nextGaussian() / 5.0F, (float) itemRand.nextGaussian() / 5.0F, 1.0F - col * 0.35F, 1.0F - col * 0.2F, 1.0F, true, 1);
                 part.scaleTickAdding = -scl / lt;
                 world.spawnEntity(part);
             }
@@ -191,7 +209,7 @@ public class Instancer extends ItemWeapon {
             for (int i = 0; i < 4; i++) {
                 float scl = 0.05F + itemRand.nextFloat() * 0.05F;
                 int lt = 5 + itemRand.nextInt(7);
-                GUNParticle part = new GUNParticle(star, scl, 0.0F, lt, 200, world, partpos.x + (itemRand.nextFloat() - 0.5F) / 2.0F, partpos.y + (itemRand.nextFloat() - 0.5F) / 2.0F, partpos.z + (itemRand.nextFloat() - 0.5F) / 2.0F, 0.0F, 0.0F, 0.0F, 1.0F, 0.4F, 0.2F, true, itemRand.nextInt(360), true, 1.0F);
+                GUNParticle part = new GUNParticle(STAR_TEXTURE, scl, 0.0F, lt, 200, world, partpos.x + (itemRand.nextFloat() - 0.5F) / 2.0F, partpos.y + (itemRand.nextFloat() - 0.5F) / 2.0F, partpos.z + (itemRand.nextFloat() - 0.5F) / 2.0F, 0.0F, 0.0F, 0.0F, 1.0F, 0.4F, 0.2F, true, itemRand.nextInt(360), true, 1.0F);
                 part.alphaGlowing = true;
                 part.scaleTickAdding = -scl / lt;
                 part.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.0F, 10.0F);
@@ -203,14 +221,14 @@ public class Instancer extends ItemWeapon {
             }
 
             Vec3d partpos = this.getInstancerCorePoint(player, player.getPrimaryHand());
-            ParticleTracker tracker = new ParticleTracker.TrackerFollowStaticPoint(partpos, true, 0.3F, 0.001F, 0.2F);
+            ParticleTracker<?> tracker = new ParticleTracker.TrackerFollowStaticPoint(partpos, true, 0.3F, 0.001F, 0.2F);
 
             for (int i = 0; i < 4; i++) {
                 RayTraceResult result = GetMOP.fixedRayTraceBlocks(world, player, 6.0, 0.4, false, false, true, false, player.rotationPitch + itemRand.nextInt(17) - 8.0F, player.rotationYaw + itemRand.nextInt(17) - 8.0F);
                 if (result != null && result.hitVec != null) {
                     float scl = 0.05F + itemRand.nextFloat() * 0.05F;
                     int lt = 15 + itemRand.nextInt(10);
-                    GUNParticle part = new GUNParticle(star, scl, 0.0F, lt, 200, world, result.hitVec.x, result.hitVec.y, result.hitVec.z, (float) itemRand.nextGaussian() / 20.0F, (float) itemRand.nextGaussian() / 20.0F, (float) itemRand.nextGaussian() / 20.0F, 1.0F, 0.4F, 0.2F, true, itemRand.nextInt(360));
+                    GUNParticle part = new GUNParticle(STAR_TEXTURE, scl, 0.0F, lt, 200, world, result.hitVec.x, result.hitVec.y, result.hitVec.z, (float) itemRand.nextGaussian() / 20.0F, (float) itemRand.nextGaussian() / 20.0F, (float) itemRand.nextGaussian() / 20.0F, 1.0F, 0.4F, 0.2F, true, itemRand.nextInt(360));
                     part.alphaGlowing = true;
                     part.scaleTickAdding = -scl / lt;
                     part.tracker = tracker;
@@ -299,33 +317,31 @@ public class Instancer extends ItemWeapon {
                                 if (allLeadersh + leadershipNeed <= playerleadership) {
                                     NBTTagCompound mobtag = entitytag.getCompoundTag("mob");
                                     Entity mob = this.getMob(world, mobtag, player.posX, player.posY, player.posZ);
-                                    if (mob != null) {
-                                        RayTraceResult result = GetMOP.rayTrace(world, 6.0, player, false);
-                                        if (result.hitVec != null) {
-                                            double posX = result.hitVec.x;
-                                            double posY = result.hitVec.y;
-                                            double posZ = result.hitVec.z;
-                                            if (result.sideHit != null) {
-                                                float offset = mob.width / 2.0F + 0.01F;
-                                                posX += result.sideHit.getXOffset() * offset;
-                                                posY += result.sideHit.getYOffset() * offset;
-                                                posZ += result.sideHit.getZOffset() * offset;
+                                    RayTraceResult result = GetMOP.rayTrace(world, 6.0, player, false);
+                                    if (result.hitVec != null) {
+                                        double posX = result.hitVec.x;
+                                        double posY = result.hitVec.y;
+                                        double posZ = result.hitVec.z;
+                                        if (result.sideHit != null) {
+                                            float offset = mob.width / 2.0F + 0.01F;
+                                            posX += result.sideHit.getXOffset() * offset;
+                                            posY += result.sideHit.getYOffset() * offset;
+                                            posZ += result.sideHit.getZOffset() * offset;
+                                        }
+
+                                        this.setupMobPos(world, mob, posX, posY, posZ);
+                                        if (world.spawnEntity(mob)) {
+                                            taglist.removeTag(index);
+                                            player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack) + (int) (leadershipNeed * this.deploySlowness));
+                                            NBTHelper.GiveNBTint(itemstack, 0, "leadershipHold");
+                                            NBTHelper.AddNBTint(itemstack, -leadershipNeed, "leadershipHold");
+                                            world.playSound(null, mob.posX, mob.posY, mob.posZ, Sounds.instancer_summon, SoundCategory.AMBIENT, 0.9F, 1.0F);
+                                            IWeapon.fireEffect(this, player, world, 64.0, mob.width, 2.0, mob.height, mob.posX, mob.posY, mob.posZ, 0.0, 0.0, 0.0);
+                                            if (!player.isCreative()) {
+                                                itemstack.damageItem(1, player);
                                             }
 
-                                            this.setupMobPos(world, mob, posX, posY, posZ);
-                                            if (world.spawnEntity(mob)) {
-                                                taglist.removeTag(index);
-                                                player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack) + (int) (leadershipNeed * this.deploySlowness));
-                                                NBTHelper.GiveNBTint(itemstack, 0, "leadershipHold");
-                                                NBTHelper.AddNBTint(itemstack, -leadershipNeed, "leadershipHold");
-                                                world.playSound(null, mob.posX, mob.posY, mob.posZ, Sounds.instancer_summon, SoundCategory.AMBIENT, 0.9F, 1.0F);
-                                                IWeapon.fireEffect(this, player, world, 64.0, mob.width, 2.0, mob.height, mob.posX, mob.posY, mob.posZ, 0.0, 0.0, 0.0);
-                                                if (!player.isCreative()) {
-                                                    itemstack.damageItem(1, player);
-                                                }
-
-                                                this.sendNewLeadership(world, player, allLeadersh + leadershipNeed);
-                                            }
+                                            this.sendNewLeadership(world, player, allLeadersh + leadershipNeed);
                                         }
                                     }
                                 } else {
@@ -421,14 +437,14 @@ public class Instancer extends ItemWeapon {
 
     public int calculateLeadershipForNonAbstractMob(EntityLiving entity) {
         float hpbonus = entity.getMaxHealth() / 20.0F;
-        double damagebonus = entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE) != null ? entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() / 5.0 : 0.0;
-        double speedbonus = entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED) != null ? entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() / 0.25 : 0.0;
-        double armorbonus = entity.getEntityAttribute(SharedMonsterAttributes.ARMOR) != null ? entity.getEntityAttribute(SharedMonsterAttributes.ARMOR).getAttributeValue() / 4.0 : 0.0;
-        double followrangebonus = entity.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE) != null ? entity.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue() / 64.0 : 0.0;
+        double damagebonus = entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() / 5.0;
+        double speedbonus = entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() / 0.25;
+        double armorbonus = entity.getEntityAttribute(SharedMonsterAttributes.ARMOR).getAttributeValue() / 4.0;
+        double followrangebonus = entity.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue() / 64.0;
         return (int) Math.max(hpbonus + damagebonus + speedbonus + armorbonus + followrangebonus, 1.0);
     }
 
-    public Entity getMob(World world, NBTTagCompound nbttagcompound, double x, double y, double z) {
+    public @Nullable Entity getMob(World world, NBTTagCompound nbttagcompound, double x, double y, double z) {
         double spawnRange = 2.0;
         return AnvilChunkLoader.readWorldEntityPos(nbttagcompound, world, x, y, z, false);
     }
