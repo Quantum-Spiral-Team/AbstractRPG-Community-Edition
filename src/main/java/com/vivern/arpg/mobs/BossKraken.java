@@ -61,7 +61,7 @@ public class BossKraken extends AbstractBoss implements ISynchronizedEntity, IMu
         this.defaultteam = AquaticaMobsPack.mobsteam;
         this.moveHelper = new AquaticaMobsPack.WaterMoveHelper(this);
         this.setattributes(4500.0, 100.0, 8.0, 0.04, 4.0, 5.0, 0.75, 0.3, 0.0, 0.0);
-        this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.KRAKEN_SKIN, 1.0F, 0, 12, 15, 0)});
+        this.registerLOOT(new MobDrop(ItemsRegister.KRAKEN_SKIN, 1.0F, 0, 12, 15, 0));
         this.ignoreFrustumCheck = true;
         if (world.isRemote) {
             this.var2 = 0.0F;
