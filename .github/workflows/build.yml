@@ -48,7 +48,6 @@ jobs:
           name: ${{ github.event.repository.name }}-jar
           path: build/libs/*.jar
           if-no-files-found: error
-          archive: false
 
   server_test:
     name: Server Test
