@@ -7,13 +7,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @EventBusSubscriber(modid = "arpg")
 public class MobRegister {
 
-    public static List<EntityEntry> toregister = new ArrayList<>();
+    private static final Set<EntityEntry> REGISTRY = new HashSet<>();
     public static int startid = 319;
     public static EntityEntry SUMMONED_BLAZE = EntityEntryBuilder.create().entity(SummonedBlaze.class).name("Summoned Blaze").id("summoned_blaze", 300).egg(16763648, 5509376).tracker(64, 1, true).build();
     public static EntityEntry GNATER = EntityEntryBuilder.create().entity(Gnater.class).name("Gnater").id("gnater", 301).egg(5456137, 8853769).tracker(64, 1, true).build();
@@ -39,9 +39,13 @@ public class MobRegister {
         DungeonMobsPack.init();
         event.getRegistry().registerAll(SUMMONED_BLAZE, GNATER, WHITE_SLIME, TROGLODYTE, MOONSHROOM, SMOKEDEMON, SUMMONED_SNOWMAN, BOSS_SPINE, BOSS_SPINE_SEGMENT, BOSS_SPINE_MINION, SNOWCLOD, NEXUS_CAP);
 
-        for (EntityEntry entry : toregister) {
+        for (EntityEntry entry : REGISTRY) {
             event.getRegistry().register(entry);
         }
+    }
+
+    public static void registerMob(EntityEntry entry) {
+        REGISTRY.add(entry);
     }
 
 }

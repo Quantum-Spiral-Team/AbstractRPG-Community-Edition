@@ -50,7 +50,8 @@ import java.util.UUID;
 
 public class ToxicomaniaMobsPack {
 
-    public static ModelBase NULL_MODEL = new SummonedSnowmanModel();
+//    @SideOnly(Side.CLIENT)
+//    public static ModelBase NULL_MODEL = new SummonedSnowmanModel();
     public static ResourceLocation NULL_TEX = new ResourceLocation("arpg:textures/no_texture.png");
 
     public static void init() {
@@ -76,6 +77,7 @@ public class ToxicomaniaMobsPack {
         AbstractMob.addToRegister(PoisonSpitter.class, "Poison Spitter", 4280136, 11393895);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void initRender() {
         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsToxicomaniaMob.Experiment9Model(), new ResourceLocation("arpg:textures/experiment9_model_tex.png"), 0.4F, Experiment9.class));
         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsToxicomaniaMob.VineChopsModel(), new ResourceLocation("arpg:textures/vine_chops_model_tex.png"), 1.0F, VineChops.class));

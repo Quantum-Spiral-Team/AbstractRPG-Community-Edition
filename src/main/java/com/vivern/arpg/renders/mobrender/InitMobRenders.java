@@ -5,13 +5,18 @@ import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.BossWinterFury;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@SideOnly(Side.CLIENT)
 public class InitMobRenders {
 
-    public static List<AbstractMob.RenderAbstractMobEntry> torender = new ArrayList<>();
+    public static Set<AbstractMob.RenderAbstractMobEntry> torender = new HashSet<>();
     public static SmokeDemonModel model1 = new SmokeDemonModel();
     public static ResourceLocation mobTexture1 = new ResourceLocation("arpg:textures/smoke_demon_model_tex.png");
     public static SummonedSnowmanModel model2 = new SummonedSnowmanModel();

@@ -102,16 +102,17 @@ public abstract class AbstractMob extends EntityMob implements IMultitexture {
         this.setSize(sizeWidth, sizeHeight);
     }
 
-    public static final void addToRegister(Class thismobClass, String name, int eggPrimary, int eggSecondary, int trackerRange, int updateFrequency) {
-        EntityEntry ENTRY = EntityEntryBuilder.create().entity(thismobClass).name(name).id(name.toLowerCase(Locale.ROOT).replace(" ", "_"), MobRegister.startid++).egg(eggPrimary, eggSecondary).tracker(trackerRange, updateFrequency, true).build();
-        MobRegister.toregister.add(ENTRY);
+    public static void addToRegister(Class<? extends Entity> thismobClass, String name, int eggPrimary, int eggSecondary, int trackerRange, int updateFrequency) {
+        EntityEntry entry = EntityEntryBuilder.create().entity(thismobClass).name(name).id(name.toLowerCase(Locale.ROOT).replace(" ", "_"), MobRegister.startid++).egg(eggPrimary, eggSecondary).tracker(trackerRange, updateFrequency, true).build();
+        MobRegister.registerMob(entry);
     }
 
-    public static final void addToRegister(Class thismobClass, String name, int eggPrimary, int eggSecondary) {
+    public static void addToRegister(Class<? extends Entity> thismobClass, String name, int eggPrimary, int eggSecondary) {
         addToRegister(thismobClass, name, eggPrimary, eggSecondary, 64, 1);
     }
 
-    public static final void addToRender(RenderAbstractMobEntry entry) {
+    @SideOnly(Side.CLIENT)
+    public static void addToRender(RenderAbstractMobEntry entry) {
         InitMobRenders.torender.add(entry);
     }
 
