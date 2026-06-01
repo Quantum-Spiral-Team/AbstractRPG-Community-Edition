@@ -22,7 +22,7 @@ public class PacketTFRPuzzleToClients extends Packet {
     @Override
     public void fromBytes(ByteBuf buf) {
         this.tagCompound = ByteBufUtils.readTag(buf);
-        this.buf = buf;
+        this.setBuf(buf);
     }
 
     @Override

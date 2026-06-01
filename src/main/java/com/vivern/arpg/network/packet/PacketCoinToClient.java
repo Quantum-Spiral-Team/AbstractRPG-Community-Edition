@@ -23,7 +23,7 @@ public class PacketCoinToClient extends Packet {
     public void fromBytes(ByteBuf buf) {
         this.amount = buf.readInt();
         this.entityId = buf.readInt();
-        this.buf = buf;
+        this.setBuf(buf);
     }
 
     @Override

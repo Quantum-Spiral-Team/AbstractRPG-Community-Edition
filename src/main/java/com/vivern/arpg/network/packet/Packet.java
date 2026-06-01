@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public abstract class Packet implements IMessage, IMessageHandler<Packet, Packet> {
 
-    public ByteBuf buf;
+    private ByteBuf buf;
 
     @Override
     public Packet onMessage(Packet sp, MessageContext ctx) {
@@ -35,8 +35,12 @@ public abstract class Packet implements IMessage, IMessageHandler<Packet, Packet
         return null;
     }
 
-    protected ByteBuf buf() {
+    public ByteBuf buf() {
         return this.buf != null ? this.buf : (this.buf = Unpooled.buffer());
+    }
+
+    protected void setBuf(ByteBuf buf) {
+        this.buf = buf;
     }
 
     public abstract void client(EntityPlayer player, Packet sp, MessageContext ctx);

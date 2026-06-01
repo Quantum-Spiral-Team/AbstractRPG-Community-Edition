@@ -28,7 +28,7 @@ public class PacketTradesToClient extends Packet {
     public void fromBytes(ByteBuf buf) {
         this.compound = ByteBufUtils.readTag(buf);
         this.id = buf.readInt();
-        this.buf = buf;
+        this.setBuf(buf);
     }
 
     @Override

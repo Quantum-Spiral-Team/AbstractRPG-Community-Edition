@@ -26,7 +26,7 @@ public class PacketFallingBlockToClients extends Packet {
         this.block = ByteBufUtils.readUTF8String(buf);
         this.entityId = buf.readInt();
         this.blockMeta = buf.readInt();
-        this.buf = buf;
+        this.setBuf(buf);
     }
 
     @SuppressWarnings("deprecation")

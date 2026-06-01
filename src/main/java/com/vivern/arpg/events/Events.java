@@ -171,10 +171,11 @@ public class Events {
     @SubscribeEvent
     public static void onPlayerConstructing(EntityEvent.EntityConstructing event) {
         Entity entity = event.getEntity();
-        if (entity instanceof EntityPlayer) {
-            PropertiesRegistry.onPlayerConstructing((EntityPlayer) entity);
-        } else if (entity instanceof EntityLivingBase) {
+        if (entity instanceof EntityLivingBase) {
             PropertiesRegistry.onEntityConstructing((EntityLivingBase) entity);
+            if (entity instanceof EntityPlayer) {
+                PropertiesRegistry.onPlayerConstructing((EntityPlayer) entity);
+            }
         }
     }
 

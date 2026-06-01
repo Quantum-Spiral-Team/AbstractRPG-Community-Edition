@@ -2,6 +2,7 @@ package com.vivern.arpg.main;
 
 import com.vivern.arpg.Tags;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
@@ -15,7 +16,8 @@ public class JumpBonusTracker {
     @SubscribeEvent
     public static void onLivingJump(LivingJumpEvent event) {
         EntityLivingBase entityLiving = event.getEntityLiving();
-        entityLiving.motionY = entityLiving.motionY + event.getEntityLiving().getEntityAttribute(PropertiesRegistry.JUMP_HEIGHT).getAttributeValue();
+        if (entityLiving == null) return;
+        entityLiving.motionY += entityLiving.getEntityAttribute(PropertiesRegistry.JUMP_HEIGHT).getAttributeValue();
     }
 
     @SubscribeEvent
