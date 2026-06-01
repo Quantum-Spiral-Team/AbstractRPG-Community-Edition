@@ -163,6 +163,7 @@ public class NPCMobsPack {
         AbstractMob.addToRegister(NpcZarpionTrader.class, "Zarpion Trader", 1516604, 16775043);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void initRender() {
         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new MerchantModel(), new ResourceLocation("arpg:textures/merchant_model_tex.png"), 1.0F, NpcMerchant.class));
         AbstractMob.addToRender(new AbstractMob.RenderAbstractMobEntry(new ModelsOtherMob.WizardModel(), new ResourceLocation("arpg:textures/wizard_model_tex.png"), 0.3F, NpcWizard.class));
