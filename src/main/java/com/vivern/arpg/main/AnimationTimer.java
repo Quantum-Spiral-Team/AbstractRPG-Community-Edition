@@ -11,10 +11,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
 @EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@SideOnly(Side.CLIENT)
 public class AnimationTimer {
 
     public static int tick = 0;
@@ -31,9 +33,6 @@ public class AnimationTimer {
 
     public AnimationTimer() {
         tick = 0;
-    }
-
-    public static void TickClient(ClientTickEvent event) {
     }
 
     @SubscribeEvent

@@ -1,6 +1,8 @@
 package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.renders.TRRenderer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 
 public class TerraformingResearchSurface {

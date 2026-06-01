@@ -14,10 +14,12 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-public class TRRenderer {
+public abstract class TRRenderer {
 
     public static Vec3d DEFAULT_DIFFUSE = new Vec3d(1.0, 1.0, 1.0);
     public float layer;
@@ -25,8 +27,7 @@ public class TRRenderer {
     public Vec3d diffuseColor = DEFAULT_DIFFUSE;
     public boolean diffuseDirection;
 
-    public void render(RenderTerraformingResearch renderTFR, float posx, float posy, int arrayX, int arrayY, long seed, float fullness) {
-    }
+    public abstract void render(RenderTerraformingResearch renderTFR, float posx, float posy, int arrayX, int arrayY, long seed, float fullness);
 
     public int time() {
         return AnimationTimer.tick;
@@ -55,24 +56,21 @@ public class TRRenderer {
     }
 
     public enum RenderStyle {
-        NORMAL(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, false),
-        TRANSLUCENT(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, true),
-        ADDITIVE(SourceFactor.SRC_ALPHA, DestFactor.ONE, true);
+        NORMAL(false),
+        TRANSLUCENT(true),
+        ADDITIVE(true);
 
-        private final SourceFactor sourceFactor;
-        private final DestFactor destinationFactor;
         private final boolean useBlend;
 
-        RenderStyle(SourceFactor sourceFactor, DestFactor destinationFactor, boolean useBlend) {
-            this.sourceFactor = sourceFactor;
-            this.destinationFactor = destinationFactor;
+        RenderStyle(boolean useBlend) {
             this.useBlend = useBlend;
         }
 
+        @SideOnly(Side.CLIENT)
         public void preRender() {
             if (this.useBlend) {
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(this.sourceFactor, this.destinationFactor);
+                GlStateManager.blendFunc(this.getSourceFactor(), this.getDestinationFactor());
             }
         }
 
@@ -80,6 +78,18 @@ public class TRRenderer {
             if (this.useBlend) {
                 GlStateManager.disableBlend();
             }
+        }
+
+        /// Дополнить, если будет необходимо
+        @SideOnly(Side.CLIENT)
+        public SourceFactor getSourceFactor() {
+            return SourceFactor.SRC_ALPHA;
+        }
+
+        /// Дополнить, если будет необходимо
+        @SideOnly(Side.CLIENT)
+        public DestFactor getDestinationFactor() {
+            return this == ADDITIVE ? DestFactor.ONE : DestFactor.ONE_MINUS_SRC_ALPHA;
         }
     }
 

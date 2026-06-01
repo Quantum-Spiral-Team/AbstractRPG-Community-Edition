@@ -1,10 +1,15 @@
 package com.vivern.arpg.recipes;
 
+import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.renders.RenderTerraformingResearch;
 import com.vivern.arpg.renders.TRRenderer;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
@@ -14,15 +19,16 @@ import java.util.Random;
 
 public class Phenomenons {
 
-    private static HashMap<Integer, Integer> interflowBitById = new HashMap<>();
-    private static HashMap<Integer, Integer> idByInterflowBit = new HashMap<>();
-    public static HashMap<Integer, TerraformingResearchSurface> tfrSurfaceRegister = new HashMap<>();
+    private static final Int2IntOpenHashMap interflowBitById = new Int2IntOpenHashMap();
+    private static final Int2IntOpenHashMap idByInterflowBit = new Int2IntOpenHashMap();
+    public static Int2ObjectOpenHashMap<TerraformingResearchSurface> tfrSurfaceRegister = new Int2ObjectOpenHashMap<>();
     static boolean fill = true;
     public static ResourceLocation tfr_sprites = new ResourceLocation("arpg:textures/gui_tf_research_sprites.png");
     public static ResourceLocation tfr_elements = new ResourceLocation("arpg:textures/gui_research_table_elements.png");
     public static int tfr_sprites_sizeX = 2048;
     public static int tfr_sprites_sizeY = 2048;
-    public static TRRenderer.TRRendererSprite phenomenonsRender = new TRRenderer.TRRendererSprite(tfr_elements, 0, 0, 42, 42, 768, 768);
+    @SideOnly(Side.CLIENT)
+    private static TRRenderer.TRRendererSprite phenomenonsRender;
     public static TerraformingResearchSurface surfaceFire = new TerraformingResearchSurface(1, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0).setRenders(new TRRenderer.TRRendererSprite(tfr_sprites, 350, 250, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(), new TRRenderer.TRRendererSpriteGlimmer(tfr_sprites, 350, 200, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 30.0F).setStyle(TRRenderer.RenderStyle.ADDITIVE), new TRRenderer.TRRendererScatter(tfr_sprites, 2, 8, 400, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 20).setAnimation(4, 20).setLayer(1.0F).setStyle(TRRenderer.RenderStyle.ADDITIVE));
     public static TerraformingResearchSurface surfaceRocks = new TerraformingResearchSurface(2, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0).setRenders(new TRRenderer.TRRendererSprite(tfr_sprites, 0, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame(), new TRRenderer.TRRendererScatter(tfr_sprites, 4, 5, 0, 250, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY, 22).setRandomBrightness(0.1F).setLayer(1.0F));
     public static TerraformingResearchSurface surfaceOcean = new TerraformingResearchSurface(3, TerraformingResearchSurface.TRSurfaceType.TERRAIN, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0).setRenders(new TRRenderer.TRRendererSprite(tfr_sprites, 600, 0, 50, 50, tfr_sprites_sizeX, tfr_sprites_sizeY).setWoodenFrame().setAnimation(6, 20).setDiffuseColor(3104155, false));
@@ -127,134 +133,65 @@ public class Phenomenons {
 
     @Nullable
     public static Phenomenon createById(int id) {
-        if (id == 1) {
-            return new PhenomenFire();
-        } else if (id == 2) {
-            return new PhenomenEarth();
-        } else if (id == 3) {
-            return new PhenomenWater();
-        } else if (id == 4) {
-            return new PhenomenAir();
-        } else if (id == 5) {
-            return new PhenomenPoison();
-        } else if (id == 6) {
-            return new PhenomenCold();
-        } else if (id == 7) {
-            return new PhenomenElectric();
-        } else if (id == 8) {
-            return new PhenomenVoid();
-        } else if (id == 9) {
-            return new PhenomenPleasure();
-        } else if (id == 10) {
-            return new PhenomenPain();
-        } else if (id == 11) {
-            return new PhenomenDeath();
-        } else if (id == 12) {
-            return new PhenomenLive();
-        } else if (id == 19) {
-            return new PhenomenLava();
-        } else if (id == 20) {
-            return new PhenomenSteam();
-        } else if (id == 21) {
-            return new PhenomenRain();
-        } else if (id == 22) {
-            return new PhenomenSalts();
-        } else if (id == 23) {
-            return new PhenomenBurningFrost();
-        } else if (id == 24) {
-            return new PhenomenLightning();
-        } else if (id == 25) {
-            return new PhenomenFlow();
-        } else if (id == 28) {
-            return new PhenomenAnnihilation();
-        } else if (id == 30) {
-            return new PhenomenBlood();
-        } else if (id == 32) {
-            return new PhenomenBones();
-        } else if (id == 34) {
-            return new PhenomenMetal();
-        } else if (id == 36) {
-            return new PhenomenPotion();
-        } else if (id == 37) {
-            return new PhenomenCrystal();
-        } else if (id == 38) {
-            return new PhenomenGenocide();
-        } else if (id == 40) {
-            return new PhenomenAsh();
-        } else if (id == 43) {
-            return new PhenomenMud();
-        } else if (id == 45) {
-            return new PhenomenPoisonGas();
-        } else if (id == 47) {
-            return new PhenomenIce();
-        } else if (id == 51) {
-            return new PhenomenCorruption();
-        } else if (id == 56) {
-            return new PhenomenRich();
-        } else if (id == 57) {
-            return new PhenomenGreed();
-        } else if (id == 59) {
-            return new PhenomenWeapon();
-        } else if (id == 60) {
-            return new PhenomenDust();
-        } else if (id == 74) {
-            return new PhenomenStorm();
-        } else if (id == 99) {
-            return new PhenomenPurity();
-        } else if (id == 102) {
-            return new PhenomenSnow();
-        } else if (id == 103) {
-            return new PhenomenWormhole();
-        } else if (id == 104) {
-            return new PhenomenExplosion();
-        } else {
-            return id == 106 ? new PhenomenFlood() : null;
+        switch (id) {
+            case 1:   return new PhenomenFire();
+            case 2:   return new PhenomenEarth();
+            case 3:   return new PhenomenWater();
+            case 4:   return new PhenomenAir();
+            case 5:   return new PhenomenPoison();
+            case 6:   return new PhenomenCold();
+            case 7:   return new PhenomenElectric();
+            case 8:   return new PhenomenVoid();
+            case 9:   return new PhenomenPleasure();
+            case 10:  return new PhenomenPain();
+            case 11:  return new PhenomenDeath();
+            case 12:  return new PhenomenLive();
+            case 19:  return new PhenomenLava();
+            case 20:  return new PhenomenSteam();
+            case 21:  return new PhenomenRain();
+            case 22:  return new PhenomenSalts();
+            case 23:  return new PhenomenBurningFrost();
+            case 24:  return new PhenomenLightning();
+            case 25:  return new PhenomenFlow();
+            case 28:  return new PhenomenAnnihilation();
+            case 30:  return new PhenomenBlood();
+            case 32:  return new PhenomenBones();
+            case 34:  return new PhenomenMetal();
+            case 36:  return new PhenomenPotion();
+            case 37:  return new PhenomenCrystal();
+            case 38:  return new PhenomenGenocide();
+            case 40:  return new PhenomenAsh();
+            case 43:  return new PhenomenMud();
+            case 45:  return new PhenomenPoisonGas();
+            case 47:  return new PhenomenIce();
+            case 51:  return new PhenomenCorruption();
+            case 56:  return new PhenomenRich();
+            case 57:  return new PhenomenGreed();
+            case 59:  return new PhenomenWeapon();
+            case 60:  return new PhenomenDust();
+            case 74:  return new PhenomenStorm();
+            case 99:  return new PhenomenPurity();
+            case 102: return new PhenomenSnow();
+            case 103: return new PhenomenWormhole();
+            case 104: return new PhenomenExplosion();
+            case 106: return new PhenomenFlood();
+            default:  return null;
         }
     }
 
     public static void register() {
         fill = false;
-        fillInterflowIdPair(1, 2048);
-        fillInterflowIdPair(2, 1024);
-        fillInterflowIdPair(3, 512);
-        fillInterflowIdPair(4, 256);
-        fillInterflowIdPair(5, 128);
-        fillInterflowIdPair(6, 64);
-        fillInterflowIdPair(7, 32);
-        fillInterflowIdPair(8, 16);
-        fillInterflowIdPair(9, 8);
-        fillInterflowIdPair(10, 4);
-        fillInterflowIdPair(11, 2);
-        fillInterflowIdPair(12, 1);
-        fillInterflowIdPair(19, 3072);
-        fillInterflowIdPair(20, 2560);
-        fillInterflowIdPair(21, 768);
-        fillInterflowIdPair(22, 1152);
-        fillInterflowIdPair(23, 192);
-        fillInterflowIdPair(24, 288);
-        fillInterflowIdPair(25, 544);
-        fillInterflowIdPair(28, 18);
-        fillInterflowIdPair(30, 516);
-        fillInterflowIdPair(32, 1026);
-        fillInterflowIdPair(34, 1056);
-        fillInterflowIdPair(36, 640);
-        fillInterflowIdPair(37, 1600);
-        fillInterflowIdPair(38, 130);
-        fillInterflowIdPair(40, 2050);
-        fillInterflowIdPair(43, 1536);
-        fillInterflowIdPair(45, 384);
-        fillInterflowIdPair(47, 576);
-        fillInterflowIdPair(51, 132);
-        fillInterflowIdPair(56, 1032);
-        fillInterflowIdPair(57, 1160);
-        fillInterflowIdPair(59, 1028);
-        fillInterflowIdPair(60, 1280);
-        fillInterflowIdPair(74, 800);
-        fillInterflowIdPair(99, 24);
-        fillInterflowIdPair(102, 832);
-        fillInterflowIdPair(103, 560);
-        fillInterflowIdPair(104, 2052);
-        fillInterflowIdPair(106, 514);
+
+        int[] ids = {
+                2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 3072, 2560,
+                768, 1152, 192, 288, 544, 18, 516, 1026, 1056, 640, 1600, 130,
+                2050, 1536, 384, 576, 132, 1032, 1160, 1028, 1280, 800, 24,
+                832, 560, 2052, 514
+        };
+
+        for (int i = 0; i < ids.length; i++) {
+            fillInterflowIdPair(i + 1, ids[i]);
+        }
 
         try {
             Field[] fields = Phenomenons.class.getFields();
@@ -265,8 +202,8 @@ public class Phenomenons {
                     tfrSurfaceRegister.put(surface.id, surface);
                 }
             }
-        } catch (Exception var6) {
-            var6.printStackTrace();
+        } catch (Exception e) {
+            AbstractRPG.LOGGER.error("[{}] ", Phenomenons.class.getSimpleName(), e);
         }
     }
 
@@ -303,6 +240,14 @@ public class Phenomenons {
         }
 
         return idByInterflowBit.getOrDefault(allbits, 0);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static TRRenderer.TRRendererSprite getPhenomenonsRenderer() {
+        if (phenomenonsRender == null) {
+            phenomenonsRender = new TRRenderer.TRRendererSprite(tfr_elements, 0, 0, 42, 42, 768, 768);
+        }
+        return phenomenonsRender;
     }
 
     public static int getInterflowBit(int id) {
