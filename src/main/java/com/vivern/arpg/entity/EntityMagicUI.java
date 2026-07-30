@@ -387,7 +387,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             if (this.grabDistance > 0.0F && this.lastPressingPlayer != null) {
                 this.timeGrabbed++;
                 double blockReachDist = this.grabDistance + 0.25;
-                if (ServerKeyTracker.isKeyPressed(this.lastPressingPlayer, ServerKeyTracker.Keys.USE)) {
+                if (Keys.USE.isPressed()) {
                     if (this.timeGrabbed > 6) {
                         Vec3d vec = this.lastPressingPlayer.getPositionEyes(1.0F).add(this.lastPressingPlayer.getLookVec().scale(this.grabDistance));
                         float power = 0.13F;
@@ -506,7 +506,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
 
     @SideOnly(Side.CLIENT)
     public void onPressTick(EntityPlayer player) {
-        this.isPressedNow = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.USE);
+        this.isPressedNow = Keys.USE.isPressed();
         this.lastPressingPlayer = player;
         if (!this.pressedLastTick) {
             this.onPressStart(player);
