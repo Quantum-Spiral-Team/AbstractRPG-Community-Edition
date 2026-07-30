@@ -156,7 +156,7 @@ public class ARPGHooks {
     public static FieldAccessor<SoundHandler, SoundManager> sndManager;
 
     @FieldLens
-    public static FieldAccessor<EntityLivingBase, Boolean> isJumping;
+    public static FieldAccessor<EntityLivingBase, Boolean> isJumping = FieldAccessor.defaultValue(false);
 
     @SideOnly(Side.CLIENT)
     @Hook
