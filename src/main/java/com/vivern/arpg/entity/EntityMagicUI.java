@@ -176,7 +176,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
     public static void clientTick(ClientTickEvent event) {
         EntityPlayer player = Minecraft.getMinecraft().player;
         if (player != null) {
-            boolean key = Keys.USE.isKeyDown();
+            boolean key = Keys.USE.isPressed();
 
             for (Entity entity : player.world.loadedEntityList) {
                 if (player.getDistanceSq(entity) <= 64.0 && entity instanceof EntityMagicUI && GetMOP.entityUncollidedRayTrace(EntityMagicUI.class, 8.0, 1.0F, player, 0.1, player.rotationPitch, player.rotationYaw).contains(entity)) {
