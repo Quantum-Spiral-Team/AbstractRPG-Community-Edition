@@ -1,7 +1,7 @@
 package com.vivern.arpg.main;
 
 import com.google.gson.Gson;
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.neural.BackpropNetwork;
 import com.vivern.arpg.neural.Layer;
@@ -37,7 +37,7 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Random;
 
-@EventBusSubscriber(modid = Tags.MOD_ID)
+@EventBusSubscriber(modid = Reference.MOD_ID)
 public class CreateItemFile {
 
     public static String mainPatch = "/Users/Vivern/Desktop/Modding/src/main/resources/assets/arpg/";

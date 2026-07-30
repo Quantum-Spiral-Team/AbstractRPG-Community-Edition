@@ -1,13 +1,13 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
 @SideOnly(Side.CLIENT)
 public class FishingTracker {
 

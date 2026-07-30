@@ -1,5 +1,9 @@
 package com.vivern.arpg.shader;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public class ShaderMain {
 
     public static ShaderProgram shaderA;

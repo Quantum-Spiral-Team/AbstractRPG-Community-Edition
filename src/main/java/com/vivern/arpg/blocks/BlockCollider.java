@@ -67,7 +67,7 @@ public class BlockCollider extends Block {
         return TileInfernumFurnace.class;
     }
 
-    public TileInfernumFurnace getTileEntity(IBlockAccess world, BlockPos position) {
+    public @Nullable TileInfernumFurnace getTileEntity(IBlockAccess world, BlockPos position) {
         return (TileInfernumFurnace) world.getTileEntity(position);
     }
 

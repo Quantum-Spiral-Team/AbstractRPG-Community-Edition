@@ -211,9 +211,9 @@ public class BossAbomination extends AbstractBoss implements ISynchronizedEntity
                 }
 
                 if (!this.noClip && !this.lumped && this.getEntityData().hasKey("cannons")) {
-                    NBTTagList tags = this.getEntityData().getTagList("cannons", 10);
-                    if (!tags.isEmpty()) {
-                        for (NBTBase nbt : tags) {
+                    NBTTagList Reference = this.getEntityData().getTagList("cannons", 10);
+                    if (!Reference.isEmpty()) {
+                        for (NBTBase nbt : Reference) {
                             if (nbt.getId() == 10) {
                                 ToxicomaniaMobsPack.AbominationCannon cannon = new ToxicomaniaMobsPack.AbominationCannon(this.world);
                                 cannon.setPosition(this.posX, this.posY + 1.5, this.posZ);

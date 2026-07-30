@@ -4,7 +4,7 @@ import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.items.armor.Armors;
 import com.vivern.arpg.items.models.PhoenixGhostCapeModel;
 import com.vivern.arpg.items.models.PhoenixGhostModel;
@@ -43,7 +43,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
 public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
 
     ResourceLocation sparkle = new ResourceLocation("arpg:textures/sparkle.png");

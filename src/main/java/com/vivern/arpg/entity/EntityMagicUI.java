@@ -2,7 +2,7 @@ package com.vivern.arpg.entity;
 
 import baubles.api.BaublesApi;
 import com.vivern.arpg.AbstractRPG;
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.*;
 import com.vivern.arpg.network.packet.PacketMUIClickToServer;
@@ -63,7 +63,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
 public abstract class EntityMagicUI extends Entity implements ISynchronizedEntity {
 
     public static ResourceLocation texMapRunes1 = new ResourceLocation("arpg:textures/seals/runes1.png");
@@ -241,7 +241,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
         register("mui_gain", EntityMUIGain.class);
     }
 
-    public static void register(String entityName, Class<? extends Entity> entityClass) {
+    private static void register(String entityName, Class<? extends Entity> entityClass) {
         EntityRegistry.registerModEntity(new ResourceLocation("arpg", entityName), entityClass, "arpg:" + entityName, regidstart++, AbstractRPG.instance, 48, 1, true);
     }
 

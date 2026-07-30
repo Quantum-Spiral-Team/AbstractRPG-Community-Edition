@@ -5,7 +5,7 @@ import com.cleanroommc.configanytime.ConfigAnytime;
 import net.minecraftforge.common.config.Config;
 
 @SuppressWarnings("unused")
-@Config(modid = Tags.MOD_ID, name = Tags.MOD_ID + "/general")
+@Config(modid = Reference.MOD_ID, name = Reference.MOD_ID + "/general")
 public class ARPGConfig {
 
     @Config.Name("general")

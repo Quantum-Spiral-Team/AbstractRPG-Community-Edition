@@ -1,8 +1,8 @@
 package com.vivern.arpg.network;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.network.packet.*;
-import com.vivern.arpg.network.packet.keys.PacketKeysState;
+import com.vivern.arpg.network.packet.PacketKeysState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class PacketHandler {
 
-    public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(Tags.MOD_NAME + " NETWORK");
+    public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_NAME + " NETWORK");
     private static int ID = 0;
 
     public static void packetHandlerRegister() {

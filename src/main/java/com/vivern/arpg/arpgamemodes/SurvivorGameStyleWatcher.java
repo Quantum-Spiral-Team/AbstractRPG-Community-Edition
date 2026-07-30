@@ -1,7 +1,7 @@
 package com.vivern.arpg.arpgamemodes;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.container.GUISurvivorEnchant;
 import com.vivern.arpg.container.GuiHandler;
 import com.vivern.arpg.dimensions.toxicomania.ARPGTeleporter;
@@ -53,7 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@EventBusSubscriber(modid = Tags.MOD_ID)
+@EventBusSubscriber(modid = Reference.MOD_ID)
 public class SurvivorGameStyleWatcher {
 
     public static Random rand = new Random();

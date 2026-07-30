@@ -3,7 +3,7 @@ package com.vivern.arpg.items;
 import baubles.api.render.IRenderBauble;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.items.models.FairyWingsModel;
 import com.vivern.arpg.main.*;
 import net.minecraft.client.Minecraft;
@@ -36,7 +36,7 @@ public class FairyWings extends AbstractWings implements IAttributedBauble, IRen
 
     @SideOnly(Side.CLIENT)
     public static FairyWingsModel model;
-    public static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID, "textures/fairy_wings_model_tex.png");
+    public static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, "textures/fairy_wings_model_tex.png");
     private static final String NAME = "fairy_wings";
 
     public FairyWings() {

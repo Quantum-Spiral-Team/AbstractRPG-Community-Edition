@@ -17,13 +17,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
 
-@EventBusSubscriber(modid = "arpg")
+@EventBusSubscriber(value = Side.CLIENT, modid = "arpg")
+@SideOnly(Side.CLIENT)
 public class RainbowShaderTracker {
 
-    @SideOnly(Side.CLIENT)
-    private static Minecraft mc = Minecraft.getMinecraft();
-    @SideOnly(Side.CLIENT)
-    public static Framebuffer fbuffer = new Framebuffer(mc.displayWidth, mc.displayHeight, true);
+    private static final Minecraft mc = Minecraft.getMinecraft();
+    public static Framebuffer framebuffer = new Framebuffer(mc.displayWidth, mc.displayHeight, true);
 
     @SubscribeEvent
     public static void onRenderTick(RenderTickEvent event) {
@@ -34,11 +33,11 @@ public class RainbowShaderTracker {
             new ScaledResolution(mc);
             int h = mc.displayHeight;
             int w = mc.displayWidth;
-            fbuffer.createBindFramebuffer(w, h);
-            fbuffer.framebufferRender(w, h);
+            framebuffer.createBindFramebuffer(w, h);
+            framebuffer.framebufferRender(w, h);
             minefb.bindFramebuffer(true);
             minefb.bindFramebufferTexture();
-            fbuffer.bindFramebuffer(true);
+            framebuffer.bindFramebuffer(true);
             ShaderMain.RainbowShader.start();
             ARBShaderObjects.glUniform1fARB(ShaderMain.RainbowShader.getUniform("time"), AnimationTimer.normaltick / 100.0F);
             if (mc.player != null) {
@@ -56,8 +55,8 @@ public class RainbowShaderTracker {
             bufferbuilderf.pos(0.0, 0.0, 0.0).tex(0.0, 0.0).endVertex();
             tesf.draw();
             ShaderMain.RainbowShader.stop();
-            fbuffer.bindFramebufferTexture();
-            fbuffer.unbindFramebuffer();
+            framebuffer.bindFramebufferTexture();
+            framebuffer.unbindFramebuffer();
             minefb.bindFramebuffer(true);
             Tessellator tes = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tes.getBuffer();

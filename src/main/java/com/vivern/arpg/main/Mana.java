@@ -180,9 +180,7 @@ public class Mana {
                         ((AbstractWorldProvider) world.provider).onUpdatePlayerOnClient(player);
                     }
                 }
-            }
-
-            if (!world.isRemote) {
+            } else {
                 float speed = getManaSpeed(player);
                 float speedmax = getManaSpeedMax(player);
                 float manamax = getManaMax(player);

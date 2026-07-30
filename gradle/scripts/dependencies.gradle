@@ -3,25 +3,24 @@ apply from: 'gradle/scripts/helpers.gradle'
 repositories {
     // Other repositories described by default:
     // CleanroomMC: https://maven.cleanroommc.com
-    exclusiveContent {
-        forRepository {
-            maven {
-                name 'CurseMaven'
-                url 'https://cursemaven.com'
-            }
-        }
-        filter {
+    maven {
+        name 'CurseMaven'
+        url 'https://cursemaven.com'
+        content {
             includeGroup 'curse.maven'
         }
     }
-    exclusiveContent {
-        forRepository {
-            maven {
-                name 'Modrinth'
-                url 'https://api.modrinth.com/maven'
-            }
+    maven {
+        name 'CleanroomCurseMaven'
+        url 'https://curse.cleanroommc.com'
+        content {
+            includeGroup 'curse.maven'
         }
-        filter {
+    }
+    maven {
+        name 'Modrinth'
+        url 'https://api.modrinth.com/maven'
+        content {
             includeGroup 'maven.modrinth'
         }
     }
@@ -82,9 +81,6 @@ dependencies {
     //     transitive = false
     // }
 
-    compileOnlyApi "org.jetbrains:annotations:26.0.2"
-    annotationProcessor "org.jetbrains:annotations:26.0.2"
-
     implementation "com.cleanroommc:configanytime:3.0"
     implementation 'mezz:jei:4.30.2'
     implementation rfg.deobf("curse.maven:baubles-227083:2518667")
@@ -103,4 +99,19 @@ dependencies {
 
     runtimeOnly fileTree("dev")
 
+}
+
+if (propertyBool('enable_shadow')) {
+    tasks.named("shadowJar").configure {
+        // Exclude specific parts of deps to keep your jar clean
+        // dependencies {
+        //     exclude 'META-INF/maven/**'
+        // }
+
+        // Relocate specific parts of deps, so multiple shaded classes in mods will not conflict
+        // relocate "mezz.jei", "shaded.mezz.jei"
+
+        // Remove unused classes automatically. May cause issues if they are accessed by reflection
+        // minimize()
+    }
 }

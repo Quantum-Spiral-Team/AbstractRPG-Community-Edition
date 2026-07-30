@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.Sounds;
@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.HashMap;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
 public class InvasionInfo {
 
     public static ResourceLocation tex = new ResourceLocation("arpg:textures/invasion_bars.png");

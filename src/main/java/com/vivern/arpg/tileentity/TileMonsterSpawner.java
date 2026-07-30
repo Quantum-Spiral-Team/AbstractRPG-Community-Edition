@@ -280,17 +280,17 @@ public class TileMonsterSpawner extends TileEntity implements ITickable {
         }
 
         if (compound.hasKey("entityDatas")) {
-            NBTTagCompound tags = compound.getCompoundTag("entityDatas");
+            NBTTagCompound Reference = compound.getCompoundTag("entityDatas");
             int arraySize = 0;
-            if (tags.hasKey("entryCount")) {
-                arraySize = tags.getInteger("entryCount");
+            if (Reference.hasKey("entryCount")) {
+                arraySize = Reference.getInteger("entryCount");
                 this.entityDatas = new NBTTagCompound[arraySize];
                 this.entityChances = new int[arraySize];
                 this.landOnGround = new boolean[arraySize];
             }
 
-            for (int i = 0; tags.hasKey("entry" + i) && i < arraySize; i++) {
-                NBTTagCompound tag = tags.getCompoundTag("entry" + i);
+            for (int i = 0; Reference.hasKey("entry" + i) && i < arraySize; i++) {
+                NBTTagCompound tag = Reference.getCompoundTag("entry" + i);
                 if (tag.hasKey("data") && tag.hasKey("addedChance")) {
                     this.entityDatas[i] = tag.getCompoundTag("data");
                     this.entityChances[i] = tag.getInteger("addedChance");
@@ -320,7 +320,7 @@ public class TileMonsterSpawner extends TileEntity implements ITickable {
         compound.setInteger("maxRandomIntToChance", this.maxRandomIntToChance);
         compound.setInteger("maxMobsNearby", this.maxMobsNearby);
         compound.setInteger("nearCheckDistance", this.nearCheckDistance);
-        NBTTagCompound tags = new NBTTagCompound();
+        NBTTagCompound Reference = new NBTTagCompound();
         if (this.entityDatas != null && this.entityChances != null && this.landOnGround != null) {
             int imax = Math.min(Math.min(this.entityDatas.length, this.entityChances.length), this.landOnGround.length);
 
@@ -335,13 +335,13 @@ public class TileMonsterSpawner extends TileEntity implements ITickable {
 
                 tag.setInteger("addedChance", chance);
                 tag.setBoolean("landOnGround", land);
-                tags.setTag("entry" + i, tag);
+                Reference.setTag("entry" + i, tag);
             }
 
-            tags.setInteger("entryCount", imax);
+            Reference.setInteger("entryCount", imax);
         }
 
-        compound.setTag("entityDatas", tags);
+        compound.setTag("entityDatas", Reference);
         return compound;
     }
 

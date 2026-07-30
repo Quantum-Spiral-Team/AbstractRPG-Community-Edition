@@ -1,6 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +10,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber(modid = Tags.MOD_ID)
+@EventBusSubscriber(modid = Reference.MOD_ID)
 public class JumpBonusTracker {
 
     @SubscribeEvent

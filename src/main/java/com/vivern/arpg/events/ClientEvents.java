@@ -1,12 +1,14 @@
 package com.vivern.arpg.events;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.main.Keys;
 import com.vivern.arpg.main.ServerKeyTracker;
 import com.vivern.arpg.network.PacketHandler;
-import com.vivern.arpg.network.packet.keys.PacketKeysState;
+import com.vivern.arpg.network.packet.PacketKeysState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -16,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.Map;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
 @SideOnly(Side.CLIENT)
 public class ClientEvents {
 
@@ -25,21 +27,25 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.END && Minecraft.getMinecraft().player != null) {
-            boolean inGui = Minecraft.getMinecraft().currentScreen != null;
-            byte currentStateMask = 0;
+        Minecraft mc = Minecraft.getMinecraft();
+        EntityPlayer player = mc.player;
+        if (player != null) {
+            if (event.phase == TickEvent.Phase.END) {
+                boolean inGui = mc.currentScreen != null;
+                byte currentStateMask = 0;
 
-            if (!inGui) {
-                for (Map.Entry<KeyBinding, ServerKeyTracker.Keys> entry : KEY_MAP.entrySet()) {
-                    if (entry.getKey().isKeyDown()) {
-                        currentStateMask |= entry.getValue().getMask();
+                if (!inGui) {
+                    for (Map.Entry<KeyBinding, ServerKeyTracker.Keys> entry : KEY_MAP.entrySet()) {
+                        if (entry.getKey().isKeyDown()) {
+                            currentStateMask |= entry.getValue().getMask();
+                        }
                     }
                 }
-            }
 
-            if (currentStateMask != lastStateMask) {
-                lastStateMask = currentStateMask;
-                PacketHandler.NETWORK.sendToServer(new PacketKeysState(currentStateMask));
+                if (currentStateMask != lastStateMask) {
+                    lastStateMask = currentStateMask;
+                    PacketHandler.NETWORK.sendToServer(new PacketKeysState(currentStateMask));
+                }
             }
         }
     }

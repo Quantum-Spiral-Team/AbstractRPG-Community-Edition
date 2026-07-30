@@ -1,6 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.items.ItemBullet;
 import com.vivern.arpg.items.ItemMagicScroll;
 import com.vivern.arpg.items.ItemRocket;
@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-@EventBusSubscriber(modid = Tags.MOD_ID)
+@EventBusSubscriber(modid = Reference.MOD_ID)
 public class ContentRegister {
 
     @SubscribeEvent

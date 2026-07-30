@@ -1,7 +1,7 @@
 package com.vivern.arpg.events;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.items.armor.IItemDamaging;
 import com.vivern.arpg.items.armor.IItemHurted;
 import com.vivern.arpg.main.ItemsRegister;
@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.Random;
 
-@EventBusSubscriber(modid = Tags.MOD_ID)
+@EventBusSubscriber(modid = Reference.MOD_ID)
 public class Events {
 
     private static final Random RANDOM = new Random();

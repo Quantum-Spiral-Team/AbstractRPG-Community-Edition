@@ -1,7 +1,6 @@
 /**
  * It is advised that you do not edit anything in the build.gradle; unless you are sure of what you are doing
  */
-import com.gtnewhorizons.retrofuturagradle.mcp.InjectTagsTask
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.gradle.ext.Gradle
 
@@ -9,30 +8,38 @@ plugins {
     id 'java'
     id 'java-library'
     id 'maven-publish'
-    id 'org.jetbrains.gradle.plugin.idea-ext' version '1.3'
+    id 'org.jetbrains.gradle.plugin.idea-ext' version '1.4.1'
     id 'com.gtnewhorizons.retrofuturagradle' version '2.0.2'
-    id 'com.matthewprenger.cursegradle' version '1.4.0' apply false
-    id 'com.modrinth.minotaur' version '2.+' apply false
+    id 'net.kyori.blossom' version '2.2.0'
     id 'org.jetbrains.changelog' version '2.5.0'
+    id 'com.gradleup.shadow' version '9.5.1' apply false
 }
 
 apply from: 'gradle/scripts/helpers.gradle'
+
+if (propertyBool('enable_shadow')) {
+    apply plugin: 'com.gradleup.shadow'
+}
 
 // Early Assertions
 assertProperty 'mod_version'
 assertProperty 'root_package'
 assertProperty 'mod_id'
+assertProperty 'mod_package'
 assertProperty 'mod_name'
+assertProperty 'archive_name'
 
-assertSubProperties 'use_tags', 'tag_class_name'
 assertSubProperties 'use_access_transformer', 'access_transformer_locations'
 assertSubProperties 'use_mixins', 'mixin_booter_version', 'mixin_refmap'
 assertSubProperties 'is_coremod', 'coremod_includes_mod', 'coremod_plugin_class_name'
 assertSubProperties 'use_asset_mover', 'asset_mover_version'
 
 setDefaultProperty 'use_modern_java_syntax', false, false
+setDefaultProperty 'use_jetbrains_annotations', false, true
+setDefaultProperty 'jetbrains_annotations_version', false, '26.1.0'
 setDefaultProperty 'generate_sources_jar', true, false
 setDefaultProperty 'generate_javadocs_jar', true, false
+setDefaultProperty 'enable_shadow', false, false
 setDefaultProperty 'mapping_channel', true, 'stable'
 setDefaultProperty 'mapping_version', true, '39'
 setDefaultProperty 'use_dependency_at_files', true, true
@@ -45,10 +52,10 @@ version = propertyString('mod_version')
 group = propertyString('root_package')
 
 base {
-    archivesName.set(propertyString('mod_id'))
+    archivesName.set(propertyString('archive_name'))
 }
 
-tasks.decompressDecompiledSources.enabled !propertyBool('change_minecraft_sources')
+tasks.decompressDecompiledSources.enabled !propertyBool('change_minecraft_sources') || !layout.buildDirectory.dir('rfg/minecraft-src').get().asFile.exists()
 
 java {
     toolchain {
@@ -65,8 +72,10 @@ java {
 }
 
 configurations {
-    embed
-    implementation.extendsFrom(embed)
+    if (propertyBool('enable_shadow')) {
+        shaded
+        implementation.extendsFrom(shaded)
+    }
 }
 
 minecraft {
@@ -91,15 +100,6 @@ minecraft {
     }
     extraRunJvmArguments.addAll(args)
     extraRunJvmArguments.addAll(propertyStringList('extra_jvm_args'))
-
-    if (propertyBool('use_tags')) {
-        if (file('tags.properties').exists()) {
-            Properties props = new Properties().tap {  it.load(file('tags.properties').newInputStream()); it }
-            if (!props.isEmpty()) {
-                injectedTags.set(props.collectEntries { k, v -> [(k): interpolate(v)] })
-            }
-        }
-    }
 }
 
 repositories {
@@ -124,6 +124,9 @@ dependencies {
         testCompileOnly('com.github.bsideup.jabel:jabel-javac-plugin:1.0.0') {
             transitive = false // We only care about the 1 annotation class
         }
+    }
+    if (propertyBool('use_jetbrains_annotations')) {
+        compileOnly "org.jetbrains:annotations:${propertyString('jetbrains_annotations_version')}"
     }
     if (propertyBool('use_asset_mover')) {
         implementation "com.cleanroommc:assetmover:${propertyString('asset_mover_version')}"
@@ -150,55 +153,48 @@ apply from: 'gradle/scripts/dependencies.gradle'
 
 // Adds Access Transformer files to tasks
 if (propertyBool('use_access_transformer')) {
-    for (def location : propertyStringList('access_transformer_locations')) {
-        def fileLocation = file("${projectDir}/src/main/resources/${location}")
-        if (fileLocation.exists()) {
-            tasks.deobfuscateMergedJarToSrg.accessTransformerFiles.from(fileLocation)
-            tasks.srgifyBinpatchedJar.accessTransformerFiles.from(fileLocation)
-        } else {
+    def atFiles = propertyStringList('access_transformer_locations').collect { location ->
+        def fileLocation = file("src/main/resources/${location}")
+        if (!fileLocation.exists()) {
             throw new GradleException("Access Transformer file [$fileLocation] does not exist!")
         }
+        return fileLocation
+    }
+
+    // Apply ATs to both Minecraft and Forge sources/runtime patched jar
+    tasks.named('applyJST').configure {
+        accessTransformerFiles.from(atFiles)
     }
 }
 
 processResources {
-
-    inputs.property 'mod_id', propertyString('mod_id')
-    inputs.property 'mod_name', propertyString('mod_name')
-    inputs.property 'mod_version', propertyString('mod_version')
-    inputs.property 'mod_description', propertyString('mod_description')
-    inputs.property 'mod_authors', "${propertyStringList('mod_authors', ',').join(', ')}"
-    inputs.property 'mod_credits', propertyString('mod_credits')
-    inputs.property 'mod_url', propertyString('mod_url')
-    inputs.property 'mod_update_json', propertyString('mod_update_json')
-    inputs.property 'mod_logo_path', propertyString('mod_logo_path')
-    inputs.property 'mixin_refmap', propertyString('mixin_refmap')
-    inputs.property 'mixin_package', propertyString('mixin_package')
-    inputs.property 'mixin_configs', propertyStringList('mixin_configs').join(' ')
-
-    def filterList = ['mcmod.info', 'pack.mcmeta']
-    filterList.addAll(propertyStringList('mixin_configs').collect(config -> "mixins.${config}.json" as String))
-
-    filesMatching(filterList) { fcd ->
-        fcd.expand(
-                'mod_id': propertyString('mod_id'),
-                'mod_name': propertyString('mod_name'),
-                'mod_version': propertyString('mod_version'),
-                'mod_description': propertyString('mod_description'),
-                'mod_authors': "${propertyStringList('mod_authors', ',').join(', ')}",
-                'mod_credits': propertyString('mod_credits'),
-                'mod_url': propertyString('mod_url'),
-                'mod_update_json': propertyString('mod_update_json'),
-                'mod_logo_path': propertyString('mod_logo_path'),
-                'mixin_refmap': propertyString('mixin_refmap'),
-                'mixin_package': propertyString('mixin_package')
-        )
-    }
-
     if (propertyBool('use_access_transformer')) {
         rename '(.+_at.cfg)', 'META-INF/$1'
     }
+}
 
+sourceSets {
+    main {
+        blossom {
+            javaSources {
+                property('mod_id', propertyString('mod_id'))
+                property('mod_name', propertyString('mod_name'))
+                property('mod_version', propertyString('mod_version'))
+                property('package', propertyString('mod_package'))
+            }
+            resources {
+                property('mod_id', propertyString('mod_id'))
+                property('mod_name', propertyString('mod_name'))
+                property('mod_version', propertyString('mod_version'))
+                property('mod_description', propertyString('mod_description'))
+                property('mod_authors', propertyStringList('mod_authors', ',').collect {it.strip()}.join('", "'))
+                property('mod_credits', propertyString('mod_credits'))
+                property('mod_url', propertyString('mod_url'))
+                property('mod_update_json', propertyString('mod_update_json'))
+                property('mod_logo_path', propertyString('mod_logo_path'))
+            }
+        }
+    }
 }
 
 jar {
@@ -219,8 +215,6 @@ jar {
         }
         attributes(attribute_map)
     }
-    // Add all embedded dependencies into the jar
-    from(provider{ configurations.embed.collect {it.isDirectory() ? it : zipTree(it)} })
 }
 
 idea {
@@ -230,16 +224,22 @@ idea {
     project {
         settings {
             runConfigurations {
-                "1. Run Client"(Gradle) {
+                "0. Setup Decomp Workspace"(Gradle) {
+                    taskNames = ["setupDecompWorkspace"]
+                }
+                "1. Build Mod"(Gradle) {
+                    taskNames = ["build"]
+                }
+                "2. Run Client"(Gradle) {
                     taskNames = ["runClient"]
                 }
-                "2. Run Server"(Gradle) {
+                "3. Run Server"(Gradle) {
                     taskNames = ["runServer"]
                 }
-                "3. Run Obfuscated Client"(Gradle) {
+                "4. Run Obfuscated Client"(Gradle) {
                     taskNames = ["runObfClient"]
                 }
-                "4. Run Obfuscated Server"(Gradle) {
+                "5. Run Obfuscated Server"(Gradle) {
                     taskNames = ["runObfServer"]
                 }
             }
@@ -285,7 +285,6 @@ String parserChangelog() {
 }
 
 tasks.register('generateMixinJson') {
-    group 'cleanroom helpers'
     def missingConfig = propertyStringList('mixin_configs').findAll(config -> !file("src/main/resources/mixins.${config}.json").exists())
     onlyIf {
         if (propertyBool('use_mixins') && propertyBool('generate_mixins_json')) {
@@ -316,22 +315,10 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
-tasks.register('cleanroomAfterSync') {
-    group 'cleanroom helpers'
-    dependsOn 'injectTags', 'generateMixinJson'
-}
-
 if (propertyBool('use_modern_java_syntax')) {
     tasks.withType(Javadoc).configureEach {
         sourceCompatibility = 17
     }
-}
-
-tasks.named('injectTags', InjectTagsTask).configure {
-    onlyIf {
-        return propertyBool('use_tags') && !it.getTags().get().isEmpty()
-    }
-    it.outputClassName.set(propertyString('tag_class_name'))
 }
 
 tasks.named('prepareObfModsFolder').configure {
@@ -349,9 +336,25 @@ tasks.register('prioritizeCoremods') {
     }
 }
 
+if (propertyBool('enable_shadow')) {
+    // Shade deps to the dev jar, so the normal dev jar will contain deps
+    shadowJar {
+        archiveClassifier = 'dev'
+        configurations = [ project.configurations.shaded ]
+    }
+    // Unshaded dev jar get 'plain' as name
+    tasks.named("jar").configure {
+        archiveClassifier = "plain"
+    }
+    // Here we reobf the shaded dev jar, so the final obf jar will contain deps
+    tasks.named('reobfJar').configure {
+        inputJar.set(tasks.named('shadowJar').flatMap { it.archiveFile })
+    }
+}
+
 idea.project.settings {
     taskTriggers {
-        afterSync 'cleanroomAfterSync'
+        afterSync 'generateMixinJson'
     }
 }
 

@@ -2,12 +2,15 @@ package com.vivern.arpg.shader;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+@SideOnly(Side.CLIENT)
 public class ShaderProgram {
 
     private int programID = ARBShaderObjects.glCreateProgramObjectARB();

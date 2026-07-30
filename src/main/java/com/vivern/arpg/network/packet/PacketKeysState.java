@@ -1,7 +1,6 @@
-package com.vivern.arpg.network.packet.keys;
+package com.vivern.arpg.network.packet;
 
 import com.vivern.arpg.main.ServerKeyTracker;
-import com.vivern.arpg.network.packet.Packet;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

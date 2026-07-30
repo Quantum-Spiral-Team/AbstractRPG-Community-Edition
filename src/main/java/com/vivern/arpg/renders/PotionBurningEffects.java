@@ -1,6 +1,6 @@
 package com.vivern.arpg.renders;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.entity.BetweenParticle;
 import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.main.AnimationTimer;
@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
 public class PotionBurningEffects {
 
     static Random rand = new Random();

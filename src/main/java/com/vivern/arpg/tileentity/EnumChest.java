@@ -1,6 +1,6 @@
 package com.vivern.arpg.tileentity;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.ARPGChestTESR;
@@ -42,7 +42,7 @@ public enum EnumChest {
     private static List<ModelEntry> modelEntries;
 
     EnumChest() {
-        this.texture = new ResourceLocation(Tags.MOD_ID, "textures/arpg_chest_tex.png");
+        this.texture = new ResourceLocation(Reference.MOD_ID, "textures/arpg_chest_tex.png");
         this.light = 0;
         this.soundOpen = SoundEvents.BLOCK_CHEST_OPEN;
         this.soundClose = SoundEvents.BLOCK_CHEST_CLOSE;
@@ -50,7 +50,7 @@ public enum EnumChest {
     }
 
     EnumChest(String name, int light, Supplier<Block> blockSupplier, SoundEvent soundOpen, SoundEvent soundClose) {
-        this.texture = new ResourceLocation(Tags.MOD_ID, "textures/chest_" + name + ".png");
+        this.texture = new ResourceLocation(Reference.MOD_ID, "textures/chest_" + name + ".png");
         this.light = light;
         this.blockSupplier = blockSupplier;
         this.soundOpen = soundOpen;

@@ -1,6 +1,6 @@
 package com.vivern.arpg.main;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -13,10 +13,10 @@ import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.relauncher.Side;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
 public class Gunfire {
 
-    public static ResourceLocation flame = new ResourceLocation(Tags.MOD_ID, "textures/flame_big.png");
+    public static ResourceLocation flame = new ResourceLocation(Reference.MOD_ID, "textures/flame_big.png");
 
     public static void onRenderHand(RenderHandEvent event) {
         ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());

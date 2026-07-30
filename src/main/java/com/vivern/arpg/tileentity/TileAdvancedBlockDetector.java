@@ -38,14 +38,14 @@ public class TileAdvancedBlockDetector extends TileEntity {
 
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound tags = new NBTTagCompound();
+        NBTTagCompound Reference = new NBTTagCompound();
         if (this.state != null) {
-            tags.setInteger("meta", this.state.getBlock().getMetaFromState(this.state));
-            tags.setString("blockname", this.state.getBlock().getRegistryName().toString());
+            Reference.setInteger("meta", this.state.getBlock().getMetaFromState(this.state));
+            Reference.setString("blockname", this.state.getBlock().getRegistryName().toString());
         }
 
-        tags.setBoolean("dontdetectmeta", this.detectOnlyBlock);
-        return new SPacketUpdateTileEntity(this.pos, 1, tags);
+        Reference.setBoolean("dontdetectmeta", this.detectOnlyBlock);
+        return new SPacketUpdateTileEntity(this.pos, 1, Reference);
     }
 
     @Override
@@ -62,14 +62,14 @@ public class TileAdvancedBlockDetector extends TileEntity {
 
     @Override
     public NBTTagCompound getUpdateTag() {
-        NBTTagCompound tags = super.getUpdateTag();
+        NBTTagCompound Reference = super.getUpdateTag();
         if (this.state != null) {
-            tags.setInteger("meta", this.state.getBlock().getMetaFromState(this.state));
-            tags.setString("blockname", this.state.getBlock().getRegistryName().toString());
+            Reference.setInteger("meta", this.state.getBlock().getMetaFromState(this.state));
+            Reference.setString("blockname", this.state.getBlock().getRegistryName().toString());
         }
 
-        tags.setBoolean("dontdetectmeta", this.detectOnlyBlock);
-        return tags;
+        Reference.setBoolean("dontdetectmeta", this.detectOnlyBlock);
+        return Reference;
     }
 
     @Override

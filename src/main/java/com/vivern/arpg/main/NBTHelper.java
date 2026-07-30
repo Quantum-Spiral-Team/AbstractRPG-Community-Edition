@@ -176,29 +176,29 @@ public class NBTHelper {
             String x = name + "x";
             String y = name + "y";
             String z = name + "z";
-            NBTTagCompound tags = itemstack.getTagCompound();
-            if (!tags.hasKey(x)) {
-                tags.setInteger(x, pos.getX());
+            NBTTagCompound Reference = itemstack.getTagCompound();
+            if (!Reference.hasKey(x)) {
+                Reference.setInteger(x, pos.getX());
             }
 
-            if (!tags.hasKey(y)) {
-                tags.setInteger(y, pos.getY());
+            if (!Reference.hasKey(y)) {
+                Reference.setInteger(y, pos.getY());
             }
 
-            if (!tags.hasKey(z)) {
-                tags.setInteger(z, pos.getZ());
+            if (!Reference.hasKey(z)) {
+                Reference.setInteger(z, pos.getZ());
             }
         }
     }
 
     public static BlockPos GetNBTBlockPos(ItemStack itemstack, String name) {
         if (itemstack.hasTagCompound()) {
-            NBTTagCompound tags = itemstack.getTagCompound();
+            NBTTagCompound Reference = itemstack.getTagCompound();
             String x = name + "x";
             String y = name + "y";
             String z = name + "z";
-            if (tags.hasKey(x) && tags.hasKey(y) && tags.hasKey(z)) {
-                return new BlockPos(tags.getInteger(x), tags.getInteger(y), tags.getInteger(z));
+            if (Reference.hasKey(x) && Reference.hasKey(y) && Reference.hasKey(z)) {
+                return new BlockPos(Reference.getInteger(x), Reference.getInteger(y), Reference.getInteger(z));
             }
         }
 
@@ -210,17 +210,17 @@ public class NBTHelper {
             String x = name + "x";
             String y = name + "y";
             String z = name + "z";
-            NBTTagCompound tags = itemstack.getTagCompound();
-            if (tags.hasKey(x)) {
-                tags.setInteger(x, pos.getX());
+            NBTTagCompound Reference = itemstack.getTagCompound();
+            if (Reference.hasKey(x)) {
+                Reference.setInteger(x, pos.getX());
             }
 
-            if (tags.hasKey(y)) {
-                tags.setInteger(y, pos.getY());
+            if (Reference.hasKey(y)) {
+                Reference.setInteger(y, pos.getY());
             }
 
-            if (tags.hasKey(z)) {
-                tags.setInteger(z, pos.getZ());
+            if (Reference.hasKey(z)) {
+                Reference.setInteger(z, pos.getZ());
             }
         }
     }
@@ -375,7 +375,7 @@ public class NBTHelper {
         compound.setInteger("spells_amount", spells.length);
     }
 
-    public static NBTTagList GetNbtTagList(ItemStack itemstack, String name, int typeOfTagsInList) {
+    public static NBTTagList GetNbtTagList(ItemStack itemstack, String name, int typeOfReferenceInList) {
         if (!itemstack.hasTagCompound()) {
             itemstack.setTagCompound(new NBTTagCompound());
         }
@@ -386,7 +386,7 @@ public class NBTHelper {
             nbtTagCompound.setTag(name, tagList);
             return tagList;
         } else {
-            return nbtTagCompound.getTagList(name, typeOfTagsInList);
+            return nbtTagCompound.getTagList(name, typeOfReferenceInList);
         }
     }
 

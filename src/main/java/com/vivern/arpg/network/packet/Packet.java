@@ -1,5 +1,6 @@
 package com.vivern.arpg.network.packet;
 
+import com.vivern.arpg.AbstractRPG;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
@@ -16,11 +17,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
 public abstract class Packet implements IMessage, IMessageHandler<Packet, Packet> {
+
+    protected static final Logger LOGGER = AbstractRPG.getLogger(Packet.class.getName());
 
     private ByteBuf buf;
 

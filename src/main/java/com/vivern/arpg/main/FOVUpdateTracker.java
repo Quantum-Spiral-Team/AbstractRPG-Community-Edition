@@ -1,7 +1,7 @@
 package com.vivern.arpg.main;
 
 import baubles.api.BaublesApi;
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.items.IWeapon;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
 public class FOVUpdateTracker {
 
     public static AttributeModifier SPRINTING_SPEED_BOOST;

@@ -1,6 +1,6 @@
 package com.vivern.arpg.shader;
 
-import com.vivern.arpg.Tags;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.Mana;
 import com.vivern.arpg.potions.PotionEffects;
@@ -19,9 +19,11 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
 
-@EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
+@EventBusSubscriber(value = Side.CLIENT, modid = Reference.MOD_ID)
+@SideOnly(Side.CLIENT)
 public class ShaderTracker {
 
     private static final Minecraft mc = Minecraft.getMinecraft();

@@ -17,19 +17,19 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, dependencies = Tags.DEPENDENCIES, version = Tags.VERSION)
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = Reference.DEPENDENCIES, version = Reference.VERSION)
 public class AbstractRPG {
 
-    public static final Logger LOGGER = LogManager.getLogger(Tags.MOD_NAME);
+    public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_NAME);
 
     public static Logger getLogger(String name) {
-        return LogManager.getLogger(Tags.MOD_NAME + "/" + name);
+        return LogManager.getLogger(Reference.MOD_NAME + "/" + name);
     }
 
     @Instance
     public static AbstractRPG instance;
 
-    @SidedProxy(clientSide = Tags.CLIENT_PROXY_PATH, serverSide = Tags.SERVER_PROXY_PATH)
+    @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
     public static CommonProxy proxy;
 
     @EventHandler

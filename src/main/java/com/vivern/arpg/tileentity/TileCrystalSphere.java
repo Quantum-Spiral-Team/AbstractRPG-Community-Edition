@@ -136,15 +136,15 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
 
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound tags = new NBTTagCompound();
-        tags.setFloat("stored", this.energyStored);
+        NBTTagCompound Reference = new NBTTagCompound();
+        Reference.setFloat("stored", this.energyStored);
         if (this.energyType != null) {
-            tags.setString("type", this.energyType.getName());
+            Reference.setString("type", this.energyType.getName());
         } else {
-            tags.setString("type", "");
+            Reference.setString("type", "");
         }
 
-        return new SPacketUpdateTileEntity(this.pos, 1, tags);
+        return new SPacketUpdateTileEntity(this.pos, 1, Reference);
     }
 
     @Override
@@ -161,15 +161,15 @@ public class TileCrystalSphere extends TileEntity implements ITickable, IVialEle
 
     @Override
     public NBTTagCompound getUpdateTag() {
-        NBTTagCompound tags = super.getUpdateTag();
-        tags.setFloat("stored", this.energyStored);
+        NBTTagCompound Reference = super.getUpdateTag();
+        Reference.setFloat("stored", this.energyStored);
         if (this.energyType != null) {
-            tags.setString("type", this.energyType.getName());
+            Reference.setString("type", this.energyType.getName());
         } else {
-            tags.setString("type", "");
+            Reference.setString("type", "");
         }
 
-        return tags;
+        return Reference;
     }
 
     @Override
