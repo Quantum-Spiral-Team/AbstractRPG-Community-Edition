@@ -8,18 +8,18 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketKeysState extends Packet {
-    private byte mask;
+    private short mask;
 
     public PacketKeysState() {}
 
-    public PacketKeysState(byte mask) {
-        this.buf().writeByte(mask);
+    public PacketKeysState(short mask) {
+        this.buf().writeShort(mask);
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         super.fromBytes(buf);
-        this.mask = buf.readByte();
+        this.mask = buf.readShort();
     }
 
     @Override
@@ -27,11 +27,11 @@ public class PacketKeysState extends Packet {
 
     @Override
     public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {
-        final byte mask = ((PacketKeysState) sp).mask;
+        final short mask = ((PacketKeysState) sp).mask;
 
-        FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> {
-            ServerKeyTracker.updatePlayerKeys(player, mask);
-        });
+        FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() ->
+            ServerKeyTracker.updatePlayerKeys(player, mask)
+        );
     }
 
 }

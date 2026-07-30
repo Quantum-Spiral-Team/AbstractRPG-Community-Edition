@@ -23,7 +23,7 @@ import java.util.Map;
 public class ClientEvents {
 
     private static final Map<KeyBinding, ServerKeyTracker.Keys> KEY_MAP = new HashMap<>();
-    private static byte lastStateMask = 0;
+    private static short lastStateMask = 0;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
@@ -32,7 +32,7 @@ public class ClientEvents {
         if (player != null) {
             if (event.phase == TickEvent.Phase.END) {
                 boolean inGui = mc.currentScreen != null;
-                byte currentStateMask = 0;
+                short currentStateMask = 0;
 
                 if (!inGui) {
                     for (Map.Entry<KeyBinding, ServerKeyTracker.Keys> entry : KEY_MAP.entrySet()) {
@@ -62,5 +62,11 @@ public class ClientEvents {
         registerKey(Keys.GRENADE, ServerKeyTracker.Keys.GRENADE);
         registerKey(Keys.GRAPLINGHOOK, ServerKeyTracker.Keys.HOOK);
         registerKey(Keys.HEADABILITY, ServerKeyTracker.Keys.ABILITY);
+        registerKey(Keys.FORWARD, ServerKeyTracker.Keys.FORWARD);
+        registerKey(Keys.BACK, ServerKeyTracker.Keys.BACKWARD);
+        registerKey(Keys.LEFT, ServerKeyTracker.Keys.LEFT);
+        registerKey(Keys.RIGHT, ServerKeyTracker.Keys.RIGHT);
+        registerKey(Keys.JUMP, ServerKeyTracker.Keys.JUMP);
+        registerKey(Keys.SPRINT, ServerKeyTracker.Keys.SPRINT);
     }
 }

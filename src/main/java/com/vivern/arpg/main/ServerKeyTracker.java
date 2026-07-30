@@ -12,7 +12,7 @@ public class ServerKeyTracker {
     private static final Map<UUID, EnumSet<Keys>> CURRENT_KEYS = new HashMap<>();
     private static final Map<UUID, EnumSet<Keys>> PREVIOUS_KEYS = new HashMap<>();
 
-    public static void updatePlayerKeys(EntityPlayer player, byte mask) {
+    public static void updatePlayerKeys(EntityPlayer player, short mask) {
         if (player == null) return;
         UUID uuid = player.getUniqueID();
 
@@ -57,26 +57,32 @@ public class ServerKeyTracker {
     }
 
     /**
-     * Если потребуется увеличить количество доступных кнопок, просто поменяйте byte на short.
+     * Если потребуется увеличить количество доступных кнопок, просто поменяйте short на int.
      * Если будет необходимо сильно больше клавиш (хотя я сомневаюсь, что подобная необходимость возникнет), используйте {@link java.util.BitSet}.
       */
     public enum Keys {
-        USE(1),             // 00000001 (1)
-        PRIMARY(1 << 1),    // 00000010 (2)
-        SECONDARY(1 << 2),  // 00000100 (4)
-        SCOPE(1 << 3),      // 00001000 (8)
-        GRENADE(1 << 4),    // 00010000 (16)
-        HOOK(1 << 5),       // 00100000 (32)
-        ABILITY(1 << 6),    // 01000000 (64)
+        USE(1),             // 0000000000000001 (1)
+        PRIMARY(1 << 1),    // 0000000000000010 (2)
+        SECONDARY(1 << 2),  // 0000000000000100 (4)
+        SCOPE(1 << 3),      // 0000000000001000 (8)
+        GRENADE(1 << 4),    // 0000000000010000 (16)
+        HOOK(1 << 5),       // 0000000000100000 (32)
+        ABILITY(1 << 6),    // 0000000001000000 (64)
+        FORWARD(1 << 7),
+        BACKWARD(1 << 8),
+        RIGHT(1 << 9),
+        LEFT(1 << 10),
+        JUMP(1 << 11),
+        SPRINT(1 << 12),
         ;
 
-        private final byte mask;
+        private final short mask;
 
         Keys(int mask) {
-            this.mask = (byte) mask;
+            this.mask = (short) mask;
         }
 
-        public byte getMask() {
+        public short getMask() {
             return mask;
         }
     }
