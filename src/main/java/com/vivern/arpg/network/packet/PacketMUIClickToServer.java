@@ -41,14 +41,14 @@ public class PacketMUIClickToServer extends Packet {
         FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.processMessage(player));
     }
 
-    void processMessage(EntityPlayerMP player) {
+    private void processMessage(EntityPlayerMP player) {
         try {
             Entity en = player.world.getEntityByID(this.id);
             if (en instanceof EntityMagicUI && en.getDistanceSq(player) <= 64.0) {
                 ((EntityMagicUI) en).onPressTick(player);
             }
-        } catch (ConcurrentModificationException var3) {
-            var3.printStackTrace();
+        } catch (ConcurrentModificationException e) {
+            LOGGER.error(e);
         }
     }
 

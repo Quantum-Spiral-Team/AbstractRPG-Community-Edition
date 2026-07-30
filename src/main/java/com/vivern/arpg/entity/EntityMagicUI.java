@@ -504,6 +504,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public void onPressTick(EntityPlayer player) {
         this.isPressedNow = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.USE);
         this.lastPressingPlayer = player;
@@ -1211,6 +1212,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             GlStateManager.popMatrix();
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onPressTick(EntityPlayer player) {
             if (this.ticksExisted > 15) {
@@ -1250,6 +1252,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             this.amount = amount;
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onPressTick(EntityPlayer player) {
             if (this.origin != null && !this.world.isRemote) {
@@ -1368,6 +1371,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             super.onClient(x, y, z, a, b, c);
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onPressTick(EntityPlayer player) {
             if (this.origin != null && !this.world.isRemote && this.ticksExisted > 10 && this.type != null) {
@@ -1730,6 +1734,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             }
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onPressTick(EntityPlayer player) {
             if (this.origin != null && !this.world.isRemote && this.ticksExisted > 10) {
@@ -2032,6 +2037,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             GlStateManager.popMatrix();
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onPressTick(EntityPlayer player) {
             if (this.ticksExisted > 15 && !this.removing) {
@@ -2342,6 +2348,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
             super.onClient(x, y, z, a, b, c);
         }
 
+        @SideOnly(Side.CLIENT)
         @Override
         public void onPressTick(EntityPlayer player) {
             if (this.origin != null && !this.world.isRemote && this.ticksExisted > 10) {
