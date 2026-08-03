@@ -1,6 +1,10 @@
 package com.vivern.arpg.main;
 
 import com.vivern.arpg.blocks.*;
+import com.vivern.arpg.blocks.underwater.CoralChandelier;
+import com.vivern.arpg.blocks.underwater.CoralTorch;
+import com.vivern.arpg.blocks.underwater.GiantShell;
+import com.vivern.arpg.blocks.Pilaster;
 import com.vivern.arpg.items.ItemARPGChest;
 import com.vivern.arpg.items.ItemBlockFuel;
 import com.vivern.arpg.items.ItemBlockHasSubtypes;

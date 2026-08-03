@@ -12,12 +12,6 @@
       "6": [{ "model": "arpg:giant_shell_d", "textures": { "all": "arpg:giant_shell_green" } }, { "model": "arpg:giant_shell_d", "textures": { "all": "arpg:giant_shell_green" }, "y": 90 }, { "model": "arpg:giant_shell_d", "textures": { "all": "arpg:giant_shell_green" }, "y": 180 }, { "model": "arpg:giant_shell_d", "textures": { "all": "arpg:giant_shell_green" }, "y": 270 }],
       "7": [{ "model": "arpg:giant_shell_d", "textures": { "all": "arpg:giant_shell_red" } }, { "model": "arpg:giant_shell_d", "textures": { "all": "arpg:giant_shell_red" }, "y": 90 }, { "model": "arpg:giant_shell_d", "textures": { "all": "arpg:giant_shell_red" }, "y": 180 }, { "model": "arpg:giant_shell_d", "textures": { "all": "arpg:giant_shell_red" }, "y": 270 }]
     },
-    "level": {
-      "0": {},
-      "1": {},
-      "2": {},
-      "3": {}
-    },
     "wet": {
       "true": {},
       "false": {}

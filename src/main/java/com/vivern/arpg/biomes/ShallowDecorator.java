@@ -1,6 +1,6 @@
 package com.vivern.arpg.biomes;
 
-import com.vivern.arpg.blocks.GiantShell;
+import com.vivern.arpg.blocks.underwater.GiantShell;
 import com.vivern.arpg.dimensions.aquatica.AquaticaChunkGenerator;
 import com.vivern.arpg.dimensions.generationutils.WorldGenCoral;
 import com.vivern.arpg.dimensions.generationutils.WorldGenMiniCoral;

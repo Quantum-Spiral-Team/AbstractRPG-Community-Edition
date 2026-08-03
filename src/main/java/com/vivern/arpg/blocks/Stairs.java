@@ -1,6 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.google.common.collect.Lists;
+import com.vivern.arpg.blocks.state.BlockStateContainerUnderwater;
 import com.vivern.arpg.main.BlocksRegister;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
@@ -40,7 +41,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 public class Stairs extends Block {
@@ -437,7 +437,7 @@ public class Stairs extends Block {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return this.material == Material.WATER ? new BlockUnderwater.BlockStateContainerUnderwater(this, new IProperty[]{FACING, HALF, SHAPE}) : new BlockStateContainer(this, new IProperty[]{FACING, HALF, SHAPE});
+        return this.material == Material.WATER ? new BlockStateContainerUnderwater(this, FACING, HALF, SHAPE) : new BlockStateContainer(this, new IProperty[]{FACING, HALF, SHAPE});
     }
 
     @Override

@@ -1,5 +1,6 @@
-package com.vivern.arpg.blocks;
+package com.vivern.arpg.blocks.underwater;
 
+import com.vivern.arpg.blocks.state.BlockStateContainerUnderwater;
 import com.vivern.arpg.dimensions.aquatica.DimensionAquatica;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.block.Block;
@@ -23,6 +24,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
@@ -141,7 +143,7 @@ public class CoralTorch extends BlockUnderwater {
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public @Nullable AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         return NULL_AABB;
     }
 
@@ -222,7 +224,7 @@ public class CoralTorch extends BlockUnderwater {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, LEVEL, WET);
+        return new BlockStateContainerUnderwater(this, FACING, WET);
     }
 
     @Override

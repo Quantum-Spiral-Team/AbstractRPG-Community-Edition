@@ -1,12 +1,12 @@
-package com.vivern.arpg.blocks;
+package com.vivern.arpg.blocks.underwater;
 
+import com.vivern.arpg.blocks.IHasSubtypes;
+import com.vivern.arpg.blocks.state.BlockStateContainerUnderwater;
 import com.vivern.arpg.dimensions.aquatica.DimensionAquatica;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.NBTHelper;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -27,17 +27,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class GiantShell extends Block implements IHasSubtypes {
+public class GiantShell extends BlockUnderwater implements IHasSubtypes {
 
     public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 7);
-    public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);
-    public static final PropertyBool WET = PropertyBool.create("wet");
     protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.15, 0.0, 0.15, 0.85, 0.5, 0.85);
     public BlockRenderLayer layer;
     public double offset = 0.4;
 
     public GiantShell(String name, BlockRenderLayer layer) {
-        super(Material.WATER);
+        super(Material.ROCK);
         this.setRegistryName(name);
         this.setTranslationKey(name);
         this.blockHardness = 1.0F;
@@ -48,34 +46,14 @@ public class GiantShell extends Block implements IHasSubtypes {
     }
 
     @Override
-    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-        return false;
-    }
-
-    @Override
-    public Material getMaterial(IBlockState state) {
-        return state.getValue(WET) ? Material.WATER : Material.ROCK;
-    }
-
-    @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if (!this.isInWater(world, pos)) {
+        if (!isInWater(world, pos)) {
             world.setBlockState(pos, state.withProperty(WET, false));
         } else {
             world.setBlockState(pos, state.withProperty(WET, true));
         }
 
         super.neighborChanged(state, world, pos, blockIn, fromPos);
-    }
-
-    public boolean isInWater(World worldIn, BlockPos pos) {
-        for (EnumFacing facing : EnumFacing.values()) {
-            IBlockState state = worldIn.getBlockState(pos.offset(facing));
-            if (!(state.getMaterial() == Material.WATER || state.isOpaqueCube())) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @Override
@@ -89,7 +67,7 @@ public class GiantShell extends Block implements IHasSubtypes {
         for (EnumFacing facing : EnumFacing.VALUES) {
             BlockPos poss = pos.offset(facing);
             IBlockState state2 = world.getBlockState(poss);
-            if (state2.getBlock() == Blocks.WATER && state2.getValue(BlockStaticLiquid.LEVEL) == 0) {
+            if (state2.getBlock() == Blocks.WATER) {
                 if (++count >= 2) {
                     return true;
                 }
@@ -170,8 +148,8 @@ public class GiantShell extends Block implements IHasSubtypes {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        boolean wett = meta >= 8;
-        return this.getDefaultState().withProperty(TYPE, wett ? meta - 8 : meta).withProperty(LEVEL, 0).withProperty(WET, wett);
+        boolean wet = meta >= 8;
+        return this.getDefaultState().withProperty(TYPE, wet ? meta - 8 : meta).withProperty(WET, wet);
     }
 
     @Override
@@ -182,7 +160,7 @@ public class GiantShell extends Block implements IHasSubtypes {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, TYPE, LEVEL, WET);
+        return new BlockStateContainerUnderwater(this, TYPE, WET);
     }
 
     @Override
@@ -197,7 +175,7 @@ public class GiantShell extends Block implements IHasSubtypes {
 
     @Override
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-        return placer.getHeldItem(hand).getItem() == Item.getItemFromBlock(BlocksRegister.GIANT_SHELL) ? this.getDefaultState().withProperty(TYPE, NBTHelper.GetNBTint(placer.getHeldItem(hand), "type")).withProperty(LEVEL, 0).withProperty(WET, this.isInWater(world, pos)) : this.getDefaultState();
+        return placer.getHeldItem(hand).getItem() == Item.getItemFromBlock(BlocksRegister.GIANT_SHELL) ? this.getDefaultState().withProperty(TYPE, NBTHelper.GetNBTint(placer.getHeldItem(hand), "type")).withProperty(WET, this.isInWater(world, pos)) : this.getDefaultState();
     }
 
     @SideOnly(Side.CLIENT)

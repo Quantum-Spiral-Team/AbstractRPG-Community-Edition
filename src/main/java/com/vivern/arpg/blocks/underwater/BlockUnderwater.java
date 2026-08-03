@@ -1,20 +1,15 @@
-package com.vivern.arpg.blocks;
+package com.vivern.arpg.blocks.underwater;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableTable;
+import com.vivern.arpg.blocks.state.BlockStateContainerUnderwater;
 import com.vivern.arpg.dimensions.aquatica.DimensionAquatica;
 import com.vivern.arpg.main.ColorConverters;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.BlockStateContainer.StateImplementation;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -30,18 +25,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
 import java.util.Random;
 
-public class BlockUnderwater extends Block {
+@SuppressWarnings("deprecation")
+public abstract class BlockUnderwater extends Block {
 
     public static final PropertyBool WET = PropertyBool.create("wet");
-    public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);
 
     public BlockUnderwater(Material materialIn) {
         super(materialIn);
@@ -49,7 +41,7 @@ public class BlockUnderwater extends Block {
 
     @Override
     public Material getMaterial(IBlockState state) {
-        return state.getValue(WET) ? Material.WATER : Material.ROCK;
+        return state.getValue(WET) ? Material.WATER : this.material;
     }
 
     @Override
@@ -106,12 +98,12 @@ public class BlockUnderwater extends Block {
 
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return super.getActualState(state, worldIn, pos).withProperty(LEVEL, 0).withProperty(WET, isInWater(worldIn, pos));
+        return super.getActualState(state, worldIn, pos).withProperty(WET, isInWater(worldIn, pos));
     }
 
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(LEVEL, 0).withProperty(WET, isInWater(worldIn, pos));
+        return this.getDefaultState().withProperty(WET, isInWater(worldIn, pos));
     }
 
     @SideOnly(Side.CLIENT)
@@ -147,7 +139,7 @@ public class BlockUnderwater extends Block {
 
         @Override
         protected BlockStateContainer createBlockState() {
-            return new BlockStateContainer(this, new IProperty[]{LEVEL, WET});
+            return new BlockStateContainerUnderwater(this, WET);
         }
 
         @Override
@@ -163,11 +155,6 @@ public class BlockUnderwater extends Block {
         public BlockBlockUnderwater setSlipperiness(float blockSlipperiness) {
             this.blockSlipperiness = blockSlipperiness;
             return this;
-        }
-
-        @Override
-        public float getSlipperiness(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
-            return this.blockSlipperiness;
         }
 
         @SideOnly(Side.CLIENT)
@@ -301,41 +288,6 @@ public class BlockUnderwater extends Block {
         @Override
         public boolean isFullBlock(IBlockState state) {
             return this.fullbloc;
-        }
-
-    }
-
-    public static class BlockStateContainerUnderwater extends BlockStateContainer {
-
-        public BlockStateContainerUnderwater(Block blockIn, IProperty<?>[] properties) {
-            super(blockIn, properties);
-        }
-
-        protected BlockStateContainerUnderwater(Block blockIn, IProperty<?>[] properties, ImmutableMap<IUnlistedProperty<?>, Optional<?>> unlistedProperties) {
-            super(blockIn, properties, unlistedProperties);
-        }
-
-        @Override
-        protected StateImplementation createState(Block block, ImmutableMap<IProperty<?>, Comparable<?>> properties, @Nullable ImmutableMap<IUnlistedProperty<?>, Optional<?>> unlistedProperties) {
-            return new StateImplementationUnderwater(block, properties);
-        }
-
-    }
-
-    public static class StateImplementationUnderwater extends StateImplementation {
-
-        protected StateImplementationUnderwater(Block blockIn, ImmutableMap<IProperty<?>, Comparable<?>> propertiesIn) {
-            super(blockIn, propertiesIn);
-        }
-
-        protected StateImplementationUnderwater(Block blockIn, ImmutableMap<IProperty<?>, Comparable<?>> propertiesIn, ImmutableTable<IProperty<?>, Comparable<?>, IBlockState> propertyValueTable) {
-            super(blockIn, propertiesIn, propertyValueTable);
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public <T extends Comparable<T>> T getValue(IProperty<T> property) {
-            return (T) ("level".equals(property.getName()) ? Blocks.WATER.getDefaultState().getValue(BlockLiquid.LEVEL) : super.getValue(property));
         }
 
     }

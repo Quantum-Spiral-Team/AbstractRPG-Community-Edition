@@ -1,5 +1,7 @@
-package com.vivern.arpg.blocks;
+package com.vivern.arpg.blocks.underwater;
 
+import com.vivern.arpg.blocks.FrozenChandelier;
+import com.vivern.arpg.blocks.state.BlockStateContainerUnderwater;
 import com.vivern.arpg.dimensions.aquatica.DimensionAquatica;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.block.SoundType;
@@ -80,7 +82,7 @@ public class CoralChandelier extends BlockUnderwater {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, ROTATE, LEVEL, WET);
+        return new BlockStateContainerUnderwater(this, ROTATE, WET);
     }
 
     @Override

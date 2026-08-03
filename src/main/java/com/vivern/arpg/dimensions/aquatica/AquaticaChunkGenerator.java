@@ -1,7 +1,7 @@
 package com.vivern.arpg.dimensions.aquatica;
 
 import com.vivern.arpg.biomes.BiomeControlled;
-import com.vivern.arpg.blocks.GiantShell;
+import com.vivern.arpg.blocks.underwater.GiantShell;
 import com.vivern.arpg.blocks.MiniCoral;
 import com.vivern.arpg.dimensions.generationutils.GenerationHelper;
 import com.vivern.arpg.dimensions.generationutils.WorldGenCoral;
