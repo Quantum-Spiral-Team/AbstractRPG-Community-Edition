@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -15,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.NotNull;
 
 public class BrokenArmor extends AdvancedPotion {
 
@@ -40,34 +42,37 @@ public class BrokenArmor extends AdvancedPotion {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
-        ResourceLocation tex = textur1;
-        if (entityRenderer instanceof RenderLivingBase) {
-            RenderLivingBase rlb = (RenderLivingBase) entityRenderer;
-            if (rlb.getMainModel() != null) {
-                int width = rlb.getMainModel().textureWidth;
-                int height = rlb.getMainModel().textureHeight;
-                if (width <= 40 && height <= 20) {
-                    tex = textur3;
-                } else if (width <= 40 && height <= 40) {
-                    tex = textur4;
-                } else if (width <= 70 && height <= 40) {
-                    tex = textur2;
-                }
-            }
-        }
+    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render<EntityLivingBase> entityRenderer) {
+        ResourceLocation texture = getTexture(entityRenderer);
 
         GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.pushMatrix();
         GlStateManager.depthMask(false);
         GlStateManager.enableBlend();
         GlStateManager.matrixMode(5888);
-        ARPGHooks.bindEnotherTexture = tex;
+        ARPGHooks.bindEnotherTexture = texture;
         entityRenderer.doRender(entityOnEffect, x, y, z, yaw, partialTicks);
         GlStateManager.disableBlend();
         GlStateManager.depthMask(true);
         GlStateManager.popMatrix();
         ARPGHooks.bindEnotherTexture = null;
+    }
+
+    private static @NotNull ResourceLocation getTexture(Render<EntityLivingBase> entityRenderer) {
+        ResourceLocation tex = textur1;
+        if (entityRenderer instanceof RenderLivingBase) {
+            RenderLivingBase<EntityLivingBase> rlb = (RenderLivingBase<EntityLivingBase>) entityRenderer;
+            int width = rlb.getMainModel().textureWidth;
+            int height = rlb.getMainModel().textureHeight;
+            if (width <= 40 && height <= 20) {
+                tex = textur3;
+            } else if (width <= 40 && height <= 40) {
+                tex = textur4;
+            } else if (width <= 70 && height <= 40) {
+                tex = textur2;
+            }
+        }
+        return tex;
     }
 
 }

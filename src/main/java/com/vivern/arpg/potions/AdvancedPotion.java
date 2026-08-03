@@ -319,7 +319,7 @@ public class AdvancedPotion extends Potion {
     }
 
     @SideOnly(Side.CLIENT)
-    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
+    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render<EntityLivingBase> entityRenderer) {
     }
 
     @SideOnly(Side.CLIENT)

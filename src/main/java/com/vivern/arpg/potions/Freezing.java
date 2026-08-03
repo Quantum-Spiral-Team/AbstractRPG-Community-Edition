@@ -155,7 +155,7 @@ public class Freezing extends AdvancedPotion {
     @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
-    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
+    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render<EntityLivingBase> entityRenderer) {
         if (canImmobilizeEntity(entityOnEffect, effect)) {
             GlStateManager.pushMatrix();
             GlStateManager.depthMask(false);

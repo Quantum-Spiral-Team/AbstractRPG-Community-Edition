@@ -49,7 +49,7 @@ public class DemonicBurn extends AdvancedPotion {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
+    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render<EntityLivingBase> entityRenderer) {
         PotionBurningEffects.renderEntityOnFire(entityOnEffect, x, y + 0.15, z, partialTicks, fire0, fire1, 180);
     }
 

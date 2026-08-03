@@ -54,7 +54,7 @@ public class ColdSoul extends AdvancedPotion {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render entityRenderer) {
+    public void render(EntityLivingBase entityOnEffect, double x, double y, double z, float yaw, float partialTicks, PotionEffect effect, Render<EntityLivingBase> entityRenderer) {
         this.renderCircle(x, y + 0.3 * entityOnEffect.height, z, (entityOnEffect.ticksExisted + partialTicks) * 2.0F, 1.3F * entityOnEffect.width);
         this.renderCircle(x, y + 0.6 * entityOnEffect.height, z, (entityOnEffect.ticksExisted + partialTicks) * 1.713F + 170.0F, 1.1F * entityOnEffect.width);
     }
