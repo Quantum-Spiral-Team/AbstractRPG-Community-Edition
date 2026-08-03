@@ -171,20 +171,6 @@ public class ARPGHooks {
     @SideOnly(Side.CLIENT)
     @Hook
     @OnBegin
-    public static ReturnSolve<Void> switchToRealms(RealmsBridge bridge, GuiScreen p_switchToRealms_1_) {
-        return ARPGConfig.general.disableRealms ? ReturnSolve.yes(null) : ReturnSolve.no();
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Hook
-    @OnBegin
-    public static ReturnSolve<GuiScreenRealmsProxy> getNotificationScreen(RealmsBridge bridge, GuiScreen p_getNotificationScreen_1_) {
-        return ARPGConfig.general.disableRealms ? ReturnSolve.yes(null) : ReturnSolve.no();
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Hook
-    @OnBegin
     public static ReturnSolve<ItemTransformVec3f> getTransform(ItemCameraTransforms transforms, TransformType type) {
         if (Debugger.itemTransformHookEnabled) {
             return ReturnSolve.yes(getTransformsVec3f(transforms, type));
