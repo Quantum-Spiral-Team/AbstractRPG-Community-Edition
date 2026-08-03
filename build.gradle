@@ -52,7 +52,7 @@ version = propertyString('mod_version')
 group = propertyString('root_package')
 
 base {
-    archivesName.set(propertyString('archive_name'))
+    archivesName.set(propertyString('archive_name').replace(' ', '-'))
 }
 
 tasks.decompressDecompiledSources.enabled !propertyBool('change_minecraft_sources') || !layout.buildDirectory.dir('rfg/minecraft-src').get().asFile.exists()
