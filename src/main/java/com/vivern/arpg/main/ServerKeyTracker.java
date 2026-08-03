@@ -1,6 +1,7 @@
 package com.vivern.arpg.main;
 
 import net.minecraft.entity.player.EntityPlayer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class ServerKeyTracker {
         CURRENT_KEYS.put(uuid, newState);
     }
 
-    public static boolean isKeyPressed(EntityPlayer player, Keys key) {
+    public static boolean isKeyPressed(@NotNull EntityPlayer player, Keys key) {
         UUID uuid = player.getUniqueID();
         EnumSet<Keys> current = CURRENT_KEYS.get(uuid);
         EnumSet<Keys> previous = PREVIOUS_KEYS.get(uuid);
@@ -37,7 +38,7 @@ public class ServerKeyTracker {
         return isNowDown && !wasDown;
     }
 
-    public static boolean isKeyDown(EntityPlayer player, Keys key) {
+    public static boolean isKeyDown(@NotNull EntityPlayer player, Keys key) {
         EnumSet<Keys> keys = CURRENT_KEYS.get(player.getUniqueID());
         return keys != null && keys.contains(key);
     }

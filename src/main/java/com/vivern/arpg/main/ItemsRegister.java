@@ -4,6 +4,7 @@ import baubles.api.BaubleType;
 import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.items.*;
 import com.vivern.arpg.items.armor.*;
+import com.vivern.arpg.items.wings.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.tileentity.ChestLock;
 import net.minecraft.creativetab.CreativeTabs;

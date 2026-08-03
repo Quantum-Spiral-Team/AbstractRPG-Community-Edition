@@ -1,4 +1,4 @@
-package com.vivern.arpg.items;
+package com.vivern.arpg.items.wings;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

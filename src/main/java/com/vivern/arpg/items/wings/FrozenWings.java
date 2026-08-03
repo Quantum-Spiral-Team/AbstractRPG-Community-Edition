@@ -1,4 +1,4 @@
-package com.vivern.arpg.items;
+package com.vivern.arpg.items.wings;
 
 import baubles.api.render.IRenderBauble;
 import com.google.common.collect.HashMultimap;
@@ -151,7 +151,7 @@ public class FrozenWings extends AbstractWings implements IAttributedBauble, IRe
     }
 
     @SideOnly(Side.CLIENT)
-    public class FrozenWingsSound extends MovingSound {
+    public static class FrozenWingsSound extends MovingSound {
 
         private final EntityPlayer player;
         private int time;

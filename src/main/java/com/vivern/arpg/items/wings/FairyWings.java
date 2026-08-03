@@ -1,4 +1,4 @@
-package com.vivern.arpg.items;
+package com.vivern.arpg.items.wings;
 
 import baubles.api.render.IRenderBauble;
 import com.google.common.collect.HashMultimap;
@@ -175,7 +175,7 @@ public class FairyWings extends AbstractWings implements IAttributedBauble, IRen
             player.getDataManager().set(PropertiesRegistry.FLYING, true);
             flying = true;
             if (player instanceof EntityPlayerSP) {
-                Minecraft.getMinecraft().getSoundHandler().playSound(new FairyWingsSound((EntityPlayerSP) player));
+                Minecraft.getMinecraft().getSoundHandler().playSound(new FairyWingsSound(player));
             }
         }
 

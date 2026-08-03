@@ -1,11 +1,11 @@
-package com.vivern.arpg.items;
+package com.vivern.arpg.items.wings;
 
 import baubles.api.render.IRenderBauble;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.vivern.arpg.items.models.AbstractMobModel;
-import com.vivern.arpg.items.models.FinWingsModel;
-import com.vivern.arpg.main.GetMOP;
+import com.vivern.arpg.items.IEnergyItem;
+import com.vivern.arpg.items.ItemAccumulator;
+import com.vivern.arpg.items.models.ThunderbirdWingsModel;
 import com.vivern.arpg.main.IAttributedBauble;
 import com.vivern.arpg.main.PropertiesRegistry;
 import com.vivern.arpg.main.Sounds;
@@ -17,70 +17,75 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.UUID;
 
-public class FinWings extends AbstractWings implements IAttributedBauble, IRenderBauble {
+public class ThunderbirdWings extends AbstractWings implements IAttributedBauble, IRenderBauble, IEnergyItem {
 
-    public static FinWingsModel model = new FinWingsModel();
-    public static ResourceLocation texture = new ResourceLocation("arpg:textures/fin_wings_model_tex.png");
-    public static ResourceLocation overlay = new ResourceLocation("arpg:textures/fin_wings_model_tex_overlay.png");
+    public static ThunderbirdWingsModel model = new ThunderbirdWingsModel();
+    public static ResourceLocation texture = new ResourceLocation("arpg:textures/thunderbird_wings_model_tex.png");
 
-    public FinWings() {
-        this.setRegistryName("fin_wings");
+    public ThunderbirdWings() {
+        this.setRegistryName("thunderbird_wings");
         this.setCreativeTab(CreativeTabs.COMBAT);
-        this.setTranslationKey("fin_wings");
-        this.setMaxDamage(6000);
+        this.setTranslationKey("thunderbird_wings");
+        this.setMaxDamage(10000);
         this.setMaxStackSize(1);
-        this.flapPeriod = 10;
-        this.flapPeriodFloat = 1.9F;
+        this.flapPeriod = 12;
+        this.flapPeriodFloat = 2.0F;
+    }
+
+    @Override
+    public boolean canUseWings(ItemStack itemstack, EntityPlayer player) {
+        return this.extractEnergyFromItem(itemstack, 100, true) >= 100;
     }
 
     @Override
     public void onFlyingTick(ItemStack itemstack, EntityPlayer player, boolean likeElytra) {
         super.onFlyingTick(itemstack, player, likeElytra);
-        if (player.isInWater() && player.moveForward > 0.0F) {
-            Vec3d vec = GetMOP.pitchYawToVec3D(player.rotationPitch, player.rotationYaw);
-            double sped = 0.1;
-            player.motionX = player.motionX + vec.x * sped;
-            player.motionY = player.motionY + vec.y * sped;
-            player.motionZ = player.motionZ + vec.z * sped;
-        }
+        this.extractEnergyFromItem(itemstack, likeElytra ? 50 : 100, false);
+    }
+
+    @Override
+    public int getMaxEnergyStored(ItemStack stack) {
+        return ItemAccumulator.TOPAZITRON_CAPACITY;
+    }
+
+    @Override
+    public int getThroughput() {
+        return ItemAccumulator.TOPAZITRON_THROUGHPUT;
     }
 
     @Override
     public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-        AbstractMobModel.light(60, true);
-        this.renderDefaultWings(texture, model, stack, player, type, partialTicks, overlay, 220);
-        AbstractMobModel.returnlight();
+        this.renderDefaultWings(texture, model, stack, player, type, partialTicks, null, 0);
     }
 
     @Override
     public double getMaxUpwardMotion(ItemStack stack) {
-        return 0.75;
+        return 0.7;
     }
 
     @Override
     public double getUpwardMotionAdd(ItemStack stack) {
-        return 0.1;
+        return 0.11;
     }
 
     @Override
     public double getFallingMotionAdd(ItemStack stack) {
-        return 0.4;
+        return 0.35;
     }
 
     @Override
     public int getMaxFlyTime(ItemStack stack) {
-        return 100;
+        return Integer.MAX_VALUE;
     }
 
     @Override
     public double getFallingMotionSlowdown(ItemStack stack) {
-        return 0.7;
+        return 0.65;
     }
 
     @SideOnly(Side.CLIENT)
@@ -111,7 +116,7 @@ public class FinWings extends AbstractWings implements IAttributedBauble, IRende
 
     @Override
     public String itemName() {
-        return "fin_wings";
+        return "thunderbird_wings";
     }
 
     @Override
@@ -123,8 +128,7 @@ public class FinWings extends AbstractWings implements IAttributedBauble, IRende
     public Multimap<String, AttributeModifier> getAttributeModifiers(EntityPlayer player, int equipmentSlot, ItemStack itemstack) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.create();
         UUID uuid = UUID.fromString("CB2F4" + equipmentSlot + "D3-64" + equipmentSlot + "A-4F78-A497-9C56A33DB" + equipmentSlot + "BB");
-        multimap.put(PropertiesRegistry.AIRBORNE_MOBILITY.getName(), new AttributeModifier(uuid, "airborn mobility modifier", 0.05, 0));
-        multimap.put(EntityPlayer.SWIM_SPEED.getName(), new AttributeModifier(uuid, "swim speed modifier", 0.2, 0));
+        multimap.put(PropertiesRegistry.AIRBORNE_MOBILITY.getName(), new AttributeModifier(uuid, "airborn mobility modifier", 0.06, 0));
         return multimap;
     }
 

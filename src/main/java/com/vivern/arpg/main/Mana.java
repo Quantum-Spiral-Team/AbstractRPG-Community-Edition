@@ -6,7 +6,7 @@ import com.google.common.collect.Multimap;
 import com.vivern.arpg.biomes.BiomeControlled;
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
 import com.vivern.arpg.events.Debugger;
-import com.vivern.arpg.items.IWings;
+import com.vivern.arpg.items.wings.IWings;
 import com.vivern.arpg.items.animation.Flicks;
 import com.vivern.arpg.potions.AdvancedMobEffects;
 import com.vivern.arpg.potions.PotionEffects;

@@ -1,9 +1,10 @@
-package com.vivern.arpg.items;
+package com.vivern.arpg.items.wings;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
 import com.vivern.arpg.AbstractRPG;
+import com.vivern.arpg.items.IEnergyItem;
 import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.items.models.ModelWings;
 import com.vivern.arpg.main.*;
@@ -159,7 +160,7 @@ public abstract class AbstractWings extends Item implements IWings, IBauble {
 
             if (flying) {
                 this.onFlyingTick(itemstack, player, true);
-                if (player.moveForward < 0.0F) {
+                if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.BACKWARD)) {
                     player.getDataManager().set(PropertiesRegistry.FLYING, false);
                     bitstate |= 4;
                 }

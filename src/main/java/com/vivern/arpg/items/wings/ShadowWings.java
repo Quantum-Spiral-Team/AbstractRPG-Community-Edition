@@ -1,9 +1,9 @@
-package com.vivern.arpg.items;
+package com.vivern.arpg.items.wings;
 
 import baubles.api.render.IRenderBauble;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.vivern.arpg.items.models.ToxicWingsModel;
+import com.vivern.arpg.items.models.ShadowWingsModel;
 import com.vivern.arpg.main.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
@@ -25,19 +25,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Random;
 import java.util.UUID;
 
-public class ToxicWings extends AbstractWings implements IAttributedBauble, IRenderBauble {
+public class ShadowWings extends AbstractWings implements IAttributedBauble, IRenderBauble {
 
-    public static ToxicWingsModel model = new ToxicWingsModel();
-    public static ResourceLocation texture = new ResourceLocation("arpg:textures/toxic_wings_model_tex.png");
+    public static ShadowWingsModel model = new ShadowWingsModel();
+    public static ResourceLocation texture = new ResourceLocation("arpg:textures/shadow_wings_model_tex.png");
 
-    public ToxicWings() {
-        this.setRegistryName("toxic_wings");
+    public ShadowWings() {
+        this.setRegistryName("shadow_wings");
         this.setCreativeTab(CreativeTabs.COMBAT);
-        this.setTranslationKey("toxic_wings");
-        this.setMaxDamage(4500);
+        this.setTranslationKey("shadow_wings");
+        this.setMaxDamage(5000);
         this.setMaxStackSize(1);
-        this.flapPeriod = 10;
-        this.flapPeriodFloat = 1.9F;
+        this.flapPeriod = 12;
+        this.flapPeriodFloat = 2.0F;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
             float flyupStarted = GetMOP.partial((float) NBTHelper.GetNBTint(stack, "flyupStarted"), (float) NBTHelper.GetNBTint(stack, "prevflyupStarted"), partialTicks);
             float glidingRaw = GetMOP.partial(NBTHelper.GetNBTfloat(stack, "gliding"), NBTHelper.GetNBTfloat(stack, "prevgliding"), partialTicks);
             float expand = (-player.rotationPitch + 90.0F) / 180.0F;
-            float nofly;
+            float nofly = 0.0F;
             if (!player.isElytraFlying()) {
                 nofly = 1.0F;
             } else {
@@ -88,53 +88,38 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
 
     @Override
     public double getMaxUpwardMotion(ItemStack stack) {
-        return 0.55;
+        return 0.7;
     }
 
     @Override
     public double getUpwardMotionAdd(ItemStack stack) {
-        return 0.12;
+        return 0.11;
     }
 
     @Override
     public double getFallingMotionAdd(ItemStack stack) {
-        return 0.3;
+        return 0.35;
     }
 
     @Override
     public int getMaxFlyTime(ItemStack stack) {
-        return 50;
+        return 60;
     }
 
     @Override
     public double getFallingMotionSlowdown(ItemStack stack) {
-        return 0.82;
+        return 0.75;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     protected MovingSound getWingsSound(EntityPlayer player) {
-        return new ToxicWingsSound(player);
-    }
-
-    @Override
-    public void tryPlayFlapSound(EntityPlayer player, ItemStack itemstack, int clientFlyTime) {
-        NBTHelper.giveNBTboolean(itemstack, false, "soundPlayed");
-        boolean soundPlayed = NBTHelper.GetNBTboolean(itemstack, "soundPlayed");
-        double soundCycle = clientFlyTime / this.flapPeriodFloat % Math.PI;
-        if (soundCycle >= 1.8) {
-            if (!soundPlayed) {
-                this.playFlapSound(player);
-                NBTHelper.SetNBTboolean(itemstack, true, "soundPlayed");
-            }
-        } else {
-            NBTHelper.SetNBTboolean(itemstack, false, "soundPlayed");
-        }
+        return new ShadowWingsSound(player);
     }
 
     @Override
     public void playFlapSound(EntityPlayer player) {
-        player.world.playSound(player.posX, player.posY, player.posZ, Sounds.wings, SoundCategory.PLAYERS, 0.5F, 1.05F + itemRand.nextFloat() * 0.1F, false);
+        player.world.playSound(player.posX, player.posY, player.posZ, Sounds.wings, SoundCategory.PLAYERS, 0.5F, 0.85F + itemRand.nextFloat() * 0.1F, false);
     }
 
     @Override
@@ -154,7 +139,7 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
 
     @Override
     public String itemName() {
-        return "toxic_wings";
+        return "shadow_wings";
     }
 
     @Override
@@ -171,13 +156,13 @@ public class ToxicWings extends AbstractWings implements IAttributedBauble, IRen
     }
 
     @SideOnly(Side.CLIENT)
-    public static class ToxicWingsSound extends MovingSound {
+    public static class ShadowWingsSound extends MovingSound {
 
         private final EntityPlayer player;
         private int time;
         Random rand = new Random();
 
-        public ToxicWingsSound(EntityPlayer player) {
+        public ShadowWingsSound(EntityPlayer player) {
             super(Sounds.toxic_wings_flying, SoundCategory.PLAYERS);
             this.player = player;
             this.repeat = true;
