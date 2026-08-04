@@ -1,16 +1,16 @@
 package com.vivern.arpg.mixin.vanilla;
 
-import com.vivern.arpg.potions.PotionEffects;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.entity.Entity;
-import net.minecraft.network.play.client.CPacketClientStatus;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,6 +32,7 @@ public abstract class MixinBlockLiquid {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Unique
     private static Vec3d arpg$getFogColorVector(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks) {
         Vec3d viewport = ActiveRenderInfo.projectViewFromEntity(entity, partialTicks);
