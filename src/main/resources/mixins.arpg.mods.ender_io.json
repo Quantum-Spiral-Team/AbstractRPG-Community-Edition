@@ -1,0 +1,12 @@
+{
+	"package": "com.vivern.arpg.mixin.mods.enderio",
+	"required": true,
+	"target": "@env(DEFAULT)",
+	"minVersion": "0.8.5",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"MixinItemSoulVial"
+	],
+	"server": [],
+	"client": []
+}

@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -50,12 +49,12 @@ public class BrokenArmor extends AdvancedPotion {
         GlStateManager.depthMask(false);
         GlStateManager.enableBlend();
         GlStateManager.matrixMode(5888);
-        ARPGHooks.bindEnotherTexture = texture;
+        ARPGHooks.bindAnotherTexture = texture;
         entityRenderer.doRender(entityOnEffect, x, y, z, yaw, partialTicks);
         GlStateManager.disableBlend();
         GlStateManager.depthMask(true);
         GlStateManager.popMatrix();
-        ARPGHooks.bindEnotherTexture = null;
+        ARPGHooks.bindAnotherTexture = null;
     }
 
     private static @NotNull ResourceLocation getTexture(Render<EntityLivingBase> entityRenderer) {

@@ -46,6 +46,10 @@ public class Freezing extends AdvancedPotion {
         return !entityOnEffect.isPotionActive(PotionEffects.FREEZE_IMMUNITY);
     }
 
+    public static boolean isEntityFreezing(EntityLivingBase entity) {
+        return Freezing.canImmobilizeEntity(entity, entity.getActivePotionEffect(PotionEffects.FREEZING)) || Stun.canImmobilizeEntity(entity, entity.getActivePotionEffect(PotionEffects.STUN));
+    }
+
     public static boolean canImmobilizeEntity(EntityLivingBase entity, @Nullable PotionEffect effect) {
         if (effect == null || effect.getDuration() <= 1) {
             return false;
@@ -161,12 +165,12 @@ public class Freezing extends AdvancedPotion {
             GlStateManager.depthMask(false);
             GlStateManager.enableBlend();
             GlStateManager.matrixMode(5888);
-            ARPGHooks.bindEnotherTexture = texture;
+            ARPGHooks.bindAnotherTexture = texture;
             entityRenderer.doRender(entityOnEffect, x, y, z, yaw, partialTicks);
             GlStateManager.disableBlend();
             GlStateManager.depthMask(true);
             GlStateManager.popMatrix();
-            ARPGHooks.bindEnotherTexture = null;
+            ARPGHooks.bindAnotherTexture = null;
         }
     }
 

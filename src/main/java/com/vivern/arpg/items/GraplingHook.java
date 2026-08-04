@@ -1,8 +1,8 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.GraplingHookParticle;
-import com.vivern.arpg.hooks.ARPGHooks;
 import com.vivern.arpg.main.*;
+import com.vivern.arpg.mixin.vanilla.EntityLivingBaseAccessor;
 import com.vivern.arpg.network.packet.PacketGrapplingHookToClients;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -49,7 +49,7 @@ public class GraplingHook extends Item {
             double xpos = NBTHelper.GetNBTdouble(itemstack, "pointX");
             double ypos = NBTHelper.GetNBTdouble(itemstack, "pointY");
             double zpos = NBTHelper.GetNBTdouble(itemstack, "pointZ");
-            boolean reset = ARPGHooks.isJumping.get(player);
+            boolean reset = ((EntityLivingBaseAccessor) player).isJumping();
             if (entityIn.ticksExisted < 2) {
                 NBTHelper.SetNBTboolean(itemstack, false, "graped");
             }

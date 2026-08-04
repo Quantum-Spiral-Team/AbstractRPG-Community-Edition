@@ -1,6 +1,7 @@
 package com.vivern.arpg.proxy;
 
 import com.vivern.arpg.AbstractRPG;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.blocks.BurningFrost;
 import com.vivern.arpg.blocks.DemonicFire;
 import com.vivern.arpg.blocks.RedPepperVine;
@@ -36,6 +37,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
@@ -303,33 +306,34 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
-        System.out.println("arpg | Adding enchants to lootboxes");
+        Logger LOGGER = LogManager.getLogger(Reference.MOD_NAME + "/" + "CommonProxy");
+        LOGGER.debug("arpg | Adding enchants to lootboxes");
         ((ItemLootCase) ItemsRegister.ALL_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesAllEnch();
         ((ItemLootCase) ItemsRegister.WEAPON_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesWeaponEnch();
         ((ItemLootCase) ItemsRegister.SIMPLE_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesSimpleEnch();
-        System.out.println("arpg | Init new flaming blocks");
+        LOGGER.debug("arpg | Init new flaming blocks");
         ((DemonicFire) BlocksRegister.DEMONIC_FIRE).init();
         ((BurningFrost) BlocksRegister.BURNING_FROST).init();
-        System.out.println("arpg | Init advanced recipes");
+        LOGGER.debug("arpg | Init advanced recipes");
         AssemblyTableRecipesRegister.register();
         SpellForgeRecipesRegister.register();
         NetherMelterRecipesRegister.register();
         AlchemicLabRecipesRegister.register();
         IndustrialMixerRecipesRegister.register();
         SieveRecipesRegister.register();
-        System.out.println("arpg | Init mob spawn");
+        LOGGER.debug("arpg | Init mob spawn");
         MobSpawn.init();
-        System.out.println("arpg | Post init fliuds");
+        LOGGER.debug("arpg | Post init fliuds");
         FluidsRegister.postInitFluids();
-        System.out.println("arpg | Init items magic elements");
+        LOGGER.debug("arpg | Init items magic elements");
         ItemsElements.init();
-        System.out.println("arpg | Init spells");
+        LOGGER.debug("arpg | Init spells");
         Spell.init();
-        System.out.println("arpg | Changing water opacity");
+        LOGGER.debug("arpg | Changing water opacity");
         Blocks.WATER.setLightOpacity(1);
         Blocks.FLOWING_WATER.setLightOpacity(1);
 
-        System.out.println("arpg | Applying reflection to EntityThrowable.ticksInAir");
+        LOGGER.debug("arpg | Applying reflection to EntityThrowable.ticksInAir");
         Field[] fields = EntityThrowable.class.getDeclaredFields();
 
         for (Field field : fields) {
@@ -338,9 +342,9 @@ public class CommonProxy {
             }
         }
 
-        System.out.println("arpg | Adding other mods integration recipes");
+        LOGGER.debug("arpg | Adding other mods integration recipes");
         IntegrationHelper.addRecipes();
-        System.out.println("arpg | Post init end");
+        LOGGER.debug("arpg | Post init end");
     }
 
     public void addEnchType() {

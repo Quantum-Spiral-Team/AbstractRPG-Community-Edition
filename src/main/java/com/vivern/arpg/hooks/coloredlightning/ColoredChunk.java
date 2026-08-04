@@ -5,6 +5,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BossInfo.Color;
 
+@Deprecated
 public class ColoredChunk {
 
     public int chunkPosX;

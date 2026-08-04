@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayDeque;
 
+@Deprecated
 public class ColoredThread extends Thread {
 
     public ArrayDeque<ColoredThreadTask> tasks = new ArrayDeque<>();

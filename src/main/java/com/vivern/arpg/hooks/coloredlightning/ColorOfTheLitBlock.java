@@ -1,5 +1,6 @@
 package com.vivern.arpg.hooks.coloredlightning;
 
+@Deprecated
 public class ColorOfTheLitBlock {
 
     public int redSat;

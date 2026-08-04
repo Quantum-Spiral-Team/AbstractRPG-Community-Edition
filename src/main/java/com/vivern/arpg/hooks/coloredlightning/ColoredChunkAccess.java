@@ -1,5 +1,6 @@
 package com.vivern.arpg.hooks.coloredlightning;
 
+@Deprecated
 public class ColoredChunkAccess {
 
     public ColoredChunk chunk0;

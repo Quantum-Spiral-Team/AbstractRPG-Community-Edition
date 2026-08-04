@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IntegrationHelper {
+    
+    private static final Logger LOGGER = LogManager.getLogger(IntegrationHelper.class.getSimpleName());
 
     public static boolean printDebug = true;
     static Class clazzPulvelizer = null;
@@ -71,45 +75,45 @@ public class IntegrationHelper {
 
     public static void debugprint1(ItemStack output, String mod) {
         if (printDebug) {
-            System.out.print("adding recipe crusher|" + mod + "|" + output.getDisplayName() + "|");
+            LOGGER.debug("adding recipe crusher|" + mod + "|" + output.getDisplayName() + "|");
         }
     }
 
     public static void debugprint2(ItemStack output) {
         if (printDebug) {
-            System.out.print("success");
-            System.out.print("\n");
+            LOGGER.debug("success");
+            LOGGER.debug("\n");
         }
     }
 
     public static void addRecipes() {
         if (printDebug) {
-            System.out.println("addCrushersRecipes");
+            LOGGER.debug("addCrushersRecipes");
         }
 
         addCrushersRecipes();
         if (printDebug) {
-            System.out.println("addAlloyRecipes");
+            LOGGER.debug("addAlloyRecipes");
         }
 
         addAlloyRecipes();
         if (printDebug) {
-            System.out.println("addExtractorRecipes");
+            LOGGER.debug("addExtractorRecipes");
         }
 
         addExtractorRecipes();
         if (printDebug) {
-            System.out.println("addMagmaCrucibleRecipes");
+            LOGGER.debug("addMagmaCrucibleRecipes");
         }
 
         addMagmaCrucibleRecipes();
         if (printDebug) {
-            System.out.println("addCentrifugeRecipes");
+            LOGGER.debug("addCentrifugeRecipes");
         }
 
         addCentrifugeRecipes();
         if (printDebug) {
-            System.out.println("addPressRecipes");
+            LOGGER.debug("addPressRecipes");
         }
 
         addPressRecipes();

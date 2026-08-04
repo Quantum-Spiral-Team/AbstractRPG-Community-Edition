@@ -1,0 +1,37 @@
+{
+  "package": "com.vivern.arpg.mixin.vanilla",
+  "required": true,
+  "refmap": "mixins.arpg.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8.5",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "EntityLivingBaseAccessor",
+    "MixinBlockFire",
+    "MixinBlockLiquid",
+    "MixinCommandEnchant",
+    "MixinEntityItem",
+    "MixinEntityLivingBase",
+    "MixinEntityLookHelper",
+    "MixinEntityPlayer",
+    "MixinEntityTracker",
+    "MixinInventoryPlayer",
+    "MixinNetHandlerPlayServer",
+    "MixinPotionUtils",
+    "MixinRangedAttribute",
+    "MixinWorld"
+  ],
+  "server": [],
+  "client": [
+    "MixinGuiScreen",
+    "MixinInventoryEffectRenderer",
+    "MixinItemCameraTransforms",
+    "MixinItemRenderer",
+    "MixinModelBiped",
+    "MixinNetHandlerPlayClient",
+    "MixinParticleManager",
+    "MixinRender",
+    "MixinRenderLivingBase",
+    "MixinSoundManager"
+  ]
+}

@@ -12,7 +12,6 @@ import net.minecraft.world.BossInfo.Color;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.ChunkEvent.Load;
 import net.minecraftforge.event.world.ChunkEvent.Unload;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-@EventBusSubscriber(modid = "arpg")
+@Deprecated
+//@EventBusSubscriber(modid = "arpg")
 public class ColoredLightning {
 
     public static HashMap<Long, ColoredChunk> loadedChunks = new HashMap<>();
@@ -270,7 +270,7 @@ public class ColoredLightning {
         return updateRange;
     }
 
-    public static final int blockToInchunkCoords(int xz) {
+    public static int blockToInchunkCoords(int xz) {
         return xz & 15;
     }
 

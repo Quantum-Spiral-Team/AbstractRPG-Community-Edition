@@ -3,12 +3,12 @@ package com.vivern.arpg.items;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
-import com.vivern.arpg.hooks.ARPGHooks;
 import com.vivern.arpg.items.models.AbstractMobModel;
 import com.vivern.arpg.items.models.BeltsModel;
 import com.vivern.arpg.main.GetMOP;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
+import com.vivern.arpg.mixin.vanilla.EntityLivingBaseAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
@@ -244,8 +244,8 @@ public class DashBelt extends Item implements IBauble, IRenderBauble {
         boolean BACK = player.moveForward < 0.0F;
         boolean LEFT = player.moveStrafing > 0.0F;
         boolean RIGHT = player.moveStrafing < 0.0F;
-        boolean SHIFT = player.isSneaking();
-        boolean JUMP = ARPGHooks.isJumping.get(player);
+        boolean SHIFT = player.isSneaking(); //TODO может нарушать поведение, если оно не "просто тригерит шифт". проверить
+        boolean JUMP = ((EntityLivingBaseAccessor) player).isJumping(); //TODO может нарушать поведение, если оно не "просто тригерит пробел". проверить
         if (FORWARD) {
             velocity = actualVelocity;
         }

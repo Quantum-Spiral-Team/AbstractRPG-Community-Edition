@@ -1,8 +1,8 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.GraplingHookParticle;
-import com.vivern.arpg.hooks.ARPGHooks;
 import com.vivern.arpg.main.*;
+import com.vivern.arpg.mixin.vanilla.EntityLivingBaseAccessor;
 import com.vivern.arpg.network.packet.PacketGrapplingHookToClients;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -44,7 +44,7 @@ public class WebGraplingHook extends GraplingHook {
             int damage = itemstack.getItemDamage();
             boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.HOOK);
             Item itemIn = itemstack.getItem();
-            boolean reset = ARPGHooks.isJumping.get(player);
+            boolean reset = ((EntityLivingBaseAccessor) player).isJumping();
             if (entityIn.ticksExisted < 2) {
                 NBTHelper.SetNBTboolean(itemstack, false, "graped1");
                 NBTHelper.SetNBTboolean(itemstack, false, "graped2");
