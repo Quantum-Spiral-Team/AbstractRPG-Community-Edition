@@ -34,9 +34,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
 public class BlocksRegister {
@@ -556,12 +554,17 @@ public class BlocksRegister {
         fuels.put(CONIFER_LOG, -1);
         fuels.put(CONIFER_PLANKS, -1);
         fuels.put(CONIFER_ORNAMENT, -1);
+
+        List<Block> blocksWithoutItem = Arrays.asList(
+                AQUATICA_PORTAL
+        );
+
         Field[] fields = BlocksRegister.class.getFields();
 
         for (Field field : fields) {
             if (field.getType() == Block.class || field.getType() == CustomPlant.class) {
                 Block block = (Block) field.get(new BlocksRegister());
-                setRegister(block, fuels);
+                setRegister(block, fuels, blocksWithoutItem);
             }
         }
     }
@@ -939,10 +942,11 @@ public class BlocksRegister {
     }
 
     //TODO move to ContentRegister and events
-    private static void setRegister(Block block, HashMap<Block, Integer> fuels) {
+    private static void setRegister(Block block, HashMap<Block, Integer> fuels, List<Block> blocksWithoutItem) {
         int burn = fuels.getOrDefault(block, 0);
+        ForgeRegistries.BLOCKS.register(block);
+        if (blocksWithoutItem.contains(block)) return;
         if (burn == 0) {
-            ForgeRegistries.BLOCKS.register(block);
             if (block instanceof BlockARPGChest) {
                 ForgeRegistries.ITEMS.register(new ItemARPGChest(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
             } else if (block instanceof IHasSubtypes) {
@@ -951,7 +955,6 @@ public class BlocksRegister {
                 ForgeRegistries.ITEMS.register(new ItemBlock(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
             }
         } else {
-            ForgeRegistries.BLOCKS.register(block);
             ForgeRegistries.ITEMS.register(new ItemBlockFuel(block, burn).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey()));
         }
     }
