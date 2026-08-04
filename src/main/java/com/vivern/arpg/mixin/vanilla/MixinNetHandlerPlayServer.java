@@ -2,7 +2,6 @@ package com.vivern.arpg.mixin.vanilla;
 
 import com.vivern.arpg.items.IWeapon;
 import com.vivern.arpg.potions.PotionEffects;
-import gloomyfolken.hooklib.api.ReturnSolve;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;

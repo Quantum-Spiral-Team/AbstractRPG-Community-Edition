@@ -23,7 +23,8 @@ public abstract class MixinBlockLiquid {
     @Inject(
             method = "getFogColor",
             at = @At("HEAD"),
-            cancellable = true
+            cancellable = true,
+            remap = false // B: почему ремап выключен? Я понятия не имею, оно так рабоатет
     )
     private void arpg$getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d originalColor, float partialTicks, CallbackInfoReturnable<Vec3d> cir) {
         if (world.provider.getDimension() == 103) {

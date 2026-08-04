@@ -17,13 +17,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Random;
 
-@Mixin(value = BlockFire.class, remap = false)
+@Mixin(value = BlockFire.class)
 public abstract class MixinBlockFire {
 
     @Inject(
             method = "tryCatchFire",
             at = @At("HEAD"),
-            cancellable = true
+            cancellable = true,
+            remap = false // B: почему ремап выключен? Я понятия не имею, оно так рабоатет
     )
     private void arpg$tryCatchFire(World worldIn, BlockPos pos, int chance, Random random, int age, EnumFacing face, CallbackInfo ci) {
         int i = worldIn.getBlockState(pos).getBlock().getFlammability(worldIn, pos, face);

@@ -25,7 +25,8 @@ public abstract class MixinWorld {
 
     @Inject(
             method = "markAndNotifyBlock",
-            at = @At("HEAD")
+            at = @At("HEAD"),
+            remap = false
     )
     private void arpg$markAndNotifyBlock(BlockPos pos, @Nullable Chunk chunk, IBlockState iblockstate, IBlockState newState, int flags, CallbackInfo ci) {
         if ((newState.getLightOpacity(((World) (Object) this), pos) != iblockstate.getLightOpacity(((World) (Object) this), pos) || newState.getLightValue(((World) (Object) this), pos) != iblockstate.getLightValue(((World) (Object) this), pos)) && isRemote) {
