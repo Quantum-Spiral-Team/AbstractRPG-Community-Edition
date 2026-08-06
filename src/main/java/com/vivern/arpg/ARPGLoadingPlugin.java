@@ -6,7 +6,7 @@ import zone.rong.mixinbooter.IEarlyMixinLoader;
 
 import java.util.*;
 
-public class ARPGLoadingPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
+public class ARPGLoadingPlugin implements IFMLLoadingPlugin {
 
     @Override
     public String[] getASMTransformerClass() {
@@ -30,11 +30,6 @@ public class ARPGLoadingPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
     @Override
     public String getAccessTransformerClass() {
         return null;
-    }
-
-    @Override
-    public List<String> getMixinConfigs() {
-        return Collections.singletonList("mixins.arpg.vanilla.json");
     }
 
 }
