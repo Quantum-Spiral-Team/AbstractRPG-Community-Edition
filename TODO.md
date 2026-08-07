@@ -67,6 +67,18 @@
 - [ ] Перевести мод на зависимость HookLib, а не встраивать либу в код
     > B: На мой взгляд, самая приоритетная задача на данный момент
 - [ ] Отображение RF в `Assembly Table`
+- [ ] Починить Baubles API
+  ```
+  [Client thread/WARN] [FML]: ****************************************
+  [Client thread/WARN] [FML]: * The API Baubles|API from source D:\Files\IntelliJ IDIE Projects\AbstractRPG-CE\build\libs\AbstractRPG-CE-2.0-dev.jar is loaded from an incompatible classloader. THIS WILL NOT WORK!
+  [Client thread/WARN] [FML]: *  at net.minecraftforge.fml.common.ModAPIManager$APIContainer.validate(ModAPIManager.java:114)
+  [Client thread/WARN] [FML]: *  at net.minecraftforge.fml.common.ModAPIManager.registerDataTableAndParseAPI(ModAPIManager.java:174)
+  [Client thread/WARN] [FML]: *  at net.minecraftforge.fml.common.ModAPIManager.manageAPI(ModAPIManager.java:232)
+  [Client thread/WARN] [FML]: *  at net.minecraftforge.fml.common.Loader.loadMods(Loader.java:569)
+  [Client thread/WARN] [FML]: *  at net.minecraftforge.fml.client.FMLClientHandler.beginMinecraftLoading(FMLClientHandler.java:232)
+  [Client thread/WARN] [FML]: *  at net.minecraft.client.Minecraft.init(Minecraft.java:514)...
+  [Client thread/WARN] [FML]: ****************************************
+  ```
 
 # Дубликаты
 - [ ] Удалить предметы: `zinc`, `titanium`, `silver`, `aluminium`, `brass`, `sapphire`, `ruby`, `topaz`, `lithium`, `saltpeter`, `manganese`, `beryllium`, `salt` (можно заменить их в крафтах на `missing zinc ingot` и т.п. как это уже сделано для `lead` материалов) (дублируются другими модами) (можно просто сделать в рецептах орэдикт этих материалов)
