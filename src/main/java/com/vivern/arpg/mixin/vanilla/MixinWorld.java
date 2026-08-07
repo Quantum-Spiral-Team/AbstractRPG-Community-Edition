@@ -24,17 +24,6 @@ public abstract class MixinWorld {
     @Shadow public abstract void markBlockRangeForRenderUpdate(int x1, int y1, int z1, int x2, int y2, int z2);
 
     @Inject(
-            method = "markAndNotifyBlock",
-            at = @At("HEAD"),
-            remap = false
-    )
-    private void arpg$markAndNotifyBlock(BlockPos pos, @Nullable Chunk chunk, IBlockState iblockstate, IBlockState newState, int flags, CallbackInfo ci) {
-        if ((newState.getLightOpacity(((World) (Object) this), pos) != iblockstate.getLightOpacity(((World) (Object) this), pos) || newState.getLightValue(((World) (Object) this), pos) != iblockstate.getLightValue(((World) (Object) this), pos)) && isRemote) {
-            ColoredLightning.doColorUpdate(pos.getX(), pos.getY(), pos.getZ(), false, ((World) (Object) this));
-        }
-    }
-
-    @Inject(
             method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z",
             at = @At("HEAD")
     )
