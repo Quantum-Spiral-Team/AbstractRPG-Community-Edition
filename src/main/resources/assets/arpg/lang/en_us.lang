@@ -1165,6 +1165,7 @@ entity.Entity Part.name=Entity Part
 entity.Siren.name=Siren
 entity.Wizard.name=Wizard
 entity.Niveous Slider=Niveous Slider
+entity.Mechanic.name=Mechanic
 
 
 description.ichor_shower=Shoots a jet of booming ichor that penetrates enemies, which corrodes armor

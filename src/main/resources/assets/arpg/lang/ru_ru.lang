@@ -1144,6 +1144,7 @@ entity.Snow Clod.name=Снежный ком
 entity.Entity Part.name=Часть сущности
 entity.Siren.name=Сирена
 entity.Wizard.name=Маг
+entity.Mechanic.name=Механик
 
 
 description.ichor_shower=Выпускает струю взрывного ихора, пробивающего врагов и разъедающего броню
