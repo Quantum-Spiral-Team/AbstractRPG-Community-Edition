@@ -275,7 +275,7 @@ test {
 }
 
 tasks.register('generateMixinJson') {
-    def missingConfig = propertyStringList('mixin_configs').findAll(config -> !file("src/main/resources/mixins.${config}.json").exists())
+    def missingConfig = propertyStringList('mixin_configs').findAll(config -> !file("src/main/resources/${config}").exists())
     onlyIf {
         if (propertyBool('use_mixins') && propertyBool('generate_mixins_json')) {
             return !missingConfig.empty
