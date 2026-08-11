@@ -85,7 +85,7 @@ dependencies {
     // }
 
     implementation "com.cleanroommc:configanytime:3.0"
-    implementation 'mezz:jei:4.30.2'
+    implementation 'mezz:jei:4.34.1'
     implementation rfg.deobf("curse.maven:baubles-227083:2518667")
 //    runtimeOnly rfg.deobf("curse.maven:baubles-ex-1096600:7609484")
     implementation('com.enderio:endercore:0.5.78') { transitive = false }
