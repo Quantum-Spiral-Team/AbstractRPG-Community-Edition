@@ -79,6 +79,7 @@
   [Client thread/WARN] [FML]: *  at net.minecraft.client.Minecraft.init(Minecraft.java:514)...
   [Client thread/WARN] [FML]: ****************************************
   ```
+- [ ] Написать более "интересные" хитбоксы для GiantShell
 
 # Дубликаты
 - [ ] Удалить предметы: `zinc`, `titanium`, `silver`, `aluminium`, `brass`, `sapphire`, `ruby`, `topaz`, `lithium`, `saltpeter`, `manganese`, `beryllium`, `salt` (можно заменить их в крафтах на `missing zinc ingot` и т.п. как это уже сделано для `lead` материалов) (дублируются другими модами) (можно просто сделать в рецептах орэдикт этих материалов)
