@@ -1,8 +1,9 @@
 {
-    "variants": {
-    
-    "explode=false": { "model": "arpg:frostfire_explosive"},
-	"explode=true": { "model": "arpg:frostfire_explosive"}
-	
+  "forge_marker": 1,
+  "defaults": {
+    "model": "arpg:frostfire_explosive"
+  },
+  "variants": {
+    "explode": { "true": {}, "false": {} }
   }
 }

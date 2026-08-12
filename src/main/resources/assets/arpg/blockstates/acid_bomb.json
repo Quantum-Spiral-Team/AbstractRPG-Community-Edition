@@ -1,8 +1,11 @@
 {
-    "variants": {
-    
-    "explode=false": { "model": "arpg:acid_bomb"},
-	"explode=true": { "model": "arpg:acid_bomb"}
-	
+  "forge_marker": 1,
+  "defaults":{
+    "model": "arpg:acid_bomb"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "explode": [{}]
   }
 }

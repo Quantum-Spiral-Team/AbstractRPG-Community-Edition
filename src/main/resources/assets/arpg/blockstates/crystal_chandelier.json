@@ -5,7 +5,7 @@
         "transform": "forge:default-block",
         "model": "arpg:crystal_chandelier",
         "textures": {
-		"particle": "arpg:crystal_chandelier"
+		    "particle": "arpg:crystal_chandelier"
         }
     },
     "variants": {    

@@ -1,7 +1,12 @@
 {
-  "variants": {
-    "normal": {
-      "model": "arpg:empty"
+  "forge_marker": 1,
+  "defaults": {
+    "model": "arpg:empty",
+    "textures": {
+      "particle": "arpg:assembly_table_model_tex"
     }
+  },
+  "variants": {
+    "normal": [{}]
   }
 }

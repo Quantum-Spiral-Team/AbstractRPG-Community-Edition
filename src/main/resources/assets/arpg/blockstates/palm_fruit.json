@@ -1,7 +1,7 @@
 {
     "variants": {
-        "normal": [
-            { "model": "arpg:palm_fruit" }
-        ]
+        "normal": [{
+            "model": "arpg:palm_fruit"
+        }]
     }
 }

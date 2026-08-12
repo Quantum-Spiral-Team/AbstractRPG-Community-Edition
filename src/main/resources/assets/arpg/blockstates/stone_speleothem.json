@@ -1,7 +1,6 @@
 {
     "forge_marker": 1,
-    "defaults":
-    {
+    "defaults": {
         "transform": "forge:default-block",
         "textures": {
 		"particle": "arpg:stalacts/stone_speleothem"

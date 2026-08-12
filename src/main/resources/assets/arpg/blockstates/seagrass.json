@@ -8,11 +8,11 @@
     }
   },
   "variants": {
-		"level=0": [
-            { "model": "arpg:seagrass1" },
-            { "model": "arpg:seagrass2" },
-            { "model": "arpg:seagrass3" },
-            { "model": "arpg:seagrass4" }
-        ]
+    "level=0": [
+        { "model": "arpg:seagrass1" },
+        { "model": "arpg:seagrass2" },
+        { "model": "arpg:seagrass3" },
+        { "model": "arpg:seagrass4" }
+    ]
   }
 }

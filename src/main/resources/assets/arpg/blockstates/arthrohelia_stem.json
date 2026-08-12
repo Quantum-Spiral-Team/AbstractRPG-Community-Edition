@@ -1,8 +1,4 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    
-  },
   "variants": {
     "inventory": { "model": "arpg:arthrohelia_stem" },
     "facing=up": { "model": "arpg:arthrohelia_stem" },

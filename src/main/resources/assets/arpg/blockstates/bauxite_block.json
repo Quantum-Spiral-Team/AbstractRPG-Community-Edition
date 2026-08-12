@@ -10,6 +10,5 @@
             { "model": "arpg:bauxite_block", "x": 90, "y": 180 },
             { "model": "arpg:bauxite_block", "x": 90, "y": 270 }
         ]
-        
     }
 }

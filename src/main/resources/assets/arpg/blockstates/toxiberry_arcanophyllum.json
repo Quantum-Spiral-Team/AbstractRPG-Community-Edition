@@ -1,12 +1,8 @@
 {
   "forge_marker": 1,
-  "defaults": {
-	
-  },
+  "defaults": {},
   "variants": {
-    
     "growed=false": { "model": "arpg:toxiberry_arcanophyllum0"},
 	"growed=true": { "model": "arpg:toxiberry_arcanophyllum1"}
-	
   }
 }

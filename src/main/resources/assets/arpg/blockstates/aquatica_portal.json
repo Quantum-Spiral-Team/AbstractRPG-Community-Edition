@@ -1,7 +1,12 @@
 {
-  "variants": {
-    "normal": {
-      "model": "arpg:empty"
+  "forge_marker": 1,
+  "defaults":{
+    "model": "arpg:empty",
+    "textures": {
+      "particle": "arpg:aquatica_portal_1"
     }
+  },
+  "variants": {
+    "normal": [{}]
   }
 }

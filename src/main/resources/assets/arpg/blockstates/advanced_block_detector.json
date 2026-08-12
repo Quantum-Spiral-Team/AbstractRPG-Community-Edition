@@ -1,5 +1,4 @@
 {
-	
     "variants": {
         "facing=down":  { "model": "arpg:advanced_block_detector", "x": 270 },
         "facing=up":    { "model": "arpg:advanced_block_detector", "x": 90 },

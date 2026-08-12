@@ -1,21 +1,25 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "arpg:helioporacea",
-		"textures": {
-			"all": "arpg:helioporacea"
-		}
-	},
-	"variants": {
-		"normal": [{}],
+  "forge_marker": 1,
+  "defaults": {
+	"model": "arpg:helioporacea",
+    "textures": {
+	  "all": "arpg:helioporacea"
+    }
+  },
+  "variants": {
+		"normal": [{}], 
 		"inventory": [{}],
-		"facing": {
-			"up": { "model": "arpg:helioporacea" },
-			"down": { "model": "arpg:helioporacea", "x": 180 },
-			"north": { "model": "arpg:helioporacea", "x": 90 },
-			"south": { "model": "arpg:helioporacea", "x": 90, "y": 180 },
-			"east": { "model": "arpg:helioporacea", "x": 90, "y": 90 },
-			"west": { "model": "arpg:helioporacea", "x": 90, "y": 270 }
-		}
-	}
+		"facing=up,wet=true": { "model": "arpg:helioporacea" },
+		"facing=east,wet=true": { "model": "arpg:helioporacea", "x": 90, "y": 90 },
+		"facing=south,wet=true": { "model": "arpg:helioporacea", "x": 90, "y": 180 },
+		"facing=west,wet=true": { "model": "arpg:helioporacea", "x": 90, "y": 270 },
+		"facing=north,wet=true": { "model": "arpg:helioporacea", "x": 90 },
+		"facing=down,wet=true": { "model": "arpg:helioporacea", "x": 180 },
+		"facing=up,wet=false": { "model": "arpg:helioporacea" },
+		"facing=east,wet=false": { "model": "arpg:helioporacea", "x": 90, "y": 90 },
+		"facing=south,wet=false": { "model": "arpg:helioporacea", "x": 90, "y": 180 },
+		"facing=west,wet=false": { "model": "arpg:helioporacea", "x": 90, "y": 270 },
+		"facing=north,wet=false": { "model": "arpg:helioporacea", "x": 90 },
+		"facing=down,wet=false": { "model": "arpg:helioporacea", "x": 180 }
+  }
 }

@@ -1,13 +1,14 @@
 {
   "forge_marker": 1,
   "defaults": {
+    "model": "arpg:crafting_table",
     "textures": {
 	  "particle": "arpg:conifer_ornament_top",
 	  "crafting_table": "arpg:conifer_crafting_table"
     }
   },
   "variants": {
-    "normal": { "model": "arpg:crafting_table" },
-    "inventory": { "model": "arpg:crafting_table" }
+    "normal": [{}],
+    "inventory": [{}]
   }
 }

@@ -13,6 +13,5 @@
 		"type=10": { "model": "arpg:model_bar11" },
 		"type=11": { "model": "arpg:model_bar12" },
 		"type=12": { "model": "arpg:model_bar13" }
-		
     }
 }

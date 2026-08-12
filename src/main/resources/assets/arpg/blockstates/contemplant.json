@@ -4,9 +4,7 @@
 	
   },
   "variants": {
-    
     "growed=false": { "model": "arpg:contemplant0"},
 	"growed=true": { "model": "arpg:contemplant1"}
-	
   }
 }

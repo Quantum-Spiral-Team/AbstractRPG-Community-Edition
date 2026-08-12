@@ -6,8 +6,8 @@
             "all": "arpg:sulfuric_acid_flow"
         },
         "model": "forge:fluid",
-         "custom": { "fluid": "sulfuric_gas" },
-         "uvlock": false
+        "custom": { "fluid": "sulfuric_gas" },
+        "uvlock": false
     },
     "variants": {
         "normal": [{

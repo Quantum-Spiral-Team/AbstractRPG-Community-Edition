@@ -1,12 +1,8 @@
 {
   "forge_marker": 1,
-  "defaults": {
-	
-  },
+  "defaults": {},
   "variants": {
-    
     "growed=false": { "model": "arpg:viscosa0"},
 	"growed=true": { "model": "arpg:viscosa1"}
-	
   }
 }

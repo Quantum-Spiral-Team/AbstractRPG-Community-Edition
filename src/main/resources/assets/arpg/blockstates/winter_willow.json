@@ -1,12 +1,8 @@
 {
   "forge_marker": 1,
-  "defaults": {
-	
-  },
+  "defaults": {},
   "variants": {
-    
     "growed=false": { "model": "arpg:winter_willow0"},
 	"growed=true": { "model": "arpg:winter_willow1"}
-	
   }
 }

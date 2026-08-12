@@ -4,9 +4,7 @@
 	
   },
   "variants": {
-    
     "growed=false": { "model": "arpg:deceidus0"},
 	"growed=true": { "model": "arpg:deceidus1"}
-	
   }
 }
