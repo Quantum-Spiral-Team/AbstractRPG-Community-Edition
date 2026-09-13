@@ -54,7 +54,7 @@ public class TimelessSword extends ItemWeapon {
                 boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
                 boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
                 boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(Items.EXP);
                 EnumHand hand = null;
                 if (player.getHeldItemMainhand() == itemstack) {
                     if (click && !hascooldown) {
@@ -77,7 +77,7 @@ public class TimelessSword extends ItemWeapon {
                         player.getCooldownTracker().setCooldown(this, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
                     } else if (hand == EnumHand.OFF_HAND) {
                         List<Entity> list = world.getLoadedEntityList();
-                        player.getCooldownTracker().setCooldown(ItemsRegister.EXP, 10);
+                        player.getCooldownTracker().setCooldown(Items.EXP, 10);
 
                         for (Entity e : list) {
                             if (e instanceof EntityTimelessSword) {
@@ -97,7 +97,7 @@ public class TimelessSword extends ItemWeapon {
         World world = player.world;
         Vec3d vec = GetMOP.posRayTrace(length, 1.0F, player, size, 0.4);
         float effectrotat = itemRand.nextBoolean() ? 180 - itemRand.nextInt(50) : itemRand.nextInt(50);
-        IWeapon.fireEffect(ItemsRegister.TIMELESS_SWORD, player, world, 64.0, vec.x, vec.y, vec.z, effectrotat, player.rotationPitch, player.rotationYaw, 0.0, 0.0, 0.0);
+        IWeapon.fireEffect(Items.TIMELESS_SWORD, player, world, 64.0, vec.x, vec.y, vec.z, effectrotat, player.rotationPitch, player.rotationYaw, 0.0, 0.0, 0.0);
         boolean shouldTimeless = true;
         float crit = 0.0F;
         if (itemRand.nextFloat() < 0.2) {

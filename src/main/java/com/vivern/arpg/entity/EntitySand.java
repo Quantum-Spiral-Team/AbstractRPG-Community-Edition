@@ -38,17 +38,17 @@ public class EntitySand extends EntityThrowable {
 
     public EntitySand(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.SCEPTER_OF_SANDS);
+        this.weaponstack = new ItemStack(Items.SCEPTER_OF_SANDS);
     }
 
     public EntitySand(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.SCEPTER_OF_SANDS);
+        this.weaponstack = new ItemStack(Items.SCEPTER_OF_SANDS);
     }
 
     public EntitySand(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.SCEPTER_OF_SANDS);
+        this.weaponstack = new ItemStack(Items.SCEPTER_OF_SANDS);
     }
 
     public EntitySand(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

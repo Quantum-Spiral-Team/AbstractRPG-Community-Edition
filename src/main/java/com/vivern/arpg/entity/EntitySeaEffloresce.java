@@ -37,20 +37,20 @@ public class EntitySeaEffloresce extends Entity implements ISynchronizedEntity {
 
     public EntitySeaEffloresce(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.SEA_EFFLORESCE);
+        this.weaponstack = new ItemStack(Items.SEA_EFFLORESCE);
         this.setSize(0.5F, 0.5F);
     }
 
     public EntitySeaEffloresce(World world, EntityLivingBase thrower) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.SEA_EFFLORESCE);
+        this.weaponstack = new ItemStack(Items.SEA_EFFLORESCE);
         this.setSize(0.5F, 0.5F);
         this.thrower = thrower;
     }
 
     public EntitySeaEffloresce(World world, double x, double y, double z) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.SEA_EFFLORESCE);
+        this.weaponstack = new ItemStack(Items.SEA_EFFLORESCE);
         this.setSize(0.5F, 0.5F);
         this.setPosition(x, y, z);
     }
@@ -167,7 +167,7 @@ public class EntitySeaEffloresce extends Entity implements ISynchronizedEntity {
                     this.setDead();
                 }
 
-                if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) == 0 && this.thrower.getHeldItemMainhand().getItem() != ItemsRegister.SEA_EFFLORESCE) {
+                if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, this.weaponstack) == 0 && this.thrower.getHeldItemMainhand().getItem() != Items.SEA_EFFLORESCE) {
                     SuperKnockback.applyMove(this, -0.2F * attraction, this.thrower.posX, this.thrower.posY + this.thrower.height / 2.0F, this.thrower.posZ);
                     this.destroyTick += 3;
                     if (this.destroyTick > 21) {

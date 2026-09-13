@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.tileentity.TileEtheriteInvocator;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -53,7 +53,7 @@ public class BlockEtheriteInvocator extends Block implements IBlockHardBreak {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (player.getHeldItemMainhand().getItem() == ItemsRegister.ETHERITE_FUEL_CELL) {
+        if (player.getHeldItemMainhand().getItem() == Items.ETHERITE_FUEL_CELL) {
             TileEtheriteInvocator tile = this.getTileEntity(world, pos);
             if (tile.setCell()) {
                 player.getHeldItemMainhand().shrink(1);

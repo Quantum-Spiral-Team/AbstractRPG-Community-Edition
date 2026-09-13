@@ -78,7 +78,7 @@ public class IceHelm extends ItemArmor implements IItemHurted {
 
     @Override
     public float onHurtWithItem(float hurtdamage, ItemStack stack, EntityPlayer player, DamageSource source) {
-        if (!player.getCooldownTracker().hasCooldown(this) && player.inventory.armorInventory.get(3).getItem() == ItemsRegister.ICE_HELM && player.inventory.armorInventory.get(2).getItem() == ItemsRegister.ICE_CHEST && player.inventory.armorInventory.get(1).getItem() == ItemsRegister.ICE_LEGS && player.inventory.armorInventory.get(0).getItem() == ItemsRegister.ICE_BOOTS && source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase && !player.world.isRemote) {
+        if (!player.getCooldownTracker().hasCooldown(this) && player.inventory.armorInventory.get(3).getItem() == Items.ICE_HELM && player.inventory.armorInventory.get(2).getItem() == Items.ICE_CHEST && player.inventory.armorInventory.get(1).getItem() == Items.ICE_LEGS && player.inventory.armorInventory.get(0).getItem() == Items.ICE_BOOTS && source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase && !player.world.isRemote) {
             double damageRadius = 2.0;
             AxisAlignedBB axisalignedbb = player.getEntityBoundingBox().expand(damageRadius * 2.0, damageRadius, damageRadius * 2.0).offset(-damageRadius, -damageRadius * 0.5, -damageRadius);
             List<EntityLivingBase> list = player.world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);

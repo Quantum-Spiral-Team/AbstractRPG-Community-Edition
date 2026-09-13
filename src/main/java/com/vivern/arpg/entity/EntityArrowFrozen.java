@@ -1,7 +1,7 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.potions.Freezing;
@@ -49,7 +49,7 @@ public class EntityArrowFrozen extends AbstractArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemsRegister.ARROW_FROZEN);
+        return new ItemStack(Items.ARROW_FROZEN);
     }
 
     @Override

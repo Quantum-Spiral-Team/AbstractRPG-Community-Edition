@@ -72,7 +72,7 @@ public class SoulStone extends ItemWeapon {
     }
 
     public static ItemStack getSouledStack(int soul) {
-        ItemStack stack = new ItemStack(ItemsRegister.SOUL_STONE);
+        ItemStack stack = new ItemStack(Items.SOUL_STONE);
         NBTHelper.GiveNBTint(stack, soul, "soul");
         NBTHelper.SetNBTint(stack, soul, "soul");
         NBTHelper.GiveNBTint(stack, soul, "soul");
@@ -95,7 +95,7 @@ public class SoulStone extends ItemWeapon {
             }
 
             attacker.world.playSound(null, attacker.posX, attacker.posY, attacker.posZ, Sounds.soul_steal, SoundCategory.PLAYERS, 1.3F, 0.9F + itemRand.nextFloat() / 5.0F);
-            IWeapon.fireEffect(ItemsRegister.SOUL_STONE, attacker, attacker.world, 32.0, target.posX, target.posY + target.height / 2.0F, target.posZ, attacker.posX, attacker.posY + attacker.height / 2.0F, attacker.posZ, 0.0, 0.0, 0.0);
+            IWeapon.fireEffect(Items.SOUL_STONE, attacker, attacker.world, 32.0, target.posX, target.posY + target.height / 2.0F, target.posZ, attacker.posX, attacker.posY + attacker.height / 2.0F, attacker.posZ, 0.0, 0.0, 0.0);
             if (attacker instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) attacker;
                 int empty = player.inventory.getFirstEmptyStack();

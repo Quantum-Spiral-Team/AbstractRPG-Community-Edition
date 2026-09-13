@@ -102,23 +102,23 @@ public class ItemBullet extends Item {
     }
 
     public static void init() {
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_COPPER).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_SILVER).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_LEAD).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLE_TGOLD).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_FROZEN).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_INCENDIARY).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_THUNDER).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_POISONOUS).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_TOXIC).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_CRYSTAL).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_EXPLODING).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_FESTIVAL).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_ADAMANTIUM).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_NIVEOUS).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_ERRATIC).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_CORAL).setId(registryId++));
-        BULLETS_REGISTRY.add(((ItemBullet) ItemsRegister.BULLET_DIVING).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_COPPER).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_SILVER).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_LEAD).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLE_TGOLD).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_FROZEN).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_INCENDIARY).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_THUNDER).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_POISONOUS).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_TOXIC).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_CRYSTAL).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_EXPLODING).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_FESTIVAL).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_ADAMANTIUM).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_NIVEOUS).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_ERRATIC).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_CORAL).setId(registryId++));
+        BULLETS_REGISTRY.add(((ItemBullet) Items.BULLET_DIVING).setId(registryId++));
 
         for (ItemBullet bullet : BULLETS_REGISTRY) {
             bullet.damage = WeaponParameters.getWeaponParameters(bullet).getFloat("damage");

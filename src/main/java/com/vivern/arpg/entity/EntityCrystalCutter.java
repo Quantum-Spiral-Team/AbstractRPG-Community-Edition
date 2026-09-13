@@ -38,17 +38,17 @@ public class EntityCrystalCutter extends EntityThrowable {
 
     public EntityCrystalCutter(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_CUTTER);
+        this.weaponstack = new ItemStack(Items.CRYSTAL_CUTTER);
     }
 
     public EntityCrystalCutter(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_CUTTER);
+        this.weaponstack = new ItemStack(Items.CRYSTAL_CUTTER);
     }
 
     public EntityCrystalCutter(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_CUTTER);
+        this.weaponstack = new ItemStack(Items.CRYSTAL_CUTTER);
     }
 
     public EntityCrystalCutter(World world, EntityLivingBase thrower, ItemStack itemstack) {

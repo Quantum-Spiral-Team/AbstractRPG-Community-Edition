@@ -146,7 +146,7 @@ public class LaserPistol extends ItemWeapon {
                             }
                         }
                     }
-                } else if (this.initiateMetadataReload(itemstack, player, new ItemStack(ItemsRegister.ION_BATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(ItemsRegister.ION_BATTERY, 1, 0))) {
+                } else if (this.initiateMetadataReload(itemstack, player, new ItemStack(Items.ION_BATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(Items.ION_BATTERY, 1, 0))) {
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.lasergun_rel, SoundCategory.NEUTRAL, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                     Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                 }
@@ -209,8 +209,8 @@ public class LaserPistol extends ItemWeapon {
                         }
                     }
 
-                    if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.ION_BATTERY, 1))) {
-                        player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.ION_BATTERY, 1).getItem(), -1, 1, null);
+                    if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(Items.ION_BATTERY, 1))) {
+                        player.inventory.clearMatchingItems(new ItemStack(Items.ION_BATTERY, 1).getItem(), -1, 1, null);
                         itemstack.setItemDamage(0);
                         player.getCooldownTracker().setCooldown(this, 40);
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.laserpistol_rel, SoundCategory.NEUTRAL, 0.7F, 0.6F / (itemRand.nextFloat() * 0.4F + 0.8F));

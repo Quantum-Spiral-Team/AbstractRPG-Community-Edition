@@ -52,7 +52,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
     @Override
     public void update() {
         this.ticksExisted++;
-        if (this.ticksExisted % 60 == 0 && this.getStackInSlot(0).getItem() == ItemsRegister.SOUL_STONE) {
+        if (this.ticksExisted % 60 == 0 && this.getStackInSlot(0).getItem() == Items.SOUL_STONE) {
             int soulid = SoulStone.getSoul(this.getStackInSlot(0));
             if (soulid == 0) {
                 Vec3d vec = GetMOP.pitchYawToVec3D(this.rotationPitch, this.rotationYaw);
@@ -70,7 +70,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
                                 ItemStack filledStone = SoulStone.getFilledSoulStoneForMob(entityLivingBase);
                                 this.setInventorySlotContents(0, filledStone);
                                 this.world.playSound(null, this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5, Sounds.soul_steal, SoundCategory.BLOCKS, 1.3F, 0.9F + rand.nextFloat() / 5.0F);
-                                IWeapon.fireEffect(ItemsRegister.SOUL_STONE, entityLivingBase, this.world, 32.0, entityLivingBase.posX, entityLivingBase.posY + entityLivingBase.height / 2.0F, entityLivingBase.posZ, thisvec.x, thisvec.y, thisvec.z, 0.0, 0.0, 0.0);
+                                IWeapon.fireEffect(Items.SOUL_STONE, entityLivingBase, this.world, 32.0, entityLivingBase.posX, entityLivingBase.posY + entityLivingBase.height / 2.0F, entityLivingBase.posZ, thisvec.x, thisvec.y, thisvec.z, 0.0, 0.0, 0.0);
                             }
                         }
                     }
@@ -203,7 +203,7 @@ public class TileSoulCatcher extends TileEntity implements ITickable, ISidedInve
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return stack.getItem() == ItemsRegister.SOUL_STONE;
+        return stack.getItem() == Items.SOUL_STONE;
     }
 
     @Override

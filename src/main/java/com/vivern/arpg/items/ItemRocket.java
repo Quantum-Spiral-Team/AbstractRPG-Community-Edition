@@ -89,17 +89,17 @@ public class ItemRocket extends Item {
     }
 
     public static void init() {
-        registerRocket((ItemRocket) ItemsRegister.COMMON_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.FROSTFIRE_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.CHEMICAL_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.NAPALM_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.DEMOLISHING_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.MINING_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.VOID_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.WATERBLAST_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.ARCANE_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.SURPRISE_ROCKET);
-        registerRocket((ItemRocket) ItemsRegister.SHELL_ROCKET);
+        registerRocket((ItemRocket) Items.COMMON_ROCKET);
+        registerRocket((ItemRocket) Items.FROSTFIRE_ROCKET);
+        registerRocket((ItemRocket) Items.CHEMICAL_ROCKET);
+        registerRocket((ItemRocket) Items.NAPALM_ROCKET);
+        registerRocket((ItemRocket) Items.DEMOLISHING_ROCKET);
+        registerRocket((ItemRocket) Items.MINING_ROCKET);
+        registerRocket((ItemRocket) Items.VOID_ROCKET);
+        registerRocket((ItemRocket) Items.WATERBLAST_ROCKET);
+        registerRocket((ItemRocket) Items.ARCANE_ROCKET);
+        registerRocket((ItemRocket) Items.SURPRISE_ROCKET);
+        registerRocket((ItemRocket) Items.SHELL_ROCKET);
     }
 
     public static void registerRocket(ItemRocket item) {

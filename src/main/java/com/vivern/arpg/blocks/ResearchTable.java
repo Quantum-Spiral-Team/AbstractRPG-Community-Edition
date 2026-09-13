@@ -4,7 +4,7 @@ import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.items.ItemCalibrationThing;
 import com.vivern.arpg.main.ColorConverters;
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.recipes.ExploringField;
 import com.vivern.arpg.tileentity.TileResearchTable;
@@ -42,15 +42,15 @@ public class ResearchTable extends Table {
         if (tileentity instanceof TileResearchTable) {
             TileResearchTable tile = (TileResearchTable) tileentity;
             if (tile.specialization == 1) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_EXPLORING_KIT));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.MAGIC_EXPLORING_KIT));
             }
 
             if (tile.specialization == 2) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_RESEARCH_KIT));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.MAGIC_RESEARCH_KIT));
             }
 
             if (tile.specialization == 3) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MAGIC_WRITING_KIT));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.MAGIC_WRITING_KIT));
             }
         }
 
@@ -64,26 +64,26 @@ public class ResearchTable extends Table {
             if (tile != null) {
                 if (tile.specialization == 0) {
                     Item item = player.getHeldItemMainhand().getItem();
-                    if (item == ItemsRegister.MAGIC_EXPLORING_KIT) {
+                    if (item == Items.MAGIC_EXPLORING_KIT) {
                         tile.specialization = 1;
                         tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
                         player.getHeldItemMainhand().shrink(1);
                         PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
-                        player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
-                    } else if (item == ItemsRegister.MAGIC_RESEARCH_KIT) {
+                        player.getCooldownTracker().setCooldown(Items.MAGIC_EXPLORING_KIT, 20);
+                    } else if (item == Items.MAGIC_RESEARCH_KIT) {
                         tile.specialization = 2;
                         tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
                         player.getHeldItemMainhand().shrink(1);
                         PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
-                        player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
-                    } else if (item == ItemsRegister.MAGIC_WRITING_KIT) {
+                        player.getCooldownTracker().setCooldown(Items.MAGIC_EXPLORING_KIT, 20);
+                    } else if (item == Items.MAGIC_WRITING_KIT) {
                         tile.specialization = 3;
                         tile.rotation = player.getHorizontalFacing().getHorizontalIndex();
                         player.getHeldItemMainhand().shrink(1);
                         PacketHandler.trySendPacketUpdate(worldIn, pos, tile, 64.0);
-                        player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_EXPLORING_KIT, 20);
+                        player.getCooldownTracker().setCooldown(Items.MAGIC_EXPLORING_KIT, 20);
                     }
-                } else if (!player.getCooldownTracker().hasCooldown(ItemsRegister.MAGIC_EXPLORING_KIT)) {
+                } else if (!player.getCooldownTracker().hasCooldown(Items.MAGIC_EXPLORING_KIT)) {
                     if (player instanceof EntityPlayerMP) {
                         ExploringField.SendExploringInfoToClient((EntityPlayerMP) player);
                     }

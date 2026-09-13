@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.dimensions.ethernalfrost.DimensionEthernalFrost;
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
@@ -77,19 +77,19 @@ public class SnowSewingTable extends Block {
             int count = 5 - damage - rand.nextInt(3);
             if (count > 0) {
                 for (int i = 0; i < count; i++) {
-                    drops.add(new ItemStack(ItemsRegister.CONIFER_STICK, 1));
+                    drops.add(new ItemStack(Items.CONIFER_STICK, 1));
                 }
             }
 
             count = 5 - damage - rand.nextInt(3);
             if (count > 0) {
                 for (int i = 0; i < count; i++) {
-                    drops.add(new ItemStack(ItemsRegister.WINTER_WILLOW_SEEDS, 1));
+                    drops.add(new ItemStack(Items.WINTER_WILLOW_SEEDS, 1));
                 }
             }
 
             if (rand.nextFloat() > 0.25F * damage) {
-                drops.add(new ItemStack(ItemsRegister.ICE_GEM, 1));
+                drops.add(new ItemStack(Items.ICE_GEM, 1));
             }
         }
     }
@@ -133,7 +133,7 @@ public class SnowSewingTable extends Block {
                 }
 
                 world.setBlockToAir(pos.up());
-                world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.15, pos.getZ() + 0.5, new ItemStack(ItemsRegister.SNOW_CLOTH)));
+                world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.15, pos.getZ() + 0.5, new ItemStack(Items.SNOW_CLOTH)));
                 this.deactivateAndDamage(world, pos, state);
                 world.playSound(null, pos, Sounds.sewing, SoundCategory.BLOCKS, 0.7F, 0.85F + RANDOM.nextFloat() * 0.3F);
                 return true;
@@ -153,7 +153,7 @@ public class SnowSewingTable extends Block {
                 }
 
                 world.setBlockToAir(pos.up());
-                world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.15, pos.getZ() + 0.5, new ItemStack(ItemsRegister.SNOW_CLOTH)));
+                world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.15, pos.getZ() + 0.5, new ItemStack(Items.SNOW_CLOTH)));
                 this.deactivateAndDamage(world, pos, state);
                 world.playSound(null, pos, Sounds.sewing, SoundCategory.BLOCKS, 0.7F, 0.85F + RANDOM.nextFloat() * 0.3F);
                 return true;

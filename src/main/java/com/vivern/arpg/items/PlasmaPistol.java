@@ -59,7 +59,7 @@ public class PlasmaPistol extends ItemWeapon implements IEnergyItem {
                 int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
                 this.decreaseReload(itemstack, player);
                 boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(Items.EXP);
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                 int RFtoShoot = parameters.getEnchantedI("rf_to_shoot", reuse);
                 if (click && player.getHeldItemMainhand() == itemstack && this.getEnergyStored(itemstack) >= RFtoShoot && !hascooldown) {
@@ -81,7 +81,7 @@ public class PlasmaPistol extends ItemWeapon implements IEnergyItem {
 
                 if (click2 && player.getHeldItemOffhand() == itemstack && this.getEnergyStored(itemstack) >= RFtoShoot && !hascooldown2) {
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.plasma_pistol, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
-                    player.getCooldownTracker().setCooldown(ItemsRegister.EXP, this.getCooldownTime(itemstack));
+                    player.getCooldownTracker().setCooldown(Items.EXP, this.getCooldownTime(itemstack));
                     player.addStat(StatList.getObjectUseStats(this));
                     IWeapon.fireBomEffect(this, player, world, 0);
                     Weapons.setPlayerAnimationOnServer(player, 5, EnumHand.OFF_HAND);

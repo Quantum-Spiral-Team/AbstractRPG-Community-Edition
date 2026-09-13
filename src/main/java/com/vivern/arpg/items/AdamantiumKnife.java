@@ -1,9 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.ServerKeyTracker;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Weapons;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -44,7 +41,7 @@ public class AdamantiumKnife extends ItemWeapon {
                 boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
                 boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
                 boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(Items.EXP);
                 EnumHand hand = null;
                 if (click && player.getHeldItemMainhand() == itemstack && !hascooldown) {
                     hand = EnumHand.MAIN_HAND;
@@ -62,7 +59,7 @@ public class AdamantiumKnife extends ItemWeapon {
                     Weapons.setPlayerAnimationOnServer(player, 16, hand);
                     player.addExhaustion(0.04F);
                     double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
-                    player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
+                    player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : Items.EXP, this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack)));
                 }
             }
         }

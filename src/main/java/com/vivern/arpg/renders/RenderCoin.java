@@ -3,7 +3,7 @@ package com.vivern.arpg.renders;
 import com.vivern.arpg.entity.EntityCoin;
 import com.vivern.arpg.main.AnimationTimer;
 import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -36,7 +36,7 @@ public class RenderCoin<T extends EntityCoin> extends Render<T> {
 
     public RenderCoin(RenderManager renderManagerIn) {
         super(renderManagerIn);
-        torender = new ItemStack(ItemsRegister.COIN);
+        torender = new ItemStack(Items.COIN);
     }
 
     @Override

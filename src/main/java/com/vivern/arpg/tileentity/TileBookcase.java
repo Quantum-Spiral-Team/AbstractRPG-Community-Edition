@@ -1,7 +1,7 @@
 package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.main.ItemsElements;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.network.PacketHandler;
 import net.minecraft.item.Item;
@@ -128,7 +128,7 @@ public class TileBookcase extends TileEntity {
             String tagname = "book" + i;
             if (compound.hasKey(tagname, 10)) {
                 NBTTagCompound tag = compound.getCompoundTag(tagname);
-                ItemStack itemStack = new ItemStack(ItemsRegister.ELEMENTS_BOOK);
+                ItemStack itemStack = new ItemStack(Items.ELEMENTS_BOOK);
                 tag.setInteger("gem", this.booksGems[i]);
                 itemStack.setTagCompound(tag);
                 this.stacks.set(i, itemStack);

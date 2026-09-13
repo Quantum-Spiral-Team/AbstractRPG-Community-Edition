@@ -1,7 +1,7 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.entity.Entity;
@@ -118,7 +118,7 @@ public class EntityArrowFirejet extends AbstractArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemsRegister.ARROW_FIREJET);
+        return new ItemStack(Items.ARROW_FIREJET);
     }
 
     @Override

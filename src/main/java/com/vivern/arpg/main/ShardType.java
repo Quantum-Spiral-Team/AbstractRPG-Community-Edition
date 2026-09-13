@@ -967,13 +967,13 @@ public abstract class ShardType {
             boolean continie = true;
             if (entity instanceof EntityItem) {
                 EntityItem entityItem = (EntityItem) entity;
-                if (entityItem.getItem().getItem() == ItemsRegister.PHOTORESISTED_PLATE && damagePosition instanceof Vec3d) {
+                if (entityItem.getItem().getItem() == Items.PHOTORESISTED_PLATE && damagePosition instanceof Vec3d) {
                     Vec3d vec = (Vec3d) damagePosition;
                     Vec3d subtraction = vec.subtract(entityItem.getPositionVector());
                     double angle = GetMOP.getAngleBetweenVectors(new Vec3d(0.0, 1.0, 0.0), subtraction, 1.0, subtraction.length());
                     if (angle < 60.0) {
-                        entityItem.setItem(new ItemStack(ItemsRegister.LITOGRAPHED_PLATE));
-                        EntityItem newitem = new EntityItem(entityItem.world, entityItem.posX, entityItem.posY, entityItem.posZ, new ItemStack(ItemsRegister.PROCESSOR_PATTERN));
+                        entityItem.setItem(new ItemStack(Items.LITOGRAPHED_PLATE));
+                        EntityItem newitem = new EntityItem(entityItem.world, entityItem.posX, entityItem.posY, entityItem.posZ, new ItemStack(Items.PROCESSOR_PATTERN));
                         entityItem.world.spawnEntity(newitem);
                         newitem.setPickupDelay(40);
                         entityItem.setPickupDelay(40);

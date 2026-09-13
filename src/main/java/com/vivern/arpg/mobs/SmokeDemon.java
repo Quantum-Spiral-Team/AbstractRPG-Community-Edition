@@ -1,7 +1,7 @@
 package com.vivern.arpg.mobs;
 
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -23,7 +23,7 @@ public class SmokeDemon extends AbstractMob {
         this.defaultteam = OtherMobsPack.mobsteamnether;
         this.setNoGravity(true);
         this.setattributes(15.0, 32.0, 5.0, 0.5, 5.0, 2.0, 0.0, 0.0, 0.0, 0.0);
-        this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.BRASS_NUGGET, 0.5F, 0, 1, 2, 3), new MobDrop(ItemsRegister.BRASS_INGOT, 0.05F, 0, 1, 1, 1)});
+        this.registerLOOT(new MobDrop[]{new MobDrop(Items.BRASS_NUGGET, 0.5F, 0, 1, 2, 3), new MobDrop(Items.BRASS_INGOT, 0.05F, 0, 1, 1, 1)});
         this.leadershipBase = 4;
         this.isImmuneToFire = true;
         this.setDropMoney(-4, 5, 1.0F);

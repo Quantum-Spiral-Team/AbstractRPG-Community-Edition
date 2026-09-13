@@ -28,17 +28,17 @@ public class EntityBoomerangMagic extends StandardBullet {
 
     public EntityBoomerangMagic(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.MAGIC_BOOMERANG);
+        this.weaponstack = new ItemStack(Items.MAGIC_BOOMERANG);
     }
 
     public EntityBoomerangMagic(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.MAGIC_BOOMERANG);
+        this.weaponstack = new ItemStack(Items.MAGIC_BOOMERANG);
     }
 
     public EntityBoomerangMagic(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.MAGIC_BOOMERANG);
+        this.weaponstack = new ItemStack(Items.MAGIC_BOOMERANG);
     }
 
     public EntityBoomerangMagic(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {
@@ -91,7 +91,7 @@ public class EntityBoomerangMagic extends StandardBullet {
                 for (EntityLivingBase entitylivingbase : list) {
                     if (entitylivingbase == this.getThrower() && this.getThrower() instanceof EntityPlayer) {
                         EntityPlayer player = (EntityPlayer) this.getThrower();
-                        player.getCooldownTracker().setCooldown(ItemsRegister.MAGIC_BOOMERANG, cooldownToSet);
+                        player.getCooldownTracker().setCooldown(Items.MAGIC_BOOMERANG, cooldownToSet);
                         this.setDead();
                         break;
                     }

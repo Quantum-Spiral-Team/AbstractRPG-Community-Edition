@@ -1,7 +1,7 @@
 package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.items.ItemBullet;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -14,7 +14,7 @@ public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
 
     @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
-        if (inv.getStackInSlot(4).getItem() == ItemsRegister.ADAMANTIUM_NUGGET) {
+        if (inv.getStackInSlot(4).getItem() == Items.ADAMANTIUM_NUGGET) {
             Item item1 = inv.getStackInSlot(1).getItem();
             if (item1 instanceof ItemBullet && inv.getStackInSlot(3).getItem() == item1 && inv.getStackInSlot(5).getItem() == item1 && inv.getStackInSlot(7).getItem() == item1) {
                 return true;
@@ -28,7 +28,7 @@ public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         Item item1 = inv.getStackInSlot(1).getItem();
         if (item1 instanceof ItemBullet) {
-            ItemStack st = new ItemStack(ItemsRegister.ADAMANTIUM_ROUNDS);
+            ItemStack st = new ItemStack(Items.ADAMANTIUM_ROUNDS);
             String name = ((ItemBullet) item1).getNbtName();
             NBTHelper.GiveNBTstring(st, name, "bullet");
             NBTHelper.SetNBTstring(st, name, "bullet");
@@ -45,7 +45,7 @@ public class AdamantiumRoundsRecipe extends Impl<IRecipe> implements IRecipe {
 
     @Override
     public ItemStack getRecipeOutput() {
-        return new ItemStack(ItemsRegister.ADAMANTIUM_ROUNDS);
+        return new ItemStack(Items.ADAMANTIUM_ROUNDS);
     }
 
 }

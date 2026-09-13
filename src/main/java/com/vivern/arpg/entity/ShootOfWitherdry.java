@@ -27,19 +27,19 @@ public class ShootOfWitherdry extends EntityThrowable {
 
     public ShootOfWitherdry(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.STAFF_OF_WITHERDRY);
+        this.weaponstack = new ItemStack(Items.STAFF_OF_WITHERDRY);
         this.setSize(0.1F, 0.1F);
     }
 
     public ShootOfWitherdry(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.STAFF_OF_WITHERDRY);
+        this.weaponstack = new ItemStack(Items.STAFF_OF_WITHERDRY);
         this.setSize(0.1F, 0.1F);
     }
 
     public ShootOfWitherdry(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.STAFF_OF_WITHERDRY);
+        this.weaponstack = new ItemStack(Items.STAFF_OF_WITHERDRY);
         this.setSize(0.1F, 0.1F);
     }
 

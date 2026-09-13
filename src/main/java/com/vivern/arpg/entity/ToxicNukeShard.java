@@ -1,9 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Team;
-import com.vivern.arpg.main.WeaponParameters;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.block.Block;
@@ -40,7 +37,7 @@ public class ToxicNukeShard extends EntityThrowable {
         this.ssx = 0.02F;
         this.ssy = 0.02F;
         this.ssz = 0.02F;
-        this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
+        this.weaponstack = new ItemStack(Items.TOXIC_NUCLEAR_CANNON);
     }
 
     public ToxicNukeShard(World world, EntityLivingBase thrower) {
@@ -48,7 +45,7 @@ public class ToxicNukeShard extends EntityThrowable {
         this.ssx = 0.02F;
         this.ssy = 0.02F;
         this.ssz = 0.02F;
-        this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
+        this.weaponstack = new ItemStack(Items.TOXIC_NUCLEAR_CANNON);
     }
 
     public ToxicNukeShard(World world, double x, double y, double z) {
@@ -56,7 +53,7 @@ public class ToxicNukeShard extends EntityThrowable {
         this.ssx = 0.02F;
         this.ssy = 0.02F;
         this.ssz = 0.02F;
-        this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
+        this.weaponstack = new ItemStack(Items.TOXIC_NUCLEAR_CANNON);
     }
 
     public ToxicNukeShard(World world, EntityLivingBase thrower, double ssx, double ssy, double ssz, ItemStack itemstack) {

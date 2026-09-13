@@ -94,7 +94,7 @@ public class FOVUpdateTracker {
     public static void onZoom(FOVUpdateEvent e) {
         ItemStack current = e.getEntity().getHeldItemMainhand();
         IWeapon iw = current.getItem() instanceof IWeapon ? (IWeapon) current.getItem() : null;
-        boolean aimlens = BaublesApi.isBaubleEquipped(e.getEntity(), ItemsRegister.AIM_LENS) > -1;
+        boolean aimlens = BaublesApi.isBaubleEquipped(e.getEntity(), Items.AIM_LENS) > -1;
         boolean active = PlayerButtonTracker.getScopeActive(e.getEntity(), iw != null && iw.hasZoom(current) || aimlens);
         float fov = disableSpeedFOV(e.getEntity()) ? getStandartFovModifierWithoutSpeed(e.getEntity()) : e.getFov();
         boolean iweaponhaszoom = false;

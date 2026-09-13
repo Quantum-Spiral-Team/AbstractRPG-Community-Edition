@@ -1,6 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.tileentity.TileSplitter;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -48,7 +48,7 @@ public class Splitter extends Block {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack stack = playerIn.getHeldItem(hand);
-        if (stack.getItem() == ItemsRegister.BEAKER) {
+        if (stack.getItem() == Items.BEAKER) {
             TileEntity tileEntity = world.getTileEntity(pos);
             if (tileEntity != null && tileEntity instanceof TileSplitter) {
                 ((TileSplitter) tileEntity).onPlayerUseBeaker(stack, playerIn);

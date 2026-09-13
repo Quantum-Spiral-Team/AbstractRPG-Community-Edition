@@ -1,6 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ManaBar;
 import com.vivern.arpg.tileentity.TileSpellForge;
@@ -93,7 +93,7 @@ public class SpellForgeBlock extends Block {
             ManaBar.energy_bars_enable = true;
         }
 
-        if (tile != null && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELL_ROLL && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.SPELL_PLIERS && playerIn.getHeldItemOffhand().getItem() != ItemsRegister.SPELL_PLIERS && playerIn.getHeldItemMainhand().getItem() != ItemsRegister.VIAL && playerIn.getHeldItemOffhand().getItem() != ItemsRegister.VIAL && !playerIn.getCooldownTracker().hasCooldown(ItemsRegister.VIAL)) {
+        if (tile != null && playerIn.getHeldItemMainhand().getItem() != Items.SPELL_ROLL && playerIn.getHeldItemMainhand().getItem() != Items.SPELL_PLIERS && playerIn.getHeldItemOffhand().getItem() != Items.SPELL_PLIERS && playerIn.getHeldItemMainhand().getItem() != Items.VIAL && playerIn.getHeldItemOffhand().getItem() != Items.VIAL && !playerIn.getCooldownTracker().hasCooldown(Items.VIAL)) {
             playerIn.displayGUIChest(tile);
             playerIn.swingArm(hand);
             return true;

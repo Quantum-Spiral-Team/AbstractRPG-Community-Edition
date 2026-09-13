@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.container.GuiHandler;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.tileentity.IManaBuffer;
 import com.vivern.arpg.tileentity.TileBookcase;
@@ -42,7 +42,7 @@ public class Bookcase extends Block {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (hand == EnumHand.MAIN_HAND && !player.getCooldownTracker().hasCooldown(ItemsRegister.ELEMENTS_BOOK)) {
+        if (hand == EnumHand.MAIN_HAND && !player.getCooldownTracker().hasCooldown(Items.ELEMENTS_BOOK)) {
             TileEntity tile = worldIn.getTileEntity(pos);
             if (tile instanceof TileBookcase) {
                 TileBookcase tileBookcase = (TileBookcase) tile;
@@ -66,7 +66,7 @@ public class Bookcase extends Block {
                                 tileBookcase.stacks.set(i, ItemStack.EMPTY);
                                 tileBookcase.booksGems[i] = 50;
                                 PacketHandler.trySendPacketUpdate(worldIn, pos, tileBookcase, 64.0);
-                                player.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
+                                player.getCooldownTracker().setCooldown(Items.ELEMENTS_BOOK, 3);
                                 return true;
                             }
                         }

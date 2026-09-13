@@ -1,7 +1,7 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.items.ChainMace;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
@@ -42,20 +42,20 @@ public class EntityChainMace extends Entity implements ISynchronizedEntity, IPro
 
     public EntityChainMace(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.CHAIN_MACE);
+        this.weaponstack = new ItemStack(Items.CHAIN_MACE);
         this.ignoreFrustumCheck = true;
     }
 
     public EntityChainMace(World world, EntityPlayer thrower) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.CHAIN_MACE);
+        this.weaponstack = new ItemStack(Items.CHAIN_MACE);
         this.thrower = thrower;
         this.ignoreFrustumCheck = true;
     }
 
     public EntityChainMace(World world, double x, double y, double z) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.CHAIN_MACE);
+        this.weaponstack = new ItemStack(Items.CHAIN_MACE);
         this.setPosition(x, y, z);
         this.ignoreFrustumCheck = true;
     }
@@ -331,27 +331,27 @@ public class EntityChainMace extends Entity implements ISynchronizedEntity, IPro
         }
 
         if (id == 1) {
-            this.mace = (ChainMace) ItemsRegister.CHAIN_MACE;
+            this.mace = (ChainMace) Items.CHAIN_MACE;
             this.setSize(this.mace.entitySize, this.mace.entitySize);
         }
 
         if (id == 2) {
-            this.mace = (ChainMace) ItemsRegister.DIAMOND_CHAIN_MACE;
+            this.mace = (ChainMace) Items.DIAMOND_CHAIN_MACE;
             this.setSize(this.mace.entitySize, this.mace.entitySize);
         }
 
         if (id == 3) {
-            this.mace = (ChainMace) ItemsRegister.MOLTEN_CHAIN_MACE;
+            this.mace = (ChainMace) Items.MOLTEN_CHAIN_MACE;
             this.setSize(this.mace.entitySize, this.mace.entitySize);
         }
 
         if (id == 4) {
-            this.mace = (ChainMace) ItemsRegister.ICEBREAKER;
+            this.mace = (ChainMace) Items.ICEBREAKER;
             this.setSize(this.mace.entitySize, this.mace.entitySize);
         }
 
         if (id == 5) {
-            this.mace = (ChainMace) ItemsRegister.ECHINUS;
+            this.mace = (ChainMace) Items.ECHINUS;
             this.setSize(this.mace.entitySize, this.mace.entitySize);
         }
     }

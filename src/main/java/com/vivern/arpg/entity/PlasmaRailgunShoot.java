@@ -39,17 +39,17 @@ public class PlasmaRailgunShoot extends StandardBullet implements ISynchronizedE
 
     public PlasmaRailgunShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RAILGUN);
+        this.weaponstack = new ItemStack(Items.PLASMA_RAILGUN);
     }
 
     public PlasmaRailgunShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RAILGUN);
+        this.weaponstack = new ItemStack(Items.PLASMA_RAILGUN);
     }
 
     public PlasmaRailgunShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RAILGUN);
+        this.weaponstack = new ItemStack(Items.PLASMA_RAILGUN);
     }
 
     public PlasmaRailgunShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {

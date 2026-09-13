@@ -1,7 +1,7 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.items.ItemRocket;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.renders.IRenderOptions;
@@ -32,17 +32,17 @@ public class EntityLaunchedRocket extends EntityThrowable implements IRenderOpti
 
     public EntityLaunchedRocket(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.ROCKET_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.ROCKET_LAUNCHER);
     }
 
     public EntityLaunchedRocket(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.ROCKET_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.ROCKET_LAUNCHER);
     }
 
     public EntityLaunchedRocket(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.ROCKET_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.ROCKET_LAUNCHER);
     }
 
     public EntityLaunchedRocket(World world, EntityLivingBase thrower, ItemStack itemstack) {

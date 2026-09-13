@@ -26,17 +26,17 @@ public class StingerBoltEntity extends EntityThrowable {
 
     public StingerBoltEntity(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.STINGER);
+        this.weaponstack = new ItemStack(Items.STINGER);
     }
 
     public StingerBoltEntity(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.STINGER);
+        this.weaponstack = new ItemStack(Items.STINGER);
     }
 
     public StingerBoltEntity(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.STINGER);
+        this.weaponstack = new ItemStack(Items.STINGER);
     }
 
     public StingerBoltEntity(World world, EntityLivingBase thrower, ItemStack itemstack) {

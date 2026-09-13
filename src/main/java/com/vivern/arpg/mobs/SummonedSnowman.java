@@ -8,7 +8,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -28,14 +27,14 @@ public class SummonedSnowman extends EntitySummoned {
     public SummonedSnowman(World world) {
         super(world);
         this.setSize(0.7F, 1.7F);
-        this.weaponstack = new ItemStack(ItemsRegister.CONIFER_ROD);
+        this.weaponstack = new ItemStack(Items.CONIFER_ROD);
     }
 
     public SummonedSnowman(World world, double x, double y, double z) {
         super(world);
         this.setSize(0.7F, 1.7F);
         this.setPositionAndUpdate(x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.CONIFER_ROD);
+        this.weaponstack = new ItemStack(Items.CONIFER_ROD);
     }
 
     public SummonedSnowman(World world, double x, double y, double z, EntityPlayer owner, ItemStack itemstack) {
@@ -123,7 +122,7 @@ public class SummonedSnowman extends EntitySummoned {
         super.onDeath(cause);
         int enchReuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack);
         if (this.world.getGameRules().getBoolean("doMobLoot") && enchReuse > 0) {
-            this.entityDropItem(new ItemStack(Items.SNOWBALL, this.rand.nextInt(3 + enchReuse * 2) + 1), 0.0F);
+            this.entityDropItem(new ItemStack(net.minecraft.init.Items.SNOWBALL, this.rand.nextInt(3 + enchReuse * 2) + 1), 0.0F);
         }
     }
 

@@ -46,7 +46,7 @@ public class EntityTimelessSword extends Entity implements ISynchronizedEntity {
 
     public EntityTimelessSword(World worldIn) {
         super(worldIn);
-        this.weaponstack = new ItemStack(ItemsRegister.TIMELESS_SWORD);
+        this.weaponstack = new ItemStack(Items.TIMELESS_SWORD);
         this.setSize(0.1F, 0.1F);
         this.ignoreFrustumCheck = true;
     }
@@ -184,7 +184,7 @@ public class EntityTimelessSword extends Entity implements ISynchronizedEntity {
             world.playSound(null, vec.x, vec.y, vec.z, Sounds.melee_miss_magic, SoundCategory.PLAYERS, 0.6F, 0.9F + rand.nextFloat() / 5.0F);
         }
 
-        IWeapon.fireEffect(ItemsRegister.TIMELESS_SWORD, player, world, 64.0, vec.x, vec.y, vec.z, rotation, pitch, yaw, 0.0, 0.0, 0.0);
+        IWeapon.fireEffect(Items.TIMELESS_SWORD, player, world, 64.0, vec.x, vec.y, vec.z, rotation, pitch, yaw, 0.0, 0.0, 0.0);
         return ret;
     }
 

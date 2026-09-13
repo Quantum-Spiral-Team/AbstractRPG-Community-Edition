@@ -1,6 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.ServerKeyTracker;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Weapons;
@@ -56,7 +56,7 @@ public class HailTear extends ItemWeapon {
                 boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
                 boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
                 boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(Items.EXP);
                 if (click && player.getHeldItemMainhand() == itemstack && !hascooldown) {
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.magic_k, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
                     player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
@@ -75,7 +75,7 @@ public class HailTear extends ItemWeapon {
 
                 if (click2 && player.getHeldItemOffhand() == itemstack && !hascooldown2) {
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.magic_k, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
-                    player.getCooldownTracker().setCooldown(ItemsRegister.EXP, this.getCooldownTime(itemstack));
+                    player.getCooldownTracker().setCooldown(Items.EXP, this.getCooldownTime(itemstack));
                     player.addStat(StatList.getObjectUseStats(this));
                     Weapons.setPlayerAnimationOnServer(player, 1, EnumHand.OFF_HAND);
                     if (!player.capabilities.isCreativeMode) {

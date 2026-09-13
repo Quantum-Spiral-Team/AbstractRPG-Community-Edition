@@ -1,6 +1,6 @@
 package com.vivern.arpg.potions;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Mana;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.mobs.BossWinterFury;
@@ -12,7 +12,6 @@ import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -58,8 +57,8 @@ public class WinterCurse extends AdvancedPotion {
     @Override
     public List<ItemStack> getCurativeItems() {
         ArrayList<ItemStack> ret = new ArrayList<>();
-        ret.add(new ItemStack(Items.MILK_BUCKET));
-        ret.add(new ItemStack(ItemsRegister.CRIMBERRY_WINE));
+        ret.add(new ItemStack(net.minecraft.init.Items.MILK_BUCKET));
+        ret.add(new ItemStack(Items.CRIMBERRY_WINE));
         return ret;
     }
 

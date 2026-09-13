@@ -32,17 +32,17 @@ public class PlasmaAcceleratorShoot extends EntityThrowable {
 
     public PlasmaAcceleratorShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.PLASMA_PISTOL);
+        this.weaponstack = new ItemStack(Items.PLASMA_PISTOL);
     }
 
     public PlasmaAcceleratorShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.PLASMA_PISTOL);
+        this.weaponstack = new ItemStack(Items.PLASMA_PISTOL);
     }
 
     public PlasmaAcceleratorShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.PLASMA_PISTOL);
+        this.weaponstack = new ItemStack(Items.PLASMA_PISTOL);
     }
 
     public PlasmaAcceleratorShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {

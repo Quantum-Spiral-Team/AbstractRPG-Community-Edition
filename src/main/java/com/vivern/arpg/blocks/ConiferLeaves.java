@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.SoundType;
@@ -10,7 +10,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -59,7 +58,7 @@ public class ConiferLeaves extends BlockLeaves {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return rand.nextFloat() < 0.45F ? ItemsRegister.CONIFER_STICK : Item.getItemFromBlock(BlocksRegister.CONIFER_SAPLING);
+        return rand.nextFloat() < 0.45F ? Items.CONIFER_STICK : Item.getItemFromBlock(BlocksRegister.CONIFER_SAPLING);
     }
 
     @Override
@@ -142,7 +141,7 @@ public class ConiferLeaves extends BlockLeaves {
 
     @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
-        if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
+        if (!worldIn.isRemote && stack.getItem() == net.minecraft.init.Items.SHEARS) {
             player.addStat(StatList.getBlockStats(this));
         } else {
             super.harvestBlock(worldIn, player, pos, state, te, stack);

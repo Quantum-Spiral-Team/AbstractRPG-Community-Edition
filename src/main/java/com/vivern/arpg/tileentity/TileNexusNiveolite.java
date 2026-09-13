@@ -2,7 +2,7 @@ package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.EverfrostMobsPack;
 import com.vivern.arpg.mobs.NexusCap;
@@ -159,7 +159,7 @@ public class TileNexusNiveolite extends TileNexus {
             int count = 15 + this.rand.nextInt(6);
 
             for (int j = 0; j < count; j++) {
-                this.world.spawnEntity(new EntityItem(this.world, this.getPos().getX() + 0.5, this.getPos().getY() + 1.15, this.getPos().getZ() + 0.5, new ItemStack(ItemsRegister.ICE_CIRCLE)));
+                this.world.spawnEntity(new EntityItem(this.world, this.getPos().getX() + 0.5, this.getPos().getY() + 1.15, this.getPos().getZ() + 0.5, new ItemStack(Items.ICE_CIRCLE)));
             }
 
             int secs = this.invasionTime / 20;

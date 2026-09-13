@@ -9,6 +9,7 @@ import com.vivern.arpg.items.models.PistolFishStrikeModel;
 import com.vivern.arpg.items.models.RocketModel;
 import com.vivern.arpg.items.models.ThornkeeperShootModel;
 import com.vivern.arpg.main.*;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.*;
@@ -298,9 +299,9 @@ public class HostileProjectiles {
         @Override
         protected ItemStack getArrowStack() {
             if (this.customPotionEffects.isEmpty() && this.potion == PotionTypes.EMPTY) {
-                return new ItemStack(Items.ARROW);
+                return new ItemStack(net.minecraft.init.Items.ARROW);
             } else {
-                ItemStack itemstack = new ItemStack(Items.TIPPED_ARROW);
+                ItemStack itemstack = new ItemStack(net.minecraft.init.Items.TIPPED_ARROW);
                 PotionUtils.addPotionToItemStack(itemstack, this.potion);
                 PotionUtils.appendEffects(itemstack, this.customPotionEffects);
                 if (this.fixedColor) {
@@ -495,9 +496,9 @@ public class HostileProjectiles {
         @Override
         protected ItemStack getArrowStack() {
             if (this.customPotionEffects.isEmpty() && this.potion == PotionTypes.EMPTY) {
-                return new ItemStack(Items.ARROW);
+                return new ItemStack(net.minecraft.init.Items.ARROW);
             } else {
-                ItemStack itemstack = new ItemStack(Items.TIPPED_ARROW);
+                ItemStack itemstack = new ItemStack(net.minecraft.init.Items.TIPPED_ARROW);
                 PotionUtils.addPotionToItemStack(itemstack, this.potion);
                 PotionUtils.appendEffects(itemstack, this.customPotionEffects);
                 if (this.fixedColor) {
@@ -695,9 +696,9 @@ public class HostileProjectiles {
         @Override
         protected ItemStack getArrowStack() {
             if (this.customPotionEffects.isEmpty() && this.potion == PotionTypes.EMPTY) {
-                return new ItemStack(Items.ARROW);
+                return new ItemStack(net.minecraft.init.Items.ARROW);
             } else {
-                ItemStack itemstack = new ItemStack(Items.TIPPED_ARROW);
+                ItemStack itemstack = new ItemStack(net.minecraft.init.Items.TIPPED_ARROW);
                 PotionUtils.addPotionToItemStack(itemstack, this.potion);
                 PotionUtils.appendEffects(itemstack, this.customPotionEffects);
                 if (this.fixedColor) {
@@ -764,9 +765,9 @@ public class HostileProjectiles {
 
         @Override
         public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
-            if (player.getHeldItem(hand).getItem() == ItemsRegister.ICE_CIRCLE) {
+            if (player.getHeldItem(hand).getItem() == Items.ICE_CIRCLE) {
                 player.getHeldItem(hand).shrink(1);
-                ItemStack stack = new ItemStack(ItemsRegister.ICE_CIRCLE_FILLED);
+                ItemStack stack = new ItemStack(Items.ICE_CIRCLE_FILLED);
                 if (!player.inventory.addItemStackToInventory(stack)) {
                     player.dropItem(stack, false);
                 }
@@ -2067,8 +2068,8 @@ public class HostileProjectiles {
 
                         if (entity instanceof EntityItem) {
                             EntityItem entityItem = (EntityItem) entity;
-                            if (entityItem.getItem().getItem() == ItemsRegister.ICE_GEM) {
-                                this.world.spawnEntity(new EntityItem(this.world, entityItem.posX, entityItem.posY, entityItem.posZ, new ItemStack(ItemsRegister.ICE_DUST, entityItem.getItem().getCount())));
+                            if (entityItem.getItem().getItem() == Items.ICE_GEM) {
+                                this.world.spawnEntity(new EntityItem(this.world, entityItem.posX, entityItem.posY, entityItem.posZ, new ItemStack(Items.ICE_DUST, entityItem.getItem().getCount())));
                                 entityItem.setDead();
                             }
                         }
@@ -2076,7 +2077,7 @@ public class HostileProjectiles {
                 }
 
                 if (this.rand.nextFloat() < this.spawnFragmentChance && this.world.isAreaLoaded(this.getPosition().add(-8, -8, -8), this.getPosition().add(8, 8, 8))) {
-                    EntityItem itm = new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.WEATHER_FRAGMENTS));
+                    EntityItem itm = new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(Items.WEATHER_FRAGMENTS));
                     itm.lifespan = 1200;
                     this.world.spawnEntity(itm);
                 }

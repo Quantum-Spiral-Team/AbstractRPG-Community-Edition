@@ -293,7 +293,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
         if (IWeapon.canShoot(Itemstack)) {
             Item item = Itemstack.getItem();
             int timer = AnimationTimer.tick;
-            if (item == ItemsRegister.ANNIHILATION_GUN) {
+            if (item == Items.ANNIHILATION_GUN) {
                 int charge = 0;
                 float modifier = 17.0F;
                 if (Itemstack.hasTagCompound() && Itemstack.getTagCompound().hasKey("charge")) {
@@ -342,7 +342,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ELEMENT_FOCUS) {
+            if (item == Items.ELEMENT_FOCUS) {
                 int chargex = 0;
                 if (Itemstack.hasTagCompound() && Itemstack.getTagCompound().hasKey("charge")) {
                     chargex = Itemstack.getTagCompound().getInteger("charge");
@@ -386,7 +386,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.STINGER) {
+            if (item == Items.STINGER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.065F, 0.065F, 0.065F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -435,7 +435,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.FIREWORK_LAUNCHER) {
+            if (item == Items.FIREWORK_LAUNCHER) {
                 float dragonf = -2.0F;
                 if (Itemstack.hasTagCompound() && Itemstack.getTagCompound().hasKey("dragon")) {
                     if (!Itemstack.getTagCompound().getBoolean("dragon")) {
@@ -485,7 +485,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SCEPTER_OF_SANDS) {
+            if (item == Items.SCEPTER_OF_SANDS) {
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(Itemstack.getItem());
                 float chargeFullness = NBTHelper.GetNBTint(Itemstack, "crystal") / parameters.getFloat("max_crystal_charge");
                 GlStateManager.pushMatrix();
@@ -527,7 +527,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.BILEBITER) {
+            if (item == Items.BILEBITER) {
                 int bbb = NBTHelper.GetNBTint(Itemstack, "charge_primary");
                 int aaa = NBTHelper.GetNBTint(Itemstack, "charge_secondary");
                 GlStateManager.pushMatrix();
@@ -568,7 +568,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.FIREBALL_STAFF) {
+            if (item == Items.FIREBALL_STAFF) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -607,7 +607,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ELECTROSTATIC) {
+            if (item == Items.ELECTROSTATIC) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -646,7 +646,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SLIME_SHOTGUN) {
+            if (item == Items.SLIME_SHOTGUN) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -685,7 +685,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.MOLTEN_GREAT_AXE) {
+            if (item == Items.MOLTEN_GREAT_AXE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -724,7 +724,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.NETHER_GRINDER) {
+            if (item == Items.NETHER_GRINDER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -763,7 +763,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SNOWBALL_CANNON) {
+            if (item == Items.SNOWBALL_CANNON) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -803,7 +803,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CURSED_BLADE) {
+            if (item == Items.CURSED_BLADE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -842,7 +842,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.GRAVE_LURKER) {
+            if (item == Items.GRAVE_LURKER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -881,7 +881,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.REAPER) {
+            if (item == Items.REAPER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -920,7 +920,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.GHOST_SWORD) {
+            if (item == Items.GHOST_SWORD) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -959,7 +959,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.STAFF_OF_CORPSE) {
+            if (item == Items.STAFF_OF_CORPSE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -998,7 +998,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.TOXIC_NUCLEAR_CANNON) {
+            if (item == Items.TOXIC_NUCLEAR_CANNON) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1036,7 +1036,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CRYOGUN) {
+            if (item == Items.CRYOGUN) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1075,7 +1075,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CHARGER) {
+            if (item == Items.CHARGER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1114,7 +1114,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ICICLE_MINIGUN) {
+            if (item == Items.ICICLE_MINIGUN) {
                 float anim1 = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, true);
                 float anim2 = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
                 GlStateManager.pushMatrix();
@@ -1155,7 +1155,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.STATIC_LANCE) {
+            if (item == Items.STATIC_LANCE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1194,7 +1194,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.WAND_OF_BLAZES) {
+            if (item == Items.WAND_OF_BLAZES) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1233,7 +1233,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CONIFER_ROD) {
+            if (item == Items.CONIFER_ROD) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1272,7 +1272,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.PLASMA_RAILGUN) {
+            if (item == Items.PLASMA_RAILGUN) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1311,7 +1311,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.PLASMA_RIFLE) {
+            if (item == Items.PLASMA_RIFLE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1350,7 +1350,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.HOLOGRAPHIC_SHIELD) {
+            if (item == Items.HOLOGRAPHIC_SHIELD) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1389,7 +1389,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.HEAD_SHOOTER) {
+            if (item == Items.HEAD_SHOOTER) {
                 float lbX = OpenGlHelper.lastBrightnessX;
                 float lbY = OpenGlHelper.lastBrightnessY;
                 GlStateManager.pushMatrix();
@@ -1455,7 +1455,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.PLASMA_PISTOL) {
+            if (item == Items.PLASMA_PISTOL) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1494,7 +1494,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.BOG_FLOWER) {
+            if (item == Items.BOG_FLOWER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1532,7 +1532,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.PISTOL_FISH) {
+            if (item == Items.PISTOL_FISH) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1571,7 +1571,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.BUBBLEFISH) {
+            if (item == Items.BUBBLEFISH) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1610,7 +1610,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.LAVA_DROPPER) {
+            if (item == Items.LAVA_DROPPER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1649,7 +1649,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.PLASMA_ACCELERATOR) {
+            if (item == Items.PLASMA_ACCELERATOR) {
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(Itemstack.getItem());
                 float lbX = OpenGlHelper.lastBrightnessX;
                 float lbY = OpenGlHelper.lastBrightnessY;
@@ -1720,7 +1720,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.VACUUM_GUN) {
+            if (item == Items.VACUUM_GUN) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1759,7 +1759,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.GEM_STAFF) {
+            if (item == Items.GEM_STAFF) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1850,7 +1850,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.WAND_OF_COLD) {
+            if (item == Items.WAND_OF_COLD) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1889,7 +1889,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ICE_BEAM) {
+            if (item == Items.ICE_BEAM) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1928,7 +1928,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SKULL_CRASHER) {
+            if (item == Items.SKULL_CRASHER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -1968,7 +1968,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SPELL_HAMMER) {
+            if (item == Items.SPELL_HAMMER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2007,7 +2007,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ACID_FIRE) {
+            if (item == Items.ACID_FIRE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2057,7 +2057,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.GLOW_BLADE) {
+            if (item == Items.GLOW_BLADE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2097,7 +2097,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.NAIL_GUN) {
+            if (item == Items.NAIL_GUN) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2137,7 +2137,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CRYSTAL_STAR) {
+            if (item == Items.CRYSTAL_STAR) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2177,7 +2177,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.TOXINIUMSHOTGUN) {
+            if (item == Items.TOXINIUMSHOTGUN) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2217,7 +2217,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SUBMACHINE) {
+            if (item == Items.SUBMACHINE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2278,7 +2278,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.THISTLE_THORN) {
+            if (item == Items.THISTLE_THORN) {
                 boolean powered = NBTHelper.GetNBTboolean(Itemstack, "powered");
                 boolean using = false;
                 GlStateManager.pushMatrix();
@@ -2334,7 +2334,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.RESTLESS_SKULL) {
+            if (item == Items.RESTLESS_SKULL) {
                 int challengeblock = !NBTHelper.GetNBTboolean(Itemstack, "challengeblock") ? 0 : 1;
                 int challengemob = !NBTHelper.GetNBTboolean(Itemstack, "challengemob") ? 0 : 1;
                 int challengeflame = !NBTHelper.GetNBTboolean(Itemstack, "challengeflame") ? 0 : 1;
@@ -2376,7 +2376,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.MAGIC_ROCKET) {
+            if (item == Items.MAGIC_ROCKET) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2416,7 +2416,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.STINGING_CELL) {
+            if (item == Items.STINGING_CELL) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2456,7 +2456,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SEA_EFFLORESCE) {
+            if (item == Items.SEA_EFFLORESCE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2496,7 +2496,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CORAL_RIFLE) {
+            if (item == Items.CORAL_RIFLE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -2535,7 +2535,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.HADRON_BLASTER) {
+            if (item == Items.HADRON_BLASTER) {
                 float lazerdel = Math.abs(NBTHelper.GetNBTint(Itemstack, "laserdelay"));
                 float capturetime = NBTHelper.GetNBTint(Itemstack, "capturetime");
                 float lazerF = Math.min(lazerdel / 16.0F, 1.0F);
@@ -2610,7 +2610,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SNAP_BALL) {
+            if (item == Items.SNAP_BALL) {
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(Itemstack.getItem());
                 float reloadTime = ((IWeapon) item).getReloadTime(Itemstack);
                 boolean charged = NBTHelper.GetNBTint(Itemstack, "charge") > parameters.getInt("charge_to_powered");
@@ -2697,7 +2697,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
             }
 
-            if (item == ItemsRegister.ROCKET_LAUNCHER) {
+            if (item == Items.ROCKET_LAUNCHER) {
                 int reltimeMax = ((IWeapon) item).getReloadTime(Itemstack);
                 float rel = NBTHelper.GetNBTint(Itemstack, "reload_time");
                 if (rel < reltimeMax) {
@@ -2834,7 +2834,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 GlStateManager.popMatrix();
             }
 
-            if (item == ItemsRegister.CHAIN_MACE) {
+            if (item == Items.CHAIN_MACE) {
                 boolean throwed = NBTHelper.GetNBTboolean(Itemstack, "throwed");
                 GlStateManager.pushMatrix();
                 GlStateManager.disableCull();
@@ -2875,7 +2875,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.DIAMOND_CHAIN_MACE) {
+            if (item == Items.DIAMOND_CHAIN_MACE) {
                 boolean throwed = NBTHelper.GetNBTboolean(Itemstack, "throwed");
                 GlStateManager.pushMatrix();
                 GlStateManager.disableCull();
@@ -2916,7 +2916,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.MOLTEN_CHAIN_MACE) {
+            if (item == Items.MOLTEN_CHAIN_MACE) {
                 boolean throwed = NBTHelper.GetNBTboolean(Itemstack, "throwed");
                 GlStateManager.pushMatrix();
                 GlStateManager.disableCull();
@@ -2965,7 +2965,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ICEBREAKER) {
+            if (item == Items.ICEBREAKER) {
                 boolean throwedx = NBTHelper.GetNBTboolean(Itemstack, "throwed");
                 GlStateManager.pushMatrix();
                 GlStateManager.disableCull();
@@ -3014,7 +3014,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ECHINUS) {
+            if (item == Items.ECHINUS) {
                 boolean throwedxx = NBTHelper.GetNBTboolean(Itemstack, "throwed");
                 int kills = NBTHelper.GetNBTint(Itemstack, "kills");
                 boolean active = NBTHelper.GetNBTboolean(Itemstack, "active");
@@ -3080,7 +3080,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 GlStateManager.popMatrix();
             }
 
-            if (item == ItemsRegister.ADAMANTIUM_REVOLVER) {
+            if (item == Items.ADAMANTIUM_REVOLVER) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -3120,7 +3120,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ADAMANTIUM_BATTLE_AXE) {
+            if (item == Items.ADAMANTIUM_BATTLE_AXE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -3160,7 +3160,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ENDER_PROTECTOR) {
+            if (item == Items.ENDER_PROTECTOR) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -3199,7 +3199,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.DRAGON_TAIL) {
+            if (item == Items.DRAGON_TAIL) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -3238,7 +3238,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.DRAGON_SHELL) {
+            if (item == Items.DRAGON_SHELL) {
                 float fsh = NBTHelper.GetNBTint(Itemstack, "blocking");
                 float f1sh = NBTHelper.GetNBTint(Itemstack, "eyerand");
                 GlStateManager.pushMatrix();
@@ -3279,7 +3279,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.WINTER_BREATH) {
+            if (item == Items.WINTER_BREATH) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -3318,7 +3318,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.TOXINIUM_SHIELD) {
+            if (item == Items.TOXINIUM_SHIELD) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -3358,7 +3358,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CARAPACE) {
+            if (item == Items.CARAPACE) {
                 WeaponParameters parametersx = WeaponParameters.getWeaponParameters(Itemstack.getItem());
                 int ticksusing = NBTHelper.GetNBTint(Itemstack, "tickusing");
                 int endtime = parametersx.getEnchantedI("bonus_end_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, Itemstack));
@@ -3437,7 +3437,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 GlStateManager.popMatrix();
             }
 
-            if (item == ItemsRegister.ROTTEN_SHIELD) {
+            if (item == Items.ROTTEN_SHIELD) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -3477,7 +3477,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.HELLMARK) {
+            if (item == Items.HELLMARK) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -3516,7 +3516,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.BLOWHOLE) {
+            if (item == Items.BLOWHOLE) {
                 int chargeint = NBTHelper.GetNBTint(Itemstack, "charge");
                 float chargexx = chargeint <= 0 ? 0.0F : Math.min(chargeint - 1.0F + partialTicks, 30.0F);
                 float chargeInfin = chargeint <= 0 ? 0.0F : chargeint - 1.0F + partialTicks;
@@ -3614,7 +3614,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 GlStateManager.popMatrix();
             }
 
-            if (item == ItemsRegister.CRYSTAL_CUTTER) {
+            if (item == Items.CRYSTAL_CUTTER) {
                 float anim = GetMOP.partial((float) NBTHelper.GetNBTint(Itemstack, "animation"), (float) NBTHelper.GetNBTint(Itemstack, "prevanimation"), partialTicks);
                 int ammo = Math.min(NBTHelper.GetNBTint(Itemstack, "ammo"), 7 - (int) (anim / 10.0F));
                 GlStateManager.pushMatrix();
@@ -3655,7 +3655,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.PLASMA_MINIGUN) {
+            if (item == Items.PLASMA_MINIGUN) {
                 float animDeploy = GetMOP.partial(NBTHelper.GetNBTfloat(Itemstack, "deploy"), NBTHelper.GetNBTfloat(Itemstack, "prevdeploy"), Minecraft.getMinecraft().getRenderPartialTicks());
                 float animRotate = GetMOP.partial(NBTHelper.GetNBTfloat(Itemstack, "rotate"), NBTHelper.GetNBTfloat(Itemstack, "prevrotate"), Minecraft.getMinecraft().getRenderPartialTicks());
                 int maxheat = WeaponParameters.getWeaponParameters(Itemstack.getItem()).getInt("max_heat");
@@ -3716,7 +3716,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CERATARGET) {
+            if (item == Items.CERATARGET) {
                 int ammo = NBTHelper.GetNBTint(Itemstack, "ammo");
                 int reltimeMaxx = ((IWeapon) item).getReloadTime(Itemstack);
                 int relxx = NBTHelper.GetNBTint(Itemstack, "reload_time");
@@ -3780,7 +3780,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.GRENADE_LAUNCHER) {
+            if (item == Items.GRENADE_LAUNCHER) {
                 int ammo = NBTHelper.GetNBTint(Itemstack, "ammo");
                 int reltimeMaxx = ((IWeapon) item).getReloadTime(Itemstack);
                 float relxx = NBTHelper.GetNBTint(Itemstack, "reload_time");
@@ -3828,7 +3828,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.HOLY_SHOTGUN) {
+            if (item == Items.HOLY_SHOTGUN) {
                 int ammox = NBTHelper.GetNBTint(Itemstack, "ammo");
                 int reltimeMaxxx = ((IWeapon) item).getReloadTime(Itemstack);
                 float relxxx = NBTHelper.GetNBTint(Itemstack, "reload_time");
@@ -3876,7 +3876,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.MITHRIL_BOW) {
+            if (item == Items.MITHRIL_BOW) {
                 float pull = NBTHelper.GetNBTint(Itemstack, "pulling");
                 float pullMax = ((IWeapon) item).getCooldownTime(Itemstack);
                 if (pull > 0.0F && pull < pullMax) {
@@ -3923,7 +3923,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.COMPOUND_BOW) {
+            if (item == Items.COMPOUND_BOW) {
                 float pullx = NBTHelper.GetNBTint(Itemstack, "pulling");
                 float pullMaxx = ((IWeapon) item).getCooldownTime(Itemstack);
                 if (pullx > 0.0F && pullx < pullMaxx) {
@@ -3971,7 +3971,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.AZURE_ORE_STAFF) {
+            if (item == Items.AZURE_ORE_STAFF) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -4013,7 +4013,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 GlStateManager.popMatrix();
             }
 
-            if (item == ItemsRegister.INSTANCER) {
+            if (item == Items.INSTANCER) {
                 float animReady = GetMOP.partial((float) NBTHelper.GetNBTint(Itemstack, "ready"), (float) NBTHelper.GetNBTint(Itemstack, "prevready"), Minecraft.getMinecraft().getRenderPartialTicks()) / 15.0F;
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
@@ -4052,7 +4052,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ENDER_INSTANCER) {
+            if (item == Items.ENDER_INSTANCER) {
                 float animReady = GetMOP.partial((float) NBTHelper.GetNBTint(Itemstack, "ready"), (float) NBTHelper.GetNBTint(Itemstack, "prevready"), Minecraft.getMinecraft().getRenderPartialTicks()) / 15.0F;
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
@@ -4091,7 +4091,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.WINTER_INSTANCER) {
+            if (item == Items.WINTER_INSTANCER) {
                 float animReady = GetMOP.partial((float) NBTHelper.GetNBTint(Itemstack, "ready"), (float) NBTHelper.GetNBTint(Itemstack, "prevready"), Minecraft.getMinecraft().getRenderPartialTicks()) / 15.0F;
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
@@ -4130,7 +4130,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.MILITARY_INSTANCER) {
+            if (item == Items.MILITARY_INSTANCER) {
                 float animReady = GetMOP.partial((float) NBTHelper.GetNBTint(Itemstack, "ready"), (float) NBTHelper.GetNBTint(Itemstack, "prevready"), Minecraft.getMinecraft().getRenderPartialTicks()) / 15.0F;
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
@@ -4170,7 +4170,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.AQUATIC_INSTANCER) {
+            if (item == Items.AQUATIC_INSTANCER) {
                 float animReady = GetMOP.partial((float) NBTHelper.GetNBTint(Itemstack, "ready"), (float) NBTHelper.GetNBTint(Itemstack, "prevready"), Minecraft.getMinecraft().getRenderPartialTicks()) / 15.0F;
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
@@ -4210,7 +4210,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.VIOLENCE) {
+            if (item == Items.VIOLENCE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -4248,7 +4248,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.STAFF_OF_WITHERDRY) {
+            if (item == Items.STAFF_OF_WITHERDRY) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -4287,7 +4287,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.WHISPERS_BLADE) {
+            if (item == Items.WHISPERS_BLADE) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -4325,7 +4325,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.VOLTRIDENT) {
+            if (item == Items.VOLTRIDENT) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -4364,7 +4364,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.PUMP_SHOTGUN) {
+            if (item == Items.PUMP_SHOTGUN) {
                 int reltimeMaxxxx = ((IWeapon) item).getReloadTime(Itemstack);
                 float relxxxx = NBTHelper.GetNBTint(Itemstack, "reload_time");
                 if (relxxxx < reltimeMaxxxx) {
@@ -4409,7 +4409,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CINDER_BOW) {
+            if (item == Items.CINDER_BOW) {
                 float pullxx = NBTHelper.GetNBTint(Itemstack, "pulling");
                 float pullMaxxx = ((IWeapon) item).getCooldownTime(Itemstack);
                 if (pullxx > 0.0F && pullxx < pullMaxxx) {
@@ -4462,7 +4462,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 GlStateManager.popMatrix();
             }
 
-            if (item == ItemsRegister.GOTHIC_BOW) {
+            if (item == Items.GOTHIC_BOW) {
                 float pullxxx = NBTHelper.GetNBTint(Itemstack, "pulling");
                 float pullMaxxxx = ((IWeapon) item).getCooldownTime(Itemstack);
                 if (pullxxx > 0.0F && pullxxx < pullMaxxxx) {
@@ -4509,7 +4509,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.COOLED_RIFLE) {
+            if (item == Items.COOLED_RIFLE) {
                 int reltimeMaxxxxx = ((IWeapon) item).getReloadTime(Itemstack);
                 float relxxxxx = NBTHelper.GetNBTint(Itemstack, "reload_time");
                 if (relxxxxx < reltimeMaxxxxx) {
@@ -4555,7 +4555,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.AQUATIC_BOW) {
+            if (item == Items.AQUATIC_BOW) {
                 float pullxxxx = NBTHelper.GetNBTint(Itemstack, "pulling");
                 float pullMaxxxxx = ((IWeapon) item).getCooldownTime(Itemstack);
                 if (pullxxxx > 0.0F && pullxxxx < pullMaxxxxx) {
@@ -4605,7 +4605,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.XMASS_LAUNCHER) {
+            if (item == Items.XMASS_LAUNCHER) {
                 float anim1x = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, false);
                 float anim2x = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.ROCKET, partialTicks, false);
                 float anim3 = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
@@ -4660,7 +4660,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ADAMANTIUM_MINIGUN) {
+            if (item == Items.ADAMANTIUM_MINIGUN) {
                 float anim1xx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, true);
                 float anim2xx = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
                 int heatInt = NBTHelper.GetNBTint(Itemstack, "heat");
@@ -4730,7 +4730,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.BUZDYGAN) {
+            if (item == Items.BUZDYGAN) {
                 float anim1xxx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SPIN, partialTicks, true);
                 float runes = NBTHelper.GetNBTfloat(Itemstack, "runes");
                 boolean activex = NBTHelper.GetNBTboolean(Itemstack, "active");
@@ -4788,7 +4788,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
             }
 
-            if (item == ItemsRegister.WHIP) {
+            if (item == Items.WHIP) {
                 float anim1xxxx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.ATTACK, partialTicks, false) * 24.0F;
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
@@ -4830,7 +4830,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.MAULER) {
+            if (item == Items.MAULER) {
                 float anim1xxxx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.ATTACK, partialTicks, false) * 24.0F;
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
@@ -4872,7 +4872,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SNAKEWHIP) {
+            if (item == Items.SNAKEWHIP) {
                 float anim1xxxx = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.ATTACK, partialTicks, false) * 24.0F;
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
@@ -4916,7 +4916,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.SPELL_ROD) {
+            if (item == Items.SPELL_ROD) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.1F, 0.1F, 0.1F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
@@ -4955,7 +4955,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.CRYO_DESTROYER) {
+            if (item == Items.CRYO_DESTROYER) {
                 float anim1xxxx = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.SHOOT, partialTicks, false);
                 float anim2xxx = 1.0F - Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.RELOAD, partialTicks, false);
                 float anim3x = Flicks.INSTANCE.getClientAnimation(Itemstack, EnumFlick.INFO, partialTicks, true);
@@ -4997,7 +4997,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.HYDRAULIC_SHOTGUN) {
+            if (item == Items.HYDRAULIC_SHOTGUN) {
                 float anim1xxxx = 0.0F;
                 int currentShot = NBTHelper.GetNBTint(Itemstack, "currentshot");
                 if (currentShot != 0) {
@@ -5045,7 +5045,7 @@ public class TEISRGuns extends TileEntityItemStackRenderer {
                 }
             }
 
-            if (item == ItemsRegister.ICE_COMPASS) {
+            if (item == Items.ICE_COMPASS) {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.09F, 0.09F, 0.09F);
                 GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);

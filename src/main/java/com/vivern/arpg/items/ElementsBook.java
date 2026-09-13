@@ -1,7 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.container.GUIBookOfElements;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.tileentity.TileBookcase;
 import com.vivern.arpg.tileentity.TileSplitter;
@@ -42,7 +42,7 @@ public class ElementsBook extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (!playerIn.getCooldownTracker().hasCooldown(ItemsRegister.ELEMENTS_BOOK)) {
+        if (!playerIn.getCooldownTracker().hasCooldown(Items.ELEMENTS_BOOK)) {
             RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
             if (raytraceresult.typeOfHit == Type.BLOCK) {
                 BlockPos blockpos = raytraceresult.getBlockPos();
@@ -53,7 +53,7 @@ public class ElementsBook extends Item {
                         if (!worldIn.isRemote && splitter.lastDissolvedItem != null) {
                             NBTTagList tagList = NBTHelper.GetNbtTagList(itemstack, "pages", 10);
                             if (tagList.tagCount() >= getMaxPagesCount()) {
-                                playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
+                                playerIn.getCooldownTracker().setCooldown(Items.ELEMENTS_BOOK, 3);
                                 return new ActionResult<>(EnumActionResult.FAIL, itemstack);
                             }
 
@@ -61,11 +61,11 @@ public class ElementsBook extends Item {
                             itemInBook.setString("item", splitter.lastDissolvedItem.getRegistryName().toString());
                             itemInBook.setInteger("metadata", splitter.lastDissolvedMetadata);
                             tagList.appendTag(itemInBook);
-                            playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
+                            playerIn.getCooldownTracker().setCooldown(Items.ELEMENTS_BOOK, 3);
                             return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
                         }
 
-                        playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
+                        playerIn.getCooldownTracker().setCooldown(Items.ELEMENTS_BOOK, 3);
                         return new ActionResult<>(EnumActionResult.PASS, itemstack);
                     }
 
@@ -73,11 +73,11 @@ public class ElementsBook extends Item {
                         TileBookcase bookcase = (TileBookcase) tentity;
                         if (bookcase.addBook(itemstack)) {
                             itemstack.shrink(1);
-                            playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
+                            playerIn.getCooldownTracker().setCooldown(Items.ELEMENTS_BOOK, 3);
                             return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
                         }
 
-                        playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
+                        playerIn.getCooldownTracker().setCooldown(Items.ELEMENTS_BOOK, 3);
                         return new ActionResult<>(EnumActionResult.PASS, itemstack);
                     }
                 }
@@ -87,7 +87,7 @@ public class ElementsBook extends Item {
                 this.openGui(playerIn, itemstack);
             }
             playerIn.addStat(StatList.getObjectUseStats(this));
-            playerIn.getCooldownTracker().setCooldown(ItemsRegister.ELEMENTS_BOOK, 3);
+            playerIn.getCooldownTracker().setCooldown(Items.ELEMENTS_BOOK, 3);
             return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
         } else {
             return new ActionResult<>(EnumActionResult.FAIL, itemstack);

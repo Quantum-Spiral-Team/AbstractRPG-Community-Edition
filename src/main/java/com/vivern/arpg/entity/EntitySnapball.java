@@ -46,21 +46,21 @@ public class EntitySnapball extends EntityThrowable implements ISynchronizedEnti
 
     public EntitySnapball(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.SNAP_BALL);
+        this.weaponstack = new ItemStack(Items.SNAP_BALL);
         this.setSize(0.4F, 0.4F);
         this.setRenderYawOffset(0.0F);
     }
 
     public EntitySnapball(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.SNAP_BALL);
+        this.weaponstack = new ItemStack(Items.SNAP_BALL);
         this.setSize(0.4F, 0.4F);
         this.setRenderYawOffset(0.0F);
     }
 
     public EntitySnapball(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.SNAP_BALL);
+        this.weaponstack = new ItemStack(Items.SNAP_BALL);
         this.setSize(0.4F, 0.4F);
         this.setRenderYawOffset(0.0F);
     }
@@ -131,11 +131,11 @@ public class EntitySnapball extends EntityThrowable implements ISynchronizedEnti
 
         if (this.thrower != null && !this.world.isRemote && !this.powered && !this.picked && this.pickable && this.getDistanceSq(this.thrower) < 2.0) {
             this.picked = true;
-            if (this.thrower.getHeldItemMainhand().getItem() == ItemsRegister.SNAP_BALL) {
+            if (this.thrower.getHeldItemMainhand().getItem() == Items.SNAP_BALL) {
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this.weaponstack.getItem());
                 NBTHelper.AddNBTint(this.thrower.getHeldItemMainhand(), 3 - this.lastBounces, "charge");
                 if (this.rand.nextFloat() < parameters.getEnchantedF("reuse_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack))) {
-                    this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.SNAP_BALL_AMMO)));
+                    this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(Items.SNAP_BALL_AMMO)));
                 }
 
                 boolean isPowered = NBTHelper.GetNBTint(this.thrower.getHeldItemMainhand(), "charge") > parameters.getInt("charge_to_powered");

@@ -38,19 +38,19 @@ public class CrystalStarPoweredShoot extends StandardBullet implements INailer {
 
     public CrystalStarPoweredShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
+        this.weaponstack = new ItemStack(Items.CRYSTAL_STAR);
         this.setHomingPower();
     }
 
     public CrystalStarPoweredShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
+        this.weaponstack = new ItemStack(Items.CRYSTAL_STAR);
         this.setHomingPower();
     }
 
     public CrystalStarPoweredShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
+        this.weaponstack = new ItemStack(Items.CRYSTAL_STAR);
         this.setHomingPower();
     }
 

@@ -1,7 +1,7 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.renders.GUNParticle;
@@ -27,17 +27,17 @@ public class EntityButterfly extends EntityThrowable {
 
     public EntityButterfly(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.BUTTERFLY);
+        this.weaponstack = new ItemStack(Items.BUTTERFLY);
     }
 
     public EntityButterfly(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.BUTTERFLY);
+        this.weaponstack = new ItemStack(Items.BUTTERFLY);
     }
 
     public EntityButterfly(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.BUTTERFLY);
+        this.weaponstack = new ItemStack(Items.BUTTERFLY);
     }
 
     public EntityButterfly(World world, EntityLivingBase thrower, ItemStack itemstack) {

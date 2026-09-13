@@ -24,7 +24,6 @@ import com.vivern.arpg.tileentity.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.client.audio.MovingSound;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
@@ -308,9 +307,9 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         Logger LOGGER = LogManager.getLogger(Reference.MOD_NAME + "/" + "CommonProxy");
         LOGGER.debug("arpg | Adding enchants to lootboxes");
-        ((ItemLootCase) ItemsRegister.ALL_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesAllEnch();
-        ((ItemLootCase) ItemsRegister.WEAPON_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesWeaponEnch();
-        ((ItemLootCase) ItemsRegister.SIMPLE_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesSimpleEnch();
+        ((ItemLootCase) Items.ALL_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesAllEnch();
+        ((ItemLootCase) Items.WEAPON_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesWeaponEnch();
+        ((ItemLootCase) Items.SIMPLE_ENCHANTMENTS_BOX).entries = ItemLootCase.entriesSimpleEnch();
         LOGGER.debug("arpg | Init new flaming blocks");
         ((DemonicFire) BlocksRegister.DEMONIC_FIRE).init();
         ((BurningFrost) BlocksRegister.BURNING_FROST).init();

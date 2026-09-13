@@ -47,7 +47,7 @@ public class GemStaff extends ItemWeapon {
     }
 
     public static ItemStack getStackWithGem(int gem) {
-        ItemStack stack = new ItemStack(ItemsRegister.GEM_STAFF);
+        ItemStack stack = new ItemStack(Items.GEM_STAFF);
         NBTHelper.GiveNBTint(stack, gem, "type");
         NBTHelper.SetNBTint(stack, gem, "type");
         NBTHelper.GiveNBTint(stack, gem, "type");
@@ -73,7 +73,7 @@ public class GemStaff extends ItemWeapon {
                 int type = NBTHelper.GetNBTint(itemstack, "type");
                 WeaponParameters parameters = getWeaponParameter(type);
                 EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-                Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP;
+                Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : Items.EXP;
                 if ((click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND) && Mana.getMana(player) > parameters.getEnchantedF("mana_cost", sor) && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.magic_m, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
                     player.getCooldownTracker().setCooldown(cooldownItem, this.getCooldownTime(itemstack));
@@ -135,7 +135,7 @@ public class GemStaff extends ItemWeapon {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        if (stack.getItem() == ItemsRegister.GEM_STAFF) {
+        if (stack.getItem() == Items.GEM_STAFF) {
             int type = NBTHelper.GetNBTint(stack, "type");
             switch (type) {
                 case 0:

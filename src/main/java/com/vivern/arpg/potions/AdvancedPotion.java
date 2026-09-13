@@ -1,10 +1,7 @@
 package com.vivern.arpg.potions;
 
 import com.vivern.arpg.arpgamemodes.SurvivorGameStyleWatcher;
-import com.vivern.arpg.main.ArmorProtectionTracker;
-import com.vivern.arpg.main.Catalyst;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.NBTHelper;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.network.PacketHandler;
 import com.vivern.arpg.network.packet.PacketAdvPotionToClients;
 import com.vivern.arpg.renders.KillScore;
@@ -60,13 +57,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         NBTHelper.GiveNBTint(itemstack, value, name);
@@ -81,13 +78,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         NBTHelper.GiveNBTfloat(itemstack, value, name);
@@ -102,13 +99,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         NBTHelper.GiveNBTdouble(itemstack, value, name);
@@ -123,13 +120,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         NBTHelper.GiveNBTstring(itemstack, value, name);
@@ -144,13 +141,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         NBTHelper.GiveNBTint(itemstack, value, name);
@@ -165,13 +162,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         NBTHelper.GiveNBTfloat(itemstack, value, name);
@@ -186,13 +183,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         NBTHelper.GiveNBTdouble(itemstack, value, name);
@@ -207,13 +204,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         return NBTHelper.GetNBTint(itemstack, name);
@@ -223,13 +220,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         return NBTHelper.GetNBTfloat(itemstack, name);
@@ -239,13 +236,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         return NBTHelper.GetNBTdouble(itemstack, name);
@@ -255,13 +252,13 @@ public class AdvancedPotion extends Potion {
         ItemStack itemstack = ItemStack.EMPTY;
 
         for (ItemStack i : effect.getCurativeItems()) {
-            if (i.getItem() == ItemsRegister.EXP) {
+            if (i.getItem() == Items.EXP) {
                 itemstack = i;
             }
         }
 
         if (itemstack == ItemStack.EMPTY) {
-            itemstack = new ItemStack(ItemsRegister.EXP);
+            itemstack = new ItemStack(Items.EXP);
         }
 
         return NBTHelper.GetNBTstring(itemstack, name);
@@ -274,7 +271,7 @@ public class AdvancedPotion extends Potion {
             Iterator var9 = effect.getCurativeItems().iterator();
             if (var9.hasNext()) {
                 ItemStack i = (ItemStack) var9.next();
-                if (i.getItem() == ItemsRegister.EXP) {
+                if (i.getItem() == Items.EXP) {
                     itemstack = i;
                 }
             }

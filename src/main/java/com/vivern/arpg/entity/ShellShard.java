@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Team;
 import com.vivern.arpg.main.WeaponParameters;
@@ -92,7 +92,7 @@ public class ShellShard extends AbstractArrow {
 
     @Override
     public double getItemArrowDamage(World worldIn) {
-        return WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_SHELL).getFloat("shard_damage");
+        return WeaponParameters.getWeaponParameters(Items.ARROW_SHELL).getFloat("shard_damage");
     }
 
     @Override

@@ -29,17 +29,17 @@ public class StaffFireballEntity extends EntityThrowable {
 
     public StaffFireballEntity(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
+        this.weaponstack = new ItemStack(Items.FIREBALL_STAFF);
     }
 
     public StaffFireballEntity(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
+        this.weaponstack = new ItemStack(Items.FIREBALL_STAFF);
     }
 
     public StaffFireballEntity(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
+        this.weaponstack = new ItemStack(Items.FIREBALL_STAFF);
     }
 
     public StaffFireballEntity(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

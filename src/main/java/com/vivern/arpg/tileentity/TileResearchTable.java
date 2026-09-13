@@ -233,7 +233,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
         if (this.specialization == 3) {
             if (args.length <= 0 || args.length > 64) {
                 ItemStack ink = this.getStackInSlot(3);
-                if (ink.getItem() == ItemsRegister.INK) {
+                if (ink.getItem() == Items.INK) {
                     ink.setItemDamage(ink.getItemDamage() + 1);
                     if (ink.getItemDamage() > ink.getMaxDamage()) {
                         ink.shrink(1);
@@ -252,7 +252,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
                     spells[i] = spell;
                 }
 
-                ItemStack newRoll = new ItemStack(ItemsRegister.SPELL_ROLL);
+                ItemStack newRoll = new ItemStack(Items.SPELL_ROLL);
                 if (!newRoll.hasTagCompound()) {
                     NBTTagCompound itemCompound = new NBTTagCompound();
                     newRoll.setTagCompound(itemCompound);
@@ -271,7 +271,7 @@ public class TileResearchTable extends TileEntityLockableLoot implements TileEnt
 
     public static boolean checkInkInSlot(IInventory inventory) {
         ItemStack ink = inventory.getStackInSlot(3);
-        return ink.getItem() == ItemsRegister.INK;
+        return ink.getItem() == Items.INK;
     }
 
     public void decrRollResources() {

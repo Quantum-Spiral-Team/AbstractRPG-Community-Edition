@@ -82,7 +82,7 @@ public class VacuumGun extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.VACUUM_GUN_PELLETS, maxammo)) {
+                    } else if (this.initiateReload(itemstack, player, Items.VACUUM_GUN_PELLETS, maxammo)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.head_shooter_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     }

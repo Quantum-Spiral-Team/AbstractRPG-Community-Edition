@@ -1,9 +1,6 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.main.BloodType;
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.entity.EntityLiving;
@@ -26,7 +23,7 @@ public class Blubber extends AbstractMob {
         this.defaultteam = OtherMobsPack.mobsteamender;
         this.setNoGravity(true);
         this.setattributes(20.0, 20.0, 4.0, 0.08F, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-        this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.QUANTUM_SLIMEBALL, 0.6F, 0, 1, 2, 1)});
+        this.registerLOOT(new MobDrop[]{new MobDrop(Items.QUANTUM_SLIMEBALL, 0.6F, 0, 1, 2, 1)});
         this.setRoleValues(EnumMobRole.WEAK_SOLDIER, 1);
     }
 

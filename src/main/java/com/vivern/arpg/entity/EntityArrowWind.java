@@ -111,7 +111,7 @@ public class EntityArrowWind extends AbstractArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemsRegister.ARROW_WIND);
+        return new ItemStack(Items.ARROW_WIND);
     }
 
 }

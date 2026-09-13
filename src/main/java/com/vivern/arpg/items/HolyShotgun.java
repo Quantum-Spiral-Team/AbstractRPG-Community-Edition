@@ -76,7 +76,7 @@ public class HolyShotgun extends ItemWeapon {
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                 if ((click || click2) && player.getHeldItemMainhand() == itemstack) {
                     if (ammo <= 0 || !this.isReloaded(itemstack)) {
-                        if (this.initiateBulletReload(itemstack, player, new ItemStack(ItemsRegister.BUCKSHOT, 2), maxammo, false)) {
+                        if (this.initiateBulletReload(itemstack, player, new ItemStack(Items.BUCKSHOT, 2), maxammo, false)) {
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.holy_shotgun_rel, SoundCategory.AMBIENT, 0.8F, 1.0F);
                             Weapons.setPlayerAnimationOnServer(player, 20, EnumHand.MAIN_HAND);
                         }

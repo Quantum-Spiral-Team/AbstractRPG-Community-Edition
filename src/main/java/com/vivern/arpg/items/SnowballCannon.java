@@ -8,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -78,19 +77,19 @@ public class SnowballCannon extends ItemWeapon {
                 int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
                 int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
                 ArrayList<Item> ammolist = new ArrayList<>();
-                ammolist.add(Items.SNOWBALL);
+                ammolist.add(net.minecraft.init.Items.SNOWBALL);
                 if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {
                     ammolist.add(Item.getItemFromBlock(Blocks.SNOW));
                 }
 
                 Item ammotype = FindAmmo.findModulate(player.inventory, ammolist);
                 EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-                Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP;
+                Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : Items.EXP;
                 if (ammotype != null && hand != null && (click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND)) {
                     if (ammo > 0 && this.isReloaded(itemstack)) {
                         if (!player.getCooldownTracker().hasCooldown(cooldownItem)) {
                             WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
-                            if (ammotype == Items.SNOWBALL) {
+                            if (ammotype == net.minecraft.init.Items.SNOWBALL) {
                                 world.playSound(null, player.posX, player.posY, player.posZ, Sounds.snowball_cannon, SoundCategory.AMBIENT, 0.8F, 0.9F + itemRand.nextFloat() / 5.0F);
                                 player.getCooldownTracker().setCooldown(cooldownItem, this.getCooldownTime(itemstack));
                                 player.addStat(StatList.getObjectUseStats(this));
@@ -103,7 +102,7 @@ public class SnowballCannon extends ItemWeapon {
                                 if (!player.capabilities.isCreativeMode) {
                                     if (itemRand.nextFloat() < parameters.getEnchantedF("ammo_consume_chance", reuse)) {
                                         this.addAmmo(ammo, itemstack, -1);
-                                        player.inventory.clearMatchingItems(Items.SNOWBALL, -1, 1, null);
+                                        player.inventory.clearMatchingItems(net.minecraft.init.Items.SNOWBALL, -1, 1, null);
                                     }
 
                                     itemstack.damageItem(1, player);

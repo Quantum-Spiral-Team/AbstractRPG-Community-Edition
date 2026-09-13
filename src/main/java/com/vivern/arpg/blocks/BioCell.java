@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.mobs.ToxicomaniaMobsPack;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.tileentity.TileBioCell;
@@ -113,7 +113,7 @@ public class BioCell extends BlockBlockHard {
             }
 
             if (RANDOM.nextFloat() < 0.6 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.EMBRYO));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.EMBRYO));
             }
 
             worldIn.setBlockState(pos, BlocksRegister.FLUID_BIOGENIC_ACID.getDefaultState());

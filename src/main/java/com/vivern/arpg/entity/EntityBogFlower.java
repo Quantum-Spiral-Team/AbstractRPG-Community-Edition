@@ -1,9 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -33,17 +30,17 @@ public class EntityBogFlower extends EntityThrowable {
 
     public EntityBogFlower(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.BOG_FLOWER);
+        this.weaponstack = new ItemStack(Items.BOG_FLOWER);
     }
 
     public EntityBogFlower(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.BOG_FLOWER);
+        this.weaponstack = new ItemStack(Items.BOG_FLOWER);
     }
 
     public EntityBogFlower(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.BOG_FLOWER);
+        this.weaponstack = new ItemStack(Items.BOG_FLOWER);
     }
 
     public EntityBogFlower(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

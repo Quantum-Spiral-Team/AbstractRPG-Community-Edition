@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.WeaponDamage;
 import net.minecraft.block.Block;
@@ -58,7 +58,7 @@ public class IceSpikes extends Block {
     public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote && entityIn instanceof EntityLivingBase) {
             ItemStack stack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
-            if (stack.getItem() == ItemsRegister.ICE_BEAM && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) > 0) {
+            if (stack.getItem() == Items.ICE_BEAM && EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack) > 0) {
                 return;
             }
 

@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -11,7 +11,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -212,15 +211,15 @@ public class ToxiberryTreeLeaves extends Block implements IShearable {
         }
 
         if (rand.nextInt(4) == 0) {
-            drops.add(new ItemStack(ItemsRegister.SMALL_TOXIBERRY));
+            drops.add(new ItemStack(Items.SMALL_TOXIBERRY));
         }
 
         if (rand.nextInt(5) == 0) {
-            drops.add(new ItemStack(ItemsRegister.SMALL_TOXIBERRY));
+            drops.add(new ItemStack(Items.SMALL_TOXIBERRY));
         }
 
         if (rand.nextInt(4) == 0) {
-            drops.add(new ItemStack(ItemsRegister.PLANT_FIBER));
+            drops.add(new ItemStack(Items.PLANT_FIBER));
         }
     }
 
@@ -296,7 +295,7 @@ public class ToxiberryTreeLeaves extends Block implements IShearable {
 
     @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
-        if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
+        if (!worldIn.isRemote && stack.getItem() == net.minecraft.init.Items.SHEARS) {
             player.addStat(StatList.getBlockStats(this));
         } else {
             super.harvestBlock(worldIn, player, pos, state, te, stack);

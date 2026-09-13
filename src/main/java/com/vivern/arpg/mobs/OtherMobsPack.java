@@ -17,7 +17,6 @@ import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.entity.projectile.EntityPotion;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
@@ -87,7 +86,7 @@ public class OtherMobsPack {
             this.livingSound = Sounds.mob_wild_living;
             this.defaultteam = OtherMobsPack.mobsteamnether;
             this.setattributes(25.0, 32.0, 6.0, 0.1, 4.0, 1.5, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.RAW_RIBS, 0.4F, 0, 1, 1, 1), new MobDrop(ItemsRegister.MOLTEN_NUGGET, 0.1F, 0, 1, 1, 1)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.RAW_RIBS, 0.4F, 0, 1, 1, 1), new MobDrop(Items.MOLTEN_NUGGET, 0.1F, 0, 1, 1, 1)});
             this.isImmuneToFire = true;
             this.setRoleValues(EnumMobRole.SOLDIER, 1);
             this.soul = Soul.EXHAUSTED;
@@ -117,7 +116,7 @@ public class OtherMobsPack {
 
         @Override
         public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
-            if (player.getHeldItemMainhand().getItem() == ItemsRegister.MAGMA_BLOOM_SEED) {
+            if (player.getHeldItemMainhand().getItem() == Items.MAGMA_BLOOM_SEED) {
                 if (!player.capabilities.isCreativeMode) {
                     player.getHeldItemMainhand().shrink(1);
                 }
@@ -225,7 +224,7 @@ public class OtherMobsPack {
             this.livingSound = Sounds.ender_seer_living;
             this.defaultteam = OtherMobsPack.mobsteamender;
             this.setattributes(75.0, 64.0, 1.0, 0.1, 5.0, 3.0, 0.7, 0.0, 1.0, 0.1);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.EYE_OF_SEER, 1.0F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.EYE_OF_SEER, 1.0F, 0, 1, 1, 0)});
             this.setDropMoney(-5, 15, 0.9F);
             this.experienceValue = 20;
             this.soul = Soul.NOBLE;
@@ -306,7 +305,7 @@ public class OtherMobsPack {
             this.livingSound = SoundEvents.ENTITY_SILVERFISH_AMBIENT;
             this.defaultteam = OtherMobsPack.mobsteamoverworld;
             this.setattributes(40.0, 32.0, 2.0, 0.2, 5.0, 1.0, 0.3, 0.0, 0.0, 0.2);
-            this.registerLOOT(new MobDrop[]{new MobDrop(Items.EMERALD, 0.2F, 0, 1, 1, 1), new MobDrop(ItemsRegister.ARROW_BOUNCING, 0.85F, 0, 2, 4, 3), new MobDrop(ItemsRegister.BLACK_STRAP, 0.8F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(net.minecraft.init.Items.EMERALD, 0.2F, 0, 1, 1, 1), new MobDrop(Items.ARROW_BOUNCING, 0.85F, 0, 2, 4, 3), new MobDrop(Items.BLACK_STRAP, 0.8F, 0, 1, 1, 0)});
             this.leadershipBase = 10;
             this.setDropMoney(-3, 6, 1.0F);
             this.soul = Soul.GREEDY;
@@ -450,7 +449,7 @@ public class OtherMobsPack {
             this.stepSound = SoundEvents.ENTITY_WOLF_STEP;
             this.defaultteam = OtherMobsPack.mobsteamnether;
             this.setattributes(35.0, 48.0, 5.0, 0.32, 2.0, 2.0, 0.4, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.HELLHOUND_COLLAR, 0.07F, 0, 1, 1, 0), new MobDrop(ItemsRegister.HELLHOUND_FUR, 0.85F, 0, 1, 1, 1)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.HELLHOUND_COLLAR, 0.07F, 0, 1, 1, 0), new MobDrop(Items.HELLHOUND_FUR, 0.85F, 0, 1, 1, 1)});
             this.leadershipBase = 7;
             this.isImmuneToFire = true;
             this.setRoleValues(EnumMobRole.WEAK_TANK, 1);
@@ -626,7 +625,7 @@ public class OtherMobsPack {
             this.livingSound = SoundEvents.ENTITY_EVOCATION_ILLAGER_AMBIENT;
             this.defaultteam = OtherMobsPack.mobsteamoverworld;
             this.setattributes(20.0, 32.0, 4.0, 0.28, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(Items.EMERALD, 0.35F, 0, 1, 1, 1), new MobDrop(ItemsRegister.BLACK_STRAP, 0.75F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(net.minecraft.init.Items.EMERALD, 0.35F, 0, 1, 1, 1), new MobDrop(Items.BLACK_STRAP, 0.75F, 0, 1, 1, 0)});
             this.leadershipBase = 6;
             this.setDropMoney(-3, 5, 1.0F);
             this.soul = Soul.MYSTIC;
@@ -720,7 +719,7 @@ public class OtherMobsPack {
 
         public void spawnPotionSpell(Vec3d pos, boolean phase2) {
             if (phase2) {
-                EntityPotion entitypotion = new EntityPotion(this.world, this, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), PotionTypes.HARMING));
+                EntityPotion entitypotion = new EntityPotion(this.world, this, PotionUtils.addPotionToItemStack(new ItemStack(net.minecraft.init.Items.SPLASH_POTION), PotionTypes.HARMING));
                 entitypotion.rotationPitch -= -8.0F;
                 entitypotion.setPosition(pos.x, pos.y + 0.25, pos.z);
                 this.world.spawnEntity(entitypotion);
@@ -785,7 +784,7 @@ public class OtherMobsPack {
             this.livingSound = SoundEvents.ENTITY_EVOCATION_ILLAGER_AMBIENT;
             this.defaultteam = OtherMobsPack.mobsteamoverworld;
             this.setattributes(30.0, 32.0, 5.0, 0.32, 4.0, 2.0, 0.0, 0.0, 0.0, 0.2);
-            this.registerLOOT(new MobDrop[]{new MobDrop(Items.EMERALD, 0.2F, 0, 1, 1, 1), new MobDrop(ItemsRegister.BLACK_STRAP, 0.85F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(net.minecraft.init.Items.EMERALD, 0.2F, 0, 1, 1, 1), new MobDrop(Items.BLACK_STRAP, 0.85F, 0, 1, 1, 0)});
             this.leadershipBase = 7;
             this.setDropMoney(-3, 6, 1.0F);
             this.soul = Soul.GREEDY;
@@ -926,7 +925,7 @@ public class OtherMobsPack {
             this.livingSound = Sounds.mob_zombie_living;
             this.defaultteam = OtherMobsPack.mobsteamnether;
             this.setattributes(35.0, 48.0, 4.0, 0.08, 2.0, 2.0, 0.3, 0.1, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.LIQUID_FIRE, 0.85F, 0, 1, 3, 2), new MobDrop(ItemsRegister.RAW_RIBS, 0.9F, 0, 1, 3, 2)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.LIQUID_FIRE, 0.85F, 0, 1, 3, 2), new MobDrop(Items.RAW_RIBS, 0.9F, 0, 1, 3, 2)});
             this.isImmuneToFire = true;
             this.setRoleValues(EnumMobRole.STRONG_ENEMY, 1);
             this.soul = Soul.EXHAUSTED;
@@ -1214,7 +1213,7 @@ public class OtherMobsPack {
             this.livingSound = SoundEvents.ENTITY_VEX_AMBIENT;
             this.defaultteam = OtherMobsPack.mobsteamnether;
             this.setattributes(26.0, 48.0, 3.5, 0.3, 4.0, 1.0, 0.0, 0.0, 1.0, 0.1);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.RAW_RIBS, 0.4F, 0, 1, 1, 1), new MobDrop(ItemsRegister.DEMONITE_SHARD, 0.04F, 0, 1, 1, 0), new MobDrop(ItemsRegister.INFERNUM_NUGGET, 0.08F, 0, 1, 2, 1), new MobDrop(ItemsRegister.MAGIC_POWDER, 0.05F, 0, 1, 2, 1), new MobDrop(ItemsRegister.FIRE_EATER, 0.02F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.RAW_RIBS, 0.4F, 0, 1, 1, 1), new MobDrop(Items.DEMONITE_SHARD, 0.04F, 0, 1, 1, 0), new MobDrop(Items.INFERNUM_NUGGET, 0.08F, 0, 1, 2, 1), new MobDrop(Items.MAGIC_POWDER, 0.05F, 0, 1, 2, 1), new MobDrop(Items.FIRE_EATER, 0.02F, 0, 1, 1, 0)});
             this.leadershipBase = 3;
             this.isImmuneToFire = true;
             this.setRoleValues(EnumMobRole.STRONG_SOLDIER, 1);
@@ -1311,7 +1310,7 @@ public class OtherMobsPack {
                     potiontype = PotionTypes.WEAKNESS;
                 }
 
-                EntityPotion entitypotion = new EntityPotion(this.world, this, PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype));
+                EntityPotion entitypotion = new EntityPotion(this.world, this, PotionUtils.addPotionToItemStack(new ItemStack(net.minecraft.init.Items.SPLASH_POTION), potiontype));
                 entitypotion.rotationPitch -= -8.0F;
                 entitypotion.shoot(d1, d2 + f * 0.2F, d3, 1.15F, 6.0F);
                 this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_WITCH_THROW, this.getSoundCategory(), 1.0F, 0.8F + this.rand.nextFloat() * 0.4F);
@@ -1400,7 +1399,7 @@ public class OtherMobsPack {
 
         @Override
         public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
-            if (player.getHeldItemMainhand().getItem() == ItemsRegister.SULFUR_DUST) {
+            if (player.getHeldItemMainhand().getItem() == Items.SULFUR_DUST) {
                 if (!player.capabilities.isCreativeMode) {
                     player.getHeldItemMainhand().shrink(1);
                 }
@@ -1498,7 +1497,7 @@ public class OtherMobsPack {
             this.defaultteam = OtherMobsPack.mobsteamender;
             this.setattributes(30.0, 48.0, 6.0, 0.13, 0.0, 2.0, 0.45, 0.1, 0.0, 0.0);
             if (!this.isSubMob) {
-                this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.VOID_CRYSTAL, 0.1F, 0, 1, 1, 0), new MobDrop(ItemsRegister.ENDER_GRAPLING_HOOK, 0.02F, 0, 1, 1, 0), new MobDrop(ItemsRegister.ENDER_LEECH, 0.03F, 0, 1, 1, 0)});
+                this.registerLOOT(new MobDrop[]{new MobDrop(Items.VOID_CRYSTAL, 0.1F, 0, 1, 1, 0), new MobDrop(Items.ENDER_GRAPLING_HOOK, 0.02F, 0, 1, 1, 0), new MobDrop(Items.ENDER_LEECH, 0.03F, 0, 1, 1, 0)});
                 this.deathSound = Sounds.gnater_dead;
             }
 

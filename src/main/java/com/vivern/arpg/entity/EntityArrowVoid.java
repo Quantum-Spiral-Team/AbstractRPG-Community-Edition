@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -73,7 +73,7 @@ public class EntityArrowVoid extends AbstractArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemsRegister.ARROW_VOID);
+        return new ItemStack(Items.ARROW_VOID);
     }
 
     @Override

@@ -73,7 +73,7 @@ public class PumpShotgun extends ItemWeapon {
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                 if (mainhand || offhand) {
                     if (ammo > 0 && this.isReloaded(itemstack)) {
-                        if (!hascooldown && mainhand || !player.getCooldownTracker().hasCooldown(ItemsRegister.EXP) && offhand) {
+                        if (!hascooldown && mainhand || !player.getCooldownTracker().hasCooldown(Items.EXP) && offhand) {
                             String bulletname = NBTHelper.GetNBTstring(itemstack, "bullet");
                             ItemBullet bullet = ItemBullet.getItemBulletFromNBTName(bulletname);
                             boolean nonullbullet = bullet != null;
@@ -143,7 +143,7 @@ public class PumpShotgun extends ItemWeapon {
 
                             IWeapon.fireEffect(this, player, world, 64.0, player.getEntityId(), seed, acc, amount, c, impacts, mainhand ? 1.0 : 0.0, 0.0, 0.0);
                         }
-                    } else if (this.initiateBulletReload(itemstack, player, new ItemStack(ItemsRegister.BUCKSHOT, 1), maxammo, false)) {
+                    } else if (this.initiateBulletReload(itemstack, player, new ItemStack(Items.BUCKSHOT, 1), maxammo, false)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.shotgun_rel_a, SoundCategory.AMBIENT, 0.9F, 1.0F);
                         Weapons.setPlayerAnimationOnServer(player, EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 ? 6 : 28, mainhand ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
                     }

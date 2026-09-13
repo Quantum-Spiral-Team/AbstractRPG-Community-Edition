@@ -36,7 +36,7 @@ public class MagicBoomerang extends ItemWeapon {
                     return 0.0F;
                 } else if (entityIn instanceof EntityPlayer) {
                     EntityPlayer pl = (EntityPlayer) entityIn;
-                    return pl.getCooldownTracker().hasCooldown(ItemsRegister.MAGIC_BOOMERANG) ? 1.0F : 0.0F;
+                    return pl.getCooldownTracker().hasCooldown(Items.MAGIC_BOOMERANG) ? 1.0F : 0.0F;
                 } else {
                     return 0.0F;
                 }

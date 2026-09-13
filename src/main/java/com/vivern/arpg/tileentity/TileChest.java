@@ -1,7 +1,7 @@
 package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.blocks.Chest;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.potions.Freezing;
 import com.vivern.arpg.potions.PotionEffects;
@@ -59,7 +59,7 @@ public class TileChest extends TileEntityLockableLoot implements ITickable {
 
     public boolean onTryOpenChest(EntityPlayer player, Random rand) {
         if (this.isLockedWithWinterCurse()) {
-            if (player.getHeldItemMainhand().getItem() == ItemsRegister.ICE_COMPASS || player.getHeldItemOffhand().getItem() == ItemsRegister.ICE_COMPASS) {
+            if (player.getHeldItemMainhand().getItem() == Items.ICE_COMPASS || player.getHeldItemOffhand().getItem() == Items.ICE_COMPASS) {
                 return false;
             }
 

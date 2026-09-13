@@ -73,7 +73,7 @@ public class EntityArrowBengal extends AbstractArrow {
                 SparkleSubparticle sparkl = new SparkleSubparticle(pointToLights.x, pointToLights.y, pointToLights.z, 0.01F + this.rand.nextFloat() * 0.01F, 20 + this.rand.nextInt(20), (float) (0.01 * this.rand.nextGaussian()), (float) (0.02 * this.rand.nextGaussian() + 0.01), (float) (0.01 * this.rand.nextGaussian()), 0.0F);
                 SparkleSubparticle.particles.add(sparkl);
             } else if (this.ticksExisted % 10 == 0) {
-                WeaponParameters parameters = WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_BENGAL);
+                WeaponParameters parameters = WeaponParameters.getWeaponParameters(Items.ARROW_BENGAL);
                 float bengal_damage = parameters.getFloat("bengal_damage");
 
                 for (Entity entity : GetMOP.getEntitiesInAABBof(this.world, this, 1.7, this)) {
@@ -93,7 +93,7 @@ public class EntityArrowBengal extends AbstractArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemsRegister.ARROW_BENGAL);
+        return new ItemStack(Items.ARROW_BENGAL);
     }
 
     @Override

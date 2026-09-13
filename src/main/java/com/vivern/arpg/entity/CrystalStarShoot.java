@@ -36,19 +36,19 @@ public class CrystalStarShoot extends EntityArrow implements IRepulsable, INaile
 
     public CrystalStarShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
+        this.weaponstack = new ItemStack(Items.CRYSTAL_STAR);
         this.pickupStatus = PickupStatus.DISALLOWED;
     }
 
     public CrystalStarShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
+        this.weaponstack = new ItemStack(Items.CRYSTAL_STAR);
         this.pickupStatus = PickupStatus.DISALLOWED;
     }
 
     public CrystalStarShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYSTAL_STAR);
+        this.weaponstack = new ItemStack(Items.CRYSTAL_STAR);
         this.pickupStatus = PickupStatus.DISALLOWED;
     }
 

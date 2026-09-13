@@ -33,19 +33,19 @@ public class AzureOreShoot extends EntityThrowable {
 
     public AzureOreShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.AZURE_ORE_STAFF);
+        this.weaponstack = new ItemStack(Items.AZURE_ORE_STAFF);
         this.setHomingPower();
     }
 
     public AzureOreShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.AZURE_ORE_STAFF);
+        this.weaponstack = new ItemStack(Items.AZURE_ORE_STAFF);
         this.setHomingPower();
     }
 
     public AzureOreShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.AZURE_ORE_STAFF);
+        this.weaponstack = new ItemStack(Items.AZURE_ORE_STAFF);
         this.setHomingPower();
     }
 

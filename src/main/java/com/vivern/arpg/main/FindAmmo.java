@@ -121,7 +121,7 @@ public class FindAmmo {
     public static int getSlotForEmptySoulStone(InventoryPlayer inventory) {
         for (int i = 0; i < inventory.mainInventory.size(); i++) {
             ItemStack st = inventory.mainInventory.get(i);
-            if (!st.isEmpty() && ItemsRegister.SOUL_STONE == st.getItem() && SoulStone.getSoul(st) == 0) {
+            if (!st.isEmpty() && Items.SOUL_STONE == st.getItem() && SoulStone.getSoul(st) == 0) {
                 return i;
             }
         }

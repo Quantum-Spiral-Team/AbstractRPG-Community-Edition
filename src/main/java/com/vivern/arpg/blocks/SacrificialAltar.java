@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.items.SoulStone;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.tileentity.TileSacrificialAltar;
@@ -60,7 +60,7 @@ public class SacrificialAltar extends Block {
         if (!worldIn.isRemote) {
             TileSacrificialAltar tile = this.getTileEntity(worldIn, pos);
             ItemStack stack = player.getHeldItem(hand);
-            if (stack.getItem() == ItemsRegister.SOUL_STONE && SoulStone.getSoul(stack) > 0 && tile.isEmpty()) {
+            if (stack.getItem() == Items.SOUL_STONE && SoulStone.getSoul(stack) > 0 && tile.isEmpty()) {
                 tile.setInventorySlotContents(0, stack.copy());
                 stack.shrink(1);
                 trySendPacketUpdate(worldIn, pos, tile);
@@ -69,7 +69,7 @@ public class SacrificialAltar extends Block {
             }
 
             ItemStack stackInTile = tile.getStackInSlot(0);
-            if (!stackInTile.isEmpty() && stackInTile.getItem() == ItemsRegister.SOUL_STONE && SoulStone.getSoul(stackInTile) == 0) {
+            if (!stackInTile.isEmpty() && stackInTile.getItem() == Items.SOUL_STONE && SoulStone.getSoul(stackInTile) == 0) {
                 worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, stackInTile.copy()));
                 tile.setInventorySlotContents(0, ItemStack.EMPTY);
                 trySendPacketUpdate(worldIn, pos, tile);

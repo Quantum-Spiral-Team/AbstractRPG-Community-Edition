@@ -44,17 +44,17 @@ public class EntityRestlessSkull extends EntityThrowable implements ISynchronize
 
     public EntityRestlessSkull(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.RESTLESS_SKULL);
+        this.weaponstack = new ItemStack(Items.RESTLESS_SKULL);
     }
 
     public EntityRestlessSkull(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.RESTLESS_SKULL);
+        this.weaponstack = new ItemStack(Items.RESTLESS_SKULL);
     }
 
     public EntityRestlessSkull(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.RESTLESS_SKULL);
+        this.weaponstack = new ItemStack(Items.RESTLESS_SKULL);
     }
 
     public EntityRestlessSkull(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

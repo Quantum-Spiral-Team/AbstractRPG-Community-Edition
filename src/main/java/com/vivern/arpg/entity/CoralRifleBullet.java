@@ -33,17 +33,17 @@ public class CoralRifleBullet extends StandardBullet implements ISynchronizedEnt
 
     public CoralRifleBullet(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.CORAL_RIFLE);
+        this.weaponstack = new ItemStack(Items.CORAL_RIFLE);
     }
 
     public CoralRifleBullet(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.CORAL_RIFLE);
+        this.weaponstack = new ItemStack(Items.CORAL_RIFLE);
     }
 
     public CoralRifleBullet(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.CORAL_RIFLE);
+        this.weaponstack = new ItemStack(Items.CORAL_RIFLE);
     }
 
     public CoralRifleBullet(World world, EntityLivingBase thrower, ItemStack itemstack) {

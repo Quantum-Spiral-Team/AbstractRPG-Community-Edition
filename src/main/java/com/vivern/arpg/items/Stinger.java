@@ -92,7 +92,7 @@ public class Stinger extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.STINGER_BOLTS, maxammo)) {
+                    } else if (this.initiateReload(itemstack, player, Items.STINGER_BOLTS, maxammo)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.stinger_reload, SoundCategory.NEUTRAL, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     }

@@ -25,17 +25,17 @@ public class WandColdShoot extends StandardBullet {
 
     public WandColdShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
+        this.weaponstack = new ItemStack(Items.WAND_OF_COLD);
     }
 
     public WandColdShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
+        this.weaponstack = new ItemStack(Items.WAND_OF_COLD);
     }
 
     public WandColdShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
+        this.weaponstack = new ItemStack(Items.WAND_OF_COLD);
     }
 
     public WandColdShoot(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

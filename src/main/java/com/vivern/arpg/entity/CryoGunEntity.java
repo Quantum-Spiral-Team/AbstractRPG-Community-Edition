@@ -30,17 +30,17 @@ public class CryoGunEntity extends EntityThrowable {
 
     public CryoGunEntity(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYOGUN);
+        this.weaponstack = new ItemStack(Items.CRYOGUN);
     }
 
     public CryoGunEntity(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYOGUN);
+        this.weaponstack = new ItemStack(Items.CRYOGUN);
     }
 
     public CryoGunEntity(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYOGUN);
+        this.weaponstack = new ItemStack(Items.CRYOGUN);
     }
 
     public CryoGunEntity(World world, EntityLivingBase thrower, ItemStack itemstack) {

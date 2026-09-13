@@ -1,7 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.SharkRocket;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -65,8 +65,8 @@ public class SharkCannon extends Item {
                     player.addStat(StatList.getObjectUseStats(this));
                 }
 
-                if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(ItemsRegister.SHARK_AMMO, 1))) {
-                    player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.SHARK_AMMO, 1).getItem(), -1, 1, null);
+                if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && player.inventory.hasItemStack(new ItemStack(Items.SHARK_AMMO, 1))) {
+                    player.inventory.clearMatchingItems(new ItemStack(Items.SHARK_AMMO, 1).getItem(), -1, 1, null);
                     itemstack.setItemDamage(0);
                     player.getCooldownTracker().setCooldown(this, 80);
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.sharkreload, SoundCategory.AMBIENT, 0.7F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));

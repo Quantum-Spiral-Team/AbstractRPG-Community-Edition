@@ -1,7 +1,7 @@
 package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.ToxicomaniaMobsPack;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -181,7 +181,7 @@ public class TileNexusFlower extends TileNexus {
             int spawnedThisW = this.groupsSpawnedThisWave;
             List<AbstractMob> list = new ArrayList<>();
             ToxicomaniaMobsPack.TestTubeSubstance subs = new ToxicomaniaMobsPack.TestTubeSubstance(this.world);
-            subs.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ItemsRegister.BUNKER_KEYCARD));
+            subs.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.BUNKER_KEYCARD));
             subs.setGlowing(true);
             list.add(subs);
             this.placeMobs(x, y, z, list);

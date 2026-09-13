@@ -26,17 +26,17 @@ public class EntityMinigunIcicle extends EntityThrowable implements ISynchronize
 
     public EntityMinigunIcicle(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.ICICLE_MINIGUN);
+        this.weaponstack = new ItemStack(Items.ICICLE_MINIGUN);
     }
 
     public EntityMinigunIcicle(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.ICICLE_MINIGUN);
+        this.weaponstack = new ItemStack(Items.ICICLE_MINIGUN);
     }
 
     public EntityMinigunIcicle(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.ICICLE_MINIGUN);
+        this.weaponstack = new ItemStack(Items.ICICLE_MINIGUN);
     }
 
     public EntityMinigunIcicle(World world, EntityLivingBase thrower, ItemStack itemstack) {

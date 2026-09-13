@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.network.PacketHandler;
@@ -56,7 +56,7 @@ public class EntityGeomanticCrystal extends Entity {
     }
 
     public void setClientStackColors(int color, int colorOverlay, int crystalType, int size) {
-        this.stackIn = new ItemStack(ItemsRegister.GEOMANTIC_CRYSTAL);
+        this.stackIn = new ItemStack(Items.GEOMANTIC_CRYSTAL);
         NBTHelper.GiveNBTint(this.stackIn, color, "color");
         NBTHelper.GiveNBTint(this.stackIn, colorOverlay, "colorover");
         NBTHelper.GiveNBTint(this.stackIn, crystalType, "type");

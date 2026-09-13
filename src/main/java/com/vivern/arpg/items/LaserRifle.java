@@ -118,7 +118,7 @@ public class LaserRifle extends ItemWeapon {
                             IWeapon.fireEffect(this, player, world, 64.0, player.getEntityId(), pit, yaw, vec.x, vec.y, vec.z, 0.0, 0.0, 0.0);
                             player.getCooldownTracker().setCooldown(this, this.getCooldownTime(itemstack));
                             NBTHelper.AddNBTint(itemstack, -1, "charge");
-                        } else if (this.initiateMetadataReload(itemstack, player, new ItemStack(ItemsRegister.ION_BATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(ItemsRegister.ION_BATTERY, 1, 0))) {
+                        } else if (this.initiateMetadataReload(itemstack, player, new ItemStack(Items.ION_BATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(Items.ION_BATTERY, 1, 0))) {
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.laserpistol_rel, SoundCategory.NEUTRAL, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                             Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                         }

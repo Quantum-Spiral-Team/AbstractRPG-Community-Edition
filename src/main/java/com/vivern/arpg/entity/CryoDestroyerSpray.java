@@ -29,17 +29,17 @@ public class CryoDestroyerSpray extends EntityThrowable implements ISynchronized
 
     public CryoDestroyerSpray(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYO_DESTROYER);
+        this.weaponstack = new ItemStack(Items.CRYO_DESTROYER);
     }
 
     public CryoDestroyerSpray(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYO_DESTROYER);
+        this.weaponstack = new ItemStack(Items.CRYO_DESTROYER);
     }
 
     public CryoDestroyerSpray(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.CRYO_DESTROYER);
+        this.weaponstack = new ItemStack(Items.CRYO_DESTROYER);
     }
 
     public CryoDestroyerSpray(World world, EntityLivingBase thrower, ItemStack itemstack) {

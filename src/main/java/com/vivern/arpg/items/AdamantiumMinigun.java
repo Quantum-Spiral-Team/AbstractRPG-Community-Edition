@@ -229,7 +229,7 @@ public class AdamantiumMinigun extends ItemWeapon {
                                 shootPoint = shootPoint.add(0.0, -0.1, 0.0);
                                 IWeapon.fireEffect(this, player, world, 64.0, shootPoint.x, shootPoint.y, shootPoint.z, vec.x, vec.y, vec.z, c, dustState == null ? -1.0 : Block.getStateId(dustState), collidesWithAny ? 1.0 : 0.0);
                             }
-                        } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.ADAMANTIUM_MINIGUN_CLIP, maxammo, true)) {
+                        } else if (this.initiateBulletReload(itemstack, player, Items.ADAMANTIUM_MINIGUN_CLIP, maxammo, true)) {
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.adamantium_minigun_rel, SoundCategory.AMBIENT, 0.8F, 1.0F);
                             Weapons.setPlayerAnimationOnServer(player, 35, EnumHand.MAIN_HAND);
                             IWeapon.sendIWeaponState(itemstack, player, 70, itemSlot, EnumHand.MAIN_HAND);

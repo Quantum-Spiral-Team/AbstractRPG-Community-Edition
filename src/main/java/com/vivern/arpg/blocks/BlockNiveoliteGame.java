@@ -1,9 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.tileentity.TileNexusNiveolite;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -70,7 +67,7 @@ public class BlockNiveoliteGame extends BlockBlockHard {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         player.swingArm(hand);
-        if (!world.isRemote && hand == EnumHand.MAIN_HAND && player.getHeldItemMainhand().getItem() == ItemsRegister.NIVEOLITE && player.getHeldItemMainhand().getCount() >= 8) {
+        if (!world.isRemote && hand == EnumHand.MAIN_HAND && player.getHeldItemMainhand().getItem() == Items.NIVEOLITE && player.getHeldItemMainhand().getCount() >= 8) {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof TileNexusNiveolite) {
                 TileNexusNiveolite nexus = (TileNexusNiveolite) tile;

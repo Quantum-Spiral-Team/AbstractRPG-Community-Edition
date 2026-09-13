@@ -204,7 +204,7 @@ public class EntityArrowTwin extends AbstractArrow implements ISynchronizedEntit
                                 Vec3d point2 = this.twin.getPositionVector().subtract(GetMOP.pitchYawToVec3D(-this.twin.rotationPitch, -this.twin.rotationYaw).scale(0.6));
                                 if (GetMOP.thereIsNoBlockCollidesBetween(this.world, point1, point2, null, false)) {
                                     List<Entity> list = GetMOP.findEntitiesOnPath(point1, point2, this.world, this.shootingEntity, 0.3, 0.2);
-                                    WeaponParameters parameters = WeaponParameters.getWeaponParameters(ItemsRegister.ARROW_TWIN);
+                                    WeaponParameters parameters = WeaponParameters.getWeaponParameters(Items.ARROW_TWIN);
                                     float damage_link = parameters.getFloat("damage_link");
                                     float damage_link_length_mult = parameters.getFloat("damage_link_length_mult");
 
@@ -263,7 +263,7 @@ public class EntityArrowTwin extends AbstractArrow implements ISynchronizedEntit
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemsRegister.ARROW_TWIN);
+        return new ItemStack(Items.ARROW_TWIN);
     }
 
     @Override

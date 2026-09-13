@@ -25,7 +25,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Field;
 
-import static com.vivern.arpg.main.ItemsRegister.*;
+import static com.vivern.arpg.main.Items.*;
 
 @SideOnly(Side.CLIENT)
 public class RenderRegister {
@@ -1007,7 +1007,7 @@ public class RenderRegister {
 
         mesher.register(BERYLLIUM_DUST, 0, new ModelResourceLocation(BERYLLIUM_DUST.getRegistryName(), inventory));
 
-        mesher.register(GEOMANTIC_CRYSTAL, 0, new ModelResourceLocation(ItemsRegister.GEOMANTIC_CRYSTAL.getRegistryName(), inventory));
+        mesher.register(GEOMANTIC_CRYSTAL, 0, new ModelResourceLocation(Items.GEOMANTIC_CRYSTAL.getRegistryName(), inventory));
 
         mesher.register(MANGANESE_DUST, 0, new ModelResourceLocation(MANGANESE_DUST.getRegistryName(), inventory));
 
@@ -1329,328 +1329,328 @@ public class RenderRegister {
             mesher.register(item, 0, new ModelResourceLocation(item.getRegistryName(), inventory));
         }
 
-        mesher.register(ANNIHILATION_GUN, stack -> new ModelResourceLocation(ItemsRegister.ANNIHILATION_GUN.getRegistryName(), inventory));
+        mesher.register(ANNIHILATION_GUN, stack -> new ModelResourceLocation(Items.ANNIHILATION_GUN.getRegistryName(), inventory));
         ANNIHILATION_GUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ELEMENT_FOCUS, stack -> new ModelResourceLocation(ItemsRegister.ELEMENT_FOCUS.getRegistryName(), inventory));
+        mesher.register(ELEMENT_FOCUS, stack -> new ModelResourceLocation(Items.ELEMENT_FOCUS.getRegistryName(), inventory));
         ELEMENT_FOCUS.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(STINGER, stack -> new ModelResourceLocation(ItemsRegister.STINGER.getRegistryName(), inventory));
+        mesher.register(STINGER, stack -> new ModelResourceLocation(Items.STINGER.getRegistryName(), inventory));
         STINGER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(FIREWORK_LAUNCHER, stack -> new ModelResourceLocation(ItemsRegister.FIREWORK_LAUNCHER.getRegistryName(), inventory));
+        mesher.register(FIREWORK_LAUNCHER, stack -> new ModelResourceLocation(Items.FIREWORK_LAUNCHER.getRegistryName(), inventory));
         FIREWORK_LAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SCEPTER_OF_SANDS, stack -> new ModelResourceLocation(ItemsRegister.SCEPTER_OF_SANDS.getRegistryName(), inventory));
+        mesher.register(SCEPTER_OF_SANDS, stack -> new ModelResourceLocation(Items.SCEPTER_OF_SANDS.getRegistryName(), inventory));
         SCEPTER_OF_SANDS.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(BILEBITER, stack -> new ModelResourceLocation(ItemsRegister.BILEBITER.getRegistryName(), inventory));
+        mesher.register(BILEBITER, stack -> new ModelResourceLocation(Items.BILEBITER.getRegistryName(), inventory));
         BILEBITER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(FIREBALL_STAFF, stack -> new ModelResourceLocation(ItemsRegister.FIREBALL_STAFF.getRegistryName(), inventory));
+        mesher.register(FIREBALL_STAFF, stack -> new ModelResourceLocation(Items.FIREBALL_STAFF.getRegistryName(), inventory));
         FIREBALL_STAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ELECTROSTATIC, stack -> new ModelResourceLocation(ItemsRegister.ELECTROSTATIC.getRegistryName(), inventory));
+        mesher.register(ELECTROSTATIC, stack -> new ModelResourceLocation(Items.ELECTROSTATIC.getRegistryName(), inventory));
         ELECTROSTATIC.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SLIME_SHOTGUN, stack -> new ModelResourceLocation(ItemsRegister.SLIME_SHOTGUN.getRegistryName(), inventory));
+        mesher.register(SLIME_SHOTGUN, stack -> new ModelResourceLocation(Items.SLIME_SHOTGUN.getRegistryName(), inventory));
         SLIME_SHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(MOLTEN_GREAT_AXE, stack -> new ModelResourceLocation(ItemsRegister.MOLTEN_GREAT_AXE.getRegistryName(), inventory));
+        mesher.register(MOLTEN_GREAT_AXE, stack -> new ModelResourceLocation(Items.MOLTEN_GREAT_AXE.getRegistryName(), inventory));
         MOLTEN_GREAT_AXE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(NETHER_GRINDER, stack -> new ModelResourceLocation(ItemsRegister.NETHER_GRINDER.getRegistryName(), inventory));
+        mesher.register(NETHER_GRINDER, stack -> new ModelResourceLocation(Items.NETHER_GRINDER.getRegistryName(), inventory));
         NETHER_GRINDER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SNOWBALL_CANNON, stack -> new ModelResourceLocation(ItemsRegister.SNOWBALL_CANNON.getRegistryName(), inventory));
+        mesher.register(SNOWBALL_CANNON, stack -> new ModelResourceLocation(Items.SNOWBALL_CANNON.getRegistryName(), inventory));
         SNOWBALL_CANNON.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CURSED_BLADE, stack -> new ModelResourceLocation(ItemsRegister.CURSED_BLADE.getRegistryName(), inventory));
+        mesher.register(CURSED_BLADE, stack -> new ModelResourceLocation(Items.CURSED_BLADE.getRegistryName(), inventory));
         CURSED_BLADE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(GRAVE_LURKER, stack -> new ModelResourceLocation(ItemsRegister.GRAVE_LURKER.getRegistryName(), inventory));
+        mesher.register(GRAVE_LURKER, stack -> new ModelResourceLocation(Items.GRAVE_LURKER.getRegistryName(), inventory));
         GRAVE_LURKER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(REAPER, stack -> new ModelResourceLocation(ItemsRegister.REAPER.getRegistryName(), inventory));
+        mesher.register(REAPER, stack -> new ModelResourceLocation(Items.REAPER.getRegistryName(), inventory));
         REAPER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(GHOST_SWORD, stack -> new ModelResourceLocation(ItemsRegister.GHOST_SWORD.getRegistryName(), inventory));
+        mesher.register(GHOST_SWORD, stack -> new ModelResourceLocation(Items.GHOST_SWORD.getRegistryName(), inventory));
         GHOST_SWORD.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(STAFF_OF_CORPSE, stack -> new ModelResourceLocation(ItemsRegister.STAFF_OF_CORPSE.getRegistryName(), inventory));
+        mesher.register(STAFF_OF_CORPSE, stack -> new ModelResourceLocation(Items.STAFF_OF_CORPSE.getRegistryName(), inventory));
         STAFF_OF_CORPSE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(TOXIC_NUCLEAR_CANNON, stack -> new ModelResourceLocation(ItemsRegister.TOXIC_NUCLEAR_CANNON.getRegistryName(), inventory));
+        mesher.register(TOXIC_NUCLEAR_CANNON, stack -> new ModelResourceLocation(Items.TOXIC_NUCLEAR_CANNON.getRegistryName(), inventory));
         TOXIC_NUCLEAR_CANNON.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CRYOGUN, stack -> new ModelResourceLocation(ItemsRegister.CRYOGUN.getRegistryName(), inventory));
+        mesher.register(CRYOGUN, stack -> new ModelResourceLocation(Items.CRYOGUN.getRegistryName(), inventory));
         CRYOGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CHARGER, stack -> new ModelResourceLocation(ItemsRegister.CHARGER.getRegistryName(), inventory));
+        mesher.register(CHARGER, stack -> new ModelResourceLocation(Items.CHARGER.getRegistryName(), inventory));
         CHARGER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ICICLE_MINIGUN, stack -> new ModelResourceLocation(ItemsRegister.ICICLE_MINIGUN.getRegistryName(), inventory));
+        mesher.register(ICICLE_MINIGUN, stack -> new ModelResourceLocation(Items.ICICLE_MINIGUN.getRegistryName(), inventory));
         ICICLE_MINIGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(STATIC_LANCE, stack -> new ModelResourceLocation(ItemsRegister.STATIC_LANCE.getRegistryName(), inventory));
+        mesher.register(STATIC_LANCE, stack -> new ModelResourceLocation(Items.STATIC_LANCE.getRegistryName(), inventory));
         STATIC_LANCE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(WAND_OF_BLAZES, stack -> new ModelResourceLocation(ItemsRegister.WAND_OF_BLAZES.getRegistryName(), inventory));
+        mesher.register(WAND_OF_BLAZES, stack -> new ModelResourceLocation(Items.WAND_OF_BLAZES.getRegistryName(), inventory));
         WAND_OF_BLAZES.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CONIFER_ROD, stack -> new ModelResourceLocation(ItemsRegister.CONIFER_ROD.getRegistryName(), inventory));
+        mesher.register(CONIFER_ROD, stack -> new ModelResourceLocation(Items.CONIFER_ROD.getRegistryName(), inventory));
         CONIFER_ROD.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(PLASMA_RAILGUN, stack -> new ModelResourceLocation(ItemsRegister.PLASMA_RAILGUN.getRegistryName(), inventory));
+        mesher.register(PLASMA_RAILGUN, stack -> new ModelResourceLocation(Items.PLASMA_RAILGUN.getRegistryName(), inventory));
         PLASMA_RAILGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(PLASMA_RIFLE, stack -> new ModelResourceLocation(ItemsRegister.PLASMA_RIFLE.getRegistryName(), inventory));
+        mesher.register(PLASMA_RIFLE, stack -> new ModelResourceLocation(Items.PLASMA_RIFLE.getRegistryName(), inventory));
         PLASMA_RIFLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(HOLOGRAPHIC_SHIELD, stack -> new ModelResourceLocation(ItemsRegister.HOLOGRAPHIC_SHIELD.getRegistryName(), inventory));
+        mesher.register(HOLOGRAPHIC_SHIELD, stack -> new ModelResourceLocation(Items.HOLOGRAPHIC_SHIELD.getRegistryName(), inventory));
         HOLOGRAPHIC_SHIELD.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(HEAD_SHOOTER, stack -> new ModelResourceLocation(ItemsRegister.HEAD_SHOOTER.getRegistryName(), inventory));
+        mesher.register(HEAD_SHOOTER, stack -> new ModelResourceLocation(Items.HEAD_SHOOTER.getRegistryName(), inventory));
         HEAD_SHOOTER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(PLASMA_PISTOL, stack -> new ModelResourceLocation(ItemsRegister.PLASMA_PISTOL.getRegistryName(), inventory));
+        mesher.register(PLASMA_PISTOL, stack -> new ModelResourceLocation(Items.PLASMA_PISTOL.getRegistryName(), inventory));
         PLASMA_PISTOL.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(BOG_FLOWER, stack -> new ModelResourceLocation(ItemsRegister.BOG_FLOWER.getRegistryName(), inventory));
+        mesher.register(BOG_FLOWER, stack -> new ModelResourceLocation(Items.BOG_FLOWER.getRegistryName(), inventory));
         BOG_FLOWER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(PISTOL_FISH, stack -> new ModelResourceLocation(ItemsRegister.PISTOL_FISH.getRegistryName(), inventory));
+        mesher.register(PISTOL_FISH, stack -> new ModelResourceLocation(Items.PISTOL_FISH.getRegistryName(), inventory));
         PISTOL_FISH.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(BUBBLEFISH, stack -> new ModelResourceLocation(ItemsRegister.BUBBLEFISH.getRegistryName(), inventory));
+        mesher.register(BUBBLEFISH, stack -> new ModelResourceLocation(Items.BUBBLEFISH.getRegistryName(), inventory));
         BUBBLEFISH.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(LAVA_DROPPER, stack -> new ModelResourceLocation(ItemsRegister.LAVA_DROPPER.getRegistryName(), inventory));
+        mesher.register(LAVA_DROPPER, stack -> new ModelResourceLocation(Items.LAVA_DROPPER.getRegistryName(), inventory));
         LAVA_DROPPER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(PLASMA_ACCELERATOR, stack -> new ModelResourceLocation(ItemsRegister.PLASMA_ACCELERATOR.getRegistryName(), inventory));
+        mesher.register(PLASMA_ACCELERATOR, stack -> new ModelResourceLocation(Items.PLASMA_ACCELERATOR.getRegistryName(), inventory));
         PLASMA_ACCELERATOR.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(VACUUM_GUN, stack -> new ModelResourceLocation(ItemsRegister.VACUUM_GUN.getRegistryName(), inventory));
+        mesher.register(VACUUM_GUN, stack -> new ModelResourceLocation(Items.VACUUM_GUN.getRegistryName(), inventory));
         VACUUM_GUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(GEM_STAFF, stack -> new ModelResourceLocation(ItemsRegister.GEM_STAFF.getRegistryName(), inventory));
+        mesher.register(GEM_STAFF, stack -> new ModelResourceLocation(Items.GEM_STAFF.getRegistryName(), inventory));
         GEM_STAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(WAND_OF_COLD, stack -> new ModelResourceLocation(ItemsRegister.WAND_OF_COLD.getRegistryName(), inventory));
+        mesher.register(WAND_OF_COLD, stack -> new ModelResourceLocation(Items.WAND_OF_COLD.getRegistryName(), inventory));
         WAND_OF_COLD.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ICE_BEAM, stack -> new ModelResourceLocation(ItemsRegister.ICE_BEAM.getRegistryName(), inventory));
+        mesher.register(ICE_BEAM, stack -> new ModelResourceLocation(Items.ICE_BEAM.getRegistryName(), inventory));
         ICE_BEAM.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SKULL_CRASHER, stack -> new ModelResourceLocation(ItemsRegister.SKULL_CRASHER.getRegistryName(), inventory));
+        mesher.register(SKULL_CRASHER, stack -> new ModelResourceLocation(Items.SKULL_CRASHER.getRegistryName(), inventory));
         SKULL_CRASHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SPELL_HAMMER, stack -> new ModelResourceLocation(ItemsRegister.SPELL_HAMMER.getRegistryName(), inventory));
+        mesher.register(SPELL_HAMMER, stack -> new ModelResourceLocation(Items.SPELL_HAMMER.getRegistryName(), inventory));
         SPELL_HAMMER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ACID_FIRE, stack -> new ModelResourceLocation(ItemsRegister.ACID_FIRE.getRegistryName(), inventory));
+        mesher.register(ACID_FIRE, stack -> new ModelResourceLocation(Items.ACID_FIRE.getRegistryName(), inventory));
         ACID_FIRE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(GLOW_BLADE, stack -> new ModelResourceLocation(ItemsRegister.GLOW_BLADE.getRegistryName(), inventory));
+        mesher.register(GLOW_BLADE, stack -> new ModelResourceLocation(Items.GLOW_BLADE.getRegistryName(), inventory));
         GLOW_BLADE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(NAIL_GUN, stack -> new ModelResourceLocation(ItemsRegister.NAIL_GUN.getRegistryName(), inventory));
+        mesher.register(NAIL_GUN, stack -> new ModelResourceLocation(Items.NAIL_GUN.getRegistryName(), inventory));
         NAIL_GUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CRYSTAL_STAR, stack -> new ModelResourceLocation(ItemsRegister.CRYSTAL_STAR.getRegistryName(), inventory));
+        mesher.register(CRYSTAL_STAR, stack -> new ModelResourceLocation(Items.CRYSTAL_STAR.getRegistryName(), inventory));
         CRYSTAL_STAR.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(TOXINIUMSHOTGUN, stack -> new ModelResourceLocation(ItemsRegister.TOXINIUMSHOTGUN.getRegistryName(), inventory));
+        mesher.register(TOXINIUMSHOTGUN, stack -> new ModelResourceLocation(Items.TOXINIUMSHOTGUN.getRegistryName(), inventory));
         TOXINIUMSHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SUBMACHINE, stack -> new ModelResourceLocation(ItemsRegister.SUBMACHINE.getRegistryName(), inventory));
+        mesher.register(SUBMACHINE, stack -> new ModelResourceLocation(Items.SUBMACHINE.getRegistryName(), inventory));
         SUBMACHINE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(THISTLE_THORN, stack -> new ModelResourceLocation(ItemsRegister.THISTLE_THORN.getRegistryName(), inventory));
+        mesher.register(THISTLE_THORN, stack -> new ModelResourceLocation(Items.THISTLE_THORN.getRegistryName(), inventory));
         THISTLE_THORN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(RESTLESS_SKULL, stack -> new ModelResourceLocation(ItemsRegister.RESTLESS_SKULL.getRegistryName(), inventory));
+        mesher.register(RESTLESS_SKULL, stack -> new ModelResourceLocation(Items.RESTLESS_SKULL.getRegistryName(), inventory));
         RESTLESS_SKULL.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(MAGIC_ROCKET, stack -> new ModelResourceLocation(ItemsRegister.MAGIC_ROCKET.getRegistryName(), inventory));
+        mesher.register(MAGIC_ROCKET, stack -> new ModelResourceLocation(Items.MAGIC_ROCKET.getRegistryName(), inventory));
         MAGIC_ROCKET.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(STINGING_CELL, stack -> new ModelResourceLocation(ItemsRegister.STINGING_CELL.getRegistryName(), inventory));
+        mesher.register(STINGING_CELL, stack -> new ModelResourceLocation(Items.STINGING_CELL.getRegistryName(), inventory));
         STINGING_CELL.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SEA_EFFLORESCE, stack -> new ModelResourceLocation(ItemsRegister.SEA_EFFLORESCE.getRegistryName(), inventory));
+        mesher.register(SEA_EFFLORESCE, stack -> new ModelResourceLocation(Items.SEA_EFFLORESCE.getRegistryName(), inventory));
         SEA_EFFLORESCE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CORAL_RIFLE, stack -> new ModelResourceLocation(ItemsRegister.CORAL_RIFLE.getRegistryName(), inventory));
+        mesher.register(CORAL_RIFLE, stack -> new ModelResourceLocation(Items.CORAL_RIFLE.getRegistryName(), inventory));
         CORAL_RIFLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(HADRON_BLASTER, stack -> new ModelResourceLocation(ItemsRegister.HADRON_BLASTER.getRegistryName(), inventory));
+        mesher.register(HADRON_BLASTER, stack -> new ModelResourceLocation(Items.HADRON_BLASTER.getRegistryName(), inventory));
         HADRON_BLASTER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SNAP_BALL, stack -> new ModelResourceLocation(ItemsRegister.SNAP_BALL.getRegistryName(), inventory));
+        mesher.register(SNAP_BALL, stack -> new ModelResourceLocation(Items.SNAP_BALL.getRegistryName(), inventory));
         SNAP_BALL.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ROCKET_LAUNCHER, stack -> new ModelResourceLocation(ItemsRegister.ROCKET_LAUNCHER.getRegistryName(), inventory));
+        mesher.register(ROCKET_LAUNCHER, stack -> new ModelResourceLocation(Items.ROCKET_LAUNCHER.getRegistryName(), inventory));
         ROCKET_LAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CHAIN_MACE, stack -> new ModelResourceLocation(ItemsRegister.CHAIN_MACE.getRegistryName(), inventory));
+        mesher.register(CHAIN_MACE, stack -> new ModelResourceLocation(Items.CHAIN_MACE.getRegistryName(), inventory));
         CHAIN_MACE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(DIAMOND_CHAIN_MACE, stack -> new ModelResourceLocation(ItemsRegister.DIAMOND_CHAIN_MACE.getRegistryName(), inventory));
+        mesher.register(DIAMOND_CHAIN_MACE, stack -> new ModelResourceLocation(Items.DIAMOND_CHAIN_MACE.getRegistryName(), inventory));
         DIAMOND_CHAIN_MACE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(MOLTEN_CHAIN_MACE, stack -> new ModelResourceLocation(ItemsRegister.MOLTEN_CHAIN_MACE.getRegistryName(), inventory));
+        mesher.register(MOLTEN_CHAIN_MACE, stack -> new ModelResourceLocation(Items.MOLTEN_CHAIN_MACE.getRegistryName(), inventory));
         MOLTEN_CHAIN_MACE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ICEBREAKER, stack -> new ModelResourceLocation(ItemsRegister.ICEBREAKER.getRegistryName(), inventory));
+        mesher.register(ICEBREAKER, stack -> new ModelResourceLocation(Items.ICEBREAKER.getRegistryName(), inventory));
         ICEBREAKER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ADAMANTIUM_REVOLVER, stack -> new ModelResourceLocation(ItemsRegister.ADAMANTIUM_REVOLVER.getRegistryName(), inventory));
+        mesher.register(ADAMANTIUM_REVOLVER, stack -> new ModelResourceLocation(Items.ADAMANTIUM_REVOLVER.getRegistryName(), inventory));
         ADAMANTIUM_REVOLVER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ADAMANTIUM_BATTLE_AXE, stack -> new ModelResourceLocation(ItemsRegister.ADAMANTIUM_BATTLE_AXE.getRegistryName(), inventory));
+        mesher.register(ADAMANTIUM_BATTLE_AXE, stack -> new ModelResourceLocation(Items.ADAMANTIUM_BATTLE_AXE.getRegistryName(), inventory));
         ADAMANTIUM_BATTLE_AXE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ENDER_PROTECTOR, stack -> new ModelResourceLocation(ItemsRegister.ENDER_PROTECTOR.getRegistryName(), inventory));
+        mesher.register(ENDER_PROTECTOR, stack -> new ModelResourceLocation(Items.ENDER_PROTECTOR.getRegistryName(), inventory));
         ENDER_PROTECTOR.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(DRAGON_TAIL, stack -> new ModelResourceLocation(ItemsRegister.DRAGON_TAIL.getRegistryName(), inventory));
+        mesher.register(DRAGON_TAIL, stack -> new ModelResourceLocation(Items.DRAGON_TAIL.getRegistryName(), inventory));
         DRAGON_TAIL.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(DRAGON_SHELL, stack -> new ModelResourceLocation(ItemsRegister.DRAGON_SHELL.getRegistryName(), inventory));
+        mesher.register(DRAGON_SHELL, stack -> new ModelResourceLocation(Items.DRAGON_SHELL.getRegistryName(), inventory));
         DRAGON_SHELL.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(WINTER_BREATH, stack -> new ModelResourceLocation(ItemsRegister.WINTER_BREATH.getRegistryName(), inventory));
+        mesher.register(WINTER_BREATH, stack -> new ModelResourceLocation(Items.WINTER_BREATH.getRegistryName(), inventory));
         WINTER_BREATH.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(TOXINIUM_SHIELD, stack -> new ModelResourceLocation(ItemsRegister.TOXINIUM_SHIELD.getRegistryName(), inventory));
+        mesher.register(TOXINIUM_SHIELD, stack -> new ModelResourceLocation(Items.TOXINIUM_SHIELD.getRegistryName(), inventory));
         TOXINIUM_SHIELD.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CARAPACE, stack -> new ModelResourceLocation(ItemsRegister.CARAPACE.getRegistryName(), inventory));
+        mesher.register(CARAPACE, stack -> new ModelResourceLocation(Items.CARAPACE.getRegistryName(), inventory));
         CARAPACE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ROTTEN_SHIELD, stack -> new ModelResourceLocation(ItemsRegister.ROTTEN_SHIELD.getRegistryName(), inventory));
+        mesher.register(ROTTEN_SHIELD, stack -> new ModelResourceLocation(Items.ROTTEN_SHIELD.getRegistryName(), inventory));
         ROTTEN_SHIELD.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(HELLMARK, stack -> new ModelResourceLocation(ItemsRegister.HELLMARK.getRegistryName(), inventory));
+        mesher.register(HELLMARK, stack -> new ModelResourceLocation(Items.HELLMARK.getRegistryName(), inventory));
         HELLMARK.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(BLOWHOLE, stack -> new ModelResourceLocation(ItemsRegister.BLOWHOLE.getRegistryName(), inventory));
+        mesher.register(BLOWHOLE, stack -> new ModelResourceLocation(Items.BLOWHOLE.getRegistryName(), inventory));
         BLOWHOLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CRYSTAL_CUTTER, stack -> new ModelResourceLocation(ItemsRegister.CRYSTAL_CUTTER.getRegistryName(), inventory));
+        mesher.register(CRYSTAL_CUTTER, stack -> new ModelResourceLocation(Items.CRYSTAL_CUTTER.getRegistryName(), inventory));
         CRYSTAL_CUTTER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(PLASMA_MINIGUN, stack -> new ModelResourceLocation(ItemsRegister.PLASMA_MINIGUN.getRegistryName(), inventory));
+        mesher.register(PLASMA_MINIGUN, stack -> new ModelResourceLocation(Items.PLASMA_MINIGUN.getRegistryName(), inventory));
         PLASMA_MINIGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CERATARGET, stack -> new ModelResourceLocation(ItemsRegister.CERATARGET.getRegistryName(), inventory));
+        mesher.register(CERATARGET, stack -> new ModelResourceLocation(Items.CERATARGET.getRegistryName(), inventory));
         CERATARGET.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(GRENADE_LAUNCHER, stack -> new ModelResourceLocation(ItemsRegister.GRENADE_LAUNCHER.getRegistryName(), inventory));
+        mesher.register(GRENADE_LAUNCHER, stack -> new ModelResourceLocation(Items.GRENADE_LAUNCHER.getRegistryName(), inventory));
         GRENADE_LAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(HOLY_SHOTGUN, stack -> new ModelResourceLocation(ItemsRegister.HOLY_SHOTGUN.getRegistryName(), inventory));
+        mesher.register(HOLY_SHOTGUN, stack -> new ModelResourceLocation(Items.HOLY_SHOTGUN.getRegistryName(), inventory));
         HOLY_SHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ECHINUS, stack -> new ModelResourceLocation(ItemsRegister.ECHINUS.getRegistryName(), inventory));
+        mesher.register(ECHINUS, stack -> new ModelResourceLocation(Items.ECHINUS.getRegistryName(), inventory));
         ECHINUS.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(MITHRIL_BOW, stack -> new ModelResourceLocation(ItemsRegister.MITHRIL_BOW.getRegistryName(), inventory));
+        mesher.register(MITHRIL_BOW, stack -> new ModelResourceLocation(Items.MITHRIL_BOW.getRegistryName(), inventory));
         MITHRIL_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(COMPOUND_BOW, stack -> new ModelResourceLocation(ItemsRegister.COMPOUND_BOW.getRegistryName(), inventory));
+        mesher.register(COMPOUND_BOW, stack -> new ModelResourceLocation(Items.COMPOUND_BOW.getRegistryName(), inventory));
         COMPOUND_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(AZURE_ORE_STAFF, stack -> new ModelResourceLocation(ItemsRegister.AZURE_ORE_STAFF.getRegistryName(), inventory));
+        mesher.register(AZURE_ORE_STAFF, stack -> new ModelResourceLocation(Items.AZURE_ORE_STAFF.getRegistryName(), inventory));
         AZURE_ORE_STAFF.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(INSTANCER, stack -> new ModelResourceLocation(ItemsRegister.INSTANCER.getRegistryName(), inventory));
+        mesher.register(INSTANCER, stack -> new ModelResourceLocation(Items.INSTANCER.getRegistryName(), inventory));
         INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ENDER_INSTANCER, stack -> new ModelResourceLocation(ItemsRegister.ENDER_INSTANCER.getRegistryName(), inventory));
+        mesher.register(ENDER_INSTANCER, stack -> new ModelResourceLocation(Items.ENDER_INSTANCER.getRegistryName(), inventory));
         ENDER_INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(WINTER_INSTANCER, stack -> new ModelResourceLocation(ItemsRegister.WINTER_INSTANCER.getRegistryName(), inventory));
+        mesher.register(WINTER_INSTANCER, stack -> new ModelResourceLocation(Items.WINTER_INSTANCER.getRegistryName(), inventory));
         WINTER_INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(MILITARY_INSTANCER, stack -> new ModelResourceLocation(ItemsRegister.MILITARY_INSTANCER.getRegistryName(), inventory));
+        mesher.register(MILITARY_INSTANCER, stack -> new ModelResourceLocation(Items.MILITARY_INSTANCER.getRegistryName(), inventory));
         MILITARY_INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(AQUATIC_INSTANCER, stack -> new ModelResourceLocation(ItemsRegister.AQUATIC_INSTANCER.getRegistryName(), inventory));
+        mesher.register(AQUATIC_INSTANCER, stack -> new ModelResourceLocation(Items.AQUATIC_INSTANCER.getRegistryName(), inventory));
         AQUATIC_INSTANCER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(VIOLENCE, stack -> new ModelResourceLocation(ItemsRegister.VIOLENCE.getRegistryName(), inventory));
+        mesher.register(VIOLENCE, stack -> new ModelResourceLocation(Items.VIOLENCE.getRegistryName(), inventory));
         VIOLENCE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(STAFF_OF_WITHERDRY, stack -> new ModelResourceLocation(ItemsRegister.STAFF_OF_WITHERDRY.getRegistryName(), inventory));
+        mesher.register(STAFF_OF_WITHERDRY, stack -> new ModelResourceLocation(Items.STAFF_OF_WITHERDRY.getRegistryName(), inventory));
         STAFF_OF_WITHERDRY.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(WHISPERS_BLADE, stack -> new ModelResourceLocation(ItemsRegister.WHISPERS_BLADE.getRegistryName(), inventory));
+        mesher.register(WHISPERS_BLADE, stack -> new ModelResourceLocation(Items.WHISPERS_BLADE.getRegistryName(), inventory));
         WHISPERS_BLADE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(VOLTRIDENT, stack -> new ModelResourceLocation(ItemsRegister.VOLTRIDENT.getRegistryName(), inventory));
+        mesher.register(VOLTRIDENT, stack -> new ModelResourceLocation(Items.VOLTRIDENT.getRegistryName(), inventory));
         VOLTRIDENT.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(PUMP_SHOTGUN, stack -> new ModelResourceLocation(ItemsRegister.PUMP_SHOTGUN.getRegistryName(), inventory));
+        mesher.register(PUMP_SHOTGUN, stack -> new ModelResourceLocation(Items.PUMP_SHOTGUN.getRegistryName(), inventory));
         PUMP_SHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(GOTHIC_BOW, stack -> new ModelResourceLocation(ItemsRegister.GOTHIC_BOW.getRegistryName(), inventory));
+        mesher.register(GOTHIC_BOW, stack -> new ModelResourceLocation(Items.GOTHIC_BOW.getRegistryName(), inventory));
         GOTHIC_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CINDER_BOW, stack -> new ModelResourceLocation(ItemsRegister.CINDER_BOW.getRegistryName(), inventory));
+        mesher.register(CINDER_BOW, stack -> new ModelResourceLocation(Items.CINDER_BOW.getRegistryName(), inventory));
         CINDER_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(COOLED_RIFLE, stack -> new ModelResourceLocation(ItemsRegister.COOLED_RIFLE.getRegistryName(), inventory));
+        mesher.register(COOLED_RIFLE, stack -> new ModelResourceLocation(Items.COOLED_RIFLE.getRegistryName(), inventory));
         COOLED_RIFLE.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(AQUATIC_BOW, stack -> new ModelResourceLocation(ItemsRegister.AQUATIC_BOW.getRegistryName(), inventory));
+        mesher.register(AQUATIC_BOW, stack -> new ModelResourceLocation(Items.AQUATIC_BOW.getRegistryName(), inventory));
         AQUATIC_BOW.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(BEAKER, stack -> new ModelResourceLocation(ItemsRegister.BEAKER.getRegistryName(), inventory));
+        mesher.register(BEAKER, stack -> new ModelResourceLocation(Items.BEAKER.getRegistryName(), inventory));
         BEAKER.setTileEntityItemStackRenderer(TEISROther.instance);
 
-        mesher.register(SPELL_PLIERS, stack -> new ModelResourceLocation(ItemsRegister.SPELL_PLIERS.getRegistryName(), inventory));
+        mesher.register(SPELL_PLIERS, stack -> new ModelResourceLocation(Items.SPELL_PLIERS.getRegistryName(), inventory));
         SPELL_PLIERS.setTileEntityItemStackRenderer(TEISROther.instance);
 
-        mesher.register(VIAL, stack -> new ModelResourceLocation(ItemsRegister.VIAL.getRegistryName(), inventory));
+        mesher.register(VIAL, stack -> new ModelResourceLocation(Items.VIAL.getRegistryName(), inventory));
         VIAL.setTileEntityItemStackRenderer(TEISROther.instance);
 
-        mesher.register(SPELL_ROLL, stack -> new ModelResourceLocation(ItemsRegister.SPELL_ROLL.getRegistryName(), inventory));
+        mesher.register(SPELL_ROLL, stack -> new ModelResourceLocation(Items.SPELL_ROLL.getRegistryName(), inventory));
         SPELL_ROLL.setTileEntityItemStackRenderer(TEISROther.instance);
 
-        mesher.register(XMASS_LAUNCHER, stack -> new ModelResourceLocation(ItemsRegister.XMASS_LAUNCHER.getRegistryName(), inventory));
+        mesher.register(XMASS_LAUNCHER, stack -> new ModelResourceLocation(Items.XMASS_LAUNCHER.getRegistryName(), inventory));
         XMASS_LAUNCHER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ADAMANTIUM_MINIGUN, stack -> new ModelResourceLocation(ItemsRegister.ADAMANTIUM_MINIGUN.getRegistryName(), inventory));
+        mesher.register(ADAMANTIUM_MINIGUN, stack -> new ModelResourceLocation(Items.ADAMANTIUM_MINIGUN.getRegistryName(), inventory));
         ADAMANTIUM_MINIGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(BUZDYGAN, stack -> new ModelResourceLocation(ItemsRegister.BUZDYGAN.getRegistryName(), inventory));
+        mesher.register(BUZDYGAN, stack -> new ModelResourceLocation(Items.BUZDYGAN.getRegistryName(), inventory));
         BUZDYGAN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(WHIP, stack -> new ModelResourceLocation(ItemsRegister.WHIP.getRegistryName(), inventory));
+        mesher.register(WHIP, stack -> new ModelResourceLocation(Items.WHIP.getRegistryName(), inventory));
         WHIP.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(MAULER, stack -> new ModelResourceLocation(ItemsRegister.MAULER.getRegistryName(), inventory));
+        mesher.register(MAULER, stack -> new ModelResourceLocation(Items.MAULER.getRegistryName(), inventory));
         MAULER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SNAKEWHIP, stack -> new ModelResourceLocation(ItemsRegister.SNAKEWHIP.getRegistryName(), inventory));
+        mesher.register(SNAKEWHIP, stack -> new ModelResourceLocation(Items.SNAKEWHIP.getRegistryName(), inventory));
         SNAKEWHIP.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(SPELL_ROD, stack -> new ModelResourceLocation(ItemsRegister.SPELL_ROD.getRegistryName(), inventory));
+        mesher.register(SPELL_ROD, stack -> new ModelResourceLocation(Items.SPELL_ROD.getRegistryName(), inventory));
         SPELL_ROD.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CRYO_DESTROYER, stack -> new ModelResourceLocation(ItemsRegister.CRYO_DESTROYER.getRegistryName(), inventory));
+        mesher.register(CRYO_DESTROYER, stack -> new ModelResourceLocation(Items.CRYO_DESTROYER.getRegistryName(), inventory));
         CRYO_DESTROYER.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(HYDRAULIC_SHOTGUN, stack -> new ModelResourceLocation(ItemsRegister.HYDRAULIC_SHOTGUN.getRegistryName(), inventory));
+        mesher.register(HYDRAULIC_SHOTGUN, stack -> new ModelResourceLocation(Items.HYDRAULIC_SHOTGUN.getRegistryName(), inventory));
         HYDRAULIC_SHOTGUN.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(ICE_COMPASS, stack -> new ModelResourceLocation(ItemsRegister.ICE_COMPASS.getRegistryName(), inventory));
+        mesher.register(ICE_COMPASS, stack -> new ModelResourceLocation(Items.ICE_COMPASS.getRegistryName(), inventory));
         ICE_COMPASS.setTileEntityItemStackRenderer(TEISRGuns.instance);
 
-        mesher.register(CANISTER, stack -> new ModelResourceLocation(ItemsRegister.CANISTER.getRegistryName(), inventory));
+        mesher.register(CANISTER, stack -> new ModelResourceLocation(Items.CANISTER.getRegistryName(), inventory));
         CANISTER.setTileEntityItemStackRenderer(TEISROther.instance);
 
         for (final Item item : ItemMagicScroll.magicScrolls.values()) {
@@ -1659,12 +1659,12 @@ public class RenderRegister {
         }
 
         for (Item item : ItemGrenade.REGISTRY.values()) {
-            mesher.register(item, stack -> new ModelResourceLocation(ItemsRegister.FRAG_GRENADE.getRegistryName(), inventory));
+            mesher.register(item, stack -> new ModelResourceLocation(Items.FRAG_GRENADE.getRegistryName(), inventory));
             item.setTileEntityItemStackRenderer(TEISRGuns.instance);
         }
 
         try {
-            Field[] fields = ItemsRegister.class.getFields();
+            Field[] fields = Items.class.getFields();
 
             for (Field field : fields) {
                 if (field.getType() == Item.class) {

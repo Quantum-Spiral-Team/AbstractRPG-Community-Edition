@@ -1,11 +1,10 @@
 package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.potions.PotionEffects;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -29,7 +28,7 @@ public class MoltenGreataxeOil extends Impl<IRecipe> implements IRecipe {
         ItemStack poison = null;
 
         for (int i = 0; i < inv.getSizeInventory(); i++) {
-            if (inv.getStackInSlot(i).getItem() == ItemsRegister.MOLTEN_GREAT_AXE) {
+            if (inv.getStackInSlot(i).getItem() == Items.MOLTEN_GREAT_AXE) {
                 if (greataxe != null) {
                     return false;
                 }
@@ -37,7 +36,7 @@ public class MoltenGreataxeOil extends Impl<IRecipe> implements IRecipe {
                 greataxe = inv.getStackInSlot(i);
             }
 
-            if (inv.getStackInSlot(i).getItem() == Items.POTIONITEM) {
+            if (inv.getStackInSlot(i).getItem() == net.minecraft.init.Items.POTIONITEM) {
                 if (poison != null) {
                     return false;
                 }
@@ -55,11 +54,11 @@ public class MoltenGreataxeOil extends Impl<IRecipe> implements IRecipe {
         ItemStack poison = null;
 
         for (int i = 0; i < inv.getSizeInventory(); i++) {
-            if (inv.getStackInSlot(i).getItem() == ItemsRegister.MOLTEN_GREAT_AXE) {
+            if (inv.getStackInSlot(i).getItem() == Items.MOLTEN_GREAT_AXE) {
                 greataxe = inv.getStackInSlot(i);
             }
 
-            if (inv.getStackInSlot(i).getItem() == Items.POTIONITEM) {
+            if (inv.getStackInSlot(i).getItem() == net.minecraft.init.Items.POTIONITEM) {
                 poison = inv.getStackInSlot(i);
             }
         }

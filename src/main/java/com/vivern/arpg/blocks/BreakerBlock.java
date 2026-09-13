@@ -1,10 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.items.SpellHammer;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.Sounds;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.tileentity.TileSpellForge;
 import net.minecraft.block.Block;
@@ -79,11 +76,11 @@ public class BreakerBlock extends Block {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         TileSpellForge tile = this.getTileEntity(worldIn, pos);
         ItemStack helditem = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-        boolean nocool = !playerIn.getCooldownTracker().hasCooldown(ItemsRegister.SPELL_HAMMER);
+        boolean nocool = !playerIn.getCooldownTracker().hasCooldown(Items.SPELL_HAMMER);
         float mana = Mana.getMana(playerIn);
         int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, helditem);
         if (worldIn.isRemote) {
-            if (helditem.getItem() == ItemsRegister.SPELL_HAMMER && nocool && mana >= 5.0F - sor * 1.1F) {
+            if (helditem.getItem() == Items.SPELL_HAMMER && nocool && mana >= 5.0F - sor * 1.1F) {
                 this.effect(worldIn, pos);
             }
 
@@ -96,7 +93,7 @@ public class BreakerBlock extends Block {
                     return true;
                 }
 
-                if (helditem.getItem() == ItemsRegister.SPELL_HAMMER && helditem.getItem() instanceof SpellHammer && nocool && mana >= 5.0F - sor * 1.1F) {
+                if (helditem.getItem() == Items.SPELL_HAMMER && helditem.getItem() instanceof SpellHammer && nocool && mana >= 5.0F - sor * 1.1F) {
                     helditem.damageItem(1, playerIn);
                     worldIn.playSound(null, pos, Sounds.spell_forge, SoundCategory.BLOCKS, 1.5F, 0.9F + RANDOM.nextFloat() / 5.0F);
                 }

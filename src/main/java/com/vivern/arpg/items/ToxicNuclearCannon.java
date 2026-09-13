@@ -87,7 +87,7 @@ public class ToxicNuclearCannon extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.TOXIC_NUCLEAR_WARHEAD, maxammo)) {
+                    } else if (this.initiateReload(itemstack, player, Items.TOXIC_NUCLEAR_WARHEAD, maxammo)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.toxic_nuke_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 20.0F);
                         Weapons.setPlayerAnimationOnServer(player, 19, EnumHand.MAIN_HAND);
                     }

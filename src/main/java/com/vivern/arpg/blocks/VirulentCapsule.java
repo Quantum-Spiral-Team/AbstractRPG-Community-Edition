@@ -3,7 +3,7 @@ package com.vivern.arpg.blocks;
 import com.vivern.arpg.entity.ChlorineCloud;
 import com.vivern.arpg.entity.EntityCubicParticle;
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.block.SoundType;
@@ -36,12 +36,12 @@ public class VirulentCapsule extends BlockBlockHard {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (player.getHeldItem(hand).getItem() == ItemsRegister.BUNKER_KEYCARD) {
+        if (player.getHeldItem(hand).getItem() == Items.BUNKER_KEYCARD) {
             player.swingArm(hand);
             if (!world.isRemote) {
                 world.playSound(null, pos, Sounds.keycard_open, SoundCategory.BLOCKS, 1.3F, 0.9F + world.rand.nextFloat() / 5.0F);
                 world.setBlockToAir(pos);
-                EntityItem it = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(ItemsRegister.VIRULENT_ROD));
+                EntityItem it = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(Items.VIRULENT_ROD));
                 it.motionX = 0.0;
                 it.motionZ = 0.0;
                 world.spawnEntity(it);

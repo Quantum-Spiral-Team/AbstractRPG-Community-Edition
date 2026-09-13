@@ -85,7 +85,7 @@ public class TileCrystallizer extends TileEntityLockable implements IManaBuffer,
 
     public int tryDissolveItem(ItemStack itemstack) {
         if (itemstack != null && !itemstack.isEmpty() && this.totalDissolved < maxDissolved) {
-            if (itemstack.getItem() != ItemsRegister.MAGIC_POWDER) {
+            if (itemstack.getItem() != Items.MAGIC_POWDER) {
                 int[] ids = OreDictionary.getOreIDs(itemstack);
 
                 for (int id : ids) {

@@ -1,6 +1,6 @@
 package com.vivern.arpg.network.packet;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.potions.AdvancedPotion;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
@@ -63,7 +63,7 @@ public class PacketAdvPotionToClients extends Packet {
                     AdvancedPotion potion = AdvancedPotion.potionByIndex.get(this.index);
                     living.removeActivePotionEffect(potion);
                     PotionEffect effect = new PotionEffect(potion, this.duration, this.amplifier);
-                    ItemStack stack = new ItemStack(ItemsRegister.EXP);
+                    ItemStack stack = new ItemStack(Items.EXP);
                     stack.setTagCompound(this.stackNBT);
                     List<ItemStack> stacks = new ArrayList<>();
                     stacks.add(stack);

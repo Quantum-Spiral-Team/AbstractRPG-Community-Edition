@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.entity.EntityCoin;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.mobs.ToxicomaniaMobsPack;
 import com.vivern.arpg.potions.PotionEffects;
 import net.minecraft.block.Block;
@@ -9,7 +9,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
@@ -69,21 +68,21 @@ public class BlockLootBlob extends Block {
             }
 
             if (RANDOM.nextFloat() < 0.22 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.BULLET_POISONOUS, 10 + RANDOM.nextInt(26)));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.BULLET_POISONOUS, 10 + RANDOM.nextInt(26)));
             } else if (RANDOM.nextFloat() < 0.06 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.BULLET_TOXIC, 4 + RANDOM.nextInt(26)));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.BULLET_TOXIC, 4 + RANDOM.nextInt(26)));
             } else if (RANDOM.nextFloat() < 0.1 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.BULLET_LEAD, 12 + RANDOM.nextInt(26)));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.BULLET_LEAD, 12 + RANDOM.nextInt(26)));
             } else if (RANDOM.nextFloat() < 0.09 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.BULLET_EXPLODING, 6 + RANDOM.nextInt(22)));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.BULLET_EXPLODING, 6 + RANDOM.nextInt(22)));
             }
 
             if (RANDOM.nextFloat() < 0.18 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CHEMICAL_ROCKET, 1 + RANDOM.nextInt(6)));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.CHEMICAL_ROCKET, 1 + RANDOM.nextInt(6)));
             } else if (RANDOM.nextFloat() < 0.2 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.COMMON_ROCKET, 1 + RANDOM.nextInt(7)));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.COMMON_ROCKET, 1 + RANDOM.nextInt(7)));
             } else if (RANDOM.nextFloat() < 0.1 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.MINING_ROCKET, 1 + RANDOM.nextInt(8)));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.MINING_ROCKET, 1 + RANDOM.nextInt(8)));
             }
 
             if (RANDOM.nextFloat() < 0.6 * chance) {
@@ -95,21 +94,21 @@ public class BlockLootBlob extends Block {
             }
 
             if (RANDOM.nextFloat() < 0.03 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.SLIME_BLOB_WAND, 1));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.SLIME_BLOB_WAND, 1));
             } else if (RANDOM.nextFloat() < 0.03 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.BROWN_SLIME_WAND, 1));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.BROWN_SLIME_WAND, 1));
             } else if (RANDOM.nextFloat() < 0.2 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(Items.GUNPOWDER, 5 + RANDOM.nextInt(10)));
+                spawnAsEntity(worldIn, pos, new ItemStack(net.minecraft.init.Items.GUNPOWDER, 5 + RANDOM.nextInt(10)));
             } else if (RANDOM.nextFloat() < 0.3 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(Items.SLIME_BALL, 3 + RANDOM.nextInt(6)));
+                spawnAsEntity(worldIn, pos, new ItemStack(net.minecraft.init.Items.SLIME_BALL, 3 + RANDOM.nextInt(6)));
             } else if (RANDOM.nextFloat() < 0.2 * chance) {
-                spawnAsEntity(worldIn, pos, PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW, 8 + RANDOM.nextInt(16)), PotionTypes.LONG_POISON));
+                spawnAsEntity(worldIn, pos, PotionUtils.addPotionToItemStack(new ItemStack(net.minecraft.init.Items.TIPPED_ARROW, 8 + RANDOM.nextInt(16)), PotionTypes.LONG_POISON));
             } else if (RANDOM.nextFloat() < 0.1 * chance) {
-                spawnAsEntity(worldIn, pos, PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW, 6 + RANDOM.nextInt(12)), PotionEffects.TOXIN_POTIONTYPE_LONG));
+                spawnAsEntity(worldIn, pos, PotionUtils.addPotionToItemStack(new ItemStack(net.minecraft.init.Items.TIPPED_ARROW, 6 + RANDOM.nextInt(12)), PotionEffects.TOXIN_POTIONTYPE_LONG));
             } else if (RANDOM.nextFloat() < 0.01 * chance) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.GAS_MASK, 1));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.GAS_MASK, 1));
             } else {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.RUSTED_KEY, 1));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.RUSTED_KEY, 1));
             }
         }
     }

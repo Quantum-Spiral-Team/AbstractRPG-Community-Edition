@@ -119,13 +119,13 @@ public class FireworkLauncher extends ItemWeapon {
                             }
                         } else {
                             ArrayList<Item> ammolist = new ArrayList<>();
-                            ammolist.add(ItemsRegister.FIREWORK_PACK);
-                            ammolist.add(ItemsRegister.FIREWORK_DRAGON_ROCKET);
+                            ammolist.add(Items.FIREWORK_PACK);
+                            ammolist.add(Items.FIREWORK_DRAGON_ROCKET);
                             Item ammotype = FindAmmo.findModulate(player.inventory, ammolist);
                             boolean isrelneed = this.isReloadNeed(itemstack);
                             if (ammotype != null || isrelneed) {
                                 if (!isrelneed && ammo <= 0) {
-                                    NBTHelper.SetNBTboolean(itemstack, ammotype == ItemsRegister.FIREWORK_DRAGON_ROCKET, "dragon");
+                                    NBTHelper.SetNBTboolean(itemstack, ammotype == Items.FIREWORK_DRAGON_ROCKET, "dragon");
                                 }
 
                                 if (this.initiateReload(itemstack, player, ammotype, maxammo)) {

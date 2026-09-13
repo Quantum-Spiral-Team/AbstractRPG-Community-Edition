@@ -4,7 +4,6 @@ import com.vivern.arpg.recipes.AssemblyTableRecipe;
 import com.vivern.arpg.recipes.IndustrialMixerRecipe;
 import com.vivern.arpg.recipes.Ingridient;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -120,116 +119,116 @@ public class IntegrationHelper {
     }
 
     public static void addCrushersRecipes() {
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.ICE_GEM), new ItemStack(ItemsRegister.ICE_DUST, 2), new ItemStack(ItemsRegister.ICE_DUST), 20, false);
-        addCrushersRecipe(1800, new ItemStack(BlocksRegister.CAVE_CRYSTAL), new ItemStack(ItemsRegister.MAGIC_CRYSTAL_DUST), new ItemStack(ItemsRegister.MAGIC_CRYSTAL_DUST), 25, false);
-        addCrushersRecipe(2200, new ItemStack(BlocksRegister.GLOWING_CAVE_CRYSTAL), new ItemStack(ItemsRegister.GLOWING_CRYSTAL_DUST), new ItemStack(ItemsRegister.GLOWING_CRYSTAL_DUST), 25, false);
-        addCrushersRecipe(4000, new ItemStack(BlocksRegister.MAGIC_STONE), new ItemStack(ItemsRegister.MAGIC_CRYSTAL_DUST, 2), new ItemStack(ItemsRegister.MAGIC_CRYSTAL_DUST), 10, false);
-        addCrushersRecipe(1500, new ItemStack(Items.ENCHANTED_BOOK), new ItemStack(ItemsRegister.MAGIC_POWDER), new ItemStack(Items.LEATHER), 10, false);
-        addCrushersRecipe(6000, new ItemStack(ItemsRegister.ADAMANTIUM_INGOT), new ItemStack(ItemsRegister.ADAMANTIUM_DUST), null, 0, false);
-        addCrushersRecipe(5000, new ItemStack(ItemsRegister.TOXINIUM_INGOT), new ItemStack(ItemsRegister.TOXINIUM_DUST), null, 0, false);
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.ARSENIC_INGOT), new ItemStack(ItemsRegister.ARSENIC_DUST), null, 0, false);
-        addCrushersRecipe(3500, new ItemStack(ItemsRegister.WOLFRAM_INGOT), new ItemStack(ItemsRegister.WOLFRAM_DUST), null, 0, false);
-        addCrushersRecipe(5500, new ItemStack(ItemsRegister.STORMSTEEL_INGOT), new ItemStack(ItemsRegister.STORMSTEEL_DUST), null, 0, false);
-        addCrushersRecipe(4000, new ItemStack(ItemsRegister.STORMBRASS_INGOT), new ItemStack(ItemsRegister.STORMBRASS_DUST), null, 0, false);
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.BRASS_INGOT), new ItemStack(ItemsRegister.BRASS_DUST), null, 0, false);
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.ZINC_INGOT), new ItemStack(ItemsRegister.ZINC_DUST), null, 0, false);
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.TITANIUM_INGOT), new ItemStack(ItemsRegister.TITANIUM_DUST), null, 0, false);
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.MANGANESE_INGOT), new ItemStack(ItemsRegister.MANGANESE_DUST), null, 0, false);
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.CHROMIUM_INGOT), new ItemStack(ItemsRegister.CHROMIUM_DUST), null, 0, false);
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.BERYLLIUM_INGOT), new ItemStack(ItemsRegister.BERYLLIUM_DUST), null, 0, false);
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.SILVER_INGOT), new ItemStack(ItemsRegister.SILVER_DUST), null, 0, true);
-        addCrushersRecipe(1000, new ItemStack(ItemsRegister.LITHIUM_INGOT), new ItemStack(ItemsRegister.LITHIUM_DUST), null, 0, false);
-        addCrushersRecipe(3000, new ItemStack(BlocksRegister.ALUMINIUM_ORE), new ItemStack(ItemsRegister.BAUXITE, 2), new ItemStack(ItemsRegister.BAUXITE), 30, false);
-        addCrushersRecipe(4000, new ItemStack(BlocksRegister.ZINC_ORE), new ItemStack(ItemsRegister.ZINC_DUST, 2), new ItemStack(ItemsRegister.SULFUR_DUST), 25, false);
-        addCrushersRecipe(4000, new ItemStack(BlocksRegister.ARSENIC_ORE), new ItemStack(ItemsRegister.ARSENIC_DUST, 2), new ItemStack(ItemsRegister.SULFUR_DUST), 30, false);
-        addCrushersRecipe(2000, new ItemStack(BlocksRegister.SULFUR_CRYSTAL), new ItemStack(ItemsRegister.SULFUR_DUST), new ItemStack(ItemsRegister.SULFUR_DUST), 50, false);
-        addCrushersRecipe(6000, new ItemStack(ItemsRegister.COPPER_TRANSFORMER), new ItemStack(ItemsRegister.COPPER_WIRE, 8), OreDicHelper.getOrNull(OreDicHelper.DUSTIRON, 1), 100, false);
-        addCrushersRecipe(2000, new ItemStack(ItemsRegister.LEAD_BEARING), new ItemStack(ItemsRegister.BEARING_ALLOY_DUST), new ItemStack(ItemsRegister.RUBBER), 50, false);
-        addCrushersRecipe(1000, new ItemStack(Items.WHEAT), new ItemStack(ItemsRegister.FLOUR), null, 0, true);
-        addCrushersRecipe(9000, new ItemStack(Blocks.HAY_BLOCK), new ItemStack(ItemsRegister.FLOUR, 9), null, 0, true);
-        addCrushersRecipe(15000, new ItemStack(BlocksRegister.ADAMANTIUM_ORE), new ItemStack(ItemsRegister.ADAMANTIUM_ORE_DUST, 3), new ItemStack(ItemsRegister.STONE_DUST), 100, false);
-        addCrushersRecipe(13000, new ItemStack(BlocksRegister.MITHRIL_ORE), new ItemStack(ItemsRegister.MITHRIL_ORE_DUST, 3), new ItemStack(ItemsRegister.STONE_DUST), 100, false);
-        addCrushersRecipe(20000, new ItemStack(BlocksRegister.ORESTORM_STEEL), new ItemStack(ItemsRegister.STORMSTEEL_DUST, 2), new ItemStack(ItemsRegister.STONE_DUST, 2), 100, false);
-        addCrushersRecipe(10000, new ItemStack(BlocksRegister.WOLFRAM_ORE), new ItemStack(ItemsRegister.WOLFRAM_DUST), new ItemStack(ItemsRegister.RADIOACTIVE_DUST, 3), 100, false);
-        addCrushersRecipe(12000, new ItemStack(BlocksRegister.TOXINIUM_ORE), new ItemStack(ItemsRegister.TOXINIUM_ORE_DUST, 2), new ItemStack(ItemsRegister.RADIOACTIVE_DUST, 2), 100, false);
-        addCrushersRecipe(2000, new ItemStack(BlocksRegister.ICE_ORE_GLACIER), new ItemStack(ItemsRegister.ICE_DUST, 5), new ItemStack(Items.SNOWBALL, 2), 50, false);
-        addCrushersRecipe(2000, new ItemStack(BlocksRegister.ICE_ORE_SNOW_ICE), new ItemStack(ItemsRegister.ICE_DUST, 5), new ItemStack(Items.SNOWBALL, 2), 50, false);
-        addCrushersRecipe(2000, new ItemStack(BlocksRegister.RADIOACTIVE_STONE), new ItemStack(ItemsRegister.RADIOACTIVE_DUST, 4), null, 0, false);
-        addCrushersRecipe(2000, new ItemStack(BlocksRegister.RADIOACTIVE_COBBLESTONE), new ItemStack(ItemsRegister.RADIOACTIVE_DUST, 4), null, 0, false);
-        addCrushersRecipe(3000, new ItemStack(BlocksRegister.SHELLROCK), new ItemStack(ItemsRegister.LIMESTONE_DUST, 4), new ItemStack(ItemsRegister.SEASHELL), 5, false);
-        addCrushersRecipe(3000, new ItemStack(BlocksRegister.CHALKROCK), new ItemStack(ItemsRegister.LIMESTONE_DUST, 4), new ItemStack(Items.DYE, 1, 15), 50, false);
-        addCrushersRecipe(3000, new ItemStack(BlocksRegister.STROMATOLITE), new ItemStack(ItemsRegister.LIMESTONE_DUST, 3), new ItemStack(ItemsRegister.SALT), 100, false);
-        addCrushersRecipe(1000, new ItemStack(ItemsRegister.CORAL), new ItemStack(ItemsRegister.LIMESTONE_DUST), null, 0, false);
-        addCrushersRecipe(1000, new ItemStack(BlocksRegister.CALCITE), new ItemStack(ItemsRegister.LIMESTONE_DUST, 4), null, 0, false);
-        addCrushersRecipe(14000, new ItemStack(BlocksRegister.METALLIC_CORAL, 6), new ItemStack(ItemsRegister.AQUATIC_DUST), new ItemStack(ItemsRegister.LIMESTONE_DUST), 75, true);
-        addCrushersRecipe(500, new ItemStack(ItemsRegister.RUBBLESTONE), new ItemStack(ItemsRegister.STONE_DUST, 1), null, 0, false);
-        addCrushersRecipe(1500, new ItemStack(BlocksRegister.SALT_ORE), new ItemStack(ItemsRegister.SALT, 3), new ItemStack(ItemsRegister.STONE_DUST, 1), 100, false);
-        addCrushersRecipe(3000, new ItemStack(BlocksRegister.BOMB_RUSTED), new ItemStack(ItemsRegister.SCRAP_BOMB, 2), new ItemStack(ItemsRegister.SCRAP_BOMB), 40, false);
-        addCrushersRecipe(3000, new ItemStack(BlocksRegister.BOMB_SMALL), new ItemStack(ItemsRegister.SCRAP_BOMB, 2), new ItemStack(ItemsRegister.SCRAP_BOMB), 40, false);
-        addCrushersRecipe(3000, new ItemStack(BlocksRegister.BOMB_TOXIC), new ItemStack(ItemsRegister.SCRAP_BOMB, 2), new ItemStack(ItemsRegister.SCRAP_BOMB), 40, false);
+        addCrushersRecipe(2000, new ItemStack(Items.ICE_GEM), new ItemStack(Items.ICE_DUST, 2), new ItemStack(Items.ICE_DUST), 20, false);
+        addCrushersRecipe(1800, new ItemStack(BlocksRegister.CAVE_CRYSTAL), new ItemStack(Items.MAGIC_CRYSTAL_DUST), new ItemStack(Items.MAGIC_CRYSTAL_DUST), 25, false);
+        addCrushersRecipe(2200, new ItemStack(BlocksRegister.GLOWING_CAVE_CRYSTAL), new ItemStack(Items.GLOWING_CRYSTAL_DUST), new ItemStack(Items.GLOWING_CRYSTAL_DUST), 25, false);
+        addCrushersRecipe(4000, new ItemStack(BlocksRegister.MAGIC_STONE), new ItemStack(Items.MAGIC_CRYSTAL_DUST, 2), new ItemStack(Items.MAGIC_CRYSTAL_DUST), 10, false);
+        addCrushersRecipe(1500, new ItemStack(net.minecraft.init.Items.ENCHANTED_BOOK), new ItemStack(Items.MAGIC_POWDER), new ItemStack(net.minecraft.init.Items.LEATHER), 10, false);
+        addCrushersRecipe(6000, new ItemStack(Items.ADAMANTIUM_INGOT), new ItemStack(Items.ADAMANTIUM_DUST), null, 0, false);
+        addCrushersRecipe(5000, new ItemStack(Items.TOXINIUM_INGOT), new ItemStack(Items.TOXINIUM_DUST), null, 0, false);
+        addCrushersRecipe(2000, new ItemStack(Items.ARSENIC_INGOT), new ItemStack(Items.ARSENIC_DUST), null, 0, false);
+        addCrushersRecipe(3500, new ItemStack(Items.WOLFRAM_INGOT), new ItemStack(Items.WOLFRAM_DUST), null, 0, false);
+        addCrushersRecipe(5500, new ItemStack(Items.STORMSTEEL_INGOT), new ItemStack(Items.STORMSTEEL_DUST), null, 0, false);
+        addCrushersRecipe(4000, new ItemStack(Items.STORMBRASS_INGOT), new ItemStack(Items.STORMBRASS_DUST), null, 0, false);
+        addCrushersRecipe(2000, new ItemStack(Items.BRASS_INGOT), new ItemStack(Items.BRASS_DUST), null, 0, false);
+        addCrushersRecipe(2000, new ItemStack(Items.ZINC_INGOT), new ItemStack(Items.ZINC_DUST), null, 0, false);
+        addCrushersRecipe(2000, new ItemStack(Items.TITANIUM_INGOT), new ItemStack(Items.TITANIUM_DUST), null, 0, false);
+        addCrushersRecipe(2000, new ItemStack(Items.MANGANESE_INGOT), new ItemStack(Items.MANGANESE_DUST), null, 0, false);
+        addCrushersRecipe(2000, new ItemStack(Items.CHROMIUM_INGOT), new ItemStack(Items.CHROMIUM_DUST), null, 0, false);
+        addCrushersRecipe(2000, new ItemStack(Items.BERYLLIUM_INGOT), new ItemStack(Items.BERYLLIUM_DUST), null, 0, false);
+        addCrushersRecipe(2000, new ItemStack(Items.SILVER_INGOT), new ItemStack(Items.SILVER_DUST), null, 0, true);
+        addCrushersRecipe(1000, new ItemStack(Items.LITHIUM_INGOT), new ItemStack(Items.LITHIUM_DUST), null, 0, false);
+        addCrushersRecipe(3000, new ItemStack(BlocksRegister.ALUMINIUM_ORE), new ItemStack(Items.BAUXITE, 2), new ItemStack(Items.BAUXITE), 30, false);
+        addCrushersRecipe(4000, new ItemStack(BlocksRegister.ZINC_ORE), new ItemStack(Items.ZINC_DUST, 2), new ItemStack(Items.SULFUR_DUST), 25, false);
+        addCrushersRecipe(4000, new ItemStack(BlocksRegister.ARSENIC_ORE), new ItemStack(Items.ARSENIC_DUST, 2), new ItemStack(Items.SULFUR_DUST), 30, false);
+        addCrushersRecipe(2000, new ItemStack(BlocksRegister.SULFUR_CRYSTAL), new ItemStack(Items.SULFUR_DUST), new ItemStack(Items.SULFUR_DUST), 50, false);
+        addCrushersRecipe(6000, new ItemStack(Items.COPPER_TRANSFORMER), new ItemStack(Items.COPPER_WIRE, 8), OreDicHelper.getOrNull(OreDicHelper.DUSTIRON, 1), 100, false);
+        addCrushersRecipe(2000, new ItemStack(Items.LEAD_BEARING), new ItemStack(Items.BEARING_ALLOY_DUST), new ItemStack(Items.RUBBER), 50, false);
+        addCrushersRecipe(1000, new ItemStack(net.minecraft.init.Items.WHEAT), new ItemStack(Items.FLOUR), null, 0, true);
+        addCrushersRecipe(9000, new ItemStack(Blocks.HAY_BLOCK), new ItemStack(Items.FLOUR, 9), null, 0, true);
+        addCrushersRecipe(15000, new ItemStack(BlocksRegister.ADAMANTIUM_ORE), new ItemStack(Items.ADAMANTIUM_ORE_DUST, 3), new ItemStack(Items.STONE_DUST), 100, false);
+        addCrushersRecipe(13000, new ItemStack(BlocksRegister.MITHRIL_ORE), new ItemStack(Items.MITHRIL_ORE_DUST, 3), new ItemStack(Items.STONE_DUST), 100, false);
+        addCrushersRecipe(20000, new ItemStack(BlocksRegister.ORESTORM_STEEL), new ItemStack(Items.STORMSTEEL_DUST, 2), new ItemStack(Items.STONE_DUST, 2), 100, false);
+        addCrushersRecipe(10000, new ItemStack(BlocksRegister.WOLFRAM_ORE), new ItemStack(Items.WOLFRAM_DUST), new ItemStack(Items.RADIOACTIVE_DUST, 3), 100, false);
+        addCrushersRecipe(12000, new ItemStack(BlocksRegister.TOXINIUM_ORE), new ItemStack(Items.TOXINIUM_ORE_DUST, 2), new ItemStack(Items.RADIOACTIVE_DUST, 2), 100, false);
+        addCrushersRecipe(2000, new ItemStack(BlocksRegister.ICE_ORE_GLACIER), new ItemStack(Items.ICE_DUST, 5), new ItemStack(net.minecraft.init.Items.SNOWBALL, 2), 50, false);
+        addCrushersRecipe(2000, new ItemStack(BlocksRegister.ICE_ORE_SNOW_ICE), new ItemStack(Items.ICE_DUST, 5), new ItemStack(net.minecraft.init.Items.SNOWBALL, 2), 50, false);
+        addCrushersRecipe(2000, new ItemStack(BlocksRegister.RADIOACTIVE_STONE), new ItemStack(Items.RADIOACTIVE_DUST, 4), null, 0, false);
+        addCrushersRecipe(2000, new ItemStack(BlocksRegister.RADIOACTIVE_COBBLESTONE), new ItemStack(Items.RADIOACTIVE_DUST, 4), null, 0, false);
+        addCrushersRecipe(3000, new ItemStack(BlocksRegister.SHELLROCK), new ItemStack(Items.LIMESTONE_DUST, 4), new ItemStack(Items.SEASHELL), 5, false);
+        addCrushersRecipe(3000, new ItemStack(BlocksRegister.CHALKROCK), new ItemStack(Items.LIMESTONE_DUST, 4), new ItemStack(net.minecraft.init.Items.DYE, 1, 15), 50, false);
+        addCrushersRecipe(3000, new ItemStack(BlocksRegister.STROMATOLITE), new ItemStack(Items.LIMESTONE_DUST, 3), new ItemStack(Items.SALT), 100, false);
+        addCrushersRecipe(1000, new ItemStack(Items.CORAL), new ItemStack(Items.LIMESTONE_DUST), null, 0, false);
+        addCrushersRecipe(1000, new ItemStack(BlocksRegister.CALCITE), new ItemStack(Items.LIMESTONE_DUST, 4), null, 0, false);
+        addCrushersRecipe(14000, new ItemStack(BlocksRegister.METALLIC_CORAL, 6), new ItemStack(Items.AQUATIC_DUST), new ItemStack(Items.LIMESTONE_DUST), 75, true);
+        addCrushersRecipe(500, new ItemStack(Items.RUBBLESTONE), new ItemStack(Items.STONE_DUST, 1), null, 0, false);
+        addCrushersRecipe(1500, new ItemStack(BlocksRegister.SALT_ORE), new ItemStack(Items.SALT, 3), new ItemStack(Items.STONE_DUST, 1), 100, false);
+        addCrushersRecipe(3000, new ItemStack(BlocksRegister.BOMB_RUSTED), new ItemStack(Items.SCRAP_BOMB, 2), new ItemStack(Items.SCRAP_BOMB), 40, false);
+        addCrushersRecipe(3000, new ItemStack(BlocksRegister.BOMB_SMALL), new ItemStack(Items.SCRAP_BOMB, 2), new ItemStack(Items.SCRAP_BOMB), 40, false);
+        addCrushersRecipe(3000, new ItemStack(BlocksRegister.BOMB_TOXIC), new ItemStack(Items.SCRAP_BOMB, 2), new ItemStack(Items.SCRAP_BOMB), 40, false);
         if (OreDicHelper.doesOreNameExist("dustObsidian")) {
-            addCrushersRecipe(8000, new ItemStack(BlocksRegister.DEEP_ROCK), OreDicHelper.get("dustObsidian", 2), new ItemStack(ItemsRegister.BASALT_DUST, 2), 100, true);
+            addCrushersRecipe(8000, new ItemStack(BlocksRegister.DEEP_ROCK), OreDicHelper.get("dustObsidian", 2), new ItemStack(Items.BASALT_DUST, 2), 100, true);
         }
     }
 
     public static void addAlloyRecipes() {
-        addAlloyRecipe(2000, new ItemStack(ItemsRegister.COPPER_SULFATE, 9), OreDicHelper.get(OreDicHelper.COALCOKE, 1), null, OreDicHelper.get(OreDicHelper.COPPER, 1), OreDicHelper.get("itemSlag", 1), 10);
+        addAlloyRecipe(2000, new ItemStack(Items.COPPER_SULFATE, 9), OreDicHelper.get(OreDicHelper.COALCOKE, 1), null, OreDicHelper.get(OreDicHelper.COPPER, 1), OreDicHelper.get("itemSlag", 1), 10);
         if (OreDicHelper.doesOreNameExist("fuelCoke")) {
-            addAlloyRecipe(4200, new ItemStack(BlocksRegister.CHROMIUM_ORE), OreDicHelper.get("fuelCoke", 1), null, new ItemStack(ItemsRegister.CHROMIUM_INGOT), OreDicHelper.get("itemCinnabar", 1), 40);
+            addAlloyRecipe(4200, new ItemStack(BlocksRegister.CHROMIUM_ORE), OreDicHelper.get("fuelCoke", 1), null, new ItemStack(Items.CHROMIUM_INGOT), OreDicHelper.get("itemCinnabar", 1), 40);
         }
 
         if (OreDicHelper.doesOreNameExist("itemCinnabar")) {
-            addAlloyRecipe(6000, new ItemStack(BlocksRegister.CHROMIUM_ORE), OreDicHelper.get("itemCinnabar", 1), null, new ItemStack(ItemsRegister.CHROMIUM_INGOT, 2), OreDicHelper.get("itemSlagRich", 1), 55);
+            addAlloyRecipe(6000, new ItemStack(BlocksRegister.CHROMIUM_ORE), OreDicHelper.get("itemCinnabar", 1), null, new ItemStack(Items.CHROMIUM_INGOT, 2), OreDicHelper.get("itemSlagRich", 1), 55);
         }
 
-        addAlloyRecipe(500, new ItemStack(Items.SUGAR, 2), OreDicHelper.get("dyeRed", 1), null, new ItemStack(ItemsRegister.CANDY_CANE), null, 0);
-        addAlloyRecipe(500, new ItemStack(Items.APPLE), new ItemStack(Items.STICK), new ItemStack(Items.SUGAR), new ItemStack(ItemsRegister.CANDY_APPLE), null, 0);
-        addAlloyRecipe(2500, OreDicHelper.get("blockGlassHardened", 2), new ItemStack(ItemsRegister.ARSENIC_NUGGET), null, new ItemStack(ItemsRegister.CHEMICAL_GLASS, 6), null, 0);
+        addAlloyRecipe(500, new ItemStack(net.minecraft.init.Items.SUGAR, 2), OreDicHelper.get("dyeRed", 1), null, new ItemStack(Items.CANDY_CANE), null, 0);
+        addAlloyRecipe(500, new ItemStack(net.minecraft.init.Items.APPLE), new ItemStack(net.minecraft.init.Items.STICK), new ItemStack(net.minecraft.init.Items.SUGAR), new ItemStack(Items.CANDY_APPLE), null, 0);
+        addAlloyRecipe(2500, OreDicHelper.get("blockGlassHardened", 2), new ItemStack(Items.ARSENIC_NUGGET), null, new ItemStack(Items.CHEMICAL_GLASS, 6), null, 0);
         if (OreDicHelper.doesOreNameExist("fusedQuartz") && OreDicHelper.doesOreNameExist("ingotLead")) {
-            addAlloyRecipe(2500, OreDicHelper.get("fusedQuartz", 2), new ItemStack(ItemsRegister.ARSENIC_NUGGET), OreDicHelper.get("ingotLead", 1), new ItemStack(ItemsRegister.CHEMICAL_GLASS, 6), null, 0);
+            addAlloyRecipe(2500, OreDicHelper.get("fusedQuartz", 2), new ItemStack(Items.ARSENIC_NUGGET), OreDicHelper.get("ingotLead", 1), new ItemStack(Items.CHEMICAL_GLASS, 6), null, 0);
         }
 
-        addAlloyRecipe(2500, new ItemStack(ItemsRegister.FIERY_OIL), new ItemStack(ItemsRegister.SULFUR_DUST), null, new ItemStack(ItemsRegister.RUBBER), null, 0);
-        addAlloyRecipe(4000, OreDicHelper.get(OreDicHelper.COPPER, 3), new ItemStack(ItemsRegister.ZINC_INGOT), null, new ItemStack(ItemsRegister.BRASS_INGOT, 4), null, 0);
-        addAlloyRecipe(2000, new ItemStack(ItemsRegister.ADAMANTIUM_NUGGET, 9), null, null, new ItemStack(ItemsRegister.ADAMANTIUM_INGOT, 1), null, 0);
-        addAlloyRecipe(6000, new ItemStack(BlocksRegister.CHROMIUM_ORE, 2), new ItemStack(Items.COAL), null, new ItemStack(ItemsRegister.CHROMIUM_INGOT, 1), null, 0);
-        addAlloyRecipe(8000, new ItemStack(Blocks.OBSIDIAN, 1), new ItemStack(Items.QUARTZ, 4), new ItemStack(ItemsRegister.CHROMIUM_INGOT), new ItemStack(BlocksRegister.CHROMIUM_GLASS, 1), null, 0);
+        addAlloyRecipe(2500, new ItemStack(Items.FIERY_OIL), new ItemStack(Items.SULFUR_DUST), null, new ItemStack(Items.RUBBER), null, 0);
+        addAlloyRecipe(4000, OreDicHelper.get(OreDicHelper.COPPER, 3), new ItemStack(Items.ZINC_INGOT), null, new ItemStack(Items.BRASS_INGOT, 4), null, 0);
+        addAlloyRecipe(2000, new ItemStack(Items.ADAMANTIUM_NUGGET, 9), null, null, new ItemStack(Items.ADAMANTIUM_INGOT, 1), null, 0);
+        addAlloyRecipe(6000, new ItemStack(BlocksRegister.CHROMIUM_ORE, 2), new ItemStack(net.minecraft.init.Items.COAL), null, new ItemStack(Items.CHROMIUM_INGOT, 1), null, 0);
+        addAlloyRecipe(8000, new ItemStack(Blocks.OBSIDIAN, 1), new ItemStack(net.minecraft.init.Items.QUARTZ, 4), new ItemStack(Items.CHROMIUM_INGOT), new ItemStack(BlocksRegister.CHROMIUM_GLASS, 1), null, 0);
         if (OreDicHelper.doesOreNameExist("dustObsidian")) {
-            addAlloyRecipe(8000, OreDicHelper.get("dustObsidian", 4), new ItemStack(ItemsRegister.QUARTZ_DUST, 4), new ItemStack(ItemsRegister.CHROMIUM_INGOT), new ItemStack(BlocksRegister.CHROMIUM_GLASS, 2), null, 0);
+            addAlloyRecipe(8000, OreDicHelper.get("dustObsidian", 4), new ItemStack(Items.QUARTZ_DUST, 4), new ItemStack(Items.CHROMIUM_INGOT), new ItemStack(BlocksRegister.CHROMIUM_GLASS, 2), null, 0);
         }
 
-        addAlloyRecipe(3000, new ItemStack(ItemsRegister.BEARING_ALLOY_DUST), new ItemStack(ItemsRegister.RUBBER), null, new ItemStack(ItemsRegister.LEAD_BEARING, 1), null, 0);
+        addAlloyRecipe(3000, new ItemStack(Items.BEARING_ALLOY_DUST), new ItemStack(Items.RUBBER), null, new ItemStack(Items.LEAD_BEARING, 1), null, 0);
         if (Item.getByNameOrId("ic2:crafting") != null) {
-            addAlloyRecipe(3000, new ItemStack(ItemsRegister.BEARING_ALLOY_DUST), new ItemStack(Item.getByNameOrId("ic2:crafting"), 1, 0), null, new ItemStack(ItemsRegister.LEAD_BEARING, 1), null, 0);
+            addAlloyRecipe(3000, new ItemStack(Items.BEARING_ALLOY_DUST), new ItemStack(Item.getByNameOrId("ic2:crafting"), 1, 0), null, new ItemStack(Items.LEAD_BEARING, 1), null, 0);
         }
 
-        addAlloyRecipe(8000, new ItemStack(ItemsRegister.TOXINIUM_DUST), null, null, new ItemStack(ItemsRegister.TOXINIUM_INGOT, 1), null, 0);
+        addAlloyRecipe(8000, new ItemStack(Items.TOXINIUM_DUST), null, null, new ItemStack(Items.TOXINIUM_INGOT, 1), null, 0);
         if (OreDicHelper.doesOreNameExist("fuelCoke")) {
-            addAlloyRecipe(5000, new ItemStack(ItemsRegister.QUARTZ_DUST, 3), OreDicHelper.get("fuelCoke", 1), null, new ItemStack(ItemsRegister.SILICIUM, 1), null, 0);
+            addAlloyRecipe(5000, new ItemStack(Items.QUARTZ_DUST, 3), OreDicHelper.get("fuelCoke", 1), null, new ItemStack(Items.SILICIUM, 1), null, 0);
         }
 
-        addAlloyRecipe(5000, new ItemStack(ItemsRegister.QUARTZ_DUST, 3), new ItemStack(Items.DIAMOND, 1), null, new ItemStack(ItemsRegister.SILICIUM, 1), null, 0);
-        addAlloyRecipe(5000, new ItemStack(ItemsRegister.QUARTZ_DUST, 3), new ItemStack(ItemsRegister.LITHIUM_DUST, 1), null, new ItemStack(ItemsRegister.SILICIUM, 1), null, 0);
+        addAlloyRecipe(5000, new ItemStack(Items.QUARTZ_DUST, 3), new ItemStack(net.minecraft.init.Items.DIAMOND, 1), null, new ItemStack(Items.SILICIUM, 1), null, 0);
+        addAlloyRecipe(5000, new ItemStack(Items.QUARTZ_DUST, 3), new ItemStack(Items.LITHIUM_DUST, 1), null, new ItemStack(Items.SILICIUM, 1), null, 0);
     }
 
     public static void addExtractorRecipes() {
-        addExtractorRecipe(new ItemStack(BlocksRegister.FIERY_BEAN_LOG, 2), new ItemStack(ItemsRegister.FIERY_OIL));
-        addExtractorRecipe(new ItemStack(BlocksRegister.CONIFER_LOG, 2), new ItemStack(ItemsRegister.CONIFER_ROSIN));
-        addExtractorRecipe(new ItemStack(BlocksRegister.TOXIBERRY_LOG, 2), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP));
-        addExtractorRecipe(new ItemStack(BlocksRegister.TOXIBERRY_LEAVES, 8), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP));
+        addExtractorRecipe(new ItemStack(BlocksRegister.FIERY_BEAN_LOG, 2), new ItemStack(Items.FIERY_OIL));
+        addExtractorRecipe(new ItemStack(BlocksRegister.CONIFER_LOG, 2), new ItemStack(Items.CONIFER_ROSIN));
+        addExtractorRecipe(new ItemStack(BlocksRegister.TOXIBERRY_LOG, 2), new ItemStack(Items.TOXIBERRY_JUICE_DRIP));
+        addExtractorRecipe(new ItemStack(BlocksRegister.TOXIBERRY_LEAVES, 8), new ItemStack(Items.TOXIBERRY_JUICE_DRIP));
         Item ic2res = Item.getByNameOrId("ic2:misc_resource");
         if (ic2res != null) {
             addExtractorRecipe(new ItemStack(BlocksRegister.SEAGRASS, 10), new ItemStack(ic2res, 1, 6));
             addExtractorRecipe(new ItemStack(BlocksRegister.SEAWEEDBLOCK, 10), new ItemStack(ic2res, 1, 6));
         }
 
-        addExtractorRecipe(new ItemStack(ItemsRegister.MAGMA_BLOOM_SEED, 16), new ItemStack(ItemsRegister.LIQUID_FIRE));
-        addExtractorRecipe(new ItemStack(BlocksRegister.FIERY_BEAN_SAPLING), new ItemStack(ItemsRegister.FIERY_OIL, 3));
-        addExtractorRecipe(new ItemStack(BlocksRegister.CONIFER_SAPLING), new ItemStack(ItemsRegister.CONIFER_ROSIN, 3));
+        addExtractorRecipe(new ItemStack(Items.MAGMA_BLOOM_SEED, 16), new ItemStack(Items.LIQUID_FIRE));
+        addExtractorRecipe(new ItemStack(BlocksRegister.FIERY_BEAN_SAPLING), new ItemStack(Items.FIERY_OIL, 3));
+        addExtractorRecipe(new ItemStack(BlocksRegister.CONIFER_SAPLING), new ItemStack(Items.CONIFER_ROSIN, 3));
     }
 
     public static void addMagmaCrucibleRecipes() {
-        addMagmaCricibleRecipe(4000, new ItemStack(Items.SLIME_BALL), new FluidStack(FluidsRegister.SLIME, 100));
+        addMagmaCricibleRecipe(4000, new ItemStack(net.minecraft.init.Items.SLIME_BALL), new FluidStack(FluidsRegister.SLIME, 100));
         addMagmaCricibleRecipe(40000, new ItemStack(Blocks.SLIME_BLOCK), new FluidStack(FluidsRegister.SLIME, 1000));
         addMagmaCricibleRecipe(40000, new ItemStack(BlocksRegister.BROWN_SLIME), new FluidStack(FluidsRegister.SLIME, 1000));
         addMagmaCricibleRecipe(300000, new ItemStack(BlocksRegister.DOLERITE), new FluidStack(FluidRegistry.LAVA, 1000));
@@ -244,23 +243,23 @@ public class IntegrationHelper {
     }
 
     public static void addCentrifugeRecipes() {
-        addCentrifugeRecipe(4000, new ItemStack(BlocksRegister.FIERY_BEAN_SAPLING), null, new ItemStack(ItemsRegister.FIERY_OIL, 3), null, null, null, 100, 0, 0, 0);
-        addCentrifugeRecipe(4000, new ItemStack(BlocksRegister.CONIFER_SAPLING), null, new ItemStack(ItemsRegister.CONIFER_ROSIN, 3), null, null, null, 100, 0, 0, 0);
-        addCentrifugeRecipe(3000, new ItemStack(ItemsRegister.CRYOGEN_CELL), new FluidStack(FluidsRegister.CRYON, 100), new ItemStack(ItemsRegister.EMPTY_CELL), new ItemStack(Items.SNOWBALL), new ItemStack(ItemsRegister.ICE_DUST), null, 100, 50, 75, 0);
-        addCentrifugeRecipe(6000, new ItemStack(ItemsRegister.MAGMA_BLOOM_SEED, 16), null, new ItemStack(ItemsRegister.LIQUID_FIRE), null, null, null, 100, 0, 0, 0);
-        addCentrifugeRecipe(1000, new ItemStack(ItemsRegister.CONTEM_PLANT_SEEDS, 8), new FluidStack(FluidsRegister.POISON, 250), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP), new ItemStack(ItemsRegister.PLANT_FIBER, 2), null, null, 100, 100, 0, 0);
-        addCentrifugeRecipe(1000, new ItemStack(ItemsRegister.MUCOPHILLUS_SEEDS, 2), new FluidStack(FluidsRegister.SLIME, 100), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP), new ItemStack(Items.SLIME_BALL, 2), null, null, 100, 100, 0, 0);
-        addCentrifugeRecipe(1000, new ItemStack(ItemsRegister.VISCOSA_SEEDS, 2), new FluidStack(FluidsRegister.TOXIN, 100), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP), new ItemStack(Items.SLIME_BALL), new ItemStack(ItemsRegister.PLANT_FIBER), null, 100, 100, 100, 0);
-        addCentrifugeRecipe(1000, new ItemStack(ItemsRegister.TOXIBERRY_WEEPING_SEEDS, 3), new FluidStack(FluidsRegister.LUMINESCENT, 100), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP), new ItemStack(ItemsRegister.CRYSTALLIZED_POISON), new ItemStack(ItemsRegister.PLANT_FIBER), null, 100, 100, 100, 0);
-        addCentrifugeRecipe(1000, new ItemStack(ItemsRegister.MUCOPHILLUS_BROWN_SEEDS, 5), new FluidStack(FluidsRegister.SLIME, 250), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP, 2), new ItemStack(ItemsRegister.CRYSTALLIZED_POISON), new ItemStack(Items.SLIME_BALL, 3), null, 100, 100, 100, 0);
-        addCentrifugeRecipe(1000, new ItemStack(ItemsRegister.TOXIBULB_SEEDS, 1), new FluidStack(FluidsRegister.SULFURICACID, 200), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP), new ItemStack(ItemsRegister.PLANT_FIBER), null, null, 100, 100, 0, 0);
-        addCentrifugeRecipe(1000, new ItemStack(ItemsRegister.GLOWING_TOXIBERRY, 3), new FluidStack(FluidsRegister.LUMINESCENT, 250), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP, 3), new ItemStack(ItemsRegister.CRYSTALLIZED_POISON), new ItemStack(ItemsRegister.PLANT_FIBER, 2), null, 100, 100, 100, 0);
-        addCentrifugeRecipe(1000, new ItemStack(ItemsRegister.SMALL_TOXIBERRY, 6), new FluidStack(FluidsRegister.POISON, 100), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP), new ItemStack(ItemsRegister.PLANT_FIBER), null, null, 100, 100, 0, 0);
-        addCentrifugeRecipe(1000, new ItemStack(BlocksRegister.TOXIBERRY_TREE_SAPLING), null, new ItemStack(ItemsRegister.TOXIBERRY_STICK), new ItemStack(ItemsRegister.TOXIBERRY_JUICE_DRIP), new ItemStack(ItemsRegister.PLANT_FIBER), null, 100, 100, 100, 0);
+        addCentrifugeRecipe(4000, new ItemStack(BlocksRegister.FIERY_BEAN_SAPLING), null, new ItemStack(Items.FIERY_OIL, 3), null, null, null, 100, 0, 0, 0);
+        addCentrifugeRecipe(4000, new ItemStack(BlocksRegister.CONIFER_SAPLING), null, new ItemStack(Items.CONIFER_ROSIN, 3), null, null, null, 100, 0, 0, 0);
+        addCentrifugeRecipe(3000, new ItemStack(Items.CRYOGEN_CELL), new FluidStack(FluidsRegister.CRYON, 100), new ItemStack(Items.EMPTY_CELL), new ItemStack(net.minecraft.init.Items.SNOWBALL), new ItemStack(Items.ICE_DUST), null, 100, 50, 75, 0);
+        addCentrifugeRecipe(6000, new ItemStack(Items.MAGMA_BLOOM_SEED, 16), null, new ItemStack(Items.LIQUID_FIRE), null, null, null, 100, 0, 0, 0);
+        addCentrifugeRecipe(1000, new ItemStack(Items.CONTEM_PLANT_SEEDS, 8), new FluidStack(FluidsRegister.POISON, 250), new ItemStack(Items.TOXIBERRY_JUICE_DRIP), new ItemStack(Items.PLANT_FIBER, 2), null, null, 100, 100, 0, 0);
+        addCentrifugeRecipe(1000, new ItemStack(Items.MUCOPHILLUS_SEEDS, 2), new FluidStack(FluidsRegister.SLIME, 100), new ItemStack(Items.TOXIBERRY_JUICE_DRIP), new ItemStack(net.minecraft.init.Items.SLIME_BALL, 2), null, null, 100, 100, 0, 0);
+        addCentrifugeRecipe(1000, new ItemStack(Items.VISCOSA_SEEDS, 2), new FluidStack(FluidsRegister.TOXIN, 100), new ItemStack(Items.TOXIBERRY_JUICE_DRIP), new ItemStack(net.minecraft.init.Items.SLIME_BALL), new ItemStack(Items.PLANT_FIBER), null, 100, 100, 100, 0);
+        addCentrifugeRecipe(1000, new ItemStack(Items.TOXIBERRY_WEEPING_SEEDS, 3), new FluidStack(FluidsRegister.LUMINESCENT, 100), new ItemStack(Items.TOXIBERRY_JUICE_DRIP), new ItemStack(Items.CRYSTALLIZED_POISON), new ItemStack(Items.PLANT_FIBER), null, 100, 100, 100, 0);
+        addCentrifugeRecipe(1000, new ItemStack(Items.MUCOPHILLUS_BROWN_SEEDS, 5), new FluidStack(FluidsRegister.SLIME, 250), new ItemStack(Items.TOXIBERRY_JUICE_DRIP, 2), new ItemStack(Items.CRYSTALLIZED_POISON), new ItemStack(net.minecraft.init.Items.SLIME_BALL, 3), null, 100, 100, 100, 0);
+        addCentrifugeRecipe(1000, new ItemStack(Items.TOXIBULB_SEEDS, 1), new FluidStack(FluidsRegister.SULFURICACID, 200), new ItemStack(Items.TOXIBERRY_JUICE_DRIP), new ItemStack(Items.PLANT_FIBER), null, null, 100, 100, 0, 0);
+        addCentrifugeRecipe(1000, new ItemStack(Items.GLOWING_TOXIBERRY, 3), new FluidStack(FluidsRegister.LUMINESCENT, 250), new ItemStack(Items.TOXIBERRY_JUICE_DRIP, 3), new ItemStack(Items.CRYSTALLIZED_POISON), new ItemStack(Items.PLANT_FIBER, 2), null, 100, 100, 100, 0);
+        addCentrifugeRecipe(1000, new ItemStack(Items.SMALL_TOXIBERRY, 6), new FluidStack(FluidsRegister.POISON, 100), new ItemStack(Items.TOXIBERRY_JUICE_DRIP), new ItemStack(Items.PLANT_FIBER), null, null, 100, 100, 0, 0);
+        addCentrifugeRecipe(1000, new ItemStack(BlocksRegister.TOXIBERRY_TREE_SAPLING), null, new ItemStack(Items.TOXIBERRY_STICK), new ItemStack(Items.TOXIBERRY_JUICE_DRIP), new ItemStack(Items.PLANT_FIBER), null, 100, 100, 100, 0);
     }
 
     public static void addPressRecipes() {
-        addPressRecipe(5000, new ItemStack(ItemsRegister.WOLFRAM_DUST), new ItemStack(ItemsRegister.WOLFRAM_INGOT), false);
+        addPressRecipe(5000, new ItemStack(Items.WOLFRAM_DUST), new ItemStack(Items.WOLFRAM_INGOT), false);
     }
 
     public static void addCrushersRecipe(int rf, ItemStack input, ItemStack output, ItemStack output2, int chanceOut2, boolean bannedForIC2) {
@@ -537,7 +536,7 @@ public class IntegrationHelper {
 
     public static void addCentrifugeRecipe(int rf, ItemStack input, FluidStack fluid, ItemStack output1, ItemStack output2, ItemStack output3, ItemStack output4, int chance1, int chance2, int chance3, int chance4) {
         if (output1 != null && output4 == null && (output2 == null || chance2 >= 100) && (output3 == null || chance3 >= 100)) {
-            IndustrialMixerRecipe rec = IndustrialMixerRecipesRegister.addRecipe(ItemsRegister.CENTRIFUGE_MODULE, null, rf, Ingridient.getIngridient(output1), Ingridient.getIngridient(output2), Ingridient.getIngridient(output3), rf / 20, Ingridient.getIngridient(input), Ingridient.EMPTY, Ingridient.EMPTY);
+            IndustrialMixerRecipe rec = IndustrialMixerRecipesRegister.addRecipe(Items.CENTRIFUGE_MODULE, null, rf, Ingridient.getIngridient(output1), Ingridient.getIngridient(output2), Ingridient.getIngridient(output3), rf / 20, Ingridient.getIngridient(input), Ingridient.EMPTY, Ingridient.EMPTY);
             if (fluid != null) {
                 rec.setFluidOutput1(fluid.getUnlocalizedName().replaceFirst("fluid.", ""), fluid.amount);
             }

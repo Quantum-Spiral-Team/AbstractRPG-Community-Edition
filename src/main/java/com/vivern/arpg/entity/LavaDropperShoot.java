@@ -28,19 +28,19 @@ public class LavaDropperShoot extends EntityThrowable {
 
     public LavaDropperShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.LAVA_DROPPER);
+        this.weaponstack = new ItemStack(Items.LAVA_DROPPER);
         this.setSize(0.5F, 0.5F);
     }
 
     public LavaDropperShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.LAVA_DROPPER);
+        this.weaponstack = new ItemStack(Items.LAVA_DROPPER);
         this.setSize(0.5F, 0.5F);
     }
 
     public LavaDropperShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.LAVA_DROPPER);
+        this.weaponstack = new ItemStack(Items.LAVA_DROPPER);
         this.setSize(0.5F, 0.5F);
     }
 

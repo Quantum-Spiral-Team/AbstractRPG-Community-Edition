@@ -21,7 +21,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -93,7 +92,7 @@ public class EverfrostMobsPack {
             this.livingSound = Sounds.mob_mummy_living;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(30.0, 64.0, 4.5, 0.245, 6.0, 2.0, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(Items.ROTTEN_FLESH, 0.75F, 0, 0, 2, 2), new MobDrop(Items.BONE, 0.75F, 0, 0, 2, 2)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(net.minecraft.init.Items.ROTTEN_FLESH, 0.75F, 0, 0, 2, 2), new MobDrop(net.minecraft.init.Items.BONE, 0.75F, 0, 0, 2, 2)});
             this.setRoleValues(EnumMobRole.SOLDIER, 2);
             this.soul = Soul.PALE;
         }
@@ -117,31 +116,31 @@ public class EverfrostMobsPack {
             if (this.rand.nextFloat() < 0.4) {
                 int i = this.rand.nextInt(14);
                 if (i < 2) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
+                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(net.minecraft.init.Items.STONE_AXE));
                 } else if (i == 2) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
+                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(net.minecraft.init.Items.IRON_AXE));
                 } else if (i == 3) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
+                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(net.minecraft.init.Items.STONE_SWORD));
                 } else if (i == 4) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BONE));
+                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(net.minecraft.init.Items.BONE));
                 } else if (i == 5) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_PICKAXE));
+                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(net.minecraft.init.Items.STONE_PICKAXE));
                 } else if (i == 6) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ItemsRegister.GOTHIC_AXE));
+                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOTHIC_AXE));
                     this.inventoryHandsDropChances = new float[]{0.0F, 0.0F};
                 }
 
                 int t = this.rand.nextInt(17);
                 if (t < 2) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.STONE_AXE));
+                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(net.minecraft.init.Items.STONE_AXE));
                 } else if (t == 2) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.IRON_AXE));
+                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(net.minecraft.init.Items.IRON_AXE));
                 } else if (t == 3) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.STONE_SWORD));
+                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(net.minecraft.init.Items.STONE_SWORD));
                 } else if (t == 4) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.BONE));
+                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(net.minecraft.init.Items.BONE));
                 } else if (t == 5) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(Items.STONE_PICKAXE));
+                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(net.minecraft.init.Items.STONE_PICKAXE));
                 }
             }
 
@@ -199,7 +198,7 @@ public class EverfrostMobsPack {
             this.livingSound = Sounds.phantasm_living;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(60.0, 48.0, 6.0, 0.1, 3.0, 1.0, 0.2, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.3F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.ICE_GEM, 0.3F, 0, 1, 1, 1), new MobDrop(net.minecraft.init.Items.SNOWBALL, 0.5F, 0, 1, 2, 4)});
             this.setNoGravity(true);
             this.setRoleValues(EnumMobRole.STRONG_ENEMY, 2);
             this.soul = Soul.MYSTIC;
@@ -442,7 +441,7 @@ public class EverfrostMobsPack {
             this.livingSound = Sounds.frost_living;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(25.0, 42.0, 5.0, 0.5, 3.0, 0.5, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.3F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.ICE_GEM, 0.3F, 0, 1, 1, 1), new MobDrop(net.minecraft.init.Items.SNOWBALL, 0.5F, 0, 1, 2, 4)});
             this.setNoGravity(true);
             this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 2);
             this.soul = Soul.WINTRY;
@@ -618,7 +617,7 @@ public class EverfrostMobsPack {
             this.livingSound = Sounds.frost_living;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(55.0, 40.0, 6.0, 0.13, 3.0, 1.0, 0.4, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.6F, 0, 1, 1, 1)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.ICE_GEM, 0.6F, 0, 1, 1, 1)});
             this.setNoGravity(true);
             this.setRoleValues(EnumMobRole.STRONG_ENEMY, 2);
             this.soul = Soul.WINTRY;
@@ -755,7 +754,7 @@ public class EverfrostMobsPack {
             this.livingSound = Sounds.mob_ice_living;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(45.0, 30.0, 6.0, 0.09, 2.0, 2.0, 0.2, 0.1, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.WEATHER_FRAGMENTS, 0.35F, 0, 1, 1, 0), new MobDrop(ItemsRegister.HAIL_TEAR, 0.1F, 0, 1, 2, 2)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.WEATHER_FRAGMENTS, 0.35F, 0, 1, 1, 0), new MobDrop(Items.HAIL_TEAR, 0.1F, 0, 1, 2, 2)});
             this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 2);
             this.soul = Soul.WINTRY;
         }
@@ -875,7 +874,7 @@ public class EverfrostMobsPack {
             this.livingSound = Sounds.frost_living;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(60.0, 64.0, 2.0, 0.2, 4.0, 5.0, 0.3, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.5F, 0, 1, 1, 1), new MobDrop(Items.SNOWBALL, 0.5F, 0, 1, 2, 4)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.ICE_GEM, 0.5F, 0, 1, 1, 1), new MobDrop(net.minecraft.init.Items.SNOWBALL, 0.5F, 0, 1, 2, 4)});
             this.stepHeight = 1.1F;
             this.setRoleValues(EnumMobRole.STRONG_ENEMY, 2);
             this.soul = Soul.WINTRY;
@@ -988,7 +987,7 @@ public class EverfrostMobsPack {
             this.livingSound = Sounds.mob_ghost_living;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(75.0, 42.0, 5.0, 0.11, 4.0, 4.0, 0.6, 0.15, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.95F, 0, 0, 3, 2), new MobDrop(ItemsRegister.SNOW_CLOTH, 0.35F, 0, 1, 3, 2)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.ICE_GEM, 0.95F, 0, 0, 3, 2), new MobDrop(Items.SNOW_CLOTH, 0.35F, 0, 1, 3, 2)});
             this.setRoleValues(EnumMobRole.ELITE_ENEMY, 2);
             this.soul = Soul.WINTRY;
         }
@@ -1116,7 +1115,7 @@ public class EverfrostMobsPack {
             this.deathSound = Sounds.mob_ice_death;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(15.0, 40.0, 4.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2);
-            this.registerLOOT(new MobDrop[]{new MobDrop(Items.SNOWBALL, 0.8F, 0, 0, 3, 8)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(net.minecraft.init.Items.SNOWBALL, 0.8F, 0, 0, 3, 8)});
             this.setRoleValues(EnumMobRole.SWARMER, 2);
             this.soul = Soul.PALE;
         }
@@ -1190,7 +1189,7 @@ public class EverfrostMobsPack {
             this.livingSound = Sounds.mob_ice_living;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(40.0, 64.0, 8.0, 0.25, 3.0, 4.0, 0.5, 0.1, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ICE_GEM, 0.12F, 0, 1, 1, 2)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.ICE_GEM, 0.12F, 0, 1, 1, 2)});
             this.setRoleValues(EnumMobRole.MIDDLE_ENEMY, 2);
             this.soul = Soul.WINTRY;
         }
@@ -1222,13 +1221,13 @@ public class EverfrostMobsPack {
             super.onInitialSpawn(difficulty, livingdata);
             ItemStack stack;
             if (this.rand.nextFloat() < 0.8F) {
-                stack = new ItemStack(ItemsRegister.ICE_SWORD);
+                stack = new ItemStack(Items.ICE_SWORD);
             } else if (this.rand.nextFloat() < 0.6F) {
-                stack = new ItemStack(ItemsRegister.GOTHIC_AXE);
+                stack = new ItemStack(Items.GOTHIC_AXE);
             } else if (this.rand.nextFloat() < 0.5F) {
-                stack = new ItemStack(ItemsRegister.GOTHIC_SHOVEL);
+                stack = new ItemStack(Items.GOTHIC_SHOVEL);
             } else {
-                stack = new ItemStack(ItemsRegister.GOTHIC_PICKAXE);
+                stack = new ItemStack(Items.GOTHIC_PICKAXE);
             }
 
             this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
@@ -1237,7 +1236,7 @@ public class EverfrostMobsPack {
 
         @Override
         public boolean attackEntityAsMob(Entity entityIn) {
-            if (this.rand.nextFloat() < 0.2F + this.getMobDifficulty() * 0.1F && entityIn instanceof EntityLivingBase && this.getHeldItemMainhand().getItem() == ItemsRegister.ICE_SWORD) {
+            if (this.rand.nextFloat() < 0.2F + this.getMobDifficulty() * 0.1F && entityIn instanceof EntityLivingBase && this.getHeldItemMainhand().getItem() == Items.ICE_SWORD) {
                 PotionEffect lastdebaff = Weapons.mixPotion(entityIn, PotionEffects.FREEZING, 70.0F, 2.0F, Weapons.EnumPotionMix.WITH_MAXIMUM, Weapons.EnumPotionMix.WITH_MAXIMUM, Weapons.EnumMathOperation.PLUS, Weapons.EnumMathOperation.PLUS, 100, 7);
                 Freezing.tryPlaySound(entityIn, lastdebaff);
             }
@@ -1500,7 +1499,7 @@ public class EverfrostMobsPack {
             this.livingSound = Sounds.mob_ice_living;
             this.defaultteam = EverfrostMobsPack.mobsTeam;
             this.setattributes(40.0, 64.0, 6.5, 0.26, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.CONIFER_STICK, 0.34F, 0, 1, 2, 2), new MobDrop(Items.SNOWBALL, 0.95F, 0, 1, 4, 4)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.CONIFER_STICK, 0.34F, 0, 1, 2, 2), new MobDrop(net.minecraft.init.Items.SNOWBALL, 0.95F, 0, 1, 4, 4)});
             this.setRoleValues(EnumMobRole.SOLDIER, 2);
             this.soul = Soul.WINTRY;
         }

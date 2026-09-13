@@ -30,17 +30,17 @@ public class HadronBlasterShoot extends EntityThrowable implements ISynchronized
 
     public HadronBlasterShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.HADRON_BLASTER);
+        this.weaponstack = new ItemStack(Items.HADRON_BLASTER);
     }
 
     public HadronBlasterShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.HADRON_BLASTER);
+        this.weaponstack = new ItemStack(Items.HADRON_BLASTER);
     }
 
     public HadronBlasterShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.HADRON_BLASTER);
+        this.weaponstack = new ItemStack(Items.HADRON_BLASTER);
     }
 
     public HadronBlasterShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {

@@ -49,7 +49,7 @@ public class FireWhip extends ItemWeapon {
                 float del = Debugger.floats[2] + 12.0F;
                 EntityPlayer player = (EntityPlayer) entityIn;
                 boolean hasCooldown = player.getCooldownTracker().hasCooldown(this);
-                boolean hasExpCooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+                boolean hasExpCooldown = player.getCooldownTracker().hasCooldown(Items.EXP);
                 boolean primaryClick = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
                 boolean secondaryClick = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
                 int damage = itemstack.getItemDamage();

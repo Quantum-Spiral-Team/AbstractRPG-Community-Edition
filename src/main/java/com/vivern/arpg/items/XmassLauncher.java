@@ -119,7 +119,7 @@ public class XmassLauncher extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.XMASS_BUNDLE, maxammo)) {
+                    } else if (this.initiateReload(itemstack, player, Items.XMASS_BUNDLE, maxammo)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.xmass_launcher_rel, SoundCategory.NEUTRAL, 0.75F, 0.95F + itemRand.nextFloat() / 10.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 0.1F);
                         Weapons.setPlayerAnimationOnServer(player, 34, EnumHand.MAIN_HAND);
                         IWeapon.sendIWeaponState(itemstack, player, 3, itemSlot, EnumHand.MAIN_HAND);

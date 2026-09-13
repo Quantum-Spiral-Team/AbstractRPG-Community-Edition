@@ -63,7 +63,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
     @Override
     public void renderByItem(ItemStack itemstack, float partialTicks) {
         Item item = itemstack.getItem();
-        if (item == ItemsRegister.BEAKER) {
+        if (item == Items.BEAKER) {
             Beaker.BeakerFluid beakerFluid = Beaker.readFromNbt(itemstack, 16);
             if (!beakerFluid.isEmpty) {
                 GlStateManager.pushMatrix();
@@ -149,7 +149,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
             GlStateManager.popMatrix();
         }
 
-        if (item == ItemsRegister.SPELL_PLIERS) {
+        if (item == Items.SPELL_PLIERS) {
             boolean picked = NBTHelper.GetNBTboolean(itemstack, "picked");
             float pickedAngle = picked ? 0.0F : -0.43F;
             GlStateManager.pushMatrix();
@@ -202,7 +202,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
             }
         }
 
-        if (item == ItemsRegister.VIAL) {
+        if (item == Items.VIAL) {
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.5F, 0.5F, 0.5F);
             ShardType shardTypex = ShardType.byId(MathHelper.clamp(itemstack.getMetadata(), 1, 12));
@@ -254,13 +254,13 @@ public class TEISROther extends TileEntityItemStackRenderer {
                 renderColoredGlowingCuboid(0.0, -0.2F, 0.0, colorx, color2, 0.025F, 0.11F, thickness, partialTicks, false, true, (byte) 0);
             }
 
-            ItemStack vialStack = new ItemStack(ItemsRegister.VIALS[shardTypex.id - 1]);
+            ItemStack vialStack = new ItemStack(Items.VIALS[shardTypex.id - 1]);
             Minecraft.getMinecraft().getRenderItem().renderItem(vialStack, TransformType.NONE);
             this.renderEffect(vialStack, colorx, TransformType.NONE, shardTypex == ShardType.VOID);
             GlStateManager.popMatrix();
         }
 
-        if (item == ItemsRegister.SPELL_ROLL) {
+        if (item == Items.SPELL_ROLL) {
             float openness = GetMOP.getFromTo((float) NBTHelper.GetNBTint(itemstack, "using") / ItemSpellRoll.useMaxTime, 0.2F, 0.8F);
             int burning = NBTHelper.GetNBTint(itemstack, "burning");
             int casting = NBTHelper.GetNBTint(itemstack, "casting");
@@ -349,7 +349,7 @@ public class TEISROther extends TileEntityItemStackRenderer {
             calibrationThing.renderInTESR(null);
         }
 
-        if (item == ItemsRegister.CANISTER) {
+        if (item == Items.CANISTER) {
             FluidStack fluidStack = FluidUtil.getFluidContained(itemstack);
             if (fluidStack != null && fluidStack.amount > 0) {
                 GlStateManager.pushMatrix();

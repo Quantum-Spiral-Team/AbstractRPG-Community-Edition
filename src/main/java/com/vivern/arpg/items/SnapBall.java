@@ -103,7 +103,7 @@ public class SnapBall extends ItemWeapon implements IEnergyItem {
                         int reuse = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, itemstack);
                         int RFtoReload = parameters.getEnchantedI("rf_to_reload", reuse);
                         int RF = this.getEnergyStored(itemstack);
-                        if (RF >= RFtoReload && this.initiateReload(itemstack, player, ItemsRegister.SNAP_BALL_AMMO, maxammo)) {
+                        if (RF >= RFtoReload && this.initiateReload(itemstack, player, Items.SNAP_BALL_AMMO, maxammo)) {
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.snap_ball_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + (itemRand.nextFloat() + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack)) / 10.0F);
                             this.extractEnergyFromItem(itemstack, RFtoReload, false);
                         }

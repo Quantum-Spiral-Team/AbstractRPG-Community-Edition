@@ -7,7 +7,7 @@ import com.vivern.arpg.dimensions.generationutils.WorldGenSpread;
 import com.vivern.arpg.dimensions.toxicomania.ToxicomaniaChunkGenerator;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Mana;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -51,7 +51,7 @@ public class SlimeRiver extends BiomeControlled {
 
     @Override
     public void onPlayer60ticksInBiome(BiomeControlled biome, EntityPlayer player) {
-        Mana.addRad(player, BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTI_RAD_PACK) > -1 ? 10 : 40, true);
+        Mana.addRad(player, BaublesApi.isBaubleEquipped(player, Items.ANTI_RAD_PACK) > -1 ? 10 : 40, true);
     }
 
     class SlimeRiverDecorator extends BiomeDecorator {

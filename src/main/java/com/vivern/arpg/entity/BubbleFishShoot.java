@@ -25,17 +25,17 @@ public class BubbleFishShoot extends EntityThrowable {
 
     public BubbleFishShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.BUBBLEFISH);
+        this.weaponstack = new ItemStack(Items.BUBBLEFISH);
     }
 
     public BubbleFishShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.BUBBLEFISH);
+        this.weaponstack = new ItemStack(Items.BUBBLEFISH);
     }
 
     public BubbleFishShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.BUBBLEFISH);
+        this.weaponstack = new ItemStack(Items.BUBBLEFISH);
     }
 
     public BubbleFishShoot(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

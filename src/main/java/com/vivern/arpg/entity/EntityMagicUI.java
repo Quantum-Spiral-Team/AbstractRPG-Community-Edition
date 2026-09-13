@@ -522,7 +522,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
     }
 
     public void setRunePosition(@Nullable EntityPlayer playerBy, double x, double y, double z, EnumFacing facingOn) {
-        int equip = playerBy == null ? -1 : BaublesApi.isBaubleEquipped(playerBy, ItemsRegister.SAPPHIRE_EYE);
+        int equip = playerBy == null ? -1 : BaublesApi.isBaubleEquipped(playerBy, Items.SAPPHIRE_EYE);
         if (equip < 0) {
             this.posX = x;
             this.posY = y;
@@ -567,7 +567,7 @@ public abstract class EntityMagicUI extends Entity implements ISynchronizedEntit
     }
 
     public void setRuneFloorAngle(@Nullable EntityPlayer playerBy, float angle) {
-        if (playerBy != null && BaublesApi.isBaubleEquipped(playerBy, ItemsRegister.SAPPHIRE_EYE) >= 0) {
+        if (playerBy != null && BaublesApi.isBaubleEquipped(playerBy, Items.SAPPHIRE_EYE) >= 0) {
             this.rotationOnFloor = (int) (angle / 5.0F) * 5;
         } else {
             this.rotationOnFloor = angle;

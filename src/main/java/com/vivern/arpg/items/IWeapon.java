@@ -154,7 +154,7 @@ public interface IWeapon {
         WeaponHandleType weaponHandleType = this.getWeaponHandleType();
         boolean hasCooldown;
         if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
-            hasCooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+            hasCooldown = player.getCooldownTracker().hasCooldown(Items.EXP);
         } else {
             hasCooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
         }
@@ -186,7 +186,7 @@ public interface IWeapon {
         WeaponHandleType weaponHandleType = this.getWeaponHandleType();
         boolean hascooldown;
         if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
-            hascooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+            hascooldown = player.getCooldownTracker().hasCooldown(Items.EXP);
         } else {
             hascooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
         }
@@ -218,7 +218,7 @@ public interface IWeapon {
         WeaponHandleType weaponHandleType = this.getWeaponHandleType();
         boolean hascooldown;
         if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
-            hascooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+            hascooldown = player.getCooldownTracker().hasCooldown(Items.EXP);
         } else {
             hascooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
         }
@@ -271,7 +271,7 @@ public interface IWeapon {
         WeaponHandleType weaponHandleType = this.getWeaponHandleType();
         boolean hascooldown;
         if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
-            hascooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+            hascooldown = player.getCooldownTracker().hasCooldown(Items.EXP);
         } else {
             hascooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
         }
@@ -323,7 +323,7 @@ public interface IWeapon {
         WeaponHandleType weaponHandleType = this.getWeaponHandleType();
         boolean hasCooldown;
         if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
-            hasCooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+            hasCooldown = player.getCooldownTracker().hasCooldown(Items.EXP);
         } else {
             hasCooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
         }
@@ -370,7 +370,7 @@ public interface IWeapon {
         WeaponHandleType weaponHandleType = this.getWeaponHandleType();
         boolean hasCooldown;
         if (weaponHandleType == WeaponHandleType.ONE_HANDED && player.getHeldItemOffhand() == itemstack) {
-            hasCooldown = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+            hasCooldown = player.getCooldownTracker().hasCooldown(Items.EXP);
         } else {
             hasCooldown = player.getCooldownTracker().hasCooldown(itemstack.getItem());
         }

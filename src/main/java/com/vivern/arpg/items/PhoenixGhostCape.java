@@ -8,10 +8,7 @@ import com.vivern.arpg.Reference;
 import com.vivern.arpg.items.armor.Armors;
 import com.vivern.arpg.items.models.PhoenixGhostCapeModel;
 import com.vivern.arpg.items.models.PhoenixGhostModel;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Keys;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.SuperKnockback;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -211,7 +208,7 @@ public class PhoenixGhostCape extends Item implements IBauble, IRenderBauble {
     @SubscribeEvent
     public static void onPlayerRender(Pre e) {
         ItemStack stack = BaublesApi.getBaubles(e.getEntityPlayer()).getStackInSlot(5);
-        if (stack.getItem() == ItemsRegister.PHOENIX_GHOST_CAPE && stack.getItemDamage() != 0 && stack.getItemDamage() != 10) {
+        if (stack.getItem() == Items.PHOENIX_GHOST_CAPE && stack.getItemDamage() != 0 && stack.getItemDamage() != 10) {
             e.setCanceled(true);
             PhoenixGhostModel model = (PhoenixGhostModel) Armors.ArmorModels.PHOENIX_GHOST.getModel();
             ResourceLocation textur = new NetworkPlayerInfo(Minecraft.getMinecraft().player.getGameProfile()).getLocationSkin();

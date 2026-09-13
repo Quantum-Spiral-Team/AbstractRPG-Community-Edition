@@ -2,7 +2,7 @@ package com.vivern.arpg.potions;
 
 import baubles.api.BaublesApi;
 import com.vivern.arpg.main.Boom;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,7 +60,7 @@ public class Chlorite extends AdvancedPotion {
     @Override
     public boolean isPotionApplicable(EntityLivingBase entityOnEffect, PotionEffect effect) {
         if (entityOnEffect instanceof EntityPlayer) {
-            int eq = BaublesApi.isBaubleEquipped((EntityPlayer) entityOnEffect, ItemsRegister.GAS_MASK);
+            int eq = BaublesApi.isBaubleEquipped((EntityPlayer) entityOnEffect, Items.GAS_MASK);
             if (eq > -1) {
                 ItemStack st = BaublesApi.getBaublesHandler((EntityPlayer) entityOnEffect).getStackInSlot(eq);
                 if (st.getItemDamage() == st.getMaxDamage()) {

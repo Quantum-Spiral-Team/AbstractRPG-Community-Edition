@@ -98,7 +98,7 @@ public class BossOphanim extends AbstractBoss implements ISynchronizedEntity, IM
         this.defaultteam = StormledgeMobsPack.mobsteam;
         this.setNoGravity(true);
         this.setattributes(6000.0, 86.0, 24.0, 0.05, 4.0, 4.0, 0.85, 0.2, 0.0, 0.0);
-        this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.SOLIDIFIED_LIGHTNING, 1.0F, 0, 8, 10, 2)});
+        this.registerLOOT(new MobDrop[]{new MobDrop(Items.SOLIDIFIED_LIGHTNING, 1.0F, 0, 8, 10, 2)});
         this.setDropMoney(400, 600, 1.0F);
         this.experienceValue = 1200;
     }

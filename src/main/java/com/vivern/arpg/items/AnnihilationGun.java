@@ -184,7 +184,7 @@ public class AnnihilationGun extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.ANTIMATTER_CHARGE, maxammo, ItemsRegister.STABILIZATION_CELL)) {
+                    } else if (this.initiateReload(itemstack, player, Items.ANTIMATTER_CHARGE, maxammo, Items.STABILIZATION_CELL)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.laserpistol_rel, SoundCategory.NEUTRAL, 0.7F, 0.6F / (itemRand.nextFloat() * 0.4F + 0.8F));
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                         NBTHelper.SetNBTint(itemstack, 0, "charge");

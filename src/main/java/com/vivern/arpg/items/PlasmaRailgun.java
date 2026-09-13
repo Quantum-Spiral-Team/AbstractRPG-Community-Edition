@@ -82,7 +82,7 @@ public class PlasmaRailgun extends ItemWeapon implements IEnergyItem {
                             projectile.livetime = parameters.getEnchantedI("live_time", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RANGE, itemstack));
                             world.spawnEntity(projectile);
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.PLASMA_RAILGUN_BOLTS, maxammo)) {
+                    } else if (this.initiateReload(itemstack, player, Items.PLASMA_RAILGUN_BOLTS, maxammo)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.plasma_railgun_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     }

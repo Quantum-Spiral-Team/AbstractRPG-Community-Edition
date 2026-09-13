@@ -165,11 +165,11 @@ public class CooledRifle extends ItemWeapon {
                                 Vec3d shootPoint = Weapons.getPlayerShootPoint(player, EnumHand.MAIN_HAND);
                                 IWeapon.fireEffect(this, player, world, 64.0, shootPoint.x, shootPoint.y, shootPoint.z, vec.x, vec.y, vec.z, c, dustState == null ? -1.0 : Block.getStateId(dustState), collidesWithAny ? 1.0 : 0.0);
                             }
-                        } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.COOLED_RIFLE_CLIP, maxammo, true)) {
+                        } else if (this.initiateBulletReload(itemstack, player, Items.COOLED_RIFLE_CLIP, maxammo, true)) {
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.cooled_rifle_rel, SoundCategory.AMBIENT, 0.7F, 1.0F + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 0.2F);
                             Weapons.setPlayerAnimationOnServer(player, 28, EnumHand.MAIN_HAND);
                             NBTHelper.giveNBTboolean(itemstack, false, "shotgun");
-                            this.loadShotgun(itemstack, player, new ItemStack(ItemsRegister.BUCKSHOT, 1), 1, false);
+                            this.loadShotgun(itemstack, player, new ItemStack(Items.BUCKSHOT, 1), 1, false);
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -61,7 +61,7 @@ public class AshBlock extends BlockFalling {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return ItemsRegister.ASH;
+        return Items.ASH;
     }
 
     @Override

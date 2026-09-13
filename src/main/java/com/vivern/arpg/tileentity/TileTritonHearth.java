@@ -53,7 +53,7 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
                 if (this.workTicks > (wet ? workTicksMax : workTicksMax * 1.5F)) {
                     this.workTicks = 0;
                     this.hasMaterials = false;
-                    this.getWorld().spawnEntity(new EntityItem(this.getWorld(), this.getPos().getX() + 0.5, this.getPos().getY() + 0.9, this.getPos().getZ() + 0.5, new ItemStack(ItemsRegister.AQUATIC_INGOT)));
+                    this.getWorld().spawnEntity(new EntityItem(this.getWorld(), this.getPos().getX() + 0.5, this.getPos().getY() + 0.9, this.getPos().getZ() + 0.5, new ItemStack(Items.AQUATIC_INGOT)));
                     ITileEntitySynchronized.sendSynchronize(this, 48.0, 1.0);
                     this.world.playSound(null, this.getPos(), Sounds.triton_hearth_end, SoundCategory.BLOCKS, 0.6F, 0.9F + GetMOP.rand.nextFloat() * 0.2F);
                 } else {
@@ -87,10 +87,10 @@ public class TileTritonHearth extends TileEntity implements IMagicVision, ITicka
                     if (stack.getItem() == Item.getItemFromBlock(BlocksRegister.METALLIC_CORAL) && stack.getCount() >= 8) {
                         stack.shrink(8);
                         is = true;
-                    } else if (stack.getItem() == ItemsRegister.AQUATIC_DUST && stack.getCount() >= 1) {
+                    } else if (stack.getItem() == Items.AQUATIC_DUST && stack.getCount() >= 1) {
                         stack.shrink(1);
                         is = true;
-                    } else if (stack.getItem() == ItemsRegister.AQUATIC_NUGGET && stack.getCount() >= 9) {
+                    } else if (stack.getItem() == Items.AQUATIC_NUGGET && stack.getCount() >= 9) {
                         stack.shrink(9);
                         is = true;
                     }

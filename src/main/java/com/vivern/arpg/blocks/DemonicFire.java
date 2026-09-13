@@ -1,10 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.google.common.collect.Maps;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.DimensionsRegister;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import com.vivern.arpg.tileentity.TilePortal;
 import net.minecraft.block.Block;
@@ -23,7 +20,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -99,11 +95,11 @@ public class DemonicFire extends Block {
         if (!world.isRemote) {
             if (entityIn instanceof EntityItem) {
                 EntityItem item = (EntityItem) entityIn;
-                if (item.getItem().getItem() == Items.ENCHANTED_BOOK) {
+                if (item.getItem().getItem() == net.minecraft.init.Items.ENCHANTED_BOOK) {
                     int powder = getBookPowderCount(item.getItem());
                     world.playSound(null, item.getPosition(), Sounds.burn, SoundCategory.BLOCKS, 0.8F, 0.9F + world.rand.nextFloat() / 5.0F);
                     item.setDead();
-                    EntityItem dust = new EntityItem(item.world, item.posX, item.posY, item.posZ, new ItemStack(ItemsRegister.MAGIC_POWDER, powder));
+                    EntityItem dust = new EntityItem(item.world, item.posX, item.posY, item.posZ, new ItemStack(Items.MAGIC_POWDER, powder));
                     item.world.spawnEntity(dust);
                 }
             } else if (entityIn instanceof EntityLivingBase) {

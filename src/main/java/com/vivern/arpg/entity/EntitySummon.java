@@ -1,6 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.mobs.EntitySummoned;
 import com.vivern.arpg.mobs.SummonedBlaze;
@@ -33,17 +33,17 @@ public class EntitySummon extends EntityThrowable {
 
     public EntitySummon(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
+        this.weaponstack = new ItemStack(Items.WAND_OF_BLAZES);
     }
 
     public EntitySummon(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
+        this.weaponstack = new ItemStack(Items.WAND_OF_BLAZES);
     }
 
     public EntitySummon(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_BLAZES);
+        this.weaponstack = new ItemStack(Items.WAND_OF_BLAZES);
     }
 
     public EntitySummon(World world, EntityLivingBase thrower, int entityType, int maxCount, ItemStack itemstack) {

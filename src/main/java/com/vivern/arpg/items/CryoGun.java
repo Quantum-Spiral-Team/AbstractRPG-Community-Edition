@@ -92,7 +92,7 @@ public class CryoGun extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYOGEN_CELL, maxammo, ItemsRegister.EMPTY_CELL)) {
+                    } else if (this.initiateReload(itemstack, player, Items.CRYOGEN_CELL, maxammo, Items.EMPTY_CELL)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.cryo_gun_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 20.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     } else if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0 && player.isInWater() && NBTHelper.GetNBTint(itemstack, "ammo") == 0 && !player.getCooldownTracker().hasCooldown(this)) {

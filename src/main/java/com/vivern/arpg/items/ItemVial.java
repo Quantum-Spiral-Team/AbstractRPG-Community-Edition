@@ -57,7 +57,7 @@ public class ItemVial extends Item {
             }
         }
 
-        if (this == ItemsRegister.VIAL_EMPTY) {
+        if (this == Items.VIAL_EMPTY) {
             super.getSubItems(tab, items);
         }
     }
@@ -82,15 +82,15 @@ public class ItemVial extends Item {
                 TileEntity tentity = worldIn.getTileEntity(blockpos);
                 if (tentity != null && tentity instanceof IVialElementsAccepter) {
                     IVialElementsAccepter accepter = (IVialElementsAccepter) tentity;
-                    if (this == ItemsRegister.VIAL_EMPTY) {
+                    if (this == Items.VIAL_EMPTY) {
                         EnergyCost getted = accepter.provideVialElements(itemstack, 4.0F, true);
                         if (getted != null && getted.amount == 4.0F) {
                             if (!worldIn.isRemote) {
-                                Weapons.addItemStackToInventory(playerIn, new ItemStack(ItemsRegister.VIAL, 1, getted.type.id));
+                                Weapons.addItemStackToInventory(playerIn, new ItemStack(Items.VIAL, 1, getted.type.id));
                                 itemstack.shrink(1);
                                 Weapons.setPlayerAnimationOnServer(playerIn, 14, handIn);
                                 worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 0.6F, 0.9F + itemRand.nextFloat() / 5.0F);
-                                playerIn.getCooldownTracker().setCooldown(ItemsRegister.VIAL, 6);
+                                playerIn.getCooldownTracker().setCooldown(Items.VIAL, 6);
                             } else {
                                 Vec3d vec1 = new Vec3d(blockpos.getX() + 0.5, blockpos.getY() + 0.375, blockpos.getZ() + 0.5);
                                 Vec3d vec2 = playerIn.getPositionEyes(1.0F).subtract(vec1).add(itemRand.nextGaussian(), itemRand.nextGaussian(), itemRand.nextGaussian());
@@ -101,11 +101,11 @@ public class ItemVial extends Item {
                         }
                     } else if (accepter.acceptVialElements(itemstack, ShardType.byId(itemstack.getMetadata()), 4.0F) < 4.0F) {
                         if (!worldIn.isRemote) {
-                            Weapons.addItemStackToInventory(playerIn, new ItemStack(ItemsRegister.VIAL_EMPTY));
+                            Weapons.addItemStackToInventory(playerIn, new ItemStack(Items.VIAL_EMPTY));
                             itemstack.shrink(1);
                             Weapons.setPlayerAnimationOnServer(playerIn, 14, handIn);
                             worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, Sounds.vial_use, SoundCategory.PLAYERS, 0.6F, 0.9F + itemRand.nextFloat() / 5.0F);
-                            playerIn.getCooldownTracker().setCooldown(ItemsRegister.VIAL, 6);
+                            playerIn.getCooldownTracker().setCooldown(Items.VIAL, 6);
                         } else {
                             ShardType shardType = ShardType.byId(itemstack.getMetadata());
                             if (shardType != null) {

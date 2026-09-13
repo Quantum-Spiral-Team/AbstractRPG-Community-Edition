@@ -22,7 +22,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
@@ -700,7 +699,7 @@ public class MiningTools {
 
         public EyelightProspector(String name, int maxDamage, int maxRF, int throughput, int electricNeed) {
             super(name, maxDamage, maxRF, throughput, electricNeed);
-            this.itemNeed = ItemsRegister.EREBRIS_FRAGMENT;
+            this.itemNeed = Items.EREBRIS_FRAGMENT;
             this.chargesPerItem = 1800;
         }
 
@@ -934,7 +933,7 @@ public class MiningTools {
 
         public LaserDigger(String name, int maxDamage, int maxRF, int throughput, int electricNeed) {
             super(name, maxDamage, maxRF, throughput, electricNeed);
-            this.itemNeed = Items.REDSTONE;
+            this.itemNeed = net.minecraft.init.Items.REDSTONE;
             this.chargesPerItem = 480;
         }
 
@@ -1233,7 +1232,7 @@ public class MiningTools {
 
         public NuclearMiningRay(String name, int maxDamage, int maxRF, int throughput, int electricNeed) {
             super(name, maxDamage, maxRF, throughput, electricNeed);
-            this.itemNeed = ItemsRegister.URANIUM_INGOT;
+            this.itemNeed = Items.URANIUM_INGOT;
             this.chargesPerItem = 2800;
         }
 
@@ -1324,7 +1323,7 @@ public class MiningTools {
 
         public PlasmaCutter(String name, int maxDamage, int maxRF, int throughput, int electricNeed) {
             super(name, maxDamage, maxRF, throughput, electricNeed);
-            this.itemNeed = ItemsRegister.BLUE_ARTHROSTELECHA_ROD;
+            this.itemNeed = Items.BLUE_ARTHROSTELECHA_ROD;
             this.chargesPerItem = 1000;
         }
 

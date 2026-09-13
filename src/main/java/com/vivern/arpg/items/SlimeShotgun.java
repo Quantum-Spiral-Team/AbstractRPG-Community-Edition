@@ -99,7 +99,7 @@ public class SlimeShotgun extends ItemWeapon {
 
                             NBTHelper.SetNBTint(itemstack, 0, "charge");
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.SLIME_CELL, maxammo, ItemsRegister.EMPTY_CELL)) {
+                    } else if (this.initiateReload(itemstack, player, Items.SLIME_CELL, maxammo, Items.EMPTY_CELL)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.slimeshotgunreload, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 20.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     }

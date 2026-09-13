@@ -37,17 +37,17 @@ public class EntityAcidFire extends StandardBullet {
 
     public EntityAcidFire(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.ACID_FIRE);
+        this.weaponstack = new ItemStack(Items.ACID_FIRE);
     }
 
     public EntityAcidFire(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.ACID_FIRE);
+        this.weaponstack = new ItemStack(Items.ACID_FIRE);
     }
 
     public EntityAcidFire(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.ACID_FIRE);
+        this.weaponstack = new ItemStack(Items.ACID_FIRE);
     }
 
     public EntityAcidFire(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

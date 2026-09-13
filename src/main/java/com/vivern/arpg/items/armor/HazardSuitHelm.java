@@ -2,7 +2,7 @@ package com.vivern.arpg.items.armor;
 
 import com.google.common.collect.Multimap;
 import com.vivern.arpg.items.models.HazardSuitModel;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.PropertiesRegistry;
 import com.vivern.arpg.main.Weapons;
 import com.vivern.arpg.potions.PotionEffects;
@@ -40,7 +40,7 @@ public class HazardSuitHelm extends AbstractArmor {
             World world = player.getEntityWorld();
             if (player.inventory.armorInventory.get(3) == itemstack && isCharged(player.inventory.armorInventory.get(3))) {
                 Weapons.mixPotion(player, PotionEffects.TOXIN, 30.0F, 0.0F, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumMathOperation.MINUS, Weapons.EnumMathOperation.MINUS, 0, 0);
-                if (player.inventory.armorInventory.get(2).getItem() == ItemsRegister.TOXINIUM_CHEST && isCharged(player.inventory.armorInventory.get(2)) && player.inventory.armorInventory.get(1).getItem() == ItemsRegister.TOXINIUM_LEGS && isCharged(player.inventory.armorInventory.get(1)) && player.inventory.armorInventory.get(0).getItem() == ItemsRegister.TOXINIUM_BOOTS && isCharged(player.inventory.armorInventory.get(0))) {
+                if (player.inventory.armorInventory.get(2).getItem() == Items.TOXINIUM_CHEST && isCharged(player.inventory.armorInventory.get(2)) && player.inventory.armorInventory.get(1).getItem() == Items.TOXINIUM_LEGS && isCharged(player.inventory.armorInventory.get(1)) && player.inventory.armorInventory.get(0).getItem() == Items.TOXINIUM_BOOTS && isCharged(player.inventory.armorInventory.get(0))) {
                     Weapons.mixPotion(player, PotionEffects.CHLORITE, 40.0F, 1.0F, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumMathOperation.MINUS, Weapons.EnumMathOperation.MINUS, 0, 0);
                     Weapons.mixPotion(player, MobEffects.SLOWNESS, 100.0F, 1.0F, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumMathOperation.MINUS, Weapons.EnumMathOperation.MINUS, 0, 0);
                     Weapons.mixPotion(player, MobEffects.WEAKNESS, 100.0F, 1.0F, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumPotionMix.ABSOLUTE, Weapons.EnumMathOperation.MINUS, Weapons.EnumMathOperation.MINUS, 0, 0);

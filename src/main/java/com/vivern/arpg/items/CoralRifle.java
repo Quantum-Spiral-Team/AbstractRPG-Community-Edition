@@ -98,7 +98,7 @@ public class CoralRifle extends ItemWeapon implements IItemAttacked {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.CORAL_RIFLE_CLIP, maxammo, true)) {
+                    } else if (this.initiateBulletReload(itemstack, player, Items.CORAL_RIFLE_CLIP, maxammo, true)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.coral_rifle_rel, SoundCategory.AMBIENT, 0.8F, 1.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                         if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, itemstack) > 0) {

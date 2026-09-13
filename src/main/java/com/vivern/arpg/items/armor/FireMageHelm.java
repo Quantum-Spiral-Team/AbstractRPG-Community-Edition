@@ -2,7 +2,7 @@ package com.vivern.arpg.items.armor;
 
 import com.google.common.collect.Multimap;
 import com.vivern.arpg.entity.EntityFiremageSetBonus;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Mana;
 import com.vivern.arpg.main.PropertiesRegistry;
 import net.minecraft.block.BlockDispenser;
@@ -59,7 +59,7 @@ public class FireMageHelm extends ItemArmor {
             EntityPlayer player = (EntityPlayer) entityIn;
             World world = player.getEntityWorld();
             float power = Mana.getMagicPowerMax(player);
-            if (player.inventory.armorInventory.get(3).getItem() == ItemsRegister.FIRE_MAGE_HELM && player.inventory.armorInventory.get(2).getItem() == ItemsRegister.FIRE_MAGE_CHEST && player.inventory.armorInventory.get(1).getItem() == ItemsRegister.FIRE_MAGE_LEGS && player.inventory.armorInventory.get(0).getItem() == ItemsRegister.FIRE_MAGE_BOOTS) {
+            if (player.inventory.armorInventory.get(3).getItem() == Items.FIRE_MAGE_HELM && player.inventory.armorInventory.get(2).getItem() == Items.FIRE_MAGE_CHEST && player.inventory.armorInventory.get(1).getItem() == Items.FIRE_MAGE_LEGS && player.inventory.armorInventory.get(0).getItem() == Items.FIRE_MAGE_BOOTS) {
                 player.extinguish();
                 if (!worldIn.isRemote && entityIn.ticksExisted % 100 == 0) {
                     EntityFiremageSetBonus entit = new EntityFiremageSetBonus(player.world, player);

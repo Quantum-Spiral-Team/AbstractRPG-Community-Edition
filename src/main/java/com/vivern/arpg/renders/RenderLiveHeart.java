@@ -2,10 +2,7 @@ package com.vivern.arpg.renders;
 
 import com.vivern.arpg.entity.EntityLiveHeart;
 import com.vivern.arpg.items.models.AbstractMobModel;
-import com.vivern.arpg.main.AnimationTimer;
-import com.vivern.arpg.main.ColorConverters;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -39,7 +36,7 @@ public class RenderLiveHeart<T extends EntityLiveHeart> extends Render<T> {
 
     public RenderLiveHeart(RenderManager renderManagerIn) {
         super(renderManagerIn);
-        torender = new ItemStack(ItemsRegister.LIVE_HEART);
+        torender = new ItemStack(Items.LIVE_HEART);
     }
 
     @Override

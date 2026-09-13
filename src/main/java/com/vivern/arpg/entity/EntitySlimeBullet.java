@@ -35,19 +35,19 @@ public class EntitySlimeBullet extends StandardBullet {
 
     public EntitySlimeBullet(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.SLIME_SHOTGUN);
+        this.weaponstack = new ItemStack(Items.SLIME_SHOTGUN);
         this.setSize(0.32F, 0.32F);
     }
 
     public EntitySlimeBullet(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.SLIME_SHOTGUN);
+        this.weaponstack = new ItemStack(Items.SLIME_SHOTGUN);
         this.setSize(0.32F, 0.32F);
     }
 
     public EntitySlimeBullet(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.SLIME_SHOTGUN);
+        this.weaponstack = new ItemStack(Items.SLIME_SHOTGUN);
         this.setSize(0.32F, 0.32F);
     }
 

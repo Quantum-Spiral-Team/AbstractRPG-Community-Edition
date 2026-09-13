@@ -42,19 +42,19 @@ public class BlowholeShoot extends EntityThrowable implements ISynchronizedEntit
 
     public BlowholeShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.BLOWHOLE);
+        this.weaponstack = new ItemStack(Items.BLOWHOLE);
         this.setRandomRenderValues();
     }
 
     public BlowholeShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.BLOWHOLE);
+        this.weaponstack = new ItemStack(Items.BLOWHOLE);
         this.setRandomRenderValues();
     }
 
     public BlowholeShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.BLOWHOLE);
+        this.weaponstack = new ItemStack(Items.BLOWHOLE);
         this.setRandomRenderValues();
     }
 

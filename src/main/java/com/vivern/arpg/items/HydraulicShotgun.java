@@ -189,7 +189,7 @@ public class HydraulicShotgun extends ItemWeapon {
 
                             IWeapon.fireEffect(this, player, world, 64.0, player.getEntityId(), seed, acc, amount, c, impacts, edist, 0.0, 0.0);
                         }
-                    } else if (this.initiateBulletReload(itemstack, player, new ItemStack(ItemsRegister.HYDRAULIC_SHOTGUN_CLIP, 1), maxammo, true)) {
+                    } else if (this.initiateBulletReload(itemstack, player, new ItemStack(Items.HYDRAULIC_SHOTGUN_CLIP, 1), maxammo, true)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.hydraulic_shotgun_rel, SoundCategory.AMBIENT, 0.9F, 1.0F);
                         Weapons.setPlayerAnimationOnServer(player, 19, mainhand ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
                         IWeapon.sendIWeaponState(itemstack, player, 3, itemSlot, EnumHand.MAIN_HAND);

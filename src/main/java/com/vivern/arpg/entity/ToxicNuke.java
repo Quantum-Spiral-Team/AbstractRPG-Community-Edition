@@ -29,17 +29,17 @@ public class ToxicNuke extends EntityThrowable {
 
     public ToxicNuke(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
+        this.weaponstack = new ItemStack(Items.TOXIC_NUCLEAR_CANNON);
     }
 
     public ToxicNuke(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
+        this.weaponstack = new ItemStack(Items.TOXIC_NUCLEAR_CANNON);
     }
 
     public ToxicNuke(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.TOXIC_NUCLEAR_CANNON);
+        this.weaponstack = new ItemStack(Items.TOXIC_NUCLEAR_CANNON);
     }
 
     public ToxicNuke(World world, EntityLivingBase thrower, ItemStack itemstack) {

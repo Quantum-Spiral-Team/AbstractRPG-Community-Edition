@@ -33,19 +33,19 @@ public class ViolenceShoot extends EntityThrowable {
 
     public ViolenceShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.VIOLENCE);
+        this.weaponstack = new ItemStack(Items.VIOLENCE);
         this.directionRand = new Random(this.getEntityId());
     }
 
     public ViolenceShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.VIOLENCE);
+        this.weaponstack = new ItemStack(Items.VIOLENCE);
         this.directionRand = new Random(this.getEntityId());
     }
 
     public ViolenceShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.VIOLENCE);
+        this.weaponstack = new ItemStack(Items.VIOLENCE);
         this.directionRand = new Random(this.getEntityId());
     }
 

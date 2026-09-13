@@ -1,10 +1,7 @@
 package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.EntityVampireKnife;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.FindAmmo;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
+import com.vivern.arpg.main.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -68,8 +65,8 @@ public class VampireKnifes extends Item {
                     player.addStat(StatList.getObjectUseStats(this));
                 }
 
-                if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && FindAmmo.find(player.inventory, ItemsRegister.VAMPIRE_KNIFE) >= 20) {
-                    player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.VAMPIRE_KNIFE, 20).getItem(), -1, 20, null);
+                if (itemstack.getItemDamage() > itemIn.getMaxDamage() - 1 && FindAmmo.find(player.inventory, Items.VAMPIRE_KNIFE) >= 20) {
+                    player.inventory.clearMatchingItems(new ItemStack(Items.VAMPIRE_KNIFE, 20).getItem(), -1, 20, null);
                     itemstack.setItemDamage(0);
                     player.getCooldownTracker().setCooldown(this, 45 - EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.RELOADING, itemstack) * 5);
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.vampireknifes, SoundCategory.NEUTRAL, 0.7F, 1.0F);

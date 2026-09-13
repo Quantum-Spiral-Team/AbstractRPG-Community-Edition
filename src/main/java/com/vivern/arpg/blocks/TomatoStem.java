@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -42,7 +42,7 @@ public class TomatoStem extends PlantWithStages {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote && player.getHeldItem(hand).isEmpty() && state.getValue(AGE) == 4) {
-            spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.CHERRY_TOMATO));
+            spawnAsEntity(worldIn, pos, new ItemStack(Items.CHERRY_TOMATO));
             worldIn.playSound(null, pos, Sounds.fruit_pickup, SoundCategory.BLOCKS, 0.6F, 0.9F + RANDOM.nextFloat() / 5.0F);
             worldIn.setBlockState(pos, state.withProperty(AGE, RANDOM.nextFloat() < 0.75F ? 2 : 3));
             return true;

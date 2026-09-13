@@ -2,7 +2,7 @@ package com.vivern.arpg.items;
 
 import com.vivern.arpg.entity.FishingHook;
 import com.vivern.arpg.loot.Fishing;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.block.Block;
@@ -105,7 +105,7 @@ public class ItemFishingRod extends Item {
                     if (!world.isRemote) {
                         List<Block> allowedLiquids = new ArrayList<>();
                         allowedLiquids.add(Blocks.WATER);
-                        FishingHook bolt = new FishingHook(world, player, (ItemFishingRod) ItemsRegister.FISHING_ROD, itemstack, allowedLiquids, Fishing.getBait(NBTHelper.GetNBTitemFromString(itemstack, "bait")));
+                        FishingHook bolt = new FishingHook(world, player, (ItemFishingRod) Items.FISHING_ROD, itemstack, allowedLiquids, Fishing.getBait(NBTHelper.GetNBTitemFromString(itemstack, "bait")));
                         bolt.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, usetime * 0.0375F, 1.4F);
                         world.spawnEntity(bolt);
                     }

@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.items.SoulStone;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.tileentity.TileSoulCatcher;
 import net.minecraft.block.Block;
@@ -55,7 +55,7 @@ public class BlockSoulCatcher extends Block {
             TileSoulCatcher tile = this.getTileEntity(worldIn, pos);
             ItemStack stack = player.getHeldItem(hand);
             if (tile != null) {
-                if (stack.getItem() == ItemsRegister.SOUL_STONE && SoulStone.getSoul(stack) == 0 && tile.isEmpty()) {
+                if (stack.getItem() == Items.SOUL_STONE && SoulStone.getSoul(stack) == 0 && tile.isEmpty()) {
                     tile.setInventorySlotContents(0, stack.splitStack(1));
                     worldIn.playSound(null, pos, Sounds.item_misc_d, SoundCategory.PLAYERS, 0.5F, 0.7F + RANDOM.nextFloat() / 5.0F);
                     return true;

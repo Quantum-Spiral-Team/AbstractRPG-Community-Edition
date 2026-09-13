@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.google.common.base.Predicate;
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.tileentity.TileVoidCrystal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -116,7 +116,7 @@ public class VoidCrystal extends BlockSpawner {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return ItemsRegister.VOID_CRYSTAL;
+        return Items.VOID_CRYSTAL;
     }
 
     @Override

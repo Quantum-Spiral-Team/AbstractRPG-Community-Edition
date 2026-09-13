@@ -1,6 +1,6 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -20,7 +20,7 @@ public class Moonshroom extends AbstractMob {
         this.hurtSound = Sounds.moonshroom_hurt;
         this.deathSound = Sounds.moonshroom_dead;
         this.setattributes(28.0, 20.0, 1.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-        this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.MOONSHROOM_MEAT, 1.0F, 0, 1, 2, 3), new MobDrop(ItemsRegister.YEAST, 0.05F, 0, 1, 3, 5), new MobDrop(ItemsRegister.WHEY_STARTER, 0.05F, 0, 1, 3, 5)});
+        this.registerLOOT(new MobDrop[]{new MobDrop(Items.MOONSHROOM_MEAT, 1.0F, 0, 1, 2, 3), new MobDrop(Items.YEAST, 0.05F, 0, 1, 3, 5), new MobDrop(Items.WHEY_STARTER, 0.05F, 0, 1, 3, 5)});
         this.setNoGravity(true);
         this.experienceValue = 4;
         this.canDropLoot = true;

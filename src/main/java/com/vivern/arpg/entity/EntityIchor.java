@@ -27,17 +27,17 @@ public class EntityIchor extends StandardBullet {
 
     public EntityIchor(World world) {
         super(world);
-        this.weaponStack = new ItemStack(ItemsRegister.ICHOR_SHOWER);
+        this.weaponStack = new ItemStack(Items.ICHOR_SHOWER);
     }
 
     public EntityIchor(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponStack = new ItemStack(ItemsRegister.ICHOR_SHOWER);
+        this.weaponStack = new ItemStack(Items.ICHOR_SHOWER);
     }
 
     public EntityIchor(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponStack = new ItemStack(ItemsRegister.ICHOR_SHOWER);
+        this.weaponStack = new ItemStack(Items.ICHOR_SHOWER);
     }
 
     public EntityIchor(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

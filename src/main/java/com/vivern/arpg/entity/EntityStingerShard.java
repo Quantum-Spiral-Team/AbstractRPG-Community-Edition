@@ -32,7 +32,7 @@ public class EntityStingerShard extends EntityThrowable {
         this.ssx = 0.02F;
         this.ssy = 0.02F;
         this.ssz = 0.02F;
-        this.weaponstack = new ItemStack(ItemsRegister.STINGER);
+        this.weaponstack = new ItemStack(Items.STINGER);
     }
 
     public EntityStingerShard(World world, EntityLivingBase thrower, double ssx, double ssy, double ssz, StingerBoltEntity bolt) {
@@ -49,7 +49,7 @@ public class EntityStingerShard extends EntityThrowable {
         this.ssx = 0.02F;
         this.ssy = 0.02F;
         this.ssz = 0.02F;
-        this.weaponstack = new ItemStack(ItemsRegister.STINGER);
+        this.weaponstack = new ItemStack(Items.STINGER);
     }
 
     public EntityStingerShard(World world, EntityLivingBase thrower) {
@@ -57,7 +57,7 @@ public class EntityStingerShard extends EntityThrowable {
         this.ssx = 0.02F;
         this.ssy = 0.02F;
         this.ssz = 0.02F;
-        this.weaponstack = new ItemStack(ItemsRegister.STINGER);
+        this.weaponstack = new ItemStack(Items.STINGER);
     }
 
     @Override

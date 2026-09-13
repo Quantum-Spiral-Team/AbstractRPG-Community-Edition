@@ -31,7 +31,7 @@ public class LordOfPainSpike extends EntityThrowable implements INailer {
 
     public LordOfPainSpike(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.LAVA_DROPPER);
+        this.weaponstack = new ItemStack(Items.LAVA_DROPPER);
         this.setSize(0.8F, 0.8F);
         this.rotation = this.rand.nextInt(360);
         this.ignoreFrustumCheck = true;
@@ -39,7 +39,7 @@ public class LordOfPainSpike extends EntityThrowable implements INailer {
 
     public LordOfPainSpike(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.LAVA_DROPPER);
+        this.weaponstack = new ItemStack(Items.LAVA_DROPPER);
         this.setSize(0.8F, 0.8F);
         this.rotation = this.rand.nextInt(360);
         this.ignoreFrustumCheck = true;
@@ -47,7 +47,7 @@ public class LordOfPainSpike extends EntityThrowable implements INailer {
 
     public LordOfPainSpike(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.LAVA_DROPPER);
+        this.weaponstack = new ItemStack(Items.LAVA_DROPPER);
         this.setSize(0.8F, 0.8F);
         this.rotation = this.rand.nextInt(360);
         this.ignoreFrustumCheck = true;

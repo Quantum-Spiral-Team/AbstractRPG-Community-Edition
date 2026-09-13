@@ -78,7 +78,7 @@ public class Submachine extends ItemWeapon {
                 int might = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.MIGHT, itemstack);
                 this.decreaseReload(itemstack, player);
                 boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(Items.EXP);
                 NBTHelper.GiveNBTint(itemstack, 0, "heat");
                 int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
                 EnumHand hand = click && player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (click2 && player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
@@ -96,7 +96,7 @@ public class Submachine extends ItemWeapon {
                             }
 
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.submachine_shoot, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
-                            player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getCooldownTime(itemstack));
+                            player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : Items.EXP, this.getCooldownTime(itemstack));
                             player.addStat(StatList.getObjectUseStats(this));
                             IWeapon.fireBomEffect(this, player, world, 0);
                             Weapons.setPlayerAnimationOnServer(player, 5, hand);
@@ -158,7 +158,7 @@ public class Submachine extends ItemWeapon {
                             Vec3d shootPoint = Weapons.getPlayerShootPoint(player, hand);
                             IWeapon.fireEffect(this, player, world, 64.0, shootPoint.x, shootPoint.y, shootPoint.z, vec.x, vec.y, vec.z, c, dustState == null ? -1.0 : Block.getStateId(dustState), collidesWithAny ? (isFired ? 3 : 2) : (isFired ? 1 : 0));
                         }
-                    } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.SUBMACHINE_CLIP, maxammo, true)) {
+                    } else if (this.initiateBulletReload(itemstack, player, Items.SUBMACHINE_CLIP, maxammo, true)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.pistol_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                         Weapons.setPlayerAnimationOnServer(player, 6, hand);
                     }

@@ -2,7 +2,7 @@ package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.items.ItemFishingRod;
 import com.vivern.arpg.loot.Fishing;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -80,7 +80,7 @@ public class FishingBait implements IRecipe {
 
     @Override
     public ItemStack getRecipeOutput() {
-        return new ItemStack(ItemsRegister.FISHING_ROD);
+        return new ItemStack(Items.FISHING_ROD);
     }
 
 }

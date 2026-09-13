@@ -39,17 +39,17 @@ public class EntityThrowedReaper extends EntityThrowable {
 
     public EntityThrowedReaper(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.REAPER);
+        this.weaponstack = new ItemStack(Items.REAPER);
     }
 
     public EntityThrowedReaper(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.REAPER);
+        this.weaponstack = new ItemStack(Items.REAPER);
     }
 
     public EntityThrowedReaper(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.REAPER);
+        this.weaponstack = new ItemStack(Items.REAPER);
     }
 
     public EntityThrowedReaper(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -125,8 +125,8 @@ public class EntityThrowedReaper extends EntityThrowable {
                 for (EntityLivingBase entitylivingbase : list) {
                     if (entitylivingbase == this.getThrower() && this.getThrower() instanceof EntityPlayer) {
                         EntityPlayer player = (EntityPlayer) this.getThrower();
-                        if (this.weaponstack.getItem() == ItemsRegister.REAPER) {
-                            player.getCooldownTracker().setCooldown(this.weaponstack.getItem(), ((IWeapon) ItemsRegister.REAPER).getCooldownTime(this.weaponstack));
+                        if (this.weaponstack.getItem() == Items.REAPER) {
+                            player.getCooldownTracker().setCooldown(this.weaponstack.getItem(), ((IWeapon) Items.REAPER).getCooldownTime(this.weaponstack));
                             NBTHelper.SetNBTboolean(this.weaponstack, false, "throwed");
                         }
 

@@ -104,7 +104,7 @@ public class CrystalCutter extends ItemWeapon {
                                 NBTHelper.GiveNBTint(itemstack, 0, "prevanimation");
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYSTAL_CUTTER_AMMO, maxammo)) {
+                    } else if (this.initiateReload(itemstack, player, Items.CRYSTAL_CUTTER_AMMO, maxammo)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.crystal_cutter_rel, SoundCategory.NEUTRAL, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                         NBTHelper.SetNBTint(itemstack, 0, "animation");

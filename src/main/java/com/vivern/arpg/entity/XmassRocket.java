@@ -32,17 +32,17 @@ public class XmassRocket extends EntityThrowable implements ISynchronizedEntity 
 
     public XmassRocket(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.XMASS_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.XMASS_LAUNCHER);
     }
 
     public XmassRocket(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.XMASS_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.XMASS_LAUNCHER);
     }
 
     public XmassRocket(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.XMASS_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.XMASS_LAUNCHER);
     }
 
     public XmassRocket(World world, EntityLivingBase thrower, ItemStack itemstack) {

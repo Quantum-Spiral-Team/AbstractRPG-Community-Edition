@@ -1,6 +1,6 @@
 package com.vivern.arpg.tileentity;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.network.PacketHandler;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,7 @@ public class TileVial extends TileEntity {
 
         for (int i = 0; i < 4; i++) {
             if (this.vials[i] == null) {
-                boolean emptyvial = stack.getItem() == ItemsRegister.VIAL_EMPTY;
+                boolean emptyvial = stack.getItem() == Items.VIAL_EMPTY;
                 ShardType shardType = ShardType.byId(stack.getMetadata());
                 if (shardType == null && !emptyvial) {
                     return false;

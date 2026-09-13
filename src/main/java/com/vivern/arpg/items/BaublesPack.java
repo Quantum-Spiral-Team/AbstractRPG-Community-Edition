@@ -47,7 +47,6 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -344,7 +343,7 @@ public class BaublesPack {
 
         @Override
         public void onWornTick(ItemStack itemstack, EntityLivingBase entityIn) {
-            if (!entityIn.world.isRemote && (entityIn.getHeldItemMainhand().getItem() == Items.TOTEM_OF_UNDYING || entityIn.getHeldItemOffhand().getItem() == Items.TOTEM_OF_UNDYING)) {
+            if (!entityIn.world.isRemote && (entityIn.getHeldItemMainhand().getItem() == net.minecraft.init.Items.TOTEM_OF_UNDYING || entityIn.getHeldItemOffhand().getItem() == net.minecraft.init.Items.TOTEM_OF_UNDYING)) {
                 entityIn.entityDropItem(itemstack.copy(), 0.0F);
                 itemstack.shrink(1);
             }
@@ -360,7 +359,7 @@ public class BaublesPack {
                     stack.shrink(1);
                     if (player instanceof EntityPlayerMP) {
                         EntityPlayerMP entityplayermp = (EntityPlayerMP) player;
-                        entityplayermp.addStat(StatList.getObjectUseStats(Items.TOTEM_OF_UNDYING));
+                        entityplayermp.addStat(StatList.getObjectUseStats(net.minecraft.init.Items.TOTEM_OF_UNDYING));
                         CriteriaTriggers.USED_TOTEM.trigger(entityplayermp, copy);
                     }
 
@@ -777,7 +776,7 @@ public class BaublesPack {
 
         @Override
         public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-            return repair.getItem() == ItemsRegister.GAS_FILTER;
+            return repair.getItem() == Items.GAS_FILTER;
         }
 
         @Override

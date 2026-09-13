@@ -130,7 +130,7 @@ public class Bilebiter extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.BILEBITER_SPHERE, maxammo)) {
+                    } else if (this.initiateReload(itemstack, player, Items.BILEBITER_SPHERE, maxammo)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.bb_reloading, SoundCategory.NEUTRAL, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     }

@@ -30,17 +30,17 @@ public class PlasmaRifleBall extends EntityThrowable implements RenderModule.IRe
 
     public PlasmaRifleBall(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RIFLE);
+        this.weaponstack = new ItemStack(Items.PLASMA_RIFLE);
     }
 
     public PlasmaRifleBall(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RIFLE);
+        this.weaponstack = new ItemStack(Items.PLASMA_RIFLE);
     }
 
     public PlasmaRifleBall(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.PLASMA_RIFLE);
+        this.weaponstack = new ItemStack(Items.PLASMA_RIFLE);
     }
 
     public PlasmaRifleBall(World world, EntityLivingBase thrower, ItemStack itemstack) {

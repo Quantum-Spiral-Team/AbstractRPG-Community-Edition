@@ -67,7 +67,7 @@ public class PistolFish extends ItemWeapon {
                 int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
                 this.decreaseReload(itemstack, player);
                 boolean hascooldown = player.getCooldownTracker().hasCooldown(itemIn);
-                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(Items.EXP);
                 int ammo = NBTHelper.GetNBTint(itemstack, "ammo");
                 EnumHand hand = click && player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (click2 && player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
                 WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
@@ -75,7 +75,7 @@ public class PistolFish extends ItemWeapon {
                     if (ammo > 0 && this.isReloaded(itemstack)) {
                         if ((!hascooldown || hand != EnumHand.MAIN_HAND) && (!hascooldown2 || hand != EnumHand.OFF_HAND)) {
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.pistol_fish, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
-                            player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getCooldownTime(itemstack));
+                            player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : Items.EXP, this.getCooldownTime(itemstack));
                             player.addStat(StatList.getObjectUseStats(this));
                             IWeapon.fireBomEffect(this, player, world, 0);
                             Weapons.setPlayerAnimationOnServer(player, 5, hand);
@@ -117,7 +117,7 @@ public class PistolFish extends ItemWeapon {
                                 }
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.FISH_FEED, maxammo)) {
+                    } else if (this.initiateReload(itemstack, player, Items.FISH_FEED, maxammo)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.pistol_fish_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, hand);
                     }

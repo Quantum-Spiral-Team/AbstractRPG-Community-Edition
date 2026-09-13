@@ -2,7 +2,7 @@ package com.vivern.arpg.items.armor;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -18,7 +18,7 @@ public abstract class AbstractArmor extends ItemArmor {
     public int enchantability;
 
     public AbstractArmor(EntityEquipmentSlot slot, String name, int maxdamage, int enchantability) {
-        super(ItemsRegister.NULL_MATERIAL, 0, slot);
+        super(Items.NULL_MATERIAL, 0, slot);
         this.setRegistryName(name);
         this.setTranslationKey(name);
         this.setMaxDamage(maxdamage);

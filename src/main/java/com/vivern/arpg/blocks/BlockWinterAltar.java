@@ -86,7 +86,7 @@ public class BlockWinterAltar extends BlockBlockHard {
             }
         }
 
-        return player.getHeldItemMainhand().getItem() != ItemsRegister.VIAL;
+        return player.getHeldItemMainhand().getItem() != Items.VIAL;
     }
 
     public static void trySendPacketUpdate(World world, BlockPos pos, TileNexusWinterAltar tile) {

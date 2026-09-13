@@ -23,17 +23,17 @@ public class SharkRocket extends EntityThrowable {
 
     public SharkRocket(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.SHARK_CANNON);
+        this.weaponstack = new ItemStack(Items.SHARK_CANNON);
     }
 
     public SharkRocket(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.SHARK_CANNON);
+        this.weaponstack = new ItemStack(Items.SHARK_CANNON);
     }
 
     public SharkRocket(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.SHARK_CANNON);
+        this.weaponstack = new ItemStack(Items.SHARK_CANNON);
     }
 
     public SharkRocket(World world, EntityLivingBase thrower, ItemStack itemstack) {

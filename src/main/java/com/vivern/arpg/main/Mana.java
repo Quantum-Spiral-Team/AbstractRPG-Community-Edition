@@ -299,22 +299,22 @@ public class Mana {
     }
 
     public static float getRadiationProtectionOfArmor(Item armor) {
-        if (armor == ItemsRegister.HAZARD_HELM) {
+        if (armor == Items.HAZARD_HELM) {
             return 0.16F;
-        } else if (armor == ItemsRegister.HAZARD_CHEST) {
+        } else if (armor == Items.HAZARD_CHEST) {
             return 0.2F;
-        } else if (armor == ItemsRegister.HAZARD_LEGS) {
+        } else if (armor == Items.HAZARD_LEGS) {
             return 0.18F;
-        } else if (armor == ItemsRegister.HAZARD_BOOTS) {
+        } else if (armor == Items.HAZARD_BOOTS) {
             return 0.16F;
-        } else if (armor == ItemsRegister.TOXINIUM_HELM) {
+        } else if (armor == Items.TOXINIUM_HELM) {
             return 0.13F;
-        } else if (armor == ItemsRegister.TOXINIUM_CHEST) {
+        } else if (armor == Items.TOXINIUM_CHEST) {
             return 0.18F;
-        } else if (armor == ItemsRegister.TOXINIUM_LEGS) {
+        } else if (armor == Items.TOXINIUM_LEGS) {
             return 0.16F;
         } else {
-            return armor == ItemsRegister.TOXINIUM_BOOTS ? 0.13F : 0.0F;
+            return armor == Items.TOXINIUM_BOOTS ? 0.13F : 0.0F;
         }
     }
 
@@ -335,7 +335,7 @@ public class Mana {
             }
 
             IBaublesItemHandler baublesh = BaublesApi.getBaublesHandler(player);
-            if (baublesh != null && baublesh.getStackInSlot(5).getItem() == ItemsRegister.ANTI_RAD_PACK) {
+            if (baublesh != null && baublesh.getStackInSlot(5).getItem() == Items.ANTI_RAD_PACK) {
                 radProtection += 0.25F;
             }
 

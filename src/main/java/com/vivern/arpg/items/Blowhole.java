@@ -101,7 +101,7 @@ public class Blowhole extends ItemWeapon {
                                 Weapons.setPlayerAnimationOnServer(player, anotherHandEmpty ? 11 : 10, hand);
                                 world.playSound(null, player.posX, player.posY, player.posZ, Sounds.blowhole_loop, SoundCategory.NEUTRAL, 0.6F, 0.9F + itemRand.nextFloat() / 5.0F);
                             }
-                        } else if (this.initiateReload(itemstack, player, ItemsRegister.BLOWHOLE_PELLETS, maxammo)) {
+                        } else if (this.initiateReload(itemstack, player, Items.BLOWHOLE_PELLETS, maxammo)) {
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.blowhole_rel, SoundCategory.NEUTRAL, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                             Weapons.setPlayerAnimationOnServer(player, 4, hand);
                             NBTHelper.SetNBTint(itemstack, 0, "charge");

@@ -223,7 +223,7 @@ public class PlasmaMinigun extends ItemWeapon implements IEnergyItem {
                                     IWeapon.fireEffect(this, player, world, 64.0, shootPoint.x, shootPoint.y, shootPoint.z, vec.x, vec.y, vec.z, c, dustState == null ? -1.0 : Block.getStateId(dustState), collidesWithAny ? turretMult : -turretMult);
                                 }
                             }
-                        } else if (deploy <= 0.0F && this.initiateBulletReload(itemstack, player, ItemsRegister.PLASMA_MINIGUN_CLIP, maxammo, true)) {
+                        } else if (deploy <= 0.0F && this.initiateBulletReload(itemstack, player, Items.PLASMA_MINIGUN_CLIP, maxammo, true)) {
                             world.playSound(null, player.posX, player.posY, player.posZ, Sounds.plasma_railgun_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                             Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                         }

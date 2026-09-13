@@ -20,17 +20,17 @@ public class EntityVampireKnife extends EntityThrowable {
 
     public EntityVampireKnife(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.VAMPIRE_KNIFES);
+        this.weaponstack = new ItemStack(Items.VAMPIRE_KNIFES);
     }
 
     public EntityVampireKnife(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.VAMPIRE_KNIFES);
+        this.weaponstack = new ItemStack(Items.VAMPIRE_KNIFES);
     }
 
     public EntityVampireKnife(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.VAMPIRE_KNIFES);
+        this.weaponstack = new ItemStack(Items.VAMPIRE_KNIFES);
     }
 
     public EntityVampireKnife(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -83,7 +83,7 @@ public class EntityVampireKnife extends EntityThrowable {
                     }
 
                     if (this.rand.nextFloat() < 0.7 + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack) * 0.14F) {
-                        this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.VAMPIRE_KNIFE, 1)));
+                        this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(Items.VAMPIRE_KNIFE, 1)));
                     }
 
                     this.world.setEntityState(this, (byte) 5);
@@ -91,7 +91,7 @@ public class EntityVampireKnife extends EntityThrowable {
                 }
             } else if (this.world.getBlockState(result.getBlockPos()).getBlock().getCollisionBoundingBox(this.world.getBlockState(result.getBlockPos()), this.world, result.getBlockPos()) != null && !this.world.isRemote) {
                 if (this.rand.nextFloat() < 0.7 + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack) * 0.14F) {
-                    this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(ItemsRegister.VAMPIRE_KNIFE, 1)));
+                    this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(Items.VAMPIRE_KNIFE, 1)));
                 }
 
                 this.world.setEntityState(this, (byte) 5);

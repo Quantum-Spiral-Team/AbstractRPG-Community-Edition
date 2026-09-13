@@ -53,14 +53,14 @@ public class SnowflakeShuriken extends ItemWeapon {
                 EnumHand hand = null;
                 if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY) && player.getHeldItemMainhand() == stack && !player.getCooldownTracker().hasCooldown(this)) {
                     hand = EnumHand.MAIN_HAND;
-                } else if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && player.getHeldItemOffhand() == stack && !player.getCooldownTracker().hasCooldown(ItemsRegister.EXP)) {
+                } else if (ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY) && player.getHeldItemOffhand() == stack && !player.getCooldownTracker().hasCooldown(Items.EXP)) {
                     hand = EnumHand.OFF_HAND;
                 }
 
                 if (hand != null) {
                     WeaponParameters parameters = WeaponParameters.getWeaponParameters(this);
                     Weapons.setPlayerAnimationOnServer(player, 1, hand);
-                    player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, this.getCooldownTime(stack));
+                    player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : Items.EXP, this.getCooldownTime(stack));
                     player.addStat(StatList.getObjectUseStats(this));
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.swosh_a, SoundCategory.AMBIENT, 0.8F, 0.9F + itemRand.nextFloat() / 5.0F);
                     EntitySnowflakeShuriken projectile = new EntitySnowflakeShuriken(world, player, stack);

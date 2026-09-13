@@ -3,7 +3,7 @@ package com.vivern.arpg.tileentity;
 import com.vivern.arpg.blocks.Retort;
 import com.vivern.arpg.items.Beaker;
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.network.PacketHandler;
@@ -178,9 +178,9 @@ public class TileRetort extends TileEntity implements ITickable, ITileEntitySync
 
                 for (int i = 0; i < tileVial.vials.length; i++) {
                     ItemStack itemstack = tileVial.vials[i];
-                    if (itemstack != null && !itemstack.isEmpty() && itemstack.getItem() == ItemsRegister.VIAL_EMPTY && GetMOP.approximatelyEqual(tileVial.positions[i][0], 8, 1) && GetMOP.approximatelyEqual(tileVial.positions[i][1], 8, 1)) {
+                    if (itemstack != null && !itemstack.isEmpty() && itemstack.getItem() == Items.VIAL_EMPTY && GetMOP.approximatelyEqual(tileVial.positions[i][0], 8, 1) && GetMOP.approximatelyEqual(tileVial.positions[i][1], 8, 1)) {
                         tileVial.removeVialItem(i);
-                        tileVial.addNewVialItem(new ItemStack(ItemsRegister.VIAL, 1, this.fluid.elements[0]), tileVial.positions[i][0], tileVial.positions[i][1], tileVial.rotations[i]);
+                        tileVial.addNewVialItem(new ItemStack(Items.VIAL, 1, this.fluid.elements[0]), tileVial.positions[i][0], tileVial.positions[i][1], tileVial.rotations[i]);
                         this.fluid = new Beaker.BeakerFluid(8);
                         PacketHandler.trySendPacketUpdate(this.world, this.getPos(), this, 64.0);
                         return;

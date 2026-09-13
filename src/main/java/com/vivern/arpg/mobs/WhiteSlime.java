@@ -1,6 +1,6 @@
 package com.vivern.arpg.mobs;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -31,7 +31,7 @@ public class WhiteSlime extends AbstractMob {
         this.hurtSound = SoundEvents.BLOCK_SLIME_STEP;
         this.deathSound = Sounds.slime_dead;
         this.setattributes(10.0, 14.0, 3.0, 0.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-        this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.WHITE_SLIMEBALL, 0.7F, 0, 1, 2, 2), new MobDrop(ItemsRegister.SLIME_EATER, 0.03F, 0, 1, 1, 0)});
+        this.registerLOOT(new MobDrop[]{new MobDrop(Items.WHITE_SLIMEBALL, 0.7F, 0, 1, 2, 2), new MobDrop(Items.SLIME_EATER, 0.03F, 0, 1, 1, 0)});
         this.leadershipBase = 1;
         this.setDropMoney(-2, 2, 0.9F);
         this.experienceValue = 2;
@@ -47,7 +47,7 @@ public class WhiteSlime extends AbstractMob {
         if (this.owner == null) {
             if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityCreeper) {
                 int count = 3 + this.rand.nextInt(13);
-                ItemStack stack = new ItemStack(ItemsRegister.SLIMY_EGGS, count, 0);
+                ItemStack stack = new ItemStack(Items.SLIMY_EGGS, count, 0);
                 this.entityDropItem(stack, 0.0F);
             } else {
                 super.dropLoot(wasRecentlyHit, lootingModifier, source);

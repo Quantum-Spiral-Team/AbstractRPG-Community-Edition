@@ -1,7 +1,7 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.entity.EntityLivingBase;
@@ -69,7 +69,7 @@ public class EntityArrowVicious extends AbstractArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemsRegister.ARROW_VICIOUS);
+        return new ItemStack(Items.ARROW_VICIOUS);
     }
 
     @Override

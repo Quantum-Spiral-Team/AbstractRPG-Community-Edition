@@ -1,7 +1,7 @@
 package com.vivern.arpg.items.armor;
 
 import com.google.common.collect.Multimap;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.potions.PotionEffects;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.model.ModelBiped;
@@ -56,7 +56,7 @@ public class FireLordHelm extends ItemArmor {
         if (entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entityIn;
             World world = player.getEntityWorld();
-            if (player.inventory.armorInventory.get(3).getItem() == ItemsRegister.FIRE_LORD_HELM && player.inventory.armorInventory.get(2).getItem() == ItemsRegister.FIRE_LORD_CHEST && player.inventory.armorInventory.get(1).getItem() == ItemsRegister.FIRE_LORD_LEGS && player.inventory.armorInventory.get(0).getItem() == ItemsRegister.FIRE_LORD_BOOTS) {
+            if (player.inventory.armorInventory.get(3).getItem() == Items.FIRE_LORD_HELM && player.inventory.armorInventory.get(2).getItem() == Items.FIRE_LORD_CHEST && player.inventory.armorInventory.get(1).getItem() == Items.FIRE_LORD_LEGS && player.inventory.armorInventory.get(0).getItem() == Items.FIRE_LORD_BOOTS) {
                 player.extinguish();
                 if (player.ticksExisted % 60 == 0 && player.getHealth() < player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getAttributeValue() / 2.0) {
                     PotionEffect baff = new PotionEffect(PotionEffects.FIRE_AURA, 70);

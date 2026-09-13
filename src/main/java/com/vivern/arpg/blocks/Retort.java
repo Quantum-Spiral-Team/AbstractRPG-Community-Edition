@@ -1,6 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.tileentity.IManaBuffer;
 import com.vivern.arpg.tileentity.TileRetort;
 import net.minecraft.block.Block;
@@ -57,7 +57,7 @@ public class Retort extends Block {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack stack = playerIn.getHeldItem(hand);
-        if (stack.getItem() == ItemsRegister.BEAKER) {
+        if (stack.getItem() == Items.BEAKER) {
             TileEntity tileEntity = world.getTileEntity(pos);
             if (tileEntity != null && tileEntity instanceof TileRetort) {
                 ((TileRetort) tileEntity).onPlayerUseBeaker(stack, playerIn);

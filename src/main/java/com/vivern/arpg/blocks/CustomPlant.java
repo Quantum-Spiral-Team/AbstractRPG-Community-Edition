@@ -4,8 +4,7 @@ import com.vivern.arpg.AbstractRPG;
 import com.vivern.arpg.items.CustomPlantSeed;
 import com.vivern.arpg.items.CustomPlantSeedEatable;
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.CreateItemFile;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
@@ -30,7 +29,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
@@ -90,7 +88,7 @@ public class CustomPlant extends Block implements IGrowable, IShearable {
         plant.seed = seed;
 //        CreateItemFile.customPlantResLocationCreate(plant, modelType); DEBUG method
         BlocksRegister.FOR_RENDER.add(plant);
-        ItemsRegister.FOR_RENDER.add(seed);
+        Items.FOR_RENDER.add(seed);
         return plant;
     }
 

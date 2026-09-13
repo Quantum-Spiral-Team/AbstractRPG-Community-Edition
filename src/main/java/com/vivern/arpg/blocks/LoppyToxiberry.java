@@ -1,7 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -43,7 +43,7 @@ public class LoppyToxiberry extends Block implements IShearable {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return ItemsRegister.GLOWING_TOXIBERRY;
+        return Items.GLOWING_TOXIBERRY;
     }
 
     public boolean isBerry(Block block) {

@@ -224,7 +224,7 @@ public class CryoDestroyer extends ItemWeapon {
                                 }
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.CRYOGEN_CELL, maxammo, ItemsRegister.EMPTY_CELL)) {
+                    } else if (this.initiateReload(itemstack, player, Items.CRYOGEN_CELL, maxammo, Items.EMPTY_CELL)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.cryo_destroyer_rel, SoundCategory.AMBIENT, 0.7F, 1.0F);
                         Weapons.setPlayerAnimationOnServer(player, 43, EnumHand.MAIN_HAND);
                         IWeapon.sendIWeaponState(itemstack, player, 3, itemSlot, EnumHand.MAIN_HAND);

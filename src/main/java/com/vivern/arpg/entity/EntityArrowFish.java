@@ -1,7 +1,7 @@
 package com.vivern.arpg.entity;
 
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.SuperKnockback;
 import net.minecraft.block.material.Material;
@@ -103,7 +103,7 @@ public class EntityArrowFish extends AbstractArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemsRegister.ARROW_FISH);
+        return new ItemStack(Items.ARROW_FISH);
     }
 
     @Override

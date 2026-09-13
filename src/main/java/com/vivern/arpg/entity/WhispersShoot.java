@@ -37,19 +37,19 @@ public class WhispersShoot extends EntityThrowable implements ISynchronizedEntit
 
     public WhispersShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.WHISPERS_BLADE);
+        this.weaponstack = new ItemStack(Items.WHISPERS_BLADE);
         this.setSize(0.1F, 0.1F);
     }
 
     public WhispersShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.WHISPERS_BLADE);
+        this.weaponstack = new ItemStack(Items.WHISPERS_BLADE);
         this.setSize(0.1F, 0.1F);
     }
 
     public WhispersShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.WHISPERS_BLADE);
+        this.weaponstack = new ItemStack(Items.WHISPERS_BLADE);
         this.setSize(0.1F, 0.1F);
     }
 

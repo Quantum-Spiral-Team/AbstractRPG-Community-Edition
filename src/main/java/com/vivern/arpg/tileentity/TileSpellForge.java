@@ -94,7 +94,7 @@ public class TileSpellForge extends TileEntityLockableLoot implements IMagicVisi
 
     @Override
     public float getElementEnergy(ShardType shardType) {
-        return Minecraft.getMinecraft().player != null && Minecraft.getMinecraft().player.getHeldItemMainhand().getItem() == ItemsRegister.SPELL_ROLL ? 0.0F : this.elementsCollected[shardType.id - 1];
+        return Minecraft.getMinecraft().player != null && Minecraft.getMinecraft().player.getHeldItemMainhand().getItem() == Items.SPELL_ROLL ? 0.0F : this.elementsCollected[shardType.id - 1];
     }
 
     @Override

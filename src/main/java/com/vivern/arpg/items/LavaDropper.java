@@ -54,7 +54,7 @@ public class LavaDropper extends ItemWeapon {
                 boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
                 int acc = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ACCURACY, itemstack);
                 boolean hascooldown = player.getCooldownTracker().hasCooldown(this);
-                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(ItemsRegister.EXP);
+                boolean hascooldown2 = player.getCooldownTracker().hasCooldown(Items.EXP);
                 float power = Mana.getMagicPowerMax(player);
                 float mana = Mana.getMana(player);
                 int sor = EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SORCERY, itemstack);
@@ -78,7 +78,7 @@ public class LavaDropper extends ItemWeapon {
 
                 if (click2 && player.getHeldItemOffhand() == itemstack && mana > manacost && !hascooldown2) {
                     world.playSound(null, player.posX, player.posY, player.posZ, Sounds.lava_dropper, SoundCategory.AMBIENT, 0.9F, 0.9F + itemRand.nextFloat() / 5.0F);
-                    player.getCooldownTracker().setCooldown(ItemsRegister.EXP, this.getCooldownTime(itemstack));
+                    player.getCooldownTracker().setCooldown(Items.EXP, this.getCooldownTime(itemstack));
                     player.addStat(StatList.getObjectUseStats(this));
                     Weapons.setPlayerAnimationOnServer(player, 1, EnumHand.OFF_HAND);
                     if (!player.capabilities.isCreativeMode) {

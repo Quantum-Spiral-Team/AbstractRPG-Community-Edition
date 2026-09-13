@@ -30,17 +30,17 @@ public class EntityFrostBolt extends EntityThrowable {
 
     public EntityFrostBolt(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.FROST_BOLT_STAFF);
+        this.weaponstack = new ItemStack(Items.FROST_BOLT_STAFF);
     }
 
     public EntityFrostBolt(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.FROST_BOLT_STAFF);
+        this.weaponstack = new ItemStack(Items.FROST_BOLT_STAFF);
     }
 
     public EntityFrostBolt(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.FROST_BOLT_STAFF);
+        this.weaponstack = new ItemStack(Items.FROST_BOLT_STAFF);
     }
 
     public EntityFrostBolt(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.entity.EntityCubicParticle;
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.ParticleFastSummon;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.renders.ParticleTracker;
@@ -11,7 +11,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -70,15 +69,15 @@ public class BlockSpawner extends BlockBlock implements IBlockHardBreak {
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         if (this == BlocksRegister.FROZEN_SPAWNER) {
-            return ItemsRegister.FROZEN_SPAWNER_PIECE;
+            return Items.FROZEN_SPAWNER_PIECE;
         } else if (this == BlocksRegister.RUSTED_SPAWNER) {
-            return ItemsRegister.RUSTED_SPAWNER_PIECE;
+            return Items.RUSTED_SPAWNER_PIECE;
         } else if (this == BlocksRegister.ANCIENT_SPAWNER) {
-            return ItemsRegister.ANCIENT_SPAWNER_PIECE;
+            return Items.ANCIENT_SPAWNER_PIECE;
         } else if (this == BlocksRegister.AQUATIC_SPAWNER) {
-            return ItemsRegister.AQUATIC_SPAWNER_PIECE;
+            return Items.AQUATIC_SPAWNER_PIECE;
         } else {
-            return this == BlocksRegister.STORM_SPAWNER ? ItemsRegister.STORM_SPAWNER_PIECE : Items.AIR;
+            return this == BlocksRegister.STORM_SPAWNER ? Items.STORM_SPAWNER_PIECE : net.minecraft.init.Items.AIR;
         }
     }
 

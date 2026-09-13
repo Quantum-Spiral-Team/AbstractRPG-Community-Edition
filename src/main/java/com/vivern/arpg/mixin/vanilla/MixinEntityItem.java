@@ -1,12 +1,11 @@
 package com.vivern.arpg.mixin.vanilla;
 
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,9 +38,9 @@ public abstract class MixinEntityItem {
         if (!world.isRemote && !((EntityItem) (Object) this).isDead) {
             Item item = getItem().getItem();
             BlockPos pos = ((EntityItem) (Object) this).getPosition();
-            if (item != Items.ENCHANTED_BOOK || !source.isFireDamage() && !source.isExplosion() && source != DamageSource.LIGHTNING_BOLT) {
-                if (item != ItemsRegister.MAGIC_POWDER || !source.isFireDamage() && !source.isExplosion() && source != DamageSource.LIGHTNING_BOLT) {
-                    if ((item == ItemsRegister.RHINESTONE || item == ItemsRegister.TOPAZ || item == ItemsRegister.AMETHYST || item == ItemsRegister.CITRINE || item == ItemsRegister.RUBY || item == ItemsRegister.SAPPHIRE || item == Items.DIAMOND || item == Items.EMERALD) && source.isFireDamage()) {
+            if (item != net.minecraft.init.Items.ENCHANTED_BOOK || !source.isFireDamage() && !source.isExplosion() && source != DamageSource.LIGHTNING_BOLT) {
+                if (item != Items.MAGIC_POWDER || !source.isFireDamage() && !source.isExplosion() && source != DamageSource.LIGHTNING_BOLT) {
+                    if ((item == Items.RHINESTONE || item == Items.TOPAZ || item == Items.AMETHYST || item == Items.CITRINE || item == Items.RUBY || item == Items.SAPPHIRE || item == net.minecraft.init.Items.DIAMOND || item == net.minecraft.init.Items.EMERALD) && source.isFireDamage()) {
                         Block block = world.getBlockState(pos).getBlock();
                         if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
                             arpg$checkGemsparkIngridients(world, pos);
@@ -64,7 +63,7 @@ public abstract class MixinEntityItem {
 
                 world.playSound(null, pos, Sounds.burn, SoundCategory.BLOCKS, 0.8F, 0.9F + world.rand.nextFloat() / 5.0F);
                 ((EntityItem) (Object) this).setDead();
-                EntityItem dust = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ItemsRegister.MAGIC_POWDER));
+                EntityItem dust = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Items.MAGIC_POWDER));
                 dust.setFire(4);
                 world.spawnEntity(dust);
             }
@@ -88,47 +87,47 @@ public abstract class MixinEntityItem {
         if (!list.isEmpty()) {
             for (EntityItem eitem : list) {
                 Item gem = eitem.getItem().getItem();
-                if (rhinestone && gem == ItemsRegister.RHINESTONE) {
+                if (rhinestone && gem == Items.RHINESTONE) {
                     rhinestone = false;
                     count++;
                 }
 
-                if (amethyst && gem == ItemsRegister.AMETHYST) {
+                if (amethyst && gem == Items.AMETHYST) {
                     amethyst = false;
                     count++;
                 }
 
-                if (topaz && gem == ItemsRegister.TOPAZ) {
+                if (topaz && gem == Items.TOPAZ) {
                     topaz = false;
                     count++;
                 }
 
-                if (ruby && gem == ItemsRegister.RUBY) {
+                if (ruby && gem == Items.RUBY) {
                     ruby = false;
                     count++;
                 }
 
-                if (sapphire && gem == ItemsRegister.SAPPHIRE) {
+                if (sapphire && gem == Items.SAPPHIRE) {
                     sapphire = false;
                     count++;
                 }
 
-                if (citrine && gem == ItemsRegister.CITRINE) {
+                if (citrine && gem == Items.CITRINE) {
                     citrine = false;
                     count++;
                 }
 
-                if (emerald && gem == Items.EMERALD) {
+                if (emerald && gem == net.minecraft.init.Items.EMERALD) {
                     emerald = false;
                     count++;
                 }
 
-                if (diamond && gem == Items.DIAMOND) {
+                if (diamond && gem == net.minecraft.init.Items.DIAMOND) {
                     diamond = false;
                     count++;
                 }
 
-                if (gem == ItemsRegister.MAGIC_POWDER) {
+                if (gem == Items.MAGIC_POWDER) {
                     haspowder = true;
                 }
             }

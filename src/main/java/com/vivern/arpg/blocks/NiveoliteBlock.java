@@ -2,7 +2,7 @@ package com.vivern.arpg.blocks;
 
 import com.google.common.base.Predicate;
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
@@ -54,13 +54,13 @@ public class NiveoliteBlock extends Block implements IBlockHardBreak {
         if (drop) {
             worldIn.destroyBlock(pos, false);
             if (RANDOM.nextFloat() < 0.5) {
-                spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.NIVEOLITE));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.NIVEOLITE));
                 if (RANDOM.nextFloat() < 0.85) {
-                    spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.NIVEOLITE));
+                    spawnAsEntity(worldIn, pos, new ItemStack(Items.NIVEOLITE));
                 }
 
                 if (RANDOM.nextFloat() < 0.3) {
-                    spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.NIVEOLITE));
+                    spawnAsEntity(worldIn, pos, new ItemStack(Items.NIVEOLITE));
                 }
             } else {
                 spawnAsEntity(worldIn, pos, new ItemStack(Item.getItemFromBlock(this)));

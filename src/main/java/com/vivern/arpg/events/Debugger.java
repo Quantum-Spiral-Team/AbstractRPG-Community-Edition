@@ -2,7 +2,7 @@ package com.vivern.arpg.events;
 
 import com.vivern.arpg.items.SoulStone;
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.OreDicHelper;
 import com.vivern.arpg.util.math.Vec4f;
 import net.minecraft.block.Block;
@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -154,7 +153,7 @@ public class Debugger {
                 }
             }
         } else if (item.getRegistryName().getNamespace().equals("minecraft")) {
-            Field[] fields = Items.class.getFields();
+            Field[] fields = net.minecraft.init.Items.class.getFields();
 
             for (Field field : fields) {
                 if (field.get(null) == item) {
@@ -166,7 +165,7 @@ public class Debugger {
                 return null;
             }
 
-            Field[] fields = ItemsRegister.class.getFields();
+            Field[] fields = Items.class.getFields();
 
             for (Field field : fields) {
                 if (field.get(null) == item) {

@@ -55,7 +55,7 @@ public class BossAbomination extends AbstractBoss implements ISynchronizedEntity
         this.stepSound = SoundEvents.BLOCK_SLIME_STEP;
         this.defaultteam = "toxic";
         this.setattributes(1250.0, 64.0, 10.0, 0.4, 5.0, 3.0, 0.75, 0.2, 0.0, 0.55);
-        this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.BLACK_GOO, 1.0F, 0, 8, 12, 0), new MobDrop(ItemsRegister.TOXIC_WINGS, 0.25F, 0, 1, 1, 0), new MobDrop(ItemsRegister.DETOXICATOR, 0.25F, 0, 1, 1, 0), new MobDrop(ItemsRegister.PAINFUL_ROOT, 0.25F, 0, 1, 1, 0)});
+        this.registerLOOT(new MobDrop[]{new MobDrop(Items.BLACK_GOO, 1.0F, 0, 8, 12, 0), new MobDrop(Items.TOXIC_WINGS, 0.25F, 0, 1, 1, 0), new MobDrop(Items.DETOXICATOR, 0.25F, 0, 1, 1, 0), new MobDrop(Items.PAINFUL_ROOT, 0.25F, 0, 1, 1, 0)});
         this.setDropMoney(150, 200, 1.0F);
         this.experienceValue = 500;
     }

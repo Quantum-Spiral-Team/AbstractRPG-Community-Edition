@@ -3,7 +3,7 @@ package com.vivern.arpg.tileentity;
 import com.vivern.arpg.blocks.SacrificialAltar;
 import com.vivern.arpg.items.SoulStone;
 import com.vivern.arpg.main.IMagicUI;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.ShardType;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.recipes.Soul;
@@ -39,7 +39,7 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
         if (this.ticksExisted % 10 == 0) {
             if (this.charge < 1.0F) {
                 ItemStack soulstone = this.stack.get(0);
-                if (!soulstone.isEmpty() && soulstone.getItem() == ItemsRegister.SOUL_STONE) {
+                if (!soulstone.isEmpty() && soulstone.getItem() == Items.SOUL_STONE) {
                     int soulid = SoulStone.getSoul(soulstone);
                     if (soulid > 0) {
                         Soul soul = Soul.byId(soulid);
@@ -56,7 +56,7 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
 
                 if (this.charge <= 1.0F) {
                     this.charge = 0.0F;
-                    this.setInventorySlotContents(0, new ItemStack(ItemsRegister.SOUL_STONE));
+                    this.setInventorySlotContents(0, new ItemStack(Items.SOUL_STONE));
                 }
             }
         }
@@ -173,7 +173,7 @@ public class TileSacrificialAltar extends TileEntity implements IManaBuffer, ITi
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return stack.getItem() == ItemsRegister.SOUL_STONE;
+        return stack.getItem() == Items.SOUL_STONE;
     }
 
     @Override

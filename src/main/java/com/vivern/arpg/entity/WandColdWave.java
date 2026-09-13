@@ -41,19 +41,19 @@ public class WandColdWave extends EntityThrowable implements ISynchronizedEntity
 
     public WandColdWave(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
+        this.weaponstack = new ItemStack(Items.WAND_OF_COLD);
         this.setSize(0.1F, 0.1F);
     }
 
     public WandColdWave(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
+        this.weaponstack = new ItemStack(Items.WAND_OF_COLD);
         this.setSize(0.1F, 0.1F);
     }
 
     public WandColdWave(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.WAND_OF_COLD);
+        this.weaponstack = new ItemStack(Items.WAND_OF_COLD);
         this.setSize(0.1F, 0.1F);
     }
 

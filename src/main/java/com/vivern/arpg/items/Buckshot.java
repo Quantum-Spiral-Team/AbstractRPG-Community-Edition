@@ -1,6 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -21,7 +21,7 @@ public class Buckshot extends Item {
     }
 
     public static ItemStack getBuckshotStack(String bullet, int amount) {
-        ItemStack stack = new ItemStack(ItemsRegister.BUCKSHOT, amount);
+        ItemStack stack = new ItemStack(Items.BUCKSHOT, amount);
         NBTHelper.GiveNBTstring(stack, bullet, "bullet");
         NBTHelper.SetNBTstring(stack, bullet, "bullet");
         NBTHelper.SetNBTstring(stack, bullet, "bullet");

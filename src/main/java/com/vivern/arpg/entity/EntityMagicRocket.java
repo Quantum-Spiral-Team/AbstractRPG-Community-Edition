@@ -37,17 +37,17 @@ public class EntityMagicRocket extends EntityThrowable implements ISynchronizedE
 
     public EntityMagicRocket(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.MAGIC_ROCKET);
+        this.weaponstack = new ItemStack(Items.MAGIC_ROCKET);
     }
 
     public EntityMagicRocket(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.MAGIC_ROCKET);
+        this.weaponstack = new ItemStack(Items.MAGIC_ROCKET);
     }
 
     public EntityMagicRocket(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.MAGIC_ROCKET);
+        this.weaponstack = new ItemStack(Items.MAGIC_ROCKET);
     }
 
     public EntityMagicRocket(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

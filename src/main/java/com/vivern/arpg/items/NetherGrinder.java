@@ -96,7 +96,7 @@ public class NetherGrinder extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.NETHER_GRINDER_AMMO, maxammo, true)) {
+                    } else if (this.initiateBulletReload(itemstack, player, Items.NETHER_GRINDER_AMMO, maxammo, true)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.nether_grinder_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 20.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     }

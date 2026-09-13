@@ -38,7 +38,7 @@ public class StingingCellEntity extends EntityThrowable {
     public StingingCellEntity(World world) {
         super(world);
         this.setSize(0.35F, 0.35F);
-        this.weaponstack = new ItemStack(ItemsRegister.STINGING_CELL);
+        this.weaponstack = new ItemStack(Items.STINGING_CELL);
         this.moveX = (this.rand.nextFloat() - 0.5F) / 100.0F;
         this.moveY = (this.rand.nextFloat() - 0.5F) / 100.0F;
         this.moveZ = (this.rand.nextFloat() - 0.5F) / 100.0F;
@@ -47,7 +47,7 @@ public class StingingCellEntity extends EntityThrowable {
     public StingingCellEntity(World world, EntityLivingBase thrower) {
         super(world, thrower);
         this.setSize(0.35F, 0.35F);
-        this.weaponstack = new ItemStack(ItemsRegister.STINGING_CELL);
+        this.weaponstack = new ItemStack(Items.STINGING_CELL);
         this.moveX = (this.rand.nextFloat() - 0.5F) / 100.0F;
         this.moveY = (this.rand.nextFloat() - 0.5F) / 100.0F;
         this.moveZ = (this.rand.nextFloat() - 0.5F) / 100.0F;
@@ -56,7 +56,7 @@ public class StingingCellEntity extends EntityThrowable {
     public StingingCellEntity(World world, double x, double y, double z) {
         super(world, x, y, z);
         this.setSize(0.35F, 0.35F);
-        this.weaponstack = new ItemStack(ItemsRegister.STINGING_CELL);
+        this.weaponstack = new ItemStack(Items.STINGING_CELL);
         this.moveX = (this.rand.nextFloat() - 0.5F) / 100.0F;
         this.moveY = (this.rand.nextFloat() - 0.5F) / 100.0F;
         this.moveZ = (this.rand.nextFloat() - 0.5F) / 100.0F;

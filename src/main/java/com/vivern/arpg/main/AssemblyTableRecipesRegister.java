@@ -76,7 +76,7 @@ public class AssemblyTableRecipesRegister {
     }
 
     public static void register() {
-        Item it = ItemsRegister.LEAD_ACID_BATTERY;
+        Item it = Items.LEAD_ACID_BATTERY;
         int bulletCT = 20;
         craftTimeMultiplier = 1.5F;
         addRecipe(new Ingridient.IngridientItem("arpg:bullet_lead", 64, 0, false), 2000, new Ingridient.IngridientItem("arpg:bullet_lead", 32, 0, false), bulletCT, EM, EM, EM, EM, new Ingridient.IngridientItem("ingotLead", 1), EM, EM, new Ingridient.IngridientItem("gunpowder", 2), EM);

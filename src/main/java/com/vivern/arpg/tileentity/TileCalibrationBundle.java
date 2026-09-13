@@ -1,7 +1,7 @@
 package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.items.ItemCalibrationThing;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Spell;
 import com.vivern.arpg.network.PacketHandler;
@@ -227,7 +227,7 @@ public class TileCalibrationBundle extends TileEntity implements ISpellcastListe
             if (itm instanceof ItemCalibrationThing) {
                 this.item = (ItemCalibrationThing) itm;
             } else {
-                this.item = (ItemCalibrationThing) ItemsRegister.CALIBRATION_CRYSTAL_ATTRACT_SMALL;
+                this.item = (ItemCalibrationThing) Items.CALIBRATION_CRYSTAL_ATTRACT_SMALL;
             }
 
             if (compound.hasKey("allPoses")) {

@@ -35,17 +35,17 @@ public class EntityElectricBolt extends EntityThrowable implements ISynchronized
 
     public EntityElectricBolt(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.ELECTROSTATIC);
+        this.weaponstack = new ItemStack(Items.ELECTROSTATIC);
     }
 
     public EntityElectricBolt(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.ELECTROSTATIC);
+        this.weaponstack = new ItemStack(Items.ELECTROSTATIC);
     }
 
     public EntityElectricBolt(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.ELECTROSTATIC);
+        this.weaponstack = new ItemStack(Items.ELECTROSTATIC);
     }
 
     public EntityElectricBolt(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

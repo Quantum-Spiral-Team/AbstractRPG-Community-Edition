@@ -2,10 +2,9 @@ package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.items.GemStaff;
 import com.vivern.arpg.items.SoulStone;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.OreDicHelper;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,15 +51,15 @@ public abstract class Ingridient {
         if (itemStack != null && !itemStack.isEmpty()) {
             Item item = itemStack.getItem();
             int count = itemStack.getCount();
-            if (item == ItemsRegister.SLIME_PLASTIC) {
+            if (item == Items.SLIME_PLASTIC) {
                 return new IngridientItem(OreDicHelper.PLASTIC, count);
-            } else if (item == ItemsRegister.PLASTIC) {
+            } else if (item == Items.PLASTIC) {
                 return new IngridientItem(OreDicHelper.PLASTICADVANCED, count);
-            } else if (item == ItemsRegister.RUBBER) {
+            } else if (item == Items.RUBBER) {
                 return new IngridientItem(OreDicHelper.RUBBER2, count);
-            } else if (item == ItemsRegister.SOUL_STONE) {
+            } else if (item == Items.SOUL_STONE) {
                 return new IngridientSoulStone(SoulStone.getSoul(itemStack));
-            } else if (item == ItemsRegister.GEM_STAFF) {
+            } else if (item == Items.GEM_STAFF) {
                 return new IngridientGemStaff(NBTHelper.GetNBTint(itemStack, "type"));
             } else {
                 List<String> orenames = OreDicHelper.getOreNames(itemStack);
@@ -120,7 +119,7 @@ public abstract class Ingridient {
         @Override
         public ItemStack createStack() {
             Fluid fluid = FluidRegistry.getFluid(this.fluidName);
-            return fluid == null ? new ItemStack(Items.BUCKET) : FluidUtil.getFilledBucket(new FluidStack(fluid, this.mbAmount));
+            return fluid == null ? new ItemStack(net.minecraft.init.Items.BUCKET) : FluidUtil.getFilledBucket(new FluidStack(fluid, this.mbAmount));
         }
 
         @Override
@@ -145,7 +144,7 @@ public abstract class Ingridient {
 
         @Override
         public boolean isStackAllowed(ItemStack itemStack) {
-            return itemStack.getItem() == ItemsRegister.GEM_STAFF && NBTHelper.GetNBTint(itemStack, "type") == this.gem;
+            return itemStack.getItem() == Items.GEM_STAFF && NBTHelper.GetNBTint(itemStack, "type") == this.gem;
         }
 
         @Override
@@ -298,7 +297,7 @@ public abstract class Ingridient {
 
         @Override
         public boolean isStackAllowed(ItemStack itemStack) {
-            return itemStack.getItem() == ItemsRegister.SOUL_STONE && SoulStone.getSoul(itemStack) == this.soul;
+            return itemStack.getItem() == Items.SOUL_STONE && SoulStone.getSoul(itemStack) == this.soul;
         }
 
         @Override

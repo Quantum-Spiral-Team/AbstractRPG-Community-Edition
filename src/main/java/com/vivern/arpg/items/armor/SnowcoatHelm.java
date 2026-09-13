@@ -3,7 +3,7 @@ package com.vivern.arpg.items.armor;
 import com.google.common.collect.Multimap;
 import com.vivern.arpg.items.models.BoneArmorModel;
 import com.vivern.arpg.items.models.SnowcoatArmorModel;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.OreDicHelper;
 import com.vivern.arpg.main.PropertiesRegistry;
@@ -197,7 +197,7 @@ public class SnowcoatHelm extends AbstractArmor {
 
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 Item iitem = inv.getStackInSlot(i).getItem();
-                if (iitem == ItemsRegister.SNOW_COAT_BOOTS || iitem == ItemsRegister.SNOW_COAT_LEGS || iitem == ItemsRegister.SNOW_COAT_CHEST || iitem == ItemsRegister.SNOW_COAT_HELM) {
+                if (iitem == Items.SNOW_COAT_BOOTS || iitem == Items.SNOW_COAT_LEGS || iitem == Items.SNOW_COAT_CHEST || iitem == Items.SNOW_COAT_HELM) {
                     if (coat != null) {
                         return false;
                     }
@@ -225,7 +225,7 @@ public class SnowcoatHelm extends AbstractArmor {
 
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 Item iitem = inv.getStackInSlot(i).getItem();
-                if (iitem == ItemsRegister.SNOW_COAT_BOOTS || iitem == ItemsRegister.SNOW_COAT_LEGS || iitem == ItemsRegister.SNOW_COAT_CHEST || iitem == ItemsRegister.SNOW_COAT_HELM) {
+                if (iitem == Items.SNOW_COAT_BOOTS || iitem == Items.SNOW_COAT_LEGS || iitem == Items.SNOW_COAT_CHEST || iitem == Items.SNOW_COAT_HELM) {
                     coat = inv.getStackInSlot(i);
                 }
 

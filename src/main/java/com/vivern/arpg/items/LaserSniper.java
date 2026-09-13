@@ -96,7 +96,7 @@ public class LaserSniper extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateMetadataReload(itemstack, player, new ItemStack(ItemsRegister.ION_BATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(ItemsRegister.ION_BATTERY, 1, 0))) {
+                    } else if (this.initiateMetadataReload(itemstack, player, new ItemStack(Items.ION_BATTERY, 1, 1), this.getMaxAmmo(itemstack), new ItemStack(Items.ION_BATTERY, 1, 0))) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.lasergun_rel, SoundCategory.NEUTRAL, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     }

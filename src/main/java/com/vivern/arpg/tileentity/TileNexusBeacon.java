@@ -1,7 +1,7 @@
 package com.vivern.arpg.tileentity;
 
 import com.vivern.arpg.blocks.TideBeacon;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.mobs.AbstractMob;
 import com.vivern.arpg.mobs.AquaticaMobsPack;
 import com.vivern.arpg.recipes.Seal;
@@ -167,50 +167,50 @@ public class TileNexusBeacon extends TileNexus {
             this.sendNexusMessageToAllAround("Time: " + mins + " min " + secsadd + "sec" + ", Waves completed: " + this.WAVE + ", Mobs spawned: " + this.MOBS_SPAWNED);
             Item activ = null;
             if (this.ACTIVATOR == 1) {
-                activ = ItemsRegister.TIDE_ACTIVATOR_2;
+                activ = Items.TIDE_ACTIVATOR_2;
             }
 
             if (this.ACTIVATOR == 2) {
-                activ = ItemsRegister.TIDE_ACTIVATOR_3;
+                activ = Items.TIDE_ACTIVATOR_3;
             }
 
             if (this.ACTIVATOR == 3) {
-                activ = ItemsRegister.TIDE_ACTIVATOR_4;
+                activ = Items.TIDE_ACTIVATOR_4;
             }
 
             if (this.ACTIVATOR == 4) {
-                activ = ItemsRegister.TIDE_ACTIVATOR_5;
+                activ = Items.TIDE_ACTIVATOR_5;
             }
 
             if (activ != null) {
                 this.world.spawnEntity(new EntityItem(this.world, this.getPos().getX() + 0.5, this.getPos().getY() + 0.6, this.getPos().getZ() + 0.5, new ItemStack(activ)));
                 if (this.ACTIVATOR == 3 && this.rand.nextFloat() < 0.5F) {
-                    this.world.spawnEntity(new EntityItem(this.world, this.getPos().getX() + 0.5, this.getPos().getY() + 0.6, this.getPos().getZ() + 0.5, new ItemStack(ItemsRegister.TIDAL_HEART)));
+                    this.world.spawnEntity(new EntityItem(this.world, this.getPos().getX() + 0.5, this.getPos().getY() + 0.6, this.getPos().getZ() + 0.5, new ItemStack(Items.TIDAL_HEART)));
                 }
 
                 if (this.ACTIVATOR == 4) {
-                    this.world.spawnEntity(new EntityItem(this.world, this.getPos().getX() + 0.5, this.getPos().getY() + 0.6, this.getPos().getZ() + 0.5, new ItemStack(ItemsRegister.TIDAL_HEART)));
+                    this.world.spawnEntity(new EntityItem(this.world, this.getPos().getX() + 0.5, this.getPos().getY() + 0.6, this.getPos().getZ() + 0.5, new ItemStack(Items.TIDAL_HEART)));
                     if (this.rand.nextFloat() < 0.5F) {
-                        this.world.spawnEntity(new EntityItem(this.world, this.getPos().getX() + 0.5, this.getPos().getY() + 0.6, this.getPos().getZ() + 0.5, new ItemStack(ItemsRegister.TIDAL_HEART)));
+                        this.world.spawnEntity(new EntityItem(this.world, this.getPos().getX() + 0.5, this.getPos().getY() + 0.6, this.getPos().getZ() + 0.5, new ItemStack(Items.TIDAL_HEART)));
                     }
                 }
             }
         } else {
             Item activx = null;
             if (this.ACTIVATOR == 1) {
-                activx = ItemsRegister.TIDE_ACTIVATOR_1;
+                activx = Items.TIDE_ACTIVATOR_1;
             }
 
             if (this.ACTIVATOR == 2) {
-                activx = ItemsRegister.TIDE_ACTIVATOR_2;
+                activx = Items.TIDE_ACTIVATOR_2;
             }
 
             if (this.ACTIVATOR == 3) {
-                activx = ItemsRegister.TIDE_ACTIVATOR_3;
+                activx = Items.TIDE_ACTIVATOR_3;
             }
 
             if (this.ACTIVATOR == 4) {
-                activx = ItemsRegister.TIDE_ACTIVATOR_4;
+                activx = Items.TIDE_ACTIVATOR_4;
             }
 
             if (activx != null) {

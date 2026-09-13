@@ -1,6 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -33,7 +33,7 @@ public class ItemShell extends Item {
     }
 
     public static ItemStack getRandomSeashell(Random rand) {
-        ItemStack stack = new ItemStack(ItemsRegister.SEASHELL);
+        ItemStack stack = new ItemStack(Items.SEASHELL);
         int type = rand.nextInt(5);
 
         while (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("type")) {

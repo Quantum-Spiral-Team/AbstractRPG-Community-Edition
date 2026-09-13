@@ -2,7 +2,7 @@ package com.vivern.arpg.entity;
 
 import com.google.common.base.Predicate;
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
@@ -223,11 +223,11 @@ public class EntityHangingAllSides extends EntityHanging implements ISynchronize
 
             if (this.type == 1) {
                 if (this.rand.nextFloat() < 0.33F) {
-                    this.entityDropItem(new ItemStack(ItemsRegister.PEARL), offsetY);
+                    this.entityDropItem(new ItemStack(Items.PEARL), offsetY);
                 }
 
                 if (this.rand.nextFloat() < 0.066F) {
-                    this.entityDropItem(new ItemStack(ItemsRegister.BLACK_PEARL), offsetY);
+                    this.entityDropItem(new ItemStack(Items.BLACK_PEARL), offsetY);
                 }
             }
         }

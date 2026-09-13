@@ -39,17 +39,17 @@ public class GemStaffShoot extends EntityThrowable implements IRenderOptions {
 
     public GemStaffShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.GEM_STAFF);
+        this.weaponstack = new ItemStack(Items.GEM_STAFF);
     }
 
     public GemStaffShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.GEM_STAFF);
+        this.weaponstack = new ItemStack(Items.GEM_STAFF);
     }
 
     public GemStaffShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.GEM_STAFF);
+        this.weaponstack = new ItemStack(Items.GEM_STAFF);
     }
 
     public GemStaffShoot(World world, EntityLivingBase thrower, ItemStack itemstack, float power) {

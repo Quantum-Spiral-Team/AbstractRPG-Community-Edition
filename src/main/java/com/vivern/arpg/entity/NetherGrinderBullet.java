@@ -31,17 +31,17 @@ public class NetherGrinderBullet extends StandardBullet implements IRepulsable, 
 
     public NetherGrinderBullet(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
+        this.weaponstack = new ItemStack(Items.NETHER_GRINDER);
     }
 
     public NetherGrinderBullet(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
+        this.weaponstack = new ItemStack(Items.NETHER_GRINDER);
     }
 
     public NetherGrinderBullet(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.NETHER_GRINDER);
+        this.weaponstack = new ItemStack(Items.NETHER_GRINDER);
     }
 
     public NetherGrinderBullet(World world, EntityLivingBase thrower, ItemStack itemstack) {

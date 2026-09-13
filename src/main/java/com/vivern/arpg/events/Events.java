@@ -4,7 +4,7 @@ import baubles.api.BaublesApi;
 import com.vivern.arpg.Reference;
 import com.vivern.arpg.items.armor.IItemDamaging;
 import com.vivern.arpg.items.armor.IItemHurted;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.Mana;
 import com.vivern.arpg.main.PropertiesRegistry;
 import com.vivern.arpg.main.ServerKeyTracker;
@@ -39,9 +39,9 @@ public class Events {
     public static void blockDrop(HarvestDropsEvent event) {
         Block block = event.getState().getBlock();
         if (block == Blocks.MOB_SPAWNER && RANDOM.nextFloat() < 0.75F) {
-            event.getDrops().add(new ItemStack(ItemsRegister.SPAWNER_PIECE));
+            event.getDrops().add(new ItemStack(Items.SPAWNER_PIECE));
             if (RANDOM.nextFloat() < 0.2F) {
-                event.getDrops().add(new ItemStack(ItemsRegister.SPAWNER_PIECE));
+                event.getDrops().add(new ItemStack(Items.SPAWNER_PIECE));
             }
         }
     }
@@ -57,7 +57,7 @@ public class Events {
             if (source == DamageSource.FALL) {
                 IInventory inv = BaublesApi.getBaubles(player);
                 ItemStack stack = inv.getStackInSlot(6);
-                if (stack.getItem() == ItemsRegister.ETHER_SIGN && stack.getItemDamage() < 2000) {
+                if (stack.getItem() == Items.ETHER_SIGN && stack.getItemDamage() < 2000) {
                     event.setCanceled(true);
                     stack.damageItem(1, player);
                     return;

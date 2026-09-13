@@ -503,25 +503,25 @@ public class BlocksRegister {
     public static final Block TEAM_BANNER = new BlockTeamBanner();
 
     public static void setupAfterItems() {
-        ((BlockOre) DEMONITE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.DEMONITE, 5), new OreDrop(0, 3, ItemsRegister.DEMONITE_SHARD, 7));
-        ((BlockOre) ICE_ORE_GLACIER).setOreDrops(new OreDrop(1, 1, ItemsRegister.ICE_GEM, 7));
-        ((BlockOre) ICE_ORE_SNOW_ICE).setOreDrops(new OreDrop(1, 1, ItemsRegister.ICE_GEM, 7));
-        ((BlockOre) RUBY_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.RUBY, 0));
-        ((BlockOre) SAPPHIRE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.SAPPHIRE, 0));
-        ((BlockOre) CITRINE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.CITRINE, 0));
-        ((BlockOre) TOPAZ_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.TOPAZ, 0));
-        ((BlockOre) AMETHYST_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.AMETHYST, 0));
-        ((BlockOre) RHINESTONE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.RHINESTONE, 0));
-        ((BlockOre) BAUXITE).setOreDrops(new OreDrop(2, 4, ItemsRegister.BAUXITE, 1));
-        ((BlockOre) SALT_ORE).setOreDrops(new OreDrop(1, 3, ItemsRegister.SALT, 1));
+        ((BlockOre) DEMONITE_ORE).setOreDrops(new OreDrop(1, 1, Items.DEMONITE, 5), new OreDrop(0, 3, Items.DEMONITE_SHARD, 7));
+        ((BlockOre) ICE_ORE_GLACIER).setOreDrops(new OreDrop(1, 1, Items.ICE_GEM, 7));
+        ((BlockOre) ICE_ORE_SNOW_ICE).setOreDrops(new OreDrop(1, 1, Items.ICE_GEM, 7));
+        ((BlockOre) RUBY_ORE).setOreDrops(new OreDrop(1, 1, Items.RUBY, 0));
+        ((BlockOre) SAPPHIRE_ORE).setOreDrops(new OreDrop(1, 1, Items.SAPPHIRE, 0));
+        ((BlockOre) CITRINE_ORE).setOreDrops(new OreDrop(1, 1, Items.CITRINE, 0));
+        ((BlockOre) TOPAZ_ORE).setOreDrops(new OreDrop(1, 1, Items.TOPAZ, 0));
+        ((BlockOre) AMETHYST_ORE).setOreDrops(new OreDrop(1, 1, Items.AMETHYST, 0));
+        ((BlockOre) RHINESTONE_ORE).setOreDrops(new OreDrop(1, 1, Items.RHINESTONE, 0));
+        ((BlockOre) BAUXITE).setOreDrops(new OreDrop(2, 4, Items.BAUXITE, 1));
+        ((BlockOre) SALT_ORE).setOreDrops(new OreDrop(1, 3, Items.SALT, 1));
         ((BlockBlock) RADIOACTIVE_STONE).setItemDropped("arpg:radioactive_cobblestone");
         ((BlockBlock) STROMATOLITE).setItemDropped("arpg:chalkrock");
-        ((BlockOre.BlockOreHard) LEPIDOLITE_ORE).setOreDrops(new OreDrop(1, 1, ItemsRegister.LEPIDOLITE, 7));
-        ((BlockOre.BlockOreHard) CORAL_ORANGE).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
-        ((BlockOre.BlockOreHard) CORAL_WHITE).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
-        ((BlockOre.BlockOreHard) CORAL_YELLOW).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
-        ((BlockOre.BlockOreHard) CORAL_RED).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
-        ((BlockOre.BlockOreHard) CORAL_PINK).setOreDrops(new OreDrop(1, 2, ItemsRegister.CORAL, 7));
+        ((BlockOre.BlockOreHard) LEPIDOLITE_ORE).setOreDrops(new OreDrop(1, 1, Items.LEPIDOLITE, 7));
+        ((BlockOre.BlockOreHard) CORAL_ORANGE).setOreDrops(new OreDrop(1, 2, Items.CORAL, 7));
+        ((BlockOre.BlockOreHard) CORAL_WHITE).setOreDrops(new OreDrop(1, 2, Items.CORAL, 7));
+        ((BlockOre.BlockOreHard) CORAL_YELLOW).setOreDrops(new OreDrop(1, 2, Items.CORAL, 7));
+        ((BlockOre.BlockOreHard) CORAL_RED).setOreDrops(new OreDrop(1, 2, Items.CORAL, 7));
+        ((BlockOre.BlockOreHard) CORAL_PINK).setOreDrops(new OreDrop(1, 2, Items.CORAL, 7));
     }
 
     public static void registerBlocks() throws IllegalArgumentException, IllegalAccessException {

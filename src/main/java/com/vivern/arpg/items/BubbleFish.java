@@ -71,7 +71,7 @@ public class BubbleFish extends ItemWeapon {
     public void onUpdate(ItemStack itemstack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
         if (world.isRemote) {
             if (itemRand.nextFloat() < 0.15F && !this.isReloaded(itemstack) && Weapons.getPlayerAnimationId(entityIn, EnumHand.MAIN_HAND) == 4) {
-                this.spawnEatParticles(world, entityIn, ItemsRegister.FISH_FEED, 4);
+                this.spawnEatParticles(world, entityIn, Items.FISH_FEED, 4);
             }
         } else {
             this.setCanShoot(itemstack, entityIn);
@@ -122,7 +122,7 @@ public class BubbleFish extends ItemWeapon {
                                 world.spawnEntity(projectile);
                             }
                         }
-                    } else if (this.initiateReload(itemstack, player, ItemsRegister.FISH_FEED, maxammo)) {
+                    } else if (this.initiateReload(itemstack, player, Items.FISH_FEED, maxammo)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.bubble_fish_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 10.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     }

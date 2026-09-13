@@ -1,9 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.NBTHelper;
-import com.vivern.arpg.main.Sounds;
+import com.vivern.arpg.main.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -95,7 +92,7 @@ public class CrystalFanBonus extends Entity {
     public void onCollideWithPlayer(EntityPlayer player) {
         if (this.ticksExisted > 15 && !player.world.isRemote) {
             ItemStack stack = player.getHeldItemMainhand();
-            if (stack.getItem() == ItemsRegister.CRYSTAL_FAN) {
+            if (stack.getItem() == Items.CRYSTAL_FAN) {
                 NBTHelper.AddNBTint(stack, 1 + EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SPECIAL, stack), "charge");
                 this.world.setEntityState(this, (byte) 0);
                 this.setDead();

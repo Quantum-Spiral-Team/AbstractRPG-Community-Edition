@@ -4,7 +4,7 @@ import com.vivern.arpg.blocks.PyrocrystallineConverter;
 import com.vivern.arpg.container.ContainerCrystallizer;
 import com.vivern.arpg.entity.EntityCubicParticle;
 import com.vivern.arpg.entity.TrailParticle;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.SuperKnockback;
 import com.vivern.arpg.network.PacketHandler;
@@ -77,7 +77,7 @@ public class TilePyrocrystallineConverter extends TileEntityLockable implements 
         if (!this.world.isRemote) {
             if (this.ticksExisted % 5 == 0) {
                 boolean sendUpd = false;
-                if (!this.getStackInSlot(3).isEmpty() && this.getStackInSlot(3).getItem() == ItemsRegister.GEOMANTIC_CRYSTAL) {
+                if (!this.getStackInSlot(3).isEmpty() && this.getStackInSlot(3).getItem() == Items.GEOMANTIC_CRYSTAL) {
                     this.melt = GeomanticFocus.getMeltFromFocus(this.getStackInSlot(3));
                 }
 

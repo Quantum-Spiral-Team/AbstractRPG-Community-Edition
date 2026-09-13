@@ -46,7 +46,7 @@ public class BossWinterFury extends AbstractBoss {
         this.defaultteam = EverfrostMobsPack.mobsTeam;
         this.setNoGravity(true);
         this.setattributes(325.0, 84.0, 10.0, 0.25, 3 + 2 * this.getMobDifficulty(), 3.0, 0.4, 0.5, 0.0, 0.2);
-        this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(ItemsRegister.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(ItemsRegister.HAIL_TEAR, 1.0F, 0, 2, 6, 2), new MobDrop(ItemsRegister.HAIL_TEAR, 1.0F, 0, 2, 6, 2), new MobDrop(ItemsRegister.HAIL_TEAR, 1.0F, 0, 2, 6, 2)});
+        this.registerLOOT(new MobDrop[]{new MobDrop(Items.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(Items.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(Items.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(Items.WINTER_SCALE, 1.0F, 0, 2, 4, 0), new MobDrop(Items.HAIL_TEAR, 1.0F, 0, 2, 6, 2), new MobDrop(Items.HAIL_TEAR, 1.0F, 0, 2, 6, 2), new MobDrop(Items.HAIL_TEAR, 1.0F, 0, 2, 6, 2)});
         this.var2 = 0.0F;
         this.var3 = 0.0F;
         this.var4 = 0.0F;

@@ -101,7 +101,7 @@ public class Charger extends ItemWeapon {
             boolean click = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
             boolean click2 = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
             EnumHand hand = player.getHeldItemMainhand() == itemstack ? EnumHand.MAIN_HAND : (player.getHeldItemOffhand() == itemstack ? EnumHand.OFF_HAND : null);
-            Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP;
+            Item cooldownItem = hand == EnumHand.MAIN_HAND ? this : Items.EXP;
             boolean b1 = true;
             if ((click && hand == EnumHand.MAIN_HAND || click2 && hand == EnumHand.OFF_HAND) && mana > manacost && !player.getCooldownTracker().hasCooldown(cooldownItem)) {
                 Vec3d vec = GetMOP.posRayTrace(parameters.getEnchantedF("distance", range), 1.0F, player, 0.08, 0.08);

@@ -24,7 +24,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -229,85 +228,85 @@ public class NPCMobsPack {
                     int profession = rand.nextInt(5);
                     if (profession == 0) {
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.CRIMBERRY_WINE), 3, 0, 0.0F));
+                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.CRIMBERRY_WINE), 3, 0, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.65) {
-                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.BISCUIT, 3 + rand.nextInt(6)), 2, 0, 0.0F));
+                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.BISCUIT, 3 + rand.nextInt(6)), 2, 0, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.65) {
-                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.CANDY_CANE, 2 + rand.nextInt(5)), 2, 0, 0.0F));
+                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.CANDY_CANE, 2 + rand.nextInt(5)), 2, 0, 0.0F));
                         }
                     } else if (profession == 1) {
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.HELLHOUND_FUR), NPCMobsPack.EM, 0, 4, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.HELLHOUND_FUR), NPCMobsPack.EM, 0, 4, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.RAW_RIBS), NPCMobsPack.EM, 0, 1, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.RAW_RIBS), NPCMobsPack.EM, 0, 1, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.HOT_SPICY_RIBS), NPCMobsPack.EM, 0, 2, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.HOT_SPICY_RIBS), NPCMobsPack.EM, 0, 2, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.5) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.LIQUID_FIRE), NPCMobsPack.EM, 0, 4, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.LIQUID_FIRE), NPCMobsPack.EM, 0, 4, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.4) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.MOLTEN_INGOT), NPCMobsPack.EM, 0, 8, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.MOLTEN_INGOT), NPCMobsPack.EM, 0, 8, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.4) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.INFERNUM_INGOT), NPCMobsPack.EM, 0, 5, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.INFERNUM_INGOT), NPCMobsPack.EM, 0, 5, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.2) {
-                            this.trades.add(new Trade(new ItemStack(Items.NETHER_STAR), NPCMobsPack.EM, 0, 40 + rand.nextInt(21), 0.0F));
+                            this.trades.add(new Trade(new ItemStack(net.minecraft.init.Items.NETHER_STAR), NPCMobsPack.EM, 0, 40 + rand.nextInt(21), 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.7) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.FIRE_EATER), NPCMobsPack.EM, 0, 4 + rand.nextInt(3), 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.FIRE_EATER), NPCMobsPack.EM, 0, 4 + rand.nextInt(3), 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.7) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.HELLHOUND_COLLAR), NPCMobsPack.EM, 0, 4 + rand.nextInt(3), 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.HELLHOUND_COLLAR), NPCMobsPack.EM, 0, 4 + rand.nextInt(3), 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.3) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.NORTHERN_INGOT, 2), new ItemStack(ItemsRegister.DEMONITE), 200 + rand.nextInt(50), 0, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.NORTHERN_INGOT, 2), new ItemStack(Items.DEMONITE), 200 + rand.nextInt(50), 0, 0.0F));
                         }
                     } else if (profession == 2) {
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.WHITE_SLIMEBALL, 4), NPCMobsPack.EM, 0, 1, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.WHITE_SLIMEBALL, 4), NPCMobsPack.EM, 0, 1, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.MOONSHROOM_MEAT), NPCMobsPack.EM, 0, 1, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.MOONSHROOM_MEAT), NPCMobsPack.EM, 0, 1, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.7) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.SLIME_EATER), NPCMobsPack.EM, 0, 4 + rand.nextInt(3), 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.SLIME_EATER), NPCMobsPack.EM, 0, 4 + rand.nextInt(3), 0.0F));
                         }
                     } else if (profession == 3) {
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.FIREWORK_LAUNCHER), 250, 0, 0.0F));
-                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.FIREWORK_PACK), 3, 0, 0.0F));
-                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.FIREWORK_DRAGON_ROCKET), 2, 0, 0.0F));
+                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.FIREWORK_LAUNCHER), 250, 0, 0.0F));
+                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.FIREWORK_PACK), 3, 0, 0.0F));
+                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.FIREWORK_DRAGON_ROCKET), 2, 0, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.SNOW_GRENADE, 4), 5, 0, 0.0F));
+                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.SNOW_GRENADE, 4), 5, 0, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.ARROW_BENGAL, 13), 9, 0, 0.0F));
+                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.ARROW_BENGAL, 13), 9, 0, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.5) {
-                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.XMASS_BUNDLE, 1), 4, 0, 0.0F));
+                            this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.XMASS_BUNDLE, 1), 4, 0, 0.0F));
                         }
                     } else if (profession == 4) {
                         if (rand.nextFloat() < 0.85) {
@@ -331,24 +330,24 @@ public class NPCMobsPack {
                         }
 
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.GOTHIC_SHOVEL), NPCMobsPack.EM, 0, 20, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.GOTHIC_SHOVEL), NPCMobsPack.EM, 0, 20, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.GOTHIC_PICKAXE), NPCMobsPack.EM, 0, 20, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.GOTHIC_PICKAXE), NPCMobsPack.EM, 0, 20, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.GOTHIC_AXE), NPCMobsPack.EM, 0, 20, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.GOTHIC_AXE), NPCMobsPack.EM, 0, 20, 0.0F));
                         }
 
                         if (rand.nextFloat() < 0.6) {
-                            this.trades.add(new Trade(new ItemStack(ItemsRegister.GOTHIC_SWORD), NPCMobsPack.EM, 0, 20, 0.0F));
+                            this.trades.add(new Trade(new ItemStack(Items.GOTHIC_SWORD), NPCMobsPack.EM, 0, 20, 0.0F));
                         }
                     }
                 } else {
                     if (rand.nextFloat() < 0.25) {
-                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.GIFT), 15, 0, 0.0F));
+                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.GIFT), 15, 0, 0.0F));
                     }
 
                     if (rand.nextFloat() < 0.17) {
@@ -567,14 +566,14 @@ public class NPCMobsPack {
 
         @Override
         public boolean processInteract(EntityPlayer player, EnumHand hand) {
-            if (!this.world.isRemote && FindAmmo.getSlotFor(player.inventory, ItemsRegister.STINGER) != -1) {
+            if (!this.world.isRemote && FindAmmo.getSlotFor(player.inventory, Items.STINGER) != -1) {
                 for (Trade trade : this.trades) {
-                    if (trade.sell != null && trade.sell[0] != null && trade.sell[0].getItem() == ItemsRegister.STINGER_BOLTS) {
+                    if (trade.sell != null && trade.sell[0] != null && trade.sell[0].getItem() == Items.STINGER_BOLTS) {
                         return super.processInteract(player, hand);
                     }
                 }
 
-                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.STINGER_BOLTS, 1), 4, 0, 0.0F));
+                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.STINGER_BOLTS, 1), 4, 0, 0.0F));
             }
 
             return super.processInteract(player, hand);
@@ -584,21 +583,21 @@ public class NPCMobsPack {
         public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
             if (!this.world.isRemote) {
                 Random rand = this.getRNG();
-                this.trades.add(new Trade(new ItemStack(Blocks.IRON_ORE), new ItemStack(Items.BREAD, 3), 0, 0, 0.0F));
-                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.IRON_PICKAXE), 10, 0, 0.0F));
+                this.trades.add(new Trade(new ItemStack(Blocks.IRON_ORE), new ItemStack(net.minecraft.init.Items.BREAD, 3), 0, 0, 0.0F));
+                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(net.minecraft.init.Items.IRON_PICKAXE), 10, 0, 0.0F));
                 this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Blocks.TORCH, 14), 1, 0, 0.0F));
-                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.GUNPOWDER, 1), 1, 0, 0.0F));
-                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.SLIME_BALL, 2), 3, 0, 0.0F));
-                this.trades.add(new Trade(new ItemStack(Items.IRON_INGOT), NPCMobsPack.EM, 0, 2, 0.0F));
-                this.trades.add(new Trade(new ItemStack(Items.GOLD_INGOT), NPCMobsPack.EM, 0, 4, 0.0F));
-                this.trades.add(new Trade(new ItemStack(Items.DIAMOND), NPCMobsPack.EM, 0, 8, 0.0F));
+                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(net.minecraft.init.Items.GUNPOWDER, 1), 1, 0, 0.0F));
+                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(net.minecraft.init.Items.SLIME_BALL, 2), 3, 0, 0.0F));
+                this.trades.add(new Trade(new ItemStack(net.minecraft.init.Items.IRON_INGOT), NPCMobsPack.EM, 0, 2, 0.0F));
+                this.trades.add(new Trade(new ItemStack(net.minecraft.init.Items.GOLD_INGOT), NPCMobsPack.EM, 0, 4, 0.0F));
+                this.trades.add(new Trade(new ItemStack(net.minecraft.init.Items.DIAMOND), NPCMobsPack.EM, 0, 8, 0.0F));
                 if (rand.nextFloat() < 0.75) {
                     if (rand.nextFloat() < 0.66) {
-                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.BULLET_LEAD, 12), 1, 0, 0.0F));
+                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.BULLET_LEAD, 12), 1, 0, 0.0F));
                     } else if (rand.nextFloat() < 0.5) {
-                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.BULLET_COPPER, 12), 1, 0, 0.0F));
+                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.BULLET_COPPER, 12), 1, 0, 0.0F));
                     } else {
-                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.BULLET_SILVER, 10), 1, 0, 0.0F));
+                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.BULLET_SILVER, 10), 1, 0, 0.0F));
                     }
                 }
 
@@ -614,16 +613,16 @@ public class NPCMobsPack {
 
                 if (rand.nextFloat() < 0.75) {
                     if (rand.nextFloat() < 0.66) {
-                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.COMMON_ROCKET, 3), 2, 0, 0.0F));
+                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.COMMON_ROCKET, 3), 2, 0, 0.0F));
                     } else if (rand.nextFloat() < 0.5) {
-                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.MINING_ROCKET, 3), 2, 0, 0.0F));
+                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.MINING_ROCKET, 3), 2, 0, 0.0F));
                     } else {
-                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.DEMOLISHING_ROCKET, 1), 2, 0, 0.0F));
+                        this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.DEMOLISHING_ROCKET, 1), 2, 0, 0.0F));
                     }
                 }
 
                 if (rand.nextFloat() < 0.4) {
-                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.ROPE_GRAPLING_HOOK), 10, 0, 0.0F));
+                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.ROPE_GRAPLING_HOOK), 10, 0, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.3) {
@@ -635,35 +634,35 @@ public class NPCMobsPack {
                 }
 
                 if (rand.nextFloat() < 0.3) {
-                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.AMETHYST), 16, 0, 0.0F));
+                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.AMETHYST), 16, 0, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.3) {
-                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.RHINESTONE), 8, 0, 0.0F));
+                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.RHINESTONE), 8, 0, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.3) {
-                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.CITRINE), 23, 0, 0.0F));
+                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.CITRINE), 23, 0, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.3) {
-                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.SAPPHIRE), 23, 0, 0.0F));
+                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.SAPPHIRE), 23, 0, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.3) {
-                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.RUBY), 23, 0, 0.0F));
+                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.RUBY), 23, 0, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.3) {
-                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.EMERALD), 23, 0, 0.0F));
+                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(net.minecraft.init.Items.EMERALD), 23, 0, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.3) {
-                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.TOPAZ), 16, 0, 0.0F));
+                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.TOPAZ), 16, 0, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.25) {
-                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.DIAMOND), 30, 0, 0.0F));
+                    this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(net.minecraft.init.Items.DIAMOND), 30, 0, 0.0F));
                 }
             }
 
@@ -990,36 +989,36 @@ public class NPCMobsPack {
         public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
             if (!this.world.isRemote) {
                 Random rand = this.getRNG();
-                this.trades.add(new Trade(new ItemStack(ItemsRegister.MAGIC_POWDER), new ItemStack(ItemsRegister.ALL_ENCHANTMENTS_BOX, 1), 4, 0, 0.0F));
-                this.trades.add(new Trade(new ItemStack(ItemsRegister.MAGIC_POWDER), new ItemStack(ItemsRegister.SIMPLE_ENCHANTMENTS_BOX, 1), 6, 0, 0.0F));
-                this.trades.add(new Trade(new ItemStack(ItemsRegister.MAGIC_POWDER, 2), new ItemStack(ItemsRegister.WEAPON_ENCHANTMENTS_BOX, 1), 10, 0, 0.0F));
-                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.MAGIC_POWDER, 1), 5, 0, 0.0F));
+                this.trades.add(new Trade(new ItemStack(Items.MAGIC_POWDER), new ItemStack(Items.ALL_ENCHANTMENTS_BOX, 1), 4, 0, 0.0F));
+                this.trades.add(new Trade(new ItemStack(Items.MAGIC_POWDER), new ItemStack(Items.SIMPLE_ENCHANTMENTS_BOX, 1), 6, 0, 0.0F));
+                this.trades.add(new Trade(new ItemStack(Items.MAGIC_POWDER, 2), new ItemStack(Items.WEAPON_ENCHANTMENTS_BOX, 1), 10, 0, 0.0F));
+                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.MAGIC_POWDER, 1), 5, 0, 0.0F));
                 if (rand.nextFloat() < 0.6) {
-                    this.trades.add(new Trade(new ItemStack(Items.EMERALD), NPCMobsPack.EM, 0, 5, 0.0F));
+                    this.trades.add(new Trade(new ItemStack(net.minecraft.init.Items.EMERALD), NPCMobsPack.EM, 0, 5, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.6) {
-                    this.trades.add(new Trade(new ItemStack(ItemsRegister.AMETHYST), NPCMobsPack.EM, 0, 3, 0.0F));
+                    this.trades.add(new Trade(new ItemStack(Items.AMETHYST), NPCMobsPack.EM, 0, 3, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.6) {
-                    this.trades.add(new Trade(new ItemStack(ItemsRegister.RHINESTONE), NPCMobsPack.EM, 0, 1, 0.0F));
+                    this.trades.add(new Trade(new ItemStack(Items.RHINESTONE), NPCMobsPack.EM, 0, 1, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.6) {
-                    this.trades.add(new Trade(new ItemStack(ItemsRegister.CITRINE), NPCMobsPack.EM, 0, 5, 0.0F));
+                    this.trades.add(new Trade(new ItemStack(Items.CITRINE), NPCMobsPack.EM, 0, 5, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.6) {
-                    this.trades.add(new Trade(new ItemStack(ItemsRegister.SAPPHIRE), NPCMobsPack.EM, 0, 5, 0.0F));
+                    this.trades.add(new Trade(new ItemStack(Items.SAPPHIRE), NPCMobsPack.EM, 0, 5, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.6) {
-                    this.trades.add(new Trade(new ItemStack(ItemsRegister.RUBY), NPCMobsPack.EM, 0, 5, 0.0F));
+                    this.trades.add(new Trade(new ItemStack(Items.RUBY), NPCMobsPack.EM, 0, 5, 0.0F));
                 }
 
                 if (rand.nextFloat() < 0.6) {
-                    this.trades.add(new Trade(new ItemStack(ItemsRegister.TOPAZ), NPCMobsPack.EM, 0, 3, 0.0F));
+                    this.trades.add(new Trade(new ItemStack(Items.TOPAZ), NPCMobsPack.EM, 0, 3, 0.0F));
                 }
             }
 
@@ -1071,7 +1070,7 @@ public class NPCMobsPack {
 
         @Override
         public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
-            if (!player.world.isRemote && this.isEnslaved && player.getHeldItemMainhand().getItem() == ItemsRegister.STORM_SPAWNER_PIECE && player.getHeldItemMainhand().getCount() >= 16) {
+            if (!player.world.isRemote && this.isEnslaved && player.getHeldItemMainhand().getItem() == Items.STORM_SPAWNER_PIECE && player.getHeldItemMainhand().getCount() >= 16) {
                 player.getHeldItemMainhand().shrink(16);
                 this.isEnslaved = false;
                 this.world.setEntityState(this, (byte) 8);
@@ -1145,13 +1144,13 @@ public class NPCMobsPack {
         public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
             if (!this.world.isRemote) {
                 Random rand = this.getRNG();
-                this.trades.add(new Trade(new ItemStack(ItemsRegister.STORM_SPAWNER_PIECE), new ItemStack(ItemsRegister.STORMBRASS_INGOT), 20, 0, 0.0F));
-                this.trades.add(new Trade(new ItemStack(ItemsRegister.STABILIZATION_CELL), new ItemStack(ItemsRegister.ANTIMATTER_CHARGE), 200, 0, 0.0F));
-                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.PHASEOLITE), 1000, 0, 0.0F));
-                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.ETHERITE_FUEL_CELL), 80, 0, 0.0F));
-                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(ItemsRegister.ETHER_SIGN), 800, 0, 0.0F));
-                this.trades.add(new Trade(new ItemStack(ItemsRegister.THUNDER_STONE), new ItemStack(ItemsRegister.SKY_CRYSTAL_PIECE, 2), 55, 0, 0.0F));
-                this.trades.add(new Trade(new ItemStack(ItemsRegister.SOLIDIFIED_LIGHTNING), new ItemStack(ItemsRegister.SKY_CRYSTAL), 55, 0, 0.0F));
+                this.trades.add(new Trade(new ItemStack(Items.STORM_SPAWNER_PIECE), new ItemStack(Items.STORMBRASS_INGOT), 20, 0, 0.0F));
+                this.trades.add(new Trade(new ItemStack(Items.STABILIZATION_CELL), new ItemStack(Items.ANTIMATTER_CHARGE), 200, 0, 0.0F));
+                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.PHASEOLITE), 1000, 0, 0.0F));
+                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.ETHERITE_FUEL_CELL), 80, 0, 0.0F));
+                this.trades.add(new Trade(NPCMobsPack.EM, new ItemStack(Items.ETHER_SIGN), 800, 0, 0.0F));
+                this.trades.add(new Trade(new ItemStack(Items.THUNDER_STONE), new ItemStack(Items.SKY_CRYSTAL_PIECE, 2), 55, 0, 0.0F));
+                this.trades.add(new Trade(new ItemStack(Items.SOLIDIFIED_LIGHTNING), new ItemStack(Items.SKY_CRYSTAL), 55, 0, 0.0F));
                 this.isEnslaved = true;
             }
 

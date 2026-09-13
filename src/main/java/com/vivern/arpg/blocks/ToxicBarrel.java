@@ -1,9 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
-import com.vivern.arpg.main.NBTHelper;
+import com.vivern.arpg.main.*;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -121,11 +118,11 @@ public class ToxicBarrel extends BlockBlockHard implements IHasSubtypes {
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         if (RANDOM.nextFloat() < 0.75F) {
-            drops.add(new ItemStack(ItemsRegister.RICH_SCRAP));
+            drops.add(new ItemStack(Items.RICH_SCRAP));
         }
 
         if (RANDOM.nextFloat() < 0.75F) {
-            drops.add(new ItemStack(ItemsRegister.SCRAP_METAL));
+            drops.add(new ItemStack(Items.SCRAP_METAL));
         }
     }
 

@@ -42,17 +42,17 @@ public class FireworkEntity extends EntityThrowable {
 
     public FireworkEntity(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.FIREWORK_LAUNCHER);
     }
 
     public FireworkEntity(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.FIREWORK_LAUNCHER);
     }
 
     public FireworkEntity(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.FIREWORK_LAUNCHER);
     }
 
     public FireworkEntity(World world, EntityLivingBase thrower, ItemStack itemstack) {

@@ -88,7 +88,7 @@ public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBaubl
             int damage = itemstack.getItemDamage();
             InventoryPlayer inventory = player.inventory;
             NonNullList<ItemStack> armorInventory = inventory.armorInventory;
-            if (armorInventory.get(1).getItem() == ItemsRegister.QUADROCOPTER_BELT) {
+            if (armorInventory.get(1).getItem() == Items.QUADROCOPTER_BELT) {
                 ItemStack quadrocopter = armorInventory.get(1);
                 int empty = inventory.getFirstEmptyStack();
                 armorInventory.set(1, ItemStack.EMPTY);
@@ -181,8 +181,8 @@ public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBaubl
                 }
             }
 
-            if (itemstack.getItemDamage() > 19999 && FindAmmo.find(player.inventory, ItemsRegister.ION_BATTERY) >= 6) {
-                player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.ION_BATTERY, 6).getItem(), -1, 6, null);
+            if (itemstack.getItemDamage() > 19999 && FindAmmo.find(player.inventory, Items.ION_BATTERY) >= 6) {
+                player.inventory.clearMatchingItems(new ItemStack(Items.ION_BATTERY, 6).getItem(), -1, 6, null);
                 itemstack.setItemDamage(0);
                 player.getCooldownTracker().setCooldown(this, 45);
                 player.world.playSound(null, player.posX, player.posY, player.posZ, Sounds.lasergun_rel, SoundCategory.NEUTRAL, 0.7F, 1.0F);
@@ -204,7 +204,7 @@ public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBaubl
     public boolean canEquip(ItemStack itemstack, EntityLivingBase living) {
         if (living instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) living;
-            return player.inventory.armorInventory.get(1).getItem() != ItemsRegister.QUADROCOPTER_BELT;
+            return player.inventory.armorInventory.get(1).getItem() != Items.QUADROCOPTER_BELT;
         }
 
         return true;
@@ -319,8 +319,8 @@ public class QuadrocopterBelt extends ItemArmor implements IBauble, IRenderBaubl
                     }
                 }
 
-                if (itemstack.getItemDamage() > 19999 && FindAmmo.find(player.inventory, ItemsRegister.ION_BATTERY) >= 6) {
-                    player.inventory.clearMatchingItems(new ItemStack(ItemsRegister.ION_BATTERY, 6).getItem(), -1, 6, null);
+                if (itemstack.getItemDamage() > 19999 && FindAmmo.find(player.inventory, Items.ION_BATTERY) >= 6) {
+                    player.inventory.clearMatchingItems(new ItemStack(Items.ION_BATTERY, 6).getItem(), -1, 6, null);
                     itemstack.setItemDamage(0);
                     player.getCooldownTracker().setCooldown(this, 45);
                     worldIn.playSound(null, player.posX, player.posY, player.posZ, Sounds.lasergun_rel, SoundCategory.NEUTRAL, 0.7F, 1.0F);

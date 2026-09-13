@@ -30,17 +30,17 @@ public class EntityHeadShooter extends EntityThrowable implements ISynchronizedE
 
     public EntityHeadShooter(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.HEAD_SHOOTER);
+        this.weaponstack = new ItemStack(Items.HEAD_SHOOTER);
     }
 
     public EntityHeadShooter(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.HEAD_SHOOTER);
+        this.weaponstack = new ItemStack(Items.HEAD_SHOOTER);
     }
 
     public EntityHeadShooter(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.HEAD_SHOOTER);
+        this.weaponstack = new ItemStack(Items.HEAD_SHOOTER);
     }
 
     public EntityHeadShooter(World world, EntityLivingBase thrower, ItemStack itemstack) {

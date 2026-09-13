@@ -35,21 +35,21 @@ public class DragonFireworkEntity extends EntityThrowable {
         super(world);
         this.fRotationPitch = 0.0F;
         this.fRotationYaw = 0.0F;
-        this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.FIREWORK_LAUNCHER);
     }
 
     public DragonFireworkEntity(World world, EntityLivingBase thrower) {
         super(world, thrower);
         this.fRotationPitch = thrower.rotationPitch;
         this.fRotationYaw = thrower.rotationYaw;
-        this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.FIREWORK_LAUNCHER);
     }
 
     public DragonFireworkEntity(World world, double x, double y, double z) {
         super(world, x, y, z);
         this.fRotationPitch = 0.0F;
         this.fRotationYaw = 0.0F;
-        this.weaponstack = new ItemStack(ItemsRegister.FIREWORK_LAUNCHER);
+        this.weaponstack = new ItemStack(Items.FIREWORK_LAUNCHER);
     }
 
     public DragonFireworkEntity(World world, EntityLivingBase thrower, ItemStack itemstack) {

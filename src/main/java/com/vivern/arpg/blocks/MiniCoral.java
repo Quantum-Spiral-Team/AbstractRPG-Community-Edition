@@ -4,7 +4,7 @@ import com.vivern.arpg.dimensions.aquatica.DimensionAquatica;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.DimensionsRegister;
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
@@ -93,7 +93,7 @@ public class MiniCoral extends Block implements IBlockHardBreak {
                 pearlsCount++;
 
             if (pearlsCount > 0) {
-                drops.add(new ItemStack(ItemsRegister.GLOWING_PEARL, pearlsCount));
+                drops.add(new ItemStack(Items.GLOWING_PEARL, pearlsCount));
             }
         }
     }
@@ -105,7 +105,7 @@ public class MiniCoral extends Block implements IBlockHardBreak {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return ItemsRegister.CORAL;
+        return Items.CORAL;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.vivern.arpg.items;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.NBTHelper;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.client.util.ITooltipFlag;
@@ -80,7 +80,7 @@ public class ItemBuckshotClip extends Item {
 
         for (int i = 0; i < 36; i++) {
             ItemStack stack = inventory.getStackInSlot(i);
-            if (stack.getItem() == ItemsRegister.BUCKSHOT) {
+            if (stack.getItem() == Items.BUCKSHOT) {
                 String name = NBTHelper.GetNBTstring(stack, "bullet");
                 if (map.containsKey(name)) {
                     int g = map.get(name);
@@ -101,7 +101,7 @@ public class ItemBuckshotClip extends Item {
     public static void removeBuckshots(InventoryPlayer inventory, String nameTo, int amount) {
         for (int i = 0; i < 36; i++) {
             ItemStack stack = inventory.getStackInSlot(i);
-            if (stack.getItem() == ItemsRegister.BUCKSHOT) {
+            if (stack.getItem() == Items.BUCKSHOT) {
                 String name = NBTHelper.GetNBTstring(stack, "bullet");
                 if (nameTo.equals(name)) {
                     int removed = Math.min(stack.getCount(), amount);

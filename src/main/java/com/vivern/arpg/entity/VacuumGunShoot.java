@@ -32,17 +32,17 @@ public class VacuumGunShoot extends StandardBullet {
 
     public VacuumGunShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.VACUUM_GUN);
+        this.weaponstack = new ItemStack(Items.VACUUM_GUN);
     }
 
     public VacuumGunShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.VACUUM_GUN);
+        this.weaponstack = new ItemStack(Items.VACUUM_GUN);
     }
 
     public VacuumGunShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.VACUUM_GUN);
+        this.weaponstack = new ItemStack(Items.VACUUM_GUN);
     }
 
     public VacuumGunShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {

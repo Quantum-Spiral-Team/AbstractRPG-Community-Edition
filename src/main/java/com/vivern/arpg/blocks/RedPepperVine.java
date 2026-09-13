@@ -1,6 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.OreDicHelper;
 import com.vivern.arpg.main.Sounds;
 import net.minecraft.block.Block;
@@ -108,7 +108,7 @@ public class RedPepperVine extends Block implements IGrowable {
                 int count = RANDOM.nextInt(3) + 1 + (RANDOM.nextFloat() < 0.25F ? 1 : 0);
 
                 for (int i = 0; i < count; i++) {
-                    spawnAsEntity(worldIn, pos, new ItemStack(ItemsRegister.REDPEPPER));
+                    spawnAsEntity(worldIn, pos, new ItemStack(Items.REDPEPPER));
                 }
 
                 worldIn.playSound(null, pos, Sounds.fruit_pickup, SoundCategory.BLOCKS, 0.6F, 0.9F + RANDOM.nextFloat() / 5.0F);
@@ -141,7 +141,7 @@ public class RedPepperVine extends Block implements IGrowable {
         drops.add(new ItemStack(this));
         if (state.getValue(FRUITAGE)) {
             int count = RANDOM.nextInt(3) + 1 + (RANDOM.nextFloat() < 0.25F ? 1 : 0);
-            drops.add(new ItemStack(ItemsRegister.REDPEPPER, count));
+            drops.add(new ItemStack(Items.REDPEPPER, count));
         }
     }
 

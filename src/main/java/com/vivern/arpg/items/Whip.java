@@ -96,7 +96,7 @@ public class Whip extends ItemWeapon {
                     keypressed = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.PRIMARY);
                 } else if (player.getHeldItemOffhand() == itemstack) {
                     hand = EnumHand.OFF_HAND;
-                    cooldown = player.getCooldownTracker().getCooldown(ItemsRegister.EXP, 0.0F);
+                    cooldown = player.getCooldownTracker().getCooldown(Items.EXP, 0.0F);
                     keypressed = ServerKeyTracker.isKeyPressed(player, ServerKeyTracker.Keys.SECONDARY);
                 }
 
@@ -115,7 +115,7 @@ public class Whip extends ItemWeapon {
                         int specAttackReady = NBTHelper.GetNBTint(itemstack, "sa_ready");
                         if (keypressed && specAttackReady == 2) {
                             Vec3d hitVec = this.specAttack(this, itemstack, player, hand);
-                            player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, 7);
+                            player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : Items.EXP, 7);
                             NBTHelper.SetNBTint(itemstack, 0, "sa_ready");
                             IWeapon.sendIWeaponState(itemstack, player, 2, itemSlot, hand);
                             Weapons.setPlayerAnimationOnServer(player, 36, hand);
@@ -130,7 +130,7 @@ public class Whip extends ItemWeapon {
                         NBTHelper.SetNBTint(itemstack, 11, "atdelay");
                         double attackspeed = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue();
                         int cooldownModified = this.getModifiedMeleeCooldown(attackspeed, this.getCooldownTime(itemstack));
-                        player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : ItemsRegister.EXP, cooldownModified);
+                        player.getCooldownTracker().setCooldown(hand == EnumHand.MAIN_HAND ? this : Items.EXP, cooldownModified);
                         IWeapon.sendIWeaponState(itemstack, player, 1, itemSlot, hand);
                         Weapons.setPlayerAnimationOnServer(player, getPlayerAnimationByCooldown(cooldownModified), hand);
                         world.playSound(null, player.posX, player.posY, player.posZ, this.soundSwosh, SoundCategory.PLAYERS, 0.85F, soundPitchSwosh + itemRand.nextFloat() / 5.0F);

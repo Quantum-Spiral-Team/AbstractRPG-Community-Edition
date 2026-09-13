@@ -7,10 +7,7 @@ import com.vivern.arpg.dimensions.generationutils.WorldGenGroundFoliage;
 import com.vivern.arpg.dimensions.generationutils.WorldGenShrubFixed;
 import com.vivern.arpg.dimensions.generationutils.WorldGenToxicBarrels;
 import com.vivern.arpg.dimensions.toxicomania.ToxicomaniaChunkGenerator;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Mana;
+import com.vivern.arpg.main.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -49,7 +46,7 @@ public class ToxicJungle extends BiomeControlled {
 
     @Override
     public void onPlayer60ticksInBiome(BiomeControlled biome, EntityPlayer player) {
-        if (BaublesApi.isBaubleEquipped(player, ItemsRegister.ANTI_RAD_PACK) > -1) {
+        if (BaublesApi.isBaubleEquipped(player, Items.ANTI_RAD_PACK) > -1) {
             if (player.getRNG().nextFloat() < 0.25) {
                 Mana.addRad(player, 3, true);
             }

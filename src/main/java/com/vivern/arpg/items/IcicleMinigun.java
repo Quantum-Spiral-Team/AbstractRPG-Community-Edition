@@ -109,7 +109,7 @@ public class IcicleMinigun extends ItemWeapon {
                                 itemstack.damageItem(1, player);
                             }
                         }
-                    } else if (this.initiateMetadataReload(itemstack, player, new ItemStack(ItemsRegister.ICICLE_MINIGUN_CLIP, 1, 1), maxammo, new ItemStack(ItemsRegister.ICICLE_MINIGUN_CLIP, 1, 0))) {
+                    } else if (this.initiateMetadataReload(itemstack, player, new ItemStack(Items.ICICLE_MINIGUN_CLIP, 1, 1), maxammo, new ItemStack(Items.ICICLE_MINIGUN_CLIP, 1, 0))) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.icicle_minigun_rel, SoundCategory.AMBIENT, 0.7F, 0.95F + itemRand.nextFloat() / 20.0F);
                         Weapons.setPlayerAnimationOnServer(player, 43, EnumHand.MAIN_HAND);
                         IWeapon.sendIWeaponState(itemstack, player, 1, itemSlot, EnumHand.MAIN_HAND);

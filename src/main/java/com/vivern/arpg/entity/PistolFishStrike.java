@@ -27,17 +27,17 @@ public class PistolFishStrike extends EntityThrowable {
 
     public PistolFishStrike(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.PISTOL_FISH);
+        this.weaponstack = new ItemStack(Items.PISTOL_FISH);
     }
 
     public PistolFishStrike(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.PISTOL_FISH);
+        this.weaponstack = new ItemStack(Items.PISTOL_FISH);
     }
 
     public PistolFishStrike(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.PISTOL_FISH);
+        this.weaponstack = new ItemStack(Items.PISTOL_FISH);
     }
 
     public PistolFishStrike(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -130,7 +130,7 @@ public class PistolFishStrike extends EntityThrowable {
                     PotionEffect baff = parameters.getPotion("toxin", PotionEffects.TOXIN, witchery);
                     entitylivingbase.addPotionEffect(baff);
                     if (entitylivingbase.getHealth() <= 0.0F && entitylivingbase.deathTime <= 1 && this.rand.nextFloat() < parameters.getEnchantedF("feed_drop_chance", EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.REUSE, this.weaponstack))) {
-                        entitylivingbase.entityDropItem(new ItemStack(ItemsRegister.FISH_FEED), 0.1F);
+                        entitylivingbase.entityDropItem(new ItemStack(Items.FISH_FEED), 0.1F);
                     }
                 }
 

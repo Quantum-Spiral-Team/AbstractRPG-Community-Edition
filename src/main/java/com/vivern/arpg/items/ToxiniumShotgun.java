@@ -145,7 +145,7 @@ public class ToxiniumShotgun extends ItemWeapon {
 
                                                         DeathEffects.applyDeathEffect(entitylivingbase, DeathEffects.DE_DISMEMBER);
                                                     }
-                                                } else if (bullet == ItemsRegister.BULLET_TOXIC) {
+                                                } else if (bullet == Items.BULLET_TOXIC) {
                                                     PotionEffect baff = new PotionEffect(PotionEffects.TOXIN, parameters.getEnchantedI("potion_time", witchery), parameters.getEnchantedI("potion_power", witchery));
                                                     entitylivingbase.addPotionEffect(baff);
                                                 } else {
@@ -164,7 +164,7 @@ public class ToxiniumShotgun extends ItemWeapon {
 
                             IWeapon.fireEffect(this, player, world, 64.0, player.getEntityId(), seed, edist, amount, c, impacts, inaccuracy, 0.0, 0.0);
                         }
-                    } else if (this.initiateBulletReload(itemstack, player, ItemsRegister.TOXINIUM_SHOTGUN_CLIP, maxammo, true)) {
+                    } else if (this.initiateBulletReload(itemstack, player, Items.TOXINIUM_SHOTGUN_CLIP, maxammo, true)) {
                         world.playSound(null, player.posX, player.posY, player.posZ, Sounds.shotgun_rel, SoundCategory.AMBIENT, 0.7F, 1.0F);
                         Weapons.setPlayerAnimationOnServer(player, 4, EnumHand.MAIN_HAND);
                     }

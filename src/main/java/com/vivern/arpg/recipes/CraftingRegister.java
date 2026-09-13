@@ -1,9 +1,8 @@
 package com.vivern.arpg.recipes;
 
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.main.OreDicHelper;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -303,38 +302,38 @@ public class CraftingRegister {
     }
 
     public static void addSmeltingRecipes() {
-        GameRegistry.addSmelting(BlocksRegister.INFERNUM_ORE, new ItemStack(ItemsRegister.INFERNUM_INGOT), 2.0F);
-        GameRegistry.addSmelting(BlocksRegister.DEMONITE_ORE, new ItemStack(ItemsRegister.DEMONITE), 4.0F);
-        GameRegistry.addSmelting(BlocksRegister.FIERY_BEAN_SAPLING, new ItemStack(ItemsRegister.FIERY_OIL), 0.5F);
-        GameRegistry.addSmelting(BlocksRegister.ARSENIC_ORE, new ItemStack(ItemsRegister.ARSENIC_INGOT), 2.0F);
-        GameRegistry.addSmelting(BlocksRegister.ZINC_ORE, new ItemStack(ItemsRegister.ZINC_INGOT), 1.0F);
-        GameRegistry.addSmelting(BlocksRegister.SILVER_ORE, new ItemStack(ItemsRegister.SILVER_INGOT), 1.0F);
-        GameRegistry.addSmelting(ItemsRegister.PLANT_FIBER, new ItemStack(ItemsRegister.DRIED_PLANT_FIBER), 0.2F);
-        GameRegistry.addSmelting(ItemsRegister.ZINC_DUST, new ItemStack(ItemsRegister.ZINC_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.BERYLLIUM_DUST, new ItemStack(ItemsRegister.BERYLLIUM_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.CHROMIUM_DUST, new ItemStack(ItemsRegister.CHROMIUM_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.MANGANESE_DUST, new ItemStack(ItemsRegister.MANGANESE_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.BRASS_DUST, new ItemStack(ItemsRegister.BRASS_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.STORMBRASS_DUST, new ItemStack(ItemsRegister.STORMBRASS_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.ARSENIC_DUST, new ItemStack(ItemsRegister.ARSENIC_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.SILVER_DUST, new ItemStack(ItemsRegister.SILVER_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.ALUMINIUM_DUST, new ItemStack(ItemsRegister.ALUMINIUM_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.LITHIUM_DUST, new ItemStack(ItemsRegister.LITHIUM_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.URANIUM_DUST, new ItemStack(ItemsRegister.URANIUM_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.MITHRIL, new ItemStack(ItemsRegister.MITHRIL_INGOT), 0.0F);
-        GameRegistry.addSmelting(ItemsRegister.STAMP_MOLD, new ItemStack(ItemsRegister.STEEL_STAMP), 10.0F);
-        GameRegistry.addSmelting(BlocksRegister.MANAOIL_SPELEOTHEM, new ItemStack(ItemsRegister.ALCHEMICAL_WAX), 0.4F);
-        GameRegistry.addSmelting(ItemsRegister.DOUGH, new ItemStack(Items.BREAD), 0.35F);
-        GameRegistry.addSmelting(ItemsRegister.TOXEDGE_DOUGH, new ItemStack(ItemsRegister.TOXEDGE_BREAD), 0.35F);
-        GameRegistry.addSmelting(Items.SUGAR, new ItemStack(ItemsRegister.CARAMEL), 0.35F);
-        GameRegistry.addSmelting(ItemsRegister.SWEET_DOUGH, new ItemStack(ItemsRegister.BISCUIT, 2), 0.5F);
+        GameRegistry.addSmelting(BlocksRegister.INFERNUM_ORE, new ItemStack(Items.INFERNUM_INGOT), 2.0F);
+        GameRegistry.addSmelting(BlocksRegister.DEMONITE_ORE, new ItemStack(Items.DEMONITE), 4.0F);
+        GameRegistry.addSmelting(BlocksRegister.FIERY_BEAN_SAPLING, new ItemStack(Items.FIERY_OIL), 0.5F);
+        GameRegistry.addSmelting(BlocksRegister.ARSENIC_ORE, new ItemStack(Items.ARSENIC_INGOT), 2.0F);
+        GameRegistry.addSmelting(BlocksRegister.ZINC_ORE, new ItemStack(Items.ZINC_INGOT), 1.0F);
+        GameRegistry.addSmelting(BlocksRegister.SILVER_ORE, new ItemStack(Items.SILVER_INGOT), 1.0F);
+        GameRegistry.addSmelting(Items.PLANT_FIBER, new ItemStack(Items.DRIED_PLANT_FIBER), 0.2F);
+        GameRegistry.addSmelting(Items.ZINC_DUST, new ItemStack(Items.ZINC_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.BERYLLIUM_DUST, new ItemStack(Items.BERYLLIUM_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.CHROMIUM_DUST, new ItemStack(Items.CHROMIUM_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.MANGANESE_DUST, new ItemStack(Items.MANGANESE_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.BRASS_DUST, new ItemStack(Items.BRASS_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.STORMBRASS_DUST, new ItemStack(Items.STORMBRASS_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.ARSENIC_DUST, new ItemStack(Items.ARSENIC_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.SILVER_DUST, new ItemStack(Items.SILVER_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.ALUMINIUM_DUST, new ItemStack(Items.ALUMINIUM_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.LITHIUM_DUST, new ItemStack(Items.LITHIUM_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.URANIUM_DUST, new ItemStack(Items.URANIUM_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.MITHRIL, new ItemStack(Items.MITHRIL_INGOT), 0.0F);
+        GameRegistry.addSmelting(Items.STAMP_MOLD, new ItemStack(Items.STEEL_STAMP), 10.0F);
+        GameRegistry.addSmelting(BlocksRegister.MANAOIL_SPELEOTHEM, new ItemStack(Items.ALCHEMICAL_WAX), 0.4F);
+        GameRegistry.addSmelting(Items.DOUGH, new ItemStack(net.minecraft.init.Items.BREAD), 0.35F);
+        GameRegistry.addSmelting(Items.TOXEDGE_DOUGH, new ItemStack(Items.TOXEDGE_BREAD), 0.35F);
+        GameRegistry.addSmelting(net.minecraft.init.Items.SUGAR, new ItemStack(Items.CARAMEL), 0.35F);
+        GameRegistry.addSmelting(Items.SWEET_DOUGH, new ItemStack(Items.BISCUIT, 2), 0.5F);
         if (OreDicHelper.doesOreNameExist("dustWood")) {
-            GameRegistry.addSmelting(OreDicHelper.get("dustWood", 1), new ItemStack(ItemsRegister.ASH, 1), 0.5F);
+            GameRegistry.addSmelting(OreDicHelper.get("dustWood", 1), new ItemStack(Items.ASH, 1), 0.5F);
         }
 
-        GameRegistry.addSmelting(ItemsRegister.FISH_STEAK_RAW, new ItemStack(ItemsRegister.FISH_STEAK_ROASTED), 0.35F);
-        GameRegistry.addSmelting(ItemsRegister.PALE_MEAT_RAW, new ItemStack(ItemsRegister.PALE_MEAT_SMOKED), 0.35F);
-        GameRegistry.addSmelting(BlocksRegister.MITHRIL_ORE, new ItemStack(ItemsRegister.MITHRIL_INGOT), 2.0F);
+        GameRegistry.addSmelting(Items.FISH_STEAK_RAW, new ItemStack(Items.FISH_STEAK_ROASTED), 0.35F);
+        GameRegistry.addSmelting(Items.PALE_MEAT_RAW, new ItemStack(Items.PALE_MEAT_SMOKED), 0.35F);
+        GameRegistry.addSmelting(BlocksRegister.MITHRIL_ORE, new ItemStack(Items.MITHRIL_INGOT), 2.0F);
     }
 
     public static void registerRecipe(String name) {

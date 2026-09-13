@@ -24,7 +24,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -115,7 +114,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this, false, false);
             this.setattributes(320.0, 64.0, 16.0, 0.12, 12.0, 7.0, 0.8, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.ARCHELON_SHELL, 0.85F, 0, 1, 1, 0), new MobDrop(ItemsRegister.ARCHELON_SHELL, 0.15F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.ARCHELON_SHELL, 0.85F, 0, 1, 1, 0), new MobDrop(Items.ARCHELON_SHELL, 0.15F, 0, 1, 1, 0)});
             this.stepHeight = 1.0F;
             this.var1 = 0;
             this.setRoleValues(EnumMobRole.TANK, 5);
@@ -576,7 +575,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(65.0, 48.0, 13.0, 0.22, 8.0, 4.0, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.FISH_STEAK_RAW, 1.0F, 0, 1, 1, 1), new MobDrop(ItemsRegister.PLACODERM_SCALES, 0.6F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.FISH_STEAK_RAW, 1.0F, 0, 1, 1, 1), new MobDrop(Items.PLACODERM_SCALES, 0.6F, 0, 1, 1, 0)});
             this.var3 = 0.0F;
             this.var4 = 0.0F;
             this.var5 = 0.0F;
@@ -709,7 +708,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(30.0, 32.0, 8.0, 0.26, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.MESOGLEA, 0.03F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.MESOGLEA, 0.03F, 0, 1, 1, 0)});
             if (world.isRemote) {
                 this.var3 = 0.0F;
                 this.var4 = 0.0F;
@@ -849,7 +848,7 @@ public class AquaticaMobsPack {
         public DarkMermaid(World world) {
             super(world);
             this.setattributes(200.0, 64.0, 20.0, 0.27, 10.0, 7.0, 0.4, 0.2, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.FISH_STEAK_RAW, 0.5F, 0, 1, 1, 3), new MobDrop(ItemsRegister.AQUATIC_NUGGET, 0.5F, 0, 1, 3, 0), new MobDrop(ItemsRegister.BLACK_PEARL, 0.1F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.FISH_STEAK_RAW, 0.5F, 0, 1, 1, 3), new MobDrop(Items.AQUATIC_NUGGET, 0.5F, 0, 1, 3, 0), new MobDrop(Items.BLACK_PEARL, 0.1F, 0, 1, 1, 0)});
         }
 
         @Override
@@ -883,7 +882,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(100.0, 48.0, 15.0, 0.25, 9.0, 5.0, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.FISH_STEAK_RAW, 1.0F, 0, 1, 2, 2), new MobDrop(ItemsRegister.PLACODERM_SCALES, 0.9F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.FISH_STEAK_RAW, 1.0F, 0, 1, 2, 2), new MobDrop(Items.PLACODERM_SCALES, 0.9F, 0, 1, 1, 0)});
             this.var3 = 0.0F;
             this.var4 = 0.0F;
             this.var5 = 0.0F;
@@ -1018,7 +1017,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(30.0, 64.0, 2.0, 0.45, 5.0, 5.0, 0.3, 0.3, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(Items.ROTTEN_FLESH, 1.0F, 0, 0, 4, 4)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(net.minecraft.init.Items.ROTTEN_FLESH, 1.0F, 0, 0, 4, 4)});
         }
 
         @Override
@@ -1186,7 +1185,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(135.0, 30.0, 16.0, 0.07, 0.0, 0.0, 0.3F, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.MESOGLEA, 0.3F, 0, 0, 2, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.MESOGLEA, 0.3F, 0, 0, 2, 0)});
             if (world.isRemote) {
                 this.var3 = 0.0F;
                 this.var4 = 0.0F;
@@ -2063,7 +2062,7 @@ public class AquaticaMobsPack {
         public EntityAIAttackSweep tridentsweep = null;
         public static Predicate<? super EntityLivingBase> targetEntitySelector = (Predicate<EntityLivingBase>) input -> {
             if (input instanceof EntityPlayer) {
-                return !(BaublesApi.getBaublesHandler((EntityPlayer) input).getStackInSlot(0).getItem() == ItemsRegister.MERMAID_MEDALLION);
+                return !(BaublesApi.getBaublesHandler((EntityPlayer) input).getStackInSlot(0).getItem() == Items.MERMAID_MEDALLION);
             }
             return true;
         };
@@ -2076,7 +2075,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(230.0, 64.0, 20.0, 0.27, 10.0, 8.0, 0.4, 0.2, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.FISH_STEAK_RAW, 0.5F, 0, 1, 1, 3), new MobDrop(ItemsRegister.AQUATIC_NUGGET, 0.5F, 0, 1, 3, 0), new MobDrop(ItemsRegister.TIDE_ACTIVATOR_1, 0.1F, 0, 1, 1, 0), new MobDrop(ItemsRegister.PEARL, 0.3F, 0, 0, 3, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.FISH_STEAK_RAW, 0.5F, 0, 1, 1, 3), new MobDrop(Items.AQUATIC_NUGGET, 0.5F, 0, 1, 3, 0), new MobDrop(Items.TIDE_ACTIVATOR_1, 0.1F, 0, 1, 1, 0), new MobDrop(Items.PEARL, 0.3F, 0, 0, 3, 0)});
             this.var3 = 0.0F;
             this.var4 = 0.0F;
             this.var5 = 0.0F;
@@ -2413,7 +2412,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(80.0, 48.0, 12.0, 0.32, 8.0, 4.0, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.FISH_STEAK_RAW, 0.5F, 0, 1, 1, 1), new MobDrop(ItemsRegister.PLACODERM_SCALES, 0.2F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.FISH_STEAK_RAW, 0.5F, 0, 1, 1, 1), new MobDrop(Items.PLACODERM_SCALES, 0.2F, 0, 1, 1, 0)});
             this.var3 = 0.0F;
             this.var4 = 0.0F;
             this.var5 = 0.0F;
@@ -2620,7 +2619,7 @@ public class AquaticaMobsPack {
             this.livingSound = SoundEvents.ENTITY_GUARDIAN_AMBIENT;
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.setattributes(375.0, 48.0, 9.0, 0.08, 3.0, 6.0, 0.4, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.AQUATIC_PEARL, 0.25F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.AQUATIC_PEARL, 0.25F, 0, 1, 1, 0)});
             this.var3 = 0.0F;
             this.var4 = 0.0F;
             this.var5 = 0.0F;
@@ -2938,7 +2937,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(150.0, 32.0, 14.0, 0.17, 1.0, 1.0, 0.0, 0.0, 0.2, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.MESOGLEA, 0.25F, 0, 1, 1, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.MESOGLEA, 0.25F, 0, 1, 1, 0)});
             if (world.isRemote) {
                 this.var3 = 0.0F;
                 this.var4 = 0.0F;
@@ -3411,7 +3410,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(115.0, 22.0, 8.0, 0.05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.MESOGLEA, 0.45F, 0, 1, 2, 0)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.MESOGLEA, 0.45F, 0, 1, 2, 0)});
             if (world.isRemote) {
                 this.var3 = 0.0F;
                 this.var4 = 0.0F;
@@ -3672,7 +3671,7 @@ public class AquaticaMobsPack {
             this.defaultteam = AquaticaMobsPack.mobsteam;
             this.moveHelper = new WaterMoveHelper(this);
             this.setattributes(150.0, 48.0, 14.0, 0.24, 5.0, 2.0, 0.0, 0.0, 0.0, 0.0);
-            this.registerLOOT(new MobDrop[]{new MobDrop(ItemsRegister.FISH_STEAK_RAW, 1.0F, 0, 1, 1, 2)});
+            this.registerLOOT(new MobDrop[]{new MobDrop(Items.FISH_STEAK_RAW, 1.0F, 0, 1, 1, 2)});
             this.var3 = 0.0F;
             this.var4 = 0.0F;
             this.var5 = 0.0F;

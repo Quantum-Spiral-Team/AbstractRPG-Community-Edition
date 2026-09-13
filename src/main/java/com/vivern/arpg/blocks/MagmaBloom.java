@@ -1,6 +1,6 @@
 package com.vivern.arpg.blocks;
 
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.renders.GUNParticle;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -94,7 +94,7 @@ public class MagmaBloom extends Block implements IGrowable {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (!worldIn.isRemote && player.getHeldItem(hand).getItem() == ItemsRegister.MAGIC_POWDER) {
+        if (!worldIn.isRemote && player.getHeldItem(hand).getItem() == Items.MAGIC_POWDER) {
             player.getHeldItem(hand).shrink(1);
             this.grow(worldIn, RANDOM, pos, state);
             return true;
@@ -134,10 +134,10 @@ public class MagmaBloom extends Block implements IGrowable {
         if (state.getValue(AGE) == 2) {
             int count = RANDOM.nextInt(3);
             if (count > 0) {
-                drops.add(new ItemStack(ItemsRegister.LIQUID_FIRE, count));
+                drops.add(new ItemStack(Items.LIQUID_FIRE, count));
             }
 
-            drops.add(new ItemStack(ItemsRegister.MAGMA_BLOOM_SEED, RANDOM.nextInt(2) + 1 + (fortune > 0 ? RANDOM.nextInt(fortune + 1) : 0)));
+            drops.add(new ItemStack(Items.MAGMA_BLOOM_SEED, RANDOM.nextInt(2) + 1 + (fortune > 0 ? RANDOM.nextInt(fortune + 1) : 0)));
         }
     }
 

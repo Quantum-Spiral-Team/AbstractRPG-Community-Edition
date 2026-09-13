@@ -1,9 +1,6 @@
 package com.vivern.arpg.entity;
 
-import com.vivern.arpg.main.DeathEffects;
-import com.vivern.arpg.main.EnchantmentInit;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.SuperKnockback;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.potions.PotionEffects;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -33,17 +30,17 @@ public class SnowstormEntity extends EntityThrowable {
 
     public SnowstormEntity(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
+        this.weaponstack = new ItemStack(Items.FIREBALL_STAFF);
     }
 
     public SnowstormEntity(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
+        this.weaponstack = new ItemStack(Items.FIREBALL_STAFF);
     }
 
     public SnowstormEntity(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.FIREBALL_STAFF);
+        this.weaponstack = new ItemStack(Items.FIREBALL_STAFF);
     }
 
     public SnowstormEntity(World world, EntityLivingBase thrower, ItemStack itemstack) {

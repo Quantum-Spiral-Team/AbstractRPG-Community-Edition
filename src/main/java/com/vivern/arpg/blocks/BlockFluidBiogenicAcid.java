@@ -122,7 +122,7 @@ public class BlockFluidBiogenicAcid extends BlockFluidClassic {
     public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         super.onEntityCollision(worldIn, pos, state, entityIn);
         if (entityIn.ticksExisted % 10 == 0) {
-            if (entityIn instanceof EntityItem && ((EntityItem) entityIn).getItem().getItem() == ItemsRegister.EMBRYO) {
+            if (entityIn instanceof EntityItem && ((EntityItem) entityIn).getItem().getItem() == Items.EMBRYO) {
                 return;
             }
 

@@ -1,10 +1,7 @@
 package com.vivern.arpg.blocks;
 
 import com.vivern.arpg.dimensions.aquatica.DimensionAquatica;
-import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.ItemsRegister;
-import com.vivern.arpg.main.Sounds;
-import com.vivern.arpg.main.Team;
+import com.vivern.arpg.main.*;
 import com.vivern.arpg.renders.GUNParticle;
 import com.vivern.arpg.tileentity.TileNexusBeacon;
 import net.minecraft.block.Block;
@@ -173,19 +170,19 @@ public class TideBeacon extends Block implements IBlockHardBreak {
                 if (!nexus.dried && !nexus.invasionStarted) {
                     Item item = player.getHeldItemMainhand().getItem();
                     boolean success = false;
-                    if (item == ItemsRegister.TIDE_ACTIVATOR_1) {
+                    if (item == Items.TIDE_ACTIVATOR_1) {
                         nexus.ACTIVATOR = 1;
                         success = true;
-                    } else if (item == ItemsRegister.TIDE_ACTIVATOR_2) {
+                    } else if (item == Items.TIDE_ACTIVATOR_2) {
                         nexus.ACTIVATOR = 2;
                         success = true;
-                    } else if (item == ItemsRegister.TIDE_ACTIVATOR_3) {
+                    } else if (item == Items.TIDE_ACTIVATOR_3) {
                         nexus.ACTIVATOR = 3;
                         success = true;
-                    } else if (item == ItemsRegister.TIDE_ACTIVATOR_4) {
+                    } else if (item == Items.TIDE_ACTIVATOR_4) {
                         nexus.ACTIVATOR = 4;
                         success = true;
-                    } else if (item == ItemsRegister.TIDE_ACTIVATOR_5) {
+                    } else if (item == Items.TIDE_ACTIVATOR_5) {
                         if (player instanceof EntityPlayerMP) {
                             player.sendMessage(new TextComponentString("This activator is full charged"));
                         }

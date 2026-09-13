@@ -37,17 +37,17 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
 
     public NailGunShoot(World world) {
         super(world);
-        this.weaponstack = new ItemStack(ItemsRegister.NAIL_GUN);
+        this.weaponstack = new ItemStack(Items.NAIL_GUN);
     }
 
     public NailGunShoot(World world, EntityLivingBase thrower) {
         super(world, thrower);
-        this.weaponstack = new ItemStack(ItemsRegister.NAIL_GUN);
+        this.weaponstack = new ItemStack(Items.NAIL_GUN);
     }
 
     public NailGunShoot(World world, double x, double y, double z) {
         super(world, x, y, z);
-        this.weaponstack = new ItemStack(ItemsRegister.NAIL_GUN);
+        this.weaponstack = new ItemStack(Items.NAIL_GUN);
     }
 
     public NailGunShoot(World world, EntityLivingBase thrower, ItemStack itemstack) {
@@ -313,7 +313,7 @@ public class NailGunShoot extends EntityArrow implements IRepulsable, INailer {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemsRegister.NAIL);
+        return new ItemStack(Items.NAIL);
     }
 
 }

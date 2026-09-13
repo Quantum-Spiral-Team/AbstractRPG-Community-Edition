@@ -4,7 +4,7 @@ import com.vivern.arpg.dimensions.generationutils.GenerationHelper;
 import com.vivern.arpg.loot.ListLootTable;
 import com.vivern.arpg.main.BlocksRegister;
 import com.vivern.arpg.main.GetMOP;
-import com.vivern.arpg.main.ItemsRegister;
+import com.vivern.arpg.main.Items;
 import com.vivern.arpg.mobs.SpawnerTuners;
 import com.vivern.arpg.tileentity.ChestLock;
 import com.vivern.arpg.tileentity.EnumChest;
@@ -179,7 +179,7 @@ public class SirenSanctuary {
                 BlockPos somePos = somePoses.get(ix);
                 BlockPos posToSet = pos.add(somePos.getX() * this.stretch + halfStretch, 1, somePos.getZ() * this.stretch + halfStretch);
                 if (ix == 0) {
-                    GenerationHelper.setChestWithItemStack(this.world, posToSet, EnumChest.CORAL, new ItemStack(ItemsRegister.SACRIFICIAL_DAGGER), EnumFacing.HORIZONTALS[this.rand.nextInt(4)], ChestLock.SIREN);
+                    GenerationHelper.setChestWithItemStack(this.world, posToSet, EnumChest.CORAL, new ItemStack(Items.SACRIFICIAL_DAGGER), EnumFacing.HORIZONTALS[this.rand.nextInt(4)], ChestLock.SIREN);
                 } else if (this.rand.nextFloat() < 0.4) {
                     GenerationHelper.setChestWithLoot(this.world, posToSet, EnumChest.CORAL, ListLootTable.CHESTS_SIREN_SANCTUARY, EnumFacing.HORIZONTALS[this.rand.nextInt(4)], ChestLock.SIREN);
                 } else {
