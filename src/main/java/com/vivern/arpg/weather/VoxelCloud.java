@@ -3,9 +3,6 @@ package com.vivern.arpg.weather;
 import com.vivern.arpg.events.Debugger;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumFacing.Axis;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 
 public class VoxelCloud {
 
@@ -111,8 +108,7 @@ public class VoxelCloud {
         float light = this.getMostSelfLightning(vertexm);
 
         for (int i = 0; i < 7 && !(light >= 1.0F); i++) {
-            Vec3i surroundOffset = vertexm.surroundings[i];
-            VoxelCloud surroundCloud = field.getVoxel(arrayX + surroundOffset.getX(), arrayY + surroundOffset.getY(), arrayZ + surroundOffset.getZ());
+            VoxelCloud surroundCloud = field.getVoxel(arrayX + vertexm.surroundingX[i], arrayY + vertexm.surroundingY[i], arrayZ + vertexm.surroundingZ[i]);
             if (surroundCloud != null) {
                 float surroundLight = surroundCloud.getMostSelfLightning(vertexm.surroundingsVertexes[i]);
                 if (surroundLight > light) {
@@ -159,7 +155,9 @@ public class VoxelCloud {
         public final EnumFacing facing3;
 
         private final int id;
-        private final Vec3i[] surroundings;
+        private final int[] surroundingX = new int[7];
+        private final int[] surroundingY = new int[7];
+        private final int[] surroundingZ = new int[7];
         private EnumCubeVertex[] surroundingsVertexes;
 
         private static final EnumCubeVertex[] VALUES = values();
@@ -169,23 +167,24 @@ public class VoxelCloud {
             this.facing2 = facing2;
             this.facing3 = facing3;
             this.id = id;
-            this.surroundings = this.initSurroundings();
+            this.initSurroundings();
         }
 
-        private Vec3i[] initSurroundings() {
-            Vec3i[] vecs = new Vec3i[7];
+        private void initSurroundings() {
+            int mX = this.mainFacing.getXOffset(), mY = this.mainFacing.getYOffset(), mZ = this.mainFacing.getZOffset();
+            int f2X = this.facing2.getXOffset(),    f2Y = this.facing2.getYOffset(),    f2Z = this.facing2.getZOffset();
+            int f3X = this.facing3.getXOffset(),    f3Y = this.facing3.getYOffset(),    f3Z = this.facing3.getZOffset();
+
             for (int i = 1; i <= 7; i++) {
                 int i1 = (i >> 2) & 1;
                 int i2 = (i >> 1) & 1;
                 int i3 = i & 1;
 
-                vecs[i - 1] = new Vec3i(
-                        this.mainFacing.getXOffset() * i1 + this.facing2.getXOffset() * i2 + this.facing3.getXOffset() * i3,
-                        this.mainFacing.getYOffset() * i1 + this.facing2.getYOffset() * i2 + this.facing3.getYOffset() * i3,
-                        this.mainFacing.getZOffset() * i1 + this.facing2.getZOffset() * i2 + this.facing3.getZOffset() * i3
-                );
+                int idx = i - 1;
+                this.surroundingX[idx] = mX * i1 + f2X * i2 + f3X * i3;
+                this.surroundingY[idx] = mY * i1 + f2Y * i2 + f3Y * i3;
+                this.surroundingZ[idx] = mZ * i1 + f2Z * i2 + f3Z * i3;
             }
-            return vecs;
         }
 
         private void initSurroundingsVertex() {
@@ -214,67 +213,63 @@ public class VoxelCloud {
             return null;
         }
 
-        public double calculatePlanarDistance(double x, double y, double z, Vec3d pointTo) {
+        public double calculatePlanarDistance(double x, double y, double z, double pointX, double pointY, double pointZ) {
             double f1, f2;
             switch (this.mainFacing.getAxis()) {
                 case X:
-                    f1 = y - pointTo.y;
-                    f2 = z - pointTo.z;
+                    f1 = y - pointY;
+                    f2 = z - pointZ;
                     break;
                 case Y:
-                    f1 = x - pointTo.x;
-                    f2 = z - pointTo.z;
+                    f1 = x - pointX;
+                    f2 = z - pointZ;
                     break;
                 default:
-                    f1 = x - pointTo.x;
-                    f2 = y - pointTo.y;
+                    f1 = x - pointX;
+                    f2 = y - pointY;
                     break;
             }
             return Math.sqrt(f1 * f1 + f2 * f2);
         }
 
-        public double highestCollinearity(VoxelCloud voxelCloud, double x, double y, double z, Vec3d pointTo) {
-            return Math.max(axisCollinearity(voxelCloud, this.mainFacing, x, y, z, pointTo),
-                    Math.max(axisCollinearity(voxelCloud, this.facing2, x, y, z, pointTo),
-                            axisCollinearity(voxelCloud, this.facing3, x, y, z, pointTo)));
+        public double highestCollinearity(VoxelCloud voxelCloud, double x, double y, double z, double pointX, double pointY, double pointZ) {
+            return Math.max(axisCollinearity(voxelCloud, this.mainFacing, x, y, z, pointX, pointY, pointZ),
+                    Math.max(axisCollinearity(voxelCloud, this.facing2, x, y, z, pointX, pointY, pointZ),
+                            axisCollinearity(voxelCloud, this.facing3, x, y, z, pointX, pointY, pointZ)));
         }
 
-        public double highestCollinearity(double x, double y, double z, Vec3d pointTo) {
-            return Math.max(axisCollinearity(this.mainFacing, x, y, z, pointTo),
-                    Math.max(axisCollinearity(this.facing2, x, y, z, pointTo),
-                            axisCollinearity(this.facing3, x, y, z, pointTo)));
+        public double highestCollinearity(double x, double y, double z, double pointX, double pointY, double pointZ) {
+            return Math.max(axisCollinearity(this.mainFacing, x, y, z, pointX, pointY, pointZ),
+                    Math.max(axisCollinearity(this.facing2, x, y, z, pointX, pointY, pointZ),
+                            axisCollinearity(this.facing3, x, y, z, pointX, pointY, pointZ)));
         }
 
-        public static double axisCollinearity(EnumFacing facing, double x, double y, double z, Vec3d pointTo) {
+        public static double axisCollinearity(EnumFacing facing, double x, double y, double z, double pointX, double pointY, double pointZ) {
             switch (facing) {
-                case SOUTH: return pointTo.z - z;
-                case NORTH: return z - pointTo.z;
-                case EAST:  return pointTo.x - x;
-                case WEST:  return x - pointTo.x;
-                case UP:    return pointTo.y - y;
-                case DOWN:  return y - pointTo.y;
+                case SOUTH: return pointZ - z;
+                case NORTH: return z - pointZ;
+                case EAST:  return pointX - x;
+                case WEST:  return x - pointX;
+                case UP:    return pointY - y;
+                case DOWN:  return y - pointY;
                 default:    return 0.0;
             }
         }
 
-        public static double axisCollinearity(VoxelCloud voxelCloud, EnumFacing facing, double x, double y, double z, Vec3d pointTo) {
+        public static double axisCollinearity(VoxelCloud voxelCloud, EnumFacing facing, double x, double y, double z, double pointX, double pointY, double pointZ) {
             switch (facing) {
-                case SOUTH: if (voxelCloud.south) return pointTo.z - z; break;
-                case NORTH: if (voxelCloud.north) return z - pointTo.z; break;
-                case EAST:  if (voxelCloud.east)  return pointTo.x - x; break;
-                case WEST:  if (voxelCloud.west)  return x - pointTo.x; break;
-                case UP:    if (voxelCloud.up)    return pointTo.y - y; break;
-                case DOWN:  if (voxelCloud.down)  return y - pointTo.y; break;
+                case SOUTH: if (voxelCloud.south) return pointZ - z; break;
+                case NORTH: if (voxelCloud.north) return z - pointZ; break;
+                case EAST:  if (voxelCloud.east)  return pointX - x; break;
+                case WEST:  if (voxelCloud.west)  return x - pointX; break;
+                case UP:    if (voxelCloud.up)    return pointY - y; break;
+                case DOWN:  if (voxelCloud.down)  return y - pointY; break;
             }
             return 0.0;
         }
 
         public int getId() {
             return this.id;
-        }
-
-        public Vec3i[] getSurroundings() {
-            return this.surroundings;
         }
 
         public EnumCubeVertex[] getSurroundingsVertexes() {
@@ -286,7 +281,7 @@ public class VoxelCloud {
                 vertex.initSurroundingsVertex();
 
                 for (int i = 0; i < 7; i++) {
-                    if (vertex.surroundings[i] == null || vertex.surroundingsVertexes[i] == null) {
+                    if (vertex.surroundingsVertexes[i] == null) {
                         throw new RuntimeException("EnumCubeVertex: Critical initialization failure for " + vertex.name());
                     }
                 }

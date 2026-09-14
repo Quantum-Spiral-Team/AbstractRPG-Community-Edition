@@ -9,11 +9,9 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.util.vector.Vector4f;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,8 +22,12 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
     public Random rand = new Random();
     public VoxelCloudField voxelCloudField;
     static ArrayList<int[]> listlightningposes = new ArrayList<>();
-    public Vec3d sunVector;
-    public Vector4f[] colors;
+    public double sunX;
+    public double sunY;
+    public float[] colorR = new float[2];
+    public float[] colorG = new float[2];
+    public float[] colorB = new float[2];
+    public float[] colorA = new float[2];
     public float nightpower;
     public float daypower;
 
@@ -101,11 +103,11 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
                 }
             }
 
-            if (result == null) {
-                new Vec3d(posX + 0.5 + this.rand.nextGaussian() * 2.0, 76 + this.rand.nextInt(100), posZ + 0.5 + this.rand.nextGaussian() * 2.0);
-            } else {
-                new Vec3d(result.pos.getX() + 0.5, result.pos.getY() + 0.5, result.pos.getZ() + 0.5);
-            }
+//            if (result == null) {
+//                new Vec3d(posX + 0.5 + this.rand.nextGaussian() * 2.0, 76 + this.rand.nextInt(100), posZ + 0.5 + this.rand.nextGaussian() * 2.0);
+//            } else {
+//                new Vec3d(result.pos.getX() + 0.5, result.pos.getY() + 0.5, result.pos.getZ() + 0.5);
+//            }
 
             BigLightningStrike bolt = new BigLightningStrike(world);
             bolt.setPosition(posX, 254.0, posZ);
@@ -125,8 +127,9 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
     @Override
     public void onPreRender() {
         float celestialAngle = this.worldProvider.calculateCelestialAngle(this.worldProvider.getWorldTime(), 0.0F);
-        this.sunVector = calcCelestialVector(celestialAngle);
-        this.colors = this.worldProvider.getTimeOfDayProvider().getColors(5, 2, this.worldProvider.getWorld().getWorldTime());
+        this.sunX = calcCelestialX(celestialAngle);
+        this.sunY = calcCelestialY(celestialAngle);
+        this.worldProvider.getTimeOfDayProvider().getColors4fa(5, 2, this.worldProvider.getWorld().getWorldTime(), this.colorR, this.colorG, this.colorB, this.colorA);
         this.nightpower = this.worldProvider.getTimeOfDayProvider().getPowerOf(3, this.worldProvider.getWorldTime());
         this.daypower = 1.0F - this.nightpower;
     }
@@ -138,7 +141,7 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
         } else {
             float normal2dX = facing.getXOffset();
             float normal2dY = facing.getYOffset();
-            double scalar = normal2dX * this.sunVector.x + normal2dY * this.sunVector.y;
+            double scalar = normal2dX * this.sunX + normal2dY * this.sunY;
             double anglebetweenSun = Math.acos(scalar) * 57.2958;
             double anglebetweenMoon = 180.0 - anglebetweenSun;
             double possibilityAngle = 110.0;
@@ -151,10 +154,10 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
     public void writeColorInPoint(VoxelCloudField field, VoxelCloud voxelCloud, float[] colorRGBA, double x, double y, double z, int arrayX, int arrayY, int arrayZ, VoxelCloud.EnumCubeVertex vertex) {
         float light = voxelCloud.getMostSurroundingsLightning(field, vertex, arrayX, arrayY, arrayZ);
         float dark = 1.0F - light;
-        colorRGBA[0] = this.colors[1].x * light + this.colors[0].x * dark;
-        colorRGBA[1] = this.colors[1].y * light + this.colors[0].y * dark;
-        colorRGBA[2] = this.colors[1].z * light + this.colors[0].z * dark;
-        colorRGBA[3] = (this.colors[1].w * light + this.colors[0].w * dark) * this.showness;
+        colorRGBA[0] = this.colorA[1] * light + this.colorA[0] * dark;
+        colorRGBA[1] = this.colorG[1] * light + this.colorG[0] * dark;
+        colorRGBA[2] = this.colorB[1] * light + this.colorB[0] * dark;
+        colorRGBA[3] = (this.colorA[1] * light + this.colorA[0] * dark) * this.showness;
     }
 
 }

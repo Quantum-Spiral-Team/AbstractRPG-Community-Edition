@@ -15,7 +15,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.util.vector.Vector4f;
 
 import java.util.Random;
 
@@ -27,8 +26,11 @@ public class Hail extends WorldEvent implements IVoxelCloudInfo {
     public Random rand2 = new Random();
     long timeSaved;
     public VoxelCloudField voxelCloudField;
-    public Vec3d sunVector;
-    public Vector4f[] colors;
+    public double sunX;
+    public double sunY;
+    public float[] colorR = new float[2];
+    public float[] colorG = new float[2];
+    public float[] colorB = new float[2];
     public float nightpower;
     public float daypower;
 
@@ -126,8 +128,9 @@ public class Hail extends WorldEvent implements IVoxelCloudInfo {
     @Override
     public void onPreRender() {
         float celestialAngle = this.worldProvider.calculateCelestialAngle(this.worldProvider.getWorldTime(), 0.0F);
-        this.sunVector = calcCelestialVector(celestialAngle);
-        this.colors = this.worldProvider.getTimeOfDayProvider().getColors(5, 2, this.worldProvider.getWorld().getWorldTime());
+        this.sunX = calcCelestialX(celestialAngle);
+        this.sunY = calcCelestialY(celestialAngle);
+        this.worldProvider.getTimeOfDayProvider().getColors3fa(5, 2, this.worldProvider.getWorld().getWorldTime(), this.colorR, this.colorG, this.colorB);
         this.nightpower = this.worldProvider.getTimeOfDayProvider().getPowerOf(3, this.worldProvider.getWorldTime());
         this.daypower = 1.0F - this.nightpower;
     }
@@ -139,7 +142,7 @@ public class Hail extends WorldEvent implements IVoxelCloudInfo {
         } else {
             float normal2dX = facing.getXOffset();
             float normal2dY = facing.getYOffset();
-            double scalar = normal2dX * this.sunVector.x + normal2dY * this.sunVector.y;
+            double scalar = normal2dX * this.sunX + normal2dY * this.sunY;
             double angleBetweenSun = Math.acos(scalar) * 57.2958;
             double angleBetweenMoon = 180.0 - angleBetweenSun;
             double possibilityAngle = 120.0;
@@ -152,9 +155,9 @@ public class Hail extends WorldEvent implements IVoxelCloudInfo {
     public void writeColorInPoint(VoxelCloudField field, VoxelCloud voxelCloud, float[] colorRGBA, double x, double y, double z, int arrayX, int arrayY, int arrayZ, VoxelCloud.EnumCubeVertex vertex) {
         float light = voxelCloud.getMostSurroundingsLightning(field, vertex, arrayX, arrayY, arrayZ);
         float dark = 1.0F - light;
-        colorRGBA[0] = this.colors[1].x * light + this.colors[0].x * dark;
-        colorRGBA[1] = this.colors[1].y * light + this.colors[0].y * dark;
-        colorRGBA[2] = this.colors[1].z * light + this.colors[0].z * dark;
+        colorRGBA[0] = this.colorR[1] * light + this.colorR[0] * dark;
+        colorRGBA[1] = this.colorG[1] * light + this.colorG[0] * dark;
+        colorRGBA[2] = this.colorB[1] * light + this.colorB[0] * dark;
         colorRGBA[3] = 0.7F * this.showness;
     }
 

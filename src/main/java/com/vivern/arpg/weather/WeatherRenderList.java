@@ -1,17 +1,16 @@
 package com.vivern.arpg.weather;
 
+import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
+import it.unimi.dsi.fastutil.doubles.DoubleList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class WeatherRenderList {
 
-    public List<Double> listX = new ArrayList<>();
-    public List<Double> listY = new ArrayList<>();
-    public List<Double> listZ = new ArrayList<>();
+    public DoubleList listX = new DoubleArrayList();
+    public DoubleList listY = new DoubleArrayList();
+    public DoubleList listZ = new DoubleArrayList();
     public final WeatherPhenomenon weather;
 
     public WeatherRenderList(WeatherPhenomenon weather) {

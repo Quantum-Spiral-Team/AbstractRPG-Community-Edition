@@ -14,9 +14,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
@@ -74,6 +74,7 @@ public class VoxelCloudField {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public void render(double fieldx, double fieldy, double fieldz, double cameraX, double cameraY, double cameraZ) {
         GlStateManager.pushMatrix();
         GlStateManager.translate(-cameraX, -cameraY, -cameraZ);
@@ -162,11 +163,12 @@ public class VoxelCloudField {
         GlStateManager.popMatrix();
     }
 
+    @SideOnly(Side.CLIENT)
     public void render(float partialTicks, WorldClient world, Minecraft mc) {
         double cameraX = 0.0;
         double cameraY = 0.0;
         double cameraZ = 0.0;
-        Entity rvEntity = Minecraft.getMinecraft().getRenderViewEntity();
+        Entity rvEntity = mc.getRenderViewEntity();
         if (rvEntity != null) {
             cameraX = rvEntity.prevPosX + (rvEntity.posX - rvEntity.prevPosX) * partialTicks;
             cameraY = rvEntity.prevPosY + (rvEntity.posY - rvEntity.prevPosY) * partialTicks;
@@ -219,53 +221,61 @@ public class VoxelCloudField {
 
     @Nullable
     public VoxelCloud getVoxelAt(double x, double y, double z) {
-        Vec3d fieldXYZ = this.getFieldXYZ();
-        return this.getVoxelAt(x, y, z, fieldXYZ.x, fieldXYZ.y, fieldXYZ.z);
+        return this.getVoxelAt(x, y, z, this.getFieldX(), this.getFieldY(), this.getFieldZ());
     }
 
     @Nullable
-    public VoxelCloud getVoxelAt(double x, double y, double z, double fieldx, double fieldy, double fieldz) {
-        Vec3i arr = this.worldCoordsToVoxelArrayCoords(x, y, z, fieldx, fieldy, fieldz);
-        return this.getVoxel(arr.getX(), arr.getY(), arr.getZ());
+    public VoxelCloud getVoxelAt(double x, double y, double z, double fieldX, double fieldY, double fieldZ) {
+        return this.getVoxel(this.worldCoordsToVoxelXCord(x, fieldX), this.worldCoordsToVoxelYCord(y, fieldY), this.worldCoordsToVoxelZCord(z, fieldZ));
     }
 
     @Nullable
-    public VoxelCloud getVoxel(int arrayx, int arrayy, int arrayz) {
-        return arrayy >= 0 && arrayy < this.heightInVoxels ? this.voxels.get(arrayx, arrayy, arrayz) : null;
+    public VoxelCloud getVoxel(int arrayX, int arrayY, int arrayZ) {
+        return arrayY >= 0 && arrayY < this.heightInVoxels ? this.voxels.get(arrayX, arrayY, arrayZ) : null;
     }
 
-    public Vec3i worldCoordsToVoxelArrayCoords(double x, double y, double z, double fieldx, double fieldy, double fieldz) {
-        double add = this.voxelSize / 2.0;
-        int arrx = MathHelper.floor((x + add + this.radiusXZInBlocks - fieldx) / this.voxelSize);
-        int arry = MathHelper.floor((y + add - fieldy) / this.voxelSize);
-        int arrz = MathHelper.floor((z + add + this.radiusXZInBlocks - fieldz) / this.voxelSize);
-        return new Vec3i(arrx, arry, arrz);
+    public int worldCoordsToVoxelXCord(double x, double fieldX) {
+        return MathHelper.floor((x + this.voxelSize / 2.0 + this.radiusXZInBlocks - fieldX) / this.voxelSize);
     }
 
-    public Vec3d voxelArrayCoordsToWorldCoords(int x, int y, int z, double fieldx, double fieldy, double fieldz) {
-        double voxelRadius = this.voxelSize / 2.0;
-        double xpos = x * this.voxelSize + fieldx - this.radiusXZInBlocks - voxelRadius;
-        double ypos = y * this.voxelSize + fieldy - voxelRadius;
-        double zpos = z * this.voxelSize + fieldz - this.radiusXZInBlocks - voxelRadius;
-        return new Vec3d(xpos, ypos, zpos);
+    public int worldCoordsToVoxelYCord(double y, double fieldY) {
+        return MathHelper.floor((y + this.voxelSize / 2.0 - fieldY) / this.voxelSize);
     }
 
-    public Vec3d getFieldXYZ() {
+    public int worldCoordsToVoxelZCord(double z, double fieldZ) {
+        return MathHelper.floor((z + this.voxelSize / 2.0 + this.radiusXZInBlocks - fieldZ) / this.voxelSize);
+    }
+
+//    public Vec3d voxelArrayCoordsToWorldCords(int x, int y, int z, double fieldx, double fieldy, double fieldz) {
+//        double voxelRadius = this.voxelSize / 2.0;
+//        double xPos = x * this.voxelSize + fieldx - this.radiusXZInBlocks - voxelRadius;
+//        double yPos = y * this.voxelSize + fieldy - voxelRadius;
+//        double zPos = z * this.voxelSize + fieldz - this.radiusXZInBlocks - voxelRadius;
+//        return new Vec3d(xPos, yPos, zPos);
+//    }
+
+    public double getFieldX() {
         double cameraX = 0.0;
-        double cameraY = 0.0;
-        double cameraZ = 0.0;
         Entity rvEntity = Minecraft.getMinecraft().getRenderViewEntity();
-        float partialTicks = Minecraft.getMinecraft().getRenderPartialTicks();
         if (rvEntity != null) {
-            cameraX = rvEntity.prevPosX + (rvEntity.posX - rvEntity.prevPosX) * partialTicks;
-            cameraY = rvEntity.prevPosY + (rvEntity.posY - rvEntity.prevPosY) * partialTicks;
-            cameraZ = rvEntity.prevPosZ + (rvEntity.posZ - rvEntity.prevPosZ) * partialTicks;
+            cameraX = rvEntity.prevPosX + (rvEntity.posX - rvEntity.prevPosX) * Minecraft.getMinecraft().getRenderPartialTicks();
         }
 
-        double fieldX = cameraX / this.voxelSize * this.voxelSize;
-        double fieldY = this.fieldRenderY;
-        double fieldZ = cameraZ / this.voxelSize * this.voxelSize;
-        return new Vec3d(fieldX, fieldY, fieldZ);
+        return cameraX / this.voxelSize * this.voxelSize;
+    }
+
+    public double getFieldY() {
+        return this.fieldRenderY;
+    }
+
+    public double getFieldZ() {
+        double cameraZ = 0.0;
+        Entity rvEntity = Minecraft.getMinecraft().getRenderViewEntity();
+        if (rvEntity != null) {
+            cameraZ = rvEntity.prevPosZ + (rvEntity.posZ - rvEntity.prevPosZ) * Minecraft.getMinecraft().getRenderPartialTicks();
+        }
+
+        return cameraZ / this.voxelSize * this.voxelSize;
     }
 
     public boolean isFieldPosChanged(double fieldx, double fieldy, double fieldz) {
@@ -332,7 +342,7 @@ public class VoxelCloudField {
         }
     }
 
-    public class VoxelCloudArray {
+    public static class VoxelCloudArray {
 
         public int arraySizeX;
         public int arraySizeY;

@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TimeOfDayProvider {
 
@@ -181,6 +182,120 @@ public class TimeOfDayProvider {
         }
 
         return vectors;
+    }
+
+    public float[] getColorsFA(int idFirst, int amount, long worldTimeLong) {
+        int worldTime = (int) (worldTimeLong % this.dayLength);
+        float[] result = new float[amount * 4];
+
+        int rOffset = 0;
+        int gOffset = amount;
+        int bOffset = amount * 2;
+        int aOffset = amount * 3;
+
+        for (TimeOfDay timeOfDay : this.timesOfDay) {
+            float power = timeOfDay.getPower(worldTime, this);
+            if (power > 0.0F) {
+                for (int i = 0; i < amount; i++) {
+                    int id = idFirst + i;
+                    result[rOffset + i] += timeOfDay.colorR[id] * power;
+                    result[gOffset + i] += timeOfDay.colorG[id] * power;
+                    result[bOffset + i] += timeOfDay.colorB[id] * power;
+                    result[aOffset + i] += timeOfDay.colorA[id] * power;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public void getColors(int idFirst, int amount, long worldTimeLong, float[] dest) {
+        int worldTime = (int) (worldTimeLong % this.dayLength);
+
+        int bOffset = amount * 2;
+        int aOffset = amount * 3;
+
+        Arrays.fill(dest, 0, amount * 4, 0.0F);
+
+        for (TimeOfDay timeOfDay : this.timesOfDay) {
+            float power = timeOfDay.getPower(worldTime, this);
+            if (power > 0.0F) {
+                for (int i = 0; i < amount; i++) {
+                    int id = idFirst + i;
+                    dest[i]           += timeOfDay.colorR[id] * power;
+                    dest[amount + i] += timeOfDay.colorG[id] * power;
+                    dest[bOffset + i] += timeOfDay.colorB[id] * power;
+                    dest[aOffset + i] += timeOfDay.colorA[id] * power;
+                }
+            }
+        }
+    }
+
+    public void getColors4fa(int idFirst, int amount, long worldTimeLong, float[] outR, float[] outG, float[] outB, float[] outA) {
+        int worldTime = (int) (worldTimeLong % this.dayLength);
+
+        Arrays.fill(outR, 0, amount, 0.0F);
+        Arrays.fill(outG, 0, amount, 0.0F);
+        Arrays.fill(outB, 0, amount, 0.0F);
+        Arrays.fill(outA, 0, amount, 0.0F);
+
+        for (TimeOfDay timeOfDay : this.timesOfDay) {
+            float power = timeOfDay.getPower(worldTime, this);
+            if (power > 0.0F) {
+                for (int i = 0; i < amount; i++) {
+                    int id = idFirst + i;
+                    outR[i] += timeOfDay.colorR[id] * power;
+                    outG[i] += timeOfDay.colorG[id] * power;
+                    outB[i] += timeOfDay.colorB[id] * power;
+                    outA[i] += timeOfDay.colorA[id] * power;
+                }
+            }
+        }
+    }
+
+    public void getColors3fa(int idFirst, int amount, long worldTimeLong, float[] outR, float[] outG, float[] outB) {
+        int worldTime = (int) (worldTimeLong % this.dayLength);
+
+        Arrays.fill(outR, 0, amount, 0.0F);
+        Arrays.fill(outG, 0, amount, 0.0F);
+        Arrays.fill(outB, 0, amount, 0.0F);
+
+        for (TimeOfDay timeOfDay : this.timesOfDay) {
+            float power = timeOfDay.getPower(worldTime, this);
+            if (power > 0.0F) {
+                for (int i = 0; i < amount; i++) {
+                    int id = idFirst + i;
+                    outR[i] += timeOfDay.colorR[id] * power;
+                    outG[i] += timeOfDay.colorG[id] * power;
+                    outB[i] += timeOfDay.colorB[id] * power;
+                }
+            }
+        }
+    }
+
+    public void getColors(int idFirst, int amount, long worldTimeLong,
+                          float[] outR, float[] outG, float[] outB, float[] outA, int outOffset) {
+        int worldTime = (int) (worldTimeLong % this.dayLength);
+
+        Arrays.fill(outR, outOffset, outOffset + amount, 0.0F);
+        Arrays.fill(outG, outOffset, outOffset + amount, 0.0F);
+        Arrays.fill(outB, outOffset, outOffset + amount, 0.0F);
+        Arrays.fill(outA, outOffset, outOffset + amount, 0.0F);
+
+        for (TimeOfDay timeOfDay : this.timesOfDay) {
+            float power = timeOfDay.getPower(worldTime, this);
+            if (power > 0.0F) {
+                for (int i = 0; i < amount; i++) {
+                    int id = idFirst + i;
+                    int targetIdx = outOffset + i;
+
+                    outR[targetIdx] += timeOfDay.colorR[id] * power;
+                    outG[targetIdx] += timeOfDay.colorG[id] * power;
+                    outB[targetIdx] += timeOfDay.colorB[id] * power;
+                    outA[targetIdx] += timeOfDay.colorA[id] * power;
+                }
+            }
+        }
     }
 
     public float getPowerOf(int index, long worldTimeLong) {

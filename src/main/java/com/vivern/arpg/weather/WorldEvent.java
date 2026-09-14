@@ -17,7 +17,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ChunkProviderServer;
@@ -198,25 +197,41 @@ public class WorldEvent extends IRenderHandler {
     public void spawnSnowRainParticle(BlockPos pos, int allUsedPosesCount, float dist) {
     }
 
-    @SideOnly(Side.CLIENT)
-    public static Vec3d calcCelestialPosition(float celestialAngle, double distance) {
+    public static double calcCelestialX(float celestialAngle, double distance) {
         Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
         if (entity == null) {
-            return Vec3d.ZERO;
+            return 0.0;
         } else {
             celestialAngle += 0.75F;
-            float f2 = -MathHelper.cos(-celestialAngle * (float) (Math.PI * 2));
-            float f3 = MathHelper.sin(-celestialAngle * (float) (Math.PI * 2));
-            return new Vec3d(f2 + entity.posX, f3 + entity.world.getHorizon(), 0.0 + entity.posZ).scale(distance);
+            return (-MathHelper.cos(-celestialAngle * (float) (Math.PI * 2)) + entity.posX) * distance;
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    public static Vec3d calcCelestialVector(float celestialAngle) {
+    public static double calcCelestialX(float celestialAngle) {
         celestialAngle += 0.75F;
-        float f2 = -MathHelper.cos(-celestialAngle * (float) (Math.PI * 2));
-        float f3 = MathHelper.sin(-celestialAngle * (float) (Math.PI * 2));
-        return new Vec3d(f2, f3, 0.0);
+        return -MathHelper.cos(-celestialAngle * (float) (Math.PI * 2));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static double calcCelestialY(float celestialAngle, double distance) {
+        Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
+        if (entity == null) {
+            return 0.0;
+        } else {
+            celestialAngle += 0.75F;
+            return (MathHelper.sin(-celestialAngle * (float) (Math.PI * 2)) + entity.world.getHorizon()) * distance;
+        }
+    }
+
+    public static double calcCelestialY(float celestialAngle) {
+        celestialAngle += 0.75F;
+        return MathHelper.sin(-celestialAngle * (float) (Math.PI * 2));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static double calcCelestialZ(float celestialAngle, double distance) {
+        Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
+        return entity == null ? 0.0 : entity.posZ * distance;
     }
 
     public boolean isRainingAt(Entity position) {
@@ -231,10 +246,10 @@ public class WorldEvent extends IRenderHandler {
         return this.worldProvider.getWorld().getPrecipitationHeight(position).getY() <= position.getY();
     }
 
+    @SideOnly(Side.CLIENT)
     public void addRainSoundEffect(Random random, int rarity, SoundEvent sound, SoundEvent soundAbove) {
-        Minecraft mc = Minecraft.getMinecraft();
-        Entity entity = mc.getRenderViewEntity();
-        World world = mc.world;
+        Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
+        World world = Minecraft.getMinecraft().world;
         BlockPos blockpos = new BlockPos(entity);
         int i = 10;
         double d0 = 0.0;
@@ -242,9 +257,9 @@ public class WorldEvent extends IRenderHandler {
         double d2 = 0.0;
         int j = 0;
         int k = 20;
-        if (mc.gameSettings.particleSetting == 1) {
+        if (Minecraft.getMinecraft().gameSettings.particleSetting == 1) {
             k >>= 1;
-        } else if (mc.gameSettings.particleSetting == 2) {
+        } else if (Minecraft.getMinecraft().gameSettings.particleSetting == 2) {
             k = 0;
         }
 
@@ -258,11 +273,10 @@ public class WorldEvent extends IRenderHandler {
                     double d4 = random.nextDouble();
                     AxisAlignedBB axisalignedbb = iblockstate.getBoundingBox(world, blockpos2);
                     if (iblockstate.getMaterial() != Material.LAVA && iblockstate.getBlock() != Blocks.MAGMA && iblockstate.getMaterial() != Material.AIR) {
-                        if (random.nextInt(++j) == 0) {
-                            d0 = blockpos2.getX() + d3;
-                            d1 = blockpos2.getY() + 0.1F + axisalignedbb.maxY - 1.0;
-                            d2 = blockpos2.getZ() + d4;
-                        }
+                        random.nextInt(++j);
+                        d0 = blockpos2.getX() + d3;
+                        d1 = blockpos2.getY() + 0.1F + axisalignedbb.maxY - 1.0;
+                        d2 = blockpos2.getZ() + d4;
                         break;
                     }
                 }
@@ -271,9 +285,9 @@ public class WorldEvent extends IRenderHandler {
             if (j > 0) {
                 this.rainSoundCounter = 0;
                 if (d1 > blockpos.getY() + 1 && world.getPrecipitationHeight(blockpos).getY() > MathHelper.floor(blockpos.getY())) {
-                    mc.world.playSound(d0, d1, d2, soundAbove, SoundCategory.WEATHER, 0.1F, 0.5F, false);
+                    Minecraft.getMinecraft().world.playSound(d0, d1, d2, soundAbove, SoundCategory.WEATHER, 0.1F, 0.5F, false);
                 } else {
-                    mc.world.playSound(d0, d1, d2, sound, SoundCategory.WEATHER, 0.2F, 1.0F, false);
+                    Minecraft.getMinecraft().world.playSound(d0, d1, d2, sound, SoundCategory.WEATHER, 0.2F, 1.0F, false);
                 }
             }
         }
