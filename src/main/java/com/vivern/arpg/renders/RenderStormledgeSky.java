@@ -71,7 +71,7 @@ public class RenderStormledgeSky extends IRenderHandler {
         GlStateManager.scale(-sc * 3.0F, -sc, -sc * 3.0F);
         GlStateManager.disableFog();
         GlStateManager.disableDepth();
-        Vec3d[] fskycolors = this.timeOfDayProvider.getColorsVec3d(0, 2, world.getWorldTime());
+        Vec3d[] fskycolors = this.timeOfDayProvider.getColorsV3d(0, 2, world.getWorldTime());
         RenderFrozenSky.sphere.renderWithGradient2(false, fskycolors);
         GlStateManager.popMatrix();
         GlStateManager.pushMatrix();
@@ -80,7 +80,7 @@ public class RenderStormledgeSky extends IRenderHandler {
         float sc2 = 50.0F;
         GlStateManager.scale(-sc2 * (1.0F + 4.0F * notNight), -sc2 * 1.0F, -sc2 * (1.0F + 4.0F * notNight));
         GlStateManager.rotate(world.getCelestialAngle(partialTicks) * 360.0F, 0.0F, 0.0F, 1.0F);
-        Vec3d[] zenithcolors = this.timeOfDayProvider.getColorsVec3d(2, 3, world.getWorldTime());
+        Vec3d[] zenithcolors = this.timeOfDayProvider.getColorsV3d(2, 3, world.getWorldTime());
         RenderFrozenSky.sphere.renderWithGradient2(false, zenithcolors);
         GlStateManager.disableBlend();
         GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);

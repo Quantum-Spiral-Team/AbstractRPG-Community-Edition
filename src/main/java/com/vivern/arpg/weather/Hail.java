@@ -140,10 +140,10 @@ public class Hail extends WorldEvent implements IVoxelCloudInfo {
             float normal2dX = facing.getXOffset();
             float normal2dY = facing.getYOffset();
             double scalar = normal2dX * this.sunVector.x + normal2dY * this.sunVector.y;
-            double anglebetweenSun = Math.acos(scalar) * 57.2958;
-            double anglebetweenMoon = 180.0 - anglebetweenSun;
+            double angleBetweenSun = Math.acos(scalar) * 57.2958;
+            double angleBetweenMoon = 180.0 - angleBetweenSun;
             double possibilityAngle = 120.0;
-            float dark = (float) (Math.min(anglebetweenSun * this.daypower + anglebetweenMoon * this.nightpower, possibilityAngle) / possibilityAngle);
+            float dark = (float) (Math.min(angleBetweenSun * this.daypower + angleBetweenMoon * this.nightpower, possibilityAngle) / possibilityAngle);
             return 1.0F - dark;
         }
     }

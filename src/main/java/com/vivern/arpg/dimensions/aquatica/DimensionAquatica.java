@@ -3,6 +3,7 @@ package com.vivern.arpg.dimensions.aquatica;
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
 import com.vivern.arpg.main.DimensionsRegister;
 import com.vivern.arpg.renders.RenderAquaticaSky;
+import com.vivern.arpg.util.math.Vec4f;
 import com.vivern.arpg.weather.Rainfall;
 import com.vivern.arpg.weather.TimeOfDayProvider;
 import com.vivern.arpg.weather.WorldEventsHandler;
@@ -18,11 +19,61 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.util.vector.Vector4f;
 
 public class DimensionAquatica extends AbstractWorldProvider {
 
-    public static TimeOfDayProvider timeOfDayProvider = new TimeOfDayProvider().addO(21700, 23000, new Vector4f(0.09411765F, 0.7176471F, 0.69411767F, 0.9882353F), new Vector4f(0.3372549F, 0.36862746F, 0.6039216F, 0.9882353F), new Vector4f(0.023529412F, 0.24313726F, 0.8666667F, 0.99215686F), new Vector4f(1.0F, 0.3882353F, 0.1254902F, 0.98039216F), new Vector4f(0.0F, 0.0F, 0.0F, 0.9764706F), new Vector4f(0.0F, 0.0F, 0.0F, 0.0F), new Vector4f(0.2509804F, 0.2901961F, 0.49411765F, 0.49803922F), new Vector4f(1.0F, 0.68235296F, 0.50980395F, 0.8F), new Vector4f(1.0F, 0.45490196F, 0.34901962F, 0.8F)).addO(23500, 25000, new Vector4f(0.0F, 0.2784314F, 0.8039216F, 0.0F), new Vector4f(0.42745098F, 0.9647059F, 1.0F, 0.0F), new Vector4f(0.0F, 0.9882353F, 1.0F, 0.0F), new Vector4f(0.0F, 0.0F, 0.0F, 0.0F), new Vector4f(0.0F, 0.0F, 0.0F, 0.0F), new Vector4f(0.0F, 0.0F, 0.0F, 0.0F), new Vector4f(0.21568628F, 0.61960787F, 0.90588236F, 0.3647059F), new Vector4f(0.972549F, 0.99607843F, 1.0F, 0.8980392F), new Vector4f(0.972549F, 0.99607843F, 1.0F, 0.8980392F)).addO(6000, 7500, new Vector4f(0.12156863F, 0.72156864F, 0.74509805F, 0.9882353F), new Vector4f(0.6313726F, 0.61960787F, 0.38431373F, 0.99215686F), new Vector4f(0.9882353F, 0.89411765F, 0.3647059F, 0.99607843F), new Vector4f(0.039215688F, 0.105882354F, 0.019607844F, 0.98039216F), new Vector4f(0.4627451F, 0.3137255F, 0.1882353F, 0.99215686F), new Vector4f(0.0F, 0.40392157F, 0.4509804F, 0.80784315F), new Vector4f(0.3254902F, 0.70980394F, 0.6039216F, 0.28235295F), new Vector4f(1.0F, 0.6392157F, 0.7176471F, 0.5137255F), new Vector4f(0.28627452F, 0.8784314F, 0.73333335F, 0.5137255F)).addO(11500, 12500, new Vector4f(0.101960786F, 0.007843138F, 0.35686275F, 0.0F), new Vector4f(0.9490196F, 0.41960785F, 0.5372549F, 0.0F), new Vector4f(0.6745098F, 0.19215687F, 0.50980395F, 0.0F), new Vector4f(0.9098039F, 0.3254902F, 0.4745098F, 0.9764706F), new Vector4f(0.0F, 0.0F, 0.0F, 0.0F), new Vector4f(0.0F, 0.0F, 0.0F, 0.0F), new Vector4f(0.23137255F, 0.03529412F, 0.30980393F, 0.1254902F), new Vector4f(0.8666667F, 0.015686275F, 0.3372549F, 0.6627451F), new Vector4f(0.8666667F, 0.015686275F, 0.3372549F, 0.6627451F)).addO(12500, 13500, new Vector4f(0.0F, 0.007843138F, 0.05882353F, 0.0F), new Vector4f(0.22745098F, 0.16862746F, 0.26666668F, 0.0F), new Vector4f(0.92156863F, 0.6117647F, 0.34901962F, 0.0F), new Vector4f(0.0F, 0.0F, 0.0F, 0.0F), new Vector4f(0.0F, 0.03137255F, 0.0627451F, 0.0F), new Vector4f(0.0F, 0.0F, 0.0F, 0.0F), new Vector4f(0.14509805F, 0.16078432F, 0.2784314F, 0.32941177F), new Vector4f(0.08627451F, 0.050980393F, 0.16470589F, 0.2509804F), new Vector4f(0.08627451F, 0.050980393F, 0.16470589F, 0.2509804F)).cycleAll();
+    public static TimeOfDayProvider timeOfDayProvider = new TimeOfDayProvider()
+            .addV(21700, 23000,
+                    new Vec4f(0.09411765F, 0.7176471F, 0.69411767F, 0.9882353F),
+                    new Vec4f(0.3372549F, 0.36862746F, 0.6039216F, 0.9882353F),
+                    new Vec4f(0.023529412F, 0.24313726F, 0.8666667F, 0.99215686F),
+                    new Vec4f(1.0F, 0.3882353F, 0.1254902F, 0.98039216F),
+                    new Vec4f(0.0F, 0.0F, 0.0F, 0.9764706F),
+                    new Vec4f(0.0F, 0.0F, 0.0F, 0.0F),
+                    new Vec4f(0.2509804F, 0.2901961F, 0.49411765F, 0.49803922F),
+                    new Vec4f(1.0F, 0.68235296F, 0.50980395F, 0.8F),
+                    new Vec4f(1.0F, 0.45490196F, 0.34901962F, 0.8F)
+            ).addV(23500, 25000,
+                    new Vec4f(0.0F, 0.2784314F, 0.8039216F, 0.0F),
+                    new Vec4f(0.42745098F, 0.9647059F, 1.0F, 0.0F),
+                    new Vec4f(0.0F, 0.9882353F, 1.0F, 0.0F),
+                    new Vec4f(0.0F, 0.0F, 0.0F, 0.0F),
+                    new Vec4f(0.0F, 0.0F, 0.0F, 0.0F),
+                    new Vec4f(0.0F, 0.0F, 0.0F, 0.0F),
+                    new Vec4f(0.21568628F, 0.61960787F, 0.90588236F, 0.3647059F),
+                    new Vec4f(0.972549F, 0.99607843F, 1.0F, 0.8980392F),
+                    new Vec4f(0.972549F, 0.99607843F, 1.0F, 0.8980392F)
+            ).addV(6000, 7500,
+                    new Vec4f(0.12156863F, 0.72156864F, 0.74509805F, 0.9882353F),
+                    new Vec4f(0.6313726F, 0.61960787F, 0.38431373F, 0.99215686F),
+                    new Vec4f(0.9882353F, 0.89411765F, 0.3647059F, 0.99607843F),
+                    new Vec4f(0.039215688F, 0.105882354F, 0.019607844F, 0.98039216F),
+                    new Vec4f(0.4627451F, 0.3137255F, 0.1882353F, 0.99215686F),
+                    new Vec4f(0.0F, 0.40392157F, 0.4509804F, 0.80784315F),
+                    new Vec4f(0.3254902F, 0.70980394F, 0.6039216F, 0.28235295F),
+                    new Vec4f(1.0F, 0.6392157F, 0.7176471F, 0.5137255F),
+                    new Vec4f(0.28627452F, 0.8784314F, 0.73333335F, 0.5137255F)
+            ).addV(11500, 12500,
+                    new Vec4f(0.101960786F, 0.007843138F, 0.35686275F, 0.0F),
+                    new Vec4f(0.9490196F, 0.41960785F, 0.5372549F, 0.0F),
+                    new Vec4f(0.6745098F, 0.19215687F, 0.50980395F, 0.0F),
+                    new Vec4f(0.9098039F, 0.3254902F, 0.4745098F, 0.9764706F),
+                    new Vec4f(0.0F, 0.0F, 0.0F, 0.0F),
+                    new Vec4f(0.0F, 0.0F, 0.0F, 0.0F),
+                    new Vec4f(0.23137255F, 0.03529412F, 0.30980393F, 0.1254902F),
+                    new Vec4f(0.8666667F, 0.015686275F, 0.3372549F, 0.6627451F),
+                    new Vec4f(0.8666667F, 0.015686275F, 0.3372549F, 0.6627451F)
+            ).addV(12500, 13500,
+                    new Vec4f(0.0F, 0.007843138F, 0.05882353F, 0.0F),
+                    new Vec4f(0.22745098F, 0.16862746F, 0.26666668F, 0.0F),
+                    new Vec4f(0.92156863F, 0.6117647F, 0.34901962F, 0.0F),
+                    new Vec4f(0.0F, 0.0F, 0.0F, 0.0F),
+                    new Vec4f(0.0F, 0.03137255F, 0.0627451F, 0.0F),
+                    new Vec4f(0.0F, 0.0F, 0.0F, 0.0F),
+                    new Vec4f(0.14509805F, 0.16078432F, 0.2784314F, 0.32941177F),
+                    new Vec4f(0.08627451F, 0.050980393F, 0.16470589F, 0.2509804F),
+                    new Vec4f(0.08627451F, 0.050980393F, 0.16470589F, 0.2509804F)
+            ).cycleAll();
     public static RenderAquaticaSky skyRender = new RenderAquaticaSky(timeOfDayProvider);
     public WorldEventsHandler worldEventsHandler;
     public Rainfall rainfall = new Rainfall(this, 0, 2000, 8000, 0.05F);
