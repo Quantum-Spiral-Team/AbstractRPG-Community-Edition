@@ -1,6 +1,0 @@
-{
-    "parent": "block/pane_noside",
-    "textures": {
-        "pane": "arpg:ice_pane"
-    }
-}

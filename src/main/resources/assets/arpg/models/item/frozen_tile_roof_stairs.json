@@ -1,8 +1,0 @@
-{
-    "parent": "block/stone_brick_stairs",
-	"textures": {
-    "bottom": "arpg:frozen_tile_roof",
-    "top": "arpg:frozen_tile_roof",
-    "side": "arpg:frozen_tile_roof"
-  }
-}

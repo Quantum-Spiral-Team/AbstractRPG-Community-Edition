@@ -1,6 +1,0 @@
-{
-    "parent": "arpg:block/torch_decor",
-    "textures": {
-        "torch": "arpg:frozen_torch"
-  }
-}

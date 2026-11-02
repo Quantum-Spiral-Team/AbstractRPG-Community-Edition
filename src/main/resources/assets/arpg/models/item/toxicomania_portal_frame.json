@@ -1,8 +1,0 @@
-{
-    "parent": "block/cube_bottom_top",
-	  "textures": {
-			"bottom": "arpg:toxicomania_portal_frame_top",
-			"top": "arpg:toxicomania_portal_frame_top",
-			"side": "arpg:toxicomania_portal_frame_side"
-	  }
-}

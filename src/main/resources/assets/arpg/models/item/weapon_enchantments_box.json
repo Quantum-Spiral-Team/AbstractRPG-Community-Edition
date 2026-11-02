@@ -1,6 +1,0 @@
-{
-  "parent": "arpg:item/enchantments_box",
-  "textures": {
-    "all": "arpg:weapon_enchantments_box"
-  }
-}

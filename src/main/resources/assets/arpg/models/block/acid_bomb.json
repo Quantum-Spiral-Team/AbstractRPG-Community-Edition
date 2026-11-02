@@ -1,9 +1,0 @@
-{
-    "parent": "block/cube_bottom_top",
-    "textures": {
-        "particle": "arpg:acid_bomb_side",
-        "bottom": "arpg:acid_bomb_top",
-        "top": "arpg:acid_bomb_top",
-        "side": "arpg:acid_bomb_side"
-    }
-}

@@ -1,6 +1,0 @@
-{
-    "parent": "arpg:block/big_cross",
-    "textures": {
-        "cross": "arpg:customplants/winter_willow1"
-    }
-}

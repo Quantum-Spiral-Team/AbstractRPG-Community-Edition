@@ -1,9 +1,0 @@
-{
-    "parent": "block/cube_bottom_top",
-    "textures": {
-        "particle": "arpg:toxic_dirt",
-        "bottom": "arpg:toxic_dirt",
-        "top": "arpg:toxic_grass_top",
-        "side": "arpg:toxic_grass_side"
-    }
-}

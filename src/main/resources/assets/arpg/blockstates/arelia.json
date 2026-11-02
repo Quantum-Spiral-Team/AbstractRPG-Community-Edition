@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "growed=false": { "model": "arpg:arelia0"},
-	"growed=true": { "model": "arpg:arelia1"}
-  }
-}

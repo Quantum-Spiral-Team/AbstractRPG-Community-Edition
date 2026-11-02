@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "growed=false": { "model": "arpg:junkweed0"},
-	"growed=true": { "model": "arpg:junkweed1"}
-  }
-}

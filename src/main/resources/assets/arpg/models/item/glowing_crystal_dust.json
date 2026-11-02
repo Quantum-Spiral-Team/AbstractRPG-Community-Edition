@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "arpg:glowing_crystal_dust"
-  }
-}

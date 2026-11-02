@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "arpg:stormledge_portal_frame"
-    }
-}

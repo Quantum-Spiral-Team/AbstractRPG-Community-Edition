@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "arpg:hydraulic_shotgun_clip",
-	"layer1": "arpg:hydraulic_shotgun_clip_overlay"
-  }
-}

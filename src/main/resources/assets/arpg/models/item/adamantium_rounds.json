@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "arpg:adamantium_rounds_0",
-	"layer1": "arpg:adamantium_rounds_1"
-  }
-}
