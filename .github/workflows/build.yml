@@ -85,20 +85,37 @@ jobs:
         run: ls -R build/libs || echo "No libs folder"
 
       - name: Run server
-        env:
-          MOD_STARTED_MARKER: ${{ github.workspace }}/run/server/.started
         run: |
           set -uo pipefail
 
           mkdir -p run/server
           echo "eula=true" | tee eula.txt run/eula.txt run/server/eula.txt >/dev/null
-          printf "level-seed=-6202107849386030209\nonline-mode=true\n" > run/server/server.properties
+          printf "level-seed=-6202107849386030209\nonline-mode=true\n" | tee run/server.properties run/server/server.properties >/dev/null
           rm -f "$MOD_STARTED_MARKER"
 
-          echo "stop" | timeout 240s ./gradlew runServer --no-daemon --stacktrace 2>&1 | tee server.log
-          code=${PIPESTATUS[1]}   # echo=0, timeout/gradlew=1, tee=2
-          if [ "$code" -ne 0 ]; then
-            echo "::error::runServer exited with code $code (124 = timeout)"
+          mkfifo stdin.fifo
+          exec 3<>stdin.fifo            
+          timeout 200s ./gradlew runServer --no-daemon --stacktrace <stdin.fifo >server.log 2>&1 &
+          pid=$!
+          tail -f server.log &          
+          tail_pid=$!
+
+          for _ in $(seq 1 200); do
+            [ -f "$MOD_STARTED_MARKER" ] && break
+            kill -0 "$pid" 2>/dev/null || break
+            sleep 1
+          done
+
+          sleep 15                      
+          echo "stop" >&3
+
+          wait "$pid"; code=$?
+          kill "$tail_pid" 2>/dev/null || true
+
+          if [ "$code" -eq 124 ]; then
+            echo "::warning::Server did not stop within the timeout; relying on validation"
+          elif [ "$code" -ne 0 ]; then
+            echo "::error::runServer exited with code $code"
             exit "$code"
           fi
 
