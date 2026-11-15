@@ -1,49 +1,38 @@
 package com.vivern.arpg.network.packet;
 
-import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
+import com.vivern.arpg.weather.render.WorldEventsClientHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import java.util.ConcurrentModificationException;
-
 public class PacketWorldEventToClients extends Packet {
 
     byte index;
-    byte start;
+    byte state;
+    int dimension;
 
-    public void writeArgs(byte index, byte start) {
+    public void writeArgs(byte index, byte state, int dimension) {
         this.buf().writeByte(index);
-        this.buf().writeByte(start);
+        this.buf().writeByte(state);
+        this.buf().writeInt(dimension);
     }
 
     @Override
     public void fromBytes(ByteBuf buffer) {
         this.index = buffer.readByte();
-        this.start = buffer.readByte();
+        this.state = buffer.readByte();
+        this.dimension = buffer.readInt();
     }
 
     @Override
     public void client(EntityPlayer player, Packet sp, MessageContext ctx) {
-        FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.processMessage(player));
+        FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(
+                () -> WorldEventsClientHandler.onSyncPacket(this.index, this.state, this.dimension));
     }
 
     @Override
     public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {}
-
-    void processMessage(EntityPlayer player) {
-        try {
-            if (player.world.provider instanceof AbstractWorldProvider) {
-                AbstractWorldProvider worldProvider = (AbstractWorldProvider) player.world.provider;
-                if (worldProvider.getWorldEventsHandler() != null) {
-                    worldProvider.getWorldEventsHandler().startOrStopEvent(this.index, this.start);
-                }
-            }
-        } catch (ConcurrentModificationException var3) {
-            var3.printStackTrace();
-        }
-    }
 
 }

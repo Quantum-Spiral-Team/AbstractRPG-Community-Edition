@@ -12,6 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
+@Deprecated
 public class HailWeather extends WeatherPhenomenon {
 
     static ResourceLocation snowflake = new ResourceLocation("arpg:textures/snowflake5.png");

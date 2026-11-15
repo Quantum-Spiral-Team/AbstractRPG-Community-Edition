@@ -8,6 +8,7 @@ import net.minecraft.world.biome.Biome;
 
 import java.util.Random;
 
+@Deprecated
 public class WeatherPhenomenon {
 
     public int changeSpeed = 20;

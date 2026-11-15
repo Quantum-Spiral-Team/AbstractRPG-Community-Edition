@@ -21,12 +21,12 @@ public class CommandSwarmPoints extends CommandBase {
 
     @Override
     public String getName() {
-        return "swarmpoints";
+        return NAME;
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/swarmpoints add integer_value | /swarmpoints set integer_value | /swarmpoints player_name add integer_value | /swarmpoints player_name set integer_value";
+        return USAGE;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CommandSwarmPoints extends CommandBase {
 
     @Override
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
-        return args.length == 0 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : getListOfStringsMatchingLastWord(args, new String[]{"set", "add"});
+        return args.length == 0 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : getListOfStringsMatchingLastWord(args, "set", "add");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class CommandSwarmPoints extends CommandBase {
 
         if (args.length == 1) {
             if (senderPlayer == null) {
-                throw new WrongUsageException("/swarmpoints add integer_value | /swarmpoints set integer_value | /swarmpoints player_name add integer_value | /swarmpoints player_name set integer_value", new Object[0]);
+                throw new WrongUsageException(USAGE);
             }
 
             Minecraft.getMinecraft().player.sendChatMessage("Swarm points of " + senderPlayer.getName() + ": " + Mana.getSwarmPoints(senderPlayer));
@@ -71,7 +71,7 @@ public class CommandSwarmPoints extends CommandBase {
 
         if (args.length == 3) {
             if (senderPlayer == null) {
-                throw new WrongUsageException("/swarmpoints add integer_value | /swarmpoints set integer_value | /swarmpoints player_name add integer_value | /swarmpoints player_name set integer_value", new Object[0]);
+                throw new WrongUsageException(USAGE);
             }
 
             if (args[1].equals("add")) {

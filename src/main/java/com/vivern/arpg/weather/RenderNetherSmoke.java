@@ -13,6 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
+@Deprecated
 @SideOnly(Side.CLIENT)
 public class RenderNetherSmoke extends WeatherRenderList {
 

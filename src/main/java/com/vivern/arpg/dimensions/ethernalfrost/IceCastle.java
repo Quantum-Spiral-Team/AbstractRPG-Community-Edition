@@ -133,7 +133,7 @@ public class IceCastle {
 
     public static void placeSpawner(World world, BlockPos pos, boolean parapet, Random random) {
         world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
-        DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), parapet ? DimensionEthernalFrost.EnumEverfrostSpawner.ICE_CASTLE_PARAPET : DimensionEthernalFrost.EnumEverfrostSpawner.ICE_CASTLE, random);
+        DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), parapet ? DimensionEthernalFrost.EnumEverfrostSpawner.ICE_CASTLE_PARAPET : DimensionEthernalFrost.EnumEverfrostSpawner.ICE_CASTLE);
     }
 
     public static void placeChest(World world, BlockPos pos, Random random, @Nullable IBlockState baseState, boolean rare) {

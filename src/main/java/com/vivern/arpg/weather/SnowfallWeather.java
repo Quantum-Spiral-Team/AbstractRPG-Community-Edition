@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
+@Deprecated
 public class SnowfallWeather extends WeatherPhenomenon {
 
     static ResourceLocation snow = new ResourceLocation("arpg:textures/snowflake4.png");

@@ -1321,7 +1321,7 @@ public class EthernalFrostChunkGenerator implements IChunkGenerator {
 
         GenerationHelper.setChestWithLoot(world, pos.up(), EnumChest.FROZEN, ListLootTable.CHESTS_FROZEN_STRUCTURES, EnumFacing.HORIZONTALS[rand.nextInt(4)]);
         world.setBlockState(pos.up(2), BlocksRegister.FROZEN_SPAWNER.getDefaultState(), 2);
-        DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos.up(2)), DimensionEthernalFrost.EnumEverfrostSpawner.STRUCTURES, rand);
+        DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos.up(2)), DimensionEthernalFrost.EnumEverfrostSpawner.STRUCTURES);
     }
 
     public static void generateWinterAltar(World world, BlockPos pos, Random rand) {

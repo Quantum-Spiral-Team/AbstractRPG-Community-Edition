@@ -3,9 +3,8 @@ package com.vivern.arpg.dimensions.generationutils;
 import com.vivern.arpg.weather.TimeOfDayProvider;
 import com.vivern.arpg.weather.WorldEvent;
 import com.vivern.arpg.weather.WorldEventsHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.renderer.EntityRenderer;
+import com.vivern.arpg.weather.render.WeatherRenderers;
+import com.vivern.arpg.weather.render.WorldEventsClientHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -20,59 +19,48 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.Field;
-
 public abstract class AbstractWorldProvider extends WorldProvider {
 
-    static Field fieldfarPlaneDistance;
-    static boolean lastFailed;
-    static IRenderHandler pcaleholder = new IRenderHandler() {
-        @SideOnly(Side.CLIENT)
-        @Override
-        public void render(float partialTicks, WorldClient world, Minecraft mc) {
-        }
-    };
-
-    public static void disableFarplane() {
-        if (fieldfarPlaneDistance != null && !lastFailed) {
-            try {
-                fieldfarPlaneDistance.setFloat(Minecraft.getMinecraft().entityRenderer, 100000.0F);
-            } catch (IllegalArgumentException var2) {
-                lastFailed = true;
-            } catch (IllegalAccessException var3) {
-                lastFailed = true;
-            }
-        } else {
-            try {
-                EntityRenderer entityRenderer = Minecraft.getMinecraft().entityRenderer;
-                fieldfarPlaneDistance = EntityRenderer.class.getField("farPlaneDistance");
-                fieldfarPlaneDistance.setAccessible(true);
-                fieldfarPlaneDistance.setFloat(entityRenderer, 100000.0F);
-                lastFailed = false;
-            } catch (Exception var1) {
-            }
-        }
-    }
+    private IRenderHandler clientWeatherRenderer;
 
     @SideOnly(Side.CLIENT)
     @Override
     public IRenderHandler getCloudRenderer() {
-        return pcaleholder;
+        return WeatherRenderers.EMPTY_CLOUDS;
     }
 
+    @SideOnly(Side.CLIENT)
+    @Override
+    public IRenderHandler getWeatherRenderer() {
+        if (this.clientWeatherRenderer == null && this.getWorldEventsHandler() != null) {
+            this.clientWeatherRenderer = new WorldEventsClientHandler(this);
+        }
+
+        return this.clientWeatherRenderer;
+    }
+
+    @SideOnly(Side.CLIENT)
     public void onUpdatePlayerOnClient(EntityPlayer player) {
-        WorldEventsHandler weh = this.getWorldEventsHandler();
-        if (weh != null) {
-            weh.onUpdateClient(player);
+        if (this.clientWeatherRenderer instanceof WorldEventsClientHandler) {
+            ((WorldEventsClientHandler) this.clientWeatherRenderer).onUpdateClient(player);
+        }
+    }
+
+    @Override
+    public void updateWeather() {
+        WorldEventsHandler handler = this.getWorldEventsHandler();
+        if (handler != null) {
+            handler.onUpdate();
         }
     }
 
     @Override
     public void onWorldSave() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
-        if (this.getWorldEventsHandler() != null) {
+        WorldEventsHandler handler = this.getWorldEventsHandler();
+        if (handler != null) {
             NBTTagCompound worldEventsTag = new NBTTagCompound();
-            this.getWorldEventsHandler().writeToNbt(worldEventsTag);
+            handler.writeToNbt(worldEventsTag);
             nbttagcompound.setTag("worldEventsTag", worldEventsTag);
         }
 
@@ -81,24 +69,17 @@ public abstract class AbstractWorldProvider extends WorldProvider {
 
     @Override
     public void init() {
-        if (this.getWorldEventsHandler() != null) {
-            NBTTagCompound nbttagcompound = this.world.getWorldInfo().getDimensionData(this.world.provider.getDimension());
-            if (this.world instanceof WorldServer) {
-                NBTTagCompound worldEventsTag = nbttagcompound.getCompoundTag("worldEventsTag");
-                this.getWorldEventsHandler().readFromNbt(worldEventsTag);
-            }
+        WorldEventsHandler handler = this.getWorldEventsHandler();
+        if (handler != null && this.world instanceof WorldServer) {
+            NBTTagCompound data = this.world.getWorldInfo().getDimensionData(this.world.provider.getDimension());
+            handler.readFromNbt(data.getCompoundTag("worldEventsTag"));
         }
     }
 
     public void onPlayerJoin(EntityPlayerMP player) {
-        WorldEventsHandler worldEventsHandler = this.getWorldEventsHandler();
-        if (worldEventsHandler != null) {
-            for (int i = 0; i < worldEventsHandler.events.length; i++) {
-                WorldEvent event = worldEventsHandler.events[i];
-                if (event.isStarted) {
-                    event.delayedSendPacket();
-                }
-            }
+        WorldEventsHandler handler = this.getWorldEventsHandler();
+        if (handler != null) {
+            handler.syncTo(player);
         }
     }
 
@@ -107,9 +88,7 @@ public abstract class AbstractWorldProvider extends WorldProvider {
         if (entity instanceof EntityPlayerMP) {
             World world = e.getWorld();
             if (world.provider instanceof AbstractWorldProvider) {
-                EntityPlayerMP player = (EntityPlayerMP) entity;
-                AbstractWorldProvider abstractWorldProvider = (AbstractWorldProvider) world.provider;
-                abstractWorldProvider.onPlayerJoin(player);
+                ((AbstractWorldProvider) world.provider).onPlayerJoin((EntityPlayerMP) entity);
             }
         }
     }
@@ -134,8 +113,8 @@ public abstract class AbstractWorldProvider extends WorldProvider {
     public abstract TimeOfDayProvider getTimeOfDayProvider();
 
     public boolean isWorldEventStarted(int index) {
-        WorldEventsHandler worldEventsHandler = this.getWorldEventsHandler();
-        return worldEventsHandler != null && index >= 0 && index < worldEventsHandler.events.length && worldEventsHandler.events[index].isStarted;
+        WorldEventsHandler handler = this.getWorldEventsHandler();
+        return handler != null && index >= 0 && index < handler.events.length && handler.events[index].isStarted;
     }
 
     public static int rgba(int decimalColorRgb, float alpha) {

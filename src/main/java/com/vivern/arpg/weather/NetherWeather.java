@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
+@Deprecated
 public class NetherWeather extends WeatherPhenomenon {
 
     static ResourceLocation tex = new ResourceLocation("arpg:textures/nether_rain.png");

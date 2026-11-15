@@ -60,7 +60,9 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
                     new Vec4f(0.21960784F, 0.28627452F, 0.4F, 0.21176471F),
                     new Vec4f(0.07450981F, 0.105882354F, 0.17254902F, 0.015686275F)
             ).cycleAll();
-    public static RenderFrozenSky skyRender = new RenderFrozenSky(timeOfDayProvider);
+
+    private static IRenderHandler skyRenderer;
+
     public Snowfall snowfall = new Snowfall(this, 0, 6000, 24000, 0.045F);
     public Hail hail = new Hail(this, 1, 8000, 12000, 0.035F);
     public Aurora aurora = new Aurora(this, 2, 8000, 12000, 0.025F);
@@ -80,18 +82,11 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
     @SideOnly(Side.CLIENT)
     @Override
     public IRenderHandler getSkyRenderer() {
-        return skyRender;
-    }
+        if (skyRenderer == null) {
+            skyRenderer = new RenderFrozenSky(timeOfDayProvider);
+        }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public IRenderHandler getWeatherRenderer() {
-        return this.worldEventsHandler;
-    }
-
-    @Override
-    public void updateWeather() {
-        this.worldEventsHandler.onUpdate();
+        return skyRenderer;
     }
 
     @Override
@@ -105,29 +100,19 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
     }
 
     public static boolean isAuroraNow(World world) {
-        if (world.provider instanceof AbstractWorldProvider) {
-            AbstractWorldProvider provider = (AbstractWorldProvider) world.provider;
-            if (provider.getWorldEventsHandler() != null) {
-                for (WorldEvent worldEvent : provider.getWorldEventsHandler().events) {
-                    if (worldEvent instanceof Aurora) {
-                        return worldEvent.isStarted;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return isEventStarted(world, Aurora.class);
     }
 
     public static boolean isSnowfallNow(World world) {
+        return isEventStarted(world, Snowfall.class);
+    }
+
+    private static boolean isEventStarted(World world, Class<? extends WorldEvent> type) {
         if (world.provider instanceof AbstractWorldProvider) {
-            AbstractWorldProvider worldProvider = (AbstractWorldProvider) world.provider;
-            if (worldProvider.getWorldEventsHandler() != null) {
-                for (WorldEvent worldEvent : worldProvider.getWorldEventsHandler().events) {
-                    if (worldEvent instanceof Snowfall) {
-                        return worldEvent.isStarted;
-                    }
-                }
+            WorldEventsHandler handler = ((AbstractWorldProvider) world.provider).getWorldEventsHandler();
+            if (handler != null) {
+                WorldEvent event = handler.find(type);
+                return event != null && event.isStarted;
             }
         }
 
@@ -169,7 +154,7 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
     }
 
     // B: Random??
-    public static void setupRandomSpawner(@Nullable World world, @Nullable TileEntity tile, EnumEverfrostSpawner type, Random rand) {
+    public static void setupRandomSpawner(@Nullable World world, @Nullable TileEntity tile, EnumEverfrostSpawner type) {
         if (world == null && tile != null) {
             world = tile.getWorld();
         }
@@ -178,16 +163,22 @@ public class DimensionEthernalFrost extends AbstractWorldProvider {
             switch (type) {
                 case ICE_CASTLE_PARAPET:
                     SpawnerTuners.ICECASTLEPARAPET.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+                    break;
                 case ICE_CASTLE:
                     SpawnerTuners.ICECASTLE.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+                    break;
                 case MOUND:
                     SpawnerTuners.MOUND.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+                    break;
                 case STRUCTURES:
                     SpawnerTuners.EVERFROST_STRUCTURES.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+                    break;
                 case GRAVE:
                     SpawnerTuners.EVERFROST_GRAVE.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+                    break;
                 case NIVEOUS_HALL:
                     SpawnerTuners.NIVEOUSHALL.setupSpawner(world, (TileMonsterSpawner) tile, world.rand);
+                    break;
             }
         }
     }

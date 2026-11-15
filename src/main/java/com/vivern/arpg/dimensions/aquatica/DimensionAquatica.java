@@ -19,6 +19,7 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class DimensionAquatica extends AbstractWorldProvider {
 
@@ -74,7 +75,7 @@ public class DimensionAquatica extends AbstractWorldProvider {
                     new Vec4f(0.08627451F, 0.050980393F, 0.16470589F, 0.2509804F),
                     new Vec4f(0.08627451F, 0.050980393F, 0.16470589F, 0.2509804F)
             ).cycleAll();
-    public static RenderAquaticaSky skyRender = new RenderAquaticaSky(timeOfDayProvider);
+    private static @Nullable RenderAquaticaSky skyRender;
     public WorldEventsHandler worldEventsHandler;
     public Rainfall rainfall = new Rainfall(this, 0, 2000, 8000, 0.05F);
 
@@ -97,13 +98,8 @@ public class DimensionAquatica extends AbstractWorldProvider {
     @SideOnly(Side.CLIENT)
     @Override
     public IRenderHandler getSkyRenderer() {
+        if (skyRender == null) skyRender = new RenderAquaticaSky(timeOfDayProvider);
         return skyRender;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public IRenderHandler getWeatherRenderer() {
-        return this.worldEventsHandler;
     }
 
     @SideOnly(Side.CLIENT)

@@ -37,7 +37,7 @@ public class ModularStructureGenerator extends WorldGenAdvanced {
         ModulePlaceBlockFacing pilasterpolished = new ModulePlaceBlockFacing(generator, BlocksRegister.POLISHED_NIVEOUS_PILASTER, false);
         ModuleChest chest = new ModuleChest(generator, BlocksRegister.CHEST_FROZEN, ListLootTable.CHESTS_NIVEOUS_HALL, 0.04F, true);
         ModulePlaceBlock spawner = new ModulePlaceBlock(generator, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
-        spawner.interfaceOn = (sourcePos, iblockstate, facing, sourceModule, age) -> DimensionEthernalFrost.setupRandomSpawner(null, generator.getAccess().getTileEntity(sourcePos), DimensionEthernalFrost.EnumEverfrostSpawner.NIVEOUS_HALL, generator.rand);
+        spawner.interfaceOn = (sourcePos, iblockstate, facing, sourceModule, age) -> DimensionEthernalFrost.setupRandomSpawner(null, generator.getAccess().getTileEntity(sourcePos), DimensionEthernalFrost.EnumEverfrostSpawner.NIVEOUS_HALL);
         spawner.chance = 0.25F;
         IBlockState holeSt = BlocksRegister.NIVEOUS_HOLE.getDefaultState();
         IBlockState iceeSt = Blocks.ICE.getDefaultState();

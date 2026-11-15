@@ -3,6 +3,7 @@ package com.vivern.arpg.renders;
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
 import com.vivern.arpg.items.models.ModelSphere;
 import com.vivern.arpg.weather.TimeOfDayProvider;
+import com.vivern.arpg.weather.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.*;
@@ -35,7 +36,7 @@ public class RenderFrozenSky extends IRenderHandler {
     @SideOnly(Side.CLIENT)
     @Override
     public void render(float partialTicks, WorldClient world, Minecraft mc) {
-        AbstractWorldProvider.disableFarplane();
+        RenderUtil.disableFarplane();
         if (this.starGLCallList < 0) {
             this.generateStars();
         }

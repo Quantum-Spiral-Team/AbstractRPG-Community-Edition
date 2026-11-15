@@ -2,34 +2,17 @@ package com.vivern.arpg.weather;
 
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
 import com.vivern.arpg.entity.BigLightningStrike;
-import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.GetMOP;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
-public class Storm extends WorldEvent implements IVoxelCloudInfo {
+public class Storm extends WorldEvent {
 
     public Random rand = new Random();
-    public VoxelCloudField voxelCloudField;
-    static ArrayList<int[]> listlightningposes = new ArrayList<>();
-    public double sunX;
-    public double sunY;
-    public float[] colorR = new float[2];
-    public float[] colorG = new float[2];
-    public float[] colorB = new float[2];
-    public float[] colorA = new float[2];
-    public float nightpower;
-    public float daypower;
+    static List<int[]> lightningPosesList = new ArrayList<>();
 
     public Storm(AbstractWorldProvider worldProvider, int index, int livetimeMin, int livetimeMax, float chanceToStart) {
         super(worldProvider, index, livetimeMin, livetimeMax, chanceToStart);
@@ -43,29 +26,6 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
     @Override
     public int getCooldown() {
         return 5000 + this.worldProvider.getWorld().rand.nextInt(5000);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void render(float partialTicks, WorldClient world, Minecraft mc) {
-        super.render(partialTicks, world, mc);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void renderClouds(float partialTicks, WorldClient world, Minecraft mc) {
-        if (this.voxelCloudField == null) {
-            this.voxelCloudField = new VoxelCloudField(32, 1024, 96, 256.0F);
-            this.voxelCloudField.voxelCloudInfo = this;
-        }
-
-        this.voxelCloudField.render(partialTicks, world, mc);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void stopRenderClouds() {
-        this.voxelCloudField = null;
     }
 
     @Override
@@ -85,18 +45,18 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
 
     public void spawnLightning(World world, int posX, int posZ) {
         if (world.isAnyPlayerWithinRangeAt(posX, 256.0, posZ, 256.0)) {
-            if (listlightningposes.isEmpty()) {
+            if (lightningPosesList.isEmpty()) {
                 for (int xx = -3; xx <= 3; xx++) {
                     for (int zz = -3; zz <= 3; zz++) {
-                        listlightningposes.add(new int[]{xx, zz});
+                        lightningPosesList.add(new int[]{xx, zz});
                     }
                 }
             }
 
-            Collections.shuffle(listlightningposes);
+            Collections.shuffle(lightningPosesList);
             GetMOP.BlockTraceResult result = null;
 
-            for (int[] ints : listlightningposes) {
+            for (int[] ints : lightningPosesList) {
                 result = GetMOP.blockTrace(world, new BlockPos(posX, 256, posZ), EnumFacing.DOWN, 180, null);
                 if (result != null) {
                     break;
@@ -114,50 +74,6 @@ public class Storm extends WorldEvent implements IVoxelCloudInfo {
             bolt.setSegmentParams(16.0F, 2.0F);
             world.spawnEntity(bolt);
         }
-    }
-
-    @Override
-    public boolean hasVoxelAt(VoxelCloudField field, double x, double y, double z, int inArrayX, int inArrayY, int inArrayZ) {
-        double d1 = 40.0F + Debugger.floats[0];
-        double d2 = 20.0F + Debugger.floats[1];
-        double perlin = field.noiseGeneratorPerlin1.getValue(x / d1, z / d1) + Debugger.floats[2] + (2.0F - GetMOP.getFromTo((float) inArrayY, 0.0F, 7.0F) * 3.0F);
-        return (field.noiseGenerator3D.getValue(x / d2, y / d2, z / d2) + 1.2F + Debugger.floats[3]) * perlin > 11.0F + Debugger.floats[4];
-    }
-
-    @Override
-    public void onPreRender() {
-        float celestialAngle = this.worldProvider.calculateCelestialAngle(this.worldProvider.getWorldTime(), 0.0F);
-        this.sunX = calcCelestialX(celestialAngle);
-        this.sunY = calcCelestialY(celestialAngle);
-        this.worldProvider.getTimeOfDayProvider().getColors4fa(5, 2, this.worldProvider.getWorld().getWorldTime(), this.colorR, this.colorG, this.colorB, this.colorA);
-        this.nightpower = this.worldProvider.getTimeOfDayProvider().getPowerOf(3, this.worldProvider.getWorldTime());
-        this.daypower = 1.0F - this.nightpower;
-    }
-
-    @Override
-    public float getLightInFace(VoxelCloudField field, VoxelCloud voxelCloud, int arrayY, EnumFacing facing) {
-        if (facing.getAxis() == Axis.Z) {
-            return 0.0F;
-        } else {
-            float normal2dX = facing.getXOffset();
-            float normal2dY = facing.getYOffset();
-            double scalar = normal2dX * this.sunX + normal2dY * this.sunY;
-            double anglebetweenSun = Math.acos(scalar) * 57.2958;
-            double anglebetweenMoon = 180.0 - anglebetweenSun;
-            double possibilityAngle = 110.0;
-            float dark = (float) (Math.min(anglebetweenSun * this.daypower + anglebetweenMoon * this.nightpower, possibilityAngle) / possibilityAngle);
-            return 1.0F - dark;
-        }
-    }
-
-    @Override
-    public void writeColorInPoint(VoxelCloudField field, VoxelCloud voxelCloud, float[] colorRGBA, double x, double y, double z, int arrayX, int arrayY, int arrayZ, VoxelCloud.EnumCubeVertex vertex) {
-        float light = voxelCloud.getMostSurroundingsLightning(field, vertex, arrayX, arrayY, arrayZ);
-        float dark = 1.0F - light;
-        colorRGBA[0] = this.colorA[1] * light + this.colorA[0] * dark;
-        colorRGBA[1] = this.colorG[1] * light + this.colorG[0] * dark;
-        colorRGBA[2] = this.colorB[1] * light + this.colorB[0] * dark;
-        colorRGBA[3] = (this.colorA[1] * light + this.colorA[0] * dark) * this.showness;
     }
 
 }

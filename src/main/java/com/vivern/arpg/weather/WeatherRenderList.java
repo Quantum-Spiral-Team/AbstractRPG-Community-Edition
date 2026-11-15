@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.doubles.DoubleList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@Deprecated
 @SideOnly(Side.CLIENT)
 public class WeatherRenderList {
 

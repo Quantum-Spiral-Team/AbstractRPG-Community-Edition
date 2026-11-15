@@ -1,48 +1,27 @@
 package com.vivern.arpg.weather;
 
 import com.vivern.arpg.dimensions.generationutils.AbstractWorldProvider;
-import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.BlocksRegister;
-import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.main.Weapons;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumFacing.Axis;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-public class PoisonRain extends WorldEvent implements IVoxelCloudInfo {
+public class PoisonRain extends WorldEvent {
 
-    public static ResourceLocation tex = new ResourceLocation("arpg:textures/toxicomania_poison_rain.png");
     public Random rand = new Random();
-    public VoxelCloudField voxelCloudField;
-    public double sunX;
-    public double sunY;
-    public float[] colorR = new float[2];
-    public float[] colorG = new float[2];
-    public float[] colorB = new float[2];
-    public float[] colorA = new float[2];
-    public float nightPower;
-    public float dayPower;
 
     public PoisonRain(AbstractWorldProvider worldProvider, int index, int livetimeMin, int livetimeMax, float chanceToStart) {
         super(worldProvider, index, livetimeMin, livetimeMax, chanceToStart);
-        this.soundRain = Sounds.weather_poison_rain;
-        this.soundRainAbove = Sounds.weather_poison_rain;
     }
 
     @Override
@@ -53,30 +32,6 @@ public class PoisonRain extends WorldEvent implements IVoxelCloudInfo {
     @Override
     public int getCooldown() {
         return 5000 + this.worldProvider.getWorld().rand.nextInt(5000);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void render(float partialTicks, WorldClient world, Minecraft mc) {
-        super.render(partialTicks, world, mc);
-        WorldEventsHandler.renderRainSnow(partialTicks, this.rand, 1.0F, tex, this.showness, 0.012F, -0.2F, 0.0F, 0.0F, null, null);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void renderClouds(float partialTicks, WorldClient world, Minecraft mc) {
-        if (this.voxelCloudField == null) {
-            this.voxelCloudField = new VoxelCloudField(16, 512, 48, 190.0F);
-            this.voxelCloudField.voxelCloudInfo = this;
-        }
-
-        this.voxelCloudField.render(partialTicks, world, mc);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void stopRenderClouds() {
-        this.voxelCloudField = null;
     }
 
     @Override
@@ -117,55 +72,6 @@ public class PoisonRain extends WorldEvent implements IVoxelCloudInfo {
                 world.setBlockState(posup, BlocksRegister.TOXIC_TALLGRASS.getDefaultState(), 2);
             }
         }
-    }
-
-    @Override
-    public boolean hasVoxelAt(VoxelCloudField field, double x, double y, double z, int inArrayX, int inArrayY, int inArrayZ) {
-        if (inArrayY == 0) {
-            double d1 = 100.0F + Debugger.floats[3];
-            return field.noiseGenerator3D.getValue(x / d1, y / d1, z / d1) > 0.0;
-        } else if (inArrayY == 2) {
-            double d1 = 70.0F + Debugger.floats[5];
-            return field.noiseGenerator3D.getValue(x / d1, y / d1, z / d1) > 0.0;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public void onPreRender() {
-        float celestialAngle = this.worldProvider.calculateCelestialAngle(this.worldProvider.getWorldTime(), 0.0F);
-        this.sunX = calcCelestialX(celestialAngle);
-        this.sunY = calcCelestialY(celestialAngle);
-        this.worldProvider.getTimeOfDayProvider().getColors4fa(5, 2, this.worldProvider.getWorld().getWorldTime(), this.colorR, this.colorG, this.colorB, this.colorA);
-        this.nightPower = this.worldProvider.getTimeOfDayProvider().getPowerOf(3, this.worldProvider.getWorldTime());
-        this.dayPower = 1.0F - this.nightPower;
-    }
-
-    @Override
-    public float getLightInFace(VoxelCloudField field, VoxelCloud voxelCloud, int arrayY, EnumFacing facing) {
-        if (facing.getAxis() == Axis.Z) {
-            return 0.0F;
-        } else {
-            float normal2dX = facing.getXOffset();
-            float normal2dY = facing.getYOffset();
-            double scalar = normal2dX * this.sunX + normal2dY * this.sunY;
-            double anglebetweenSun = Math.acos(scalar) * 57.2958;
-            double anglebetweenMoon = 180.0 - anglebetweenSun;
-            double possibilityAngle = 110.0;
-            float dark = (float) (Math.min(anglebetweenSun * this.dayPower + anglebetweenMoon * this.nightPower, possibilityAngle) / possibilityAngle);
-            return 1.0F - dark;
-        }
-    }
-
-    @Override
-    public void writeColorInPoint(VoxelCloudField field, VoxelCloud voxelCloud, float[] colorRGBA, double x, double y, double z, int arrayX, int arrayY, int arrayZ, VoxelCloud.EnumCubeVertex vertex) {
-        float light = voxelCloud.getMostSurroundingsLightning(field, vertex, arrayX, arrayY, arrayZ);
-        float dark = 1.0F - light;
-        colorRGBA[0] = this.colorR[1] * light + this.colorA[0] * dark;
-        colorRGBA[1] = this.colorG[1] * light + this.colorB[0] * dark;
-        colorRGBA[2] = this.colorB[1] * light + this.colorG[0] * dark;
-        colorRGBA[3] = (this.colorA[1] * light + this.colorA[0] * dark) * this.showness;
     }
 
 }

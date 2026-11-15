@@ -49,7 +49,7 @@ public class DimensionToxicomania extends AbstractWorldProvider {
                     new Vec4f(0.0F, 0.078431375F, 0.043137256F, 0.54901963F),
                     new Vec4f(0.16862746F, 0.21176471F, 0.24705882F, 0.49803922F)
             ).cycleAll();
-    public static RenderToxicSky skyRender = new RenderToxicSky(timeOfDayProvider);
+    public static RenderToxicSky skyRender;
     public WorldEventsHandler worldEventsHandler;
     public PoisonRain poisonRain = new PoisonRain(this, 0, 6000, 24000, 0.045F);
 
@@ -71,13 +71,8 @@ public class DimensionToxicomania extends AbstractWorldProvider {
     @SideOnly(Side.CLIENT)
     @Override
     public IRenderHandler getSkyRenderer() {
+        if (skyRender == null) skyRender = new RenderToxicSky(timeOfDayProvider);
         return skyRender;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public IRenderHandler getWeatherRenderer() {
-        return this.worldEventsHandler;
     }
 
     @Override

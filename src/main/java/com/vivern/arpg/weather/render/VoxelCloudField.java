@@ -1,4 +1,4 @@
-package com.vivern.arpg.weather;
+package com.vivern.arpg.weather.render;
 
 import com.vivern.arpg.events.Debugger;
 import com.vivern.arpg.main.AnimationTimer;

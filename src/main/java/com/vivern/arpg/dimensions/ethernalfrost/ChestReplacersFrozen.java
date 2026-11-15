@@ -33,7 +33,7 @@ public class ChestReplacersFrozen {
             return null;
         } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
             world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
-            DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.MOUND, world.rand);
+            DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.MOUND);
             return null;
         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.PUZZLE) {
             world.setBlockState(pos, BlocksRegister.PUZZLE.getDefaultState());
@@ -148,7 +148,7 @@ public class ChestReplacersFrozen {
             return null;
         } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
             world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
-            DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.STRUCTURES, world.rand);
+            DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.STRUCTURES);
             return null;
         } else if (blockInfoIn.blockState.getBlock() == BlocksRegister.PUZZLE) {
             world.setBlockState(pos, BlocksRegister.PUZZLE.getDefaultState());
@@ -165,7 +165,7 @@ public class ChestReplacersFrozen {
             return null;
         } else if (blockInfoIn.blockState.getBlock() == Blocks.PURPUR_BLOCK) {
             world.setBlockState(pos, BlocksRegister.FROZEN_SPAWNER.getDefaultState());
-            DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.GRAVE, world.rand);
+            DimensionEthernalFrost.setupRandomSpawner(world, world.getTileEntity(pos), DimensionEthernalFrost.EnumEverfrostSpawner.GRAVE);
             return null;
         } else {
             return blockInfoIn;

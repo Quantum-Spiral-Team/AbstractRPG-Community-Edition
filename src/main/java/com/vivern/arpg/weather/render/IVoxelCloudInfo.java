@@ -1,4 +1,4 @@
-package com.vivern.arpg.weather;
+package com.vivern.arpg.weather.render;
 
 import net.minecraft.util.EnumFacing;
 

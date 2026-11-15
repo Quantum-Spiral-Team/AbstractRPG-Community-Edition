@@ -10,12 +10,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector4f;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class TimeOfDayProvider {
 
-    public ArrayList<TimeOfDay> timesOfDay = new ArrayList<>();
+    public List<TimeOfDay> timesOfDay = new ArrayList<>();
     public int dayLength = 24000;
     boolean firstReset = true;
 

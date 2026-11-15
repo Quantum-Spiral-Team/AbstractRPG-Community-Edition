@@ -37,6 +37,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int BANK_GUI_ID = 18;
     public static final int BOOK_OF_ELEMENTS_GUI_ID = 19;
     public static final int DEBUG_COLOR_GUI_ID = 20;
+    public static final int ARPG_HELP_GUI_ID = 21;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -72,8 +73,10 @@ public class GuiHandler implements IGuiHandler {
                 if (e instanceof NPCMobsPack.NpcMechanic) {
                     return new ContainerMechanic(player.inventory, (NPCMobsPack.NpcMechanic) e);
                 }
+                break;
+            default:
+                return null;
         }
-
         return null;
     }
 
@@ -97,6 +100,7 @@ public class GuiHandler implements IGuiHandler {
                 if (entity instanceof NPCMobsPack.NpcTrader) {
                     return new GUITrader((NPCMobsPack.NpcTrader) entity, player);
                 }
+                break;
             case CRYSTALLIZER_GUI_ID:
                 return new GUICrystallizer(player.inventory, (TileCrystallizer) world.getTileEntity(new BlockPos(x, y, z)));
             case PYROCRYSTALLINE_CONV_GUI_ID:
@@ -123,6 +127,9 @@ public class GuiHandler implements IGuiHandler {
                 return new GUIBookOfElements(((TileBookcase) world.getTileEntity(new BlockPos(x, y, z))).stacks);
             case DEBUG_COLOR_GUI_ID:
                 return new GUIDebugColorBlock(new BlockPos(x, y, z));
+            case ARPG_HELP_GUI_ID:
+                return new GUIArpgInfo(player);
+            default:
         }
 
         return null;

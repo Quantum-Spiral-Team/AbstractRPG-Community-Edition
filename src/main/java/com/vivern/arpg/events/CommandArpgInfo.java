@@ -1,11 +1,10 @@
 package com.vivern.arpg.events;
 
-import com.vivern.arpg.container.GUIArpgInfo;
+import com.vivern.arpg.Reference;
 import com.vivern.arpg.container.GuiHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
@@ -23,12 +22,12 @@ public class CommandArpgInfo extends CommandBase {
 
     @Override
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-        return getListOfStringsMatchingLastWord(args, new String[]{"info"});
+        return getListOfStringsMatchingLastWord(args, "info");
     }
 
     @Override
     public String getName() {
-        return "arpg";
+        return NAME;
     }
 
     @Override
@@ -38,15 +37,14 @@ public class CommandArpgInfo extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/arpg info";
+        return USAGE;
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException, NumberFormatException {
-        if (args.length == 1 && "info".equals(args[0])) {
-            if (Minecraft.getMinecraft().player != null) {
-                GuiHandler.displayGui(Minecraft.getMinecraft().player, new GUIArpgInfo(Minecraft.getMinecraft().player));
-            }
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws NumberFormatException {
+        if (sender instanceof EntityPlayer && args.length == 1 && "info".equals(args[0])) {
+            EntityPlayer player = (EntityPlayer) sender;
+            player.openGui(Reference.MOD_ID, GuiHandler.ARPG_HELP_GUI_ID, player.world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
     }
 

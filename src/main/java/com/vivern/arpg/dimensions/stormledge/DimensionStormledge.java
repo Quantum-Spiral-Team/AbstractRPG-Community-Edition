@@ -16,6 +16,7 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 public class DimensionStormledge extends AbstractWorldProvider {
 
@@ -84,7 +85,7 @@ public class DimensionStormledge extends AbstractWorldProvider {
                     new Vec4f(0.14509805F, 0.101960786F, 0.2784314F, 0.24313726F),
                     new Vec4f(0.14509805F, 0.101960786F, 0.2784314F, 0.24313726F)
             ).cycleAll();
-    public static RenderStormledgeSky skyRender = new RenderStormledgeSky(timeOfDayProvider);
+    public static @Nullable RenderStormledgeSky skyRender;
     public WorldEventsHandler worldEventsHandler;
     public Storm storm = new Storm(this, 0, 6000, 20000, 0.045F);
     public Rainstorm rainstorm = new Rainstorm(this, 1, 4000, 10000, 0.03F);
@@ -107,13 +108,8 @@ public class DimensionStormledge extends AbstractWorldProvider {
     @SideOnly(Side.CLIENT)
     @Override
     public IRenderHandler getSkyRenderer() {
+        if (skyRender == null) skyRender = new RenderStormledgeSky(timeOfDayProvider);
         return skyRender;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public IRenderHandler getWeatherRenderer() {
-        return this.worldEventsHandler;
     }
 
     @Override

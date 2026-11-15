@@ -1,5 +1,7 @@
 package com.vivern.arpg.dimensions.dungeon;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.vivern.arpg.main.BiomesRegister;
 import com.vivern.arpg.main.DimensionsRegister;
 import com.vivern.arpg.main.NamedInt;
@@ -23,26 +25,19 @@ import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class DimensionDungeon extends WorldProvider {
 
     public static int larvesLVL = 15;
     public static int darkElvesLVL = 25;
     public static int darkMinesLVL = 35;
-    public static HashMap<EnumCaveDecorType, ArrayList<NamedInt>> decorationRegister = new HashMap<>();
+    public static Multimap<EnumCaveDecorType, NamedInt> decorationRegister = ArrayListMultimap.create();
     public static DecorReplacerDungeon replacerDungeon = new DecorReplacerDungeon();
     public static int REGION_SIZE = 131072;
     public static int ladderProbablity = 50;
 
     public static void registerAllDecors() {
-        for (EnumCaveDecorType type : EnumCaveDecorType.values()) {
-            decorationRegister.put(type, new ArrayList<>());
-        }
-
         registerDecor(":cavedecor_deep_1", 0, EnumCaveDecorType.DEEP);
         registerDecor(":cavedecor_deep_2", 0, EnumCaveDecorType.DEEP);
         registerDecor(":cavedecor_deep_3", -2, EnumCaveDecorType.DEEP);
@@ -109,8 +104,7 @@ public class DimensionDungeon extends WorldProvider {
     }
 
     public static void registerDecor(String name, int offsetY, EnumCaveDecorType type) {
-        ArrayList<NamedInt> list = decorationRegister.get(type);
-        list.add(new NamedInt(name, offsetY));
+        decorationRegister.put(type, new NamedInt(name, offsetY));
     }
 
     public static void generateDungeonDecor(World worldIn, BlockPos pos, Random random, NoiseGeneratorPerlin perlin) {
@@ -121,21 +115,21 @@ public class DimensionDungeon extends WorldProvider {
             int height = 252;
 
             for (int ii = 0; ii < max; ii++) {
-                List<BlockPos> listposes = new ArrayList<>();
+                List<BlockPos> posesList = new ArrayList<>();
                 BlockPos posit = pos.add(random.nextInt(16) + 8, 0, random.nextInt(16) + 8);
 
                 for (int rr = 10; rr < height; rr++) {
                     BlockPos currentpos = posit.add(0, rr, 0);
                     if (!worldIn.isAirBlock(currentpos.down()) && worldIn.isAirBlock(currentpos) && worldIn.isBlockFullCube(currentpos.down())) {
-                        listposes.add(currentpos);
+                        posesList.add(currentpos);
                     }
                 }
 
-                if (!listposes.isEmpty()) {
-                    BlockPos finalpos = listposes.get(random.nextInt(listposes.size()));
-                    if (finalpos != null) {
+                if (!posesList.isEmpty()) {
+                    BlockPos finalPos = posesList.get(random.nextInt(posesList.size()));
+                    if (finalPos != null) {
                         EnumCaveDecorType structure = EnumCaveDecorType.NORMAL;
-                        Biome biome = worldIn.getBiome(finalpos);
+                        Biome biome = worldIn.getBiome(finalPos);
                         if (biome == BiomesRegister.GLOWING_TUNNELS && random.nextFloat() < 0.93F) {
                             if (random.nextFloat() < 0.6F) {
                                 structure = EnumCaveDecorType.GLOWING;
@@ -152,20 +146,18 @@ public class DimensionDungeon extends WorldProvider {
                             structure = EnumCaveDecorType.CALCITE;
                         }
 
-                        EnumCaveDecorType structureStyle = EnumCaveDecorType.NORMAL;
-                        if (biome == BiomesRegister.CALCITE_CLEFTS) {
+                        EnumCaveDecorType structureStyle;
+                        if (biome.equals(BiomesRegister.CALCITE_CLEFTS)) {
                             structureStyle = EnumCaveDecorType.CALCITE;
-                        }
-
-                        if (biome == BiomesRegister.GLOWING_TUNNELS) {
+                        } else if (biome.equals(BiomesRegister.GLOWING_TUNNELS)) {
                             structureStyle = EnumCaveDecorType.GLOWING;
-                        }
-
-                        if (biome == BiomesRegister.MAGIC_CRYSTAL_CAVES) {
+                        } else if (biome.equals(BiomesRegister.MAGIC_CRYSTAL_CAVES)) {
                             structureStyle = EnumCaveDecorType.MAGIC;
+                        } else {
+                            structureStyle = EnumCaveDecorType.NORMAL;
                         }
 
-                        placeDungeonDecor(worldIn, finalpos, structure, structureStyle, random);
+                        placeDungeonDecor(worldIn, finalPos, structure, structureStyle, random);
                     }
                 }
             }
@@ -173,17 +165,13 @@ public class DimensionDungeon extends WorldProvider {
     }
 
     public static void placeDungeonDecor(World worldIn, BlockPos pos, EnumCaveDecorType structure, EnumCaveDecorType structureStyle, Random rand) {
-        if (structureStyle != null) {
-            replacerDungeon.mode = structureStyle;
-        }
+        replacerDungeon.mode = structureStyle;
 
-        ArrayList<NamedInt> list;
-        if (structure == EnumCaveDecorType.GLOWING) {
-            list = decorationRegister.get(EnumCaveDecorType.SELENITE);
-        } else if (structure == EnumCaveDecorType.MAGIC) {
-            list = decorationRegister.get(EnumCaveDecorType.SELENITE);
+        List<NamedInt> list;
+        if (structure == EnumCaveDecorType.GLOWING || structure == EnumCaveDecorType.MAGIC) {
+            list = (List<NamedInt>) decorationRegister.get(EnumCaveDecorType.SELENITE);
         } else {
-            list = decorationRegister.get(structure);
+            list = (List<NamedInt>) decorationRegister.get(structure);
         }
 
         if (!list.isEmpty()) {
@@ -208,7 +196,6 @@ public class DimensionDungeon extends WorldProvider {
             if (swr == 1) {
                 settings.setRotation(Rotation.CLOCKWISE_90);
                 sx = 1;
-                sz = -1;
             }
 
             if (swr == 2) {
@@ -217,7 +204,6 @@ public class DimensionDungeon extends WorldProvider {
 
             if (swr == 3) {
                 settings.setRotation(Rotation.COUNTERCLOCKWISE_90);
-                sx = -1;
                 sz = 1;
             }
 
@@ -254,27 +240,16 @@ public class DimensionDungeon extends WorldProvider {
     public boolean canBlockFreezes(World world, BlockPos pos, boolean noWaterAdj) {
         Biome biome = world.getBiome(pos);
         float f = biome.getTemperature(pos);
-        if (f >= 0.15F) {
-            return false;
-        } else {
-            if (pos.getY() >= 0 && pos.getY() < 256 && world.getLightFor(EnumSkyBlock.BLOCK, pos) < 10) {
-                IBlockState iblockstate1 = world.getBlockState(pos);
-                Block block = iblockstate1.getBlock();
-                if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
-                    if (!noWaterAdj) {
-                        return true;
-                    }
-
-                    return true;
-                }
-            }
-
-            return false;
+        if (!(f >= 0.15F) && pos.getY() >= 0 && pos.getY() < 256 && world.getLightFor(EnumSkyBlock.BLOCK, pos) < 10) {
+            IBlockState iblockstate1 = world.getBlockState(pos);
+            Block block = iblockstate1.getBlock();
+            return (block == Blocks.WATER || block == Blocks.FLOWING_WATER) && !noWaterAdj;
         }
+        return false;
     }
 
-    public static int getCaveRegionXZCoord(int xorz) {
-        return (xorz < 0 ? -1 : 0) + xorz / REGION_SIZE;
+    public static int getCaveRegionXZCoord(int xOrZ) {
+        return (xOrZ < 0 ? -1 : 0) + xOrZ / REGION_SIZE;
     }
 
     public static BlockPos getCaveRegionCoords(BlockPos pos) {
@@ -377,13 +352,8 @@ public class DimensionDungeon extends WorldProvider {
 
     @Override
     public int getRespawnDimension(EntityPlayerMP player) {
-        BlockPos blockpos = player.getBedLocation(102);
-        if (blockpos == null) {
-            return 0;
-        } else {
-            BlockPos blockpos1 = EntityPlayer.getBedSpawnLocation(player.world, blockpos, player.isSpawnForced(102));
-            return blockpos1 != null && blockpos1.getY() < 254 ? 102 : 0;
-        }
+        BlockPos blockpos1 = EntityPlayer.getBedSpawnLocation(player.world, player.getBedLocation(102), player.isSpawnForced(102));
+        return blockpos1 != null && blockpos1.getY() < 254 ? 102 : 0;
     }
 
     @Override
