@@ -1,15 +1,15 @@
-name: Java CI with Gradle
+name: Java CI with Gradle for legacy-ce
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "legacy-ce" ]
   pull_request:
   workflow_dispatch:
     inputs:
       commit_sha:
         description: 'Commit SHA'
         required: false
-        default: 'master'
+        default: 'legacy-ce'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
