@@ -88,8 +88,11 @@ dependencies {
     implementation 'mezz:jei:4.34.1'
     implementation rfg.deobf("curse.maven:baubles-227083:2518667")
 //    runtimeOnly rfg.deobf("curse.maven:baubles-ex-1096600:7609484")
-    implementation('com.enderio:endercore:0.5.78') { transitive = false }
-    implementation('crazypants:enderio:5.3.72') { transitive = false }
+    implementation rfg.deobf("curse.maven:enderio-5.3.72-64578:4674244")
+    implementation rfg.deobf("curse.maven:endercore-0.5.78-231868:4671384")
+    implementation rfg.deobf(files("libs/EnderCore-1.12.2-0.5.78-core.jar"))
+    implementation rfg.deobf(files("libs/AutoConfig-1.12.2-1.0.2.jar"))
+    implementation rfg.deobf(files("libs/AutoSave-1.12.2-1.0.11.jar"))
     implementation rfg.deobf("curse.maven:cofh_core-69162:2920433")
     implementation rfg.deobf("curse.maven:cofh_world-271384:2920434")
     implementation rfg.deobf("curse.maven:thermal_foundation-222880:2926428")
