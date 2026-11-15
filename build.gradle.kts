@@ -85,10 +85,11 @@ dependencies {
         accessTransformers.from(accessTransformerNames.map { "src/main/resources/META-INF/$it" })
     })
     if (dependOnHei) {
-        implementation("mezz:jei:4.36.1:dev")
+        implementation("mezz:jei:4.37.3:dev")
     } else {
-        runtimeOnly("mezz:jei:4.36.1:dev")
+        runtimeOnly("mezz:jei:4.37.3:dev")
     }
+    implementation("curse.maven:baubles-227083:2518667")
 }
 
 cleanroom {
