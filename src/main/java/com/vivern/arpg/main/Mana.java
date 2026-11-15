@@ -258,7 +258,7 @@ public class Mana {
             Debugger.checkChest(player);
         }
 
-        Weather.updateEntity(event.getEntityLiving());
+        // Weather.updateEntity(event.getEntityLiving());
         AdvancedMobEffects.updateEffects(event.getEntityLiving());
     }
 
