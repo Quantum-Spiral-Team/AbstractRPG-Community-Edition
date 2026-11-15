@@ -1,15 +1,15 @@
-name: Java CI with Gradle
+name: Java CI with Gradle for reworked
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "experimental/reworked" ]
   pull_request:
   workflow_dispatch:
     inputs:
       commit_sha:
         description: 'Commit SHA'
         required: false
-        default: 'master'
+        default: 'experimental/reworked'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
@@ -85,16 +85,16 @@ jobs:
       - name: Run server
         run: |
           set -euo pipefail
-          
+
           echo "eula=true" > eula.txt
           mkdir -p run
           echo "eula=true" > run/eula.txt
           mkdir -p run/server
           echo "eula=true" > run/server/eula.txt
-          
+
           # Set a constant seed with a village at spawn
           printf "level-seed=-6202107849386030209\nonline-mode=true\n" > run/server/server.properties
-          
+
           echo "stop" > run/server/stop.txt
           set +e
           timeout 120s ./gradlew runServer --no-daemon --stacktrace < run/server/stop.txt 2>&1 | tee server.log
@@ -108,7 +108,7 @@ jobs:
           fi
           code=${PIPESTATUS[0]}
           set -e
-          
+
           if [ "$code" -ne 0 ] && [ "$code" -ne 124 ]; then
             echo "runServer exited with code $code"
             exit "$code"
@@ -117,15 +117,15 @@ jobs:
       - name: Validate server run
         run: |
           set -euo pipefail
-          
+
           RUNDIR="run/server"
           CRASH="crash-reports"
           SERVERLOG="$RUNDIR/logs/latest.log"
-          
+
           shopt -s nullglob
-          
+
           crash_reports=("$RUNDIR/$CRASH/crash"*.txt)
-          
+
           if [ "${#crash_reports[@]}" -gt 0 ]; then
             latest_crash_report="${crash_reports[-1]}"
             {
@@ -134,7 +134,7 @@ jobs:
             } >&2
             exit 1
           fi
-          
+
           if [ -f "$SERVERLOG" ]; then
             if grep -qF 'Fatal errors were detected' "$SERVERLOG"; then
               {
@@ -143,7 +143,7 @@ jobs:
               } >&2
               exit 1
             fi
-          
+
             if grep -qF 'The state engine was in incorrect state ERRORED and forced into state SERVER_STOPPED' \
               "$SERVERLOG"; then
               {
@@ -152,7 +152,7 @@ jobs:
               } >&2
               exit 1
             fi
-          
+
             if grep -qF 'Exception stopping the server' "$SERVERLOG"; then
               {
                 printf "Server didn't shut down cleanly:\n"
@@ -160,7 +160,7 @@ jobs:
               } >&2
               exit 1
             fi
-          
+
             if ! grep -qP '.+Done \(.+\)\! For help, type "help" or "\?"' "$SERVERLOG"; then
               {
                 printf 'Server did not finish startup:\n'
@@ -171,5 +171,5 @@ jobs:
           else
             echo "No latest.log found at $SERVERLOG (server may not have fully started)."
           fi
-          
+
           echo 'No crash reports detected'
