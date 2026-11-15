@@ -10,20 +10,23 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 
+@SideOnly(Side.CLIENT)
 public class PlayerAnimation {
 
-    public final byte ID;
+    public final byte id;
     public byte animationLength;
 
-    public PlayerAnimation(byte ID, byte animationLength) {
-        this.ID = ID;
+    public PlayerAnimation(byte id, byte animationLength) {
+        this.id = id;
         this.animationLength = animationLength;
     }
 
     public byte cascadeAnimation(byte animationPlaying, int timePlaying) {
-        return this.ID;
+        return this.id;
     }
 
     public boolean transformItemFirstperson() {

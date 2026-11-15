@@ -33,13 +33,13 @@ public abstract class MixinModelBiped {
             float animOff = 1.0F - Weapons.getPlayerAnimationValue(player, EnumHand.OFF_HAND, partialTicks);
             int idMain = Weapons.getPlayerAnimationId(player, EnumHand.MAIN_HAND);
             int idOff = Weapons.getPlayerAnimationId(player, EnumHand.OFF_HAND);
-            PlayerAnimation animationMain = Weapons.animationsRegister.getOrDefault((byte) idMain, PlayerAnimations.DEFAULT);
-            if (animationMain.ID != 0 && animationMain.transformHandThirdperson() && animMain < 1.0F) {
+            PlayerAnimation animationMain = PlayerAnimations.animationsRegister.getOrDefault((byte) idMain, PlayerAnimations.DEFAULT);
+            if (animationMain.id != 0 && animationMain.transformHandThirdperson() && animMain < 1.0F) {
                 animationMain.transform(animMain, ((ModelBiped) (Object) this), arpg$getArmForSide(enumhandside, ((ModelBiped) (Object) this)), enumhandside, null, player, partialTicks, EnumHand.MAIN_HAND);
             }
 
-            PlayerAnimation animationOff = Weapons.animationsRegister.getOrDefault((byte) idOff, PlayerAnimations.DEFAULT);
-            if (animationOff.ID != 0 && animationOff.transformHandThirdperson() && animOff < 1.0F) {
+            PlayerAnimation animationOff = PlayerAnimations.animationsRegister.getOrDefault((byte) idOff, PlayerAnimations.DEFAULT);
+            if (animationOff.id != 0 && animationOff.transformHandThirdperson() && animOff < 1.0F) {
                 animationOff.transform(animOff, ((ModelBiped) (Object) this), arpg$getArmForSide(enumhandside.opposite(), ((ModelBiped) (Object) this)), enumhandside.opposite(), null, player, partialTicks, EnumHand.OFF_HAND);
             }
         }

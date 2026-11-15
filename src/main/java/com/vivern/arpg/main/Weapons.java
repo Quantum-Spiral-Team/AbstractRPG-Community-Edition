@@ -55,74 +55,18 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.function.DoubleBinaryOperator;
 
 @EventBusSubscriber(modid = "arpg")
 public class Weapons {
-
-    public static final byte ANIM_CLASSIC_SWING = 1;
-    public static final byte ANIM_SPEAR_ATTACK = 2;
-    public static final byte ANIM_GUN_AIM_SHOOT_1 = 3;
-    public static final byte ANIM_RELOADING_GUN_1 = 4;
-    public static final byte ANIM_PISTOL_AIM_SHOOT_1 = 5;
-    public static final byte ANIM_PISTOL_RELOADING_1 = 6;
-    public static final byte ANIM_FLAT_BLOW = 7;
-    public static final byte ANIM_CHAIN_MACE_THROW = 8;
-    public static final byte ANIM_CHAIN_MACE_SPIN = 9;
-    public static final byte ANIM_PISTOL_AIM_SHOOT_2 = 10;
-    public static final byte ANIM_GUN_AIM_SHOOT_2 = 11;
-    public static final byte ANIM_GUN_AIM_SHOOT_3 = 12;
-    public static final byte ANIM_GUN_AIM_SHOOT_4 = 13;
-    public static final byte ANIM_STAFF_SHOOT_1 = 14;
-    public static final byte ANIM_HAMMER_AXE_ATTACK = 15;
-    public static final byte ANIM_DAGGER_ATTACK = 16;
-    public static final byte ANIM_SPEAR_ATTACK_FAST = 17;
-    public static final byte ANIM_SHIELD = 18;
-    public static final byte ANIM_RELOADING_GRENADESLAUN_1 = 19;
-    public static final byte ANIM_RELOADING_GRENADESLAUN_2 = 20;
-    public static final byte ANIM_STAFF_CAST_GROUNDHIT = 21;
-    public static final byte ANIM_STAFF_SHOOT_2 = 22;
-    public static final byte CASC_STAFF_SHOOT_2 = 23;
-    public static final byte ANIM_HARD_SWING = 24;
-    public static final byte CASC_HARD_SWING_REPEAT = 25;
-    public static final byte ANIM_STAFF_SHOOT_3 = 26;
-    public static final byte ANIM_STAFF_SHOOT_4 = 27;
-    public static final byte ANIM_RELOADING_SHOTGUN = 28;
-    public static final byte ANIM_FORGING_1 = 29;
-    public static final byte ANIM_FORGING_2 = 30;
-    public static final byte ANIM_FORGING_3 = 31;
-    public static final byte ANIM_ROLL_OPEN = 32;
-    public static final byte ANIM_ROLL_FINISH = 33;
-    public static final byte ANIM_RELOADING_GUN_2 = 34;
-    public static final byte ANIM_RELOADING_MINIGUN_1 = 35;
-    public static final byte ANIM_WHIP_SPECATTACK = 36;
-    public static final byte ANIM_WHIP_ATTACK_1 = 37;
-    public static final byte ANIM_WHIP_ATTACK_2 = 38;
-    public static final byte ANIM_WHIP_ATTACK_3 = 39;
-    public static final byte ANIM_WHIP_ATTACK_4 = 40;
-    public static final byte ANIM_WHIP_ATTACK_5 = 41;
-    public static final byte ANIM_WHIP_ATTACK_6 = 42;
-    public static final byte ANIM_RELOADING_MINIGUN_2 = 43;
-    public static final byte ANIM_JACKHAMMER_1 = 44;
-    public static final byte ANIM_HAMMER_AXE_ATTACK_2 = 45;
-    public static final byte ANIM_HAMMER_AXE_ATTACK_3 = 46;
-    public static final byte ANIM_AIM_DRILL = 47;
-    public static final byte CASC_AIM_DRILL = 48;
-    public static final byte ANIM_AIM_CHAINSAW = 49;
-    public static final byte CASC_AIM_CHAINSAW = 50;
-    public static HashMap<Byte, Byte> animationsRegistere = new HashMap<>();
-    public static HashMap<Byte, PlayerAnimation> animationsRegister = new HashMap<>();
-
-    public static void registerAnimation(PlayerAnimation animation) {
-        animationsRegister.put(animation.ID, animation);
-    }
 
     public static boolean itemStacksRelEquals(ItemStack stack1, ItemStack stack2) {
         if (stack1.getItem() == stack2.getItem()) {
@@ -136,6 +80,7 @@ public class Weapons {
         return false;
     }
 
+    @SideOnly(Side.CLIENT)
     public static float getPlayerAnimationValue(EntityPlayer player, EnumHand hand, float partialTicks) {
         int an = player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
         int leftIdBinar = -16777216;
@@ -150,9 +95,8 @@ public class Weapons {
             id >>>= 8;
         }
 
-        float animationValue = animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT).animationLength;
-        float r = ret;
-        return MathHelper.clamp((r - partialTicks) / animationValue, 0.0F, 1.0F);
+        float animationValue = PlayerAnimations.animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT).animationLength;
+        return MathHelper.clamp((ret - partialTicks) / animationValue, 0.0F, 1.0F);
     }
 
     public static int getPlayerAnimationId(Entity player, EnumHand hand) {
@@ -196,16 +140,17 @@ public class Weapons {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     public static void setPlayerAnimationOnClient(EntityPlayer player, int id, EnumHand hand) {
         if (hand == EnumHand.MAIN_HAND) {
             int animateData = player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
-            PlayerAnimation animation = animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT);
+            PlayerAnimation animation = PlayerAnimations.animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT);
             byte lastId = (byte) ((animateData & 0xFF00) >>> 8);
             int lastValue = animateData & 0xFF;
             byte cascade = animation.cascadeAnimation(lastId, lastValue);
             if (cascade != id) {
                 id = cascade;
-                animation = animationsRegister.getOrDefault(cascade, PlayerAnimations.DEFAULT);
+                animation = PlayerAnimations.animationsRegister.getOrDefault(cascade, PlayerAnimations.DEFAULT);
             }
 
             int animationLen = animation.animationLength;
@@ -218,7 +163,7 @@ public class Weapons {
 
         if (hand == EnumHand.OFF_HAND) {
             int animateData = player.getDataManager().get(PropertiesRegistry.ANIMATIONS);
-            int animationValue = animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT).animationLength;
+            int animationValue = PlayerAnimations.animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT).animationLength;
             int a1 = animationValue << 16;
             int a2 = animateData & 65535;
             int a3 = a2 | a1;
@@ -893,66 +838,11 @@ public class Weapons {
 
     public static void setPositionDirty(Entity entity) {
         try {
-            Class thisclass = entity.getClass();
-            Field field = thisclass.getField("isPositionDirty");
+            Class<?> entityClass = entity.getClass();
+            Field field = entityClass.getField("isPositionDirty");
             field.setAccessible(true);
             field.setBoolean(entity, true);
-        } catch (Exception var3) {
-        }
-    }
-
-    static {
-        registerAnimation(PlayerAnimations.DEFAULT);
-        registerAnimation(new PlayerAnimations.PAClassicSwing((byte) 1, 10));
-        registerAnimation(new PlayerAnimations.PASpearAttack((byte) 2, 14));
-        registerAnimation(new PlayerAnimations.PAGunAimShootNormal((byte) 3, 25));
-        registerAnimation(new PlayerAnimations.PAReloadingGunNormal((byte) 4, 40, 0.0F, 0.0F));
-        registerAnimation(new PlayerAnimations.PAPistolAimShoot((byte) 5, 25));
-        registerAnimation(new PlayerAnimations.PAPistolReloadingSpin((byte) 6, 20));
-        registerAnimation(new PlayerAnimations.PAFlatBlow((byte) 7, 30));
-        registerAnimation(new PlayerAnimations.PAChainMaceThrow((byte) 8, 10));
-        registerAnimation(new PlayerAnimations.PAChainMaceSpin((byte) 9, 20));
-        registerAnimation(new PlayerAnimations.PAPistolAimShootNoPunch((byte) 10, 25));
-        registerAnimation(new PlayerAnimations.PAGunAimShootNoPunch((byte) 11, 25));
-        registerAnimation(new PlayerAnimations.PAGunAimShootLowPunch((byte) 12, 25));
-        registerAnimation(new PlayerAnimations.PAGunAimShootLinear((byte) 13, 25));
-        registerAnimation(new PlayerAnimations.PAStaffShootNormal((byte) 14, 18));
-        registerAnimation(new PlayerAnimations.PAHammerAxeAttack((byte) 15, 30));
-        registerAnimation(new PlayerAnimations.PAHammerAxeAttack((byte) 45, 25));
-        registerAnimation(new PlayerAnimations.PAHammerAxeAttack((byte) 46, 60));
-        registerAnimation(new PlayerAnimations.PADaggerAttack((byte) 16, 9));
-        registerAnimation(new PlayerAnimations.PASpearAttack((byte) 17, 9));
-        registerAnimation(new PlayerAnimations.PAShield((byte) 18, 10));
-        registerAnimation(new PlayerAnimations.PAGrenadeslaunReloading((byte) 19, 40));
-        registerAnimation(new PlayerAnimations.PAGrenadeslaunReloading((byte) 20, 30));
-        registerAnimation(new PlayerAnimations.PAStaffCastGroundhit((byte) 21, 30));
-        registerAnimation(new PlayerAnimations.PAStaffShootMiddle((byte) 22, 25, (byte) 23));
-        registerAnimation(new PlayerAnimations.CASCStaffShootMiddle((byte) 23, 25));
-        registerAnimation(new PlayerAnimations.PAHardSwing((byte) 24, 40, (byte) 25));
-        registerAnimation(new PlayerAnimations.CASCHardSwingRepeat((byte) 25, 25));
-        registerAnimation(new PlayerAnimations.PAStaffShootMiddlePunch((byte) 26, 25, (byte) 23, 1.0F));
-        registerAnimation(new PlayerAnimations.PAStaffShootMiddlePunch((byte) 27, 15, (byte) 23, 0.5F));
-        registerAnimation(new PlayerAnimations.PAReloadingShotgun((byte) 28, 20));
-        registerAnimation(new PlayerAnimations.PAForging((byte) 29, 20, 1.0F, 0.0F, -1.0F, 0.0F));
-        registerAnimation(new PlayerAnimations.PAForging((byte) 30, 20, 0.0F, 0.05F, 0.4F, -0.2F));
-        registerAnimation(new PlayerAnimations.PAForging((byte) 31, 20, -1.3F, 0.2F, 1.0F, 0.15F));
-        registerAnimation(new PlayerAnimations.PARollOpen((byte) 32, 25));
-        registerAnimation(new PlayerAnimations.PARollFinish((byte) 33, 70));
-        registerAnimation(new PlayerAnimations.PAReloadingGunNormal((byte) 34, 60, 1.0F, 0.1F));
-        registerAnimation(new PlayerAnimations.PAReloadingMinigun((byte) 35, 80, 0.3F, Vec3d.ZERO));
-        registerAnimation(new PlayerAnimations.PAWhipSpecAttack((byte) 36, 20));
-        registerAnimation(new PlayerAnimations.PAWhipAttack((byte) 37, 16));
-        registerAnimation(new PlayerAnimations.PAWhipAttack((byte) 38, 18));
-        registerAnimation(new PlayerAnimations.PAWhipAttack((byte) 39, 20));
-        registerAnimation(new PlayerAnimations.PAWhipAttack((byte) 40, 22));
-        registerAnimation(new PlayerAnimations.PAWhipAttack((byte) 41, 24));
-        registerAnimation(new PlayerAnimations.PAWhipAttack((byte) 42, 26));
-        registerAnimation(new PlayerAnimations.PAReloadingMinigun((byte) 43, 50, 0.5F, new Vec3d(0.5, -0.6, 0.8)));
-        registerAnimation(new PlayerAnimations.PAJackhammer((byte) 44, 32));
-        registerAnimation(new PlayerAnimations.PAAimDrill((byte) 47, 25, (byte) 48));
-        registerAnimation(new PlayerAnimations.CascAimDrill((byte) 48, 25));
-        registerAnimation(new PlayerAnimations.PAAimChainsaw((byte) 49, 25, (byte) 50));
-        registerAnimation(new PlayerAnimations.CascAimChainsaw((byte) 50, 25));
+        } catch (Exception ignored) {}
     }
 
     public enum EnumMathOperation {

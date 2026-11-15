@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class PacketHandler {
 
-    public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_NAME + " NETWORK");
+    public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel("ARPG: CE - NETWORK");
     private static int ID = 0;
 
     public static void packetHandlerRegister() {
@@ -66,6 +66,7 @@ public class PacketHandler {
     private static int nextID() {
         return ID++;
     }
+
 
     public static void sendToAllAround(Packet packet, World world, double x, double y, double z, double distance) {
         NETWORK.sendToAllAround(packet, new TargetPoint(world.provider.getDimension(), x, y, z, distance));

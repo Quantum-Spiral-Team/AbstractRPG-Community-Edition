@@ -27,10 +27,8 @@ public class PacketKeysState extends Packet {
 
     @Override
     public void server(EntityPlayerMP player, Packet sp, MessageContext ctx) {
-        final short mask = ((PacketKeysState) sp).mask;
-
         FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() ->
-            ServerKeyTracker.updatePlayerKeys(player, mask)
+            ServerKeyTracker.updatePlayerKeys(player, ((PacketKeysState) sp).mask)
         );
     }
 

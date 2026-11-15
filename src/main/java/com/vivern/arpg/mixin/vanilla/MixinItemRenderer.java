@@ -27,7 +27,7 @@ public abstract class MixinItemRenderer {
     )
     private void arpg$renderItemInFirstPerson(AbstractClientPlayer player, float p_187457_2_, float p_187457_3_, EnumHand hand, float p_187457_5_, ItemStack stack, float p_187457_7_, CallbackInfo ci) {
         int id = Weapons.getPlayerAnimationId(player, hand);
-        PlayerAnimation animation = Weapons.animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT);
+        PlayerAnimation animation = PlayerAnimations.animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT);
         if (id != 0) {
             float an = 1.0F - Weapons.getPlayerAnimationValue(player, hand, Minecraft.getMinecraft().getRenderPartialTicks());
             if (an > 0.0F && an < 1.0F) {
@@ -51,8 +51,8 @@ public abstract class MixinItemRenderer {
             EntityPlayer player = (EntityPlayer) entitylivingbaseIn;
             EnumHand hand = leftHanded ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
             int id = Weapons.getPlayerAnimationId(player, hand);
-            PlayerAnimation animation = Weapons.animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT);
-            if (animation.ID != 0 && animation.transformItemThirdperson()) {
+            PlayerAnimation animation = PlayerAnimations.animationsRegister.getOrDefault((byte) id, PlayerAnimations.DEFAULT);
+            if (animation.id != 0 && animation.transformItemThirdperson()) {
                 float partialTicks = Minecraft.getMinecraft().getRenderPartialTicks();
                 float anim = 1.0F - Weapons.getPlayerAnimationValue(player, hand, partialTicks);
                 if (anim > 0.0F && anim < 1.0F) {
