@@ -4,16 +4,14 @@ import com.vivern.arpg.events.*;
 import com.vivern.arpg.main.Sounds;
 import com.vivern.arpg.proxy.CommonProxy;
 import com.vivern.arpg.renders.PlayerAnimations;
+import com.vivern.arpg.util.ci.StartupMarker;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -55,6 +53,11 @@ public class AbstractRPG {
         event.registerServerCommand(new CommandWorldEvents());
         event.registerServerCommand(new CommandGameStyles());
         event.registerServerCommand(new CommandArpgInfo());
+    }
+
+    @EventHandler
+    public void serverStarted(FMLServerStartedEvent event) {
+        StartupMarker.writeIfRequested(LOGGER);
     }
 
     static {
